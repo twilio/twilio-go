@@ -1,6 +1,7 @@
 # ListAlphaSenderResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AlphaSenders** | [**[]MessagingV1ServiceAlphaSender**](messaging.v1.service.alpha_sender.md) |  |[optional] 

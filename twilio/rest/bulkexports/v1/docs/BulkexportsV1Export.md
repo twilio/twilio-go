@@ -1,6 +1,7 @@
 # BulkexportsV1Export
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to **map[string]interface{}** | Nested resource URLs. |

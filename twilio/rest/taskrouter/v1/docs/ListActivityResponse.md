@@ -1,6 +1,7 @@
 # ListActivityResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Activities** | [**[]TaskrouterV1WorkspaceActivity**](taskrouter.v1.workspace.activity.md) |  |[optional] 

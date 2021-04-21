@@ -42,7 +42,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSinkParams struct
+Other parameters are passed through a pointer to a CreateSinkParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -61,8 +61,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -87,7 +87,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSinkTestParams struct
+Other parameters are passed through a pointer to a CreateSinkTestParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -104,7 +104,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -129,7 +129,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSinkValidateParams struct
+Other parameters are passed through a pointer to a CreateSinkValidateParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -146,8 +146,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -172,7 +172,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSubscribedEventParams struct
+Other parameters are passed through a pointer to a CreateSubscribedEventParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -190,8 +190,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -212,7 +212,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSubscriptionParams struct
+Other parameters are passed through a pointer to a CreateSubscriptionParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -231,8 +231,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -257,7 +257,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSinkParams struct
+Other parameters are passed through a pointer to a DeleteSinkParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -300,7 +300,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSubscribedEventParams struct
+Other parameters are passed through a pointer to a DeleteSubscribedEventParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -342,7 +342,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSubscriptionParams struct
+Other parameters are passed through a pointer to a DeleteSubscriptionParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -384,7 +384,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEventTypeParams struct
+Other parameters are passed through a pointer to a FetchEventTypeParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -401,7 +401,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -426,7 +426,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSchemaParams struct
+Other parameters are passed through a pointer to a FetchSchemaParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -443,7 +443,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -469,7 +469,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSchemaVersionParams struct
+Other parameters are passed through a pointer to a FetchSchemaVersionParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -486,7 +486,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -511,7 +511,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSinkParams struct
+Other parameters are passed through a pointer to a FetchSinkParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -528,7 +528,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -554,7 +554,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSubscribedEventParams struct
+Other parameters are passed through a pointer to a FetchSubscribedEventParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -571,7 +571,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -596,7 +596,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSubscriptionParams struct
+Other parameters are passed through a pointer to a FetchSubscriptionParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -613,7 +613,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -634,7 +634,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEventTypeParams struct
+Other parameters are passed through a pointer to a ListEventTypeParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -652,7 +652,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -677,7 +677,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSchemaVersionParams struct
+Other parameters are passed through a pointer to a ListSchemaVersionParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -695,7 +695,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -716,7 +716,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSinkParams struct
+Other parameters are passed through a pointer to a ListSinkParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -734,7 +734,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -759,7 +759,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSubscribedEventParams struct
+Other parameters are passed through a pointer to a ListSubscribedEventParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -777,7 +777,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -798,7 +798,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSubscriptionParams struct
+Other parameters are passed through a pointer to a ListSubscriptionParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -817,7 +817,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -843,7 +843,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSubscribedEventParams struct
+Other parameters are passed through a pointer to a UpdateSubscribedEventParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -860,8 +860,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -886,7 +886,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSubscriptionParams struct
+Other parameters are passed through a pointer to a UpdateSubscriptionParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -904,8 +904,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

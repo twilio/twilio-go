@@ -1,6 +1,7 @@
 # ListAvailablePhoneNumberSharedCostResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AvailablePhoneNumbers** | [**[]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost**](api.v2010.account.available_phone_number_country.available_phone_number_shared_cost.md) |  |[optional] 

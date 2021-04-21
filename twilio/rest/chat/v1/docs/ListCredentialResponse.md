@@ -1,6 +1,7 @@
 # ListCredentialResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Credentials** | [**[]ChatV1Credential**](chat.v1.credential.md) |  |[optional] 

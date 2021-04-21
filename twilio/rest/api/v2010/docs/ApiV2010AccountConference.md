@@ -1,6 +1,7 @@
 # ApiV2010AccountConference
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created this resource |

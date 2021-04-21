@@ -1,6 +1,7 @@
 # ListAssetResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Assets** | [**[]ServerlessV1ServiceAsset**](serverless.v1.service.asset.md) |  |[optional] 

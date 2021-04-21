@@ -1,6 +1,7 @@
 # VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Prefix** | Pointer to **string** | A prefix that includes the E.164 assigned country code |

@@ -1,6 +1,7 @@
 # ListCredentialResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Credentials** | [**[]NotifyV1Credential**](notify.v1.credential.md) |  |[optional] 

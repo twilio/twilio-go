@@ -1,6 +1,7 @@
 # VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **UpdateCount** | Pointer to **int32** | The number of countries updated |

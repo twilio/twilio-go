@@ -1,6 +1,7 @@
 # PricingV1VoiceVoiceCountryInstanceOutboundPrefixPrices
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BasePrice** | **float32** |  |[optional] 

@@ -29,7 +29,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateFaxParams struct
+Other parameters are passed through a pointer to a CreateFaxParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -54,8 +54,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFaxParams struct
+Other parameters are passed through a pointer to a DeleteFaxParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -123,7 +123,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFaxMediaParams struct
+Other parameters are passed through a pointer to a DeleteFaxMediaParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -165,7 +165,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFaxParams struct
+Other parameters are passed through a pointer to a FetchFaxParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -182,7 +182,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -208,7 +208,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFaxMediaParams struct
+Other parameters are passed through a pointer to a FetchFaxMediaParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -225,7 +225,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -246,7 +246,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFaxParams struct
+Other parameters are passed through a pointer to a ListFaxParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -268,7 +268,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -293,7 +293,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFaxMediaParams struct
+Other parameters are passed through a pointer to a ListFaxMediaParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -311,7 +311,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -336,7 +336,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateFaxParams struct
+Other parameters are passed through a pointer to a UpdateFaxParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -353,8 +353,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

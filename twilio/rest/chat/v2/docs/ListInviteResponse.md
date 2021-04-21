@@ -1,6 +1,7 @@
 # ListInviteResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Invites** | [**[]ChatV2ServiceChannelInvite**](chat.v2.service.channel.invite.md) |  |[optional] 

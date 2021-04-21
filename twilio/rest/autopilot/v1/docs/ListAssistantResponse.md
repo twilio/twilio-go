@@ -1,6 +1,7 @@
 # ListAssistantResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Assistants** | [**[]AutopilotV1Assistant**](autopilot.v1.assistant.md) |  |[optional] 

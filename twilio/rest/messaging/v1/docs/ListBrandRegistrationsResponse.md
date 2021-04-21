@@ -1,6 +1,7 @@
 # ListBrandRegistrationsResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Data** | [**[]MessagingV1BrandRegistrations**](messaging.v1.brand_registrations.md) |  |[optional] 

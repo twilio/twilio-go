@@ -1,6 +1,7 @@
 # PricingV2Voice
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to **map[string]interface{}** | The URLs of the related Countries and Numbers resources |

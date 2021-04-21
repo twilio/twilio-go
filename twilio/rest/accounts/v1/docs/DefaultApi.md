@@ -34,7 +34,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCredentialAwsParams struct
+Other parameters are passed through a pointer to a CreateCredentialAwsParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -53,8 +53,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -75,7 +75,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCredentialPublicKeyParams struct
+Other parameters are passed through a pointer to a CreateCredentialPublicKeyParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -94,8 +94,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -116,7 +116,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParams struct
+Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParams struct via the builder pattern
 
 
 ### Return type
@@ -130,7 +130,7 @@ Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParam
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -155,7 +155,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCredentialAwsParams struct
+Other parameters are passed through a pointer to a DeleteCredentialAwsParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -197,7 +197,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCredentialPublicKeyParams struct
+Other parameters are passed through a pointer to a DeleteCredentialPublicKeyParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -235,7 +235,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSecondaryAuthTokenParams struct
+Other parameters are passed through a pointer to a DeleteSecondaryAuthTokenParams struct via the builder pattern
 
 
 ### Return type
@@ -274,7 +274,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCredentialAwsParams struct
+Other parameters are passed through a pointer to a FetchCredentialAwsParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -291,7 +291,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -316,7 +316,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCredentialPublicKeyParams struct
+Other parameters are passed through a pointer to a FetchCredentialPublicKeyParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -333,7 +333,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -354,7 +354,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCredentialAwsParams struct
+Other parameters are passed through a pointer to a ListCredentialAwsParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -372,7 +372,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -393,7 +393,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCredentialPublicKeyParams struct
+Other parameters are passed through a pointer to a ListCredentialPublicKeyParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -411,7 +411,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -432,7 +432,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateAuthTokenPromotionParams struct
+Other parameters are passed through a pointer to a UpdateAuthTokenPromotionParams struct via the builder pattern
 
 
 ### Return type
@@ -446,7 +446,7 @@ Other parameters are passed through a pointer to a UpdateAuthTokenPromotionParam
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -471,7 +471,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateCredentialAwsParams struct
+Other parameters are passed through a pointer to a UpdateCredentialAwsParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -488,8 +488,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -514,7 +514,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateCredentialPublicKeyParams struct
+Other parameters are passed through a pointer to a UpdateCredentialPublicKeyParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -531,8 +531,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

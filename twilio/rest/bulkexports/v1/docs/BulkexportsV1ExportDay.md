@@ -1,6 +1,7 @@
 # BulkexportsV1ExportDay
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreateDate** | Pointer to **string** | The date when resource is created |

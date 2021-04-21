@@ -50,7 +50,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateByocTrunkParams struct
+Other parameters are passed through a pointer to a CreateByocTrunkParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -76,8 +76,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -96,7 +96,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateConnectionPolicyParams struct
+Other parameters are passed through a pointer to a CreateConnectionPolicyParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -113,8 +113,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -137,7 +137,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateConnectionPolicyTargetParams struct
+Other parameters are passed through a pointer to a CreateConnectionPolicyTargetParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -158,8 +158,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -180,7 +180,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateDialingPermissionsCountryBulkUpdateParams struct
+Other parameters are passed through a pointer to a CreateDialingPermissionsCountryBulkUpdateParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -197,8 +197,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -217,7 +217,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateIpRecordParams struct
+Other parameters are passed through a pointer to a CreateIpRecordParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -236,8 +236,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -256,7 +256,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSourceIpMappingParams struct
+Other parameters are passed through a pointer to a CreateSourceIpMappingParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -274,8 +274,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -298,7 +298,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteByocTrunkParams struct
+Other parameters are passed through a pointer to a DeleteByocTrunkParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -338,7 +338,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteConnectionPolicyParams struct
+Other parameters are passed through a pointer to a DeleteConnectionPolicyParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -379,7 +379,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteConnectionPolicyTargetParams struct
+Other parameters are passed through a pointer to a DeleteConnectionPolicyTargetParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -419,7 +419,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteIpRecordParams struct
+Other parameters are passed through a pointer to a DeleteIpRecordParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -459,7 +459,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSourceIpMappingParams struct
+Other parameters are passed through a pointer to a DeleteSourceIpMappingParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -499,7 +499,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchByocTrunkParams struct
+Other parameters are passed through a pointer to a FetchByocTrunkParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -516,7 +516,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -539,7 +539,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchConnectionPolicyParams struct
+Other parameters are passed through a pointer to a FetchConnectionPolicyParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -556,7 +556,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -580,7 +580,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchConnectionPolicyTargetParams struct
+Other parameters are passed through a pointer to a FetchConnectionPolicyTargetParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -597,7 +597,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -622,7 +622,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchDialingPermissionsCountryParams struct
+Other parameters are passed through a pointer to a FetchDialingPermissionsCountryParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -639,7 +639,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -660,7 +660,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchDialingPermissionsSettingsParams struct
+Other parameters are passed through a pointer to a FetchDialingPermissionsSettingsParams struct via the builder pattern
 
 
 ### Return type
@@ -674,7 +674,7 @@ Other parameters are passed through a pointer to a FetchDialingPermissionsSettin
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -697,7 +697,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchIpRecordParams struct
+Other parameters are passed through a pointer to a FetchIpRecordParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -714,7 +714,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -737,7 +737,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSourceIpMappingParams struct
+Other parameters are passed through a pointer to a FetchSourceIpMappingParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -754,7 +754,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -773,7 +773,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListByocTrunkParams struct
+Other parameters are passed through a pointer to a ListByocTrunkParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -791,7 +791,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -810,7 +810,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListConnectionPolicyParams struct
+Other parameters are passed through a pointer to a ListConnectionPolicyParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -828,7 +828,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -851,7 +851,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListConnectionPolicyTargetParams struct
+Other parameters are passed through a pointer to a ListConnectionPolicyTargetParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -869,7 +869,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -890,7 +890,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListDialingPermissionsCountryParams struct
+Other parameters are passed through a pointer to a ListDialingPermissionsCountryParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -914,7 +914,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -939,7 +939,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListDialingPermissionsHrsPrefixesParams struct
+Other parameters are passed through a pointer to a ListDialingPermissionsHrsPrefixesParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -957,7 +957,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -976,7 +976,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListIpRecordParams struct
+Other parameters are passed through a pointer to a ListIpRecordParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -994,7 +994,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1013,7 +1013,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSourceIpMappingParams struct
+Other parameters are passed through a pointer to a ListSourceIpMappingParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -1031,7 +1031,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1054,7 +1054,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateByocTrunkParams struct
+Other parameters are passed through a pointer to a UpdateByocTrunkParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -1080,8 +1080,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1104,7 +1104,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateConnectionPolicyParams struct
+Other parameters are passed through a pointer to a UpdateConnectionPolicyParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -1121,8 +1121,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1146,7 +1146,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateConnectionPolicyTargetParams struct
+Other parameters are passed through a pointer to a UpdateConnectionPolicyTargetParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -1167,8 +1167,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1189,7 +1189,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateDialingPermissionsSettingsParams struct
+Other parameters are passed through a pointer to a UpdateDialingPermissionsSettingsParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -1206,8 +1206,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1230,7 +1230,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateIpRecordParams struct
+Other parameters are passed through a pointer to a UpdateIpRecordParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -1247,8 +1247,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1271,7 +1271,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSourceIpMappingParams struct
+Other parameters are passed through a pointer to a UpdateSourceIpMappingParams struct via the builder pattern
 
 
 Name | Type | Description
@@ -1288,8 +1288,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

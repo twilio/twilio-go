@@ -1,6 +1,7 @@
 # StudioV2FlowValidate
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Valid** | Pointer to **bool** | Boolean if the flow definition is valid |

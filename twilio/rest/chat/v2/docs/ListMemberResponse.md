@@ -1,6 +1,7 @@
 # ListMemberResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Members** | [**[]ChatV2ServiceChannelMember**](chat.v2.service.channel.member.md) |  |[optional] 

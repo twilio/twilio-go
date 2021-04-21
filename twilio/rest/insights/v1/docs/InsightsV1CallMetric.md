@@ -1,6 +1,7 @@
 # InsightsV1CallMetric
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** |  |

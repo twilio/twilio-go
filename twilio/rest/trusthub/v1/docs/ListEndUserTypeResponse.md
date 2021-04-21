@@ -1,6 +1,7 @@
 # ListEndUserTypeResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EndUserTypes** | [**[]TrusthubV1EndUserType**](trusthub.v1.end_user_type.md) |  |[optional] 

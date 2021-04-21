@@ -1,6 +1,7 @@
 # VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |

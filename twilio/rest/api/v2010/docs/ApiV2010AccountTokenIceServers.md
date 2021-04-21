@@ -1,6 +1,7 @@
 # ApiV2010AccountTokenIceServers
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Credential** | **string** |  |[optional] 
