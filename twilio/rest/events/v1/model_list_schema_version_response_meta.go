@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -11,8 +11,8 @@
 
 package openapi
 
-// ListVersionResponseMeta struct for ListVersionResponseMeta
-type ListVersionResponseMeta struct {
+// ListSchemaVersionResponseMeta struct for ListSchemaVersionResponseMeta
+type ListSchemaVersionResponseMeta struct {
 	FirstPageUrl    string `json:"first_page_url,omitempty"`
 	Key             string `json:"key,omitempty"`
 	NextPageUrl     string `json:"next_page_url,omitempty"`

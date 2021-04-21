@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **FactorType** | Pointer to **string** | The Factor Type of this Challenge |
 **HiddenDetails** | Pointer to **map[string]interface{}** | Hidden details about the Challenge |
 **Identity** | Pointer to **string** | Unique external identifier of the Entity |
+**Links** | Pointer to **map[string]interface{}** | Nested resource URLs. |
 **RespondedReason** | Pointer to **string** | The Reason of this Challenge `status` |
 **ServiceSid** | Pointer to **string** | Service Sid. |
 **Sid** | Pointer to **string** | A string that uniquely identifies this Challenge. |

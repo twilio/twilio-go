@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -45,6 +45,8 @@ type VerifyV2Service struct {
 	Sid *string `json:"sid,omitempty"`
 	// Whether to skip sending SMS verifications to landlines
 	SkipSmsToLandlines *bool `json:"skip_sms_to_landlines,omitempty"`
+	// The service level configuration of factor TOTP type.
+	Totp *map[string]interface{} `json:"totp,omitempty"`
 	// The name of an alternative text-to-speech service to use in phone calls
 	TtsName *string `json:"tts_name,omitempty"`
 	// The absolute URL of the resource

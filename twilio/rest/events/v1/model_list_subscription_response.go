@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListSubscriptionResponse struct for ListSubscriptionResponse
 type ListSubscriptionResponse struct {
-	Meta          ListVersionResponseMeta `json:"meta,omitempty"`
-	Subscriptions []EventsV1Subscription  `json:"subscriptions,omitempty"`
+	Meta          ListSchemaVersionResponseMeta `json:"meta,omitempty"`
+	Subscriptions []EventsV1Subscription        `json:"subscriptions,omitempty"`
 }

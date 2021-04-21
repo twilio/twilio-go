@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -13,7 +13,7 @@ package openapi
 
 // BulkexportsV1ExportJob struct for BulkexportsV1ExportJob
 type BulkexportsV1ExportJob struct {
-	// This is a list of the completed, pending, or errored dates within the export time range, with one entry for each status with more than one day in that status
+	// The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
 	Details *map[string]interface{} `json:"details,omitempty"`
 	// The optional email to send the completion notification to
 	Email *string `json:"email,omitempty"`

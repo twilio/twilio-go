@@ -1,4 +1,4 @@
-# ListVersionResponseMeta
+# ListSchemaVersionResponseMeta
 
 ## Properties
 Name | Type | Description | Notes

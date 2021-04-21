@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -15,8 +15,8 @@ import (
 	"time"
 )
 
-// EventsV1SchemaVersion struct for EventsV1SchemaVersion
-type EventsV1SchemaVersion struct {
+// EventsV1SchemaSchemaVersion struct for EventsV1SchemaSchemaVersion
+type EventsV1SchemaSchemaVersion struct {
 	// The date the schema version was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The unique identifier of the schema.

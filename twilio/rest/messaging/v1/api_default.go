@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -192,20 +192,21 @@ func (c *DefaultApiService) CreatePhoneNumber(ServiceSid string, params *CreateP
 
 // CreateServiceParams Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-	AreaCodeGeomatch      *bool   `json:"AreaCodeGeomatch,omitempty"`
-	FallbackMethod        *string `json:"FallbackMethod,omitempty"`
-	FallbackToLongCode    *bool   `json:"FallbackToLongCode,omitempty"`
-	FallbackUrl           *string `json:"FallbackUrl,omitempty"`
-	FriendlyName          *string `json:"FriendlyName,omitempty"`
-	InboundMethod         *string `json:"InboundMethod,omitempty"`
-	InboundRequestUrl     *string `json:"InboundRequestUrl,omitempty"`
-	MmsConverter          *bool   `json:"MmsConverter,omitempty"`
-	ScanMessageContent    *string `json:"ScanMessageContent,omitempty"`
-	SmartEncoding         *bool   `json:"SmartEncoding,omitempty"`
-	StatusCallback        *string `json:"StatusCallback,omitempty"`
-	StickySender          *bool   `json:"StickySender,omitempty"`
-	SynchronousValidation *bool   `json:"SynchronousValidation,omitempty"`
-	ValidityPeriod        *int32  `json:"ValidityPeriod,omitempty"`
+	AreaCodeGeomatch          *bool   `json:"AreaCodeGeomatch,omitempty"`
+	FallbackMethod            *string `json:"FallbackMethod,omitempty"`
+	FallbackToLongCode        *bool   `json:"FallbackToLongCode,omitempty"`
+	FallbackUrl               *string `json:"FallbackUrl,omitempty"`
+	FriendlyName              *string `json:"FriendlyName,omitempty"`
+	InboundMethod             *string `json:"InboundMethod,omitempty"`
+	InboundRequestUrl         *string `json:"InboundRequestUrl,omitempty"`
+	MmsConverter              *bool   `json:"MmsConverter,omitempty"`
+	ScanMessageContent        *string `json:"ScanMessageContent,omitempty"`
+	SmartEncoding             *bool   `json:"SmartEncoding,omitempty"`
+	StatusCallback            *string `json:"StatusCallback,omitempty"`
+	StickySender              *bool   `json:"StickySender,omitempty"`
+	SynchronousValidation     *bool   `json:"SynchronousValidation,omitempty"`
+	UseInboundWebhookOnNumber *bool   `json:"UseInboundWebhookOnNumber,omitempty"`
+	ValidityPeriod            *int32  `json:"ValidityPeriod,omitempty"`
 }
 
 /*
@@ -214,16 +215,17 @@ type CreateServiceParams struct {
 * @param "AreaCodeGeomatch" (bool) - Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
 * @param "FallbackMethod" (string) - The HTTP method we should use to call `fallback_url`. Can be: `GET` or `POST`.
 * @param "FallbackToLongCode" (bool) - Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
-* @param "FallbackUrl" (string) - The URL that we should call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL.
+* @param "FallbackUrl" (string) - The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
 * @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 * @param "InboundMethod" (string) - The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
-* @param "InboundRequestUrl" (string) - The URL we should call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled.
+* @param "InboundRequestUrl" (string) - The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
 * @param "MmsConverter" (bool) - Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
 * @param "ScanMessageContent" (string) - Reserved.
 * @param "SmartEncoding" (bool) - Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
 * @param "StatusCallback" (string) - The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
 * @param "StickySender" (bool) - Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
 * @param "SynchronousValidation" (bool) - Reserved.
+* @param "UseInboundWebhookOnNumber" (bool) - A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 * @param "ValidityPeriod" (int32) - How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
 * @return MessagingV1Service
  */
@@ -271,6 +273,9 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*Messagi
 	}
 	if params != nil && params.SynchronousValidation != nil {
 		data.Set("SynchronousValidation", fmt.Sprint(*params.SynchronousValidation))
+	}
+	if params != nil && params.UseInboundWebhookOnNumber != nil {
+		data.Set("UseInboundWebhookOnNumber", fmt.Sprint(*params.UseInboundWebhookOnNumber))
 	}
 	if params != nil && params.ValidityPeriod != nil {
 		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
@@ -942,20 +947,21 @@ func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCo
 
 // UpdateServiceParams Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-	AreaCodeGeomatch      *bool   `json:"AreaCodeGeomatch,omitempty"`
-	FallbackMethod        *string `json:"FallbackMethod,omitempty"`
-	FallbackToLongCode    *bool   `json:"FallbackToLongCode,omitempty"`
-	FallbackUrl           *string `json:"FallbackUrl,omitempty"`
-	FriendlyName          *string `json:"FriendlyName,omitempty"`
-	InboundMethod         *string `json:"InboundMethod,omitempty"`
-	InboundRequestUrl     *string `json:"InboundRequestUrl,omitempty"`
-	MmsConverter          *bool   `json:"MmsConverter,omitempty"`
-	ScanMessageContent    *string `json:"ScanMessageContent,omitempty"`
-	SmartEncoding         *bool   `json:"SmartEncoding,omitempty"`
-	StatusCallback        *string `json:"StatusCallback,omitempty"`
-	StickySender          *bool   `json:"StickySender,omitempty"`
-	SynchronousValidation *bool   `json:"SynchronousValidation,omitempty"`
-	ValidityPeriod        *int32  `json:"ValidityPeriod,omitempty"`
+	AreaCodeGeomatch          *bool   `json:"AreaCodeGeomatch,omitempty"`
+	FallbackMethod            *string `json:"FallbackMethod,omitempty"`
+	FallbackToLongCode        *bool   `json:"FallbackToLongCode,omitempty"`
+	FallbackUrl               *string `json:"FallbackUrl,omitempty"`
+	FriendlyName              *string `json:"FriendlyName,omitempty"`
+	InboundMethod             *string `json:"InboundMethod,omitempty"`
+	InboundRequestUrl         *string `json:"InboundRequestUrl,omitempty"`
+	MmsConverter              *bool   `json:"MmsConverter,omitempty"`
+	ScanMessageContent        *string `json:"ScanMessageContent,omitempty"`
+	SmartEncoding             *bool   `json:"SmartEncoding,omitempty"`
+	StatusCallback            *string `json:"StatusCallback,omitempty"`
+	StickySender              *bool   `json:"StickySender,omitempty"`
+	SynchronousValidation     *bool   `json:"SynchronousValidation,omitempty"`
+	UseInboundWebhookOnNumber *bool   `json:"UseInboundWebhookOnNumber,omitempty"`
+	ValidityPeriod            *int32  `json:"ValidityPeriod,omitempty"`
 }
 
 /*
@@ -965,16 +971,17 @@ type UpdateServiceParams struct {
 * @param "AreaCodeGeomatch" (bool) - Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
 * @param "FallbackMethod" (string) - The HTTP method we should use to call `fallback_url`. Can be: `GET` or `POST`.
 * @param "FallbackToLongCode" (bool) - Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
-* @param "FallbackUrl" (string) - The URL that we should call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL.
+* @param "FallbackUrl" (string) - The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
 * @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 * @param "InboundMethod" (string) - The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
-* @param "InboundRequestUrl" (string) - The URL we should call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled.
+* @param "InboundRequestUrl" (string) - The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
 * @param "MmsConverter" (bool) - Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
 * @param "ScanMessageContent" (string) - Reserved.
 * @param "SmartEncoding" (bool) - Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
 * @param "StatusCallback" (string) - The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
 * @param "StickySender" (bool) - Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
 * @param "SynchronousValidation" (bool) - Reserved.
+* @param "UseInboundWebhookOnNumber" (bool) - A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 * @param "ValidityPeriod" (int32) - How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
 * @return MessagingV1Service
  */
@@ -1023,6 +1030,9 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	}
 	if params != nil && params.SynchronousValidation != nil {
 		data.Set("SynchronousValidation", fmt.Sprint(*params.SynchronousValidation))
+	}
+	if params != nil && params.UseInboundWebhookOnNumber != nil {
+		data.Set("UseInboundWebhookOnNumber", fmt.Sprint(*params.UseInboundWebhookOnNumber))
 	}
 	if params != nil && params.ValidityPeriod != nil {
 		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))

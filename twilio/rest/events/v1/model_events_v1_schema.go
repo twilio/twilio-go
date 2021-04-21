@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -19,10 +19,10 @@ import (
 type EventsV1Schema struct {
 	// Schema Identifier.
 	Id *string `json:"id,omitempty"`
-	// The date that the last schema version was created.
-	LastCreated *time.Time `json:"last_created,omitempty"`
-	// Last schema version.
-	LastVersion *int32 `json:"last_version,omitempty"`
+	// Latest schema version.
+	LatestVersion *int32 `json:"latest_version,omitempty"`
+	// The date that the latest schema version was created.
+	LatestVersionDateCreated *time.Time `json:"latest_version_date_created,omitempty"`
 	// Nested resource URLs.
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// The URL of this resource.

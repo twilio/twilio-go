@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**CreateEntity**](DefaultApi.md#CreateEntity) | **Post** /v2/Services/{ServiceSid}/Entities | 
 [**CreateMessagingConfiguration**](DefaultApi.md#CreateMessagingConfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations | 
 [**CreateNewFactor**](DefaultApi.md#CreateNewFactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | 
+[**CreateNotification**](DefaultApi.md#CreateNotification) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications | 
 [**CreateRateLimit**](DefaultApi.md#CreateRateLimit) | **Post** /v2/Services/{ServiceSid}/RateLimits | 
 [**CreateService**](DefaultApi.md#CreateService) | **Post** /v2/Services | 
 [**CreateVerification**](DefaultApi.md#CreateVerification) | **Post** /v2/Services/{ServiceSid}/Verifications | 
@@ -166,6 +167,7 @@ Other parameters are passed through a pointer to a CreateChallengeParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**AuthPayload** | **string** | Optional payload used to verify the Challenge upon creation. Only used with a Factor of type &#x60;totp&#x60; to carry an OTP used in the verification.
 **DetailsFields** | **[]map[string]interface{}** | A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field. Used when &#x60;factor_type&#x60; is &#x60;push&#x60;.
 **DetailsMessage** | **string** | Shown to the user when the push notification arrives. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
 **ExpirationDate** | **time.Time** | The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
@@ -306,18 +308,63 @@ Name | Type | Description
 **BindingSecret** | **string** | The shared secret for TOTP factors encoded in Base32
 **ConfigAlg** | **string** | The algorithm used to derive the TOTP codes. Can be &#x60;sha1&#x60;, &#x60;sha256&#x60; or &#x60;sha512&#x60;. Defaults to &#x60;sha1&#x60;
 **ConfigAppId** | **string** | The ID that uniquely identifies your app in the Google or Apple store, such as &#x60;com.example.myapp&#x60;. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, it can be up to 100 characters long.
-**ConfigCodeLength** | **int32** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+**ConfigCodeLength** | **int32** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property totp.code_length. If not configured defaults to 6
 **ConfigNotificationPlatform** | **string** | The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60; or &#x60;fcm&#x60;. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
 **ConfigNotificationToken** | **string** | For APN, the device token. For FCM the registration token. It used to send the push notifications. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, this value must be between 32 and 255 characters long.
 **ConfigSdkVersion** | **string** | The Verify Push SDK version used to configure the factor
-**ConfigSkew** | **int32** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
-**ConfigTimeStep** | **int32** | Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
-**FactorType** | **string** | The Type of this Factor. Currently only &#x60;push&#x60; is supported
+**ConfigSkew** | **int32** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property totp.skew. If not configured defaults to 1
+**ConfigTimeStep** | **int32** | Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property totp.time_step. If not configured defaults to 30 seconds
+**FactorType** | **string** | The Type of this Factor. Currently &#x60;push&#x60; and &#x60;totp&#x60; are supported. For &#x60;totp&#x60; to work, you need to contact Twilio sales first to have the Verify TOTP feature enabled for your Twilio account.
 **FriendlyName** | **string** | The friendly name of this Factor. It can be up to 64 characters.
 
 ### Return type
 
 [**VerifyV2ServiceEntityNewFactor**](VerifyV2ServiceEntityNewFactor.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded, 
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateNotification
+
+> VerifyV2ServiceEntityChallengeNotification CreateNotification(ctx, ServiceSidIdentityChallengeSidoptional)
+
+
+
+Create a new Notification for the corresponding Challenge
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The unique SID identifier of the Service.
+**Identity** | **string** | The unique external identifier for the Entity of the Service. This identifier should be immutable, not PII, and generated by your external system, such as your user&#39;s UUID, GUID, or SID. This value must be between 8 and 64 characters long.
+**ChallengeSid** | **string** | The unique SID identifier of the Challenge.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateNotificationParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Ttl** | **int32** | How long, in seconds, the Notification is valid. Delivery will be attempted if the device is offline until the TTL elapses. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. Must be an integer between 0 and 300 seconds, inclusive. Defaults to 300 seconds. 
+
+### Return type
+
+[**VerifyV2ServiceEntityChallengeNotification**](VerifyV2ServiceEntityChallengeNotification.md)
 
 ### Authorization
 
@@ -407,6 +454,10 @@ Name | Type | Description
 **PushFcmCredentialSid** | **string** | Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
 **PushIncludeDate** | **bool** | Optional configuration for the Push factors. If true, include the date in the Challenge&#39;s reponse. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: true
 **SkipSmsToLandlines** | **bool** | Whether to skip sending SMS verifications to landlines. Requires &#x60;lookup_enabled&#x60;.
+**TotpCodeLength** | **int32** | Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+**TotpIssuer** | **string** | Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided.
+**TotpSkew** | **int32** | Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+**TotpTimeStep** | **int32** | Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
 **TtsName** | **string** | The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
 
 ### Return type
@@ -2001,6 +2052,10 @@ Name | Type | Description
 **PushFcmCredentialSid** | **string** | Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
 **PushIncludeDate** | **bool** | Optional configuration for the Push factors. If true, include the date in the Challenge&#39;s reponse. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: true
 **SkipSmsToLandlines** | **bool** | Whether to skip sending SMS verifications to landlines. Requires &#x60;lookup_enabled&#x60;.
+**TotpCodeLength** | **int32** | Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+**TotpIssuer** | **string** | Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
+**TotpSkew** | **int32** | Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+**TotpTimeStep** | **int32** | Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
 **TtsName** | **string** | The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
 
 ### Return type

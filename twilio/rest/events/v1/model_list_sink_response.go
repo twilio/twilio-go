@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListSinkResponse struct for ListSinkResponse
 type ListSinkResponse struct {
-	Meta  ListVersionResponseMeta `json:"meta,omitempty"`
-	Sinks []EventsV1Sink          `json:"sinks,omitempty"`
+	Meta  ListSchemaVersionResponseMeta `json:"meta,omitempty"`
+	Sinks []EventsV1Sink                `json:"sinks,omitempty"`
 }

@@ -1,5 +1,43 @@
 twilio-go changelog
 ====================
+[2021-04-21] Version 0.6.0
+--------------------------
+**Library - Feature**
+- [PR #62](https://github.com/twilio/twilio-go/pull/62): add support for region and edge values in url. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Chore**
+- [PR #65](https://github.com/twilio/twilio-go/pull/65): update github action linter. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #60](https://github.com/twilio/twilio-go/pull/60): add user-agent header on all requests. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Library - Fix**
+- [PR #63](https://github.com/twilio/twilio-go/pull/63): parameter names in the request. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+- [PR #59](https://github.com/twilio/twilio-go/pull/59): custom headers, cleanup docs, regenerate with the latest specs. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Library - Docs**
+- [PR #61](https://github.com/twilio/twilio-go/pull/61): Update readme for launch. Thanks to [@garethpaul](https://github.com/garethpaul)!
+
+**Api**
+- Revert Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+- Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+
+**Bulkexports**
+- moving enum to doc root for auto generating documentation
+- adding status enum and default output properties
+
+**Events**
+- Change schema_versions prop and key to versions **(breaking change)**
+
+**Messaging**
+- Add `use_inbound_webhook_on_number` field in Service API for fetch, create, update, read
+
+**Taskrouter**
+- Add `If-Match` Header based on ETag for Task Delete
+
+**Verify**
+- Add `AuthPayload` parameter to support verifying a `Challenge` upon creation. This is only supported for `totp` factors.
+- Add support to resend the notifications of a `Challenge`. This is only supported for `push` factors.
+
+
 [2021-04-07] Version 0.5.0
 --------------------------
 **Library - Docs**

@@ -416,7 +416,7 @@ Name | Type | Description
 
 ## DeleteTask
 
-> DeleteTask(ctx, WorkspaceSidSid)
+> DeleteTask(ctx, WorkspaceSidSidoptional)
 
 
 
@@ -436,6 +436,7 @@ Other parameters are passed through a pointer to a DeleteTaskParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**IfMatch** | **string** | If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
 ### Return type
 

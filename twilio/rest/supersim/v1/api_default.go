@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -850,7 +850,7 @@ type ListSmsCommandParams struct {
 * ListSmsCommand Method for ListSmsCommand
 * Retrieve a list of SMS Commands from your account.
 * @param optional nil or *ListSmsCommandParams - Optional Parameters:
-* @param "Sim" (string) - The SID or unique name of the Sim that SMS Command was sent to or from.
+* @param "Sim" (string) - The SID or unique name of the Sim resource that SMS Command was sent to or from.
 * @param "Status" (string) - The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
 * @param "Direction" (string) - The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
 * @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.

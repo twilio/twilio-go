@@ -14,15 +14,15 @@ Method | HTTP request | Description
 [**DeleteSubscription**](DefaultApi.md#DeleteSubscription) | **Delete** /v1/Subscriptions/{Sid} | 
 [**FetchEventType**](DefaultApi.md#FetchEventType) | **Get** /v1/Types/{Type} | 
 [**FetchSchema**](DefaultApi.md#FetchSchema) | **Get** /v1/Schemas/{Id} | 
+[**FetchSchemaVersion**](DefaultApi.md#FetchSchemaVersion) | **Get** /v1/Schemas/{Id}/Versions/{SchemaVersion} | 
 [**FetchSink**](DefaultApi.md#FetchSink) | **Get** /v1/Sinks/{Sid} | 
 [**FetchSubscribedEvent**](DefaultApi.md#FetchSubscribedEvent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
 [**FetchSubscription**](DefaultApi.md#FetchSubscription) | **Get** /v1/Subscriptions/{Sid} | 
-[**FetchVersion**](DefaultApi.md#FetchVersion) | **Get** /v1/Schemas/{Id}/Versions/{SchemaVersion} | 
 [**ListEventType**](DefaultApi.md#ListEventType) | **Get** /v1/Types | 
+[**ListSchemaVersion**](DefaultApi.md#ListSchemaVersion) | **Get** /v1/Schemas/{Id}/Versions | 
 [**ListSink**](DefaultApi.md#ListSink) | **Get** /v1/Sinks | 
 [**ListSubscribedEvent**](DefaultApi.md#ListSubscribedEvent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents | 
 [**ListSubscription**](DefaultApi.md#ListSubscription) | **Get** /v1/Subscriptions | 
-[**ListVersion**](DefaultApi.md#ListVersion) | **Get** /v1/Schemas/{Id}/Versions | 
 [**UpdateSubscribedEvent**](DefaultApi.md#UpdateSubscribedEvent) | **Post** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
 [**UpdateSubscription**](DefaultApi.md#UpdateSubscription) | **Post** /v1/Subscriptions/{Sid} | 
 
@@ -177,8 +177,8 @@ Other parameters are passed through a pointer to a CreateSubscribedEventParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**SchemaVersion** | **int32** | The schema version that the subscription should use.
 **Type** | **string** | Type of event being subscribed to.
-**Version** | **int32** | The schema version that the subscription should use.
 
 ### Return type
 
@@ -450,6 +450,49 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
+## FetchSchemaVersion
+
+> EventsV1SchemaSchemaVersion FetchSchemaVersion(ctx, IdSchemaVersion)
+
+
+
+Fetch a specific schema and version.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+**SchemaVersion** | **int32** | The version of the schema
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSchemaVersionParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+
+### Return type
+
+[**EventsV1SchemaSchemaVersion**](EventsV1SchemaSchemaVersion.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## FetchSink
 
 > EventsV1Sink FetchSink(ctx, Sid)
@@ -577,49 +620,6 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
-## FetchVersion
-
-> EventsV1SchemaVersion FetchVersion(ctx, IdSchemaVersion)
-
-
-
-Fetch a specific schema and version.
-
-### Path Parameters
-
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
-**SchemaVersion** | **int32** | The version of the schema
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a FetchVersionParams struct
-
-
-Name | Type | Description
-------------- | ------------- | -------------
-
-### Return type
-
-[**EventsV1SchemaVersion**](EventsV1SchemaVersion.md)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json, 
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ListEventType
 
 > ListEventTypeResponse ListEventType(ctx, optional)
@@ -644,6 +644,49 @@ Name | Type | Description
 ### Return type
 
 [**ListEventTypeResponse**](ListEventTypeResponse.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, 
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListSchemaVersion
+
+> ListSchemaVersionResponse ListSchemaVersion(ctx, Idoptional)
+
+
+
+Retrieve a paginated list of versions of the schema.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListSchemaVersionParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+### Return type
+
+[**ListSchemaVersionResponse**](ListSchemaVersionResponse.md)
 
 ### Authorization
 
@@ -781,49 +824,6 @@ Name | Type | Description
 [[Back to README]](../README.md)
 
 
-## ListVersion
-
-> ListVersionResponse ListVersion(ctx, Idoptional)
-
-
-
-Retrieve a paginated list of versions of the schema.
-
-### Path Parameters
-
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a ListVersionParams struct
-
-
-Name | Type | Description
-------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
-
-### Return type
-
-[**ListVersionResponse**](ListVersionResponse.md)
-
-### Authorization
-
-[accountSid_authToken](../README.md#accountSid_authToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json, 
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## UpdateSubscribedEvent
 
 > EventsV1SubscriptionSubscribedEvent UpdateSubscribedEvent(ctx, SubscriptionSidTypeoptional)
@@ -848,7 +848,7 @@ Other parameters are passed through a pointer to a UpdateSubscribedEventParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Version** | **int32** | The schema version that the subscription should use.
+**SchemaVersion** | **int32** | The schema version that the subscription should use.
 
 ### Return type
 

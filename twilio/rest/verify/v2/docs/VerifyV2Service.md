@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **Push** | Pointer to **map[string]interface{}** | The service level configuration of factor push type. |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **SkipSmsToLandlines** | Pointer to **bool** | Whether to skip sending SMS verifications to landlines |
+**Totp** | Pointer to **map[string]interface{}** | The service level configuration of factor TOTP type. |
 **TtsName** | Pointer to **string** | The name of an alternative text-to-speech service to use in phone calls |
 **Url** | Pointer to **string** | The absolute URL of the resource |
 

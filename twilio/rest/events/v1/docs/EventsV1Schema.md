@@ -4,8 +4,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | Schema Identifier. |
-**LastCreated** | Pointer to [**time.Time**](time.Time.md) | The date that the last schema version was created. |
-**LastVersion** | Pointer to **int32** | Last schema version. |
+**LatestVersion** | Pointer to **int32** | Latest schema version. |
+**LatestVersionDateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that the latest schema version was created. |
 **Links** | Pointer to **map[string]interface{}** | Nested resource URLs. |
 **Url** | Pointer to **string** | The URL of this resource. |
 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -435,18 +435,29 @@ func (c *DefaultApiService) DeleteActivity(WorkspaceSid string, Sid string) erro
 	return nil
 }
 
+// DeleteTaskParams Optional parameters for the method 'DeleteTask'
+type DeleteTaskParams struct {
+	IfMatch *string `json:"If-Match,omitempty"`
+}
+
 /*
 * DeleteTask Method for DeleteTask
 * @param WorkspaceSid The SID of the Workspace with the Task to delete.
 * @param Sid The SID of the Task resource to delete.
+* @param optional nil or *DeleteTaskParams - Optional Parameters:
+* @param "IfMatch" (string) - If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
  */
-func (c *DefaultApiService) DeleteTask(WorkspaceSid string, Sid string) error {
+func (c *DefaultApiService) DeleteTask(WorkspaceSid string, Sid string, params *DeleteTaskParams) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -15,12 +15,12 @@ package openapi
 type EventsV1SubscriptionSubscribedEvent struct {
 	// Account SID.
 	AccountSid *string `json:"account_sid,omitempty"`
+	// The schema version that the subscription should use.
+	SchemaVersion *int32 `json:"schema_version,omitempty"`
 	// Subscription SID.
 	SubscriptionSid *string `json:"subscription_sid,omitempty"`
 	// Type of event being subscribed to.
 	Type *string `json:"type,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
-	// The schema version that the subscription should use.
-	Version *int32 `json:"version,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -154,8 +154,8 @@ func (c *DefaultApiService) CreateSinkValidate(Sid string, params *CreateSinkVal
 
 // CreateSubscribedEventParams Optional parameters for the method 'CreateSubscribedEvent'
 type CreateSubscribedEventParams struct {
-	Type    *string `json:"Type,omitempty"`
-	Version *int32  `json:"Version,omitempty"`
+	SchemaVersion *int32  `json:"SchemaVersion,omitempty"`
+	Type          *string `json:"Type,omitempty"`
 }
 
 /*
@@ -163,8 +163,8 @@ type CreateSubscribedEventParams struct {
 * Create a new Subscribed Event type for the subscription
 * @param SubscriptionSid The unique SID identifier of the Subscription.
 * @param optional nil or *CreateSubscribedEventParams - Optional Parameters:
+* @param "SchemaVersion" (int32) - The schema version that the subscription should use.
 * @param "Type" (string) - Type of event being subscribed to.
-* @param "Version" (int32) - The schema version that the subscription should use.
 * @return EventsV1SubscriptionSubscribedEvent
  */
 func (c *DefaultApiService) CreateSubscribedEvent(SubscriptionSid string, params *CreateSubscribedEventParams) (*EventsV1SubscriptionSubscribedEvent, error) {
@@ -174,11 +174,11 @@ func (c *DefaultApiService) CreateSubscribedEvent(SubscriptionSid string, params
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.SchemaVersion != nil {
+		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
+	}
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
-	}
-	if params != nil && params.Version != nil {
-		data.Set("Version", fmt.Sprint(*params.Version))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)
@@ -374,6 +374,36 @@ func (c *DefaultApiService) FetchSchema(Id string) (*EventsV1Schema, error) {
 }
 
 /*
+* FetchSchemaVersion Method for FetchSchemaVersion
+* Fetch a specific schema and version.
+* @param Id The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+* @param SchemaVersion The version of the schema
+* @return EventsV1SchemaSchemaVersion
+ */
+func (c *DefaultApiService) FetchSchemaVersion(Id string, SchemaVersion int32) (*EventsV1SchemaSchemaVersion, error) {
+	path := "/v1/Schemas/{Id}/Versions/{SchemaVersion}"
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+	path = strings.Replace(path, "{"+"SchemaVersion"+"}", fmt.Sprint(SchemaVersion), -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1SchemaSchemaVersion{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+/*
 * FetchSink Method for FetchSink
 * Fetch a specific Sink.
 * @param Sid A 34 character string that uniquely identifies this Sink.
@@ -459,36 +489,6 @@ func (c *DefaultApiService) FetchSubscription(Sid string) (*EventsV1Subscription
 	return ps, err
 }
 
-/*
-* FetchVersion Method for FetchVersion
-* Fetch a specific schema and version.
-* @param Id The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
-* @param SchemaVersion The version of the schema
-* @return EventsV1SchemaVersion
- */
-func (c *DefaultApiService) FetchVersion(Id string, SchemaVersion int32) (*EventsV1SchemaVersion, error) {
-	path := "/v1/Schemas/{Id}/Versions/{SchemaVersion}"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
-	path = strings.Replace(path, "{"+"SchemaVersion"+"}", fmt.Sprint(SchemaVersion), -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &EventsV1SchemaVersion{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
-}
-
 // ListEventTypeParams Optional parameters for the method 'ListEventType'
 type ListEventTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
@@ -519,6 +519,45 @@ func (c *DefaultApiService) ListEventType(params *ListEventTypeParams) (*ListEve
 	defer resp.Body.Close()
 
 	ps := &ListEventTypeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// ListSchemaVersionParams Optional parameters for the method 'ListSchemaVersion'
+type ListSchemaVersionParams struct {
+	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+/*
+* ListSchemaVersion Method for ListSchemaVersion
+* Retrieve a paginated list of versions of the schema.
+* @param Id The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
+* @param optional nil or *ListSchemaVersionParams - Optional Parameters:
+* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+* @return ListSchemaVersionResponse
+ */
+func (c *DefaultApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParams) (*ListSchemaVersionResponse, error) {
+	path := "/v1/Schemas/{Id}/Versions"
+	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSchemaVersionResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -644,48 +683,9 @@ func (c *DefaultApiService) ListSubscription(params *ListSubscriptionParams) (*L
 	return ps, err
 }
 
-// ListVersionParams Optional parameters for the method 'ListVersion'
-type ListVersionParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
-}
-
-/*
-* ListVersion Method for ListVersion
-* Retrieve a paginated list of versions of the schema.
-* @param Id The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
-* @param optional nil or *ListVersionParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListVersionResponse
- */
-func (c *DefaultApiService) ListVersion(Id string, params *ListVersionParams) (*ListVersionResponse, error) {
-	path := "/v1/Schemas/{Id}/Versions"
-	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &ListVersionResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
-}
-
 // UpdateSubscribedEventParams Optional parameters for the method 'UpdateSubscribedEvent'
 type UpdateSubscribedEventParams struct {
-	Version *int32 `json:"Version,omitempty"`
+	SchemaVersion *int32 `json:"SchemaVersion,omitempty"`
 }
 
 /*
@@ -694,7 +694,7 @@ type UpdateSubscribedEventParams struct {
 * @param SubscriptionSid The unique SID identifier of the Subscription.
 * @param Type Type of event being subscribed to.
 * @param optional nil or *UpdateSubscribedEventParams - Optional Parameters:
-* @param "Version" (int32) - The schema version that the subscription should use.
+* @param "SchemaVersion" (int32) - The schema version that the subscription should use.
 * @return EventsV1SubscriptionSubscribedEvent
  */
 func (c *DefaultApiService) UpdateSubscribedEvent(SubscriptionSid string, Type string, params *UpdateSubscribedEventParams) (*EventsV1SubscriptionSubscribedEvent, error) {
@@ -705,8 +705,8 @@ func (c *DefaultApiService) UpdateSubscribedEvent(SubscriptionSid string, Type s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.Version != nil {
-		data.Set("Version", fmt.Sprint(*params.Version))
+	if params != nil && params.SchemaVersion != nil {
+		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
 	}
 
 	resp, err := c.client.Post(c.baseURL+path, data, headers)

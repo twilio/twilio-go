@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -13,7 +13,7 @@ package openapi
 
 // BulkexportsV1ExportExportCustomJob struct for BulkexportsV1ExportExportCustomJob
 type BulkexportsV1ExportExportCustomJob struct {
-	// The details of a job state which is an object that contains a status string, a day count integer, and list of days in the job
+	// The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
 	Details *map[string]interface{} `json:"details,omitempty"`
 	// The optional email to send the completion notification to
 	Email *string `json:"email,omitempty"`

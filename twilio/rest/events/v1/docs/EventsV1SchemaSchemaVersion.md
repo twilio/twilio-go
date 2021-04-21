@@ -1,4 +1,4 @@
-# EventsV1SchemaVersion
+# EventsV1SchemaSchemaVersion
 
 ## Properties
 Name | Type | Description | Notes

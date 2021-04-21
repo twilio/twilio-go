@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -39,6 +39,8 @@ type VerifyV2ServiceEntityChallenge struct {
 	HiddenDetails *map[string]interface{} `json:"hidden_details,omitempty"`
 	// Unique external identifier of the Entity
 	Identity *string `json:"identity,omitempty"`
+	// Nested resource URLs.
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// The Reason of this Challenge `status`
 	RespondedReason *string `json:"responded_reason,omitempty"`
 	// Service Sid.

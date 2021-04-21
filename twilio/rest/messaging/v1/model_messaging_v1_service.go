@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.13.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -29,13 +29,13 @@ type MessagingV1Service struct {
 	FallbackMethod *string `json:"fallback_method,omitempty"`
 	// Whether to enable Fallback to Long Code for messages sent through the Service instance
 	FallbackToLongCode *bool `json:"fallback_to_long_code,omitempty"`
-	// The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL
+	// The URL that we call using fallback_method if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
 	FallbackUrl *string `json:"fallback_url,omitempty"`
 	// The string that you assigned to describe the resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The HTTP method we use to call inbound_request_url
 	InboundMethod *string `json:"inbound_method,omitempty"`
-	// The URL we call using inbound_method when a message is received by any phone number or short code in the Service
+	// The URL we call using inbound_method when a message is received by any phone number or short code in the Service. This field will be overridden if the `use_inbound_webhook_on_number` field is enabled.
 	InboundRequestUrl *string `json:"inbound_request_url,omitempty"`
 	// The absolute URLs of related resources
 	Links *map[string]interface{} `json:"links,omitempty"`
@@ -55,6 +55,8 @@ type MessagingV1Service struct {
 	SynchronousValidation *bool `json:"synchronous_validation,omitempty"`
 	// The absolute URL of the Service resource
 	Url *string `json:"url,omitempty"`
+	// If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
+	UseInboundWebhookOnNumber *bool `json:"use_inbound_webhook_on_number,omitempty"`
 	// How long, in seconds, messages sent from the Service are valid
 	ValidityPeriod *int32 `json:"validity_period,omitempty"`
 }
