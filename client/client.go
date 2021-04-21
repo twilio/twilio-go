@@ -46,14 +46,17 @@ func (c *Client) basicAuth() (string, string) {
 	return c.Credentials.AccountSID, c.Credentials.AuthToken
 }
 
+// BuildHost builds the target host string taking into account region and edge configurations.
 func (c *Client) BuildHost(rawHost string) string {
-	pieces := strings.Split(rawHost, ".")
 	var (
-		edge   = ""
-		region = ""
+		edge    = ""
+		region  = ""
+		pieces  = strings.Split(rawHost, ".")
+		product = pieces[0]
+		suffix  = strings.Join(pieces[len(pieces)-2:], ".")
+		result  = []string{}
 	)
-	product := pieces[0]
-	suffix := strings.Join(pieces[len(pieces)-2:], ".")
+
 	if len(pieces) == 4 {
 		// product.region.twilio.com
 		region = pieces[1]
@@ -77,7 +80,6 @@ func (c *Client) BuildHost(rawHost string) string {
 		suffix = c.BaseURL
 	}
 
-	var result []string
 	for _, item := range []string{product, edge, region, suffix} {
 		if item != "" {
 			result = append(result, item)

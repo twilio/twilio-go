@@ -143,6 +143,7 @@ func TestClient_SetTimeoutSucceeds(t *testing.T) {
 	assert.Equal(t, 200, resp.StatusCode)
 }
 
+//nolint:paralleltest
 func TestClient_BuildHostSetRegion(t *testing.T) {
 	// Region set via client
 	client := NewClient("user", "pass")
@@ -151,15 +152,24 @@ func TestClient_BuildHostSetRegion(t *testing.T) {
 	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.urlRegion.twilio.com"))
 
 	// Region set via env vars
-	os.Setenv("TWILIO_REGION", "region")
+	err := os.Setenv("TWILIO_REGION", "region")
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
+
 	client = NewClient("user", "pass")
 	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.twilio.com"))
-	os.Setenv("TWILIO_REGION", "")
+
+	err = os.Setenv("TWILIO_REGION", "")
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
 
 	// Region set via url
 	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.region.twilio.com"))
 }
 
+//nolint:paralleltest
 func TestClient_BuildHostSetEdgeDefaultRegion(t *testing.T) {
 	// Edge set via client
 	client := NewClient("user", "pass")
@@ -167,12 +177,21 @@ func TestClient_BuildHostSetEdgeDefaultRegion(t *testing.T) {
 	assert.Equal(t, "https://api.edge.us1.twilio.com", client.BuildHost("https://api.twilio.com"))
 
 	// Edge set via env vars
-	os.Setenv("TWILIO_EDGE", "edge")
+	err := os.Setenv("TWILIO_EDGE", "edge")
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
+
 	client = NewClient("user", "pass")
 	assert.Equal(t, "https://api.edge.us1.twilio.com", client.BuildHost("https://api.twilio.com"))
-	os.Setenv("TWILIO_EDGE", "")
+
+	err = os.Setenv("TWILIO_EDGE", "")
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
 }
 
+//nolint:paralleltest
 func TestClient_BuildHostSetEdgeRegion(t *testing.T) {
 	// Edge and Region set via client
 	client := NewClient("user", "pass")
@@ -183,12 +202,28 @@ func TestClient_BuildHostSetEdgeRegion(t *testing.T) {
 	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.urlEdge.urlRegion.twilio.com"))
 
 	// Edge and Region set via env vars
-	os.Setenv("TWILIO_EDGE", "edge")
-	os.Setenv("TWILIO_REGION", "region")
+	err := os.Setenv("TWILIO_EDGE", "edge")
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
+
+	err = os.Setenv("TWILIO_REGION", "region")
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
+
 	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.twilio.com"))
 	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.urlEdge.urlRegion.twilio.com"))
-	os.Setenv("TWILIO_REGION", "")
-	os.Setenv("TWILIO_EDGE", "")
+
+	err = os.Setenv("TWILIO_REGION", "")
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
+
+	err = os.Setenv("TWILIO_EDGE", "")
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
 
 	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.edge.region.twilio.com"))
 }
