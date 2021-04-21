@@ -105,7 +105,6 @@ func TestClient_SetTimeoutTimesOut(t *testing.T) {
 			time.Sleep(100 * time.Microsecond)
 			encoder := json.NewEncoder(writer)
 			err := encoder.Encode(&d)
-
 			if err != nil {
 				t.Error(err)
 			}
@@ -128,7 +127,6 @@ func TestClient_SetTimeoutSucceeds(t *testing.T) {
 			time.Sleep(100 * time.Microsecond)
 			encoder := json.NewEncoder(writer)
 			err := encoder.Encode(&d)
-
 			if err != nil {
 				t.Error(err)
 			}

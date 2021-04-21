@@ -9,10 +9,12 @@ import (
 	"github.com/twilio/twilio-go/framework/error"
 )
 
-const errorCode = 20001
-const errorMessage = "Bad request"
-const errorMoreInfo = "https://www.twilio.com/docs/errors/20001"
-const errorStatus = 400
+const (
+	errorCode     = 20001
+	errorMessage  = "Bad request"
+	errorMoreInfo = "https://www.twilio.com/docs/errors/20001"
+	errorStatus   = 400
+)
 
 func TestTwilioRestError_Error(t *testing.T) {
 	details := make(map[string]interface{})

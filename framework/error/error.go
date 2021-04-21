@@ -1,4 +1,4 @@
-// Package error provides the interface for Twilio specfic errors.
+// Package error provides the interface for Twilio specific errors.
 package error
 
 import (

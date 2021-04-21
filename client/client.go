@@ -32,7 +32,7 @@ type Client struct {
 	Region     string
 }
 
-// default http Client should not follow redirects and return the most recent response
+// default http Client should not follow redirects and return the most recent response.
 func defaultHTTPClient() *http.Client {
 	return &http.Client{
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
