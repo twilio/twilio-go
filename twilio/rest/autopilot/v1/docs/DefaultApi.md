@@ -71,7 +71,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateAssistantParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateAssistantParams struct
 
 
 Name | Type | Description
@@ -119,7 +119,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateFieldParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateFieldParams struct
 
 
 Name | Type | Description
@@ -161,7 +161,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateFieldTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateFieldTypeParams struct
 
 
 Name | Type | Description
@@ -204,7 +204,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateFieldValueParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateFieldValueParams struct
 
 
 Name | Type | Description
@@ -247,7 +247,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateModelBuildParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateModelBuildParams struct
 
 
 Name | Type | Description
@@ -289,7 +289,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateQueryParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateQueryParams struct
 
 
 Name | Type | Description
@@ -334,7 +334,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSampleParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSampleParams struct
 
 
 Name | Type | Description
@@ -377,7 +377,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateTaskParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateTaskParams struct
 
 
 Name | Type | Description
@@ -421,7 +421,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateWebhookParams struct
 
 
 Name | Type | Description
@@ -465,7 +465,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteAssistantParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteAssistantParams struct
 
 
 Name | Type | Description
@@ -507,7 +507,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFieldParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteFieldParams struct
 
 
 Name | Type | Description
@@ -548,7 +548,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFieldTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteFieldTypeParams struct
 
 
 Name | Type | Description
@@ -590,7 +590,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFieldValueParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteFieldValueParams struct
 
 
 Name | Type | Description
@@ -631,7 +631,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteModelBuildParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteModelBuildParams struct
 
 
 Name | Type | Description
@@ -672,7 +672,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteQueryParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteQueryParams struct
 
 
 Name | Type | Description
@@ -714,7 +714,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSampleParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSampleParams struct
 
 
 Name | Type | Description
@@ -755,7 +755,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteTaskParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteTaskParams struct
 
 
 Name | Type | Description
@@ -796,7 +796,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteWebhookParams struct
 
 
 Name | Type | Description
@@ -836,7 +836,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchAssistantParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchAssistantParams struct
 
 
 Name | Type | Description
@@ -876,7 +876,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchDefaultsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchDefaultsParams struct
 
 
 Name | Type | Description
@@ -917,7 +917,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchDialogueParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchDialogueParams struct
 
 
 Name | Type | Description
@@ -959,7 +959,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFieldParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFieldParams struct
 
 
 Name | Type | Description
@@ -1000,7 +1000,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFieldTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFieldTypeParams struct
 
 
 Name | Type | Description
@@ -1042,7 +1042,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFieldValueParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFieldValueParams struct
 
 
 Name | Type | Description
@@ -1083,7 +1083,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchModelBuildParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchModelBuildParams struct
 
 
 Name | Type | Description
@@ -1124,7 +1124,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchQueryParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchQueryParams struct
 
 
 Name | Type | Description
@@ -1166,7 +1166,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSampleParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSampleParams struct
 
 
 Name | Type | Description
@@ -1208,7 +1208,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchStyleSheetParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchStyleSheetParams struct
 
 
 Name | Type | Description
@@ -1249,7 +1249,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTaskParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTaskParams struct
 
 
 Name | Type | Description
@@ -1292,7 +1292,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTaskActionsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTaskActionsParams struct
 
 
 Name | Type | Description
@@ -1333,7 +1333,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTaskStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTaskStatisticsParams struct
 
 
 Name | Type | Description
@@ -1374,7 +1374,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWebhookParams struct
 
 
 Name | Type | Description
@@ -1410,7 +1410,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListAssistantParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListAssistantParams struct
 
 
 Name | Type | Description
@@ -1452,7 +1452,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFieldParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListFieldParams struct
 
 
 Name | Type | Description
@@ -1493,7 +1493,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFieldTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListFieldTypeParams struct
 
 
 Name | Type | Description
@@ -1535,7 +1535,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFieldValueParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListFieldValueParams struct
 
 
 Name | Type | Description
@@ -1577,7 +1577,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListModelBuildParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListModelBuildParams struct
 
 
 Name | Type | Description
@@ -1618,7 +1618,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListQueryParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListQueryParams struct
 
 
 Name | Type | Description
@@ -1664,7 +1664,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSampleParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSampleParams struct
 
 
 Name | Type | Description
@@ -1706,7 +1706,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListTaskParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListTaskParams struct
 
 
 Name | Type | Description
@@ -1747,7 +1747,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListWebhookParams struct
 
 
 Name | Type | Description
@@ -1788,7 +1788,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateAssistantParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateAssistantParams struct
 
 
 Name | Type | Description
@@ -1836,7 +1836,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateDefaultsParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateDefaultsParams struct
 
 
 Name | Type | Description
@@ -1878,7 +1878,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateFieldTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateFieldTypeParams struct
 
 
 Name | Type | Description
@@ -1921,7 +1921,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateModelBuildParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateModelBuildParams struct
 
 
 Name | Type | Description
@@ -1963,7 +1963,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateQueryParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateQueryParams struct
 
 
 Name | Type | Description
@@ -2001,7 +2001,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateRestoreAssistantParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateRestoreAssistantParams struct
 
 
 Name | Type | Description
@@ -2044,7 +2044,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSampleParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSampleParams struct
 
 
 Name | Type | Description
@@ -2089,7 +2089,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateStyleSheetParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateStyleSheetParams struct
 
 
 Name | Type | Description
@@ -2131,7 +2131,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateTaskParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateTaskParams struct
 
 
 Name | Type | Description
@@ -2178,7 +2178,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateTaskActionsParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateTaskActionsParams struct
 
 
 Name | Type | Description
@@ -2220,7 +2220,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateWebhookParams struct
 
 
 Name | Type | Description

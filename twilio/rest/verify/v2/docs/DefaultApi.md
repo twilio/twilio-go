@@ -72,7 +72,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateAccessTokenParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateAccessTokenParams struct
 
 
 Name | Type | Description
@@ -117,7 +117,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateBucketParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateBucketParams struct
 
 
 Name | Type | Description
@@ -162,7 +162,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateChallengeParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateChallengeParams struct
 
 
 Name | Type | Description
@@ -210,7 +210,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateEntityParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateEntityParams struct
 
 
 Name | Type | Description
@@ -253,7 +253,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateMessagingConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateMessagingConfigurationParams struct
 
 
 Name | Type | Description
@@ -298,7 +298,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateNewFactorParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateNewFactorParams struct
 
 
 Name | Type | Description
@@ -355,7 +355,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateNotificationParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateNotificationParams struct
 
 
 Name | Type | Description
@@ -398,7 +398,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateRateLimitParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateRateLimitParams struct
 
 
 Name | Type | Description
@@ -438,7 +438,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceParams struct
 
 
 Name | Type | Description
@@ -496,7 +496,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateVerificationParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateVerificationParams struct
 
 
 Name | Type | Description
@@ -550,7 +550,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateVerificationCheckParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateVerificationCheckParams struct
 
 
 Name | Type | Description
@@ -597,7 +597,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateWebhookParams struct
 
 
 Name | Type | Description
@@ -645,7 +645,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteBucketParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteBucketParams struct
 
 
 Name | Type | Description
@@ -688,7 +688,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteEntityParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteEntityParams struct
 
 
 Name | Type | Description
@@ -732,7 +732,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFactorParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteFactorParams struct
 
 
 Name | Type | Description
@@ -775,7 +775,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteMessagingConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteMessagingConfigurationParams struct
 
 
 Name | Type | Description
@@ -818,7 +818,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteRateLimitParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteRateLimitParams struct
 
 
 Name | Type | Description
@@ -860,7 +860,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceParams struct
 
 
 Name | Type | Description
@@ -903,7 +903,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteWebhookParams struct
 
 
 Name | Type | Description
@@ -947,7 +947,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchBucketParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchBucketParams struct
 
 
 Name | Type | Description
@@ -991,7 +991,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchChallengeParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchChallengeParams struct
 
 
 Name | Type | Description
@@ -1034,7 +1034,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEntityParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchEntityParams struct
 
 
 Name | Type | Description
@@ -1078,7 +1078,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFactorParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFactorParams struct
 
 
 Name | Type | Description
@@ -1120,7 +1120,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFormParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFormParams struct
 
 
 Name | Type | Description
@@ -1163,7 +1163,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchMessagingConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchMessagingConfigurationParams struct
 
 
 Name | Type | Description
@@ -1206,7 +1206,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRateLimitParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRateLimitParams struct
 
 
 Name | Type | Description
@@ -1248,7 +1248,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceParams struct
 
 
 Name | Type | Description
@@ -1291,7 +1291,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchVerificationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchVerificationParams struct
 
 
 Name | Type | Description
@@ -1333,7 +1333,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchVerificationAttemptParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchVerificationAttemptParams struct
 
 
 Name | Type | Description
@@ -1376,7 +1376,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWebhookParams struct
 
 
 Name | Type | Description
@@ -1419,7 +1419,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListBucketParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListBucketParams struct
 
 
 Name | Type | Description
@@ -1463,7 +1463,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListChallengeParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListChallengeParams struct
 
 
 Name | Type | Description
@@ -1508,7 +1508,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEntityParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListEntityParams struct
 
 
 Name | Type | Description
@@ -1552,7 +1552,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFactorParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListFactorParams struct
 
 
 Name | Type | Description
@@ -1595,7 +1595,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListMessagingConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListMessagingConfigurationParams struct
 
 
 Name | Type | Description
@@ -1638,7 +1638,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListRateLimitParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListRateLimitParams struct
 
 
 Name | Type | Description
@@ -1677,7 +1677,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceParams struct
 
 
 Name | Type | Description
@@ -1716,7 +1716,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListVerificationAttemptParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListVerificationAttemptParams struct
 
 
 Name | Type | Description
@@ -1762,7 +1762,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListWebhookParams struct
 
 
 Name | Type | Description
@@ -1807,7 +1807,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateBucketParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateBucketParams struct
 
 
 Name | Type | Description
@@ -1853,7 +1853,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateChallengeParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateChallengeParams struct
 
 
 Name | Type | Description
@@ -1898,7 +1898,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateFactorParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateFactorParams struct
 
 
 Name | Type | Description
@@ -1949,7 +1949,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateMessagingConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateMessagingConfigurationParams struct
 
 
 Name | Type | Description
@@ -1993,7 +1993,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateRateLimitParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateRateLimitParams struct
 
 
 Name | Type | Description
@@ -2036,7 +2036,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 
 Name | Type | Description
@@ -2095,7 +2095,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateVerificationParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateVerificationParams struct
 
 
 Name | Type | Description
@@ -2137,7 +2137,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateWebhookParams struct
 
 
 Name | Type | Description

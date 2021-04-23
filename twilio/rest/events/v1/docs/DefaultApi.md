@@ -42,7 +42,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSinkParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSinkParams struct
 
 
 Name | Type | Description
@@ -87,7 +87,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSinkTestParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSinkTestParams struct
 
 
 Name | Type | Description
@@ -129,7 +129,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSinkValidateParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSinkValidateParams struct
 
 
 Name | Type | Description
@@ -172,7 +172,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSubscribedEventParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSubscribedEventParams struct
 
 
 Name | Type | Description
@@ -212,7 +212,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSubscriptionParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSubscriptionParams struct
 
 
 Name | Type | Description
@@ -257,7 +257,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSinkParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSinkParams struct
 
 
 Name | Type | Description
@@ -300,7 +300,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSubscribedEventParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSubscribedEventParams struct
 
 
 Name | Type | Description
@@ -342,7 +342,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSubscriptionParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSubscriptionParams struct
 
 
 Name | Type | Description
@@ -384,7 +384,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEventTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchEventTypeParams struct
 
 
 Name | Type | Description
@@ -426,7 +426,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSchemaParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSchemaParams struct
 
 
 Name | Type | Description
@@ -469,7 +469,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSchemaVersionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSchemaVersionParams struct
 
 
 Name | Type | Description
@@ -511,7 +511,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSinkParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSinkParams struct
 
 
 Name | Type | Description
@@ -554,7 +554,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSubscribedEventParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSubscribedEventParams struct
 
 
 Name | Type | Description
@@ -596,7 +596,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSubscriptionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSubscriptionParams struct
 
 
 Name | Type | Description
@@ -634,7 +634,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEventTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListEventTypeParams struct
 
 
 Name | Type | Description
@@ -677,7 +677,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSchemaVersionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSchemaVersionParams struct
 
 
 Name | Type | Description
@@ -716,7 +716,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSinkParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSinkParams struct
 
 
 Name | Type | Description
@@ -759,7 +759,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSubscribedEventParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSubscribedEventParams struct
 
 
 Name | Type | Description
@@ -798,7 +798,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSubscriptionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSubscriptionParams struct
 
 
 Name | Type | Description
@@ -843,7 +843,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSubscribedEventParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSubscribedEventParams struct
 
 
 Name | Type | Description
@@ -886,7 +886,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSubscriptionParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSubscriptionParams struct
 
 
 Name | Type | Description

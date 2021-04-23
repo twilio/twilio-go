@@ -37,7 +37,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCommandParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCommandParams struct
 
 
 Name | Type | Description
@@ -80,7 +80,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateRatePlanParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateRatePlanParams struct
 
 
 Name | Type | Description
@@ -133,7 +133,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCommandParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteCommandParams struct
 
 
 Name | Type | Description
@@ -173,7 +173,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteRatePlanParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteRatePlanParams struct
 
 
 Name | Type | Description
@@ -215,7 +215,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSimParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSimParams struct
 
 
 Name | Type | Description
@@ -257,7 +257,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCommandParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCommandParams struct
 
 
 Name | Type | Description
@@ -297,7 +297,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRatePlanParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRatePlanParams struct
 
 
 Name | Type | Description
@@ -339,7 +339,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSimParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSimParams struct
 
 
 Name | Type | Description
@@ -375,7 +375,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListAccountUsageRecordParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListAccountUsageRecordParams struct
 
 
 Name | Type | Description
@@ -417,7 +417,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCommandParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCommandParams struct
 
 
 Name | Type | Description
@@ -462,7 +462,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListDataSessionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListDataSessionParams struct
 
 
 Name | Type | Description
@@ -499,7 +499,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListRatePlanParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListRatePlanParams struct
 
 
 Name | Type | Description
@@ -538,7 +538,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSimParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSimParams struct
 
 
 Name | Type | Description
@@ -584,7 +584,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListUsageRecordParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListUsageRecordParams struct
 
 
 Name | Type | Description
@@ -628,7 +628,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateRatePlanParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateRatePlanParams struct
 
 
 Name | Type | Description
@@ -672,7 +672,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSimParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSimParams struct
 
 
 Name | Type | Description

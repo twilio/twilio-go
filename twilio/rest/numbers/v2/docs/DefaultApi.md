@@ -49,7 +49,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateBundleParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateBundleParams struct
 
 
 Name | Type | Description
@@ -94,7 +94,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateEndUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateEndUserParams struct
 
 
 Name | Type | Description
@@ -139,7 +139,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateEvaluationParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateEvaluationParams struct
 
 
 Name | Type | Description
@@ -181,7 +181,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateItemAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateItemAssignmentParams struct
 
 
 Name | Type | Description
@@ -220,7 +220,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSupportingDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSupportingDocumentParams struct
 
 
 Name | Type | Description
@@ -265,7 +265,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteBundleParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteBundleParams struct
 
 
 Name | Type | Description
@@ -307,7 +307,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteEndUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteEndUserParams struct
 
 
 Name | Type | Description
@@ -350,7 +350,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteItemAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteItemAssignmentParams struct
 
 
 Name | Type | Description
@@ -392,7 +392,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSupportingDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSupportingDocumentParams struct
 
 
 Name | Type | Description
@@ -434,7 +434,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchBundleParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchBundleParams struct
 
 
 Name | Type | Description
@@ -476,7 +476,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEndUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchEndUserParams struct
 
 
 Name | Type | Description
@@ -518,7 +518,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEndUserTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchEndUserTypeParams struct
 
 
 Name | Type | Description
@@ -561,7 +561,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEvaluationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchEvaluationParams struct
 
 
 Name | Type | Description
@@ -604,7 +604,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchItemAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchItemAssignmentParams struct
 
 
 Name | Type | Description
@@ -646,7 +646,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRegulationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRegulationParams struct
 
 
 Name | Type | Description
@@ -688,7 +688,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSupportingDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSupportingDocumentParams struct
 
 
 Name | Type | Description
@@ -730,7 +730,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSupportingDocumentTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSupportingDocumentTypeParams struct
 
 
 Name | Type | Description
@@ -768,7 +768,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListBundleParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListBundleParams struct
 
 
 Name | Type | Description
@@ -812,7 +812,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEndUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListEndUserParams struct
 
 
 Name | Type | Description
@@ -851,7 +851,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEndUserTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListEndUserTypeParams struct
 
 
 Name | Type | Description
@@ -894,7 +894,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEvaluationParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListEvaluationParams struct
 
 
 Name | Type | Description
@@ -937,7 +937,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListItemAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListItemAssignmentParams struct
 
 
 Name | Type | Description
@@ -976,7 +976,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListRegulationParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListRegulationParams struct
 
 
 Name | Type | Description
@@ -1018,7 +1018,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSupportingDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSupportingDocumentParams struct
 
 
 Name | Type | Description
@@ -1057,7 +1057,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSupportingDocumentTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSupportingDocumentTypeParams struct
 
 
 Name | Type | Description
@@ -1100,7 +1100,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateBundleParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateBundleParams struct
 
 
 Name | Type | Description
@@ -1146,7 +1146,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateEndUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateEndUserParams struct
 
 
 Name | Type | Description
@@ -1190,7 +1190,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSupportingDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSupportingDocumentParams struct
 
 
 Name | Type | Description

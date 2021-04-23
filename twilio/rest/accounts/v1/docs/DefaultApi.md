@@ -34,7 +34,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCredentialAwsParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCredentialAwsParams struct
 
 
 Name | Type | Description
@@ -75,7 +75,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCredentialPublicKeyParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCredentialPublicKeyParams struct
 
 
 Name | Type | Description
@@ -116,7 +116,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParams struct
 
 
 ### Return type
@@ -155,7 +155,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCredentialAwsParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteCredentialAwsParams struct
 
 
 Name | Type | Description
@@ -197,7 +197,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCredentialPublicKeyParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteCredentialPublicKeyParams struct
 
 
 Name | Type | Description
@@ -235,7 +235,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSecondaryAuthTokenParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSecondaryAuthTokenParams struct
 
 
 ### Return type
@@ -274,7 +274,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCredentialAwsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCredentialAwsParams struct
 
 
 Name | Type | Description
@@ -316,7 +316,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCredentialPublicKeyParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCredentialPublicKeyParams struct
 
 
 Name | Type | Description
@@ -354,7 +354,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCredentialAwsParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCredentialAwsParams struct
 
 
 Name | Type | Description
@@ -393,7 +393,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCredentialPublicKeyParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCredentialPublicKeyParams struct
 
 
 Name | Type | Description
@@ -432,7 +432,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateAuthTokenPromotionParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateAuthTokenPromotionParams struct
 
 
 ### Return type
@@ -471,7 +471,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateCredentialAwsParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateCredentialAwsParams struct
 
 
 Name | Type | Description
@@ -514,7 +514,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateCredentialPublicKeyParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateCredentialPublicKeyParams struct
 
 
 Name | Type | Description

@@ -69,7 +69,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCustomerProfileParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCustomerProfileParams struct
 
 
 Name | Type | Description
@@ -115,7 +115,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCustomerProfileChannelEndpointAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCustomerProfileChannelEndpointAssignmentParams struct
 
 
 Name | Type | Description
@@ -159,7 +159,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCustomerProfileEntityAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCustomerProfileEntityAssignmentParams struct
 
 
 Name | Type | Description
@@ -202,7 +202,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCustomerProfileEvaluationParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCustomerProfileEvaluationParams struct
 
 
 Name | Type | Description
@@ -241,7 +241,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateEndUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateEndUserParams struct
 
 
 Name | Type | Description
@@ -282,7 +282,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSupportingDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSupportingDocumentParams struct
 
 
 Name | Type | Description
@@ -323,7 +323,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateTrustProductParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateTrustProductParams struct
 
 
 Name | Type | Description
@@ -369,7 +369,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateTrustProductChannelEndpointAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateTrustProductChannelEndpointAssignmentParams struct
 
 
 Name | Type | Description
@@ -413,7 +413,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateTrustProductEntityAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateTrustProductEntityAssignmentParams struct
 
 
 Name | Type | Description
@@ -456,7 +456,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateTrustProductEvaluationParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateTrustProductEvaluationParams struct
 
 
 Name | Type | Description
@@ -499,7 +499,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCustomerProfileParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteCustomerProfileParams struct
 
 
 Name | Type | Description
@@ -542,7 +542,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCustomerProfileChannelEndpointAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteCustomerProfileChannelEndpointAssignmentParams struct
 
 
 Name | Type | Description
@@ -585,7 +585,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCustomerProfileEntityAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteCustomerProfileEntityAssignmentParams struct
 
 
 Name | Type | Description
@@ -627,7 +627,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteEndUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteEndUserParams struct
 
 
 Name | Type | Description
@@ -669,7 +669,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSupportingDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSupportingDocumentParams struct
 
 
 Name | Type | Description
@@ -711,7 +711,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteTrustProductParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteTrustProductParams struct
 
 
 Name | Type | Description
@@ -754,7 +754,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteTrustProductChannelEndpointAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteTrustProductChannelEndpointAssignmentParams struct
 
 
 Name | Type | Description
@@ -797,7 +797,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteTrustProductEntityAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteTrustProductEntityAssignmentParams struct
 
 
 Name | Type | Description
@@ -839,7 +839,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCustomerProfileParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCustomerProfileParams struct
 
 
 Name | Type | Description
@@ -882,7 +882,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCustomerProfileChannelEndpointAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCustomerProfileChannelEndpointAssignmentParams struct
 
 
 Name | Type | Description
@@ -925,7 +925,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCustomerProfileEntityAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCustomerProfileEntityAssignmentParams struct
 
 
 Name | Type | Description
@@ -968,7 +968,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCustomerProfileEvaluationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCustomerProfileEvaluationParams struct
 
 
 Name | Type | Description
@@ -1010,7 +1010,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEndUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchEndUserParams struct
 
 
 Name | Type | Description
@@ -1052,7 +1052,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEndUserTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchEndUserTypeParams struct
 
 
 Name | Type | Description
@@ -1094,7 +1094,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchPoliciesParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchPoliciesParams struct
 
 
 Name | Type | Description
@@ -1136,7 +1136,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSupportingDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSupportingDocumentParams struct
 
 
 Name | Type | Description
@@ -1178,7 +1178,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSupportingDocumentTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSupportingDocumentTypeParams struct
 
 
 Name | Type | Description
@@ -1220,7 +1220,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTrustProductParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTrustProductParams struct
 
 
 Name | Type | Description
@@ -1263,7 +1263,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTrustProductChannelEndpointAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTrustProductChannelEndpointAssignmentParams struct
 
 
 Name | Type | Description
@@ -1306,7 +1306,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTrustProductEntityAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTrustProductEntityAssignmentParams struct
 
 
 Name | Type | Description
@@ -1349,7 +1349,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTrustProductEvaluationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTrustProductEvaluationParams struct
 
 
 Name | Type | Description
@@ -1387,7 +1387,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCustomerProfileParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCustomerProfileParams struct
 
 
 Name | Type | Description
@@ -1433,7 +1433,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCustomerProfileChannelEndpointAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCustomerProfileChannelEndpointAssignmentParams struct
 
 
 Name | Type | Description
@@ -1478,7 +1478,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCustomerProfileEntityAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCustomerProfileEntityAssignmentParams struct
 
 
 Name | Type | Description
@@ -1521,7 +1521,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCustomerProfileEvaluationParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCustomerProfileEvaluationParams struct
 
 
 Name | Type | Description
@@ -1560,7 +1560,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEndUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListEndUserParams struct
 
 
 Name | Type | Description
@@ -1599,7 +1599,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEndUserTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListEndUserTypeParams struct
 
 
 Name | Type | Description
@@ -1638,7 +1638,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListPoliciesParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListPoliciesParams struct
 
 
 Name | Type | Description
@@ -1677,7 +1677,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSupportingDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSupportingDocumentParams struct
 
 
 Name | Type | Description
@@ -1716,7 +1716,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSupportingDocumentTypeParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSupportingDocumentTypeParams struct
 
 
 Name | Type | Description
@@ -1755,7 +1755,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListTrustProductParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListTrustProductParams struct
 
 
 Name | Type | Description
@@ -1801,7 +1801,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListTrustProductChannelEndpointAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListTrustProductChannelEndpointAssignmentParams struct
 
 
 Name | Type | Description
@@ -1846,7 +1846,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListTrustProductEntityAssignmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListTrustProductEntityAssignmentParams struct
 
 
 Name | Type | Description
@@ -1889,7 +1889,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListTrustProductEvaluationParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListTrustProductEvaluationParams struct
 
 
 Name | Type | Description
@@ -1932,7 +1932,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateCustomerProfileParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateCustomerProfileParams struct
 
 
 Name | Type | Description
@@ -1978,7 +1978,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateEndUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateEndUserParams struct
 
 
 Name | Type | Description
@@ -2022,7 +2022,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSupportingDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSupportingDocumentParams struct
 
 
 Name | Type | Description
@@ -2066,7 +2066,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateTrustProductParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateTrustProductParams struct
 
 
 Name | Type | Description

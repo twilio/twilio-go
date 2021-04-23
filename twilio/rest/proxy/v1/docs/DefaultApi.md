@@ -57,7 +57,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateMessageInteractionParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateMessageInteractionParams struct
 
 
 Name | Type | Description
@@ -102,7 +102,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateParticipantParams struct
 
 
 Name | Type | Description
@@ -149,7 +149,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreatePhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreatePhoneNumberParams struct
 
 
 Name | Type | Description
@@ -190,7 +190,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceParams struct
 
 
 Name | Type | Description
@@ -240,7 +240,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSessionParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSessionParams struct
 
 
 Name | Type | Description
@@ -289,7 +289,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateShortCodeParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateShortCodeParams struct
 
 
 Name | Type | Description
@@ -334,7 +334,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteInteractionParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteInteractionParams struct
 
 
 Name | Type | Description
@@ -378,7 +378,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteParticipantParams struct
 
 
 Name | Type | Description
@@ -421,7 +421,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeletePhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeletePhoneNumberParams struct
 
 
 Name | Type | Description
@@ -463,7 +463,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceParams struct
 
 
 Name | Type | Description
@@ -506,7 +506,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSessionParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSessionParams struct
 
 
 Name | Type | Description
@@ -549,7 +549,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteShortCodeParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteShortCodeParams struct
 
 
 Name | Type | Description
@@ -593,7 +593,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchInteractionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchInteractionParams struct
 
 
 Name | Type | Description
@@ -636,7 +636,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchMessageInteractionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchMessageInteractionParams struct
 
 
 Name | Type | Description
@@ -680,7 +680,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchParticipantParams struct
 
 
 Name | Type | Description
@@ -723,7 +723,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchPhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchPhoneNumberParams struct
 
 
 Name | Type | Description
@@ -765,7 +765,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceParams struct
 
 
 Name | Type | Description
@@ -808,7 +808,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSessionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSessionParams struct
 
 
 Name | Type | Description
@@ -851,7 +851,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchShortCodeParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchShortCodeParams struct
 
 
 Name | Type | Description
@@ -894,7 +894,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListInteractionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListInteractionParams struct
 
 
 Name | Type | Description
@@ -937,7 +937,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListMessageInteractionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListMessageInteractionParams struct
 
 
 Name | Type | Description
@@ -981,7 +981,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListParticipantParams struct
 
 
 Name | Type | Description
@@ -1024,7 +1024,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListPhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListPhoneNumberParams struct
 
 
 Name | Type | Description
@@ -1063,7 +1063,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceParams struct
 
 
 Name | Type | Description
@@ -1106,7 +1106,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSessionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSessionParams struct
 
 
 Name | Type | Description
@@ -1149,7 +1149,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListShortCodeParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListShortCodeParams struct
 
 
 Name | Type | Description
@@ -1193,7 +1193,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdatePhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdatePhoneNumberParams struct
 
 
 Name | Type | Description
@@ -1236,7 +1236,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 
 Name | Type | Description
@@ -1287,7 +1287,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSessionParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSessionParams struct
 
 
 Name | Type | Description
@@ -1334,7 +1334,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateShortCodeParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateShortCodeParams struct
 
 
 Name | Type | Description

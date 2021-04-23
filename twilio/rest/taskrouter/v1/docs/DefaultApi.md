@@ -83,7 +83,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateActivityParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateActivityParams struct
 
 
 Name | Type | Description
@@ -125,7 +125,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateTaskParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateTaskParams struct
 
 
 Name | Type | Description
@@ -170,7 +170,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateTaskChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateTaskChannelParams struct
 
 
 Name | Type | Description
@@ -213,7 +213,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateTaskQueueParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateTaskQueueParams struct
 
 
 Name | Type | Description
@@ -259,7 +259,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateWorkerParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateWorkerParams struct
 
 
 Name | Type | Description
@@ -302,7 +302,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateWorkflowParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateWorkflowParams struct
 
 
 Name | Type | Description
@@ -343,7 +343,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateWorkspaceParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateWorkspaceParams struct
 
 
 Name | Type | Description
@@ -390,7 +390,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteActivityParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteActivityParams struct
 
 
 Name | Type | Description
@@ -431,7 +431,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteTaskParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteTaskParams struct
 
 
 Name | Type | Description
@@ -473,7 +473,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteTaskChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteTaskChannelParams struct
 
 
 Name | Type | Description
@@ -514,7 +514,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteTaskQueueParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteTaskQueueParams struct
 
 
 Name | Type | Description
@@ -555,7 +555,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteWorkerParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteWorkerParams struct
 
 
 Name | Type | Description
@@ -596,7 +596,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteWorkflowParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteWorkflowParams struct
 
 
 Name | Type | Description
@@ -636,7 +636,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteWorkspaceParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteWorkspaceParams struct
 
 
 Name | Type | Description
@@ -677,7 +677,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchActivityParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchActivityParams struct
 
 
 Name | Type | Description
@@ -718,7 +718,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEventParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchEventParams struct
 
 
 Name | Type | Description
@@ -759,7 +759,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTaskParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTaskParams struct
 
 
 Name | Type | Description
@@ -800,7 +800,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTaskChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTaskChannelParams struct
 
 
 Name | Type | Description
@@ -841,7 +841,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTaskQueueParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTaskQueueParams struct
 
 
 Name | Type | Description
@@ -882,7 +882,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTaskQueueCumulativeStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTaskQueueCumulativeStatisticsParams struct
 
 
 Name | Type | Description
@@ -928,7 +928,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTaskQueueRealTimeStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTaskQueueRealTimeStatisticsParams struct
 
 
 Name | Type | Description
@@ -970,7 +970,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTaskQueueStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTaskQueueStatisticsParams struct
 
 
 Name | Type | Description
@@ -1017,7 +1017,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTaskReservationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTaskReservationParams struct
 
 
 Name | Type | Description
@@ -1058,7 +1058,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkerParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkerParams struct
 
 
 Name | Type | Description
@@ -1100,7 +1100,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkerChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkerChannelParams struct
 
 
 Name | Type | Description
@@ -1141,7 +1141,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkerInstanceStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkerInstanceStatisticsParams struct
 
 
 Name | Type | Description
@@ -1187,7 +1187,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkerReservationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkerReservationParams struct
 
 
 Name | Type | Description
@@ -1227,7 +1227,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkerStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkerStatisticsParams struct
 
 
 Name | Type | Description
@@ -1274,7 +1274,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkersCumulativeStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkersCumulativeStatisticsParams struct
 
 
 Name | Type | Description
@@ -1318,7 +1318,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkersRealTimeStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkersRealTimeStatisticsParams struct
 
 
 Name | Type | Description
@@ -1360,7 +1360,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkflowParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkflowParams struct
 
 
 Name | Type | Description
@@ -1401,7 +1401,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkflowCumulativeStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkflowCumulativeStatisticsParams struct
 
 
 Name | Type | Description
@@ -1447,7 +1447,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkflowRealTimeStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkflowRealTimeStatisticsParams struct
 
 
 Name | Type | Description
@@ -1489,7 +1489,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkflowStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkflowStatisticsParams struct
 
 
 Name | Type | Description
@@ -1534,7 +1534,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkspaceParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkspaceParams struct
 
 
 Name | Type | Description
@@ -1574,7 +1574,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkspaceCumulativeStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkspaceCumulativeStatisticsParams struct
 
 
 Name | Type | Description
@@ -1619,7 +1619,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkspaceRealTimeStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkspaceRealTimeStatisticsParams struct
 
 
 Name | Type | Description
@@ -1660,7 +1660,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWorkspaceStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWorkspaceStatisticsParams struct
 
 
 Name | Type | Description
@@ -1705,7 +1705,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListActivityParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListActivityParams struct
 
 
 Name | Type | Description
@@ -1748,7 +1748,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEventParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListEventParams struct
 
 
 Name | Type | Description
@@ -1800,7 +1800,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListTaskParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListTaskParams struct
 
 
 Name | Type | Description
@@ -1850,7 +1850,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListTaskChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListTaskChannelParams struct
 
 
 Name | Type | Description
@@ -1891,7 +1891,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListTaskQueueParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListTaskQueueParams struct
 
 
 Name | Type | Description
@@ -1935,7 +1935,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListTaskQueuesStatisticsParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListTaskQueuesStatisticsParams struct
 
 
 Name | Type | Description
@@ -1983,7 +1983,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListTaskReservationParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListTaskReservationParams struct
 
 
 Name | Type | Description
@@ -2025,7 +2025,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListWorkerParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListWorkerParams struct
 
 
 Name | Type | Description
@@ -2074,7 +2074,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListWorkerChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListWorkerChannelParams struct
 
 
 Name | Type | Description
@@ -2116,7 +2116,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListWorkerReservationParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListWorkerReservationParams struct
 
 
 Name | Type | Description
@@ -2158,7 +2158,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListWorkflowParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListWorkflowParams struct
 
 
 Name | Type | Description
@@ -2196,7 +2196,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListWorkspaceParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListWorkspaceParams struct
 
 
 Name | Type | Description
@@ -2239,7 +2239,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateActivityParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateActivityParams struct
 
 
 Name | Type | Description
@@ -2281,7 +2281,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateTaskParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateTaskParams struct
 
 
 Name | Type | Description
@@ -2328,7 +2328,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateTaskChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateTaskChannelParams struct
 
 
 Name | Type | Description
@@ -2371,7 +2371,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateTaskQueueParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateTaskQueueParams struct
 
 
 Name | Type | Description
@@ -2419,7 +2419,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateTaskReservationParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateTaskReservationParams struct
 
 
 Name | Type | Description
@@ -2513,7 +2513,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateWorkerParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateWorkerParams struct
 
 
 Name | Type | Description
@@ -2559,7 +2559,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateWorkerChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateWorkerChannelParams struct
 
 
 Name | Type | Description
@@ -2603,7 +2603,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateWorkerReservationParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateWorkerReservationParams struct
 
 
 Name | Type | Description
@@ -2695,7 +2695,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateWorkflowParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateWorkflowParams struct
 
 
 Name | Type | Description
@@ -2741,7 +2741,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateWorkspaceParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateWorkspaceParams struct
 
 
 Name | Type | Description

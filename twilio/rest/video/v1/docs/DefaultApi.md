@@ -53,7 +53,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCompositionParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCompositionParams struct
 
 
 Name | Type | Description
@@ -98,7 +98,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCompositionHookParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCompositionHookParams struct
 
 
 Name | Type | Description
@@ -144,7 +144,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCompositionSettingsParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCompositionSettingsParams struct
 
 
 Name | Type | Description
@@ -186,7 +186,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateRecordingSettingsParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateRecordingSettingsParams struct
 
 
 Name | Type | Description
@@ -228,7 +228,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateRoomParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateRoomParams struct
 
 
 Name | Type | Description
@@ -280,7 +280,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCompositionParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteCompositionParams struct
 
 
 Name | Type | Description
@@ -322,7 +322,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCompositionHookParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteCompositionHookParams struct
 
 
 Name | Type | Description
@@ -364,7 +364,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteRecordingParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteRecordingParams struct
 
 
 Name | Type | Description
@@ -405,7 +405,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteRoomRecordingParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteRoomRecordingParams struct
 
 
 Name | Type | Description
@@ -447,7 +447,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCompositionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCompositionParams struct
 
 
 Name | Type | Description
@@ -489,7 +489,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCompositionHookParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCompositionHookParams struct
 
 
 Name | Type | Description
@@ -525,7 +525,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCompositionSettingsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCompositionSettingsParams struct
 
 
 ### Return type
@@ -564,7 +564,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRecordingParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRecordingParams struct
 
 
 Name | Type | Description
@@ -600,7 +600,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRecordingSettingsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRecordingSettingsParams struct
 
 
 ### Return type
@@ -637,7 +637,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRoomParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRoomParams struct
 
 
 Name | Type | Description
@@ -678,7 +678,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRoomParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRoomParticipantParams struct
 
 
 Name | Type | Description
@@ -722,7 +722,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRoomParticipantPublishedTrackParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRoomParticipantPublishedTrackParams struct
 
 
 Name | Type | Description
@@ -765,7 +765,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRoomParticipantSubscribeRuleParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRoomParticipantSubscribeRuleParams struct
 
 
 Name | Type | Description
@@ -809,7 +809,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRoomParticipantSubscribedTrackParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRoomParticipantSubscribedTrackParams struct
 
 
 Name | Type | Description
@@ -850,7 +850,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRoomRecordingParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRoomRecordingParams struct
 
 
 Name | Type | Description
@@ -892,7 +892,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRoomRecordingRuleParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRoomRecordingRuleParams struct
 
 
 Name | Type | Description
@@ -930,7 +930,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCompositionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCompositionParams struct
 
 
 Name | Type | Description
@@ -973,7 +973,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCompositionHookParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCompositionHookParams struct
 
 
 Name | Type | Description
@@ -1016,7 +1016,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListRecordingParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListRecordingParams struct
 
 
 Name | Type | Description
@@ -1059,7 +1059,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListRoomParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListRoomParams struct
 
 
 Name | Type | Description
@@ -1104,7 +1104,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListRoomParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListRoomParticipantParams struct
 
 
 Name | Type | Description
@@ -1152,7 +1152,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListRoomParticipantPublishedTrackParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListRoomParticipantPublishedTrackParams struct
 
 
 Name | Type | Description
@@ -1196,7 +1196,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListRoomParticipantSubscribedTrackParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListRoomParticipantSubscribedTrackParams struct
 
 
 Name | Type | Description
@@ -1237,7 +1237,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListRoomRecordingParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListRoomRecordingParams struct
 
 
 Name | Type | Description
@@ -1282,7 +1282,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateCompositionHookParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateCompositionHookParams struct
 
 
 Name | Type | Description
@@ -1332,7 +1332,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateRoomParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateRoomParams struct
 
 
 Name | Type | Description
@@ -1374,7 +1374,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateRoomParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateRoomParticipantParams struct
 
 
 Name | Type | Description
@@ -1418,7 +1418,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateRoomParticipantSubscribeRuleParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateRoomParticipantSubscribeRuleParams struct
 
 
 Name | Type | Description
@@ -1461,7 +1461,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateRoomRecordingRuleParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateRoomRecordingRuleParams struct
 
 
 Name | Type | Description

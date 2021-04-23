@@ -47,7 +47,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCredentialListParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCredentialListParams struct
 
 
 Name | Type | Description
@@ -90,7 +90,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateIpAccessControlListParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateIpAccessControlListParams struct
 
 
 Name | Type | Description
@@ -131,7 +131,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateOriginationUrlParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateOriginationUrlParams struct
 
 
 Name | Type | Description
@@ -176,7 +176,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreatePhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreatePhoneNumberParams struct
 
 
 Name | Type | Description
@@ -213,7 +213,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateTrunkParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateTrunkParams struct
 
 
 Name | Type | Description
@@ -261,7 +261,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCredentialListParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteCredentialListParams struct
 
 
 Name | Type | Description
@@ -304,7 +304,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteIpAccessControlListParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteIpAccessControlListParams struct
 
 
 Name | Type | Description
@@ -345,7 +345,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteOriginationUrlParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteOriginationUrlParams struct
 
 
 Name | Type | Description
@@ -386,7 +386,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeletePhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeletePhoneNumberParams struct
 
 
 Name | Type | Description
@@ -426,7 +426,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteTrunkParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteTrunkParams struct
 
 
 Name | Type | Description
@@ -467,7 +467,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCredentialListParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCredentialListParams struct
 
 
 Name | Type | Description
@@ -508,7 +508,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchIpAccessControlListParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchIpAccessControlListParams struct
 
 
 Name | Type | Description
@@ -549,7 +549,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchOriginationUrlParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchOriginationUrlParams struct
 
 
 Name | Type | Description
@@ -590,7 +590,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchPhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchPhoneNumberParams struct
 
 
 Name | Type | Description
@@ -630,7 +630,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRecordingParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRecordingParams struct
 
 
 Name | Type | Description
@@ -670,7 +670,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchTrunkParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchTrunkParams struct
 
 
 Name | Type | Description
@@ -710,7 +710,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCredentialListParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCredentialListParams struct
 
 
 Name | Type | Description
@@ -753,7 +753,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListIpAccessControlListParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListIpAccessControlListParams struct
 
 
 Name | Type | Description
@@ -794,7 +794,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListOriginationUrlParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListOriginationUrlParams struct
 
 
 Name | Type | Description
@@ -835,7 +835,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListPhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListPhoneNumberParams struct
 
 
 Name | Type | Description
@@ -872,7 +872,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListTrunkParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListTrunkParams struct
 
 
 Name | Type | Description
@@ -914,7 +914,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateOriginationUrlParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateOriginationUrlParams struct
 
 
 Name | Type | Description
@@ -959,7 +959,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateRecordingParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateRecordingParams struct
 
 
 Name | Type | Description
@@ -1001,7 +1001,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateTrunkParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateTrunkParams struct
 
 
 Name | Type | Description

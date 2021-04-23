@@ -105,7 +105,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateConversationParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateConversationParams struct
 
 
 Name | Type | Description
@@ -157,7 +157,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateConversationMessageParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateConversationMessageParams struct
 
 
 Name | Type | Description
@@ -206,7 +206,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateConversationParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateConversationParticipantParams struct
 
 
 Name | Type | Description
@@ -257,7 +257,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateConversationScopedWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateConversationScopedWebhookParams struct
 
 
 Name | Type | Description
@@ -302,7 +302,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCredentialParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCredentialParams struct
 
 
 Name | Type | Description
@@ -347,7 +347,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateRoleParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateRoleParams struct
 
 
 Name | Type | Description
@@ -388,7 +388,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceParams struct
 
 
 Name | Type | Description
@@ -431,7 +431,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceConversationParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceConversationParams struct
 
 
 Name | Type | Description
@@ -484,7 +484,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceConversationMessageParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceConversationMessageParams struct
 
 
 Name | Type | Description
@@ -534,7 +534,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceConversationParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceConversationParticipantParams struct
 
 
 Name | Type | Description
@@ -586,7 +586,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceConversationScopedWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceConversationScopedWebhookParams struct
 
 
 Name | Type | Description
@@ -635,7 +635,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceRoleParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceRoleParams struct
 
 
 Name | Type | Description
@@ -680,7 +680,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceUserParams struct
 
 
 Name | Type | Description
@@ -723,7 +723,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateUserParams struct
 
 
 Name | Type | Description
@@ -770,7 +770,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteConversationParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteConversationParams struct
 
 
 Name | Type | Description
@@ -814,7 +814,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteConversationMessageParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteConversationMessageParams struct
 
 
 Name | Type | Description
@@ -858,7 +858,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteConversationParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteConversationParticipantParams struct
 
 
 Name | Type | Description
@@ -902,7 +902,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteConversationScopedWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteConversationScopedWebhookParams struct
 
 
 Name | Type | Description
@@ -944,7 +944,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCredentialParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteCredentialParams struct
 
 
 Name | Type | Description
@@ -986,7 +986,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteRoleParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteRoleParams struct
 
 
 Name | Type | Description
@@ -1028,7 +1028,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceParams struct
 
 
 Name | Type | Description
@@ -1071,7 +1071,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceBindingParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceBindingParams struct
 
 
 Name | Type | Description
@@ -1114,7 +1114,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceConversationParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceConversationParams struct
 
 
 Name | Type | Description
@@ -1159,7 +1159,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceConversationMessageParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceConversationMessageParams struct
 
 
 Name | Type | Description
@@ -1204,7 +1204,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceConversationParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceConversationParticipantParams struct
 
 
 Name | Type | Description
@@ -1249,7 +1249,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceConversationScopedWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceConversationScopedWebhookParams struct
 
 
 Name | Type | Description
@@ -1292,7 +1292,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceRoleParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceRoleParams struct
 
 
 Name | Type | Description
@@ -1335,7 +1335,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceUserParams struct
 
 
 Name | Type | Description
@@ -1378,7 +1378,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteUserParams struct
 
 
 Name | Type | Description
@@ -1417,7 +1417,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchConfigurationParams struct
 
 
 ### Return type
@@ -1450,7 +1450,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchConfigurationWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchConfigurationWebhookParams struct
 
 
 ### Return type
@@ -1489,7 +1489,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchConversationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchConversationParams struct
 
 
 Name | Type | Description
@@ -1532,7 +1532,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchConversationMessageParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchConversationMessageParams struct
 
 
 Name | Type | Description
@@ -1576,7 +1576,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchConversationMessageReceiptParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchConversationMessageReceiptParams struct
 
 
 Name | Type | Description
@@ -1619,7 +1619,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchConversationParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchConversationParticipantParams struct
 
 
 Name | Type | Description
@@ -1662,7 +1662,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchConversationScopedWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchConversationScopedWebhookParams struct
 
 
 Name | Type | Description
@@ -1704,7 +1704,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCredentialParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCredentialParams struct
 
 
 Name | Type | Description
@@ -1746,7 +1746,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchRoleParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchRoleParams struct
 
 
 Name | Type | Description
@@ -1788,7 +1788,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceParams struct
 
 
 Name | Type | Description
@@ -1831,7 +1831,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceBindingParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceBindingParams struct
 
 
 Name | Type | Description
@@ -1873,7 +1873,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceConfigurationParams struct
 
 
 Name | Type | Description
@@ -1916,7 +1916,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceConversationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceConversationParams struct
 
 
 Name | Type | Description
@@ -1960,7 +1960,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceConversationMessageParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceConversationMessageParams struct
 
 
 Name | Type | Description
@@ -2005,7 +2005,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceConversationMessageReceiptParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceConversationMessageReceiptParams struct
 
 
 Name | Type | Description
@@ -2049,7 +2049,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceConversationParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceConversationParticipantParams struct
 
 
 Name | Type | Description
@@ -2093,7 +2093,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceConversationScopedWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceConversationScopedWebhookParams struct
 
 
 Name | Type | Description
@@ -2135,7 +2135,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceNotificationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceNotificationParams struct
 
 
 Name | Type | Description
@@ -2178,7 +2178,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceRoleParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceRoleParams struct
 
 
 Name | Type | Description
@@ -2221,7 +2221,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceUserParams struct
 
 
 Name | Type | Description
@@ -2263,7 +2263,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchUserParams struct
 
 
 Name | Type | Description
@@ -2301,7 +2301,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListConversationParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListConversationParams struct
 
 
 Name | Type | Description
@@ -2344,7 +2344,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListConversationMessageParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListConversationMessageParams struct
 
 
 Name | Type | Description
@@ -2388,7 +2388,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListConversationMessageReceiptParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListConversationMessageReceiptParams struct
 
 
 Name | Type | Description
@@ -2431,7 +2431,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListConversationParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListConversationParticipantParams struct
 
 
 Name | Type | Description
@@ -2474,7 +2474,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListConversationScopedWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListConversationScopedWebhookParams struct
 
 
 Name | Type | Description
@@ -2513,7 +2513,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCredentialParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCredentialParams struct
 
 
 Name | Type | Description
@@ -2552,7 +2552,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListRoleParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListRoleParams struct
 
 
 Name | Type | Description
@@ -2591,7 +2591,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceParams struct
 
 
 Name | Type | Description
@@ -2634,7 +2634,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceBindingParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceBindingParams struct
 
 
 Name | Type | Description
@@ -2679,7 +2679,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceConversationParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceConversationParams struct
 
 
 Name | Type | Description
@@ -2723,7 +2723,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceConversationMessageParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceConversationMessageParams struct
 
 
 Name | Type | Description
@@ -2768,7 +2768,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceConversationMessageReceiptParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceConversationMessageReceiptParams struct
 
 
 Name | Type | Description
@@ -2812,7 +2812,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceConversationParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceConversationParticipantParams struct
 
 
 Name | Type | Description
@@ -2856,7 +2856,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceConversationScopedWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceConversationScopedWebhookParams struct
 
 
 Name | Type | Description
@@ -2899,7 +2899,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceRoleParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceRoleParams struct
 
 
 Name | Type | Description
@@ -2942,7 +2942,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceUserParams struct
 
 
 Name | Type | Description
@@ -2981,7 +2981,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListUserParams struct
 
 
 Name | Type | Description
@@ -3020,7 +3020,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateConfigurationParams struct
 
 
 Name | Type | Description
@@ -3060,7 +3060,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateConfigurationWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateConfigurationWebhookParams struct
 
 
 Name | Type | Description
@@ -3107,7 +3107,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateConversationParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateConversationParams struct
 
 
 Name | Type | Description
@@ -3160,7 +3160,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateConversationMessageParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateConversationMessageParams struct
 
 
 Name | Type | Description
@@ -3209,7 +3209,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateConversationParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateConversationParticipantParams struct
 
 
 Name | Type | Description
@@ -3262,7 +3262,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateConversationScopedWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateConversationScopedWebhookParams struct
 
 
 Name | Type | Description
@@ -3309,7 +3309,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateCredentialParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateCredentialParams struct
 
 
 Name | Type | Description
@@ -3358,7 +3358,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateRoleParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateRoleParams struct
 
 
 Name | Type | Description
@@ -3401,7 +3401,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceConfigurationParams struct
 
 
 Name | Type | Description
@@ -3448,7 +3448,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceConversationParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceConversationParams struct
 
 
 Name | Type | Description
@@ -3502,7 +3502,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceConversationMessageParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceConversationMessageParams struct
 
 
 Name | Type | Description
@@ -3552,7 +3552,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceConversationParticipantParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceConversationParticipantParams struct
 
 
 Name | Type | Description
@@ -3606,7 +3606,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceConversationScopedWebhookParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceConversationScopedWebhookParams struct
 
 
 Name | Type | Description
@@ -3653,7 +3653,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceNotificationParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceNotificationParams struct
 
 
 Name | Type | Description
@@ -3707,7 +3707,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceRoleParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceRoleParams struct
 
 
 Name | Type | Description
@@ -3751,7 +3751,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceUserParams struct
 
 
 Name | Type | Description
@@ -3797,7 +3797,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateUserParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateUserParams struct
 
 
 Name | Type | Description

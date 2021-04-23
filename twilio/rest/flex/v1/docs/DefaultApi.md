@@ -35,7 +35,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateChannelParams struct
 
 
 Name | Type | Description
@@ -81,7 +81,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateFlexFlowParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateFlexFlowParams struct
 
 
 Name | Type | Description
@@ -134,7 +134,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateWebChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateWebChannelParams struct
 
 
 Name | Type | Description
@@ -180,7 +180,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteChannelParams struct
 
 
 Name | Type | Description
@@ -220,7 +220,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFlexFlowParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteFlexFlowParams struct
 
 
 Name | Type | Description
@@ -260,7 +260,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteWebChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteWebChannelParams struct
 
 
 Name | Type | Description
@@ -300,7 +300,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchChannelParams struct
 
 
 Name | Type | Description
@@ -336,7 +336,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchConfigurationParams struct
 
 
 Name | Type | Description
@@ -377,7 +377,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFlexFlowParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFlexFlowParams struct
 
 
 Name | Type | Description
@@ -417,7 +417,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchWebChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchWebChannelParams struct
 
 
 Name | Type | Description
@@ -453,7 +453,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListChannelParams struct
 
 
 Name | Type | Description
@@ -490,7 +490,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFlexFlowParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListFlexFlowParams struct
 
 
 Name | Type | Description
@@ -528,7 +528,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListWebChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListWebChannelParams struct
 
 
 Name | Type | Description
@@ -565,7 +565,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateConfigurationParams struct
 
 
 ### Return type
@@ -602,7 +602,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateFlexFlowParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateFlexFlowParams struct
 
 
 Name | Type | Description
@@ -659,7 +659,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateWebChannelParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateWebChannelParams struct
 
 
 Name | Type | Description

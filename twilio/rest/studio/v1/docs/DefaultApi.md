@@ -45,7 +45,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateEngagementParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateEngagementParams struct
 
 
 Name | Type | Description
@@ -90,7 +90,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateExecutionParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateExecutionParams struct
 
 
 Name | Type | Description
@@ -136,7 +136,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteEngagementParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteEngagementParams struct
 
 
 Name | Type | Description
@@ -179,7 +179,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteExecutionParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteExecutionParams struct
 
 
 Name | Type | Description
@@ -221,7 +221,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFlowParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteFlowParams struct
 
 
 Name | Type | Description
@@ -264,7 +264,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEngagementParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchEngagementParams struct
 
 
 Name | Type | Description
@@ -307,7 +307,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEngagementContextParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchEngagementContextParams struct
 
 
 Name | Type | Description
@@ -350,7 +350,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchExecutionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchExecutionParams struct
 
 
 Name | Type | Description
@@ -393,7 +393,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchExecutionContextParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchExecutionContextParams struct
 
 
 Name | Type | Description
@@ -437,7 +437,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchExecutionStepParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchExecutionStepParams struct
 
 
 Name | Type | Description
@@ -481,7 +481,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchExecutionStepContextParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchExecutionStepContextParams struct
 
 
 Name | Type | Description
@@ -523,7 +523,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFlowParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFlowParams struct
 
 
 Name | Type | Description
@@ -567,7 +567,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchStepParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchStepParams struct
 
 
 Name | Type | Description
@@ -611,7 +611,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchStepContextParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchStepContextParams struct
 
 
 Name | Type | Description
@@ -653,7 +653,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEngagementParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListEngagementParams struct
 
 
 Name | Type | Description
@@ -696,7 +696,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListExecutionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListExecutionParams struct
 
 
 Name | Type | Description
@@ -742,7 +742,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListExecutionStepParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListExecutionStepParams struct
 
 
 Name | Type | Description
@@ -781,7 +781,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFlowParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListFlowParams struct
 
 
 Name | Type | Description
@@ -825,7 +825,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListStepParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListStepParams struct
 
 
 Name | Type | Description
@@ -869,7 +869,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateExecutionParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateExecutionParams struct
 
 
 Name | Type | Description

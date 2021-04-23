@@ -50,7 +50,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateAlphaSenderParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateAlphaSenderParams struct
 
 
 Name | Type | Description
@@ -87,7 +87,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateBrandRegistrationsParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateBrandRegistrationsParams struct
 
 
 Name | Type | Description
@@ -125,7 +125,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateExternalCampaignParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateExternalCampaignParams struct
 
 
 Name | Type | Description
@@ -167,7 +167,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreatePhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreatePhoneNumberParams struct
 
 
 Name | Type | Description
@@ -204,7 +204,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceParams struct
 
 
 Name | Type | Description
@@ -259,7 +259,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateShortCodeParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateShortCodeParams struct
 
 
 Name | Type | Description
@@ -300,7 +300,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateUsAppToPersonParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateUsAppToPersonParams struct
 
 
 Name | Type | Description
@@ -347,7 +347,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteAlphaSenderParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteAlphaSenderParams struct
 
 
 Name | Type | Description
@@ -388,7 +388,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeletePhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeletePhoneNumberParams struct
 
 
 Name | Type | Description
@@ -428,7 +428,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceParams struct
 
 
 Name | Type | Description
@@ -469,7 +469,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteShortCodeParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteShortCodeParams struct
 
 
 Name | Type | Description
@@ -509,7 +509,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteUsAppToPersonParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteUsAppToPersonParams struct
 
 
 Name | Type | Description
@@ -550,7 +550,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchAlphaSenderParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchAlphaSenderParams struct
 
 
 Name | Type | Description
@@ -590,7 +590,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchBrandRegistrationsParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchBrandRegistrationsParams struct
 
 
 Name | Type | Description
@@ -628,7 +628,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchDeactivationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchDeactivationParams struct
 
 
 Name | Type | Description
@@ -670,7 +670,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchPhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchPhoneNumberParams struct
 
 
 Name | Type | Description
@@ -710,7 +710,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceParams struct
 
 
 Name | Type | Description
@@ -751,7 +751,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchShortCodeParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchShortCodeParams struct
 
 
 Name | Type | Description
@@ -791,7 +791,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchUsAppToPersonParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchUsAppToPersonParams struct
 
 
 Name | Type | Description
@@ -831,7 +831,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchUsAppToPersonUsecaseParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchUsAppToPersonUsecaseParams struct
 
 
 Name | Type | Description
@@ -867,7 +867,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchUsecaseParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchUsecaseParams struct
 
 
 ### Return type
@@ -904,7 +904,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListAlphaSenderParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListAlphaSenderParams struct
 
 
 Name | Type | Description
@@ -941,7 +941,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListBrandRegistrationsParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListBrandRegistrationsParams struct
 
 
 Name | Type | Description
@@ -982,7 +982,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListPhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListPhoneNumberParams struct
 
 
 Name | Type | Description
@@ -1019,7 +1019,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceParams struct
 
 
 Name | Type | Description
@@ -1060,7 +1060,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListShortCodeParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListShortCodeParams struct
 
 
 Name | Type | Description
@@ -1101,7 +1101,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 
 Name | Type | Description

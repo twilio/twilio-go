@@ -29,7 +29,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateFaxParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateFaxParams struct
 
 
 Name | Type | Description
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFaxParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteFaxParams struct
 
 
 Name | Type | Description
@@ -123,7 +123,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFaxMediaParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteFaxMediaParams struct
 
 
 Name | Type | Description
@@ -165,7 +165,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFaxParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFaxParams struct
 
 
 Name | Type | Description
@@ -208,7 +208,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFaxMediaParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFaxMediaParams struct
 
 
 Name | Type | Description
@@ -246,7 +246,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFaxParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListFaxParams struct
 
 
 Name | Type | Description
@@ -293,7 +293,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFaxMediaParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListFaxMediaParams struct
 
 
 Name | Type | Description
@@ -336,7 +336,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateFaxParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateFaxParams struct
 
 
 Name | Type | Description

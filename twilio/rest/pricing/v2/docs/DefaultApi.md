@@ -28,7 +28,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchVoiceCountryParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchVoiceCountryParams struct
 
 
 Name | Type | Description
@@ -70,7 +70,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchVoiceNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchVoiceNumberParams struct
 
 
 Name | Type | Description
@@ -107,7 +107,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListVoiceCountryParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListVoiceCountryParams struct
 
 
 Name | Type | Description

@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateBindingParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateBindingParams struct
 
 
 Name | Type | Description
@@ -81,7 +81,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCredentialParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCredentialParams struct
 
 
 Name | Type | Description
@@ -128,7 +128,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateNotificationParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateNotificationParams struct
 
 
 Name | Type | Description
@@ -182,7 +182,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceParams struct
 
 
 Name | Type | Description
@@ -237,7 +237,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteBindingParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteBindingParams struct
 
 
 Name | Type | Description
@@ -277,7 +277,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteCredentialParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteCredentialParams struct
 
 
 Name | Type | Description
@@ -317,7 +317,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceParams struct
 
 
 Name | Type | Description
@@ -358,7 +358,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchBindingParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchBindingParams struct
 
 
 Name | Type | Description
@@ -398,7 +398,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCredentialParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCredentialParams struct
 
 
 Name | Type | Description
@@ -438,7 +438,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceParams struct
 
 
 Name | Type | Description
@@ -478,7 +478,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListBindingParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListBindingParams struct
 
 
 Name | Type | Description
@@ -519,7 +519,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCredentialParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCredentialParams struct
 
 
 Name | Type | Description
@@ -556,7 +556,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceParams struct
 
 
 Name | Type | Description
@@ -598,7 +598,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateCredentialParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateCredentialParams struct
 
 
 Name | Type | Description
@@ -644,7 +644,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 
 Name | Type | Description

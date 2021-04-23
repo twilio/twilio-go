@@ -64,7 +64,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateAssetParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateAssetParams struct
 
 
 Name | Type | Description
@@ -107,7 +107,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateBuildParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateBuildParams struct
 
 
 Name | Type | Description
@@ -154,7 +154,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateDeploymentParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateDeploymentParams struct
 
 
 Name | Type | Description
@@ -197,7 +197,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateEnvironmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateEnvironmentParams struct
 
 
 Name | Type | Description
@@ -241,7 +241,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateFunctionParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateFunctionParams struct
 
 
 Name | Type | Description
@@ -280,7 +280,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceParams struct
 
 
 Name | Type | Description
@@ -327,7 +327,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateVariableParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateVariableParams struct
 
 
 Name | Type | Description
@@ -372,7 +372,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteAssetParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteAssetParams struct
 
 
 Name | Type | Description
@@ -415,7 +415,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteBuildParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteBuildParams struct
 
 
 Name | Type | Description
@@ -458,7 +458,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteEnvironmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteEnvironmentParams struct
 
 
 Name | Type | Description
@@ -501,7 +501,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteFunctionParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteFunctionParams struct
 
 
 Name | Type | Description
@@ -543,7 +543,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceParams struct
 
 
 Name | Type | Description
@@ -587,7 +587,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteVariableParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteVariableParams struct
 
 
 Name | Type | Description
@@ -630,7 +630,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchAssetParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchAssetParams struct
 
 
 Name | Type | Description
@@ -674,7 +674,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchAssetVersionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchAssetVersionParams struct
 
 
 Name | Type | Description
@@ -717,7 +717,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchBuildParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchBuildParams struct
 
 
 Name | Type | Description
@@ -760,7 +760,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchBuildStatusParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchBuildStatusParams struct
 
 
 Name | Type | Description
@@ -804,7 +804,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchDeploymentParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchDeploymentParams struct
 
 
 Name | Type | Description
@@ -847,7 +847,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEnvironmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchEnvironmentParams struct
 
 
 Name | Type | Description
@@ -890,7 +890,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFunctionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFunctionParams struct
 
 
 Name | Type | Description
@@ -934,7 +934,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFunctionVersionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFunctionVersionParams struct
 
 
 Name | Type | Description
@@ -978,7 +978,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFunctionVersionContentParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFunctionVersionContentParams struct
 
 
 Name | Type | Description
@@ -1022,7 +1022,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchLogParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchLogParams struct
 
 
 Name | Type | Description
@@ -1064,7 +1064,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceParams struct
 
 
 Name | Type | Description
@@ -1108,7 +1108,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchVariableParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchVariableParams struct
 
 
 Name | Type | Description
@@ -1150,7 +1150,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListAssetParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListAssetParams struct
 
 
 Name | Type | Description
@@ -1194,7 +1194,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListAssetVersionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListAssetVersionParams struct
 
 
 Name | Type | Description
@@ -1237,7 +1237,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListBuildParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListBuildParams struct
 
 
 Name | Type | Description
@@ -1281,7 +1281,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListDeploymentParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListDeploymentParams struct
 
 
 Name | Type | Description
@@ -1324,7 +1324,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEnvironmentParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListEnvironmentParams struct
 
 
 Name | Type | Description
@@ -1367,7 +1367,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFunctionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListFunctionParams struct
 
 
 Name | Type | Description
@@ -1411,7 +1411,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFunctionVersionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListFunctionVersionParams struct
 
 
 Name | Type | Description
@@ -1455,7 +1455,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListLogParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListLogParams struct
 
 
 Name | Type | Description
@@ -1497,7 +1497,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceParams struct
 
 
 Name | Type | Description
@@ -1541,7 +1541,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListVariableParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListVariableParams struct
 
 
 Name | Type | Description
@@ -1585,7 +1585,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateAssetParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateAssetParams struct
 
 
 Name | Type | Description
@@ -1629,7 +1629,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateFunctionParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateFunctionParams struct
 
 
 Name | Type | Description
@@ -1672,7 +1672,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 
 Name | Type | Description
@@ -1719,7 +1719,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateVariableParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateVariableParams struct
 
 
 Name | Type | Description

@@ -30,7 +30,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchMessagingCountryParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchMessagingCountryParams struct
 
 
 Name | Type | Description
@@ -70,7 +70,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchPhoneNumberCountryParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchPhoneNumberCountryParams struct
 
 
 Name | Type | Description
@@ -110,7 +110,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchVoiceCountryParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchVoiceCountryParams struct
 
 
 Name | Type | Description
@@ -150,7 +150,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchVoiceNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchVoiceNumberParams struct
 
 
 Name | Type | Description
@@ -186,7 +186,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListMessagingCountryParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListMessagingCountryParams struct
 
 
 Name | Type | Description
@@ -223,7 +223,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListPhoneNumberCountryParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListPhoneNumberCountryParams struct
 
 
 Name | Type | Description
@@ -260,7 +260,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListVoiceCountryParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListVoiceCountryParams struct
 
 
 Name | Type | Description

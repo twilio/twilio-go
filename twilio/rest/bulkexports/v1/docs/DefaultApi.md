@@ -32,7 +32,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateExportCustomJobParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateExportCustomJobParams struct
 
 
 Name | Type | Description
@@ -78,7 +78,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteJobParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteJobParams struct
 
 
 Name | Type | Description
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchDayParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchDayParams struct
 
 
 Name | Type | Description
@@ -163,7 +163,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchExportParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchExportParams struct
 
 
 Name | Type | Description
@@ -205,7 +205,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchExportConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchExportConfigurationParams struct
 
 
 Name | Type | Description
@@ -245,7 +245,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchJobParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchJobParams struct
 
 
 Name | Type | Description
@@ -287,7 +287,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListDayParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListDayParams struct
 
 
 Name | Type | Description
@@ -328,7 +328,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListExportCustomJobParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListExportCustomJobParams struct
 
 
 Name | Type | Description
@@ -371,7 +371,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateExportConfigurationParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateExportConfigurationParams struct
 
 
 Name | Type | Description

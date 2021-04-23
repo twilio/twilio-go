@@ -46,7 +46,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateCommandParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateCommandParams struct
 
 
 Name | Type | Description
@@ -88,7 +88,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateFleetParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateFleetParams struct
 
 
 Name | Type | Description
@@ -136,7 +136,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateNetworkAccessProfileParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateNetworkAccessProfileParams struct
 
 
 Name | Type | Description
@@ -180,7 +180,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateNetworkAccessProfileNetworkParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateNetworkAccessProfileNetworkParams struct
 
 
 Name | Type | Description
@@ -219,7 +219,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSimParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSimParams struct
 
 
 Name | Type | Description
@@ -259,7 +259,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSmsCommandParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSmsCommandParams struct
 
 
 Name | Type | Description
@@ -306,7 +306,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteNetworkAccessProfileNetworkParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteNetworkAccessProfileNetworkParams struct
 
 
 Name | Type | Description
@@ -348,7 +348,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCommandParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCommandParams struct
 
 
 Name | Type | Description
@@ -390,7 +390,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchFleetParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchFleetParams struct
 
 
 Name | Type | Description
@@ -432,7 +432,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchNetworkParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchNetworkParams struct
 
 
 Name | Type | Description
@@ -474,7 +474,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchNetworkAccessProfileParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchNetworkAccessProfileParams struct
 
 
 Name | Type | Description
@@ -517,7 +517,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchNetworkAccessProfileNetworkParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchNetworkAccessProfileNetworkParams struct
 
 
 Name | Type | Description
@@ -559,7 +559,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSimParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSimParams struct
 
 
 Name | Type | Description
@@ -601,7 +601,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSmsCommandParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSmsCommandParams struct
 
 
 Name | Type | Description
@@ -639,7 +639,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListCommandParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListCommandParams struct
 
 
 Name | Type | Description
@@ -681,7 +681,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListFleetParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListFleetParams struct
 
 
 Name | Type | Description
@@ -721,7 +721,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListNetworkParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListNetworkParams struct
 
 
 Name | Type | Description
@@ -763,7 +763,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListNetworkAccessProfileParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListNetworkAccessProfileParams struct
 
 
 Name | Type | Description
@@ -806,7 +806,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListNetworkAccessProfileNetworkParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListNetworkAccessProfileNetworkParams struct
 
 
 Name | Type | Description
@@ -845,7 +845,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSimParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSimParams struct
 
 
 Name | Type | Description
@@ -887,7 +887,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSmsCommandParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSmsCommandParams struct
 
 
 Name | Type | Description
@@ -929,7 +929,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListUsageRecordParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListUsageRecordParams struct
 
 
 Name | Type | Description
@@ -980,7 +980,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateFleetParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateFleetParams struct
 
 
 Name | Type | Description
@@ -1028,7 +1028,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateNetworkAccessProfileParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateNetworkAccessProfileParams struct
 
 
 Name | Type | Description
@@ -1071,7 +1071,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSimParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSimParams struct
 
 
 Name | Type | Description

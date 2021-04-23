@@ -24,7 +24,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchPhoneNumberParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchPhoneNumberParams struct
 
 
 Name | Type | Description

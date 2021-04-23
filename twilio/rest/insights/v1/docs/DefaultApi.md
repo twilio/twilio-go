@@ -31,7 +31,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchCallParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchCallParams struct
 
 
 Name | Type | Description
@@ -71,7 +71,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSummaryParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSummaryParams struct
 
 
 Name | Type | Description
@@ -115,7 +115,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchVideoParticipantSummaryParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchVideoParticipantSummaryParams struct
 
 
 Name | Type | Description
@@ -157,7 +157,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchVideoRoomSummaryParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchVideoRoomSummaryParams struct
 
 
 Name | Type | Description
@@ -197,7 +197,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEventParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListEventParams struct
 
 
 Name | Type | Description
@@ -239,7 +239,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListMetricParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListMetricParams struct
 
 
 Name | Type | Description
@@ -284,7 +284,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListVideoParticipantSummaryParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListVideoParticipantSummaryParams struct
 
 
 Name | Type | Description
@@ -323,7 +323,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListVideoRoomSummaryParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListVideoRoomSummaryParams struct
 
 
 Name | Type | Description

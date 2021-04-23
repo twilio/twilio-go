@@ -71,7 +71,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateDocumentParams struct
 
 
 Name | Type | Description
@@ -110,7 +110,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateServiceParams struct
 
 
 Name | Type | Description
@@ -160,7 +160,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateStreamMessageParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateStreamMessageParams struct
 
 
 Name | Type | Description
@@ -201,7 +201,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSyncListParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSyncListParams struct
 
 
 Name | Type | Description
@@ -245,7 +245,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSyncListItemParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSyncListItemParams struct
 
 
 Name | Type | Description
@@ -289,7 +289,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSyncMapParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSyncMapParams struct
 
 
 Name | Type | Description
@@ -333,7 +333,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSyncMapItemParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSyncMapItemParams struct
 
 
 Name | Type | Description
@@ -380,7 +380,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a CreateSyncStreamParams struct via the builder pattern
+Other parameters are passed through a pointer to a CreateSyncStreamParams struct
 
 
 Name | Type | Description
@@ -423,7 +423,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteDocumentParams struct
 
 
 Name | Type | Description
@@ -467,7 +467,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteDocumentPermissionParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteDocumentPermissionParams struct
 
 
 Name | Type | Description
@@ -507,7 +507,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteServiceParams struct
 
 
 Name | Type | Description
@@ -548,7 +548,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSyncListParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSyncListParams struct
 
 
 Name | Type | Description
@@ -590,7 +590,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSyncListItemParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSyncListItemParams struct
 
 
 Name | Type | Description
@@ -635,7 +635,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSyncListPermissionParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSyncListPermissionParams struct
 
 
 Name | Type | Description
@@ -676,7 +676,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSyncMapParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSyncMapParams struct
 
 
 Name | Type | Description
@@ -718,7 +718,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSyncMapItemParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSyncMapItemParams struct
 
 
 Name | Type | Description
@@ -763,7 +763,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSyncMapPermissionParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSyncMapPermissionParams struct
 
 
 Name | Type | Description
@@ -806,7 +806,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a DeleteSyncStreamParams struct via the builder pattern
+Other parameters are passed through a pointer to a DeleteSyncStreamParams struct
 
 
 Name | Type | Description
@@ -847,7 +847,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchDocumentParams struct
 
 
 Name | Type | Description
@@ -891,7 +891,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchDocumentPermissionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchDocumentPermissionParams struct
 
 
 Name | Type | Description
@@ -931,7 +931,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchServiceParams struct
 
 
 Name | Type | Description
@@ -972,7 +972,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSyncListParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSyncListParams struct
 
 
 Name | Type | Description
@@ -1014,7 +1014,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSyncListItemParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSyncListItemParams struct
 
 
 Name | Type | Description
@@ -1058,7 +1058,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSyncListPermissionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSyncListPermissionParams struct
 
 
 Name | Type | Description
@@ -1099,7 +1099,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSyncMapParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSyncMapParams struct
 
 
 Name | Type | Description
@@ -1141,7 +1141,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSyncMapItemParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSyncMapItemParams struct
 
 
 Name | Type | Description
@@ -1185,7 +1185,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSyncMapPermissionParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSyncMapPermissionParams struct
 
 
 Name | Type | Description
@@ -1228,7 +1228,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchSyncStreamParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchSyncStreamParams struct
 
 
 Name | Type | Description
@@ -1268,7 +1268,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListDocumentParams struct
 
 
 Name | Type | Description
@@ -1312,7 +1312,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListDocumentPermissionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListDocumentPermissionParams struct
 
 
 Name | Type | Description
@@ -1349,7 +1349,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListServiceParams struct
 
 
 Name | Type | Description
@@ -1390,7 +1390,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSyncListParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSyncListParams struct
 
 
 Name | Type | Description
@@ -1432,7 +1432,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSyncListItemParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSyncListItemParams struct
 
 
 Name | Type | Description
@@ -1479,7 +1479,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSyncListPermissionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSyncListPermissionParams struct
 
 
 Name | Type | Description
@@ -1520,7 +1520,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSyncMapParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSyncMapParams struct
 
 
 Name | Type | Description
@@ -1562,7 +1562,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSyncMapItemParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSyncMapItemParams struct
 
 
 Name | Type | Description
@@ -1609,7 +1609,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSyncMapPermissionParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSyncMapPermissionParams struct
 
 
 Name | Type | Description
@@ -1652,7 +1652,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListSyncStreamParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListSyncStreamParams struct
 
 
 Name | Type | Description
@@ -1694,7 +1694,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateDocumentParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateDocumentParams struct
 
 
 Name | Type | Description
@@ -1741,7 +1741,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateDocumentPermissionParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateDocumentPermissionParams struct
 
 
 Name | Type | Description
@@ -1784,7 +1784,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateServiceParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 
 Name | Type | Description
@@ -1832,7 +1832,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSyncListParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSyncListParams struct
 
 
 Name | Type | Description
@@ -1876,7 +1876,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSyncListItemParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSyncListItemParams struct
 
 
 Name | Type | Description
@@ -1925,7 +1925,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSyncListPermissionParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSyncListPermissionParams struct
 
 
 Name | Type | Description
@@ -1969,7 +1969,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSyncMapParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSyncMapParams struct
 
 
 Name | Type | Description
@@ -2013,7 +2013,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSyncMapItemParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSyncMapItemParams struct
 
 
 Name | Type | Description
@@ -2062,7 +2062,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSyncMapPermissionParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSyncMapPermissionParams struct
 
 
 Name | Type | Description
@@ -2108,7 +2108,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a UpdateSyncStreamParams struct via the builder pattern
+Other parameters are passed through a pointer to a UpdateSyncStreamParams struct
 
 
 Name | Type | Description

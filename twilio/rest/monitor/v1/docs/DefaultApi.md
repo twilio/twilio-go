@@ -27,7 +27,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchAlertParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchAlertParams struct
 
 
 Name | Type | Description
@@ -67,7 +67,7 @@ Name | Type | Description
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a FetchEventParams struct via the builder pattern
+Other parameters are passed through a pointer to a FetchEventParams struct
 
 
 Name | Type | Description
@@ -103,7 +103,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListAlertParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListAlertParams struct
 
 
 Name | Type | Description
@@ -145,7 +145,7 @@ This endpoint does not need any path parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a ListEventParams struct via the builder pattern
+Other parameters are passed through a pointer to a ListEventParams struct
 
 
 Name | Type | Description
