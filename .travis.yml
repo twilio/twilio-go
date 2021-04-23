@@ -1,7 +1,7 @@
 language: go
 go:
-- "1.15"
-- "1.16"
+- '1.15'
+- '1.16'
 install:
 - make install
 script:
@@ -13,4 +13,4 @@ notifications:
     on_success: never
     on_failure: change
     rooms:
-      - secure: cItjY/1VHEVdIquy0rFWER9s/IqwIRy4zlQF1CVKaigWMsafbmxWanRY18ArMNCvEVHtjYU09+ubgegx2aqnRZxTIKqppsOboJxTBhlJFZA5oPRaHZYDPw+tWqaVFtOVoQ1B8NbUjognv1LCIL2wVKZSlDx4z7AVmjHPNFiHVbI1Zj/TOYuz8csJG6FjtUqxdZXM1pyqLcbiWbjYlT7+dUahOrhaUWY0NmpFr62gsytEQi37IWzcKSBGxkd0LkJAXsh5AzbBy75ySSGr3OIXdiYsXniboxegzMW+lkoY7SUmfoAfp4buDjno+E3JKJWUQun7whRhUmemSf2Bb9xlzuwTnwdQxKA/tXO9cNQDV/VWSybe58ymyecTCnNCUPVc4iIDHCgZhBA/gyX9dHZlIi3J6Uj8c3+dld2mRpukagpzWDY9EzmqgJ8N6eL9sgP9f3qHt/vdzqgk0KsXEI35+2W6iFsn2dhCUNFAuglgwzMzaFE7umF23PG48PIotDcYKwOyb+TM7enqBTSIRjiHbyptMZHpVwYpyLJLGYUvlhjacHiOxaNziumWw+YB0T+TzFfv5jy5NHNL5UKXbDXMXUgHdIRwD9stiEVt3g2zgv8PFKnAPTnd7WG5F7YkKGsq7Yto2JBg2LCqPZ6MYrVeKiDwLxNhmuNotcHwAKCjx48=
+      secure: p48e21acIxzCs/vFcrSGvcv3jk/PnLcI8BaFpek7KE6lFUi+lDOlg3tNJlqBwQh2BKuoFdd4+x5uNcfpm3cl32usPA2K4e5EX6su+yJcrtt18kAt+p9AjrqFqxgKiq3gKCF/Bh8+r+yk8wMgS+WU8Bg2z6cwUqAoy5OcFwkvYu0wbDkFtEwWljXZbWejfEGD5OEq/4aZzM0GNl3DRdVcU7l4p0A3xPLIUJDSjKQ4J3GZSZE64YqHH1ANJergcX6mmMGVIQEHzgAXXBcLanzxTQfySgrrVMJz/xZh4lRJ/EMxMDj9LXFjOgQxJfo5qgPfhgc+s1hFajS0ykcJZW0Y7DnJz42Bjw4HnQayxEoB4/2HBD2Osggkd6mshe86QNzi1Xjd/V+Bs/RfuFHiU63AuAn0F1VHuOyrFu55MDCaJTg5RoWigP3k8cIlIMPAYygdxwB++FwcMiEdnoV9Coh4Lx6d6UNctGUOM22Dlnchn0CXbIb6/jqJA0atM9RvP3O0tcgD1xcN6IfiF55QAkd3E3K1aC+9pvy8UnD6biLf3k6YvaVrO/9ds+KbAhvQhnTnmhc++yAOdb24pbFQQVUYbn6/9nUkFs0Qw5yNP4Smp8dLOL/m9iwSwIqfclVY8GgYzjdDvib7NwWuB2IaHvbNPCsNx7PRtT81RNASoxc/+aM=
