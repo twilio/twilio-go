@@ -294,10 +294,11 @@ func main() {
 package main
 import (
 	"fmt"
-	twilio "github.com/twilio/twilio-go/twilio"
-	"github.com/twilio/twilio-go/framework/error"
-	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 	"os"
+
+	"github.com/twilio/twilio-go/framework/error"
+	"github.com/twilio/twilio-go/twilio"
+	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 )
 
 func main() {
