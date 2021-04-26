@@ -96,7 +96,7 @@ A Twilio client constructed without these parameters will also look for `TWILIO_
 package main
 import (
 	"fmt"
-	twilio "github.com/twilio/twilio-go/twilio"
+	"github.com/twilio/twilio-go/twilio"
 	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 	"os"
 )
@@ -127,7 +127,7 @@ func main() {
 package main
 import (
 	"fmt"
-	twilio "github.com/twilio/twilio-go/twilio"
+	"github.com/twilio/twilio-go/twilio"
 	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 	"os"
 )
@@ -164,7 +164,7 @@ package main
 
 import (
 	"fmt"
-	twilio "github.com/twilio/twilio-go/twilio"
+	"github.com/twilio/twilio-go/twilio"
 	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 	"os"
 )
@@ -196,15 +196,109 @@ func main() {
 }
 ```
 
+### Create a Serverless Function
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/twilio/twilio-go/twilio"
+	openapi "github.com/twilio/twilio-go/twilio/rest/serverless/v1"
+)
+
+func main() {
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	authToken := os.Getenv("TWILIO_AUTH_SID")
+	serviceSid := "ZSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	friendlyName := "My Serverless func"
+
+	client := twilio.NewClient(accountSid, authToken)
+
+	params := &openapi.CreateFunctionParams{
+		FriendlyName: &friendlyName,
+	}
+
+	resp, err := client.ServerlessV1.CreateFunction(serviceSid, params)
+	if err != nil {
+		fmt.Println(err.Error())
+		err = nil
+	} else {
+		fmt.Println(*resp.Sid)
+	}
+}
+```
+
+### Create a Studio Flow
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+
+	"github.com/twilio/twilio-go/twilio"
+	openapi "github.com/twilio/twilio-go/twilio/rest/studio/v2"
+)
+
+func main() {
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+
+	commit := "commit"
+	friendlyName := "Studio flow from Go"
+	status := "draft"
+
+	var jsonStr = `{
+   "description":"Twilio Studio flow service",
+   "initial_state":"Trigger",
+   "states":[
+      {
+         "properties":{
+            "offset":{
+               "y":0,
+               "x":0
+            }
+         },
+         "transitions":[
+            
+         ],
+         "name":"Trigger",
+         "type":"trigger"
+      }
+   ]
+}`
+
+	definition := make(map[string]interface{})
+	_ = json.Unmarshal([]byte(jsonStr), &definition)
+
+	client := twilio.NewClient(accountSid, authToken)
+	params := &openapi.CreateFlowParams{
+		CommitMessage: &commit,
+		Definition:    &definition,
+		FriendlyName:  &friendlyName,
+		Status:        &status,
+	}
+
+	resp, err := client.StudioV2.CreateFlow(params)
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println(*resp.Sid)
+	}
+}
+```
+
 ### Handling Exceptions
 ```go
 package main
 import (
 	"fmt"
-	twilio "github.com/twilio/twilio-go/twilio"
-	"github.com/twilio/twilio-go/framework/error"
-	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 	"os"
+
+	"github.com/twilio/twilio-go/framework/error"
+	"github.com/twilio/twilio-go/twilio"
+	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
 )
 
 func main() {
