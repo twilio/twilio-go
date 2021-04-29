@@ -171,3 +171,9 @@ func TestClient_BuildHostSetEdgeRegion(t *testing.T) {
 	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.twilio.com"))
 	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.urlEdge.urlRegion.twilio.com"))
 }
+
+//nolint:paralleltest
+func TestClient_BuildHostRawHostWithoutPeriods(t *testing.T) {
+	client := NewClient("user", "pass")
+	assert.Equal(t, "https://prism_twilio:4010", client.BuildHost("https://prism_twilio:4010"))
+}

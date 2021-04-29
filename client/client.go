@@ -53,9 +53,15 @@ func (c *Client) BuildHost(rawHost string) string {
 		region  = ""
 		pieces  = strings.Split(rawHost, ".")
 		product = pieces[0]
-		suffix  = strings.Join(pieces[len(pieces)-2:], ".")
 		result  = []string{}
 	)
+	suffix := ""
+
+	if len(pieces) >= 3 {
+		suffix = strings.Join(pieces[len(pieces)-2:], ".")
+	} else {
+		return rawHost
+	}
 
 	if len(pieces) == 4 {
 		// product.region.twilio.com
