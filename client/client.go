@@ -55,7 +55,7 @@ func (c *Client) BuildHost(rawHost string) string {
 		product = pieces[0]
 		result  = []string{}
 	)
-    suffix  := ""
+	suffix := ""
 
 	if len(pieces) >= 3 {
 		suffix = strings.Join(pieces[len(pieces)-2:], ".")
