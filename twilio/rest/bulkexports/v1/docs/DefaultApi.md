@@ -34,7 +34,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateExportCustomJobParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Email** | **string** | The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job&#39;s status.
@@ -54,8 +53,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -79,7 +78,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteJobParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -123,7 +121,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchDayParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -138,7 +135,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -165,7 +162,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchExportParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -180,7 +176,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -207,7 +203,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchExportConfigurationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -222,7 +217,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -247,7 +242,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchJobParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -262,7 +256,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -289,7 +283,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListDayParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -305,7 +298,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -330,7 +323,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListExportCustomJobParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -346,7 +338,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -373,7 +365,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateExportConfigurationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Enabled** | **bool** | If true, Twilio will automatically generate every day&#39;s file when the day is over.
@@ -390,8 +381,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

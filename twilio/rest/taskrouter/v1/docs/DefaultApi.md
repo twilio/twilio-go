@@ -85,7 +85,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateActivityParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Available** | **bool** | Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of &#x60;true&#x60;, &#x60;1&#x60;, or &#x60;yes&#x60; specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
@@ -101,8 +100,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -127,7 +126,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateTaskParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Attributes** | **string** | A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow&#39;s &#x60;assignment_callback_url&#x60; when the Task is assigned to a Worker. For example: &#x60;{ \\\&quot;task_type\\\&quot;: \\\&quot;call\\\&quot;, \\\&quot;twilio_call_sid\\\&quot;: \\\&quot;CAxxx\\\&quot;, \\\&quot;customer_ticket_number\\\&quot;: \\\&quot;12345\\\&quot; }&#x60;.
@@ -146,8 +144,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -172,7 +170,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateTaskChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChannelOptimizedRouting** | **bool** | Whether the Task Channel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
@@ -189,8 +186,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -215,7 +212,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateTaskQueueParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AssignmentActivitySid** | **string** | The SID of the Activity to assign Workers when a task is assigned to them.
@@ -235,8 +231,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -261,7 +257,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateWorkerParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ActivitySid** | **string** | The SID of a valid Activity that will describe the new Worker&#39;s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker&#39;s initial state is the &#x60;default_activity_sid&#x60; configured on the Workspace.
@@ -278,8 +273,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -304,7 +299,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateWorkflowParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AssignmentCallbackUrl** | **string** | The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
@@ -323,8 +317,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -345,7 +339,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateWorkspaceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **EventCallbackUrl** | **string** | The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information.
@@ -365,8 +358,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -391,7 +384,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteActivityParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -432,7 +424,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteTaskParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -475,7 +466,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteTaskChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -515,7 +505,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteTaskQueueParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -557,7 +546,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteWorkerParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -598,7 +586,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteWorkflowParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -637,7 +624,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteWorkspaceParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -679,7 +665,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchActivityParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -694,7 +679,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -720,7 +705,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchEventParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -735,7 +719,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -761,7 +745,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTaskParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -776,7 +759,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -802,7 +785,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTaskChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -817,7 +799,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -843,7 +825,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTaskQueueParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -858,7 +839,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -884,7 +865,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTaskQueueCumulativeStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
@@ -904,7 +884,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -930,7 +910,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTaskQueueRealTimeStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **TaskChannel** | **string** | The TaskChannel for which to fetch statistics. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
@@ -946,7 +925,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -972,7 +951,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTaskQueueStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
@@ -992,7 +970,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1019,7 +997,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTaskReservationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1034,7 +1011,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1060,7 +1037,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkerParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1075,7 +1051,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1102,7 +1078,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkerChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1117,7 +1092,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1143,7 +1118,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkerInstanceStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
@@ -1162,7 +1136,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1189,7 +1163,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkerReservationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1204,7 +1177,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1229,7 +1202,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkerStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
@@ -1251,7 +1223,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1276,7 +1248,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkersCumulativeStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -1295,7 +1266,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1320,7 +1291,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkersRealTimeStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **TaskChannel** | **string** | Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
@@ -1336,7 +1306,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1362,7 +1332,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkflowParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1377,7 +1346,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1403,7 +1372,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkflowCumulativeStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
@@ -1423,7 +1391,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1449,7 +1417,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkflowRealTimeStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **TaskChannel** | **string** | Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
@@ -1465,7 +1432,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1491,7 +1458,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkflowStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
@@ -1511,7 +1477,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1536,7 +1502,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkspaceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1551,7 +1516,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1576,7 +1541,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkspaceCumulativeStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
@@ -1596,7 +1560,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1621,7 +1585,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkspaceRealTimeStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **TaskChannel** | **string** | Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
@@ -1637,7 +1600,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1662,7 +1625,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkspaceStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
@@ -1682,7 +1644,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1707,7 +1669,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListActivityParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the Activity resources to read.
@@ -1725,7 +1686,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1749,7 +1710,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListEventParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1777,7 +1737,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1801,7 +1761,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListTaskParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1827,7 +1786,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1852,7 +1811,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListTaskChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1868,7 +1826,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1893,7 +1851,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListTaskQueueParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the TaskQueue resources to read.
@@ -1912,7 +1869,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1937,7 +1894,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListTaskQueuesStatisticsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
@@ -1959,7 +1915,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1985,7 +1941,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListTaskReservationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ReservationStatus** | **string** | Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
@@ -2002,7 +1957,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2027,7 +1982,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListWorkerParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ActivityName** | **string** | The &#x60;activity_name&#x60; of the Worker resources to read.
@@ -2050,7 +2004,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2076,7 +2030,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListWorkerChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2092,7 +2045,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2118,7 +2071,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListWorkerReservationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ReservationStatus** | **string** | Returns the list of reservations for a worker with a specified ReservationStatus. Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, &#x60;timeout&#x60;, &#x60;canceled&#x60;, or &#x60;rescinded&#x60;.
@@ -2135,7 +2087,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2160,7 +2112,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListWorkflowParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the Workflow resources to read.
@@ -2177,7 +2128,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2198,7 +2149,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListWorkspaceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the Workspace resources to read. For example &#x60;Customer Support&#x60; or &#x60;2014 Election Campaign&#x60;.
@@ -2215,7 +2165,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2241,7 +2191,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateActivityParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: &#x60;on-call&#x60;, &#x60;break&#x60;, and &#x60;email&#x60;.
@@ -2256,8 +2205,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2283,7 +2232,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateTaskParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
@@ -2303,8 +2251,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2330,7 +2278,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateTaskChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChannelOptimizedRouting** | **bool** | Whether the TaskChannel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
@@ -2346,8 +2293,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2373,7 +2320,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateTaskQueueParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AssignmentActivitySid** | **string** | The SID of the Activity to assign Workers when a task is assigned for them.
@@ -2393,8 +2339,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2420,7 +2366,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateTaskReservationParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2488,8 +2433,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2515,7 +2460,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateWorkerParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ActivitySid** | **string** | The SID of a valid Activity that will describe the Worker&#39;s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
@@ -2533,8 +2477,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2561,7 +2505,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateWorkerChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Available** | **bool** | Whether the WorkerChannel is available. Set to &#x60;false&#x60; to prevent the Worker from receiving any new Tasks of this TaskChannel type.
@@ -2577,8 +2520,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2604,7 +2547,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateWorkerReservationParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2670,8 +2612,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2697,7 +2639,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateWorkflowParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AssignmentCallbackUrl** | **string** | The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
@@ -2717,8 +2658,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2743,7 +2684,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateWorkspaceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **DefaultActivitySid** | **string** | The SID of the Activity that will be used when new Workers are created in the Workspace.
@@ -2764,8 +2704,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

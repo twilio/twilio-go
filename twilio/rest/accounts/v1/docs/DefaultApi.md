@@ -36,7 +36,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateCredentialAwsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
@@ -53,8 +52,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -77,7 +76,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateCredentialPublicKeyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
@@ -94,8 +92,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -130,7 +128,7 @@ Other parameters are passed through a pointer to a CreateSecondaryAuthTokenParam
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -156,7 +154,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCredentialAwsParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -198,7 +195,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCredentialPublicKeyParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -276,7 +272,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCredentialAwsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -291,7 +286,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -318,7 +313,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCredentialPublicKeyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -333,7 +327,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -356,7 +350,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListCredentialAwsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -372,7 +365,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -395,7 +388,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListCredentialPublicKeyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -411,7 +403,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -446,7 +438,7 @@ Other parameters are passed through a pointer to a UpdateAuthTokenPromotionParam
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -473,7 +465,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateCredentialAwsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
@@ -488,8 +479,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -516,7 +507,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateCredentialPublicKeyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
@@ -531,8 +521,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

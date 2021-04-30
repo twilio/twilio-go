@@ -30,7 +30,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchVoiceCountryParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -45,7 +44,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -72,7 +71,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchVoiceNumberParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **OriginationNumber** | **string** | The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
@@ -88,7 +86,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -109,7 +107,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListVoiceCountryParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -125,7 +122,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

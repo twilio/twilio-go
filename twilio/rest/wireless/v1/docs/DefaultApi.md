@@ -39,7 +39,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateCommandParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CallbackMethod** | **string** | The HTTP method we use to call &#x60;callback_url&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60;, and the default is &#x60;POST&#x60;.
@@ -60,8 +59,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -81,7 +80,6 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateRatePlanParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -107,8 +105,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -134,7 +132,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCommandParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -174,7 +171,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteRatePlanParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -217,7 +213,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSimParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -259,7 +254,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCommandParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -274,7 +268,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -299,7 +293,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchRatePlanParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -314,7 +307,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -341,7 +334,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSimParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -356,7 +348,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -377,7 +369,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListAccountUsageRecordParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **End** | **time.Time** | Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
@@ -396,7 +387,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -419,7 +410,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListCommandParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Sim** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
@@ -439,7 +429,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -464,7 +454,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListDataSessionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -480,7 +469,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -501,7 +490,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListRatePlanParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -517,7 +505,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -540,7 +528,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListSimParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Status** | **string** | Only return Sim resources with this status.
@@ -561,7 +548,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -586,7 +573,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListUsageRecordParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **End** | **time.Time** | Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
@@ -605,7 +591,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -630,7 +616,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateRatePlanParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It does not have to be unique.
@@ -646,8 +631,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -673,7 +658,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateSimParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -706,8 +690,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

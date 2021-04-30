@@ -37,7 +37,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChatFriendlyName** | **string** | The chat channel&#39;s friendly name.
@@ -61,8 +60,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -82,7 +81,6 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateFlexFlowParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -114,8 +112,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -136,7 +134,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateWebChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChatFriendlyName** | **string** | The chat channel&#39;s friendly name.
@@ -156,8 +153,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -181,7 +178,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteChannelParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -222,7 +218,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteFlexFlowParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -261,7 +256,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteWebChannelParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -302,7 +296,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -317,7 +310,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -338,7 +331,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a FetchConfigurationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **UiVersion** | **string** | The Pinned UI version of the Configuration resource to fetch.
@@ -354,7 +346,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -379,7 +371,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchFlexFlowParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -394,7 +385,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -419,7 +410,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWebChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -434,7 +424,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -455,7 +445,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -471,7 +460,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -492,7 +481,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListFlexFlowParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the Flex Flow resources to read.
@@ -509,7 +497,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -530,7 +518,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListWebChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -546,7 +533,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -579,7 +566,7 @@ Other parameters are passed through a pointer to a UpdateConfigurationParams str
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -603,7 +590,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateFlexFlowParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -635,8 +621,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -661,7 +647,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateWebChannelParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChatStatus** | **string** | The chat status. Can only be &#x60;inactive&#x60;.
@@ -677,8 +662,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

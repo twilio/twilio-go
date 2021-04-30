@@ -215,7 +215,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateAccountParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A human readable description of the account to create, defaults to &#x60;SubAccount Created at {YYYY-MM-DD HH:MM meridian}&#x60;
@@ -230,8 +229,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -256,7 +255,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateAddressParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won&#39;t alter the address you provide.
@@ -279,8 +277,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -306,7 +304,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateApplicationParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -336,8 +333,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -363,7 +360,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateCallParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -412,8 +408,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -440,7 +436,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateCallFeedbackSummaryParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **string** | Only include feedback given on or before this date. Format is &#x60;YYYY-MM-DD&#x60; and specified in UTC.
@@ -459,8 +454,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -488,7 +483,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateCallRecordingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **RecordingChannels** | **string** | The number of channels used in the recording. Can be: &#x60;mono&#x60; or &#x60;dual&#x60; and the default is &#x60;mono&#x60;. &#x60;mono&#x60; records all parties of the call into one channel. &#x60;dual&#x60; records each party of a 2-party call into separate channels.
@@ -508,8 +502,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -535,7 +529,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateIncomingPhoneNumberParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -574,8 +567,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -603,7 +596,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateIncomingPhoneNumberAssignedAddOnParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **InstalledAddOnSid** | **string** | The SID that identifies the Add-on installation.
@@ -618,8 +610,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -643,7 +635,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateIncomingPhoneNumberLocalParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -681,8 +672,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -706,7 +697,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateIncomingPhoneNumberMobileParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -744,8 +734,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -769,7 +759,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateIncomingPhoneNumberTollFreeParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -807,8 +796,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -834,7 +823,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateMessageParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -865,8 +853,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -892,7 +880,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateMessageFeedbackParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Outcome** | **string** | Whether the feedback has arrived. Can be: &#x60;unconfirmed&#x60; or &#x60;confirmed&#x60;. If &#x60;provide_feedback&#x60;&#x3D;&#x60;true&#x60; in [the initial HTTP POST](https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource), the initial value of this property is &#x60;unconfirmed&#x60;. After the message arrives, update the value to &#x60;confirmed&#x60;.
@@ -907,8 +894,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -933,7 +920,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateNewKeyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
@@ -948,8 +934,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -976,7 +962,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateNewSigningKeyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
@@ -991,8 +976,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1017,7 +1002,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateParticipantParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1070,8 +1054,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1098,7 +1082,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreatePaymentsParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1129,8 +1112,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1157,7 +1140,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateQueueParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you created to describe this resource. It can be up to 64 characters long.
@@ -1173,8 +1155,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1202,7 +1184,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSipAuthCallsCredentialListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CredentialListSid** | **string** | The SID of the CredentialList resource to map to the SIP domain.
@@ -1217,8 +1198,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1246,7 +1227,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSipAuthCallsIpAccessControlListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **IpAccessControlListSid** | **string** | The SID of the IpAccessControlList resource to map to the SIP domain.
@@ -1261,8 +1241,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1290,7 +1270,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSipAuthRegistrationsCredentialListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CredentialListSid** | **string** | The SID of the CredentialList resource to map to the SIP domain.
@@ -1305,8 +1284,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1334,7 +1313,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSipCredentialParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Password** | **string** | The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg &#x60;IWasAtSignal2018&#x60;)
@@ -1350,8 +1328,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1378,7 +1356,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSipCredentialListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A human readable descriptive text that describes the CredentialList, up to 64 characters long.
@@ -1393,8 +1370,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1422,7 +1399,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSipCredentialListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CredentialListSid** | **string** | A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain.
@@ -1437,8 +1413,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1464,7 +1440,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateSipDomainParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1492,8 +1467,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1520,7 +1495,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSipIpAccessControlListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long.
@@ -1535,8 +1509,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1564,7 +1538,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSipIpAccessControlListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **IpAccessControlListSid** | **string** | The unique id of the IP access control list to map to the SIP domain.
@@ -1579,8 +1552,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1608,7 +1581,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSipIpAddressParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CidrPrefixLength** | **int32** | An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
@@ -1625,8 +1597,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1653,7 +1625,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateTokenParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Ttl** | **int32** | The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
@@ -1668,8 +1639,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1696,7 +1667,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateUsageTriggerParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;.
@@ -1717,8 +1687,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1743,7 +1713,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateValidationRequestParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CallDelay** | **int32** | The number of seconds to delay before initiating the verification call. Can be an integer between &#x60;0&#x60; and &#x60;60&#x60;, inclusive. The default is &#x60;0&#x60;.
@@ -1763,8 +1732,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1789,7 +1758,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteAddressParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1833,7 +1801,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteApplicationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1876,7 +1843,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteCallParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1918,7 +1884,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCallFeedbackSummaryParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1963,7 +1928,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteCallRecordingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2007,7 +1971,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteConferenceRecordingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2050,7 +2013,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteConnectAppParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2092,7 +2054,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteIncomingPhoneNumberParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2137,7 +2098,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteIncomingPhoneNumberAssignedAddOnParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2177,7 +2137,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteKeyParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2222,7 +2181,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteMediaParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2265,7 +2223,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2307,7 +2264,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteOutgoingCallerIdParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2352,7 +2308,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteParticipantParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2394,7 +2349,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteQueueParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2438,7 +2392,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteRecordingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2481,7 +2434,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteRecordingAddOnResultParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2527,7 +2479,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteRecordingAddOnResultPayloadParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2569,7 +2520,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteRecordingTranscriptionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2609,7 +2559,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSigningKeyParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2654,7 +2603,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSipAuthCallsCredentialListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2697,7 +2645,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSipAuthCallsIpAccessControlListMappingParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2742,7 +2689,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSipAuthRegistrationsCredentialListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2786,7 +2732,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSipCredentialParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2828,7 +2773,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSipCredentialListParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2873,7 +2817,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSipCredentialListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2916,7 +2859,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSipDomainParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2958,7 +2900,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSipIpAccessControlListParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -3003,7 +2944,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSipIpAccessControlListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3047,7 +2987,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSipIpAddressParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3090,7 +3029,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteTranscriptionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3130,7 +3068,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteUsageTriggerParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -3173,7 +3110,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchAccountParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3188,7 +3124,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3214,7 +3150,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchAddressParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3229,7 +3164,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3257,7 +3192,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchApplicationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3272,7 +3206,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3300,7 +3234,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchAuthorizedConnectAppParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3315,7 +3248,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3341,7 +3274,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchAvailablePhoneNumberCountryParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3356,7 +3288,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3383,7 +3315,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchBalanceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3398,7 +3329,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3426,7 +3357,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCallParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3441,7 +3371,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3469,7 +3399,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCallFeedbackParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3484,7 +3413,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3512,7 +3441,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCallFeedbackSummaryParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3527,7 +3455,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3554,7 +3482,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCallNotificationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3569,7 +3496,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3598,7 +3525,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCallRecordingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3613,7 +3539,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3641,7 +3567,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchConferenceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3656,7 +3581,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3685,7 +3610,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchConferenceRecordingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3700,7 +3624,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3728,7 +3652,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchConnectAppParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3743,7 +3666,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3771,7 +3694,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchIncomingPhoneNumberParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3786,7 +3708,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3815,7 +3737,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchIncomingPhoneNumberAssignedAddOnParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3830,7 +3751,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3860,7 +3781,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchIncomingPhoneNumberAssignedAddOnExtensionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3875,7 +3795,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3901,7 +3821,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchKeyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3916,7 +3835,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3945,7 +3864,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchMediaParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -3960,7 +3878,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3989,7 +3907,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchMemberParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4004,7 +3921,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4032,7 +3949,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4047,7 +3963,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4075,7 +3991,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchNotificationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4090,7 +4005,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4118,7 +4033,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchOutgoingCallerIdParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4133,7 +4047,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4162,7 +4076,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchParticipantParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4177,7 +4090,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4205,7 +4118,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchQueueParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4220,7 +4132,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4248,7 +4160,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchRecordingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4263,7 +4174,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4292,7 +4203,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchRecordingAddOnResultParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4307,7 +4217,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4337,7 +4247,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchRecordingAddOnResultPayloadParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4352,7 +4261,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4379,7 +4288,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchRecordingTranscriptionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4394,7 +4302,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4422,7 +4330,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchShortCodeParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4437,7 +4344,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4463,7 +4370,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSigningKeyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4478,7 +4384,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4507,7 +4413,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSipAuthCallsCredentialListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4522,7 +4427,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4551,7 +4456,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSipAuthCallsIpAccessControlListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4566,7 +4470,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4595,7 +4499,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSipAuthRegistrationsCredentialListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4610,7 +4513,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4639,7 +4542,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSipCredentialParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4654,7 +4556,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4682,7 +4584,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSipCredentialListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4697,7 +4598,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4726,7 +4627,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSipCredentialListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4741,7 +4641,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4769,7 +4669,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSipDomainParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4784,7 +4683,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4812,7 +4711,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSipIpAccessControlListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4827,7 +4725,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4856,7 +4754,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSipIpAccessControlListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4871,7 +4768,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4900,7 +4797,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSipIpAddressParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4915,7 +4811,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4943,7 +4839,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTranscriptionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -4958,7 +4853,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -4986,7 +4881,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchUsageTriggerParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -5001,7 +4895,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5024,7 +4918,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListAccountParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | Only return the Account resources with friendly names that exactly match this name.
@@ -5042,7 +4935,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5067,7 +4960,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListAddressParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CustomerName** | **string** | The &#x60;customer_name&#x60; of the Address resources to read.
@@ -5086,7 +4978,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5113,7 +5005,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListApplicationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that identifies the Application resources to read.
@@ -5130,7 +5021,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5157,7 +5048,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListAuthorizedConnectAppParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -5173,7 +5063,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5198,7 +5088,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListAvailablePhoneNumberCountryParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -5214,7 +5103,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5239,7 +5128,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListAvailablePhoneNumberLocalParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -5274,7 +5162,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5299,7 +5187,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListAvailablePhoneNumberMachineToMachineParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -5334,7 +5221,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5359,7 +5246,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListAvailablePhoneNumberMobileParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -5394,7 +5280,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5419,7 +5305,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListAvailablePhoneNumberNationalParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -5454,7 +5339,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5479,7 +5364,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListAvailablePhoneNumberSharedCostParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -5514,7 +5398,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5539,7 +5423,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListAvailablePhoneNumberTollFreeParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -5574,7 +5457,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5599,7 +5482,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListAvailablePhoneNumberVoipParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -5634,7 +5516,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5661,7 +5543,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListCallParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **To** | **string** | Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
@@ -5687,7 +5568,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5715,7 +5596,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListCallEventParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -5731,7 +5611,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5757,7 +5637,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListCallNotificationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Log** | **int32** | Only read notifications of the specified log level. Can be:  &#x60;0&#x60; to read only ERROR notifications or &#x60;1&#x60; to read only WARNING notifications. By default, all notifications are read.
@@ -5777,7 +5656,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5805,7 +5684,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListCallRecordingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **DateCreated** | **string** | The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
@@ -5824,7 +5702,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5851,7 +5729,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListConferenceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **DateCreated** | **string** | The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. To read conferences that started on or before midnight on a date, use &#x60;&lt;&#x3D;YYYY-MM-DD&#x60;, and to specify  conferences that started on or after midnight on a date, use &#x60;&gt;&#x3D;YYYY-MM-DD&#x60;.
@@ -5875,7 +5752,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5903,7 +5780,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListConferenceRecordingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **DateCreated** | **string** | The &#x60;date_created&#x60; value, specified as &#x60;YYYY-MM-DD&#x60;, of the resources to read. You can also specify inequality: &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60; will return recordings generated at or before midnight on a given date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; returns recordings generated at or after midnight on a date.
@@ -5922,7 +5798,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5949,7 +5825,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListConnectAppParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -5965,7 +5840,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -5991,7 +5866,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListDependentPhoneNumberParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6007,7 +5881,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6034,7 +5908,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListIncomingPhoneNumberParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Beta** | **bool** | Whether to include phone numbers new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
@@ -6054,7 +5927,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6082,7 +5955,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListIncomingPhoneNumberAssignedAddOnParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6098,7 +5970,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6127,7 +5999,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListIncomingPhoneNumberAssignedAddOnExtensionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6143,7 +6014,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6168,7 +6039,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListIncomingPhoneNumberLocalParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Beta** | **bool** | Whether to include phone numbers new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
@@ -6188,7 +6058,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6213,7 +6083,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListIncomingPhoneNumberMobileParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Beta** | **bool** | Whether to include phone numbers new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
@@ -6233,7 +6102,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6258,7 +6127,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListIncomingPhoneNumberTollFreeParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Beta** | **bool** | Whether to include phone numbers new to the Twilio platform. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;.
@@ -6278,7 +6146,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6303,7 +6171,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListKeyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6319,7 +6186,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6347,7 +6214,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListMediaParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **DateCreated** | **time.Time** | Only include media that was created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read media that was created on this date. You can also specify an inequality, such as &#x60;StartTime&lt;&#x3D;YYYY-MM-DD&#x60;, to read media that was created on or before midnight of this date, and &#x60;StartTime&gt;&#x3D;YYYY-MM-DD&#x60; to read media that was created on or after midnight of this date.
@@ -6366,7 +6232,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6394,7 +6260,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListMemberParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6410,7 +6275,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6437,7 +6302,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **To** | **string** | Read messages sent to only this phone number.
@@ -6458,7 +6322,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6485,7 +6349,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListNotificationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Log** | **int32** | Only read notifications of the specified log level. Can be:  &#x60;0&#x60; to read only ERROR notifications or &#x60;1&#x60; to read only WARNING notifications. By default, all notifications are read.
@@ -6505,7 +6368,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6532,7 +6395,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListOutgoingCallerIdParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PhoneNumber** | **string** | The phone number of the OutgoingCallerId resources to read.
@@ -6550,7 +6412,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6578,7 +6440,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListParticipantParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Muted** | **bool** | Whether to return only participants that are muted. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
@@ -6597,7 +6458,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6624,7 +6485,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListQueueParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6640,7 +6500,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6667,7 +6527,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListRecordingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **DateCreated** | **time.Time** | Only include recordings that were created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read recordings that were created on this date. You can also specify an inequality, such as &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60;, to read recordings that were created on or before midnight of this date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; to read recordings that were created on or after midnight of this date.
@@ -6688,7 +6547,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6716,7 +6575,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListRecordingAddOnResultParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6732,7 +6590,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6761,7 +6619,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListRecordingAddOnResultPayloadParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6777,7 +6634,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6803,7 +6660,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListRecordingTranscriptionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6819,7 +6675,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6846,7 +6702,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListShortCodeParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that identifies the ShortCode resources to read.
@@ -6864,7 +6719,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6889,7 +6744,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSigningKeyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6905,7 +6759,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6933,7 +6787,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSipAuthCallsCredentialListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6949,7 +6802,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -6977,7 +6830,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSipAuthCallsIpAccessControlListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -6993,7 +6845,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7021,7 +6873,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSipAuthRegistrationsCredentialListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -7037,7 +6888,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7065,7 +6916,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSipCredentialParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -7081,7 +6931,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7108,7 +6958,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSipCredentialListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -7124,7 +6973,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7152,7 +7001,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSipCredentialListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -7168,7 +7016,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7195,7 +7043,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSipDomainParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -7211,7 +7058,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7238,7 +7085,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSipIpAccessControlListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -7254,7 +7100,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7282,7 +7128,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSipIpAccessControlListMappingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -7298,7 +7143,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7326,7 +7171,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSipIpAddressParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -7342,7 +7186,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7369,7 +7213,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListTranscriptionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -7385,7 +7228,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7412,7 +7255,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListUsageRecordParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
@@ -7432,7 +7274,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7457,7 +7299,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListUsageRecordAllTimeParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
@@ -7477,7 +7318,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7502,7 +7343,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListUsageRecordDailyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
@@ -7522,7 +7362,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7547,7 +7387,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListUsageRecordLastMonthParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
@@ -7567,7 +7406,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7592,7 +7431,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListUsageRecordMonthlyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
@@ -7612,7 +7450,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7637,7 +7475,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListUsageRecordThisMonthParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
@@ -7657,7 +7494,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7682,7 +7519,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListUsageRecordTodayParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
@@ -7702,7 +7538,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7727,7 +7563,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListUsageRecordYearlyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
@@ -7747,7 +7582,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7772,7 +7607,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListUsageRecordYesterdayParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Category** | **string** | The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
@@ -7792,7 +7626,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7819,7 +7653,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListUsageTriggerParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Recurring** | **string** | The frequency of recurring UsageTriggers to read. Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; to read recurring UsageTriggers. An empty value or a value of &#x60;alltime&#x60; reads non-recurring UsageTriggers.
@@ -7838,7 +7671,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7865,7 +7698,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateAccountParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | Update the human-readable description of this Account
@@ -7881,8 +7713,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7908,7 +7740,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateAddressParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AutoCorrectAddress** | **bool** | Whether we should automatically correct the address. Can be: &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;true&#x60;. If empty or &#x60;true&#x60;, we will correct the address you provide if necessary. If &#x60;false&#x60;, we won&#39;t alter the address you provide.
@@ -7930,8 +7761,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -7958,7 +7789,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateApplicationParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -7988,8 +7818,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8017,7 +7847,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateCallParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FallbackMethod** | **string** | The HTTP method that we should use to request the &#x60;fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
@@ -8039,8 +7868,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8068,7 +7897,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateCallFeedbackParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Issue** | **[]string** | One or more issues experienced during the call. The issues can be: &#x60;imperfect-audio&#x60;, &#x60;dropped-call&#x60;, &#x60;incorrect-caller-id&#x60;, &#x60;post-dial-delay&#x60;, &#x60;digits-not-captured&#x60;, &#x60;audio-latency&#x60;, &#x60;unsolicited-call&#x60;, or &#x60;one-way-audio&#x60;.
@@ -8084,8 +7912,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8114,7 +7942,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateCallRecordingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PauseBehavior** | **string** | Whether to record during a pause. Can be: &#x60;skip&#x60; or &#x60;silence&#x60; and the default is &#x60;silence&#x60;. &#x60;skip&#x60; does not record during the pause period, while &#x60;silence&#x60; will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting &#x60;status&#x60; is set to &#x60;paused&#x60;.
@@ -8130,8 +7957,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8157,7 +7984,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateConferenceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AnnounceMethod** | **string** | The HTTP method used to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;
@@ -8174,8 +8000,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8204,7 +8030,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateConferenceRecordingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PauseBehavior** | **string** | Whether to record during a pause. Can be: &#x60;skip&#x60; or &#x60;silence&#x60; and the default is &#x60;silence&#x60;. &#x60;skip&#x60; does not record during the pause period, while &#x60;silence&#x60; will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting &#x60;status&#x60; is set to &#x60;paused&#x60;.
@@ -8220,8 +8045,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8249,7 +8074,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateConnectAppParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AuthorizeRedirectUrl** | **string** | The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
@@ -8271,8 +8095,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8299,7 +8123,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateIncomingPhoneNumberParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -8337,8 +8160,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8364,7 +8187,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateKeyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
@@ -8379,8 +8201,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8409,7 +8231,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateMemberParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Method** | **string** | How to pass the update request data. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. &#x60;POST&#x60; sends the data as encoded form data and &#x60;GET&#x60; sends the data as query parameters.
@@ -8425,8 +8246,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8454,7 +8275,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Body** | **string** | The text of the message you want to send. Can be up to 1,600 characters long.
@@ -8469,8 +8289,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8498,7 +8318,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateOutgoingCallerIdParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
@@ -8513,8 +8332,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8543,7 +8362,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateParticipantParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AnnounceMethod** | **string** | The HTTP method we should use to call &#x60;announce_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
@@ -8569,8 +8387,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8599,7 +8417,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdatePaymentsParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Capture** | **string** | The piece of payment information that you wish the caller to enter. Must be one of &#x60;payment-card-number&#x60;, &#x60;expiration-date&#x60;, &#x60;security-code&#x60;, &#x60;postal-code&#x60;, &#x60;bank-routing-number&#x60;, or &#x60;bank-account-number&#x60;.
@@ -8617,8 +8434,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8646,7 +8463,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateQueueParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you created to describe this resource. It can be up to 64 characters long.
@@ -8662,8 +8478,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8691,7 +8507,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateShortCodeParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ApiVersion** | **string** | The API version to use to start a new TwiML session. Can be: &#x60;2010-04-01&#x60; or &#x60;2008-08-01&#x60;.
@@ -8711,8 +8526,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8738,7 +8553,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSigningKeyParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | 
@@ -8753,8 +8567,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8783,7 +8597,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSipCredentialParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Password** | **string** | The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg &#x60;IWasAtSignal2018&#x60;)
@@ -8798,8 +8611,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8827,7 +8640,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSipCredentialListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A human readable descriptive text for a CredentialList, up to 64 characters long.
@@ -8842,8 +8654,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8871,7 +8683,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSipDomainParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ByocTrunkSid** | **string** | The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
@@ -8898,8 +8709,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8927,7 +8738,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSipIpAccessControlListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A human readable descriptive text, up to 64 characters long.
@@ -8942,8 +8752,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -8972,7 +8782,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSipIpAddressParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CidrPrefixLength** | **int32** | An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
@@ -8989,8 +8798,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -9018,7 +8827,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateUsageTriggerParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;.
@@ -9035,8 +8843,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -29,7 +29,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchAlertParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -44,7 +43,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -69,7 +68,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchEventParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -84,7 +82,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -105,7 +103,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListAlertParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **LogLevel** | **string** | Only show alerts for this log-level.  Can be: &#x60;error&#x60;, &#x60;warning&#x60;, &#x60;notice&#x60;, or &#x60;debug&#x60;.
@@ -124,7 +121,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -147,7 +144,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListEventParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ActorSid** | **string** | Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
@@ -169,7 +165,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

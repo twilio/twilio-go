@@ -26,7 +26,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchPhoneNumberParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CountryCode** | **string** | The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format.
@@ -45,7 +44,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

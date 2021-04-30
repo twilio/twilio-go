@@ -107,7 +107,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateConversationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -131,8 +130,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -159,7 +158,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateConversationMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -180,8 +178,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -208,7 +206,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateConversationParticipantParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -231,8 +228,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -259,7 +256,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateConversationScopedWebhookParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
@@ -280,8 +276,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -304,7 +300,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateCredentialParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ApiKey** | **string** | [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
@@ -325,8 +320,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -349,7 +344,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateRoleParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
@@ -366,8 +360,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -390,7 +384,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateServiceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The human-readable name of this service, limited to 256 characters. Optional.
@@ -405,8 +398,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -433,7 +426,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateServiceConversationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -457,8 +449,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -486,7 +478,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateServiceConversationMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -507,8 +498,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -536,7 +527,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateServiceConversationParticipantParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -559,8 +549,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -588,7 +578,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateServiceConversationScopedWebhookParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
@@ -609,8 +598,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -637,7 +626,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateServiceRoleParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
@@ -654,8 +642,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -682,7 +670,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateServiceUserParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -701,8 +688,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -725,7 +712,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateUserParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -744,8 +730,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -771,7 +757,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteConversationParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -816,7 +801,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteConversationMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -859,7 +843,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteConversationParticipantParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -904,7 +887,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteConversationScopedWebhookParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -945,7 +927,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCredentialParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -988,7 +969,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteRoleParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1029,7 +1009,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteServiceParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1073,7 +1052,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteServiceBindingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1115,7 +1093,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteServiceConversationParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1161,7 +1138,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteServiceConversationMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -1205,7 +1181,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteServiceConversationParticipantParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1251,7 +1226,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteServiceConversationScopedWebhookParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1293,7 +1267,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteServiceRoleParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1337,7 +1310,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteServiceUserParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -1379,7 +1351,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteUserParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1431,7 +1402,7 @@ Other parameters are passed through a pointer to a FetchConfigurationParams stru
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1464,7 +1435,7 @@ Other parameters are passed through a pointer to a FetchConfigurationWebhookPara
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1491,7 +1462,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchConversationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1506,7 +1476,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1534,7 +1504,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchConversationMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1549,7 +1518,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1578,7 +1547,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchConversationMessageReceiptParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1593,7 +1561,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1621,7 +1589,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchConversationParticipantParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1636,7 +1603,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1664,7 +1631,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchConversationScopedWebhookParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1679,7 +1645,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1706,7 +1672,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCredentialParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1721,7 +1686,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1748,7 +1713,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchRoleParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1763,7 +1727,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1790,7 +1754,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1805,7 +1768,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1833,7 +1796,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceBindingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1848,7 +1810,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1875,7 +1837,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceConfigurationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1890,7 +1851,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1918,7 +1879,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceConversationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1933,7 +1893,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1962,7 +1922,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceConversationMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1977,7 +1936,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2007,7 +1966,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceConversationMessageReceiptParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2022,7 +1980,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2051,7 +2009,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceConversationParticipantParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2066,7 +2023,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2095,7 +2052,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceConversationScopedWebhookParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2110,7 +2066,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2137,7 +2093,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceNotificationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2152,7 +2107,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2180,7 +2135,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceRoleParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2195,7 +2149,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2223,7 +2177,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceUserParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2238,7 +2191,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2265,7 +2218,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchUserParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -2280,7 +2232,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2303,7 +2255,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListConversationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2319,7 +2270,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2346,7 +2297,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListConversationMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2362,7 +2312,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2390,7 +2340,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListConversationMessageReceiptParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2406,7 +2355,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2433,7 +2382,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListConversationParticipantParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2449,7 +2397,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2476,7 +2424,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListConversationScopedWebhookParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2492,7 +2439,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2515,7 +2462,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListCredentialParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2531,7 +2477,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2554,7 +2500,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListRoleParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2570,7 +2515,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2593,7 +2538,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListServiceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2609,7 +2553,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2636,7 +2580,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListServiceBindingParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **BindingType** | **[]string** | The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
@@ -2654,7 +2597,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2681,7 +2624,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListServiceConversationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2697,7 +2639,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2725,7 +2667,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListServiceConversationMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2741,7 +2682,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2770,7 +2711,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListServiceConversationMessageReceiptParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2786,7 +2726,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2814,7 +2754,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListServiceConversationParticipantParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2830,7 +2769,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2858,7 +2797,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListServiceConversationScopedWebhookParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2874,7 +2812,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2901,7 +2839,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListServiceRoleParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2917,7 +2854,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2944,7 +2881,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListServiceUserParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2960,7 +2896,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2983,7 +2919,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListUserParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2999,7 +2934,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3022,7 +2957,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a UpdateConfigurationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **DefaultChatServiceSid** | **string** | The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
@@ -3040,8 +2974,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3062,7 +2996,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a UpdateConfigurationWebhookParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Filters** | **[]string** | The list of webhook event triggers that are enabled for this Service: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;
@@ -3081,8 +3014,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3109,7 +3042,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateConversationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -3133,8 +3065,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3162,7 +3094,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateConversationMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -3182,8 +3113,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3211,7 +3142,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateConversationParticipantParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -3235,8 +3165,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3264,7 +3194,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateConversationScopedWebhookParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
@@ -3283,8 +3212,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3311,7 +3240,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateCredentialParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ApiKey** | **string** | [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
@@ -3332,8 +3260,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3360,7 +3288,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateRoleParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Permission** | **[]string** | A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role&#39;s &#x60;type&#x60;.
@@ -3375,8 +3302,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3403,7 +3330,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateServiceConfigurationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **DefaultChatServiceRoleSid** | **string** | The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
@@ -3421,8 +3347,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3450,7 +3376,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateServiceConversationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -3474,8 +3399,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3504,7 +3429,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateServiceConversationMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -3524,8 +3448,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3554,7 +3478,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateServiceConversationParticipantParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -3578,8 +3501,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3608,7 +3531,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateServiceConversationScopedWebhookParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
@@ -3627,8 +3549,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3655,7 +3577,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateServiceNotificationParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AddedToConversationEnabled** | **bool** | Whether to send a notification when a participant is added to a conversation. The default is &#x60;false&#x60;.
@@ -3680,8 +3601,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3709,7 +3630,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateServiceRoleParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Permission** | **[]string** | A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role&#39;s &#x60;type&#x60;.
@@ -3724,8 +3644,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3753,7 +3673,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateServiceUserParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -3771,8 +3690,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -3799,7 +3718,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateUserParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
@@ -3817,8 +3735,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

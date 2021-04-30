@@ -73,7 +73,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateDocumentParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Data** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
@@ -90,8 +89,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -111,7 +110,6 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateServiceParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -133,8 +131,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -162,7 +160,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateStreamMessageParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Data** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
@@ -177,8 +174,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -203,7 +200,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSyncListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
@@ -220,8 +216,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -247,7 +243,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSyncListItemParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item&#39;s parent Sync List expires (time-to-live) and is deleted.
@@ -265,8 +260,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -291,7 +286,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSyncMapParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
@@ -308,8 +302,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -335,7 +329,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSyncMapItemParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item&#39;s parent Sync Map expires (time-to-live) and is deleted.
@@ -354,8 +347,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -382,7 +375,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSyncStreamParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Ttl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
@@ -398,8 +390,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -424,7 +416,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteDocumentParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -469,7 +460,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteDocumentPermissionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -508,7 +498,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteServiceParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -550,7 +539,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSyncListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -591,7 +579,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSyncListItemParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -637,7 +624,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSyncListPermissionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -677,7 +663,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSyncMapParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -719,7 +704,6 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSyncMapItemParams struct
-
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -765,7 +749,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSyncMapPermissionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -808,7 +791,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSyncStreamParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -849,7 +831,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchDocumentParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -864,7 +845,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -893,7 +874,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchDocumentPermissionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -908,7 +888,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -933,7 +913,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -948,7 +927,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -974,7 +953,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSyncListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -989,7 +967,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1016,7 +994,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSyncListItemParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1031,7 +1008,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1060,7 +1037,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSyncListPermissionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1075,7 +1051,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1101,7 +1077,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSyncMapParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1116,7 +1091,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1143,7 +1118,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSyncMapItemParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1158,7 +1132,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1187,7 +1161,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSyncMapPermissionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1202,7 +1175,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1230,7 +1203,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSyncStreamParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1245,7 +1217,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1270,7 +1242,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListDocumentParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1286,7 +1257,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1314,7 +1285,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListDocumentPermissionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1330,7 +1300,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1351,7 +1321,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListServiceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1367,7 +1336,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1392,7 +1361,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSyncListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1408,7 +1376,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1434,7 +1402,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSyncListItemParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Order** | **string** | How to order the List Items returned by their &#x60;index&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending.
@@ -1453,7 +1420,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1481,7 +1448,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSyncListPermissionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1497,7 +1463,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1522,7 +1488,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSyncMapParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1538,7 +1503,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1564,7 +1529,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSyncMapItemParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Order** | **string** | How to order the Map Items returned by their &#x60;key&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
@@ -1583,7 +1547,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1611,7 +1575,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSyncMapPermissionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1627,7 +1590,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1654,7 +1617,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSyncStreamParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1670,7 +1632,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1696,7 +1658,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateDocumentParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | The If-Match HTTP request header
@@ -1713,8 +1674,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1743,7 +1704,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateDocumentPermissionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Manage** | **bool** | Whether the identity can delete the Sync Document. Default value is &#x60;false&#x60;.
@@ -1760,8 +1720,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1786,7 +1746,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateServiceParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **AclEnabled** | **bool** | Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
@@ -1807,8 +1766,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1834,7 +1793,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSyncListParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
@@ -1850,8 +1808,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1878,7 +1836,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSyncListItemParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
@@ -1897,8 +1854,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1927,7 +1884,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSyncListPermissionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Manage** | **bool** | Whether the identity can delete the Sync List. Default value is &#x60;false&#x60;.
@@ -1944,8 +1900,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1971,7 +1927,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSyncMapParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
@@ -1987,8 +1942,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2015,7 +1970,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSyncMapItemParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
@@ -2034,8 +1988,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2064,7 +2018,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSyncMapPermissionParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Manage** | **bool** | Whether the identity can delete the Sync Map. Default value is &#x60;false&#x60;.
@@ -2081,8 +2034,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2110,7 +2063,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSyncStreamParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Ttl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
@@ -2125,8 +2077,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

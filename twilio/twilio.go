@@ -97,9 +97,9 @@ type Meta struct {
 	URL             *string `json:"url"`
 }
 
-// NewClient provides an initialized Twilio client.
-func NewClient(accountSID string, authToken string) *Twilio {
-	credentials := &client.Credentials{AccountSID: accountSID, AuthToken: authToken}
+// NewClientWithAccountSid provides an initialized Twilio client with accountSid.
+func NewClientWithAccountSid(username string, password string, accountSid string) *Twilio {
+	credentials := &client.Credentials{Username: username, Password: password}
 
 	c := &Twilio{
 		Credentials: credentials,
@@ -108,6 +108,7 @@ func NewClient(accountSID string, authToken string) *Twilio {
 			BaseURL:     "twilio.com",
 			Edge:        os.Getenv("TWILIO_EDGE"),
 			Region:      os.Getenv("TWILIO_REGION"),
+			AccountSid:  accountSid,
 		},
 	}
 
@@ -148,6 +149,11 @@ func NewClient(accountSID string, authToken string) *Twilio {
 	c.WirelessV1 = WirelessV1.NewDefaultApiService(c.Client)
 
 	return c
+}
+
+// NewClient provides an initialized Twilio client.
+func NewClient(username string, password string) *Twilio {
+	return NewClientWithAccountSid(username, password, username)
 }
 
 // SetTimeout sets the Timeout for Twilio HTTP requests.

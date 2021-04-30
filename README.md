@@ -53,6 +53,18 @@ func main(){
 }
 ```
 
+```go
+package main
+import "github.com/twilio/twilio-go/twilio"
+
+func main(){
+    parentSID := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+    subaccountSID := "ACYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+    client := twilio.NewClientWithAccountSid(parentSID, authToken, subaccountSID)
+}
+```
+
 We suggest storing your credentials as environment variables and then use it in your code. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
 
 ```go
@@ -104,16 +116,17 @@ import (
 )
 
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	username := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 	phoneNumber := "AVAILABLE_TWILIO_PHONE_NUMBER"
+	accountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
 
-	client := twilio.NewClient(accountSid, authToken)
+	client := twilio.NewClientWithAccountSid(username, authToken, accountSid)
 
 	params := &openapi.CreateIncomingPhoneNumberParams{}
 	params.PhoneNumber = &phoneNumber
 
-	resp, err := client.ApiV2010.CreateIncomingPhoneNumber(accountSid, params)
+	resp, err := client.ApiV2010.CreateIncomingPhoneNumber(params)
 	if err != nil {
 		fmt.Println(err.Error())
 		err = nil
@@ -134,12 +147,13 @@ import (
 	"os"
 )
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	username := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
 	to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
-
-	client := twilio.NewClient(accountSid, authToken)
+	accountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
+	
+	client := twilio.NewClientWithAccountSid(username, authToken, accountSid)
 
 	text := "Hello there"
 
@@ -149,13 +163,13 @@ func main() {
 	params.Body = &text
 
 
-	resp, err := client.ApiV2010.CreateMessage(accountSid, params)
+	resp, err := client.ApiV2010.CreateMessage(params)
 	if err != nil {
 		fmt.Println(err.Error())
 		err = nil
 	} else {
-		fmt.Println( "Message Status: " + *resp.Status)
-		fmt.Println( "Message Sid: " + *resp.Sid)
+		response, _ := json.Marshal(*resp)
+		fmt.Println("Response: " + string(response))
     }
 }
 ```
@@ -172,12 +186,12 @@ import (
 )
 
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	username := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
 	to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
 
-	client := twilio.NewClient(accountSid, authToken)
+	client := twilio.NewClient(username, authToken)
 
 	callurl := "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient"
 
@@ -186,7 +200,7 @@ func main() {
 	params.From = &from
 	params.Url = &callurl
 
-	resp, err := client.ApiV2010.CreateCall(accountSid, params)
+	resp, err := client.ApiV2010.CreateCall(params)
 	if err != nil {
 		fmt.Println(err.Error())
 		err = nil

@@ -33,7 +33,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCallParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -48,7 +47,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -73,7 +72,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSummaryParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **ProcessingState** | **string** | 
@@ -89,7 +87,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -117,7 +115,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchVideoParticipantSummaryParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -132,7 +129,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -159,7 +156,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchVideoRoomSummaryParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -174,7 +170,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -199,7 +195,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListEventParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Edge** | **string** | 
@@ -216,7 +211,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -241,7 +236,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListMetricParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **Edge** | **string** | 
@@ -259,7 +253,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -286,7 +280,6 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListVideoParticipantSummaryParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -302,7 +295,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -325,7 +318,6 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListVideoRoomSummaryParams struct
 
-
 Name | Type | Description
 ------------- | ------------- | -------------
 **RoomType** | **[]string** | Type of room. Can be &#x60;go&#x60;, &#x60;peer_to_peer&#x60;, &#x60;group&#x60;, or &#x60;group_small&#x60;.
@@ -346,7 +338,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
