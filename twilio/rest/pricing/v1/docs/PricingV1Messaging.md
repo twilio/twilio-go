@@ -1,6 +1,7 @@
 # PricingV1Messaging
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to **map[string]interface{}** |  |

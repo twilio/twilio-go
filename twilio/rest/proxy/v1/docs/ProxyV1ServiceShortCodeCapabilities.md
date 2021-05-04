@@ -1,6 +1,7 @@
 # ProxyV1ServiceShortCodeCapabilities
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Fax** | **bool** |  |[optional] 

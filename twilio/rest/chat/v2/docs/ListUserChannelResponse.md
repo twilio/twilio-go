@@ -1,6 +1,7 @@
 # ListUserChannelResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Channels** | [**[]ChatV2ServiceUserUserChannel**](chat.v2.service.user.user_channel.md) |  |[optional] 

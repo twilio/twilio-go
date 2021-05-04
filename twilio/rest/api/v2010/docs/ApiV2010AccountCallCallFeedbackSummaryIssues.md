@@ -1,6 +1,7 @@
 # ApiV2010AccountCallCallFeedbackSummaryIssues
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Count** | **float32** |  |[optional] 

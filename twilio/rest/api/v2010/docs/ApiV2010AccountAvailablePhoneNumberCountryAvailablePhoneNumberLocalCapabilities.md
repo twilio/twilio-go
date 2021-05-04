@@ -1,6 +1,7 @@
 # ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Fax** | **bool** |  |[optional] 

@@ -1,6 +1,7 @@
 # ListServiceConversationMessageReceiptResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DeliveryReceipts** | [**[]ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt**](conversations.v1.service.service_conversation.service_conversation_message.service_conversation_message_receipt.md) |  |[optional] 

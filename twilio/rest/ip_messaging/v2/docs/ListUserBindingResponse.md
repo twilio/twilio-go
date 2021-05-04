@@ -1,6 +1,7 @@
 # ListUserBindingResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bindings** | [**[]IpMessagingV2ServiceUserUserBinding**](ip_messaging.v2.service.user.user_binding.md) |  |[optional] 

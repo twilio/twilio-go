@@ -1,6 +1,7 @@
 # MessagingV1ServiceUsAppToPersonUsecase
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **UsAppToPersonUsecases** | Pointer to **[]map[string]interface{}** | Human readable A2P Use Case details |

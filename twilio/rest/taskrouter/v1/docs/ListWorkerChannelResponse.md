@@ -1,6 +1,7 @@
 # ListWorkerChannelResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Channels** | [**[]TaskrouterV1WorkspaceWorkerWorkerChannel**](taskrouter.v1.workspace.worker.worker_channel.md) |  |[optional] 

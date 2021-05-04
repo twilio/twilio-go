@@ -1,6 +1,7 @@
 # ServerlessV1ServiceEnvironmentLog
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the Log resource |

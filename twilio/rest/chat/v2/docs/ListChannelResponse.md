@@ -1,6 +1,7 @@
 # ListChannelResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Channels** | [**[]ChatV2ServiceChannel**](chat.v2.service.channel.md) |  |[optional] 

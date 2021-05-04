@@ -1,6 +1,7 @@
 # ListCustomerProfileEntityAssignmentResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Meta** | [**ListCustomerProfileResponseMeta**](ListCustomerProfileResponse_meta.md) |  |[optional] 

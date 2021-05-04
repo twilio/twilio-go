@@ -1,6 +1,7 @@
 # ProxyV1ServicePhoneNumberCapabilities
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Fax** | **bool** |  |[optional] 

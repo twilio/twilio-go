@@ -1,6 +1,7 @@
 # ListInviteResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Invites** | [**[]IpMessagingV1ServiceChannelInvite**](ip_messaging.v1.service.channel.invite.md) |  |[optional] 

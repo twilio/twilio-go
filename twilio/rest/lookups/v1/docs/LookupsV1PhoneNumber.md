@@ -1,6 +1,7 @@
 # LookupsV1PhoneNumber
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AddOns** | Pointer to **map[string]interface{}** | A JSON string with the results of the Add-ons you specified |

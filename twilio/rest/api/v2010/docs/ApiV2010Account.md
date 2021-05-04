@@ -1,6 +1,7 @@
 # ApiV2010Account
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AuthToken** | Pointer to **string** | The authorization token for this account |

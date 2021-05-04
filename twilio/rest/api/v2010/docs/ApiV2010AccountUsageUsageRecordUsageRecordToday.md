@@ -1,6 +1,7 @@
 # ApiV2010AccountUsageUsageRecordUsageRecordToday
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account accrued the usage |

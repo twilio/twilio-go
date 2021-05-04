@@ -1,6 +1,7 @@
 # ListAssetVersionResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AssetVersions** | [**[]ServerlessV1ServiceAssetAssetVersion**](serverless.v1.service.asset.asset_version.md) |  |[optional] 

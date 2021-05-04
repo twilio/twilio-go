@@ -1,6 +1,7 @@
 # ListFaxResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Faxes** | [**[]FaxV1Fax**](fax.v1.fax.md) |  |[optional] 

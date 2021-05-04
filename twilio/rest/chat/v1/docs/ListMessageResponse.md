@@ -1,6 +1,7 @@
 # ListMessageResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Messages** | [**[]ChatV1ServiceChannelMessage**](chat.v1.service.channel.message.md) |  |[optional] 

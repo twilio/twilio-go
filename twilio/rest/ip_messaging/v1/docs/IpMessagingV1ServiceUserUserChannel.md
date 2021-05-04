@@ -1,6 +1,7 @@
 # IpMessagingV1ServiceUserUserChannel
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** |  |

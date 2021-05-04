@@ -1,6 +1,7 @@
 # EventsV1SchemaSchemaVersion
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date the schema version was created. |

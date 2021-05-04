@@ -1,6 +1,7 @@
 # ListBindingResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bindings** | [**[]NotifyV1ServiceBinding**](notify.v1.service.binding.md) |  |[optional] 
