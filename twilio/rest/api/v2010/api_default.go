@@ -74,6 +74,7 @@ func (c *DefaultApiService) CreateAccount(params *CreateAccountParams) (*ApiV201
 
 // CreateAddressParams Optional parameters for the method 'CreateAddress'
 type CreateAddressParams struct {
+	AccountSid         *string `json:"AccountSid,omitempty"`
 	AutoCorrectAddress *bool   `json:"AutoCorrectAddress,omitempty"`
 	City               *string `json:"City,omitempty"`
 	CustomerName       *string `json:"CustomerName,omitempty"`
@@ -88,6 +89,8 @@ type CreateAddressParams struct {
 // CreateAddress Method for CreateAddress
 //
 // * @param: optional nil or *CreateAddressParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Address resource.
 //
 // * @param: "AutoCorrectAddress" (bool) - Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
 //
@@ -110,11 +113,18 @@ type CreateAddressParams struct {
 // * @return: ApiV2010AccountAddress
 func (c *DefaultApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010AccountAddress, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AutoCorrectAddress != nil {
 		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
 	}
@@ -160,6 +170,7 @@ func (c *DefaultApiService) CreateAddress(params *CreateAddressParams) (*ApiV201
 
 // CreateApplicationParams Optional parameters for the method 'CreateApplication'
 type CreateApplicationParams struct {
+	AccountSid            *string `json:"AccountSid,omitempty"`
 	ApiVersion            *string `json:"ApiVersion,omitempty"`
 	FriendlyName          *string `json:"FriendlyName,omitempty"`
 	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
@@ -182,6 +193,8 @@ type CreateApplicationParams struct {
 // * Create a new application within your account
 //
 // * @param: optional nil or *CreateApplicationParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 //
 // * @param: "ApiVersion" (string) - The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.
 //
@@ -216,11 +229,18 @@ type CreateApplicationParams struct {
 // * @return: ApiV2010AccountApplication
 func (c *DefaultApiService) CreateApplication(params *CreateApplicationParams) (*ApiV2010AccountApplication, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.ApiVersion != nil {
 		data.Set("ApiVersion", *params.ApiVersion)
 	}
@@ -284,6 +304,7 @@ func (c *DefaultApiService) CreateApplication(params *CreateApplicationParams) (
 
 // CreateCallParams Optional parameters for the method 'CreateCall'
 type CreateCallParams struct {
+	AccountSid                         *string   `json:"AccountSid,omitempty"`
 	ApplicationSid                     *string   `json:"ApplicationSid,omitempty"`
 	AsyncAmd                           *string   `json:"AsyncAmd,omitempty"`
 	AsyncAmdStatusCallback             *string   `json:"AsyncAmdStatusCallback,omitempty"`
@@ -325,6 +346,8 @@ type CreateCallParams struct {
 // * Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
 //
 // * @param: optional nil or *CreateCallParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 //
 // * @param: "ApplicationSid" (string) - The SID of the Application resource that will handle the call, if the call will be handled by an application.
 //
@@ -397,11 +420,18 @@ type CreateCallParams struct {
 // * @return: ApiV2010AccountCall
 func (c *DefaultApiService) CreateCall(params *CreateCallParams) (*ApiV2010AccountCall, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.ApplicationSid != nil {
 		data.Set("ApplicationSid", *params.ApplicationSid)
 	}
@@ -522,6 +552,7 @@ func (c *DefaultApiService) CreateCall(params *CreateCallParams) (*ApiV2010Accou
 
 // CreateCallFeedbackSummaryParams Optional parameters for the method 'CreateCallFeedbackSummary'
 type CreateCallFeedbackSummaryParams struct {
+	AccountSid           *string `json:"AccountSid,omitempty"`
 	EndDate              *string `json:"EndDate,omitempty"`
 	IncludeSubaccounts   *bool   `json:"IncludeSubaccounts,omitempty"`
 	StartDate            *string `json:"StartDate,omitempty"`
@@ -534,6 +565,8 @@ type CreateCallFeedbackSummaryParams struct {
 // * Create a FeedbackSummary resource for a call
 //
 // * @param: optional nil or *CreateCallFeedbackSummaryParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 //
 // * @param: "EndDate" (string) - Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
 //
@@ -548,11 +581,18 @@ type CreateCallFeedbackSummaryParams struct {
 // * @return: ApiV2010AccountCallCallFeedbackSummary
 func (c *DefaultApiService) CreateCallFeedbackSummary(params *CreateCallFeedbackSummaryParams) (*ApiV2010AccountCallCallFeedbackSummary, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.EndDate != nil {
 		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
@@ -586,6 +626,7 @@ func (c *DefaultApiService) CreateCallFeedbackSummary(params *CreateCallFeedback
 
 // CreateCallRecordingParams Optional parameters for the method 'CreateCallRecording'
 type CreateCallRecordingParams struct {
+	AccountSid                    *string   `json:"AccountSid,omitempty"`
 	RecordingChannels             *string   `json:"RecordingChannels,omitempty"`
 	RecordingStatusCallback       *string   `json:"RecordingStatusCallback,omitempty"`
 	RecordingStatusCallbackEvent  *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
@@ -602,6 +643,8 @@ type CreateCallRecordingParams struct {
 //
 // * @param: optional nil or *CreateCallRecordingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+//
 // * @param: "RecordingChannels" (string) - The number of channels used in the recording. Can be: `mono` or `dual` and the default is `mono`. `mono` records all parties of the call into one channel. `dual` records each party of a 2-party call into separate channels.
 //
 // * @param: "RecordingStatusCallback" (string) - The URL we should call using the `recording_status_callback_method` on each recording event specified in  `recording_status_callback_event`. For more information, see [RecordingStatusCallback parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback).
@@ -617,12 +660,19 @@ type CreateCallRecordingParams struct {
 // * @return: ApiV2010AccountCallCallRecording
 func (c *DefaultApiService) CreateCallRecording(CallSid string, params *CreateCallRecordingParams) (*ApiV2010AccountCallCallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.RecordingChannels != nil {
 		data.Set("RecordingChannels", *params.RecordingChannels)
 	}
@@ -659,6 +709,7 @@ func (c *DefaultApiService) CreateCallRecording(CallSid string, params *CreateCa
 
 // CreateIncomingPhoneNumberParams Optional parameters for the method 'CreateIncomingPhoneNumber'
 type CreateIncomingPhoneNumberParams struct {
+	AccountSid           *string `json:"AccountSid,omitempty"`
 	AddressSid           *string `json:"AddressSid,omitempty"`
 	ApiVersion           *string `json:"ApiVersion,omitempty"`
 	AreaCode             *string `json:"AreaCode,omitempty"`
@@ -690,6 +741,8 @@ type CreateIncomingPhoneNumberParams struct {
 // * Purchase a phone-number for the account.
 //
 // * @param: optional nil or *CreateIncomingPhoneNumberParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 //
 // * @param: "AddressSid" (string) - The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
 //
@@ -742,11 +795,18 @@ type CreateIncomingPhoneNumberParams struct {
 // * @return: ApiV2010AccountIncomingPhoneNumber
 func (c *DefaultApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumberParams) (*ApiV2010AccountIncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AddressSid != nil {
 		data.Set("AddressSid", *params.AddressSid)
 	}
@@ -837,6 +897,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhon
 
 // CreateIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'CreateIncomingPhoneNumberAssignedAddOn'
 type CreateIncomingPhoneNumberAssignedAddOnParams struct {
+	AccountSid        *string `json:"AccountSid,omitempty"`
 	InstalledAddOnSid *string `json:"InstalledAddOnSid,omitempty"`
 }
 
@@ -848,17 +909,26 @@ type CreateIncomingPhoneNumberAssignedAddOnParams struct {
 //
 // * @param: optional nil or *CreateIncomingPhoneNumberAssignedAddOnParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+//
 // * @param: "InstalledAddOnSid" (string) - The SID that identifies the Add-on installation.
 //
 // * @return: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn
 func (c *DefaultApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *CreateIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.InstalledAddOnSid != nil {
 		data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
 	}
@@ -880,6 +950,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid s
 
 // CreateIncomingPhoneNumberLocalParams Optional parameters for the method 'CreateIncomingPhoneNumberLocal'
 type CreateIncomingPhoneNumberLocalParams struct {
+	AccountSid           *string `json:"AccountSid,omitempty"`
 	AddressSid           *string `json:"AddressSid,omitempty"`
 	ApiVersion           *string `json:"ApiVersion,omitempty"`
 	BundleSid            *string `json:"BundleSid,omitempty"`
@@ -908,6 +979,8 @@ type CreateIncomingPhoneNumberLocalParams struct {
 // CreateIncomingPhoneNumberLocal Method for CreateIncomingPhoneNumberLocal
 //
 // * @param: optional nil or *CreateIncomingPhoneNumberLocalParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 //
 // * @param: "AddressSid" (string) - The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
 //
@@ -958,11 +1031,18 @@ type CreateIncomingPhoneNumberLocalParams struct {
 // * @return: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal
 func (c *DefaultApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneNumberLocalParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AddressSid != nil {
 		data.Set("AddressSid", *params.AddressSid)
 	}
@@ -1050,6 +1130,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomin
 
 // CreateIncomingPhoneNumberMobileParams Optional parameters for the method 'CreateIncomingPhoneNumberMobile'
 type CreateIncomingPhoneNumberMobileParams struct {
+	AccountSid           *string `json:"AccountSid,omitempty"`
 	AddressSid           *string `json:"AddressSid,omitempty"`
 	ApiVersion           *string `json:"ApiVersion,omitempty"`
 	BundleSid            *string `json:"BundleSid,omitempty"`
@@ -1078,6 +1159,8 @@ type CreateIncomingPhoneNumberMobileParams struct {
 // CreateIncomingPhoneNumberMobile Method for CreateIncomingPhoneNumberMobile
 //
 // * @param: optional nil or *CreateIncomingPhoneNumberMobileParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 //
 // * @param: "AddressSid" (string) - The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
 //
@@ -1128,11 +1211,18 @@ type CreateIncomingPhoneNumberMobileParams struct {
 // * @return: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile
 func (c *DefaultApiService) CreateIncomingPhoneNumberMobile(params *CreateIncomingPhoneNumberMobileParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AddressSid != nil {
 		data.Set("AddressSid", *params.AddressSid)
 	}
@@ -1220,6 +1310,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberMobile(params *CreateIncomi
 
 // CreateIncomingPhoneNumberTollFreeParams Optional parameters for the method 'CreateIncomingPhoneNumberTollFree'
 type CreateIncomingPhoneNumberTollFreeParams struct {
+	AccountSid           *string `json:"AccountSid,omitempty"`
 	AddressSid           *string `json:"AddressSid,omitempty"`
 	ApiVersion           *string `json:"ApiVersion,omitempty"`
 	BundleSid            *string `json:"BundleSid,omitempty"`
@@ -1248,6 +1339,8 @@ type CreateIncomingPhoneNumberTollFreeParams struct {
 // CreateIncomingPhoneNumberTollFree Method for CreateIncomingPhoneNumberTollFree
 //
 // * @param: optional nil or *CreateIncomingPhoneNumberTollFreeParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 //
 // * @param: "AddressSid" (string) - The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
 //
@@ -1298,11 +1391,18 @@ type CreateIncomingPhoneNumberTollFreeParams struct {
 // * @return: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree
 func (c *DefaultApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPhoneNumberTollFreeParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AddressSid != nil {
 		data.Set("AddressSid", *params.AddressSid)
 	}
@@ -1390,6 +1490,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberTollFree(params *CreateInco
 
 // CreateMessageParams Optional parameters for the method 'CreateMessage'
 type CreateMessageParams struct {
+	AccountSid          *string   `json:"AccountSid,omitempty"`
 	AddressRetention    *string   `json:"AddressRetention,omitempty"`
 	ApplicationSid      *string   `json:"ApplicationSid,omitempty"`
 	Attempt             *int32    `json:"Attempt,omitempty"`
@@ -1413,6 +1514,8 @@ type CreateMessageParams struct {
 // * Send a message from the account used to make the request
 //
 // * @param: optional nil or *CreateMessageParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 //
 // * @param: "AddressRetention" (string) - Determines if the address can be stored or obfuscated based on privacy settings
 //
@@ -1449,11 +1552,18 @@ type CreateMessageParams struct {
 // * @return: ApiV2010AccountMessage
 func (c *DefaultApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010AccountMessage, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AddressRetention != nil {
 		data.Set("AddressRetention", *params.AddressRetention)
 	}
@@ -1520,7 +1630,8 @@ func (c *DefaultApiService) CreateMessage(params *CreateMessageParams) (*ApiV201
 
 // CreateMessageFeedbackParams Optional parameters for the method 'CreateMessageFeedback'
 type CreateMessageFeedbackParams struct {
-	Outcome *string `json:"Outcome,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	Outcome    *string `json:"Outcome,omitempty"`
 }
 
 // CreateMessageFeedback Method for CreateMessageFeedback
@@ -1529,17 +1640,26 @@ type CreateMessageFeedbackParams struct {
 //
 // * @param: optional nil or *CreateMessageFeedbackParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+//
 // * @param: "Outcome" (string) - Whether the feedback has arrived. Can be: `unconfirmed` or `confirmed`. If `provide_feedback`=`true` in [the initial HTTP POST](https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource), the initial value of this property is `unconfirmed`. After the message arrives, update the value to `confirmed`.
 //
 // * @return: ApiV2010AccountMessageMessageFeedback
 func (c *DefaultApiService) CreateMessageFeedback(MessageSid string, params *CreateMessageFeedbackParams) (*ApiV2010AccountMessageMessageFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Outcome != nil {
 		data.Set("Outcome", *params.Outcome)
 	}
@@ -1561,6 +1681,7 @@ func (c *DefaultApiService) CreateMessageFeedback(MessageSid string, params *Cre
 
 // CreateNewKeyParams Optional parameters for the method 'CreateNewKey'
 type CreateNewKeyParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -1568,16 +1689,25 @@ type CreateNewKeyParams struct {
 //
 // * @param: optional nil or *CreateNewKeyParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
+//
 // * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 //
 // * @return: ApiV2010AccountNewKey
 func (c *DefaultApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010AccountNewKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -1599,6 +1729,7 @@ func (c *DefaultApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010A
 
 // CreateNewSigningKeyParams Optional parameters for the method 'CreateNewSigningKey'
 type CreateNewSigningKeyParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -1608,16 +1739,25 @@ type CreateNewSigningKeyParams struct {
 //
 // * @param: optional nil or *CreateNewSigningKeyParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
+//
 // * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 //
 // * @return: ApiV2010AccountNewSigningKey
 func (c *DefaultApiService) CreateNewSigningKey(params *CreateNewSigningKeyParams) (*ApiV2010AccountNewSigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -1639,6 +1779,7 @@ func (c *DefaultApiService) CreateNewSigningKey(params *CreateNewSigningKeyParam
 
 // CreateParticipantParams Optional parameters for the method 'CreateParticipant'
 type CreateParticipantParams struct {
+	AccountSid                              *string   `json:"AccountSid,omitempty"`
 	Beep                                    *string   `json:"Beep,omitempty"`
 	Byoc                                    *string   `json:"Byoc,omitempty"`
 	CallReason                              *string   `json:"CallReason,omitempty"`
@@ -1684,6 +1825,8 @@ type CreateParticipantParams struct {
 // * @param: ConferenceSid The SID of the participant's conference.
 //
 // * @param: optional nil or *CreateParticipantParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 //
 // * @param: "Beep" (string) - Whether to play a notification beep to the conference when the participant joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
 //
@@ -1764,12 +1907,19 @@ type CreateParticipantParams struct {
 // * @return: ApiV2010AccountConferenceParticipant
 func (c *DefaultApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010AccountConferenceParticipant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Beep != nil {
 		data.Set("Beep", *params.Beep)
 	}
@@ -1902,6 +2052,7 @@ func (c *DefaultApiService) CreateParticipant(ConferenceSid string, params *Crea
 
 // CreatePaymentsParams Optional parameters for the method 'CreatePayments'
 type CreatePaymentsParams struct {
+	AccountSid          *string                 `json:"AccountSid,omitempty"`
 	BankAccountType     *string                 `json:"BankAccountType,omitempty"`
 	ChargeAmount        *float32                `json:"ChargeAmount,omitempty"`
 	Currency            *string                 `json:"Currency,omitempty"`
@@ -1927,6 +2078,8 @@ type CreatePaymentsParams struct {
 // * @param: CallSid The SID of the call that will create the resource. Call leg associated with this sid is expected to provide payment information thru DTMF.
 //
 // * @param: optional nil or *CreatePaymentsParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 //
 // * @param: "BankAccountType" (string) - Type of bank account if payment source is ACH. One of `consumer-checking`, `consumer-savings`, or `commercial-checking`. The default value is `consumer-checking`.
 //
@@ -1963,12 +2116,19 @@ type CreatePaymentsParams struct {
 // * @return: ApiV2010AccountCallPayments
 func (c *DefaultApiService) CreatePayments(CallSid string, params *CreatePaymentsParams) (*ApiV2010AccountCallPayments, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.BankAccountType != nil {
 		data.Set("BankAccountType", *params.BankAccountType)
 	}
@@ -2041,6 +2201,7 @@ func (c *DefaultApiService) CreatePayments(CallSid string, params *CreatePayment
 
 // CreateQueueParams Optional parameters for the method 'CreateQueue'
 type CreateQueueParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MaxSize      *int32  `json:"MaxSize,omitempty"`
 }
@@ -2051,6 +2212,8 @@ type CreateQueueParams struct {
 //
 // * @param: optional nil or *CreateQueueParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+//
 // * @param: "FriendlyName" (string) - A descriptive string that you created to describe this resource. It can be up to 64 characters long.
 //
 // * @param: "MaxSize" (int32) - The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
@@ -2058,11 +2221,18 @@ type CreateQueueParams struct {
 // * @return: ApiV2010AccountQueue
 func (c *DefaultApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010AccountQueue, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -2087,6 +2257,7 @@ func (c *DefaultApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010Acc
 
 // CreateSipAuthCallsCredentialListMappingParams Optional parameters for the method 'CreateSipAuthCallsCredentialListMapping'
 type CreateSipAuthCallsCredentialListMappingParams struct {
+	AccountSid        *string `json:"AccountSid,omitempty"`
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
@@ -2098,17 +2269,26 @@ type CreateSipAuthCallsCredentialListMappingParams struct {
 //
 // * @param: optional nil or *CreateSipAuthCallsCredentialListMappingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+//
 // * @param: "CredentialListSid" (string) - The SID of the CredentialList resource to map to the SIP domain.
 //
 // * @return: ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping
 func (c *DefaultApiService) CreateSipAuthCallsCredentialListMapping(DomainSid string, params *CreateSipAuthCallsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.CredentialListSid != nil {
 		data.Set("CredentialListSid", *params.CredentialListSid)
 	}
@@ -2130,6 +2310,7 @@ func (c *DefaultApiService) CreateSipAuthCallsCredentialListMapping(DomainSid st
 
 // CreateSipAuthCallsIpAccessControlListMappingParams Optional parameters for the method 'CreateSipAuthCallsIpAccessControlListMapping'
 type CreateSipAuthCallsIpAccessControlListMappingParams struct {
+	AccountSid             *string `json:"AccountSid,omitempty"`
 	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
 }
 
@@ -2141,17 +2322,26 @@ type CreateSipAuthCallsIpAccessControlListMappingParams struct {
 //
 // * @param: optional nil or *CreateSipAuthCallsIpAccessControlListMappingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+//
 // * @param: "IpAccessControlListSid" (string) - The SID of the IpAccessControlList resource to map to the SIP domain.
 //
 // * @return: ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping
 func (c *DefaultApiService) CreateSipAuthCallsIpAccessControlListMapping(DomainSid string, params *CreateSipAuthCallsIpAccessControlListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.IpAccessControlListSid != nil {
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
 	}
@@ -2173,6 +2363,7 @@ func (c *DefaultApiService) CreateSipAuthCallsIpAccessControlListMapping(DomainS
 
 // CreateSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'CreateSipAuthRegistrationsCredentialListMapping'
 type CreateSipAuthRegistrationsCredentialListMappingParams struct {
+	AccountSid        *string `json:"AccountSid,omitempty"`
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
@@ -2184,17 +2375,26 @@ type CreateSipAuthRegistrationsCredentialListMappingParams struct {
 //
 // * @param: optional nil or *CreateSipAuthRegistrationsCredentialListMappingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+//
 // * @param: "CredentialListSid" (string) - The SID of the CredentialList resource to map to the SIP domain.
 //
 // * @return: ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping
 func (c *DefaultApiService) CreateSipAuthRegistrationsCredentialListMapping(DomainSid string, params *CreateSipAuthRegistrationsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.CredentialListSid != nil {
 		data.Set("CredentialListSid", *params.CredentialListSid)
 	}
@@ -2216,8 +2416,9 @@ func (c *DefaultApiService) CreateSipAuthRegistrationsCredentialListMapping(Doma
 
 // CreateSipCredentialParams Optional parameters for the method 'CreateSipCredential'
 type CreateSipCredentialParams struct {
-	Password *string `json:"Password,omitempty"`
-	Username *string `json:"Username,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	Password   *string `json:"Password,omitempty"`
+	Username   *string `json:"Username,omitempty"`
 }
 
 // CreateSipCredential Method for CreateSipCredential
@@ -2228,6 +2429,8 @@ type CreateSipCredentialParams struct {
 //
 // * @param: optional nil or *CreateSipCredentialParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+//
 // * @param: "Password" (string) - The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
 //
 // * @param: "Username" (string) - The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio's challenge of the initial INVITE. It can be up to 32 characters long.
@@ -2235,12 +2438,19 @@ type CreateSipCredentialParams struct {
 // * @return: ApiV2010AccountSipSipCredentialListSipCredential
 func (c *DefaultApiService) CreateSipCredential(CredentialListSid string, params *CreateSipCredentialParams) (*ApiV2010AccountSipSipCredentialListSipCredential, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CredentialListSid"+"}", CredentialListSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Password != nil {
 		data.Set("Password", *params.Password)
 	}
@@ -2265,6 +2475,7 @@ func (c *DefaultApiService) CreateSipCredential(CredentialListSid string, params
 
 // CreateSipCredentialListParams Optional parameters for the method 'CreateSipCredentialList'
 type CreateSipCredentialListParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -2274,16 +2485,25 @@ type CreateSipCredentialListParams struct {
 //
 // * @param: optional nil or *CreateSipCredentialListParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+//
 // * @param: "FriendlyName" (string) - A human readable descriptive text that describes the CredentialList, up to 64 characters long.
 //
 // * @return: ApiV2010AccountSipSipCredentialList
 func (c *DefaultApiService) CreateSipCredentialList(params *CreateSipCredentialListParams) (*ApiV2010AccountSipSipCredentialList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -2305,6 +2525,7 @@ func (c *DefaultApiService) CreateSipCredentialList(params *CreateSipCredentialL
 
 // CreateSipCredentialListMappingParams Optional parameters for the method 'CreateSipCredentialListMapping'
 type CreateSipCredentialListMappingParams struct {
+	AccountSid        *string `json:"AccountSid,omitempty"`
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
@@ -2316,17 +2537,26 @@ type CreateSipCredentialListMappingParams struct {
 //
 // * @param: optional nil or *CreateSipCredentialListMappingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @param: "CredentialListSid" (string) - A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain.
 //
 // * @return: ApiV2010AccountSipSipDomainSipCredentialListMapping
 func (c *DefaultApiService) CreateSipCredentialListMapping(DomainSid string, params *CreateSipCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.CredentialListSid != nil {
 		data.Set("CredentialListSid", *params.CredentialListSid)
 	}
@@ -2348,6 +2578,7 @@ func (c *DefaultApiService) CreateSipCredentialListMapping(DomainSid string, par
 
 // CreateSipDomainParams Optional parameters for the method 'CreateSipDomain'
 type CreateSipDomainParams struct {
+	AccountSid                *string `json:"AccountSid,omitempty"`
 	ByocTrunkSid              *string `json:"ByocTrunkSid,omitempty"`
 	DomainName                *string `json:"DomainName,omitempty"`
 	EmergencyCallerSid        *string `json:"EmergencyCallerSid,omitempty"`
@@ -2368,6 +2599,8 @@ type CreateSipDomainParams struct {
 // * Create a new Domain
 //
 // * @param: optional nil or *CreateSipDomainParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 //
 // * @param: "ByocTrunkSid" (string) - The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
 //
@@ -2398,11 +2631,18 @@ type CreateSipDomainParams struct {
 // * @return: ApiV2010AccountSipSipDomain
 func (c *DefaultApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010AccountSipSipDomain, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.ByocTrunkSid != nil {
 		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
 	}
@@ -2460,6 +2700,7 @@ func (c *DefaultApiService) CreateSipDomain(params *CreateSipDomainParams) (*Api
 
 // CreateSipIpAccessControlListParams Optional parameters for the method 'CreateSipIpAccessControlList'
 type CreateSipIpAccessControlListParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -2469,16 +2710,25 @@ type CreateSipIpAccessControlListParams struct {
 //
 // * @param: optional nil or *CreateSipIpAccessControlListParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @param: "FriendlyName" (string) - A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long.
 //
 // * @return: ApiV2010AccountSipSipIpAccessControlList
 func (c *DefaultApiService) CreateSipIpAccessControlList(params *CreateSipIpAccessControlListParams) (*ApiV2010AccountSipSipIpAccessControlList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -2500,6 +2750,7 @@ func (c *DefaultApiService) CreateSipIpAccessControlList(params *CreateSipIpAcce
 
 // CreateSipIpAccessControlListMappingParams Optional parameters for the method 'CreateSipIpAccessControlListMapping'
 type CreateSipIpAccessControlListMappingParams struct {
+	AccountSid             *string `json:"AccountSid,omitempty"`
 	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
 }
 
@@ -2511,17 +2762,26 @@ type CreateSipIpAccessControlListMappingParams struct {
 //
 // * @param: optional nil or *CreateSipIpAccessControlListMappingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+//
 // * @param: "IpAccessControlListSid" (string) - The unique id of the IP access control list to map to the SIP domain.
 //
 // * @return: ApiV2010AccountSipSipDomainSipIpAccessControlListMapping
 func (c *DefaultApiService) CreateSipIpAccessControlListMapping(DomainSid string, params *CreateSipIpAccessControlListMappingParams) (*ApiV2010AccountSipSipDomainSipIpAccessControlListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.IpAccessControlListSid != nil {
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
 	}
@@ -2543,6 +2803,7 @@ func (c *DefaultApiService) CreateSipIpAccessControlListMapping(DomainSid string
 
 // CreateSipIpAddressParams Optional parameters for the method 'CreateSipIpAddress'
 type CreateSipIpAddressParams struct {
+	AccountSid       *string `json:"AccountSid,omitempty"`
 	CidrPrefixLength *int32  `json:"CidrPrefixLength,omitempty"`
 	FriendlyName     *string `json:"FriendlyName,omitempty"`
 	IpAddress        *string `json:"IpAddress,omitempty"`
@@ -2556,6 +2817,8 @@ type CreateSipIpAddressParams struct {
 //
 // * @param: optional nil or *CreateSipIpAddressParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @param: "CidrPrefixLength" (int32) - An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 //
 // * @param: "FriendlyName" (string) - A human readable descriptive text for this resource, up to 64 characters long.
@@ -2565,12 +2828,19 @@ type CreateSipIpAddressParams struct {
 // * @return: ApiV2010AccountSipSipIpAccessControlListSipIpAddress
 func (c *DefaultApiService) CreateSipIpAddress(IpAccessControlListSid string, params *CreateSipIpAddressParams) (*ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.CidrPrefixLength != nil {
 		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
 	}
@@ -2598,7 +2868,8 @@ func (c *DefaultApiService) CreateSipIpAddress(IpAccessControlListSid string, pa
 
 // CreateTokenParams Optional parameters for the method 'CreateToken'
 type CreateTokenParams struct {
-	Ttl *int32 `json:"Ttl,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	Ttl        *int32  `json:"Ttl,omitempty"`
 }
 
 // CreateToken Method for CreateToken
@@ -2607,16 +2878,25 @@ type CreateTokenParams struct {
 //
 // * @param: optional nil or *CreateTokenParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+//
 // * @param: "Ttl" (int32) - The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
 //
 // * @return: ApiV2010AccountToken
 func (c *DefaultApiService) CreateToken(params *CreateTokenParams) (*ApiV2010AccountToken, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Tokens.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
@@ -2638,6 +2918,7 @@ func (c *DefaultApiService) CreateToken(params *CreateTokenParams) (*ApiV2010Acc
 
 // CreateUsageTriggerParams Optional parameters for the method 'CreateUsageTrigger'
 type CreateUsageTriggerParams struct {
+	AccountSid     *string `json:"AccountSid,omitempty"`
 	CallbackMethod *string `json:"CallbackMethod,omitempty"`
 	CallbackUrl    *string `json:"CallbackUrl,omitempty"`
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
@@ -2652,6 +2933,8 @@ type CreateUsageTriggerParams struct {
 // * Create a new UsageTrigger
 //
 // * @param: optional nil or *CreateUsageTriggerParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 //
 // * @param: "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
 //
@@ -2670,11 +2953,18 @@ type CreateUsageTriggerParams struct {
 // * @return: ApiV2010AccountUsageUsageTrigger
 func (c *DefaultApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV2010AccountUsageUsageTrigger, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
 	}
@@ -2714,6 +3004,7 @@ func (c *DefaultApiService) CreateUsageTrigger(params *CreateUsageTriggerParams)
 
 // CreateValidationRequestParams Optional parameters for the method 'CreateValidationRequest'
 type CreateValidationRequestParams struct {
+	AccountSid           *string `json:"AccountSid,omitempty"`
 	CallDelay            *int32  `json:"CallDelay,omitempty"`
 	Extension            *string `json:"Extension,omitempty"`
 	FriendlyName         *string `json:"FriendlyName,omitempty"`
@@ -2725,6 +3016,8 @@ type CreateValidationRequestParams struct {
 // CreateValidationRequest Method for CreateValidationRequest
 //
 // * @param: optional nil or *CreateValidationRequestParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the new caller ID resource.
 //
 // * @param: "CallDelay" (int32) - The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
 //
@@ -2741,11 +3034,18 @@ type CreateValidationRequestParams struct {
 // * @return: ApiV2010AccountValidationRequest
 func (c *DefaultApiService) CreateValidationRequest(params *CreateValidationRequestParams) (*ApiV2010AccountValidationRequest, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.CallDelay != nil {
 		data.Set("CallDelay", fmt.Sprint(*params.CallDelay))
 	}
@@ -2780,16 +3080,33 @@ func (c *DefaultApiService) CreateValidationRequest(params *CreateValidationRequ
 	return ps, err
 }
 
+// DeleteAddressParams Optional parameters for the method 'DeleteAddress'
+type DeleteAddressParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // DeleteAddress Method for DeleteAddress
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Address resource to delete.
-func (c *DefaultApiService) DeleteAddress(Sid string) error {
+//
+// * @param: optional nil or *DeleteAddressParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to delete.
+func (c *DefaultApiService) DeleteAddress(Sid string, params *DeleteAddressParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2799,6 +3116,11 @@ func (c *DefaultApiService) DeleteAddress(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteApplicationParams Optional parameters for the method 'DeleteApplication'
+type DeleteApplicationParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteApplication Method for DeleteApplication
@@ -2806,13 +3128,25 @@ func (c *DefaultApiService) DeleteAddress(Sid string) error {
 // * Delete the application by the specified application sid
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Application resource to delete.
-func (c *DefaultApiService) DeleteApplication(Sid string) error {
+//
+// * @param: optional nil or *DeleteApplicationParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to delete.
+func (c *DefaultApiService) DeleteApplication(Sid string, params *DeleteApplicationParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2822,6 +3156,11 @@ func (c *DefaultApiService) DeleteApplication(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteCallParams Optional parameters for the method 'DeleteCall'
+type DeleteCallParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteCall Method for DeleteCall
@@ -2829,13 +3168,25 @@ func (c *DefaultApiService) DeleteApplication(Sid string) error {
 // * Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
 //
 // * @param: Sid The Twilio-provided Call SID that uniquely identifies the Call resource to delete
-func (c *DefaultApiService) DeleteCall(Sid string) error {
+//
+// * @param: optional nil or *DeleteCallParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to delete.
+func (c *DefaultApiService) DeleteCall(Sid string, params *DeleteCallParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2847,18 +3198,35 @@ func (c *DefaultApiService) DeleteCall(Sid string) error {
 	return nil
 }
 
+// DeleteCallFeedbackSummaryParams Optional parameters for the method 'DeleteCallFeedbackSummary'
+type DeleteCallFeedbackSummaryParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // DeleteCallFeedbackSummary Method for DeleteCallFeedbackSummary
 //
 // * Delete a FeedbackSummary resource from a call
 //
 // * @param: Sid A 34 character string that uniquely identifies this resource.
-func (c *DefaultApiService) DeleteCallFeedbackSummary(Sid string) error {
+//
+// * @param: optional nil or *DeleteCallFeedbackSummaryParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+func (c *DefaultApiService) DeleteCallFeedbackSummary(Sid string, params *DeleteCallFeedbackSummaryParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2868,6 +3236,11 @@ func (c *DefaultApiService) DeleteCallFeedbackSummary(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteCallRecordingParams Optional parameters for the method 'DeleteCallRecording'
+type DeleteCallRecordingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteCallRecording Method for DeleteCallRecording
@@ -2877,14 +3250,26 @@ func (c *DefaultApiService) DeleteCallFeedbackSummary(Sid string) error {
 // * @param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to delete.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Recording resource to delete.
-func (c *DefaultApiService) DeleteCallRecording(CallSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteCallRecordingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to delete.
+func (c *DefaultApiService) DeleteCallRecording(CallSid string, Sid string, params *DeleteCallRecordingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2894,6 +3279,11 @@ func (c *DefaultApiService) DeleteCallRecording(CallSid string, Sid string) erro
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteConferenceRecordingParams Optional parameters for the method 'DeleteConferenceRecording'
+type DeleteConferenceRecordingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteConferenceRecording Method for DeleteConferenceRecording
@@ -2903,14 +3293,26 @@ func (c *DefaultApiService) DeleteCallRecording(CallSid string, Sid string) erro
 // * @param: ConferenceSid The Conference SID that identifies the conference associated with the recording to delete.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Conference Recording resource to delete.
-func (c *DefaultApiService) DeleteConferenceRecording(ConferenceSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteConferenceRecordingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to delete.
+func (c *DefaultApiService) DeleteConferenceRecording(ConferenceSid string, Sid string, params *DeleteConferenceRecordingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2920,6 +3322,11 @@ func (c *DefaultApiService) DeleteConferenceRecording(ConferenceSid string, Sid 
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteConnectAppParams Optional parameters for the method 'DeleteConnectApp'
+type DeleteConnectAppParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteConnectApp Method for DeleteConnectApp
@@ -2927,13 +3334,25 @@ func (c *DefaultApiService) DeleteConferenceRecording(ConferenceSid string, Sid 
 // * Delete an instance of a connect-app
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the ConnectApp resource to fetch.
-func (c *DefaultApiService) DeleteConnectApp(Sid string) error {
+//
+// * @param: optional nil or *DeleteConnectAppParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resource to fetch.
+func (c *DefaultApiService) DeleteConnectApp(Sid string, params *DeleteConnectAppParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2945,18 +3364,35 @@ func (c *DefaultApiService) DeleteConnectApp(Sid string) error {
 	return nil
 }
 
+// DeleteIncomingPhoneNumberParams Optional parameters for the method 'DeleteIncomingPhoneNumber'
+type DeleteIncomingPhoneNumberParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // DeleteIncomingPhoneNumber Method for DeleteIncomingPhoneNumber
 //
 // * Delete a phone-numbers belonging to the account used to make the request.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to delete.
-func (c *DefaultApiService) DeleteIncomingPhoneNumber(Sid string) error {
+//
+// * @param: optional nil or *DeleteIncomingPhoneNumberParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to delete.
+func (c *DefaultApiService) DeleteIncomingPhoneNumber(Sid string, params *DeleteIncomingPhoneNumberParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2966,6 +3402,11 @@ func (c *DefaultApiService) DeleteIncomingPhoneNumber(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'DeleteIncomingPhoneNumberAssignedAddOn'
+type DeleteIncomingPhoneNumberAssignedAddOnParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteIncomingPhoneNumberAssignedAddOn Method for DeleteIncomingPhoneNumberAssignedAddOn
@@ -2975,14 +3416,26 @@ func (c *DefaultApiService) DeleteIncomingPhoneNumber(Sid string) error {
 // * @param: ResourceSid The SID of the Phone Number to which the Add-on is assigned.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the resource to delete.
-func (c *DefaultApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteIncomingPhoneNumberAssignedAddOnParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to delete.
+func (c *DefaultApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string, params *DeleteIncomingPhoneNumberAssignedAddOnParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -2994,16 +3447,33 @@ func (c *DefaultApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid s
 	return nil
 }
 
+// DeleteKeyParams Optional parameters for the method 'DeleteKey'
+type DeleteKeyParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // DeleteKey Method for DeleteKey
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Key resource to delete.
-func (c *DefaultApiService) DeleteKey(Sid string) error {
+//
+// * @param: optional nil or *DeleteKeyParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to delete.
+func (c *DefaultApiService) DeleteKey(Sid string, params *DeleteKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3013,6 +3483,11 @@ func (c *DefaultApiService) DeleteKey(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteMediaParams Optional parameters for the method 'DeleteMedia'
+type DeleteMediaParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteMedia Method for DeleteMedia
@@ -3022,14 +3497,26 @@ func (c *DefaultApiService) DeleteKey(Sid string) error {
 // * @param: MessageSid The SID of the Message resource that this Media resource belongs to.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Media resource to delete
-func (c *DefaultApiService) DeleteMedia(MessageSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteMediaParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to delete.
+func (c *DefaultApiService) DeleteMedia(MessageSid string, Sid string, params *DeleteMediaParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3039,6 +3526,11 @@ func (c *DefaultApiService) DeleteMedia(MessageSid string, Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteMessageParams Optional parameters for the method 'DeleteMessage'
+type DeleteMessageParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteMessage Method for DeleteMessage
@@ -3046,13 +3538,25 @@ func (c *DefaultApiService) DeleteMedia(MessageSid string, Sid string) error {
 // * Deletes a message record from your account
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Message resource to delete.
-func (c *DefaultApiService) DeleteMessage(Sid string) error {
+//
+// * @param: optional nil or *DeleteMessageParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to delete.
+func (c *DefaultApiService) DeleteMessage(Sid string, params *DeleteMessageParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3064,18 +3568,35 @@ func (c *DefaultApiService) DeleteMessage(Sid string) error {
 	return nil
 }
 
+// DeleteOutgoingCallerIdParams Optional parameters for the method 'DeleteOutgoingCallerId'
+type DeleteOutgoingCallerIdParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // DeleteOutgoingCallerId Method for DeleteOutgoingCallerId
 //
 // * Delete the caller-id specified from the account
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to delete.
-func (c *DefaultApiService) DeleteOutgoingCallerId(Sid string) error {
+//
+// * @param: optional nil or *DeleteOutgoingCallerIdParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to delete.
+func (c *DefaultApiService) DeleteOutgoingCallerId(Sid string, params *DeleteOutgoingCallerIdParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3085,6 +3606,11 @@ func (c *DefaultApiService) DeleteOutgoingCallerId(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteParticipantParams Optional parameters for the method 'DeleteParticipant'
+type DeleteParticipantParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteParticipant Method for DeleteParticipant
@@ -3094,14 +3620,26 @@ func (c *DefaultApiService) DeleteOutgoingCallerId(Sid string) error {
 // * @param: ConferenceSid The SID of the conference with the participants to delete.
 //
 // * @param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to delete. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
-func (c *DefaultApiService) DeleteParticipant(ConferenceSid string, CallSid string) error {
+//
+// * @param: optional nil or *DeleteParticipantParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to delete.
+func (c *DefaultApiService) DeleteParticipant(ConferenceSid string, CallSid string, params *DeleteParticipantParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3111,6 +3649,11 @@ func (c *DefaultApiService) DeleteParticipant(ConferenceSid string, CallSid stri
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteQueueParams Optional parameters for the method 'DeleteQueue'
+type DeleteQueueParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteQueue Method for DeleteQueue
@@ -3118,13 +3661,25 @@ func (c *DefaultApiService) DeleteParticipant(ConferenceSid string, CallSid stri
 // * Remove an empty queue
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Queue resource to delete
-func (c *DefaultApiService) DeleteQueue(Sid string) error {
+//
+// * @param: optional nil or *DeleteQueueParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to delete.
+func (c *DefaultApiService) DeleteQueue(Sid string, params *DeleteQueueParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3136,18 +3691,35 @@ func (c *DefaultApiService) DeleteQueue(Sid string) error {
 	return nil
 }
 
+// DeleteRecordingParams Optional parameters for the method 'DeleteRecording'
+type DeleteRecordingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // DeleteRecording Method for DeleteRecording
 //
 // * Delete a recording from your account
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Recording resource to delete.
-func (c *DefaultApiService) DeleteRecording(Sid string) error {
+//
+// * @param: optional nil or *DeleteRecordingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to delete.
+func (c *DefaultApiService) DeleteRecording(Sid string, params *DeleteRecordingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3157,6 +3729,11 @@ func (c *DefaultApiService) DeleteRecording(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteRecordingAddOnResultParams Optional parameters for the method 'DeleteRecordingAddOnResult'
+type DeleteRecordingAddOnResultParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteRecordingAddOnResult Method for DeleteRecordingAddOnResult
@@ -3166,14 +3743,26 @@ func (c *DefaultApiService) DeleteRecording(Sid string) error {
 // * @param: ReferenceSid The SID of the recording to which the result to delete belongs.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to delete.
-func (c *DefaultApiService) DeleteRecordingAddOnResult(ReferenceSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteRecordingAddOnResultParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to delete.
+func (c *DefaultApiService) DeleteRecordingAddOnResult(ReferenceSid string, Sid string, params *DeleteRecordingAddOnResultParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3183,6 +3772,11 @@ func (c *DefaultApiService) DeleteRecordingAddOnResult(ReferenceSid string, Sid 
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteRecordingAddOnResultPayloadParams Optional parameters for the method 'DeleteRecordingAddOnResultPayload'
+type DeleteRecordingAddOnResultPayloadParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteRecordingAddOnResultPayload Method for DeleteRecordingAddOnResultPayload
@@ -3194,9 +3788,17 @@ func (c *DefaultApiService) DeleteRecordingAddOnResult(ReferenceSid string, Sid 
 // * @param: AddOnResultSid The SID of the AddOnResult to which the payloads to delete belongs.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to delete.
-func (c *DefaultApiService) DeleteRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteRecordingAddOnResultPayloadParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to delete.
+func (c *DefaultApiService) DeleteRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, Sid string, params *DeleteRecordingAddOnResultPayloadParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 	path = strings.Replace(path, "{"+"AddOnResultSid"+"}", AddOnResultSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -3204,6 +3806,10 @@ func (c *DefaultApiService) DeleteRecordingAddOnResultPayload(ReferenceSid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
+
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
@@ -3212,6 +3818,11 @@ func (c *DefaultApiService) DeleteRecordingAddOnResultPayload(ReferenceSid strin
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteRecordingTranscriptionParams Optional parameters for the method 'DeleteRecordingTranscription'
+type DeleteRecordingTranscriptionParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteRecordingTranscription Method for DeleteRecordingTranscription
@@ -3219,14 +3830,26 @@ func (c *DefaultApiService) DeleteRecordingAddOnResultPayload(ReferenceSid strin
 // * @param: RecordingSid The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to delete.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Transcription resource to delete.
-func (c *DefaultApiService) DeleteRecordingTranscription(RecordingSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteRecordingTranscriptionParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to delete.
+func (c *DefaultApiService) DeleteRecordingTranscription(RecordingSid string, Sid string, params *DeleteRecordingTranscriptionParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"RecordingSid"+"}", RecordingSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3238,16 +3861,33 @@ func (c *DefaultApiService) DeleteRecordingTranscription(RecordingSid string, Si
 	return nil
 }
 
+// DeleteSigningKeyParams Optional parameters for the method 'DeleteSigningKey'
+type DeleteSigningKeyParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // DeleteSigningKey Method for DeleteSigningKey
 //
 // * @param: Sid
-func (c *DefaultApiService) DeleteSigningKey(Sid string) error {
+//
+// * @param: optional nil or *DeleteSigningKeyParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) -
+func (c *DefaultApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3257,6 +3897,11 @@ func (c *DefaultApiService) DeleteSigningKey(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSipAuthCallsCredentialListMappingParams Optional parameters for the method 'DeleteSipAuthCallsCredentialListMapping'
+type DeleteSipAuthCallsCredentialListMappingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteSipAuthCallsCredentialListMapping Method for DeleteSipAuthCallsCredentialListMapping
@@ -3266,14 +3911,26 @@ func (c *DefaultApiService) DeleteSigningKey(Sid string) error {
 // * @param: DomainSid The SID of the SIP domain that contains the resource to delete.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the CredentialListMapping resource to delete.
-func (c *DefaultApiService) DeleteSipAuthCallsCredentialListMapping(DomainSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteSipAuthCallsCredentialListMappingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to delete.
+func (c *DefaultApiService) DeleteSipAuthCallsCredentialListMapping(DomainSid string, Sid string, params *DeleteSipAuthCallsCredentialListMappingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3283,6 +3940,11 @@ func (c *DefaultApiService) DeleteSipAuthCallsCredentialListMapping(DomainSid st
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSipAuthCallsIpAccessControlListMappingParams Optional parameters for the method 'DeleteSipAuthCallsIpAccessControlListMapping'
+type DeleteSipAuthCallsIpAccessControlListMappingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteSipAuthCallsIpAccessControlListMapping Method for DeleteSipAuthCallsIpAccessControlListMapping
@@ -3292,14 +3954,26 @@ func (c *DefaultApiService) DeleteSipAuthCallsCredentialListMapping(DomainSid st
 // * @param: DomainSid The SID of the SIP domain that contains the resources to delete.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the IpAccessControlListMapping resource to delete.
-func (c *DefaultApiService) DeleteSipAuthCallsIpAccessControlListMapping(DomainSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteSipAuthCallsIpAccessControlListMappingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resources to delete.
+func (c *DefaultApiService) DeleteSipAuthCallsIpAccessControlListMapping(DomainSid string, Sid string, params *DeleteSipAuthCallsIpAccessControlListMappingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3309,6 +3983,11 @@ func (c *DefaultApiService) DeleteSipAuthCallsIpAccessControlListMapping(DomainS
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'DeleteSipAuthRegistrationsCredentialListMapping'
+type DeleteSipAuthRegistrationsCredentialListMappingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteSipAuthRegistrationsCredentialListMapping Method for DeleteSipAuthRegistrationsCredentialListMapping
@@ -3318,14 +3997,26 @@ func (c *DefaultApiService) DeleteSipAuthCallsIpAccessControlListMapping(DomainS
 // * @param: DomainSid The SID of the SIP domain that contains the resources to delete.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the CredentialListMapping resource to delete.
-func (c *DefaultApiService) DeleteSipAuthRegistrationsCredentialListMapping(DomainSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteSipAuthRegistrationsCredentialListMappingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to delete.
+func (c *DefaultApiService) DeleteSipAuthRegistrationsCredentialListMapping(DomainSid string, Sid string, params *DeleteSipAuthRegistrationsCredentialListMappingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3335,6 +4026,11 @@ func (c *DefaultApiService) DeleteSipAuthRegistrationsCredentialListMapping(Doma
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSipCredentialParams Optional parameters for the method 'DeleteSipCredential'
+type DeleteSipCredentialParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteSipCredential Method for DeleteSipCredential
@@ -3344,14 +4040,26 @@ func (c *DefaultApiService) DeleteSipAuthRegistrationsCredentialListMapping(Doma
 // * @param: CredentialListSid The unique id that identifies the credential list that contains the desired credentials.
 //
 // * @param: Sid The unique id that identifies the resource to delete.
-func (c *DefaultApiService) DeleteSipCredential(CredentialListSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteSipCredentialParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+func (c *DefaultApiService) DeleteSipCredential(CredentialListSid string, Sid string, params *DeleteSipCredentialParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CredentialListSid"+"}", CredentialListSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3363,18 +4071,35 @@ func (c *DefaultApiService) DeleteSipCredential(CredentialListSid string, Sid st
 	return nil
 }
 
+// DeleteSipCredentialListParams Optional parameters for the method 'DeleteSipCredentialList'
+type DeleteSipCredentialListParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // DeleteSipCredentialList Method for DeleteSipCredentialList
 //
 // * Delete a Credential List
 //
 // * @param: Sid The credential list Sid that uniquely identifies this resource
-func (c *DefaultApiService) DeleteSipCredentialList(Sid string) error {
+//
+// * @param: optional nil or *DeleteSipCredentialListParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+func (c *DefaultApiService) DeleteSipCredentialList(Sid string, params *DeleteSipCredentialListParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3384,6 +4109,11 @@ func (c *DefaultApiService) DeleteSipCredentialList(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSipCredentialListMappingParams Optional parameters for the method 'DeleteSipCredentialListMapping'
+type DeleteSipCredentialListMappingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteSipCredentialListMapping Method for DeleteSipCredentialListMapping
@@ -3393,14 +4123,26 @@ func (c *DefaultApiService) DeleteSipCredentialList(Sid string) error {
 // * @param: DomainSid A 34 character string that uniquely identifies the SIP Domain that includes the resource to delete.
 //
 // * @param: Sid A 34 character string that uniquely identifies the resource to delete.
-func (c *DefaultApiService) DeleteSipCredentialListMapping(DomainSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteSipCredentialListMappingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+func (c *DefaultApiService) DeleteSipCredentialListMapping(DomainSid string, Sid string, params *DeleteSipCredentialListMappingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3410,6 +4152,11 @@ func (c *DefaultApiService) DeleteSipCredentialListMapping(DomainSid string, Sid
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSipDomainParams Optional parameters for the method 'DeleteSipDomain'
+type DeleteSipDomainParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteSipDomain Method for DeleteSipDomain
@@ -3417,13 +4164,25 @@ func (c *DefaultApiService) DeleteSipCredentialListMapping(DomainSid string, Sid
 // * Delete an instance of a Domain
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the SipDomain resource to delete.
-func (c *DefaultApiService) DeleteSipDomain(Sid string) error {
+//
+// * @param: optional nil or *DeleteSipDomainParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to delete.
+func (c *DefaultApiService) DeleteSipDomain(Sid string, params *DeleteSipDomainParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3435,18 +4194,35 @@ func (c *DefaultApiService) DeleteSipDomain(Sid string) error {
 	return nil
 }
 
+// DeleteSipIpAccessControlListParams Optional parameters for the method 'DeleteSipIpAccessControlList'
+type DeleteSipIpAccessControlListParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // DeleteSipIpAccessControlList Method for DeleteSipIpAccessControlList
 //
 // * Delete an IpAccessControlList from the requested account
 //
 // * @param: Sid A 34 character string that uniquely identifies the resource to delete.
-func (c *DefaultApiService) DeleteSipIpAccessControlList(Sid string) error {
+//
+// * @param: optional nil or *DeleteSipIpAccessControlListParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+func (c *DefaultApiService) DeleteSipIpAccessControlList(Sid string, params *DeleteSipIpAccessControlListParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3456,6 +4232,11 @@ func (c *DefaultApiService) DeleteSipIpAccessControlList(Sid string) error {
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSipIpAccessControlListMappingParams Optional parameters for the method 'DeleteSipIpAccessControlListMapping'
+type DeleteSipIpAccessControlListMappingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteSipIpAccessControlListMapping Method for DeleteSipIpAccessControlListMapping
@@ -3465,14 +4246,26 @@ func (c *DefaultApiService) DeleteSipIpAccessControlList(Sid string) error {
 // * @param: DomainSid A 34 character string that uniquely identifies the SIP domain.
 //
 // * @param: Sid A 34 character string that uniquely identifies the resource to delete.
-func (c *DefaultApiService) DeleteSipIpAccessControlListMapping(DomainSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteSipIpAccessControlListMappingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+func (c *DefaultApiService) DeleteSipIpAccessControlListMapping(DomainSid string, Sid string, params *DeleteSipIpAccessControlListMappingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3482,6 +4275,11 @@ func (c *DefaultApiService) DeleteSipIpAccessControlListMapping(DomainSid string
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteSipIpAddressParams Optional parameters for the method 'DeleteSipIpAddress'
+type DeleteSipIpAddressParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteSipIpAddress Method for DeleteSipIpAddress
@@ -3491,14 +4289,26 @@ func (c *DefaultApiService) DeleteSipIpAccessControlListMapping(DomainSid string
 // * @param: IpAccessControlListSid The IpAccessControlList Sid that identifies the IpAddress resources to delete.
 //
 // * @param: Sid A 34 character string that uniquely identifies the resource to delete.
-func (c *DefaultApiService) DeleteSipIpAddress(IpAccessControlListSid string, Sid string) error {
+//
+// * @param: optional nil or *DeleteSipIpAddressParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+func (c *DefaultApiService) DeleteSipIpAddress(IpAccessControlListSid string, Sid string, params *DeleteSipIpAddressParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3508,6 +4318,11 @@ func (c *DefaultApiService) DeleteSipIpAddress(IpAccessControlListSid string, Si
 	defer resp.Body.Close()
 
 	return nil
+}
+
+// DeleteTranscriptionParams Optional parameters for the method 'DeleteTranscription'
+type DeleteTranscriptionParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
 }
 
 // DeleteTranscription Method for DeleteTranscription
@@ -3515,13 +4330,25 @@ func (c *DefaultApiService) DeleteSipIpAddress(IpAccessControlListSid string, Si
 // * Delete a transcription from the account used to make the request
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Transcription resource to delete.
-func (c *DefaultApiService) DeleteTranscription(Sid string) error {
+//
+// * @param: optional nil or *DeleteTranscriptionParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to delete.
+func (c *DefaultApiService) DeleteTranscription(Sid string, params *DeleteTranscriptionParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3533,16 +4360,33 @@ func (c *DefaultApiService) DeleteTranscription(Sid string) error {
 	return nil
 }
 
+// DeleteUsageTriggerParams Optional parameters for the method 'DeleteUsageTrigger'
+type DeleteUsageTriggerParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // DeleteUsageTrigger Method for DeleteUsageTrigger
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the UsageTrigger resource to delete.
-func (c *DefaultApiService) DeleteUsageTrigger(Sid string) error {
+//
+// * @param: optional nil or *DeleteUsageTriggerParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to delete.
+func (c *DefaultApiService) DeleteUsageTrigger(Sid string, params *DeleteUsageTriggerParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3583,18 +4427,35 @@ func (c *DefaultApiService) FetchAccount(Sid string) (*ApiV2010Account, error) {
 	return ps, err
 }
 
+// FetchAddressParams Optional parameters for the method 'FetchAddress'
+type FetchAddressParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchAddress Method for FetchAddress
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Address resource to fetch.
 //
+// * @param: optional nil or *FetchAddressParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to fetch.
+//
 // * @return: ApiV2010AccountAddress
-func (c *DefaultApiService) FetchAddress(Sid string) (*ApiV2010AccountAddress, error) {
+func (c *DefaultApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV2010AccountAddress, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3611,20 +4472,37 @@ func (c *DefaultApiService) FetchAddress(Sid string) (*ApiV2010AccountAddress, e
 	return ps, err
 }
 
+// FetchApplicationParams Optional parameters for the method 'FetchApplication'
+type FetchApplicationParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchApplication Method for FetchApplication
 //
 // * Fetch the application specified by the provided sid
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Application resource to fetch.
 //
+// * @param: optional nil or *FetchApplicationParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resource to fetch.
+//
 // * @return: ApiV2010AccountApplication
-func (c *DefaultApiService) FetchApplication(Sid string) (*ApiV2010AccountApplication, error) {
+func (c *DefaultApiService) FetchApplication(Sid string, params *FetchApplicationParams) (*ApiV2010AccountApplication, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3641,20 +4519,37 @@ func (c *DefaultApiService) FetchApplication(Sid string) (*ApiV2010AccountApplic
 	return ps, err
 }
 
+// FetchAuthorizedConnectAppParams Optional parameters for the method 'FetchAuthorizedConnectApp'
+type FetchAuthorizedConnectAppParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchAuthorizedConnectApp Method for FetchAuthorizedConnectApp
 //
 // * Fetch an instance of an authorized-connect-app
 //
 // * @param: ConnectAppSid The SID of the Connect App to fetch.
 //
+// * @param: optional nil or *FetchAuthorizedConnectAppParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource to fetch.
+//
 // * @return: ApiV2010AccountAuthorizedConnectApp
-func (c *DefaultApiService) FetchAuthorizedConnectApp(ConnectAppSid string) (*ApiV2010AccountAuthorizedConnectApp, error) {
+func (c *DefaultApiService) FetchAuthorizedConnectApp(ConnectAppSid string, params *FetchAuthorizedConnectAppParams) (*ApiV2010AccountAuthorizedConnectApp, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ConnectAppSid"+"}", ConnectAppSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3671,18 +4566,35 @@ func (c *DefaultApiService) FetchAuthorizedConnectApp(ConnectAppSid string) (*Ap
 	return ps, err
 }
 
+// FetchAvailablePhoneNumberCountryParams Optional parameters for the method 'FetchAvailablePhoneNumberCountry'
+type FetchAvailablePhoneNumberCountryParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchAvailablePhoneNumberCountry Method for FetchAvailablePhoneNumberCountry
 //
 // * @param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
 //
+// * @param: optional nil or *FetchAvailablePhoneNumberCountryParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource.
+//
 // * @return: ApiV2010AccountAvailablePhoneNumberCountry
-func (c *DefaultApiService) FetchAvailablePhoneNumberCountry(CountryCode string) (*ApiV2010AccountAvailablePhoneNumberCountry, error) {
+func (c *DefaultApiService) FetchAvailablePhoneNumberCountry(CountryCode string, params *FetchAvailablePhoneNumberCountryParams) (*ApiV2010AccountAvailablePhoneNumberCountry, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3699,17 +4611,34 @@ func (c *DefaultApiService) FetchAvailablePhoneNumberCountry(CountryCode string)
 	return ps, err
 }
 
+// FetchBalanceParams Optional parameters for the method 'FetchBalance'
+type FetchBalanceParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchBalance Method for FetchBalance
 //
 // * Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information
 //
+// * @param: optional nil or *FetchBalanceParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique SID identifier of the Account.
+//
 // * @return: ApiV2010AccountBalance
-func (c *DefaultApiService) FetchBalance() (*ApiV2010AccountBalance, error) {
+func (c *DefaultApiService) FetchBalance(params *FetchBalanceParams) (*ApiV2010AccountBalance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Balance.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3726,20 +4655,37 @@ func (c *DefaultApiService) FetchBalance() (*ApiV2010AccountBalance, error) {
 	return ps, err
 }
 
+// FetchCallParams Optional parameters for the method 'FetchCall'
+type FetchCallParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchCall Method for FetchCall
 //
 // * Fetch the call specified by the provided Call SID
 //
 // * @param: Sid The SID of the Call resource to fetch.
 //
+// * @param: optional nil or *FetchCallParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to fetch.
+//
 // * @return: ApiV2010AccountCall
-func (c *DefaultApiService) FetchCall(Sid string) (*ApiV2010AccountCall, error) {
+func (c *DefaultApiService) FetchCall(Sid string, params *FetchCallParams) (*ApiV2010AccountCall, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3756,20 +4702,37 @@ func (c *DefaultApiService) FetchCall(Sid string) (*ApiV2010AccountCall, error) 
 	return ps, err
 }
 
+// FetchCallFeedbackParams Optional parameters for the method 'FetchCallFeedback'
+type FetchCallFeedbackParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchCallFeedback Method for FetchCallFeedback
 //
 // * Fetch a Feedback resource from a call
 //
 // * @param: CallSid The call sid that uniquely identifies the call
 //
+// * @param: optional nil or *FetchCallFeedbackParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @return: ApiV2010AccountCallCallFeedback
-func (c *DefaultApiService) FetchCallFeedback(CallSid string) (*ApiV2010AccountCallCallFeedback, error) {
+func (c *DefaultApiService) FetchCallFeedback(CallSid string, params *FetchCallFeedbackParams) (*ApiV2010AccountCallCallFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3786,20 +4749,37 @@ func (c *DefaultApiService) FetchCallFeedback(CallSid string) (*ApiV2010AccountC
 	return ps, err
 }
 
+// FetchCallFeedbackSummaryParams Optional parameters for the method 'FetchCallFeedbackSummary'
+type FetchCallFeedbackSummaryParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchCallFeedbackSummary Method for FetchCallFeedbackSummary
 //
 // * Fetch a FeedbackSummary resource from a call
 //
 // * @param: Sid A 34 character string that uniquely identifies this resource.
 //
+// * @param: optional nil or *FetchCallFeedbackSummaryParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @return: ApiV2010AccountCallCallFeedbackSummary
-func (c *DefaultApiService) FetchCallFeedbackSummary(Sid string) (*ApiV2010AccountCallCallFeedbackSummary, error) {
+func (c *DefaultApiService) FetchCallFeedbackSummary(Sid string, params *FetchCallFeedbackSummaryParams) (*ApiV2010AccountCallCallFeedbackSummary, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3816,21 +4796,38 @@ func (c *DefaultApiService) FetchCallFeedbackSummary(Sid string) (*ApiV2010Accou
 	return ps, err
 }
 
+// FetchCallNotificationParams Optional parameters for the method 'FetchCallNotification'
+type FetchCallNotificationParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchCallNotification Method for FetchCallNotification
 //
 // * @param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resource to fetch.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Call Notification resource to fetch.
 //
+// * @param: optional nil or *FetchCallNotificationParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resource to fetch.
+//
 // * @return: ApiV2010AccountCallCallNotificationInstance
-func (c *DefaultApiService) FetchCallNotification(CallSid string, Sid string) (*ApiV2010AccountCallCallNotificationInstance, error) {
+func (c *DefaultApiService) FetchCallNotification(CallSid string, Sid string, params *FetchCallNotificationParams) (*ApiV2010AccountCallCallNotificationInstance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3847,6 +4844,11 @@ func (c *DefaultApiService) FetchCallNotification(CallSid string, Sid string) (*
 	return ps, err
 }
 
+// FetchCallRecordingParams Optional parameters for the method 'FetchCallRecording'
+type FetchCallRecordingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchCallRecording Method for FetchCallRecording
 //
 // * Fetch an instance of a recording for a call
@@ -3855,15 +4857,27 @@ func (c *DefaultApiService) FetchCallNotification(CallSid string, Sid string) (*
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Recording resource to fetch.
 //
+// * @param: optional nil or *FetchCallRecordingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.
+//
 // * @return: ApiV2010AccountCallCallRecording
-func (c *DefaultApiService) FetchCallRecording(CallSid string, Sid string) (*ApiV2010AccountCallCallRecording, error) {
+func (c *DefaultApiService) FetchCallRecording(CallSid string, Sid string, params *FetchCallRecordingParams) (*ApiV2010AccountCallCallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3880,20 +4894,37 @@ func (c *DefaultApiService) FetchCallRecording(CallSid string, Sid string) (*Api
 	return ps, err
 }
 
+// FetchConferenceParams Optional parameters for the method 'FetchConference'
+type FetchConferenceParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchConference Method for FetchConference
 //
 // * Fetch an instance of a conference
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Conference resource to fetch
 //
+// * @param: optional nil or *FetchConferenceParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to fetch.
+//
 // * @return: ApiV2010AccountConference
-func (c *DefaultApiService) FetchConference(Sid string) (*ApiV2010AccountConference, error) {
+func (c *DefaultApiService) FetchConference(Sid string, params *FetchConferenceParams) (*ApiV2010AccountConference, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3910,6 +4941,11 @@ func (c *DefaultApiService) FetchConference(Sid string) (*ApiV2010AccountConfere
 	return ps, err
 }
 
+// FetchConferenceRecordingParams Optional parameters for the method 'FetchConferenceRecording'
+type FetchConferenceRecordingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchConferenceRecording Method for FetchConferenceRecording
 //
 // * Fetch an instance of a recording for a call
@@ -3918,15 +4954,27 @@ func (c *DefaultApiService) FetchConference(Sid string) (*ApiV2010AccountConfere
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Conference Recording resource to fetch.
 //
+// * @param: optional nil or *FetchConferenceRecordingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to fetch.
+//
 // * @return: ApiV2010AccountConferenceConferenceRecording
-func (c *DefaultApiService) FetchConferenceRecording(ConferenceSid string, Sid string) (*ApiV2010AccountConferenceConferenceRecording, error) {
+func (c *DefaultApiService) FetchConferenceRecording(ConferenceSid string, Sid string, params *FetchConferenceRecordingParams) (*ApiV2010AccountConferenceConferenceRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3943,20 +4991,37 @@ func (c *DefaultApiService) FetchConferenceRecording(ConferenceSid string, Sid s
 	return ps, err
 }
 
+// FetchConnectAppParams Optional parameters for the method 'FetchConnectApp'
+type FetchConnectAppParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchConnectApp Method for FetchConnectApp
 //
 // * Fetch an instance of a connect-app
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the ConnectApp resource to fetch.
 //
+// * @param: optional nil or *FetchConnectAppParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resource to fetch.
+//
 // * @return: ApiV2010AccountConnectApp
-func (c *DefaultApiService) FetchConnectApp(Sid string) (*ApiV2010AccountConnectApp, error) {
+func (c *DefaultApiService) FetchConnectApp(Sid string, params *FetchConnectAppParams) (*ApiV2010AccountConnectApp, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -3973,20 +5038,37 @@ func (c *DefaultApiService) FetchConnectApp(Sid string) (*ApiV2010AccountConnect
 	return ps, err
 }
 
+// FetchIncomingPhoneNumberParams Optional parameters for the method 'FetchIncomingPhoneNumber'
+type FetchIncomingPhoneNumberParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchIncomingPhoneNumber Method for FetchIncomingPhoneNumber
 //
 // * Fetch an incoming-phone-number belonging to the account used to make the request.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to fetch.
 //
+// * @param: optional nil or *FetchIncomingPhoneNumberParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to fetch.
+//
 // * @return: ApiV2010AccountIncomingPhoneNumber
-func (c *DefaultApiService) FetchIncomingPhoneNumber(Sid string) (*ApiV2010AccountIncomingPhoneNumber, error) {
+func (c *DefaultApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIncomingPhoneNumberParams) (*ApiV2010AccountIncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4003,6 +5085,11 @@ func (c *DefaultApiService) FetchIncomingPhoneNumber(Sid string) (*ApiV2010Accou
 	return ps, err
 }
 
+// FetchIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'FetchIncomingPhoneNumberAssignedAddOn'
+type FetchIncomingPhoneNumberAssignedAddOnParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchIncomingPhoneNumberAssignedAddOn Method for FetchIncomingPhoneNumberAssignedAddOn
 //
 // * Fetch an instance of an Add-on installation currently assigned to this Number.
@@ -4011,15 +5098,27 @@ func (c *DefaultApiService) FetchIncomingPhoneNumber(Sid string) (*ApiV2010Accou
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the resource to fetch.
 //
+// * @param: optional nil or *FetchIncomingPhoneNumberAssignedAddOnParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.
+//
 // * @return: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn
-func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
+func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string, params *FetchIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4036,6 +5135,11 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid st
 	return ps, err
 }
 
+// FetchIncomingPhoneNumberAssignedAddOnExtensionParams Optional parameters for the method 'FetchIncomingPhoneNumberAssignedAddOnExtension'
+type FetchIncomingPhoneNumberAssignedAddOnExtensionParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchIncomingPhoneNumberAssignedAddOnExtension Method for FetchIncomingPhoneNumberAssignedAddOnExtension
 //
 // * Fetch an instance of an Extension for the Assigned Add-on.
@@ -4046,16 +5150,28 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid st
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the resource to fetch.
 //
+// * @param: optional nil or *FetchIncomingPhoneNumberAssignedAddOnExtensionParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.
+//
 // * @return: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension
-func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, Sid string) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension, error) {
+func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, Sid string, params *FetchIncomingPhoneNumberAssignedAddOnExtensionParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 	path = strings.Replace(path, "{"+"AssignedAddOnSid"+"}", AssignedAddOnSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4072,18 +5188,35 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOnExtension(Resou
 	return ps, err
 }
 
+// FetchKeyParams Optional parameters for the method 'FetchKey'
+type FetchKeyParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchKey Method for FetchKey
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Key resource to fetch.
 //
+// * @param: optional nil or *FetchKeyParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resource to fetch.
+//
 // * @return: ApiV2010AccountKey
-func (c *DefaultApiService) FetchKey(Sid string) (*ApiV2010AccountKey, error) {
+func (c *DefaultApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2010AccountKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4100,6 +5233,11 @@ func (c *DefaultApiService) FetchKey(Sid string) (*ApiV2010AccountKey, error) {
 	return ps, err
 }
 
+// FetchMediaParams Optional parameters for the method 'FetchMedia'
+type FetchMediaParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchMedia Method for FetchMedia
 //
 // * Fetch a single media instance belonging to the account used to make the request
@@ -4108,15 +5246,27 @@ func (c *DefaultApiService) FetchKey(Sid string) (*ApiV2010AccountKey, error) {
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Media resource to fetch
 //
+// * @param: optional nil or *FetchMediaParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to fetch.
+//
 // * @return: ApiV2010AccountMessageMedia
-func (c *DefaultApiService) FetchMedia(MessageSid string, Sid string) (*ApiV2010AccountMessageMedia, error) {
+func (c *DefaultApiService) FetchMedia(MessageSid string, Sid string, params *FetchMediaParams) (*ApiV2010AccountMessageMedia, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4133,6 +5283,11 @@ func (c *DefaultApiService) FetchMedia(MessageSid string, Sid string) (*ApiV2010
 	return ps, err
 }
 
+// FetchMemberParams Optional parameters for the method 'FetchMember'
+type FetchMemberParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchMember Method for FetchMember
 //
 // * Fetch a specific member from the queue
@@ -4141,15 +5296,27 @@ func (c *DefaultApiService) FetchMedia(MessageSid string, Sid string) (*ApiV2010
 //
 // * @param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to fetch.
 //
+// * @param: optional nil or *FetchMemberParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to fetch.
+//
 // * @return: ApiV2010AccountQueueMember
-func (c *DefaultApiService) FetchMember(QueueSid string, CallSid string) (*ApiV2010AccountQueueMember, error) {
+func (c *DefaultApiService) FetchMember(QueueSid string, CallSid string, params *FetchMemberParams) (*ApiV2010AccountQueueMember, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"QueueSid"+"}", QueueSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4166,20 +5333,37 @@ func (c *DefaultApiService) FetchMember(QueueSid string, CallSid string) (*ApiV2
 	return ps, err
 }
 
+// FetchMessageParams Optional parameters for the method 'FetchMessage'
+type FetchMessageParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchMessage Method for FetchMessage
 //
 // * Fetch a message belonging to the account used to make the request
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Message resource to fetch.
 //
+// * @param: optional nil or *FetchMessageParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resource to fetch.
+//
 // * @return: ApiV2010AccountMessage
-func (c *DefaultApiService) FetchMessage(Sid string) (*ApiV2010AccountMessage, error) {
+func (c *DefaultApiService) FetchMessage(Sid string, params *FetchMessageParams) (*ApiV2010AccountMessage, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4196,20 +5380,37 @@ func (c *DefaultApiService) FetchMessage(Sid string) (*ApiV2010AccountMessage, e
 	return ps, err
 }
 
+// FetchNotificationParams Optional parameters for the method 'FetchNotification'
+type FetchNotificationParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchNotification Method for FetchNotification
 //
 // * Fetch a notification belonging to the account used to make the request
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Notification resource to fetch.
 //
+// * @param: optional nil or *FetchNotificationParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resource to fetch.
+//
 // * @return: ApiV2010AccountNotificationInstance
-func (c *DefaultApiService) FetchNotification(Sid string) (*ApiV2010AccountNotificationInstance, error) {
+func (c *DefaultApiService) FetchNotification(Sid string, params *FetchNotificationParams) (*ApiV2010AccountNotificationInstance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4226,20 +5427,37 @@ func (c *DefaultApiService) FetchNotification(Sid string) (*ApiV2010AccountNotif
 	return ps, err
 }
 
+// FetchOutgoingCallerIdParams Optional parameters for the method 'FetchOutgoingCallerId'
+type FetchOutgoingCallerIdParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchOutgoingCallerId Method for FetchOutgoingCallerId
 //
 // * Fetch an outgoing-caller-id belonging to the account used to make the request
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to fetch.
 //
+// * @param: optional nil or *FetchOutgoingCallerIdParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resource to fetch.
+//
 // * @return: ApiV2010AccountOutgoingCallerId
-func (c *DefaultApiService) FetchOutgoingCallerId(Sid string) (*ApiV2010AccountOutgoingCallerId, error) {
+func (c *DefaultApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgoingCallerIdParams) (*ApiV2010AccountOutgoingCallerId, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4256,6 +5474,11 @@ func (c *DefaultApiService) FetchOutgoingCallerId(Sid string) (*ApiV2010AccountO
 	return ps, err
 }
 
+// FetchParticipantParams Optional parameters for the method 'FetchParticipant'
+type FetchParticipantParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchParticipant Method for FetchParticipant
 //
 // * Fetch an instance of a participant
@@ -4264,15 +5487,27 @@ func (c *DefaultApiService) FetchOutgoingCallerId(Sid string) (*ApiV2010AccountO
 //
 // * @param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to fetch. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
 //
+// * @param: optional nil or *FetchParticipantParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource to fetch.
+//
 // * @return: ApiV2010AccountConferenceParticipant
-func (c *DefaultApiService) FetchParticipant(ConferenceSid string, CallSid string) (*ApiV2010AccountConferenceParticipant, error) {
+func (c *DefaultApiService) FetchParticipant(ConferenceSid string, CallSid string, params *FetchParticipantParams) (*ApiV2010AccountConferenceParticipant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4289,20 +5524,37 @@ func (c *DefaultApiService) FetchParticipant(ConferenceSid string, CallSid strin
 	return ps, err
 }
 
+// FetchQueueParams Optional parameters for the method 'FetchQueue'
+type FetchQueueParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchQueue Method for FetchQueue
 //
 // * Fetch an instance of a queue identified by the QueueSid
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Queue resource to fetch
 //
+// * @param: optional nil or *FetchQueueParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to fetch.
+//
 // * @return: ApiV2010AccountQueue
-func (c *DefaultApiService) FetchQueue(Sid string) (*ApiV2010AccountQueue, error) {
+func (c *DefaultApiService) FetchQueue(Sid string, params *FetchQueueParams) (*ApiV2010AccountQueue, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4319,20 +5571,37 @@ func (c *DefaultApiService) FetchQueue(Sid string) (*ApiV2010AccountQueue, error
 	return ps, err
 }
 
+// FetchRecordingParams Optional parameters for the method 'FetchRecording'
+type FetchRecordingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchRecording Method for FetchRecording
 //
 // * Fetch an instance of a recording
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Recording resource to fetch.
 //
+// * @param: optional nil or *FetchRecordingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.
+//
 // * @return: ApiV2010AccountRecording
-func (c *DefaultApiService) FetchRecording(Sid string) (*ApiV2010AccountRecording, error) {
+func (c *DefaultApiService) FetchRecording(Sid string, params *FetchRecordingParams) (*ApiV2010AccountRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4349,6 +5618,11 @@ func (c *DefaultApiService) FetchRecording(Sid string) (*ApiV2010AccountRecordin
 	return ps, err
 }
 
+// FetchRecordingAddOnResultParams Optional parameters for the method 'FetchRecordingAddOnResult'
+type FetchRecordingAddOnResultParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchRecordingAddOnResult Method for FetchRecordingAddOnResult
 //
 // * Fetch an instance of an AddOnResult
@@ -4357,15 +5631,27 @@ func (c *DefaultApiService) FetchRecording(Sid string) (*ApiV2010AccountRecordin
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
 //
+// * @param: optional nil or *FetchRecordingAddOnResultParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource to fetch.
+//
 // * @return: ApiV2010AccountRecordingRecordingAddOnResult
-func (c *DefaultApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid string) (*ApiV2010AccountRecordingRecordingAddOnResult, error) {
+func (c *DefaultApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid string, params *FetchRecordingAddOnResultParams) (*ApiV2010AccountRecordingRecordingAddOnResult, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4382,6 +5668,11 @@ func (c *DefaultApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid s
 	return ps, err
 }
 
+// FetchRecordingAddOnResultPayloadParams Optional parameters for the method 'FetchRecordingAddOnResultPayload'
+type FetchRecordingAddOnResultPayloadParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchRecordingAddOnResultPayload Method for FetchRecordingAddOnResultPayload
 //
 // * Fetch an instance of a result payload
@@ -4392,16 +5683,28 @@ func (c *DefaultApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid s
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
 //
+// * @param: optional nil or *FetchRecordingAddOnResultPayloadParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource to fetch.
+//
 // * @return: ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload
-func (c *DefaultApiService) FetchRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, Sid string) (*ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, error) {
+func (c *DefaultApiService) FetchRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, Sid string, params *FetchRecordingAddOnResultPayloadParams) (*ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 	path = strings.Replace(path, "{"+"AddOnResultSid"+"}", AddOnResultSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4418,21 +5721,38 @@ func (c *DefaultApiService) FetchRecordingAddOnResultPayload(ReferenceSid string
 	return ps, err
 }
 
+// FetchRecordingTranscriptionParams Optional parameters for the method 'FetchRecordingTranscription'
+type FetchRecordingTranscriptionParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchRecordingTranscription Method for FetchRecordingTranscription
 //
 // * @param: RecordingSid The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to fetch.
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
 //
+// * @param: optional nil or *FetchRecordingTranscriptionParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch.
+//
 // * @return: ApiV2010AccountRecordingRecordingTranscription
-func (c *DefaultApiService) FetchRecordingTranscription(RecordingSid string, Sid string) (*ApiV2010AccountRecordingRecordingTranscription, error) {
+func (c *DefaultApiService) FetchRecordingTranscription(RecordingSid string, Sid string, params *FetchRecordingTranscriptionParams) (*ApiV2010AccountRecordingRecordingTranscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"RecordingSid"+"}", RecordingSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4449,20 +5769,37 @@ func (c *DefaultApiService) FetchRecordingTranscription(RecordingSid string, Sid
 	return ps, err
 }
 
+// FetchShortCodeParams Optional parameters for the method 'FetchShortCode'
+type FetchShortCodeParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchShortCode Method for FetchShortCode
 //
 // * Fetch an instance of a short code
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the ShortCode resource to fetch
 //
+// * @param: optional nil or *FetchShortCodeParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to fetch.
+//
 // * @return: ApiV2010AccountShortCode
-func (c *DefaultApiService) FetchShortCode(Sid string) (*ApiV2010AccountShortCode, error) {
+func (c *DefaultApiService) FetchShortCode(Sid string, params *FetchShortCodeParams) (*ApiV2010AccountShortCode, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4479,18 +5816,35 @@ func (c *DefaultApiService) FetchShortCode(Sid string) (*ApiV2010AccountShortCod
 	return ps, err
 }
 
+// FetchSigningKeyParams Optional parameters for the method 'FetchSigningKey'
+type FetchSigningKeyParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchSigningKey Method for FetchSigningKey
 //
 // * @param: Sid
 //
+// * @param: optional nil or *FetchSigningKeyParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) -
+//
 // * @return: ApiV2010AccountSigningKey
-func (c *DefaultApiService) FetchSigningKey(Sid string) (*ApiV2010AccountSigningKey, error) {
+func (c *DefaultApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) (*ApiV2010AccountSigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4507,6 +5861,11 @@ func (c *DefaultApiService) FetchSigningKey(Sid string) (*ApiV2010AccountSigning
 	return ps, err
 }
 
+// FetchSipAuthCallsCredentialListMappingParams Optional parameters for the method 'FetchSipAuthCallsCredentialListMapping'
+type FetchSipAuthCallsCredentialListMappingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchSipAuthCallsCredentialListMapping Method for FetchSipAuthCallsCredentialListMapping
 //
 // * Fetch a specific instance of a credential list mapping
@@ -4515,15 +5874,27 @@ func (c *DefaultApiService) FetchSigningKey(Sid string) (*ApiV2010AccountSigning
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the CredentialListMapping resource to fetch.
 //
+// * @param: optional nil or *FetchSipAuthCallsCredentialListMappingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
+//
 // * @return: ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping
-func (c *DefaultApiService) FetchSipAuthCallsCredentialListMapping(DomainSid string, Sid string) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
+func (c *DefaultApiService) FetchSipAuthCallsCredentialListMapping(DomainSid string, Sid string, params *FetchSipAuthCallsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4540,6 +5911,11 @@ func (c *DefaultApiService) FetchSipAuthCallsCredentialListMapping(DomainSid str
 	return ps, err
 }
 
+// FetchSipAuthCallsIpAccessControlListMappingParams Optional parameters for the method 'FetchSipAuthCallsIpAccessControlListMapping'
+type FetchSipAuthCallsIpAccessControlListMappingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchSipAuthCallsIpAccessControlListMapping Method for FetchSipAuthCallsIpAccessControlListMapping
 //
 // * Fetch a specific instance of an IP Access Control List mapping
@@ -4548,15 +5924,27 @@ func (c *DefaultApiService) FetchSipAuthCallsCredentialListMapping(DomainSid str
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the IpAccessControlListMapping resource to fetch.
 //
+// * @param: optional nil or *FetchSipAuthCallsIpAccessControlListMappingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resource to fetch.
+//
 // * @return: ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping
-func (c *DefaultApiService) FetchSipAuthCallsIpAccessControlListMapping(DomainSid string, Sid string) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
+func (c *DefaultApiService) FetchSipAuthCallsIpAccessControlListMapping(DomainSid string, Sid string, params *FetchSipAuthCallsIpAccessControlListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4573,6 +5961,11 @@ func (c *DefaultApiService) FetchSipAuthCallsIpAccessControlListMapping(DomainSi
 	return ps, err
 }
 
+// FetchSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'FetchSipAuthRegistrationsCredentialListMapping'
+type FetchSipAuthRegistrationsCredentialListMappingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchSipAuthRegistrationsCredentialListMapping Method for FetchSipAuthRegistrationsCredentialListMapping
 //
 // * Fetch a specific instance of a credential list mapping
@@ -4581,15 +5974,27 @@ func (c *DefaultApiService) FetchSipAuthCallsIpAccessControlListMapping(DomainSi
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the CredentialListMapping resource to fetch.
 //
+// * @param: optional nil or *FetchSipAuthRegistrationsCredentialListMappingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
+//
 // * @return: ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping
-func (c *DefaultApiService) FetchSipAuthRegistrationsCredentialListMapping(DomainSid string, Sid string) (*ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping, error) {
+func (c *DefaultApiService) FetchSipAuthRegistrationsCredentialListMapping(DomainSid string, Sid string, params *FetchSipAuthRegistrationsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4606,6 +6011,11 @@ func (c *DefaultApiService) FetchSipAuthRegistrationsCredentialListMapping(Domai
 	return ps, err
 }
 
+// FetchSipCredentialParams Optional parameters for the method 'FetchSipCredential'
+type FetchSipCredentialParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchSipCredential Method for FetchSipCredential
 //
 // * Fetch a single credential.
@@ -4614,15 +6024,27 @@ func (c *DefaultApiService) FetchSipAuthRegistrationsCredentialListMapping(Domai
 //
 // * @param: Sid The unique id that identifies the resource to fetch.
 //
+// * @param: optional nil or *FetchSipCredentialParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+//
 // * @return: ApiV2010AccountSipSipCredentialListSipCredential
-func (c *DefaultApiService) FetchSipCredential(CredentialListSid string, Sid string) (*ApiV2010AccountSipSipCredentialListSipCredential, error) {
+func (c *DefaultApiService) FetchSipCredential(CredentialListSid string, Sid string, params *FetchSipCredentialParams) (*ApiV2010AccountSipSipCredentialListSipCredential, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CredentialListSid"+"}", CredentialListSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4639,20 +6061,37 @@ func (c *DefaultApiService) FetchSipCredential(CredentialListSid string, Sid str
 	return ps, err
 }
 
+// FetchSipCredentialListParams Optional parameters for the method 'FetchSipCredentialList'
+type FetchSipCredentialListParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchSipCredentialList Method for FetchSipCredentialList
 //
 // * Get a Credential List
 //
 // * @param: Sid The credential list Sid that uniquely identifies this resource
 //
+// * @param: optional nil or *FetchSipCredentialListParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+//
 // * @return: ApiV2010AccountSipSipCredentialList
-func (c *DefaultApiService) FetchSipCredentialList(Sid string) (*ApiV2010AccountSipSipCredentialList, error) {
+func (c *DefaultApiService) FetchSipCredentialList(Sid string, params *FetchSipCredentialListParams) (*ApiV2010AccountSipSipCredentialList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4669,6 +6108,11 @@ func (c *DefaultApiService) FetchSipCredentialList(Sid string) (*ApiV2010Account
 	return ps, err
 }
 
+// FetchSipCredentialListMappingParams Optional parameters for the method 'FetchSipCredentialListMapping'
+type FetchSipCredentialListMappingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchSipCredentialListMapping Method for FetchSipCredentialListMapping
 //
 // * Fetch a single CredentialListMapping resource from an account.
@@ -4677,15 +6121,27 @@ func (c *DefaultApiService) FetchSipCredentialList(Sid string) (*ApiV2010Account
 //
 // * @param: Sid A 34 character string that uniquely identifies the resource to fetch.
 //
+// * @param: optional nil or *FetchSipCredentialListMappingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @return: ApiV2010AccountSipSipDomainSipCredentialListMapping
-func (c *DefaultApiService) FetchSipCredentialListMapping(DomainSid string, Sid string) (*ApiV2010AccountSipSipDomainSipCredentialListMapping, error) {
+func (c *DefaultApiService) FetchSipCredentialListMapping(DomainSid string, Sid string, params *FetchSipCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4702,20 +6158,37 @@ func (c *DefaultApiService) FetchSipCredentialListMapping(DomainSid string, Sid 
 	return ps, err
 }
 
+// FetchSipDomainParams Optional parameters for the method 'FetchSipDomain'
+type FetchSipDomainParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchSipDomain Method for FetchSipDomain
 //
 // * Fetch an instance of a Domain
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the SipDomain resource to fetch.
 //
+// * @param: optional nil or *FetchSipDomainParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to fetch.
+//
 // * @return: ApiV2010AccountSipSipDomain
-func (c *DefaultApiService) FetchSipDomain(Sid string) (*ApiV2010AccountSipSipDomain, error) {
+func (c *DefaultApiService) FetchSipDomain(Sid string, params *FetchSipDomainParams) (*ApiV2010AccountSipSipDomain, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4732,20 +6205,37 @@ func (c *DefaultApiService) FetchSipDomain(Sid string) (*ApiV2010AccountSipSipDo
 	return ps, err
 }
 
+// FetchSipIpAccessControlListParams Optional parameters for the method 'FetchSipIpAccessControlList'
+type FetchSipIpAccessControlListParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchSipIpAccessControlList Method for FetchSipIpAccessControlList
 //
 // * Fetch a specific instance of an IpAccessControlList
 //
 // * @param: Sid A 34 character string that uniquely identifies the resource to fetch.
 //
+// * @param: optional nil or *FetchSipIpAccessControlListParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @return: ApiV2010AccountSipSipIpAccessControlList
-func (c *DefaultApiService) FetchSipIpAccessControlList(Sid string) (*ApiV2010AccountSipSipIpAccessControlList, error) {
+func (c *DefaultApiService) FetchSipIpAccessControlList(Sid string, params *FetchSipIpAccessControlListParams) (*ApiV2010AccountSipSipIpAccessControlList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4762,6 +6252,11 @@ func (c *DefaultApiService) FetchSipIpAccessControlList(Sid string) (*ApiV2010Ac
 	return ps, err
 }
 
+// FetchSipIpAccessControlListMappingParams Optional parameters for the method 'FetchSipIpAccessControlListMapping'
+type FetchSipIpAccessControlListMappingParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchSipIpAccessControlListMapping Method for FetchSipIpAccessControlListMapping
 //
 // * Fetch an IpAccessControlListMapping resource.
@@ -4770,15 +6265,27 @@ func (c *DefaultApiService) FetchSipIpAccessControlList(Sid string) (*ApiV2010Ac
 //
 // * @param: Sid A 34 character string that uniquely identifies the resource to fetch.
 //
+// * @param: optional nil or *FetchSipIpAccessControlListMappingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+//
 // * @return: ApiV2010AccountSipSipDomainSipIpAccessControlListMapping
-func (c *DefaultApiService) FetchSipIpAccessControlListMapping(DomainSid string, Sid string) (*ApiV2010AccountSipSipDomainSipIpAccessControlListMapping, error) {
+func (c *DefaultApiService) FetchSipIpAccessControlListMapping(DomainSid string, Sid string, params *FetchSipIpAccessControlListMappingParams) (*ApiV2010AccountSipSipDomainSipIpAccessControlListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4795,6 +6302,11 @@ func (c *DefaultApiService) FetchSipIpAccessControlListMapping(DomainSid string,
 	return ps, err
 }
 
+// FetchSipIpAddressParams Optional parameters for the method 'FetchSipIpAddress'
+type FetchSipIpAddressParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchSipIpAddress Method for FetchSipIpAddress
 //
 // * Read one IpAddress resource.
@@ -4803,15 +6315,27 @@ func (c *DefaultApiService) FetchSipIpAccessControlListMapping(DomainSid string,
 //
 // * @param: Sid A 34 character string that uniquely identifies the IpAddress resource to fetch.
 //
+// * @param: optional nil or *FetchSipIpAddressParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @return: ApiV2010AccountSipSipIpAccessControlListSipIpAddress
-func (c *DefaultApiService) FetchSipIpAddress(IpAccessControlListSid string, Sid string) (*ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
+func (c *DefaultApiService) FetchSipIpAddress(IpAccessControlListSid string, Sid string, params *FetchSipIpAddressParams) (*ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4828,20 +6352,37 @@ func (c *DefaultApiService) FetchSipIpAddress(IpAccessControlListSid string, Sid
 	return ps, err
 }
 
+// FetchTranscriptionParams Optional parameters for the method 'FetchTranscription'
+type FetchTranscriptionParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchTranscription Method for FetchTranscription
 //
 // * Fetch an instance of a Transcription
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
 //
+// * @param: optional nil or *FetchTranscriptionParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch.
+//
 // * @return: ApiV2010AccountTranscription
-func (c *DefaultApiService) FetchTranscription(Sid string) (*ApiV2010AccountTranscription, error) {
+func (c *DefaultApiService) FetchTranscription(Sid string, params *FetchTranscriptionParams) (*ApiV2010AccountTranscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4858,20 +6399,37 @@ func (c *DefaultApiService) FetchTranscription(Sid string) (*ApiV2010AccountTran
 	return ps, err
 }
 
+// FetchUsageTriggerParams Optional parameters for the method 'FetchUsageTrigger'
+type FetchUsageTriggerParams struct {
+	AccountSid *string `json:"AccountSid,omitempty"`
+}
+
 // FetchUsageTrigger Method for FetchUsageTrigger
 //
 // * Fetch and instance of a usage-trigger
 //
 // * @param: Sid The Twilio-provided string that uniquely identifies the UsageTrigger resource to fetch.
 //
+// * @param: optional nil or *FetchUsageTriggerParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resource to fetch.
+//
 // * @return: ApiV2010AccountUsageUsageTrigger
-func (c *DefaultApiService) FetchUsageTrigger(Sid string) (*ApiV2010AccountUsageUsageTrigger, error) {
+func (c *DefaultApiService) FetchUsageTrigger(Sid string, params *FetchUsageTriggerParams) (*ApiV2010AccountUsageUsageTrigger, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -4941,6 +6499,7 @@ func (c *DefaultApiService) ListAccount(params *ListAccountParams) (*ListAccount
 
 // ListAddressParams Optional parameters for the method 'ListAddress'
 type ListAddressParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	CustomerName *string `json:"CustomerName,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	IsoCountry   *string `json:"IsoCountry,omitempty"`
@@ -4950,6 +6509,8 @@ type ListAddressParams struct {
 // ListAddress Method for ListAddress
 //
 // * @param: optional nil or *ListAddressParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to read.
 //
 // * @param: "CustomerName" (string) - The `customer_name` of the Address resources to read.
 //
@@ -4962,11 +6523,18 @@ type ListAddressParams struct {
 // * @return: ListAddressResponse
 func (c *DefaultApiService) ListAddress(params *ListAddressParams) (*ListAddressResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.CustomerName != nil {
 		data.Set("CustomerName", *params.CustomerName)
 	}
@@ -4997,6 +6565,7 @@ func (c *DefaultApiService) ListAddress(params *ListAddressParams) (*ListAddress
 
 // ListApplicationParams Optional parameters for the method 'ListApplication'
 type ListApplicationParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	PageSize     *int32  `json:"PageSize,omitempty"`
 }
@@ -5007,6 +6576,8 @@ type ListApplicationParams struct {
 //
 // * @param: optional nil or *ListApplicationParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to read.
+//
 // * @param: "FriendlyName" (string) - The string that identifies the Application resources to read.
 //
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -5014,11 +6585,18 @@ type ListApplicationParams struct {
 // * @return: ListApplicationResponse
 func (c *DefaultApiService) ListApplication(params *ListApplicationParams) (*ListApplicationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -5043,7 +6621,8 @@ func (c *DefaultApiService) ListApplication(params *ListApplicationParams) (*Lis
 
 // ListAuthorizedConnectAppParams Optional parameters for the method 'ListAuthorizedConnectApp'
 type ListAuthorizedConnectAppParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListAuthorizedConnectApp Method for ListAuthorizedConnectApp
@@ -5052,16 +6631,25 @@ type ListAuthorizedConnectAppParams struct {
 //
 // * @param: optional nil or *ListAuthorizedConnectAppParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListAuthorizedConnectAppResponse
 func (c *DefaultApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) (*ListAuthorizedConnectAppResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -5083,23 +6671,33 @@ func (c *DefaultApiService) ListAuthorizedConnectApp(params *ListAuthorizedConne
 
 // ListAvailablePhoneNumberCountryParams Optional parameters for the method 'ListAvailablePhoneNumberCountry'
 type ListAvailablePhoneNumberCountryParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListAvailablePhoneNumberCountry Method for ListAvailablePhoneNumberCountry
 //
 // * @param: optional nil or *ListAvailablePhoneNumberCountryParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListAvailablePhoneNumberCountryResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams) (*ListAvailablePhoneNumberCountryResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -5121,6 +6719,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberCountry(params *ListAvailabl
 
 // ListAvailablePhoneNumberLocalParams Optional parameters for the method 'ListAvailablePhoneNumberLocal'
 type ListAvailablePhoneNumberLocalParams struct {
+	AccountSid                    *string `json:"AccountSid,omitempty"`
 	AreaCode                      *int32  `json:"AreaCode,omitempty"`
 	Contains                      *string `json:"Contains,omitempty"`
 	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
@@ -5147,6 +6746,8 @@ type ListAvailablePhoneNumberLocalParams struct {
 // * @param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
 //
 // * @param: optional nil or *ListAvailablePhoneNumberLocalParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 //
 // * @param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
 //
@@ -5189,12 +6790,19 @@ type ListAvailablePhoneNumberLocalParams struct {
 // * @return: ListAvailablePhoneNumberLocalResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberLocal(CountryCode string, params *ListAvailablePhoneNumberLocalParams) (*ListAvailablePhoneNumberLocalResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
 	}
@@ -5270,6 +6878,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberLocal(CountryCode string, pa
 
 // ListAvailablePhoneNumberMachineToMachineParams Optional parameters for the method 'ListAvailablePhoneNumberMachineToMachine'
 type ListAvailablePhoneNumberMachineToMachineParams struct {
+	AccountSid                    *string `json:"AccountSid,omitempty"`
 	AreaCode                      *int32  `json:"AreaCode,omitempty"`
 	Contains                      *string `json:"Contains,omitempty"`
 	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
@@ -5296,6 +6905,8 @@ type ListAvailablePhoneNumberMachineToMachineParams struct {
 // * @param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
 //
 // * @param: optional nil or *ListAvailablePhoneNumberMachineToMachineParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 //
 // * @param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
 //
@@ -5338,12 +6949,19 @@ type ListAvailablePhoneNumberMachineToMachineParams struct {
 // * @return: ListAvailablePhoneNumberMachineToMachineResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (*ListAvailablePhoneNumberMachineToMachineResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
 	}
@@ -5419,6 +7037,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode
 
 // ListAvailablePhoneNumberMobileParams Optional parameters for the method 'ListAvailablePhoneNumberMobile'
 type ListAvailablePhoneNumberMobileParams struct {
+	AccountSid                    *string `json:"AccountSid,omitempty"`
 	AreaCode                      *int32  `json:"AreaCode,omitempty"`
 	Contains                      *string `json:"Contains,omitempty"`
 	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
@@ -5445,6 +7064,8 @@ type ListAvailablePhoneNumberMobileParams struct {
 // * @param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
 //
 // * @param: optional nil or *ListAvailablePhoneNumberMobileParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 //
 // * @param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
 //
@@ -5487,12 +7108,19 @@ type ListAvailablePhoneNumberMobileParams struct {
 // * @return: ListAvailablePhoneNumberMobileResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberMobile(CountryCode string, params *ListAvailablePhoneNumberMobileParams) (*ListAvailablePhoneNumberMobileResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
 	}
@@ -5568,6 +7196,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMobile(CountryCode string, p
 
 // ListAvailablePhoneNumberNationalParams Optional parameters for the method 'ListAvailablePhoneNumberNational'
 type ListAvailablePhoneNumberNationalParams struct {
+	AccountSid                    *string `json:"AccountSid,omitempty"`
 	AreaCode                      *int32  `json:"AreaCode,omitempty"`
 	Contains                      *string `json:"Contains,omitempty"`
 	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
@@ -5594,6 +7223,8 @@ type ListAvailablePhoneNumberNationalParams struct {
 // * @param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
 //
 // * @param: optional nil or *ListAvailablePhoneNumberNationalParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 //
 // * @param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
 //
@@ -5636,12 +7267,19 @@ type ListAvailablePhoneNumberNationalParams struct {
 // * @return: ListAvailablePhoneNumberNationalResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberNational(CountryCode string, params *ListAvailablePhoneNumberNationalParams) (*ListAvailablePhoneNumberNationalResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
 	}
@@ -5717,6 +7355,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberNational(CountryCode string,
 
 // ListAvailablePhoneNumberSharedCostParams Optional parameters for the method 'ListAvailablePhoneNumberSharedCost'
 type ListAvailablePhoneNumberSharedCostParams struct {
+	AccountSid                    *string `json:"AccountSid,omitempty"`
 	AreaCode                      *int32  `json:"AreaCode,omitempty"`
 	Contains                      *string `json:"Contains,omitempty"`
 	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
@@ -5743,6 +7382,8 @@ type ListAvailablePhoneNumberSharedCostParams struct {
 // * @param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
 //
 // * @param: optional nil or *ListAvailablePhoneNumberSharedCostParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 //
 // * @param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
 //
@@ -5785,12 +7426,19 @@ type ListAvailablePhoneNumberSharedCostParams struct {
 // * @return: ListAvailablePhoneNumberSharedCostResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) (*ListAvailablePhoneNumberSharedCostResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
 	}
@@ -5866,6 +7514,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberSharedCost(CountryCode strin
 
 // ListAvailablePhoneNumberTollFreeParams Optional parameters for the method 'ListAvailablePhoneNumberTollFree'
 type ListAvailablePhoneNumberTollFreeParams struct {
+	AccountSid                    *string `json:"AccountSid,omitempty"`
 	AreaCode                      *int32  `json:"AreaCode,omitempty"`
 	Contains                      *string `json:"Contains,omitempty"`
 	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
@@ -5892,6 +7541,8 @@ type ListAvailablePhoneNumberTollFreeParams struct {
 // * @param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
 //
 // * @param: optional nil or *ListAvailablePhoneNumberTollFreeParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 //
 // * @param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
 //
@@ -5934,12 +7585,19 @@ type ListAvailablePhoneNumberTollFreeParams struct {
 // * @return: ListAvailablePhoneNumberTollFreeResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams) (*ListAvailablePhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
 	}
@@ -6015,6 +7673,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberTollFree(CountryCode string,
 
 // ListAvailablePhoneNumberVoipParams Optional parameters for the method 'ListAvailablePhoneNumberVoip'
 type ListAvailablePhoneNumberVoipParams struct {
+	AccountSid                    *string `json:"AccountSid,omitempty"`
 	AreaCode                      *int32  `json:"AreaCode,omitempty"`
 	Contains                      *string `json:"Contains,omitempty"`
 	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
@@ -6041,6 +7700,8 @@ type ListAvailablePhoneNumberVoipParams struct {
 // * @param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
 //
 // * @param: optional nil or *ListAvailablePhoneNumberVoipParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 //
 // * @param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
 //
@@ -6083,12 +7744,19 @@ type ListAvailablePhoneNumberVoipParams struct {
 // * @return: ListAvailablePhoneNumberVoipResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberVoip(CountryCode string, params *ListAvailablePhoneNumberVoipParams) (*ListAvailablePhoneNumberVoipResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
 	}
@@ -6164,6 +7832,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberVoip(CountryCode string, par
 
 // ListCallParams Optional parameters for the method 'ListCall'
 type ListCallParams struct {
+	AccountSid      *string    `json:"AccountSid,omitempty"`
 	To              *string    `json:"To,omitempty"`
 	From            *string    `json:"From,omitempty"`
 	ParentCallSid   *string    `json:"ParentCallSid,omitempty"`
@@ -6182,6 +7851,8 @@ type ListCallParams struct {
 // * Retrieves a collection of calls made to and from your account
 //
 // * @param: optional nil or *ListCallParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to read.
 //
 // * @param: "To" (string) - Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
 //
@@ -6208,11 +7879,18 @@ type ListCallParams struct {
 // * @return: ListCallResponse
 func (c *DefaultApiService) ListCall(params *ListCallParams) (*ListCallResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
 	}
@@ -6264,7 +7942,8 @@ func (c *DefaultApiService) ListCall(params *ListCallParams) (*ListCallResponse,
 
 // ListCallEventParams Optional parameters for the method 'ListCallEvent'
 type ListCallEventParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListCallEvent Method for ListCallEvent
@@ -6275,17 +7954,26 @@ type ListCallEventParams struct {
 //
 // * @param: optional nil or *ListCallEventParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique SID identifier of the Account.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListCallEventResponse
 func (c *DefaultApiService) ListCallEvent(CallSid string, params *ListCallEventParams) (*ListCallEventResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -6307,6 +7995,7 @@ func (c *DefaultApiService) ListCallEvent(CallSid string, params *ListCallEventP
 
 // ListCallNotificationParams Optional parameters for the method 'ListCallNotification'
 type ListCallNotificationParams struct {
+	AccountSid        *string `json:"AccountSid,omitempty"`
 	Log               *int32  `json:"Log,omitempty"`
 	MessageDate       *string `json:"MessageDate,omitempty"`
 	MessageDateBefore *string `json:"MessageDate&lt;,omitempty"`
@@ -6319,6 +8008,8 @@ type ListCallNotificationParams struct {
 // * @param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resources to read.
 //
 // * @param: optional nil or *ListCallNotificationParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resources to read.
 //
 // * @param: "Log" (int32) - Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
 //
@@ -6333,12 +8024,19 @@ type ListCallNotificationParams struct {
 // * @return: ListCallNotificationResponse
 func (c *DefaultApiService) ListCallNotification(CallSid string, params *ListCallNotificationParams) (*ListCallNotificationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Log != nil {
 		data.Set("Log", fmt.Sprint(*params.Log))
 	}
@@ -6372,6 +8070,7 @@ func (c *DefaultApiService) ListCallNotification(CallSid string, params *ListCal
 
 // ListCallRecordingParams Optional parameters for the method 'ListCallRecording'
 type ListCallRecordingParams struct {
+	AccountSid        *string `json:"AccountSid,omitempty"`
 	DateCreated       *string `json:"DateCreated,omitempty"`
 	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
 	DateCreatedAfter  *string `json:"DateCreated&gt;,omitempty"`
@@ -6386,6 +8085,8 @@ type ListCallRecordingParams struct {
 //
 // * @param: optional nil or *ListCallRecordingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read.
+//
 // * @param: "DateCreated" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
 //
 // * @param: "DateCreatedBefore" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
@@ -6397,12 +8098,19 @@ type ListCallRecordingParams struct {
 // * @return: ListCallRecordingResponse
 func (c *DefaultApiService) ListCallRecording(CallSid string, params *ListCallRecordingParams) (*ListCallRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
 	}
@@ -6433,6 +8141,7 @@ func (c *DefaultApiService) ListCallRecording(CallSid string, params *ListCallRe
 
 // ListConferenceParams Optional parameters for the method 'ListConference'
 type ListConferenceParams struct {
+	AccountSid        *string `json:"AccountSid,omitempty"`
 	DateCreated       *string `json:"DateCreated,omitempty"`
 	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
 	DateCreatedAfter  *string `json:"DateCreated&gt;,omitempty"`
@@ -6449,6 +8158,8 @@ type ListConferenceParams struct {
 // * Retrieve a list of conferences belonging to the account used to make the request
 //
 // * @param: optional nil or *ListConferenceParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to read.
 //
 // * @param: "DateCreated" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
 //
@@ -6471,11 +8182,18 @@ type ListConferenceParams struct {
 // * @return: ListConferenceResponse
 func (c *DefaultApiService) ListConference(params *ListConferenceParams) (*ListConferenceResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
 	}
@@ -6521,6 +8239,7 @@ func (c *DefaultApiService) ListConference(params *ListConferenceParams) (*ListC
 
 // ListConferenceRecordingParams Optional parameters for the method 'ListConferenceRecording'
 type ListConferenceRecordingParams struct {
+	AccountSid        *string `json:"AccountSid,omitempty"`
 	DateCreated       *string `json:"DateCreated,omitempty"`
 	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
 	DateCreatedAfter  *string `json:"DateCreated&gt;,omitempty"`
@@ -6535,6 +8254,8 @@ type ListConferenceRecordingParams struct {
 //
 // * @param: optional nil or *ListConferenceRecordingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to read.
+//
 // * @param: "DateCreated" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
 //
 // * @param: "DateCreatedBefore" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
@@ -6546,12 +8267,19 @@ type ListConferenceRecordingParams struct {
 // * @return: ListConferenceRecordingResponse
 func (c *DefaultApiService) ListConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) (*ListConferenceRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
 	}
@@ -6582,7 +8310,8 @@ func (c *DefaultApiService) ListConferenceRecording(ConferenceSid string, params
 
 // ListConnectAppParams Optional parameters for the method 'ListConnectApp'
 type ListConnectAppParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListConnectApp Method for ListConnectApp
@@ -6591,16 +8320,25 @@ type ListConnectAppParams struct {
 //
 // * @param: optional nil or *ListConnectAppParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListConnectAppResponse
 func (c *DefaultApiService) ListConnectApp(params *ListConnectAppParams) (*ListConnectAppResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -6622,7 +8360,8 @@ func (c *DefaultApiService) ListConnectApp(params *ListConnectAppParams) (*ListC
 
 // ListDependentPhoneNumberParams Optional parameters for the method 'ListDependentPhoneNumber'
 type ListDependentPhoneNumberParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListDependentPhoneNumber Method for ListDependentPhoneNumber
@@ -6631,17 +8370,26 @@ type ListDependentPhoneNumberParams struct {
 //
 // * @param: optional nil or *ListDependentPhoneNumberParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DependentPhoneNumber resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListDependentPhoneNumberResponse
 func (c *DefaultApiService) ListDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) (*ListDependentPhoneNumberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"AddressSid"+"}", AddressSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -6663,6 +8411,7 @@ func (c *DefaultApiService) ListDependentPhoneNumber(AddressSid string, params *
 
 // ListIncomingPhoneNumberParams Optional parameters for the method 'ListIncomingPhoneNumber'
 type ListIncomingPhoneNumberParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	Beta         *bool   `json:"Beta,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	PhoneNumber  *string `json:"PhoneNumber,omitempty"`
@@ -6675,6 +8424,8 @@ type ListIncomingPhoneNumberParams struct {
 // * Retrieve a list of incoming-phone-numbers belonging to the account used to make the request.
 //
 // * @param: optional nil or *ListIncomingPhoneNumberParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to read.
 //
 // * @param: "Beta" (bool) - Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
 //
@@ -6689,11 +8440,18 @@ type ListIncomingPhoneNumberParams struct {
 // * @return: ListIncomingPhoneNumberResponse
 func (c *DefaultApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberParams) (*ListIncomingPhoneNumberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Beta != nil {
 		data.Set("Beta", fmt.Sprint(*params.Beta))
 	}
@@ -6727,7 +8485,8 @@ func (c *DefaultApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNum
 
 // ListIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'ListIncomingPhoneNumberAssignedAddOn'
 type ListIncomingPhoneNumberAssignedAddOnParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListIncomingPhoneNumberAssignedAddOn Method for ListIncomingPhoneNumberAssignedAddOn
@@ -6738,17 +8497,26 @@ type ListIncomingPhoneNumberAssignedAddOnParams struct {
 //
 // * @param: optional nil or *ListIncomingPhoneNumberAssignedAddOnParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListIncomingPhoneNumberAssignedAddOnResponse
 func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -6770,7 +8538,8 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid str
 
 // ListIncomingPhoneNumberAssignedAddOnExtensionParams Optional parameters for the method 'ListIncomingPhoneNumberAssignedAddOnExtension'
 type ListIncomingPhoneNumberAssignedAddOnExtensionParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListIncomingPhoneNumberAssignedAddOnExtension Method for ListIncomingPhoneNumberAssignedAddOnExtension
@@ -6783,18 +8552,27 @@ type ListIncomingPhoneNumberAssignedAddOnExtensionParams struct {
 //
 // * @param: optional nil or *ListIncomingPhoneNumberAssignedAddOnExtensionParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListIncomingPhoneNumberAssignedAddOnExtensionResponse
 func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) (*ListIncomingPhoneNumberAssignedAddOnExtensionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 	path = strings.Replace(path, "{"+"AssignedAddOnSid"+"}", AssignedAddOnSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -6816,6 +8594,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOnExtension(Resour
 
 // ListIncomingPhoneNumberLocalParams Optional parameters for the method 'ListIncomingPhoneNumberLocal'
 type ListIncomingPhoneNumberLocalParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	Beta         *bool   `json:"Beta,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	PhoneNumber  *string `json:"PhoneNumber,omitempty"`
@@ -6826,6 +8605,8 @@ type ListIncomingPhoneNumberLocalParams struct {
 // ListIncomingPhoneNumberLocal Method for ListIncomingPhoneNumberLocal
 //
 // * @param: optional nil or *ListIncomingPhoneNumberLocalParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
 //
 // * @param: "Beta" (bool) - Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
 //
@@ -6840,11 +8621,18 @@ type ListIncomingPhoneNumberLocalParams struct {
 // * @return: ListIncomingPhoneNumberLocalResponse
 func (c *DefaultApiService) ListIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams) (*ListIncomingPhoneNumberLocalResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Beta != nil {
 		data.Set("Beta", fmt.Sprint(*params.Beta))
 	}
@@ -6878,6 +8666,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberLocal(params *ListIncomingPho
 
 // ListIncomingPhoneNumberMobileParams Optional parameters for the method 'ListIncomingPhoneNumberMobile'
 type ListIncomingPhoneNumberMobileParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	Beta         *bool   `json:"Beta,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	PhoneNumber  *string `json:"PhoneNumber,omitempty"`
@@ -6888,6 +8677,8 @@ type ListIncomingPhoneNumberMobileParams struct {
 // ListIncomingPhoneNumberMobile Method for ListIncomingPhoneNumberMobile
 //
 // * @param: optional nil or *ListIncomingPhoneNumberMobileParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
 //
 // * @param: "Beta" (bool) - Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
 //
@@ -6902,11 +8693,18 @@ type ListIncomingPhoneNumberMobileParams struct {
 // * @return: ListIncomingPhoneNumberMobileResponse
 func (c *DefaultApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams) (*ListIncomingPhoneNumberMobileResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Beta != nil {
 		data.Set("Beta", fmt.Sprint(*params.Beta))
 	}
@@ -6940,6 +8738,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPh
 
 // ListIncomingPhoneNumberTollFreeParams Optional parameters for the method 'ListIncomingPhoneNumberTollFree'
 type ListIncomingPhoneNumberTollFreeParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	Beta         *bool   `json:"Beta,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	PhoneNumber  *string `json:"PhoneNumber,omitempty"`
@@ -6950,6 +8749,8 @@ type ListIncomingPhoneNumberTollFreeParams struct {
 // ListIncomingPhoneNumberTollFree Method for ListIncomingPhoneNumberTollFree
 //
 // * @param: optional nil or *ListIncomingPhoneNumberTollFreeParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
 //
 // * @param: "Beta" (bool) - Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
 //
@@ -6964,11 +8765,18 @@ type ListIncomingPhoneNumberTollFreeParams struct {
 // * @return: ListIncomingPhoneNumberTollFreeResponse
 func (c *DefaultApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) (*ListIncomingPhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Beta != nil {
 		data.Set("Beta", fmt.Sprint(*params.Beta))
 	}
@@ -7002,23 +8810,33 @@ func (c *DefaultApiService) ListIncomingPhoneNumberTollFree(params *ListIncoming
 
 // ListKeyParams Optional parameters for the method 'ListKey'
 type ListKeyParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListKey Method for ListKey
 //
 // * @param: optional nil or *ListKeyParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListKeyResponse
 func (c *DefaultApiService) ListKey(params *ListKeyParams) (*ListKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7040,6 +8858,7 @@ func (c *DefaultApiService) ListKey(params *ListKeyParams) (*ListKeyResponse, er
 
 // ListMediaParams Optional parameters for the method 'ListMedia'
 type ListMediaParams struct {
+	AccountSid        *string    `json:"AccountSid,omitempty"`
 	DateCreated       *time.Time `json:"DateCreated,omitempty"`
 	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
 	DateCreatedAfter  *time.Time `json:"DateCreated&gt;,omitempty"`
@@ -7054,6 +8873,8 @@ type ListMediaParams struct {
 //
 // * @param: optional nil or *ListMediaParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to read.
+//
 // * @param: "DateCreated" (time.Time) - Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
 //
 // * @param: "DateCreatedBefore" (time.Time) - Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
@@ -7065,12 +8886,19 @@ type ListMediaParams struct {
 // * @return: ListMediaResponse
 func (c *DefaultApiService) ListMedia(MessageSid string, params *ListMediaParams) (*ListMediaResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
@@ -7101,7 +8929,8 @@ func (c *DefaultApiService) ListMedia(MessageSid string, params *ListMediaParams
 
 // ListMemberParams Optional parameters for the method 'ListMember'
 type ListMemberParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListMember Method for ListMember
@@ -7112,17 +8941,26 @@ type ListMemberParams struct {
 //
 // * @param: optional nil or *ListMemberParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListMemberResponse
 func (c *DefaultApiService) ListMember(QueueSid string, params *ListMemberParams) (*ListMemberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"QueueSid"+"}", QueueSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7144,6 +8982,7 @@ func (c *DefaultApiService) ListMember(QueueSid string, params *ListMemberParams
 
 // ListMessageParams Optional parameters for the method 'ListMessage'
 type ListMessageParams struct {
+	AccountSid     *string    `json:"AccountSid,omitempty"`
 	To             *string    `json:"To,omitempty"`
 	From           *string    `json:"From,omitempty"`
 	DateSent       *time.Time `json:"DateSent,omitempty"`
@@ -7157,6 +8996,8 @@ type ListMessageParams struct {
 // * Retrieve a list of messages belonging to the account used to make the request
 //
 // * @param: optional nil or *ListMessageParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to read.
 //
 // * @param: "To" (string) - Read messages sent to only this phone number.
 //
@@ -7173,11 +9014,18 @@ type ListMessageParams struct {
 // * @return: ListMessageResponse
 func (c *DefaultApiService) ListMessage(params *ListMessageParams) (*ListMessageResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
 	}
@@ -7214,6 +9062,7 @@ func (c *DefaultApiService) ListMessage(params *ListMessageParams) (*ListMessage
 
 // ListNotificationParams Optional parameters for the method 'ListNotification'
 type ListNotificationParams struct {
+	AccountSid        *string `json:"AccountSid,omitempty"`
 	Log               *int32  `json:"Log,omitempty"`
 	MessageDate       *string `json:"MessageDate,omitempty"`
 	MessageDateBefore *string `json:"MessageDate&lt;,omitempty"`
@@ -7226,6 +9075,8 @@ type ListNotificationParams struct {
 // * Retrieve a list of notifications belonging to the account used to make the request
 //
 // * @param: optional nil or *ListNotificationParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resources to read.
 //
 // * @param: "Log" (int32) - Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
 //
@@ -7240,11 +9091,18 @@ type ListNotificationParams struct {
 // * @return: ListNotificationResponse
 func (c *DefaultApiService) ListNotification(params *ListNotificationParams) (*ListNotificationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Notifications.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Log != nil {
 		data.Set("Log", fmt.Sprint(*params.Log))
 	}
@@ -7278,6 +9136,7 @@ func (c *DefaultApiService) ListNotification(params *ListNotificationParams) (*L
 
 // ListOutgoingCallerIdParams Optional parameters for the method 'ListOutgoingCallerId'
 type ListOutgoingCallerIdParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	PhoneNumber  *string `json:"PhoneNumber,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	PageSize     *int32  `json:"PageSize,omitempty"`
@@ -7289,6 +9148,8 @@ type ListOutgoingCallerIdParams struct {
 //
 // * @param: optional nil or *ListOutgoingCallerIdParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to read.
+//
 // * @param: "PhoneNumber" (string) - The phone number of the OutgoingCallerId resources to read.
 //
 // * @param: "FriendlyName" (string) - The string that identifies the OutgoingCallerId resources to read.
@@ -7298,11 +9159,18 @@ type ListOutgoingCallerIdParams struct {
 // * @return: ListOutgoingCallerIdResponse
 func (c *DefaultApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) (*ListOutgoingCallerIdResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PhoneNumber != nil {
 		data.Set("PhoneNumber", *params.PhoneNumber)
 	}
@@ -7330,10 +9198,11 @@ func (c *DefaultApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdPar
 
 // ListParticipantParams Optional parameters for the method 'ListParticipant'
 type ListParticipantParams struct {
-	Muted    *bool  `json:"Muted,omitempty"`
-	Hold     *bool  `json:"Hold,omitempty"`
-	Coaching *bool  `json:"Coaching,omitempty"`
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	Muted      *bool   `json:"Muted,omitempty"`
+	Hold       *bool   `json:"Hold,omitempty"`
+	Coaching   *bool   `json:"Coaching,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListParticipant Method for ListParticipant
@@ -7343,6 +9212,8 @@ type ListParticipantParams struct {
 // * @param: ConferenceSid The SID of the conference with the participants to read.
 //
 // * @param: optional nil or *ListParticipantParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to read.
 //
 // * @param: "Muted" (bool) - Whether to return only participants that are muted. Can be: `true` or `false`.
 //
@@ -7355,12 +9226,19 @@ type ListParticipantParams struct {
 // * @return: ListParticipantResponse
 func (c *DefaultApiService) ListParticipant(ConferenceSid string, params *ListParticipantParams) (*ListParticipantResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Muted != nil {
 		data.Set("Muted", fmt.Sprint(*params.Muted))
 	}
@@ -7391,7 +9269,8 @@ func (c *DefaultApiService) ListParticipant(ConferenceSid string, params *ListPa
 
 // ListQueueParams Optional parameters for the method 'ListQueue'
 type ListQueueParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListQueue Method for ListQueue
@@ -7400,16 +9279,25 @@ type ListQueueParams struct {
 //
 // * @param: optional nil or *ListQueueParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListQueueResponse
 func (c *DefaultApiService) ListQueue(params *ListQueueParams) (*ListQueueResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7431,6 +9319,7 @@ func (c *DefaultApiService) ListQueue(params *ListQueueParams) (*ListQueueRespon
 
 // ListRecordingParams Optional parameters for the method 'ListRecording'
 type ListRecordingParams struct {
+	AccountSid        *string    `json:"AccountSid,omitempty"`
 	DateCreated       *time.Time `json:"DateCreated,omitempty"`
 	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
 	DateCreatedAfter  *time.Time `json:"DateCreated&gt;,omitempty"`
@@ -7444,6 +9333,8 @@ type ListRecordingParams struct {
 // * Retrieve a list of recordings belonging to the account used to make the request
 //
 // * @param: optional nil or *ListRecordingParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read.
 //
 // * @param: "DateCreated" (time.Time) - Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
 //
@@ -7460,11 +9351,18 @@ type ListRecordingParams struct {
 // * @return: ListRecordingResponse
 func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*ListRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
@@ -7501,7 +9399,8 @@ func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*ListRec
 
 // ListRecordingAddOnResultParams Optional parameters for the method 'ListRecordingAddOnResult'
 type ListRecordingAddOnResultParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListRecordingAddOnResult Method for ListRecordingAddOnResult
@@ -7512,17 +9411,26 @@ type ListRecordingAddOnResultParams struct {
 //
 // * @param: optional nil or *ListRecordingAddOnResultParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListRecordingAddOnResultResponse
 func (c *DefaultApiService) ListRecordingAddOnResult(ReferenceSid string, params *ListRecordingAddOnResultParams) (*ListRecordingAddOnResultResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7544,7 +9452,8 @@ func (c *DefaultApiService) ListRecordingAddOnResult(ReferenceSid string, params
 
 // ListRecordingAddOnResultPayloadParams Optional parameters for the method 'ListRecordingAddOnResultPayload'
 type ListRecordingAddOnResultPayloadParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListRecordingAddOnResultPayload Method for ListRecordingAddOnResultPayload
@@ -7557,18 +9466,27 @@ type ListRecordingAddOnResultPayloadParams struct {
 //
 // * @param: optional nil or *ListRecordingAddOnResultPayloadParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListRecordingAddOnResultPayloadResponse
 func (c *DefaultApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams) (*ListRecordingAddOnResultPayloadResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 	path = strings.Replace(path, "{"+"AddOnResultSid"+"}", AddOnResultSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7590,7 +9508,8 @@ func (c *DefaultApiService) ListRecordingAddOnResultPayload(ReferenceSid string,
 
 // ListRecordingTranscriptionParams Optional parameters for the method 'ListRecordingTranscription'
 type ListRecordingTranscriptionParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListRecordingTranscription Method for ListRecordingTranscription
@@ -7599,17 +9518,26 @@ type ListRecordingTranscriptionParams struct {
 //
 // * @param: optional nil or *ListRecordingTranscriptionParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListRecordingTranscriptionResponse
 func (c *DefaultApiService) ListRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams) (*ListRecordingTranscriptionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"RecordingSid"+"}", RecordingSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7631,6 +9559,7 @@ func (c *DefaultApiService) ListRecordingTranscription(RecordingSid string, para
 
 // ListShortCodeParams Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	ShortCode    *string `json:"ShortCode,omitempty"`
 	PageSize     *int32  `json:"PageSize,omitempty"`
@@ -7642,6 +9571,8 @@ type ListShortCodeParams struct {
 //
 // * @param: optional nil or *ListShortCodeParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to read.
+//
 // * @param: "FriendlyName" (string) - The string that identifies the ShortCode resources to read.
 //
 // * @param: "ShortCode" (string) - Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
@@ -7651,11 +9582,18 @@ type ListShortCodeParams struct {
 // * @return: ListShortCodeResponse
 func (c *DefaultApiService) ListShortCode(params *ListShortCodeParams) (*ListShortCodeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -7683,23 +9621,33 @@ func (c *DefaultApiService) ListShortCode(params *ListShortCodeParams) (*ListSho
 
 // ListSigningKeyParams Optional parameters for the method 'ListSigningKey'
 type ListSigningKeyParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListSigningKey Method for ListSigningKey
 //
 // * @param: optional nil or *ListSigningKeyParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) -
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListSigningKeyResponse
 func (c *DefaultApiService) ListSigningKey(params *ListSigningKeyParams) (*ListSigningKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7721,7 +9669,8 @@ func (c *DefaultApiService) ListSigningKey(params *ListSigningKeyParams) (*ListS
 
 // ListSipAuthCallsCredentialListMappingParams Optional parameters for the method 'ListSipAuthCallsCredentialListMapping'
 type ListSipAuthCallsCredentialListMappingParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListSipAuthCallsCredentialListMapping Method for ListSipAuthCallsCredentialListMapping
@@ -7732,17 +9681,26 @@ type ListSipAuthCallsCredentialListMappingParams struct {
 //
 // * @param: optional nil or *ListSipAuthCallsCredentialListMappingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListSipAuthCallsCredentialListMappingResponse
 func (c *DefaultApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) (*ListSipAuthCallsCredentialListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7764,7 +9722,8 @@ func (c *DefaultApiService) ListSipAuthCallsCredentialListMapping(DomainSid stri
 
 // ListSipAuthCallsIpAccessControlListMappingParams Optional parameters for the method 'ListSipAuthCallsIpAccessControlListMapping'
 type ListSipAuthCallsIpAccessControlListMappingParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListSipAuthCallsIpAccessControlListMapping Method for ListSipAuthCallsIpAccessControlListMapping
@@ -7775,17 +9734,26 @@ type ListSipAuthCallsIpAccessControlListMappingParams struct {
 //
 // * @param: optional nil or *ListSipAuthCallsIpAccessControlListMappingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListSipAuthCallsIpAccessControlListMappingResponse
 func (c *DefaultApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams) (*ListSipAuthCallsIpAccessControlListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7807,7 +9775,8 @@ func (c *DefaultApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid
 
 // ListSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'ListSipAuthRegistrationsCredentialListMapping'
 type ListSipAuthRegistrationsCredentialListMappingParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListSipAuthRegistrationsCredentialListMapping Method for ListSipAuthRegistrationsCredentialListMapping
@@ -7818,17 +9787,26 @@ type ListSipAuthRegistrationsCredentialListMappingParams struct {
 //
 // * @param: optional nil or *ListSipAuthRegistrationsCredentialListMappingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListSipAuthRegistrationsCredentialListMappingResponse
 func (c *DefaultApiService) ListSipAuthRegistrationsCredentialListMapping(DomainSid string, params *ListSipAuthRegistrationsCredentialListMappingParams) (*ListSipAuthRegistrationsCredentialListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7850,7 +9828,8 @@ func (c *DefaultApiService) ListSipAuthRegistrationsCredentialListMapping(Domain
 
 // ListSipCredentialParams Optional parameters for the method 'ListSipCredential'
 type ListSipCredentialParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListSipCredential Method for ListSipCredential
@@ -7861,17 +9840,26 @@ type ListSipCredentialParams struct {
 //
 // * @param: optional nil or *ListSipCredentialParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListSipCredentialResponse
 func (c *DefaultApiService) ListSipCredential(CredentialListSid string, params *ListSipCredentialParams) (*ListSipCredentialResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CredentialListSid"+"}", CredentialListSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7893,7 +9881,8 @@ func (c *DefaultApiService) ListSipCredential(CredentialListSid string, params *
 
 // ListSipCredentialListParams Optional parameters for the method 'ListSipCredentialList'
 type ListSipCredentialListParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListSipCredentialList Method for ListSipCredentialList
@@ -7902,16 +9891,25 @@ type ListSipCredentialListParams struct {
 //
 // * @param: optional nil or *ListSipCredentialListParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListSipCredentialListResponse
 func (c *DefaultApiService) ListSipCredentialList(params *ListSipCredentialListParams) (*ListSipCredentialListResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7933,7 +9931,8 @@ func (c *DefaultApiService) ListSipCredentialList(params *ListSipCredentialListP
 
 // ListSipCredentialListMappingParams Optional parameters for the method 'ListSipCredentialListMapping'
 type ListSipCredentialListMappingParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListSipCredentialListMapping Method for ListSipCredentialListMapping
@@ -7944,17 +9943,26 @@ type ListSipCredentialListMappingParams struct {
 //
 // * @param: optional nil or *ListSipCredentialListMappingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListSipCredentialListMappingResponse
 func (c *DefaultApiService) ListSipCredentialListMapping(DomainSid string, params *ListSipCredentialListMappingParams) (*ListSipCredentialListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -7976,7 +9984,8 @@ func (c *DefaultApiService) ListSipCredentialListMapping(DomainSid string, param
 
 // ListSipDomainParams Optional parameters for the method 'ListSipDomain'
 type ListSipDomainParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListSipDomain Method for ListSipDomain
@@ -7985,16 +9994,25 @@ type ListSipDomainParams struct {
 //
 // * @param: optional nil or *ListSipDomainParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListSipDomainResponse
 func (c *DefaultApiService) ListSipDomain(params *ListSipDomainParams) (*ListSipDomainResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -8016,7 +10034,8 @@ func (c *DefaultApiService) ListSipDomain(params *ListSipDomainParams) (*ListSip
 
 // ListSipIpAccessControlListParams Optional parameters for the method 'ListSipIpAccessControlList'
 type ListSipIpAccessControlListParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListSipIpAccessControlList Method for ListSipIpAccessControlList
@@ -8025,16 +10044,25 @@ type ListSipIpAccessControlListParams struct {
 //
 // * @param: optional nil or *ListSipIpAccessControlListParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListSipIpAccessControlListResponse
 func (c *DefaultApiService) ListSipIpAccessControlList(params *ListSipIpAccessControlListParams) (*ListSipIpAccessControlListResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -8056,7 +10084,8 @@ func (c *DefaultApiService) ListSipIpAccessControlList(params *ListSipIpAccessCo
 
 // ListSipIpAccessControlListMappingParams Optional parameters for the method 'ListSipIpAccessControlListMapping'
 type ListSipIpAccessControlListMappingParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListSipIpAccessControlListMapping Method for ListSipIpAccessControlListMapping
@@ -8067,17 +10096,26 @@ type ListSipIpAccessControlListMappingParams struct {
 //
 // * @param: optional nil or *ListSipIpAccessControlListMappingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListSipIpAccessControlListMappingResponse
 func (c *DefaultApiService) ListSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams) (*ListSipIpAccessControlListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -8099,7 +10137,8 @@ func (c *DefaultApiService) ListSipIpAccessControlListMapping(DomainSid string, 
 
 // ListSipIpAddressParams Optional parameters for the method 'ListSipIpAddress'
 type ListSipIpAddressParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListSipIpAddress Method for ListSipIpAddress
@@ -8110,17 +10149,26 @@ type ListSipIpAddressParams struct {
 //
 // * @param: optional nil or *ListSipIpAddressParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListSipIpAddressResponse
 func (c *DefaultApiService) ListSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams) (*ListSipIpAddressResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -8142,7 +10190,8 @@ func (c *DefaultApiService) ListSipIpAddress(IpAccessControlListSid string, para
 
 // ListTranscriptionParams Optional parameters for the method 'ListTranscription'
 type ListTranscriptionParams struct {
-	PageSize *int32 `json:"PageSize,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
 // ListTranscription Method for ListTranscription
@@ -8151,16 +10200,25 @@ type ListTranscriptionParams struct {
 //
 // * @param: optional nil or *ListTranscriptionParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read.
+//
 // * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
 // * @return: ListTranscriptionResponse
 func (c *DefaultApiService) ListTranscription(params *ListTranscriptionParams) (*ListTranscriptionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -8182,6 +10240,7 @@ func (c *DefaultApiService) ListTranscription(params *ListTranscriptionParams) (
 
 // ListUsageRecordParams Optional parameters for the method 'ListUsageRecord'
 type ListUsageRecordParams struct {
+	AccountSid         *string `json:"AccountSid,omitempty"`
 	Category           *string `json:"Category,omitempty"`
 	StartDate          *string `json:"StartDate,omitempty"`
 	EndDate            *string `json:"EndDate,omitempty"`
@@ -8194,6 +10253,8 @@ type ListUsageRecordParams struct {
 // * Retrieve a list of usage-records belonging to the account used to make the request
 //
 // * @param: optional nil or *ListUsageRecordParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 //
 // * @param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 //
@@ -8208,11 +10269,18 @@ type ListUsageRecordParams struct {
 // * @return: ListUsageRecordResponse
 func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*ListUsageRecordResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
 	}
@@ -8246,6 +10314,7 @@ func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*Lis
 
 // ListUsageRecordAllTimeParams Optional parameters for the method 'ListUsageRecordAllTime'
 type ListUsageRecordAllTimeParams struct {
+	AccountSid         *string `json:"AccountSid,omitempty"`
 	Category           *string `json:"Category,omitempty"`
 	StartDate          *string `json:"StartDate,omitempty"`
 	EndDate            *string `json:"EndDate,omitempty"`
@@ -8256,6 +10325,8 @@ type ListUsageRecordAllTimeParams struct {
 // ListUsageRecordAllTime Method for ListUsageRecordAllTime
 //
 // * @param: optional nil or *ListUsageRecordAllTimeParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 //
 // * @param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 //
@@ -8270,11 +10341,18 @@ type ListUsageRecordAllTimeParams struct {
 // * @return: ListUsageRecordAllTimeResponse
 func (c *DefaultApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams) (*ListUsageRecordAllTimeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
 	}
@@ -8308,6 +10386,7 @@ func (c *DefaultApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTim
 
 // ListUsageRecordDailyParams Optional parameters for the method 'ListUsageRecordDaily'
 type ListUsageRecordDailyParams struct {
+	AccountSid         *string `json:"AccountSid,omitempty"`
 	Category           *string `json:"Category,omitempty"`
 	StartDate          *string `json:"StartDate,omitempty"`
 	EndDate            *string `json:"EndDate,omitempty"`
@@ -8318,6 +10397,8 @@ type ListUsageRecordDailyParams struct {
 // ListUsageRecordDaily Method for ListUsageRecordDaily
 //
 // * @param: optional nil or *ListUsageRecordDailyParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 //
 // * @param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 //
@@ -8332,11 +10413,18 @@ type ListUsageRecordDailyParams struct {
 // * @return: ListUsageRecordDailyResponse
 func (c *DefaultApiService) ListUsageRecordDaily(params *ListUsageRecordDailyParams) (*ListUsageRecordDailyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
 	}
@@ -8370,6 +10458,7 @@ func (c *DefaultApiService) ListUsageRecordDaily(params *ListUsageRecordDailyPar
 
 // ListUsageRecordLastMonthParams Optional parameters for the method 'ListUsageRecordLastMonth'
 type ListUsageRecordLastMonthParams struct {
+	AccountSid         *string `json:"AccountSid,omitempty"`
 	Category           *string `json:"Category,omitempty"`
 	StartDate          *string `json:"StartDate,omitempty"`
 	EndDate            *string `json:"EndDate,omitempty"`
@@ -8380,6 +10469,8 @@ type ListUsageRecordLastMonthParams struct {
 // ListUsageRecordLastMonth Method for ListUsageRecordLastMonth
 //
 // * @param: optional nil or *ListUsageRecordLastMonthParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 //
 // * @param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 //
@@ -8394,11 +10485,18 @@ type ListUsageRecordLastMonthParams struct {
 // * @return: ListUsageRecordLastMonthResponse
 func (c *DefaultApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthParams) (*ListUsageRecordLastMonthResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
 	}
@@ -8432,6 +10530,7 @@ func (c *DefaultApiService) ListUsageRecordLastMonth(params *ListUsageRecordLast
 
 // ListUsageRecordMonthlyParams Optional parameters for the method 'ListUsageRecordMonthly'
 type ListUsageRecordMonthlyParams struct {
+	AccountSid         *string `json:"AccountSid,omitempty"`
 	Category           *string `json:"Category,omitempty"`
 	StartDate          *string `json:"StartDate,omitempty"`
 	EndDate            *string `json:"EndDate,omitempty"`
@@ -8442,6 +10541,8 @@ type ListUsageRecordMonthlyParams struct {
 // ListUsageRecordMonthly Method for ListUsageRecordMonthly
 //
 // * @param: optional nil or *ListUsageRecordMonthlyParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 //
 // * @param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 //
@@ -8456,11 +10557,18 @@ type ListUsageRecordMonthlyParams struct {
 // * @return: ListUsageRecordMonthlyResponse
 func (c *DefaultApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthlyParams) (*ListUsageRecordMonthlyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
 	}
@@ -8494,6 +10602,7 @@ func (c *DefaultApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthl
 
 // ListUsageRecordThisMonthParams Optional parameters for the method 'ListUsageRecordThisMonth'
 type ListUsageRecordThisMonthParams struct {
+	AccountSid         *string `json:"AccountSid,omitempty"`
 	Category           *string `json:"Category,omitempty"`
 	StartDate          *string `json:"StartDate,omitempty"`
 	EndDate            *string `json:"EndDate,omitempty"`
@@ -8504,6 +10613,8 @@ type ListUsageRecordThisMonthParams struct {
 // ListUsageRecordThisMonth Method for ListUsageRecordThisMonth
 //
 // * @param: optional nil or *ListUsageRecordThisMonthParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 //
 // * @param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 //
@@ -8518,11 +10629,18 @@ type ListUsageRecordThisMonthParams struct {
 // * @return: ListUsageRecordThisMonthResponse
 func (c *DefaultApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthParams) (*ListUsageRecordThisMonthResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
 	}
@@ -8556,6 +10674,7 @@ func (c *DefaultApiService) ListUsageRecordThisMonth(params *ListUsageRecordThis
 
 // ListUsageRecordTodayParams Optional parameters for the method 'ListUsageRecordToday'
 type ListUsageRecordTodayParams struct {
+	AccountSid         *string `json:"AccountSid,omitempty"`
 	Category           *string `json:"Category,omitempty"`
 	StartDate          *string `json:"StartDate,omitempty"`
 	EndDate            *string `json:"EndDate,omitempty"`
@@ -8566,6 +10685,8 @@ type ListUsageRecordTodayParams struct {
 // ListUsageRecordToday Method for ListUsageRecordToday
 //
 // * @param: optional nil or *ListUsageRecordTodayParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 //
 // * @param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 //
@@ -8580,11 +10701,18 @@ type ListUsageRecordTodayParams struct {
 // * @return: ListUsageRecordTodayResponse
 func (c *DefaultApiService) ListUsageRecordToday(params *ListUsageRecordTodayParams) (*ListUsageRecordTodayResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Today.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
 	}
@@ -8618,6 +10746,7 @@ func (c *DefaultApiService) ListUsageRecordToday(params *ListUsageRecordTodayPar
 
 // ListUsageRecordYearlyParams Optional parameters for the method 'ListUsageRecordYearly'
 type ListUsageRecordYearlyParams struct {
+	AccountSid         *string `json:"AccountSid,omitempty"`
 	Category           *string `json:"Category,omitempty"`
 	StartDate          *string `json:"StartDate,omitempty"`
 	EndDate            *string `json:"EndDate,omitempty"`
@@ -8628,6 +10757,8 @@ type ListUsageRecordYearlyParams struct {
 // ListUsageRecordYearly Method for ListUsageRecordYearly
 //
 // * @param: optional nil or *ListUsageRecordYearlyParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 //
 // * @param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 //
@@ -8642,11 +10773,18 @@ type ListUsageRecordYearlyParams struct {
 // * @return: ListUsageRecordYearlyResponse
 func (c *DefaultApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyParams) (*ListUsageRecordYearlyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
 	}
@@ -8680,6 +10818,7 @@ func (c *DefaultApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyP
 
 // ListUsageRecordYesterdayParams Optional parameters for the method 'ListUsageRecordYesterday'
 type ListUsageRecordYesterdayParams struct {
+	AccountSid         *string `json:"AccountSid,omitempty"`
 	Category           *string `json:"Category,omitempty"`
 	StartDate          *string `json:"StartDate,omitempty"`
 	EndDate            *string `json:"EndDate,omitempty"`
@@ -8690,6 +10829,8 @@ type ListUsageRecordYesterdayParams struct {
 // ListUsageRecordYesterday Method for ListUsageRecordYesterday
 //
 // * @param: optional nil or *ListUsageRecordYesterdayParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
 //
 // * @param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 //
@@ -8704,11 +10845,18 @@ type ListUsageRecordYesterdayParams struct {
 // * @return: ListUsageRecordYesterdayResponse
 func (c *DefaultApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayParams) (*ListUsageRecordYesterdayResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
 	}
@@ -8742,6 +10890,7 @@ func (c *DefaultApiService) ListUsageRecordYesterday(params *ListUsageRecordYest
 
 // ListUsageTriggerParams Optional parameters for the method 'ListUsageTrigger'
 type ListUsageTriggerParams struct {
+	AccountSid    *string `json:"AccountSid,omitempty"`
 	Recurring     *string `json:"Recurring,omitempty"`
 	TriggerBy     *string `json:"TriggerBy,omitempty"`
 	UsageCategory *string `json:"UsageCategory,omitempty"`
@@ -8754,6 +10903,8 @@ type ListUsageTriggerParams struct {
 //
 // * @param: optional nil or *ListUsageTriggerParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to read.
+//
 // * @param: "Recurring" (string) - The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
 //
 // * @param: "TriggerBy" (string) - The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
@@ -8765,11 +10916,18 @@ type ListUsageTriggerParams struct {
 // * @return: ListUsageTriggerResponse
 func (c *DefaultApiService) ListUsageTrigger(params *ListUsageTriggerParams) (*ListUsageTriggerResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Recurring != nil {
 		data.Set("Recurring", *params.Recurring)
 	}
@@ -8848,6 +11006,7 @@ func (c *DefaultApiService) UpdateAccount(Sid string, params *UpdateAccountParam
 
 // UpdateAddressParams Optional parameters for the method 'UpdateAddress'
 type UpdateAddressParams struct {
+	AccountSid         *string `json:"AccountSid,omitempty"`
 	AutoCorrectAddress *bool   `json:"AutoCorrectAddress,omitempty"`
 	City               *string `json:"City,omitempty"`
 	CustomerName       *string `json:"CustomerName,omitempty"`
@@ -8863,6 +11022,8 @@ type UpdateAddressParams struct {
 // * @param: Sid The Twilio-provided string that uniquely identifies the Address resource to update.
 //
 // * @param: optional nil or *UpdateAddressParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.
 //
 // * @param: "AutoCorrectAddress" (bool) - Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
 //
@@ -8883,12 +11044,19 @@ type UpdateAddressParams struct {
 // * @return: ApiV2010AccountAddress
 func (c *DefaultApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*ApiV2010AccountAddress, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AutoCorrectAddress != nil {
 		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
 	}
@@ -8931,6 +11099,7 @@ func (c *DefaultApiService) UpdateAddress(Sid string, params *UpdateAddressParam
 
 // UpdateApplicationParams Optional parameters for the method 'UpdateApplication'
 type UpdateApplicationParams struct {
+	AccountSid            *string `json:"AccountSid,omitempty"`
 	ApiVersion            *string `json:"ApiVersion,omitempty"`
 	FriendlyName          *string `json:"FriendlyName,omitempty"`
 	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
@@ -8955,6 +11124,8 @@ type UpdateApplicationParams struct {
 // * @param: Sid The Twilio-provided string that uniquely identifies the Application resource to update.
 //
 // * @param: optional nil or *UpdateApplicationParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to update.
 //
 // * @param: "ApiVersion" (string) - The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
 //
@@ -8989,12 +11160,19 @@ type UpdateApplicationParams struct {
 // * @return: ApiV2010AccountApplication
 func (c *DefaultApiService) UpdateApplication(Sid string, params *UpdateApplicationParams) (*ApiV2010AccountApplication, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.ApiVersion != nil {
 		data.Set("ApiVersion", *params.ApiVersion)
 	}
@@ -9058,6 +11236,7 @@ func (c *DefaultApiService) UpdateApplication(Sid string, params *UpdateApplicat
 
 // UpdateCallParams Optional parameters for the method 'UpdateCall'
 type UpdateCallParams struct {
+	AccountSid           *string `json:"AccountSid,omitempty"`
 	FallbackMethod       *string `json:"FallbackMethod,omitempty"`
 	FallbackUrl          *string `json:"FallbackUrl,omitempty"`
 	Method               *string `json:"Method,omitempty"`
@@ -9075,6 +11254,8 @@ type UpdateCallParams struct {
 // * @param: Sid The Twilio-provided string that uniquely identifies the Call resource to update
 //
 // * @param: optional nil or *UpdateCallParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update.
 //
 // * @param: "FallbackMethod" (string) - The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
 //
@@ -9095,12 +11276,19 @@ type UpdateCallParams struct {
 // * @return: ApiV2010AccountCall
 func (c *DefaultApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010AccountCall, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FallbackMethod != nil {
 		data.Set("FallbackMethod", *params.FallbackMethod)
 	}
@@ -9143,6 +11331,7 @@ func (c *DefaultApiService) UpdateCall(Sid string, params *UpdateCallParams) (*A
 
 // UpdateCallFeedbackParams Optional parameters for the method 'UpdateCallFeedback'
 type UpdateCallFeedbackParams struct {
+	AccountSid   *string   `json:"AccountSid,omitempty"`
 	Issue        *[]string `json:"Issue,omitempty"`
 	QualityScore *int32    `json:"QualityScore,omitempty"`
 }
@@ -9155,6 +11344,8 @@ type UpdateCallFeedbackParams struct {
 //
 // * @param: optional nil or *UpdateCallFeedbackParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @param: "Issue" ([]string) - One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
 //
 // * @param: "QualityScore" (int32) - The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
@@ -9162,12 +11353,19 @@ type UpdateCallFeedbackParams struct {
 // * @return: ApiV2010AccountCallCallFeedback
 func (c *DefaultApiService) UpdateCallFeedback(CallSid string, params *UpdateCallFeedbackParams) (*ApiV2010AccountCallCallFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Issue != nil {
 		data.Set("Issue", strings.Join(*params.Issue, ","))
 	}
@@ -9192,6 +11390,7 @@ func (c *DefaultApiService) UpdateCallFeedback(CallSid string, params *UpdateCal
 
 // UpdateCallRecordingParams Optional parameters for the method 'UpdateCallRecording'
 type UpdateCallRecordingParams struct {
+	AccountSid    *string `json:"AccountSid,omitempty"`
 	PauseBehavior *string `json:"PauseBehavior,omitempty"`
 	Status        *string `json:"Status,omitempty"`
 }
@@ -9206,6 +11405,8 @@ type UpdateCallRecordingParams struct {
 //
 // * @param: optional nil or *UpdateCallRecordingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to update.
+//
 // * @param: "PauseBehavior" (string) - Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 //
 // * @param: "Status" (string) - The new status of the recording. Can be: `stopped`, `paused`, `in-progress`.
@@ -9213,13 +11414,20 @@ type UpdateCallRecordingParams struct {
 // * @return: ApiV2010AccountCallCallRecording
 func (c *DefaultApiService) UpdateCallRecording(CallSid string, Sid string, params *UpdateCallRecordingParams) (*ApiV2010AccountCallCallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PauseBehavior != nil {
 		data.Set("PauseBehavior", *params.PauseBehavior)
 	}
@@ -9244,6 +11452,7 @@ func (c *DefaultApiService) UpdateCallRecording(CallSid string, Sid string, para
 
 // UpdateConferenceParams Optional parameters for the method 'UpdateConference'
 type UpdateConferenceParams struct {
+	AccountSid     *string `json:"AccountSid,omitempty"`
 	AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
 	AnnounceUrl    *string `json:"AnnounceUrl,omitempty"`
 	Status         *string `json:"Status,omitempty"`
@@ -9255,6 +11464,8 @@ type UpdateConferenceParams struct {
 //
 // * @param: optional nil or *UpdateConferenceParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update.
+//
 // * @param: "AnnounceMethod" (string) - The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 //
 // * @param: "AnnounceUrl" (string) - The URL we should call to announce something into the conference. The URL can return an MP3, a WAV, or a TwiML document with `<Play>` or `<Say>`.
@@ -9264,12 +11475,19 @@ type UpdateConferenceParams struct {
 // * @return: ApiV2010AccountConference
 func (c *DefaultApiService) UpdateConference(Sid string, params *UpdateConferenceParams) (*ApiV2010AccountConference, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AnnounceMethod != nil {
 		data.Set("AnnounceMethod", *params.AnnounceMethod)
 	}
@@ -9297,6 +11515,7 @@ func (c *DefaultApiService) UpdateConference(Sid string, params *UpdateConferenc
 
 // UpdateConferenceRecordingParams Optional parameters for the method 'UpdateConferenceRecording'
 type UpdateConferenceRecordingParams struct {
+	AccountSid    *string `json:"AccountSid,omitempty"`
 	PauseBehavior *string `json:"PauseBehavior,omitempty"`
 	Status        *string `json:"Status,omitempty"`
 }
@@ -9311,6 +11530,8 @@ type UpdateConferenceRecordingParams struct {
 //
 // * @param: optional nil or *UpdateConferenceRecordingParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.
+//
 // * @param: "PauseBehavior" (string) - Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
 //
 // * @param: "Status" (string) - The new status of the recording. Can be: `stopped`, `paused`, `in-progress`.
@@ -9318,13 +11539,20 @@ type UpdateConferenceRecordingParams struct {
 // * @return: ApiV2010AccountConferenceConferenceRecording
 func (c *DefaultApiService) UpdateConferenceRecording(ConferenceSid string, Sid string, params *UpdateConferenceRecordingParams) (*ApiV2010AccountConferenceConferenceRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.PauseBehavior != nil {
 		data.Set("PauseBehavior", *params.PauseBehavior)
 	}
@@ -9349,6 +11577,7 @@ func (c *DefaultApiService) UpdateConferenceRecording(ConferenceSid string, Sid 
 
 // UpdateConnectAppParams Optional parameters for the method 'UpdateConnectApp'
 type UpdateConnectAppParams struct {
+	AccountSid                *string   `json:"AccountSid,omitempty"`
 	AuthorizeRedirectUrl      *string   `json:"AuthorizeRedirectUrl,omitempty"`
 	CompanyName               *string   `json:"CompanyName,omitempty"`
 	DeauthorizeCallbackMethod *string   `json:"DeauthorizeCallbackMethod,omitempty"`
@@ -9366,6 +11595,8 @@ type UpdateConnectAppParams struct {
 // * @param: Sid The Twilio-provided string that uniquely identifies the ConnectApp resource to update.
 //
 // * @param: optional nil or *UpdateConnectAppParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to update.
 //
 // * @param: "AuthorizeRedirectUrl" (string) - The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
 //
@@ -9386,12 +11617,19 @@ type UpdateConnectAppParams struct {
 // * @return: ApiV2010AccountConnectApp
 func (c *DefaultApiService) UpdateConnectApp(Sid string, params *UpdateConnectAppParams) (*ApiV2010AccountConnectApp, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AuthorizeRedirectUrl != nil {
 		data.Set("AuthorizeRedirectUrl", *params.AuthorizeRedirectUrl)
 	}
@@ -9434,7 +11672,7 @@ func (c *DefaultApiService) UpdateConnectApp(Sid string, params *UpdateConnectAp
 
 // UpdateIncomingPhoneNumberParams Optional parameters for the method 'UpdateIncomingPhoneNumber'
 type UpdateIncomingPhoneNumberParams struct {
-	AccountSid2          *string `json:"AccountSid,omitempty"`
+	AccountSid           *string `json:"AccountSid,omitempty"`
 	AddressSid           *string `json:"AddressSid,omitempty"`
 	ApiVersion           *string `json:"ApiVersion,omitempty"`
 	BundleSid            *string `json:"BundleSid,omitempty"`
@@ -9467,7 +11705,7 @@ type UpdateIncomingPhoneNumberParams struct {
 //
 // * @param: optional nil or *UpdateIncomingPhoneNumberParams - Optional Parameters:
 //
-// * @param: "AccountSid2" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
 //
 // * @param: "AddressSid" (string) - The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
 //
@@ -9516,14 +11754,18 @@ type UpdateIncomingPhoneNumberParams struct {
 // * @return: ApiV2010AccountIncomingPhoneNumber
 func (c *DefaultApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomingPhoneNumberParams) (*ApiV2010AccountIncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.AccountSid2 != nil {
-		data.Set("AccountSid", *params.AccountSid2)
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
 	}
 	if params != nil && params.AddressSid != nil {
 		data.Set("AddressSid", *params.AddressSid)
@@ -9609,6 +11851,7 @@ func (c *DefaultApiService) UpdateIncomingPhoneNumber(Sid string, params *Update
 
 // UpdateKeyParams Optional parameters for the method 'UpdateKey'
 type UpdateKeyParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -9618,17 +11861,26 @@ type UpdateKeyParams struct {
 //
 // * @param: optional nil or *UpdateKeyParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update.
+//
 // * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 //
 // * @return: ApiV2010AccountKey
 func (c *DefaultApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*ApiV2010AccountKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -9650,8 +11902,9 @@ func (c *DefaultApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*Api
 
 // UpdateMemberParams Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
-	Method *string `json:"Method,omitempty"`
-	Url    *string `json:"Url,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	Method     *string `json:"Method,omitempty"`
+	Url        *string `json:"Url,omitempty"`
 }
 
 // UpdateMember Method for UpdateMember
@@ -9664,6 +11917,8 @@ type UpdateMemberParams struct {
 //
 // * @param: optional nil or *UpdateMemberParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to update.
+//
 // * @param: "Method" (string) - How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
 //
 // * @param: "Url" (string) - The absolute URL of the Queue resource.
@@ -9671,13 +11926,20 @@ type UpdateMemberParams struct {
 // * @return: ApiV2010AccountQueueMember
 func (c *DefaultApiService) UpdateMember(QueueSid string, CallSid string, params *UpdateMemberParams) (*ApiV2010AccountQueueMember, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"QueueSid"+"}", QueueSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Method != nil {
 		data.Set("Method", *params.Method)
 	}
@@ -9702,7 +11964,8 @@ func (c *DefaultApiService) UpdateMember(QueueSid string, CallSid string, params
 
 // UpdateMessageParams Optional parameters for the method 'UpdateMessage'
 type UpdateMessageParams struct {
-	Body *string `json:"Body,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	Body       *string `json:"Body,omitempty"`
 }
 
 // UpdateMessage Method for UpdateMessage
@@ -9713,17 +11976,26 @@ type UpdateMessageParams struct {
 //
 // * @param: optional nil or *UpdateMessageParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to update.
+//
 // * @param: "Body" (string) - The text of the message you want to send. Can be up to 1,600 characters long.
 //
 // * @return: ApiV2010AccountMessage
 func (c *DefaultApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*ApiV2010AccountMessage, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Body != nil {
 		data.Set("Body", *params.Body)
 	}
@@ -9745,6 +12017,7 @@ func (c *DefaultApiService) UpdateMessage(Sid string, params *UpdateMessageParam
 
 // UpdateOutgoingCallerIdParams Optional parameters for the method 'UpdateOutgoingCallerId'
 type UpdateOutgoingCallerIdParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -9756,17 +12029,26 @@ type UpdateOutgoingCallerIdParams struct {
 //
 // * @param: optional nil or *UpdateOutgoingCallerIdParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to update.
+//
 // * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 //
 // * @return: ApiV2010AccountOutgoingCallerId
 func (c *DefaultApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOutgoingCallerIdParams) (*ApiV2010AccountOutgoingCallerId, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -9788,6 +12070,7 @@ func (c *DefaultApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOut
 
 // UpdateParticipantParams Optional parameters for the method 'UpdateParticipant'
 type UpdateParticipantParams struct {
+	AccountSid          *string `json:"AccountSid,omitempty"`
 	AnnounceMethod      *string `json:"AnnounceMethod,omitempty"`
 	AnnounceUrl         *string `json:"AnnounceUrl,omitempty"`
 	BeepOnExit          *bool   `json:"BeepOnExit,omitempty"`
@@ -9811,6 +12094,8 @@ type UpdateParticipantParams struct {
 // * @param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
 //
 // * @param: optional nil or *UpdateParticipantParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to update.
 //
 // * @param: "AnnounceMethod" (string) - The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
 //
@@ -9839,13 +12124,20 @@ type UpdateParticipantParams struct {
 // * @return: ApiV2010AccountConferenceParticipant
 func (c *DefaultApiService) UpdateParticipant(ConferenceSid string, CallSid string, params *UpdateParticipantParams) (*ApiV2010AccountConferenceParticipant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.AnnounceMethod != nil {
 		data.Set("AnnounceMethod", *params.AnnounceMethod)
 	}
@@ -9900,6 +12192,7 @@ func (c *DefaultApiService) UpdateParticipant(ConferenceSid string, CallSid stri
 
 // UpdatePaymentsParams Optional parameters for the method 'UpdatePayments'
 type UpdatePaymentsParams struct {
+	AccountSid     *string `json:"AccountSid,omitempty"`
 	Capture        *string `json:"Capture,omitempty"`
 	IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
 	Status         *string `json:"Status,omitempty"`
@@ -9916,6 +12209,8 @@ type UpdatePaymentsParams struct {
 //
 // * @param: optional nil or *UpdatePaymentsParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource.
+//
 // * @param: "Capture" (string) - The piece of payment information that you wish the caller to enter. Must be one of `payment-card-number`, `expiration-date`, `security-code`, `postal-code`, `bank-routing-number`, or `bank-account-number`.
 //
 // * @param: "IdempotencyKey" (string) - A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
@@ -9927,13 +12222,20 @@ type UpdatePaymentsParams struct {
 // * @return: ApiV2010AccountCallPayments
 func (c *DefaultApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePaymentsParams) (*ApiV2010AccountCallPayments, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Capture != nil {
 		data.Set("Capture", *params.Capture)
 	}
@@ -9964,6 +12266,7 @@ func (c *DefaultApiService) UpdatePayments(CallSid string, Sid string, params *U
 
 // UpdateQueueParams Optional parameters for the method 'UpdateQueue'
 type UpdateQueueParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	MaxSize      *int32  `json:"MaxSize,omitempty"`
 }
@@ -9976,6 +12279,8 @@ type UpdateQueueParams struct {
 //
 // * @param: optional nil or *UpdateQueueParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to update.
+//
 // * @param: "FriendlyName" (string) - A descriptive string that you created to describe this resource. It can be up to 64 characters long.
 //
 // * @param: "MaxSize" (int32) - The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
@@ -9983,12 +12288,19 @@ type UpdateQueueParams struct {
 // * @return: ApiV2010AccountQueue
 func (c *DefaultApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (*ApiV2010AccountQueue, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -10013,6 +12325,7 @@ func (c *DefaultApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (
 
 // UpdateShortCodeParams Optional parameters for the method 'UpdateShortCode'
 type UpdateShortCodeParams struct {
+	AccountSid        *string `json:"AccountSid,omitempty"`
 	ApiVersion        *string `json:"ApiVersion,omitempty"`
 	FriendlyName      *string `json:"FriendlyName,omitempty"`
 	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
@@ -10029,6 +12342,8 @@ type UpdateShortCodeParams struct {
 //
 // * @param: optional nil or *UpdateShortCodeParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update.
+//
 // * @param: "ApiVersion" (string) - The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
 //
 // * @param: "FriendlyName" (string) - A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
@@ -10044,12 +12359,19 @@ type UpdateShortCodeParams struct {
 // * @return: ApiV2010AccountShortCode
 func (c *DefaultApiService) UpdateShortCode(Sid string, params *UpdateShortCodeParams) (*ApiV2010AccountShortCode, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.ApiVersion != nil {
 		data.Set("ApiVersion", *params.ApiVersion)
 	}
@@ -10086,6 +12408,7 @@ func (c *DefaultApiService) UpdateShortCode(Sid string, params *UpdateShortCodeP
 
 // UpdateSigningKeyParams Optional parameters for the method 'UpdateSigningKey'
 type UpdateSigningKeyParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -10095,17 +12418,26 @@ type UpdateSigningKeyParams struct {
 //
 // * @param: optional nil or *UpdateSigningKeyParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) -
+//
 // * @param: "FriendlyName" (string) -
 //
 // * @return: ApiV2010AccountSigningKey
 func (c *DefaultApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams) (*ApiV2010AccountSigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -10127,7 +12459,8 @@ func (c *DefaultApiService) UpdateSigningKey(Sid string, params *UpdateSigningKe
 
 // UpdateSipCredentialParams Optional parameters for the method 'UpdateSipCredential'
 type UpdateSipCredentialParams struct {
-	Password *string `json:"Password,omitempty"`
+	AccountSid *string `json:"AccountSid,omitempty"`
+	Password   *string `json:"Password,omitempty"`
 }
 
 // UpdateSipCredential Method for UpdateSipCredential
@@ -10140,18 +12473,27 @@ type UpdateSipCredentialParams struct {
 //
 // * @param: optional nil or *UpdateSipCredentialParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+//
 // * @param: "Password" (string) - The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
 //
 // * @return: ApiV2010AccountSipSipCredentialListSipCredential
 func (c *DefaultApiService) UpdateSipCredential(CredentialListSid string, Sid string, params *UpdateSipCredentialParams) (*ApiV2010AccountSipSipCredentialListSipCredential, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"CredentialListSid"+"}", CredentialListSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.Password != nil {
 		data.Set("Password", *params.Password)
 	}
@@ -10173,6 +12515,7 @@ func (c *DefaultApiService) UpdateSipCredential(CredentialListSid string, Sid st
 
 // UpdateSipCredentialListParams Optional parameters for the method 'UpdateSipCredentialList'
 type UpdateSipCredentialListParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -10184,17 +12527,26 @@ type UpdateSipCredentialListParams struct {
 //
 // * @param: optional nil or *UpdateSipCredentialListParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the Account that is responsible for this resource.
+//
 // * @param: "FriendlyName" (string) - A human readable descriptive text for a CredentialList, up to 64 characters long.
 //
 // * @return: ApiV2010AccountSipSipCredentialList
 func (c *DefaultApiService) UpdateSipCredentialList(Sid string, params *UpdateSipCredentialListParams) (*ApiV2010AccountSipSipCredentialList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -10216,6 +12568,7 @@ func (c *DefaultApiService) UpdateSipCredentialList(Sid string, params *UpdateSi
 
 // UpdateSipDomainParams Optional parameters for the method 'UpdateSipDomain'
 type UpdateSipDomainParams struct {
+	AccountSid                *string `json:"AccountSid,omitempty"`
 	ByocTrunkSid              *string `json:"ByocTrunkSid,omitempty"`
 	DomainName                *string `json:"DomainName,omitempty"`
 	EmergencyCallerSid        *string `json:"EmergencyCallerSid,omitempty"`
@@ -10238,6 +12591,8 @@ type UpdateSipDomainParams struct {
 // * @param: Sid The Twilio-provided string that uniquely identifies the SipDomain resource to update.
 //
 // * @param: optional nil or *UpdateSipDomainParams - Optional Parameters:
+//
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to update.
 //
 // * @param: "ByocTrunkSid" (string) - The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
 //
@@ -10268,12 +12623,19 @@ type UpdateSipDomainParams struct {
 // * @return: ApiV2010AccountSipSipDomain
 func (c *DefaultApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) (*ApiV2010AccountSipSipDomain, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.ByocTrunkSid != nil {
 		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
 	}
@@ -10331,6 +12693,7 @@ func (c *DefaultApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainP
 
 // UpdateSipIpAccessControlListParams Optional parameters for the method 'UpdateSipIpAccessControlList'
 type UpdateSipIpAccessControlListParams struct {
+	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -10342,17 +12705,26 @@ type UpdateSipIpAccessControlListParams struct {
 //
 // * @param: optional nil or *UpdateSipIpAccessControlListParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @param: "FriendlyName" (string) - A human readable descriptive text, up to 64 characters long.
 //
 // * @return: ApiV2010AccountSipSipIpAccessControlList
 func (c *DefaultApiService) UpdateSipIpAccessControlList(Sid string, params *UpdateSipIpAccessControlListParams) (*ApiV2010AccountSipSipIpAccessControlList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -10374,6 +12746,7 @@ func (c *DefaultApiService) UpdateSipIpAccessControlList(Sid string, params *Upd
 
 // UpdateSipIpAddressParams Optional parameters for the method 'UpdateSipIpAddress'
 type UpdateSipIpAddressParams struct {
+	AccountSid       *string `json:"AccountSid,omitempty"`
 	CidrPrefixLength *int32  `json:"CidrPrefixLength,omitempty"`
 	FriendlyName     *string `json:"FriendlyName,omitempty"`
 	IpAddress        *string `json:"IpAddress,omitempty"`
@@ -10389,6 +12762,8 @@ type UpdateSipIpAddressParams struct {
 //
 // * @param: optional nil or *UpdateSipIpAddressParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+//
 // * @param: "CidrPrefixLength" (int32) - An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
 //
 // * @param: "FriendlyName" (string) - A human readable descriptive text for this resource, up to 64 characters long.
@@ -10398,13 +12773,20 @@ type UpdateSipIpAddressParams struct {
 // * @return: ApiV2010AccountSipSipIpAccessControlListSipIpAddress
 func (c *DefaultApiService) UpdateSipIpAddress(IpAccessControlListSid string, Sid string, params *UpdateSipIpAddressParams) (*ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.CidrPrefixLength != nil {
 		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
 	}
@@ -10432,6 +12814,7 @@ func (c *DefaultApiService) UpdateSipIpAddress(IpAccessControlListSid string, Si
 
 // UpdateUsageTriggerParams Optional parameters for the method 'UpdateUsageTrigger'
 type UpdateUsageTriggerParams struct {
+	AccountSid     *string `json:"AccountSid,omitempty"`
 	CallbackMethod *string `json:"CallbackMethod,omitempty"`
 	CallbackUrl    *string `json:"CallbackUrl,omitempty"`
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
@@ -10445,6 +12828,8 @@ type UpdateUsageTriggerParams struct {
 //
 // * @param: optional nil or *UpdateUsageTriggerParams - Optional Parameters:
 //
+// * @param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update.
+//
 // * @param: "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
 //
 // * @param: "CallbackUrl" (string) - The URL we should call using `callback_method` when the trigger fires.
@@ -10454,12 +12839,19 @@ type UpdateUsageTriggerParams struct {
 // * @return: ApiV2010AccountUsageUsageTrigger
 func (c *DefaultApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerParams) (*ApiV2010AccountUsageUsageTrigger, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
-	path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+	accountSid := c.client.GetAccountSid()
+	if params != nil && params.AccountSid != nil {
+		accountSid = *params.AccountSid
+	}
+	path = strings.Replace(path, "{"+"AccountSid"+"}", accountSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AccountSid != nil {
+		data.Set("AccountSid", *params.AccountSid)
+	}
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
 	}

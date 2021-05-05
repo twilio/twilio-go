@@ -47,9 +47,9 @@ package main
 import "github.com/twilio/twilio-go/twilio"
 
 func main(){
-    accountSID := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-    client := twilio.NewClient(accountSID, authToken)
+    client := twilio.NewClient(accountSid, authToken)
 }
 ```
 
@@ -58,10 +58,10 @@ package main
 import "github.com/twilio/twilio-go/twilio"
 
 func main(){
-    parentSID := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-    subaccountSID := "ACYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-    client := twilio.NewClientWithAccountSid(parentSID, authToken, subaccountSID)
+    subaccountSid := "ACYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+    client := twilio.NewClientWithAccountSid(accountSid, authToken, subaccountSid)
 }
 ```
 
@@ -116,12 +116,12 @@ import (
 )
 
 func main() {
-	username := os.Getenv("TWILIO_ACCOUNT_SID")
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 	phoneNumber := "AVAILABLE_TWILIO_PHONE_NUMBER"
-	accountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
+	subaccountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
 
-	client := twilio.NewClientWithAccountSid(username, authToken, accountSid)
+	client := twilio.NewClientWithAccountSid(accountSid, authToken, subaccountSid)
 
 	params := &openapi.CreateIncomingPhoneNumberParams{}
 	params.PhoneNumber = &phoneNumber
@@ -147,13 +147,13 @@ import (
 	"os"
 )
 func main() {
-	username := os.Getenv("TWILIO_ACCOUNT_SID")
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
 	to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
-	accountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
+	subaccountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
 	
-	client := twilio.NewClientWithAccountSid(username, authToken, accountSid)
+	client := twilio.NewClientWithAccountSid(accountSid, authToken, subaccountSid)
 
 	text := "Hello there"
 
@@ -186,12 +186,12 @@ import (
 )
 
 func main() {
-	username := os.Getenv("TWILIO_ACCOUNT_SID")
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
 	to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
 
-	client := twilio.NewClient(username, authToken)
+	client := twilio.NewClient(accountSid, authToken)
 
 	callurl := "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient"
 

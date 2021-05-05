@@ -239,7 +239,7 @@ Name | Type | Description
 
 ## CreateAddress
 
-> ApiV2010AccountAddress CreateAddress(ctx, AccountSidoptional)
+> ApiV2010AccountAddress CreateAddress(ctx, optional)
 
 
 
@@ -287,7 +287,7 @@ Name | Type | Description
 
 ## CreateApplication
 
-> ApiV2010AccountApplication CreateApplication(ctx, AccountSidoptional)
+> ApiV2010AccountApplication CreateApplication(ctx, optional)
 
 
 
@@ -343,7 +343,7 @@ Name | Type | Description
 
 ## CreateCall
 
-> ApiV2010AccountCall CreateCall(ctx, AccountSidoptional)
+> ApiV2010AccountCall CreateCall(ctx, optional)
 
 
 
@@ -418,7 +418,7 @@ Name | Type | Description
 
 ## CreateCallFeedbackSummary
 
-> ApiV2010AccountCallCallFeedbackSummary CreateCallFeedbackSummary(ctx, AccountSidoptional)
+> ApiV2010AccountCallCallFeedbackSummary CreateCallFeedbackSummary(ctx, optional)
 
 
 
@@ -464,7 +464,7 @@ Name | Type | Description
 
 ## CreateCallRecording
 
-> ApiV2010AccountCallCallRecording CreateCallRecording(ctx, AccountSidCallSidoptional)
+> ApiV2010AccountCallCallRecording CreateCallRecording(ctx, CallSidoptional)
 
 
 
@@ -512,7 +512,7 @@ Name | Type | Description
 
 ## CreateIncomingPhoneNumber
 
-> ApiV2010AccountIncomingPhoneNumber CreateIncomingPhoneNumber(ctx, AccountSidoptional)
+> ApiV2010AccountIncomingPhoneNumber CreateIncomingPhoneNumber(ctx, optional)
 
 
 
@@ -577,7 +577,7 @@ Name | Type | Description
 
 ## CreateIncomingPhoneNumberAssignedAddOn
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn CreateIncomingPhoneNumberAssignedAddOn(ctx, AccountSidResourceSidoptional)
+> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn CreateIncomingPhoneNumberAssignedAddOn(ctx, ResourceSidoptional)
 
 
 
@@ -620,7 +620,7 @@ Name | Type | Description
 
 ## CreateIncomingPhoneNumberLocal
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal CreateIncomingPhoneNumberLocal(ctx, AccountSidoptional)
+> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal CreateIncomingPhoneNumberLocal(ctx, optional)
 
 
 
@@ -682,7 +682,7 @@ Name | Type | Description
 
 ## CreateIncomingPhoneNumberMobile
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile CreateIncomingPhoneNumberMobile(ctx, AccountSidoptional)
+> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile CreateIncomingPhoneNumberMobile(ctx, optional)
 
 
 
@@ -744,7 +744,7 @@ Name | Type | Description
 
 ## CreateIncomingPhoneNumberTollFree
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree CreateIncomingPhoneNumberTollFree(ctx, AccountSidoptional)
+> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree CreateIncomingPhoneNumberTollFree(ctx, optional)
 
 
 
@@ -806,7 +806,7 @@ Name | Type | Description
 
 ## CreateMessage
 
-> ApiV2010AccountMessage CreateMessage(ctx, AccountSidoptional)
+> ApiV2010AccountMessage CreateMessage(ctx, optional)
 
 
 
@@ -863,7 +863,7 @@ Name | Type | Description
 
 ## CreateMessageFeedback
 
-> ApiV2010AccountMessageMessageFeedback CreateMessageFeedback(ctx, AccountSidMessageSidoptional)
+> ApiV2010AccountMessageMessageFeedback CreateMessageFeedback(ctx, MessageSidoptional)
 
 
 
@@ -904,7 +904,7 @@ Name | Type | Description
 
 ## CreateNewKey
 
-> ApiV2010AccountNewKey CreateNewKey(ctx, AccountSidoptional)
+> ApiV2010AccountNewKey CreateNewKey(ctx, optional)
 
 
 
@@ -944,7 +944,7 @@ Name | Type | Description
 
 ## CreateNewSigningKey
 
-> ApiV2010AccountNewSigningKey CreateNewSigningKey(ctx, AccountSidoptional)
+> ApiV2010AccountNewSigningKey CreateNewSigningKey(ctx, optional)
 
 
 
@@ -986,7 +986,7 @@ Name | Type | Description
 
 ## CreateParticipant
 
-> ApiV2010AccountConferenceParticipant CreateParticipant(ctx, AccountSidConferenceSidoptional)
+> ApiV2010AccountConferenceParticipant CreateParticipant(ctx, ConferenceSidoptional)
 
 
 
@@ -1064,7 +1064,7 @@ Name | Type | Description
 
 ## CreatePayments
 
-> ApiV2010AccountCallPayments CreatePayments(ctx, AccountSidCallSidoptional)
+> ApiV2010AccountCallPayments CreatePayments(ctx, CallSidoptional)
 
 
 
@@ -1122,7 +1122,7 @@ Name | Type | Description
 
 ## CreateQueue
 
-> ApiV2010AccountQueue CreateQueue(ctx, AccountSidoptional)
+> ApiV2010AccountQueue CreateQueue(ctx, optional)
 
 
 
@@ -1165,7 +1165,7 @@ Name | Type | Description
 
 ## CreateSipAuthCallsCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping CreateSipAuthCallsCredentialListMapping(ctx, AccountSidDomainSidoptional)
+> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping CreateSipAuthCallsCredentialListMapping(ctx, DomainSidoptional)
 
 
 
@@ -1208,7 +1208,7 @@ Name | Type | Description
 
 ## CreateSipAuthCallsIpAccessControlListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping CreateSipAuthCallsIpAccessControlListMapping(ctx, AccountSidDomainSidoptional)
+> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping CreateSipAuthCallsIpAccessControlListMapping(ctx, DomainSidoptional)
 
 
 
@@ -1251,7 +1251,7 @@ Name | Type | Description
 
 ## CreateSipAuthRegistrationsCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping CreateSipAuthRegistrationsCredentialListMapping(ctx, AccountSidDomainSidoptional)
+> ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping CreateSipAuthRegistrationsCredentialListMapping(ctx, DomainSidoptional)
 
 
 
@@ -1294,7 +1294,7 @@ Name | Type | Description
 
 ## CreateSipCredential
 
-> ApiV2010AccountSipSipCredentialListSipCredential CreateSipCredential(ctx, AccountSidCredentialListSidoptional)
+> ApiV2010AccountSipSipCredentialListSipCredential CreateSipCredential(ctx, CredentialListSidoptional)
 
 
 
@@ -1338,7 +1338,7 @@ Name | Type | Description
 
 ## CreateSipCredentialList
 
-> ApiV2010AccountSipSipCredentialList CreateSipCredentialList(ctx, AccountSidoptional)
+> ApiV2010AccountSipSipCredentialList CreateSipCredentialList(ctx, optional)
 
 
 
@@ -1380,7 +1380,7 @@ Name | Type | Description
 
 ## CreateSipCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipCredentialListMapping CreateSipCredentialListMapping(ctx, AccountSidDomainSidoptional)
+> ApiV2010AccountSipSipDomainSipCredentialListMapping CreateSipCredentialListMapping(ctx, DomainSidoptional)
 
 
 
@@ -1423,7 +1423,7 @@ Name | Type | Description
 
 ## CreateSipDomain
 
-> ApiV2010AccountSipSipDomain CreateSipDomain(ctx, AccountSidoptional)
+> ApiV2010AccountSipSipDomain CreateSipDomain(ctx, optional)
 
 
 
@@ -1477,7 +1477,7 @@ Name | Type | Description
 
 ## CreateSipIpAccessControlList
 
-> ApiV2010AccountSipSipIpAccessControlList CreateSipIpAccessControlList(ctx, AccountSidoptional)
+> ApiV2010AccountSipSipIpAccessControlList CreateSipIpAccessControlList(ctx, optional)
 
 
 
@@ -1519,7 +1519,7 @@ Name | Type | Description
 
 ## CreateSipIpAccessControlListMapping
 
-> ApiV2010AccountSipSipDomainSipIpAccessControlListMapping CreateSipIpAccessControlListMapping(ctx, AccountSidDomainSidoptional)
+> ApiV2010AccountSipSipDomainSipIpAccessControlListMapping CreateSipIpAccessControlListMapping(ctx, DomainSidoptional)
 
 
 
@@ -1562,7 +1562,7 @@ Name | Type | Description
 
 ## CreateSipIpAddress
 
-> ApiV2010AccountSipSipIpAccessControlListSipIpAddress CreateSipIpAddress(ctx, AccountSidIpAccessControlListSidoptional)
+> ApiV2010AccountSipSipIpAccessControlListSipIpAddress CreateSipIpAddress(ctx, IpAccessControlListSidoptional)
 
 
 
@@ -1607,7 +1607,7 @@ Name | Type | Description
 
 ## CreateToken
 
-> ApiV2010AccountToken CreateToken(ctx, AccountSidoptional)
+> ApiV2010AccountToken CreateToken(ctx, optional)
 
 
 
@@ -1649,7 +1649,7 @@ Name | Type | Description
 
 ## CreateUsageTrigger
 
-> ApiV2010AccountUsageUsageTrigger CreateUsageTrigger(ctx, AccountSidoptional)
+> ApiV2010AccountUsageUsageTrigger CreateUsageTrigger(ctx, optional)
 
 
 
@@ -1697,7 +1697,7 @@ Name | Type | Description
 
 ## CreateValidationRequest
 
-> ApiV2010AccountValidationRequest CreateValidationRequest(ctx, AccountSidoptional)
+> ApiV2010AccountValidationRequest CreateValidationRequest(ctx, optional)
 
 
 
@@ -1742,7 +1742,7 @@ Name | Type | Description
 
 ## DeleteAddress
 
-> DeleteAddress(ctx, AccountSidSid)
+> DeleteAddress(ctx, Sidoptional)
 
 
 
@@ -1782,7 +1782,7 @@ Name | Type | Description
 
 ## DeleteApplication
 
-> DeleteApplication(ctx, AccountSidSid)
+> DeleteApplication(ctx, Sidoptional)
 
 
 
@@ -1824,7 +1824,7 @@ Name | Type | Description
 
 ## DeleteCall
 
-> DeleteCall(ctx, AccountSidSid)
+> DeleteCall(ctx, Sidoptional)
 
 
 
@@ -1866,7 +1866,7 @@ Name | Type | Description
 
 ## DeleteCallFeedbackSummary
 
-> DeleteCallFeedbackSummary(ctx, AccountSidSid)
+> DeleteCallFeedbackSummary(ctx, Sidoptional)
 
 
 
@@ -1908,7 +1908,7 @@ Name | Type | Description
 
 ## DeleteCallRecording
 
-> DeleteCallRecording(ctx, AccountSidCallSidSid)
+> DeleteCallRecording(ctx, CallSidSidoptional)
 
 
 
@@ -1951,7 +1951,7 @@ Name | Type | Description
 
 ## DeleteConferenceRecording
 
-> DeleteConferenceRecording(ctx, AccountSidConferenceSidSid)
+> DeleteConferenceRecording(ctx, ConferenceSidSidoptional)
 
 
 
@@ -1994,7 +1994,7 @@ Name | Type | Description
 
 ## DeleteConnectApp
 
-> DeleteConnectApp(ctx, AccountSidSid)
+> DeleteConnectApp(ctx, Sidoptional)
 
 
 
@@ -2036,7 +2036,7 @@ Name | Type | Description
 
 ## DeleteIncomingPhoneNumber
 
-> DeleteIncomingPhoneNumber(ctx, AccountSidSid)
+> DeleteIncomingPhoneNumber(ctx, Sidoptional)
 
 
 
@@ -2078,7 +2078,7 @@ Name | Type | Description
 
 ## DeleteIncomingPhoneNumberAssignedAddOn
 
-> DeleteIncomingPhoneNumberAssignedAddOn(ctx, AccountSidResourceSidSid)
+> DeleteIncomingPhoneNumberAssignedAddOn(ctx, ResourceSidSidoptional)
 
 
 
@@ -2121,7 +2121,7 @@ Name | Type | Description
 
 ## DeleteKey
 
-> DeleteKey(ctx, AccountSidSid)
+> DeleteKey(ctx, Sidoptional)
 
 
 
@@ -2161,7 +2161,7 @@ Name | Type | Description
 
 ## DeleteMedia
 
-> DeleteMedia(ctx, AccountSidMessageSidSid)
+> DeleteMedia(ctx, MessageSidSidoptional)
 
 
 
@@ -2204,7 +2204,7 @@ Name | Type | Description
 
 ## DeleteMessage
 
-> DeleteMessage(ctx, AccountSidSid)
+> DeleteMessage(ctx, Sidoptional)
 
 
 
@@ -2246,7 +2246,7 @@ Name | Type | Description
 
 ## DeleteOutgoingCallerId
 
-> DeleteOutgoingCallerId(ctx, AccountSidSid)
+> DeleteOutgoingCallerId(ctx, Sidoptional)
 
 
 
@@ -2288,7 +2288,7 @@ Name | Type | Description
 
 ## DeleteParticipant
 
-> DeleteParticipant(ctx, AccountSidConferenceSidCallSid)
+> DeleteParticipant(ctx, ConferenceSidCallSidoptional)
 
 
 
@@ -2331,7 +2331,7 @@ Name | Type | Description
 
 ## DeleteQueue
 
-> DeleteQueue(ctx, AccountSidSid)
+> DeleteQueue(ctx, Sidoptional)
 
 
 
@@ -2373,7 +2373,7 @@ Name | Type | Description
 
 ## DeleteRecording
 
-> DeleteRecording(ctx, AccountSidSid)
+> DeleteRecording(ctx, Sidoptional)
 
 
 
@@ -2415,7 +2415,7 @@ Name | Type | Description
 
 ## DeleteRecordingAddOnResult
 
-> DeleteRecordingAddOnResult(ctx, AccountSidReferenceSidSid)
+> DeleteRecordingAddOnResult(ctx, ReferenceSidSidoptional)
 
 
 
@@ -2458,7 +2458,7 @@ Name | Type | Description
 
 ## DeleteRecordingAddOnResultPayload
 
-> DeleteRecordingAddOnResultPayload(ctx, AccountSidReferenceSidAddOnResultSidSid)
+> DeleteRecordingAddOnResultPayload(ctx, ReferenceSidAddOnResultSidSidoptional)
 
 
 
@@ -2502,7 +2502,7 @@ Name | Type | Description
 
 ## DeleteRecordingTranscription
 
-> DeleteRecordingTranscription(ctx, AccountSidRecordingSidSid)
+> DeleteRecordingTranscription(ctx, RecordingSidSidoptional)
 
 
 
@@ -2543,7 +2543,7 @@ Name | Type | Description
 
 ## DeleteSigningKey
 
-> DeleteSigningKey(ctx, AccountSidSid)
+> DeleteSigningKey(ctx, Sidoptional)
 
 
 
@@ -2583,7 +2583,7 @@ Name | Type | Description
 
 ## DeleteSipAuthCallsCredentialListMapping
 
-> DeleteSipAuthCallsCredentialListMapping(ctx, AccountSidDomainSidSid)
+> DeleteSipAuthCallsCredentialListMapping(ctx, DomainSidSidoptional)
 
 
 
@@ -2626,7 +2626,7 @@ Name | Type | Description
 
 ## DeleteSipAuthCallsIpAccessControlListMapping
 
-> DeleteSipAuthCallsIpAccessControlListMapping(ctx, AccountSidDomainSidSid)
+> DeleteSipAuthCallsIpAccessControlListMapping(ctx, DomainSidSidoptional)
 
 
 
@@ -2669,7 +2669,7 @@ Name | Type | Description
 
 ## DeleteSipAuthRegistrationsCredentialListMapping
 
-> DeleteSipAuthRegistrationsCredentialListMapping(ctx, AccountSidDomainSidSid)
+> DeleteSipAuthRegistrationsCredentialListMapping(ctx, DomainSidSidoptional)
 
 
 
@@ -2712,7 +2712,7 @@ Name | Type | Description
 
 ## DeleteSipCredential
 
-> DeleteSipCredential(ctx, AccountSidCredentialListSidSid)
+> DeleteSipCredential(ctx, CredentialListSidSidoptional)
 
 
 
@@ -2755,7 +2755,7 @@ Name | Type | Description
 
 ## DeleteSipCredentialList
 
-> DeleteSipCredentialList(ctx, AccountSidSid)
+> DeleteSipCredentialList(ctx, Sidoptional)
 
 
 
@@ -2797,7 +2797,7 @@ Name | Type | Description
 
 ## DeleteSipCredentialListMapping
 
-> DeleteSipCredentialListMapping(ctx, AccountSidDomainSidSid)
+> DeleteSipCredentialListMapping(ctx, DomainSidSidoptional)
 
 
 
@@ -2840,7 +2840,7 @@ Name | Type | Description
 
 ## DeleteSipDomain
 
-> DeleteSipDomain(ctx, AccountSidSid)
+> DeleteSipDomain(ctx, Sidoptional)
 
 
 
@@ -2882,7 +2882,7 @@ Name | Type | Description
 
 ## DeleteSipIpAccessControlList
 
-> DeleteSipIpAccessControlList(ctx, AccountSidSid)
+> DeleteSipIpAccessControlList(ctx, Sidoptional)
 
 
 
@@ -2924,7 +2924,7 @@ Name | Type | Description
 
 ## DeleteSipIpAccessControlListMapping
 
-> DeleteSipIpAccessControlListMapping(ctx, AccountSidDomainSidSid)
+> DeleteSipIpAccessControlListMapping(ctx, DomainSidSidoptional)
 
 
 
@@ -2967,7 +2967,7 @@ Name | Type | Description
 
 ## DeleteSipIpAddress
 
-> DeleteSipIpAddress(ctx, AccountSidIpAccessControlListSidSid)
+> DeleteSipIpAddress(ctx, IpAccessControlListSidSidoptional)
 
 
 
@@ -3010,7 +3010,7 @@ Name | Type | Description
 
 ## DeleteTranscription
 
-> DeleteTranscription(ctx, AccountSidSid)
+> DeleteTranscription(ctx, Sidoptional)
 
 
 
@@ -3052,7 +3052,7 @@ Name | Type | Description
 
 ## DeleteUsageTrigger
 
-> DeleteUsageTrigger(ctx, AccountSidSid)
+> DeleteUsageTrigger(ctx, Sidoptional)
 
 
 
@@ -3133,7 +3133,7 @@ Name | Type | Description
 
 ## FetchAddress
 
-> ApiV2010AccountAddress FetchAddress(ctx, AccountSidSid)
+> ApiV2010AccountAddress FetchAddress(ctx, Sidoptional)
 
 
 
@@ -3173,7 +3173,7 @@ Name | Type | Description
 
 ## FetchApplication
 
-> ApiV2010AccountApplication FetchApplication(ctx, AccountSidSid)
+> ApiV2010AccountApplication FetchApplication(ctx, Sidoptional)
 
 
 
@@ -3215,7 +3215,7 @@ Name | Type | Description
 
 ## FetchAuthorizedConnectApp
 
-> ApiV2010AccountAuthorizedConnectApp FetchAuthorizedConnectApp(ctx, AccountSidConnectAppSid)
+> ApiV2010AccountAuthorizedConnectApp FetchAuthorizedConnectApp(ctx, ConnectAppSidoptional)
 
 
 
@@ -3257,7 +3257,7 @@ Name | Type | Description
 
 ## FetchAvailablePhoneNumberCountry
 
-> ApiV2010AccountAvailablePhoneNumberCountry FetchAvailablePhoneNumberCountry(ctx, AccountSidCountryCode)
+> ApiV2010AccountAvailablePhoneNumberCountry FetchAvailablePhoneNumberCountry(ctx, CountryCodeoptional)
 
 
 
@@ -3297,7 +3297,7 @@ Name | Type | Description
 
 ## FetchBalance
 
-> ApiV2010AccountBalance FetchBalance(ctx, AccountSid)
+> ApiV2010AccountBalance FetchBalance(ctx, optional)
 
 
 
@@ -3338,7 +3338,7 @@ Name | Type | Description
 
 ## FetchCall
 
-> ApiV2010AccountCall FetchCall(ctx, AccountSidSid)
+> ApiV2010AccountCall FetchCall(ctx, Sidoptional)
 
 
 
@@ -3380,7 +3380,7 @@ Name | Type | Description
 
 ## FetchCallFeedback
 
-> ApiV2010AccountCallCallFeedback FetchCallFeedback(ctx, AccountSidCallSid)
+> ApiV2010AccountCallCallFeedback FetchCallFeedback(ctx, CallSidoptional)
 
 
 
@@ -3422,7 +3422,7 @@ Name | Type | Description
 
 ## FetchCallFeedbackSummary
 
-> ApiV2010AccountCallCallFeedbackSummary FetchCallFeedbackSummary(ctx, AccountSidSid)
+> ApiV2010AccountCallCallFeedbackSummary FetchCallFeedbackSummary(ctx, Sidoptional)
 
 
 
@@ -3464,7 +3464,7 @@ Name | Type | Description
 
 ## FetchCallNotification
 
-> ApiV2010AccountCallCallNotificationInstance FetchCallNotification(ctx, AccountSidCallSidSid)
+> ApiV2010AccountCallCallNotificationInstance FetchCallNotification(ctx, CallSidSidoptional)
 
 
 
@@ -3505,7 +3505,7 @@ Name | Type | Description
 
 ## FetchCallRecording
 
-> ApiV2010AccountCallCallRecording FetchCallRecording(ctx, AccountSidCallSidSid)
+> ApiV2010AccountCallCallRecording FetchCallRecording(ctx, CallSidSidoptional)
 
 
 
@@ -3548,7 +3548,7 @@ Name | Type | Description
 
 ## FetchConference
 
-> ApiV2010AccountConference FetchConference(ctx, AccountSidSid)
+> ApiV2010AccountConference FetchConference(ctx, Sidoptional)
 
 
 
@@ -3590,7 +3590,7 @@ Name | Type | Description
 
 ## FetchConferenceRecording
 
-> ApiV2010AccountConferenceConferenceRecording FetchConferenceRecording(ctx, AccountSidConferenceSidSid)
+> ApiV2010AccountConferenceConferenceRecording FetchConferenceRecording(ctx, ConferenceSidSidoptional)
 
 
 
@@ -3633,7 +3633,7 @@ Name | Type | Description
 
 ## FetchConnectApp
 
-> ApiV2010AccountConnectApp FetchConnectApp(ctx, AccountSidSid)
+> ApiV2010AccountConnectApp FetchConnectApp(ctx, Sidoptional)
 
 
 
@@ -3675,7 +3675,7 @@ Name | Type | Description
 
 ## FetchIncomingPhoneNumber
 
-> ApiV2010AccountIncomingPhoneNumber FetchIncomingPhoneNumber(ctx, AccountSidSid)
+> ApiV2010AccountIncomingPhoneNumber FetchIncomingPhoneNumber(ctx, Sidoptional)
 
 
 
@@ -3717,7 +3717,7 @@ Name | Type | Description
 
 ## FetchIncomingPhoneNumberAssignedAddOn
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn FetchIncomingPhoneNumberAssignedAddOn(ctx, AccountSidResourceSidSid)
+> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn FetchIncomingPhoneNumberAssignedAddOn(ctx, ResourceSidSidoptional)
 
 
 
@@ -3760,7 +3760,7 @@ Name | Type | Description
 
 ## FetchIncomingPhoneNumberAssignedAddOnExtension
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension FetchIncomingPhoneNumberAssignedAddOnExtension(ctx, AccountSidResourceSidAssignedAddOnSidSid)
+> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension FetchIncomingPhoneNumberAssignedAddOnExtension(ctx, ResourceSidAssignedAddOnSidSidoptional)
 
 
 
@@ -3804,7 +3804,7 @@ Name | Type | Description
 
 ## FetchKey
 
-> ApiV2010AccountKey FetchKey(ctx, AccountSidSid)
+> ApiV2010AccountKey FetchKey(ctx, Sidoptional)
 
 
 
@@ -3844,7 +3844,7 @@ Name | Type | Description
 
 ## FetchMedia
 
-> ApiV2010AccountMessageMedia FetchMedia(ctx, AccountSidMessageSidSid)
+> ApiV2010AccountMessageMedia FetchMedia(ctx, MessageSidSidoptional)
 
 
 
@@ -3887,7 +3887,7 @@ Name | Type | Description
 
 ## FetchMember
 
-> ApiV2010AccountQueueMember FetchMember(ctx, AccountSidQueueSidCallSid)
+> ApiV2010AccountQueueMember FetchMember(ctx, QueueSidCallSidoptional)
 
 
 
@@ -3930,7 +3930,7 @@ Name | Type | Description
 
 ## FetchMessage
 
-> ApiV2010AccountMessage FetchMessage(ctx, AccountSidSid)
+> ApiV2010AccountMessage FetchMessage(ctx, Sidoptional)
 
 
 
@@ -3972,7 +3972,7 @@ Name | Type | Description
 
 ## FetchNotification
 
-> ApiV2010AccountNotificationInstance FetchNotification(ctx, AccountSidSid)
+> ApiV2010AccountNotificationInstance FetchNotification(ctx, Sidoptional)
 
 
 
@@ -4014,7 +4014,7 @@ Name | Type | Description
 
 ## FetchOutgoingCallerId
 
-> ApiV2010AccountOutgoingCallerId FetchOutgoingCallerId(ctx, AccountSidSid)
+> ApiV2010AccountOutgoingCallerId FetchOutgoingCallerId(ctx, Sidoptional)
 
 
 
@@ -4056,7 +4056,7 @@ Name | Type | Description
 
 ## FetchParticipant
 
-> ApiV2010AccountConferenceParticipant FetchParticipant(ctx, AccountSidConferenceSidCallSid)
+> ApiV2010AccountConferenceParticipant FetchParticipant(ctx, ConferenceSidCallSidoptional)
 
 
 
@@ -4099,7 +4099,7 @@ Name | Type | Description
 
 ## FetchQueue
 
-> ApiV2010AccountQueue FetchQueue(ctx, AccountSidSid)
+> ApiV2010AccountQueue FetchQueue(ctx, Sidoptional)
 
 
 
@@ -4141,7 +4141,7 @@ Name | Type | Description
 
 ## FetchRecording
 
-> ApiV2010AccountRecording FetchRecording(ctx, AccountSidSid)
+> ApiV2010AccountRecording FetchRecording(ctx, Sidoptional)
 
 
 
@@ -4183,7 +4183,7 @@ Name | Type | Description
 
 ## FetchRecordingAddOnResult
 
-> ApiV2010AccountRecordingRecordingAddOnResult FetchRecordingAddOnResult(ctx, AccountSidReferenceSidSid)
+> ApiV2010AccountRecordingRecordingAddOnResult FetchRecordingAddOnResult(ctx, ReferenceSidSidoptional)
 
 
 
@@ -4226,7 +4226,7 @@ Name | Type | Description
 
 ## FetchRecordingAddOnResultPayload
 
-> ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload FetchRecordingAddOnResultPayload(ctx, AccountSidReferenceSidAddOnResultSidSid)
+> ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload FetchRecordingAddOnResultPayload(ctx, ReferenceSidAddOnResultSidSidoptional)
 
 
 
@@ -4270,7 +4270,7 @@ Name | Type | Description
 
 ## FetchRecordingTranscription
 
-> ApiV2010AccountRecordingRecordingTranscription FetchRecordingTranscription(ctx, AccountSidRecordingSidSid)
+> ApiV2010AccountRecordingRecordingTranscription FetchRecordingTranscription(ctx, RecordingSidSidoptional)
 
 
 
@@ -4311,7 +4311,7 @@ Name | Type | Description
 
 ## FetchShortCode
 
-> ApiV2010AccountShortCode FetchShortCode(ctx, AccountSidSid)
+> ApiV2010AccountShortCode FetchShortCode(ctx, Sidoptional)
 
 
 
@@ -4353,7 +4353,7 @@ Name | Type | Description
 
 ## FetchSigningKey
 
-> ApiV2010AccountSigningKey FetchSigningKey(ctx, AccountSidSid)
+> ApiV2010AccountSigningKey FetchSigningKey(ctx, Sidoptional)
 
 
 
@@ -4393,7 +4393,7 @@ Name | Type | Description
 
 ## FetchSipAuthCallsCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping FetchSipAuthCallsCredentialListMapping(ctx, AccountSidDomainSidSid)
+> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping FetchSipAuthCallsCredentialListMapping(ctx, DomainSidSidoptional)
 
 
 
@@ -4436,7 +4436,7 @@ Name | Type | Description
 
 ## FetchSipAuthCallsIpAccessControlListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping FetchSipAuthCallsIpAccessControlListMapping(ctx, AccountSidDomainSidSid)
+> ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping FetchSipAuthCallsIpAccessControlListMapping(ctx, DomainSidSidoptional)
 
 
 
@@ -4479,7 +4479,7 @@ Name | Type | Description
 
 ## FetchSipAuthRegistrationsCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping FetchSipAuthRegistrationsCredentialListMapping(ctx, AccountSidDomainSidSid)
+> ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping FetchSipAuthRegistrationsCredentialListMapping(ctx, DomainSidSidoptional)
 
 
 
@@ -4522,7 +4522,7 @@ Name | Type | Description
 
 ## FetchSipCredential
 
-> ApiV2010AccountSipSipCredentialListSipCredential FetchSipCredential(ctx, AccountSidCredentialListSidSid)
+> ApiV2010AccountSipSipCredentialListSipCredential FetchSipCredential(ctx, CredentialListSidSidoptional)
 
 
 
@@ -4565,7 +4565,7 @@ Name | Type | Description
 
 ## FetchSipCredentialList
 
-> ApiV2010AccountSipSipCredentialList FetchSipCredentialList(ctx, AccountSidSid)
+> ApiV2010AccountSipSipCredentialList FetchSipCredentialList(ctx, Sidoptional)
 
 
 
@@ -4607,7 +4607,7 @@ Name | Type | Description
 
 ## FetchSipCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipCredentialListMapping FetchSipCredentialListMapping(ctx, AccountSidDomainSidSid)
+> ApiV2010AccountSipSipDomainSipCredentialListMapping FetchSipCredentialListMapping(ctx, DomainSidSidoptional)
 
 
 
@@ -4650,7 +4650,7 @@ Name | Type | Description
 
 ## FetchSipDomain
 
-> ApiV2010AccountSipSipDomain FetchSipDomain(ctx, AccountSidSid)
+> ApiV2010AccountSipSipDomain FetchSipDomain(ctx, Sidoptional)
 
 
 
@@ -4692,7 +4692,7 @@ Name | Type | Description
 
 ## FetchSipIpAccessControlList
 
-> ApiV2010AccountSipSipIpAccessControlList FetchSipIpAccessControlList(ctx, AccountSidSid)
+> ApiV2010AccountSipSipIpAccessControlList FetchSipIpAccessControlList(ctx, Sidoptional)
 
 
 
@@ -4734,7 +4734,7 @@ Name | Type | Description
 
 ## FetchSipIpAccessControlListMapping
 
-> ApiV2010AccountSipSipDomainSipIpAccessControlListMapping FetchSipIpAccessControlListMapping(ctx, AccountSidDomainSidSid)
+> ApiV2010AccountSipSipDomainSipIpAccessControlListMapping FetchSipIpAccessControlListMapping(ctx, DomainSidSidoptional)
 
 
 
@@ -4777,7 +4777,7 @@ Name | Type | Description
 
 ## FetchSipIpAddress
 
-> ApiV2010AccountSipSipIpAccessControlListSipIpAddress FetchSipIpAddress(ctx, AccountSidIpAccessControlListSidSid)
+> ApiV2010AccountSipSipIpAccessControlListSipIpAddress FetchSipIpAddress(ctx, IpAccessControlListSidSidoptional)
 
 
 
@@ -4820,7 +4820,7 @@ Name | Type | Description
 
 ## FetchTranscription
 
-> ApiV2010AccountTranscription FetchTranscription(ctx, AccountSidSid)
+> ApiV2010AccountTranscription FetchTranscription(ctx, Sidoptional)
 
 
 
@@ -4862,7 +4862,7 @@ Name | Type | Description
 
 ## FetchUsageTrigger
 
-> ApiV2010AccountUsageUsageTrigger FetchUsageTrigger(ctx, AccountSidSid)
+> ApiV2010AccountUsageUsageTrigger FetchUsageTrigger(ctx, Sidoptional)
 
 
 
@@ -4944,7 +4944,7 @@ Name | Type | Description
 
 ## ListAddress
 
-> ListAddressResponse ListAddress(ctx, AccountSidoptional)
+> ListAddressResponse ListAddress(ctx, optional)
 
 
 
@@ -4987,7 +4987,7 @@ Name | Type | Description
 
 ## ListApplication
 
-> ListApplicationResponse ListApplication(ctx, AccountSidoptional)
+> ListApplicationResponse ListApplication(ctx, optional)
 
 
 
@@ -5030,7 +5030,7 @@ Name | Type | Description
 
 ## ListAuthorizedConnectApp
 
-> ListAuthorizedConnectAppResponse ListAuthorizedConnectApp(ctx, AccountSidoptional)
+> ListAuthorizedConnectAppResponse ListAuthorizedConnectApp(ctx, optional)
 
 
 
@@ -5072,7 +5072,7 @@ Name | Type | Description
 
 ## ListAvailablePhoneNumberCountry
 
-> ListAvailablePhoneNumberCountryResponse ListAvailablePhoneNumberCountry(ctx, AccountSidoptional)
+> ListAvailablePhoneNumberCountryResponse ListAvailablePhoneNumberCountry(ctx, optional)
 
 
 
@@ -5112,7 +5112,7 @@ Name | Type | Description
 
 ## ListAvailablePhoneNumberLocal
 
-> ListAvailablePhoneNumberLocalResponse ListAvailablePhoneNumberLocal(ctx, AccountSidCountryCodeoptional)
+> ListAvailablePhoneNumberLocalResponse ListAvailablePhoneNumberLocal(ctx, CountryCodeoptional)
 
 
 
@@ -5171,7 +5171,7 @@ Name | Type | Description
 
 ## ListAvailablePhoneNumberMachineToMachine
 
-> ListAvailablePhoneNumberMachineToMachineResponse ListAvailablePhoneNumberMachineToMachine(ctx, AccountSidCountryCodeoptional)
+> ListAvailablePhoneNumberMachineToMachineResponse ListAvailablePhoneNumberMachineToMachine(ctx, CountryCodeoptional)
 
 
 
@@ -5230,7 +5230,7 @@ Name | Type | Description
 
 ## ListAvailablePhoneNumberMobile
 
-> ListAvailablePhoneNumberMobileResponse ListAvailablePhoneNumberMobile(ctx, AccountSidCountryCodeoptional)
+> ListAvailablePhoneNumberMobileResponse ListAvailablePhoneNumberMobile(ctx, CountryCodeoptional)
 
 
 
@@ -5289,7 +5289,7 @@ Name | Type | Description
 
 ## ListAvailablePhoneNumberNational
 
-> ListAvailablePhoneNumberNationalResponse ListAvailablePhoneNumberNational(ctx, AccountSidCountryCodeoptional)
+> ListAvailablePhoneNumberNationalResponse ListAvailablePhoneNumberNational(ctx, CountryCodeoptional)
 
 
 
@@ -5348,7 +5348,7 @@ Name | Type | Description
 
 ## ListAvailablePhoneNumberSharedCost
 
-> ListAvailablePhoneNumberSharedCostResponse ListAvailablePhoneNumberSharedCost(ctx, AccountSidCountryCodeoptional)
+> ListAvailablePhoneNumberSharedCostResponse ListAvailablePhoneNumberSharedCost(ctx, CountryCodeoptional)
 
 
 
@@ -5407,7 +5407,7 @@ Name | Type | Description
 
 ## ListAvailablePhoneNumberTollFree
 
-> ListAvailablePhoneNumberTollFreeResponse ListAvailablePhoneNumberTollFree(ctx, AccountSidCountryCodeoptional)
+> ListAvailablePhoneNumberTollFreeResponse ListAvailablePhoneNumberTollFree(ctx, CountryCodeoptional)
 
 
 
@@ -5466,7 +5466,7 @@ Name | Type | Description
 
 ## ListAvailablePhoneNumberVoip
 
-> ListAvailablePhoneNumberVoipResponse ListAvailablePhoneNumberVoip(ctx, AccountSidCountryCodeoptional)
+> ListAvailablePhoneNumberVoipResponse ListAvailablePhoneNumberVoip(ctx, CountryCodeoptional)
 
 
 
@@ -5525,7 +5525,7 @@ Name | Type | Description
 
 ## ListCall
 
-> ListCallResponse ListCall(ctx, AccountSidoptional)
+> ListCallResponse ListCall(ctx, optional)
 
 
 
@@ -5577,7 +5577,7 @@ Name | Type | Description
 
 ## ListCallEvent
 
-> ListCallEventResponse ListCallEvent(ctx, AccountSidCallSidoptional)
+> ListCallEventResponse ListCallEvent(ctx, CallSidoptional)
 
 
 
@@ -5620,7 +5620,7 @@ Name | Type | Description
 
 ## ListCallNotification
 
-> ListCallNotificationResponse ListCallNotification(ctx, AccountSidCallSidoptional)
+> ListCallNotificationResponse ListCallNotification(ctx, CallSidoptional)
 
 
 
@@ -5665,7 +5665,7 @@ Name | Type | Description
 
 ## ListCallRecording
 
-> ListCallRecordingResponse ListCallRecording(ctx, AccountSidCallSidoptional)
+> ListCallRecordingResponse ListCallRecording(ctx, CallSidoptional)
 
 
 
@@ -5711,7 +5711,7 @@ Name | Type | Description
 
 ## ListConference
 
-> ListConferenceResponse ListConference(ctx, AccountSidoptional)
+> ListConferenceResponse ListConference(ctx, optional)
 
 
 
@@ -5761,7 +5761,7 @@ Name | Type | Description
 
 ## ListConferenceRecording
 
-> ListConferenceRecordingResponse ListConferenceRecording(ctx, AccountSidConferenceSidoptional)
+> ListConferenceRecordingResponse ListConferenceRecording(ctx, ConferenceSidoptional)
 
 
 
@@ -5807,7 +5807,7 @@ Name | Type | Description
 
 ## ListConnectApp
 
-> ListConnectAppResponse ListConnectApp(ctx, AccountSidoptional)
+> ListConnectAppResponse ListConnectApp(ctx, optional)
 
 
 
@@ -5849,7 +5849,7 @@ Name | Type | Description
 
 ## ListDependentPhoneNumber
 
-> ListDependentPhoneNumberResponse ListDependentPhoneNumber(ctx, AccountSidAddressSidoptional)
+> ListDependentPhoneNumberResponse ListDependentPhoneNumber(ctx, AddressSidoptional)
 
 
 
@@ -5890,7 +5890,7 @@ Name | Type | Description
 
 ## ListIncomingPhoneNumber
 
-> ListIncomingPhoneNumberResponse ListIncomingPhoneNumber(ctx, AccountSidoptional)
+> ListIncomingPhoneNumberResponse ListIncomingPhoneNumber(ctx, optional)
 
 
 
@@ -5936,7 +5936,7 @@ Name | Type | Description
 
 ## ListIncomingPhoneNumberAssignedAddOn
 
-> ListIncomingPhoneNumberAssignedAddOnResponse ListIncomingPhoneNumberAssignedAddOn(ctx, AccountSidResourceSidoptional)
+> ListIncomingPhoneNumberAssignedAddOnResponse ListIncomingPhoneNumberAssignedAddOn(ctx, ResourceSidoptional)
 
 
 
@@ -5979,7 +5979,7 @@ Name | Type | Description
 
 ## ListIncomingPhoneNumberAssignedAddOnExtension
 
-> ListIncomingPhoneNumberAssignedAddOnExtensionResponse ListIncomingPhoneNumberAssignedAddOnExtension(ctx, AccountSidResourceSidAssignedAddOnSidoptional)
+> ListIncomingPhoneNumberAssignedAddOnExtensionResponse ListIncomingPhoneNumberAssignedAddOnExtension(ctx, ResourceSidAssignedAddOnSidoptional)
 
 
 
@@ -6023,7 +6023,7 @@ Name | Type | Description
 
 ## ListIncomingPhoneNumberLocal
 
-> ListIncomingPhoneNumberLocalResponse ListIncomingPhoneNumberLocal(ctx, AccountSidoptional)
+> ListIncomingPhoneNumberLocalResponse ListIncomingPhoneNumberLocal(ctx, optional)
 
 
 
@@ -6067,7 +6067,7 @@ Name | Type | Description
 
 ## ListIncomingPhoneNumberMobile
 
-> ListIncomingPhoneNumberMobileResponse ListIncomingPhoneNumberMobile(ctx, AccountSidoptional)
+> ListIncomingPhoneNumberMobileResponse ListIncomingPhoneNumberMobile(ctx, optional)
 
 
 
@@ -6111,7 +6111,7 @@ Name | Type | Description
 
 ## ListIncomingPhoneNumberTollFree
 
-> ListIncomingPhoneNumberTollFreeResponse ListIncomingPhoneNumberTollFree(ctx, AccountSidoptional)
+> ListIncomingPhoneNumberTollFreeResponse ListIncomingPhoneNumberTollFree(ctx, optional)
 
 
 
@@ -6155,7 +6155,7 @@ Name | Type | Description
 
 ## ListKey
 
-> ListKeyResponse ListKey(ctx, AccountSidoptional)
+> ListKeyResponse ListKey(ctx, optional)
 
 
 
@@ -6195,7 +6195,7 @@ Name | Type | Description
 
 ## ListMedia
 
-> ListMediaResponse ListMedia(ctx, AccountSidMessageSidoptional)
+> ListMediaResponse ListMedia(ctx, MessageSidoptional)
 
 
 
@@ -6241,7 +6241,7 @@ Name | Type | Description
 
 ## ListMember
 
-> ListMemberResponse ListMember(ctx, AccountSidQueueSidoptional)
+> ListMemberResponse ListMember(ctx, QueueSidoptional)
 
 
 
@@ -6284,7 +6284,7 @@ Name | Type | Description
 
 ## ListMessage
 
-> ListMessageResponse ListMessage(ctx, AccountSidoptional)
+> ListMessageResponse ListMessage(ctx, optional)
 
 
 
@@ -6331,7 +6331,7 @@ Name | Type | Description
 
 ## ListNotification
 
-> ListNotificationResponse ListNotification(ctx, AccountSidoptional)
+> ListNotificationResponse ListNotification(ctx, optional)
 
 
 
@@ -6377,7 +6377,7 @@ Name | Type | Description
 
 ## ListOutgoingCallerId
 
-> ListOutgoingCallerIdResponse ListOutgoingCallerId(ctx, AccountSidoptional)
+> ListOutgoingCallerIdResponse ListOutgoingCallerId(ctx, optional)
 
 
 
@@ -6421,7 +6421,7 @@ Name | Type | Description
 
 ## ListParticipant
 
-> ListParticipantResponse ListParticipant(ctx, AccountSidConferenceSidoptional)
+> ListParticipantResponse ListParticipant(ctx, ConferenceSidoptional)
 
 
 
@@ -6467,7 +6467,7 @@ Name | Type | Description
 
 ## ListQueue
 
-> ListQueueResponse ListQueue(ctx, AccountSidoptional)
+> ListQueueResponse ListQueue(ctx, optional)
 
 
 
@@ -6509,7 +6509,7 @@ Name | Type | Description
 
 ## ListRecording
 
-> ListRecordingResponse ListRecording(ctx, AccountSidoptional)
+> ListRecordingResponse ListRecording(ctx, optional)
 
 
 
@@ -6556,7 +6556,7 @@ Name | Type | Description
 
 ## ListRecordingAddOnResult
 
-> ListRecordingAddOnResultResponse ListRecordingAddOnResult(ctx, AccountSidReferenceSidoptional)
+> ListRecordingAddOnResultResponse ListRecordingAddOnResult(ctx, ReferenceSidoptional)
 
 
 
@@ -6599,7 +6599,7 @@ Name | Type | Description
 
 ## ListRecordingAddOnResultPayload
 
-> ListRecordingAddOnResultPayloadResponse ListRecordingAddOnResultPayload(ctx, AccountSidReferenceSidAddOnResultSidoptional)
+> ListRecordingAddOnResultPayloadResponse ListRecordingAddOnResultPayload(ctx, ReferenceSidAddOnResultSidoptional)
 
 
 
@@ -6643,7 +6643,7 @@ Name | Type | Description
 
 ## ListRecordingTranscription
 
-> ListRecordingTranscriptionResponse ListRecordingTranscription(ctx, AccountSidRecordingSidoptional)
+> ListRecordingTranscriptionResponse ListRecordingTranscription(ctx, RecordingSidoptional)
 
 
 
@@ -6684,7 +6684,7 @@ Name | Type | Description
 
 ## ListShortCode
 
-> ListShortCodeResponse ListShortCode(ctx, AccountSidoptional)
+> ListShortCodeResponse ListShortCode(ctx, optional)
 
 
 
@@ -6728,7 +6728,7 @@ Name | Type | Description
 
 ## ListSigningKey
 
-> ListSigningKeyResponse ListSigningKey(ctx, AccountSidoptional)
+> ListSigningKeyResponse ListSigningKey(ctx, optional)
 
 
 
@@ -6768,7 +6768,7 @@ Name | Type | Description
 
 ## ListSipAuthCallsCredentialListMapping
 
-> ListSipAuthCallsCredentialListMappingResponse ListSipAuthCallsCredentialListMapping(ctx, AccountSidDomainSidoptional)
+> ListSipAuthCallsCredentialListMappingResponse ListSipAuthCallsCredentialListMapping(ctx, DomainSidoptional)
 
 
 
@@ -6811,7 +6811,7 @@ Name | Type | Description
 
 ## ListSipAuthCallsIpAccessControlListMapping
 
-> ListSipAuthCallsIpAccessControlListMappingResponse ListSipAuthCallsIpAccessControlListMapping(ctx, AccountSidDomainSidoptional)
+> ListSipAuthCallsIpAccessControlListMappingResponse ListSipAuthCallsIpAccessControlListMapping(ctx, DomainSidoptional)
 
 
 
@@ -6854,7 +6854,7 @@ Name | Type | Description
 
 ## ListSipAuthRegistrationsCredentialListMapping
 
-> ListSipAuthRegistrationsCredentialListMappingResponse ListSipAuthRegistrationsCredentialListMapping(ctx, AccountSidDomainSidoptional)
+> ListSipAuthRegistrationsCredentialListMappingResponse ListSipAuthRegistrationsCredentialListMapping(ctx, DomainSidoptional)
 
 
 
@@ -6897,7 +6897,7 @@ Name | Type | Description
 
 ## ListSipCredential
 
-> ListSipCredentialResponse ListSipCredential(ctx, AccountSidCredentialListSidoptional)
+> ListSipCredentialResponse ListSipCredential(ctx, CredentialListSidoptional)
 
 
 
@@ -6940,7 +6940,7 @@ Name | Type | Description
 
 ## ListSipCredentialList
 
-> ListSipCredentialListResponse ListSipCredentialList(ctx, AccountSidoptional)
+> ListSipCredentialListResponse ListSipCredentialList(ctx, optional)
 
 
 
@@ -6982,7 +6982,7 @@ Name | Type | Description
 
 ## ListSipCredentialListMapping
 
-> ListSipCredentialListMappingResponse ListSipCredentialListMapping(ctx, AccountSidDomainSidoptional)
+> ListSipCredentialListMappingResponse ListSipCredentialListMapping(ctx, DomainSidoptional)
 
 
 
@@ -7025,7 +7025,7 @@ Name | Type | Description
 
 ## ListSipDomain
 
-> ListSipDomainResponse ListSipDomain(ctx, AccountSidoptional)
+> ListSipDomainResponse ListSipDomain(ctx, optional)
 
 
 
@@ -7067,7 +7067,7 @@ Name | Type | Description
 
 ## ListSipIpAccessControlList
 
-> ListSipIpAccessControlListResponse ListSipIpAccessControlList(ctx, AccountSidoptional)
+> ListSipIpAccessControlListResponse ListSipIpAccessControlList(ctx, optional)
 
 
 
@@ -7109,7 +7109,7 @@ Name | Type | Description
 
 ## ListSipIpAccessControlListMapping
 
-> ListSipIpAccessControlListMappingResponse ListSipIpAccessControlListMapping(ctx, AccountSidDomainSidoptional)
+> ListSipIpAccessControlListMappingResponse ListSipIpAccessControlListMapping(ctx, DomainSidoptional)
 
 
 
@@ -7152,7 +7152,7 @@ Name | Type | Description
 
 ## ListSipIpAddress
 
-> ListSipIpAddressResponse ListSipIpAddress(ctx, AccountSidIpAccessControlListSidoptional)
+> ListSipIpAddressResponse ListSipIpAddress(ctx, IpAccessControlListSidoptional)
 
 
 
@@ -7195,7 +7195,7 @@ Name | Type | Description
 
 ## ListTranscription
 
-> ListTranscriptionResponse ListTranscription(ctx, AccountSidoptional)
+> ListTranscriptionResponse ListTranscription(ctx, optional)
 
 
 
@@ -7237,7 +7237,7 @@ Name | Type | Description
 
 ## ListUsageRecord
 
-> ListUsageRecordResponse ListUsageRecord(ctx, AccountSidoptional)
+> ListUsageRecordResponse ListUsageRecord(ctx, optional)
 
 
 
@@ -7283,7 +7283,7 @@ Name | Type | Description
 
 ## ListUsageRecordAllTime
 
-> ListUsageRecordAllTimeResponse ListUsageRecordAllTime(ctx, AccountSidoptional)
+> ListUsageRecordAllTimeResponse ListUsageRecordAllTime(ctx, optional)
 
 
 
@@ -7327,7 +7327,7 @@ Name | Type | Description
 
 ## ListUsageRecordDaily
 
-> ListUsageRecordDailyResponse ListUsageRecordDaily(ctx, AccountSidoptional)
+> ListUsageRecordDailyResponse ListUsageRecordDaily(ctx, optional)
 
 
 
@@ -7371,7 +7371,7 @@ Name | Type | Description
 
 ## ListUsageRecordLastMonth
 
-> ListUsageRecordLastMonthResponse ListUsageRecordLastMonth(ctx, AccountSidoptional)
+> ListUsageRecordLastMonthResponse ListUsageRecordLastMonth(ctx, optional)
 
 
 
@@ -7415,7 +7415,7 @@ Name | Type | Description
 
 ## ListUsageRecordMonthly
 
-> ListUsageRecordMonthlyResponse ListUsageRecordMonthly(ctx, AccountSidoptional)
+> ListUsageRecordMonthlyResponse ListUsageRecordMonthly(ctx, optional)
 
 
 
@@ -7459,7 +7459,7 @@ Name | Type | Description
 
 ## ListUsageRecordThisMonth
 
-> ListUsageRecordThisMonthResponse ListUsageRecordThisMonth(ctx, AccountSidoptional)
+> ListUsageRecordThisMonthResponse ListUsageRecordThisMonth(ctx, optional)
 
 
 
@@ -7503,7 +7503,7 @@ Name | Type | Description
 
 ## ListUsageRecordToday
 
-> ListUsageRecordTodayResponse ListUsageRecordToday(ctx, AccountSidoptional)
+> ListUsageRecordTodayResponse ListUsageRecordToday(ctx, optional)
 
 
 
@@ -7547,7 +7547,7 @@ Name | Type | Description
 
 ## ListUsageRecordYearly
 
-> ListUsageRecordYearlyResponse ListUsageRecordYearly(ctx, AccountSidoptional)
+> ListUsageRecordYearlyResponse ListUsageRecordYearly(ctx, optional)
 
 
 
@@ -7591,7 +7591,7 @@ Name | Type | Description
 
 ## ListUsageRecordYesterday
 
-> ListUsageRecordYesterdayResponse ListUsageRecordYesterday(ctx, AccountSidoptional)
+> ListUsageRecordYesterdayResponse ListUsageRecordYesterday(ctx, optional)
 
 
 
@@ -7635,7 +7635,7 @@ Name | Type | Description
 
 ## ListUsageTrigger
 
-> ListUsageTriggerResponse ListUsageTrigger(ctx, AccountSidoptional)
+> ListUsageTriggerResponse ListUsageTrigger(ctx, optional)
 
 
 
@@ -7723,7 +7723,7 @@ Name | Type | Description
 
 ## UpdateAddress
 
-> ApiV2010AccountAddress UpdateAddress(ctx, AccountSidSidoptional)
+> ApiV2010AccountAddress UpdateAddress(ctx, Sidoptional)
 
 
 
@@ -7771,7 +7771,7 @@ Name | Type | Description
 
 ## UpdateApplication
 
-> ApiV2010AccountApplication UpdateApplication(ctx, AccountSidSidoptional)
+> ApiV2010AccountApplication UpdateApplication(ctx, Sidoptional)
 
 
 
@@ -7828,7 +7828,7 @@ Name | Type | Description
 
 ## UpdateCall
 
-> ApiV2010AccountCall UpdateCall(ctx, AccountSidSidoptional)
+> ApiV2010AccountCall UpdateCall(ctx, Sidoptional)
 
 
 
@@ -7878,7 +7878,7 @@ Name | Type | Description
 
 ## UpdateCallFeedback
 
-> ApiV2010AccountCallCallFeedback UpdateCallFeedback(ctx, AccountSidCallSidoptional)
+> ApiV2010AccountCallCallFeedback UpdateCallFeedback(ctx, CallSidoptional)
 
 
 
@@ -7922,7 +7922,7 @@ Name | Type | Description
 
 ## UpdateCallRecording
 
-> ApiV2010AccountCallCallRecording UpdateCallRecording(ctx, AccountSidCallSidSidoptional)
+> ApiV2010AccountCallCallRecording UpdateCallRecording(ctx, CallSidSidoptional)
 
 
 
@@ -7967,7 +7967,7 @@ Name | Type | Description
 
 ## UpdateConference
 
-> ApiV2010AccountConference UpdateConference(ctx, AccountSidSidoptional)
+> ApiV2010AccountConference UpdateConference(ctx, Sidoptional)
 
 
 
@@ -8010,7 +8010,7 @@ Name | Type | Description
 
 ## UpdateConferenceRecording
 
-> ApiV2010AccountConferenceConferenceRecording UpdateConferenceRecording(ctx, AccountSidConferenceSidSidoptional)
+> ApiV2010AccountConferenceConferenceRecording UpdateConferenceRecording(ctx, ConferenceSidSidoptional)
 
 
 
@@ -8055,7 +8055,7 @@ Name | Type | Description
 
 ## UpdateConnectApp
 
-> ApiV2010AccountConnectApp UpdateConnectApp(ctx, AccountSidSidoptional)
+> ApiV2010AccountConnectApp UpdateConnectApp(ctx, Sidoptional)
 
 
 
@@ -8105,7 +8105,7 @@ Name | Type | Description
 
 ## UpdateIncomingPhoneNumber
 
-> ApiV2010AccountIncomingPhoneNumber UpdateIncomingPhoneNumber(ctx, AccountSidSidoptional)
+> ApiV2010AccountIncomingPhoneNumber UpdateIncomingPhoneNumber(ctx, Sidoptional)
 
 
 
@@ -8170,7 +8170,7 @@ Name | Type | Description
 
 ## UpdateKey
 
-> ApiV2010AccountKey UpdateKey(ctx, AccountSidSidoptional)
+> ApiV2010AccountKey UpdateKey(ctx, Sidoptional)
 
 
 
@@ -8211,7 +8211,7 @@ Name | Type | Description
 
 ## UpdateMember
 
-> ApiV2010AccountQueueMember UpdateMember(ctx, AccountSidQueueSidCallSidoptional)
+> ApiV2010AccountQueueMember UpdateMember(ctx, QueueSidCallSidoptional)
 
 
 
@@ -8256,7 +8256,7 @@ Name | Type | Description
 
 ## UpdateMessage
 
-> ApiV2010AccountMessage UpdateMessage(ctx, AccountSidSidoptional)
+> ApiV2010AccountMessage UpdateMessage(ctx, Sidoptional)
 
 
 
@@ -8299,7 +8299,7 @@ Name | Type | Description
 
 ## UpdateOutgoingCallerId
 
-> ApiV2010AccountOutgoingCallerId UpdateOutgoingCallerId(ctx, AccountSidSidoptional)
+> ApiV2010AccountOutgoingCallerId UpdateOutgoingCallerId(ctx, Sidoptional)
 
 
 
@@ -8342,7 +8342,7 @@ Name | Type | Description
 
 ## UpdateParticipant
 
-> ApiV2010AccountConferenceParticipant UpdateParticipant(ctx, AccountSidConferenceSidCallSidoptional)
+> ApiV2010AccountConferenceParticipant UpdateParticipant(ctx, ConferenceSidCallSidoptional)
 
 
 
@@ -8397,7 +8397,7 @@ Name | Type | Description
 
 ## UpdatePayments
 
-> ApiV2010AccountCallPayments UpdatePayments(ctx, AccountSidCallSidSidoptional)
+> ApiV2010AccountCallPayments UpdatePayments(ctx, CallSidSidoptional)
 
 
 
@@ -8444,7 +8444,7 @@ Name | Type | Description
 
 ## UpdateQueue
 
-> ApiV2010AccountQueue UpdateQueue(ctx, AccountSidSidoptional)
+> ApiV2010AccountQueue UpdateQueue(ctx, Sidoptional)
 
 
 
@@ -8488,7 +8488,7 @@ Name | Type | Description
 
 ## UpdateShortCode
 
-> ApiV2010AccountShortCode UpdateShortCode(ctx, AccountSidSidoptional)
+> ApiV2010AccountShortCode UpdateShortCode(ctx, Sidoptional)
 
 
 
@@ -8536,7 +8536,7 @@ Name | Type | Description
 
 ## UpdateSigningKey
 
-> ApiV2010AccountSigningKey UpdateSigningKey(ctx, AccountSidSidoptional)
+> ApiV2010AccountSigningKey UpdateSigningKey(ctx, Sidoptional)
 
 
 
@@ -8577,7 +8577,7 @@ Name | Type | Description
 
 ## UpdateSipCredential
 
-> ApiV2010AccountSipSipCredentialListSipCredential UpdateSipCredential(ctx, AccountSidCredentialListSidSidoptional)
+> ApiV2010AccountSipSipCredentialListSipCredential UpdateSipCredential(ctx, CredentialListSidSidoptional)
 
 
 
@@ -8621,7 +8621,7 @@ Name | Type | Description
 
 ## UpdateSipCredentialList
 
-> ApiV2010AccountSipSipCredentialList UpdateSipCredentialList(ctx, AccountSidSidoptional)
+> ApiV2010AccountSipSipCredentialList UpdateSipCredentialList(ctx, Sidoptional)
 
 
 
@@ -8664,7 +8664,7 @@ Name | Type | Description
 
 ## UpdateSipDomain
 
-> ApiV2010AccountSipSipDomain UpdateSipDomain(ctx, AccountSidSidoptional)
+> ApiV2010AccountSipSipDomain UpdateSipDomain(ctx, Sidoptional)
 
 
 
@@ -8719,7 +8719,7 @@ Name | Type | Description
 
 ## UpdateSipIpAccessControlList
 
-> ApiV2010AccountSipSipIpAccessControlList UpdateSipIpAccessControlList(ctx, AccountSidSidoptional)
+> ApiV2010AccountSipSipIpAccessControlList UpdateSipIpAccessControlList(ctx, Sidoptional)
 
 
 
@@ -8762,7 +8762,7 @@ Name | Type | Description
 
 ## UpdateSipIpAddress
 
-> ApiV2010AccountSipSipIpAccessControlListSipIpAddress UpdateSipIpAddress(ctx, AccountSidIpAccessControlListSidSidoptional)
+> ApiV2010AccountSipSipIpAccessControlListSipIpAddress UpdateSipIpAddress(ctx, IpAccessControlListSidSidoptional)
 
 
 
@@ -8808,7 +8808,7 @@ Name | Type | Description
 
 ## UpdateUsageTrigger
 
-> ApiV2010AccountUsageUsageTrigger UpdateUsageTrigger(ctx, AccountSidSidoptional)
+> ApiV2010AccountUsageUsageTrigger UpdateUsageTrigger(ctx, Sidoptional)
 
 
 
