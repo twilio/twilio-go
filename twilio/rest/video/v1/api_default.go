@@ -48,27 +48,27 @@ type CreateCompositionParams struct {
 
 // CreateComposition Method for CreateComposition
 //
-// * @param: optional nil or *CreateCompositionParams - Optional Parameters:
+// @param: optional nil or *CreateCompositionParams - Optional Parameters:
 //
-// * @param: "AudioSources" ([]string) - An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
+// @param: "AudioSources" ([]string) - An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
 //
-// * @param: "AudioSourcesExcluded" ([]string) - An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
+// @param: "AudioSourcesExcluded" ([]string) - An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
 //
-// * @param: "Format" (string) - The container format of the composition's media files. Can be: `mp4` or `webm` and the default is `webm`. If you specify `mp4` or `webm`, you must also specify one or more `audio_sources` and/or a `video_layout` element that contains a valid `video_sources` list, otherwise an error occurs.
+// @param: "Format" (string) - The container format of the composition's media files. Can be: `mp4` or `webm` and the default is `webm`. If you specify `mp4` or `webm`, you must also specify one or more `audio_sources` and/or a `video_layout` element that contains a valid `video_sources` list, otherwise an error occurs.
 //
-// * @param: "Resolution" (string) - A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+// @param: "Resolution" (string) - A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 //
-// * @param: "RoomSid" (string) - The SID of the Group Room with the media tracks to be used as composition sources.
+// @param: "RoomSid" (string) - The SID of the Group Room with the media tracks to be used as composition sources.
 //
-// * @param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
+// @param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
 //
-// * @param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+// @param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
 //
-// * @param: "Trim" (bool) - Whether to clip the intervals where there is no active media in the composition. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+// @param: "Trim" (bool) - Whether to clip the intervals where there is no active media in the composition. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 //
-// * @param: "VideoLayout" (map[string]interface{}) - An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
+// @param: "VideoLayout" (map[string]interface{}) - An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
 //
-// * @return: VideoV1Composition
+// @return: VideoV1Composition
 func (c *DefaultApiService) CreateComposition(params *CreateCompositionParams) (*VideoV1Composition, error) {
 	path := "/v1/Compositions"
 
@@ -140,29 +140,29 @@ type CreateCompositionHookParams struct {
 
 // CreateCompositionHook Method for CreateCompositionHook
 //
-// * @param: optional nil or *CreateCompositionHookParams - Optional Parameters:
+// @param: optional nil or *CreateCompositionHookParams - Optional Parameters:
 //
-// * @param: "AudioSources" ([]string) - An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
+// @param: "AudioSources" ([]string) - An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
 //
-// * @param: "AudioSourcesExcluded" ([]string) - An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
+// @param: "AudioSourcesExcluded" ([]string) - An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
 //
-// * @param: "Enabled" (bool) - Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook will never be triggered.
+// @param: "Enabled" (bool) - Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook will never be triggered.
 //
-// * @param: "Format" (string) - The container format of the media files used by the compositions created by the composition hook. Can be: `mp4` or `webm` and the default is `webm`. If `mp4` or `webm`, `audio_sources` must have one or more tracks and/or a `video_layout` element must contain a valid `video_sources` list, otherwise an error occurs.
+// @param: "Format" (string) - The container format of the media files used by the compositions created by the composition hook. Can be: `mp4` or `webm` and the default is `webm`. If `mp4` or `webm`, `audio_sources` must have one or more tracks and/or a `video_layout` element must contain a valid `video_sources` list, otherwise an error occurs.
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
+// @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
 //
-// * @param: "Resolution" (string) - A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+// @param: "Resolution" (string) - A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 //
-// * @param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
+// @param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
 //
-// * @param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+// @param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
 //
-// * @param: "Trim" (bool) - Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+// @param: "Trim" (bool) - Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 //
-// * @param: "VideoLayout" (map[string]interface{}) - An object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+// @param: "VideoLayout" (map[string]interface{}) - An object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 //
-// * @return: VideoV1CompositionHook
+// @return: VideoV1CompositionHook
 func (c *DefaultApiService) CreateCompositionHook(params *CreateCompositionHookParams) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks"
 
@@ -233,21 +233,21 @@ type CreateCompositionSettingsParams struct {
 
 // CreateCompositionSettings Method for CreateCompositionSettings
 //
-// * @param: optional nil or *CreateCompositionSettingsParams - Optional Parameters:
+// @param: optional nil or *CreateCompositionSettingsParams - Optional Parameters:
 //
-// * @param: "AwsCredentialsSid" (string) - The SID of the stored Credential resource.
+// @param: "AwsCredentialsSid" (string) - The SID of the stored Credential resource.
 //
-// * @param: "AwsS3Url" (string) - The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+// @param: "AwsS3Url" (string) - The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
 //
-// * @param: "AwsStorageEnabled" (bool) - Whether all compositions should be written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
+// @param: "AwsStorageEnabled" (bool) - Whether all compositions should be written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
 //
-// * @param: "EncryptionEnabled" (bool) - Whether all compositions should be stored in an encrypted form. The default is `false`.
+// @param: "EncryptionEnabled" (bool) - Whether all compositions should be stored in an encrypted form. The default is `false`.
 //
-// * @param: "EncryptionKeySid" (string) - The SID of the Public Key resource to use for encryption.
+// @param: "EncryptionKeySid" (string) - The SID of the Public Key resource to use for encryption.
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource and show to the user in the console
+// @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource and show to the user in the console
 //
-// * @return: VideoV1CompositionSettings
+// @return: VideoV1CompositionSettings
 func (c *DefaultApiService) CreateCompositionSettings(params *CreateCompositionSettingsParams) (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
 
@@ -300,21 +300,21 @@ type CreateRecordingSettingsParams struct {
 
 // CreateRecordingSettings Method for CreateRecordingSettings
 //
-// * @param: optional nil or *CreateRecordingSettingsParams - Optional Parameters:
+// @param: optional nil or *CreateRecordingSettingsParams - Optional Parameters:
 //
-// * @param: "AwsCredentialsSid" (string) - The SID of the stored Credential resource.
+// @param: "AwsCredentialsSid" (string) - The SID of the stored Credential resource.
 //
-// * @param: "AwsS3Url" (string) - The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+// @param: "AwsS3Url" (string) - The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
 //
-// * @param: "AwsStorageEnabled" (bool) - Whether all recordings should be written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
+// @param: "AwsStorageEnabled" (bool) - Whether all recordings should be written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
 //
-// * @param: "EncryptionEnabled" (bool) - Whether all recordings should be stored in an encrypted form. The default is `false`.
+// @param: "EncryptionEnabled" (bool) - Whether all recordings should be stored in an encrypted form. The default is `false`.
 //
-// * @param: "EncryptionKeySid" (string) - The SID of the Public Key resource to use for encryption.
+// @param: "EncryptionKeySid" (string) - The SID of the Public Key resource to use for encryption.
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource and be shown to users in the console
+// @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource and be shown to users in the console
 //
-// * @return: VideoV1RecordingSettings
+// @return: VideoV1RecordingSettings
 func (c *DefaultApiService) CreateRecordingSettings(params *CreateRecordingSettingsParams) (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 
@@ -371,29 +371,29 @@ type CreateRoomParams struct {
 
 // CreateRoom Method for CreateRoom
 //
-// * @param: optional nil or *CreateRoomParams - Optional Parameters:
+// @param: optional nil or *CreateRoomParams - Optional Parameters:
 //
-// * @param: "EnableTurn" (bool) - Deprecated, now always considered to be true.
+// @param: "EnableTurn" (bool) - Deprecated, now always considered to be true.
 //
-// * @param: "MaxParticipants" (int32) - The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
+// @param: "MaxParticipants" (int32) - The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
 //
-// * @param: "MediaRegion" (string) - The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+// @param: "MediaRegion" (string) - The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
 //
-// * @param: "RecordParticipantsOnConnect" (bool) - Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
+// @param: "RecordParticipantsOnConnect" (bool) - Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
 //
-// * @param: "RecordingRules" (map[string]interface{}) - A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+// @param: "RecordingRules" (map[string]interface{}) - A collection of Recording Rules that describe how to include or exclude matching tracks for recording
 //
-// * @param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+// @param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
 //
-// * @param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
+// @param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
 //
-// * @param: "Type" (string) - The type of room. Can be: `go`, `peer-to-peer`, `group-small`, or `group`. The default value is `group`.
+// @param: "Type" (string) - The type of room. Can be: `go`, `peer-to-peer`, `group-small`, or `group`. The default value is `group`.
 //
-// * @param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
+// @param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
 //
-// * @param: "VideoCodecs" ([]string) - An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
+// @param: "VideoCodecs" ([]string) - An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
 //
-// * @return: VideoV1Room
+// @return: VideoV1Room
 func (c *DefaultApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) {
 	path := "/v1/Rooms"
 
@@ -454,9 +454,9 @@ func (c *DefaultApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, 
 
 // DeleteComposition Method for DeleteComposition
 //
-// * Delete a Recording Composition resource identified by a Composition SID.
+// **Delete a Recording Composition resource identified by a Composition SID.**
 //
-// * @param: Sid The SID of the Composition resource to delete.
+// @param: Sid The SID of the Composition resource to delete.
 func (c *DefaultApiService) DeleteComposition(Sid string) error {
 	path := "/v1/Compositions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -476,9 +476,9 @@ func (c *DefaultApiService) DeleteComposition(Sid string) error {
 
 // DeleteCompositionHook Method for DeleteCompositionHook
 //
-// * Delete a Recording CompositionHook resource identified by a &#x60;CompositionHook SID&#x60;.
+// **Delete a Recording CompositionHook resource identified by a &#x60;CompositionHook SID&#x60;.**
 //
-// * @param: Sid The SID of the CompositionHook resource to delete.
+// @param: Sid The SID of the CompositionHook resource to delete.
 func (c *DefaultApiService) DeleteCompositionHook(Sid string) error {
 	path := "/v1/CompositionHooks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -498,9 +498,9 @@ func (c *DefaultApiService) DeleteCompositionHook(Sid string) error {
 
 // DeleteRecording Method for DeleteRecording
 //
-// * Delete a Recording resource identified by a Recording SID.
+// **Delete a Recording resource identified by a Recording SID.**
 //
-// * @param: Sid The SID of the Recording resource to delete.
+// @param: Sid The SID of the Recording resource to delete.
 func (c *DefaultApiService) DeleteRecording(Sid string) error {
 	path := "/v1/Recordings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -520,9 +520,9 @@ func (c *DefaultApiService) DeleteRecording(Sid string) error {
 
 // DeleteRoomRecording Method for DeleteRoomRecording
 //
-// * @param: RoomSid The SID of the room with the RoomRecording resource to delete.
+// @param: RoomSid The SID of the room with the RoomRecording resource to delete.
 //
-// * @param: Sid The SID of the RoomRecording resource to delete.
+// @param: Sid The SID of the RoomRecording resource to delete.
 func (c *DefaultApiService) DeleteRoomRecording(RoomSid string, Sid string) error {
 	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -543,11 +543,11 @@ func (c *DefaultApiService) DeleteRoomRecording(RoomSid string, Sid string) erro
 
 // FetchComposition Method for FetchComposition
 //
-// * Returns a single Composition resource identified by a Composition SID.
+// **Returns a single Composition resource identified by a Composition SID.**
 //
-// * @param: Sid The SID of the Composition resource to fetch.
+// @param: Sid The SID of the Composition resource to fetch.
 //
-// * @return: VideoV1Composition
+// @return: VideoV1Composition
 func (c *DefaultApiService) FetchComposition(Sid string) (*VideoV1Composition, error) {
 	path := "/v1/Compositions/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -572,11 +572,11 @@ func (c *DefaultApiService) FetchComposition(Sid string) (*VideoV1Composition, e
 
 // FetchCompositionHook Method for FetchCompositionHook
 //
-// * Returns a single CompositionHook resource identified by a CompositionHook SID.
+// **Returns a single CompositionHook resource identified by a CompositionHook SID.**
 //
-// * @param: Sid The SID of the CompositionHook resource to fetch.
+// @param: Sid The SID of the CompositionHook resource to fetch.
 //
-// * @return: VideoV1CompositionHook
+// @return: VideoV1CompositionHook
 func (c *DefaultApiService) FetchCompositionHook(Sid string) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -601,7 +601,7 @@ func (c *DefaultApiService) FetchCompositionHook(Sid string) (*VideoV1Compositio
 
 // FetchCompositionSettings Method for FetchCompositionSettings
 //
-// * @return: VideoV1CompositionSettings
+// @return: VideoV1CompositionSettings
 func (c *DefaultApiService) FetchCompositionSettings() (*VideoV1CompositionSettings, error) {
 	path := "/v1/CompositionSettings/Default"
 
@@ -625,11 +625,11 @@ func (c *DefaultApiService) FetchCompositionSettings() (*VideoV1CompositionSetti
 
 // FetchRecording Method for FetchRecording
 //
-// * Returns a single Recording resource identified by a Recording SID.
+// **Returns a single Recording resource identified by a Recording SID.**
 //
-// * @param: Sid The SID of the Recording resource to fetch.
+// @param: Sid The SID of the Recording resource to fetch.
 //
-// * @return: VideoV1Recording
+// @return: VideoV1Recording
 func (c *DefaultApiService) FetchRecording(Sid string) (*VideoV1Recording, error) {
 	path := "/v1/Recordings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -654,7 +654,7 @@ func (c *DefaultApiService) FetchRecording(Sid string) (*VideoV1Recording, error
 
 // FetchRecordingSettings Method for FetchRecordingSettings
 //
-// * @return: VideoV1RecordingSettings
+// @return: VideoV1RecordingSettings
 func (c *DefaultApiService) FetchRecordingSettings() (*VideoV1RecordingSettings, error) {
 	path := "/v1/RecordingSettings/Default"
 
@@ -678,9 +678,9 @@ func (c *DefaultApiService) FetchRecordingSettings() (*VideoV1RecordingSettings,
 
 // FetchRoom Method for FetchRoom
 //
-// * @param: Sid The SID of the Room resource to fetch.
+// @param: Sid The SID of the Room resource to fetch.
 //
-// * @return: VideoV1Room
+// @return: VideoV1Room
 func (c *DefaultApiService) FetchRoom(Sid string) (*VideoV1Room, error) {
 	path := "/v1/Rooms/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -705,11 +705,11 @@ func (c *DefaultApiService) FetchRoom(Sid string) (*VideoV1Room, error) {
 
 // FetchRoomParticipant Method for FetchRoomParticipant
 //
-// * @param: RoomSid The SID of the room with the Participant resource to fetch.
+// @param: RoomSid The SID of the room with the Participant resource to fetch.
 //
-// * @param: Sid The SID of the RoomParticipant resource to fetch.
+// @param: Sid The SID of the RoomParticipant resource to fetch.
 //
-// * @return: VideoV1RoomRoomParticipant
+// @return: VideoV1RoomRoomParticipant
 func (c *DefaultApiService) FetchRoomParticipant(RoomSid string, Sid string) (*VideoV1RoomRoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -735,15 +735,15 @@ func (c *DefaultApiService) FetchRoomParticipant(RoomSid string, Sid string) (*V
 
 // FetchRoomParticipantPublishedTrack Method for FetchRoomParticipantPublishedTrack
 //
-// * Returns a single Track resource represented by TrackName or SID.
+// **Returns a single Track resource represented by TrackName or SID.**
 //
-// * @param: RoomSid The SID of the Room resource where the Track resource to fetch is published.
+// @param: RoomSid The SID of the Room resource where the Track resource to fetch is published.
 //
-// * @param: ParticipantSid The SID of the Participant resource with the published track to fetch.
+// @param: ParticipantSid The SID of the Participant resource with the published track to fetch.
 //
-// * @param: Sid The SID of the RoomParticipantPublishedTrack resource to fetch.
+// @param: Sid The SID of the RoomParticipantPublishedTrack resource to fetch.
 //
-// * @return: VideoV1RoomRoomParticipantRoomParticipantPublishedTrack
+// @return: VideoV1RoomRoomParticipantRoomParticipantPublishedTrack
 func (c *DefaultApiService) FetchRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomRoomParticipantRoomParticipantPublishedTrack, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -770,13 +770,13 @@ func (c *DefaultApiService) FetchRoomParticipantPublishedTrack(RoomSid string, P
 
 // FetchRoomParticipantSubscribeRule Method for FetchRoomParticipantSubscribeRule
 //
-// * Returns a list of Subscribe Rules for the Participant.
+// **Returns a list of Subscribe Rules for the Participant.**
 //
-// * @param: RoomSid The SID of the Room resource where the subscribe rules to fetch apply.
+// @param: RoomSid The SID of the Room resource where the subscribe rules to fetch apply.
 //
-// * @param: ParticipantSid The SID of the Participant resource with the subscribe rules to fetch.
+// @param: ParticipantSid The SID of the Participant resource with the subscribe rules to fetch.
 //
-// * @return: VideoV1RoomRoomParticipantRoomParticipantSubscribeRule
+// @return: VideoV1RoomRoomParticipantRoomParticipantSubscribeRule
 func (c *DefaultApiService) FetchRoomParticipantSubscribeRule(RoomSid string, ParticipantSid string) (*VideoV1RoomRoomParticipantRoomParticipantSubscribeRule, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -802,15 +802,15 @@ func (c *DefaultApiService) FetchRoomParticipantSubscribeRule(RoomSid string, Pa
 
 // FetchRoomParticipantSubscribedTrack Method for FetchRoomParticipantSubscribedTrack
 //
-// * Returns a single Track resource represented by &#x60;track_sid&#x60;.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique.
+// **Returns a single Track resource represented by &#x60;track_sid&#x60;.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique.**
 //
-// * @param: RoomSid The SID of the Room where the Track resource to fetch is subscribed.
+// @param: RoomSid The SID of the Room where the Track resource to fetch is subscribed.
 //
-// * @param: ParticipantSid The SID of the participant that subscribes to the Track resource to fetch.
+// @param: ParticipantSid The SID of the participant that subscribes to the Track resource to fetch.
 //
-// * @param: Sid The SID of the RoomParticipantSubscribedTrack resource to fetch.
+// @param: Sid The SID of the RoomParticipantSubscribedTrack resource to fetch.
 //
-// * @return: VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack
+// @return: VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack
 func (c *DefaultApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -837,11 +837,11 @@ func (c *DefaultApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, 
 
 // FetchRoomRecording Method for FetchRoomRecording
 //
-// * @param: RoomSid The SID of the Room resource with the recording to fetch.
+// @param: RoomSid The SID of the Room resource with the recording to fetch.
 //
-// * @param: Sid The SID of the RoomRecording resource to fetch.
+// @param: Sid The SID of the RoomRecording resource to fetch.
 //
-// * @return: VideoV1RoomRoomRecording
+// @return: VideoV1RoomRoomRecording
 func (c *DefaultApiService) FetchRoomRecording(RoomSid string, Sid string) (*VideoV1RoomRoomRecording, error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -867,11 +867,11 @@ func (c *DefaultApiService) FetchRoomRecording(RoomSid string, Sid string) (*Vid
 
 // FetchRoomRecordingRule Method for FetchRoomRecordingRule
 //
-// * Returns a list of Recording Rules for the Room.
+// **Returns a list of Recording Rules for the Room.**
 //
-// * @param: RoomSid The SID of the Room resource where the recording rules to fetch apply.
+// @param: RoomSid The SID of the Room resource where the recording rules to fetch apply.
 //
-// * @return: VideoV1RoomRoomRecordingRule
+// @return: VideoV1RoomRoomRecordingRule
 func (c *DefaultApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1RoomRoomRecordingRule, error) {
 	path := "/v1/Rooms/{RoomSid}/RecordingRules"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -905,21 +905,21 @@ type ListCompositionParams struct {
 
 // ListComposition Method for ListComposition
 //
-// * List of all Recording compositions.
+// **List of all Recording compositions.**
 //
-// * @param: optional nil or *ListCompositionParams - Optional Parameters:
+// @param: optional nil or *ListCompositionParams - Optional Parameters:
 //
-// * @param: "Status" (string) - Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
+// @param: "Status" (string) - Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
 //
-// * @param: "DateCreatedAfter" (time.Time) - Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
+// @param: "DateCreatedAfter" (time.Time) - Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
 //
-// * @param: "DateCreatedBefore" (time.Time) - Read only Composition resources created before this ISO 8601 date-time with time zone.
+// @param: "DateCreatedBefore" (time.Time) - Read only Composition resources created before this ISO 8601 date-time with time zone.
 //
-// * @param: "RoomSid" (string) - Read only Composition resources with this Room SID.
+// @param: "RoomSid" (string) - Read only Composition resources with this Room SID.
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListCompositionResponse
+// @return: ListCompositionResponse
 func (c *DefaultApiService) ListComposition(params *ListCompositionParams) (*ListCompositionResponse, error) {
 	path := "/v1/Compositions"
 
@@ -968,21 +968,21 @@ type ListCompositionHookParams struct {
 
 // ListCompositionHook Method for ListCompositionHook
 //
-// * List of all Recording CompositionHook resources.
+// **List of all Recording CompositionHook resources.**
 //
-// * @param: optional nil or *ListCompositionHookParams - Optional Parameters:
+// @param: optional nil or *ListCompositionHookParams - Optional Parameters:
 //
-// * @param: "Enabled" (bool) - Read only CompositionHook resources with an `enabled` value that matches this parameter.
+// @param: "Enabled" (bool) - Read only CompositionHook resources with an `enabled` value that matches this parameter.
 //
-// * @param: "DateCreatedAfter" (time.Time) - Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+// @param: "DateCreatedAfter" (time.Time) - Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
 //
-// * @param: "DateCreatedBefore" (time.Time) - Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+// @param: "DateCreatedBefore" (time.Time) - Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
 //
-// * @param: "FriendlyName" (string) - Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
+// @param: "FriendlyName" (string) - Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListCompositionHookResponse
+// @return: ListCompositionHookResponse
 func (c *DefaultApiService) ListCompositionHook(params *ListCompositionHookParams) (*ListCompositionHookResponse, error) {
 	path := "/v1/CompositionHooks"
 
@@ -1033,25 +1033,25 @@ type ListRecordingParams struct {
 
 // ListRecording Method for ListRecording
 //
-// * List of all Track recordings.
+// **List of all Track recordings.**
 //
-// * @param: optional nil or *ListRecordingParams - Optional Parameters:
+// @param: optional nil or *ListRecordingParams - Optional Parameters:
 //
-// * @param: "Status" (string) - Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
+// @param: "Status" (string) - Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
 //
-// * @param: "SourceSid" (string) - Read only the recordings that have this `source_sid`.
+// @param: "SourceSid" (string) - Read only the recordings that have this `source_sid`.
 //
-// * @param: "GroupingSid" ([]string) - Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
+// @param: "GroupingSid" ([]string) - Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
 //
-// * @param: "DateCreatedAfter" (time.Time) - Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
+// @param: "DateCreatedAfter" (time.Time) - Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
 //
-// * @param: "DateCreatedBefore" (time.Time) - Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
+// @param: "DateCreatedBefore" (time.Time) - Read only recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`.
 //
-// * @param: "MediaType" (string) - Read only recordings that have this media type. Can be either `audio` or `video`.
+// @param: "MediaType" (string) - Read only recordings that have this media type. Can be either `audio` or `video`.
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListRecordingResponse
+// @return: ListRecordingResponse
 func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*ListRecordingResponse, error) {
 	path := "/v1/Recordings"
 
@@ -1106,19 +1106,19 @@ type ListRoomParams struct {
 
 // ListRoom Method for ListRoom
 //
-// * @param: optional nil or *ListRoomParams - Optional Parameters:
+// @param: optional nil or *ListRoomParams - Optional Parameters:
 //
-// * @param: "Status" (string) - Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+// @param: "Status" (string) - Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
 //
-// * @param: "UniqueName" (string) - Read only rooms with the this `unique_name`.
+// @param: "UniqueName" (string) - Read only rooms with the this `unique_name`.
 //
-// * @param: "DateCreatedAfter" (time.Time) - Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+// @param: "DateCreatedAfter" (time.Time) - Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
 //
-// * @param: "DateCreatedBefore" (time.Time) - Read only rooms that started before this date, given as `YYYY-MM-DD`.
+// @param: "DateCreatedBefore" (time.Time) - Read only rooms that started before this date, given as `YYYY-MM-DD`.
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListRoomResponse
+// @return: ListRoomResponse
 func (c *DefaultApiService) ListRoom(params *ListRoomParams) (*ListRoomResponse, error) {
 	path := "/v1/Rooms"
 
@@ -1167,21 +1167,21 @@ type ListRoomParticipantParams struct {
 
 // ListRoomParticipant Method for ListRoomParticipant
 //
-// * @param: RoomSid The SID of the room with the Participant resources to read.
+// @param: RoomSid The SID of the room with the Participant resources to read.
 //
-// * @param: optional nil or *ListRoomParticipantParams - Optional Parameters:
+// @param: optional nil or *ListRoomParticipantParams - Optional Parameters:
 //
-// * @param: "Status" (string) - Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+// @param: "Status" (string) - Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
 //
-// * @param: "Identity" (string) - Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
+// @param: "Identity" (string) - Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
 //
-// * @param: "DateCreatedAfter" (time.Time) - Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+// @param: "DateCreatedAfter" (time.Time) - Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
 //
-// * @param: "DateCreatedBefore" (time.Time) - Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
+// @param: "DateCreatedBefore" (time.Time) - Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListRoomParticipantResponse
+// @return: ListRoomParticipantResponse
 func (c *DefaultApiService) ListRoomParticipant(RoomSid string, params *ListRoomParticipantParams) (*ListRoomParticipantResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -1227,17 +1227,17 @@ type ListRoomParticipantPublishedTrackParams struct {
 
 // ListRoomParticipantPublishedTrack Method for ListRoomParticipantPublishedTrack
 //
-// * Returns a list of tracks associated with a given Participant. Only &#x60;currently&#x60; Published Tracks are in the list resource.
+// **Returns a list of tracks associated with a given Participant. Only &#x60;currently&#x60; Published Tracks are in the list resource.**
 //
-// * @param: RoomSid The SID of the Room resource where the Track resources to read are published.
+// @param: RoomSid The SID of the Room resource where the Track resources to read are published.
 //
-// * @param: ParticipantSid The SID of the Participant resource with the published tracks to read.
+// @param: ParticipantSid The SID of the Participant resource with the published tracks to read.
 //
-// * @param: optional nil or *ListRoomParticipantPublishedTrackParams - Optional Parameters:
+// @param: optional nil or *ListRoomParticipantPublishedTrackParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListRoomParticipantPublishedTrackResponse
+// @return: ListRoomParticipantPublishedTrackResponse
 func (c *DefaultApiService) ListRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) (*ListRoomParticipantPublishedTrackResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -1272,17 +1272,17 @@ type ListRoomParticipantSubscribedTrackParams struct {
 
 // ListRoomParticipantSubscribedTrack Method for ListRoomParticipantSubscribedTrack
 //
-// * Returns a list of tracks that are subscribed for the participant.
+// **Returns a list of tracks that are subscribed for the participant.**
 //
-// * @param: RoomSid The SID of the Room resource with the Track resources to read.
+// @param: RoomSid The SID of the Room resource with the Track resources to read.
 //
-// * @param: ParticipantSid The SID of the participant that subscribes to the Track resources to read.
+// @param: ParticipantSid The SID of the participant that subscribes to the Track resources to read.
 //
-// * @param: optional nil or *ListRoomParticipantSubscribedTrackParams - Optional Parameters:
+// @param: optional nil or *ListRoomParticipantSubscribedTrackParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListRoomParticipantSubscribedTrackResponse
+// @return: ListRoomParticipantSubscribedTrackResponse
 func (c *DefaultApiService) ListRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams) (*ListRoomParticipantSubscribedTrackResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -1321,21 +1321,21 @@ type ListRoomRecordingParams struct {
 
 // ListRoomRecording Method for ListRoomRecording
 //
-// * @param: RoomSid The SID of the room with the RoomRecording resources to read.
+// @param: RoomSid The SID of the room with the RoomRecording resources to read.
 //
-// * @param: optional nil or *ListRoomRecordingParams - Optional Parameters:
+// @param: optional nil or *ListRoomRecordingParams - Optional Parameters:
 //
-// * @param: "Status" (string) - Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
+// @param: "Status" (string) - Read only the recordings with this status. Can be: `processing`, `completed`, or `deleted`.
 //
-// * @param: "SourceSid" (string) - Read only the recordings that have this `source_sid`.
+// @param: "SourceSid" (string) - Read only the recordings that have this `source_sid`.
 //
-// * @param: "DateCreatedAfter" (time.Time) - Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+// @param: "DateCreatedAfter" (time.Time) - Read only recordings that started on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
 //
-// * @param: "DateCreatedBefore" (time.Time) - Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
+// @param: "DateCreatedBefore" (time.Time) - Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListRoomRecordingResponse
+// @return: ListRoomRecordingResponse
 func (c *DefaultApiService) ListRoomRecording(RoomSid string, params *ListRoomRecordingParams) (*ListRoomRecordingResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -1390,31 +1390,31 @@ type UpdateCompositionHookParams struct {
 
 // UpdateCompositionHook Method for UpdateCompositionHook
 //
-// * @param: Sid The SID of the CompositionHook resource to update.
+// @param: Sid The SID of the CompositionHook resource to update.
 //
-// * @param: optional nil or *UpdateCompositionHookParams - Optional Parameters:
+// @param: optional nil or *UpdateCompositionHookParams - Optional Parameters:
 //
-// * @param: "AudioSources" ([]string) - An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
+// @param: "AudioSources" ([]string) - An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
 //
-// * @param: "AudioSourcesExcluded" ([]string) - An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
+// @param: "AudioSourcesExcluded" ([]string) - An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
 //
-// * @param: "Enabled" (bool) - Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook never triggers.
+// @param: "Enabled" (bool) - Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook never triggers.
 //
-// * @param: "Format" (string) - The container format of the media files used by the compositions created by the composition hook. Can be: `mp4` or `webm` and the default is `webm`. If `mp4` or `webm`, `audio_sources` must have one or more tracks and/or a `video_layout` element must contain a valid `video_sources` list, otherwise an error occurs.
+// @param: "Format" (string) - The container format of the media files used by the compositions created by the composition hook. Can be: `mp4` or `webm` and the default is `webm`. If `mp4` or `webm`, `audio_sources` must have one or more tracks and/or a `video_layout` element must contain a valid `video_sources` list, otherwise an error occurs.
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
+// @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
 //
-// * @param: "Resolution" (string) - A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+// @param: "Resolution" (string) - A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 //
-// * @param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
+// @param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
 //
-// * @param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+// @param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
 //
-// * @param: "Trim" (bool) - Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+// @param: "Trim" (bool) - Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 //
-// * @param: "VideoLayout" (map[string]interface{}) - A JSON object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
+// @param: "VideoLayout" (map[string]interface{}) - A JSON object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 //
-// * @return: VideoV1CompositionHook
+// @return: VideoV1CompositionHook
 func (c *DefaultApiService) UpdateCompositionHook(Sid string, params *UpdateCompositionHookParams) (*VideoV1CompositionHook, error) {
 	path := "/v1/CompositionHooks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1481,13 +1481,13 @@ type UpdateRoomParams struct {
 
 // UpdateRoom Method for UpdateRoom
 //
-// * @param: Sid The SID of the Room resource to update.
+// @param: Sid The SID of the Room resource to update.
 //
-// * @param: optional nil or *UpdateRoomParams - Optional Parameters:
+// @param: optional nil or *UpdateRoomParams - Optional Parameters:
 //
-// * @param: "Status" (string) - The new status of the resource. Set to `completed` to end the room.
+// @param: "Status" (string) - The new status of the resource. Set to `completed` to end the room.
 //
-// * @return: VideoV1Room
+// @return: VideoV1Room
 func (c *DefaultApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*VideoV1Room, error) {
 	path := "/v1/Rooms/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1521,15 +1521,15 @@ type UpdateRoomParticipantParams struct {
 
 // UpdateRoomParticipant Method for UpdateRoomParticipant
 //
-// * @param: RoomSid The SID of the room with the participant to update.
+// @param: RoomSid The SID of the room with the participant to update.
 //
-// * @param: Sid The SID of the RoomParticipant resource to update.
+// @param: Sid The SID of the RoomParticipant resource to update.
 //
-// * @param: optional nil or *UpdateRoomParticipantParams - Optional Parameters:
+// @param: optional nil or *UpdateRoomParticipantParams - Optional Parameters:
 //
-// * @param: "Status" (string) - The new status of the resource. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
+// @param: "Status" (string) - The new status of the resource. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
 //
-// * @return: VideoV1RoomRoomParticipant
+// @return: VideoV1RoomRoomParticipant
 func (c *DefaultApiService) UpdateRoomParticipant(RoomSid string, Sid string, params *UpdateRoomParticipantParams) (*VideoV1RoomRoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -1564,17 +1564,17 @@ type UpdateRoomParticipantSubscribeRuleParams struct {
 
 // UpdateRoomParticipantSubscribeRule Method for UpdateRoomParticipantSubscribeRule
 //
-// * Update the Subscribe Rules for the Participant
+// **Update the Subscribe Rules for the Participant**
 //
-// * @param: RoomSid The SID of the Room resource where the subscribe rules to update apply.
+// @param: RoomSid The SID of the Room resource where the subscribe rules to update apply.
 //
-// * @param: ParticipantSid The SID of the Participant resource to update the Subscribe Rules.
+// @param: ParticipantSid The SID of the Participant resource to update the Subscribe Rules.
 //
-// * @param: optional nil or *UpdateRoomParticipantSubscribeRuleParams - Optional Parameters:
+// @param: optional nil or *UpdateRoomParticipantSubscribeRuleParams - Optional Parameters:
 //
-// * @param: "Rules" (map[string]interface{}) - A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
+// @param: "Rules" (map[string]interface{}) - A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
 //
-// * @return: VideoV1RoomRoomParticipantRoomParticipantSubscribeRule
+// @return: VideoV1RoomRoomParticipantRoomParticipantSubscribeRule
 func (c *DefaultApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, ParticipantSid string, params *UpdateRoomParticipantSubscribeRuleParams) (*VideoV1RoomRoomParticipantRoomParticipantSubscribeRule, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -1615,15 +1615,15 @@ type UpdateRoomRecordingRuleParams struct {
 
 // UpdateRoomRecordingRule Method for UpdateRoomRecordingRule
 //
-// * Update the Recording Rules for the Room
+// **Update the Recording Rules for the Room**
 //
-// * @param: RoomSid The SID of the Room resource where the recording rules to update apply.
+// @param: RoomSid The SID of the Room resource where the recording rules to update apply.
 //
-// * @param: optional nil or *UpdateRoomRecordingRuleParams - Optional Parameters:
+// @param: optional nil or *UpdateRoomRecordingRuleParams - Optional Parameters:
 //
-// * @param: "Rules" (map[string]interface{}) - A JSON-encoded array of recording rules.
+// @param: "Rules" (map[string]interface{}) - A JSON-encoded array of recording rules.
 //
-// * @return: VideoV1RoomRoomRecordingRule
+// @return: VideoV1RoomRoomRecordingRule
 func (c *DefaultApiService) UpdateRoomRecordingRule(RoomSid string, params *UpdateRoomRecordingRuleParams) (*VideoV1RoomRoomRecordingRule, error) {
 	path := "/v1/Rooms/{RoomSid}/RecordingRules"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)

@@ -39,13 +39,13 @@ type CreateCredentialListParams struct {
 
 // CreateCredentialList Method for CreateCredentialList
 //
-// * @param: TrunkSid The SID of the Trunk to associate the credential list with.
+// @param: TrunkSid The SID of the Trunk to associate the credential list with.
 //
-// * @param: optional nil or *CreateCredentialListParams - Optional Parameters:
+// @param: optional nil or *CreateCredentialListParams - Optional Parameters:
 //
-// * @param: "CredentialListSid" (string) - The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list.
+// @param: "CredentialListSid" (string) - The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list.
 //
-// * @return: TrunkingV1TrunkCredentialList
+// @return: TrunkingV1TrunkCredentialList
 func (c *DefaultApiService) CreateCredentialList(TrunkSid string, params *CreateCredentialListParams) (*TrunkingV1TrunkCredentialList, error) {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -79,15 +79,15 @@ type CreateIpAccessControlListParams struct {
 
 // CreateIpAccessControlList Method for CreateIpAccessControlList
 //
-// * Associate an IP Access Control List with a Trunk
+// **Associate an IP Access Control List with a Trunk**
 //
-// * @param: TrunkSid The SID of the Trunk to associate the IP Access Control List with.
+// @param: TrunkSid The SID of the Trunk to associate the IP Access Control List with.
 //
-// * @param: optional nil or *CreateIpAccessControlListParams - Optional Parameters:
+// @param: optional nil or *CreateIpAccessControlListParams - Optional Parameters:
 //
-// * @param: "IpAccessControlListSid" (string) - The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk.
+// @param: "IpAccessControlListSid" (string) - The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk.
 //
-// * @return: TrunkingV1TrunkIpAccessControlList
+// @return: TrunkingV1TrunkIpAccessControlList
 func (c *DefaultApiService) CreateIpAccessControlList(TrunkSid string, params *CreateIpAccessControlListParams) (*TrunkingV1TrunkIpAccessControlList, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -125,21 +125,21 @@ type CreateOriginationUrlParams struct {
 
 // CreateOriginationUrl Method for CreateOriginationUrl
 //
-// * @param: TrunkSid The SID of the Trunk to associate the resource with.
+// @param: TrunkSid The SID of the Trunk to associate the resource with.
 //
-// * @param: optional nil or *CreateOriginationUrlParams - Optional Parameters:
+// @param: optional nil or *CreateOriginationUrlParams - Optional Parameters:
 //
-// * @param: "Enabled" (bool) - Whether the URL is enabled. The default is `true`.
+// @param: "Enabled" (bool) - Whether the URL is enabled. The default is `true`.
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+// @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 //
-// * @param: "Priority" (int32) - The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+// @param: "Priority" (int32) - The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
 //
-// * @param: "SipUrl" (string) - The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
+// @param: "SipUrl" (string) - The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
 //
-// * @param: "Weight" (int32) - The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+// @param: "Weight" (int32) - The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
 //
-// * @return: TrunkingV1TrunkOriginationUrl
+// @return: TrunkingV1TrunkOriginationUrl
 func (c *DefaultApiService) CreateOriginationUrl(TrunkSid string, params *CreateOriginationUrlParams) (*TrunkingV1TrunkOriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -185,13 +185,13 @@ type CreatePhoneNumberParams struct {
 
 // CreatePhoneNumber Method for CreatePhoneNumber
 //
-// * @param: TrunkSid The SID of the Trunk to associate the phone number with.
+// @param: TrunkSid The SID of the Trunk to associate the phone number with.
 //
-// * @param: optional nil or *CreatePhoneNumberParams - Optional Parameters:
+// @param: optional nil or *CreatePhoneNumberParams - Optional Parameters:
 //
-// * @param: "PhoneNumberSid" (string) - The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
+// @param: "PhoneNumberSid" (string) - The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
 //
-// * @return: TrunkingV1TrunkPhoneNumber
+// @return: TrunkingV1TrunkPhoneNumber
 func (c *DefaultApiService) CreatePhoneNumber(TrunkSid string, params *CreatePhoneNumberParams) (*TrunkingV1TrunkPhoneNumber, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -231,23 +231,23 @@ type CreateTrunkParams struct {
 
 // CreateTrunk Method for CreateTrunk
 //
-// * @param: optional nil or *CreateTrunkParams - Optional Parameters:
+// @param: optional nil or *CreateTrunkParams - Optional Parameters:
 //
-// * @param: "CnamLookupEnabled" (bool) - Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+// @param: "CnamLookupEnabled" (bool) - Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
 //
-// * @param: "DisasterRecoveryMethod" (string) - The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
+// @param: "DisasterRecoveryMethod" (string) - The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
 //
-// * @param: "DisasterRecoveryUrl" (string) - The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
+// @param: "DisasterRecoveryUrl" (string) - The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
 //
-// * @param: "DomainName" (string) - The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
+// @param: "DomainName" (string) - The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+// @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 //
-// * @param: "Secure" (bool) - Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
+// @param: "Secure" (bool) - Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
 //
-// * @param: "TransferMode" (string) - The call transfer settings for the trunk. Can be: `enable-all`, `sip-only` and `disable-all`. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
+// @param: "TransferMode" (string) - The call transfer settings for the trunk. Can be: `enable-all`, `sip-only` and `disable-all`. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
 //
-// * @return: TrunkingV1Trunk
+// @return: TrunkingV1Trunk
 func (c *DefaultApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks"
 
@@ -293,9 +293,9 @@ func (c *DefaultApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1T
 
 // DeleteCredentialList Method for DeleteCredentialList
 //
-// * @param: TrunkSid The SID of the Trunk from which to delete the credential list.
+// @param: TrunkSid The SID of the Trunk from which to delete the credential list.
 //
-// * @param: Sid The unique string that we created to identify the CredentialList resource to delete.
+// @param: Sid The unique string that we created to identify the CredentialList resource to delete.
 func (c *DefaultApiService) DeleteCredentialList(TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -316,11 +316,11 @@ func (c *DefaultApiService) DeleteCredentialList(TrunkSid string, Sid string) er
 
 // DeleteIpAccessControlList Method for DeleteIpAccessControlList
 //
-// * Remove an associated IP Access Control List from a Trunk
+// **Remove an associated IP Access Control List from a Trunk**
 //
-// * @param: TrunkSid The SID of the Trunk from which to delete the IP Access Control List.
+// @param: TrunkSid The SID of the Trunk from which to delete the IP Access Control List.
 //
-// * @param: Sid The unique string that we created to identify the IpAccessControlList resource to delete.
+// @param: Sid The unique string that we created to identify the IpAccessControlList resource to delete.
 func (c *DefaultApiService) DeleteIpAccessControlList(TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -341,9 +341,9 @@ func (c *DefaultApiService) DeleteIpAccessControlList(TrunkSid string, Sid strin
 
 // DeleteOriginationUrl Method for DeleteOriginationUrl
 //
-// * @param: TrunkSid The SID of the Trunk from which to delete the OriginationUrl.
+// @param: TrunkSid The SID of the Trunk from which to delete the OriginationUrl.
 //
-// * @param: Sid The unique string that we created to identify the OriginationUrl resource to delete.
+// @param: Sid The unique string that we created to identify the OriginationUrl resource to delete.
 func (c *DefaultApiService) DeleteOriginationUrl(TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -364,9 +364,9 @@ func (c *DefaultApiService) DeleteOriginationUrl(TrunkSid string, Sid string) er
 
 // DeletePhoneNumber Method for DeletePhoneNumber
 //
-// * @param: TrunkSid The SID of the Trunk from which to delete the PhoneNumber resource.
+// @param: TrunkSid The SID of the Trunk from which to delete the PhoneNumber resource.
 //
-// * @param: Sid The unique string that we created to identify the PhoneNumber resource to delete.
+// @param: Sid The unique string that we created to identify the PhoneNumber resource to delete.
 func (c *DefaultApiService) DeletePhoneNumber(TrunkSid string, Sid string) error {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -387,7 +387,7 @@ func (c *DefaultApiService) DeletePhoneNumber(TrunkSid string, Sid string) error
 
 // DeleteTrunk Method for DeleteTrunk
 //
-// * @param: Sid The unique string that we created to identify the Trunk resource to delete.
+// @param: Sid The unique string that we created to identify the Trunk resource to delete.
 func (c *DefaultApiService) DeleteTrunk(Sid string) error {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -407,11 +407,11 @@ func (c *DefaultApiService) DeleteTrunk(Sid string) error {
 
 // FetchCredentialList Method for FetchCredentialList
 //
-// * @param: TrunkSid The SID of the Trunk from which to fetch the credential list.
+// @param: TrunkSid The SID of the Trunk from which to fetch the credential list.
 //
-// * @param: Sid The unique string that we created to identify the CredentialList resource to fetch.
+// @param: Sid The unique string that we created to identify the CredentialList resource to fetch.
 //
-// * @return: TrunkingV1TrunkCredentialList
+// @return: TrunkingV1TrunkCredentialList
 func (c *DefaultApiService) FetchCredentialList(TrunkSid string, Sid string) (*TrunkingV1TrunkCredentialList, error) {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -437,11 +437,11 @@ func (c *DefaultApiService) FetchCredentialList(TrunkSid string, Sid string) (*T
 
 // FetchIpAccessControlList Method for FetchIpAccessControlList
 //
-// * @param: TrunkSid The SID of the Trunk from which to fetch the IP Access Control List.
+// @param: TrunkSid The SID of the Trunk from which to fetch the IP Access Control List.
 //
-// * @param: Sid The unique string that we created to identify the IpAccessControlList resource to fetch.
+// @param: Sid The unique string that we created to identify the IpAccessControlList resource to fetch.
 //
-// * @return: TrunkingV1TrunkIpAccessControlList
+// @return: TrunkingV1TrunkIpAccessControlList
 func (c *DefaultApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*TrunkingV1TrunkIpAccessControlList, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -467,11 +467,11 @@ func (c *DefaultApiService) FetchIpAccessControlList(TrunkSid string, Sid string
 
 // FetchOriginationUrl Method for FetchOriginationUrl
 //
-// * @param: TrunkSid The SID of the Trunk from which to fetch the OriginationUrl.
+// @param: TrunkSid The SID of the Trunk from which to fetch the OriginationUrl.
 //
-// * @param: Sid The unique string that we created to identify the OriginationUrl resource to fetch.
+// @param: Sid The unique string that we created to identify the OriginationUrl resource to fetch.
 //
-// * @return: TrunkingV1TrunkOriginationUrl
+// @return: TrunkingV1TrunkOriginationUrl
 func (c *DefaultApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*TrunkingV1TrunkOriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -497,11 +497,11 @@ func (c *DefaultApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*T
 
 // FetchPhoneNumber Method for FetchPhoneNumber
 //
-// * @param: TrunkSid The SID of the Trunk from which to fetch the PhoneNumber resource.
+// @param: TrunkSid The SID of the Trunk from which to fetch the PhoneNumber resource.
 //
-// * @param: Sid The unique string that we created to identify the PhoneNumber resource to fetch.
+// @param: Sid The unique string that we created to identify the PhoneNumber resource to fetch.
 //
-// * @return: TrunkingV1TrunkPhoneNumber
+// @return: TrunkingV1TrunkPhoneNumber
 func (c *DefaultApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*TrunkingV1TrunkPhoneNumber, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -527,9 +527,9 @@ func (c *DefaultApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*Trun
 
 // FetchRecording Method for FetchRecording
 //
-// * @param: TrunkSid The SID of the Trunk from which to fetch the recording settings.
+// @param: TrunkSid The SID of the Trunk from which to fetch the recording settings.
 //
-// * @return: TrunkingV1TrunkRecording
+// @return: TrunkingV1TrunkRecording
 func (c *DefaultApiService) FetchRecording(TrunkSid string) (*TrunkingV1TrunkRecording, error) {
 	path := "/v1/Trunks/{TrunkSid}/Recording"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -554,9 +554,9 @@ func (c *DefaultApiService) FetchRecording(TrunkSid string) (*TrunkingV1TrunkRec
 
 // FetchTrunk Method for FetchTrunk
 //
-// * @param: Sid The unique string that we created to identify the Trunk resource to fetch.
+// @param: Sid The unique string that we created to identify the Trunk resource to fetch.
 //
-// * @return: TrunkingV1Trunk
+// @return: TrunkingV1Trunk
 func (c *DefaultApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -586,13 +586,13 @@ type ListCredentialListParams struct {
 
 // ListCredentialList Method for ListCredentialList
 //
-// * @param: TrunkSid The SID of the Trunk from which to read the credential lists.
+// @param: TrunkSid The SID of the Trunk from which to read the credential lists.
 //
-// * @param: optional nil or *ListCredentialListParams - Optional Parameters:
+// @param: optional nil or *ListCredentialListParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListCredentialListResponse
+// @return: ListCredentialListResponse
 func (c *DefaultApiService) ListCredentialList(TrunkSid string, params *ListCredentialListParams) (*ListCredentialListResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -626,15 +626,15 @@ type ListIpAccessControlListParams struct {
 
 // ListIpAccessControlList Method for ListIpAccessControlList
 //
-// * List all IP Access Control Lists for a Trunk
+// **List all IP Access Control Lists for a Trunk**
 //
-// * @param: TrunkSid The SID of the Trunk from which to read the IP Access Control Lists.
+// @param: TrunkSid The SID of the Trunk from which to read the IP Access Control Lists.
 //
-// * @param: optional nil or *ListIpAccessControlListParams - Optional Parameters:
+// @param: optional nil or *ListIpAccessControlListParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListIpAccessControlListResponse
+// @return: ListIpAccessControlListResponse
 func (c *DefaultApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams) (*ListIpAccessControlListResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -668,13 +668,13 @@ type ListOriginationUrlParams struct {
 
 // ListOriginationUrl Method for ListOriginationUrl
 //
-// * @param: TrunkSid The SID of the Trunk from which to read the OriginationUrl.
+// @param: TrunkSid The SID of the Trunk from which to read the OriginationUrl.
 //
-// * @param: optional nil or *ListOriginationUrlParams - Optional Parameters:
+// @param: optional nil or *ListOriginationUrlParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListOriginationUrlResponse
+// @return: ListOriginationUrlResponse
 func (c *DefaultApiService) ListOriginationUrl(TrunkSid string, params *ListOriginationUrlParams) (*ListOriginationUrlResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -708,13 +708,13 @@ type ListPhoneNumberParams struct {
 
 // ListPhoneNumber Method for ListPhoneNumber
 //
-// * @param: TrunkSid The SID of the Trunk from which to read the PhoneNumber resources.
+// @param: TrunkSid The SID of the Trunk from which to read the PhoneNumber resources.
 //
-// * @param: optional nil or *ListPhoneNumberParams - Optional Parameters:
+// @param: optional nil or *ListPhoneNumberParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListPhoneNumberResponse
+// @return: ListPhoneNumberResponse
 func (c *DefaultApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNumberParams) (*ListPhoneNumberResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -748,11 +748,11 @@ type ListTrunkParams struct {
 
 // ListTrunk Method for ListTrunk
 //
-// * @param: optional nil or *ListTrunkParams - Optional Parameters:
+// @param: optional nil or *ListTrunkParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListTrunkResponse
+// @return: ListTrunkResponse
 func (c *DefaultApiService) ListTrunk(params *ListTrunkParams) (*ListTrunkResponse, error) {
 	path := "/v1/Trunks"
 
@@ -789,23 +789,23 @@ type UpdateOriginationUrlParams struct {
 
 // UpdateOriginationUrl Method for UpdateOriginationUrl
 //
-// * @param: TrunkSid The SID of the Trunk from which to update the OriginationUrl.
+// @param: TrunkSid The SID of the Trunk from which to update the OriginationUrl.
 //
-// * @param: Sid The unique string that we created to identify the OriginationUrl resource to update.
+// @param: Sid The unique string that we created to identify the OriginationUrl resource to update.
 //
-// * @param: optional nil or *UpdateOriginationUrlParams - Optional Parameters:
+// @param: optional nil or *UpdateOriginationUrlParams - Optional Parameters:
 //
-// * @param: "Enabled" (bool) - Whether the URL is enabled. The default is `true`.
+// @param: "Enabled" (bool) - Whether the URL is enabled. The default is `true`.
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+// @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 //
-// * @param: "Priority" (int32) - The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+// @param: "Priority" (int32) - The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
 //
-// * @param: "SipUrl" (string) - The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported.
+// @param: "SipUrl" (string) - The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported.
 //
-// * @param: "Weight" (int32) - The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+// @param: "Weight" (int32) - The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
 //
-// * @return: TrunkingV1TrunkOriginationUrl
+// @return: TrunkingV1TrunkOriginationUrl
 func (c *DefaultApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *UpdateOriginationUrlParams) (*TrunkingV1TrunkOriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -853,15 +853,15 @@ type UpdateRecordingParams struct {
 
 // UpdateRecording Method for UpdateRecording
 //
-// * @param: TrunkSid The SID of the Trunk that will have its recording settings updated.
+// @param: TrunkSid The SID of the Trunk that will have its recording settings updated.
 //
-// * @param: optional nil or *UpdateRecordingParams - Optional Parameters:
+// @param: optional nil or *UpdateRecordingParams - Optional Parameters:
 //
-// * @param: "Mode" (string) - The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual.
+// @param: "Mode" (string) - The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual.
 //
-// * @param: "Trim" (string) - The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence.
+// @param: "Trim" (string) - The recording trim setting for the trunk. Can be do-not-trim (default) or trim-silence.
 //
-// * @return: TrunkingV1TrunkRecording
+// @return: TrunkingV1TrunkRecording
 func (c *DefaultApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingParams) (*TrunkingV1TrunkRecording, error) {
 	path := "/v1/Trunks/{TrunkSid}/Recording"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -904,25 +904,25 @@ type UpdateTrunkParams struct {
 
 // UpdateTrunk Method for UpdateTrunk
 //
-// * @param: Sid The unique string that we created to identify the OriginationUrl resource to update.
+// @param: Sid The unique string that we created to identify the OriginationUrl resource to update.
 //
-// * @param: optional nil or *UpdateTrunkParams - Optional Parameters:
+// @param: optional nil or *UpdateTrunkParams - Optional Parameters:
 //
-// * @param: "CnamLookupEnabled" (bool) - Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+// @param: "CnamLookupEnabled" (bool) - Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
 //
-// * @param: "DisasterRecoveryMethod" (string) - The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
+// @param: "DisasterRecoveryMethod" (string) - The HTTP method we should use to call the `disaster_recovery_url`. Can be: `GET` or `POST`.
 //
-// * @param: "DisasterRecoveryUrl" (string) - The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
+// @param: "DisasterRecoveryUrl" (string) - The URL we should call using the `disaster_recovery_method` if an error occurs while sending SIP traffic towards the configured Origination URL. We retrieve TwiML from the URL and execute the instructions like any other normal TwiML call. See [Disaster Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for more information.
 //
-// * @param: "DomainName" (string) - The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
+// @param: "DomainName" (string) - The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and `-` and must end with `pstn.twilio.com`. See [Termination Settings](https://www.twilio.com/docs/sip-trunking#termination) for more information.
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+// @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 //
-// * @param: "Secure" (bool) - Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
+// @param: "Secure" (bool) - Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
 //
-// * @param: "TransferMode" (string) - The call transfer settings for the trunk. Can be: `enable-all`, `sip-only` and `disable-all`. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
+// @param: "TransferMode" (string) - The call transfer settings for the trunk. Can be: `enable-all`, `sip-only` and `disable-all`. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
 //
-// * @return: TrunkingV1Trunk
+// @return: TrunkingV1Trunk
 func (c *DefaultApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*TrunkingV1Trunk, error) {
 	path := "/v1/Trunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

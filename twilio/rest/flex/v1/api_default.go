@@ -48,29 +48,29 @@ type CreateChannelParams struct {
 
 // CreateChannel Method for CreateChannel
 //
-// * @param: optional nil or *CreateChannelParams - Optional Parameters:
+// @param: optional nil or *CreateChannelParams - Optional Parameters:
 //
-// * @param: "ChatFriendlyName" (string) - The chat channel's friendly name.
+// @param: "ChatFriendlyName" (string) - The chat channel's friendly name.
 //
-// * @param: "ChatUniqueName" (string) - The chat channel's unique name.
+// @param: "ChatUniqueName" (string) - The chat channel's unique name.
 //
-// * @param: "ChatUserFriendlyName" (string) - The chat participant's friendly name.
+// @param: "ChatUserFriendlyName" (string) - The chat participant's friendly name.
 //
-// * @param: "FlexFlowSid" (string) - The SID of the Flex Flow.
+// @param: "FlexFlowSid" (string) - The SID of the Flex Flow.
 //
-// * @param: "Identity" (string) - The `identity` value that uniquely identifies the new resource's chat User.
+// @param: "Identity" (string) - The `identity` value that uniquely identifies the new resource's chat User.
 //
-// * @param: "LongLived" (bool) - Whether to create the channel as long-lived.
+// @param: "LongLived" (bool) - Whether to create the channel as long-lived.
 //
-// * @param: "PreEngagementData" (string) - The pre-engagement data.
+// @param: "PreEngagementData" (string) - The pre-engagement data.
 //
-// * @param: "Target" (string) - The Target Contact Identity, for example the phone number of an SMS.
+// @param: "Target" (string) - The Target Contact Identity, for example the phone number of an SMS.
 //
-// * @param: "TaskAttributes" (string) - The Task attributes to be added for the TaskRouter Task.
+// @param: "TaskAttributes" (string) - The Task attributes to be added for the TaskRouter Task.
 //
-// * @param: "TaskSid" (string) - The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
+// @param: "TaskSid" (string) - The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
 //
-// * @return: FlexV1Channel
+// @return: FlexV1Channel
 func (c *DefaultApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel, error) {
 	path := "/v1/Channels"
 
@@ -146,43 +146,43 @@ type CreateFlexFlowParams struct {
 
 // CreateFlexFlow Method for CreateFlexFlow
 //
-// * @param: optional nil or *CreateFlexFlowParams - Optional Parameters:
+// @param: optional nil or *CreateFlexFlowParams - Optional Parameters:
 //
-// * @param: "ChannelType" (string) - The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`.
+// @param: "ChannelType" (string) - The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`.
 //
-// * @param: "ChatServiceSid" (string) - The SID of the chat service.
+// @param: "ChatServiceSid" (string) - The SID of the chat service.
 //
-// * @param: "ContactIdentity" (string) - The channel contact's Identity.
+// @param: "ContactIdentity" (string) - The channel contact's Identity.
 //
-// * @param: "Enabled" (bool) - Whether the new Flex Flow is enabled.
+// @param: "Enabled" (bool) - Whether the new Flex Flow is enabled.
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the Flex Flow resource.
+// @param: "FriendlyName" (string) - A descriptive string that you create to describe the Flex Flow resource.
 //
-// * @param: "IntegrationChannel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
+// @param: "IntegrationChannel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
 //
-// * @param: "IntegrationCreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+// @param: "IntegrationCreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
 //
-// * @param: "IntegrationFlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
+// @param: "IntegrationFlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
 //
-// * @param: "IntegrationPriority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+// @param: "IntegrationPriority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
 //
-// * @param: "IntegrationRetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
+// @param: "IntegrationRetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
 //
-// * @param: "IntegrationTimeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+// @param: "IntegrationTimeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
 //
-// * @param: "IntegrationUrl" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
+// @param: "IntegrationUrl" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
 //
-// * @param: "IntegrationWorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
+// @param: "IntegrationWorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
 //
-// * @param: "IntegrationWorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
+// @param: "IntegrationWorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
 //
-// * @param: "IntegrationType" (string) - The integration type. Can be: `studio`, `external`, or `task`.
+// @param: "IntegrationType" (string) - The integration type. Can be: `studio`, `external`, or `task`.
 //
-// * @param: "JanitorEnabled" (bool) - When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+// @param: "JanitorEnabled" (bool) - When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
 //
-// * @param: "LongLived" (bool) - When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+// @param: "LongLived" (bool) - When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
 //
-// * @return: FlexV1FlexFlow
+// @return: FlexV1FlexFlow
 func (c *DefaultApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows"
 
@@ -268,21 +268,21 @@ type CreateWebChannelParams struct {
 
 // CreateWebChannel Method for CreateWebChannel
 //
-// * @param: optional nil or *CreateWebChannelParams - Optional Parameters:
+// @param: optional nil or *CreateWebChannelParams - Optional Parameters:
 //
-// * @param: "ChatFriendlyName" (string) - The chat channel's friendly name.
+// @param: "ChatFriendlyName" (string) - The chat channel's friendly name.
 //
-// * @param: "ChatUniqueName" (string) - The chat channel's unique name.
+// @param: "ChatUniqueName" (string) - The chat channel's unique name.
 //
-// * @param: "CustomerFriendlyName" (string) - The chat participant's friendly name.
+// @param: "CustomerFriendlyName" (string) - The chat participant's friendly name.
 //
-// * @param: "FlexFlowSid" (string) - The SID of the Flex Flow.
+// @param: "FlexFlowSid" (string) - The SID of the Flex Flow.
 //
-// * @param: "Identity" (string) - The chat identity.
+// @param: "Identity" (string) - The chat identity.
 //
-// * @param: "PreEngagementData" (string) - The pre-engagement data.
+// @param: "PreEngagementData" (string) - The pre-engagement data.
 //
-// * @return: FlexV1WebChannel
+// @return: FlexV1WebChannel
 func (c *DefaultApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels"
 
@@ -325,7 +325,7 @@ func (c *DefaultApiService) CreateWebChannel(params *CreateWebChannelParams) (*F
 
 // DeleteChannel Method for DeleteChannel
 //
-// * @param: Sid The SID of the Flex chat channel resource to delete.
+// @param: Sid The SID of the Flex chat channel resource to delete.
 func (c *DefaultApiService) DeleteChannel(Sid string) error {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -345,7 +345,7 @@ func (c *DefaultApiService) DeleteChannel(Sid string) error {
 
 // DeleteFlexFlow Method for DeleteFlexFlow
 //
-// * @param: Sid The SID of the Flex Flow resource to delete.
+// @param: Sid The SID of the Flex Flow resource to delete.
 func (c *DefaultApiService) DeleteFlexFlow(Sid string) error {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -365,7 +365,7 @@ func (c *DefaultApiService) DeleteFlexFlow(Sid string) error {
 
 // DeleteWebChannel Method for DeleteWebChannel
 //
-// * @param: Sid The SID of the WebChannel resource to delete.
+// @param: Sid The SID of the WebChannel resource to delete.
 func (c *DefaultApiService) DeleteWebChannel(Sid string) error {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -385,9 +385,9 @@ func (c *DefaultApiService) DeleteWebChannel(Sid string) error {
 
 // FetchChannel Method for FetchChannel
 //
-// * @param: Sid The SID of the Flex chat channel resource to fetch.
+// @param: Sid The SID of the Flex chat channel resource to fetch.
 //
-// * @return: FlexV1Channel
+// @return: FlexV1Channel
 func (c *DefaultApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -417,11 +417,11 @@ type FetchConfigurationParams struct {
 
 // FetchConfiguration Method for FetchConfiguration
 //
-// * @param: optional nil or *FetchConfigurationParams - Optional Parameters:
+// @param: optional nil or *FetchConfigurationParams - Optional Parameters:
 //
-// * @param: "UiVersion" (string) - The Pinned UI version of the Configuration resource to fetch.
+// @param: "UiVersion" (string) - The Pinned UI version of the Configuration resource to fetch.
 //
-// * @return: FlexV1Configuration
+// @return: FlexV1Configuration
 func (c *DefaultApiService) FetchConfiguration(params *FetchConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
@@ -449,9 +449,9 @@ func (c *DefaultApiService) FetchConfiguration(params *FetchConfigurationParams)
 
 // FetchFlexFlow Method for FetchFlexFlow
 //
-// * @param: Sid The SID of the Flex Flow resource to fetch.
+// @param: Sid The SID of the Flex Flow resource to fetch.
 //
-// * @return: FlexV1FlexFlow
+// @return: FlexV1FlexFlow
 func (c *DefaultApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -476,9 +476,9 @@ func (c *DefaultApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 
 // FetchWebChannel Method for FetchWebChannel
 //
-// * @param: Sid The SID of the WebChannel resource to fetch.
+// @param: Sid The SID of the WebChannel resource to fetch.
 //
-// * @return: FlexV1WebChannel
+// @return: FlexV1WebChannel
 func (c *DefaultApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -508,11 +508,11 @@ type ListChannelParams struct {
 
 // ListChannel Method for ListChannel
 //
-// * @param: optional nil or *ListChannelParams - Optional Parameters:
+// @param: optional nil or *ListChannelParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListChannelResponse
+// @return: ListChannelResponse
 func (c *DefaultApiService) ListChannel(params *ListChannelParams) (*ListChannelResponse, error) {
 	path := "/v1/Channels"
 
@@ -546,13 +546,13 @@ type ListFlexFlowParams struct {
 
 // ListFlexFlow Method for ListFlexFlow
 //
-// * @param: optional nil or *ListFlexFlowParams - Optional Parameters:
+// @param: optional nil or *ListFlexFlowParams - Optional Parameters:
 //
-// * @param: "FriendlyName" (string) - The `friendly_name` of the Flex Flow resources to read.
+// @param: "FriendlyName" (string) - The `friendly_name` of the Flex Flow resources to read.
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListFlexFlowResponse
+// @return: ListFlexFlowResponse
 func (c *DefaultApiService) ListFlexFlow(params *ListFlexFlowParams) (*ListFlexFlowResponse, error) {
 	path := "/v1/FlexFlows"
 
@@ -588,11 +588,11 @@ type ListWebChannelParams struct {
 
 // ListWebChannel Method for ListWebChannel
 //
-// * @param: optional nil or *ListWebChannelParams - Optional Parameters:
+// @param: optional nil or *ListWebChannelParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListWebChannelResponse
+// @return: ListWebChannelResponse
 func (c *DefaultApiService) ListWebChannel(params *ListWebChannelParams) (*ListWebChannelResponse, error) {
 	path := "/v1/WebChannels"
 
@@ -620,7 +620,7 @@ func (c *DefaultApiService) ListWebChannel(params *ListWebChannelParams) (*ListW
 
 // UpdateConfiguration Method for UpdateConfiguration
 //
-// * @return: FlexV1Configuration
+// @return: FlexV1Configuration
 func (c *DefaultApiService) UpdateConfiguration() (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
@@ -665,45 +665,45 @@ type UpdateFlexFlowParams struct {
 
 // UpdateFlexFlow Method for UpdateFlexFlow
 //
-// * @param: Sid The SID of the Flex Flow resource to update.
+// @param: Sid The SID of the Flex Flow resource to update.
 //
-// * @param: optional nil or *UpdateFlexFlowParams - Optional Parameters:
+// @param: optional nil or *UpdateFlexFlowParams - Optional Parameters:
 //
-// * @param: "ChannelType" (string) - The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`.
+// @param: "ChannelType" (string) - The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`.
 //
-// * @param: "ChatServiceSid" (string) - The SID of the chat service.
+// @param: "ChatServiceSid" (string) - The SID of the chat service.
 //
-// * @param: "ContactIdentity" (string) - The channel contact's Identity.
+// @param: "ContactIdentity" (string) - The channel contact's Identity.
 //
-// * @param: "Enabled" (bool) - Whether the new Flex Flow is enabled.
+// @param: "Enabled" (bool) - Whether the new Flex Flow is enabled.
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the Flex Flow resource.
+// @param: "FriendlyName" (string) - A descriptive string that you create to describe the Flex Flow resource.
 //
-// * @param: "IntegrationChannel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
+// @param: "IntegrationChannel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
 //
-// * @param: "IntegrationCreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+// @param: "IntegrationCreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
 //
-// * @param: "IntegrationFlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
+// @param: "IntegrationFlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
 //
-// * @param: "IntegrationPriority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+// @param: "IntegrationPriority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
 //
-// * @param: "IntegrationRetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
+// @param: "IntegrationRetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
 //
-// * @param: "IntegrationTimeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+// @param: "IntegrationTimeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
 //
-// * @param: "IntegrationUrl" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
+// @param: "IntegrationUrl" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
 //
-// * @param: "IntegrationWorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
+// @param: "IntegrationWorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
 //
-// * @param: "IntegrationWorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
+// @param: "IntegrationWorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
 //
-// * @param: "IntegrationType" (string) - The integration type. Can be: `studio`, `external`, or `task`.
+// @param: "IntegrationType" (string) - The integration type. Can be: `studio`, `external`, or `task`.
 //
-// * @param: "JanitorEnabled" (bool) - When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+// @param: "JanitorEnabled" (bool) - When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
 //
-// * @param: "LongLived" (bool) - When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+// @param: "LongLived" (bool) - When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
 //
-// * @return: FlexV1FlexFlow
+// @return: FlexV1FlexFlow
 func (c *DefaultApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -786,15 +786,15 @@ type UpdateWebChannelParams struct {
 
 // UpdateWebChannel Method for UpdateWebChannel
 //
-// * @param: Sid The SID of the WebChannel resource to update.
+// @param: Sid The SID of the WebChannel resource to update.
 //
-// * @param: optional nil or *UpdateWebChannelParams - Optional Parameters:
+// @param: optional nil or *UpdateWebChannelParams - Optional Parameters:
 //
-// * @param: "ChatStatus" (string) - The chat status. Can only be `inactive`.
+// @param: "ChatStatus" (string) - The chat status. Can only be `inactive`.
 //
-// * @param: "PostEngagementData" (string) - The post-engagement data.
+// @param: "PostEngagementData" (string) - The post-engagement data.
 //
-// * @return: FlexV1WebChannel
+// @return: FlexV1WebChannel
 func (c *DefaultApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

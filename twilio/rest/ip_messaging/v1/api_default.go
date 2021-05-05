@@ -42,19 +42,19 @@ type CreateChannelParams struct {
 
 // CreateChannel Method for CreateChannel
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: optional nil or *CreateChannelParams - Optional Parameters:
+// @param: optional nil or *CreateChannelParams - Optional Parameters:
 //
-// * @param: "Attributes" (string) -
+// @param: "Attributes" (string) -
 //
-// * @param: "FriendlyName" (string) -
+// @param: "FriendlyName" (string) -
 //
-// * @param: "Type" (string) -
+// @param: "Type" (string) -
 //
-// * @param: "UniqueName" (string) -
+// @param: "UniqueName" (string) -
 //
-// * @return: IpMessagingV1ServiceChannel
+// @return: IpMessagingV1ServiceChannel
 func (c *DefaultApiService) CreateChannel(ServiceSid string, params *CreateChannelParams) (*IpMessagingV1ServiceChannel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -103,23 +103,23 @@ type CreateCredentialParams struct {
 
 // CreateCredential Method for CreateCredential
 //
-// * @param: optional nil or *CreateCredentialParams - Optional Parameters:
+// @param: optional nil or *CreateCredentialParams - Optional Parameters:
 //
-// * @param: "ApiKey" (string) -
+// @param: "ApiKey" (string) -
 //
-// * @param: "Certificate" (string) -
+// @param: "Certificate" (string) -
 //
-// * @param: "FriendlyName" (string) -
+// @param: "FriendlyName" (string) -
 //
-// * @param: "PrivateKey" (string) -
+// @param: "PrivateKey" (string) -
 //
-// * @param: "Sandbox" (bool) -
+// @param: "Sandbox" (bool) -
 //
-// * @param: "Secret" (string) -
+// @param: "Secret" (string) -
 //
-// * @param: "Type" (string) -
+// @param: "Type" (string) -
 //
-// * @return: IpMessagingV1Credential
+// @return: IpMessagingV1Credential
 func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*IpMessagingV1Credential, error) {
 	path := "/v1/Credentials"
 
@@ -171,17 +171,17 @@ type CreateInviteParams struct {
 
 // CreateInvite Method for CreateInvite
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: optional nil or *CreateInviteParams - Optional Parameters:
+// @param: optional nil or *CreateInviteParams - Optional Parameters:
 //
-// * @param: "Identity" (string) -
+// @param: "Identity" (string) -
 //
-// * @param: "RoleSid" (string) -
+// @param: "RoleSid" (string) -
 //
-// * @return: IpMessagingV1ServiceChannelInvite
+// @return: IpMessagingV1ServiceChannelInvite
 func (c *DefaultApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*IpMessagingV1ServiceChannelInvite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -220,17 +220,17 @@ type CreateMemberParams struct {
 
 // CreateMember Method for CreateMember
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: optional nil or *CreateMemberParams - Optional Parameters:
+// @param: optional nil or *CreateMemberParams - Optional Parameters:
 //
-// * @param: "Identity" (string) -
+// @param: "Identity" (string) -
 //
-// * @param: "RoleSid" (string) -
+// @param: "RoleSid" (string) -
 //
-// * @return: IpMessagingV1ServiceChannelMember
+// @return: IpMessagingV1ServiceChannelMember
 func (c *DefaultApiService) CreateMember(ServiceSid string, ChannelSid string, params *CreateMemberParams) (*IpMessagingV1ServiceChannelMember, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -270,19 +270,19 @@ type CreateMessageParams struct {
 
 // CreateMessage Method for CreateMessage
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: optional nil or *CreateMessageParams - Optional Parameters:
+// @param: optional nil or *CreateMessageParams - Optional Parameters:
 //
-// * @param: "Attributes" (string) -
+// @param: "Attributes" (string) -
 //
-// * @param: "Body" (string) -
+// @param: "Body" (string) -
 //
-// * @param: "From" (string) -
+// @param: "From" (string) -
 //
-// * @return: IpMessagingV1ServiceChannelMessage
+// @return: IpMessagingV1ServiceChannelMessage
 func (c *DefaultApiService) CreateMessage(ServiceSid string, ChannelSid string, params *CreateMessageParams) (*IpMessagingV1ServiceChannelMessage, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -325,17 +325,17 @@ type CreateRoleParams struct {
 
 // CreateRole Method for CreateRole
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: optional nil or *CreateRoleParams - Optional Parameters:
+// @param: optional nil or *CreateRoleParams - Optional Parameters:
 //
-// * @param: "FriendlyName" (string) -
+// @param: "FriendlyName" (string) -
 //
-// * @param: "Permission" ([]string) -
+// @param: "Permission" ([]string) -
 //
-// * @param: "Type" (string) -
+// @param: "Type" (string) -
 //
-// * @return: IpMessagingV1ServiceRole
+// @return: IpMessagingV1ServiceRole
 func (c *DefaultApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*IpMessagingV1ServiceRole, error) {
 	path := "/v1/Services/{ServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -375,11 +375,11 @@ type CreateServiceParams struct {
 
 // CreateService Method for CreateService
 //
-// * @param: optional nil or *CreateServiceParams - Optional Parameters:
+// @param: optional nil or *CreateServiceParams - Optional Parameters:
 //
-// * @param: "FriendlyName" (string) -
+// @param: "FriendlyName" (string) -
 //
-// * @return: IpMessagingV1Service
+// @return: IpMessagingV1Service
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*IpMessagingV1Service, error) {
 	path := "/v1/Services"
 
@@ -415,19 +415,19 @@ type CreateUserParams struct {
 
 // CreateUser Method for CreateUser
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: optional nil or *CreateUserParams - Optional Parameters:
+// @param: optional nil or *CreateUserParams - Optional Parameters:
 //
-// * @param: "Attributes" (string) -
+// @param: "Attributes" (string) -
 //
-// * @param: "FriendlyName" (string) -
+// @param: "FriendlyName" (string) -
 //
-// * @param: "Identity" (string) -
+// @param: "Identity" (string) -
 //
-// * @param: "RoleSid" (string) -
+// @param: "RoleSid" (string) -
 //
-// * @return: IpMessagingV1ServiceUser
+// @return: IpMessagingV1ServiceUser
 func (c *DefaultApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*IpMessagingV1ServiceUser, error) {
 	path := "/v1/Services/{ServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -465,9 +465,9 @@ func (c *DefaultApiService) CreateUser(ServiceSid string, params *CreateUserPara
 
 // DeleteChannel Method for DeleteChannel
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: Sid
+// @param: Sid
 func (c *DefaultApiService) DeleteChannel(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -488,7 +488,7 @@ func (c *DefaultApiService) DeleteChannel(ServiceSid string, Sid string) error {
 
 // DeleteCredential Method for DeleteCredential
 //
-// * @param: Sid
+// @param: Sid
 func (c *DefaultApiService) DeleteCredential(Sid string) error {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -508,11 +508,11 @@ func (c *DefaultApiService) DeleteCredential(Sid string) error {
 
 // DeleteInvite Method for DeleteInvite
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: Sid
+// @param: Sid
 func (c *DefaultApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -534,11 +534,11 @@ func (c *DefaultApiService) DeleteInvite(ServiceSid string, ChannelSid string, S
 
 // DeleteMember Method for DeleteMember
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: Sid
+// @param: Sid
 func (c *DefaultApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -560,11 +560,11 @@ func (c *DefaultApiService) DeleteMember(ServiceSid string, ChannelSid string, S
 
 // DeleteMessage Method for DeleteMessage
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: Sid
+// @param: Sid
 func (c *DefaultApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -586,9 +586,9 @@ func (c *DefaultApiService) DeleteMessage(ServiceSid string, ChannelSid string, 
 
 // DeleteRole Method for DeleteRole
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: Sid
+// @param: Sid
 func (c *DefaultApiService) DeleteRole(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -609,7 +609,7 @@ func (c *DefaultApiService) DeleteRole(ServiceSid string, Sid string) error {
 
 // DeleteService Method for DeleteService
 //
-// * @param: Sid
+// @param: Sid
 func (c *DefaultApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -629,9 +629,9 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 
 // DeleteUser Method for DeleteUser
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: Sid
+// @param: Sid
 func (c *DefaultApiService) DeleteUser(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -652,11 +652,11 @@ func (c *DefaultApiService) DeleteUser(ServiceSid string, Sid string) error {
 
 // FetchChannel Method for FetchChannel
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @return: IpMessagingV1ServiceChannel
+// @return: IpMessagingV1ServiceChannel
 func (c *DefaultApiService) FetchChannel(ServiceSid string, Sid string) (*IpMessagingV1ServiceChannel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -682,9 +682,9 @@ func (c *DefaultApiService) FetchChannel(ServiceSid string, Sid string) (*IpMess
 
 // FetchCredential Method for FetchCredential
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @return: IpMessagingV1Credential
+// @return: IpMessagingV1Credential
 func (c *DefaultApiService) FetchCredential(Sid string) (*IpMessagingV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -709,13 +709,13 @@ func (c *DefaultApiService) FetchCredential(Sid string) (*IpMessagingV1Credentia
 
 // FetchInvite Method for FetchInvite
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @return: IpMessagingV1ServiceChannelInvite
+// @return: IpMessagingV1ServiceChannelInvite
 func (c *DefaultApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1ServiceChannelInvite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -742,13 +742,13 @@ func (c *DefaultApiService) FetchInvite(ServiceSid string, ChannelSid string, Si
 
 // FetchMember Method for FetchMember
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @return: IpMessagingV1ServiceChannelMember
+// @return: IpMessagingV1ServiceChannelMember
 func (c *DefaultApiService) FetchMember(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1ServiceChannelMember, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -775,13 +775,13 @@ func (c *DefaultApiService) FetchMember(ServiceSid string, ChannelSid string, Si
 
 // FetchMessage Method for FetchMessage
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @return: IpMessagingV1ServiceChannelMessage
+// @return: IpMessagingV1ServiceChannelMessage
 func (c *DefaultApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1ServiceChannelMessage, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -808,11 +808,11 @@ func (c *DefaultApiService) FetchMessage(ServiceSid string, ChannelSid string, S
 
 // FetchRole Method for FetchRole
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @return: IpMessagingV1ServiceRole
+// @return: IpMessagingV1ServiceRole
 func (c *DefaultApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagingV1ServiceRole, error) {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -838,9 +838,9 @@ func (c *DefaultApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagi
 
 // FetchService Method for FetchService
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @return: IpMessagingV1Service
+// @return: IpMessagingV1Service
 func (c *DefaultApiService) FetchService(Sid string) (*IpMessagingV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -865,11 +865,11 @@ func (c *DefaultApiService) FetchService(Sid string) (*IpMessagingV1Service, err
 
 // FetchUser Method for FetchUser
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @return: IpMessagingV1ServiceUser
+// @return: IpMessagingV1ServiceUser
 func (c *DefaultApiService) FetchUser(ServiceSid string, Sid string) (*IpMessagingV1ServiceUser, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -901,15 +901,15 @@ type ListChannelParams struct {
 
 // ListChannel Method for ListChannel
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: optional nil or *ListChannelParams - Optional Parameters:
+// @param: optional nil or *ListChannelParams - Optional Parameters:
 //
-// * @param: "Type" ([]string) -
+// @param: "Type" ([]string) -
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListChannelResponse
+// @return: ListChannelResponse
 func (c *DefaultApiService) ListChannel(ServiceSid string, params *ListChannelParams) (*ListChannelResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -946,11 +946,11 @@ type ListCredentialParams struct {
 
 // ListCredential Method for ListCredential
 //
-// * @param: optional nil or *ListCredentialParams - Optional Parameters:
+// @param: optional nil or *ListCredentialParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListCredentialResponse
+// @return: ListCredentialResponse
 func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListCredentialResponse, error) {
 	path := "/v1/Credentials"
 
@@ -984,17 +984,17 @@ type ListInviteParams struct {
 
 // ListInvite Method for ListInvite
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: optional nil or *ListInviteParams - Optional Parameters:
+// @param: optional nil or *ListInviteParams - Optional Parameters:
 //
-// * @param: "Identity" ([]string) -
+// @param: "Identity" ([]string) -
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListInviteResponse
+// @return: ListInviteResponse
 func (c *DefaultApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) (*ListInviteResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1033,17 +1033,17 @@ type ListMemberParams struct {
 
 // ListMember Method for ListMember
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: optional nil or *ListMemberParams - Optional Parameters:
+// @param: optional nil or *ListMemberParams - Optional Parameters:
 //
-// * @param: "Identity" ([]string) -
+// @param: "Identity" ([]string) -
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListMemberResponse
+// @return: ListMemberResponse
 func (c *DefaultApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams) (*ListMemberResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1082,17 +1082,17 @@ type ListMessageParams struct {
 
 // ListMessage Method for ListMessage
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: optional nil or *ListMessageParams - Optional Parameters:
+// @param: optional nil or *ListMessageParams - Optional Parameters:
 //
-// * @param: "Order" (string) -
+// @param: "Order" (string) -
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListMessageResponse
+// @return: ListMessageResponse
 func (c *DefaultApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) (*ListMessageResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1130,13 +1130,13 @@ type ListRoleParams struct {
 
 // ListRole Method for ListRole
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: optional nil or *ListRoleParams - Optional Parameters:
+// @param: optional nil or *ListRoleParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListRoleResponse
+// @return: ListRoleResponse
 func (c *DefaultApiService) ListRole(ServiceSid string, params *ListRoleParams) (*ListRoleResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1170,11 +1170,11 @@ type ListServiceParams struct {
 
 // ListService Method for ListService
 //
-// * @param: optional nil or *ListServiceParams - Optional Parameters:
+// @param: optional nil or *ListServiceParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListServiceResponse
+// @return: ListServiceResponse
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
@@ -1207,13 +1207,13 @@ type ListUserParams struct {
 
 // ListUser Method for ListUser
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: optional nil or *ListUserParams - Optional Parameters:
+// @param: optional nil or *ListUserParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListUserResponse
+// @return: ListUserResponse
 func (c *DefaultApiService) ListUser(ServiceSid string, params *ListUserParams) (*ListUserResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1247,15 +1247,15 @@ type ListUserChannelParams struct {
 
 // ListUserChannel Method for ListUserChannel
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: UserSid
+// @param: UserSid
 //
-// * @param: optional nil or *ListUserChannelParams - Optional Parameters:
+// @param: optional nil or *ListUserChannelParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListUserChannelResponse
+// @return: ListUserChannelResponse
 func (c *DefaultApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) (*ListUserChannelResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1292,19 +1292,19 @@ type UpdateChannelParams struct {
 
 // UpdateChannel Method for UpdateChannel
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @param: optional nil or *UpdateChannelParams - Optional Parameters:
+// @param: optional nil or *UpdateChannelParams - Optional Parameters:
 //
-// * @param: "Attributes" (string) -
+// @param: "Attributes" (string) -
 //
-// * @param: "FriendlyName" (string) -
+// @param: "FriendlyName" (string) -
 //
-// * @param: "UniqueName" (string) -
+// @param: "UniqueName" (string) -
 //
-// * @return: IpMessagingV1ServiceChannel
+// @return: IpMessagingV1ServiceChannel
 func (c *DefaultApiService) UpdateChannel(ServiceSid string, Sid string, params *UpdateChannelParams) (*IpMessagingV1ServiceChannel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1350,23 +1350,23 @@ type UpdateCredentialParams struct {
 
 // UpdateCredential Method for UpdateCredential
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @param: optional nil or *UpdateCredentialParams - Optional Parameters:
+// @param: optional nil or *UpdateCredentialParams - Optional Parameters:
 //
-// * @param: "ApiKey" (string) -
+// @param: "ApiKey" (string) -
 //
-// * @param: "Certificate" (string) -
+// @param: "Certificate" (string) -
 //
-// * @param: "FriendlyName" (string) -
+// @param: "FriendlyName" (string) -
 //
-// * @param: "PrivateKey" (string) -
+// @param: "PrivateKey" (string) -
 //
-// * @param: "Sandbox" (bool) -
+// @param: "Sandbox" (bool) -
 //
-// * @param: "Secret" (string) -
+// @param: "Secret" (string) -
 //
-// * @return: IpMessagingV1Credential
+// @return: IpMessagingV1Credential
 func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentialParams) (*IpMessagingV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1416,19 +1416,19 @@ type UpdateMemberParams struct {
 
 // UpdateMember Method for UpdateMember
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @param: optional nil or *UpdateMemberParams - Optional Parameters:
+// @param: optional nil or *UpdateMemberParams - Optional Parameters:
 //
-// * @param: "LastConsumedMessageIndex" (*int32) -
+// @param: "LastConsumedMessageIndex" (*int32) -
 //
-// * @param: "RoleSid" (string) -
+// @param: "RoleSid" (string) -
 //
-// * @return: IpMessagingV1ServiceChannelMember
+// @return: IpMessagingV1ServiceChannelMember
 func (c *DefaultApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*IpMessagingV1ServiceChannelMember, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1468,19 +1468,19 @@ type UpdateMessageParams struct {
 
 // UpdateMessage Method for UpdateMessage
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: ChannelSid
+// @param: ChannelSid
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @param: optional nil or *UpdateMessageParams - Optional Parameters:
+// @param: optional nil or *UpdateMessageParams - Optional Parameters:
 //
-// * @param: "Attributes" (string) -
+// @param: "Attributes" (string) -
 //
-// * @param: "Body" (string) -
+// @param: "Body" (string) -
 //
-// * @return: IpMessagingV1ServiceChannelMessage
+// @return: IpMessagingV1ServiceChannelMessage
 func (c *DefaultApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*IpMessagingV1ServiceChannelMessage, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1519,15 +1519,15 @@ type UpdateRoleParams struct {
 
 // UpdateRole Method for UpdateRole
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @param: optional nil or *UpdateRoleParams - Optional Parameters:
+// @param: optional nil or *UpdateRoleParams - Optional Parameters:
 //
-// * @param: "Permission" ([]string) -
+// @param: "Permission" ([]string) -
 //
-// * @return: IpMessagingV1ServiceRole
+// @return: IpMessagingV1ServiceRole
 func (c *DefaultApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRoleParams) (*IpMessagingV1ServiceRole, error) {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1615,119 +1615,119 @@ type UpdateServiceParams struct {
 
 // UpdateService Method for UpdateService
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @param: optional nil or *UpdateServiceParams - Optional Parameters:
+// @param: optional nil or *UpdateServiceParams - Optional Parameters:
 //
-// * @param: "ConsumptionReportInterval" (int32) -
+// @param: "ConsumptionReportInterval" (int32) -
 //
-// * @param: "DefaultChannelCreatorRoleSid" (string) -
+// @param: "DefaultChannelCreatorRoleSid" (string) -
 //
-// * @param: "DefaultChannelRoleSid" (string) -
+// @param: "DefaultChannelRoleSid" (string) -
 //
-// * @param: "DefaultServiceRoleSid" (string) -
+// @param: "DefaultServiceRoleSid" (string) -
 //
-// * @param: "FriendlyName" (string) -
+// @param: "FriendlyName" (string) -
 //
-// * @param: "LimitsChannelMembers" (int32) -
+// @param: "LimitsChannelMembers" (int32) -
 //
-// * @param: "LimitsUserChannels" (int32) -
+// @param: "LimitsUserChannels" (int32) -
 //
-// * @param: "NotificationsAddedToChannelEnabled" (bool) -
+// @param: "NotificationsAddedToChannelEnabled" (bool) -
 //
-// * @param: "NotificationsAddedToChannelTemplate" (string) -
+// @param: "NotificationsAddedToChannelTemplate" (string) -
 //
-// * @param: "NotificationsInvitedToChannelEnabled" (bool) -
+// @param: "NotificationsInvitedToChannelEnabled" (bool) -
 //
-// * @param: "NotificationsInvitedToChannelTemplate" (string) -
+// @param: "NotificationsInvitedToChannelTemplate" (string) -
 //
-// * @param: "NotificationsNewMessageEnabled" (bool) -
+// @param: "NotificationsNewMessageEnabled" (bool) -
 //
-// * @param: "NotificationsNewMessageTemplate" (string) -
+// @param: "NotificationsNewMessageTemplate" (string) -
 //
-// * @param: "NotificationsRemovedFromChannelEnabled" (bool) -
+// @param: "NotificationsRemovedFromChannelEnabled" (bool) -
 //
-// * @param: "NotificationsRemovedFromChannelTemplate" (string) -
+// @param: "NotificationsRemovedFromChannelTemplate" (string) -
 //
-// * @param: "PostWebhookUrl" (string) -
+// @param: "PostWebhookUrl" (string) -
 //
-// * @param: "PreWebhookUrl" (string) -
+// @param: "PreWebhookUrl" (string) -
 //
-// * @param: "ReachabilityEnabled" (bool) -
+// @param: "ReachabilityEnabled" (bool) -
 //
-// * @param: "ReadStatusEnabled" (bool) -
+// @param: "ReadStatusEnabled" (bool) -
 //
-// * @param: "TypingIndicatorTimeout" (int32) -
+// @param: "TypingIndicatorTimeout" (int32) -
 //
-// * @param: "WebhookFilters" ([]string) -
+// @param: "WebhookFilters" ([]string) -
 //
-// * @param: "WebhookMethod" (string) -
+// @param: "WebhookMethod" (string) -
 //
-// * @param: "WebhooksOnChannelAddMethod" (string) -
+// @param: "WebhooksOnChannelAddMethod" (string) -
 //
-// * @param: "WebhooksOnChannelAddUrl" (string) -
+// @param: "WebhooksOnChannelAddUrl" (string) -
 //
-// * @param: "WebhooksOnChannelAddedMethod" (string) -
+// @param: "WebhooksOnChannelAddedMethod" (string) -
 //
-// * @param: "WebhooksOnChannelAddedUrl" (string) -
+// @param: "WebhooksOnChannelAddedUrl" (string) -
 //
-// * @param: "WebhooksOnChannelDestroyMethod" (string) -
+// @param: "WebhooksOnChannelDestroyMethod" (string) -
 //
-// * @param: "WebhooksOnChannelDestroyUrl" (string) -
+// @param: "WebhooksOnChannelDestroyUrl" (string) -
 //
-// * @param: "WebhooksOnChannelDestroyedMethod" (string) -
+// @param: "WebhooksOnChannelDestroyedMethod" (string) -
 //
-// * @param: "WebhooksOnChannelDestroyedUrl" (string) -
+// @param: "WebhooksOnChannelDestroyedUrl" (string) -
 //
-// * @param: "WebhooksOnChannelUpdateMethod" (string) -
+// @param: "WebhooksOnChannelUpdateMethod" (string) -
 //
-// * @param: "WebhooksOnChannelUpdateUrl" (string) -
+// @param: "WebhooksOnChannelUpdateUrl" (string) -
 //
-// * @param: "WebhooksOnChannelUpdatedMethod" (string) -
+// @param: "WebhooksOnChannelUpdatedMethod" (string) -
 //
-// * @param: "WebhooksOnChannelUpdatedUrl" (string) -
+// @param: "WebhooksOnChannelUpdatedUrl" (string) -
 //
-// * @param: "WebhooksOnMemberAddMethod" (string) -
+// @param: "WebhooksOnMemberAddMethod" (string) -
 //
-// * @param: "WebhooksOnMemberAddUrl" (string) -
+// @param: "WebhooksOnMemberAddUrl" (string) -
 //
-// * @param: "WebhooksOnMemberAddedMethod" (string) -
+// @param: "WebhooksOnMemberAddedMethod" (string) -
 //
-// * @param: "WebhooksOnMemberAddedUrl" (string) -
+// @param: "WebhooksOnMemberAddedUrl" (string) -
 //
-// * @param: "WebhooksOnMemberRemoveMethod" (string) -
+// @param: "WebhooksOnMemberRemoveMethod" (string) -
 //
-// * @param: "WebhooksOnMemberRemoveUrl" (string) -
+// @param: "WebhooksOnMemberRemoveUrl" (string) -
 //
-// * @param: "WebhooksOnMemberRemovedMethod" (string) -
+// @param: "WebhooksOnMemberRemovedMethod" (string) -
 //
-// * @param: "WebhooksOnMemberRemovedUrl" (string) -
+// @param: "WebhooksOnMemberRemovedUrl" (string) -
 //
-// * @param: "WebhooksOnMessageRemoveMethod" (string) -
+// @param: "WebhooksOnMessageRemoveMethod" (string) -
 //
-// * @param: "WebhooksOnMessageRemoveUrl" (string) -
+// @param: "WebhooksOnMessageRemoveUrl" (string) -
 //
-// * @param: "WebhooksOnMessageRemovedMethod" (string) -
+// @param: "WebhooksOnMessageRemovedMethod" (string) -
 //
-// * @param: "WebhooksOnMessageRemovedUrl" (string) -
+// @param: "WebhooksOnMessageRemovedUrl" (string) -
 //
-// * @param: "WebhooksOnMessageSendMethod" (string) -
+// @param: "WebhooksOnMessageSendMethod" (string) -
 //
-// * @param: "WebhooksOnMessageSendUrl" (string) -
+// @param: "WebhooksOnMessageSendUrl" (string) -
 //
-// * @param: "WebhooksOnMessageSentMethod" (string) -
+// @param: "WebhooksOnMessageSentMethod" (string) -
 //
-// * @param: "WebhooksOnMessageSentUrl" (string) -
+// @param: "WebhooksOnMessageSentUrl" (string) -
 //
-// * @param: "WebhooksOnMessageUpdateMethod" (string) -
+// @param: "WebhooksOnMessageUpdateMethod" (string) -
 //
-// * @param: "WebhooksOnMessageUpdateUrl" (string) -
+// @param: "WebhooksOnMessageUpdateUrl" (string) -
 //
-// * @param: "WebhooksOnMessageUpdatedMethod" (string) -
+// @param: "WebhooksOnMessageUpdatedMethod" (string) -
 //
-// * @param: "WebhooksOnMessageUpdatedUrl" (string) -
+// @param: "WebhooksOnMessageUpdatedUrl" (string) -
 //
-// * @return: IpMessagingV1Service
+// @return: IpMessagingV1Service
 func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*IpMessagingV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1922,19 +1922,19 @@ type UpdateUserParams struct {
 
 // UpdateUser Method for UpdateUser
 //
-// * @param: ServiceSid
+// @param: ServiceSid
 //
-// * @param: Sid
+// @param: Sid
 //
-// * @param: optional nil or *UpdateUserParams - Optional Parameters:
+// @param: optional nil or *UpdateUserParams - Optional Parameters:
 //
-// * @param: "Attributes" (string) -
+// @param: "Attributes" (string) -
 //
-// * @param: "FriendlyName" (string) -
+// @param: "FriendlyName" (string) -
 //
-// * @param: "RoleSid" (string) -
+// @param: "RoleSid" (string) -
 //
-// * @return: IpMessagingV1ServiceUser
+// @return: IpMessagingV1ServiceUser
 func (c *DefaultApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUserParams) (*IpMessagingV1ServiceUser, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
