@@ -7,8 +7,13 @@ import (
 )
 
 //nolint:paralleltest
-func TestClient_WithAccountSid(t *testing.T) {
-	client := NewClientWithAccountSid("parentSid", "authToken", "subAccountSid")
+func TestClient_WithParams(t *testing.T) {
+	client := NewClientWithParams(ClientParams{
+		Username:   "parentSid",
+		Password:   "authToken",
+		AccountSid: "subAccountSid",
+	})
+
 	assert.Equal(t, client.Username, "parentSid")
 	assert.Equal(t, client.Password, "authToken")
 	assert.Equal(t, client.AccountSid, "subAccountSid")

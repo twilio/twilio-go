@@ -60,8 +60,12 @@ import "github.com/twilio/twilio-go/twilio"
 func main(){
     accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-    subaccountSid := "ACYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-    client := twilio.NewClientWithAccountSid(accountSid, authToken, subaccountSid)
+	subaccountSid := "ACYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+	client := twilio.NewClientWithParams(twilio.ClientParams{
+		Username:   accountSid,
+		Password:   authToken,
+		AccountSid: subaccountSid,
+	})
 }
 ```
 
@@ -121,7 +125,11 @@ func main() {
 	phoneNumber := "AVAILABLE_TWILIO_PHONE_NUMBER"
 	subaccountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
 
-	client := twilio.NewClientWithAccountSid(accountSid, authToken, subaccountSid)
+	client := twilio.NewClientWithParams(twilio.ClientParams{
+		Username:   accountSid,
+		Password:   authToken,
+		AccountSid: subaccountSid,
+	})
 
 	params := &openapi.CreateIncomingPhoneNumberParams{}
 	params.PhoneNumber = &phoneNumber
@@ -152,8 +160,12 @@ func main() {
 	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
 	to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
 	subaccountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
-	
-	client := twilio.NewClientWithAccountSid(accountSid, authToken, subaccountSid)
+
+	client := twilio.NewClientWithParams(twilio.ClientParams{
+		Username:   accountSid,
+		Password:   authToken,
+		AccountSid: subaccountSid,
+	})
 
 	text := "Hello there"
 
