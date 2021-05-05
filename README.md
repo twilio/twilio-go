@@ -346,7 +346,7 @@ To generate documentation, from the root directory:
 godoc -http=localhost:{port number}
 ```
 
-Then, navigate to http://localhost:{port number}/pkg/github.com/twilio/twilio-go in your local browser.
+Then, navigate to `http://localhost:{port number}/pkg/github.com/twilio/twilio-go` in your local browser.
 
 Example:
 
