@@ -338,5 +338,15 @@ To execute the test suite run:
 go test ./...
 ```
 
+### Documentation
+
+To generate documentation, from the root directory:
+
+```bash
+godoc -http=localhost:6060
+```
+
+Then, navigate to http://localhost:6060/pkg/github.com/twilio/twilio-go in your local browser.
+
 [apidocs]: https://www.twilio.com/docs/api
 [libdocs]: https://pkg.go.dev/github.com/twilio/twilio-go?tab=versions
