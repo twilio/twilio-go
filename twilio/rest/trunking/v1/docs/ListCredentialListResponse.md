@@ -1,6 +1,7 @@
 # ListCredentialListResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CredentialLists** | [**[]TrunkingV1TrunkCredentialList**](trunking.v1.trunk.credential_list.md) |  |[optional] 

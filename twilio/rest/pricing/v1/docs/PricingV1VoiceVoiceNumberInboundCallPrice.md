@@ -1,6 +1,7 @@
 # PricingV1VoiceVoiceNumberInboundCallPrice
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BasePrice** | **float32** |  |[optional] 

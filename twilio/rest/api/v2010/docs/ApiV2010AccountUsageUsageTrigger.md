@@ -1,6 +1,7 @@
 # ApiV2010AccountUsageUsageTrigger
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that this trigger monitors |

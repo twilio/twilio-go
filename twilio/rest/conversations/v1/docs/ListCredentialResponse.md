@@ -1,6 +1,7 @@
 # ListCredentialResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Credentials** | [**[]ConversationsV1Credential**](conversations.v1.credential.md) |  |[optional] 

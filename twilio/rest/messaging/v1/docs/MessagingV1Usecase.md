@@ -1,6 +1,7 @@
 # MessagingV1Usecase
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Usecases** | Pointer to **[]map[string]interface{}** | Human readable Messaging Service Use Case details |

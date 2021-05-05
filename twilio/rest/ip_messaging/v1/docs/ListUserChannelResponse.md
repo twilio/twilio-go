@@ -1,6 +1,7 @@
 # ListUserChannelResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Channels** | [**[]IpMessagingV1ServiceUserUserChannel**](ip_messaging.v1.service.user.user_channel.md) |  |[optional] 

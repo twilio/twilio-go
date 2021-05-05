@@ -1,6 +1,7 @@
 # PricingV1VoiceVoiceCountryInstance
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Country** | Pointer to **string** | The name of the country |

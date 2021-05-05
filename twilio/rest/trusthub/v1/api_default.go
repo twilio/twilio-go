@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -40,16 +40,21 @@ type CreateCustomerProfileParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
-/*
-* CreateCustomerProfile Method for CreateCustomerProfile
-* Create a new Customer-Profile.
-* @param optional nil or *CreateCustomerProfileParams - Optional Parameters:
-* @param "Email" (string) - The email address that will receive updates when the Customer-Profile resource changes status.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @param "PolicySid" (string) - The unique string of a policy that is associated to the Customer-Profile resource.
-* @param "StatusCallback" (string) - The URL we call to inform your application of status changes.
-* @return TrusthubV1CustomerProfile
- */
+// CreateCustomerProfile Method for CreateCustomerProfile
+//
+// Create a new Customer-Profile.
+//
+// param: optional nil or *CreateCustomerProfileParams - Optional Parameters:
+//
+// param: "Email" (string) - The email address that will receive updates when the Customer-Profile resource changes status.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// param: "PolicySid" (string) - The unique string of a policy that is associated to the Customer-Profile resource.
+//
+// param: "StatusCallback" (string) - The URL we call to inform your application of status changes.
+//
+// return: TrusthubV1CustomerProfile
 func (c *DefaultApiService) CreateCustomerProfile(params *CreateCustomerProfileParams) (*TrusthubV1CustomerProfile, error) {
 	path := "/v1/CustomerProfiles"
 
@@ -90,15 +95,19 @@ type CreateCustomerProfileChannelEndpointAssignmentParams struct {
 	ChannelEndpointType *string `json:"ChannelEndpointType,omitempty"`
 }
 
-/*
-* CreateCustomerProfileChannelEndpointAssignment Method for CreateCustomerProfileChannelEndpointAssignment
-* Create a new Assigned Item.
-* @param CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
-* @param optional nil or *CreateCustomerProfileChannelEndpointAssignmentParams - Optional Parameters:
-* @param "ChannelEndpointSid" (string) - The SID of an channel endpoint
-* @param "ChannelEndpointType" (string) - The type of channel endpoint. eg: phone-number
-* @return TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment
- */
+// CreateCustomerProfileChannelEndpointAssignment Method for CreateCustomerProfileChannelEndpointAssignment
+//
+// Create a new Assigned Item.
+//
+// param: CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: optional nil or *CreateCustomerProfileChannelEndpointAssignmentParams - Optional Parameters:
+//
+// param: "ChannelEndpointSid" (string) - The SID of an channel endpoint
+//
+// param: "ChannelEndpointType" (string) - The type of channel endpoint. eg: phone-number
+//
+// return: TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment
 func (c *DefaultApiService) CreateCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *CreateCustomerProfileChannelEndpointAssignmentParams) (*TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -133,14 +142,17 @@ type CreateCustomerProfileEntityAssignmentParams struct {
 	ObjectSid *string `json:"ObjectSid,omitempty"`
 }
 
-/*
-* CreateCustomerProfileEntityAssignment Method for CreateCustomerProfileEntityAssignment
-* Create a new Assigned Item.
-* @param CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
-* @param optional nil or *CreateCustomerProfileEntityAssignmentParams - Optional Parameters:
-* @param "ObjectSid" (string) - The SID of an object bag that holds information of the different items.
-* @return TrusthubV1CustomerProfileCustomerProfileEntityAssignment
- */
+// CreateCustomerProfileEntityAssignment Method for CreateCustomerProfileEntityAssignment
+//
+// Create a new Assigned Item.
+//
+// param: CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: optional nil or *CreateCustomerProfileEntityAssignmentParams - Optional Parameters:
+//
+// param: "ObjectSid" (string) - The SID of an object bag that holds information of the different items.
+//
+// return: TrusthubV1CustomerProfileCustomerProfileEntityAssignment
 func (c *DefaultApiService) CreateCustomerProfileEntityAssignment(CustomerProfileSid string, params *CreateCustomerProfileEntityAssignmentParams) (*TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -172,14 +184,17 @@ type CreateCustomerProfileEvaluationParams struct {
 	PolicySid *string `json:"PolicySid,omitempty"`
 }
 
-/*
-* CreateCustomerProfileEvaluation Method for CreateCustomerProfileEvaluation
-* Create a new Evaluation
-* @param CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
-* @param optional nil or *CreateCustomerProfileEvaluationParams - Optional Parameters:
-* @param "PolicySid" (string) - The unique string of a policy that is associated to the customer_profile resource.
-* @return TrusthubV1CustomerProfileCustomerProfileEvaluation
- */
+// CreateCustomerProfileEvaluation Method for CreateCustomerProfileEvaluation
+//
+// Create a new Evaluation
+//
+// param: CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: optional nil or *CreateCustomerProfileEvaluationParams - Optional Parameters:
+//
+// param: "PolicySid" (string) - The unique string of a policy that is associated to the customer_profile resource.
+//
+// return: TrusthubV1CustomerProfileCustomerProfileEvaluation
 func (c *DefaultApiService) CreateCustomerProfileEvaluation(CustomerProfileSid string, params *CreateCustomerProfileEvaluationParams) (*TrusthubV1CustomerProfileCustomerProfileEvaluation, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -213,15 +228,19 @@ type CreateEndUserParams struct {
 	Type         *string                 `json:"Type,omitempty"`
 }
 
-/*
-* CreateEndUser Method for CreateEndUser
-* Create a new End User.
-* @param optional nil or *CreateEndUserParams - Optional Parameters:
-* @param "Attributes" (map[string]interface{}) - The set of parameters that are the attributes of the End User resource which are derived End User Types.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @param "Type" (string) - The type of end user of the Bundle resource - can be `individual` or `business`.
-* @return TrusthubV1EndUser
- */
+// CreateEndUser Method for CreateEndUser
+//
+// Create a new End User.
+//
+// param: optional nil or *CreateEndUserParams - Optional Parameters:
+//
+// param: "Attributes" (map[string]interface{}) - The set of parameters that are the attributes of the End User resource which are derived End User Types.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// param: "Type" (string) - The type of end user of the Bundle resource - can be `individual` or `business`.
+//
+// return: TrusthubV1EndUser
 func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*TrusthubV1EndUser, error) {
 	path := "/v1/EndUsers"
 
@@ -266,15 +285,19 @@ type CreateSupportingDocumentParams struct {
 	Type         *string                 `json:"Type,omitempty"`
 }
 
-/*
-* CreateSupportingDocument Method for CreateSupportingDocument
-* Create a new Supporting Document.
-* @param optional nil or *CreateSupportingDocumentParams - Optional Parameters:
-* @param "Attributes" (map[string]interface{}) - The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @param "Type" (string) - The type of the Supporting Document.
-* @return TrusthubV1SupportingDocument
- */
+// CreateSupportingDocument Method for CreateSupportingDocument
+//
+// Create a new Supporting Document.
+//
+// param: optional nil or *CreateSupportingDocumentParams - Optional Parameters:
+//
+// param: "Attributes" (map[string]interface{}) - The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// param: "Type" (string) - The type of the Supporting Document.
+//
+// return: TrusthubV1SupportingDocument
 func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDocumentParams) (*TrusthubV1SupportingDocument, error) {
 	path := "/v1/SupportingDocuments"
 
@@ -320,16 +343,21 @@ type CreateTrustProductParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
-/*
-* CreateTrustProduct Method for CreateTrustProduct
-* Create a new Customer-Profile.
-* @param optional nil or *CreateTrustProductParams - Optional Parameters:
-* @param "Email" (string) - The email address that will receive updates when the Customer-Profile resource changes status.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @param "PolicySid" (string) - The unique string of a policy that is associated to the Customer-Profile resource.
-* @param "StatusCallback" (string) - The URL we call to inform your application of status changes.
-* @return TrusthubV1TrustProduct
- */
+// CreateTrustProduct Method for CreateTrustProduct
+//
+// Create a new Customer-Profile.
+//
+// param: optional nil or *CreateTrustProductParams - Optional Parameters:
+//
+// param: "Email" (string) - The email address that will receive updates when the Customer-Profile resource changes status.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// param: "PolicySid" (string) - The unique string of a policy that is associated to the Customer-Profile resource.
+//
+// param: "StatusCallback" (string) - The URL we call to inform your application of status changes.
+//
+// return: TrusthubV1TrustProduct
 func (c *DefaultApiService) CreateTrustProduct(params *CreateTrustProductParams) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts"
 
@@ -370,15 +398,19 @@ type CreateTrustProductChannelEndpointAssignmentParams struct {
 	ChannelEndpointType *string `json:"ChannelEndpointType,omitempty"`
 }
 
-/*
-* CreateTrustProductChannelEndpointAssignment Method for CreateTrustProductChannelEndpointAssignment
-* Create a new Assigned Item.
-* @param TrustProductSid The unique string that we created to identify the CustomerProfile resource.
-* @param optional nil or *CreateTrustProductChannelEndpointAssignmentParams - Optional Parameters:
-* @param "ChannelEndpointSid" (string) - The SID of an channel endpoint
-* @param "ChannelEndpointType" (string) - The type of channel endpoint. eg: phone-number
-* @return TrusthubV1TrustProductTrustProductChannelEndpointAssignment
- */
+// CreateTrustProductChannelEndpointAssignment Method for CreateTrustProductChannelEndpointAssignment
+//
+// Create a new Assigned Item.
+//
+// param: TrustProductSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: optional nil or *CreateTrustProductChannelEndpointAssignmentParams - Optional Parameters:
+//
+// param: "ChannelEndpointSid" (string) - The SID of an channel endpoint
+//
+// param: "ChannelEndpointType" (string) - The type of channel endpoint. eg: phone-number
+//
+// return: TrusthubV1TrustProductTrustProductChannelEndpointAssignment
 func (c *DefaultApiService) CreateTrustProductChannelEndpointAssignment(TrustProductSid string, params *CreateTrustProductChannelEndpointAssignmentParams) (*TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -413,14 +445,17 @@ type CreateTrustProductEntityAssignmentParams struct {
 	ObjectSid *string `json:"ObjectSid,omitempty"`
 }
 
-/*
-* CreateTrustProductEntityAssignment Method for CreateTrustProductEntityAssignment
-* Create a new Assigned Item.
-* @param TrustProductSid The unique string that we created to identify the TrustProduct resource.
-* @param optional nil or *CreateTrustProductEntityAssignmentParams - Optional Parameters:
-* @param "ObjectSid" (string) - The SID of an object bag that holds information of the different items.
-* @return TrusthubV1TrustProductTrustProductEntityAssignment
- */
+// CreateTrustProductEntityAssignment Method for CreateTrustProductEntityAssignment
+//
+// Create a new Assigned Item.
+//
+// param: TrustProductSid The unique string that we created to identify the TrustProduct resource.
+//
+// param: optional nil or *CreateTrustProductEntityAssignmentParams - Optional Parameters:
+//
+// param: "ObjectSid" (string) - The SID of an object bag that holds information of the different items.
+//
+// return: TrusthubV1TrustProductTrustProductEntityAssignment
 func (c *DefaultApiService) CreateTrustProductEntityAssignment(TrustProductSid string, params *CreateTrustProductEntityAssignmentParams) (*TrusthubV1TrustProductTrustProductEntityAssignment, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -452,14 +487,17 @@ type CreateTrustProductEvaluationParams struct {
 	PolicySid *string `json:"PolicySid,omitempty"`
 }
 
-/*
-* CreateTrustProductEvaluation Method for CreateTrustProductEvaluation
-* Create a new Evaluation
-* @param TrustProductSid The unique string that we created to identify the trust_product resource.
-* @param optional nil or *CreateTrustProductEvaluationParams - Optional Parameters:
-* @param "PolicySid" (string) - The unique string of a policy that is associated to the customer_profile resource.
-* @return TrusthubV1TrustProductTrustProductEvaluation
- */
+// CreateTrustProductEvaluation Method for CreateTrustProductEvaluation
+//
+// Create a new Evaluation
+//
+// param: TrustProductSid The unique string that we created to identify the trust_product resource.
+//
+// param: optional nil or *CreateTrustProductEvaluationParams - Optional Parameters:
+//
+// param: "PolicySid" (string) - The unique string of a policy that is associated to the customer_profile resource.
+//
+// return: TrusthubV1TrustProductTrustProductEvaluation
 func (c *DefaultApiService) CreateTrustProductEvaluation(TrustProductSid string, params *CreateTrustProductEvaluationParams) (*TrusthubV1TrustProductTrustProductEvaluation, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -486,11 +524,12 @@ func (c *DefaultApiService) CreateTrustProductEvaluation(TrustProductSid string,
 	return ps, err
 }
 
-/*
-* DeleteCustomerProfile Method for DeleteCustomerProfile
-* Delete a specific Customer-Profile.
-* @param Sid The unique string that we created to identify the Customer-Profile resource.
- */
+// DeleteCustomerProfile Method for DeleteCustomerProfile
+//
+// Delete a specific Customer-Profile.
+//
+// param: Sid The unique string that we created to identify the Customer-Profile resource.
+//
 func (c *DefaultApiService) DeleteCustomerProfile(Sid string) error {
 	path := "/v1/CustomerProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -508,12 +547,14 @@ func (c *DefaultApiService) DeleteCustomerProfile(Sid string) error {
 	return nil
 }
 
-/*
-* DeleteCustomerProfileChannelEndpointAssignment Method for DeleteCustomerProfileChannelEndpointAssignment
-* Remove an Assignment Item Instance.
-* @param CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
-* @param Sid The unique string that we created to identify the resource.
- */
+// DeleteCustomerProfileChannelEndpointAssignment Method for DeleteCustomerProfileChannelEndpointAssignment
+//
+// Remove an Assignment Item Instance.
+//
+// param: CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: Sid The unique string that we created to identify the resource.
+//
 func (c *DefaultApiService) DeleteCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, Sid string) error {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -532,12 +573,14 @@ func (c *DefaultApiService) DeleteCustomerProfileChannelEndpointAssignment(Custo
 	return nil
 }
 
-/*
-* DeleteCustomerProfileEntityAssignment Method for DeleteCustomerProfileEntityAssignment
-* Remove an Assignment Item Instance.
-* @param CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
-* @param Sid The unique string that we created to identify the Identity resource.
- */
+// DeleteCustomerProfileEntityAssignment Method for DeleteCustomerProfileEntityAssignment
+//
+// Remove an Assignment Item Instance.
+//
+// param: CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: Sid The unique string that we created to identify the Identity resource.
+//
 func (c *DefaultApiService) DeleteCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string) error {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -556,11 +599,12 @@ func (c *DefaultApiService) DeleteCustomerProfileEntityAssignment(CustomerProfil
 	return nil
 }
 
-/*
-* DeleteEndUser Method for DeleteEndUser
-* Delete a specific End User.
-* @param Sid The unique string created by Twilio to identify the End User resource.
- */
+// DeleteEndUser Method for DeleteEndUser
+//
+// Delete a specific End User.
+//
+// param: Sid The unique string created by Twilio to identify the End User resource.
+//
 func (c *DefaultApiService) DeleteEndUser(Sid string) error {
 	path := "/v1/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -578,11 +622,12 @@ func (c *DefaultApiService) DeleteEndUser(Sid string) error {
 	return nil
 }
 
-/*
-* DeleteSupportingDocument Method for DeleteSupportingDocument
-* Delete a specific Supporting Document.
-* @param Sid The unique string created by Twilio to identify the Supporting Document resource.
- */
+// DeleteSupportingDocument Method for DeleteSupportingDocument
+//
+// Delete a specific Supporting Document.
+//
+// param: Sid The unique string created by Twilio to identify the Supporting Document resource.
+//
 func (c *DefaultApiService) DeleteSupportingDocument(Sid string) error {
 	path := "/v1/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -600,11 +645,12 @@ func (c *DefaultApiService) DeleteSupportingDocument(Sid string) error {
 	return nil
 }
 
-/*
-* DeleteTrustProduct Method for DeleteTrustProduct
-* Delete a specific Customer-Profile.
-* @param Sid The unique string that we created to identify the Customer-Profile resource.
- */
+// DeleteTrustProduct Method for DeleteTrustProduct
+//
+// Delete a specific Customer-Profile.
+//
+// param: Sid The unique string that we created to identify the Customer-Profile resource.
+//
 func (c *DefaultApiService) DeleteTrustProduct(Sid string) error {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -622,12 +668,14 @@ func (c *DefaultApiService) DeleteTrustProduct(Sid string) error {
 	return nil
 }
 
-/*
-* DeleteTrustProductChannelEndpointAssignment Method for DeleteTrustProductChannelEndpointAssignment
-* Remove an Assignment Item Instance.
-* @param TrustProductSid The unique string that we created to identify the CustomerProfile resource.
-* @param Sid The unique string that we created to identify the resource.
- */
+// DeleteTrustProductChannelEndpointAssignment Method for DeleteTrustProductChannelEndpointAssignment
+//
+// Remove an Assignment Item Instance.
+//
+// param: TrustProductSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: Sid The unique string that we created to identify the resource.
+//
 func (c *DefaultApiService) DeleteTrustProductChannelEndpointAssignment(TrustProductSid string, Sid string) error {
 	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -646,12 +694,14 @@ func (c *DefaultApiService) DeleteTrustProductChannelEndpointAssignment(TrustPro
 	return nil
 }
 
-/*
-* DeleteTrustProductEntityAssignment Method for DeleteTrustProductEntityAssignment
-* Remove an Assignment Item Instance.
-* @param TrustProductSid The unique string that we created to identify the TrustProduct resource.
-* @param Sid The unique string that we created to identify the Identity resource.
- */
+// DeleteTrustProductEntityAssignment Method for DeleteTrustProductEntityAssignment
+//
+// Remove an Assignment Item Instance.
+//
+// param: TrustProductSid The unique string that we created to identify the TrustProduct resource.
+//
+// param: Sid The unique string that we created to identify the Identity resource.
+//
 func (c *DefaultApiService) DeleteTrustProductEntityAssignment(TrustProductSid string, Sid string) error {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -670,12 +720,13 @@ func (c *DefaultApiService) DeleteTrustProductEntityAssignment(TrustProductSid s
 	return nil
 }
 
-/*
-* FetchCustomerProfile Method for FetchCustomerProfile
-* Fetch a specific Customer-Profile instance.
-* @param Sid The unique string that we created to identify the Customer-Profile resource.
-* @return TrusthubV1CustomerProfile
- */
+// FetchCustomerProfile Method for FetchCustomerProfile
+//
+// Fetch a specific Customer-Profile instance.
+//
+// param: Sid The unique string that we created to identify the Customer-Profile resource.
+//
+// return: TrusthubV1CustomerProfile
 func (c *DefaultApiService) FetchCustomerProfile(Sid string) (*TrusthubV1CustomerProfile, error) {
 	path := "/v1/CustomerProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -698,13 +749,15 @@ func (c *DefaultApiService) FetchCustomerProfile(Sid string) (*TrusthubV1Custome
 	return ps, err
 }
 
-/*
-* FetchCustomerProfileChannelEndpointAssignment Method for FetchCustomerProfileChannelEndpointAssignment
-* Fetch specific Assigned Item Instance.
-* @param CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
-* @param Sid The unique string that we created to identify the resource.
-* @return TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment
- */
+// FetchCustomerProfileChannelEndpointAssignment Method for FetchCustomerProfileChannelEndpointAssignment
+//
+// Fetch specific Assigned Item Instance.
+//
+// param: CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: Sid The unique string that we created to identify the resource.
+//
+// return: TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment
 func (c *DefaultApiService) FetchCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -728,13 +781,15 @@ func (c *DefaultApiService) FetchCustomerProfileChannelEndpointAssignment(Custom
 	return ps, err
 }
 
-/*
-* FetchCustomerProfileEntityAssignment Method for FetchCustomerProfileEntityAssignment
-* Fetch specific Assigned Item Instance.
-* @param CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
-* @param Sid The unique string that we created to identify the Identity resource.
-* @return TrusthubV1CustomerProfileCustomerProfileEntityAssignment
- */
+// FetchCustomerProfileEntityAssignment Method for FetchCustomerProfileEntityAssignment
+//
+// Fetch specific Assigned Item Instance.
+//
+// param: CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: Sid The unique string that we created to identify the Identity resource.
+//
+// return: TrusthubV1CustomerProfileCustomerProfileEntityAssignment
 func (c *DefaultApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -758,13 +813,15 @@ func (c *DefaultApiService) FetchCustomerProfileEntityAssignment(CustomerProfile
 	return ps, err
 }
 
-/*
-* FetchCustomerProfileEvaluation Method for FetchCustomerProfileEvaluation
-* Fetch specific Evaluation Instance.
-* @param CustomerProfileSid The unique string that we created to identify the customer_profile resource.
-* @param Sid The unique string that identifies the Evaluation resource.
-* @return TrusthubV1CustomerProfileCustomerProfileEvaluation
- */
+// FetchCustomerProfileEvaluation Method for FetchCustomerProfileEvaluation
+//
+// Fetch specific Evaluation Instance.
+//
+// param: CustomerProfileSid The unique string that we created to identify the customer_profile resource.
+//
+// param: Sid The unique string that identifies the Evaluation resource.
+//
+// return: TrusthubV1CustomerProfileCustomerProfileEvaluation
 func (c *DefaultApiService) FetchCustomerProfileEvaluation(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileCustomerProfileEvaluation, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -788,12 +845,13 @@ func (c *DefaultApiService) FetchCustomerProfileEvaluation(CustomerProfileSid st
 	return ps, err
 }
 
-/*
-* FetchEndUser Method for FetchEndUser
-* Fetch specific End User Instance.
-* @param Sid The unique string created by Twilio to identify the End User resource.
-* @return TrusthubV1EndUser
- */
+// FetchEndUser Method for FetchEndUser
+//
+// Fetch specific End User Instance.
+//
+// param: Sid The unique string created by Twilio to identify the End User resource.
+//
+// return: TrusthubV1EndUser
 func (c *DefaultApiService) FetchEndUser(Sid string) (*TrusthubV1EndUser, error) {
 	path := "/v1/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -816,12 +874,13 @@ func (c *DefaultApiService) FetchEndUser(Sid string) (*TrusthubV1EndUser, error)
 	return ps, err
 }
 
-/*
-* FetchEndUserType Method for FetchEndUserType
-* Fetch a specific End-User Type Instance.
-* @param Sid The unique string that identifies the End-User Type resource.
-* @return TrusthubV1EndUserType
- */
+// FetchEndUserType Method for FetchEndUserType
+//
+// Fetch a specific End-User Type Instance.
+//
+// param: Sid The unique string that identifies the End-User Type resource.
+//
+// return: TrusthubV1EndUserType
 func (c *DefaultApiService) FetchEndUserType(Sid string) (*TrusthubV1EndUserType, error) {
 	path := "/v1/EndUserTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -844,12 +903,13 @@ func (c *DefaultApiService) FetchEndUserType(Sid string) (*TrusthubV1EndUserType
 	return ps, err
 }
 
-/*
-* FetchPolicies Method for FetchPolicies
-* Fetch specific Policy Instance.
-* @param Sid The unique string that identifies the Policy resource.
-* @return TrusthubV1Policies
- */
+// FetchPolicies Method for FetchPolicies
+//
+// Fetch specific Policy Instance.
+//
+// param: Sid The unique string that identifies the Policy resource.
+//
+// return: TrusthubV1Policies
 func (c *DefaultApiService) FetchPolicies(Sid string) (*TrusthubV1Policies, error) {
 	path := "/v1/Policies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -872,12 +932,13 @@ func (c *DefaultApiService) FetchPolicies(Sid string) (*TrusthubV1Policies, erro
 	return ps, err
 }
 
-/*
-* FetchSupportingDocument Method for FetchSupportingDocument
-* Fetch specific Supporting Document Instance.
-* @param Sid The unique string created by Twilio to identify the Supporting Document resource.
-* @return TrusthubV1SupportingDocument
- */
+// FetchSupportingDocument Method for FetchSupportingDocument
+//
+// Fetch specific Supporting Document Instance.
+//
+// param: Sid The unique string created by Twilio to identify the Supporting Document resource.
+//
+// return: TrusthubV1SupportingDocument
 func (c *DefaultApiService) FetchSupportingDocument(Sid string) (*TrusthubV1SupportingDocument, error) {
 	path := "/v1/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -900,12 +961,13 @@ func (c *DefaultApiService) FetchSupportingDocument(Sid string) (*TrusthubV1Supp
 	return ps, err
 }
 
-/*
-* FetchSupportingDocumentType Method for FetchSupportingDocumentType
-* Fetch a specific Supporting Document Type Instance.
-* @param Sid The unique string that identifies the Supporting Document Type resource.
-* @return TrusthubV1SupportingDocumentType
- */
+// FetchSupportingDocumentType Method for FetchSupportingDocumentType
+//
+// Fetch a specific Supporting Document Type Instance.
+//
+// param: Sid The unique string that identifies the Supporting Document Type resource.
+//
+// return: TrusthubV1SupportingDocumentType
 func (c *DefaultApiService) FetchSupportingDocumentType(Sid string) (*TrusthubV1SupportingDocumentType, error) {
 	path := "/v1/SupportingDocumentTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -928,12 +990,13 @@ func (c *DefaultApiService) FetchSupportingDocumentType(Sid string) (*TrusthubV1
 	return ps, err
 }
 
-/*
-* FetchTrustProduct Method for FetchTrustProduct
-* Fetch a specific Customer-Profile instance.
-* @param Sid The unique string that we created to identify the Customer-Profile resource.
-* @return TrusthubV1TrustProduct
- */
+// FetchTrustProduct Method for FetchTrustProduct
+//
+// Fetch a specific Customer-Profile instance.
+//
+// param: Sid The unique string that we created to identify the Customer-Profile resource.
+//
+// return: TrusthubV1TrustProduct
 func (c *DefaultApiService) FetchTrustProduct(Sid string) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -956,13 +1019,15 @@ func (c *DefaultApiService) FetchTrustProduct(Sid string) (*TrusthubV1TrustProdu
 	return ps, err
 }
 
-/*
-* FetchTrustProductChannelEndpointAssignment Method for FetchTrustProductChannelEndpointAssignment
-* Fetch specific Assigned Item Instance.
-* @param TrustProductSid The unique string that we created to identify the CustomerProfile resource.
-* @param Sid The unique string that we created to identify the resource.
-* @return TrusthubV1TrustProductTrustProductChannelEndpointAssignment
- */
+// FetchTrustProductChannelEndpointAssignment Method for FetchTrustProductChannelEndpointAssignment
+//
+// Fetch specific Assigned Item Instance.
+//
+// param: TrustProductSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: Sid The unique string that we created to identify the resource.
+//
+// return: TrusthubV1TrustProductTrustProductChannelEndpointAssignment
 func (c *DefaultApiService) FetchTrustProductChannelEndpointAssignment(TrustProductSid string, Sid string) (*TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -986,13 +1051,15 @@ func (c *DefaultApiService) FetchTrustProductChannelEndpointAssignment(TrustProd
 	return ps, err
 }
 
-/*
-* FetchTrustProductEntityAssignment Method for FetchTrustProductEntityAssignment
-* Fetch specific Assigned Item Instance.
-* @param TrustProductSid The unique string that we created to identify the TrustProduct resource.
-* @param Sid The unique string that we created to identify the Identity resource.
-* @return TrusthubV1TrustProductTrustProductEntityAssignment
- */
+// FetchTrustProductEntityAssignment Method for FetchTrustProductEntityAssignment
+//
+// Fetch specific Assigned Item Instance.
+//
+// param: TrustProductSid The unique string that we created to identify the TrustProduct resource.
+//
+// param: Sid The unique string that we created to identify the Identity resource.
+//
+// return: TrusthubV1TrustProductTrustProductEntityAssignment
 func (c *DefaultApiService) FetchTrustProductEntityAssignment(TrustProductSid string, Sid string) (*TrusthubV1TrustProductTrustProductEntityAssignment, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -1016,13 +1083,15 @@ func (c *DefaultApiService) FetchTrustProductEntityAssignment(TrustProductSid st
 	return ps, err
 }
 
-/*
-* FetchTrustProductEvaluation Method for FetchTrustProductEvaluation
-* Fetch specific Evaluation Instance.
-* @param TrustProductSid The unique string that we created to identify the trust_product resource.
-* @param Sid The unique string that identifies the Evaluation resource.
-* @return TrusthubV1TrustProductTrustProductEvaluation
- */
+// FetchTrustProductEvaluation Method for FetchTrustProductEvaluation
+//
+// Fetch specific Evaluation Instance.
+//
+// param: TrustProductSid The unique string that we created to identify the trust_product resource.
+//
+// param: Sid The unique string that identifies the Evaluation resource.
+//
+// return: TrusthubV1TrustProductTrustProductEvaluation
 func (c *DefaultApiService) FetchTrustProductEvaluation(TrustProductSid string, Sid string) (*TrusthubV1TrustProductTrustProductEvaluation, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -1054,16 +1123,21 @@ type ListCustomerProfileParams struct {
 	PageSize     *int32  `json:"PageSize,omitempty"`
 }
 
-/*
-* ListCustomerProfile Method for ListCustomerProfile
-* Retrieve a list of all Customer-Profiles for an account.
-* @param optional nil or *ListCustomerProfileParams - Optional Parameters:
-* @param "Status" (string) - The verification status of the Customer-Profile resource.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @param "PolicySid" (string) - The unique string of a policy that is associated to the Customer-Profile resource.
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListCustomerProfileResponse
- */
+// ListCustomerProfile Method for ListCustomerProfile
+//
+// Retrieve a list of all Customer-Profiles for an account.
+//
+// param: optional nil or *ListCustomerProfileParams - Optional Parameters:
+//
+// param: "Status" (string) - The verification status of the Customer-Profile resource.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// param: "PolicySid" (string) - The unique string of a policy that is associated to the Customer-Profile resource.
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListCustomerProfileResponse
 func (c *DefaultApiService) ListCustomerProfile(params *ListCustomerProfileParams) (*ListCustomerProfileResponse, error) {
 	path := "/v1/CustomerProfiles"
 
@@ -1105,16 +1179,21 @@ type ListCustomerProfileChannelEndpointAssignmentParams struct {
 	PageSize            *int32  `json:"PageSize,omitempty"`
 }
 
-/*
-* ListCustomerProfileChannelEndpointAssignment Method for ListCustomerProfileChannelEndpointAssignment
-* Retrieve a list of all Assigned Items for an account.
-* @param CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
-* @param optional nil or *ListCustomerProfileChannelEndpointAssignmentParams - Optional Parameters:
-* @param "ChannelEndpointSid" (string) - The SID of an channel endpoint
-* @param "ChannelEndpointSids" (string) - comma separated list of channel endpoint sids
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListCustomerProfileChannelEndpointAssignmentResponse
- */
+// ListCustomerProfileChannelEndpointAssignment Method for ListCustomerProfileChannelEndpointAssignment
+//
+// Retrieve a list of all Assigned Items for an account.
+//
+// param: CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: optional nil or *ListCustomerProfileChannelEndpointAssignmentParams - Optional Parameters:
+//
+// param: "ChannelEndpointSid" (string) - The SID of an channel endpoint
+//
+// param: "ChannelEndpointSids" (string) - comma separated list of channel endpoint sids
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListCustomerProfileChannelEndpointAssignmentResponse
 func (c *DefaultApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams) (*ListCustomerProfileChannelEndpointAssignmentResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -1152,14 +1231,17 @@ type ListCustomerProfileEntityAssignmentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListCustomerProfileEntityAssignment Method for ListCustomerProfileEntityAssignment
-* Retrieve a list of all Assigned Items for an account.
-* @param CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
-* @param optional nil or *ListCustomerProfileEntityAssignmentParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListCustomerProfileEntityAssignmentResponse
- */
+// ListCustomerProfileEntityAssignment Method for ListCustomerProfileEntityAssignment
+//
+// Retrieve a list of all Assigned Items for an account.
+//
+// param: CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: optional nil or *ListCustomerProfileEntityAssignmentParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListCustomerProfileEntityAssignmentResponse
 func (c *DefaultApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) (*ListCustomerProfileEntityAssignmentResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -1191,14 +1273,17 @@ type ListCustomerProfileEvaluationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListCustomerProfileEvaluation Method for ListCustomerProfileEvaluation
-* Retrieve a list of Evaluations associated to the customer_profile resource.
-* @param CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
-* @param optional nil or *ListCustomerProfileEvaluationParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListCustomerProfileEvaluationResponse
- */
+// ListCustomerProfileEvaluation Method for ListCustomerProfileEvaluation
+//
+// Retrieve a list of Evaluations associated to the customer_profile resource.
+//
+// param: CustomerProfileSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: optional nil or *ListCustomerProfileEvaluationParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListCustomerProfileEvaluationResponse
 func (c *DefaultApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) (*ListCustomerProfileEvaluationResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -1230,13 +1315,15 @@ type ListEndUserParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListEndUser Method for ListEndUser
-* Retrieve a list of all End User for an account.
-* @param optional nil or *ListEndUserParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListEndUserResponse
- */
+// ListEndUser Method for ListEndUser
+//
+// Retrieve a list of all End User for an account.
+//
+// param: optional nil or *ListEndUserParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListEndUserResponse
 func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*ListEndUserResponse, error) {
 	path := "/v1/EndUsers"
 
@@ -1267,13 +1354,15 @@ type ListEndUserTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListEndUserType Method for ListEndUserType
-* Retrieve a list of all End-User Types.
-* @param optional nil or *ListEndUserTypeParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListEndUserTypeResponse
- */
+// ListEndUserType Method for ListEndUserType
+//
+// Retrieve a list of all End-User Types.
+//
+// param: optional nil or *ListEndUserTypeParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListEndUserTypeResponse
 func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*ListEndUserTypeResponse, error) {
 	path := "/v1/EndUserTypes"
 
@@ -1304,13 +1393,15 @@ type ListPoliciesParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListPolicies Method for ListPolicies
-* Retrieve a list of all Policys.
-* @param optional nil or *ListPoliciesParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListPoliciesResponse
- */
+// ListPolicies Method for ListPolicies
+//
+// Retrieve a list of all Policys.
+//
+// param: optional nil or *ListPoliciesParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListPoliciesResponse
 func (c *DefaultApiService) ListPolicies(params *ListPoliciesParams) (*ListPoliciesResponse, error) {
 	path := "/v1/Policies"
 
@@ -1341,13 +1432,15 @@ type ListSupportingDocumentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListSupportingDocument Method for ListSupportingDocument
-* Retrieve a list of all Supporting Document for an account.
-* @param optional nil or *ListSupportingDocumentParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListSupportingDocumentResponse
- */
+// ListSupportingDocument Method for ListSupportingDocument
+//
+// Retrieve a list of all Supporting Document for an account.
+//
+// param: optional nil or *ListSupportingDocumentParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListSupportingDocumentResponse
 func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumentParams) (*ListSupportingDocumentResponse, error) {
 	path := "/v1/SupportingDocuments"
 
@@ -1378,13 +1471,15 @@ type ListSupportingDocumentTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListSupportingDocumentType Method for ListSupportingDocumentType
-* Retrieve a list of all Supporting Document Types.
-* @param optional nil or *ListSupportingDocumentTypeParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListSupportingDocumentTypeResponse
- */
+// ListSupportingDocumentType Method for ListSupportingDocumentType
+//
+// Retrieve a list of all Supporting Document Types.
+//
+// param: optional nil or *ListSupportingDocumentTypeParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListSupportingDocumentTypeResponse
 func (c *DefaultApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams) (*ListSupportingDocumentTypeResponse, error) {
 	path := "/v1/SupportingDocumentTypes"
 
@@ -1418,16 +1513,21 @@ type ListTrustProductParams struct {
 	PageSize     *int32  `json:"PageSize,omitempty"`
 }
 
-/*
-* ListTrustProduct Method for ListTrustProduct
-* Retrieve a list of all Customer-Profiles for an account.
-* @param optional nil or *ListTrustProductParams - Optional Parameters:
-* @param "Status" (string) - The verification status of the Customer-Profile resource.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @param "PolicySid" (string) - The unique string of a policy that is associated to the Customer-Profile resource.
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListTrustProductResponse
- */
+// ListTrustProduct Method for ListTrustProduct
+//
+// Retrieve a list of all Customer-Profiles for an account.
+//
+// param: optional nil or *ListTrustProductParams - Optional Parameters:
+//
+// param: "Status" (string) - The verification status of the Customer-Profile resource.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// param: "PolicySid" (string) - The unique string of a policy that is associated to the Customer-Profile resource.
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListTrustProductResponse
 func (c *DefaultApiService) ListTrustProduct(params *ListTrustProductParams) (*ListTrustProductResponse, error) {
 	path := "/v1/TrustProducts"
 
@@ -1469,16 +1569,21 @@ type ListTrustProductChannelEndpointAssignmentParams struct {
 	PageSize            *int32  `json:"PageSize,omitempty"`
 }
 
-/*
-* ListTrustProductChannelEndpointAssignment Method for ListTrustProductChannelEndpointAssignment
-* Retrieve a list of all Assigned Items for an account.
-* @param TrustProductSid The unique string that we created to identify the CustomerProfile resource.
-* @param optional nil or *ListTrustProductChannelEndpointAssignmentParams - Optional Parameters:
-* @param "ChannelEndpointSid" (string) - The SID of an channel endpoint
-* @param "ChannelEndpointSids" (string) - comma separated list of channel endpoint sids
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListTrustProductChannelEndpointAssignmentResponse
- */
+// ListTrustProductChannelEndpointAssignment Method for ListTrustProductChannelEndpointAssignment
+//
+// Retrieve a list of all Assigned Items for an account.
+//
+// param: TrustProductSid The unique string that we created to identify the CustomerProfile resource.
+//
+// param: optional nil or *ListTrustProductChannelEndpointAssignmentParams - Optional Parameters:
+//
+// param: "ChannelEndpointSid" (string) - The SID of an channel endpoint
+//
+// param: "ChannelEndpointSids" (string) - comma separated list of channel endpoint sids
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListTrustProductChannelEndpointAssignmentResponse
 func (c *DefaultApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams) (*ListTrustProductChannelEndpointAssignmentResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -1516,14 +1621,17 @@ type ListTrustProductEntityAssignmentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListTrustProductEntityAssignment Method for ListTrustProductEntityAssignment
-* Retrieve a list of all Assigned Items for an account.
-* @param TrustProductSid The unique string that we created to identify the TrustProduct resource.
-* @param optional nil or *ListTrustProductEntityAssignmentParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListTrustProductEntityAssignmentResponse
- */
+// ListTrustProductEntityAssignment Method for ListTrustProductEntityAssignment
+//
+// Retrieve a list of all Assigned Items for an account.
+//
+// param: TrustProductSid The unique string that we created to identify the TrustProduct resource.
+//
+// param: optional nil or *ListTrustProductEntityAssignmentParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListTrustProductEntityAssignmentResponse
 func (c *DefaultApiService) ListTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) (*ListTrustProductEntityAssignmentResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -1555,14 +1663,17 @@ type ListTrustProductEvaluationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListTrustProductEvaluation Method for ListTrustProductEvaluation
-* Retrieve a list of Evaluations associated to the trust_product resource.
-* @param TrustProductSid The unique string that we created to identify the trust_product resource.
-* @param optional nil or *ListTrustProductEvaluationParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListTrustProductEvaluationResponse
- */
+// ListTrustProductEvaluation Method for ListTrustProductEvaluation
+//
+// Retrieve a list of Evaluations associated to the trust_product resource.
+//
+// param: TrustProductSid The unique string that we created to identify the trust_product resource.
+//
+// param: optional nil or *ListTrustProductEvaluationParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListTrustProductEvaluationResponse
 func (c *DefaultApiService) ListTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) (*ListTrustProductEvaluationResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -1597,17 +1708,23 @@ type UpdateCustomerProfileParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
-/*
-* UpdateCustomerProfile Method for UpdateCustomerProfile
-* Updates a Customer-Profile in an account.
-* @param Sid The unique string that we created to identify the Customer-Profile resource.
-* @param optional nil or *UpdateCustomerProfileParams - Optional Parameters:
-* @param "Email" (string) - The email address that will receive updates when the Customer-Profile resource changes status.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @param "Status" (string) - The verification status of the Customer-Profile resource.
-* @param "StatusCallback" (string) - The URL we call to inform your application of status changes.
-* @return TrusthubV1CustomerProfile
- */
+// UpdateCustomerProfile Method for UpdateCustomerProfile
+//
+// Updates a Customer-Profile in an account.
+//
+// param: Sid The unique string that we created to identify the Customer-Profile resource.
+//
+// param: optional nil or *UpdateCustomerProfileParams - Optional Parameters:
+//
+// param: "Email" (string) - The email address that will receive updates when the Customer-Profile resource changes status.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// param: "Status" (string) - The verification status of the Customer-Profile resource.
+//
+// param: "StatusCallback" (string) - The URL we call to inform your application of status changes.
+//
+// return: TrusthubV1CustomerProfile
 func (c *DefaultApiService) UpdateCustomerProfile(Sid string, params *UpdateCustomerProfileParams) (*TrusthubV1CustomerProfile, error) {
 	path := "/v1/CustomerProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1649,15 +1766,19 @@ type UpdateEndUserParams struct {
 	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 }
 
-/*
-* UpdateEndUser Method for UpdateEndUser
-* Update an existing End User.
-* @param Sid The unique string created by Twilio to identify the End User resource.
-* @param optional nil or *UpdateEndUserParams - Optional Parameters:
-* @param "Attributes" (map[string]interface{}) - The set of parameters that are the attributes of the End User resource which are derived End User Types.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @return TrusthubV1EndUser
- */
+// UpdateEndUser Method for UpdateEndUser
+//
+// Update an existing End User.
+//
+// param: Sid The unique string created by Twilio to identify the End User resource.
+//
+// param: optional nil or *UpdateEndUserParams - Optional Parameters:
+//
+// param: "Attributes" (map[string]interface{}) - The set of parameters that are the attributes of the End User resource which are derived End User Types.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// return: TrusthubV1EndUser
 func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*TrusthubV1EndUser, error) {
 	path := "/v1/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1699,15 +1820,19 @@ type UpdateSupportingDocumentParams struct {
 	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 }
 
-/*
-* UpdateSupportingDocument Method for UpdateSupportingDocument
-* Update an existing Supporting Document.
-* @param Sid The unique string created by Twilio to identify the Supporting Document resource.
-* @param optional nil or *UpdateSupportingDocumentParams - Optional Parameters:
-* @param "Attributes" (map[string]interface{}) - The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @return TrusthubV1SupportingDocument
- */
+// UpdateSupportingDocument Method for UpdateSupportingDocument
+//
+// Update an existing Supporting Document.
+//
+// param: Sid The unique string created by Twilio to identify the Supporting Document resource.
+//
+// param: optional nil or *UpdateSupportingDocumentParams - Optional Parameters:
+//
+// param: "Attributes" (map[string]interface{}) - The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// return: TrusthubV1SupportingDocument
 func (c *DefaultApiService) UpdateSupportingDocument(Sid string, params *UpdateSupportingDocumentParams) (*TrusthubV1SupportingDocument, error) {
 	path := "/v1/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1751,17 +1876,23 @@ type UpdateTrustProductParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
-/*
-* UpdateTrustProduct Method for UpdateTrustProduct
-* Updates a Customer-Profile in an account.
-* @param Sid The unique string that we created to identify the Customer-Profile resource.
-* @param optional nil or *UpdateTrustProductParams - Optional Parameters:
-* @param "Email" (string) - The email address that will receive updates when the Customer-Profile resource changes status.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @param "Status" (string) - The verification status of the Customer-Profile resource.
-* @param "StatusCallback" (string) - The URL we call to inform your application of status changes.
-* @return TrusthubV1TrustProduct
- */
+// UpdateTrustProduct Method for UpdateTrustProduct
+//
+// Updates a Customer-Profile in an account.
+//
+// param: Sid The unique string that we created to identify the Customer-Profile resource.
+//
+// param: optional nil or *UpdateTrustProductParams - Optional Parameters:
+//
+// param: "Email" (string) - The email address that will receive updates when the Customer-Profile resource changes status.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// param: "Status" (string) - The verification status of the Customer-Profile resource.
+//
+// param: "StatusCallback" (string) - The URL we call to inform your application of status changes.
+//
+// return: TrusthubV1TrustProduct
 func (c *DefaultApiService) UpdateTrustProduct(Sid string, params *UpdateTrustProductParams) (*TrusthubV1TrustProduct, error) {
 	path := "/v1/TrustProducts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

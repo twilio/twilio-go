@@ -1,6 +1,7 @@
 # ListVideoParticipantSummaryResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Meta** | [**ListVideoRoomSummaryResponseMeta**](ListVideoRoomSummaryResponse_meta.md) |  |[optional] 

@@ -1,6 +1,7 @@
 # VerifyV2ServiceEntity
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | Account Sid. |

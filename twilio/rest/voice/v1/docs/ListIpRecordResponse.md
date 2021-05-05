@@ -1,6 +1,7 @@
 # ListIpRecordResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IpRecords** | [**[]VoiceV1IpRecord**](voice.v1.ip_record.md) |  |[optional] 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -46,21 +46,31 @@ type CreateByocTrunkParams struct {
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
 }
 
-/*
-* CreateByocTrunk Method for CreateByocTrunk
-* @param optional nil or *CreateByocTrunkParams - Optional Parameters:
-* @param "CnamLookupEnabled" (bool) - Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-* @param "ConnectionPolicySid" (string) - The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
-* @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-* @param "FromDomainSid" (string) - The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
-* @param "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
-* @param "StatusCallbackUrl" (string) - The URL that we should call to pass status parameters (such as call ended) to your application.
-* @param "VoiceFallbackMethod" (string) - The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-* @param "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
-* @param "VoiceMethod" (string) - The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-* @param "VoiceUrl" (string) - The URL we should call when the BYOC Trunk receives a call.
-* @return VoiceV1ByocTrunk
- */
+// CreateByocTrunk Method for CreateByocTrunk
+//
+// param: optional nil or *CreateByocTrunkParams - Optional Parameters:
+//
+// param: "CnamLookupEnabled" (bool) - Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+//
+// param: "ConnectionPolicySid" (string) - The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
+//
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+//
+// param: "FromDomainSid" (string) - The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
+//
+// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
+//
+// param: "StatusCallbackUrl" (string) - The URL that we should call to pass status parameters (such as call ended) to your application.
+//
+// param: "VoiceFallbackMethod" (string) - The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+//
+// param: "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
+//
+// param: "VoiceMethod" (string) - The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+//
+// param: "VoiceUrl" (string) - The URL we should call when the BYOC Trunk receives a call.
+//
+// return: VoiceV1ByocTrunk
 func (c *DefaultApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks"
 
@@ -118,12 +128,13 @@ type CreateConnectionPolicyParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-/*
-* CreateConnectionPolicy Method for CreateConnectionPolicy
-* @param optional nil or *CreateConnectionPolicyParams - Optional Parameters:
-* @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-* @return VoiceV1ConnectionPolicy
- */
+// CreateConnectionPolicy Method for CreateConnectionPolicy
+//
+// param: optional nil or *CreateConnectionPolicyParams - Optional Parameters:
+//
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+//
+// return: VoiceV1ConnectionPolicy
 func (c *DefaultApiService) CreateConnectionPolicy(params *CreateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies"
 
@@ -158,17 +169,23 @@ type CreateConnectionPolicyTargetParams struct {
 	Weight       *int32  `json:"Weight,omitempty"`
 }
 
-/*
-* CreateConnectionPolicyTarget Method for CreateConnectionPolicyTarget
-* @param ConnectionPolicySid The SID of the Connection Policy that owns the Target.
-* @param optional nil or *CreateConnectionPolicyTargetParams - Optional Parameters:
-* @param "Enabled" (bool) - Whether the Target is enabled. The default is `true`.
-* @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-* @param "Priority" (int32) - The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
-* @param "Target" (string) - The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
-* @param "Weight" (int32) - The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
-* @return VoiceV1ConnectionPolicyConnectionPolicyTarget
- */
+// CreateConnectionPolicyTarget Method for CreateConnectionPolicyTarget
+//
+// param: ConnectionPolicySid The SID of the Connection Policy that owns the Target.
+//
+// param: optional nil or *CreateConnectionPolicyTargetParams - Optional Parameters:
+//
+// param: "Enabled" (bool) - Whether the Target is enabled. The default is `true`.
+//
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+//
+// param: "Priority" (int32) - The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
+//
+// param: "Target" (string) - The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
+//
+// param: "Weight" (int32) - The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
+//
+// return: VoiceV1ConnectionPolicyConnectionPolicyTarget
 func (c *DefaultApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -212,13 +229,15 @@ type CreateDialingPermissionsCountryBulkUpdateParams struct {
 	UpdateRequest *string `json:"UpdateRequest,omitempty"`
 }
 
-/*
-* CreateDialingPermissionsCountryBulkUpdate Method for CreateDialingPermissionsCountryBulkUpdate
-* Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-* @param optional nil or *CreateDialingPermissionsCountryBulkUpdateParams - Optional Parameters:
-* @param "UpdateRequest" (string) - URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
-* @return VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate
- */
+// CreateDialingPermissionsCountryBulkUpdate Method for CreateDialingPermissionsCountryBulkUpdate
+//
+// Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+//
+// param: optional nil or *CreateDialingPermissionsCountryBulkUpdateParams - Optional Parameters:
+//
+// param: "UpdateRequest" (string) - URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
+//
+// return: VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate
 func (c *DefaultApiService) CreateDialingPermissionsCountryBulkUpdate(params *CreateDialingPermissionsCountryBulkUpdateParams) (*VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate, error) {
 	path := "/v1/DialingPermissions/BulkCountryUpdates"
 
@@ -251,14 +270,17 @@ type CreateIpRecordParams struct {
 	IpAddress        *string `json:"IpAddress,omitempty"`
 }
 
-/*
-* CreateIpRecord Method for CreateIpRecord
-* @param optional nil or *CreateIpRecordParams - Optional Parameters:
-* @param "CidrPrefixLength" (int32) - An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
-* @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-* @param "IpAddress" (string) - An IP address in dotted decimal notation, IPv4 only.
-* @return VoiceV1IpRecord
- */
+// CreateIpRecord Method for CreateIpRecord
+//
+// param: optional nil or *CreateIpRecordParams - Optional Parameters:
+//
+// param: "CidrPrefixLength" (int32) - An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
+//
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+//
+// param: "IpAddress" (string) - An IP address in dotted decimal notation, IPv4 only.
+//
+// return: VoiceV1IpRecord
 func (c *DefaultApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords"
 
@@ -296,13 +318,15 @@ type CreateSourceIpMappingParams struct {
 	SipDomainSid *string `json:"SipDomainSid,omitempty"`
 }
 
-/*
-* CreateSourceIpMapping Method for CreateSourceIpMapping
-* @param optional nil or *CreateSourceIpMappingParams - Optional Parameters:
-* @param "IpRecordSid" (string) - The Twilio-provided string that uniquely identifies the IP Record resource to map from.
-* @param "SipDomainSid" (string) - The SID of the SIP Domain that the IP Record should be mapped to.
-* @return VoiceV1SourceIpMapping
- */
+// CreateSourceIpMapping Method for CreateSourceIpMapping
+//
+// param: optional nil or *CreateSourceIpMappingParams - Optional Parameters:
+//
+// param: "IpRecordSid" (string) - The Twilio-provided string that uniquely identifies the IP Record resource to map from.
+//
+// param: "SipDomainSid" (string) - The SID of the SIP Domain that the IP Record should be mapped to.
+//
+// return: VoiceV1SourceIpMapping
 func (c *DefaultApiService) CreateSourceIpMapping(params *CreateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings"
 
@@ -331,10 +355,10 @@ func (c *DefaultApiService) CreateSourceIpMapping(params *CreateSourceIpMappingP
 	return ps, err
 }
 
-/*
-* DeleteByocTrunk Method for DeleteByocTrunk
-* @param Sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to delete.
- */
+// DeleteByocTrunk Method for DeleteByocTrunk
+//
+// param: Sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to delete.
+//
 func (c *DefaultApiService) DeleteByocTrunk(Sid string) error {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -352,10 +376,10 @@ func (c *DefaultApiService) DeleteByocTrunk(Sid string) error {
 	return nil
 }
 
-/*
-* DeleteConnectionPolicy Method for DeleteConnectionPolicy
-* @param Sid The unique string that we created to identify the Connection Policy resource to delete.
- */
+// DeleteConnectionPolicy Method for DeleteConnectionPolicy
+//
+// param: Sid The unique string that we created to identify the Connection Policy resource to delete.
+//
 func (c *DefaultApiService) DeleteConnectionPolicy(Sid string) error {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -373,11 +397,12 @@ func (c *DefaultApiService) DeleteConnectionPolicy(Sid string) error {
 	return nil
 }
 
-/*
-* DeleteConnectionPolicyTarget Method for DeleteConnectionPolicyTarget
-* @param ConnectionPolicySid The SID of the Connection Policy that owns the Target.
-* @param Sid The unique string that we created to identify the Target resource to delete.
- */
+// DeleteConnectionPolicyTarget Method for DeleteConnectionPolicyTarget
+//
+// param: ConnectionPolicySid The SID of the Connection Policy that owns the Target.
+//
+// param: Sid The unique string that we created to identify the Target resource to delete.
+//
 func (c *DefaultApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Sid string) error {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -396,10 +421,10 @@ func (c *DefaultApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid str
 	return nil
 }
 
-/*
-* DeleteIpRecord Method for DeleteIpRecord
-* @param Sid The Twilio-provided string that uniquely identifies the IP Record resource to delete.
- */
+// DeleteIpRecord Method for DeleteIpRecord
+//
+// param: Sid The Twilio-provided string that uniquely identifies the IP Record resource to delete.
+//
 func (c *DefaultApiService) DeleteIpRecord(Sid string) error {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -417,10 +442,10 @@ func (c *DefaultApiService) DeleteIpRecord(Sid string) error {
 	return nil
 }
 
-/*
-* DeleteSourceIpMapping Method for DeleteSourceIpMapping
-* @param Sid The Twilio-provided string that uniquely identifies the IP Record resource to delete.
- */
+// DeleteSourceIpMapping Method for DeleteSourceIpMapping
+//
+// param: Sid The Twilio-provided string that uniquely identifies the IP Record resource to delete.
+//
 func (c *DefaultApiService) DeleteSourceIpMapping(Sid string) error {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -438,11 +463,11 @@ func (c *DefaultApiService) DeleteSourceIpMapping(Sid string) error {
 	return nil
 }
 
-/*
-* FetchByocTrunk Method for FetchByocTrunk
-* @param Sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to fetch.
-* @return VoiceV1ByocTrunk
- */
+// FetchByocTrunk Method for FetchByocTrunk
+//
+// param: Sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to fetch.
+//
+// return: VoiceV1ByocTrunk
 func (c *DefaultApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -465,11 +490,11 @@ func (c *DefaultApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error
 	return ps, err
 }
 
-/*
-* FetchConnectionPolicy Method for FetchConnectionPolicy
-* @param Sid The unique string that we created to identify the Connection Policy resource to fetch.
-* @return VoiceV1ConnectionPolicy
- */
+// FetchConnectionPolicy Method for FetchConnectionPolicy
+//
+// param: Sid The unique string that we created to identify the Connection Policy resource to fetch.
+//
+// return: VoiceV1ConnectionPolicy
 func (c *DefaultApiService) FetchConnectionPolicy(Sid string) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -492,12 +517,13 @@ func (c *DefaultApiService) FetchConnectionPolicy(Sid string) (*VoiceV1Connectio
 	return ps, err
 }
 
-/*
-* FetchConnectionPolicyTarget Method for FetchConnectionPolicyTarget
-* @param ConnectionPolicySid The SID of the Connection Policy that owns the Target.
-* @param Sid The unique string that we created to identify the Target resource to fetch.
-* @return VoiceV1ConnectionPolicyConnectionPolicyTarget
- */
+// FetchConnectionPolicyTarget Method for FetchConnectionPolicyTarget
+//
+// param: ConnectionPolicySid The SID of the Connection Policy that owns the Target.
+//
+// param: Sid The unique string that we created to identify the Target resource to fetch.
+//
+// return: VoiceV1ConnectionPolicyConnectionPolicyTarget
 func (c *DefaultApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid string) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -521,12 +547,13 @@ func (c *DefaultApiService) FetchConnectionPolicyTarget(ConnectionPolicySid stri
 	return ps, err
 }
 
-/*
-* FetchDialingPermissionsCountry Method for FetchDialingPermissionsCountry
-* Retrieve voice dialing country permissions identified by the given ISO country code
-* @param IsoCode The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
-* @return VoiceV1DialingPermissionsDialingPermissionsCountryInstance
- */
+// FetchDialingPermissionsCountry Method for FetchDialingPermissionsCountry
+//
+// Retrieve voice dialing country permissions identified by the given ISO country code
+//
+// param: IsoCode The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
+//
+// return: VoiceV1DialingPermissionsDialingPermissionsCountryInstance
 func (c *DefaultApiService) FetchDialingPermissionsCountry(IsoCode string) (*VoiceV1DialingPermissionsDialingPermissionsCountryInstance, error) {
 	path := "/v1/DialingPermissions/Countries/{IsoCode}"
 	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
@@ -549,11 +576,11 @@ func (c *DefaultApiService) FetchDialingPermissionsCountry(IsoCode string) (*Voi
 	return ps, err
 }
 
-/*
-* FetchDialingPermissionsSettings Method for FetchDialingPermissionsSettings
-* Retrieve voice dialing permissions inheritance for the sub-account
-* @return VoiceV1DialingPermissionsDialingPermissionsSettings
- */
+// FetchDialingPermissionsSettings Method for FetchDialingPermissionsSettings
+//
+// Retrieve voice dialing permissions inheritance for the sub-account
+//
+// return: VoiceV1DialingPermissionsDialingPermissionsSettings
 func (c *DefaultApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPermissionsDialingPermissionsSettings, error) {
 	path := "/v1/Settings"
 
@@ -575,11 +602,11 @@ func (c *DefaultApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPe
 	return ps, err
 }
 
-/*
-* FetchIpRecord Method for FetchIpRecord
-* @param Sid The Twilio-provided string that uniquely identifies the IP Record resource to fetch.
-* @return VoiceV1IpRecord
- */
+// FetchIpRecord Method for FetchIpRecord
+//
+// param: Sid The Twilio-provided string that uniquely identifies the IP Record resource to fetch.
+//
+// return: VoiceV1IpRecord
 func (c *DefaultApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -602,11 +629,11 @@ func (c *DefaultApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) 
 	return ps, err
 }
 
-/*
-* FetchSourceIpMapping Method for FetchSourceIpMapping
-* @param Sid The Twilio-provided string that uniquely identifies the IP Record resource to fetch.
-* @return VoiceV1SourceIpMapping
- */
+// FetchSourceIpMapping Method for FetchSourceIpMapping
+//
+// param: Sid The Twilio-provided string that uniquely identifies the IP Record resource to fetch.
+//
+// return: VoiceV1SourceIpMapping
 func (c *DefaultApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -634,12 +661,13 @@ type ListByocTrunkParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListByocTrunk Method for ListByocTrunk
-* @param optional nil or *ListByocTrunkParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListByocTrunkResponse
- */
+// ListByocTrunk Method for ListByocTrunk
+//
+// param: optional nil or *ListByocTrunkParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListByocTrunkResponse
 func (c *DefaultApiService) ListByocTrunk(params *ListByocTrunkParams) (*ListByocTrunkResponse, error) {
 	path := "/v1/ByocTrunks"
 
@@ -670,12 +698,13 @@ type ListConnectionPolicyParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListConnectionPolicy Method for ListConnectionPolicy
-* @param optional nil or *ListConnectionPolicyParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListConnectionPolicyResponse
- */
+// ListConnectionPolicy Method for ListConnectionPolicy
+//
+// param: optional nil or *ListConnectionPolicyParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListConnectionPolicyResponse
 func (c *DefaultApiService) ListConnectionPolicy(params *ListConnectionPolicyParams) (*ListConnectionPolicyResponse, error) {
 	path := "/v1/ConnectionPolicies"
 
@@ -706,13 +735,15 @@ type ListConnectionPolicyTargetParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListConnectionPolicyTarget Method for ListConnectionPolicyTarget
-* @param ConnectionPolicySid The SID of the Connection Policy from which to read the Targets.
-* @param optional nil or *ListConnectionPolicyTargetParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListConnectionPolicyTargetResponse
- */
+// ListConnectionPolicyTarget Method for ListConnectionPolicyTarget
+//
+// param: ConnectionPolicySid The SID of the Connection Policy from which to read the Targets.
+//
+// param: optional nil or *ListConnectionPolicyTargetParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListConnectionPolicyTargetResponse
 func (c *DefaultApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) (*ListConnectionPolicyTargetResponse, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -750,19 +781,27 @@ type ListDialingPermissionsCountryParams struct {
 	PageSize                        *int32  `json:"PageSize,omitempty"`
 }
 
-/*
-* ListDialingPermissionsCountry Method for ListDialingPermissionsCountry
-* Retrieve all voice dialing country permissions for this account
-* @param optional nil or *ListDialingPermissionsCountryParams - Optional Parameters:
-* @param "IsoCode" (string) - Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-* @param "Continent" (string) - Filter to retrieve the country permissions by specifying the continent
-* @param "CountryCode" (string) - Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
-* @param "LowRiskNumbersEnabled" (bool) - Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
-* @param "HighRiskSpecialNumbersEnabled" (bool) - Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
-* @param "HighRiskTollfraudNumbersEnabled" (bool) - Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`.
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListDialingPermissionsCountryResponse
- */
+// ListDialingPermissionsCountry Method for ListDialingPermissionsCountry
+//
+// Retrieve all voice dialing country permissions for this account
+//
+// param: optional nil or *ListDialingPermissionsCountryParams - Optional Parameters:
+//
+// param: "IsoCode" (string) - Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+//
+// param: "Continent" (string) - Filter to retrieve the country permissions by specifying the continent
+//
+// param: "CountryCode" (string) - Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
+//
+// param: "LowRiskNumbersEnabled" (bool) - Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
+//
+// param: "HighRiskSpecialNumbersEnabled" (bool) - Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
+//
+// param: "HighRiskTollfraudNumbersEnabled" (bool) - Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`.
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListDialingPermissionsCountryResponse
 func (c *DefaultApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams) (*ListDialingPermissionsCountryResponse, error) {
 	path := "/v1/DialingPermissions/Countries"
 
@@ -811,14 +850,17 @@ type ListDialingPermissionsHrsPrefixesParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListDialingPermissionsHrsPrefixes Method for ListDialingPermissionsHrsPrefixes
-* Fetch the high-risk special services prefixes from the country resource corresponding to the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-* @param IsoCode The [ISO 3166-1 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) to identify the country permissions from which high-risk special service number prefixes are fetched
-* @param optional nil or *ListDialingPermissionsHrsPrefixesParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListDialingPermissionsHrsPrefixesResponse
- */
+// ListDialingPermissionsHrsPrefixes Method for ListDialingPermissionsHrsPrefixes
+//
+// Fetch the high-risk special services prefixes from the country resource corresponding to the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+//
+// param: IsoCode The [ISO 3166-1 country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) to identify the country permissions from which high-risk special service number prefixes are fetched
+//
+// param: optional nil or *ListDialingPermissionsHrsPrefixesParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListDialingPermissionsHrsPrefixesResponse
 func (c *DefaultApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) (*ListDialingPermissionsHrsPrefixesResponse, error) {
 	path := "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes"
 	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
@@ -850,12 +892,13 @@ type ListIpRecordParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListIpRecord Method for ListIpRecord
-* @param optional nil or *ListIpRecordParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListIpRecordResponse
- */
+// ListIpRecord Method for ListIpRecord
+//
+// param: optional nil or *ListIpRecordParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListIpRecordResponse
 func (c *DefaultApiService) ListIpRecord(params *ListIpRecordParams) (*ListIpRecordResponse, error) {
 	path := "/v1/IpRecords"
 
@@ -886,12 +929,13 @@ type ListSourceIpMappingParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListSourceIpMapping Method for ListSourceIpMapping
-* @param optional nil or *ListSourceIpMappingParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListSourceIpMappingResponse
- */
+// ListSourceIpMapping Method for ListSourceIpMapping
+//
+// param: optional nil or *ListSourceIpMappingParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListSourceIpMappingResponse
 func (c *DefaultApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) (*ListSourceIpMappingResponse, error) {
 	path := "/v1/SourceIpMappings"
 
@@ -931,22 +975,33 @@ type UpdateByocTrunkParams struct {
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
 }
 
-/*
-* UpdateByocTrunk Method for UpdateByocTrunk
-* @param Sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update.
-* @param optional nil or *UpdateByocTrunkParams - Optional Parameters:
-* @param "CnamLookupEnabled" (bool) - Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
-* @param "ConnectionPolicySid" (string) - The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
-* @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-* @param "FromDomainSid" (string) - The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
-* @param "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
-* @param "StatusCallbackUrl" (string) - The URL that we should call to pass status parameters (such as call ended) to your application.
-* @param "VoiceFallbackMethod" (string) - The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-* @param "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
-* @param "VoiceMethod" (string) - The HTTP method we should use to call `voice_url`
-* @param "VoiceUrl" (string) - The URL we should call when the BYOC Trunk receives a call.
-* @return VoiceV1ByocTrunk
- */
+// UpdateByocTrunk Method for UpdateByocTrunk
+//
+// param: Sid The Twilio-provided string that uniquely identifies the BYOC Trunk resource to update.
+//
+// param: optional nil or *UpdateByocTrunkParams - Optional Parameters:
+//
+// param: "CnamLookupEnabled" (bool) - Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
+//
+// param: "ConnectionPolicySid" (string) - The SID of the Connection Policy that Twilio will use when routing traffic to your communications infrastructure.
+//
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+//
+// param: "FromDomainSid" (string) - The SID of the SIP Domain that should be used in the `From` header of originating calls sent to your SIP infrastructure. If your SIP infrastructure allows users to \\\"call back\\\" an incoming call, configure this with a [SIP Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper routing. If not configured, the from domain will default to \\\"sip.twilio.com\\\".
+//
+// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback_url`. Can be: `GET` or `POST`.
+//
+// param: "StatusCallbackUrl" (string) - The URL that we should call to pass status parameters (such as call ended) to your application.
+//
+// param: "VoiceFallbackMethod" (string) - The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+//
+// param: "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
+//
+// param: "VoiceMethod" (string) - The HTTP method we should use to call `voice_url`
+//
+// param: "VoiceUrl" (string) - The URL we should call when the BYOC Trunk receives a call.
+//
+// return: VoiceV1ByocTrunk
 func (c *DefaultApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) (*VoiceV1ByocTrunk, error) {
 	path := "/v1/ByocTrunks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1005,13 +1060,15 @@ type UpdateConnectionPolicyParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-/*
-* UpdateConnectionPolicy Method for UpdateConnectionPolicy
-* @param Sid The unique string that we created to identify the Connection Policy resource to update.
-* @param optional nil or *UpdateConnectionPolicyParams - Optional Parameters:
-* @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-* @return VoiceV1ConnectionPolicy
- */
+// UpdateConnectionPolicy Method for UpdateConnectionPolicy
+//
+// param: Sid The unique string that we created to identify the Connection Policy resource to update.
+//
+// param: optional nil or *UpdateConnectionPolicyParams - Optional Parameters:
+//
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+//
+// return: VoiceV1ConnectionPolicy
 func (c *DefaultApiService) UpdateConnectionPolicy(Sid string, params *UpdateConnectionPolicyParams) (*VoiceV1ConnectionPolicy, error) {
 	path := "/v1/ConnectionPolicies/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1047,18 +1104,25 @@ type UpdateConnectionPolicyTargetParams struct {
 	Weight       *int32  `json:"Weight,omitempty"`
 }
 
-/*
-* UpdateConnectionPolicyTarget Method for UpdateConnectionPolicyTarget
-* @param ConnectionPolicySid The SID of the Connection Policy that owns the Target.
-* @param Sid The unique string that we created to identify the Target resource to update.
-* @param optional nil or *UpdateConnectionPolicyTargetParams - Optional Parameters:
-* @param "Enabled" (bool) - Whether the Target is enabled.
-* @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-* @param "Priority" (int32) - The relative importance of the target. Can be an integer from 0 to 65535, inclusive. The lowest number represents the most important target.
-* @param "Target" (string) - The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
-* @param "Weight" (int32) - The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority.
-* @return VoiceV1ConnectionPolicyConnectionPolicyTarget
- */
+// UpdateConnectionPolicyTarget Method for UpdateConnectionPolicyTarget
+//
+// param: ConnectionPolicySid The SID of the Connection Policy that owns the Target.
+//
+// param: Sid The unique string that we created to identify the Target resource to update.
+//
+// param: optional nil or *UpdateConnectionPolicyTargetParams - Optional Parameters:
+//
+// param: "Enabled" (bool) - Whether the Target is enabled.
+//
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+//
+// param: "Priority" (int32) - The relative importance of the target. Can be an integer from 0 to 65535, inclusive. The lowest number represents the most important target.
+//
+// param: "Target" (string) - The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
+//
+// param: "Weight" (int32) - The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority.
+//
+// return: VoiceV1ConnectionPolicyConnectionPolicyTarget
 func (c *DefaultApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
@@ -1103,13 +1167,15 @@ type UpdateDialingPermissionsSettingsParams struct {
 	DialingPermissionsInheritance *bool `json:"DialingPermissionsInheritance,omitempty"`
 }
 
-/*
-* UpdateDialingPermissionsSettings Method for UpdateDialingPermissionsSettings
-* Update voice dialing permissions inheritance for the sub-account
-* @param optional nil or *UpdateDialingPermissionsSettingsParams - Optional Parameters:
-* @param "DialingPermissionsInheritance" (bool) - `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
-* @return VoiceV1DialingPermissionsDialingPermissionsSettings
- */
+// UpdateDialingPermissionsSettings Method for UpdateDialingPermissionsSettings
+//
+// Update voice dialing permissions inheritance for the sub-account
+//
+// param: optional nil or *UpdateDialingPermissionsSettingsParams - Optional Parameters:
+//
+// param: "DialingPermissionsInheritance" (bool) - `true` for the sub-account to inherit voice dialing permissions from the Master Project; otherwise `false`.
+//
+// return: VoiceV1DialingPermissionsDialingPermissionsSettings
 func (c *DefaultApiService) UpdateDialingPermissionsSettings(params *UpdateDialingPermissionsSettingsParams) (*VoiceV1DialingPermissionsDialingPermissionsSettings, error) {
 	path := "/v1/Settings"
 
@@ -1140,13 +1206,15 @@ type UpdateIpRecordParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-/*
-* UpdateIpRecord Method for UpdateIpRecord
-* @param Sid The Twilio-provided string that uniquely identifies the IP Record resource to update.
-* @param optional nil or *UpdateIpRecordParams - Optional Parameters:
-* @param "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-* @return VoiceV1IpRecord
- */
+// UpdateIpRecord Method for UpdateIpRecord
+//
+// param: Sid The Twilio-provided string that uniquely identifies the IP Record resource to update.
+//
+// param: optional nil or *UpdateIpRecordParams - Optional Parameters:
+//
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+//
+// return: VoiceV1IpRecord
 func (c *DefaultApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordParams) (*VoiceV1IpRecord, error) {
 	path := "/v1/IpRecords/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1178,13 +1246,15 @@ type UpdateSourceIpMappingParams struct {
 	SipDomainSid *string `json:"SipDomainSid,omitempty"`
 }
 
-/*
-* UpdateSourceIpMapping Method for UpdateSourceIpMapping
-* @param Sid The Twilio-provided string that uniquely identifies the IP Record resource to update.
-* @param optional nil or *UpdateSourceIpMappingParams - Optional Parameters:
-* @param "SipDomainSid" (string) - The SID of the SIP Domain that the IP Record should be mapped to.
-* @return VoiceV1SourceIpMapping
- */
+// UpdateSourceIpMapping Method for UpdateSourceIpMapping
+//
+// param: Sid The Twilio-provided string that uniquely identifies the IP Record resource to update.
+//
+// param: optional nil or *UpdateSourceIpMappingParams - Optional Parameters:
+//
+// param: "SipDomainSid" (string) - The SID of the SIP Domain that the IP Record should be mapped to.
+//
+// return: VoiceV1SourceIpMapping
 func (c *DefaultApiService) UpdateSourceIpMapping(Sid string, params *UpdateSourceIpMappingParams) (*VoiceV1SourceIpMapping, error) {
 	path := "/v1/SourceIpMappings/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

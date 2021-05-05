@@ -1,6 +1,7 @@
 # InsightsV1VideoRoomSummary
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | Account SID associated with this room. |

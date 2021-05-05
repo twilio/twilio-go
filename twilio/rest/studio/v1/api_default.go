@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -40,16 +40,21 @@ type CreateEngagementParams struct {
 	To         *string                 `json:"To,omitempty"`
 }
 
-/*
-* CreateEngagement Method for CreateEngagement
-* Triggers a new Engagement for the Flow
-* @param FlowSid The SID of the Flow.
-* @param optional nil or *CreateEngagementParams - Optional Parameters:
-* @param "From" (string) - The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
-* @param "Parameters" (map[string]interface{}) - A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
-* @param "To" (string) - The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
-* @return StudioV1FlowEngagement
- */
+// CreateEngagement Method for CreateEngagement
+//
+// Triggers a new Engagement for the Flow
+//
+// param: FlowSid The SID of the Flow.
+//
+// param: optional nil or *CreateEngagementParams - Optional Parameters:
+//
+// param: "From" (string) - The Twilio phone number to send messages or initiate calls from during the Flow Engagement. Available as variable `{{flow.channel.address}}`
+//
+// param: "Parameters" (map[string]interface{}) - A JSON string we will add to your flow's context and that you can access as variables inside your flow. For example, if you pass in `Parameters={'name':'Zeke'}` then inside a widget you can reference the variable `{{flow.data.name}}` which will return the string 'Zeke'. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode your JSON string.
+//
+// param: "To" (string) - The Contact phone number to start a Studio Flow Engagement, available as variable `{{contact.channel.address}}`.
+//
+// return: StudioV1FlowEngagement
 func (c *DefaultApiService) CreateEngagement(FlowSid string, params *CreateEngagementParams) (*StudioV1FlowEngagement, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -95,16 +100,21 @@ type CreateExecutionParams struct {
 	To         *string                 `json:"To,omitempty"`
 }
 
-/*
-* CreateExecution Method for CreateExecution
-* Triggers a new Execution for the Flow
-* @param FlowSid The SID of the Excecution's Flow.
-* @param optional nil or *CreateExecutionParams - Optional Parameters:
-* @param "From" (string) - The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`.
-* @param "Parameters" (map[string]interface{}) - JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
-* @param "To" (string) - The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
-* @return StudioV1FlowExecution
- */
+// CreateExecution Method for CreateExecution
+//
+// Triggers a new Execution for the Flow
+//
+// param: FlowSid The SID of the Excecution's Flow.
+//
+// param: optional nil or *CreateExecutionParams - Optional Parameters:
+//
+// param: "From" (string) - The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID.
+//
+// param: "Parameters" (map[string]interface{}) - JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
+//
+// param: "To" (string) - The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
+//
+// return: StudioV1FlowExecution
 func (c *DefaultApiService) CreateExecution(FlowSid string, params *CreateExecutionParams) (*StudioV1FlowExecution, error) {
 	path := "/v1/Flows/{FlowSid}/Executions"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -143,12 +153,14 @@ func (c *DefaultApiService) CreateExecution(FlowSid string, params *CreateExecut
 	return ps, err
 }
 
-/*
-* DeleteEngagement Method for DeleteEngagement
-* Delete this Engagement and all Steps relating to it.
-* @param FlowSid The SID of the Flow to delete Engagements from.
-* @param Sid The SID of the Engagement resource to delete.
- */
+// DeleteEngagement Method for DeleteEngagement
+//
+// Delete this Engagement and all Steps relating to it.
+//
+// param: FlowSid The SID of the Flow to delete Engagements from.
+//
+// param: Sid The SID of the Engagement resource to delete.
+//
 func (c *DefaultApiService) DeleteEngagement(FlowSid string, Sid string) error {
 	path := "/v1/Flows/{FlowSid}/Engagements/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -167,12 +179,14 @@ func (c *DefaultApiService) DeleteEngagement(FlowSid string, Sid string) error {
 	return nil
 }
 
-/*
-* DeleteExecution Method for DeleteExecution
-* Delete the Execution and all Steps relating to it.
-* @param FlowSid The SID of the Flow with the Execution resources to delete.
-* @param Sid The SID of the Execution resource to delete.
- */
+// DeleteExecution Method for DeleteExecution
+//
+// Delete the Execution and all Steps relating to it.
+//
+// param: FlowSid The SID of the Flow with the Execution resources to delete.
+//
+// param: Sid The SID of the Execution resource to delete.
+//
 func (c *DefaultApiService) DeleteExecution(FlowSid string, Sid string) error {
 	path := "/v1/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -191,11 +205,12 @@ func (c *DefaultApiService) DeleteExecution(FlowSid string, Sid string) error {
 	return nil
 }
 
-/*
-* DeleteFlow Method for DeleteFlow
-* Delete a specific Flow.
-* @param Sid The SID of the Flow resource to delete.
- */
+// DeleteFlow Method for DeleteFlow
+//
+// Delete a specific Flow.
+//
+// param: Sid The SID of the Flow resource to delete.
+//
 func (c *DefaultApiService) DeleteFlow(Sid string) error {
 	path := "/v1/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -213,13 +228,15 @@ func (c *DefaultApiService) DeleteFlow(Sid string) error {
 	return nil
 }
 
-/*
-* FetchEngagement Method for FetchEngagement
-* Retrieve an Engagement
-* @param FlowSid The SID of the Flow.
-* @param Sid The SID of the Engagement resource to fetch.
-* @return StudioV1FlowEngagement
- */
+// FetchEngagement Method for FetchEngagement
+//
+// Retrieve an Engagement
+//
+// param: FlowSid The SID of the Flow.
+//
+// param: Sid The SID of the Engagement resource to fetch.
+//
+// return: StudioV1FlowEngagement
 func (c *DefaultApiService) FetchEngagement(FlowSid string, Sid string) (*StudioV1FlowEngagement, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -243,13 +260,15 @@ func (c *DefaultApiService) FetchEngagement(FlowSid string, Sid string) (*Studio
 	return ps, err
 }
 
-/*
-* FetchEngagementContext Method for FetchEngagementContext
-* Retrieve the most recent context for an Engagement.
-* @param FlowSid The SID of the Flow.
-* @param EngagementSid The SID of the Engagement.
-* @return StudioV1FlowEngagementEngagementContext
- */
+// FetchEngagementContext Method for FetchEngagementContext
+//
+// Retrieve the most recent context for an Engagement.
+//
+// param: FlowSid The SID of the Flow.
+//
+// param: EngagementSid The SID of the Engagement.
+//
+// return: StudioV1FlowEngagementEngagementContext
 func (c *DefaultApiService) FetchEngagementContext(FlowSid string, EngagementSid string) (*StudioV1FlowEngagementEngagementContext, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Context"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -273,13 +292,15 @@ func (c *DefaultApiService) FetchEngagementContext(FlowSid string, EngagementSid
 	return ps, err
 }
 
-/*
-* FetchExecution Method for FetchExecution
-* Retrieve an Execution
-* @param FlowSid The SID of the Flow with the Execution resource to fetch
-* @param Sid The SID of the Execution resource to fetch.
-* @return StudioV1FlowExecution
- */
+// FetchExecution Method for FetchExecution
+//
+// Retrieve an Execution
+//
+// param: FlowSid The SID of the Flow with the Execution resource to fetch
+//
+// param: Sid The SID of the Execution resource to fetch.
+//
+// return: StudioV1FlowExecution
 func (c *DefaultApiService) FetchExecution(FlowSid string, Sid string) (*StudioV1FlowExecution, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -303,13 +324,15 @@ func (c *DefaultApiService) FetchExecution(FlowSid string, Sid string) (*StudioV
 	return ps, err
 }
 
-/*
-* FetchExecutionContext Method for FetchExecutionContext
-* Retrieve the most recent context for an Execution.
-* @param FlowSid The SID of the Flow with the Execution context to fetch.
-* @param ExecutionSid The SID of the Execution context to fetch.
-* @return StudioV1FlowExecutionExecutionContext
- */
+// FetchExecutionContext Method for FetchExecutionContext
+//
+// Retrieve the most recent context for an Execution.
+//
+// param: FlowSid The SID of the Flow with the Execution context to fetch.
+//
+// param: ExecutionSid The SID of the Execution context to fetch.
+//
+// return: StudioV1FlowExecutionExecutionContext
 func (c *DefaultApiService) FetchExecutionContext(FlowSid string, ExecutionSid string) (*StudioV1FlowExecutionExecutionContext, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Context"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -333,14 +356,17 @@ func (c *DefaultApiService) FetchExecutionContext(FlowSid string, ExecutionSid s
 	return ps, err
 }
 
-/*
-* FetchExecutionStep Method for FetchExecutionStep
-* Retrieve a Step.
-* @param FlowSid The SID of the Flow with the Step to fetch.
-* @param ExecutionSid The SID of the Execution resource with the Step to fetch.
-* @param Sid The SID of the ExecutionStep resource to fetch.
-* @return StudioV1FlowExecutionExecutionStep
- */
+// FetchExecutionStep Method for FetchExecutionStep
+//
+// Retrieve a Step.
+//
+// param: FlowSid The SID of the Flow with the Step to fetch.
+//
+// param: ExecutionSid The SID of the Execution resource with the Step to fetch.
+//
+// param: Sid The SID of the ExecutionStep resource to fetch.
+//
+// return: StudioV1FlowExecutionExecutionStep
 func (c *DefaultApiService) FetchExecutionStep(FlowSid string, ExecutionSid string, Sid string) (*StudioV1FlowExecutionExecutionStep, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -365,14 +391,17 @@ func (c *DefaultApiService) FetchExecutionStep(FlowSid string, ExecutionSid stri
 	return ps, err
 }
 
-/*
-* FetchExecutionStepContext Method for FetchExecutionStepContext
-* Retrieve the context for an Execution Step.
-* @param FlowSid The SID of the Flow with the Step to fetch.
-* @param ExecutionSid The SID of the Execution resource with the Step to fetch.
-* @param StepSid The SID of the Step to fetch.
-* @return StudioV1FlowExecutionExecutionStepExecutionStepContext
- */
+// FetchExecutionStepContext Method for FetchExecutionStepContext
+//
+// Retrieve the context for an Execution Step.
+//
+// param: FlowSid The SID of the Flow with the Step to fetch.
+//
+// param: ExecutionSid The SID of the Execution resource with the Step to fetch.
+//
+// param: StepSid The SID of the Step to fetch.
+//
+// return: StudioV1FlowExecutionExecutionStepExecutionStepContext
 func (c *DefaultApiService) FetchExecutionStepContext(FlowSid string, ExecutionSid string, StepSid string) (*StudioV1FlowExecutionExecutionStepExecutionStepContext, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -397,12 +426,13 @@ func (c *DefaultApiService) FetchExecutionStepContext(FlowSid string, ExecutionS
 	return ps, err
 }
 
-/*
-* FetchFlow Method for FetchFlow
-* Retrieve a specific Flow.
-* @param Sid The SID of the Flow resource to fetch.
-* @return StudioV1Flow
- */
+// FetchFlow Method for FetchFlow
+//
+// Retrieve a specific Flow.
+//
+// param: Sid The SID of the Flow resource to fetch.
+//
+// return: StudioV1Flow
 func (c *DefaultApiService) FetchFlow(Sid string) (*StudioV1Flow, error) {
 	path := "/v1/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -425,14 +455,17 @@ func (c *DefaultApiService) FetchFlow(Sid string) (*StudioV1Flow, error) {
 	return ps, err
 }
 
-/*
-* FetchStep Method for FetchStep
-* Retrieve a Step.
-* @param FlowSid The SID of the Flow with the Step to fetch.
-* @param EngagementSid The SID of the Engagement with the Step to fetch.
-* @param Sid The SID of the Step resource to fetch.
-* @return StudioV1FlowEngagementStep
- */
+// FetchStep Method for FetchStep
+//
+// Retrieve a Step.
+//
+// param: FlowSid The SID of the Flow with the Step to fetch.
+//
+// param: EngagementSid The SID of the Engagement with the Step to fetch.
+//
+// param: Sid The SID of the Step resource to fetch.
+//
+// return: StudioV1FlowEngagementStep
 func (c *DefaultApiService) FetchStep(FlowSid string, EngagementSid string, Sid string) (*StudioV1FlowEngagementStep, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -457,14 +490,17 @@ func (c *DefaultApiService) FetchStep(FlowSid string, EngagementSid string, Sid 
 	return ps, err
 }
 
-/*
-* FetchStepContext Method for FetchStepContext
-* Retrieve the context for an Engagement Step.
-* @param FlowSid The SID of the Flow with the Step to fetch.
-* @param EngagementSid The SID of the Engagement with the Step to fetch.
-* @param StepSid The SID of the Step to fetch
-* @return StudioV1FlowEngagementStepStepContext
- */
+// FetchStepContext Method for FetchStepContext
+//
+// Retrieve the context for an Engagement Step.
+//
+// param: FlowSid The SID of the Flow with the Step to fetch.
+//
+// param: EngagementSid The SID of the Engagement with the Step to fetch.
+//
+// param: StepSid The SID of the Step to fetch
+//
+// return: StudioV1FlowEngagementStepStepContext
 func (c *DefaultApiService) FetchStepContext(FlowSid string, EngagementSid string, StepSid string) (*StudioV1FlowEngagementStepStepContext, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{StepSid}/Context"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -494,14 +530,17 @@ type ListEngagementParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListEngagement Method for ListEngagement
-* Retrieve a list of all Engagements for the Flow.
-* @param FlowSid The SID of the Flow to read Engagements from.
-* @param optional nil or *ListEngagementParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListEngagementResponse
- */
+// ListEngagement Method for ListEngagement
+//
+// Retrieve a list of all Engagements for the Flow.
+//
+// param: FlowSid The SID of the Flow to read Engagements from.
+//
+// param: optional nil or *ListEngagementParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListEngagementResponse
 func (c *DefaultApiService) ListEngagement(FlowSid string, params *ListEngagementParams) (*ListEngagementResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -535,16 +574,21 @@ type ListExecutionParams struct {
 	PageSize        *int32     `json:"PageSize,omitempty"`
 }
 
-/*
-* ListExecution Method for ListExecution
-* Retrieve a list of all Executions for the Flow.
-* @param FlowSid The SID of the Flow with the Execution resources to read.
-* @param optional nil or *ListExecutionParams - Optional Parameters:
-* @param "DateCreatedFrom" (time.Time) - Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-* @param "DateCreatedTo" (time.Time) - Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListExecutionResponse
- */
+// ListExecution Method for ListExecution
+//
+// Retrieve a list of all Executions for the Flow.
+//
+// param: FlowSid The SID of the Flow with the Execution resources to read.
+//
+// param: optional nil or *ListExecutionParams - Optional Parameters:
+//
+// param: "DateCreatedFrom" (time.Time) - Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
+//
+// param: "DateCreatedTo" (time.Time) - Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListExecutionResponse
 func (c *DefaultApiService) ListExecution(FlowSid string, params *ListExecutionParams) (*ListExecutionResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Executions"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -582,15 +626,19 @@ type ListExecutionStepParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListExecutionStep Method for ListExecutionStep
-* Retrieve a list of all Steps for an Execution.
-* @param FlowSid The SID of the Flow with the Steps to read.
-* @param ExecutionSid The SID of the Execution with the Steps to read.
-* @param optional nil or *ListExecutionStepParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListExecutionStepResponse
- */
+// ListExecutionStep Method for ListExecutionStep
+//
+// Retrieve a list of all Steps for an Execution.
+//
+// param: FlowSid The SID of the Flow with the Steps to read.
+//
+// param: ExecutionSid The SID of the Execution with the Steps to read.
+//
+// param: optional nil or *ListExecutionStepParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListExecutionStepResponse
 func (c *DefaultApiService) ListExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams) (*ListExecutionStepResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -623,13 +671,15 @@ type ListFlowParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListFlow Method for ListFlow
-* Retrieve a list of all Flows.
-* @param optional nil or *ListFlowParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListFlowResponse
- */
+// ListFlow Method for ListFlow
+//
+// Retrieve a list of all Flows.
+//
+// param: optional nil or *ListFlowParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListFlowResponse
 func (c *DefaultApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse, error) {
 	path := "/v1/Flows"
 
@@ -660,15 +710,19 @@ type ListStepParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListStep Method for ListStep
-* Retrieve a list of all Steps for an Engagement.
-* @param FlowSid The SID of the Flow with the Step to read.
-* @param EngagementSid The SID of the Engagement with the Step to read.
-* @param optional nil or *ListStepParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListStepResponse
- */
+// ListStep Method for ListStep
+//
+// Retrieve a list of all Steps for an Engagement.
+//
+// param: FlowSid The SID of the Flow with the Step to read.
+//
+// param: EngagementSid The SID of the Engagement with the Step to read.
+//
+// param: optional nil or *ListStepParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListStepResponse
 func (c *DefaultApiService) ListStep(FlowSid string, EngagementSid string, params *ListStepParams) (*ListStepResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -701,15 +755,19 @@ type UpdateExecutionParams struct {
 	Status *string `json:"Status,omitempty"`
 }
 
-/*
-* UpdateExecution Method for UpdateExecution
-* Update the status of an Execution to &#x60;ended&#x60;.
-* @param FlowSid The SID of the Flow with the Execution resources to update.
-* @param Sid The SID of the Execution resource to update.
-* @param optional nil or *UpdateExecutionParams - Optional Parameters:
-* @param "Status" (string) - The status of the Execution. Can only be `ended`.
-* @return StudioV1FlowExecution
- */
+// UpdateExecution Method for UpdateExecution
+//
+// Update the status of an Execution to &#x60;ended&#x60;.
+//
+// param: FlowSid The SID of the Flow with the Execution resources to update.
+//
+// param: Sid The SID of the Execution resource to update.
+//
+// param: optional nil or *UpdateExecutionParams - Optional Parameters:
+//
+// param: "Status" (string) - The status of the Execution. Can only be `ended`.
+//
+// return: StudioV1FlowExecution
 func (c *DefaultApiService) UpdateExecution(FlowSid string, Sid string, params *UpdateExecutionParams) (*StudioV1FlowExecution, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)

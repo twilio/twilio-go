@@ -1,6 +1,7 @@
 # VoiceV1DialingPermissionsDialingPermissionsCountryInstance
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Continent** | Pointer to **string** | The name of the continent in which the country is located |

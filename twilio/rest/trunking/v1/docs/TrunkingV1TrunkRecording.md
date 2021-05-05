@@ -1,6 +1,7 @@
 # TrunkingV1TrunkRecording
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Mode** | Pointer to **string** | The recording mode for the trunk. |

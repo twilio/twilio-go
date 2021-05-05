@@ -1,5 +1,33 @@
 twilio-go changelog
 ====================
+[2021-05-05] Version 0.7.0
+--------------------------
+**Library - Chore**
+- [PR #70](https://github.com/twilio/twilio-go/pull/70): add check in BuildHost function. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+- [PR #69](https://github.com/twilio/twilio-go/pull/69): update docs links. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #66](https://github.com/twilio/twilio-go/pull/66): remove redundant env var tests. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Docs**
+- [PR #68](https://github.com/twilio/twilio-go/pull/68): update readme to include non v2010 examples. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Api**
+- Corrected the data types for feedback summary fields **(breaking change)**
+- Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+
+**Bulkexports**
+- promoting API maturity to GA
+
+**Events**
+- Add endpoint to update description in sink
+- Remove beta-feature account flag
+
+**Messaging**
+- Update `status` field in us_app_to_person api to `campaign_status` **(breaking change)**
+
+**Verify**
+- Improve documentation regarding `push` factor and include extra information about `totp` factor.
+
+
 [2021-04-21] Version 0.6.0
 --------------------------
 **Library - Feature**

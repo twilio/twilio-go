@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -41,16 +41,21 @@ type CreateCommandParams struct {
 	Sim            *string `json:"Sim,omitempty"`
 }
 
-/*
-* CreateCommand Method for CreateCommand
-* Send a Command to a Sim.
-* @param optional nil or *CreateCommandParams - Optional Parameters:
-* @param "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-* @param "CallbackUrl" (string) - The URL we should call using the `callback_method` after we have sent the command.
-* @param "Command" (string) - The message body of the command.
-* @param "Sim" (string) - The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
-* @return SupersimV1Command
- */
+// CreateCommand Method for CreateCommand
+//
+// Send a Command to a Sim.
+//
+// param: optional nil or *CreateCommandParams - Optional Parameters:
+//
+// param: "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+//
+// param: "CallbackUrl" (string) - The URL we should call using the `callback_method` after we have sent the command.
+//
+// param: "Command" (string) - The message body of the command.
+//
+// param: "Sim" (string) - The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
+//
+// return: SupersimV1Command
 func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*SupersimV1Command, error) {
 	path := "/v1/Commands"
 
@@ -99,22 +104,33 @@ type CreateFleetParams struct {
 	UniqueName           *string `json:"UniqueName,omitempty"`
 }
 
-/*
-* CreateFleet Method for CreateFleet
-* Create a Fleet
-* @param optional nil or *CreateFleetParams - Optional Parameters:
-* @param "CommandsEnabled" (bool) - Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
-* @param "CommandsMethod" (string) - A string representing the HTTP method to use when making a request to `commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-* @param "CommandsUrl" (string) - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-* @param "DataEnabled" (bool) - Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
-* @param "DataLimit" (int32) - The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
-* @param "NetworkAccessProfile" (string) - The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
-* @param "SmsCommandsEnabled" (bool) - Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
-* @param "SmsCommandsMethod" (string) - A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-* @param "SmsCommandsUrl" (string) - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-* @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-* @return SupersimV1Fleet
- */
+// CreateFleet Method for CreateFleet
+//
+// Create a Fleet
+//
+// param: optional nil or *CreateFleetParams - Optional Parameters:
+//
+// param: "CommandsEnabled" (bool) - Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
+//
+// param: "CommandsMethod" (string) - A string representing the HTTP method to use when making a request to `commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+//
+// param: "CommandsUrl" (string) - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+//
+// param: "DataEnabled" (bool) - Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
+//
+// param: "DataLimit" (int32) - The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+//
+// param: "NetworkAccessProfile" (string) - The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+//
+// param: "SmsCommandsEnabled" (bool) - Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
+//
+// param: "SmsCommandsMethod" (string) - A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+//
+// param: "SmsCommandsUrl" (string) - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+//
+// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+//
+// return: SupersimV1Fleet
 func (c *DefaultApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1Fleet, error) {
 	path := "/v1/Fleets"
 
@@ -173,14 +189,17 @@ type CreateNetworkAccessProfileParams struct {
 	UniqueName *string   `json:"UniqueName,omitempty"`
 }
 
-/*
-* CreateNetworkAccessProfile Method for CreateNetworkAccessProfile
-* Create a new Network Access Profile
-* @param optional nil or *CreateNetworkAccessProfileParams - Optional Parameters:
-* @param "Networks" ([]string) - List of Network SIDs that this Network Access Profile will allow connections to.
-* @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-* @return SupersimV1NetworkAccessProfile
- */
+// CreateNetworkAccessProfile Method for CreateNetworkAccessProfile
+//
+// Create a new Network Access Profile
+//
+// param: optional nil or *CreateNetworkAccessProfileParams - Optional Parameters:
+//
+// param: "Networks" ([]string) - List of Network SIDs that this Network Access Profile will allow connections to.
+//
+// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+//
+// return: SupersimV1NetworkAccessProfile
 func (c *DefaultApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
 	path := "/v1/NetworkAccessProfiles"
 
@@ -214,14 +233,17 @@ type CreateNetworkAccessProfileNetworkParams struct {
 	Network *string `json:"Network,omitempty"`
 }
 
-/*
-* CreateNetworkAccessProfileNetwork Method for CreateNetworkAccessProfileNetwork
-* Add a Network resource to the Network Access Profile resource.
-* @param NetworkAccessProfileSid The unique string that identifies the Network Access Profile resource.
-* @param optional nil or *CreateNetworkAccessProfileNetworkParams - Optional Parameters:
-* @param "Network" (string) - The SID of the Network resource to be added to the Network Access Profile resource.
-* @return SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork
- */
+// CreateNetworkAccessProfileNetwork Method for CreateNetworkAccessProfileNetwork
+//
+// Add a Network resource to the Network Access Profile resource.
+//
+// param: NetworkAccessProfileSid The unique string that identifies the Network Access Profile resource.
+//
+// param: optional nil or *CreateNetworkAccessProfileNetworkParams - Optional Parameters:
+//
+// param: "Network" (string) - The SID of the Network resource to be added to the Network Access Profile resource.
+//
+// return: SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork
 func (c *DefaultApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *CreateNetworkAccessProfileNetworkParams) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
@@ -254,14 +276,17 @@ type CreateSimParams struct {
 	RegistrationCode *string `json:"RegistrationCode,omitempty"`
 }
 
-/*
-* CreateSim Method for CreateSim
-* Register a Super SIM to your Account
-* @param optional nil or *CreateSimParams - Optional Parameters:
-* @param "Iccid" (string) - The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
-* @param "RegistrationCode" (string) - The 10 digit code required to claim the Super SIM for your Account.
-* @return SupersimV1Sim
- */
+// CreateSim Method for CreateSim
+//
+// Register a Super SIM to your Account
+//
+// param: optional nil or *CreateSimParams - Optional Parameters:
+//
+// param: "Iccid" (string) - The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
+//
+// param: "RegistrationCode" (string) - The 10 digit code required to claim the Super SIM for your Account.
+//
+// return: SupersimV1Sim
 func (c *DefaultApiService) CreateSim(params *CreateSimParams) (*SupersimV1Sim, error) {
 	path := "/v1/Sims"
 
@@ -298,16 +323,21 @@ type CreateSmsCommandParams struct {
 	Sim            *string `json:"Sim,omitempty"`
 }
 
-/*
-* CreateSmsCommand Method for CreateSmsCommand
-* Send SMS Command to a Sim.
-* @param optional nil or *CreateSmsCommandParams - Optional Parameters:
-* @param "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-* @param "CallbackUrl" (string) - The URL we should call using the `callback_method` after we have sent the command.
-* @param "Payload" (string) - The message body of the SMS Command.
-* @param "Sim" (string) - The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the SMS Command to.
-* @return SupersimV1SmsCommand
- */
+// CreateSmsCommand Method for CreateSmsCommand
+//
+// Send SMS Command to a Sim.
+//
+// param: optional nil or *CreateSmsCommandParams - Optional Parameters:
+//
+// param: "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+//
+// param: "CallbackUrl" (string) - The URL we should call using the `callback_method` after we have sent the command.
+//
+// param: "Payload" (string) - The message body of the SMS Command.
+//
+// param: "Sim" (string) - The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the SMS Command to.
+//
+// return: SupersimV1SmsCommand
 func (c *DefaultApiService) CreateSmsCommand(params *CreateSmsCommandParams) (*SupersimV1SmsCommand, error) {
 	path := "/v1/SmsCommands"
 
@@ -342,12 +372,14 @@ func (c *DefaultApiService) CreateSmsCommand(params *CreateSmsCommandParams) (*S
 	return ps, err
 }
 
-/*
-* DeleteNetworkAccessProfileNetwork Method for DeleteNetworkAccessProfileNetwork
-* Remove a Network resource from the Network Access Profile resource&#39;s.
-* @param NetworkAccessProfileSid The unique string that identifies the Network Access Profile resource.
-* @param Sid The SID of the Network resource to be removed from the Network Access Profile resource.
- */
+// DeleteNetworkAccessProfileNetwork Method for DeleteNetworkAccessProfileNetwork
+//
+// Remove a Network resource from the Network Access Profile resource&#39;s.
+//
+// param: NetworkAccessProfileSid The unique string that identifies the Network Access Profile resource.
+//
+// param: Sid The SID of the Network resource to be removed from the Network Access Profile resource.
+//
 func (c *DefaultApiService) DeleteNetworkAccessProfileNetwork(NetworkAccessProfileSid string, Sid string) error {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}"
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
@@ -366,12 +398,13 @@ func (c *DefaultApiService) DeleteNetworkAccessProfileNetwork(NetworkAccessProfi
 	return nil
 }
 
-/*
-* FetchCommand Method for FetchCommand
-* Fetch a Command instance from your account.
-* @param Sid The SID of the Command resource to fetch.
-* @return SupersimV1Command
- */
+// FetchCommand Method for FetchCommand
+//
+// Fetch a Command instance from your account.
+//
+// param: Sid The SID of the Command resource to fetch.
+//
+// return: SupersimV1Command
 func (c *DefaultApiService) FetchCommand(Sid string) (*SupersimV1Command, error) {
 	path := "/v1/Commands/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -394,12 +427,13 @@ func (c *DefaultApiService) FetchCommand(Sid string) (*SupersimV1Command, error)
 	return ps, err
 }
 
-/*
-* FetchFleet Method for FetchFleet
-* Fetch a Fleet instance from your account.
-* @param Sid The SID of the Fleet resource to fetch.
-* @return SupersimV1Fleet
- */
+// FetchFleet Method for FetchFleet
+//
+// Fetch a Fleet instance from your account.
+//
+// param: Sid The SID of the Fleet resource to fetch.
+//
+// return: SupersimV1Fleet
 func (c *DefaultApiService) FetchFleet(Sid string) (*SupersimV1Fleet, error) {
 	path := "/v1/Fleets/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -422,12 +456,13 @@ func (c *DefaultApiService) FetchFleet(Sid string) (*SupersimV1Fleet, error) {
 	return ps, err
 }
 
-/*
-* FetchNetwork Method for FetchNetwork
-* Fetch a Network resource.
-* @param Sid The SID of the Network resource to fetch.
-* @return SupersimV1Network
- */
+// FetchNetwork Method for FetchNetwork
+//
+// Fetch a Network resource.
+//
+// param: Sid The SID of the Network resource to fetch.
+//
+// return: SupersimV1Network
 func (c *DefaultApiService) FetchNetwork(Sid string) (*SupersimV1Network, error) {
 	path := "/v1/Networks/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -450,12 +485,13 @@ func (c *DefaultApiService) FetchNetwork(Sid string) (*SupersimV1Network, error)
 	return ps, err
 }
 
-/*
-* FetchNetworkAccessProfile Method for FetchNetworkAccessProfile
-* Fetch a Network Access Profile instance from your account.
-* @param Sid The SID of the Network Access Profile resource to fetch.
-* @return SupersimV1NetworkAccessProfile
- */
+// FetchNetworkAccessProfile Method for FetchNetworkAccessProfile
+//
+// Fetch a Network Access Profile instance from your account.
+//
+// param: Sid The SID of the Network Access Profile resource to fetch.
+//
+// return: SupersimV1NetworkAccessProfile
 func (c *DefaultApiService) FetchNetworkAccessProfile(Sid string) (*SupersimV1NetworkAccessProfile, error) {
 	path := "/v1/NetworkAccessProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -478,13 +514,15 @@ func (c *DefaultApiService) FetchNetworkAccessProfile(Sid string) (*SupersimV1Ne
 	return ps, err
 }
 
-/*
-* FetchNetworkAccessProfileNetwork Method for FetchNetworkAccessProfileNetwork
-* Fetch a Network Access Profile resource&#39;s Network resource.
-* @param NetworkAccessProfileSid The unique string that identifies the Network Access Profile resource.
-* @param Sid The SID of the Network resource to fetch.
-* @return SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork
- */
+// FetchNetworkAccessProfileNetwork Method for FetchNetworkAccessProfileNetwork
+//
+// Fetch a Network Access Profile resource&#39;s Network resource.
+//
+// param: NetworkAccessProfileSid The unique string that identifies the Network Access Profile resource.
+//
+// param: Sid The SID of the Network resource to fetch.
+//
+// return: SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork
 func (c *DefaultApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfileSid string, Sid string) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}"
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
@@ -508,12 +546,13 @@ func (c *DefaultApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfil
 	return ps, err
 }
 
-/*
-* FetchSim Method for FetchSim
-* Fetch a Super SIM instance from your account.
-* @param Sid The SID of the Sim resource to fetch.
-* @return SupersimV1Sim
- */
+// FetchSim Method for FetchSim
+//
+// Fetch a Super SIM instance from your account.
+//
+// param: Sid The SID of the Sim resource to fetch.
+//
+// return: SupersimV1Sim
 func (c *DefaultApiService) FetchSim(Sid string) (*SupersimV1Sim, error) {
 	path := "/v1/Sims/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -536,12 +575,13 @@ func (c *DefaultApiService) FetchSim(Sid string) (*SupersimV1Sim, error) {
 	return ps, err
 }
 
-/*
-* FetchSmsCommand Method for FetchSmsCommand
-* Fetch SMS Command instance from your account.
-* @param Sid The SID of the SMS Command resource to fetch.
-* @return SupersimV1SmsCommand
- */
+// FetchSmsCommand Method for FetchSmsCommand
+//
+// Fetch SMS Command instance from your account.
+//
+// param: Sid The SID of the SMS Command resource to fetch.
+//
+// return: SupersimV1SmsCommand
 func (c *DefaultApiService) FetchSmsCommand(Sid string) (*SupersimV1SmsCommand, error) {
 	path := "/v1/SmsCommands/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -572,16 +612,21 @@ type ListCommandParams struct {
 	PageSize  *int32  `json:"PageSize,omitempty"`
 }
 
-/*
-* ListCommand Method for ListCommand
-* Retrieve a list of Commands from your account.
-* @param optional nil or *ListCommandParams - Optional Parameters:
-* @param "Sim" (string) - The SID or unique name of the Sim that Command was sent to or from.
-* @param "Status" (string) - The status of the Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [Command Status Values](https://www.twilio.com/docs/wireless/api/command-resource#status-values) for a description of each.
-* @param "Direction" (string) - The direction of the Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListCommandResponse
- */
+// ListCommand Method for ListCommand
+//
+// Retrieve a list of Commands from your account.
+//
+// param: optional nil or *ListCommandParams - Optional Parameters:
+//
+// param: "Sim" (string) - The SID or unique name of the Sim that Command was sent to or from.
+//
+// param: "Status" (string) - The status of the Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [Command Status Values](https://www.twilio.com/docs/wireless/api/command-resource#status-values) for a description of each.
+//
+// param: "Direction" (string) - The direction of the Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListCommandResponse
 func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*ListCommandResponse, error) {
 	path := "/v1/Commands"
 
@@ -622,14 +667,17 @@ type ListFleetParams struct {
 	PageSize             *int32  `json:"PageSize,omitempty"`
 }
 
-/*
-* ListFleet Method for ListFleet
-* Retrieve a list of Fleets from your account.
-* @param optional nil or *ListFleetParams - Optional Parameters:
-* @param "NetworkAccessProfile" (string) - The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListFleetResponse
- */
+// ListFleet Method for ListFleet
+//
+// Retrieve a list of Fleets from your account.
+//
+// param: optional nil or *ListFleetParams - Optional Parameters:
+//
+// param: "NetworkAccessProfile" (string) - The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListFleetResponse
 func (c *DefaultApiService) ListFleet(params *ListFleetParams) (*ListFleetResponse, error) {
 	path := "/v1/Fleets"
 
@@ -666,16 +714,21 @@ type ListNetworkParams struct {
 	PageSize   *int32  `json:"PageSize,omitempty"`
 }
 
-/*
-* ListNetwork Method for ListNetwork
-* Retrieve a list of Network resources.
-* @param optional nil or *ListNetworkParams - Optional Parameters:
-* @param "IsoCountry" (string) - The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read.
-* @param "Mcc" (string) - The 'mobile country code' of a country. Network resources with this `mcc` in their `identifiers` will be read.
-* @param "Mnc" (string) - The 'mobile network code' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read.
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListNetworkResponse
- */
+// ListNetwork Method for ListNetwork
+//
+// Retrieve a list of Network resources.
+//
+// param: optional nil or *ListNetworkParams - Optional Parameters:
+//
+// param: "IsoCountry" (string) - The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Network resources to read.
+//
+// param: "Mcc" (string) - The 'mobile country code' of a country. Network resources with this `mcc` in their `identifiers` will be read.
+//
+// param: "Mnc" (string) - The 'mobile network code' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read.
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListNetworkResponse
 func (c *DefaultApiService) ListNetwork(params *ListNetworkParams) (*ListNetworkResponse, error) {
 	path := "/v1/Networks"
 
@@ -715,13 +768,15 @@ type ListNetworkAccessProfileParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListNetworkAccessProfile Method for ListNetworkAccessProfile
-* Retrieve a list of Network Access Profiles from your account.
-* @param optional nil or *ListNetworkAccessProfileParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListNetworkAccessProfileResponse
- */
+// ListNetworkAccessProfile Method for ListNetworkAccessProfile
+//
+// Retrieve a list of Network Access Profiles from your account.
+//
+// param: optional nil or *ListNetworkAccessProfileParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListNetworkAccessProfileResponse
 func (c *DefaultApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfileParams) (*ListNetworkAccessProfileResponse, error) {
 	path := "/v1/NetworkAccessProfiles"
 
@@ -752,14 +807,17 @@ type ListNetworkAccessProfileNetworkParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListNetworkAccessProfileNetwork Method for ListNetworkAccessProfileNetwork
-* Retrieve a list of Network Access Profile resource&#39;s Network resource.
-* @param NetworkAccessProfileSid The unique string that identifies the Network Access Profile resource.
-* @param optional nil or *ListNetworkAccessProfileNetworkParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListNetworkAccessProfileNetworkResponse
- */
+// ListNetworkAccessProfileNetwork Method for ListNetworkAccessProfileNetwork
+//
+// Retrieve a list of Network Access Profile resource&#39;s Network resource.
+//
+// param: NetworkAccessProfileSid The unique string that identifies the Network Access Profile resource.
+//
+// param: optional nil or *ListNetworkAccessProfileNetworkParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListNetworkAccessProfileNetworkResponse
 func (c *DefaultApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) (*ListNetworkAccessProfileNetworkResponse, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
@@ -794,16 +852,21 @@ type ListSimParams struct {
 	PageSize *int32  `json:"PageSize,omitempty"`
 }
 
-/*
-* ListSim Method for ListSim
-* Retrieve a list of Super SIMs from your account.
-* @param optional nil or *ListSimParams - Optional Parameters:
-* @param "Status" (string) - The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
-* @param "Fleet" (string) - The SID or unique name of the Fleet to which a list of Sims are assigned.
-* @param "Iccid" (string) - The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListSimResponse
- */
+// ListSim Method for ListSim
+//
+// Retrieve a list of Super SIMs from your account.
+//
+// param: optional nil or *ListSimParams - Optional Parameters:
+//
+// param: "Status" (string) - The status of the Sim resources to read. Can be `new`, `ready`, `active`, `inactive`, or `scheduled`.
+//
+// param: "Fleet" (string) - The SID or unique name of the Fleet to which a list of Sims are assigned.
+//
+// param: "Iccid" (string) - The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListSimResponse
 func (c *DefaultApiService) ListSim(params *ListSimParams) (*ListSimResponse, error) {
 	path := "/v1/Sims"
 
@@ -846,16 +909,21 @@ type ListSmsCommandParams struct {
 	PageSize  *int32  `json:"PageSize,omitempty"`
 }
 
-/*
-* ListSmsCommand Method for ListSmsCommand
-* Retrieve a list of SMS Commands from your account.
-* @param optional nil or *ListSmsCommandParams - Optional Parameters:
-* @param "Sim" (string) - The SID or unique name of the Sim resource that SMS Command was sent to or from.
-* @param "Status" (string) - The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
-* @param "Direction" (string) - The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListSmsCommandResponse
- */
+// ListSmsCommand Method for ListSmsCommand
+//
+// Retrieve a list of SMS Commands from your account.
+//
+// param: optional nil or *ListSmsCommandParams - Optional Parameters:
+//
+// param: "Sim" (string) - The SID or unique name of the Sim resource that SMS Command was sent to or from.
+//
+// param: "Status" (string) - The status of the SMS Command. Can be: `queued`, `sent`, `delivered`, `received` or `failed`. See the [SMS Command Status Values](https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values) for a description of each.
+//
+// param: "Direction" (string) - The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListSmsCommandResponse
 func (c *DefaultApiService) ListSmsCommand(params *ListSmsCommandParams) (*ListSmsCommandResponse, error) {
 	path := "/v1/SmsCommands"
 
@@ -903,21 +971,31 @@ type ListUsageRecordParams struct {
 	PageSize    *int32     `json:"PageSize,omitempty"`
 }
 
-/*
-* ListUsageRecord Method for ListUsageRecord
-* List UsageRecords
-* @param optional nil or *ListUsageRecordParams - Optional Parameters:
-* @param "Sim" (string) - SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
-* @param "Fleet" (string) - SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
-* @param "Network" (string) - SID of a Network resource. Only show UsageRecords representing usage on this network.
-* @param "IsoCountry" (string) - Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
-* @param "Group" (string) - Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
-* @param "Granularity" (string) - Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
-* @param "StartTime" (time.Time) - Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
-* @param "EndTime" (time.Time) - Only include usage that occurred before this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListUsageRecordResponse
- */
+// ListUsageRecord Method for ListUsageRecord
+//
+// List UsageRecords
+//
+// param: optional nil or *ListUsageRecordParams - Optional Parameters:
+//
+// param: "Sim" (string) - SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+//
+// param: "Fleet" (string) - SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
+//
+// param: "Network" (string) - SID of a Network resource. Only show UsageRecords representing usage on this network.
+//
+// param: "IsoCountry" (string) - Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
+//
+// param: "Group" (string) - Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+//
+// param: "Granularity" (string) - Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+//
+// param: "StartTime" (time.Time) - Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
+//
+// param: "EndTime" (time.Time) - Only include usage that occurred before this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListUsageRecordResponse
 func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*ListUsageRecordResponse, error) {
 	path := "/v1/UsageRecords"
 
@@ -977,19 +1055,27 @@ type UpdateFleetParams struct {
 	UniqueName           *string `json:"UniqueName,omitempty"`
 }
 
-/*
-* UpdateFleet Method for UpdateFleet
-* Updates the given properties of a Super SIM Fleet instance from your account.
-* @param Sid The SID of the Fleet resource to update.
-* @param optional nil or *UpdateFleetParams - Optional Parameters:
-* @param "CommandsMethod" (string) - A string representing the HTTP method to use when making a request to `commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-* @param "CommandsUrl" (string) - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-* @param "NetworkAccessProfile" (string) - The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
-* @param "SmsCommandsMethod" (string) - A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
-* @param "SmsCommandsUrl" (string) - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
-* @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-* @return SupersimV1Fleet
- */
+// UpdateFleet Method for UpdateFleet
+//
+// Updates the given properties of a Super SIM Fleet instance from your account.
+//
+// param: Sid The SID of the Fleet resource to update.
+//
+// param: optional nil or *UpdateFleetParams - Optional Parameters:
+//
+// param: "CommandsMethod" (string) - A string representing the HTTP method to use when making a request to `commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+//
+// param: "CommandsUrl" (string) - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+//
+// param: "NetworkAccessProfile" (string) - The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+//
+// param: "SmsCommandsMethod" (string) - A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+//
+// param: "SmsCommandsUrl" (string) - The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+//
+// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+//
+// return: SupersimV1Fleet
 func (c *DefaultApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (*SupersimV1Fleet, error) {
 	path := "/v1/Fleets/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1036,14 +1122,17 @@ type UpdateNetworkAccessProfileParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
-/*
-* UpdateNetworkAccessProfile Method for UpdateNetworkAccessProfile
-* Updates the given properties of a Network Access Profile in your account.
-* @param Sid The SID of the Network Access Profile to update.
-* @param optional nil or *UpdateNetworkAccessProfileParams - Optional Parameters:
-* @param "UniqueName" (string) - The new unique name of the Network Access Profile.
-* @return SupersimV1NetworkAccessProfile
- */
+// UpdateNetworkAccessProfile Method for UpdateNetworkAccessProfile
+//
+// Updates the given properties of a Network Access Profile in your account.
+//
+// param: Sid The SID of the Network Access Profile to update.
+//
+// param: optional nil or *UpdateNetworkAccessProfileParams - Optional Parameters:
+//
+// param: "UniqueName" (string) - The new unique name of the Network Access Profile.
+//
+// return: SupersimV1NetworkAccessProfile
 func (c *DefaultApiService) UpdateNetworkAccessProfile(Sid string, params *UpdateNetworkAccessProfileParams) (*SupersimV1NetworkAccessProfile, error) {
 	path := "/v1/NetworkAccessProfiles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1080,19 +1169,27 @@ type UpdateSimParams struct {
 	UniqueName     *string `json:"UniqueName,omitempty"`
 }
 
-/*
-* UpdateSim Method for UpdateSim
-* Updates the given properties of a Super SIM instance from your account.
-* @param Sid The SID of the Sim resource to update.
-* @param optional nil or *UpdateSimParams - Optional Parameters:
-* @param "AccountSid" (string) - The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
-* @param "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
-* @param "CallbackUrl" (string) - The URL we should call using the `callback_method` after an asynchronous update has finished.
-* @param "Fleet" (string) - The SID or unique name of the Fleet to which the SIM resource should be assigned.
-* @param "Status" (string) - The new status of the resource. Can be: `ready`, `active`, or `inactive`. See the [Super SIM Status Values](https://www.twilio.com/docs/iot/supersim/api/sim-resource#status-values) for more info.
-* @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-* @return SupersimV1Sim
- */
+// UpdateSim Method for UpdateSim
+//
+// Updates the given properties of a Super SIM instance from your account.
+//
+// param: Sid The SID of the Sim resource to update.
+//
+// param: optional nil or *UpdateSimParams - Optional Parameters:
+//
+// param: "AccountSid" (string) - The SID of the Account to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a Subaccount of the requesting Account. Only valid when the Sim resource's status is new.
+//
+// param: "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
+//
+// param: "CallbackUrl" (string) - The URL we should call using the `callback_method` after an asynchronous update has finished.
+//
+// param: "Fleet" (string) - The SID or unique name of the Fleet to which the SIM resource should be assigned.
+//
+// param: "Status" (string) - The new status of the resource. Can be: `ready`, `active`, or `inactive`. See the [Super SIM Status Values](https://www.twilio.com/docs/iot/supersim/api/sim-resource#status-values) for more info.
+//
+// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+//
+// return: SupersimV1Sim
 func (c *DefaultApiService) UpdateSim(Sid string, params *UpdateSimParams) (*SupersimV1Sim, error) {
 	path := "/v1/Sims/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

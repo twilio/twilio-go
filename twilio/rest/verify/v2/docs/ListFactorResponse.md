@@ -1,6 +1,7 @@
 # ListFactorResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Factors** | [**[]VerifyV2ServiceEntityFactor**](verify.v2.service.entity.factor.md) |  |[optional] 

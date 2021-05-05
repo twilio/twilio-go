@@ -1,6 +1,7 @@
 # EventsV1EventType
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date this Event Type was created. |

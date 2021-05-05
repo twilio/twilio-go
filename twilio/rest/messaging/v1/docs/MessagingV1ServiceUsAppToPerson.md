@@ -1,11 +1,13 @@
 # MessagingV1ServiceUsAppToPerson
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
 **BrandRegistrationSid** | Pointer to **string** | A2P Brand Registration SID |
 **CampaignId** | Pointer to **string** | The Campaign Registry (TCR) Campaign ID. |
+**CampaignStatus** | Pointer to **string** | Campaign status |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **Description** | Pointer to **string** | A short description of what this SMS campaign does |
@@ -15,7 +17,6 @@ Name | Type | Description | Notes
 **MessageSamples** | Pointer to **[]string** | Message samples |
 **MessagingServiceSid** | Pointer to **string** | The SID of the Messaging Service the resource is associated with |
 **RateLimits** | Pointer to **map[string]interface{}** | Rate limit and/or classification set by each carrier |
-**Status** | Pointer to **string** | Campaign status |
 **Url** | Pointer to **string** | The absolute URL of the US App to Person resource |
 **UsAppToPersonUsecase** | Pointer to **string** | A2P Campaign Use Case. |
 

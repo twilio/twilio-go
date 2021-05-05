@@ -1,6 +1,7 @@
 # ListServiceBindingResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bindings** | [**[]ConversationsV1ServiceServiceBinding**](conversations.v1.service.service_binding.md) |  |[optional] 

@@ -1,6 +1,7 @@
 # PricingV1PhoneNumber
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to **map[string]interface{}** |  |

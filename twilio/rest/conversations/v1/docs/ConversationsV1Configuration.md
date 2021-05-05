@@ -1,6 +1,7 @@
 # ConversationsV1Configuration
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account responsible for this configuration. |

@@ -90,8 +90,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -135,8 +135,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -167,7 +167,7 @@ Other parameters are passed through a pointer to a CreateChallengeParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AuthPayload** | **string** | Optional payload used to verify the Challenge upon creation. Only used with a Factor of type &#x60;totp&#x60; to carry an OTP used in the verification.
+**AuthPayload** | **string** | Optional payload used to verify the Challenge upon creation. Only used with a Factor of type &#x60;totp&#x60; to carry the TOTP code that needs to be verified.
 **DetailsFields** | **[]map[string]interface{}** | A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field. Used when &#x60;factor_type&#x60; is &#x60;push&#x60;.
 **DetailsMessage** | **string** | Shown to the user when the push notification arrives. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
 **ExpirationDate** | **time.Time** | The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
@@ -184,8 +184,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -227,8 +227,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -271,8 +271,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -304,18 +304,18 @@ Other parameters are passed through a pointer to a CreateNewFactorParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **BindingAlg** | **string** | The algorithm used when &#x60;factor_type&#x60; is &#x60;push&#x60;. Algorithm supported: &#x60;ES256&#x60;
-**BindingPublicKey** | **string** | The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64
-**BindingSecret** | **string** | The shared secret for TOTP factors encoded in Base32
-**ConfigAlg** | **string** | The algorithm used to derive the TOTP codes. Can be &#x60;sha1&#x60;, &#x60;sha256&#x60; or &#x60;sha512&#x60;. Defaults to &#x60;sha1&#x60;
-**ConfigAppId** | **string** | The ID that uniquely identifies your app in the Google or Apple store, such as &#x60;com.example.myapp&#x60;. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, it can be up to 100 characters long.
-**ConfigCodeLength** | **int32** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property totp.code_length. If not configured defaults to 6
-**ConfigNotificationPlatform** | **string** | The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60; or &#x60;fcm&#x60;. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
-**ConfigNotificationToken** | **string** | For APN, the device token. For FCM the registration token. It used to send the push notifications. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, this value must be between 32 and 255 characters long.
-**ConfigSdkVersion** | **string** | The Verify Push SDK version used to configure the factor
-**ConfigSkew** | **int32** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property totp.skew. If not configured defaults to 1
-**ConfigTimeStep** | **int32** | Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property totp.time_step. If not configured defaults to 30 seconds
-**FactorType** | **string** | The Type of this Factor. Currently &#x60;push&#x60; and &#x60;totp&#x60; are supported. For &#x60;totp&#x60; to work, you need to contact Twilio sales first to have the Verify TOTP feature enabled for your Twilio account.
-**FriendlyName** | **string** | The friendly name of this Factor. It can be up to 64 characters.
+**BindingPublicKey** | **string** | The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
+**BindingSecret** | **string** | The shared secret for TOTP factors encoded in Base32. This can be provided when creating the Factor, otherwise it will be generated.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
+**ConfigAlg** | **string** | The algorithm used to derive the TOTP codes. Can be &#x60;sha1&#x60;, &#x60;sha256&#x60; or &#x60;sha512&#x60;. Defaults to &#x60;sha1&#x60;.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
+**ConfigAppId** | **string** | The ID that uniquely identifies your app in the Google or Apple store, such as &#x60;com.example.myapp&#x60;.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, it can be up to 100 characters long.
+**ConfigCodeLength** | **int32** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property &#x60;totp.code_length&#x60;. If not configured defaults to 6.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
+**ConfigNotificationPlatform** | **string** | The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60; or &#x60;fcm&#x60;.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
+**ConfigNotificationToken** | **string** | For APN, the device token. For FCM the registration token. It used to send the push notifications.  Used when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, must be between 32 and 255 characters long.
+**ConfigSdkVersion** | **string** | The Verify Push SDK version used to configure the factor  Used when &#x60;factor_type&#x60; is &#x60;push&#x60;
+**ConfigSkew** | **int32** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property &#x60;totp.skew&#x60;. If not configured defaults to 1.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
+**ConfigTimeStep** | **int32** | Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property &#x60;totp.time_step&#x60;. Defaults to 30 seconds if not configured.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
+**FactorType** | **string** | The Type of this Factor. Currently &#x60;push&#x60; and &#x60;totp&#x60; are supported. For &#x60;totp&#x60; to work, you need to contact [Twilio sales](https://www.twilio.com/help/sales) first to have the Verify TOTP feature enabled for your Twilio account.
+**FriendlyName** | **string** | The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For &#x60;factor_type&#x60; &#x60;push&#x60;, this could be a device name. For &#x60;factor_type&#x60; &#x60;totp&#x60;, this value is used as the “account name” in constructing the &#x60;binding.uri&#x60; property. At the same time, we recommend avoiding providing PII.
 
 ### Return type
 
@@ -327,8 +327,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -372,8 +372,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -416,8 +416,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -470,8 +470,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -524,8 +524,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -571,8 +571,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -617,8 +617,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -964,7 +964,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1008,7 +1008,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1051,7 +1051,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1095,7 +1095,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1137,7 +1137,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1180,7 +1180,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1223,7 +1223,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1265,7 +1265,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1308,7 +1308,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1350,7 +1350,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1393,7 +1393,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1437,7 +1437,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1483,7 +1483,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1526,7 +1526,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1570,7 +1570,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1613,7 +1613,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1656,7 +1656,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1695,7 +1695,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1737,7 +1737,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1780,7 +1780,7 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json, 
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1825,8 +1825,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1870,8 +1870,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1922,8 +1922,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1966,8 +1966,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2010,8 +2010,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2068,8 +2068,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2112,8 +2112,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -2157,8 +2157,8 @@ Name | Type | Description
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded, 
-- **Accept**: application/json, 
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

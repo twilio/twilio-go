@@ -1,6 +1,7 @@
 # BulkexportsV1ExportConfiguration
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Enabled** | Pointer to **bool** | Whether files are automatically generated |

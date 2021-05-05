@@ -1,6 +1,7 @@
 # MessagingV1Deactivation
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RedirectTo** | Pointer to **string** | Redirect url to the list of deactivated numbers. |

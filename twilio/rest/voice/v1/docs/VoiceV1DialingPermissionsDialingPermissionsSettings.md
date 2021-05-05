@@ -1,6 +1,7 @@
 # VoiceV1DialingPermissionsDialingPermissionsSettings
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DialingPermissionsInheritance** | Pointer to **bool** | `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false` |

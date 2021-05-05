@@ -1,6 +1,7 @@
 # ListAvailablePhoneNumberNationalResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AvailablePhoneNumbers** | [**[]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational**](api.v2010.account.available_phone_number_country.available_phone_number_national.md) |  |[optional] 

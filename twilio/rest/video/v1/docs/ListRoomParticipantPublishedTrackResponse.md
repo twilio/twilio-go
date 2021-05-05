@@ -1,6 +1,7 @@
 # ListRoomParticipantPublishedTrackResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Meta** | [**ListCompositionHookResponseMeta**](ListCompositionHookResponse_meta.md) |  |[optional] 

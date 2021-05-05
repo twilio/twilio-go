@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -47,22 +47,33 @@ type CreateConversationParams struct {
 	UniqueName            *string    `json:"UniqueName,omitempty"`
 }
 
-/*
-* CreateConversation Method for CreateConversation
-* Create a new conversation in your account&#39;s default service
-* @param optional nil or *CreateConversationParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-* @param "DateCreated" (time.Time) - The date that this resource was created.
-* @param "DateUpdated" (time.Time) - The date that this resource was last updated.
-* @param "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
-* @param "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-* @param "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
-* @param "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-* @param "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-* @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-* @return ConversationsV1Conversation
- */
+// CreateConversation Method for CreateConversation
+//
+// Create a new conversation in your account&#39;s default service
+//
+// param: optional nil or *CreateConversationParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+//
+// param: "DateCreated" (time.Time) - The date that this resource was created.
+//
+// param: "DateUpdated" (time.Time) - The date that this resource was last updated.
+//
+// param: "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
+//
+// param: "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+//
+// param: "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
+//
+// param: "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+//
+// param: "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+//
+// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+//
+// return: ConversationsV1Conversation
 func (c *DefaultApiService) CreateConversation(params *CreateConversationParams) (*ConversationsV1Conversation, error) {
 	path := "/v1/Conversations"
 
@@ -127,20 +138,29 @@ type CreateConversationMessageParams struct {
 	MediaSid              *string    `json:"MediaSid,omitempty"`
 }
 
-/*
-* CreateConversationMessage Method for CreateConversationMessage
-* Add a new message to the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-* @param optional nil or *CreateConversationMessageParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-* @param "Author" (string) - The channel specific identifier of the message's author. Defaults to `system`.
-* @param "Body" (string) - The content of the message, can be up to 1,600 characters long.
-* @param "DateCreated" (time.Time) - The date that this resource was created.
-* @param "DateUpdated" (time.Time) - The date that this resource was last updated. `null` if the message has not been edited.
-* @param "MediaSid" (string) - The Media SID to be attached to the new Message.
-* @return ConversationsV1ConversationConversationMessage
- */
+// CreateConversationMessage Method for CreateConversationMessage
+//
+// Add a new message to the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+//
+// param: optional nil or *CreateConversationMessageParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+//
+// param: "Author" (string) - The channel specific identifier of the message's author. Defaults to `system`.
+//
+// param: "Body" (string) - The content of the message, can be up to 1,600 characters long.
+//
+// param: "DateCreated" (time.Time) - The date that this resource was created.
+//
+// param: "DateUpdated" (time.Time) - The date that this resource was last updated. `null` if the message has not been edited.
+//
+// param: "MediaSid" (string) - The Media SID to be attached to the new Message.
+//
+// return: ConversationsV1ConversationConversationMessage
 func (c *DefaultApiService) CreateConversationMessage(ConversationSid string, params *CreateConversationMessageParams) (*ConversationsV1ConversationConversationMessage, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -199,22 +219,33 @@ type CreateConversationParticipantParams struct {
 	RoleSid                          *string    `json:"RoleSid,omitempty"`
 }
 
-/*
-* CreateConversationParticipant Method for CreateConversationParticipant
-* Add a new participant to the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
-* @param optional nil or *CreateConversationParticipantParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-* @param "DateCreated" (time.Time) - The date that this resource was created.
-* @param "DateUpdated" (time.Time) - The date that this resource was last updated.
-* @param "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
-* @param "MessagingBindingAddress" (string) - The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-* @param "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
-* @param "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-* @param "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
-* @return ConversationsV1ConversationConversationParticipant
- */
+// CreateConversationParticipant Method for CreateConversationParticipant
+//
+// Add a new participant to the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+//
+// param: optional nil or *CreateConversationParticipantParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+//
+// param: "DateCreated" (time.Time) - The date that this resource was created.
+//
+// param: "DateUpdated" (time.Time) - The date that this resource was last updated.
+//
+// param: "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
+//
+// param: "MessagingBindingAddress" (string) - The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+//
+// param: "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
+//
+// param: "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+//
+// param: "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
+//
+// return: ConversationsV1ConversationConversationParticipant
 func (c *DefaultApiService) CreateConversationParticipant(ConversationSid string, params *CreateConversationParticipantParams) (*ConversationsV1ConversationConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -277,20 +308,29 @@ type CreateConversationScopedWebhookParams struct {
 	Target                   *string   `json:"Target,omitempty"`
 }
 
-/*
-* CreateConversationScopedWebhook Method for CreateConversationScopedWebhook
-* Create a new webhook scoped to the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
-* @param optional nil or *CreateConversationScopedWebhookParams - Optional Parameters:
-* @param "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
-* @param "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
-* @param "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
-* @param "ConfigurationReplayAfter" (int32) - The message index for which and it's successors the webhook will be replayed. Not set by default
-* @param "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
-* @param "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
-* @param "Target" (string) - The target of this webhook: `webhook`, `studio`, `trigger`
-* @return ConversationsV1ConversationConversationScopedWebhook
- */
+// CreateConversationScopedWebhook Method for CreateConversationScopedWebhook
+//
+// Create a new webhook scoped to the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+//
+// param: optional nil or *CreateConversationScopedWebhookParams - Optional Parameters:
+//
+// param: "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
+//
+// param: "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
+//
+// param: "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
+//
+// param: "ConfigurationReplayAfter" (int32) - The message index for which and it's successors the webhook will be replayed. Not set by default
+//
+// param: "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
+//
+// param: "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
+//
+// param: "Target" (string) - The target of this webhook: `webhook`, `studio`, `trigger`
+//
+// return: ConversationsV1ConversationConversationScopedWebhook
 func (c *DefaultApiService) CreateConversationScopedWebhook(ConversationSid string, params *CreateConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhook, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -346,19 +386,27 @@ type CreateCredentialParams struct {
 	Type         *string `json:"Type,omitempty"`
 }
 
-/*
-* CreateCredential Method for CreateCredential
-* Add a new push notification credential to your account
-* @param optional nil or *CreateCredentialParams - Optional Parameters:
-* @param "ApiKey" (string) - [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
-* @param "Certificate" (string) - [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
-* @param "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-* @param "PrivateKey" (string) - [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
-* @param "Sandbox" (bool) - [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-* @param "Secret" (string) - [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
-* @param "Type" (string) - The type of push-notification service the credential is for. Can be: `fcm`, `gcm`, or `apn`.
-* @return ConversationsV1Credential
- */
+// CreateCredential Method for CreateCredential
+//
+// Add a new push notification credential to your account
+//
+// param: optional nil or *CreateCredentialParams - Optional Parameters:
+//
+// param: "ApiKey" (string) - [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
+//
+// param: "Certificate" (string) - [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
+//
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+//
+// param: "PrivateKey" (string) - [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
+//
+// param: "Sandbox" (bool) - [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+//
+// param: "Secret" (string) - [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
+//
+// param: "Type" (string) - The type of push-notification service the credential is for. Can be: `fcm`, `gcm`, or `apn`.
+//
+// return: ConversationsV1Credential
 func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*ConversationsV1Credential, error) {
 	path := "/v1/Credentials"
 
@@ -409,15 +457,19 @@ type CreateRoleParams struct {
 	Type         *string   `json:"Type,omitempty"`
 }
 
-/*
-* CreateRole Method for CreateRole
-* Create a new user role in your account&#39;s default service
-* @param optional nil or *CreateRoleParams - Optional Parameters:
-* @param "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-* @param "Permission" ([]string) - A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
-* @param "Type" (string) - The type of role. Can be: `conversation` for [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) roles or `service` for [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) roles.
-* @return ConversationsV1Role
- */
+// CreateRole Method for CreateRole
+//
+// Create a new user role in your account&#39;s default service
+//
+// param: optional nil or *CreateRoleParams - Optional Parameters:
+//
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+//
+// param: "Permission" ([]string) - A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
+//
+// param: "Type" (string) - The type of role. Can be: `conversation` for [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) roles or `service` for [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) roles.
+//
+// return: ConversationsV1Role
 func (c *DefaultApiService) CreateRole(params *CreateRoleParams) (*ConversationsV1Role, error) {
 	path := "/v1/Roles"
 
@@ -454,13 +506,15 @@ type CreateServiceParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-/*
-* CreateService Method for CreateService
-* Create a new conversation service on your account
-* @param optional nil or *CreateServiceParams - Optional Parameters:
-* @param "FriendlyName" (string) - The human-readable name of this service, limited to 256 characters. Optional.
-* @return ConversationsV1Service
- */
+// CreateService Method for CreateService
+//
+// Create a new conversation service on your account
+//
+// param: optional nil or *CreateServiceParams - Optional Parameters:
+//
+// param: "FriendlyName" (string) - The human-readable name of this service, limited to 256 characters. Optional.
+//
+// return: ConversationsV1Service
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ConversationsV1Service, error) {
 	path := "/v1/Services"
 
@@ -500,23 +554,35 @@ type CreateServiceConversationParams struct {
 	UniqueName            *string    `json:"UniqueName,omitempty"`
 }
 
-/*
-* CreateServiceConversation Method for CreateServiceConversation
-* Create a new conversation in your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
-* @param optional nil or *CreateServiceConversationParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-* @param "DateCreated" (time.Time) - The date that this resource was created.
-* @param "DateUpdated" (time.Time) - The date that this resource was last updated.
-* @param "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
-* @param "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-* @param "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
-* @param "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-* @param "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-* @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-* @return ConversationsV1ServiceServiceConversation
- */
+// CreateServiceConversation Method for CreateServiceConversation
+//
+// Create a new conversation in your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+//
+// param: optional nil or *CreateServiceConversationParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+//
+// param: "DateCreated" (time.Time) - The date that this resource was created.
+//
+// param: "DateUpdated" (time.Time) - The date that this resource was last updated.
+//
+// param: "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
+//
+// param: "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+//
+// param: "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
+//
+// param: "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+//
+// param: "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+//
+// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+//
+// return: ConversationsV1ServiceServiceConversation
 func (c *DefaultApiService) CreateServiceConversation(ChatServiceSid string, params *CreateServiceConversationParams) (*ConversationsV1ServiceServiceConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -582,21 +648,31 @@ type CreateServiceConversationMessageParams struct {
 	MediaSid              *string    `json:"MediaSid,omitempty"`
 }
 
-/*
-* CreateServiceConversationMessage Method for CreateServiceConversationMessage
-* Add a new message to the conversation in a specific service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-* @param optional nil or *CreateServiceConversationMessageParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-* @param "Author" (string) - The channel specific identifier of the message's author. Defaults to `system`.
-* @param "Body" (string) - The content of the message, can be up to 1,600 characters long.
-* @param "DateCreated" (time.Time) - The date that this resource was created.
-* @param "DateUpdated" (time.Time) - The date that this resource was last updated. `null` if the message has not been edited.
-* @param "MediaSid" (string) - The Media SID to be attached to the new Message.
-* @return ConversationsV1ServiceServiceConversationServiceConversationMessage
- */
+// CreateServiceConversationMessage Method for CreateServiceConversationMessage
+//
+// Add a new message to the conversation in a specific service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+//
+// param: optional nil or *CreateServiceConversationMessageParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+//
+// param: "Author" (string) - The channel specific identifier of the message's author. Defaults to `system`.
+//
+// param: "Body" (string) - The content of the message, can be up to 1,600 characters long.
+//
+// param: "DateCreated" (time.Time) - The date that this resource was created.
+//
+// param: "DateUpdated" (time.Time) - The date that this resource was last updated. `null` if the message has not been edited.
+//
+// param: "MediaSid" (string) - The Media SID to be attached to the new Message.
+//
+// return: ConversationsV1ServiceServiceConversationServiceConversationMessage
 func (c *DefaultApiService) CreateServiceConversationMessage(ChatServiceSid string, ConversationSid string, params *CreateServiceConversationMessageParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -656,23 +732,35 @@ type CreateServiceConversationParticipantParams struct {
 	RoleSid                          *string    `json:"RoleSid,omitempty"`
 }
 
-/*
-* CreateServiceConversationParticipant Method for CreateServiceConversationParticipant
-* Add a new participant to the conversation in a specific service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
-* @param optional nil or *CreateServiceConversationParticipantParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-* @param "DateCreated" (time.Time) - The date that this resource was created.
-* @param "DateUpdated" (time.Time) - The date that this resource was last updated.
-* @param "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
-* @param "MessagingBindingAddress" (string) - The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-* @param "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
-* @param "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
-* @param "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
-* @return ConversationsV1ServiceServiceConversationServiceConversationParticipant
- */
+// CreateServiceConversationParticipant Method for CreateServiceConversationParticipant
+//
+// Add a new participant to the conversation in a specific service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+//
+// param: optional nil or *CreateServiceConversationParticipantParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+//
+// param: "DateCreated" (time.Time) - The date that this resource was created.
+//
+// param: "DateUpdated" (time.Time) - The date that this resource was last updated.
+//
+// param: "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
+//
+// param: "MessagingBindingAddress" (string) - The address of the participant's device, e.g. a phone or WhatsApp number. Together with the Proxy address, this determines a participant uniquely. This field (with proxy_address) is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+//
+// param: "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. Communication mask for the Conversation participant with Identity.
+//
+// param: "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number (or WhatsApp number) that the participant is in contact with. This field, together with participant address, is only null when the participant is interacting from an SDK endpoint (see the 'identity' field).
+//
+// param: "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
+//
+// return: ConversationsV1ServiceServiceConversationServiceConversationParticipant
 func (c *DefaultApiService) CreateServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *CreateServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -736,21 +824,31 @@ type CreateServiceConversationScopedWebhookParams struct {
 	Target                   *string   `json:"Target,omitempty"`
 }
 
-/*
-* CreateServiceConversationScopedWebhook Method for CreateServiceConversationScopedWebhook
-* Create a new webhook scoped to the conversation in a specific service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
-* @param optional nil or *CreateServiceConversationScopedWebhookParams - Optional Parameters:
-* @param "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
-* @param "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
-* @param "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
-* @param "ConfigurationReplayAfter" (int32) - The message index for which and it's successors the webhook will be replayed. Not set by default
-* @param "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
-* @param "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
-* @param "Target" (string) - The target of this webhook: `webhook`, `studio`, `trigger`
-* @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
- */
+// CreateServiceConversationScopedWebhook Method for CreateServiceConversationScopedWebhook
+//
+// Create a new webhook scoped to the conversation in a specific service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+//
+// param: optional nil or *CreateServiceConversationScopedWebhookParams - Optional Parameters:
+//
+// param: "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
+//
+// param: "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
+//
+// param: "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
+//
+// param: "ConfigurationReplayAfter" (int32) - The message index for which and it's successors the webhook will be replayed. Not set by default
+//
+// param: "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
+//
+// param: "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
+//
+// param: "Target" (string) - The target of this webhook: `webhook`, `studio`, `trigger`
+//
+// return: ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
 func (c *DefaultApiService) CreateServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *CreateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -803,16 +901,21 @@ type CreateServiceRoleParams struct {
 	Type         *string   `json:"Type,omitempty"`
 }
 
-/*
-* CreateServiceRole Method for CreateServiceRole
-* Create a new user role in your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to create the Role resource under.
-* @param optional nil or *CreateServiceRoleParams - Optional Parameters:
-* @param "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-* @param "Permission" ([]string) - A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
-* @param "Type" (string) - The type of role. Can be: `conversation` for [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) roles or `service` for [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) roles.
-* @return ConversationsV1ServiceServiceRole
- */
+// CreateServiceRole Method for CreateServiceRole
+//
+// Create a new user role in your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to create the Role resource under.
+//
+// param: optional nil or *CreateServiceRoleParams - Optional Parameters:
+//
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+//
+// param: "Permission" ([]string) - A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
+//
+// param: "Type" (string) - The type of role. Can be: `conversation` for [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) roles or `service` for [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) roles.
+//
+// return: ConversationsV1ServiceServiceRole
 func (c *DefaultApiService) CreateServiceRole(ChatServiceSid string, params *CreateServiceRoleParams) (*ConversationsV1ServiceServiceRole, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -854,18 +957,25 @@ type CreateServiceUserParams struct {
 	RoleSid               *string `json:"RoleSid,omitempty"`
 }
 
-/*
-* CreateServiceUser Method for CreateServiceUser
-* Add a new conversation user to your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
-* @param optional nil or *CreateServiceUserParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @param "Identity" (string) - The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
-* @param "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
-* @return ConversationsV1ServiceServiceUser
- */
+// CreateServiceUser Method for CreateServiceUser
+//
+// Add a new conversation user to your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
+//
+// param: optional nil or *CreateServiceUserParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// param: "Identity" (string) - The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
+//
+// param: "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+//
+// return: ConversationsV1ServiceServiceUser
 func (c *DefaultApiService) CreateServiceUser(ChatServiceSid string, params *CreateServiceUserParams) (*ConversationsV1ServiceServiceUser, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -914,17 +1024,23 @@ type CreateUserParams struct {
 	RoleSid               *string `json:"RoleSid,omitempty"`
 }
 
-/*
-* CreateUser Method for CreateUser
-* Add a new conversation user to your account&#39;s default service
-* @param optional nil or *CreateUserParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @param "Identity" (string) - The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
-* @param "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
-* @return ConversationsV1User
- */
+// CreateUser Method for CreateUser
+//
+// Add a new conversation user to your account&#39;s default service
+//
+// param: optional nil or *CreateUserParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// param: "Identity" (string) - The application-defined string that uniquely identifies the resource's User within the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource). This value is often a username or an email address, and is case-sensitive.
+//
+// param: "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+//
+// return: ConversationsV1User
 func (c *DefaultApiService) CreateUser(params *CreateUserParams) (*ConversationsV1User, error) {
 	path := "/v1/Users"
 
@@ -968,13 +1084,16 @@ type DeleteConversationParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
-/*
-* DeleteConversation Method for DeleteConversation
-* Remove a conversation from your account&#39;s default service
-* @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
-* @param optional nil or *DeleteConversationParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
- */
+// DeleteConversation Method for DeleteConversation
+//
+// Remove a conversation from your account&#39;s default service
+//
+// param: Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+//
+// param: optional nil or *DeleteConversationParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
 func (c *DefaultApiService) DeleteConversation(Sid string, params *DeleteConversationParams) error {
 	path := "/v1/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1001,14 +1120,18 @@ type DeleteConversationMessageParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
-/*
-* DeleteConversationMessage Method for DeleteConversationMessage
-* Remove a message from the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @param optional nil or *DeleteConversationMessageParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
- */
+// DeleteConversationMessage Method for DeleteConversationMessage
+//
+// Remove a message from the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// param: optional nil or *DeleteConversationMessageParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
 func (c *DefaultApiService) DeleteConversationMessage(ConversationSid string, Sid string, params *DeleteConversationMessageParams) error {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -1036,14 +1159,18 @@ type DeleteConversationParticipantParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
-/*
-* DeleteConversationParticipant Method for DeleteConversationParticipant
-* Remove a participant from the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @param optional nil or *DeleteConversationParticipantParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
- */
+// DeleteConversationParticipant Method for DeleteConversationParticipant
+//
+// Remove a participant from the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// param: optional nil or *DeleteConversationParticipantParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
 func (c *DefaultApiService) DeleteConversationParticipant(ConversationSid string, Sid string, params *DeleteConversationParticipantParams) error {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -1066,12 +1193,14 @@ func (c *DefaultApiService) DeleteConversationParticipant(ConversationSid string
 	return nil
 }
 
-/*
-* DeleteConversationScopedWebhook Method for DeleteConversationScopedWebhook
-* Remove an existing webhook scoped to the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
-* @param Sid A 34 character string that uniquely identifies this resource.
- */
+// DeleteConversationScopedWebhook Method for DeleteConversationScopedWebhook
+//
+// Remove an existing webhook scoped to the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
 func (c *DefaultApiService) DeleteConversationScopedWebhook(ConversationSid string, Sid string) error {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -1090,11 +1219,12 @@ func (c *DefaultApiService) DeleteConversationScopedWebhook(ConversationSid stri
 	return nil
 }
 
-/*
-* DeleteCredential Method for DeleteCredential
-* Remove a push notification credential from your account
-* @param Sid A 34 character string that uniquely identifies this resource.
- */
+// DeleteCredential Method for DeleteCredential
+//
+// Remove a push notification credential from your account
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
 func (c *DefaultApiService) DeleteCredential(Sid string) error {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1112,11 +1242,12 @@ func (c *DefaultApiService) DeleteCredential(Sid string) error {
 	return nil
 }
 
-/*
-* DeleteRole Method for DeleteRole
-* Remove a user role from your account&#39;s default service
-* @param Sid The SID of the Role resource to delete.
- */
+// DeleteRole Method for DeleteRole
+//
+// Remove a user role from your account&#39;s default service
+//
+// param: Sid The SID of the Role resource to delete.
+//
 func (c *DefaultApiService) DeleteRole(Sid string) error {
 	path := "/v1/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1134,11 +1265,12 @@ func (c *DefaultApiService) DeleteRole(Sid string) error {
 	return nil
 }
 
-/*
-* DeleteService Method for DeleteService
-* Remove a conversation service with all its nested resources from your account
-* @param Sid A 34 character string that uniquely identifies this resource.
- */
+// DeleteService Method for DeleteService
+//
+// Remove a conversation service with all its nested resources from your account
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
 func (c *DefaultApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1156,12 +1288,14 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	return nil
 }
 
-/*
-* DeleteServiceBinding Method for DeleteServiceBinding
-* Remove a push notification binding from the conversation service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the Binding resource from.
-* @param Sid The SID of the Binding resource to delete.
- */
+// DeleteServiceBinding Method for DeleteServiceBinding
+//
+// Remove a push notification binding from the conversation service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the Binding resource from.
+//
+// param: Sid The SID of the Binding resource to delete.
+//
 func (c *DefaultApiService) DeleteServiceBinding(ChatServiceSid string, Sid string) error {
 	path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1185,14 +1319,18 @@ type DeleteServiceConversationParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
-/*
-* DeleteServiceConversation Method for DeleteServiceConversation
-* Remove a conversation from your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
-* @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
-* @param optional nil or *DeleteServiceConversationParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
- */
+// DeleteServiceConversation Method for DeleteServiceConversation
+//
+// Remove a conversation from your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+//
+// param: Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+//
+// param: optional nil or *DeleteServiceConversationParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
 func (c *DefaultApiService) DeleteServiceConversation(ChatServiceSid string, Sid string, params *DeleteServiceConversationParams) error {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1220,15 +1358,20 @@ type DeleteServiceConversationMessageParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
-/*
-* DeleteServiceConversationMessage Method for DeleteServiceConversationMessage
-* Remove a message from the conversation
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @param optional nil or *DeleteServiceConversationMessageParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
- */
+// DeleteServiceConversationMessage Method for DeleteServiceConversationMessage
+//
+// Remove a message from the conversation
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// param: optional nil or *DeleteServiceConversationMessageParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
 func (c *DefaultApiService) DeleteServiceConversationMessage(ChatServiceSid string, ConversationSid string, Sid string, params *DeleteServiceConversationMessageParams) error {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1257,15 +1400,20 @@ type DeleteServiceConversationParticipantParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
-/*
-* DeleteServiceConversationParticipant Method for DeleteServiceConversationParticipant
-* Remove a participant from the conversation
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @param optional nil or *DeleteServiceConversationParticipantParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
- */
+// DeleteServiceConversationParticipant Method for DeleteServiceConversationParticipant
+//
+// Remove a participant from the conversation
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// param: optional nil or *DeleteServiceConversationParticipantParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
 func (c *DefaultApiService) DeleteServiceConversationParticipant(ChatServiceSid string, ConversationSid string, Sid string, params *DeleteServiceConversationParticipantParams) error {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1289,13 +1437,16 @@ func (c *DefaultApiService) DeleteServiceConversationParticipant(ChatServiceSid 
 	return nil
 }
 
-/*
-* DeleteServiceConversationScopedWebhook Method for DeleteServiceConversationScopedWebhook
-* Remove an existing webhook scoped to the conversation
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
-* @param Sid A 34 character string that uniquely identifies this resource.
- */
+// DeleteServiceConversationScopedWebhook Method for DeleteServiceConversationScopedWebhook
+//
+// Remove an existing webhook scoped to the conversation
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
 func (c *DefaultApiService) DeleteServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, Sid string) error {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1315,12 +1466,14 @@ func (c *DefaultApiService) DeleteServiceConversationScopedWebhook(ChatServiceSi
 	return nil
 }
 
-/*
-* DeleteServiceRole Method for DeleteServiceRole
-* Remove a user role from your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the Role resource from.
-* @param Sid The SID of the Role resource to delete.
- */
+// DeleteServiceRole Method for DeleteServiceRole
+//
+// Remove a user role from your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the Role resource from.
+//
+// param: Sid The SID of the Role resource to delete.
+//
 func (c *DefaultApiService) DeleteServiceRole(ChatServiceSid string, Sid string) error {
 	path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1344,14 +1497,18 @@ type DeleteServiceUserParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
-/*
-* DeleteServiceUser Method for DeleteServiceUser
-* Remove a conversation user from your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the User resource from.
-* @param Sid The SID of the User resource to delete. This value can be either the `sid` or the `identity` of the User resource to delete.
-* @param optional nil or *DeleteServiceUserParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
- */
+// DeleteServiceUser Method for DeleteServiceUser
+//
+// Remove a conversation user from your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to delete the User resource from.
+//
+// param: Sid The SID of the User resource to delete. This value can be either the `sid` or the `identity` of the User resource to delete.
+//
+// param: optional nil or *DeleteServiceUserParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
 func (c *DefaultApiService) DeleteServiceUser(ChatServiceSid string, Sid string, params *DeleteServiceUserParams) error {
 	path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1379,13 +1536,16 @@ type DeleteUserParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
-/*
-* DeleteUser Method for DeleteUser
-* Remove a conversation user from your account&#39;s default service
-* @param Sid The SID of the User resource to delete. This value can be either the `sid` or the `identity` of the User resource to delete.
-* @param optional nil or *DeleteUserParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
- */
+// DeleteUser Method for DeleteUser
+//
+// Remove a conversation user from your account&#39;s default service
+//
+// param: Sid The SID of the User resource to delete. This value can be either the `sid` or the `identity` of the User resource to delete.
+//
+// param: optional nil or *DeleteUserParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
 func (c *DefaultApiService) DeleteUser(Sid string, params *DeleteUserParams) error {
 	path := "/v1/Users/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1407,11 +1567,11 @@ func (c *DefaultApiService) DeleteUser(Sid string, params *DeleteUserParams) err
 	return nil
 }
 
-/*
-* FetchConfiguration Method for FetchConfiguration
-* Fetch the global configuration of conversations on your account
-* @return ConversationsV1Configuration
- */
+// FetchConfiguration Method for FetchConfiguration
+//
+// Fetch the global configuration of conversations on your account
+//
+// return: ConversationsV1Configuration
 func (c *DefaultApiService) FetchConfiguration() (*ConversationsV1Configuration, error) {
 	path := "/v1/Configuration"
 
@@ -1433,10 +1593,9 @@ func (c *DefaultApiService) FetchConfiguration() (*ConversationsV1Configuration,
 	return ps, err
 }
 
-/*
-* FetchConfigurationWebhook Method for FetchConfigurationWebhook
-* @return ConversationsV1ConfigurationConfigurationWebhook
- */
+// FetchConfigurationWebhook Method for FetchConfigurationWebhook
+//
+// return: ConversationsV1ConfigurationConfigurationWebhook
 func (c *DefaultApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
@@ -1458,12 +1617,13 @@ func (c *DefaultApiService) FetchConfigurationWebhook() (*ConversationsV1Configu
 	return ps, err
 }
 
-/*
-* FetchConversation Method for FetchConversation
-* Fetch a conversation from your account&#39;s default service
-* @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
-* @return ConversationsV1Conversation
- */
+// FetchConversation Method for FetchConversation
+//
+// Fetch a conversation from your account&#39;s default service
+//
+// param: Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+//
+// return: ConversationsV1Conversation
 func (c *DefaultApiService) FetchConversation(Sid string) (*ConversationsV1Conversation, error) {
 	path := "/v1/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1486,13 +1646,15 @@ func (c *DefaultApiService) FetchConversation(Sid string) (*ConversationsV1Conve
 	return ps, err
 }
 
-/*
-* FetchConversationMessage Method for FetchConversationMessage
-* Fetch a message from the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @return ConversationsV1ConversationConversationMessage
- */
+// FetchConversationMessage Method for FetchConversationMessage
+//
+// Fetch a message from the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// return: ConversationsV1ConversationConversationMessage
 func (c *DefaultApiService) FetchConversationMessage(ConversationSid string, Sid string) (*ConversationsV1ConversationConversationMessage, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -1516,14 +1678,17 @@ func (c *DefaultApiService) FetchConversationMessage(ConversationSid string, Sid
 	return ps, err
 }
 
-/*
-* FetchConversationMessageReceipt Method for FetchConversationMessageReceipt
-* Fetch the delivery and read receipts of the conversation message
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-* @param MessageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @return ConversationsV1ConversationConversationMessageConversationMessageReceipt
- */
+// FetchConversationMessageReceipt Method for FetchConversationMessageReceipt
+//
+// Fetch the delivery and read receipts of the conversation message
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+//
+// param: MessageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// return: ConversationsV1ConversationConversationMessageConversationMessageReceipt
 func (c *DefaultApiService) FetchConversationMessageReceipt(ConversationSid string, MessageSid string, Sid string) (*ConversationsV1ConversationConversationMessageConversationMessageReceipt, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -1548,13 +1713,15 @@ func (c *DefaultApiService) FetchConversationMessageReceipt(ConversationSid stri
 	return ps, err
 }
 
-/*
-* FetchConversationParticipant Method for FetchConversationParticipant
-* Fetch a participant of the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @return ConversationsV1ConversationConversationParticipant
- */
+// FetchConversationParticipant Method for FetchConversationParticipant
+//
+// Fetch a participant of the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// return: ConversationsV1ConversationConversationParticipant
 func (c *DefaultApiService) FetchConversationParticipant(ConversationSid string, Sid string) (*ConversationsV1ConversationConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -1578,13 +1745,15 @@ func (c *DefaultApiService) FetchConversationParticipant(ConversationSid string,
 	return ps, err
 }
 
-/*
-* FetchConversationScopedWebhook Method for FetchConversationScopedWebhook
-* Fetch the configuration of a conversation-scoped webhook
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @return ConversationsV1ConversationConversationScopedWebhook
- */
+// FetchConversationScopedWebhook Method for FetchConversationScopedWebhook
+//
+// Fetch the configuration of a conversation-scoped webhook
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// return: ConversationsV1ConversationConversationScopedWebhook
 func (c *DefaultApiService) FetchConversationScopedWebhook(ConversationSid string, Sid string) (*ConversationsV1ConversationConversationScopedWebhook, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -1608,12 +1777,13 @@ func (c *DefaultApiService) FetchConversationScopedWebhook(ConversationSid strin
 	return ps, err
 }
 
-/*
-* FetchCredential Method for FetchCredential
-* Fetch a push notification credential from your account
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @return ConversationsV1Credential
- */
+// FetchCredential Method for FetchCredential
+//
+// Fetch a push notification credential from your account
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// return: ConversationsV1Credential
 func (c *DefaultApiService) FetchCredential(Sid string) (*ConversationsV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1636,12 +1806,13 @@ func (c *DefaultApiService) FetchCredential(Sid string) (*ConversationsV1Credent
 	return ps, err
 }
 
-/*
-* FetchRole Method for FetchRole
-* Fetch a user role from your account&#39;s default service
-* @param Sid The SID of the Role resource to fetch.
-* @return ConversationsV1Role
- */
+// FetchRole Method for FetchRole
+//
+// Fetch a user role from your account&#39;s default service
+//
+// param: Sid The SID of the Role resource to fetch.
+//
+// return: ConversationsV1Role
 func (c *DefaultApiService) FetchRole(Sid string) (*ConversationsV1Role, error) {
 	path := "/v1/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1664,12 +1835,13 @@ func (c *DefaultApiService) FetchRole(Sid string) (*ConversationsV1Role, error) 
 	return ps, err
 }
 
-/*
-* FetchService Method for FetchService
-* Fetch a conversation service from your account
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @return ConversationsV1Service
- */
+// FetchService Method for FetchService
+//
+// Fetch a conversation service from your account
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// return: ConversationsV1Service
 func (c *DefaultApiService) FetchService(Sid string) (*ConversationsV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1692,13 +1864,15 @@ func (c *DefaultApiService) FetchService(Sid string) (*ConversationsV1Service, e
 	return ps, err
 }
 
-/*
-* FetchServiceBinding Method for FetchServiceBinding
-* Fetch a push notification binding from the conversation service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @return ConversationsV1ServiceServiceBinding
- */
+// FetchServiceBinding Method for FetchServiceBinding
+//
+// Fetch a push notification binding from the conversation service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// return: ConversationsV1ServiceServiceBinding
 func (c *DefaultApiService) FetchServiceBinding(ChatServiceSid string, Sid string) (*ConversationsV1ServiceServiceBinding, error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1722,12 +1896,13 @@ func (c *DefaultApiService) FetchServiceBinding(ChatServiceSid string, Sid strin
 	return ps, err
 }
 
-/*
-* FetchServiceConfiguration Method for FetchServiceConfiguration
-* Fetch the configuration of a conversation service
-* @param ChatServiceSid The SID of the Service configuration resource to fetch.
-* @return ConversationsV1ServiceServiceConfiguration
- */
+// FetchServiceConfiguration Method for FetchServiceConfiguration
+//
+// Fetch the configuration of a conversation service
+//
+// param: ChatServiceSid The SID of the Service configuration resource to fetch.
+//
+// return: ConversationsV1ServiceServiceConfiguration
 func (c *DefaultApiService) FetchServiceConfiguration(ChatServiceSid string) (*ConversationsV1ServiceServiceConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1750,13 +1925,15 @@ func (c *DefaultApiService) FetchServiceConfiguration(ChatServiceSid string) (*C
 	return ps, err
 }
 
-/*
-* FetchServiceConversation Method for FetchServiceConversation
-* Fetch a conversation from your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
-* @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
-* @return ConversationsV1ServiceServiceConversation
- */
+// FetchServiceConversation Method for FetchServiceConversation
+//
+// Fetch a conversation from your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+//
+// param: Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+//
+// return: ConversationsV1ServiceServiceConversation
 func (c *DefaultApiService) FetchServiceConversation(ChatServiceSid string, Sid string) (*ConversationsV1ServiceServiceConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1780,14 +1957,17 @@ func (c *DefaultApiService) FetchServiceConversation(ChatServiceSid string, Sid 
 	return ps, err
 }
 
-/*
-* FetchServiceConversationMessage Method for FetchServiceConversationMessage
-* Fetch a message from the conversation
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @return ConversationsV1ServiceServiceConversationServiceConversationMessage
- */
+// FetchServiceConversationMessage Method for FetchServiceConversationMessage
+//
+// Fetch a message from the conversation
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// return: ConversationsV1ServiceServiceConversationServiceConversationMessage
 func (c *DefaultApiService) FetchServiceConversationMessage(ChatServiceSid string, ConversationSid string, Sid string) (*ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1812,15 +1992,19 @@ func (c *DefaultApiService) FetchServiceConversationMessage(ChatServiceSid strin
 	return ps, err
 }
 
-/*
-* FetchServiceConversationMessageReceipt Method for FetchServiceConversationMessageReceipt
-* Fetch the delivery and read receipts of the conversation message
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-* @param MessageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @return ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt
- */
+// FetchServiceConversationMessageReceipt Method for FetchServiceConversationMessageReceipt
+//
+// Fetch the delivery and read receipts of the conversation message
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+//
+// param: MessageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// return: ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt
 func (c *DefaultApiService) FetchServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, Sid string) (*ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1846,14 +2030,17 @@ func (c *DefaultApiService) FetchServiceConversationMessageReceipt(ChatServiceSi
 	return ps, err
 }
 
-/*
-* FetchServiceConversationParticipant Method for FetchServiceConversationParticipant
-* Fetch a participant of the conversation
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @return ConversationsV1ServiceServiceConversationServiceConversationParticipant
- */
+// FetchServiceConversationParticipant Method for FetchServiceConversationParticipant
+//
+// Fetch a participant of the conversation
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// return: ConversationsV1ServiceServiceConversationServiceConversationParticipant
 func (c *DefaultApiService) FetchServiceConversationParticipant(ChatServiceSid string, ConversationSid string, Sid string) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1878,14 +2065,17 @@ func (c *DefaultApiService) FetchServiceConversationParticipant(ChatServiceSid s
 	return ps, err
 }
 
-/*
-* FetchServiceConversationScopedWebhook Method for FetchServiceConversationScopedWebhook
-* Fetch the configuration of a conversation-scoped webhook
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
- */
+// FetchServiceConversationScopedWebhook Method for FetchServiceConversationScopedWebhook
+//
+// Fetch the configuration of a conversation-scoped webhook
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// return: ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
 func (c *DefaultApiService) FetchServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, Sid string) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1910,12 +2100,13 @@ func (c *DefaultApiService) FetchServiceConversationScopedWebhook(ChatServiceSid
 	return ps, err
 }
 
-/*
-* FetchServiceNotification Method for FetchServiceNotification
-* Fetch push notification service settings
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
-* @return ConversationsV1ServiceServiceConfigurationServiceNotification
- */
+// FetchServiceNotification Method for FetchServiceNotification
+//
+// Fetch push notification service settings
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
+//
+// return: ConversationsV1ServiceServiceConfigurationServiceNotification
 func (c *DefaultApiService) FetchServiceNotification(ChatServiceSid string) (*ConversationsV1ServiceServiceConfigurationServiceNotification, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1938,13 +2129,15 @@ func (c *DefaultApiService) FetchServiceNotification(ChatServiceSid string) (*Co
 	return ps, err
 }
 
-/*
-* FetchServiceRole Method for FetchServiceRole
-* Fetch a user role from your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to fetch the Role resource from.
-* @param Sid The SID of the Role resource to fetch.
-* @return ConversationsV1ServiceServiceRole
- */
+// FetchServiceRole Method for FetchServiceRole
+//
+// Fetch a user role from your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to fetch the Role resource from.
+//
+// param: Sid The SID of the Role resource to fetch.
+//
+// return: ConversationsV1ServiceServiceRole
 func (c *DefaultApiService) FetchServiceRole(ChatServiceSid string, Sid string) (*ConversationsV1ServiceServiceRole, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1968,13 +2161,15 @@ func (c *DefaultApiService) FetchServiceRole(ChatServiceSid string, Sid string) 
 	return ps, err
 }
 
-/*
-* FetchServiceUser Method for FetchServiceUser
-* Fetch a conversation user from your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to fetch the User resource from.
-* @param Sid The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch.
-* @return ConversationsV1ServiceServiceUser
- */
+// FetchServiceUser Method for FetchServiceUser
+//
+// Fetch a conversation user from your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to fetch the User resource from.
+//
+// param: Sid The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch.
+//
+// return: ConversationsV1ServiceServiceUser
 func (c *DefaultApiService) FetchServiceUser(ChatServiceSid string, Sid string) (*ConversationsV1ServiceServiceUser, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -1998,12 +2193,13 @@ func (c *DefaultApiService) FetchServiceUser(ChatServiceSid string, Sid string) 
 	return ps, err
 }
 
-/*
-* FetchUser Method for FetchUser
-* Fetch a conversation user from your account&#39;s default service
-* @param Sid The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch.
-* @return ConversationsV1User
- */
+// FetchUser Method for FetchUser
+//
+// Fetch a conversation user from your account&#39;s default service
+//
+// param: Sid The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch.
+//
+// return: ConversationsV1User
 func (c *DefaultApiService) FetchUser(Sid string) (*ConversationsV1User, error) {
 	path := "/v1/Users/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -2031,13 +2227,15 @@ type ListConversationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListConversation Method for ListConversation
-* Retrieve a list of conversations in your account&#39;s default service
-* @param optional nil or *ListConversationParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListConversationResponse
- */
+// ListConversation Method for ListConversation
+//
+// Retrieve a list of conversations in your account&#39;s default service
+//
+// param: optional nil or *ListConversationParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListConversationResponse
 func (c *DefaultApiService) ListConversation(params *ListConversationParams) (*ListConversationResponse, error) {
 	path := "/v1/Conversations"
 
@@ -2068,14 +2266,17 @@ type ListConversationMessageParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListConversationMessage Method for ListConversationMessage
-* Retrieve a list of all messages in the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages.
-* @param optional nil or *ListConversationMessageParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListConversationMessageResponse
- */
+// ListConversationMessage Method for ListConversationMessage
+//
+// Retrieve a list of all messages in the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages.
+//
+// param: optional nil or *ListConversationMessageParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListConversationMessageResponse
 func (c *DefaultApiService) ListConversationMessage(ConversationSid string, params *ListConversationMessageParams) (*ListConversationMessageResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -2107,15 +2308,19 @@ type ListConversationMessageReceiptParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListConversationMessageReceipt Method for ListConversationMessageReceipt
-* Retrieve a list of all delivery and read receipts of the conversation message
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-* @param MessageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
-* @param optional nil or *ListConversationMessageReceiptParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListConversationMessageReceiptResponse
- */
+// ListConversationMessageReceipt Method for ListConversationMessageReceipt
+//
+// Retrieve a list of all delivery and read receipts of the conversation message
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+//
+// param: MessageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
+//
+// param: optional nil or *ListConversationMessageReceiptParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListConversationMessageReceiptResponse
 func (c *DefaultApiService) ListConversationMessageReceipt(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams) (*ListConversationMessageReceiptResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -2148,14 +2353,17 @@ type ListConversationParticipantParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListConversationParticipant Method for ListConversationParticipant
-* Retrieve a list of all participants of the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for participants.
-* @param optional nil or *ListConversationParticipantParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListConversationParticipantResponse
- */
+// ListConversationParticipant Method for ListConversationParticipant
+//
+// Retrieve a list of all participants of the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for participants.
+//
+// param: optional nil or *ListConversationParticipantParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListConversationParticipantResponse
 func (c *DefaultApiService) ListConversationParticipant(ConversationSid string, params *ListConversationParticipantParams) (*ListConversationParticipantResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -2187,14 +2395,17 @@ type ListConversationScopedWebhookParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListConversationScopedWebhook Method for ListConversationScopedWebhook
-* Retrieve a list of all webhooks scoped to the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
-* @param optional nil or *ListConversationScopedWebhookParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListConversationScopedWebhookResponse
- */
+// ListConversationScopedWebhook Method for ListConversationScopedWebhook
+//
+// Retrieve a list of all webhooks scoped to the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+//
+// param: optional nil or *ListConversationScopedWebhookParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListConversationScopedWebhookResponse
 func (c *DefaultApiService) ListConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams) (*ListConversationScopedWebhookResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -2226,13 +2437,15 @@ type ListCredentialParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListCredential Method for ListCredential
-* Retrieve a list of all push notification credentials on your account
-* @param optional nil or *ListCredentialParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListCredentialResponse
- */
+// ListCredential Method for ListCredential
+//
+// Retrieve a list of all push notification credentials on your account
+//
+// param: optional nil or *ListCredentialParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListCredentialResponse
 func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListCredentialResponse, error) {
 	path := "/v1/Credentials"
 
@@ -2263,13 +2476,15 @@ type ListRoleParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListRole Method for ListRole
-* Retrieve a list of all user roles in your account&#39;s default service
-* @param optional nil or *ListRoleParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListRoleResponse
- */
+// ListRole Method for ListRole
+//
+// Retrieve a list of all user roles in your account&#39;s default service
+//
+// param: optional nil or *ListRoleParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListRoleResponse
 func (c *DefaultApiService) ListRole(params *ListRoleParams) (*ListRoleResponse, error) {
 	path := "/v1/Roles"
 
@@ -2300,13 +2515,15 @@ type ListServiceParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListService Method for ListService
-* Retrieve a list of all conversation services on your account
-* @param optional nil or *ListServiceParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListServiceResponse
- */
+// ListService Method for ListService
+//
+// Retrieve a list of all conversation services on your account
+//
+// param: optional nil or *ListServiceParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListServiceResponse
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
@@ -2339,16 +2556,21 @@ type ListServiceBindingParams struct {
 	PageSize    *int32    `json:"PageSize,omitempty"`
 }
 
-/*
-* ListServiceBinding Method for ListServiceBinding
-* Retrieve a list of all push notification bindings in the conversation service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
-* @param optional nil or *ListServiceBindingParams - Optional Parameters:
-* @param "BindingType" ([]string) - The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-* @param "Identity" ([]string) - The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListServiceBindingResponse
- */
+// ListServiceBinding Method for ListServiceBinding
+//
+// Retrieve a list of all push notification bindings in the conversation service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Binding resource is associated with.
+//
+// param: optional nil or *ListServiceBindingParams - Optional Parameters:
+//
+// param: "BindingType" ([]string) - The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+//
+// param: "Identity" ([]string) - The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListServiceBindingResponse
 func (c *DefaultApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) (*ListServiceBindingResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -2386,14 +2608,17 @@ type ListServiceConversationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListServiceConversation Method for ListServiceConversation
-* Retrieve a list of conversations in your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
-* @param optional nil or *ListServiceConversationParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListServiceConversationResponse
- */
+// ListServiceConversation Method for ListServiceConversation
+//
+// Retrieve a list of conversations in your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+//
+// param: optional nil or *ListServiceConversationParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListServiceConversationResponse
 func (c *DefaultApiService) ListServiceConversation(ChatServiceSid string, params *ListServiceConversationParams) (*ListServiceConversationResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -2425,15 +2650,19 @@ type ListServiceConversationMessageParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListServiceConversationMessage Method for ListServiceConversationMessage
-* Retrieve a list of all messages in the conversation
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages.
-* @param optional nil or *ListServiceConversationMessageParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListServiceConversationMessageResponse
- */
+// ListServiceConversationMessage Method for ListServiceConversationMessage
+//
+// Retrieve a list of all messages in the conversation
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages.
+//
+// param: optional nil or *ListServiceConversationMessageParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListServiceConversationMessageResponse
 func (c *DefaultApiService) ListServiceConversationMessage(ChatServiceSid string, ConversationSid string, params *ListServiceConversationMessageParams) (*ListServiceConversationMessageResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -2466,16 +2695,21 @@ type ListServiceConversationMessageReceiptParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListServiceConversationMessageReceipt Method for ListServiceConversationMessageReceipt
-* Retrieve a list of all delivery and read receipts of the conversation message
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-* @param MessageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
-* @param optional nil or *ListServiceConversationMessageReceiptParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListServiceConversationMessageReceiptResponse
- */
+// ListServiceConversationMessageReceipt Method for ListServiceConversationMessageReceipt
+//
+// Retrieve a list of all delivery and read receipts of the conversation message
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Message resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+//
+// param: MessageSid The SID of the message within a [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) the delivery receipt belongs to.
+//
+// param: optional nil or *ListServiceConversationMessageReceiptParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListServiceConversationMessageReceiptResponse
 func (c *DefaultApiService) ListServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams) (*ListServiceConversationMessageReceiptResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -2509,15 +2743,19 @@ type ListServiceConversationParticipantParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListServiceConversationParticipant Method for ListServiceConversationParticipant
-* Retrieve a list of all participants of the conversation
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for participants.
-* @param optional nil or *ListServiceConversationParticipantParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListServiceConversationParticipantResponse
- */
+// ListServiceConversationParticipant Method for ListServiceConversationParticipant
+//
+// Retrieve a list of all participants of the conversation
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for participants.
+//
+// param: optional nil or *ListServiceConversationParticipantParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListServiceConversationParticipantResponse
 func (c *DefaultApiService) ListServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams) (*ListServiceConversationParticipantResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -2550,15 +2788,19 @@ type ListServiceConversationScopedWebhookParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListServiceConversationScopedWebhook Method for ListServiceConversationScopedWebhook
-* Retrieve a list of all webhooks scoped to the conversation
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
-* @param optional nil or *ListServiceConversationScopedWebhookParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListServiceConversationScopedWebhookResponse
- */
+// ListServiceConversationScopedWebhook Method for ListServiceConversationScopedWebhook
+//
+// Retrieve a list of all webhooks scoped to the conversation
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+//
+// param: optional nil or *ListServiceConversationScopedWebhookParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListServiceConversationScopedWebhookResponse
 func (c *DefaultApiService) ListServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams) (*ListServiceConversationScopedWebhookResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -2591,14 +2833,17 @@ type ListServiceRoleParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListServiceRole Method for ListServiceRole
-* Retrieve a list of all user roles in your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the Role resources from.
-* @param optional nil or *ListServiceRoleParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListServiceRoleResponse
- */
+// ListServiceRole Method for ListServiceRole
+//
+// Retrieve a list of all user roles in your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the Role resources from.
+//
+// param: optional nil or *ListServiceRoleParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListServiceRoleResponse
 func (c *DefaultApiService) ListServiceRole(ChatServiceSid string, params *ListServiceRoleParams) (*ListServiceRoleResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -2630,14 +2875,17 @@ type ListServiceUserParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListServiceUser Method for ListServiceUser
-* Retrieve a list of all conversation users in your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the User resources from.
-* @param optional nil or *ListServiceUserParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListServiceUserResponse
- */
+// ListServiceUser Method for ListServiceUser
+//
+// Retrieve a list of all conversation users in your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the User resources from.
+//
+// param: optional nil or *ListServiceUserParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListServiceUserResponse
 func (c *DefaultApiService) ListServiceUser(ChatServiceSid string, params *ListServiceUserParams) (*ListServiceUserResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -2669,13 +2917,15 @@ type ListUserParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-/*
-* ListUser Method for ListUser
-* Retrieve a list of all conversation users in your account&#39;s default service
-* @param optional nil or *ListUserParams - Optional Parameters:
-* @param "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-* @return ListUserResponse
- */
+// ListUser Method for ListUser
+//
+// Retrieve a list of all conversation users in your account&#39;s default service
+//
+// param: optional nil or *ListUserParams - Optional Parameters:
+//
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+//
+// return: ListUserResponse
 func (c *DefaultApiService) ListUser(params *ListUserParams) (*ListUserResponse, error) {
 	path := "/v1/Users"
 
@@ -2709,16 +2959,21 @@ type UpdateConfigurationParams struct {
 	DefaultMessagingServiceSid *string `json:"DefaultMessagingServiceSid,omitempty"`
 }
 
-/*
-* UpdateConfiguration Method for UpdateConfiguration
-* Update the global configuration of conversations on your account
-* @param optional nil or *UpdateConfigurationParams - Optional Parameters:
-* @param "DefaultChatServiceSid" (string) - The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
-* @param "DefaultClosedTimer" (string) - Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-* @param "DefaultInactiveTimer" (string) - Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-* @param "DefaultMessagingServiceSid" (string) - The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation.
-* @return ConversationsV1Configuration
- */
+// UpdateConfiguration Method for UpdateConfiguration
+//
+// Update the global configuration of conversations on your account
+//
+// param: optional nil or *UpdateConfigurationParams - Optional Parameters:
+//
+// param: "DefaultChatServiceSid" (string) - The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
+//
+// param: "DefaultClosedTimer" (string) - Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+//
+// param: "DefaultInactiveTimer" (string) - Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+//
+// param: "DefaultMessagingServiceSid" (string) - The SID of the default [Messaging Service](https://www.twilio.com/docs/sms/services/api) to use when creating a conversation.
+//
+// return: ConversationsV1Configuration
 func (c *DefaultApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*ConversationsV1Configuration, error) {
 	path := "/v1/Configuration"
 
@@ -2762,16 +3017,21 @@ type UpdateConfigurationWebhookParams struct {
 	Target         *string   `json:"Target,omitempty"`
 }
 
-/*
-* UpdateConfigurationWebhook Method for UpdateConfigurationWebhook
-* @param optional nil or *UpdateConfigurationWebhookParams - Optional Parameters:
-* @param "Filters" ([]string) - The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
-* @param "Method" (string) - The HTTP method to be used when sending a webhook request.
-* @param "PostWebhookUrl" (string) - The absolute url the post-event webhook request should be sent to.
-* @param "PreWebhookUrl" (string) - The absolute url the pre-event webhook request should be sent to.
-* @param "Target" (string) - The routing target of the webhook.
-* @return ConversationsV1ConfigurationConfigurationWebhook
- */
+// UpdateConfigurationWebhook Method for UpdateConfigurationWebhook
+//
+// param: optional nil or *UpdateConfigurationWebhookParams - Optional Parameters:
+//
+// param: "Filters" ([]string) - The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+//
+// param: "Method" (string) - The HTTP method to be used when sending a webhook request.
+//
+// param: "PostWebhookUrl" (string) - The absolute url the post-event webhook request should be sent to.
+//
+// param: "PreWebhookUrl" (string) - The absolute url the pre-event webhook request should be sent to.
+//
+// param: "Target" (string) - The routing target of the webhook.
+//
+// return: ConversationsV1ConfigurationConfigurationWebhook
 func (c *DefaultApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
@@ -2823,23 +3083,35 @@ type UpdateConversationParams struct {
 	UniqueName            *string    `json:"UniqueName,omitempty"`
 }
 
-/*
-* UpdateConversation Method for UpdateConversation
-* Update an existing conversation in your account&#39;s default service
-* @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
-* @param optional nil or *UpdateConversationParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-* @param "DateCreated" (time.Time) - The date that this resource was created.
-* @param "DateUpdated" (time.Time) - The date that this resource was last updated.
-* @param "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
-* @param "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-* @param "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
-* @param "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-* @param "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-* @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-* @return ConversationsV1Conversation
- */
+// UpdateConversation Method for UpdateConversation
+//
+// Update an existing conversation in your account&#39;s default service
+//
+// param: Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+//
+// param: optional nil or *UpdateConversationParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+//
+// param: "DateCreated" (time.Time) - The date that this resource was created.
+//
+// param: "DateUpdated" (time.Time) - The date that this resource was last updated.
+//
+// param: "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
+//
+// param: "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+//
+// param: "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
+//
+// param: "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+//
+// param: "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+//
+// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+//
+// return: ConversationsV1Conversation
 func (c *DefaultApiService) UpdateConversation(Sid string, params *UpdateConversationParams) (*ConversationsV1Conversation, error) {
 	path := "/v1/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -2904,20 +3176,29 @@ type UpdateConversationMessageParams struct {
 	DateUpdated           *time.Time `json:"DateUpdated,omitempty"`
 }
 
-/*
-* UpdateConversationMessage Method for UpdateConversationMessage
-* Update an existing message in the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @param optional nil or *UpdateConversationMessageParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-* @param "Author" (string) - The channel specific identifier of the message's author. Defaults to `system`.
-* @param "Body" (string) - The content of the message, can be up to 1,600 characters long.
-* @param "DateCreated" (time.Time) - The date that this resource was created.
-* @param "DateUpdated" (time.Time) - The date that this resource was last updated. `null` if the message has not been edited.
-* @return ConversationsV1ConversationConversationMessage
- */
+// UpdateConversationMessage Method for UpdateConversationMessage
+//
+// Update an existing message in the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// param: optional nil or *UpdateConversationMessageParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+//
+// param: "Author" (string) - The channel specific identifier of the message's author. Defaults to `system`.
+//
+// param: "Body" (string) - The content of the message, can be up to 1,600 characters long.
+//
+// param: "DateCreated" (time.Time) - The date that this resource was created.
+//
+// param: "DateUpdated" (time.Time) - The date that this resource was last updated. `null` if the message has not been edited.
+//
+// return: ConversationsV1ConversationConversationMessage
 func (c *DefaultApiService) UpdateConversationMessage(ConversationSid string, Sid string, params *UpdateConversationMessageParams) (*ConversationsV1ConversationConversationMessage, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -2975,24 +3256,37 @@ type UpdateConversationParticipantParams struct {
 	RoleSid                          *string    `json:"RoleSid,omitempty"`
 }
 
-/*
-* UpdateConversationParticipant Method for UpdateConversationParticipant
-* Update an existing participant in the conversation
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @param optional nil or *UpdateConversationParticipantParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-* @param "DateCreated" (time.Time) - The date that this resource was created.
-* @param "DateUpdated" (time.Time) - The date that this resource was last updated.
-* @param "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
-* @param "LastReadMessageIndex" (*int32) - Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
-* @param "LastReadTimestamp" (string) - Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
-* @param "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
-* @param "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
-* @param "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
-* @return ConversationsV1ConversationConversationParticipant
- */
+// UpdateConversationParticipant Method for UpdateConversationParticipant
+//
+// Update an existing participant in the conversation
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// param: optional nil or *UpdateConversationParticipantParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+//
+// param: "DateCreated" (time.Time) - The date that this resource was created.
+//
+// param: "DateUpdated" (time.Time) - The date that this resource was last updated.
+//
+// param: "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
+//
+// param: "LastReadMessageIndex" (*int32) - Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
+//
+// param: "LastReadTimestamp" (string) - Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
+//
+// param: "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
+//
+// param: "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
+//
+// param: "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
+//
+// return: ConversationsV1ConversationConversationParticipant
 func (c *DefaultApiService) UpdateConversationParticipant(ConversationSid string, Sid string, params *UpdateConversationParticipantParams) (*ConversationsV1ConversationConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -3057,19 +3351,27 @@ type UpdateConversationScopedWebhookParams struct {
 	ConfigurationUrl      *string   `json:"Configuration.Url,omitempty"`
 }
 
-/*
-* UpdateConversationScopedWebhook Method for UpdateConversationScopedWebhook
-* Update an existing conversation-scoped webhook
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @param optional nil or *UpdateConversationScopedWebhookParams - Optional Parameters:
-* @param "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
-* @param "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
-* @param "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
-* @param "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
-* @param "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
-* @return ConversationsV1ConversationConversationScopedWebhook
- */
+// UpdateConversationScopedWebhook Method for UpdateConversationScopedWebhook
+//
+// Update an existing conversation-scoped webhook
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// param: optional nil or *UpdateConversationScopedWebhookParams - Optional Parameters:
+//
+// param: "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
+//
+// param: "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
+//
+// param: "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
+//
+// param: "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
+//
+// param: "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
+//
+// return: ConversationsV1ConversationConversationScopedWebhook
 func (c *DefaultApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid string, params *UpdateConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhook, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -3120,20 +3422,29 @@ type UpdateCredentialParams struct {
 	Type         *string `json:"Type,omitempty"`
 }
 
-/*
-* UpdateCredential Method for UpdateCredential
-* Update an existing push notification credential on your account
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @param optional nil or *UpdateCredentialParams - Optional Parameters:
-* @param "ApiKey" (string) - [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
-* @param "Certificate" (string) - [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
-* @param "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-* @param "PrivateKey" (string) - [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
-* @param "Sandbox" (bool) - [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-* @param "Secret" (string) - [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
-* @param "Type" (string) - The type of push-notification service the credential is for. Can be: `fcm`, `gcm`, or `apn`.
-* @return ConversationsV1Credential
- */
+// UpdateCredential Method for UpdateCredential
+//
+// Update an existing push notification credential on your account
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// param: optional nil or *UpdateCredentialParams - Optional Parameters:
+//
+// param: "ApiKey" (string) - [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
+//
+// param: "Certificate" (string) - [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`.
+//
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+//
+// param: "PrivateKey" (string) - [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`.
+//
+// param: "Sandbox" (bool) - [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+//
+// param: "Secret" (string) - [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
+//
+// param: "Type" (string) - The type of push-notification service the credential is for. Can be: `fcm`, `gcm`, or `apn`.
+//
+// return: ConversationsV1Credential
 func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentialParams) (*ConversationsV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -3183,14 +3494,17 @@ type UpdateRoleParams struct {
 	Permission *[]string `json:"Permission,omitempty"`
 }
 
-/*
-* UpdateRole Method for UpdateRole
-* Update an existing user role in your account&#39;s default service
-* @param Sid The SID of the Role resource to update.
-* @param optional nil or *UpdateRoleParams - Optional Parameters:
-* @param "Permission" ([]string) - A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
-* @return ConversationsV1Role
- */
+// UpdateRole Method for UpdateRole
+//
+// Update an existing user role in your account&#39;s default service
+//
+// param: Sid The SID of the Role resource to update.
+//
+// param: optional nil or *UpdateRoleParams - Optional Parameters:
+//
+// param: "Permission" ([]string) - A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
+//
+// return: ConversationsV1Role
 func (c *DefaultApiService) UpdateRole(Sid string, params *UpdateRoleParams) (*ConversationsV1Role, error) {
 	path := "/v1/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -3225,17 +3539,23 @@ type UpdateServiceConfigurationParams struct {
 	ReachabilityEnabled               *bool   `json:"ReachabilityEnabled,omitempty"`
 }
 
-/*
-* UpdateServiceConfiguration Method for UpdateServiceConfiguration
-* Update configuration settings of a conversation service
-* @param ChatServiceSid The SID of the Service configuration resource to update.
-* @param optional nil or *UpdateServiceConfigurationParams - Optional Parameters:
-* @param "DefaultChatServiceRoleSid" (string) - The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-* @param "DefaultConversationCreatorRoleSid" (string) - The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-* @param "DefaultConversationRoleSid" (string) - The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
-* @param "ReachabilityEnabled" (bool) - Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
-* @return ConversationsV1ServiceServiceConfiguration
- */
+// UpdateServiceConfiguration Method for UpdateServiceConfiguration
+//
+// Update configuration settings of a conversation service
+//
+// param: ChatServiceSid The SID of the Service configuration resource to update.
+//
+// param: optional nil or *UpdateServiceConfigurationParams - Optional Parameters:
+//
+// param: "DefaultChatServiceRoleSid" (string) - The service-level role assigned to users when they are added to the service. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+//
+// param: "DefaultConversationCreatorRoleSid" (string) - The conversation-level role assigned to a conversation creator when they join a new conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+//
+// param: "DefaultConversationRoleSid" (string) - The conversation-level role assigned to users when they are added to a conversation. See the [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+//
+// param: "ReachabilityEnabled" (bool) - Whether the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) is enabled for this Conversations Service. The default is `false`.
+//
+// return: ConversationsV1ServiceServiceConfiguration
 func (c *DefaultApiService) UpdateServiceConfiguration(ChatServiceSid string, params *UpdateServiceConfigurationParams) (*ConversationsV1ServiceServiceConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -3285,24 +3605,37 @@ type UpdateServiceConversationParams struct {
 	UniqueName            *string    `json:"UniqueName,omitempty"`
 }
 
-/*
-* UpdateServiceConversation Method for UpdateServiceConversation
-* Update an existing conversation in your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
-* @param Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
-* @param optional nil or *UpdateServiceConversationParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-* @param "DateCreated" (time.Time) - The date that this resource was created.
-* @param "DateUpdated" (time.Time) - The date that this resource was last updated.
-* @param "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
-* @param "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
-* @param "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
-* @param "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
-* @param "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
-* @param "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
-* @return ConversationsV1ServiceServiceConversation
- */
+// UpdateServiceConversation Method for UpdateServiceConversation
+//
+// Update an existing conversation in your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
+//
+// param: Sid A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
+//
+// param: optional nil or *UpdateServiceConversationParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+//
+// param: "DateCreated" (time.Time) - The date that this resource was created.
+//
+// param: "DateUpdated" (time.Time) - The date that this resource was last updated.
+//
+// param: "FriendlyName" (string) - The human-readable name of this conversation, limited to 256 characters. Optional.
+//
+// param: "MessagingServiceSid" (string) - The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+//
+// param: "State" (string) - Current state of this conversation. Can be either `active`, `inactive` or `closed` and defaults to `active`
+//
+// param: "TimersClosed" (string) - ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+//
+// param: "TimersInactive" (string) - ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+//
+// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+//
+// return: ConversationsV1ServiceServiceConversation
 func (c *DefaultApiService) UpdateServiceConversation(ChatServiceSid string, Sid string, params *UpdateServiceConversationParams) (*ConversationsV1ServiceServiceConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -3368,21 +3701,31 @@ type UpdateServiceConversationMessageParams struct {
 	DateUpdated           *time.Time `json:"DateUpdated,omitempty"`
 }
 
-/*
-* UpdateServiceConversationMessage Method for UpdateServiceConversationMessage
-* Update an existing message in the conversation
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @param optional nil or *UpdateServiceConversationMessageParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-* @param "Author" (string) - The channel specific identifier of the message's author. Defaults to `system`.
-* @param "Body" (string) - The content of the message, can be up to 1,600 characters long.
-* @param "DateCreated" (time.Time) - The date that this resource was created.
-* @param "DateUpdated" (time.Time) - The date that this resource was last updated. `null` if the message has not been edited.
-* @return ConversationsV1ServiceServiceConversationServiceConversationMessage
- */
+// UpdateServiceConversationMessage Method for UpdateServiceConversationMessage
+//
+// Update an existing message in the conversation
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this message.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// param: optional nil or *UpdateServiceConversationMessageParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+//
+// param: "Author" (string) - The channel specific identifier of the message's author. Defaults to `system`.
+//
+// param: "Body" (string) - The content of the message, can be up to 1,600 characters long.
+//
+// param: "DateCreated" (time.Time) - The date that this resource was created.
+//
+// param: "DateUpdated" (time.Time) - The date that this resource was last updated. `null` if the message has not been edited.
+//
+// return: ConversationsV1ServiceServiceConversationServiceConversationMessage
 func (c *DefaultApiService) UpdateServiceConversationMessage(ChatServiceSid string, ConversationSid string, Sid string, params *UpdateServiceConversationMessageParams) (*ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -3441,25 +3784,39 @@ type UpdateServiceConversationParticipantParams struct {
 	RoleSid                          *string    `json:"RoleSid,omitempty"`
 }
 
-/*
-* UpdateServiceConversationParticipant Method for UpdateServiceConversationParticipant
-* Update an existing participant in the conversation
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @param optional nil or *UpdateServiceConversationParticipantParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-* @param "DateCreated" (time.Time) - The date that this resource was created.
-* @param "DateUpdated" (time.Time) - The date that this resource was last updated.
-* @param "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
-* @param "LastReadMessageIndex" (*int32) - Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
-* @param "LastReadTimestamp" (string) - Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
-* @param "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
-* @param "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
-* @param "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
-* @return ConversationsV1ServiceServiceConversationServiceConversationParticipant
- */
+// UpdateServiceConversationParticipant Method for UpdateServiceConversationParticipant
+//
+// Update an existing participant in the conversation
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this participant.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// param: optional nil or *UpdateServiceConversationParticipantParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+//
+// param: "DateCreated" (time.Time) - The date that this resource was created.
+//
+// param: "DateUpdated" (time.Time) - The date that this resource was last updated.
+//
+// param: "Identity" (string) - A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
+//
+// param: "LastReadMessageIndex" (*int32) - Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
+//
+// param: "LastReadTimestamp" (string) - Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
+//
+// param: "MessagingBindingProjectedAddress" (string) - The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
+//
+// param: "MessagingBindingProxyAddress" (string) - The address of the Twilio phone number that the participant is in contact with. 'null' value will remove it.
+//
+// param: "RoleSid" (string) - The SID of a conversation-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the participant.
+//
+// return: ConversationsV1ServiceServiceConversationServiceConversationParticipant
 func (c *DefaultApiService) UpdateServiceConversationParticipant(ChatServiceSid string, ConversationSid string, Sid string, params *UpdateServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -3525,20 +3882,29 @@ type UpdateServiceConversationScopedWebhookParams struct {
 	ConfigurationUrl      *string   `json:"Configuration.Url,omitempty"`
 }
 
-/*
-* UpdateServiceConversationScopedWebhook Method for UpdateServiceConversationScopedWebhook
-* Update an existing conversation-scoped webhook
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
-* @param ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
-* @param Sid A 34 character string that uniquely identifies this resource.
-* @param optional nil or *UpdateServiceConversationScopedWebhookParams - Optional Parameters:
-* @param "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
-* @param "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
-* @param "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
-* @param "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
-* @param "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
-* @return ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
- */
+// UpdateServiceConversationScopedWebhook Method for UpdateServiceConversationScopedWebhook
+//
+// Update an existing conversation-scoped webhook
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
+//
+// param: ConversationSid The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for this webhook.
+//
+// param: Sid A 34 character string that uniquely identifies this resource.
+//
+// param: optional nil or *UpdateServiceConversationScopedWebhookParams - Optional Parameters:
+//
+// param: "ConfigurationFilters" ([]string) - The list of events, firing webhook event for this Conversation.
+//
+// param: "ConfigurationFlowSid" (string) - The studio flow SID, where the webhook should be sent to.
+//
+// param: "ConfigurationMethod" (string) - The HTTP method to be used when sending a webhook request.
+//
+// param: "ConfigurationTriggers" ([]string) - The list of keywords, firing webhook event for this Conversation.
+//
+// param: "ConfigurationUrl" (string) - The absolute url the webhook request should be sent to.
+//
+// return: ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
 func (c *DefaultApiService) UpdateServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, Sid string, params *UpdateServiceConversationScopedWebhookParams) (*ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -3594,24 +3960,37 @@ type UpdateServiceNotificationParams struct {
 	RemovedFromConversationTemplate *string `json:"RemovedFromConversation.Template,omitempty"`
 }
 
-/*
-* UpdateServiceNotification Method for UpdateServiceNotification
-* Update push notification service settings
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
-* @param optional nil or *UpdateServiceNotificationParams - Optional Parameters:
-* @param "AddedToConversationEnabled" (bool) - Whether to send a notification when a participant is added to a conversation. The default is `false`.
-* @param "AddedToConversationSound" (string) - The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-* @param "AddedToConversationTemplate" (string) - The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
-* @param "LogEnabled" (bool) - Weather the notification logging is enabled.
-* @param "NewMessageBadgeCountEnabled" (bool) - Whether the new message badge is enabled. The default is `false`.
-* @param "NewMessageEnabled" (bool) - Whether to send a notification when a new message is added to a conversation. The default is `false`.
-* @param "NewMessageSound" (string) - The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
-* @param "NewMessageTemplate" (string) - The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
-* @param "RemovedFromConversationEnabled" (bool) - Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
-* @param "RemovedFromConversationSound" (string) - The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-* @param "RemovedFromConversationTemplate" (string) - The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
-* @return ConversationsV1ServiceServiceConfigurationServiceNotification
- */
+// UpdateServiceNotification Method for UpdateServiceNotification
+//
+// Update push notification service settings
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
+//
+// param: optional nil or *UpdateServiceNotificationParams - Optional Parameters:
+//
+// param: "AddedToConversationEnabled" (bool) - Whether to send a notification when a participant is added to a conversation. The default is `false`.
+//
+// param: "AddedToConversationSound" (string) - The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+//
+// param: "AddedToConversationTemplate" (string) - The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+//
+// param: "LogEnabled" (bool) - Weather the notification logging is enabled.
+//
+// param: "NewMessageBadgeCountEnabled" (bool) - Whether the new message badge is enabled. The default is `false`.
+//
+// param: "NewMessageEnabled" (bool) - Whether to send a notification when a new message is added to a conversation. The default is `false`.
+//
+// param: "NewMessageSound" (string) - The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
+//
+// param: "NewMessageTemplate" (string) - The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
+//
+// param: "RemovedFromConversationEnabled" (bool) - Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
+//
+// param: "RemovedFromConversationSound" (string) - The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+//
+// param: "RemovedFromConversationTemplate" (string) - The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+//
+// return: ConversationsV1ServiceServiceConfigurationServiceNotification
 func (c *DefaultApiService) UpdateServiceNotification(ChatServiceSid string, params *UpdateServiceNotificationParams) (*ConversationsV1ServiceServiceConfigurationServiceNotification, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -3673,15 +4052,19 @@ type UpdateServiceRoleParams struct {
 	Permission *[]string `json:"Permission,omitempty"`
 }
 
-/*
-* UpdateServiceRole Method for UpdateServiceRole
-* Update an existing user role in your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to update the Role resource in.
-* @param Sid The SID of the Role resource to update.
-* @param optional nil or *UpdateServiceRoleParams - Optional Parameters:
-* @param "Permission" ([]string) - A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
-* @return ConversationsV1ServiceServiceRole
- */
+// UpdateServiceRole Method for UpdateServiceRole
+//
+// Update an existing user role in your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to update the Role resource in.
+//
+// param: Sid The SID of the Role resource to update.
+//
+// param: optional nil or *UpdateServiceRoleParams - Optional Parameters:
+//
+// param: "Permission" ([]string) - A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
+//
+// return: ConversationsV1ServiceServiceRole
 func (c *DefaultApiService) UpdateServiceRole(ChatServiceSid string, Sid string, params *UpdateServiceRoleParams) (*ConversationsV1ServiceServiceRole, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -3717,18 +4100,25 @@ type UpdateServiceUserParams struct {
 	RoleSid               *string `json:"RoleSid,omitempty"`
 }
 
-/*
-* UpdateServiceUser Method for UpdateServiceUser
-* Update an existing conversation user in your service
-* @param ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
-* @param Sid The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
-* @param optional nil or *UpdateServiceUserParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @param "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
-* @return ConversationsV1ServiceServiceUser
- */
+// UpdateServiceUser Method for UpdateServiceUser
+//
+// Update an existing conversation user in your service
+//
+// param: ChatServiceSid The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the User resource is associated with.
+//
+// param: Sid The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+//
+// param: optional nil or *UpdateServiceUserParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// param: "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+//
+// return: ConversationsV1ServiceServiceUser
 func (c *DefaultApiService) UpdateServiceUser(ChatServiceSid string, Sid string, params *UpdateServiceUserParams) (*ConversationsV1ServiceServiceUser, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -3774,17 +4164,23 @@ type UpdateUserParams struct {
 	RoleSid               *string `json:"RoleSid,omitempty"`
 }
 
-/*
-* UpdateUser Method for UpdateUser
-* Update an existing conversation user in your account&#39;s default service
-* @param Sid The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
-* @param optional nil or *UpdateUserParams - Optional Parameters:
-* @param "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-* @param "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
-* @param "FriendlyName" (string) - The string that you assigned to describe the resource.
-* @param "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
-* @return ConversationsV1User
- */
+// UpdateUser Method for UpdateUser
+//
+// Update an existing conversation user in your account&#39;s default service
+//
+// param: Sid The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
+//
+// param: optional nil or *UpdateUserParams - Optional Parameters:
+//
+// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
+//
+// param: "Attributes" (string) - The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
+//
+// param: "FriendlyName" (string) - The string that you assigned to describe the resource.
+//
+// param: "RoleSid" (string) - The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
+//
+// return: ConversationsV1User
 func (c *DefaultApiService) UpdateUser(Sid string, params *UpdateUserParams) (*ConversationsV1User, error) {
 	path := "/v1/Users/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

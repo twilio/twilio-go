@@ -1,6 +1,7 @@
 # BulkexportsV1ExportExportCustomJob
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Details** | Pointer to **map[string]interface{}** | The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job |

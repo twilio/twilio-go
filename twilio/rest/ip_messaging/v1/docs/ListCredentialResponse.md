@@ -1,6 +1,7 @@
 # ListCredentialResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Credentials** | [**[]IpMessagingV1Credential**](ip_messaging.v1.credential.md) |  |[optional] 

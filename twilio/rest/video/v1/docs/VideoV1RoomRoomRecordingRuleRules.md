@@ -1,6 +1,7 @@
 # VideoV1RoomRoomRecordingRuleRules
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **All** | **bool** |  |[optional] 

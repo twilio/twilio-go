@@ -1,6 +1,7 @@
 # ListChannelResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FlexChatChannels** | [**[]FlexV1Channel**](flex.v1.channel.md) |  |[optional] 

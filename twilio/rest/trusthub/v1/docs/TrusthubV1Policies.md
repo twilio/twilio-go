@@ -1,6 +1,7 @@
 # TrusthubV1Policies
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FriendlyName** | Pointer to **string** | A human-readable description of the Policy resource |

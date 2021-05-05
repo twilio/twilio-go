@@ -1,6 +1,7 @@
 # ListSipCredentialListMappingResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CredentialListMappings** | [**[]ApiV2010AccountSipSipDomainSipCredentialListMapping**](api.v2010.account.sip.sip_domain.sip_credential_list_mapping.md) |  |[optional] 

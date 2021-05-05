@@ -1,6 +1,7 @@
 # ApiV2010AccountBalance
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | Account Sid. |

@@ -1,6 +1,7 @@
 # ListBindingResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bindings** | [**[]ChatV2ServiceBinding**](chat.v2.service.binding.md) |  |[optional] 

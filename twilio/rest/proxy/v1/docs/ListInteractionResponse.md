@@ -1,6 +1,7 @@
 # ListInteractionResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Interactions** | [**[]ProxyV1ServiceSessionInteraction**](proxy.v1.service.session.interaction.md) |  |[optional] 
