@@ -8,9 +8,7 @@ import (
 
 //nolint:paralleltest
 func TestClient_WithParams(t *testing.T) {
-	client := NewClientWithParams(ClientParams{
-		Username:   "parentSid",
-		Password:   "authToken",
+	client := NewRestClientWithParams("parentSid", "authToken", RestClientParams{
 		AccountSid: "subAccountSid",
 	})
 
@@ -21,7 +19,7 @@ func TestClient_WithParams(t *testing.T) {
 
 //nolint:paralleltest
 func TestClient_WithNoAccountSid(t *testing.T) {
-	client := NewClient("parentSid", "authToken")
+	client := NewRestClient("parentSid", "authToken")
 	assert.Equal(t, client.Username, "parentSid")
 	assert.Equal(t, client.AccountSid, "parentSid")
 }

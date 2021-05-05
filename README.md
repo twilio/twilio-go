@@ -49,7 +49,7 @@ import "github.com/twilio/twilio-go/twilio"
 func main(){
     accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-    client := twilio.NewClient(accountSid, authToken)
+    client := twilio.NewRestClient(accountSid, authToken)
 }
 ```
 
@@ -61,9 +61,7 @@ func main(){
     accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
 	subaccountSid := "ACYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-	client := twilio.NewClientWithParams(twilio.ClientParams{
-		Username:   accountSid,
-		Password:   authToken,
+	client := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{
 		AccountSid: subaccountSid,
 	})
 }
@@ -81,7 +79,7 @@ import (
 func main(){
     accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
     authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-    client := twilio.NewClient(accountSid, authToken)
+    client := twilio.NewRestClient(accountSid, authToken)
 }
 ```
 
@@ -98,7 +96,7 @@ import (
 func main() {
 	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	client := twilio.NewClient(accountSid, authToken)
+	client := twilio.NewRestClient(accountSid, authToken)
 	client.SetRegion("au1")
 	client.SetEdge("sydney")
 }
@@ -125,9 +123,7 @@ func main() {
 	phoneNumber := "AVAILABLE_TWILIO_PHONE_NUMBER"
 	subaccountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
 
-	client := twilio.NewClientWithParams(twilio.ClientParams{
-		Username:   accountSid,
-		Password:   authToken,
+	client := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{
 		AccountSid: subaccountSid,
 	})
 
@@ -161,9 +157,7 @@ func main() {
 	to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
 	subaccountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
 
-	client := twilio.NewClientWithParams(twilio.ClientParams{
-		Username:   accountSid,
-		Password:   authToken,
+	client := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{
 		AccountSid: subaccountSid,
 	})
 
@@ -203,7 +197,7 @@ func main() {
 	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
 	to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
 
-	client := twilio.NewClient(accountSid, authToken)
+	client := twilio.NewRestClient(accountSid, authToken)
 
 	callurl := "http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient"
 
@@ -240,7 +234,7 @@ func main() {
 	serviceSid := "ZSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 	friendlyName := "My Serverless func"
 
-	client := twilio.NewClient(accountSid, authToken)
+	client := twilio.NewRestClient(accountSid, authToken)
 
 	params := &openapi.CreateFunctionParams{
 		FriendlyName: &friendlyName,
@@ -300,7 +294,7 @@ func main() {
 	definition := make(map[string]interface{})
 	_ = json.Unmarshal([]byte(jsonStr), &definition)
 
-	client := twilio.NewClient(accountSid, authToken)
+	client := twilio.NewRestClient(accountSid, authToken)
 	params := &openapi.CreateFlowParams{
 		CommitMessage: &commit,
 		Definition:    &definition,
@@ -334,7 +328,7 @@ func main() {
     authToken := os.Getenv("TWILIO_AUTH_TOKEN")
     phoneNumber := os.Getenv("TWILIO_PHONE_NUMBER")
 
-    client := twilio.NewClient(accountSid, authToken)
+    client := twilio.NewRestClient(accountSid, authToken)
 
     params := &openapi.CreateIncomingPhoneNumberParams{}
     params.PhoneNumber = &phoneNumber
