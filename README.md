@@ -29,7 +29,7 @@ This library supports the following Go implementations:
 To use twilio-go in your project initialize go modules then run:
 
 ```bash
-go get github.com/twilio/twilio-go/twilio
+go get github.com/twilio/twilio-go
 ```
 
 ## Getting Started
@@ -44,7 +44,7 @@ directly to the constructor (see the code below).
 
 ```go
 package main
-import "github.com/twilio/twilio-go/twilio"
+import "github.com/twilio/twilio-go"
 
 func main(){
     accountSID := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -58,7 +58,7 @@ We suggest storing your credentials as environment variables and then use it in 
 ```go
 package main
 import (
-	"github.com/twilio/twilio-go/twilio"
+	"github.com/twilio/twilio-go"
 	"os"
 )
 
@@ -75,7 +75,7 @@ func main(){
 package main
 
 import (
-	"github.com/twilio/twilio-go/twilio"
+	"github.com/twilio/twilio-go"
 	"os"
 )
 
@@ -98,8 +98,8 @@ A Twilio client constructed without these parameters will also look for `TWILIO_
 package main
 import (
 	"fmt"
-	"github.com/twilio/twilio-go/twilio"
-	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
+	"github.com/twilio/twilio-go"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 	"os"
 )
 
@@ -127,12 +127,14 @@ func main() {
 
 ```go
 package main
+
 import (
 	"fmt"
-	"github.com/twilio/twilio-go/twilio"
-	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
+	"github.com/twilio/twilio-go"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 	"os"
 )
+
 func main() {
 	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
@@ -166,8 +168,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/twilio/twilio-go/twilio"
-	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
+	"github.com/twilio/twilio-go"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 	"os"
 )
 
@@ -204,8 +206,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/twilio/twilio-go/twilio"
-	openapi "github.com/twilio/twilio-go/twilio/rest/serverless/v1"
+	"github.com/twilio/twilio-go"
+	openapi "github.com/twilio/twilio-go/rest/serverless/v1"
 )
 
 func main() {
@@ -239,8 +241,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/twilio/twilio-go/twilio"
-	openapi "github.com/twilio/twilio-go/twilio/rest/studio/v2"
+	"github.com/twilio/twilio-go"
+	openapi "github.com/twilio/twilio-go/rest/studio/v2"
 )
 
 func main() {
@@ -299,8 +301,8 @@ import (
 	"os"
 
 	"github.com/twilio/twilio-go/framework/error"
-	"github.com/twilio/twilio-go/twilio"
-	openapi "github.com/twilio/twilio-go/twilio/rest/api/v2010"
+	"github.com/twilio/twilio-go"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 func main() {
