@@ -43,6 +43,35 @@ type CreateAssistantParams struct {
 	UniqueName     *string                 `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateAssistantParams) SetCallbackEvents(CallbackEvents string) *CreateAssistantParams {
+	params.CallbackEvents = &CallbackEvents
+	return params
+}
+func (params *CreateAssistantParams) SetCallbackUrl(CallbackUrl string) *CreateAssistantParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *CreateAssistantParams) SetDefaults(Defaults map[string]interface{}) *CreateAssistantParams {
+	params.Defaults = &Defaults
+	return params
+}
+func (params *CreateAssistantParams) SetFriendlyName(FriendlyName string) *CreateAssistantParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateAssistantParams) SetLogQueries(LogQueries bool) *CreateAssistantParams {
+	params.LogQueries = &LogQueries
+	return params
+}
+func (params *CreateAssistantParams) SetStyleSheet(StyleSheet map[string]interface{}) *CreateAssistantParams {
+	params.StyleSheet = &StyleSheet
+	return params
+}
+func (params *CreateAssistantParams) SetUniqueName(UniqueName string) *CreateAssistantParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateAssistant Method for CreateAssistant
 //
 // param: optional nil or *CreateAssistantParams - Optional Parameters:
@@ -123,6 +152,15 @@ type CreateFieldParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateFieldParams) SetFieldType(FieldType string) *CreateFieldParams {
+	params.FieldType = &FieldType
+	return params
+}
+func (params *CreateFieldParams) SetUniqueName(UniqueName string) *CreateFieldParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateField Method for CreateField
 //
 // param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the new resource.
@@ -172,6 +210,15 @@ type CreateFieldTypeParams struct {
 	UniqueName   *string `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateFieldTypeParams) SetFriendlyName(FriendlyName string) *CreateFieldTypeParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateFieldTypeParams) SetUniqueName(UniqueName string) *CreateFieldTypeParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateFieldType Method for CreateFieldType
 //
 // param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the new resource.
@@ -217,6 +264,19 @@ type CreateFieldValueParams struct {
 	Language  *string `json:"Language,omitempty"`
 	SynonymOf *string `json:"SynonymOf,omitempty"`
 	Value     *string `json:"Value,omitempty"`
+}
+
+func (params *CreateFieldValueParams) SetLanguage(Language string) *CreateFieldValueParams {
+	params.Language = &Language
+	return params
+}
+func (params *CreateFieldValueParams) SetSynonymOf(SynonymOf string) *CreateFieldValueParams {
+	params.SynonymOf = &SynonymOf
+	return params
+}
+func (params *CreateFieldValueParams) SetValue(Value string) *CreateFieldValueParams {
+	params.Value = &Value
+	return params
 }
 
 // CreateFieldValue Method for CreateFieldValue
@@ -273,6 +333,15 @@ type CreateModelBuildParams struct {
 	UniqueName     *string `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateModelBuildParams) SetStatusCallback(StatusCallback string) *CreateModelBuildParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateModelBuildParams) SetUniqueName(UniqueName string) *CreateModelBuildParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateModelBuild Method for CreateModelBuild
 //
 // param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the new resource.
@@ -319,6 +388,23 @@ type CreateQueryParams struct {
 	ModelBuild *string `json:"ModelBuild,omitempty"`
 	Query      *string `json:"Query,omitempty"`
 	Tasks      *string `json:"Tasks,omitempty"`
+}
+
+func (params *CreateQueryParams) SetLanguage(Language string) *CreateQueryParams {
+	params.Language = &Language
+	return params
+}
+func (params *CreateQueryParams) SetModelBuild(ModelBuild string) *CreateQueryParams {
+	params.ModelBuild = &ModelBuild
+	return params
+}
+func (params *CreateQueryParams) SetQuery(Query string) *CreateQueryParams {
+	params.Query = &Query
+	return params
+}
+func (params *CreateQueryParams) SetTasks(Tasks string) *CreateQueryParams {
+	params.Tasks = &Tasks
+	return params
 }
 
 // CreateQuery Method for CreateQuery
@@ -378,6 +464,19 @@ type CreateSampleParams struct {
 	TaggedText    *string `json:"TaggedText,omitempty"`
 }
 
+func (params *CreateSampleParams) SetLanguage(Language string) *CreateSampleParams {
+	params.Language = &Language
+	return params
+}
+func (params *CreateSampleParams) SetSourceChannel(SourceChannel string) *CreateSampleParams {
+	params.SourceChannel = &SourceChannel
+	return params
+}
+func (params *CreateSampleParams) SetTaggedText(TaggedText string) *CreateSampleParams {
+	params.TaggedText = &TaggedText
+	return params
+}
+
 // CreateSample Method for CreateSample
 //
 // param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the new resource.
@@ -432,6 +531,23 @@ type CreateTaskParams struct {
 	ActionsUrl   *string                 `json:"ActionsUrl,omitempty"`
 	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 	UniqueName   *string                 `json:"UniqueName,omitempty"`
+}
+
+func (params *CreateTaskParams) SetActions(Actions map[string]interface{}) *CreateTaskParams {
+	params.Actions = &Actions
+	return params
+}
+func (params *CreateTaskParams) SetActionsUrl(ActionsUrl string) *CreateTaskParams {
+	params.ActionsUrl = &ActionsUrl
+	return params
+}
+func (params *CreateTaskParams) SetFriendlyName(FriendlyName string) *CreateTaskParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateTaskParams) SetUniqueName(UniqueName string) *CreateTaskParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // CreateTask Method for CreateTask
@@ -496,6 +612,23 @@ type CreateWebhookParams struct {
 	UniqueName    *string `json:"UniqueName,omitempty"`
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
 	WebhookUrl    *string `json:"WebhookUrl,omitempty"`
+}
+
+func (params *CreateWebhookParams) SetEvents(Events string) *CreateWebhookParams {
+	params.Events = &Events
+	return params
+}
+func (params *CreateWebhookParams) SetUniqueName(UniqueName string) *CreateWebhookParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+func (params *CreateWebhookParams) SetWebhookMethod(WebhookMethod string) *CreateWebhookParams {
+	params.WebhookMethod = &WebhookMethod
+	return params
+}
+func (params *CreateWebhookParams) SetWebhookUrl(WebhookUrl string) *CreateWebhookParams {
+	params.WebhookUrl = &WebhookUrl
+	return params
 }
 
 // CreateWebhook Method for CreateWebhook
@@ -1199,6 +1332,11 @@ type ListAssistantParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListAssistantParams) SetPageSize(PageSize int32) *ListAssistantParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListAssistant Method for ListAssistant
 //
 // param: optional nil or *ListAssistantParams - Optional Parameters:
@@ -1234,6 +1372,11 @@ func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*ListAss
 // ListFieldParams Optional parameters for the method 'ListField'
 type ListFieldParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListFieldParams) SetPageSize(PageSize int32) *ListFieldParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListField Method for ListField
@@ -1279,6 +1422,11 @@ type ListFieldTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListFieldTypeParams) SetPageSize(PageSize int32) *ListFieldTypeParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListFieldType Method for ListFieldType
 //
 // param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
@@ -1318,6 +1466,15 @@ func (c *DefaultApiService) ListFieldType(AssistantSid string, params *ListField
 type ListFieldValueParams struct {
 	Language *string `json:"Language,omitempty"`
 	PageSize *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListFieldValueParams) SetLanguage(Language string) *ListFieldValueParams {
+	params.Language = &Language
+	return params
+}
+func (params *ListFieldValueParams) SetPageSize(PageSize int32) *ListFieldValueParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListFieldValue Method for ListFieldValue
@@ -1368,6 +1525,11 @@ type ListModelBuildParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListModelBuildParams) SetPageSize(PageSize int32) *ListModelBuildParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListModelBuild Method for ListModelBuild
 //
 // param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
@@ -1410,6 +1572,27 @@ type ListQueryParams struct {
 	Status      *string `json:"Status,omitempty"`
 	DialogueSid *string `json:"DialogueSid,omitempty"`
 	PageSize    *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListQueryParams) SetLanguage(Language string) *ListQueryParams {
+	params.Language = &Language
+	return params
+}
+func (params *ListQueryParams) SetModelBuild(ModelBuild string) *ListQueryParams {
+	params.ModelBuild = &ModelBuild
+	return params
+}
+func (params *ListQueryParams) SetStatus(Status string) *ListQueryParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListQueryParams) SetDialogueSid(DialogueSid string) *ListQueryParams {
+	params.DialogueSid = &DialogueSid
+	return params
+}
+func (params *ListQueryParams) SetPageSize(PageSize int32) *ListQueryParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListQuery Method for ListQuery
@@ -1473,6 +1656,15 @@ type ListSampleParams struct {
 	PageSize *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSampleParams) SetLanguage(Language string) *ListSampleParams {
+	params.Language = &Language
+	return params
+}
+func (params *ListSampleParams) SetPageSize(PageSize int32) *ListSampleParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSample Method for ListSample
 //
 // param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resources to read.
@@ -1521,6 +1713,11 @@ type ListTaskParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListTaskParams) SetPageSize(PageSize int32) *ListTaskParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListTask Method for ListTask
 //
 // param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
@@ -1559,6 +1756,11 @@ func (c *DefaultApiService) ListTask(AssistantSid string, params *ListTaskParams
 // ListWebhookParams Optional parameters for the method 'ListWebhook'
 type ListWebhookParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListWebhookParams) SetPageSize(PageSize int32) *ListWebhookParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListWebhook Method for ListWebhook
@@ -1606,6 +1808,39 @@ type UpdateAssistantParams struct {
 	LogQueries       *bool                   `json:"LogQueries,omitempty"`
 	StyleSheet       *map[string]interface{} `json:"StyleSheet,omitempty"`
 	UniqueName       *string                 `json:"UniqueName,omitempty"`
+}
+
+func (params *UpdateAssistantParams) SetCallbackEvents(CallbackEvents string) *UpdateAssistantParams {
+	params.CallbackEvents = &CallbackEvents
+	return params
+}
+func (params *UpdateAssistantParams) SetCallbackUrl(CallbackUrl string) *UpdateAssistantParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *UpdateAssistantParams) SetDefaults(Defaults map[string]interface{}) *UpdateAssistantParams {
+	params.Defaults = &Defaults
+	return params
+}
+func (params *UpdateAssistantParams) SetDevelopmentStage(DevelopmentStage string) *UpdateAssistantParams {
+	params.DevelopmentStage = &DevelopmentStage
+	return params
+}
+func (params *UpdateAssistantParams) SetFriendlyName(FriendlyName string) *UpdateAssistantParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateAssistantParams) SetLogQueries(LogQueries bool) *UpdateAssistantParams {
+	params.LogQueries = &LogQueries
+	return params
+}
+func (params *UpdateAssistantParams) SetStyleSheet(StyleSheet map[string]interface{}) *UpdateAssistantParams {
+	params.StyleSheet = &StyleSheet
+	return params
+}
+func (params *UpdateAssistantParams) SetUniqueName(UniqueName string) *UpdateAssistantParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // UpdateAssistant Method for UpdateAssistant
@@ -1695,6 +1930,11 @@ type UpdateDefaultsParams struct {
 	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
 }
 
+func (params *UpdateDefaultsParams) SetDefaults(Defaults map[string]interface{}) *UpdateDefaultsParams {
+	params.Defaults = &Defaults
+	return params
+}
+
 // UpdateDefaults Method for UpdateDefaults
 //
 // param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
@@ -1740,6 +1980,15 @@ func (c *DefaultApiService) UpdateDefaults(AssistantSid string, params *UpdateDe
 type UpdateFieldTypeParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	UniqueName   *string `json:"UniqueName,omitempty"`
+}
+
+func (params *UpdateFieldTypeParams) SetFriendlyName(FriendlyName string) *UpdateFieldTypeParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateFieldTypeParams) SetUniqueName(UniqueName string) *UpdateFieldTypeParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // UpdateFieldType Method for UpdateFieldType
@@ -1790,6 +2039,11 @@ type UpdateModelBuildParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
+func (params *UpdateModelBuildParams) SetUniqueName(UniqueName string) *UpdateModelBuildParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // UpdateModelBuild Method for UpdateModelBuild
 //
 // param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
@@ -1832,6 +2086,15 @@ func (c *DefaultApiService) UpdateModelBuild(AssistantSid string, Sid string, pa
 type UpdateQueryParams struct {
 	SampleSid *string `json:"SampleSid,omitempty"`
 	Status    *string `json:"Status,omitempty"`
+}
+
+func (params *UpdateQueryParams) SetSampleSid(SampleSid string) *UpdateQueryParams {
+	params.SampleSid = &SampleSid
+	return params
+}
+func (params *UpdateQueryParams) SetStatus(Status string) *UpdateQueryParams {
+	params.Status = &Status
+	return params
 }
 
 // UpdateQuery Method for UpdateQuery
@@ -1882,6 +2145,11 @@ type UpdateRestoreAssistantParams struct {
 	Assistant *string `json:"Assistant,omitempty"`
 }
 
+func (params *UpdateRestoreAssistantParams) SetAssistant(Assistant string) *UpdateRestoreAssistantParams {
+	params.Assistant = &Assistant
+	return params
+}
+
 // UpdateRestoreAssistant Method for UpdateRestoreAssistant
 //
 // param: optional nil or *UpdateRestoreAssistantParams - Optional Parameters:
@@ -1919,6 +2187,19 @@ type UpdateSampleParams struct {
 	Language      *string `json:"Language,omitempty"`
 	SourceChannel *string `json:"SourceChannel,omitempty"`
 	TaggedText    *string `json:"TaggedText,omitempty"`
+}
+
+func (params *UpdateSampleParams) SetLanguage(Language string) *UpdateSampleParams {
+	params.Language = &Language
+	return params
+}
+func (params *UpdateSampleParams) SetSourceChannel(SourceChannel string) *UpdateSampleParams {
+	params.SourceChannel = &SourceChannel
+	return params
+}
+func (params *UpdateSampleParams) SetTaggedText(TaggedText string) *UpdateSampleParams {
+	params.TaggedText = &TaggedText
+	return params
 }
 
 // UpdateSample Method for UpdateSample
@@ -1977,6 +2258,11 @@ type UpdateStyleSheetParams struct {
 	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
 }
 
+func (params *UpdateStyleSheetParams) SetStyleSheet(StyleSheet map[string]interface{}) *UpdateStyleSheetParams {
+	params.StyleSheet = &StyleSheet
+	return params
+}
+
 // UpdateStyleSheet Method for UpdateStyleSheet
 //
 // Updates the style sheet for an Assistant identified by &#x60;assistant_sid&#x60;.
@@ -2026,6 +2312,23 @@ type UpdateTaskParams struct {
 	ActionsUrl   *string                 `json:"ActionsUrl,omitempty"`
 	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 	UniqueName   *string                 `json:"UniqueName,omitempty"`
+}
+
+func (params *UpdateTaskParams) SetActions(Actions map[string]interface{}) *UpdateTaskParams {
+	params.Actions = &Actions
+	return params
+}
+func (params *UpdateTaskParams) SetActionsUrl(ActionsUrl string) *UpdateTaskParams {
+	params.ActionsUrl = &ActionsUrl
+	return params
+}
+func (params *UpdateTaskParams) SetFriendlyName(FriendlyName string) *UpdateTaskParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateTaskParams) SetUniqueName(UniqueName string) *UpdateTaskParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // UpdateTask Method for UpdateTask
@@ -2092,6 +2395,11 @@ type UpdateTaskActionsParams struct {
 	Actions *map[string]interface{} `json:"Actions,omitempty"`
 }
 
+func (params *UpdateTaskActionsParams) SetActions(Actions map[string]interface{}) *UpdateTaskActionsParams {
+	params.Actions = &Actions
+	return params
+}
+
 // UpdateTaskActions Method for UpdateTaskActions
 //
 // Updates the actions of an Task identified by {TaskSid} or {TaskUniqueName}.
@@ -2144,6 +2452,23 @@ type UpdateWebhookParams struct {
 	UniqueName    *string `json:"UniqueName,omitempty"`
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
 	WebhookUrl    *string `json:"WebhookUrl,omitempty"`
+}
+
+func (params *UpdateWebhookParams) SetEvents(Events string) *UpdateWebhookParams {
+	params.Events = &Events
+	return params
+}
+func (params *UpdateWebhookParams) SetUniqueName(UniqueName string) *UpdateWebhookParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+func (params *UpdateWebhookParams) SetWebhookMethod(WebhookMethod string) *UpdateWebhookParams {
+	params.WebhookMethod = &WebhookMethod
+	return params
+}
+func (params *UpdateWebhookParams) SetWebhookUrl(WebhookUrl string) *UpdateWebhookParams {
+	params.WebhookUrl = &WebhookUrl
+	return params
 }
 
 // UpdateWebhook Method for UpdateWebhook

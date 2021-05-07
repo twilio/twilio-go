@@ -46,6 +46,47 @@ type CreateChannelParams struct {
 	TaskSid              *string `json:"TaskSid,omitempty"`
 }
 
+func (params *CreateChannelParams) SetChatFriendlyName(ChatFriendlyName string) *CreateChannelParams {
+	params.ChatFriendlyName = &ChatFriendlyName
+	return params
+}
+func (params *CreateChannelParams) SetChatUniqueName(ChatUniqueName string) *CreateChannelParams {
+	params.ChatUniqueName = &ChatUniqueName
+	return params
+}
+func (params *CreateChannelParams) SetChatUserFriendlyName(ChatUserFriendlyName string) *CreateChannelParams {
+	params.ChatUserFriendlyName = &ChatUserFriendlyName
+	return params
+}
+func (params *CreateChannelParams) SetFlexFlowSid(FlexFlowSid string) *CreateChannelParams {
+	params.FlexFlowSid = &FlexFlowSid
+	return params
+}
+func (params *CreateChannelParams) SetIdentity(Identity string) *CreateChannelParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateChannelParams) SetLongLived(LongLived bool) *CreateChannelParams {
+	params.LongLived = &LongLived
+	return params
+}
+func (params *CreateChannelParams) SetPreEngagementData(PreEngagementData string) *CreateChannelParams {
+	params.PreEngagementData = &PreEngagementData
+	return params
+}
+func (params *CreateChannelParams) SetTarget(Target string) *CreateChannelParams {
+	params.Target = &Target
+	return params
+}
+func (params *CreateChannelParams) SetTaskAttributes(TaskAttributes string) *CreateChannelParams {
+	params.TaskAttributes = &TaskAttributes
+	return params
+}
+func (params *CreateChannelParams) SetTaskSid(TaskSid string) *CreateChannelParams {
+	params.TaskSid = &TaskSid
+	return params
+}
+
 // CreateChannel Method for CreateChannel
 //
 // param: optional nil or *CreateChannelParams - Optional Parameters:
@@ -142,6 +183,75 @@ type CreateFlexFlowParams struct {
 	IntegrationType              *string `json:"IntegrationType,omitempty"`
 	JanitorEnabled               *bool   `json:"JanitorEnabled,omitempty"`
 	LongLived                    *bool   `json:"LongLived,omitempty"`
+}
+
+func (params *CreateFlexFlowParams) SetChannelType(ChannelType string) *CreateFlexFlowParams {
+	params.ChannelType = &ChannelType
+	return params
+}
+func (params *CreateFlexFlowParams) SetChatServiceSid(ChatServiceSid string) *CreateFlexFlowParams {
+	params.ChatServiceSid = &ChatServiceSid
+	return params
+}
+func (params *CreateFlexFlowParams) SetContactIdentity(ContactIdentity string) *CreateFlexFlowParams {
+	params.ContactIdentity = &ContactIdentity
+	return params
+}
+func (params *CreateFlexFlowParams) SetEnabled(Enabled bool) *CreateFlexFlowParams {
+	params.Enabled = &Enabled
+	return params
+}
+func (params *CreateFlexFlowParams) SetFriendlyName(FriendlyName string) *CreateFlexFlowParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateFlexFlowParams) SetIntegrationChannel(IntegrationChannel string) *CreateFlexFlowParams {
+	params.IntegrationChannel = &IntegrationChannel
+	return params
+}
+func (params *CreateFlexFlowParams) SetIntegrationCreationOnMessage(IntegrationCreationOnMessage bool) *CreateFlexFlowParams {
+	params.IntegrationCreationOnMessage = &IntegrationCreationOnMessage
+	return params
+}
+func (params *CreateFlexFlowParams) SetIntegrationFlowSid(IntegrationFlowSid string) *CreateFlexFlowParams {
+	params.IntegrationFlowSid = &IntegrationFlowSid
+	return params
+}
+func (params *CreateFlexFlowParams) SetIntegrationPriority(IntegrationPriority int32) *CreateFlexFlowParams {
+	params.IntegrationPriority = &IntegrationPriority
+	return params
+}
+func (params *CreateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCount int32) *CreateFlexFlowParams {
+	params.IntegrationRetryCount = &IntegrationRetryCount
+	return params
+}
+func (params *CreateFlexFlowParams) SetIntegrationTimeout(IntegrationTimeout int32) *CreateFlexFlowParams {
+	params.IntegrationTimeout = &IntegrationTimeout
+	return params
+}
+func (params *CreateFlexFlowParams) SetIntegrationUrl(IntegrationUrl string) *CreateFlexFlowParams {
+	params.IntegrationUrl = &IntegrationUrl
+	return params
+}
+func (params *CreateFlexFlowParams) SetIntegrationWorkflowSid(IntegrationWorkflowSid string) *CreateFlexFlowParams {
+	params.IntegrationWorkflowSid = &IntegrationWorkflowSid
+	return params
+}
+func (params *CreateFlexFlowParams) SetIntegrationWorkspaceSid(IntegrationWorkspaceSid string) *CreateFlexFlowParams {
+	params.IntegrationWorkspaceSid = &IntegrationWorkspaceSid
+	return params
+}
+func (params *CreateFlexFlowParams) SetIntegrationType(IntegrationType string) *CreateFlexFlowParams {
+	params.IntegrationType = &IntegrationType
+	return params
+}
+func (params *CreateFlexFlowParams) SetJanitorEnabled(JanitorEnabled bool) *CreateFlexFlowParams {
+	params.JanitorEnabled = &JanitorEnabled
+	return params
+}
+func (params *CreateFlexFlowParams) SetLongLived(LongLived bool) *CreateFlexFlowParams {
+	params.LongLived = &LongLived
+	return params
 }
 
 // CreateFlexFlow Method for CreateFlexFlow
@@ -264,6 +374,31 @@ type CreateWebChannelParams struct {
 	FlexFlowSid          *string `json:"FlexFlowSid,omitempty"`
 	Identity             *string `json:"Identity,omitempty"`
 	PreEngagementData    *string `json:"PreEngagementData,omitempty"`
+}
+
+func (params *CreateWebChannelParams) SetChatFriendlyName(ChatFriendlyName string) *CreateWebChannelParams {
+	params.ChatFriendlyName = &ChatFriendlyName
+	return params
+}
+func (params *CreateWebChannelParams) SetChatUniqueName(ChatUniqueName string) *CreateWebChannelParams {
+	params.ChatUniqueName = &ChatUniqueName
+	return params
+}
+func (params *CreateWebChannelParams) SetCustomerFriendlyName(CustomerFriendlyName string) *CreateWebChannelParams {
+	params.CustomerFriendlyName = &CustomerFriendlyName
+	return params
+}
+func (params *CreateWebChannelParams) SetFlexFlowSid(FlexFlowSid string) *CreateWebChannelParams {
+	params.FlexFlowSid = &FlexFlowSid
+	return params
+}
+func (params *CreateWebChannelParams) SetIdentity(Identity string) *CreateWebChannelParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData string) *CreateWebChannelParams {
+	params.PreEngagementData = &PreEngagementData
+	return params
 }
 
 // CreateWebChannel Method for CreateWebChannel
@@ -418,6 +553,11 @@ type FetchConfigurationParams struct {
 	UiVersion *string `json:"UiVersion,omitempty"`
 }
 
+func (params *FetchConfigurationParams) SetUiVersion(UiVersion string) *FetchConfigurationParams {
+	params.UiVersion = &UiVersion
+	return params
+}
+
 // FetchConfiguration Method for FetchConfiguration
 //
 // param: optional nil or *FetchConfigurationParams - Optional Parameters:
@@ -509,6 +649,11 @@ type ListChannelParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListChannelParams) SetPageSize(PageSize int32) *ListChannelParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListChannel Method for ListChannel
 //
 // param: optional nil or *ListChannelParams - Optional Parameters:
@@ -545,6 +690,15 @@ func (c *DefaultApiService) ListChannel(params *ListChannelParams) (*ListChannel
 type ListFlexFlowParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	PageSize     *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListFlexFlowParams) SetFriendlyName(FriendlyName string) *ListFlexFlowParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListFlexFlowParams) SetPageSize(PageSize int32) *ListFlexFlowParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListFlexFlow Method for ListFlexFlow
@@ -587,6 +741,11 @@ func (c *DefaultApiService) ListFlexFlow(params *ListFlexFlowParams) (*ListFlexF
 // ListWebChannelParams Optional parameters for the method 'ListWebChannel'
 type ListWebChannelParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListWebChannelParams) SetPageSize(PageSize int32) *ListWebChannelParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListWebChannel Method for ListWebChannel
@@ -664,6 +823,75 @@ type UpdateFlexFlowParams struct {
 	IntegrationType              *string `json:"IntegrationType,omitempty"`
 	JanitorEnabled               *bool   `json:"JanitorEnabled,omitempty"`
 	LongLived                    *bool   `json:"LongLived,omitempty"`
+}
+
+func (params *UpdateFlexFlowParams) SetChannelType(ChannelType string) *UpdateFlexFlowParams {
+	params.ChannelType = &ChannelType
+	return params
+}
+func (params *UpdateFlexFlowParams) SetChatServiceSid(ChatServiceSid string) *UpdateFlexFlowParams {
+	params.ChatServiceSid = &ChatServiceSid
+	return params
+}
+func (params *UpdateFlexFlowParams) SetContactIdentity(ContactIdentity string) *UpdateFlexFlowParams {
+	params.ContactIdentity = &ContactIdentity
+	return params
+}
+func (params *UpdateFlexFlowParams) SetEnabled(Enabled bool) *UpdateFlexFlowParams {
+	params.Enabled = &Enabled
+	return params
+}
+func (params *UpdateFlexFlowParams) SetFriendlyName(FriendlyName string) *UpdateFlexFlowParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateFlexFlowParams) SetIntegrationChannel(IntegrationChannel string) *UpdateFlexFlowParams {
+	params.IntegrationChannel = &IntegrationChannel
+	return params
+}
+func (params *UpdateFlexFlowParams) SetIntegrationCreationOnMessage(IntegrationCreationOnMessage bool) *UpdateFlexFlowParams {
+	params.IntegrationCreationOnMessage = &IntegrationCreationOnMessage
+	return params
+}
+func (params *UpdateFlexFlowParams) SetIntegrationFlowSid(IntegrationFlowSid string) *UpdateFlexFlowParams {
+	params.IntegrationFlowSid = &IntegrationFlowSid
+	return params
+}
+func (params *UpdateFlexFlowParams) SetIntegrationPriority(IntegrationPriority int32) *UpdateFlexFlowParams {
+	params.IntegrationPriority = &IntegrationPriority
+	return params
+}
+func (params *UpdateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCount int32) *UpdateFlexFlowParams {
+	params.IntegrationRetryCount = &IntegrationRetryCount
+	return params
+}
+func (params *UpdateFlexFlowParams) SetIntegrationTimeout(IntegrationTimeout int32) *UpdateFlexFlowParams {
+	params.IntegrationTimeout = &IntegrationTimeout
+	return params
+}
+func (params *UpdateFlexFlowParams) SetIntegrationUrl(IntegrationUrl string) *UpdateFlexFlowParams {
+	params.IntegrationUrl = &IntegrationUrl
+	return params
+}
+func (params *UpdateFlexFlowParams) SetIntegrationWorkflowSid(IntegrationWorkflowSid string) *UpdateFlexFlowParams {
+	params.IntegrationWorkflowSid = &IntegrationWorkflowSid
+	return params
+}
+func (params *UpdateFlexFlowParams) SetIntegrationWorkspaceSid(IntegrationWorkspaceSid string) *UpdateFlexFlowParams {
+	params.IntegrationWorkspaceSid = &IntegrationWorkspaceSid
+	return params
+}
+func (params *UpdateFlexFlowParams) SetIntegrationType(IntegrationType string) *UpdateFlexFlowParams {
+	params.IntegrationType = &IntegrationType
+	return params
+}
+func (params *UpdateFlexFlowParams) SetJanitorEnabled(JanitorEnabled bool) *UpdateFlexFlowParams {
+	params.JanitorEnabled = &JanitorEnabled
+	return params
+}
+func (params *UpdateFlexFlowParams) SetLongLived(LongLived bool) *UpdateFlexFlowParams {
+	params.LongLived = &LongLived
+	return params
 }
 
 // UpdateFlexFlow Method for UpdateFlexFlow
@@ -785,6 +1013,15 @@ func (c *DefaultApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowPar
 type UpdateWebChannelParams struct {
 	ChatStatus         *string `json:"ChatStatus,omitempty"`
 	PostEngagementData *string `json:"PostEngagementData,omitempty"`
+}
+
+func (params *UpdateWebChannelParams) SetChatStatus(ChatStatus string) *UpdateWebChannelParams {
+	params.ChatStatus = &ChatStatus
+	return params
+}
+func (params *UpdateWebChannelParams) SetPostEngagementData(PostEngagementData string) *UpdateWebChannelParams {
+	params.PostEngagementData = &PostEngagementData
+	return params
 }
 
 // UpdateWebChannel Method for UpdateWebChannel

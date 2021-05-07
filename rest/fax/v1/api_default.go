@@ -46,6 +46,43 @@ type CreateFaxParams struct {
 	Ttl             *int32  `json:"Ttl,omitempty"`
 }
 
+func (params *CreateFaxParams) SetFrom(From string) *CreateFaxParams {
+	params.From = &From
+	return params
+}
+func (params *CreateFaxParams) SetMediaUrl(MediaUrl string) *CreateFaxParams {
+	params.MediaUrl = &MediaUrl
+	return params
+}
+func (params *CreateFaxParams) SetQuality(Quality string) *CreateFaxParams {
+	params.Quality = &Quality
+	return params
+}
+func (params *CreateFaxParams) SetSipAuthPassword(SipAuthPassword string) *CreateFaxParams {
+	params.SipAuthPassword = &SipAuthPassword
+	return params
+}
+func (params *CreateFaxParams) SetSipAuthUsername(SipAuthUsername string) *CreateFaxParams {
+	params.SipAuthUsername = &SipAuthUsername
+	return params
+}
+func (params *CreateFaxParams) SetStatusCallback(StatusCallback string) *CreateFaxParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateFaxParams) SetStoreMedia(StoreMedia bool) *CreateFaxParams {
+	params.StoreMedia = &StoreMedia
+	return params
+}
+func (params *CreateFaxParams) SetTo(To string) *CreateFaxParams {
+	params.To = &To
+	return params
+}
+func (params *CreateFaxParams) SetTtl(Ttl int32) *CreateFaxParams {
+	params.Ttl = &Ttl
+	return params
+}
+
 // CreateFax Method for CreateFax
 //
 // Create a new fax to send to a phone number or SIP endpoint.
@@ -239,6 +276,27 @@ type ListFaxParams struct {
 	PageSize              *int32     `json:"PageSize,omitempty"`
 }
 
+func (params *ListFaxParams) SetFrom(From string) *ListFaxParams {
+	params.From = &From
+	return params
+}
+func (params *ListFaxParams) SetTo(To string) *ListFaxParams {
+	params.To = &To
+	return params
+}
+func (params *ListFaxParams) SetDateCreatedOnOrBefore(DateCreatedOnOrBefore time.Time) *ListFaxParams {
+	params.DateCreatedOnOrBefore = &DateCreatedOnOrBefore
+	return params
+}
+func (params *ListFaxParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListFaxParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListFaxParams) SetPageSize(PageSize int32) *ListFaxParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListFax Method for ListFax
 //
 // Retrieve a list of all faxes.
@@ -298,6 +356,11 @@ type ListFaxMediaParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListFaxMediaParams) SetPageSize(PageSize int32) *ListFaxMediaParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListFaxMedia Method for ListFaxMedia
 //
 // Retrieve a list of all fax media instances for the specified fax.
@@ -338,6 +401,11 @@ func (c *DefaultApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaPara
 // UpdateFaxParams Optional parameters for the method 'UpdateFax'
 type UpdateFaxParams struct {
 	Status *string `json:"Status,omitempty"`
+}
+
+func (params *UpdateFaxParams) SetStatus(Status string) *UpdateFaxParams {
+	params.Status = &Status
+	return params
 }
 
 // UpdateFax Method for UpdateFax

@@ -41,6 +41,23 @@ type CreateCommandParams struct {
 	Sim            *string `json:"Sim,omitempty"`
 }
 
+func (params *CreateCommandParams) SetCallbackMethod(CallbackMethod string) *CreateCommandParams {
+	params.CallbackMethod = &CallbackMethod
+	return params
+}
+func (params *CreateCommandParams) SetCallbackUrl(CallbackUrl string) *CreateCommandParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *CreateCommandParams) SetCommand(Command string) *CreateCommandParams {
+	params.Command = &Command
+	return params
+}
+func (params *CreateCommandParams) SetSim(Sim string) *CreateCommandParams {
+	params.Sim = &Sim
+	return params
+}
+
 // CreateCommand Method for CreateCommand
 //
 // Send a Command to a Sim.
@@ -102,6 +119,47 @@ type CreateFleetParams struct {
 	SmsCommandsMethod    *string `json:"SmsCommandsMethod,omitempty"`
 	SmsCommandsUrl       *string `json:"SmsCommandsUrl,omitempty"`
 	UniqueName           *string `json:"UniqueName,omitempty"`
+}
+
+func (params *CreateFleetParams) SetCommandsEnabled(CommandsEnabled bool) *CreateFleetParams {
+	params.CommandsEnabled = &CommandsEnabled
+	return params
+}
+func (params *CreateFleetParams) SetCommandsMethod(CommandsMethod string) *CreateFleetParams {
+	params.CommandsMethod = &CommandsMethod
+	return params
+}
+func (params *CreateFleetParams) SetCommandsUrl(CommandsUrl string) *CreateFleetParams {
+	params.CommandsUrl = &CommandsUrl
+	return params
+}
+func (params *CreateFleetParams) SetDataEnabled(DataEnabled bool) *CreateFleetParams {
+	params.DataEnabled = &DataEnabled
+	return params
+}
+func (params *CreateFleetParams) SetDataLimit(DataLimit int32) *CreateFleetParams {
+	params.DataLimit = &DataLimit
+	return params
+}
+func (params *CreateFleetParams) SetNetworkAccessProfile(NetworkAccessProfile string) *CreateFleetParams {
+	params.NetworkAccessProfile = &NetworkAccessProfile
+	return params
+}
+func (params *CreateFleetParams) SetSmsCommandsEnabled(SmsCommandsEnabled bool) *CreateFleetParams {
+	params.SmsCommandsEnabled = &SmsCommandsEnabled
+	return params
+}
+func (params *CreateFleetParams) SetSmsCommandsMethod(SmsCommandsMethod string) *CreateFleetParams {
+	params.SmsCommandsMethod = &SmsCommandsMethod
+	return params
+}
+func (params *CreateFleetParams) SetSmsCommandsUrl(SmsCommandsUrl string) *CreateFleetParams {
+	params.SmsCommandsUrl = &SmsCommandsUrl
+	return params
+}
+func (params *CreateFleetParams) SetUniqueName(UniqueName string) *CreateFleetParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // CreateFleet Method for CreateFleet
@@ -189,6 +247,15 @@ type CreateNetworkAccessProfileParams struct {
 	UniqueName *string   `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateNetworkAccessProfileParams) SetNetworks(Networks []string) *CreateNetworkAccessProfileParams {
+	params.Networks = &Networks
+	return params
+}
+func (params *CreateNetworkAccessProfileParams) SetUniqueName(UniqueName string) *CreateNetworkAccessProfileParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateNetworkAccessProfile Method for CreateNetworkAccessProfile
 //
 // Create a new Network Access Profile
@@ -233,6 +300,11 @@ type CreateNetworkAccessProfileNetworkParams struct {
 	Network *string `json:"Network,omitempty"`
 }
 
+func (params *CreateNetworkAccessProfileNetworkParams) SetNetwork(Network string) *CreateNetworkAccessProfileNetworkParams {
+	params.Network = &Network
+	return params
+}
+
 // CreateNetworkAccessProfileNetwork Method for CreateNetworkAccessProfileNetwork
 //
 // Add a Network resource to the Network Access Profile resource.
@@ -274,6 +346,15 @@ func (c *DefaultApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfi
 type CreateSimParams struct {
 	Iccid            *string `json:"Iccid,omitempty"`
 	RegistrationCode *string `json:"RegistrationCode,omitempty"`
+}
+
+func (params *CreateSimParams) SetIccid(Iccid string) *CreateSimParams {
+	params.Iccid = &Iccid
+	return params
+}
+func (params *CreateSimParams) SetRegistrationCode(RegistrationCode string) *CreateSimParams {
+	params.RegistrationCode = &RegistrationCode
+	return params
 }
 
 // CreateSim Method for CreateSim
@@ -321,6 +402,23 @@ type CreateSmsCommandParams struct {
 	CallbackUrl    *string `json:"CallbackUrl,omitempty"`
 	Payload        *string `json:"Payload,omitempty"`
 	Sim            *string `json:"Sim,omitempty"`
+}
+
+func (params *CreateSmsCommandParams) SetCallbackMethod(CallbackMethod string) *CreateSmsCommandParams {
+	params.CallbackMethod = &CallbackMethod
+	return params
+}
+func (params *CreateSmsCommandParams) SetCallbackUrl(CallbackUrl string) *CreateSmsCommandParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *CreateSmsCommandParams) SetPayload(Payload string) *CreateSmsCommandParams {
+	params.Payload = &Payload
+	return params
+}
+func (params *CreateSmsCommandParams) SetSim(Sim string) *CreateSmsCommandParams {
+	params.Sim = &Sim
+	return params
 }
 
 // CreateSmsCommand Method for CreateSmsCommand
@@ -612,6 +710,23 @@ type ListCommandParams struct {
 	PageSize  *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListCommandParams) SetSim(Sim string) *ListCommandParams {
+	params.Sim = &Sim
+	return params
+}
+func (params *ListCommandParams) SetStatus(Status string) *ListCommandParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListCommandParams) SetDirection(Direction string) *ListCommandParams {
+	params.Direction = &Direction
+	return params
+}
+func (params *ListCommandParams) SetPageSize(PageSize int32) *ListCommandParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCommand Method for ListCommand
 //
 // Retrieve a list of Commands from your account.
@@ -667,6 +782,15 @@ type ListFleetParams struct {
 	PageSize             *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListFleetParams) SetNetworkAccessProfile(NetworkAccessProfile string) *ListFleetParams {
+	params.NetworkAccessProfile = &NetworkAccessProfile
+	return params
+}
+func (params *ListFleetParams) SetPageSize(PageSize int32) *ListFleetParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListFleet Method for ListFleet
 //
 // Retrieve a list of Fleets from your account.
@@ -712,6 +836,23 @@ type ListNetworkParams struct {
 	Mcc        *string `json:"Mcc,omitempty"`
 	Mnc        *string `json:"Mnc,omitempty"`
 	PageSize   *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListNetworkParams) SetIsoCountry(IsoCountry string) *ListNetworkParams {
+	params.IsoCountry = &IsoCountry
+	return params
+}
+func (params *ListNetworkParams) SetMcc(Mcc string) *ListNetworkParams {
+	params.Mcc = &Mcc
+	return params
+}
+func (params *ListNetworkParams) SetMnc(Mnc string) *ListNetworkParams {
+	params.Mnc = &Mnc
+	return params
+}
+func (params *ListNetworkParams) SetPageSize(PageSize int32) *ListNetworkParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListNetwork Method for ListNetwork
@@ -768,6 +909,11 @@ type ListNetworkAccessProfileParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListNetworkAccessProfileParams) SetPageSize(PageSize int32) *ListNetworkAccessProfileParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListNetworkAccessProfile Method for ListNetworkAccessProfile
 //
 // Retrieve a list of Network Access Profiles from your account.
@@ -805,6 +951,11 @@ func (c *DefaultApiService) ListNetworkAccessProfile(params *ListNetworkAccessPr
 // ListNetworkAccessProfileNetworkParams Optional parameters for the method 'ListNetworkAccessProfileNetwork'
 type ListNetworkAccessProfileNetworkParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListNetworkAccessProfileNetworkParams) SetPageSize(PageSize int32) *ListNetworkAccessProfileNetworkParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListNetworkAccessProfileNetwork Method for ListNetworkAccessProfileNetwork
@@ -850,6 +1001,23 @@ type ListSimParams struct {
 	Fleet    *string `json:"Fleet,omitempty"`
 	Iccid    *string `json:"Iccid,omitempty"`
 	PageSize *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListSimParams) SetStatus(Status string) *ListSimParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListSimParams) SetFleet(Fleet string) *ListSimParams {
+	params.Fleet = &Fleet
+	return params
+}
+func (params *ListSimParams) SetIccid(Iccid string) *ListSimParams {
+	params.Iccid = &Iccid
+	return params
+}
+func (params *ListSimParams) SetPageSize(PageSize int32) *ListSimParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSim Method for ListSim
@@ -907,6 +1075,23 @@ type ListSmsCommandParams struct {
 	Status    *string `json:"Status,omitempty"`
 	Direction *string `json:"Direction,omitempty"`
 	PageSize  *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListSmsCommandParams) SetSim(Sim string) *ListSmsCommandParams {
+	params.Sim = &Sim
+	return params
+}
+func (params *ListSmsCommandParams) SetStatus(Status string) *ListSmsCommandParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListSmsCommandParams) SetDirection(Direction string) *ListSmsCommandParams {
+	params.Direction = &Direction
+	return params
+}
+func (params *ListSmsCommandParams) SetPageSize(PageSize int32) *ListSmsCommandParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSmsCommand Method for ListSmsCommand
@@ -969,6 +1154,43 @@ type ListUsageRecordParams struct {
 	StartTime   *time.Time `json:"StartTime,omitempty"`
 	EndTime     *time.Time `json:"EndTime,omitempty"`
 	PageSize    *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListUsageRecordParams) SetSim(Sim string) *ListUsageRecordParams {
+	params.Sim = &Sim
+	return params
+}
+func (params *ListUsageRecordParams) SetFleet(Fleet string) *ListUsageRecordParams {
+	params.Fleet = &Fleet
+	return params
+}
+func (params *ListUsageRecordParams) SetNetwork(Network string) *ListUsageRecordParams {
+	params.Network = &Network
+	return params
+}
+func (params *ListUsageRecordParams) SetIsoCountry(IsoCountry string) *ListUsageRecordParams {
+	params.IsoCountry = &IsoCountry
+	return params
+}
+func (params *ListUsageRecordParams) SetGroup(Group string) *ListUsageRecordParams {
+	params.Group = &Group
+	return params
+}
+func (params *ListUsageRecordParams) SetGranularity(Granularity string) *ListUsageRecordParams {
+	params.Granularity = &Granularity
+	return params
+}
+func (params *ListUsageRecordParams) SetStartTime(StartTime time.Time) *ListUsageRecordParams {
+	params.StartTime = &StartTime
+	return params
+}
+func (params *ListUsageRecordParams) SetEndTime(EndTime time.Time) *ListUsageRecordParams {
+	params.EndTime = &EndTime
+	return params
+}
+func (params *ListUsageRecordParams) SetPageSize(PageSize int32) *ListUsageRecordParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListUsageRecord Method for ListUsageRecord
@@ -1055,6 +1277,31 @@ type UpdateFleetParams struct {
 	UniqueName           *string `json:"UniqueName,omitempty"`
 }
 
+func (params *UpdateFleetParams) SetCommandsMethod(CommandsMethod string) *UpdateFleetParams {
+	params.CommandsMethod = &CommandsMethod
+	return params
+}
+func (params *UpdateFleetParams) SetCommandsUrl(CommandsUrl string) *UpdateFleetParams {
+	params.CommandsUrl = &CommandsUrl
+	return params
+}
+func (params *UpdateFleetParams) SetNetworkAccessProfile(NetworkAccessProfile string) *UpdateFleetParams {
+	params.NetworkAccessProfile = &NetworkAccessProfile
+	return params
+}
+func (params *UpdateFleetParams) SetSmsCommandsMethod(SmsCommandsMethod string) *UpdateFleetParams {
+	params.SmsCommandsMethod = &SmsCommandsMethod
+	return params
+}
+func (params *UpdateFleetParams) SetSmsCommandsUrl(SmsCommandsUrl string) *UpdateFleetParams {
+	params.SmsCommandsUrl = &SmsCommandsUrl
+	return params
+}
+func (params *UpdateFleetParams) SetUniqueName(UniqueName string) *UpdateFleetParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // UpdateFleet Method for UpdateFleet
 //
 // Updates the given properties of a Super SIM Fleet instance from your account.
@@ -1122,6 +1369,11 @@ type UpdateNetworkAccessProfileParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
+func (params *UpdateNetworkAccessProfileParams) SetUniqueName(UniqueName string) *UpdateNetworkAccessProfileParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // UpdateNetworkAccessProfile Method for UpdateNetworkAccessProfile
 //
 // Updates the given properties of a Network Access Profile in your account.
@@ -1167,6 +1419,31 @@ type UpdateSimParams struct {
 	Fleet          *string `json:"Fleet,omitempty"`
 	Status         *string `json:"Status,omitempty"`
 	UniqueName     *string `json:"UniqueName,omitempty"`
+}
+
+func (params *UpdateSimParams) SetAccountSid(AccountSid string) *UpdateSimParams {
+	params.AccountSid = &AccountSid
+	return params
+}
+func (params *UpdateSimParams) SetCallbackMethod(CallbackMethod string) *UpdateSimParams {
+	params.CallbackMethod = &CallbackMethod
+	return params
+}
+func (params *UpdateSimParams) SetCallbackUrl(CallbackUrl string) *UpdateSimParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *UpdateSimParams) SetFleet(Fleet string) *UpdateSimParams {
+	params.Fleet = &Fleet
+	return params
+}
+func (params *UpdateSimParams) SetStatus(Status string) *UpdateSimParams {
+	params.Status = &Status
+	return params
+}
+func (params *UpdateSimParams) SetUniqueName(UniqueName string) *UpdateSimParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // UpdateSim Method for UpdateSim

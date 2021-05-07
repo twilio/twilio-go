@@ -40,6 +40,19 @@ type CreateEngagementParams struct {
 	To         *string                 `json:"To,omitempty"`
 }
 
+func (params *CreateEngagementParams) SetFrom(From string) *CreateEngagementParams {
+	params.From = &From
+	return params
+}
+func (params *CreateEngagementParams) SetParameters(Parameters map[string]interface{}) *CreateEngagementParams {
+	params.Parameters = &Parameters
+	return params
+}
+func (params *CreateEngagementParams) SetTo(To string) *CreateEngagementParams {
+	params.To = &To
+	return params
+}
+
 // CreateEngagement Method for CreateEngagement
 //
 // Triggers a new Engagement for the Flow
@@ -98,6 +111,19 @@ type CreateExecutionParams struct {
 	From       *string                 `json:"From,omitempty"`
 	Parameters *map[string]interface{} `json:"Parameters,omitempty"`
 	To         *string                 `json:"To,omitempty"`
+}
+
+func (params *CreateExecutionParams) SetFrom(From string) *CreateExecutionParams {
+	params.From = &From
+	return params
+}
+func (params *CreateExecutionParams) SetParameters(Parameters map[string]interface{}) *CreateExecutionParams {
+	params.Parameters = &Parameters
+	return params
+}
+func (params *CreateExecutionParams) SetTo(To string) *CreateExecutionParams {
+	params.To = &To
+	return params
 }
 
 // CreateExecution Method for CreateExecution
@@ -530,6 +556,11 @@ type ListEngagementParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListEngagementParams) SetPageSize(PageSize int32) *ListEngagementParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListEngagement Method for ListEngagement
 //
 // Retrieve a list of all Engagements for the Flow.
@@ -572,6 +603,19 @@ type ListExecutionParams struct {
 	DateCreatedFrom *time.Time `json:"DateCreatedFrom,omitempty"`
 	DateCreatedTo   *time.Time `json:"DateCreatedTo,omitempty"`
 	PageSize        *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListExecutionParams) SetDateCreatedFrom(DateCreatedFrom time.Time) *ListExecutionParams {
+	params.DateCreatedFrom = &DateCreatedFrom
+	return params
+}
+func (params *ListExecutionParams) SetDateCreatedTo(DateCreatedTo time.Time) *ListExecutionParams {
+	params.DateCreatedTo = &DateCreatedTo
+	return params
+}
+func (params *ListExecutionParams) SetPageSize(PageSize int32) *ListExecutionParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListExecution Method for ListExecution
@@ -626,6 +670,11 @@ type ListExecutionStepParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListExecutionStepParams) SetPageSize(PageSize int32) *ListExecutionStepParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListExecutionStep Method for ListExecutionStep
 //
 // Retrieve a list of all Steps for an Execution.
@@ -671,6 +720,11 @@ type ListFlowParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListFlowParams) SetPageSize(PageSize int32) *ListFlowParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListFlow Method for ListFlow
 //
 // Retrieve a list of all Flows.
@@ -708,6 +762,11 @@ func (c *DefaultApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse,
 // ListStepParams Optional parameters for the method 'ListStep'
 type ListStepParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListStepParams) SetPageSize(PageSize int32) *ListStepParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListStep Method for ListStep
@@ -753,6 +812,11 @@ func (c *DefaultApiService) ListStep(FlowSid string, EngagementSid string, param
 // UpdateExecutionParams Optional parameters for the method 'UpdateExecution'
 type UpdateExecutionParams struct {
 	Status *string `json:"Status,omitempty"`
+}
+
+func (params *UpdateExecutionParams) SetStatus(Status string) *UpdateExecutionParams {
+	params.Status = &Status
+	return params
 }
 
 // UpdateExecution Method for UpdateExecution

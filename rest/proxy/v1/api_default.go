@@ -39,6 +39,15 @@ type CreateMessageInteractionParams struct {
 	MediaUrl *[]string `json:"MediaUrl,omitempty"`
 }
 
+func (params *CreateMessageInteractionParams) SetBody(Body string) *CreateMessageInteractionParams {
+	params.Body = &Body
+	return params
+}
+func (params *CreateMessageInteractionParams) SetMediaUrl(MediaUrl []string) *CreateMessageInteractionParams {
+	params.MediaUrl = &MediaUrl
+	return params
+}
+
 // CreateMessageInteraction Method for CreateMessageInteraction
 //
 // Create a new message Interaction to send directly from your system to one [Participant](https://www.twilio.com/docs/proxy/api/participant).  The &#x60;inbound&#x60; properties for the Interaction will always be empty.
@@ -94,6 +103,27 @@ type CreateParticipantParams struct {
 	Identifier                *string `json:"Identifier,omitempty"`
 	ProxyIdentifier           *string `json:"ProxyIdentifier,omitempty"`
 	ProxyIdentifierSid        *string `json:"ProxyIdentifierSid,omitempty"`
+}
+
+func (params *CreateParticipantParams) SetFailOnParticipantConflict(FailOnParticipantConflict bool) *CreateParticipantParams {
+	params.FailOnParticipantConflict = &FailOnParticipantConflict
+	return params
+}
+func (params *CreateParticipantParams) SetFriendlyName(FriendlyName string) *CreateParticipantParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateParticipantParams) SetIdentifier(Identifier string) *CreateParticipantParams {
+	params.Identifier = &Identifier
+	return params
+}
+func (params *CreateParticipantParams) SetProxyIdentifier(ProxyIdentifier string) *CreateParticipantParams {
+	params.ProxyIdentifier = &ProxyIdentifier
+	return params
+}
+func (params *CreateParticipantParams) SetProxyIdentifierSid(ProxyIdentifierSid string) *CreateParticipantParams {
+	params.ProxyIdentifierSid = &ProxyIdentifierSid
+	return params
 }
 
 // CreateParticipant Method for CreateParticipant
@@ -163,6 +193,19 @@ type CreatePhoneNumberParams struct {
 	Sid         *string `json:"Sid,omitempty"`
 }
 
+func (params *CreatePhoneNumberParams) SetIsReserved(IsReserved bool) *CreatePhoneNumberParams {
+	params.IsReserved = &IsReserved
+	return params
+}
+func (params *CreatePhoneNumberParams) SetPhoneNumber(PhoneNumber string) *CreatePhoneNumberParams {
+	params.PhoneNumber = &PhoneNumber
+	return params
+}
+func (params *CreatePhoneNumberParams) SetSid(Sid string) *CreatePhoneNumberParams {
+	params.Sid = &Sid
+	return params
+}
+
 // CreatePhoneNumber Method for CreatePhoneNumber
 //
 // Add a Phone Number to a Service&#39;s Proxy Number Pool.
@@ -220,6 +263,39 @@ type CreateServiceParams struct {
 	NumberSelectionBehavior *string `json:"NumberSelectionBehavior,omitempty"`
 	OutOfSessionCallbackUrl *string `json:"OutOfSessionCallbackUrl,omitempty"`
 	UniqueName              *string `json:"UniqueName,omitempty"`
+}
+
+func (params *CreateServiceParams) SetCallbackUrl(CallbackUrl string) *CreateServiceParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *CreateServiceParams) SetChatInstanceSid(ChatInstanceSid string) *CreateServiceParams {
+	params.ChatInstanceSid = &ChatInstanceSid
+	return params
+}
+func (params *CreateServiceParams) SetDefaultTtl(DefaultTtl int32) *CreateServiceParams {
+	params.DefaultTtl = &DefaultTtl
+	return params
+}
+func (params *CreateServiceParams) SetGeoMatchLevel(GeoMatchLevel string) *CreateServiceParams {
+	params.GeoMatchLevel = &GeoMatchLevel
+	return params
+}
+func (params *CreateServiceParams) SetInterceptCallbackUrl(InterceptCallbackUrl string) *CreateServiceParams {
+	params.InterceptCallbackUrl = &InterceptCallbackUrl
+	return params
+}
+func (params *CreateServiceParams) SetNumberSelectionBehavior(NumberSelectionBehavior string) *CreateServiceParams {
+	params.NumberSelectionBehavior = &NumberSelectionBehavior
+	return params
+}
+func (params *CreateServiceParams) SetOutOfSessionCallbackUrl(OutOfSessionCallbackUrl string) *CreateServiceParams {
+	params.OutOfSessionCallbackUrl = &OutOfSessionCallbackUrl
+	return params
+}
+func (params *CreateServiceParams) SetUniqueName(UniqueName string) *CreateServiceParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // CreateService Method for CreateService
@@ -302,6 +378,35 @@ type CreateSessionParams struct {
 	UniqueName                *string                   `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateSessionParams) SetDateExpiry(DateExpiry time.Time) *CreateSessionParams {
+	params.DateExpiry = &DateExpiry
+	return params
+}
+func (params *CreateSessionParams) SetFailOnParticipantConflict(FailOnParticipantConflict bool) *CreateSessionParams {
+	params.FailOnParticipantConflict = &FailOnParticipantConflict
+	return params
+}
+func (params *CreateSessionParams) SetMode(Mode string) *CreateSessionParams {
+	params.Mode = &Mode
+	return params
+}
+func (params *CreateSessionParams) SetParticipants(Participants []map[string]interface{}) *CreateSessionParams {
+	params.Participants = &Participants
+	return params
+}
+func (params *CreateSessionParams) SetStatus(Status string) *CreateSessionParams {
+	params.Status = &Status
+	return params
+}
+func (params *CreateSessionParams) SetTtl(Ttl int32) *CreateSessionParams {
+	params.Ttl = &Ttl
+	return params
+}
+func (params *CreateSessionParams) SetUniqueName(UniqueName string) *CreateSessionParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateSession Method for CreateSession
 //
 // Create a new Session
@@ -378,6 +483,11 @@ func (c *DefaultApiService) CreateSession(ServiceSid string, params *CreateSessi
 // CreateShortCodeParams Optional parameters for the method 'CreateShortCode'
 type CreateShortCodeParams struct {
 	Sid *string `json:"Sid,omitempty"`
+}
+
+func (params *CreateShortCodeParams) SetSid(Sid string) *CreateShortCodeParams {
+	params.Sid = &Sid
+	return params
 }
 
 // CreateShortCode Method for CreateShortCode
@@ -812,6 +922,11 @@ type ListInteractionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListInteractionParams) SetPageSize(PageSize int32) *ListInteractionParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListInteraction Method for ListInteraction
 //
 // Retrieve a list of all Interactions for a Session. A maximum of 100 records will be returned per page.
@@ -855,6 +970,11 @@ func (c *DefaultApiService) ListInteraction(ServiceSid string, SessionSid string
 // ListMessageInteractionParams Optional parameters for the method 'ListMessageInteraction'
 type ListMessageInteractionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListMessageInteractionParams) SetPageSize(PageSize int32) *ListMessageInteractionParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListMessageInteraction Method for ListMessageInteraction
@@ -903,6 +1023,11 @@ type ListParticipantParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListParticipantParams) SetPageSize(PageSize int32) *ListParticipantParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListParticipant Method for ListParticipant
 //
 // Retrieve a list of all Participants in a Session.
@@ -948,6 +1073,11 @@ type ListPhoneNumberParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListPhoneNumberParams) SetPageSize(PageSize int32) *ListPhoneNumberParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListPhoneNumber Method for ListPhoneNumber
 //
 // Retrieve a list of all Phone Numbers in the Proxy Number Pool for a Service. A maximum of 100 records will be returned per page.
@@ -990,6 +1120,11 @@ type ListServiceParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListService Method for ListService
 //
 // Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will be returned per page.
@@ -1027,6 +1162,11 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // ListSessionParams Optional parameters for the method 'ListSession'
 type ListSessionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListSessionParams) SetPageSize(PageSize int32) *ListSessionParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSession Method for ListSession
@@ -1071,6 +1211,11 @@ type ListShortCodeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListShortCodeParams) SetPageSize(PageSize int32) *ListShortCodeParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListShortCode Method for ListShortCode
 //
 // Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A maximum of 100 records will be returned per page.
@@ -1111,6 +1256,11 @@ func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCo
 // UpdatePhoneNumberParams Optional parameters for the method 'UpdatePhoneNumber'
 type UpdatePhoneNumberParams struct {
 	IsReserved *bool `json:"IsReserved,omitempty"`
+}
+
+func (params *UpdatePhoneNumberParams) SetIsReserved(IsReserved bool) *UpdatePhoneNumberParams {
+	params.IsReserved = &IsReserved
+	return params
 }
 
 // UpdatePhoneNumber Method for UpdatePhoneNumber
@@ -1163,6 +1313,39 @@ type UpdateServiceParams struct {
 	NumberSelectionBehavior *string `json:"NumberSelectionBehavior,omitempty"`
 	OutOfSessionCallbackUrl *string `json:"OutOfSessionCallbackUrl,omitempty"`
 	UniqueName              *string `json:"UniqueName,omitempty"`
+}
+
+func (params *UpdateServiceParams) SetCallbackUrl(CallbackUrl string) *UpdateServiceParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *UpdateServiceParams) SetChatInstanceSid(ChatInstanceSid string) *UpdateServiceParams {
+	params.ChatInstanceSid = &ChatInstanceSid
+	return params
+}
+func (params *UpdateServiceParams) SetDefaultTtl(DefaultTtl int32) *UpdateServiceParams {
+	params.DefaultTtl = &DefaultTtl
+	return params
+}
+func (params *UpdateServiceParams) SetGeoMatchLevel(GeoMatchLevel string) *UpdateServiceParams {
+	params.GeoMatchLevel = &GeoMatchLevel
+	return params
+}
+func (params *UpdateServiceParams) SetInterceptCallbackUrl(InterceptCallbackUrl string) *UpdateServiceParams {
+	params.InterceptCallbackUrl = &InterceptCallbackUrl
+	return params
+}
+func (params *UpdateServiceParams) SetNumberSelectionBehavior(NumberSelectionBehavior string) *UpdateServiceParams {
+	params.NumberSelectionBehavior = &NumberSelectionBehavior
+	return params
+}
+func (params *UpdateServiceParams) SetOutOfSessionCallbackUrl(OutOfSessionCallbackUrl string) *UpdateServiceParams {
+	params.OutOfSessionCallbackUrl = &OutOfSessionCallbackUrl
+	return params
+}
+func (params *UpdateServiceParams) SetUniqueName(UniqueName string) *UpdateServiceParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // UpdateService Method for UpdateService
@@ -1245,6 +1428,23 @@ type UpdateSessionParams struct {
 	Ttl                       *int32     `json:"Ttl,omitempty"`
 }
 
+func (params *UpdateSessionParams) SetDateExpiry(DateExpiry time.Time) *UpdateSessionParams {
+	params.DateExpiry = &DateExpiry
+	return params
+}
+func (params *UpdateSessionParams) SetFailOnParticipantConflict(FailOnParticipantConflict bool) *UpdateSessionParams {
+	params.FailOnParticipantConflict = &FailOnParticipantConflict
+	return params
+}
+func (params *UpdateSessionParams) SetStatus(Status string) *UpdateSessionParams {
+	params.Status = &Status
+	return params
+}
+func (params *UpdateSessionParams) SetTtl(Ttl int32) *UpdateSessionParams {
+	params.Ttl = &Ttl
+	return params
+}
+
 // UpdateSession Method for UpdateSession
 //
 // Update a specific Session.
@@ -1303,6 +1503,11 @@ func (c *DefaultApiService) UpdateSession(ServiceSid string, Sid string, params 
 // UpdateShortCodeParams Optional parameters for the method 'UpdateShortCode'
 type UpdateShortCodeParams struct {
 	IsReserved *bool `json:"IsReserved,omitempty"`
+}
+
+func (params *UpdateShortCodeParams) SetIsReserved(IsReserved bool) *UpdateShortCodeParams {
+	params.IsReserved = &IsReserved
+	return params
 }
 
 // UpdateShortCode Method for UpdateShortCode

@@ -38,6 +38,11 @@ type CreateAccountParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateAccountParams) SetFriendlyName(FriendlyName string) *CreateAccountParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateAccount Method for CreateAccount
 //
 // Create a new Twilio Subaccount from the account making the request
@@ -84,6 +89,43 @@ type CreateAddressParams struct {
 	PostalCode         *string `json:"PostalCode,omitempty"`
 	Region             *string `json:"Region,omitempty"`
 	Street             *string `json:"Street,omitempty"`
+}
+
+func (params *CreateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool) *CreateAddressParams {
+	params.AutoCorrectAddress = &AutoCorrectAddress
+	return params
+}
+func (params *CreateAddressParams) SetCity(City string) *CreateAddressParams {
+	params.City = &City
+	return params
+}
+func (params *CreateAddressParams) SetCustomerName(CustomerName string) *CreateAddressParams {
+	params.CustomerName = &CustomerName
+	return params
+}
+func (params *CreateAddressParams) SetEmergencyEnabled(EmergencyEnabled bool) *CreateAddressParams {
+	params.EmergencyEnabled = &EmergencyEnabled
+	return params
+}
+func (params *CreateAddressParams) SetFriendlyName(FriendlyName string) *CreateAddressParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateAddressParams) SetIsoCountry(IsoCountry string) *CreateAddressParams {
+	params.IsoCountry = &IsoCountry
+	return params
+}
+func (params *CreateAddressParams) SetPostalCode(PostalCode string) *CreateAddressParams {
+	params.PostalCode = &PostalCode
+	return params
+}
+func (params *CreateAddressParams) SetRegion(Region string) *CreateAddressParams {
+	params.Region = &Region
+	return params
+}
+func (params *CreateAddressParams) SetStreet(Street string) *CreateAddressParams {
+	params.Street = &Street
+	return params
 }
 
 // CreateAddress Method for CreateAddress
@@ -183,6 +225,67 @@ type CreateApplicationParams struct {
 	VoiceFallbackUrl      *string `json:"VoiceFallbackUrl,omitempty"`
 	VoiceMethod           *string `json:"VoiceMethod,omitempty"`
 	VoiceUrl              *string `json:"VoiceUrl,omitempty"`
+}
+
+func (params *CreateApplicationParams) SetApiVersion(ApiVersion string) *CreateApplicationParams {
+	params.ApiVersion = &ApiVersion
+	return params
+}
+func (params *CreateApplicationParams) SetFriendlyName(FriendlyName string) *CreateApplicationParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateApplicationParams) SetMessageStatusCallback(MessageStatusCallback string) *CreateApplicationParams {
+	params.MessageStatusCallback = &MessageStatusCallback
+	return params
+}
+func (params *CreateApplicationParams) SetSmsFallbackMethod(SmsFallbackMethod string) *CreateApplicationParams {
+	params.SmsFallbackMethod = &SmsFallbackMethod
+	return params
+}
+func (params *CreateApplicationParams) SetSmsFallbackUrl(SmsFallbackUrl string) *CreateApplicationParams {
+	params.SmsFallbackUrl = &SmsFallbackUrl
+	return params
+}
+func (params *CreateApplicationParams) SetSmsMethod(SmsMethod string) *CreateApplicationParams {
+	params.SmsMethod = &SmsMethod
+	return params
+}
+func (params *CreateApplicationParams) SetSmsStatusCallback(SmsStatusCallback string) *CreateApplicationParams {
+	params.SmsStatusCallback = &SmsStatusCallback
+	return params
+}
+func (params *CreateApplicationParams) SetSmsUrl(SmsUrl string) *CreateApplicationParams {
+	params.SmsUrl = &SmsUrl
+	return params
+}
+func (params *CreateApplicationParams) SetStatusCallback(StatusCallback string) *CreateApplicationParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateApplicationParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateApplicationParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *CreateApplicationParams) SetVoiceCallerIdLookup(VoiceCallerIdLookup bool) *CreateApplicationParams {
+	params.VoiceCallerIdLookup = &VoiceCallerIdLookup
+	return params
+}
+func (params *CreateApplicationParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *CreateApplicationParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
+	return params
+}
+func (params *CreateApplicationParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *CreateApplicationParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *CreateApplicationParams) SetVoiceMethod(VoiceMethod string) *CreateApplicationParams {
+	params.VoiceMethod = &VoiceMethod
+	return params
+}
+func (params *CreateApplicationParams) SetVoiceUrl(VoiceUrl string) *CreateApplicationParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
 }
 
 // CreateApplication Method for CreateApplication
@@ -333,6 +436,143 @@ type CreateCallParams struct {
 	Trim                               *string   `json:"Trim,omitempty"`
 	Twiml                              *string   `json:"Twiml,omitempty"`
 	Url                                *string   `json:"Url,omitempty"`
+}
+
+func (params *CreateCallParams) SetApplicationSid(ApplicationSid string) *CreateCallParams {
+	params.ApplicationSid = &ApplicationSid
+	return params
+}
+func (params *CreateCallParams) SetAsyncAmd(AsyncAmd string) *CreateCallParams {
+	params.AsyncAmd = &AsyncAmd
+	return params
+}
+func (params *CreateCallParams) SetAsyncAmdStatusCallback(AsyncAmdStatusCallback string) *CreateCallParams {
+	params.AsyncAmdStatusCallback = &AsyncAmdStatusCallback
+	return params
+}
+func (params *CreateCallParams) SetAsyncAmdStatusCallbackMethod(AsyncAmdStatusCallbackMethod string) *CreateCallParams {
+	params.AsyncAmdStatusCallbackMethod = &AsyncAmdStatusCallbackMethod
+	return params
+}
+func (params *CreateCallParams) SetByoc(Byoc string) *CreateCallParams {
+	params.Byoc = &Byoc
+	return params
+}
+func (params *CreateCallParams) SetCallReason(CallReason string) *CreateCallParams {
+	params.CallReason = &CallReason
+	return params
+}
+func (params *CreateCallParams) SetCallToken(CallToken string) *CreateCallParams {
+	params.CallToken = &CallToken
+	return params
+}
+func (params *CreateCallParams) SetCallerId(CallerId string) *CreateCallParams {
+	params.CallerId = &CallerId
+	return params
+}
+func (params *CreateCallParams) SetFallbackMethod(FallbackMethod string) *CreateCallParams {
+	params.FallbackMethod = &FallbackMethod
+	return params
+}
+func (params *CreateCallParams) SetFallbackUrl(FallbackUrl string) *CreateCallParams {
+	params.FallbackUrl = &FallbackUrl
+	return params
+}
+func (params *CreateCallParams) SetFrom(From string) *CreateCallParams {
+	params.From = &From
+	return params
+}
+func (params *CreateCallParams) SetMachineDetection(MachineDetection string) *CreateCallParams {
+	params.MachineDetection = &MachineDetection
+	return params
+}
+func (params *CreateCallParams) SetMachineDetectionSilenceTimeout(MachineDetectionSilenceTimeout int32) *CreateCallParams {
+	params.MachineDetectionSilenceTimeout = &MachineDetectionSilenceTimeout
+	return params
+}
+func (params *CreateCallParams) SetMachineDetectionSpeechEndThreshold(MachineDetectionSpeechEndThreshold int32) *CreateCallParams {
+	params.MachineDetectionSpeechEndThreshold = &MachineDetectionSpeechEndThreshold
+	return params
+}
+func (params *CreateCallParams) SetMachineDetectionSpeechThreshold(MachineDetectionSpeechThreshold int32) *CreateCallParams {
+	params.MachineDetectionSpeechThreshold = &MachineDetectionSpeechThreshold
+	return params
+}
+func (params *CreateCallParams) SetMachineDetectionTimeout(MachineDetectionTimeout int32) *CreateCallParams {
+	params.MachineDetectionTimeout = &MachineDetectionTimeout
+	return params
+}
+func (params *CreateCallParams) SetMethod(Method string) *CreateCallParams {
+	params.Method = &Method
+	return params
+}
+func (params *CreateCallParams) SetRecord(Record bool) *CreateCallParams {
+	params.Record = &Record
+	return params
+}
+func (params *CreateCallParams) SetRecordingChannels(RecordingChannels string) *CreateCallParams {
+	params.RecordingChannels = &RecordingChannels
+	return params
+}
+func (params *CreateCallParams) SetRecordingStatusCallback(RecordingStatusCallback string) *CreateCallParams {
+	params.RecordingStatusCallback = &RecordingStatusCallback
+	return params
+}
+func (params *CreateCallParams) SetRecordingStatusCallbackEvent(RecordingStatusCallbackEvent []string) *CreateCallParams {
+	params.RecordingStatusCallbackEvent = &RecordingStatusCallbackEvent
+	return params
+}
+func (params *CreateCallParams) SetRecordingStatusCallbackMethod(RecordingStatusCallbackMethod string) *CreateCallParams {
+	params.RecordingStatusCallbackMethod = &RecordingStatusCallbackMethod
+	return params
+}
+func (params *CreateCallParams) SetRecordingTrack(RecordingTrack string) *CreateCallParams {
+	params.RecordingTrack = &RecordingTrack
+	return params
+}
+func (params *CreateCallParams) SetSendDigits(SendDigits string) *CreateCallParams {
+	params.SendDigits = &SendDigits
+	return params
+}
+func (params *CreateCallParams) SetSipAuthPassword(SipAuthPassword string) *CreateCallParams {
+	params.SipAuthPassword = &SipAuthPassword
+	return params
+}
+func (params *CreateCallParams) SetSipAuthUsername(SipAuthUsername string) *CreateCallParams {
+	params.SipAuthUsername = &SipAuthUsername
+	return params
+}
+func (params *CreateCallParams) SetStatusCallback(StatusCallback string) *CreateCallParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateCallParams) SetStatusCallbackEvent(StatusCallbackEvent []string) *CreateCallParams {
+	params.StatusCallbackEvent = &StatusCallbackEvent
+	return params
+}
+func (params *CreateCallParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateCallParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *CreateCallParams) SetTimeout(Timeout int32) *CreateCallParams {
+	params.Timeout = &Timeout
+	return params
+}
+func (params *CreateCallParams) SetTo(To string) *CreateCallParams {
+	params.To = &To
+	return params
+}
+func (params *CreateCallParams) SetTrim(Trim string) *CreateCallParams {
+	params.Trim = &Trim
+	return params
+}
+func (params *CreateCallParams) SetTwiml(Twiml string) *CreateCallParams {
+	params.Twiml = &Twiml
+	return params
+}
+func (params *CreateCallParams) SetUrl(Url string) *CreateCallParams {
+	params.Url = &Url
+	return params
 }
 
 // CreateCall Method for CreateCall
@@ -551,6 +791,27 @@ type CreateCallFeedbackSummaryParams struct {
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 }
 
+func (params *CreateCallFeedbackSummaryParams) SetEndDate(EndDate string) *CreateCallFeedbackSummaryParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *CreateCallFeedbackSummaryParams) SetIncludeSubaccounts(IncludeSubaccounts bool) *CreateCallFeedbackSummaryParams {
+	params.IncludeSubaccounts = &IncludeSubaccounts
+	return params
+}
+func (params *CreateCallFeedbackSummaryParams) SetStartDate(StartDate string) *CreateCallFeedbackSummaryParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *CreateCallFeedbackSummaryParams) SetStatusCallback(StatusCallback string) *CreateCallFeedbackSummaryParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateCallFeedbackSummaryParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateCallFeedbackSummaryParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+
 // CreateCallFeedbackSummary Method for CreateCallFeedbackSummary
 //
 // Create a FeedbackSummary resource for a call
@@ -621,6 +882,31 @@ type CreateCallRecordingParams struct {
 	RecordingStatusCallbackMethod *string   `json:"RecordingStatusCallbackMethod,omitempty"`
 	RecordingTrack                *string   `json:"RecordingTrack,omitempty"`
 	Trim                          *string   `json:"Trim,omitempty"`
+}
+
+func (params *CreateCallRecordingParams) SetRecordingChannels(RecordingChannels string) *CreateCallRecordingParams {
+	params.RecordingChannels = &RecordingChannels
+	return params
+}
+func (params *CreateCallRecordingParams) SetRecordingStatusCallback(RecordingStatusCallback string) *CreateCallRecordingParams {
+	params.RecordingStatusCallback = &RecordingStatusCallback
+	return params
+}
+func (params *CreateCallRecordingParams) SetRecordingStatusCallbackEvent(RecordingStatusCallbackEvent []string) *CreateCallRecordingParams {
+	params.RecordingStatusCallbackEvent = &RecordingStatusCallbackEvent
+	return params
+}
+func (params *CreateCallRecordingParams) SetRecordingStatusCallbackMethod(RecordingStatusCallbackMethod string) *CreateCallRecordingParams {
+	params.RecordingStatusCallbackMethod = &RecordingStatusCallbackMethod
+	return params
+}
+func (params *CreateCallRecordingParams) SetRecordingTrack(RecordingTrack string) *CreateCallRecordingParams {
+	params.RecordingTrack = &RecordingTrack
+	return params
+}
+func (params *CreateCallRecordingParams) SetTrim(Trim string) *CreateCallRecordingParams {
+	params.Trim = &Trim
+	return params
 }
 
 // CreateCallRecording Method for CreateCallRecording
@@ -719,6 +1005,103 @@ type CreateIncomingPhoneNumberParams struct {
 	VoiceMethod          *string `json:"VoiceMethod,omitempty"`
 	VoiceReceiveMode     *string `json:"VoiceReceiveMode,omitempty"`
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
+}
+
+func (params *CreateIncomingPhoneNumberParams) SetAddressSid(AddressSid string) *CreateIncomingPhoneNumberParams {
+	params.AddressSid = &AddressSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetApiVersion(ApiVersion string) *CreateIncomingPhoneNumberParams {
+	params.ApiVersion = &ApiVersion
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetAreaCode(AreaCode string) *CreateIncomingPhoneNumberParams {
+	params.AreaCode = &AreaCode
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetBundleSid(BundleSid string) *CreateIncomingPhoneNumberParams {
+	params.BundleSid = &BundleSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetEmergencyAddressSid(EmergencyAddressSid string) *CreateIncomingPhoneNumberParams {
+	params.EmergencyAddressSid = &EmergencyAddressSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetEmergencyStatus(EmergencyStatus string) *CreateIncomingPhoneNumberParams {
+	params.EmergencyStatus = &EmergencyStatus
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetFriendlyName(FriendlyName string) *CreateIncomingPhoneNumberParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetIdentitySid(IdentitySid string) *CreateIncomingPhoneNumberParams {
+	params.IdentitySid = &IdentitySid
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetPhoneNumber(PhoneNumber string) *CreateIncomingPhoneNumberParams {
+	params.PhoneNumber = &PhoneNumber
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetSmsApplicationSid(SmsApplicationSid string) *CreateIncomingPhoneNumberParams {
+	params.SmsApplicationSid = &SmsApplicationSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetSmsFallbackMethod(SmsFallbackMethod string) *CreateIncomingPhoneNumberParams {
+	params.SmsFallbackMethod = &SmsFallbackMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetSmsFallbackUrl(SmsFallbackUrl string) *CreateIncomingPhoneNumberParams {
+	params.SmsFallbackUrl = &SmsFallbackUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetSmsMethod(SmsMethod string) *CreateIncomingPhoneNumberParams {
+	params.SmsMethod = &SmsMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetSmsUrl(SmsUrl string) *CreateIncomingPhoneNumberParams {
+	params.SmsUrl = &SmsUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetStatusCallback(StatusCallback string) *CreateIncomingPhoneNumberParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateIncomingPhoneNumberParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetTrunkSid(TrunkSid string) *CreateIncomingPhoneNumberParams {
+	params.TrunkSid = &TrunkSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetVoiceApplicationSid(VoiceApplicationSid string) *CreateIncomingPhoneNumberParams {
+	params.VoiceApplicationSid = &VoiceApplicationSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetVoiceCallerIdLookup(VoiceCallerIdLookup bool) *CreateIncomingPhoneNumberParams {
+	params.VoiceCallerIdLookup = &VoiceCallerIdLookup
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *CreateIncomingPhoneNumberParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *CreateIncomingPhoneNumberParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetVoiceMethod(VoiceMethod string) *CreateIncomingPhoneNumberParams {
+	params.VoiceMethod = &VoiceMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetVoiceReceiveMode(VoiceReceiveMode string) *CreateIncomingPhoneNumberParams {
+	params.VoiceReceiveMode = &VoiceReceiveMode
+	return params
+}
+func (params *CreateIncomingPhoneNumberParams) SetVoiceUrl(VoiceUrl string) *CreateIncomingPhoneNumberParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
 }
 
 // CreateIncomingPhoneNumber Method for CreateIncomingPhoneNumber
@@ -883,6 +1266,11 @@ type CreateIncomingPhoneNumberAssignedAddOnParams struct {
 	InstalledAddOnSid *string `json:"InstalledAddOnSid,omitempty"`
 }
 
+func (params *CreateIncomingPhoneNumberAssignedAddOnParams) SetInstalledAddOnSid(InstalledAddOnSid string) *CreateIncomingPhoneNumberAssignedAddOnParams {
+	params.InstalledAddOnSid = &InstalledAddOnSid
+	return params
+}
+
 // CreateIncomingPhoneNumberAssignedAddOn Method for CreateIncomingPhoneNumberAssignedAddOn
 //
 // Assign an Add-on installation to the Number specified.
@@ -953,6 +1341,99 @@ type CreateIncomingPhoneNumberLocalParams struct {
 	VoiceMethod          *string `json:"VoiceMethod,omitempty"`
 	VoiceReceiveMode     *string `json:"VoiceReceiveMode,omitempty"`
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
+}
+
+func (params *CreateIncomingPhoneNumberLocalParams) SetAddressSid(AddressSid string) *CreateIncomingPhoneNumberLocalParams {
+	params.AddressSid = &AddressSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetApiVersion(ApiVersion string) *CreateIncomingPhoneNumberLocalParams {
+	params.ApiVersion = &ApiVersion
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetBundleSid(BundleSid string) *CreateIncomingPhoneNumberLocalParams {
+	params.BundleSid = &BundleSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetEmergencyAddressSid(EmergencyAddressSid string) *CreateIncomingPhoneNumberLocalParams {
+	params.EmergencyAddressSid = &EmergencyAddressSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetEmergencyStatus(EmergencyStatus string) *CreateIncomingPhoneNumberLocalParams {
+	params.EmergencyStatus = &EmergencyStatus
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetFriendlyName(FriendlyName string) *CreateIncomingPhoneNumberLocalParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetIdentitySid(IdentitySid string) *CreateIncomingPhoneNumberLocalParams {
+	params.IdentitySid = &IdentitySid
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetPhoneNumber(PhoneNumber string) *CreateIncomingPhoneNumberLocalParams {
+	params.PhoneNumber = &PhoneNumber
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetSmsApplicationSid(SmsApplicationSid string) *CreateIncomingPhoneNumberLocalParams {
+	params.SmsApplicationSid = &SmsApplicationSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetSmsFallbackMethod(SmsFallbackMethod string) *CreateIncomingPhoneNumberLocalParams {
+	params.SmsFallbackMethod = &SmsFallbackMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetSmsFallbackUrl(SmsFallbackUrl string) *CreateIncomingPhoneNumberLocalParams {
+	params.SmsFallbackUrl = &SmsFallbackUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetSmsMethod(SmsMethod string) *CreateIncomingPhoneNumberLocalParams {
+	params.SmsMethod = &SmsMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetSmsUrl(SmsUrl string) *CreateIncomingPhoneNumberLocalParams {
+	params.SmsUrl = &SmsUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetStatusCallback(StatusCallback string) *CreateIncomingPhoneNumberLocalParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateIncomingPhoneNumberLocalParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetTrunkSid(TrunkSid string) *CreateIncomingPhoneNumberLocalParams {
+	params.TrunkSid = &TrunkSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceApplicationSid(VoiceApplicationSid string) *CreateIncomingPhoneNumberLocalParams {
+	params.VoiceApplicationSid = &VoiceApplicationSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceCallerIdLookup(VoiceCallerIdLookup bool) *CreateIncomingPhoneNumberLocalParams {
+	params.VoiceCallerIdLookup = &VoiceCallerIdLookup
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *CreateIncomingPhoneNumberLocalParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *CreateIncomingPhoneNumberLocalParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceMethod(VoiceMethod string) *CreateIncomingPhoneNumberLocalParams {
+	params.VoiceMethod = &VoiceMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceReceiveMode(VoiceReceiveMode string) *CreateIncomingPhoneNumberLocalParams {
+	params.VoiceReceiveMode = &VoiceReceiveMode
+	return params
+}
+func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceUrl(VoiceUrl string) *CreateIncomingPhoneNumberLocalParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
 }
 
 // CreateIncomingPhoneNumberLocal Method for CreateIncomingPhoneNumberLocal
@@ -1132,6 +1613,99 @@ type CreateIncomingPhoneNumberMobileParams struct {
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
 }
 
+func (params *CreateIncomingPhoneNumberMobileParams) SetAddressSid(AddressSid string) *CreateIncomingPhoneNumberMobileParams {
+	params.AddressSid = &AddressSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetApiVersion(ApiVersion string) *CreateIncomingPhoneNumberMobileParams {
+	params.ApiVersion = &ApiVersion
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetBundleSid(BundleSid string) *CreateIncomingPhoneNumberMobileParams {
+	params.BundleSid = &BundleSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetEmergencyAddressSid(EmergencyAddressSid string) *CreateIncomingPhoneNumberMobileParams {
+	params.EmergencyAddressSid = &EmergencyAddressSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetEmergencyStatus(EmergencyStatus string) *CreateIncomingPhoneNumberMobileParams {
+	params.EmergencyStatus = &EmergencyStatus
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetFriendlyName(FriendlyName string) *CreateIncomingPhoneNumberMobileParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetIdentitySid(IdentitySid string) *CreateIncomingPhoneNumberMobileParams {
+	params.IdentitySid = &IdentitySid
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetPhoneNumber(PhoneNumber string) *CreateIncomingPhoneNumberMobileParams {
+	params.PhoneNumber = &PhoneNumber
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetSmsApplicationSid(SmsApplicationSid string) *CreateIncomingPhoneNumberMobileParams {
+	params.SmsApplicationSid = &SmsApplicationSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetSmsFallbackMethod(SmsFallbackMethod string) *CreateIncomingPhoneNumberMobileParams {
+	params.SmsFallbackMethod = &SmsFallbackMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetSmsFallbackUrl(SmsFallbackUrl string) *CreateIncomingPhoneNumberMobileParams {
+	params.SmsFallbackUrl = &SmsFallbackUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetSmsMethod(SmsMethod string) *CreateIncomingPhoneNumberMobileParams {
+	params.SmsMethod = &SmsMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetSmsUrl(SmsUrl string) *CreateIncomingPhoneNumberMobileParams {
+	params.SmsUrl = &SmsUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetStatusCallback(StatusCallback string) *CreateIncomingPhoneNumberMobileParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateIncomingPhoneNumberMobileParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetTrunkSid(TrunkSid string) *CreateIncomingPhoneNumberMobileParams {
+	params.TrunkSid = &TrunkSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetVoiceApplicationSid(VoiceApplicationSid string) *CreateIncomingPhoneNumberMobileParams {
+	params.VoiceApplicationSid = &VoiceApplicationSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetVoiceCallerIdLookup(VoiceCallerIdLookup bool) *CreateIncomingPhoneNumberMobileParams {
+	params.VoiceCallerIdLookup = &VoiceCallerIdLookup
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *CreateIncomingPhoneNumberMobileParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *CreateIncomingPhoneNumberMobileParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetVoiceMethod(VoiceMethod string) *CreateIncomingPhoneNumberMobileParams {
+	params.VoiceMethod = &VoiceMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetVoiceReceiveMode(VoiceReceiveMode string) *CreateIncomingPhoneNumberMobileParams {
+	params.VoiceReceiveMode = &VoiceReceiveMode
+	return params
+}
+func (params *CreateIncomingPhoneNumberMobileParams) SetVoiceUrl(VoiceUrl string) *CreateIncomingPhoneNumberMobileParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
+}
+
 // CreateIncomingPhoneNumberMobile Method for CreateIncomingPhoneNumberMobile
 //
 // param: optional nil or *CreateIncomingPhoneNumberMobileParams - Optional Parameters:
@@ -1309,6 +1883,99 @@ type CreateIncomingPhoneNumberTollFreeParams struct {
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
 }
 
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetAddressSid(AddressSid string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.AddressSid = &AddressSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetApiVersion(ApiVersion string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.ApiVersion = &ApiVersion
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetBundleSid(BundleSid string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.BundleSid = &BundleSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetEmergencyAddressSid(EmergencyAddressSid string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.EmergencyAddressSid = &EmergencyAddressSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetEmergencyStatus(EmergencyStatus string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.EmergencyStatus = &EmergencyStatus
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetFriendlyName(FriendlyName string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetIdentitySid(IdentitySid string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.IdentitySid = &IdentitySid
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetPhoneNumber(PhoneNumber string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.PhoneNumber = &PhoneNumber
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetSmsApplicationSid(SmsApplicationSid string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.SmsApplicationSid = &SmsApplicationSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetSmsFallbackMethod(SmsFallbackMethod string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.SmsFallbackMethod = &SmsFallbackMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetSmsFallbackUrl(SmsFallbackUrl string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.SmsFallbackUrl = &SmsFallbackUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetSmsMethod(SmsMethod string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.SmsMethod = &SmsMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetSmsUrl(SmsUrl string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.SmsUrl = &SmsUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetStatusCallback(StatusCallback string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetTrunkSid(TrunkSid string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.TrunkSid = &TrunkSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetVoiceApplicationSid(VoiceApplicationSid string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.VoiceApplicationSid = &VoiceApplicationSid
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetVoiceCallerIdLookup(VoiceCallerIdLookup bool) *CreateIncomingPhoneNumberTollFreeParams {
+	params.VoiceCallerIdLookup = &VoiceCallerIdLookup
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetVoiceMethod(VoiceMethod string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.VoiceMethod = &VoiceMethod
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetVoiceReceiveMode(VoiceReceiveMode string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.VoiceReceiveMode = &VoiceReceiveMode
+	return params
+}
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetVoiceUrl(VoiceUrl string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
+}
+
 // CreateIncomingPhoneNumberTollFree Method for CreateIncomingPhoneNumberTollFree
 //
 // param: optional nil or *CreateIncomingPhoneNumberTollFreeParams - Optional Parameters:
@@ -1479,6 +2146,71 @@ type CreateMessageParams struct {
 	ValidityPeriod      *int32    `json:"ValidityPeriod,omitempty"`
 }
 
+func (params *CreateMessageParams) SetAddressRetention(AddressRetention string) *CreateMessageParams {
+	params.AddressRetention = &AddressRetention
+	return params
+}
+func (params *CreateMessageParams) SetApplicationSid(ApplicationSid string) *CreateMessageParams {
+	params.ApplicationSid = &ApplicationSid
+	return params
+}
+func (params *CreateMessageParams) SetAttempt(Attempt int32) *CreateMessageParams {
+	params.Attempt = &Attempt
+	return params
+}
+func (params *CreateMessageParams) SetBody(Body string) *CreateMessageParams {
+	params.Body = &Body
+	return params
+}
+func (params *CreateMessageParams) SetContentRetention(ContentRetention string) *CreateMessageParams {
+	params.ContentRetention = &ContentRetention
+	return params
+}
+func (params *CreateMessageParams) SetForceDelivery(ForceDelivery bool) *CreateMessageParams {
+	params.ForceDelivery = &ForceDelivery
+	return params
+}
+func (params *CreateMessageParams) SetFrom(From string) *CreateMessageParams {
+	params.From = &From
+	return params
+}
+func (params *CreateMessageParams) SetMaxPrice(MaxPrice float32) *CreateMessageParams {
+	params.MaxPrice = &MaxPrice
+	return params
+}
+func (params *CreateMessageParams) SetMediaUrl(MediaUrl []string) *CreateMessageParams {
+	params.MediaUrl = &MediaUrl
+	return params
+}
+func (params *CreateMessageParams) SetMessagingServiceSid(MessagingServiceSid string) *CreateMessageParams {
+	params.MessagingServiceSid = &MessagingServiceSid
+	return params
+}
+func (params *CreateMessageParams) SetPersistentAction(PersistentAction []string) *CreateMessageParams {
+	params.PersistentAction = &PersistentAction
+	return params
+}
+func (params *CreateMessageParams) SetProvideFeedback(ProvideFeedback bool) *CreateMessageParams {
+	params.ProvideFeedback = &ProvideFeedback
+	return params
+}
+func (params *CreateMessageParams) SetSmartEncoded(SmartEncoded bool) *CreateMessageParams {
+	params.SmartEncoded = &SmartEncoded
+	return params
+}
+func (params *CreateMessageParams) SetStatusCallback(StatusCallback string) *CreateMessageParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateMessageParams) SetTo(To string) *CreateMessageParams {
+	params.To = &To
+	return params
+}
+func (params *CreateMessageParams) SetValidityPeriod(ValidityPeriod int32) *CreateMessageParams {
+	params.ValidityPeriod = &ValidityPeriod
+	return params
+}
+
 // CreateMessage Method for CreateMessage
 //
 // Send a message from the account used to make the request
@@ -1601,6 +2333,11 @@ type CreateMessageFeedbackParams struct {
 	Outcome        *string `json:"Outcome,omitempty"`
 }
 
+func (params *CreateMessageFeedbackParams) SetOutcome(Outcome string) *CreateMessageFeedbackParams {
+	params.Outcome = &Outcome
+	return params
+}
+
 // CreateMessageFeedback Method for CreateMessageFeedback
 //
 // param: MessageSid The SID of the Message resource for which the feedback was provided.
@@ -1649,6 +2386,11 @@ type CreateNewKeyParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateNewKeyParams) SetFriendlyName(FriendlyName string) *CreateNewKeyParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateNewKey Method for CreateNewKey
 //
 // param: optional nil or *CreateNewKeyParams - Optional Parameters:
@@ -1692,6 +2434,11 @@ func (c *DefaultApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010A
 type CreateNewSigningKeyParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
+}
+
+func (params *CreateNewSigningKeyParams) SetFriendlyName(FriendlyName string) *CreateNewSigningKeyParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // CreateNewSigningKey Method for CreateNewSigningKey
@@ -1776,6 +2523,159 @@ type CreateParticipantParams struct {
 	To                                      *string   `json:"To,omitempty"`
 	WaitMethod                              *string   `json:"WaitMethod,omitempty"`
 	WaitUrl                                 *string   `json:"WaitUrl,omitempty"`
+}
+
+func (params *CreateParticipantParams) SetBeep(Beep string) *CreateParticipantParams {
+	params.Beep = &Beep
+	return params
+}
+func (params *CreateParticipantParams) SetByoc(Byoc string) *CreateParticipantParams {
+	params.Byoc = &Byoc
+	return params
+}
+func (params *CreateParticipantParams) SetCallReason(CallReason string) *CreateParticipantParams {
+	params.CallReason = &CallReason
+	return params
+}
+func (params *CreateParticipantParams) SetCallSidToCoach(CallSidToCoach string) *CreateParticipantParams {
+	params.CallSidToCoach = &CallSidToCoach
+	return params
+}
+func (params *CreateParticipantParams) SetCallerId(CallerId string) *CreateParticipantParams {
+	params.CallerId = &CallerId
+	return params
+}
+func (params *CreateParticipantParams) SetCoaching(Coaching bool) *CreateParticipantParams {
+	params.Coaching = &Coaching
+	return params
+}
+func (params *CreateParticipantParams) SetConferenceRecord(ConferenceRecord string) *CreateParticipantParams {
+	params.ConferenceRecord = &ConferenceRecord
+	return params
+}
+func (params *CreateParticipantParams) SetConferenceRecordingStatusCallback(ConferenceRecordingStatusCallback string) *CreateParticipantParams {
+	params.ConferenceRecordingStatusCallback = &ConferenceRecordingStatusCallback
+	return params
+}
+func (params *CreateParticipantParams) SetConferenceRecordingStatusCallbackEvent(ConferenceRecordingStatusCallbackEvent []string) *CreateParticipantParams {
+	params.ConferenceRecordingStatusCallbackEvent = &ConferenceRecordingStatusCallbackEvent
+	return params
+}
+func (params *CreateParticipantParams) SetConferenceRecordingStatusCallbackMethod(ConferenceRecordingStatusCallbackMethod string) *CreateParticipantParams {
+	params.ConferenceRecordingStatusCallbackMethod = &ConferenceRecordingStatusCallbackMethod
+	return params
+}
+func (params *CreateParticipantParams) SetConferenceStatusCallback(ConferenceStatusCallback string) *CreateParticipantParams {
+	params.ConferenceStatusCallback = &ConferenceStatusCallback
+	return params
+}
+func (params *CreateParticipantParams) SetConferenceStatusCallbackEvent(ConferenceStatusCallbackEvent []string) *CreateParticipantParams {
+	params.ConferenceStatusCallbackEvent = &ConferenceStatusCallbackEvent
+	return params
+}
+func (params *CreateParticipantParams) SetConferenceStatusCallbackMethod(ConferenceStatusCallbackMethod string) *CreateParticipantParams {
+	params.ConferenceStatusCallbackMethod = &ConferenceStatusCallbackMethod
+	return params
+}
+func (params *CreateParticipantParams) SetConferenceTrim(ConferenceTrim string) *CreateParticipantParams {
+	params.ConferenceTrim = &ConferenceTrim
+	return params
+}
+func (params *CreateParticipantParams) SetEarlyMedia(EarlyMedia bool) *CreateParticipantParams {
+	params.EarlyMedia = &EarlyMedia
+	return params
+}
+func (params *CreateParticipantParams) SetEndConferenceOnExit(EndConferenceOnExit bool) *CreateParticipantParams {
+	params.EndConferenceOnExit = &EndConferenceOnExit
+	return params
+}
+func (params *CreateParticipantParams) SetFrom(From string) *CreateParticipantParams {
+	params.From = &From
+	return params
+}
+func (params *CreateParticipantParams) SetJitterBufferSize(JitterBufferSize string) *CreateParticipantParams {
+	params.JitterBufferSize = &JitterBufferSize
+	return params
+}
+func (params *CreateParticipantParams) SetLabel(Label string) *CreateParticipantParams {
+	params.Label = &Label
+	return params
+}
+func (params *CreateParticipantParams) SetMaxParticipants(MaxParticipants int32) *CreateParticipantParams {
+	params.MaxParticipants = &MaxParticipants
+	return params
+}
+func (params *CreateParticipantParams) SetMuted(Muted bool) *CreateParticipantParams {
+	params.Muted = &Muted
+	return params
+}
+func (params *CreateParticipantParams) SetRecord(Record bool) *CreateParticipantParams {
+	params.Record = &Record
+	return params
+}
+func (params *CreateParticipantParams) SetRecordingChannels(RecordingChannels string) *CreateParticipantParams {
+	params.RecordingChannels = &RecordingChannels
+	return params
+}
+func (params *CreateParticipantParams) SetRecordingStatusCallback(RecordingStatusCallback string) *CreateParticipantParams {
+	params.RecordingStatusCallback = &RecordingStatusCallback
+	return params
+}
+func (params *CreateParticipantParams) SetRecordingStatusCallbackEvent(RecordingStatusCallbackEvent []string) *CreateParticipantParams {
+	params.RecordingStatusCallbackEvent = &RecordingStatusCallbackEvent
+	return params
+}
+func (params *CreateParticipantParams) SetRecordingStatusCallbackMethod(RecordingStatusCallbackMethod string) *CreateParticipantParams {
+	params.RecordingStatusCallbackMethod = &RecordingStatusCallbackMethod
+	return params
+}
+func (params *CreateParticipantParams) SetRecordingTrack(RecordingTrack string) *CreateParticipantParams {
+	params.RecordingTrack = &RecordingTrack
+	return params
+}
+func (params *CreateParticipantParams) SetRegion(Region string) *CreateParticipantParams {
+	params.Region = &Region
+	return params
+}
+func (params *CreateParticipantParams) SetSipAuthPassword(SipAuthPassword string) *CreateParticipantParams {
+	params.SipAuthPassword = &SipAuthPassword
+	return params
+}
+func (params *CreateParticipantParams) SetSipAuthUsername(SipAuthUsername string) *CreateParticipantParams {
+	params.SipAuthUsername = &SipAuthUsername
+	return params
+}
+func (params *CreateParticipantParams) SetStartConferenceOnEnter(StartConferenceOnEnter bool) *CreateParticipantParams {
+	params.StartConferenceOnEnter = &StartConferenceOnEnter
+	return params
+}
+func (params *CreateParticipantParams) SetStatusCallback(StatusCallback string) *CreateParticipantParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateParticipantParams) SetStatusCallbackEvent(StatusCallbackEvent []string) *CreateParticipantParams {
+	params.StatusCallbackEvent = &StatusCallbackEvent
+	return params
+}
+func (params *CreateParticipantParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateParticipantParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *CreateParticipantParams) SetTimeout(Timeout int32) *CreateParticipantParams {
+	params.Timeout = &Timeout
+	return params
+}
+func (params *CreateParticipantParams) SetTo(To string) *CreateParticipantParams {
+	params.To = &To
+	return params
+}
+func (params *CreateParticipantParams) SetWaitMethod(WaitMethod string) *CreateParticipantParams {
+	params.WaitMethod = &WaitMethod
+	return params
+}
+func (params *CreateParticipantParams) SetWaitUrl(WaitUrl string) *CreateParticipantParams {
+	params.WaitUrl = &WaitUrl
+	return params
 }
 
 // CreateParticipant Method for CreateParticipant
@@ -2026,6 +2926,71 @@ type CreatePaymentsParams struct {
 	ValidCardTypes      *string                 `json:"ValidCardTypes,omitempty"`
 }
 
+func (params *CreatePaymentsParams) SetBankAccountType(BankAccountType string) *CreatePaymentsParams {
+	params.BankAccountType = &BankAccountType
+	return params
+}
+func (params *CreatePaymentsParams) SetChargeAmount(ChargeAmount float32) *CreatePaymentsParams {
+	params.ChargeAmount = &ChargeAmount
+	return params
+}
+func (params *CreatePaymentsParams) SetCurrency(Currency string) *CreatePaymentsParams {
+	params.Currency = &Currency
+	return params
+}
+func (params *CreatePaymentsParams) SetDescription(Description string) *CreatePaymentsParams {
+	params.Description = &Description
+	return params
+}
+func (params *CreatePaymentsParams) SetIdempotencyKey(IdempotencyKey string) *CreatePaymentsParams {
+	params.IdempotencyKey = &IdempotencyKey
+	return params
+}
+func (params *CreatePaymentsParams) SetInput(Input string) *CreatePaymentsParams {
+	params.Input = &Input
+	return params
+}
+func (params *CreatePaymentsParams) SetMinPostalCodeLength(MinPostalCodeLength int32) *CreatePaymentsParams {
+	params.MinPostalCodeLength = &MinPostalCodeLength
+	return params
+}
+func (params *CreatePaymentsParams) SetParameter(Parameter map[string]interface{}) *CreatePaymentsParams {
+	params.Parameter = &Parameter
+	return params
+}
+func (params *CreatePaymentsParams) SetPaymentConnector(PaymentConnector string) *CreatePaymentsParams {
+	params.PaymentConnector = &PaymentConnector
+	return params
+}
+func (params *CreatePaymentsParams) SetPaymentMethod(PaymentMethod string) *CreatePaymentsParams {
+	params.PaymentMethod = &PaymentMethod
+	return params
+}
+func (params *CreatePaymentsParams) SetPostalCode(PostalCode bool) *CreatePaymentsParams {
+	params.PostalCode = &PostalCode
+	return params
+}
+func (params *CreatePaymentsParams) SetSecurityCode(SecurityCode bool) *CreatePaymentsParams {
+	params.SecurityCode = &SecurityCode
+	return params
+}
+func (params *CreatePaymentsParams) SetStatusCallback(StatusCallback string) *CreatePaymentsParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreatePaymentsParams) SetTimeout(Timeout int32) *CreatePaymentsParams {
+	params.Timeout = &Timeout
+	return params
+}
+func (params *CreatePaymentsParams) SetTokenType(TokenType string) *CreatePaymentsParams {
+	params.TokenType = &TokenType
+	return params
+}
+func (params *CreatePaymentsParams) SetValidCardTypes(ValidCardTypes string) *CreatePaymentsParams {
+	params.ValidCardTypes = &ValidCardTypes
+	return params
+}
+
 // CreatePayments Method for CreatePayments
 //
 // create an instance of payments. This will start a new payments session
@@ -2158,6 +3123,15 @@ type CreateQueueParams struct {
 	MaxSize        *int32  `json:"MaxSize,omitempty"`
 }
 
+func (params *CreateQueueParams) SetFriendlyName(FriendlyName string) *CreateQueueParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateQueueParams) SetMaxSize(MaxSize int32) *CreateQueueParams {
+	params.MaxSize = &MaxSize
+	return params
+}
+
 // CreateQueue Method for CreateQueue
 //
 // Create a queue
@@ -2210,6 +3184,11 @@ type CreateSipAuthCallsCredentialListMappingParams struct {
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
+func (params *CreateSipAuthCallsCredentialListMappingParams) SetCredentialListSid(CredentialListSid string) *CreateSipAuthCallsCredentialListMappingParams {
+	params.CredentialListSid = &CredentialListSid
+	return params
+}
+
 // CreateSipAuthCallsCredentialListMapping Method for CreateSipAuthCallsCredentialListMapping
 //
 // Create a new credential list mapping resource
@@ -2258,6 +3237,11 @@ func (c *DefaultApiService) CreateSipAuthCallsCredentialListMapping(DomainSid st
 type CreateSipAuthCallsIpAccessControlListMappingParams struct {
 	PathAccountSid         *string `json:"PathAccountSid,omitempty"`
 	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
+}
+
+func (params *CreateSipAuthCallsIpAccessControlListMappingParams) SetIpAccessControlListSid(IpAccessControlListSid string) *CreateSipAuthCallsIpAccessControlListMappingParams {
+	params.IpAccessControlListSid = &IpAccessControlListSid
+	return params
 }
 
 // CreateSipAuthCallsIpAccessControlListMapping Method for CreateSipAuthCallsIpAccessControlListMapping
@@ -2310,6 +3294,11 @@ type CreateSipAuthRegistrationsCredentialListMappingParams struct {
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
+func (params *CreateSipAuthRegistrationsCredentialListMappingParams) SetCredentialListSid(CredentialListSid string) *CreateSipAuthRegistrationsCredentialListMappingParams {
+	params.CredentialListSid = &CredentialListSid
+	return params
+}
+
 // CreateSipAuthRegistrationsCredentialListMapping Method for CreateSipAuthRegistrationsCredentialListMapping
 //
 // Create a new credential list mapping resource
@@ -2359,6 +3348,15 @@ type CreateSipCredentialParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	Password       *string `json:"Password,omitempty"`
 	Username       *string `json:"Username,omitempty"`
+}
+
+func (params *CreateSipCredentialParams) SetPassword(Password string) *CreateSipCredentialParams {
+	params.Password = &Password
+	return params
+}
+func (params *CreateSipCredentialParams) SetUsername(Username string) *CreateSipCredentialParams {
+	params.Username = &Username
+	return params
 }
 
 // CreateSipCredential Method for CreateSipCredential
@@ -2416,6 +3414,11 @@ type CreateSipCredentialListParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateSipCredentialListParams) SetFriendlyName(FriendlyName string) *CreateSipCredentialListParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateSipCredentialList Method for CreateSipCredentialList
 //
 // Create a Credential List
@@ -2461,6 +3464,11 @@ func (c *DefaultApiService) CreateSipCredentialList(params *CreateSipCredentialL
 type CreateSipCredentialListMappingParams struct {
 	PathAccountSid    *string `json:"PathAccountSid,omitempty"`
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
+}
+
+func (params *CreateSipCredentialListMappingParams) SetCredentialListSid(CredentialListSid string) *CreateSipCredentialListMappingParams {
+	params.CredentialListSid = &CredentialListSid
+	return params
 }
 
 // CreateSipCredentialListMapping Method for CreateSipCredentialListMapping
@@ -2523,6 +3531,59 @@ type CreateSipDomainParams struct {
 	VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
 	VoiceStatusCallbackUrl    *string `json:"VoiceStatusCallbackUrl,omitempty"`
 	VoiceUrl                  *string `json:"VoiceUrl,omitempty"`
+}
+
+func (params *CreateSipDomainParams) SetByocTrunkSid(ByocTrunkSid string) *CreateSipDomainParams {
+	params.ByocTrunkSid = &ByocTrunkSid
+	return params
+}
+func (params *CreateSipDomainParams) SetDomainName(DomainName string) *CreateSipDomainParams {
+	params.DomainName = &DomainName
+	return params
+}
+func (params *CreateSipDomainParams) SetEmergencyCallerSid(EmergencyCallerSid string) *CreateSipDomainParams {
+	params.EmergencyCallerSid = &EmergencyCallerSid
+	return params
+}
+func (params *CreateSipDomainParams) SetEmergencyCallingEnabled(EmergencyCallingEnabled bool) *CreateSipDomainParams {
+	params.EmergencyCallingEnabled = &EmergencyCallingEnabled
+	return params
+}
+func (params *CreateSipDomainParams) SetFriendlyName(FriendlyName string) *CreateSipDomainParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateSipDomainParams) SetSecure(Secure bool) *CreateSipDomainParams {
+	params.Secure = &Secure
+	return params
+}
+func (params *CreateSipDomainParams) SetSipRegistration(SipRegistration bool) *CreateSipDomainParams {
+	params.SipRegistration = &SipRegistration
+	return params
+}
+func (params *CreateSipDomainParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *CreateSipDomainParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
+	return params
+}
+func (params *CreateSipDomainParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *CreateSipDomainParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *CreateSipDomainParams) SetVoiceMethod(VoiceMethod string) *CreateSipDomainParams {
+	params.VoiceMethod = &VoiceMethod
+	return params
+}
+func (params *CreateSipDomainParams) SetVoiceStatusCallbackMethod(VoiceStatusCallbackMethod string) *CreateSipDomainParams {
+	params.VoiceStatusCallbackMethod = &VoiceStatusCallbackMethod
+	return params
+}
+func (params *CreateSipDomainParams) SetVoiceStatusCallbackUrl(VoiceStatusCallbackUrl string) *CreateSipDomainParams {
+	params.VoiceStatusCallbackUrl = &VoiceStatusCallbackUrl
+	return params
+}
+func (params *CreateSipDomainParams) SetVoiceUrl(VoiceUrl string) *CreateSipDomainParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
 }
 
 // CreateSipDomain Method for CreateSipDomain
@@ -2632,6 +3693,11 @@ type CreateSipIpAccessControlListParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateSipIpAccessControlListParams) SetFriendlyName(FriendlyName string) *CreateSipIpAccessControlListParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateSipIpAccessControlList Method for CreateSipIpAccessControlList
 //
 // Create a new IpAccessControlList resource
@@ -2677,6 +3743,11 @@ func (c *DefaultApiService) CreateSipIpAccessControlList(params *CreateSipIpAcce
 type CreateSipIpAccessControlListMappingParams struct {
 	PathAccountSid         *string `json:"PathAccountSid,omitempty"`
 	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
+}
+
+func (params *CreateSipIpAccessControlListMappingParams) SetIpAccessControlListSid(IpAccessControlListSid string) *CreateSipIpAccessControlListMappingParams {
+	params.IpAccessControlListSid = &IpAccessControlListSid
+	return params
 }
 
 // CreateSipIpAccessControlListMapping Method for CreateSipIpAccessControlListMapping
@@ -2729,6 +3800,19 @@ type CreateSipIpAddressParams struct {
 	CidrPrefixLength *int32  `json:"CidrPrefixLength,omitempty"`
 	FriendlyName     *string `json:"FriendlyName,omitempty"`
 	IpAddress        *string `json:"IpAddress,omitempty"`
+}
+
+func (params *CreateSipIpAddressParams) SetCidrPrefixLength(CidrPrefixLength int32) *CreateSipIpAddressParams {
+	params.CidrPrefixLength = &CidrPrefixLength
+	return params
+}
+func (params *CreateSipIpAddressParams) SetFriendlyName(FriendlyName string) *CreateSipIpAddressParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateSipIpAddressParams) SetIpAddress(IpAddress string) *CreateSipIpAddressParams {
+	params.IpAddress = &IpAddress
+	return params
 }
 
 // CreateSipIpAddress Method for CreateSipIpAddress
@@ -2791,6 +3875,11 @@ type CreateTokenParams struct {
 	Ttl            *int32  `json:"Ttl,omitempty"`
 }
 
+func (params *CreateTokenParams) SetTtl(Ttl int32) *CreateTokenParams {
+	params.Ttl = &Ttl
+	return params
+}
+
 // CreateToken Method for CreateToken
 //
 // Create a new token for ICE servers
@@ -2842,6 +3931,35 @@ type CreateUsageTriggerParams struct {
 	TriggerBy      *string `json:"TriggerBy,omitempty"`
 	TriggerValue   *string `json:"TriggerValue,omitempty"`
 	UsageCategory  *string `json:"UsageCategory,omitempty"`
+}
+
+func (params *CreateUsageTriggerParams) SetCallbackMethod(CallbackMethod string) *CreateUsageTriggerParams {
+	params.CallbackMethod = &CallbackMethod
+	return params
+}
+func (params *CreateUsageTriggerParams) SetCallbackUrl(CallbackUrl string) *CreateUsageTriggerParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *CreateUsageTriggerParams) SetFriendlyName(FriendlyName string) *CreateUsageTriggerParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateUsageTriggerParams) SetRecurring(Recurring string) *CreateUsageTriggerParams {
+	params.Recurring = &Recurring
+	return params
+}
+func (params *CreateUsageTriggerParams) SetTriggerBy(TriggerBy string) *CreateUsageTriggerParams {
+	params.TriggerBy = &TriggerBy
+	return params
+}
+func (params *CreateUsageTriggerParams) SetTriggerValue(TriggerValue string) *CreateUsageTriggerParams {
+	params.TriggerValue = &TriggerValue
+	return params
+}
+func (params *CreateUsageTriggerParams) SetUsageCategory(UsageCategory string) *CreateUsageTriggerParams {
+	params.UsageCategory = &UsageCategory
+	return params
 }
 
 // CreateUsageTrigger Method for CreateUsageTrigger
@@ -2924,6 +4042,31 @@ type CreateValidationRequestParams struct {
 	PhoneNumber          *string `json:"PhoneNumber,omitempty"`
 	StatusCallback       *string `json:"StatusCallback,omitempty"`
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+}
+
+func (params *CreateValidationRequestParams) SetCallDelay(CallDelay int32) *CreateValidationRequestParams {
+	params.CallDelay = &CallDelay
+	return params
+}
+func (params *CreateValidationRequestParams) SetExtension(Extension string) *CreateValidationRequestParams {
+	params.Extension = &Extension
+	return params
+}
+func (params *CreateValidationRequestParams) SetFriendlyName(FriendlyName string) *CreateValidationRequestParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateValidationRequestParams) SetPhoneNumber(PhoneNumber string) *CreateValidationRequestParams {
+	params.PhoneNumber = &PhoneNumber
+	return params
+}
+func (params *CreateValidationRequestParams) SetStatusCallback(StatusCallback string) *CreateValidationRequestParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateValidationRequestParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateValidationRequestParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
 }
 
 // CreateValidationRequest Method for CreateValidationRequest
@@ -6099,6 +7242,19 @@ type ListAccountParams struct {
 	PageSize     *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAccountParams) SetFriendlyName(FriendlyName string) *ListAccountParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListAccountParams) SetStatus(Status string) *ListAccountParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListAccountParams) SetPageSize(PageSize int32) *ListAccountParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListAccount Method for ListAccount
 //
 // Retrieves a collection of Accounts belonging to the account used to make the request
@@ -6150,6 +7306,23 @@ type ListAddressParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 	IsoCountry     *string `json:"IsoCountry,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListAddressParams) SetCustomerName(CustomerName string) *ListAddressParams {
+	params.CustomerName = &CustomerName
+	return params
+}
+func (params *ListAddressParams) SetFriendlyName(FriendlyName string) *ListAddressParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListAddressParams) SetIsoCountry(IsoCountry string) *ListAddressParams {
+	params.IsoCountry = &IsoCountry
+	return params
+}
+func (params *ListAddressParams) SetPageSize(PageSize int32) *ListAddressParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListAddress Method for ListAddress
@@ -6213,6 +7386,15 @@ type ListApplicationParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListApplicationParams) SetFriendlyName(FriendlyName string) *ListApplicationParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListApplicationParams) SetPageSize(PageSize int32) *ListApplicationParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListApplication Method for ListApplication
 //
 // Retrieve a list of applications representing an application within the requesting account
@@ -6265,6 +7447,11 @@ type ListAuthorizedConnectAppParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAuthorizedConnectAppParams) SetPageSize(PageSize int32) *ListAuthorizedConnectAppParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListAuthorizedConnectApp Method for ListAuthorizedConnectApp
 //
 // Retrieve a list of authorized-connect-apps belonging to the account used to make the request
@@ -6310,6 +7497,11 @@ func (c *DefaultApiService) ListAuthorizedConnectApp(params *ListAuthorizedConne
 type ListAvailablePhoneNumberCountryParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListAvailablePhoneNumberCountryParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberCountryParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListAvailablePhoneNumberCountry Method for ListAvailablePhoneNumberCountry
@@ -6373,6 +7565,83 @@ type ListAvailablePhoneNumberLocalParams struct {
 	InLocality                    *string `json:"InLocality,omitempty"`
 	FaxEnabled                    *bool   `json:"FaxEnabled,omitempty"`
 	PageSize                      *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListAvailablePhoneNumberLocalParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberLocalParams {
+	params.AreaCode = &AreaCode
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetContains(Contains string) *ListAvailablePhoneNumberLocalParams {
+	params.Contains = &Contains
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetSmsEnabled(SmsEnabled bool) *ListAvailablePhoneNumberLocalParams {
+	params.SmsEnabled = &SmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetMmsEnabled(MmsEnabled bool) *ListAvailablePhoneNumberLocalParams {
+	params.MmsEnabled = &MmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetVoiceEnabled(VoiceEnabled bool) *ListAvailablePhoneNumberLocalParams {
+	params.VoiceEnabled = &VoiceEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetExcludeAllAddressRequired(ExcludeAllAddressRequired bool) *ListAvailablePhoneNumberLocalParams {
+	params.ExcludeAllAddressRequired = &ExcludeAllAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetExcludeLocalAddressRequired(ExcludeLocalAddressRequired bool) *ListAvailablePhoneNumberLocalParams {
+	params.ExcludeLocalAddressRequired = &ExcludeLocalAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetExcludeForeignAddressRequired(ExcludeForeignAddressRequired bool) *ListAvailablePhoneNumberLocalParams {
+	params.ExcludeForeignAddressRequired = &ExcludeForeignAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetBeta(Beta bool) *ListAvailablePhoneNumberLocalParams {
+	params.Beta = &Beta
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetNearNumber(NearNumber string) *ListAvailablePhoneNumberLocalParams {
+	params.NearNumber = &NearNumber
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetNearLatLong(NearLatLong string) *ListAvailablePhoneNumberLocalParams {
+	params.NearLatLong = &NearLatLong
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetDistance(Distance int32) *ListAvailablePhoneNumberLocalParams {
+	params.Distance = &Distance
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetInPostalCode(InPostalCode string) *ListAvailablePhoneNumberLocalParams {
+	params.InPostalCode = &InPostalCode
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetInRegion(InRegion string) *ListAvailablePhoneNumberLocalParams {
+	params.InRegion = &InRegion
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetInRateCenter(InRateCenter string) *ListAvailablePhoneNumberLocalParams {
+	params.InRateCenter = &InRateCenter
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetInLata(InLata string) *ListAvailablePhoneNumberLocalParams {
+	params.InLata = &InLata
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetInLocality(InLocality string) *ListAvailablePhoneNumberLocalParams {
+	params.InLocality = &InLocality
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetFaxEnabled(FaxEnabled bool) *ListAvailablePhoneNumberLocalParams {
+	params.FaxEnabled = &FaxEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberLocalParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListAvailablePhoneNumberLocal Method for ListAvailablePhoneNumberLocal
@@ -6531,6 +7800,83 @@ type ListAvailablePhoneNumberMachineToMachineParams struct {
 	PageSize                      *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.AreaCode = &AreaCode
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetContains(Contains string) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.Contains = &Contains
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetSmsEnabled(SmsEnabled bool) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.SmsEnabled = &SmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetMmsEnabled(MmsEnabled bool) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.MmsEnabled = &MmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetVoiceEnabled(VoiceEnabled bool) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.VoiceEnabled = &VoiceEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetExcludeAllAddressRequired(ExcludeAllAddressRequired bool) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.ExcludeAllAddressRequired = &ExcludeAllAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetExcludeLocalAddressRequired(ExcludeLocalAddressRequired bool) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.ExcludeLocalAddressRequired = &ExcludeLocalAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetExcludeForeignAddressRequired(ExcludeForeignAddressRequired bool) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.ExcludeForeignAddressRequired = &ExcludeForeignAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetBeta(Beta bool) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.Beta = &Beta
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetNearNumber(NearNumber string) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.NearNumber = &NearNumber
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetNearLatLong(NearLatLong string) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.NearLatLong = &NearLatLong
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetDistance(Distance int32) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.Distance = &Distance
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetInPostalCode(InPostalCode string) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.InPostalCode = &InPostalCode
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetInRegion(InRegion string) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.InRegion = &InRegion
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetInRateCenter(InRateCenter string) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.InRateCenter = &InRateCenter
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetInLata(InLata string) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.InLata = &InLata
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetInLocality(InLocality string) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.InLocality = &InLocality
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetFaxEnabled(FaxEnabled bool) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.FaxEnabled = &FaxEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListAvailablePhoneNumberMachineToMachine Method for ListAvailablePhoneNumberMachineToMachine
 //
 // param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
@@ -6685,6 +8031,83 @@ type ListAvailablePhoneNumberMobileParams struct {
 	InLocality                    *string `json:"InLocality,omitempty"`
 	FaxEnabled                    *bool   `json:"FaxEnabled,omitempty"`
 	PageSize                      *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListAvailablePhoneNumberMobileParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberMobileParams {
+	params.AreaCode = &AreaCode
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetContains(Contains string) *ListAvailablePhoneNumberMobileParams {
+	params.Contains = &Contains
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetSmsEnabled(SmsEnabled bool) *ListAvailablePhoneNumberMobileParams {
+	params.SmsEnabled = &SmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetMmsEnabled(MmsEnabled bool) *ListAvailablePhoneNumberMobileParams {
+	params.MmsEnabled = &MmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetVoiceEnabled(VoiceEnabled bool) *ListAvailablePhoneNumberMobileParams {
+	params.VoiceEnabled = &VoiceEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetExcludeAllAddressRequired(ExcludeAllAddressRequired bool) *ListAvailablePhoneNumberMobileParams {
+	params.ExcludeAllAddressRequired = &ExcludeAllAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetExcludeLocalAddressRequired(ExcludeLocalAddressRequired bool) *ListAvailablePhoneNumberMobileParams {
+	params.ExcludeLocalAddressRequired = &ExcludeLocalAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetExcludeForeignAddressRequired(ExcludeForeignAddressRequired bool) *ListAvailablePhoneNumberMobileParams {
+	params.ExcludeForeignAddressRequired = &ExcludeForeignAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetBeta(Beta bool) *ListAvailablePhoneNumberMobileParams {
+	params.Beta = &Beta
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetNearNumber(NearNumber string) *ListAvailablePhoneNumberMobileParams {
+	params.NearNumber = &NearNumber
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetNearLatLong(NearLatLong string) *ListAvailablePhoneNumberMobileParams {
+	params.NearLatLong = &NearLatLong
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetDistance(Distance int32) *ListAvailablePhoneNumberMobileParams {
+	params.Distance = &Distance
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetInPostalCode(InPostalCode string) *ListAvailablePhoneNumberMobileParams {
+	params.InPostalCode = &InPostalCode
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetInRegion(InRegion string) *ListAvailablePhoneNumberMobileParams {
+	params.InRegion = &InRegion
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetInRateCenter(InRateCenter string) *ListAvailablePhoneNumberMobileParams {
+	params.InRateCenter = &InRateCenter
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetInLata(InLata string) *ListAvailablePhoneNumberMobileParams {
+	params.InLata = &InLata
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetInLocality(InLocality string) *ListAvailablePhoneNumberMobileParams {
+	params.InLocality = &InLocality
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetFaxEnabled(FaxEnabled bool) *ListAvailablePhoneNumberMobileParams {
+	params.FaxEnabled = &FaxEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberMobileParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberMobileParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListAvailablePhoneNumberMobile Method for ListAvailablePhoneNumberMobile
@@ -6843,6 +8266,83 @@ type ListAvailablePhoneNumberNationalParams struct {
 	PageSize                      *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAvailablePhoneNumberNationalParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberNationalParams {
+	params.AreaCode = &AreaCode
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetContains(Contains string) *ListAvailablePhoneNumberNationalParams {
+	params.Contains = &Contains
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetSmsEnabled(SmsEnabled bool) *ListAvailablePhoneNumberNationalParams {
+	params.SmsEnabled = &SmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetMmsEnabled(MmsEnabled bool) *ListAvailablePhoneNumberNationalParams {
+	params.MmsEnabled = &MmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetVoiceEnabled(VoiceEnabled bool) *ListAvailablePhoneNumberNationalParams {
+	params.VoiceEnabled = &VoiceEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetExcludeAllAddressRequired(ExcludeAllAddressRequired bool) *ListAvailablePhoneNumberNationalParams {
+	params.ExcludeAllAddressRequired = &ExcludeAllAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetExcludeLocalAddressRequired(ExcludeLocalAddressRequired bool) *ListAvailablePhoneNumberNationalParams {
+	params.ExcludeLocalAddressRequired = &ExcludeLocalAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetExcludeForeignAddressRequired(ExcludeForeignAddressRequired bool) *ListAvailablePhoneNumberNationalParams {
+	params.ExcludeForeignAddressRequired = &ExcludeForeignAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetBeta(Beta bool) *ListAvailablePhoneNumberNationalParams {
+	params.Beta = &Beta
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetNearNumber(NearNumber string) *ListAvailablePhoneNumberNationalParams {
+	params.NearNumber = &NearNumber
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetNearLatLong(NearLatLong string) *ListAvailablePhoneNumberNationalParams {
+	params.NearLatLong = &NearLatLong
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetDistance(Distance int32) *ListAvailablePhoneNumberNationalParams {
+	params.Distance = &Distance
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetInPostalCode(InPostalCode string) *ListAvailablePhoneNumberNationalParams {
+	params.InPostalCode = &InPostalCode
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetInRegion(InRegion string) *ListAvailablePhoneNumberNationalParams {
+	params.InRegion = &InRegion
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetInRateCenter(InRateCenter string) *ListAvailablePhoneNumberNationalParams {
+	params.InRateCenter = &InRateCenter
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetInLata(InLata string) *ListAvailablePhoneNumberNationalParams {
+	params.InLata = &InLata
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetInLocality(InLocality string) *ListAvailablePhoneNumberNationalParams {
+	params.InLocality = &InLocality
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetFaxEnabled(FaxEnabled bool) *ListAvailablePhoneNumberNationalParams {
+	params.FaxEnabled = &FaxEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberNationalParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberNationalParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListAvailablePhoneNumberNational Method for ListAvailablePhoneNumberNational
 //
 // param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
@@ -6997,6 +8497,83 @@ type ListAvailablePhoneNumberSharedCostParams struct {
 	InLocality                    *string `json:"InLocality,omitempty"`
 	FaxEnabled                    *bool   `json:"FaxEnabled,omitempty"`
 	PageSize                      *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListAvailablePhoneNumberSharedCostParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberSharedCostParams {
+	params.AreaCode = &AreaCode
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetContains(Contains string) *ListAvailablePhoneNumberSharedCostParams {
+	params.Contains = &Contains
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetSmsEnabled(SmsEnabled bool) *ListAvailablePhoneNumberSharedCostParams {
+	params.SmsEnabled = &SmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetMmsEnabled(MmsEnabled bool) *ListAvailablePhoneNumberSharedCostParams {
+	params.MmsEnabled = &MmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetVoiceEnabled(VoiceEnabled bool) *ListAvailablePhoneNumberSharedCostParams {
+	params.VoiceEnabled = &VoiceEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetExcludeAllAddressRequired(ExcludeAllAddressRequired bool) *ListAvailablePhoneNumberSharedCostParams {
+	params.ExcludeAllAddressRequired = &ExcludeAllAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetExcludeLocalAddressRequired(ExcludeLocalAddressRequired bool) *ListAvailablePhoneNumberSharedCostParams {
+	params.ExcludeLocalAddressRequired = &ExcludeLocalAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetExcludeForeignAddressRequired(ExcludeForeignAddressRequired bool) *ListAvailablePhoneNumberSharedCostParams {
+	params.ExcludeForeignAddressRequired = &ExcludeForeignAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetBeta(Beta bool) *ListAvailablePhoneNumberSharedCostParams {
+	params.Beta = &Beta
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetNearNumber(NearNumber string) *ListAvailablePhoneNumberSharedCostParams {
+	params.NearNumber = &NearNumber
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetNearLatLong(NearLatLong string) *ListAvailablePhoneNumberSharedCostParams {
+	params.NearLatLong = &NearLatLong
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetDistance(Distance int32) *ListAvailablePhoneNumberSharedCostParams {
+	params.Distance = &Distance
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetInPostalCode(InPostalCode string) *ListAvailablePhoneNumberSharedCostParams {
+	params.InPostalCode = &InPostalCode
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetInRegion(InRegion string) *ListAvailablePhoneNumberSharedCostParams {
+	params.InRegion = &InRegion
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetInRateCenter(InRateCenter string) *ListAvailablePhoneNumberSharedCostParams {
+	params.InRateCenter = &InRateCenter
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetInLata(InLata string) *ListAvailablePhoneNumberSharedCostParams {
+	params.InLata = &InLata
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetInLocality(InLocality string) *ListAvailablePhoneNumberSharedCostParams {
+	params.InLocality = &InLocality
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetFaxEnabled(FaxEnabled bool) *ListAvailablePhoneNumberSharedCostParams {
+	params.FaxEnabled = &FaxEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberSharedCostParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberSharedCostParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListAvailablePhoneNumberSharedCost Method for ListAvailablePhoneNumberSharedCost
@@ -7155,6 +8732,83 @@ type ListAvailablePhoneNumberTollFreeParams struct {
 	PageSize                      *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAvailablePhoneNumberTollFreeParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberTollFreeParams {
+	params.AreaCode = &AreaCode
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetContains(Contains string) *ListAvailablePhoneNumberTollFreeParams {
+	params.Contains = &Contains
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetSmsEnabled(SmsEnabled bool) *ListAvailablePhoneNumberTollFreeParams {
+	params.SmsEnabled = &SmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetMmsEnabled(MmsEnabled bool) *ListAvailablePhoneNumberTollFreeParams {
+	params.MmsEnabled = &MmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetVoiceEnabled(VoiceEnabled bool) *ListAvailablePhoneNumberTollFreeParams {
+	params.VoiceEnabled = &VoiceEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetExcludeAllAddressRequired(ExcludeAllAddressRequired bool) *ListAvailablePhoneNumberTollFreeParams {
+	params.ExcludeAllAddressRequired = &ExcludeAllAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetExcludeLocalAddressRequired(ExcludeLocalAddressRequired bool) *ListAvailablePhoneNumberTollFreeParams {
+	params.ExcludeLocalAddressRequired = &ExcludeLocalAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetExcludeForeignAddressRequired(ExcludeForeignAddressRequired bool) *ListAvailablePhoneNumberTollFreeParams {
+	params.ExcludeForeignAddressRequired = &ExcludeForeignAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetBeta(Beta bool) *ListAvailablePhoneNumberTollFreeParams {
+	params.Beta = &Beta
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetNearNumber(NearNumber string) *ListAvailablePhoneNumberTollFreeParams {
+	params.NearNumber = &NearNumber
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetNearLatLong(NearLatLong string) *ListAvailablePhoneNumberTollFreeParams {
+	params.NearLatLong = &NearLatLong
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetDistance(Distance int32) *ListAvailablePhoneNumberTollFreeParams {
+	params.Distance = &Distance
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetInPostalCode(InPostalCode string) *ListAvailablePhoneNumberTollFreeParams {
+	params.InPostalCode = &InPostalCode
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetInRegion(InRegion string) *ListAvailablePhoneNumberTollFreeParams {
+	params.InRegion = &InRegion
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetInRateCenter(InRateCenter string) *ListAvailablePhoneNumberTollFreeParams {
+	params.InRateCenter = &InRateCenter
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetInLata(InLata string) *ListAvailablePhoneNumberTollFreeParams {
+	params.InLata = &InLata
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetInLocality(InLocality string) *ListAvailablePhoneNumberTollFreeParams {
+	params.InLocality = &InLocality
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetFaxEnabled(FaxEnabled bool) *ListAvailablePhoneNumberTollFreeParams {
+	params.FaxEnabled = &FaxEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberTollFreeParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberTollFreeParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListAvailablePhoneNumberTollFree Method for ListAvailablePhoneNumberTollFree
 //
 // param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
@@ -7311,6 +8965,83 @@ type ListAvailablePhoneNumberVoipParams struct {
 	PageSize                      *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAvailablePhoneNumberVoipParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberVoipParams {
+	params.AreaCode = &AreaCode
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetContains(Contains string) *ListAvailablePhoneNumberVoipParams {
+	params.Contains = &Contains
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetSmsEnabled(SmsEnabled bool) *ListAvailablePhoneNumberVoipParams {
+	params.SmsEnabled = &SmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetMmsEnabled(MmsEnabled bool) *ListAvailablePhoneNumberVoipParams {
+	params.MmsEnabled = &MmsEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetVoiceEnabled(VoiceEnabled bool) *ListAvailablePhoneNumberVoipParams {
+	params.VoiceEnabled = &VoiceEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetExcludeAllAddressRequired(ExcludeAllAddressRequired bool) *ListAvailablePhoneNumberVoipParams {
+	params.ExcludeAllAddressRequired = &ExcludeAllAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetExcludeLocalAddressRequired(ExcludeLocalAddressRequired bool) *ListAvailablePhoneNumberVoipParams {
+	params.ExcludeLocalAddressRequired = &ExcludeLocalAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetExcludeForeignAddressRequired(ExcludeForeignAddressRequired bool) *ListAvailablePhoneNumberVoipParams {
+	params.ExcludeForeignAddressRequired = &ExcludeForeignAddressRequired
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetBeta(Beta bool) *ListAvailablePhoneNumberVoipParams {
+	params.Beta = &Beta
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetNearNumber(NearNumber string) *ListAvailablePhoneNumberVoipParams {
+	params.NearNumber = &NearNumber
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetNearLatLong(NearLatLong string) *ListAvailablePhoneNumberVoipParams {
+	params.NearLatLong = &NearLatLong
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetDistance(Distance int32) *ListAvailablePhoneNumberVoipParams {
+	params.Distance = &Distance
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetInPostalCode(InPostalCode string) *ListAvailablePhoneNumberVoipParams {
+	params.InPostalCode = &InPostalCode
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetInRegion(InRegion string) *ListAvailablePhoneNumberVoipParams {
+	params.InRegion = &InRegion
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetInRateCenter(InRateCenter string) *ListAvailablePhoneNumberVoipParams {
+	params.InRateCenter = &InRateCenter
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetInLata(InLata string) *ListAvailablePhoneNumberVoipParams {
+	params.InLata = &InLata
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetInLocality(InLocality string) *ListAvailablePhoneNumberVoipParams {
+	params.InLocality = &InLocality
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetFaxEnabled(FaxEnabled bool) *ListAvailablePhoneNumberVoipParams {
+	params.FaxEnabled = &FaxEnabled
+	return params
+}
+func (params *ListAvailablePhoneNumberVoipParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberVoipParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListAvailablePhoneNumberVoip Method for ListAvailablePhoneNumberVoip
 //
 // param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
@@ -7459,6 +9190,51 @@ type ListCallParams struct {
 	PageSize        *int32     `json:"PageSize,omitempty"`
 }
 
+func (params *ListCallParams) SetTo(To string) *ListCallParams {
+	params.To = &To
+	return params
+}
+func (params *ListCallParams) SetFrom(From string) *ListCallParams {
+	params.From = &From
+	return params
+}
+func (params *ListCallParams) SetParentCallSid(ParentCallSid string) *ListCallParams {
+	params.ParentCallSid = &ParentCallSid
+	return params
+}
+func (params *ListCallParams) SetStatus(Status string) *ListCallParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListCallParams) SetStartTime(StartTime time.Time) *ListCallParams {
+	params.StartTime = &StartTime
+	return params
+}
+func (params *ListCallParams) SetStartTimeBefore(StartTimeBefore time.Time) *ListCallParams {
+	params.StartTimeBefore = &StartTimeBefore
+	return params
+}
+func (params *ListCallParams) SetStartTimeAfter(StartTimeAfter time.Time) *ListCallParams {
+	params.StartTimeAfter = &StartTimeAfter
+	return params
+}
+func (params *ListCallParams) SetEndTime(EndTime time.Time) *ListCallParams {
+	params.EndTime = &EndTime
+	return params
+}
+func (params *ListCallParams) SetEndTimeBefore(EndTimeBefore time.Time) *ListCallParams {
+	params.EndTimeBefore = &EndTimeBefore
+	return params
+}
+func (params *ListCallParams) SetEndTimeAfter(EndTimeAfter time.Time) *ListCallParams {
+	params.EndTimeAfter = &EndTimeAfter
+	return params
+}
+func (params *ListCallParams) SetPageSize(PageSize int32) *ListCallParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCall Method for ListCall
 //
 // Retrieves a collection of calls made to and from your account
@@ -7556,6 +9332,11 @@ type ListCallEventParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListCallEventParams) SetPageSize(PageSize int32) *ListCallEventParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCallEvent Method for ListCallEvent
 //
 // Retrieve a list of all events for a call.
@@ -7608,6 +9389,27 @@ type ListCallNotificationParams struct {
 	MessageDateBefore *string `json:"MessageDate&lt;,omitempty"`
 	MessageDateAfter  *string `json:"MessageDate&gt;,omitempty"`
 	PageSize          *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListCallNotificationParams) SetLog(Log int32) *ListCallNotificationParams {
+	params.Log = &Log
+	return params
+}
+func (params *ListCallNotificationParams) SetMessageDate(MessageDate string) *ListCallNotificationParams {
+	params.MessageDate = &MessageDate
+	return params
+}
+func (params *ListCallNotificationParams) SetMessageDateBefore(MessageDateBefore string) *ListCallNotificationParams {
+	params.MessageDateBefore = &MessageDateBefore
+	return params
+}
+func (params *ListCallNotificationParams) SetMessageDateAfter(MessageDateAfter string) *ListCallNotificationParams {
+	params.MessageDateAfter = &MessageDateAfter
+	return params
+}
+func (params *ListCallNotificationParams) SetPageSize(PageSize int32) *ListCallNotificationParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListCallNotification Method for ListCallNotification
@@ -7681,6 +9483,23 @@ type ListCallRecordingParams struct {
 	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListCallRecordingParams) SetDateCreated(DateCreated string) *ListCallRecordingParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *ListCallRecordingParams) SetDateCreatedBefore(DateCreatedBefore string) *ListCallRecordingParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListCallRecordingParams) SetDateCreatedAfter(DateCreatedAfter string) *ListCallRecordingParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListCallRecordingParams) SetPageSize(PageSize int32) *ListCallRecordingParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCallRecording Method for ListCallRecording
 //
 // Retrieve a list of recordings belonging to the call used to make the request
@@ -7752,6 +9571,43 @@ type ListConferenceParams struct {
 	FriendlyName      *string `json:"FriendlyName,omitempty"`
 	Status            *string `json:"Status,omitempty"`
 	PageSize          *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListConferenceParams) SetDateCreated(DateCreated string) *ListConferenceParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *ListConferenceParams) SetDateCreatedBefore(DateCreatedBefore string) *ListConferenceParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListConferenceParams) SetDateCreatedAfter(DateCreatedAfter string) *ListConferenceParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListConferenceParams) SetDateUpdated(DateUpdated string) *ListConferenceParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *ListConferenceParams) SetDateUpdatedBefore(DateUpdatedBefore string) *ListConferenceParams {
+	params.DateUpdatedBefore = &DateUpdatedBefore
+	return params
+}
+func (params *ListConferenceParams) SetDateUpdatedAfter(DateUpdatedAfter string) *ListConferenceParams {
+	params.DateUpdatedAfter = &DateUpdatedAfter
+	return params
+}
+func (params *ListConferenceParams) SetFriendlyName(FriendlyName string) *ListConferenceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListConferenceParams) SetStatus(Status string) *ListConferenceParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListConferenceParams) SetPageSize(PageSize int32) *ListConferenceParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListConference Method for ListConference
@@ -7844,6 +9700,23 @@ type ListConferenceRecordingParams struct {
 	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListConferenceRecordingParams) SetDateCreated(DateCreated string) *ListConferenceRecordingParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *ListConferenceRecordingParams) SetDateCreatedBefore(DateCreatedBefore string) *ListConferenceRecordingParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListConferenceRecordingParams) SetDateCreatedAfter(DateCreatedAfter string) *ListConferenceRecordingParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListConferenceRecordingParams) SetPageSize(PageSize int32) *ListConferenceRecordingParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListConferenceRecording Method for ListConferenceRecording
 //
 // Retrieve a list of recordings belonging to the call used to make the request
@@ -7909,6 +9782,11 @@ type ListConnectAppParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListConnectAppParams) SetPageSize(PageSize int32) *ListConnectAppParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListConnectApp Method for ListConnectApp
 //
 // Retrieve a list of connect-apps belonging to the account used to make the request
@@ -7954,6 +9832,11 @@ func (c *DefaultApiService) ListConnectApp(params *ListConnectAppParams) (*ListC
 type ListDependentPhoneNumberParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListDependentPhoneNumberParams) SetPageSize(PageSize int32) *ListDependentPhoneNumberParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListDependentPhoneNumber Method for ListDependentPhoneNumber
@@ -8006,6 +9889,27 @@ type ListIncomingPhoneNumberParams struct {
 	PhoneNumber    *string `json:"PhoneNumber,omitempty"`
 	Origin         *string `json:"Origin,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListIncomingPhoneNumberParams) SetBeta(Beta bool) *ListIncomingPhoneNumberParams {
+	params.Beta = &Beta
+	return params
+}
+func (params *ListIncomingPhoneNumberParams) SetFriendlyName(FriendlyName string) *ListIncomingPhoneNumberParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListIncomingPhoneNumberParams) SetPhoneNumber(PhoneNumber string) *ListIncomingPhoneNumberParams {
+	params.PhoneNumber = &PhoneNumber
+	return params
+}
+func (params *ListIncomingPhoneNumberParams) SetOrigin(Origin string) *ListIncomingPhoneNumberParams {
+	params.Origin = &Origin
+	return params
+}
+func (params *ListIncomingPhoneNumberParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListIncomingPhoneNumber Method for ListIncomingPhoneNumber
@@ -8075,6 +9979,11 @@ type ListIncomingPhoneNumberAssignedAddOnParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberAssignedAddOnParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListIncomingPhoneNumberAssignedAddOn Method for ListIncomingPhoneNumberAssignedAddOn
 //
 // Retrieve a list of Add-on installations currently assigned to this Number.
@@ -8123,6 +10032,11 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid str
 type ListIncomingPhoneNumberAssignedAddOnExtensionParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListIncomingPhoneNumberAssignedAddOnExtension Method for ListIncomingPhoneNumberAssignedAddOnExtension
@@ -8180,6 +10094,27 @@ type ListIncomingPhoneNumberLocalParams struct {
 	PhoneNumber    *string `json:"PhoneNumber,omitempty"`
 	Origin         *string `json:"Origin,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListIncomingPhoneNumberLocalParams) SetBeta(Beta bool) *ListIncomingPhoneNumberLocalParams {
+	params.Beta = &Beta
+	return params
+}
+func (params *ListIncomingPhoneNumberLocalParams) SetFriendlyName(FriendlyName string) *ListIncomingPhoneNumberLocalParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListIncomingPhoneNumberLocalParams) SetPhoneNumber(PhoneNumber string) *ListIncomingPhoneNumberLocalParams {
+	params.PhoneNumber = &PhoneNumber
+	return params
+}
+func (params *ListIncomingPhoneNumberLocalParams) SetOrigin(Origin string) *ListIncomingPhoneNumberLocalParams {
+	params.Origin = &Origin
+	return params
+}
+func (params *ListIncomingPhoneNumberLocalParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberLocalParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListIncomingPhoneNumberLocal Method for ListIncomingPhoneNumberLocal
@@ -8251,6 +10186,27 @@ type ListIncomingPhoneNumberMobileParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListIncomingPhoneNumberMobileParams) SetBeta(Beta bool) *ListIncomingPhoneNumberMobileParams {
+	params.Beta = &Beta
+	return params
+}
+func (params *ListIncomingPhoneNumberMobileParams) SetFriendlyName(FriendlyName string) *ListIncomingPhoneNumberMobileParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListIncomingPhoneNumberMobileParams) SetPhoneNumber(PhoneNumber string) *ListIncomingPhoneNumberMobileParams {
+	params.PhoneNumber = &PhoneNumber
+	return params
+}
+func (params *ListIncomingPhoneNumberMobileParams) SetOrigin(Origin string) *ListIncomingPhoneNumberMobileParams {
+	params.Origin = &Origin
+	return params
+}
+func (params *ListIncomingPhoneNumberMobileParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberMobileParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListIncomingPhoneNumberMobile Method for ListIncomingPhoneNumberMobile
 //
 // param: optional nil or *ListIncomingPhoneNumberMobileParams - Optional Parameters:
@@ -8320,6 +10276,27 @@ type ListIncomingPhoneNumberTollFreeParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListIncomingPhoneNumberTollFreeParams) SetBeta(Beta bool) *ListIncomingPhoneNumberTollFreeParams {
+	params.Beta = &Beta
+	return params
+}
+func (params *ListIncomingPhoneNumberTollFreeParams) SetFriendlyName(FriendlyName string) *ListIncomingPhoneNumberTollFreeParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListIncomingPhoneNumberTollFreeParams) SetPhoneNumber(PhoneNumber string) *ListIncomingPhoneNumberTollFreeParams {
+	params.PhoneNumber = &PhoneNumber
+	return params
+}
+func (params *ListIncomingPhoneNumberTollFreeParams) SetOrigin(Origin string) *ListIncomingPhoneNumberTollFreeParams {
+	params.Origin = &Origin
+	return params
+}
+func (params *ListIncomingPhoneNumberTollFreeParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberTollFreeParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListIncomingPhoneNumberTollFree Method for ListIncomingPhoneNumberTollFree
 //
 // param: optional nil or *ListIncomingPhoneNumberTollFreeParams - Optional Parameters:
@@ -8385,6 +10362,11 @@ type ListKeyParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListKeyParams) SetPageSize(PageSize int32) *ListKeyParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListKey Method for ListKey
 //
 // param: optional nil or *ListKeyParams - Optional Parameters:
@@ -8431,6 +10413,23 @@ type ListMediaParams struct {
 	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
 	DateCreatedAfter  *time.Time `json:"DateCreated&gt;,omitempty"`
 	PageSize          *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListMediaParams) SetDateCreated(DateCreated time.Time) *ListMediaParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *ListMediaParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListMediaParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListMediaParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListMediaParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListMediaParams) SetPageSize(PageSize int32) *ListMediaParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListMedia Method for ListMedia
@@ -8498,6 +10497,11 @@ type ListMemberParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListMemberParams) SetPageSize(PageSize int32) *ListMemberParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListMember Method for ListMember
 //
 // Retrieve the members of the queue
@@ -8551,6 +10555,31 @@ type ListMessageParams struct {
 	DateSentBefore *time.Time `json:"DateSent&lt;,omitempty"`
 	DateSentAfter  *time.Time `json:"DateSent&gt;,omitempty"`
 	PageSize       *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListMessageParams) SetTo(To string) *ListMessageParams {
+	params.To = &To
+	return params
+}
+func (params *ListMessageParams) SetFrom(From string) *ListMessageParams {
+	params.From = &From
+	return params
+}
+func (params *ListMessageParams) SetDateSent(DateSent time.Time) *ListMessageParams {
+	params.DateSent = &DateSent
+	return params
+}
+func (params *ListMessageParams) SetDateSentBefore(DateSentBefore time.Time) *ListMessageParams {
+	params.DateSentBefore = &DateSentBefore
+	return params
+}
+func (params *ListMessageParams) SetDateSentAfter(DateSentAfter time.Time) *ListMessageParams {
+	params.DateSentAfter = &DateSentAfter
+	return params
+}
+func (params *ListMessageParams) SetPageSize(PageSize int32) *ListMessageParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListMessage Method for ListMessage
@@ -8629,6 +10658,27 @@ type ListNotificationParams struct {
 	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListNotificationParams) SetLog(Log int32) *ListNotificationParams {
+	params.Log = &Log
+	return params
+}
+func (params *ListNotificationParams) SetMessageDate(MessageDate string) *ListNotificationParams {
+	params.MessageDate = &MessageDate
+	return params
+}
+func (params *ListNotificationParams) SetMessageDateBefore(MessageDateBefore string) *ListNotificationParams {
+	params.MessageDateBefore = &MessageDateBefore
+	return params
+}
+func (params *ListNotificationParams) SetMessageDateAfter(MessageDateAfter string) *ListNotificationParams {
+	params.MessageDateAfter = &MessageDateAfter
+	return params
+}
+func (params *ListNotificationParams) SetPageSize(PageSize int32) *ListNotificationParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListNotification Method for ListNotification
 //
 // Retrieve a list of notifications belonging to the account used to make the request
@@ -8698,6 +10748,19 @@ type ListOutgoingCallerIdParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListOutgoingCallerIdParams) SetPhoneNumber(PhoneNumber string) *ListOutgoingCallerIdParams {
+	params.PhoneNumber = &PhoneNumber
+	return params
+}
+func (params *ListOutgoingCallerIdParams) SetFriendlyName(FriendlyName string) *ListOutgoingCallerIdParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListOutgoingCallerIdParams) SetPageSize(PageSize int32) *ListOutgoingCallerIdParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListOutgoingCallerId Method for ListOutgoingCallerId
 //
 // Retrieve a list of outgoing-caller-ids belonging to the account used to make the request
@@ -8756,6 +10819,23 @@ type ListParticipantParams struct {
 	Hold           *bool   `json:"Hold,omitempty"`
 	Coaching       *bool   `json:"Coaching,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListParticipantParams) SetMuted(Muted bool) *ListParticipantParams {
+	params.Muted = &Muted
+	return params
+}
+func (params *ListParticipantParams) SetHold(Hold bool) *ListParticipantParams {
+	params.Hold = &Hold
+	return params
+}
+func (params *ListParticipantParams) SetCoaching(Coaching bool) *ListParticipantParams {
+	params.Coaching = &Coaching
+	return params
+}
+func (params *ListParticipantParams) SetPageSize(PageSize int32) *ListParticipantParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListParticipant Method for ListParticipant
@@ -8823,6 +10903,11 @@ type ListQueueParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListQueueParams) SetPageSize(PageSize int32) *ListQueueParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListQueue Method for ListQueue
 //
 // Retrieve a list of queues belonging to the account used to make the request
@@ -8873,6 +10958,31 @@ type ListRecordingParams struct {
 	CallSid           *string    `json:"CallSid,omitempty"`
 	ConferenceSid     *string    `json:"ConferenceSid,omitempty"`
 	PageSize          *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListRecordingParams) SetDateCreated(DateCreated time.Time) *ListRecordingParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *ListRecordingParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListRecordingParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListRecordingParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListRecordingParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListRecordingParams) SetCallSid(CallSid string) *ListRecordingParams {
+	params.CallSid = &CallSid
+	return params
+}
+func (params *ListRecordingParams) SetConferenceSid(ConferenceSid string) *ListRecordingParams {
+	params.ConferenceSid = &ConferenceSid
+	return params
+}
+func (params *ListRecordingParams) SetPageSize(PageSize int32) *ListRecordingParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListRecording Method for ListRecording
@@ -8947,6 +11057,11 @@ type ListRecordingAddOnResultParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListRecordingAddOnResultParams) SetPageSize(PageSize int32) *ListRecordingAddOnResultParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListRecordingAddOnResult Method for ListRecordingAddOnResult
 //
 // Retrieve a list of results belonging to the recording
@@ -8995,6 +11110,11 @@ func (c *DefaultApiService) ListRecordingAddOnResult(ReferenceSid string, params
 type ListRecordingAddOnResultPayloadParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListRecordingAddOnResultPayloadParams) SetPageSize(PageSize int32) *ListRecordingAddOnResultPayloadParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListRecordingAddOnResultPayload Method for ListRecordingAddOnResultPayload
@@ -9050,6 +11170,11 @@ type ListRecordingTranscriptionParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListRecordingTranscriptionParams) SetPageSize(PageSize int32) *ListRecordingTranscriptionParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListRecordingTranscription Method for ListRecordingTranscription
 //
 // param: RecordingSid The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcriptions to read.
@@ -9098,6 +11223,19 @@ type ListShortCodeParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 	ShortCode      *string `json:"ShortCode,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListShortCodeParams) SetFriendlyName(FriendlyName string) *ListShortCodeParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListShortCodeParams) SetShortCode(ShortCode string) *ListShortCodeParams {
+	params.ShortCode = &ShortCode
+	return params
+}
+func (params *ListShortCodeParams) SetPageSize(PageSize int32) *ListShortCodeParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListShortCode Method for ListShortCode
@@ -9157,6 +11295,11 @@ type ListSigningKeyParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSigningKeyParams) SetPageSize(PageSize int32) *ListSigningKeyParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSigningKey Method for ListSigningKey
 //
 // param: optional nil or *ListSigningKeyParams - Optional Parameters:
@@ -9200,6 +11343,11 @@ func (c *DefaultApiService) ListSigningKey(params *ListSigningKeyParams) (*ListS
 type ListSipAuthCallsCredentialListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListSipAuthCallsCredentialListMappingParams) SetPageSize(PageSize int32) *ListSipAuthCallsCredentialListMappingParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSipAuthCallsCredentialListMapping Method for ListSipAuthCallsCredentialListMapping
@@ -9252,6 +11400,11 @@ type ListSipAuthCallsIpAccessControlListMappingParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetPageSize(PageSize int32) *ListSipAuthCallsIpAccessControlListMappingParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSipAuthCallsIpAccessControlListMapping Method for ListSipAuthCallsIpAccessControlListMapping
 //
 // Retrieve a list of IP Access Control List mappings belonging to the domain used in the request
@@ -9300,6 +11453,11 @@ func (c *DefaultApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid
 type ListSipAuthRegistrationsCredentialListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListSipAuthRegistrationsCredentialListMappingParams) SetPageSize(PageSize int32) *ListSipAuthRegistrationsCredentialListMappingParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSipAuthRegistrationsCredentialListMapping Method for ListSipAuthRegistrationsCredentialListMapping
@@ -9352,6 +11510,11 @@ type ListSipCredentialParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipCredentialParams) SetPageSize(PageSize int32) *ListSipCredentialParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSipCredential Method for ListSipCredential
 //
 // Retrieve a list of credentials.
@@ -9402,6 +11565,11 @@ type ListSipCredentialListParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipCredentialListParams) SetPageSize(PageSize int32) *ListSipCredentialListParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSipCredentialList Method for ListSipCredentialList
 //
 // Get All Credential Lists
@@ -9447,6 +11615,11 @@ func (c *DefaultApiService) ListSipCredentialList(params *ListSipCredentialListP
 type ListSipCredentialListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListSipCredentialListMappingParams) SetPageSize(PageSize int32) *ListSipCredentialListMappingParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSipCredentialListMapping Method for ListSipCredentialListMapping
@@ -9499,6 +11672,11 @@ type ListSipDomainParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipDomainParams) SetPageSize(PageSize int32) *ListSipDomainParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSipDomain Method for ListSipDomain
 //
 // Retrieve a list of domains belonging to the account used to make the request
@@ -9546,6 +11724,11 @@ type ListSipIpAccessControlListParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipIpAccessControlListParams) SetPageSize(PageSize int32) *ListSipIpAccessControlListParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSipIpAccessControlList Method for ListSipIpAccessControlList
 //
 // Retrieve a list of IpAccessControlLists that belong to the account used to make the request
@@ -9591,6 +11774,11 @@ func (c *DefaultApiService) ListSipIpAccessControlList(params *ListSipIpAccessCo
 type ListSipIpAccessControlListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListSipIpAccessControlListMappingParams) SetPageSize(PageSize int32) *ListSipIpAccessControlListMappingParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSipIpAccessControlListMapping Method for ListSipIpAccessControlListMapping
@@ -9643,6 +11831,11 @@ type ListSipIpAddressParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipIpAddressParams) SetPageSize(PageSize int32) *ListSipIpAddressParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSipIpAddress Method for ListSipIpAddress
 //
 // Read multiple IpAddress resources.
@@ -9691,6 +11884,11 @@ func (c *DefaultApiService) ListSipIpAddress(IpAccessControlListSid string, para
 type ListTranscriptionParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	PageSize       *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListTranscriptionParams) SetPageSize(PageSize int32) *ListTranscriptionParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListTranscription Method for ListTranscription
@@ -9742,6 +11940,27 @@ type ListUsageRecordParams struct {
 	EndDate            *string `json:"EndDate,omitempty"`
 	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
 	PageSize           *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListUsageRecordParams) SetCategory(Category string) *ListUsageRecordParams {
+	params.Category = &Category
+	return params
+}
+func (params *ListUsageRecordParams) SetStartDate(StartDate string) *ListUsageRecordParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListUsageRecordParams) SetEndDate(EndDate string) *ListUsageRecordParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListUsageRecordParams) SetIncludeSubaccounts(IncludeSubaccounts bool) *ListUsageRecordParams {
+	params.IncludeSubaccounts = &IncludeSubaccounts
+	return params
+}
+func (params *ListUsageRecordParams) SetPageSize(PageSize int32) *ListUsageRecordParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListUsageRecord Method for ListUsageRecord
@@ -9815,6 +12034,27 @@ type ListUsageRecordAllTimeParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordAllTimeParams) SetCategory(Category string) *ListUsageRecordAllTimeParams {
+	params.Category = &Category
+	return params
+}
+func (params *ListUsageRecordAllTimeParams) SetStartDate(StartDate string) *ListUsageRecordAllTimeParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListUsageRecordAllTimeParams) SetEndDate(EndDate string) *ListUsageRecordAllTimeParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListUsageRecordAllTimeParams) SetIncludeSubaccounts(IncludeSubaccounts bool) *ListUsageRecordAllTimeParams {
+	params.IncludeSubaccounts = &IncludeSubaccounts
+	return params
+}
+func (params *ListUsageRecordAllTimeParams) SetPageSize(PageSize int32) *ListUsageRecordAllTimeParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListUsageRecordAllTime Method for ListUsageRecordAllTime
 //
 // param: optional nil or *ListUsageRecordAllTimeParams - Optional Parameters:
@@ -9882,6 +12122,27 @@ type ListUsageRecordDailyParams struct {
 	EndDate            *string `json:"EndDate,omitempty"`
 	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
 	PageSize           *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListUsageRecordDailyParams) SetCategory(Category string) *ListUsageRecordDailyParams {
+	params.Category = &Category
+	return params
+}
+func (params *ListUsageRecordDailyParams) SetStartDate(StartDate string) *ListUsageRecordDailyParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListUsageRecordDailyParams) SetEndDate(EndDate string) *ListUsageRecordDailyParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListUsageRecordDailyParams) SetIncludeSubaccounts(IncludeSubaccounts bool) *ListUsageRecordDailyParams {
+	params.IncludeSubaccounts = &IncludeSubaccounts
+	return params
+}
+func (params *ListUsageRecordDailyParams) SetPageSize(PageSize int32) *ListUsageRecordDailyParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListUsageRecordDaily Method for ListUsageRecordDaily
@@ -9953,6 +12214,27 @@ type ListUsageRecordLastMonthParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordLastMonthParams) SetCategory(Category string) *ListUsageRecordLastMonthParams {
+	params.Category = &Category
+	return params
+}
+func (params *ListUsageRecordLastMonthParams) SetStartDate(StartDate string) *ListUsageRecordLastMonthParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListUsageRecordLastMonthParams) SetEndDate(EndDate string) *ListUsageRecordLastMonthParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListUsageRecordLastMonthParams) SetIncludeSubaccounts(IncludeSubaccounts bool) *ListUsageRecordLastMonthParams {
+	params.IncludeSubaccounts = &IncludeSubaccounts
+	return params
+}
+func (params *ListUsageRecordLastMonthParams) SetPageSize(PageSize int32) *ListUsageRecordLastMonthParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListUsageRecordLastMonth Method for ListUsageRecordLastMonth
 //
 // param: optional nil or *ListUsageRecordLastMonthParams - Optional Parameters:
@@ -10020,6 +12302,27 @@ type ListUsageRecordMonthlyParams struct {
 	EndDate            *string `json:"EndDate,omitempty"`
 	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
 	PageSize           *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListUsageRecordMonthlyParams) SetCategory(Category string) *ListUsageRecordMonthlyParams {
+	params.Category = &Category
+	return params
+}
+func (params *ListUsageRecordMonthlyParams) SetStartDate(StartDate string) *ListUsageRecordMonthlyParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListUsageRecordMonthlyParams) SetEndDate(EndDate string) *ListUsageRecordMonthlyParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListUsageRecordMonthlyParams) SetIncludeSubaccounts(IncludeSubaccounts bool) *ListUsageRecordMonthlyParams {
+	params.IncludeSubaccounts = &IncludeSubaccounts
+	return params
+}
+func (params *ListUsageRecordMonthlyParams) SetPageSize(PageSize int32) *ListUsageRecordMonthlyParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListUsageRecordMonthly Method for ListUsageRecordMonthly
@@ -10091,6 +12394,27 @@ type ListUsageRecordThisMonthParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordThisMonthParams) SetCategory(Category string) *ListUsageRecordThisMonthParams {
+	params.Category = &Category
+	return params
+}
+func (params *ListUsageRecordThisMonthParams) SetStartDate(StartDate string) *ListUsageRecordThisMonthParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListUsageRecordThisMonthParams) SetEndDate(EndDate string) *ListUsageRecordThisMonthParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListUsageRecordThisMonthParams) SetIncludeSubaccounts(IncludeSubaccounts bool) *ListUsageRecordThisMonthParams {
+	params.IncludeSubaccounts = &IncludeSubaccounts
+	return params
+}
+func (params *ListUsageRecordThisMonthParams) SetPageSize(PageSize int32) *ListUsageRecordThisMonthParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListUsageRecordThisMonth Method for ListUsageRecordThisMonth
 //
 // param: optional nil or *ListUsageRecordThisMonthParams - Optional Parameters:
@@ -10158,6 +12482,27 @@ type ListUsageRecordTodayParams struct {
 	EndDate            *string `json:"EndDate,omitempty"`
 	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
 	PageSize           *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListUsageRecordTodayParams) SetCategory(Category string) *ListUsageRecordTodayParams {
+	params.Category = &Category
+	return params
+}
+func (params *ListUsageRecordTodayParams) SetStartDate(StartDate string) *ListUsageRecordTodayParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListUsageRecordTodayParams) SetEndDate(EndDate string) *ListUsageRecordTodayParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListUsageRecordTodayParams) SetIncludeSubaccounts(IncludeSubaccounts bool) *ListUsageRecordTodayParams {
+	params.IncludeSubaccounts = &IncludeSubaccounts
+	return params
+}
+func (params *ListUsageRecordTodayParams) SetPageSize(PageSize int32) *ListUsageRecordTodayParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListUsageRecordToday Method for ListUsageRecordToday
@@ -10229,6 +12574,27 @@ type ListUsageRecordYearlyParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordYearlyParams) SetCategory(Category string) *ListUsageRecordYearlyParams {
+	params.Category = &Category
+	return params
+}
+func (params *ListUsageRecordYearlyParams) SetStartDate(StartDate string) *ListUsageRecordYearlyParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListUsageRecordYearlyParams) SetEndDate(EndDate string) *ListUsageRecordYearlyParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListUsageRecordYearlyParams) SetIncludeSubaccounts(IncludeSubaccounts bool) *ListUsageRecordYearlyParams {
+	params.IncludeSubaccounts = &IncludeSubaccounts
+	return params
+}
+func (params *ListUsageRecordYearlyParams) SetPageSize(PageSize int32) *ListUsageRecordYearlyParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListUsageRecordYearly Method for ListUsageRecordYearly
 //
 // param: optional nil or *ListUsageRecordYearlyParams - Optional Parameters:
@@ -10296,6 +12662,27 @@ type ListUsageRecordYesterdayParams struct {
 	EndDate            *string `json:"EndDate,omitempty"`
 	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
 	PageSize           *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListUsageRecordYesterdayParams) SetCategory(Category string) *ListUsageRecordYesterdayParams {
+	params.Category = &Category
+	return params
+}
+func (params *ListUsageRecordYesterdayParams) SetStartDate(StartDate string) *ListUsageRecordYesterdayParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListUsageRecordYesterdayParams) SetEndDate(EndDate string) *ListUsageRecordYesterdayParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListUsageRecordYesterdayParams) SetIncludeSubaccounts(IncludeSubaccounts bool) *ListUsageRecordYesterdayParams {
+	params.IncludeSubaccounts = &IncludeSubaccounts
+	return params
+}
+func (params *ListUsageRecordYesterdayParams) SetPageSize(PageSize int32) *ListUsageRecordYesterdayParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListUsageRecordYesterday Method for ListUsageRecordYesterday
@@ -10366,6 +12753,23 @@ type ListUsageTriggerParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageTriggerParams) SetRecurring(Recurring string) *ListUsageTriggerParams {
+	params.Recurring = &Recurring
+	return params
+}
+func (params *ListUsageTriggerParams) SetTriggerBy(TriggerBy string) *ListUsageTriggerParams {
+	params.TriggerBy = &TriggerBy
+	return params
+}
+func (params *ListUsageTriggerParams) SetUsageCategory(UsageCategory string) *ListUsageTriggerParams {
+	params.UsageCategory = &UsageCategory
+	return params
+}
+func (params *ListUsageTriggerParams) SetPageSize(PageSize int32) *ListUsageTriggerParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListUsageTrigger Method for ListUsageTrigger
 //
 // Retrieve a list of usage-triggers belonging to the account used to make the request
@@ -10428,6 +12832,15 @@ type UpdateAccountParams struct {
 	Status       *string `json:"Status,omitempty"`
 }
 
+func (params *UpdateAccountParams) SetFriendlyName(FriendlyName string) *UpdateAccountParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateAccountParams) SetStatus(Status string) *UpdateAccountParams {
+	params.Status = &Status
+	return params
+}
+
 // UpdateAccount Method for UpdateAccount
 //
 // Modify the properties of a given Account
@@ -10481,6 +12894,39 @@ type UpdateAddressParams struct {
 	PostalCode         *string `json:"PostalCode,omitempty"`
 	Region             *string `json:"Region,omitempty"`
 	Street             *string `json:"Street,omitempty"`
+}
+
+func (params *UpdateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool) *UpdateAddressParams {
+	params.AutoCorrectAddress = &AutoCorrectAddress
+	return params
+}
+func (params *UpdateAddressParams) SetCity(City string) *UpdateAddressParams {
+	params.City = &City
+	return params
+}
+func (params *UpdateAddressParams) SetCustomerName(CustomerName string) *UpdateAddressParams {
+	params.CustomerName = &CustomerName
+	return params
+}
+func (params *UpdateAddressParams) SetEmergencyEnabled(EmergencyEnabled bool) *UpdateAddressParams {
+	params.EmergencyEnabled = &EmergencyEnabled
+	return params
+}
+func (params *UpdateAddressParams) SetFriendlyName(FriendlyName string) *UpdateAddressParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateAddressParams) SetPostalCode(PostalCode string) *UpdateAddressParams {
+	params.PostalCode = &PostalCode
+	return params
+}
+func (params *UpdateAddressParams) SetRegion(Region string) *UpdateAddressParams {
+	params.Region = &Region
+	return params
+}
+func (params *UpdateAddressParams) SetStreet(Street string) *UpdateAddressParams {
+	params.Street = &Street
+	return params
 }
 
 // UpdateAddress Method for UpdateAddress
@@ -10578,6 +13024,67 @@ type UpdateApplicationParams struct {
 	VoiceFallbackUrl      *string `json:"VoiceFallbackUrl,omitempty"`
 	VoiceMethod           *string `json:"VoiceMethod,omitempty"`
 	VoiceUrl              *string `json:"VoiceUrl,omitempty"`
+}
+
+func (params *UpdateApplicationParams) SetApiVersion(ApiVersion string) *UpdateApplicationParams {
+	params.ApiVersion = &ApiVersion
+	return params
+}
+func (params *UpdateApplicationParams) SetFriendlyName(FriendlyName string) *UpdateApplicationParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateApplicationParams) SetMessageStatusCallback(MessageStatusCallback string) *UpdateApplicationParams {
+	params.MessageStatusCallback = &MessageStatusCallback
+	return params
+}
+func (params *UpdateApplicationParams) SetSmsFallbackMethod(SmsFallbackMethod string) *UpdateApplicationParams {
+	params.SmsFallbackMethod = &SmsFallbackMethod
+	return params
+}
+func (params *UpdateApplicationParams) SetSmsFallbackUrl(SmsFallbackUrl string) *UpdateApplicationParams {
+	params.SmsFallbackUrl = &SmsFallbackUrl
+	return params
+}
+func (params *UpdateApplicationParams) SetSmsMethod(SmsMethod string) *UpdateApplicationParams {
+	params.SmsMethod = &SmsMethod
+	return params
+}
+func (params *UpdateApplicationParams) SetSmsStatusCallback(SmsStatusCallback string) *UpdateApplicationParams {
+	params.SmsStatusCallback = &SmsStatusCallback
+	return params
+}
+func (params *UpdateApplicationParams) SetSmsUrl(SmsUrl string) *UpdateApplicationParams {
+	params.SmsUrl = &SmsUrl
+	return params
+}
+func (params *UpdateApplicationParams) SetStatusCallback(StatusCallback string) *UpdateApplicationParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *UpdateApplicationParams) SetStatusCallbackMethod(StatusCallbackMethod string) *UpdateApplicationParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *UpdateApplicationParams) SetVoiceCallerIdLookup(VoiceCallerIdLookup bool) *UpdateApplicationParams {
+	params.VoiceCallerIdLookup = &VoiceCallerIdLookup
+	return params
+}
+func (params *UpdateApplicationParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *UpdateApplicationParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
+	return params
+}
+func (params *UpdateApplicationParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *UpdateApplicationParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *UpdateApplicationParams) SetVoiceMethod(VoiceMethod string) *UpdateApplicationParams {
+	params.VoiceMethod = &VoiceMethod
+	return params
+}
+func (params *UpdateApplicationParams) SetVoiceUrl(VoiceUrl string) *UpdateApplicationParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
 }
 
 // UpdateApplication Method for UpdateApplication
@@ -10707,6 +13214,39 @@ type UpdateCallParams struct {
 	Url                  *string `json:"Url,omitempty"`
 }
 
+func (params *UpdateCallParams) SetFallbackMethod(FallbackMethod string) *UpdateCallParams {
+	params.FallbackMethod = &FallbackMethod
+	return params
+}
+func (params *UpdateCallParams) SetFallbackUrl(FallbackUrl string) *UpdateCallParams {
+	params.FallbackUrl = &FallbackUrl
+	return params
+}
+func (params *UpdateCallParams) SetMethod(Method string) *UpdateCallParams {
+	params.Method = &Method
+	return params
+}
+func (params *UpdateCallParams) SetStatus(Status string) *UpdateCallParams {
+	params.Status = &Status
+	return params
+}
+func (params *UpdateCallParams) SetStatusCallback(StatusCallback string) *UpdateCallParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *UpdateCallParams) SetStatusCallbackMethod(StatusCallbackMethod string) *UpdateCallParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *UpdateCallParams) SetTwiml(Twiml string) *UpdateCallParams {
+	params.Twiml = &Twiml
+	return params
+}
+func (params *UpdateCallParams) SetUrl(Url string) *UpdateCallParams {
+	params.Url = &Url
+	return params
+}
+
 // UpdateCall Method for UpdateCall
 //
 // Initiates a call redirect or terminates a call
@@ -10793,6 +13333,15 @@ type UpdateCallFeedbackParams struct {
 	QualityScore   *int32    `json:"QualityScore,omitempty"`
 }
 
+func (params *UpdateCallFeedbackParams) SetIssue(Issue []string) *UpdateCallFeedbackParams {
+	params.Issue = &Issue
+	return params
+}
+func (params *UpdateCallFeedbackParams) SetQualityScore(QualityScore int32) *UpdateCallFeedbackParams {
+	params.QualityScore = &QualityScore
+	return params
+}
+
 // UpdateCallFeedback Method for UpdateCallFeedback
 //
 // Update a Feedback resource for a call
@@ -10847,6 +13396,15 @@ type UpdateCallRecordingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	PauseBehavior  *string `json:"PauseBehavior,omitempty"`
 	Status         *string `json:"Status,omitempty"`
+}
+
+func (params *UpdateCallRecordingParams) SetPauseBehavior(PauseBehavior string) *UpdateCallRecordingParams {
+	params.PauseBehavior = &PauseBehavior
+	return params
+}
+func (params *UpdateCallRecordingParams) SetStatus(Status string) *UpdateCallRecordingParams {
+	params.Status = &Status
+	return params
 }
 
 // UpdateCallRecording Method for UpdateCallRecording
@@ -10909,6 +13467,19 @@ type UpdateConferenceParams struct {
 	Status         *string `json:"Status,omitempty"`
 }
 
+func (params *UpdateConferenceParams) SetAnnounceMethod(AnnounceMethod string) *UpdateConferenceParams {
+	params.AnnounceMethod = &AnnounceMethod
+	return params
+}
+func (params *UpdateConferenceParams) SetAnnounceUrl(AnnounceUrl string) *UpdateConferenceParams {
+	params.AnnounceUrl = &AnnounceUrl
+	return params
+}
+func (params *UpdateConferenceParams) SetStatus(Status string) *UpdateConferenceParams {
+	params.Status = &Status
+	return params
+}
+
 // UpdateConference Method for UpdateConference
 //
 // param: Sid The Twilio-provided string that uniquely identifies the Conference resource to update
@@ -10966,6 +13537,15 @@ type UpdateConferenceRecordingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	PauseBehavior  *string `json:"PauseBehavior,omitempty"`
 	Status         *string `json:"Status,omitempty"`
+}
+
+func (params *UpdateConferenceRecordingParams) SetPauseBehavior(PauseBehavior string) *UpdateConferenceRecordingParams {
+	params.PauseBehavior = &PauseBehavior
+	return params
+}
+func (params *UpdateConferenceRecordingParams) SetStatus(Status string) *UpdateConferenceRecordingParams {
+	params.Status = &Status
+	return params
 }
 
 // UpdateConferenceRecording Method for UpdateConferenceRecording
@@ -11031,6 +13611,39 @@ type UpdateConnectAppParams struct {
 	FriendlyName              *string   `json:"FriendlyName,omitempty"`
 	HomepageUrl               *string   `json:"HomepageUrl,omitempty"`
 	Permissions               *[]string `json:"Permissions,omitempty"`
+}
+
+func (params *UpdateConnectAppParams) SetAuthorizeRedirectUrl(AuthorizeRedirectUrl string) *UpdateConnectAppParams {
+	params.AuthorizeRedirectUrl = &AuthorizeRedirectUrl
+	return params
+}
+func (params *UpdateConnectAppParams) SetCompanyName(CompanyName string) *UpdateConnectAppParams {
+	params.CompanyName = &CompanyName
+	return params
+}
+func (params *UpdateConnectAppParams) SetDeauthorizeCallbackMethod(DeauthorizeCallbackMethod string) *UpdateConnectAppParams {
+	params.DeauthorizeCallbackMethod = &DeauthorizeCallbackMethod
+	return params
+}
+func (params *UpdateConnectAppParams) SetDeauthorizeCallbackUrl(DeauthorizeCallbackUrl string) *UpdateConnectAppParams {
+	params.DeauthorizeCallbackUrl = &DeauthorizeCallbackUrl
+	return params
+}
+func (params *UpdateConnectAppParams) SetDescription(Description string) *UpdateConnectAppParams {
+	params.Description = &Description
+	return params
+}
+func (params *UpdateConnectAppParams) SetFriendlyName(FriendlyName string) *UpdateConnectAppParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateConnectAppParams) SetHomepageUrl(HomepageUrl string) *UpdateConnectAppParams {
+	params.HomepageUrl = &HomepageUrl
+	return params
+}
+func (params *UpdateConnectAppParams) SetPermissions(Permissions []string) *UpdateConnectAppParams {
+	params.Permissions = &Permissions
+	return params
 }
 
 // UpdateConnectApp Method for UpdateConnectApp
@@ -11138,6 +13751,99 @@ type UpdateIncomingPhoneNumberParams struct {
 	VoiceMethod          *string `json:"VoiceMethod,omitempty"`
 	VoiceReceiveMode     *string `json:"VoiceReceiveMode,omitempty"`
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
+}
+
+func (params *UpdateIncomingPhoneNumberParams) SetAccountSid(AccountSid string) *UpdateIncomingPhoneNumberParams {
+	params.AccountSid = &AccountSid
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetAddressSid(AddressSid string) *UpdateIncomingPhoneNumberParams {
+	params.AddressSid = &AddressSid
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetApiVersion(ApiVersion string) *UpdateIncomingPhoneNumberParams {
+	params.ApiVersion = &ApiVersion
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetBundleSid(BundleSid string) *UpdateIncomingPhoneNumberParams {
+	params.BundleSid = &BundleSid
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetEmergencyAddressSid(EmergencyAddressSid string) *UpdateIncomingPhoneNumberParams {
+	params.EmergencyAddressSid = &EmergencyAddressSid
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetEmergencyStatus(EmergencyStatus string) *UpdateIncomingPhoneNumberParams {
+	params.EmergencyStatus = &EmergencyStatus
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetFriendlyName(FriendlyName string) *UpdateIncomingPhoneNumberParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetIdentitySid(IdentitySid string) *UpdateIncomingPhoneNumberParams {
+	params.IdentitySid = &IdentitySid
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetSmsApplicationSid(SmsApplicationSid string) *UpdateIncomingPhoneNumberParams {
+	params.SmsApplicationSid = &SmsApplicationSid
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetSmsFallbackMethod(SmsFallbackMethod string) *UpdateIncomingPhoneNumberParams {
+	params.SmsFallbackMethod = &SmsFallbackMethod
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetSmsFallbackUrl(SmsFallbackUrl string) *UpdateIncomingPhoneNumberParams {
+	params.SmsFallbackUrl = &SmsFallbackUrl
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetSmsMethod(SmsMethod string) *UpdateIncomingPhoneNumberParams {
+	params.SmsMethod = &SmsMethod
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetSmsUrl(SmsUrl string) *UpdateIncomingPhoneNumberParams {
+	params.SmsUrl = &SmsUrl
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetStatusCallback(StatusCallback string) *UpdateIncomingPhoneNumberParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetStatusCallbackMethod(StatusCallbackMethod string) *UpdateIncomingPhoneNumberParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetTrunkSid(TrunkSid string) *UpdateIncomingPhoneNumberParams {
+	params.TrunkSid = &TrunkSid
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetVoiceApplicationSid(VoiceApplicationSid string) *UpdateIncomingPhoneNumberParams {
+	params.VoiceApplicationSid = &VoiceApplicationSid
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetVoiceCallerIdLookup(VoiceCallerIdLookup bool) *UpdateIncomingPhoneNumberParams {
+	params.VoiceCallerIdLookup = &VoiceCallerIdLookup
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *UpdateIncomingPhoneNumberParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *UpdateIncomingPhoneNumberParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetVoiceMethod(VoiceMethod string) *UpdateIncomingPhoneNumberParams {
+	params.VoiceMethod = &VoiceMethod
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetVoiceReceiveMode(VoiceReceiveMode string) *UpdateIncomingPhoneNumberParams {
+	params.VoiceReceiveMode = &VoiceReceiveMode
+	return params
+}
+func (params *UpdateIncomingPhoneNumberParams) SetVoiceUrl(VoiceUrl string) *UpdateIncomingPhoneNumberParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
 }
 
 // UpdateIncomingPhoneNumber Method for UpdateIncomingPhoneNumber
@@ -11300,6 +14006,11 @@ type UpdateKeyParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateKeyParams) SetFriendlyName(FriendlyName string) *UpdateKeyParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // UpdateKey Method for UpdateKey
 //
 // param: Sid The Twilio-provided string that uniquely identifies the Key resource to update.
@@ -11347,6 +14058,15 @@ type UpdateMemberParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	Method         *string `json:"Method,omitempty"`
 	Url            *string `json:"Url,omitempty"`
+}
+
+func (params *UpdateMemberParams) SetMethod(Method string) *UpdateMemberParams {
+	params.Method = &Method
+	return params
+}
+func (params *UpdateMemberParams) SetUrl(Url string) *UpdateMemberParams {
+	params.Url = &Url
+	return params
 }
 
 // UpdateMember Method for UpdateMember
@@ -11407,6 +14127,11 @@ type UpdateMessageParams struct {
 	Body           *string `json:"Body,omitempty"`
 }
 
+func (params *UpdateMessageParams) SetBody(Body string) *UpdateMessageParams {
+	params.Body = &Body
+	return params
+}
+
 // UpdateMessage Method for UpdateMessage
 //
 // To redact a message-body from a post-flight message record, post to the message instance resource with an empty body
@@ -11455,6 +14180,11 @@ func (c *DefaultApiService) UpdateMessage(Sid string, params *UpdateMessageParam
 type UpdateOutgoingCallerIdParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
+}
+
+func (params *UpdateOutgoingCallerIdParams) SetFriendlyName(FriendlyName string) *UpdateOutgoingCallerIdParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // UpdateOutgoingCallerId Method for UpdateOutgoingCallerId
@@ -11516,6 +14246,55 @@ type UpdateParticipantParams struct {
 	Muted               *bool   `json:"Muted,omitempty"`
 	WaitMethod          *string `json:"WaitMethod,omitempty"`
 	WaitUrl             *string `json:"WaitUrl,omitempty"`
+}
+
+func (params *UpdateParticipantParams) SetAnnounceMethod(AnnounceMethod string) *UpdateParticipantParams {
+	params.AnnounceMethod = &AnnounceMethod
+	return params
+}
+func (params *UpdateParticipantParams) SetAnnounceUrl(AnnounceUrl string) *UpdateParticipantParams {
+	params.AnnounceUrl = &AnnounceUrl
+	return params
+}
+func (params *UpdateParticipantParams) SetBeepOnExit(BeepOnExit bool) *UpdateParticipantParams {
+	params.BeepOnExit = &BeepOnExit
+	return params
+}
+func (params *UpdateParticipantParams) SetCallSidToCoach(CallSidToCoach string) *UpdateParticipantParams {
+	params.CallSidToCoach = &CallSidToCoach
+	return params
+}
+func (params *UpdateParticipantParams) SetCoaching(Coaching bool) *UpdateParticipantParams {
+	params.Coaching = &Coaching
+	return params
+}
+func (params *UpdateParticipantParams) SetEndConferenceOnExit(EndConferenceOnExit bool) *UpdateParticipantParams {
+	params.EndConferenceOnExit = &EndConferenceOnExit
+	return params
+}
+func (params *UpdateParticipantParams) SetHold(Hold bool) *UpdateParticipantParams {
+	params.Hold = &Hold
+	return params
+}
+func (params *UpdateParticipantParams) SetHoldMethod(HoldMethod string) *UpdateParticipantParams {
+	params.HoldMethod = &HoldMethod
+	return params
+}
+func (params *UpdateParticipantParams) SetHoldUrl(HoldUrl string) *UpdateParticipantParams {
+	params.HoldUrl = &HoldUrl
+	return params
+}
+func (params *UpdateParticipantParams) SetMuted(Muted bool) *UpdateParticipantParams {
+	params.Muted = &Muted
+	return params
+}
+func (params *UpdateParticipantParams) SetWaitMethod(WaitMethod string) *UpdateParticipantParams {
+	params.WaitMethod = &WaitMethod
+	return params
+}
+func (params *UpdateParticipantParams) SetWaitUrl(WaitUrl string) *UpdateParticipantParams {
+	params.WaitUrl = &WaitUrl
+	return params
 }
 
 // UpdateParticipant Method for UpdateParticipant
@@ -11629,6 +14408,23 @@ type UpdatePaymentsParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
+func (params *UpdatePaymentsParams) SetCapture(Capture string) *UpdatePaymentsParams {
+	params.Capture = &Capture
+	return params
+}
+func (params *UpdatePaymentsParams) SetIdempotencyKey(IdempotencyKey string) *UpdatePaymentsParams {
+	params.IdempotencyKey = &IdempotencyKey
+	return params
+}
+func (params *UpdatePaymentsParams) SetStatus(Status string) *UpdatePaymentsParams {
+	params.Status = &Status
+	return params
+}
+func (params *UpdatePaymentsParams) SetStatusCallback(StatusCallback string) *UpdatePaymentsParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+
 // UpdatePayments Method for UpdatePayments
 //
 // update an instance of payments with different phases of payment flows.
@@ -11698,6 +14494,15 @@ type UpdateQueueParams struct {
 	MaxSize        *int32  `json:"MaxSize,omitempty"`
 }
 
+func (params *UpdateQueueParams) SetFriendlyName(FriendlyName string) *UpdateQueueParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateQueueParams) SetMaxSize(MaxSize int32) *UpdateQueueParams {
+	params.MaxSize = &MaxSize
+	return params
+}
+
 // UpdateQueue Method for UpdateQueue
 //
 // Update the queue with the new parameters
@@ -11756,6 +14561,31 @@ type UpdateShortCodeParams struct {
 	SmsFallbackUrl    *string `json:"SmsFallbackUrl,omitempty"`
 	SmsMethod         *string `json:"SmsMethod,omitempty"`
 	SmsUrl            *string `json:"SmsUrl,omitempty"`
+}
+
+func (params *UpdateShortCodeParams) SetApiVersion(ApiVersion string) *UpdateShortCodeParams {
+	params.ApiVersion = &ApiVersion
+	return params
+}
+func (params *UpdateShortCodeParams) SetFriendlyName(FriendlyName string) *UpdateShortCodeParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateShortCodeParams) SetSmsFallbackMethod(SmsFallbackMethod string) *UpdateShortCodeParams {
+	params.SmsFallbackMethod = &SmsFallbackMethod
+	return params
+}
+func (params *UpdateShortCodeParams) SetSmsFallbackUrl(SmsFallbackUrl string) *UpdateShortCodeParams {
+	params.SmsFallbackUrl = &SmsFallbackUrl
+	return params
+}
+func (params *UpdateShortCodeParams) SetSmsMethod(SmsMethod string) *UpdateShortCodeParams {
+	params.SmsMethod = &SmsMethod
+	return params
+}
+func (params *UpdateShortCodeParams) SetSmsUrl(SmsUrl string) *UpdateShortCodeParams {
+	params.SmsUrl = &SmsUrl
+	return params
 }
 
 // UpdateShortCode Method for UpdateShortCode
@@ -11833,6 +14663,11 @@ type UpdateSigningKeyParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateSigningKeyParams) SetFriendlyName(FriendlyName string) *UpdateSigningKeyParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // UpdateSigningKey Method for UpdateSigningKey
 //
 // param: Sid
@@ -11879,6 +14714,11 @@ func (c *DefaultApiService) UpdateSigningKey(Sid string, params *UpdateSigningKe
 type UpdateSipCredentialParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	Password       *string `json:"Password,omitempty"`
+}
+
+func (params *UpdateSipCredentialParams) SetPassword(Password string) *UpdateSipCredentialParams {
+	params.Password = &Password
+	return params
 }
 
 // UpdateSipCredential Method for UpdateSipCredential
@@ -11932,6 +14772,11 @@ func (c *DefaultApiService) UpdateSipCredential(CredentialListSid string, Sid st
 type UpdateSipCredentialListParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
+}
+
+func (params *UpdateSipCredentialListParams) SetFriendlyName(FriendlyName string) *UpdateSipCredentialListParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // UpdateSipCredentialList Method for UpdateSipCredentialList
@@ -11994,6 +14839,59 @@ type UpdateSipDomainParams struct {
 	VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
 	VoiceStatusCallbackUrl    *string `json:"VoiceStatusCallbackUrl,omitempty"`
 	VoiceUrl                  *string `json:"VoiceUrl,omitempty"`
+}
+
+func (params *UpdateSipDomainParams) SetByocTrunkSid(ByocTrunkSid string) *UpdateSipDomainParams {
+	params.ByocTrunkSid = &ByocTrunkSid
+	return params
+}
+func (params *UpdateSipDomainParams) SetDomainName(DomainName string) *UpdateSipDomainParams {
+	params.DomainName = &DomainName
+	return params
+}
+func (params *UpdateSipDomainParams) SetEmergencyCallerSid(EmergencyCallerSid string) *UpdateSipDomainParams {
+	params.EmergencyCallerSid = &EmergencyCallerSid
+	return params
+}
+func (params *UpdateSipDomainParams) SetEmergencyCallingEnabled(EmergencyCallingEnabled bool) *UpdateSipDomainParams {
+	params.EmergencyCallingEnabled = &EmergencyCallingEnabled
+	return params
+}
+func (params *UpdateSipDomainParams) SetFriendlyName(FriendlyName string) *UpdateSipDomainParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateSipDomainParams) SetSecure(Secure bool) *UpdateSipDomainParams {
+	params.Secure = &Secure
+	return params
+}
+func (params *UpdateSipDomainParams) SetSipRegistration(SipRegistration bool) *UpdateSipDomainParams {
+	params.SipRegistration = &SipRegistration
+	return params
+}
+func (params *UpdateSipDomainParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *UpdateSipDomainParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
+	return params
+}
+func (params *UpdateSipDomainParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *UpdateSipDomainParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *UpdateSipDomainParams) SetVoiceMethod(VoiceMethod string) *UpdateSipDomainParams {
+	params.VoiceMethod = &VoiceMethod
+	return params
+}
+func (params *UpdateSipDomainParams) SetVoiceStatusCallbackMethod(VoiceStatusCallbackMethod string) *UpdateSipDomainParams {
+	params.VoiceStatusCallbackMethod = &VoiceStatusCallbackMethod
+	return params
+}
+func (params *UpdateSipDomainParams) SetVoiceStatusCallbackUrl(VoiceStatusCallbackUrl string) *UpdateSipDomainParams {
+	params.VoiceStatusCallbackUrl = &VoiceStatusCallbackUrl
+	return params
+}
+func (params *UpdateSipDomainParams) SetVoiceUrl(VoiceUrl string) *UpdateSipDomainParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
 }
 
 // UpdateSipDomain Method for UpdateSipDomain
@@ -12106,6 +15004,11 @@ type UpdateSipIpAccessControlListParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateSipIpAccessControlListParams) SetFriendlyName(FriendlyName string) *UpdateSipIpAccessControlListParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // UpdateSipIpAccessControlList Method for UpdateSipIpAccessControlList
 //
 // Rename an IpAccessControlList
@@ -12156,6 +15059,19 @@ type UpdateSipIpAddressParams struct {
 	CidrPrefixLength *int32  `json:"CidrPrefixLength,omitempty"`
 	FriendlyName     *string `json:"FriendlyName,omitempty"`
 	IpAddress        *string `json:"IpAddress,omitempty"`
+}
+
+func (params *UpdateSipIpAddressParams) SetCidrPrefixLength(CidrPrefixLength int32) *UpdateSipIpAddressParams {
+	params.CidrPrefixLength = &CidrPrefixLength
+	return params
+}
+func (params *UpdateSipIpAddressParams) SetFriendlyName(FriendlyName string) *UpdateSipIpAddressParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateSipIpAddressParams) SetIpAddress(IpAddress string) *UpdateSipIpAddressParams {
+	params.IpAddress = &IpAddress
+	return params
 }
 
 // UpdateSipIpAddress Method for UpdateSipIpAddress
@@ -12221,6 +15137,19 @@ type UpdateUsageTriggerParams struct {
 	CallbackMethod *string `json:"CallbackMethod,omitempty"`
 	CallbackUrl    *string `json:"CallbackUrl,omitempty"`
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
+}
+
+func (params *UpdateUsageTriggerParams) SetCallbackMethod(CallbackMethod string) *UpdateUsageTriggerParams {
+	params.CallbackMethod = &CallbackMethod
+	return params
+}
+func (params *UpdateUsageTriggerParams) SetCallbackUrl(CallbackUrl string) *UpdateUsageTriggerParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *UpdateUsageTriggerParams) SetFriendlyName(FriendlyName string) *UpdateUsageTriggerParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // UpdateUsageTrigger Method for UpdateUsageTrigger

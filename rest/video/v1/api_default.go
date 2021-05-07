@@ -46,6 +46,43 @@ type CreateCompositionParams struct {
 	VideoLayout          *map[string]interface{} `json:"VideoLayout,omitempty"`
 }
 
+func (params *CreateCompositionParams) SetAudioSources(AudioSources []string) *CreateCompositionParams {
+	params.AudioSources = &AudioSources
+	return params
+}
+func (params *CreateCompositionParams) SetAudioSourcesExcluded(AudioSourcesExcluded []string) *CreateCompositionParams {
+	params.AudioSourcesExcluded = &AudioSourcesExcluded
+	return params
+}
+func (params *CreateCompositionParams) SetFormat(Format string) *CreateCompositionParams {
+	params.Format = &Format
+	return params
+}
+func (params *CreateCompositionParams) SetResolution(Resolution string) *CreateCompositionParams {
+	params.Resolution = &Resolution
+	return params
+}
+func (params *CreateCompositionParams) SetRoomSid(RoomSid string) *CreateCompositionParams {
+	params.RoomSid = &RoomSid
+	return params
+}
+func (params *CreateCompositionParams) SetStatusCallback(StatusCallback string) *CreateCompositionParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateCompositionParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateCompositionParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *CreateCompositionParams) SetTrim(Trim bool) *CreateCompositionParams {
+	params.Trim = &Trim
+	return params
+}
+func (params *CreateCompositionParams) SetVideoLayout(VideoLayout map[string]interface{}) *CreateCompositionParams {
+	params.VideoLayout = &VideoLayout
+	return params
+}
+
 // CreateComposition Method for CreateComposition
 //
 // param: optional nil or *CreateCompositionParams - Optional Parameters:
@@ -136,6 +173,47 @@ type CreateCompositionHookParams struct {
 	StatusCallbackMethod *string                 `json:"StatusCallbackMethod,omitempty"`
 	Trim                 *bool                   `json:"Trim,omitempty"`
 	VideoLayout          *map[string]interface{} `json:"VideoLayout,omitempty"`
+}
+
+func (params *CreateCompositionHookParams) SetAudioSources(AudioSources []string) *CreateCompositionHookParams {
+	params.AudioSources = &AudioSources
+	return params
+}
+func (params *CreateCompositionHookParams) SetAudioSourcesExcluded(AudioSourcesExcluded []string) *CreateCompositionHookParams {
+	params.AudioSourcesExcluded = &AudioSourcesExcluded
+	return params
+}
+func (params *CreateCompositionHookParams) SetEnabled(Enabled bool) *CreateCompositionHookParams {
+	params.Enabled = &Enabled
+	return params
+}
+func (params *CreateCompositionHookParams) SetFormat(Format string) *CreateCompositionHookParams {
+	params.Format = &Format
+	return params
+}
+func (params *CreateCompositionHookParams) SetFriendlyName(FriendlyName string) *CreateCompositionHookParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateCompositionHookParams) SetResolution(Resolution string) *CreateCompositionHookParams {
+	params.Resolution = &Resolution
+	return params
+}
+func (params *CreateCompositionHookParams) SetStatusCallback(StatusCallback string) *CreateCompositionHookParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateCompositionHookParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateCompositionHookParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *CreateCompositionHookParams) SetTrim(Trim bool) *CreateCompositionHookParams {
+	params.Trim = &Trim
+	return params
+}
+func (params *CreateCompositionHookParams) SetVideoLayout(VideoLayout map[string]interface{}) *CreateCompositionHookParams {
+	params.VideoLayout = &VideoLayout
+	return params
 }
 
 // CreateCompositionHook Method for CreateCompositionHook
@@ -231,6 +309,31 @@ type CreateCompositionSettingsParams struct {
 	FriendlyName      *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateCompositionSettingsParams) SetAwsCredentialsSid(AwsCredentialsSid string) *CreateCompositionSettingsParams {
+	params.AwsCredentialsSid = &AwsCredentialsSid
+	return params
+}
+func (params *CreateCompositionSettingsParams) SetAwsS3Url(AwsS3Url string) *CreateCompositionSettingsParams {
+	params.AwsS3Url = &AwsS3Url
+	return params
+}
+func (params *CreateCompositionSettingsParams) SetAwsStorageEnabled(AwsStorageEnabled bool) *CreateCompositionSettingsParams {
+	params.AwsStorageEnabled = &AwsStorageEnabled
+	return params
+}
+func (params *CreateCompositionSettingsParams) SetEncryptionEnabled(EncryptionEnabled bool) *CreateCompositionSettingsParams {
+	params.EncryptionEnabled = &EncryptionEnabled
+	return params
+}
+func (params *CreateCompositionSettingsParams) SetEncryptionKeySid(EncryptionKeySid string) *CreateCompositionSettingsParams {
+	params.EncryptionKeySid = &EncryptionKeySid
+	return params
+}
+func (params *CreateCompositionSettingsParams) SetFriendlyName(FriendlyName string) *CreateCompositionSettingsParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateCompositionSettings Method for CreateCompositionSettings
 //
 // param: optional nil or *CreateCompositionSettingsParams - Optional Parameters:
@@ -296,6 +399,31 @@ type CreateRecordingSettingsParams struct {
 	EncryptionEnabled *bool   `json:"EncryptionEnabled,omitempty"`
 	EncryptionKeySid  *string `json:"EncryptionKeySid,omitempty"`
 	FriendlyName      *string `json:"FriendlyName,omitempty"`
+}
+
+func (params *CreateRecordingSettingsParams) SetAwsCredentialsSid(AwsCredentialsSid string) *CreateRecordingSettingsParams {
+	params.AwsCredentialsSid = &AwsCredentialsSid
+	return params
+}
+func (params *CreateRecordingSettingsParams) SetAwsS3Url(AwsS3Url string) *CreateRecordingSettingsParams {
+	params.AwsS3Url = &AwsS3Url
+	return params
+}
+func (params *CreateRecordingSettingsParams) SetAwsStorageEnabled(AwsStorageEnabled bool) *CreateRecordingSettingsParams {
+	params.AwsStorageEnabled = &AwsStorageEnabled
+	return params
+}
+func (params *CreateRecordingSettingsParams) SetEncryptionEnabled(EncryptionEnabled bool) *CreateRecordingSettingsParams {
+	params.EncryptionEnabled = &EncryptionEnabled
+	return params
+}
+func (params *CreateRecordingSettingsParams) SetEncryptionKeySid(EncryptionKeySid string) *CreateRecordingSettingsParams {
+	params.EncryptionKeySid = &EncryptionKeySid
+	return params
+}
+func (params *CreateRecordingSettingsParams) SetFriendlyName(FriendlyName string) *CreateRecordingSettingsParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // CreateRecordingSettings Method for CreateRecordingSettings
@@ -367,6 +495,47 @@ type CreateRoomParams struct {
 	Type                        *string                 `json:"Type,omitempty"`
 	UniqueName                  *string                 `json:"UniqueName,omitempty"`
 	VideoCodecs                 *[]string               `json:"VideoCodecs,omitempty"`
+}
+
+func (params *CreateRoomParams) SetEnableTurn(EnableTurn bool) *CreateRoomParams {
+	params.EnableTurn = &EnableTurn
+	return params
+}
+func (params *CreateRoomParams) SetMaxParticipants(MaxParticipants int32) *CreateRoomParams {
+	params.MaxParticipants = &MaxParticipants
+	return params
+}
+func (params *CreateRoomParams) SetMediaRegion(MediaRegion string) *CreateRoomParams {
+	params.MediaRegion = &MediaRegion
+	return params
+}
+func (params *CreateRoomParams) SetRecordParticipantsOnConnect(RecordParticipantsOnConnect bool) *CreateRoomParams {
+	params.RecordParticipantsOnConnect = &RecordParticipantsOnConnect
+	return params
+}
+func (params *CreateRoomParams) SetRecordingRules(RecordingRules map[string]interface{}) *CreateRoomParams {
+	params.RecordingRules = &RecordingRules
+	return params
+}
+func (params *CreateRoomParams) SetStatusCallback(StatusCallback string) *CreateRoomParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateRoomParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateRoomParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *CreateRoomParams) SetType(Type string) *CreateRoomParams {
+	params.Type = &Type
+	return params
+}
+func (params *CreateRoomParams) SetUniqueName(UniqueName string) *CreateRoomParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+func (params *CreateRoomParams) SetVideoCodecs(VideoCodecs []string) *CreateRoomParams {
+	params.VideoCodecs = &VideoCodecs
+	return params
 }
 
 // CreateRoom Method for CreateRoom
@@ -907,6 +1076,27 @@ type ListCompositionParams struct {
 	PageSize          *int32     `json:"PageSize,omitempty"`
 }
 
+func (params *ListCompositionParams) SetStatus(Status string) *ListCompositionParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListCompositionParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListCompositionParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListCompositionParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListCompositionParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListCompositionParams) SetRoomSid(RoomSid string) *ListCompositionParams {
+	params.RoomSid = &RoomSid
+	return params
+}
+func (params *ListCompositionParams) SetPageSize(PageSize int32) *ListCompositionParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListComposition Method for ListComposition
 //
 // List of all Recording compositions.
@@ -968,6 +1158,27 @@ type ListCompositionHookParams struct {
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	FriendlyName      *string    `json:"FriendlyName,omitempty"`
 	PageSize          *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListCompositionHookParams) SetEnabled(Enabled bool) *ListCompositionHookParams {
+	params.Enabled = &Enabled
+	return params
+}
+func (params *ListCompositionHookParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListCompositionHookParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListCompositionHookParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListCompositionHookParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListCompositionHookParams) SetFriendlyName(FriendlyName string) *ListCompositionHookParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListCompositionHookParams) SetPageSize(PageSize int32) *ListCompositionHookParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListCompositionHook Method for ListCompositionHook
@@ -1033,6 +1244,35 @@ type ListRecordingParams struct {
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	MediaType         *string    `json:"MediaType,omitempty"`
 	PageSize          *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListRecordingParams) SetStatus(Status string) *ListRecordingParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListRecordingParams) SetSourceSid(SourceSid string) *ListRecordingParams {
+	params.SourceSid = &SourceSid
+	return params
+}
+func (params *ListRecordingParams) SetGroupingSid(GroupingSid []string) *ListRecordingParams {
+	params.GroupingSid = &GroupingSid
+	return params
+}
+func (params *ListRecordingParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListRecordingParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListRecordingParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListRecordingParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListRecordingParams) SetMediaType(MediaType string) *ListRecordingParams {
+	params.MediaType = &MediaType
+	return params
+}
+func (params *ListRecordingParams) SetPageSize(PageSize int32) *ListRecordingParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListRecording Method for ListRecording
@@ -1108,6 +1348,27 @@ type ListRoomParams struct {
 	PageSize          *int32     `json:"PageSize,omitempty"`
 }
 
+func (params *ListRoomParams) SetStatus(Status string) *ListRoomParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListRoomParams) SetUniqueName(UniqueName string) *ListRoomParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+func (params *ListRoomParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListRoomParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListRoomParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListRoomParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListRoomParams) SetPageSize(PageSize int32) *ListRoomParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListRoom Method for ListRoom
 //
 // param: optional nil or *ListRoomParams - Optional Parameters:
@@ -1167,6 +1428,27 @@ type ListRoomParticipantParams struct {
 	DateCreatedAfter  *time.Time `json:"DateCreatedAfter,omitempty"`
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	PageSize          *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListRoomParticipantParams) SetStatus(Status string) *ListRoomParticipantParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListRoomParticipantParams) SetIdentity(Identity string) *ListRoomParticipantParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *ListRoomParticipantParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListRoomParticipantParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListRoomParticipantParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListRoomParticipantParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListRoomParticipantParams) SetPageSize(PageSize int32) *ListRoomParticipantParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListRoomParticipant Method for ListRoomParticipant
@@ -1229,6 +1511,11 @@ type ListRoomParticipantPublishedTrackParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListRoomParticipantPublishedTrackParams) SetPageSize(PageSize int32) *ListRoomParticipantPublishedTrackParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListRoomParticipantPublishedTrack Method for ListRoomParticipantPublishedTrack
 //
 // Returns a list of tracks associated with a given Participant. Only &#x60;currently&#x60; Published Tracks are in the list resource.
@@ -1272,6 +1559,11 @@ func (c *DefaultApiService) ListRoomParticipantPublishedTrack(RoomSid string, Pa
 // ListRoomParticipantSubscribedTrackParams Optional parameters for the method 'ListRoomParticipantSubscribedTrack'
 type ListRoomParticipantSubscribedTrackParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListRoomParticipantSubscribedTrackParams) SetPageSize(PageSize int32) *ListRoomParticipantSubscribedTrackParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListRoomParticipantSubscribedTrack Method for ListRoomParticipantSubscribedTrack
@@ -1321,6 +1613,27 @@ type ListRoomRecordingParams struct {
 	DateCreatedAfter  *time.Time `json:"DateCreatedAfter,omitempty"`
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	PageSize          *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListRoomRecordingParams) SetStatus(Status string) *ListRoomRecordingParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListRoomRecordingParams) SetSourceSid(SourceSid string) *ListRoomRecordingParams {
+	params.SourceSid = &SourceSid
+	return params
+}
+func (params *ListRoomRecordingParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListRoomRecordingParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListRoomRecordingParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListRoomRecordingParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListRoomRecordingParams) SetPageSize(PageSize int32) *ListRoomRecordingParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListRoomRecording Method for ListRoomRecording
@@ -1390,6 +1703,47 @@ type UpdateCompositionHookParams struct {
 	StatusCallbackMethod *string                 `json:"StatusCallbackMethod,omitempty"`
 	Trim                 *bool                   `json:"Trim,omitempty"`
 	VideoLayout          *map[string]interface{} `json:"VideoLayout,omitempty"`
+}
+
+func (params *UpdateCompositionHookParams) SetAudioSources(AudioSources []string) *UpdateCompositionHookParams {
+	params.AudioSources = &AudioSources
+	return params
+}
+func (params *UpdateCompositionHookParams) SetAudioSourcesExcluded(AudioSourcesExcluded []string) *UpdateCompositionHookParams {
+	params.AudioSourcesExcluded = &AudioSourcesExcluded
+	return params
+}
+func (params *UpdateCompositionHookParams) SetEnabled(Enabled bool) *UpdateCompositionHookParams {
+	params.Enabled = &Enabled
+	return params
+}
+func (params *UpdateCompositionHookParams) SetFormat(Format string) *UpdateCompositionHookParams {
+	params.Format = &Format
+	return params
+}
+func (params *UpdateCompositionHookParams) SetFriendlyName(FriendlyName string) *UpdateCompositionHookParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateCompositionHookParams) SetResolution(Resolution string) *UpdateCompositionHookParams {
+	params.Resolution = &Resolution
+	return params
+}
+func (params *UpdateCompositionHookParams) SetStatusCallback(StatusCallback string) *UpdateCompositionHookParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *UpdateCompositionHookParams) SetStatusCallbackMethod(StatusCallbackMethod string) *UpdateCompositionHookParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *UpdateCompositionHookParams) SetTrim(Trim bool) *UpdateCompositionHookParams {
+	params.Trim = &Trim
+	return params
+}
+func (params *UpdateCompositionHookParams) SetVideoLayout(VideoLayout map[string]interface{}) *UpdateCompositionHookParams {
+	params.VideoLayout = &VideoLayout
+	return params
 }
 
 // UpdateCompositionHook Method for UpdateCompositionHook
@@ -1483,6 +1837,11 @@ type UpdateRoomParams struct {
 	Status *string `json:"Status,omitempty"`
 }
 
+func (params *UpdateRoomParams) SetStatus(Status string) *UpdateRoomParams {
+	params.Status = &Status
+	return params
+}
+
 // UpdateRoom Method for UpdateRoom
 //
 // param: Sid The SID of the Room resource to update.
@@ -1521,6 +1880,11 @@ func (c *DefaultApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*V
 // UpdateRoomParticipantParams Optional parameters for the method 'UpdateRoomParticipant'
 type UpdateRoomParticipantParams struct {
 	Status *string `json:"Status,omitempty"`
+}
+
+func (params *UpdateRoomParticipantParams) SetStatus(Status string) *UpdateRoomParticipantParams {
+	params.Status = &Status
+	return params
 }
 
 // UpdateRoomParticipant Method for UpdateRoomParticipant
@@ -1564,6 +1928,11 @@ func (c *DefaultApiService) UpdateRoomParticipant(RoomSid string, Sid string, pa
 // UpdateRoomParticipantSubscribeRuleParams Optional parameters for the method 'UpdateRoomParticipantSubscribeRule'
 type UpdateRoomParticipantSubscribeRuleParams struct {
 	Rules *map[string]interface{} `json:"Rules,omitempty"`
+}
+
+func (params *UpdateRoomParticipantSubscribeRuleParams) SetRules(Rules map[string]interface{}) *UpdateRoomParticipantSubscribeRuleParams {
+	params.Rules = &Rules
+	return params
 }
 
 // UpdateRoomParticipantSubscribeRule Method for UpdateRoomParticipantSubscribeRule
@@ -1615,6 +1984,11 @@ func (c *DefaultApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, P
 // UpdateRoomRecordingRuleParams Optional parameters for the method 'UpdateRoomRecordingRule'
 type UpdateRoomRecordingRuleParams struct {
 	Rules *map[string]interface{} `json:"Rules,omitempty"`
+}
+
+func (params *UpdateRoomRecordingRuleParams) SetRules(Rules map[string]interface{}) *UpdateRoomRecordingRuleParams {
+	params.Rules = &Rules
+	return params
 }
 
 // UpdateRoomRecordingRule Method for UpdateRoomRecordingRule

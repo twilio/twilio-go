@@ -37,6 +37,11 @@ type CreateAlphaSenderParams struct {
 	AlphaSender *string `json:"AlphaSender,omitempty"`
 }
 
+func (params *CreateAlphaSenderParams) SetAlphaSender(AlphaSender string) *CreateAlphaSenderParams {
+	params.AlphaSender = &AlphaSender
+	return params
+}
+
 // CreateAlphaSender Method for CreateAlphaSender
 //
 // param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under.
@@ -76,6 +81,15 @@ func (c *DefaultApiService) CreateAlphaSender(ServiceSid string, params *CreateA
 type CreateBrandRegistrationsParams struct {
 	A2pProfileBundleSid      *string `json:"A2pProfileBundleSid,omitempty"`
 	CustomerProfileBundleSid *string `json:"CustomerProfileBundleSid,omitempty"`
+}
+
+func (params *CreateBrandRegistrationsParams) SetA2pProfileBundleSid(A2pProfileBundleSid string) *CreateBrandRegistrationsParams {
+	params.A2pProfileBundleSid = &A2pProfileBundleSid
+	return params
+}
+func (params *CreateBrandRegistrationsParams) SetCustomerProfileBundleSid(CustomerProfileBundleSid string) *CreateBrandRegistrationsParams {
+	params.CustomerProfileBundleSid = &CustomerProfileBundleSid
+	return params
 }
 
 // CreateBrandRegistrations Method for CreateBrandRegistrations
@@ -121,6 +135,15 @@ type CreateExternalCampaignParams struct {
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 }
 
+func (params *CreateExternalCampaignParams) SetCampaignId(CampaignId string) *CreateExternalCampaignParams {
+	params.CampaignId = &CampaignId
+	return params
+}
+func (params *CreateExternalCampaignParams) SetMessagingServiceSid(MessagingServiceSid string) *CreateExternalCampaignParams {
+	params.MessagingServiceSid = &MessagingServiceSid
+	return params
+}
+
 // CreateExternalCampaign Method for CreateExternalCampaign
 //
 // param: optional nil or *CreateExternalCampaignParams - Optional Parameters:
@@ -161,6 +184,11 @@ func (c *DefaultApiService) CreateExternalCampaign(params *CreateExternalCampaig
 // CreatePhoneNumberParams Optional parameters for the method 'CreatePhoneNumber'
 type CreatePhoneNumberParams struct {
 	PhoneNumberSid *string `json:"PhoneNumberSid,omitempty"`
+}
+
+func (params *CreatePhoneNumberParams) SetPhoneNumberSid(PhoneNumberSid string) *CreatePhoneNumberParams {
+	params.PhoneNumberSid = &PhoneNumberSid
+	return params
 }
 
 // CreatePhoneNumber Method for CreatePhoneNumber
@@ -215,6 +243,67 @@ type CreateServiceParams struct {
 	SynchronousValidation     *bool   `json:"SynchronousValidation,omitempty"`
 	UseInboundWebhookOnNumber *bool   `json:"UseInboundWebhookOnNumber,omitempty"`
 	ValidityPeriod            *int32  `json:"ValidityPeriod,omitempty"`
+}
+
+func (params *CreateServiceParams) SetAreaCodeGeomatch(AreaCodeGeomatch bool) *CreateServiceParams {
+	params.AreaCodeGeomatch = &AreaCodeGeomatch
+	return params
+}
+func (params *CreateServiceParams) SetFallbackMethod(FallbackMethod string) *CreateServiceParams {
+	params.FallbackMethod = &FallbackMethod
+	return params
+}
+func (params *CreateServiceParams) SetFallbackToLongCode(FallbackToLongCode bool) *CreateServiceParams {
+	params.FallbackToLongCode = &FallbackToLongCode
+	return params
+}
+func (params *CreateServiceParams) SetFallbackUrl(FallbackUrl string) *CreateServiceParams {
+	params.FallbackUrl = &FallbackUrl
+	return params
+}
+func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateServiceParams) SetInboundMethod(InboundMethod string) *CreateServiceParams {
+	params.InboundMethod = &InboundMethod
+	return params
+}
+func (params *CreateServiceParams) SetInboundRequestUrl(InboundRequestUrl string) *CreateServiceParams {
+	params.InboundRequestUrl = &InboundRequestUrl
+	return params
+}
+func (params *CreateServiceParams) SetMmsConverter(MmsConverter bool) *CreateServiceParams {
+	params.MmsConverter = &MmsConverter
+	return params
+}
+func (params *CreateServiceParams) SetScanMessageContent(ScanMessageContent string) *CreateServiceParams {
+	params.ScanMessageContent = &ScanMessageContent
+	return params
+}
+func (params *CreateServiceParams) SetSmartEncoding(SmartEncoding bool) *CreateServiceParams {
+	params.SmartEncoding = &SmartEncoding
+	return params
+}
+func (params *CreateServiceParams) SetStatusCallback(StatusCallback string) *CreateServiceParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *CreateServiceParams) SetStickySender(StickySender bool) *CreateServiceParams {
+	params.StickySender = &StickySender
+	return params
+}
+func (params *CreateServiceParams) SetSynchronousValidation(SynchronousValidation bool) *CreateServiceParams {
+	params.SynchronousValidation = &SynchronousValidation
+	return params
+}
+func (params *CreateServiceParams) SetUseInboundWebhookOnNumber(UseInboundWebhookOnNumber bool) *CreateServiceParams {
+	params.UseInboundWebhookOnNumber = &UseInboundWebhookOnNumber
+	return params
+}
+func (params *CreateServiceParams) SetValidityPeriod(ValidityPeriod int32) *CreateServiceParams {
+	params.ValidityPeriod = &ValidityPeriod
+	return params
 }
 
 // CreateService Method for CreateService
@@ -324,6 +413,11 @@ type CreateShortCodeParams struct {
 	ShortCodeSid *string `json:"ShortCodeSid,omitempty"`
 }
 
+func (params *CreateShortCodeParams) SetShortCodeSid(ShortCodeSid string) *CreateShortCodeParams {
+	params.ShortCodeSid = &ShortCodeSid
+	return params
+}
+
 // CreateShortCode Method for CreateShortCode
 //
 // param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under.
@@ -367,6 +461,31 @@ type CreateUsAppToPersonParams struct {
 	HasEmbeddedPhone     *bool     `json:"HasEmbeddedPhone,omitempty"`
 	MessageSamples       *[]string `json:"MessageSamples,omitempty"`
 	UsAppToPersonUsecase *string   `json:"UsAppToPersonUsecase,omitempty"`
+}
+
+func (params *CreateUsAppToPersonParams) SetBrandRegistrationSid(BrandRegistrationSid string) *CreateUsAppToPersonParams {
+	params.BrandRegistrationSid = &BrandRegistrationSid
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetDescription(Description string) *CreateUsAppToPersonParams {
+	params.Description = &Description
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetHasEmbeddedLinks(HasEmbeddedLinks bool) *CreateUsAppToPersonParams {
+	params.HasEmbeddedLinks = &HasEmbeddedLinks
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetHasEmbeddedPhone(HasEmbeddedPhone bool) *CreateUsAppToPersonParams {
+	params.HasEmbeddedPhone = &HasEmbeddedPhone
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetMessageSamples(MessageSamples []string) *CreateUsAppToPersonParams {
+	params.MessageSamples = &MessageSamples
+	return params
+}
+func (params *CreateUsAppToPersonParams) SetUsAppToPersonUsecase(UsAppToPersonUsecase string) *CreateUsAppToPersonParams {
+	params.UsAppToPersonUsecase = &UsAppToPersonUsecase
+	return params
 }
 
 // CreateUsAppToPerson Method for CreateUsAppToPerson
@@ -605,6 +724,11 @@ type FetchDeactivationParams struct {
 	Date *string `json:"Date,omitempty"`
 }
 
+func (params *FetchDeactivationParams) SetDate(Date string) *FetchDeactivationParams {
+	params.Date = &Date
+	return params
+}
+
 // FetchDeactivation Method for FetchDeactivation
 //
 // Fetch a list of all United States numbers that have been deactivated on a specific date.
@@ -803,6 +927,11 @@ type ListAlphaSenderParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListAlphaSenderParams) SetPageSize(PageSize int32) *ListAlphaSenderParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListAlphaSender Method for ListAlphaSender
 //
 // param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
@@ -843,6 +972,11 @@ type ListBrandRegistrationsParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListBrandRegistrationsParams) SetPageSize(PageSize int32) *ListBrandRegistrationsParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListBrandRegistrations Method for ListBrandRegistrations
 //
 // param: optional nil or *ListBrandRegistrationsParams - Optional Parameters:
@@ -878,6 +1012,11 @@ func (c *DefaultApiService) ListBrandRegistrations(params *ListBrandRegistration
 // ListPhoneNumberParams Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListPhoneNumberParams) SetPageSize(PageSize int32) *ListPhoneNumberParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListPhoneNumber Method for ListPhoneNumber
@@ -920,6 +1059,11 @@ type ListServiceParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListService Method for ListService
 //
 // param: optional nil or *ListServiceParams - Optional Parameters:
@@ -955,6 +1099,11 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // ListShortCodeParams Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListShortCodeParams) SetPageSize(PageSize int32) *ListShortCodeParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListShortCode Method for ListShortCode
@@ -1009,6 +1158,67 @@ type UpdateServiceParams struct {
 	SynchronousValidation     *bool   `json:"SynchronousValidation,omitempty"`
 	UseInboundWebhookOnNumber *bool   `json:"UseInboundWebhookOnNumber,omitempty"`
 	ValidityPeriod            *int32  `json:"ValidityPeriod,omitempty"`
+}
+
+func (params *UpdateServiceParams) SetAreaCodeGeomatch(AreaCodeGeomatch bool) *UpdateServiceParams {
+	params.AreaCodeGeomatch = &AreaCodeGeomatch
+	return params
+}
+func (params *UpdateServiceParams) SetFallbackMethod(FallbackMethod string) *UpdateServiceParams {
+	params.FallbackMethod = &FallbackMethod
+	return params
+}
+func (params *UpdateServiceParams) SetFallbackToLongCode(FallbackToLongCode bool) *UpdateServiceParams {
+	params.FallbackToLongCode = &FallbackToLongCode
+	return params
+}
+func (params *UpdateServiceParams) SetFallbackUrl(FallbackUrl string) *UpdateServiceParams {
+	params.FallbackUrl = &FallbackUrl
+	return params
+}
+func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateServiceParams) SetInboundMethod(InboundMethod string) *UpdateServiceParams {
+	params.InboundMethod = &InboundMethod
+	return params
+}
+func (params *UpdateServiceParams) SetInboundRequestUrl(InboundRequestUrl string) *UpdateServiceParams {
+	params.InboundRequestUrl = &InboundRequestUrl
+	return params
+}
+func (params *UpdateServiceParams) SetMmsConverter(MmsConverter bool) *UpdateServiceParams {
+	params.MmsConverter = &MmsConverter
+	return params
+}
+func (params *UpdateServiceParams) SetScanMessageContent(ScanMessageContent string) *UpdateServiceParams {
+	params.ScanMessageContent = &ScanMessageContent
+	return params
+}
+func (params *UpdateServiceParams) SetSmartEncoding(SmartEncoding bool) *UpdateServiceParams {
+	params.SmartEncoding = &SmartEncoding
+	return params
+}
+func (params *UpdateServiceParams) SetStatusCallback(StatusCallback string) *UpdateServiceParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *UpdateServiceParams) SetStickySender(StickySender bool) *UpdateServiceParams {
+	params.StickySender = &StickySender
+	return params
+}
+func (params *UpdateServiceParams) SetSynchronousValidation(SynchronousValidation bool) *UpdateServiceParams {
+	params.SynchronousValidation = &SynchronousValidation
+	return params
+}
+func (params *UpdateServiceParams) SetUseInboundWebhookOnNumber(UseInboundWebhookOnNumber bool) *UpdateServiceParams {
+	params.UseInboundWebhookOnNumber = &UseInboundWebhookOnNumber
+	return params
+}
+func (params *UpdateServiceParams) SetValidityPeriod(ValidityPeriod int32) *UpdateServiceParams {
+	params.ValidityPeriod = &ValidityPeriod
+	return params
 }
 
 // UpdateService Method for UpdateService

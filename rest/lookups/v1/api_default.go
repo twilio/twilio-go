@@ -39,6 +39,23 @@ type FetchPhoneNumberParams struct {
 	AddOnsData  *map[string]interface{} `json:"AddOnsData,omitempty"`
 }
 
+func (params *FetchPhoneNumberParams) SetCountryCode(CountryCode string) *FetchPhoneNumberParams {
+	params.CountryCode = &CountryCode
+	return params
+}
+func (params *FetchPhoneNumberParams) SetType(Type []string) *FetchPhoneNumberParams {
+	params.Type = &Type
+	return params
+}
+func (params *FetchPhoneNumberParams) SetAddOns(AddOns []string) *FetchPhoneNumberParams {
+	params.AddOns = &AddOns
+	return params
+}
+func (params *FetchPhoneNumberParams) SetAddOnsData(AddOnsData map[string]interface{}) *FetchPhoneNumberParams {
+	params.AddOnsData = &AddOnsData
+	return params
+}
+
 // FetchPhoneNumber Method for FetchPhoneNumber
 //
 // param: PhoneNumber The phone number to lookup in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.

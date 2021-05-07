@@ -47,6 +47,47 @@ type CreateConversationParams struct {
 	UniqueName            *string    `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateConversationParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateConversationParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *CreateConversationParams) SetAttributes(Attributes string) *CreateConversationParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateConversationParams) SetDateCreated(DateCreated time.Time) *CreateConversationParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *CreateConversationParams) SetDateUpdated(DateUpdated time.Time) *CreateConversationParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *CreateConversationParams) SetFriendlyName(FriendlyName string) *CreateConversationParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateConversationParams) SetMessagingServiceSid(MessagingServiceSid string) *CreateConversationParams {
+	params.MessagingServiceSid = &MessagingServiceSid
+	return params
+}
+func (params *CreateConversationParams) SetState(State string) *CreateConversationParams {
+	params.State = &State
+	return params
+}
+func (params *CreateConversationParams) SetTimersClosed(TimersClosed string) *CreateConversationParams {
+	params.TimersClosed = &TimersClosed
+	return params
+}
+func (params *CreateConversationParams) SetTimersInactive(TimersInactive string) *CreateConversationParams {
+	params.TimersInactive = &TimersInactive
+	return params
+}
+func (params *CreateConversationParams) SetUniqueName(UniqueName string) *CreateConversationParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateConversation Method for CreateConversation
 //
 // Create a new conversation in your account&#39;s default service
@@ -138,6 +179,35 @@ type CreateConversationMessageParams struct {
 	MediaSid              *string    `json:"MediaSid,omitempty"`
 }
 
+func (params *CreateConversationMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateConversationMessageParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *CreateConversationMessageParams) SetAttributes(Attributes string) *CreateConversationMessageParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateConversationMessageParams) SetAuthor(Author string) *CreateConversationMessageParams {
+	params.Author = &Author
+	return params
+}
+func (params *CreateConversationMessageParams) SetBody(Body string) *CreateConversationMessageParams {
+	params.Body = &Body
+	return params
+}
+func (params *CreateConversationMessageParams) SetDateCreated(DateCreated time.Time) *CreateConversationMessageParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *CreateConversationMessageParams) SetDateUpdated(DateUpdated time.Time) *CreateConversationMessageParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *CreateConversationMessageParams) SetMediaSid(MediaSid string) *CreateConversationMessageParams {
+	params.MediaSid = &MediaSid
+	return params
+}
+
 // CreateConversationMessage Method for CreateConversationMessage
 //
 // Add a new message to the conversation
@@ -217,6 +287,43 @@ type CreateConversationParticipantParams struct {
 	MessagingBindingProjectedAddress *string    `json:"MessagingBinding.ProjectedAddress,omitempty"`
 	MessagingBindingProxyAddress     *string    `json:"MessagingBinding.ProxyAddress,omitempty"`
 	RoleSid                          *string    `json:"RoleSid,omitempty"`
+}
+
+func (params *CreateConversationParticipantParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateConversationParticipantParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *CreateConversationParticipantParams) SetAttributes(Attributes string) *CreateConversationParticipantParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateConversationParticipantParams) SetDateCreated(DateCreated time.Time) *CreateConversationParticipantParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *CreateConversationParticipantParams) SetDateUpdated(DateUpdated time.Time) *CreateConversationParticipantParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *CreateConversationParticipantParams) SetIdentity(Identity string) *CreateConversationParticipantParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateConversationParticipantParams) SetMessagingBindingAddress(MessagingBindingAddress string) *CreateConversationParticipantParams {
+	params.MessagingBindingAddress = &MessagingBindingAddress
+	return params
+}
+func (params *CreateConversationParticipantParams) SetMessagingBindingProjectedAddress(MessagingBindingProjectedAddress string) *CreateConversationParticipantParams {
+	params.MessagingBindingProjectedAddress = &MessagingBindingProjectedAddress
+	return params
+}
+func (params *CreateConversationParticipantParams) SetMessagingBindingProxyAddress(MessagingBindingProxyAddress string) *CreateConversationParticipantParams {
+	params.MessagingBindingProxyAddress = &MessagingBindingProxyAddress
+	return params
+}
+func (params *CreateConversationParticipantParams) SetRoleSid(RoleSid string) *CreateConversationParticipantParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // CreateConversationParticipant Method for CreateConversationParticipant
@@ -308,6 +415,35 @@ type CreateConversationScopedWebhookParams struct {
 	Target                   *string   `json:"Target,omitempty"`
 }
 
+func (params *CreateConversationScopedWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *CreateConversationScopedWebhookParams {
+	params.ConfigurationFilters = &ConfigurationFilters
+	return params
+}
+func (params *CreateConversationScopedWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *CreateConversationScopedWebhookParams {
+	params.ConfigurationFlowSid = &ConfigurationFlowSid
+	return params
+}
+func (params *CreateConversationScopedWebhookParams) SetConfigurationMethod(ConfigurationMethod string) *CreateConversationScopedWebhookParams {
+	params.ConfigurationMethod = &ConfigurationMethod
+	return params
+}
+func (params *CreateConversationScopedWebhookParams) SetConfigurationReplayAfter(ConfigurationReplayAfter int32) *CreateConversationScopedWebhookParams {
+	params.ConfigurationReplayAfter = &ConfigurationReplayAfter
+	return params
+}
+func (params *CreateConversationScopedWebhookParams) SetConfigurationTriggers(ConfigurationTriggers []string) *CreateConversationScopedWebhookParams {
+	params.ConfigurationTriggers = &ConfigurationTriggers
+	return params
+}
+func (params *CreateConversationScopedWebhookParams) SetConfigurationUrl(ConfigurationUrl string) *CreateConversationScopedWebhookParams {
+	params.ConfigurationUrl = &ConfigurationUrl
+	return params
+}
+func (params *CreateConversationScopedWebhookParams) SetTarget(Target string) *CreateConversationScopedWebhookParams {
+	params.Target = &Target
+	return params
+}
+
 // CreateConversationScopedWebhook Method for CreateConversationScopedWebhook
 //
 // Create a new webhook scoped to the conversation
@@ -386,6 +522,35 @@ type CreateCredentialParams struct {
 	Type         *string `json:"Type,omitempty"`
 }
 
+func (params *CreateCredentialParams) SetApiKey(ApiKey string) *CreateCredentialParams {
+	params.ApiKey = &ApiKey
+	return params
+}
+func (params *CreateCredentialParams) SetCertificate(Certificate string) *CreateCredentialParams {
+	params.Certificate = &Certificate
+	return params
+}
+func (params *CreateCredentialParams) SetFriendlyName(FriendlyName string) *CreateCredentialParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateCredentialParams) SetPrivateKey(PrivateKey string) *CreateCredentialParams {
+	params.PrivateKey = &PrivateKey
+	return params
+}
+func (params *CreateCredentialParams) SetSandbox(Sandbox bool) *CreateCredentialParams {
+	params.Sandbox = &Sandbox
+	return params
+}
+func (params *CreateCredentialParams) SetSecret(Secret string) *CreateCredentialParams {
+	params.Secret = &Secret
+	return params
+}
+func (params *CreateCredentialParams) SetType(Type string) *CreateCredentialParams {
+	params.Type = &Type
+	return params
+}
+
 // CreateCredential Method for CreateCredential
 //
 // Add a new push notification credential to your account
@@ -457,6 +622,19 @@ type CreateRoleParams struct {
 	Type         *string   `json:"Type,omitempty"`
 }
 
+func (params *CreateRoleParams) SetFriendlyName(FriendlyName string) *CreateRoleParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateRoleParams) SetPermission(Permission []string) *CreateRoleParams {
+	params.Permission = &Permission
+	return params
+}
+func (params *CreateRoleParams) SetType(Type string) *CreateRoleParams {
+	params.Type = &Type
+	return params
+}
+
 // CreateRole Method for CreateRole
 //
 // Create a new user role in your account&#39;s default service
@@ -506,6 +684,11 @@ type CreateServiceParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateService Method for CreateService
 //
 // Create a new conversation service on your account
@@ -552,6 +735,47 @@ type CreateServiceConversationParams struct {
 	TimersClosed          *string    `json:"Timers.Closed,omitempty"`
 	TimersInactive        *string    `json:"Timers.Inactive,omitempty"`
 	UniqueName            *string    `json:"UniqueName,omitempty"`
+}
+
+func (params *CreateServiceConversationParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateServiceConversationParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *CreateServiceConversationParams) SetAttributes(Attributes string) *CreateServiceConversationParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateServiceConversationParams) SetDateCreated(DateCreated time.Time) *CreateServiceConversationParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *CreateServiceConversationParams) SetDateUpdated(DateUpdated time.Time) *CreateServiceConversationParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *CreateServiceConversationParams) SetFriendlyName(FriendlyName string) *CreateServiceConversationParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateServiceConversationParams) SetMessagingServiceSid(MessagingServiceSid string) *CreateServiceConversationParams {
+	params.MessagingServiceSid = &MessagingServiceSid
+	return params
+}
+func (params *CreateServiceConversationParams) SetState(State string) *CreateServiceConversationParams {
+	params.State = &State
+	return params
+}
+func (params *CreateServiceConversationParams) SetTimersClosed(TimersClosed string) *CreateServiceConversationParams {
+	params.TimersClosed = &TimersClosed
+	return params
+}
+func (params *CreateServiceConversationParams) SetTimersInactive(TimersInactive string) *CreateServiceConversationParams {
+	params.TimersInactive = &TimersInactive
+	return params
+}
+func (params *CreateServiceConversationParams) SetUniqueName(UniqueName string) *CreateServiceConversationParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // CreateServiceConversation Method for CreateServiceConversation
@@ -648,6 +872,35 @@ type CreateServiceConversationMessageParams struct {
 	MediaSid              *string    `json:"MediaSid,omitempty"`
 }
 
+func (params *CreateServiceConversationMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateServiceConversationMessageParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *CreateServiceConversationMessageParams) SetAttributes(Attributes string) *CreateServiceConversationMessageParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateServiceConversationMessageParams) SetAuthor(Author string) *CreateServiceConversationMessageParams {
+	params.Author = &Author
+	return params
+}
+func (params *CreateServiceConversationMessageParams) SetBody(Body string) *CreateServiceConversationMessageParams {
+	params.Body = &Body
+	return params
+}
+func (params *CreateServiceConversationMessageParams) SetDateCreated(DateCreated time.Time) *CreateServiceConversationMessageParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *CreateServiceConversationMessageParams) SetDateUpdated(DateUpdated time.Time) *CreateServiceConversationMessageParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *CreateServiceConversationMessageParams) SetMediaSid(MediaSid string) *CreateServiceConversationMessageParams {
+	params.MediaSid = &MediaSid
+	return params
+}
+
 // CreateServiceConversationMessage Method for CreateServiceConversationMessage
 //
 // Add a new message to the conversation in a specific service
@@ -730,6 +983,43 @@ type CreateServiceConversationParticipantParams struct {
 	MessagingBindingProjectedAddress *string    `json:"MessagingBinding.ProjectedAddress,omitempty"`
 	MessagingBindingProxyAddress     *string    `json:"MessagingBinding.ProxyAddress,omitempty"`
 	RoleSid                          *string    `json:"RoleSid,omitempty"`
+}
+
+func (params *CreateServiceConversationParticipantParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateServiceConversationParticipantParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *CreateServiceConversationParticipantParams) SetAttributes(Attributes string) *CreateServiceConversationParticipantParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateServiceConversationParticipantParams) SetDateCreated(DateCreated time.Time) *CreateServiceConversationParticipantParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *CreateServiceConversationParticipantParams) SetDateUpdated(DateUpdated time.Time) *CreateServiceConversationParticipantParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *CreateServiceConversationParticipantParams) SetIdentity(Identity string) *CreateServiceConversationParticipantParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateServiceConversationParticipantParams) SetMessagingBindingAddress(MessagingBindingAddress string) *CreateServiceConversationParticipantParams {
+	params.MessagingBindingAddress = &MessagingBindingAddress
+	return params
+}
+func (params *CreateServiceConversationParticipantParams) SetMessagingBindingProjectedAddress(MessagingBindingProjectedAddress string) *CreateServiceConversationParticipantParams {
+	params.MessagingBindingProjectedAddress = &MessagingBindingProjectedAddress
+	return params
+}
+func (params *CreateServiceConversationParticipantParams) SetMessagingBindingProxyAddress(MessagingBindingProxyAddress string) *CreateServiceConversationParticipantParams {
+	params.MessagingBindingProxyAddress = &MessagingBindingProxyAddress
+	return params
+}
+func (params *CreateServiceConversationParticipantParams) SetRoleSid(RoleSid string) *CreateServiceConversationParticipantParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // CreateServiceConversationParticipant Method for CreateServiceConversationParticipant
@@ -824,6 +1114,35 @@ type CreateServiceConversationScopedWebhookParams struct {
 	Target                   *string   `json:"Target,omitempty"`
 }
 
+func (params *CreateServiceConversationScopedWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *CreateServiceConversationScopedWebhookParams {
+	params.ConfigurationFilters = &ConfigurationFilters
+	return params
+}
+func (params *CreateServiceConversationScopedWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *CreateServiceConversationScopedWebhookParams {
+	params.ConfigurationFlowSid = &ConfigurationFlowSid
+	return params
+}
+func (params *CreateServiceConversationScopedWebhookParams) SetConfigurationMethod(ConfigurationMethod string) *CreateServiceConversationScopedWebhookParams {
+	params.ConfigurationMethod = &ConfigurationMethod
+	return params
+}
+func (params *CreateServiceConversationScopedWebhookParams) SetConfigurationReplayAfter(ConfigurationReplayAfter int32) *CreateServiceConversationScopedWebhookParams {
+	params.ConfigurationReplayAfter = &ConfigurationReplayAfter
+	return params
+}
+func (params *CreateServiceConversationScopedWebhookParams) SetConfigurationTriggers(ConfigurationTriggers []string) *CreateServiceConversationScopedWebhookParams {
+	params.ConfigurationTriggers = &ConfigurationTriggers
+	return params
+}
+func (params *CreateServiceConversationScopedWebhookParams) SetConfigurationUrl(ConfigurationUrl string) *CreateServiceConversationScopedWebhookParams {
+	params.ConfigurationUrl = &ConfigurationUrl
+	return params
+}
+func (params *CreateServiceConversationScopedWebhookParams) SetTarget(Target string) *CreateServiceConversationScopedWebhookParams {
+	params.Target = &Target
+	return params
+}
+
 // CreateServiceConversationScopedWebhook Method for CreateServiceConversationScopedWebhook
 //
 // Create a new webhook scoped to the conversation in a specific service
@@ -901,6 +1220,19 @@ type CreateServiceRoleParams struct {
 	Type         *string   `json:"Type,omitempty"`
 }
 
+func (params *CreateServiceRoleParams) SetFriendlyName(FriendlyName string) *CreateServiceRoleParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateServiceRoleParams) SetPermission(Permission []string) *CreateServiceRoleParams {
+	params.Permission = &Permission
+	return params
+}
+func (params *CreateServiceRoleParams) SetType(Type string) *CreateServiceRoleParams {
+	params.Type = &Type
+	return params
+}
+
 // CreateServiceRole Method for CreateServiceRole
 //
 // Create a new user role in your service
@@ -955,6 +1287,27 @@ type CreateServiceUserParams struct {
 	FriendlyName          *string `json:"FriendlyName,omitempty"`
 	Identity              *string `json:"Identity,omitempty"`
 	RoleSid               *string `json:"RoleSid,omitempty"`
+}
+
+func (params *CreateServiceUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateServiceUserParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *CreateServiceUserParams) SetAttributes(Attributes string) *CreateServiceUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateServiceUserParams) SetFriendlyName(FriendlyName string) *CreateServiceUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateServiceUserParams) SetIdentity(Identity string) *CreateServiceUserParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateServiceUserParams) SetRoleSid(RoleSid string) *CreateServiceUserParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // CreateServiceUser Method for CreateServiceUser
@@ -1024,6 +1377,27 @@ type CreateUserParams struct {
 	RoleSid               *string `json:"RoleSid,omitempty"`
 }
 
+func (params *CreateUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateUserParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *CreateUserParams) SetAttributes(Attributes string) *CreateUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateUserParams) SetFriendlyName(FriendlyName string) *CreateUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateUserParams) SetIdentity(Identity string) *CreateUserParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateUserParams) SetRoleSid(RoleSid string) *CreateUserParams {
+	params.RoleSid = &RoleSid
+	return params
+}
+
 // CreateUser Method for CreateUser
 //
 // Add a new conversation user to your account&#39;s default service
@@ -1084,6 +1458,11 @@ type DeleteConversationParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
+func (params *DeleteConversationParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteConversationParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+
 // DeleteConversation Method for DeleteConversation
 //
 // Remove a conversation from your account&#39;s default service
@@ -1118,6 +1497,11 @@ func (c *DefaultApiService) DeleteConversation(Sid string, params *DeleteConvers
 // DeleteConversationMessageParams Optional parameters for the method 'DeleteConversationMessage'
 type DeleteConversationMessageParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+}
+
+func (params *DeleteConversationMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteConversationMessageParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
 }
 
 // DeleteConversationMessage Method for DeleteConversationMessage
@@ -1157,6 +1541,11 @@ func (c *DefaultApiService) DeleteConversationMessage(ConversationSid string, Si
 // DeleteConversationParticipantParams Optional parameters for the method 'DeleteConversationParticipant'
 type DeleteConversationParticipantParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+}
+
+func (params *DeleteConversationParticipantParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteConversationParticipantParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
 }
 
 // DeleteConversationParticipant Method for DeleteConversationParticipant
@@ -1319,6 +1708,11 @@ type DeleteServiceConversationParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
+func (params *DeleteServiceConversationParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteServiceConversationParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+
 // DeleteServiceConversation Method for DeleteServiceConversation
 //
 // Remove a conversation from your service
@@ -1356,6 +1750,11 @@ func (c *DefaultApiService) DeleteServiceConversation(ChatServiceSid string, Sid
 // DeleteServiceConversationMessageParams Optional parameters for the method 'DeleteServiceConversationMessage'
 type DeleteServiceConversationMessageParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+}
+
+func (params *DeleteServiceConversationMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteServiceConversationMessageParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
 }
 
 // DeleteServiceConversationMessage Method for DeleteServiceConversationMessage
@@ -1398,6 +1797,11 @@ func (c *DefaultApiService) DeleteServiceConversationMessage(ChatServiceSid stri
 // DeleteServiceConversationParticipantParams Optional parameters for the method 'DeleteServiceConversationParticipant'
 type DeleteServiceConversationParticipantParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+}
+
+func (params *DeleteServiceConversationParticipantParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteServiceConversationParticipantParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
 }
 
 // DeleteServiceConversationParticipant Method for DeleteServiceConversationParticipant
@@ -1497,6 +1901,11 @@ type DeleteServiceUserParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
+func (params *DeleteServiceUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteServiceUserParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+
 // DeleteServiceUser Method for DeleteServiceUser
 //
 // Remove a conversation user from your service
@@ -1534,6 +1943,11 @@ func (c *DefaultApiService) DeleteServiceUser(ChatServiceSid string, Sid string,
 // DeleteUserParams Optional parameters for the method 'DeleteUser'
 type DeleteUserParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+}
+
+func (params *DeleteUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteUserParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
 }
 
 // DeleteUser Method for DeleteUser
@@ -2227,6 +2641,11 @@ type ListConversationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListConversationParams) SetPageSize(PageSize int32) *ListConversationParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListConversation Method for ListConversation
 //
 // Retrieve a list of conversations in your account&#39;s default service
@@ -2264,6 +2683,11 @@ func (c *DefaultApiService) ListConversation(params *ListConversationParams) (*L
 // ListConversationMessageParams Optional parameters for the method 'ListConversationMessage'
 type ListConversationMessageParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListConversationMessageParams) SetPageSize(PageSize int32) *ListConversationMessageParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListConversationMessage Method for ListConversationMessage
@@ -2306,6 +2730,11 @@ func (c *DefaultApiService) ListConversationMessage(ConversationSid string, para
 // ListConversationMessageReceiptParams Optional parameters for the method 'ListConversationMessageReceipt'
 type ListConversationMessageReceiptParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListConversationMessageReceiptParams) SetPageSize(PageSize int32) *ListConversationMessageReceiptParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListConversationMessageReceipt Method for ListConversationMessageReceipt
@@ -2353,6 +2782,11 @@ type ListConversationParticipantParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListConversationParticipantParams) SetPageSize(PageSize int32) *ListConversationParticipantParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListConversationParticipant Method for ListConversationParticipant
 //
 // Retrieve a list of all participants of the conversation
@@ -2393,6 +2827,11 @@ func (c *DefaultApiService) ListConversationParticipant(ConversationSid string, 
 // ListConversationScopedWebhookParams Optional parameters for the method 'ListConversationScopedWebhook'
 type ListConversationScopedWebhookParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListConversationScopedWebhookParams) SetPageSize(PageSize int32) *ListConversationScopedWebhookParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListConversationScopedWebhook Method for ListConversationScopedWebhook
@@ -2437,6 +2876,11 @@ type ListCredentialParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListCredentialParams) SetPageSize(PageSize int32) *ListCredentialParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCredential Method for ListCredential
 //
 // Retrieve a list of all push notification credentials on your account
@@ -2474,6 +2918,11 @@ func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListC
 // ListRoleParams Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListRoleParams) SetPageSize(PageSize int32) *ListRoleParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListRole Method for ListRole
@@ -2515,6 +2964,11 @@ type ListServiceParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListService Method for ListService
 //
 // Retrieve a list of all conversation services on your account
@@ -2554,6 +3008,19 @@ type ListServiceBindingParams struct {
 	BindingType *[]string `json:"BindingType,omitempty"`
 	Identity    *[]string `json:"Identity,omitempty"`
 	PageSize    *int32    `json:"PageSize,omitempty"`
+}
+
+func (params *ListServiceBindingParams) SetBindingType(BindingType []string) *ListServiceBindingParams {
+	params.BindingType = &BindingType
+	return params
+}
+func (params *ListServiceBindingParams) SetIdentity(Identity []string) *ListServiceBindingParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *ListServiceBindingParams) SetPageSize(PageSize int32) *ListServiceBindingParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListServiceBinding Method for ListServiceBinding
@@ -2608,6 +3075,11 @@ type ListServiceConversationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListServiceConversationParams) SetPageSize(PageSize int32) *ListServiceConversationParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListServiceConversation Method for ListServiceConversation
 //
 // Retrieve a list of conversations in your service
@@ -2648,6 +3120,11 @@ func (c *DefaultApiService) ListServiceConversation(ChatServiceSid string, param
 // ListServiceConversationMessageParams Optional parameters for the method 'ListServiceConversationMessage'
 type ListServiceConversationMessageParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListServiceConversationMessageParams) SetPageSize(PageSize int32) *ListServiceConversationMessageParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListServiceConversationMessage Method for ListServiceConversationMessage
@@ -2693,6 +3170,11 @@ func (c *DefaultApiService) ListServiceConversationMessage(ChatServiceSid string
 // ListServiceConversationMessageReceiptParams Optional parameters for the method 'ListServiceConversationMessageReceipt'
 type ListServiceConversationMessageReceiptParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListServiceConversationMessageReceiptParams) SetPageSize(PageSize int32) *ListServiceConversationMessageReceiptParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListServiceConversationMessageReceipt Method for ListServiceConversationMessageReceipt
@@ -2743,6 +3225,11 @@ type ListServiceConversationParticipantParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListServiceConversationParticipantParams) SetPageSize(PageSize int32) *ListServiceConversationParticipantParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListServiceConversationParticipant Method for ListServiceConversationParticipant
 //
 // Retrieve a list of all participants of the conversation
@@ -2786,6 +3273,11 @@ func (c *DefaultApiService) ListServiceConversationParticipant(ChatServiceSid st
 // ListServiceConversationScopedWebhookParams Optional parameters for the method 'ListServiceConversationScopedWebhook'
 type ListServiceConversationScopedWebhookParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListServiceConversationScopedWebhookParams) SetPageSize(PageSize int32) *ListServiceConversationScopedWebhookParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListServiceConversationScopedWebhook Method for ListServiceConversationScopedWebhook
@@ -2833,6 +3325,11 @@ type ListServiceRoleParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListServiceRoleParams) SetPageSize(PageSize int32) *ListServiceRoleParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListServiceRole Method for ListServiceRole
 //
 // Retrieve a list of all user roles in your service
@@ -2873,6 +3370,11 @@ func (c *DefaultApiService) ListServiceRole(ChatServiceSid string, params *ListS
 // ListServiceUserParams Optional parameters for the method 'ListServiceUser'
 type ListServiceUserParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListServiceUserParams) SetPageSize(PageSize int32) *ListServiceUserParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListServiceUser Method for ListServiceUser
@@ -2917,6 +3419,11 @@ type ListUserParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListUserParams) SetPageSize(PageSize int32) *ListUserParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListUser Method for ListUser
 //
 // Retrieve a list of all conversation users in your account&#39;s default service
@@ -2957,6 +3464,23 @@ type UpdateConfigurationParams struct {
 	DefaultClosedTimer         *string `json:"DefaultClosedTimer,omitempty"`
 	DefaultInactiveTimer       *string `json:"DefaultInactiveTimer,omitempty"`
 	DefaultMessagingServiceSid *string `json:"DefaultMessagingServiceSid,omitempty"`
+}
+
+func (params *UpdateConfigurationParams) SetDefaultChatServiceSid(DefaultChatServiceSid string) *UpdateConfigurationParams {
+	params.DefaultChatServiceSid = &DefaultChatServiceSid
+	return params
+}
+func (params *UpdateConfigurationParams) SetDefaultClosedTimer(DefaultClosedTimer string) *UpdateConfigurationParams {
+	params.DefaultClosedTimer = &DefaultClosedTimer
+	return params
+}
+func (params *UpdateConfigurationParams) SetDefaultInactiveTimer(DefaultInactiveTimer string) *UpdateConfigurationParams {
+	params.DefaultInactiveTimer = &DefaultInactiveTimer
+	return params
+}
+func (params *UpdateConfigurationParams) SetDefaultMessagingServiceSid(DefaultMessagingServiceSid string) *UpdateConfigurationParams {
+	params.DefaultMessagingServiceSid = &DefaultMessagingServiceSid
+	return params
 }
 
 // UpdateConfiguration Method for UpdateConfiguration
@@ -3015,6 +3539,27 @@ type UpdateConfigurationWebhookParams struct {
 	PostWebhookUrl *string   `json:"PostWebhookUrl,omitempty"`
 	PreWebhookUrl  *string   `json:"PreWebhookUrl,omitempty"`
 	Target         *string   `json:"Target,omitempty"`
+}
+
+func (params *UpdateConfigurationWebhookParams) SetFilters(Filters []string) *UpdateConfigurationWebhookParams {
+	params.Filters = &Filters
+	return params
+}
+func (params *UpdateConfigurationWebhookParams) SetMethod(Method string) *UpdateConfigurationWebhookParams {
+	params.Method = &Method
+	return params
+}
+func (params *UpdateConfigurationWebhookParams) SetPostWebhookUrl(PostWebhookUrl string) *UpdateConfigurationWebhookParams {
+	params.PostWebhookUrl = &PostWebhookUrl
+	return params
+}
+func (params *UpdateConfigurationWebhookParams) SetPreWebhookUrl(PreWebhookUrl string) *UpdateConfigurationWebhookParams {
+	params.PreWebhookUrl = &PreWebhookUrl
+	return params
+}
+func (params *UpdateConfigurationWebhookParams) SetTarget(Target string) *UpdateConfigurationWebhookParams {
+	params.Target = &Target
+	return params
 }
 
 // UpdateConfigurationWebhook Method for UpdateConfigurationWebhook
@@ -3081,6 +3626,47 @@ type UpdateConversationParams struct {
 	TimersClosed          *string    `json:"Timers.Closed,omitempty"`
 	TimersInactive        *string    `json:"Timers.Inactive,omitempty"`
 	UniqueName            *string    `json:"UniqueName,omitempty"`
+}
+
+func (params *UpdateConversationParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateConversationParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *UpdateConversationParams) SetAttributes(Attributes string) *UpdateConversationParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateConversationParams) SetDateCreated(DateCreated time.Time) *UpdateConversationParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *UpdateConversationParams) SetDateUpdated(DateUpdated time.Time) *UpdateConversationParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *UpdateConversationParams) SetFriendlyName(FriendlyName string) *UpdateConversationParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateConversationParams) SetMessagingServiceSid(MessagingServiceSid string) *UpdateConversationParams {
+	params.MessagingServiceSid = &MessagingServiceSid
+	return params
+}
+func (params *UpdateConversationParams) SetState(State string) *UpdateConversationParams {
+	params.State = &State
+	return params
+}
+func (params *UpdateConversationParams) SetTimersClosed(TimersClosed string) *UpdateConversationParams {
+	params.TimersClosed = &TimersClosed
+	return params
+}
+func (params *UpdateConversationParams) SetTimersInactive(TimersInactive string) *UpdateConversationParams {
+	params.TimersInactive = &TimersInactive
+	return params
+}
+func (params *UpdateConversationParams) SetUniqueName(UniqueName string) *UpdateConversationParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // UpdateConversation Method for UpdateConversation
@@ -3176,6 +3762,31 @@ type UpdateConversationMessageParams struct {
 	DateUpdated           *time.Time `json:"DateUpdated,omitempty"`
 }
 
+func (params *UpdateConversationMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateConversationMessageParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *UpdateConversationMessageParams) SetAttributes(Attributes string) *UpdateConversationMessageParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateConversationMessageParams) SetAuthor(Author string) *UpdateConversationMessageParams {
+	params.Author = &Author
+	return params
+}
+func (params *UpdateConversationMessageParams) SetBody(Body string) *UpdateConversationMessageParams {
+	params.Body = &Body
+	return params
+}
+func (params *UpdateConversationMessageParams) SetDateCreated(DateCreated time.Time) *UpdateConversationMessageParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *UpdateConversationMessageParams) SetDateUpdated(DateUpdated time.Time) *UpdateConversationMessageParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+
 // UpdateConversationMessage Method for UpdateConversationMessage
 //
 // Update an existing message in the conversation
@@ -3254,6 +3865,47 @@ type UpdateConversationParticipantParams struct {
 	MessagingBindingProjectedAddress *string    `json:"MessagingBinding.ProjectedAddress,omitempty"`
 	MessagingBindingProxyAddress     *string    `json:"MessagingBinding.ProxyAddress,omitempty"`
 	RoleSid                          *string    `json:"RoleSid,omitempty"`
+}
+
+func (params *UpdateConversationParticipantParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateConversationParticipantParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *UpdateConversationParticipantParams) SetAttributes(Attributes string) *UpdateConversationParticipantParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateConversationParticipantParams) SetDateCreated(DateCreated time.Time) *UpdateConversationParticipantParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *UpdateConversationParticipantParams) SetDateUpdated(DateUpdated time.Time) *UpdateConversationParticipantParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *UpdateConversationParticipantParams) SetIdentity(Identity string) *UpdateConversationParticipantParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *UpdateConversationParticipantParams) SetLastReadMessageIndex(LastReadMessageIndex int32) *UpdateConversationParticipantParams {
+	params.LastReadMessageIndex = &LastReadMessageIndex
+	return params
+}
+func (params *UpdateConversationParticipantParams) SetLastReadTimestamp(LastReadTimestamp string) *UpdateConversationParticipantParams {
+	params.LastReadTimestamp = &LastReadTimestamp
+	return params
+}
+func (params *UpdateConversationParticipantParams) SetMessagingBindingProjectedAddress(MessagingBindingProjectedAddress string) *UpdateConversationParticipantParams {
+	params.MessagingBindingProjectedAddress = &MessagingBindingProjectedAddress
+	return params
+}
+func (params *UpdateConversationParticipantParams) SetMessagingBindingProxyAddress(MessagingBindingProxyAddress string) *UpdateConversationParticipantParams {
+	params.MessagingBindingProxyAddress = &MessagingBindingProxyAddress
+	return params
+}
+func (params *UpdateConversationParticipantParams) SetRoleSid(RoleSid string) *UpdateConversationParticipantParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // UpdateConversationParticipant Method for UpdateConversationParticipant
@@ -3351,6 +4003,27 @@ type UpdateConversationScopedWebhookParams struct {
 	ConfigurationUrl      *string   `json:"Configuration.Url,omitempty"`
 }
 
+func (params *UpdateConversationScopedWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *UpdateConversationScopedWebhookParams {
+	params.ConfigurationFilters = &ConfigurationFilters
+	return params
+}
+func (params *UpdateConversationScopedWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *UpdateConversationScopedWebhookParams {
+	params.ConfigurationFlowSid = &ConfigurationFlowSid
+	return params
+}
+func (params *UpdateConversationScopedWebhookParams) SetConfigurationMethod(ConfigurationMethod string) *UpdateConversationScopedWebhookParams {
+	params.ConfigurationMethod = &ConfigurationMethod
+	return params
+}
+func (params *UpdateConversationScopedWebhookParams) SetConfigurationTriggers(ConfigurationTriggers []string) *UpdateConversationScopedWebhookParams {
+	params.ConfigurationTriggers = &ConfigurationTriggers
+	return params
+}
+func (params *UpdateConversationScopedWebhookParams) SetConfigurationUrl(ConfigurationUrl string) *UpdateConversationScopedWebhookParams {
+	params.ConfigurationUrl = &ConfigurationUrl
+	return params
+}
+
 // UpdateConversationScopedWebhook Method for UpdateConversationScopedWebhook
 //
 // Update an existing conversation-scoped webhook
@@ -3420,6 +4093,35 @@ type UpdateCredentialParams struct {
 	Sandbox      *bool   `json:"Sandbox,omitempty"`
 	Secret       *string `json:"Secret,omitempty"`
 	Type         *string `json:"Type,omitempty"`
+}
+
+func (params *UpdateCredentialParams) SetApiKey(ApiKey string) *UpdateCredentialParams {
+	params.ApiKey = &ApiKey
+	return params
+}
+func (params *UpdateCredentialParams) SetCertificate(Certificate string) *UpdateCredentialParams {
+	params.Certificate = &Certificate
+	return params
+}
+func (params *UpdateCredentialParams) SetFriendlyName(FriendlyName string) *UpdateCredentialParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateCredentialParams) SetPrivateKey(PrivateKey string) *UpdateCredentialParams {
+	params.PrivateKey = &PrivateKey
+	return params
+}
+func (params *UpdateCredentialParams) SetSandbox(Sandbox bool) *UpdateCredentialParams {
+	params.Sandbox = &Sandbox
+	return params
+}
+func (params *UpdateCredentialParams) SetSecret(Secret string) *UpdateCredentialParams {
+	params.Secret = &Secret
+	return params
+}
+func (params *UpdateCredentialParams) SetType(Type string) *UpdateCredentialParams {
+	params.Type = &Type
+	return params
 }
 
 // UpdateCredential Method for UpdateCredential
@@ -3494,6 +4196,11 @@ type UpdateRoleParams struct {
 	Permission *[]string `json:"Permission,omitempty"`
 }
 
+func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRoleParams {
+	params.Permission = &Permission
+	return params
+}
+
 // UpdateRole Method for UpdateRole
 //
 // Update an existing user role in your account&#39;s default service
@@ -3537,6 +4244,23 @@ type UpdateServiceConfigurationParams struct {
 	DefaultConversationCreatorRoleSid *string `json:"DefaultConversationCreatorRoleSid,omitempty"`
 	DefaultConversationRoleSid        *string `json:"DefaultConversationRoleSid,omitempty"`
 	ReachabilityEnabled               *bool   `json:"ReachabilityEnabled,omitempty"`
+}
+
+func (params *UpdateServiceConfigurationParams) SetDefaultChatServiceRoleSid(DefaultChatServiceRoleSid string) *UpdateServiceConfigurationParams {
+	params.DefaultChatServiceRoleSid = &DefaultChatServiceRoleSid
+	return params
+}
+func (params *UpdateServiceConfigurationParams) SetDefaultConversationCreatorRoleSid(DefaultConversationCreatorRoleSid string) *UpdateServiceConfigurationParams {
+	params.DefaultConversationCreatorRoleSid = &DefaultConversationCreatorRoleSid
+	return params
+}
+func (params *UpdateServiceConfigurationParams) SetDefaultConversationRoleSid(DefaultConversationRoleSid string) *UpdateServiceConfigurationParams {
+	params.DefaultConversationRoleSid = &DefaultConversationRoleSid
+	return params
+}
+func (params *UpdateServiceConfigurationParams) SetReachabilityEnabled(ReachabilityEnabled bool) *UpdateServiceConfigurationParams {
+	params.ReachabilityEnabled = &ReachabilityEnabled
+	return params
 }
 
 // UpdateServiceConfiguration Method for UpdateServiceConfiguration
@@ -3603,6 +4327,47 @@ type UpdateServiceConversationParams struct {
 	TimersClosed          *string    `json:"Timers.Closed,omitempty"`
 	TimersInactive        *string    `json:"Timers.Inactive,omitempty"`
 	UniqueName            *string    `json:"UniqueName,omitempty"`
+}
+
+func (params *UpdateServiceConversationParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateServiceConversationParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *UpdateServiceConversationParams) SetAttributes(Attributes string) *UpdateServiceConversationParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateServiceConversationParams) SetDateCreated(DateCreated time.Time) *UpdateServiceConversationParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *UpdateServiceConversationParams) SetDateUpdated(DateUpdated time.Time) *UpdateServiceConversationParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *UpdateServiceConversationParams) SetFriendlyName(FriendlyName string) *UpdateServiceConversationParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateServiceConversationParams) SetMessagingServiceSid(MessagingServiceSid string) *UpdateServiceConversationParams {
+	params.MessagingServiceSid = &MessagingServiceSid
+	return params
+}
+func (params *UpdateServiceConversationParams) SetState(State string) *UpdateServiceConversationParams {
+	params.State = &State
+	return params
+}
+func (params *UpdateServiceConversationParams) SetTimersClosed(TimersClosed string) *UpdateServiceConversationParams {
+	params.TimersClosed = &TimersClosed
+	return params
+}
+func (params *UpdateServiceConversationParams) SetTimersInactive(TimersInactive string) *UpdateServiceConversationParams {
+	params.TimersInactive = &TimersInactive
+	return params
+}
+func (params *UpdateServiceConversationParams) SetUniqueName(UniqueName string) *UpdateServiceConversationParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // UpdateServiceConversation Method for UpdateServiceConversation
@@ -3701,6 +4466,31 @@ type UpdateServiceConversationMessageParams struct {
 	DateUpdated           *time.Time `json:"DateUpdated,omitempty"`
 }
 
+func (params *UpdateServiceConversationMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateServiceConversationMessageParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *UpdateServiceConversationMessageParams) SetAttributes(Attributes string) *UpdateServiceConversationMessageParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateServiceConversationMessageParams) SetAuthor(Author string) *UpdateServiceConversationMessageParams {
+	params.Author = &Author
+	return params
+}
+func (params *UpdateServiceConversationMessageParams) SetBody(Body string) *UpdateServiceConversationMessageParams {
+	params.Body = &Body
+	return params
+}
+func (params *UpdateServiceConversationMessageParams) SetDateCreated(DateCreated time.Time) *UpdateServiceConversationMessageParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *UpdateServiceConversationMessageParams) SetDateUpdated(DateUpdated time.Time) *UpdateServiceConversationMessageParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+
 // UpdateServiceConversationMessage Method for UpdateServiceConversationMessage
 //
 // Update an existing message in the conversation
@@ -3782,6 +4572,47 @@ type UpdateServiceConversationParticipantParams struct {
 	MessagingBindingProjectedAddress *string    `json:"MessagingBinding.ProjectedAddress,omitempty"`
 	MessagingBindingProxyAddress     *string    `json:"MessagingBinding.ProxyAddress,omitempty"`
 	RoleSid                          *string    `json:"RoleSid,omitempty"`
+}
+
+func (params *UpdateServiceConversationParticipantParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateServiceConversationParticipantParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *UpdateServiceConversationParticipantParams) SetAttributes(Attributes string) *UpdateServiceConversationParticipantParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateServiceConversationParticipantParams) SetDateCreated(DateCreated time.Time) *UpdateServiceConversationParticipantParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *UpdateServiceConversationParticipantParams) SetDateUpdated(DateUpdated time.Time) *UpdateServiceConversationParticipantParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *UpdateServiceConversationParticipantParams) SetIdentity(Identity string) *UpdateServiceConversationParticipantParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *UpdateServiceConversationParticipantParams) SetLastReadMessageIndex(LastReadMessageIndex int32) *UpdateServiceConversationParticipantParams {
+	params.LastReadMessageIndex = &LastReadMessageIndex
+	return params
+}
+func (params *UpdateServiceConversationParticipantParams) SetLastReadTimestamp(LastReadTimestamp string) *UpdateServiceConversationParticipantParams {
+	params.LastReadTimestamp = &LastReadTimestamp
+	return params
+}
+func (params *UpdateServiceConversationParticipantParams) SetMessagingBindingProjectedAddress(MessagingBindingProjectedAddress string) *UpdateServiceConversationParticipantParams {
+	params.MessagingBindingProjectedAddress = &MessagingBindingProjectedAddress
+	return params
+}
+func (params *UpdateServiceConversationParticipantParams) SetMessagingBindingProxyAddress(MessagingBindingProxyAddress string) *UpdateServiceConversationParticipantParams {
+	params.MessagingBindingProxyAddress = &MessagingBindingProxyAddress
+	return params
+}
+func (params *UpdateServiceConversationParticipantParams) SetRoleSid(RoleSid string) *UpdateServiceConversationParticipantParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // UpdateServiceConversationParticipant Method for UpdateServiceConversationParticipant
@@ -3882,6 +4713,27 @@ type UpdateServiceConversationScopedWebhookParams struct {
 	ConfigurationUrl      *string   `json:"Configuration.Url,omitempty"`
 }
 
+func (params *UpdateServiceConversationScopedWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *UpdateServiceConversationScopedWebhookParams {
+	params.ConfigurationFilters = &ConfigurationFilters
+	return params
+}
+func (params *UpdateServiceConversationScopedWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *UpdateServiceConversationScopedWebhookParams {
+	params.ConfigurationFlowSid = &ConfigurationFlowSid
+	return params
+}
+func (params *UpdateServiceConversationScopedWebhookParams) SetConfigurationMethod(ConfigurationMethod string) *UpdateServiceConversationScopedWebhookParams {
+	params.ConfigurationMethod = &ConfigurationMethod
+	return params
+}
+func (params *UpdateServiceConversationScopedWebhookParams) SetConfigurationTriggers(ConfigurationTriggers []string) *UpdateServiceConversationScopedWebhookParams {
+	params.ConfigurationTriggers = &ConfigurationTriggers
+	return params
+}
+func (params *UpdateServiceConversationScopedWebhookParams) SetConfigurationUrl(ConfigurationUrl string) *UpdateServiceConversationScopedWebhookParams {
+	params.ConfigurationUrl = &ConfigurationUrl
+	return params
+}
+
 // UpdateServiceConversationScopedWebhook Method for UpdateServiceConversationScopedWebhook
 //
 // Update an existing conversation-scoped webhook
@@ -3958,6 +4810,51 @@ type UpdateServiceNotificationParams struct {
 	RemovedFromConversationEnabled  *bool   `json:"RemovedFromConversation.Enabled,omitempty"`
 	RemovedFromConversationSound    *string `json:"RemovedFromConversation.Sound,omitempty"`
 	RemovedFromConversationTemplate *string `json:"RemovedFromConversation.Template,omitempty"`
+}
+
+func (params *UpdateServiceNotificationParams) SetAddedToConversationEnabled(AddedToConversationEnabled bool) *UpdateServiceNotificationParams {
+	params.AddedToConversationEnabled = &AddedToConversationEnabled
+	return params
+}
+func (params *UpdateServiceNotificationParams) SetAddedToConversationSound(AddedToConversationSound string) *UpdateServiceNotificationParams {
+	params.AddedToConversationSound = &AddedToConversationSound
+	return params
+}
+func (params *UpdateServiceNotificationParams) SetAddedToConversationTemplate(AddedToConversationTemplate string) *UpdateServiceNotificationParams {
+	params.AddedToConversationTemplate = &AddedToConversationTemplate
+	return params
+}
+func (params *UpdateServiceNotificationParams) SetLogEnabled(LogEnabled bool) *UpdateServiceNotificationParams {
+	params.LogEnabled = &LogEnabled
+	return params
+}
+func (params *UpdateServiceNotificationParams) SetNewMessageBadgeCountEnabled(NewMessageBadgeCountEnabled bool) *UpdateServiceNotificationParams {
+	params.NewMessageBadgeCountEnabled = &NewMessageBadgeCountEnabled
+	return params
+}
+func (params *UpdateServiceNotificationParams) SetNewMessageEnabled(NewMessageEnabled bool) *UpdateServiceNotificationParams {
+	params.NewMessageEnabled = &NewMessageEnabled
+	return params
+}
+func (params *UpdateServiceNotificationParams) SetNewMessageSound(NewMessageSound string) *UpdateServiceNotificationParams {
+	params.NewMessageSound = &NewMessageSound
+	return params
+}
+func (params *UpdateServiceNotificationParams) SetNewMessageTemplate(NewMessageTemplate string) *UpdateServiceNotificationParams {
+	params.NewMessageTemplate = &NewMessageTemplate
+	return params
+}
+func (params *UpdateServiceNotificationParams) SetRemovedFromConversationEnabled(RemovedFromConversationEnabled bool) *UpdateServiceNotificationParams {
+	params.RemovedFromConversationEnabled = &RemovedFromConversationEnabled
+	return params
+}
+func (params *UpdateServiceNotificationParams) SetRemovedFromConversationSound(RemovedFromConversationSound string) *UpdateServiceNotificationParams {
+	params.RemovedFromConversationSound = &RemovedFromConversationSound
+	return params
+}
+func (params *UpdateServiceNotificationParams) SetRemovedFromConversationTemplate(RemovedFromConversationTemplate string) *UpdateServiceNotificationParams {
+	params.RemovedFromConversationTemplate = &RemovedFromConversationTemplate
+	return params
 }
 
 // UpdateServiceNotification Method for UpdateServiceNotification
@@ -4052,6 +4949,11 @@ type UpdateServiceRoleParams struct {
 	Permission *[]string `json:"Permission,omitempty"`
 }
 
+func (params *UpdateServiceRoleParams) SetPermission(Permission []string) *UpdateServiceRoleParams {
+	params.Permission = &Permission
+	return params
+}
+
 // UpdateServiceRole Method for UpdateServiceRole
 //
 // Update an existing user role in your service
@@ -4098,6 +5000,23 @@ type UpdateServiceUserParams struct {
 	Attributes            *string `json:"Attributes,omitempty"`
 	FriendlyName          *string `json:"FriendlyName,omitempty"`
 	RoleSid               *string `json:"RoleSid,omitempty"`
+}
+
+func (params *UpdateServiceUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateServiceUserParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *UpdateServiceUserParams) SetAttributes(Attributes string) *UpdateServiceUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateServiceUserParams) SetFriendlyName(FriendlyName string) *UpdateServiceUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateServiceUserParams) SetRoleSid(RoleSid string) *UpdateServiceUserParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // UpdateServiceUser Method for UpdateServiceUser
@@ -4162,6 +5081,23 @@ type UpdateUserParams struct {
 	Attributes            *string `json:"Attributes,omitempty"`
 	FriendlyName          *string `json:"FriendlyName,omitempty"`
 	RoleSid               *string `json:"RoleSid,omitempty"`
+}
+
+func (params *UpdateUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateUserParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *UpdateUserParams) SetAttributes(Attributes string) *UpdateUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) *UpdateUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateUserParams) SetRoleSid(RoleSid string) *UpdateUserParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // UpdateUser Method for UpdateUser

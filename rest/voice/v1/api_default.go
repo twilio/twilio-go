@@ -46,6 +46,47 @@ type CreateByocTrunkParams struct {
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
 }
 
+func (params *CreateByocTrunkParams) SetCnamLookupEnabled(CnamLookupEnabled bool) *CreateByocTrunkParams {
+	params.CnamLookupEnabled = &CnamLookupEnabled
+	return params
+}
+func (params *CreateByocTrunkParams) SetConnectionPolicySid(ConnectionPolicySid string) *CreateByocTrunkParams {
+	params.ConnectionPolicySid = &ConnectionPolicySid
+	return params
+}
+func (params *CreateByocTrunkParams) SetFriendlyName(FriendlyName string) *CreateByocTrunkParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateByocTrunkParams) SetFromDomainSid(FromDomainSid string) *CreateByocTrunkParams {
+	params.FromDomainSid = &FromDomainSid
+	return params
+}
+func (params *CreateByocTrunkParams) SetStatusCallbackMethod(StatusCallbackMethod string) *CreateByocTrunkParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *CreateByocTrunkParams) SetStatusCallbackUrl(StatusCallbackUrl string) *CreateByocTrunkParams {
+	params.StatusCallbackUrl = &StatusCallbackUrl
+	return params
+}
+func (params *CreateByocTrunkParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *CreateByocTrunkParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
+	return params
+}
+func (params *CreateByocTrunkParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *CreateByocTrunkParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *CreateByocTrunkParams) SetVoiceMethod(VoiceMethod string) *CreateByocTrunkParams {
+	params.VoiceMethod = &VoiceMethod
+	return params
+}
+func (params *CreateByocTrunkParams) SetVoiceUrl(VoiceUrl string) *CreateByocTrunkParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
+}
+
 // CreateByocTrunk Method for CreateByocTrunk
 //
 // param: optional nil or *CreateByocTrunkParams - Optional Parameters:
@@ -128,6 +169,11 @@ type CreateConnectionPolicyParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateConnectionPolicyParams) SetFriendlyName(FriendlyName string) *CreateConnectionPolicyParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateConnectionPolicy Method for CreateConnectionPolicy
 //
 // param: optional nil or *CreateConnectionPolicyParams - Optional Parameters:
@@ -167,6 +213,27 @@ type CreateConnectionPolicyTargetParams struct {
 	Priority     *int32  `json:"Priority,omitempty"`
 	Target       *string `json:"Target,omitempty"`
 	Weight       *int32  `json:"Weight,omitempty"`
+}
+
+func (params *CreateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *CreateConnectionPolicyTargetParams {
+	params.Enabled = &Enabled
+	return params
+}
+func (params *CreateConnectionPolicyTargetParams) SetFriendlyName(FriendlyName string) *CreateConnectionPolicyTargetParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateConnectionPolicyTargetParams) SetPriority(Priority int32) *CreateConnectionPolicyTargetParams {
+	params.Priority = &Priority
+	return params
+}
+func (params *CreateConnectionPolicyTargetParams) SetTarget(Target string) *CreateConnectionPolicyTargetParams {
+	params.Target = &Target
+	return params
+}
+func (params *CreateConnectionPolicyTargetParams) SetWeight(Weight int32) *CreateConnectionPolicyTargetParams {
+	params.Weight = &Weight
+	return params
 }
 
 // CreateConnectionPolicyTarget Method for CreateConnectionPolicyTarget
@@ -229,6 +296,11 @@ type CreateDialingPermissionsCountryBulkUpdateParams struct {
 	UpdateRequest *string `json:"UpdateRequest,omitempty"`
 }
 
+func (params *CreateDialingPermissionsCountryBulkUpdateParams) SetUpdateRequest(UpdateRequest string) *CreateDialingPermissionsCountryBulkUpdateParams {
+	params.UpdateRequest = &UpdateRequest
+	return params
+}
+
 // CreateDialingPermissionsCountryBulkUpdate Method for CreateDialingPermissionsCountryBulkUpdate
 //
 // Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
@@ -268,6 +340,19 @@ type CreateIpRecordParams struct {
 	CidrPrefixLength *int32  `json:"CidrPrefixLength,omitempty"`
 	FriendlyName     *string `json:"FriendlyName,omitempty"`
 	IpAddress        *string `json:"IpAddress,omitempty"`
+}
+
+func (params *CreateIpRecordParams) SetCidrPrefixLength(CidrPrefixLength int32) *CreateIpRecordParams {
+	params.CidrPrefixLength = &CidrPrefixLength
+	return params
+}
+func (params *CreateIpRecordParams) SetFriendlyName(FriendlyName string) *CreateIpRecordParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateIpRecordParams) SetIpAddress(IpAddress string) *CreateIpRecordParams {
+	params.IpAddress = &IpAddress
+	return params
 }
 
 // CreateIpRecord Method for CreateIpRecord
@@ -316,6 +401,15 @@ func (c *DefaultApiService) CreateIpRecord(params *CreateIpRecordParams) (*Voice
 type CreateSourceIpMappingParams struct {
 	IpRecordSid  *string `json:"IpRecordSid,omitempty"`
 	SipDomainSid *string `json:"SipDomainSid,omitempty"`
+}
+
+func (params *CreateSourceIpMappingParams) SetIpRecordSid(IpRecordSid string) *CreateSourceIpMappingParams {
+	params.IpRecordSid = &IpRecordSid
+	return params
+}
+func (params *CreateSourceIpMappingParams) SetSipDomainSid(SipDomainSid string) *CreateSourceIpMappingParams {
+	params.SipDomainSid = &SipDomainSid
+	return params
 }
 
 // CreateSourceIpMapping Method for CreateSourceIpMapping
@@ -661,6 +755,11 @@ type ListByocTrunkParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListByocTrunkParams) SetPageSize(PageSize int32) *ListByocTrunkParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListByocTrunk Method for ListByocTrunk
 //
 // param: optional nil or *ListByocTrunkParams - Optional Parameters:
@@ -698,6 +797,11 @@ type ListConnectionPolicyParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListConnectionPolicyParams) SetPageSize(PageSize int32) *ListConnectionPolicyParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListConnectionPolicy Method for ListConnectionPolicy
 //
 // param: optional nil or *ListConnectionPolicyParams - Optional Parameters:
@@ -733,6 +837,11 @@ func (c *DefaultApiService) ListConnectionPolicy(params *ListConnectionPolicyPar
 // ListConnectionPolicyTargetParams Optional parameters for the method 'ListConnectionPolicyTarget'
 type ListConnectionPolicyTargetParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListConnectionPolicyTargetParams) SetPageSize(PageSize int32) *ListConnectionPolicyTargetParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListConnectionPolicyTarget Method for ListConnectionPolicyTarget
@@ -779,6 +888,35 @@ type ListDialingPermissionsCountryParams struct {
 	HighRiskSpecialNumbersEnabled   *bool   `json:"HighRiskSpecialNumbersEnabled,omitempty"`
 	HighRiskTollfraudNumbersEnabled *bool   `json:"HighRiskTollfraudNumbersEnabled,omitempty"`
 	PageSize                        *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListDialingPermissionsCountryParams) SetIsoCode(IsoCode string) *ListDialingPermissionsCountryParams {
+	params.IsoCode = &IsoCode
+	return params
+}
+func (params *ListDialingPermissionsCountryParams) SetContinent(Continent string) *ListDialingPermissionsCountryParams {
+	params.Continent = &Continent
+	return params
+}
+func (params *ListDialingPermissionsCountryParams) SetCountryCode(CountryCode string) *ListDialingPermissionsCountryParams {
+	params.CountryCode = &CountryCode
+	return params
+}
+func (params *ListDialingPermissionsCountryParams) SetLowRiskNumbersEnabled(LowRiskNumbersEnabled bool) *ListDialingPermissionsCountryParams {
+	params.LowRiskNumbersEnabled = &LowRiskNumbersEnabled
+	return params
+}
+func (params *ListDialingPermissionsCountryParams) SetHighRiskSpecialNumbersEnabled(HighRiskSpecialNumbersEnabled bool) *ListDialingPermissionsCountryParams {
+	params.HighRiskSpecialNumbersEnabled = &HighRiskSpecialNumbersEnabled
+	return params
+}
+func (params *ListDialingPermissionsCountryParams) SetHighRiskTollfraudNumbersEnabled(HighRiskTollfraudNumbersEnabled bool) *ListDialingPermissionsCountryParams {
+	params.HighRiskTollfraudNumbersEnabled = &HighRiskTollfraudNumbersEnabled
+	return params
+}
+func (params *ListDialingPermissionsCountryParams) SetPageSize(PageSize int32) *ListDialingPermissionsCountryParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListDialingPermissionsCountry Method for ListDialingPermissionsCountry
@@ -850,6 +988,11 @@ type ListDialingPermissionsHrsPrefixesParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListDialingPermissionsHrsPrefixesParams) SetPageSize(PageSize int32) *ListDialingPermissionsHrsPrefixesParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListDialingPermissionsHrsPrefixes Method for ListDialingPermissionsHrsPrefixes
 //
 // Fetch the high-risk special services prefixes from the country resource corresponding to the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
@@ -892,6 +1035,11 @@ type ListIpRecordParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListIpRecordParams) SetPageSize(PageSize int32) *ListIpRecordParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListIpRecord Method for ListIpRecord
 //
 // param: optional nil or *ListIpRecordParams - Optional Parameters:
@@ -927,6 +1075,11 @@ func (c *DefaultApiService) ListIpRecord(params *ListIpRecordParams) (*ListIpRec
 // ListSourceIpMappingParams Optional parameters for the method 'ListSourceIpMapping'
 type ListSourceIpMappingParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListSourceIpMappingParams) SetPageSize(PageSize int32) *ListSourceIpMappingParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSourceIpMapping Method for ListSourceIpMapping
@@ -973,6 +1126,47 @@ type UpdateByocTrunkParams struct {
 	VoiceFallbackUrl     *string `json:"VoiceFallbackUrl,omitempty"`
 	VoiceMethod          *string `json:"VoiceMethod,omitempty"`
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
+}
+
+func (params *UpdateByocTrunkParams) SetCnamLookupEnabled(CnamLookupEnabled bool) *UpdateByocTrunkParams {
+	params.CnamLookupEnabled = &CnamLookupEnabled
+	return params
+}
+func (params *UpdateByocTrunkParams) SetConnectionPolicySid(ConnectionPolicySid string) *UpdateByocTrunkParams {
+	params.ConnectionPolicySid = &ConnectionPolicySid
+	return params
+}
+func (params *UpdateByocTrunkParams) SetFriendlyName(FriendlyName string) *UpdateByocTrunkParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateByocTrunkParams) SetFromDomainSid(FromDomainSid string) *UpdateByocTrunkParams {
+	params.FromDomainSid = &FromDomainSid
+	return params
+}
+func (params *UpdateByocTrunkParams) SetStatusCallbackMethod(StatusCallbackMethod string) *UpdateByocTrunkParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *UpdateByocTrunkParams) SetStatusCallbackUrl(StatusCallbackUrl string) *UpdateByocTrunkParams {
+	params.StatusCallbackUrl = &StatusCallbackUrl
+	return params
+}
+func (params *UpdateByocTrunkParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *UpdateByocTrunkParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
+	return params
+}
+func (params *UpdateByocTrunkParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *UpdateByocTrunkParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *UpdateByocTrunkParams) SetVoiceMethod(VoiceMethod string) *UpdateByocTrunkParams {
+	params.VoiceMethod = &VoiceMethod
+	return params
+}
+func (params *UpdateByocTrunkParams) SetVoiceUrl(VoiceUrl string) *UpdateByocTrunkParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
 }
 
 // UpdateByocTrunk Method for UpdateByocTrunk
@@ -1060,6 +1254,11 @@ type UpdateConnectionPolicyParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateConnectionPolicyParams) SetFriendlyName(FriendlyName string) *UpdateConnectionPolicyParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // UpdateConnectionPolicy Method for UpdateConnectionPolicy
 //
 // param: Sid The unique string that we created to identify the Connection Policy resource to update.
@@ -1102,6 +1301,27 @@ type UpdateConnectionPolicyTargetParams struct {
 	Priority     *int32  `json:"Priority,omitempty"`
 	Target       *string `json:"Target,omitempty"`
 	Weight       *int32  `json:"Weight,omitempty"`
+}
+
+func (params *UpdateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *UpdateConnectionPolicyTargetParams {
+	params.Enabled = &Enabled
+	return params
+}
+func (params *UpdateConnectionPolicyTargetParams) SetFriendlyName(FriendlyName string) *UpdateConnectionPolicyTargetParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateConnectionPolicyTargetParams) SetPriority(Priority int32) *UpdateConnectionPolicyTargetParams {
+	params.Priority = &Priority
+	return params
+}
+func (params *UpdateConnectionPolicyTargetParams) SetTarget(Target string) *UpdateConnectionPolicyTargetParams {
+	params.Target = &Target
+	return params
+}
+func (params *UpdateConnectionPolicyTargetParams) SetWeight(Weight int32) *UpdateConnectionPolicyTargetParams {
+	params.Weight = &Weight
+	return params
 }
 
 // UpdateConnectionPolicyTarget Method for UpdateConnectionPolicyTarget
@@ -1167,6 +1387,11 @@ type UpdateDialingPermissionsSettingsParams struct {
 	DialingPermissionsInheritance *bool `json:"DialingPermissionsInheritance,omitempty"`
 }
 
+func (params *UpdateDialingPermissionsSettingsParams) SetDialingPermissionsInheritance(DialingPermissionsInheritance bool) *UpdateDialingPermissionsSettingsParams {
+	params.DialingPermissionsInheritance = &DialingPermissionsInheritance
+	return params
+}
+
 // UpdateDialingPermissionsSettings Method for UpdateDialingPermissionsSettings
 //
 // Update voice dialing permissions inheritance for the sub-account
@@ -1204,6 +1429,11 @@ func (c *DefaultApiService) UpdateDialingPermissionsSettings(params *UpdateDiali
 // UpdateIpRecordParams Optional parameters for the method 'UpdateIpRecord'
 type UpdateIpRecordParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+}
+
+func (params *UpdateIpRecordParams) SetFriendlyName(FriendlyName string) *UpdateIpRecordParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // UpdateIpRecord Method for UpdateIpRecord
@@ -1244,6 +1474,11 @@ func (c *DefaultApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordPar
 // UpdateSourceIpMappingParams Optional parameters for the method 'UpdateSourceIpMapping'
 type UpdateSourceIpMappingParams struct {
 	SipDomainSid *string `json:"SipDomainSid,omitempty"`
+}
+
+func (params *UpdateSourceIpMappingParams) SetSipDomainSid(SipDomainSid string) *UpdateSourceIpMappingParams {
+	params.SipDomainSid = &SipDomainSid
+	return params
 }
 
 // UpdateSourceIpMapping Method for UpdateSourceIpMapping

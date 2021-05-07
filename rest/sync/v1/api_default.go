@@ -39,6 +39,19 @@ type CreateDocumentParams struct {
 	UniqueName *string                 `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateDocumentParams) SetData(Data map[string]interface{}) *CreateDocumentParams {
+	params.Data = &Data
+	return params
+}
+func (params *CreateDocumentParams) SetTtl(Ttl int32) *CreateDocumentParams {
+	params.Ttl = &Ttl
+	return params
+}
+func (params *CreateDocumentParams) SetUniqueName(UniqueName string) *CreateDocumentParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateDocument Method for CreateDocument
 //
 // param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Document resource in.
@@ -99,6 +112,35 @@ type CreateServiceParams struct {
 	ReachabilityWebhooksEnabled   *bool   `json:"ReachabilityWebhooksEnabled,omitempty"`
 	WebhookUrl                    *string `json:"WebhookUrl,omitempty"`
 	WebhooksFromRestEnabled       *bool   `json:"WebhooksFromRestEnabled,omitempty"`
+}
+
+func (params *CreateServiceParams) SetAclEnabled(AclEnabled bool) *CreateServiceParams {
+	params.AclEnabled = &AclEnabled
+	return params
+}
+func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateServiceParams) SetReachabilityDebouncingEnabled(ReachabilityDebouncingEnabled bool) *CreateServiceParams {
+	params.ReachabilityDebouncingEnabled = &ReachabilityDebouncingEnabled
+	return params
+}
+func (params *CreateServiceParams) SetReachabilityDebouncingWindow(ReachabilityDebouncingWindow int32) *CreateServiceParams {
+	params.ReachabilityDebouncingWindow = &ReachabilityDebouncingWindow
+	return params
+}
+func (params *CreateServiceParams) SetReachabilityWebhooksEnabled(ReachabilityWebhooksEnabled bool) *CreateServiceParams {
+	params.ReachabilityWebhooksEnabled = &ReachabilityWebhooksEnabled
+	return params
+}
+func (params *CreateServiceParams) SetWebhookUrl(WebhookUrl string) *CreateServiceParams {
+	params.WebhookUrl = &WebhookUrl
+	return params
+}
+func (params *CreateServiceParams) SetWebhooksFromRestEnabled(WebhooksFromRestEnabled bool) *CreateServiceParams {
+	params.WebhooksFromRestEnabled = &WebhooksFromRestEnabled
+	return params
 }
 
 // CreateService Method for CreateService
@@ -168,6 +210,11 @@ type CreateStreamMessageParams struct {
 	Data *map[string]interface{} `json:"Data,omitempty"`
 }
 
+func (params *CreateStreamMessageParams) SetData(Data map[string]interface{}) *CreateStreamMessageParams {
+	params.Data = &Data
+	return params
+}
+
 // CreateStreamMessage Method for CreateStreamMessage
 //
 // Create a new Stream Message.
@@ -221,6 +268,19 @@ type CreateSyncListParams struct {
 	UniqueName    *string `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateSyncListParams) SetCollectionTtl(CollectionTtl int32) *CreateSyncListParams {
+	params.CollectionTtl = &CollectionTtl
+	return params
+}
+func (params *CreateSyncListParams) SetTtl(Ttl int32) *CreateSyncListParams {
+	params.Ttl = &Ttl
+	return params
+}
+func (params *CreateSyncListParams) SetUniqueName(UniqueName string) *CreateSyncListParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateSyncList Method for CreateSyncList
 //
 // param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Sync List in.
@@ -272,6 +332,23 @@ type CreateSyncListItemParams struct {
 	Data          *map[string]interface{} `json:"Data,omitempty"`
 	ItemTtl       *int32                  `json:"ItemTtl,omitempty"`
 	Ttl           *int32                  `json:"Ttl,omitempty"`
+}
+
+func (params *CreateSyncListItemParams) SetCollectionTtl(CollectionTtl int32) *CreateSyncListItemParams {
+	params.CollectionTtl = &CollectionTtl
+	return params
+}
+func (params *CreateSyncListItemParams) SetData(Data map[string]interface{}) *CreateSyncListItemParams {
+	params.Data = &Data
+	return params
+}
+func (params *CreateSyncListItemParams) SetItemTtl(ItemTtl int32) *CreateSyncListItemParams {
+	params.ItemTtl = &ItemTtl
+	return params
+}
+func (params *CreateSyncListItemParams) SetTtl(Ttl int32) *CreateSyncListItemParams {
+	params.Ttl = &Ttl
+	return params
 }
 
 // CreateSyncListItem Method for CreateSyncListItem
@@ -340,6 +417,19 @@ type CreateSyncMapParams struct {
 	UniqueName    *string `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateSyncMapParams) SetCollectionTtl(CollectionTtl int32) *CreateSyncMapParams {
+	params.CollectionTtl = &CollectionTtl
+	return params
+}
+func (params *CreateSyncMapParams) SetTtl(Ttl int32) *CreateSyncMapParams {
+	params.Ttl = &Ttl
+	return params
+}
+func (params *CreateSyncMapParams) SetUniqueName(UniqueName string) *CreateSyncMapParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateSyncMap Method for CreateSyncMap
 //
 // param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the Sync Map in.
@@ -392,6 +482,27 @@ type CreateSyncMapItemParams struct {
 	ItemTtl       *int32                  `json:"ItemTtl,omitempty"`
 	Key           *string                 `json:"Key,omitempty"`
 	Ttl           *int32                  `json:"Ttl,omitempty"`
+}
+
+func (params *CreateSyncMapItemParams) SetCollectionTtl(CollectionTtl int32) *CreateSyncMapItemParams {
+	params.CollectionTtl = &CollectionTtl
+	return params
+}
+func (params *CreateSyncMapItemParams) SetData(Data map[string]interface{}) *CreateSyncMapItemParams {
+	params.Data = &Data
+	return params
+}
+func (params *CreateSyncMapItemParams) SetItemTtl(ItemTtl int32) *CreateSyncMapItemParams {
+	params.ItemTtl = &ItemTtl
+	return params
+}
+func (params *CreateSyncMapItemParams) SetKey(Key string) *CreateSyncMapItemParams {
+	params.Key = &Key
+	return params
+}
+func (params *CreateSyncMapItemParams) SetTtl(Ttl int32) *CreateSyncMapItemParams {
+	params.Ttl = &Ttl
+	return params
 }
 
 // CreateSyncMapItem Method for CreateSyncMapItem
@@ -462,6 +573,15 @@ func (c *DefaultApiService) CreateSyncMapItem(ServiceSid string, MapSid string, 
 type CreateSyncStreamParams struct {
 	Ttl        *int32  `json:"Ttl,omitempty"`
 	UniqueName *string `json:"UniqueName,omitempty"`
+}
+
+func (params *CreateSyncStreamParams) SetTtl(Ttl int32) *CreateSyncStreamParams {
+	params.Ttl = &Ttl
+	return params
+}
+func (params *CreateSyncStreamParams) SetUniqueName(UniqueName string) *CreateSyncStreamParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // CreateSyncStream Method for CreateSyncStream
@@ -609,6 +729,11 @@ type DeleteSyncListItemParams struct {
 	IfMatch *string `json:"If-Match,omitempty"`
 }
 
+func (params *DeleteSyncListItemParams) SetIfMatch(IfMatch string) *DeleteSyncListItemParams {
+	params.IfMatch = &IfMatch
+	return params
+}
+
 // DeleteSyncListItem Method for DeleteSyncListItem
 //
 // param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to delete.
@@ -700,6 +825,11 @@ func (c *DefaultApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 // DeleteSyncMapItemParams Optional parameters for the method 'DeleteSyncMapItem'
 type DeleteSyncMapItemParams struct {
 	IfMatch *string `json:"If-Match,omitempty"`
+}
+
+func (params *DeleteSyncMapItemParams) SetIfMatch(IfMatch string) *DeleteSyncMapItemParams {
+	params.IfMatch = &IfMatch
+	return params
 }
 
 // DeleteSyncMapItem Method for DeleteSyncMapItem
@@ -1117,6 +1247,11 @@ type ListDocumentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListDocumentParams) SetPageSize(PageSize int32) *ListDocumentParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListDocument Method for ListDocument
 //
 // param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resources to read.
@@ -1155,6 +1290,11 @@ func (c *DefaultApiService) ListDocument(ServiceSid string, params *ListDocument
 // ListDocumentPermissionParams Optional parameters for the method 'ListDocumentPermission'
 type ListDocumentPermissionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListDocumentPermissionParams) SetPageSize(PageSize int32) *ListDocumentPermissionParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListDocumentPermission Method for ListDocumentPermission
@@ -1202,6 +1342,11 @@ type ListServiceParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListService Method for ListService
 //
 // param: optional nil or *ListServiceParams - Optional Parameters:
@@ -1237,6 +1382,11 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // ListSyncListParams Optional parameters for the method 'ListSyncList'
 type ListSyncListParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListSyncListParams) SetPageSize(PageSize int32) *ListSyncListParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSyncList Method for ListSyncList
@@ -1280,6 +1430,23 @@ type ListSyncListItemParams struct {
 	From     *string `json:"From,omitempty"`
 	Bounds   *string `json:"Bounds,omitempty"`
 	PageSize *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListSyncListItemParams) SetOrder(Order string) *ListSyncListItemParams {
+	params.Order = &Order
+	return params
+}
+func (params *ListSyncListItemParams) SetFrom(From string) *ListSyncListItemParams {
+	params.From = &From
+	return params
+}
+func (params *ListSyncListItemParams) SetBounds(Bounds string) *ListSyncListItemParams {
+	params.Bounds = &Bounds
+	return params
+}
+func (params *ListSyncListItemParams) SetPageSize(PageSize int32) *ListSyncListItemParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSyncListItem Method for ListSyncListItem
@@ -1340,6 +1507,11 @@ type ListSyncListPermissionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListSyncListPermissionParams) SetPageSize(PageSize int32) *ListSyncListPermissionParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSyncListPermission Method for ListSyncListPermission
 //
 // Retrieve a list of all Permissions applying to a Sync List.
@@ -1385,6 +1557,11 @@ type ListSyncMapParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListSyncMapParams) SetPageSize(PageSize int32) *ListSyncMapParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSyncMap Method for ListSyncMap
 //
 // param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resources to read.
@@ -1426,6 +1603,23 @@ type ListSyncMapItemParams struct {
 	From     *string `json:"From,omitempty"`
 	Bounds   *string `json:"Bounds,omitempty"`
 	PageSize *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListSyncMapItemParams) SetOrder(Order string) *ListSyncMapItemParams {
+	params.Order = &Order
+	return params
+}
+func (params *ListSyncMapItemParams) SetFrom(From string) *ListSyncMapItemParams {
+	params.From = &From
+	return params
+}
+func (params *ListSyncMapItemParams) SetBounds(Bounds string) *ListSyncMapItemParams {
+	params.Bounds = &Bounds
+	return params
+}
+func (params *ListSyncMapItemParams) SetPageSize(PageSize int32) *ListSyncMapItemParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSyncMapItem Method for ListSyncMapItem
@@ -1486,6 +1680,11 @@ type ListSyncMapPermissionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListSyncMapPermissionParams) SetPageSize(PageSize int32) *ListSyncMapPermissionParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSyncMapPermission Method for ListSyncMapPermission
 //
 // Retrieve a list of all Permissions applying to a Sync Map.
@@ -1531,6 +1730,11 @@ type ListSyncStreamParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListSyncStreamParams) SetPageSize(PageSize int32) *ListSyncStreamParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSyncStream Method for ListSyncStream
 //
 // Retrieve a list of all Streams in a Service Instance.
@@ -1573,6 +1777,19 @@ type UpdateDocumentParams struct {
 	IfMatch *string                 `json:"If-Match,omitempty"`
 	Data    *map[string]interface{} `json:"Data,omitempty"`
 	Ttl     *int32                  `json:"Ttl,omitempty"`
+}
+
+func (params *UpdateDocumentParams) SetIfMatch(IfMatch string) *UpdateDocumentParams {
+	params.IfMatch = &IfMatch
+	return params
+}
+func (params *UpdateDocumentParams) SetData(Data map[string]interface{}) *UpdateDocumentParams {
+	params.Data = &Data
+	return params
+}
+func (params *UpdateDocumentParams) SetTtl(Ttl int32) *UpdateDocumentParams {
+	params.Ttl = &Ttl
+	return params
 }
 
 // UpdateDocument Method for UpdateDocument
@@ -1637,6 +1854,19 @@ type UpdateDocumentPermissionParams struct {
 	Write  *bool `json:"Write,omitempty"`
 }
 
+func (params *UpdateDocumentPermissionParams) SetManage(Manage bool) *UpdateDocumentPermissionParams {
+	params.Manage = &Manage
+	return params
+}
+func (params *UpdateDocumentPermissionParams) SetRead(Read bool) *UpdateDocumentPermissionParams {
+	params.Read = &Read
+	return params
+}
+func (params *UpdateDocumentPermissionParams) SetWrite(Write bool) *UpdateDocumentPermissionParams {
+	params.Write = &Write
+	return params
+}
+
 // UpdateDocumentPermission Method for UpdateDocumentPermission
 //
 // Update an identity&#39;s access to a specific Sync Document.
@@ -1699,6 +1929,35 @@ type UpdateServiceParams struct {
 	ReachabilityWebhooksEnabled   *bool   `json:"ReachabilityWebhooksEnabled,omitempty"`
 	WebhookUrl                    *string `json:"WebhookUrl,omitempty"`
 	WebhooksFromRestEnabled       *bool   `json:"WebhooksFromRestEnabled,omitempty"`
+}
+
+func (params *UpdateServiceParams) SetAclEnabled(AclEnabled bool) *UpdateServiceParams {
+	params.AclEnabled = &AclEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateServiceParams) SetReachabilityDebouncingEnabled(ReachabilityDebouncingEnabled bool) *UpdateServiceParams {
+	params.ReachabilityDebouncingEnabled = &ReachabilityDebouncingEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetReachabilityDebouncingWindow(ReachabilityDebouncingWindow int32) *UpdateServiceParams {
+	params.ReachabilityDebouncingWindow = &ReachabilityDebouncingWindow
+	return params
+}
+func (params *UpdateServiceParams) SetReachabilityWebhooksEnabled(ReachabilityWebhooksEnabled bool) *UpdateServiceParams {
+	params.ReachabilityWebhooksEnabled = &ReachabilityWebhooksEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetWebhookUrl(WebhookUrl string) *UpdateServiceParams {
+	params.WebhookUrl = &WebhookUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksFromRestEnabled(WebhooksFromRestEnabled bool) *UpdateServiceParams {
+	params.WebhooksFromRestEnabled = &WebhooksFromRestEnabled
+	return params
 }
 
 // UpdateService Method for UpdateService
@@ -1772,6 +2031,15 @@ type UpdateSyncListParams struct {
 	Ttl           *int32 `json:"Ttl,omitempty"`
 }
 
+func (params *UpdateSyncListParams) SetCollectionTtl(CollectionTtl int32) *UpdateSyncListParams {
+	params.CollectionTtl = &CollectionTtl
+	return params
+}
+func (params *UpdateSyncListParams) SetTtl(Ttl int32) *UpdateSyncListParams {
+	params.Ttl = &Ttl
+	return params
+}
+
 // UpdateSyncList Method for UpdateSyncList
 //
 // param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to update.
@@ -1822,6 +2090,27 @@ type UpdateSyncListItemParams struct {
 	Data          *map[string]interface{} `json:"Data,omitempty"`
 	ItemTtl       *int32                  `json:"ItemTtl,omitempty"`
 	Ttl           *int32                  `json:"Ttl,omitempty"`
+}
+
+func (params *UpdateSyncListItemParams) SetIfMatch(IfMatch string) *UpdateSyncListItemParams {
+	params.IfMatch = &IfMatch
+	return params
+}
+func (params *UpdateSyncListItemParams) SetCollectionTtl(CollectionTtl int32) *UpdateSyncListItemParams {
+	params.CollectionTtl = &CollectionTtl
+	return params
+}
+func (params *UpdateSyncListItemParams) SetData(Data map[string]interface{}) *UpdateSyncListItemParams {
+	params.Data = &Data
+	return params
+}
+func (params *UpdateSyncListItemParams) SetItemTtl(ItemTtl int32) *UpdateSyncListItemParams {
+	params.ItemTtl = &ItemTtl
+	return params
+}
+func (params *UpdateSyncListItemParams) SetTtl(Ttl int32) *UpdateSyncListItemParams {
+	params.Ttl = &Ttl
+	return params
 }
 
 // UpdateSyncListItem Method for UpdateSyncListItem
@@ -1899,6 +2188,19 @@ type UpdateSyncListPermissionParams struct {
 	Write  *bool `json:"Write,omitempty"`
 }
 
+func (params *UpdateSyncListPermissionParams) SetManage(Manage bool) *UpdateSyncListPermissionParams {
+	params.Manage = &Manage
+	return params
+}
+func (params *UpdateSyncListPermissionParams) SetRead(Read bool) *UpdateSyncListPermissionParams {
+	params.Read = &Read
+	return params
+}
+func (params *UpdateSyncListPermissionParams) SetWrite(Write bool) *UpdateSyncListPermissionParams {
+	params.Write = &Write
+	return params
+}
+
 // UpdateSyncListPermission Method for UpdateSyncListPermission
 //
 // Update an identity&#39;s access to a specific Sync List.
@@ -1958,6 +2260,15 @@ type UpdateSyncMapParams struct {
 	Ttl           *int32 `json:"Ttl,omitempty"`
 }
 
+func (params *UpdateSyncMapParams) SetCollectionTtl(CollectionTtl int32) *UpdateSyncMapParams {
+	params.CollectionTtl = &CollectionTtl
+	return params
+}
+func (params *UpdateSyncMapParams) SetTtl(Ttl int32) *UpdateSyncMapParams {
+	params.Ttl = &Ttl
+	return params
+}
+
 // UpdateSyncMap Method for UpdateSyncMap
 //
 // param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resource to update.
@@ -2008,6 +2319,27 @@ type UpdateSyncMapItemParams struct {
 	Data          *map[string]interface{} `json:"Data,omitempty"`
 	ItemTtl       *int32                  `json:"ItemTtl,omitempty"`
 	Ttl           *int32                  `json:"Ttl,omitempty"`
+}
+
+func (params *UpdateSyncMapItemParams) SetIfMatch(IfMatch string) *UpdateSyncMapItemParams {
+	params.IfMatch = &IfMatch
+	return params
+}
+func (params *UpdateSyncMapItemParams) SetCollectionTtl(CollectionTtl int32) *UpdateSyncMapItemParams {
+	params.CollectionTtl = &CollectionTtl
+	return params
+}
+func (params *UpdateSyncMapItemParams) SetData(Data map[string]interface{}) *UpdateSyncMapItemParams {
+	params.Data = &Data
+	return params
+}
+func (params *UpdateSyncMapItemParams) SetItemTtl(ItemTtl int32) *UpdateSyncMapItemParams {
+	params.ItemTtl = &ItemTtl
+	return params
+}
+func (params *UpdateSyncMapItemParams) SetTtl(Ttl int32) *UpdateSyncMapItemParams {
+	params.Ttl = &Ttl
+	return params
 }
 
 // UpdateSyncMapItem Method for UpdateSyncMapItem
@@ -2085,6 +2417,19 @@ type UpdateSyncMapPermissionParams struct {
 	Write  *bool `json:"Write,omitempty"`
 }
 
+func (params *UpdateSyncMapPermissionParams) SetManage(Manage bool) *UpdateSyncMapPermissionParams {
+	params.Manage = &Manage
+	return params
+}
+func (params *UpdateSyncMapPermissionParams) SetRead(Read bool) *UpdateSyncMapPermissionParams {
+	params.Read = &Read
+	return params
+}
+func (params *UpdateSyncMapPermissionParams) SetWrite(Write bool) *UpdateSyncMapPermissionParams {
+	params.Write = &Write
+	return params
+}
+
 // UpdateSyncMapPermission Method for UpdateSyncMapPermission
 //
 // Update an identity&#39;s access to a specific Sync Map.
@@ -2141,6 +2486,11 @@ func (c *DefaultApiService) UpdateSyncMapPermission(ServiceSid string, MapSid st
 // UpdateSyncStreamParams Optional parameters for the method 'UpdateSyncStream'
 type UpdateSyncStreamParams struct {
 	Ttl *int32 `json:"Ttl,omitempty"`
+}
+
+func (params *UpdateSyncStreamParams) SetTtl(Ttl int32) *UpdateSyncStreamParams {
+	params.Ttl = &Ttl
+	return params
 }
 
 // UpdateSyncStream Method for UpdateSyncStream

@@ -43,6 +43,35 @@ type CreateBindingParams struct {
 	Tag                         *[]string `json:"Tag,omitempty"`
 }
 
+func (params *CreateBindingParams) SetAddress(Address string) *CreateBindingParams {
+	params.Address = &Address
+	return params
+}
+func (params *CreateBindingParams) SetBindingType(BindingType string) *CreateBindingParams {
+	params.BindingType = &BindingType
+	return params
+}
+func (params *CreateBindingParams) SetCredentialSid(CredentialSid string) *CreateBindingParams {
+	params.CredentialSid = &CredentialSid
+	return params
+}
+func (params *CreateBindingParams) SetEndpoint(Endpoint string) *CreateBindingParams {
+	params.Endpoint = &Endpoint
+	return params
+}
+func (params *CreateBindingParams) SetIdentity(Identity string) *CreateBindingParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateBindingParams) SetNotificationProtocolVersion(NotificationProtocolVersion string) *CreateBindingParams {
+	params.NotificationProtocolVersion = &NotificationProtocolVersion
+	return params
+}
+func (params *CreateBindingParams) SetTag(Tag []string) *CreateBindingParams {
+	params.Tag = &Tag
+	return params
+}
+
 // CreateBinding Method for CreateBinding
 //
 // param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to create the resource under.
@@ -117,6 +146,35 @@ type CreateCredentialParams struct {
 	Sandbox      *bool   `json:"Sandbox,omitempty"`
 	Secret       *string `json:"Secret,omitempty"`
 	Type         *string `json:"Type,omitempty"`
+}
+
+func (params *CreateCredentialParams) SetApiKey(ApiKey string) *CreateCredentialParams {
+	params.ApiKey = &ApiKey
+	return params
+}
+func (params *CreateCredentialParams) SetCertificate(Certificate string) *CreateCredentialParams {
+	params.Certificate = &Certificate
+	return params
+}
+func (params *CreateCredentialParams) SetFriendlyName(FriendlyName string) *CreateCredentialParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateCredentialParams) SetPrivateKey(PrivateKey string) *CreateCredentialParams {
+	params.PrivateKey = &PrivateKey
+	return params
+}
+func (params *CreateCredentialParams) SetSandbox(Sandbox bool) *CreateCredentialParams {
+	params.Sandbox = &Sandbox
+	return params
+}
+func (params *CreateCredentialParams) SetSecret(Secret string) *CreateCredentialParams {
+	params.Secret = &Secret
+	return params
+}
+func (params *CreateCredentialParams) SetType(Type string) *CreateCredentialParams {
+	params.Type = &Type
+	return params
 }
 
 // CreateCredential Method for CreateCredential
@@ -201,6 +259,79 @@ type CreateNotificationParams struct {
 	Title               *string                 `json:"Title,omitempty"`
 	ToBinding           *[]string               `json:"ToBinding,omitempty"`
 	Ttl                 *int32                  `json:"Ttl,omitempty"`
+}
+
+func (params *CreateNotificationParams) SetAction(Action string) *CreateNotificationParams {
+	params.Action = &Action
+	return params
+}
+func (params *CreateNotificationParams) SetAlexa(Alexa map[string]interface{}) *CreateNotificationParams {
+	params.Alexa = &Alexa
+	return params
+}
+func (params *CreateNotificationParams) SetApn(Apn map[string]interface{}) *CreateNotificationParams {
+	params.Apn = &Apn
+	return params
+}
+func (params *CreateNotificationParams) SetBody(Body string) *CreateNotificationParams {
+	params.Body = &Body
+	return params
+}
+func (params *CreateNotificationParams) SetData(Data map[string]interface{}) *CreateNotificationParams {
+	params.Data = &Data
+	return params
+}
+func (params *CreateNotificationParams) SetDeliveryCallbackUrl(DeliveryCallbackUrl string) *CreateNotificationParams {
+	params.DeliveryCallbackUrl = &DeliveryCallbackUrl
+	return params
+}
+func (params *CreateNotificationParams) SetFacebookMessenger(FacebookMessenger map[string]interface{}) *CreateNotificationParams {
+	params.FacebookMessenger = &FacebookMessenger
+	return params
+}
+func (params *CreateNotificationParams) SetFcm(Fcm map[string]interface{}) *CreateNotificationParams {
+	params.Fcm = &Fcm
+	return params
+}
+func (params *CreateNotificationParams) SetGcm(Gcm map[string]interface{}) *CreateNotificationParams {
+	params.Gcm = &Gcm
+	return params
+}
+func (params *CreateNotificationParams) SetIdentity(Identity []string) *CreateNotificationParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateNotificationParams) SetPriority(Priority string) *CreateNotificationParams {
+	params.Priority = &Priority
+	return params
+}
+func (params *CreateNotificationParams) SetSegment(Segment []string) *CreateNotificationParams {
+	params.Segment = &Segment
+	return params
+}
+func (params *CreateNotificationParams) SetSms(Sms map[string]interface{}) *CreateNotificationParams {
+	params.Sms = &Sms
+	return params
+}
+func (params *CreateNotificationParams) SetSound(Sound string) *CreateNotificationParams {
+	params.Sound = &Sound
+	return params
+}
+func (params *CreateNotificationParams) SetTag(Tag []string) *CreateNotificationParams {
+	params.Tag = &Tag
+	return params
+}
+func (params *CreateNotificationParams) SetTitle(Title string) *CreateNotificationParams {
+	params.Title = &Title
+	return params
+}
+func (params *CreateNotificationParams) SetToBinding(ToBinding []string) *CreateNotificationParams {
+	params.ToBinding = &ToBinding
+	return params
+}
+func (params *CreateNotificationParams) SetTtl(Ttl int32) *CreateNotificationParams {
+	params.Ttl = &Ttl
+	return params
 }
 
 // CreateNotification Method for CreateNotification
@@ -381,6 +512,63 @@ type CreateServiceParams struct {
 	GcmCredentialSid                        *string `json:"GcmCredentialSid,omitempty"`
 	LogEnabled                              *bool   `json:"LogEnabled,omitempty"`
 	MessagingServiceSid                     *string `json:"MessagingServiceSid,omitempty"`
+}
+
+func (params *CreateServiceParams) SetAlexaSkillId(AlexaSkillId string) *CreateServiceParams {
+	params.AlexaSkillId = &AlexaSkillId
+	return params
+}
+func (params *CreateServiceParams) SetApnCredentialSid(ApnCredentialSid string) *CreateServiceParams {
+	params.ApnCredentialSid = &ApnCredentialSid
+	return params
+}
+func (params *CreateServiceParams) SetDefaultAlexaNotificationProtocolVersion(DefaultAlexaNotificationProtocolVersion string) *CreateServiceParams {
+	params.DefaultAlexaNotificationProtocolVersion = &DefaultAlexaNotificationProtocolVersion
+	return params
+}
+func (params *CreateServiceParams) SetDefaultApnNotificationProtocolVersion(DefaultApnNotificationProtocolVersion string) *CreateServiceParams {
+	params.DefaultApnNotificationProtocolVersion = &DefaultApnNotificationProtocolVersion
+	return params
+}
+func (params *CreateServiceParams) SetDefaultFcmNotificationProtocolVersion(DefaultFcmNotificationProtocolVersion string) *CreateServiceParams {
+	params.DefaultFcmNotificationProtocolVersion = &DefaultFcmNotificationProtocolVersion
+	return params
+}
+func (params *CreateServiceParams) SetDefaultGcmNotificationProtocolVersion(DefaultGcmNotificationProtocolVersion string) *CreateServiceParams {
+	params.DefaultGcmNotificationProtocolVersion = &DefaultGcmNotificationProtocolVersion
+	return params
+}
+func (params *CreateServiceParams) SetDeliveryCallbackEnabled(DeliveryCallbackEnabled bool) *CreateServiceParams {
+	params.DeliveryCallbackEnabled = &DeliveryCallbackEnabled
+	return params
+}
+func (params *CreateServiceParams) SetDeliveryCallbackUrl(DeliveryCallbackUrl string) *CreateServiceParams {
+	params.DeliveryCallbackUrl = &DeliveryCallbackUrl
+	return params
+}
+func (params *CreateServiceParams) SetFacebookMessengerPageId(FacebookMessengerPageId string) *CreateServiceParams {
+	params.FacebookMessengerPageId = &FacebookMessengerPageId
+	return params
+}
+func (params *CreateServiceParams) SetFcmCredentialSid(FcmCredentialSid string) *CreateServiceParams {
+	params.FcmCredentialSid = &FcmCredentialSid
+	return params
+}
+func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateServiceParams) SetGcmCredentialSid(GcmCredentialSid string) *CreateServiceParams {
+	params.GcmCredentialSid = &GcmCredentialSid
+	return params
+}
+func (params *CreateServiceParams) SetLogEnabled(LogEnabled bool) *CreateServiceParams {
+	params.LogEnabled = &LogEnabled
+	return params
+}
+func (params *CreateServiceParams) SetMessagingServiceSid(MessagingServiceSid string) *CreateServiceParams {
+	params.MessagingServiceSid = &MessagingServiceSid
+	return params
 }
 
 // CreateService Method for CreateService
@@ -639,6 +827,27 @@ type ListBindingParams struct {
 	PageSize  *int32    `json:"PageSize,omitempty"`
 }
 
+func (params *ListBindingParams) SetStartDate(StartDate string) *ListBindingParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListBindingParams) SetEndDate(EndDate string) *ListBindingParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListBindingParams) SetIdentity(Identity []string) *ListBindingParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *ListBindingParams) SetTag(Tag []string) *ListBindingParams {
+	params.Tag = &Tag
+	return params
+}
+func (params *ListBindingParams) SetPageSize(PageSize int32) *ListBindingParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListBinding Method for ListBinding
 //
 // param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to read the resource from.
@@ -699,6 +908,11 @@ type ListCredentialParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListCredentialParams) SetPageSize(PageSize int32) *ListCredentialParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCredential Method for ListCredential
 //
 // param: optional nil or *ListCredentialParams - Optional Parameters:
@@ -735,6 +949,15 @@ func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListC
 type ListServiceParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	PageSize     *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListServiceParams) SetFriendlyName(FriendlyName string) *ListServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListService Method for ListService
@@ -782,6 +1005,31 @@ type UpdateCredentialParams struct {
 	PrivateKey   *string `json:"PrivateKey,omitempty"`
 	Sandbox      *bool   `json:"Sandbox,omitempty"`
 	Secret       *string `json:"Secret,omitempty"`
+}
+
+func (params *UpdateCredentialParams) SetApiKey(ApiKey string) *UpdateCredentialParams {
+	params.ApiKey = &ApiKey
+	return params
+}
+func (params *UpdateCredentialParams) SetCertificate(Certificate string) *UpdateCredentialParams {
+	params.Certificate = &Certificate
+	return params
+}
+func (params *UpdateCredentialParams) SetFriendlyName(FriendlyName string) *UpdateCredentialParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateCredentialParams) SetPrivateKey(PrivateKey string) *UpdateCredentialParams {
+	params.PrivateKey = &PrivateKey
+	return params
+}
+func (params *UpdateCredentialParams) SetSandbox(Sandbox bool) *UpdateCredentialParams {
+	params.Sandbox = &Sandbox
+	return params
+}
+func (params *UpdateCredentialParams) SetSecret(Secret string) *UpdateCredentialParams {
+	params.Secret = &Secret
+	return params
 }
 
 // UpdateCredential Method for UpdateCredential
@@ -860,6 +1108,63 @@ type UpdateServiceParams struct {
 	GcmCredentialSid                        *string `json:"GcmCredentialSid,omitempty"`
 	LogEnabled                              *bool   `json:"LogEnabled,omitempty"`
 	MessagingServiceSid                     *string `json:"MessagingServiceSid,omitempty"`
+}
+
+func (params *UpdateServiceParams) SetAlexaSkillId(AlexaSkillId string) *UpdateServiceParams {
+	params.AlexaSkillId = &AlexaSkillId
+	return params
+}
+func (params *UpdateServiceParams) SetApnCredentialSid(ApnCredentialSid string) *UpdateServiceParams {
+	params.ApnCredentialSid = &ApnCredentialSid
+	return params
+}
+func (params *UpdateServiceParams) SetDefaultAlexaNotificationProtocolVersion(DefaultAlexaNotificationProtocolVersion string) *UpdateServiceParams {
+	params.DefaultAlexaNotificationProtocolVersion = &DefaultAlexaNotificationProtocolVersion
+	return params
+}
+func (params *UpdateServiceParams) SetDefaultApnNotificationProtocolVersion(DefaultApnNotificationProtocolVersion string) *UpdateServiceParams {
+	params.DefaultApnNotificationProtocolVersion = &DefaultApnNotificationProtocolVersion
+	return params
+}
+func (params *UpdateServiceParams) SetDefaultFcmNotificationProtocolVersion(DefaultFcmNotificationProtocolVersion string) *UpdateServiceParams {
+	params.DefaultFcmNotificationProtocolVersion = &DefaultFcmNotificationProtocolVersion
+	return params
+}
+func (params *UpdateServiceParams) SetDefaultGcmNotificationProtocolVersion(DefaultGcmNotificationProtocolVersion string) *UpdateServiceParams {
+	params.DefaultGcmNotificationProtocolVersion = &DefaultGcmNotificationProtocolVersion
+	return params
+}
+func (params *UpdateServiceParams) SetDeliveryCallbackEnabled(DeliveryCallbackEnabled bool) *UpdateServiceParams {
+	params.DeliveryCallbackEnabled = &DeliveryCallbackEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetDeliveryCallbackUrl(DeliveryCallbackUrl string) *UpdateServiceParams {
+	params.DeliveryCallbackUrl = &DeliveryCallbackUrl
+	return params
+}
+func (params *UpdateServiceParams) SetFacebookMessengerPageId(FacebookMessengerPageId string) *UpdateServiceParams {
+	params.FacebookMessengerPageId = &FacebookMessengerPageId
+	return params
+}
+func (params *UpdateServiceParams) SetFcmCredentialSid(FcmCredentialSid string) *UpdateServiceParams {
+	params.FcmCredentialSid = &FcmCredentialSid
+	return params
+}
+func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateServiceParams) SetGcmCredentialSid(GcmCredentialSid string) *UpdateServiceParams {
+	params.GcmCredentialSid = &GcmCredentialSid
+	return params
+}
+func (params *UpdateServiceParams) SetLogEnabled(LogEnabled bool) *UpdateServiceParams {
+	params.LogEnabled = &LogEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetMessagingServiceSid(MessagingServiceSid string) *UpdateServiceParams {
+	params.MessagingServiceSid = &MessagingServiceSid
+	return params
 }
 
 // UpdateService Method for UpdateService

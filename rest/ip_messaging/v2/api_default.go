@@ -45,6 +45,39 @@ type CreateChannelParams struct {
 	UniqueName            *string    `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateChannelParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *CreateChannelParams) SetAttributes(Attributes string) *CreateChannelParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateChannelParams) SetCreatedBy(CreatedBy string) *CreateChannelParams {
+	params.CreatedBy = &CreatedBy
+	return params
+}
+func (params *CreateChannelParams) SetDateCreated(DateCreated time.Time) *CreateChannelParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *CreateChannelParams) SetDateUpdated(DateUpdated time.Time) *CreateChannelParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *CreateChannelParams) SetFriendlyName(FriendlyName string) *CreateChannelParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateChannelParams) SetType(Type string) *CreateChannelParams {
+	params.Type = &Type
+	return params
+}
+func (params *CreateChannelParams) SetUniqueName(UniqueName string) *CreateChannelParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateChannel Method for CreateChannel
 //
 // param: ServiceSid
@@ -127,6 +160,35 @@ type CreateChannelWebhookParams struct {
 	Type                    *string   `json:"Type,omitempty"`
 }
 
+func (params *CreateChannelWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *CreateChannelWebhookParams {
+	params.ConfigurationFilters = &ConfigurationFilters
+	return params
+}
+func (params *CreateChannelWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *CreateChannelWebhookParams {
+	params.ConfigurationFlowSid = &ConfigurationFlowSid
+	return params
+}
+func (params *CreateChannelWebhookParams) SetConfigurationMethod(ConfigurationMethod string) *CreateChannelWebhookParams {
+	params.ConfigurationMethod = &ConfigurationMethod
+	return params
+}
+func (params *CreateChannelWebhookParams) SetConfigurationRetryCount(ConfigurationRetryCount int32) *CreateChannelWebhookParams {
+	params.ConfigurationRetryCount = &ConfigurationRetryCount
+	return params
+}
+func (params *CreateChannelWebhookParams) SetConfigurationTriggers(ConfigurationTriggers []string) *CreateChannelWebhookParams {
+	params.ConfigurationTriggers = &ConfigurationTriggers
+	return params
+}
+func (params *CreateChannelWebhookParams) SetConfigurationUrl(ConfigurationUrl string) *CreateChannelWebhookParams {
+	params.ConfigurationUrl = &ConfigurationUrl
+	return params
+}
+func (params *CreateChannelWebhookParams) SetType(Type string) *CreateChannelWebhookParams {
+	params.Type = &Type
+	return params
+}
+
 // CreateChannelWebhook Method for CreateChannelWebhook
 //
 // param: ServiceSid
@@ -206,6 +268,35 @@ type CreateCredentialParams struct {
 	Type         *string `json:"Type,omitempty"`
 }
 
+func (params *CreateCredentialParams) SetApiKey(ApiKey string) *CreateCredentialParams {
+	params.ApiKey = &ApiKey
+	return params
+}
+func (params *CreateCredentialParams) SetCertificate(Certificate string) *CreateCredentialParams {
+	params.Certificate = &Certificate
+	return params
+}
+func (params *CreateCredentialParams) SetFriendlyName(FriendlyName string) *CreateCredentialParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateCredentialParams) SetPrivateKey(PrivateKey string) *CreateCredentialParams {
+	params.PrivateKey = &PrivateKey
+	return params
+}
+func (params *CreateCredentialParams) SetSandbox(Sandbox bool) *CreateCredentialParams {
+	params.Sandbox = &Sandbox
+	return params
+}
+func (params *CreateCredentialParams) SetSecret(Secret string) *CreateCredentialParams {
+	params.Secret = &Secret
+	return params
+}
+func (params *CreateCredentialParams) SetType(Type string) *CreateCredentialParams {
+	params.Type = &Type
+	return params
+}
+
 // CreateCredential Method for CreateCredential
 //
 // param: optional nil or *CreateCredentialParams - Optional Parameters:
@@ -274,6 +365,15 @@ type CreateInviteParams struct {
 	RoleSid  *string `json:"RoleSid,omitempty"`
 }
 
+func (params *CreateInviteParams) SetIdentity(Identity string) *CreateInviteParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams {
+	params.RoleSid = &RoleSid
+	return params
+}
+
 // CreateInvite Method for CreateInvite
 //
 // param: ServiceSid
@@ -327,6 +427,39 @@ type CreateMemberParams struct {
 	LastConsumedMessageIndex *int32     `json:"LastConsumedMessageIndex,omitempty"`
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
 	RoleSid                  *string    `json:"RoleSid,omitempty"`
+}
+
+func (params *CreateMemberParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateMemberParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *CreateMemberParams) SetAttributes(Attributes string) *CreateMemberParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateMemberParams) SetDateCreated(DateCreated time.Time) *CreateMemberParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *CreateMemberParams) SetDateUpdated(DateUpdated time.Time) *CreateMemberParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *CreateMemberParams) SetIdentity(Identity string) *CreateMemberParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int32) *CreateMemberParams {
+	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
+	return params
+}
+func (params *CreateMemberParams) SetLastConsumptionTimestamp(LastConsumptionTimestamp time.Time) *CreateMemberParams {
+	params.LastConsumptionTimestamp = &LastConsumptionTimestamp
+	return params
+}
+func (params *CreateMemberParams) SetRoleSid(RoleSid string) *CreateMemberParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // CreateMember Method for CreateMember
@@ -415,6 +548,39 @@ type CreateMessageParams struct {
 	MediaSid              *string    `json:"MediaSid,omitempty"`
 }
 
+func (params *CreateMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateMessageParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *CreateMessageParams) SetAttributes(Attributes string) *CreateMessageParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateMessageParams) SetBody(Body string) *CreateMessageParams {
+	params.Body = &Body
+	return params
+}
+func (params *CreateMessageParams) SetDateCreated(DateCreated time.Time) *CreateMessageParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *CreateMessageParams) SetDateUpdated(DateUpdated time.Time) *CreateMessageParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *CreateMessageParams) SetFrom(From string) *CreateMessageParams {
+	params.From = &From
+	return params
+}
+func (params *CreateMessageParams) SetLastUpdatedBy(LastUpdatedBy string) *CreateMessageParams {
+	params.LastUpdatedBy = &LastUpdatedBy
+	return params
+}
+func (params *CreateMessageParams) SetMediaSid(MediaSid string) *CreateMessageParams {
+	params.MediaSid = &MediaSid
+	return params
+}
+
 // CreateMessage Method for CreateMessage
 //
 // param: ServiceSid
@@ -496,6 +662,19 @@ type CreateRoleParams struct {
 	Type         *string   `json:"Type,omitempty"`
 }
 
+func (params *CreateRoleParams) SetFriendlyName(FriendlyName string) *CreateRoleParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateRoleParams) SetPermission(Permission []string) *CreateRoleParams {
+	params.Permission = &Permission
+	return params
+}
+func (params *CreateRoleParams) SetType(Type string) *CreateRoleParams {
+	params.Type = &Type
+	return params
+}
+
 // CreateRole Method for CreateRole
 //
 // param: ServiceSid
@@ -546,6 +725,11 @@ type CreateServiceParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateService Method for CreateService
 //
 // param: optional nil or *CreateServiceParams - Optional Parameters:
@@ -585,6 +769,27 @@ type CreateUserParams struct {
 	FriendlyName          *string `json:"FriendlyName,omitempty"`
 	Identity              *string `json:"Identity,omitempty"`
 	RoleSid               *string `json:"RoleSid,omitempty"`
+}
+
+func (params *CreateUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateUserParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *CreateUserParams) SetAttributes(Attributes string) *CreateUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateUserParams) SetFriendlyName(FriendlyName string) *CreateUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateUserParams) SetIdentity(Identity string) *CreateUserParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateUserParams) SetRoleSid(RoleSid string) *CreateUserParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // CreateUser Method for CreateUser
@@ -670,6 +875,11 @@ func (c *DefaultApiService) DeleteBinding(ServiceSid string, Sid string) error {
 // DeleteChannelParams Optional parameters for the method 'DeleteChannel'
 type DeleteChannelParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+}
+
+func (params *DeleteChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteChannelParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
 }
 
 // DeleteChannel Method for DeleteChannel
@@ -784,6 +994,11 @@ type DeleteMemberParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
+func (params *DeleteMemberParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteMemberParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+
 // DeleteMember Method for DeleteMember
 //
 // param: ServiceSid
@@ -822,6 +1037,11 @@ func (c *DefaultApiService) DeleteMember(ServiceSid string, ChannelSid string, S
 // DeleteMessageParams Optional parameters for the method 'DeleteMessage'
 type DeleteMessageParams struct {
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+}
+
+func (params *DeleteMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteMessageParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
 }
 
 // DeleteMessage Method for DeleteMessage
@@ -1361,6 +1581,19 @@ type ListBindingParams struct {
 	PageSize    *int32    `json:"PageSize,omitempty"`
 }
 
+func (params *ListBindingParams) SetBindingType(BindingType []string) *ListBindingParams {
+	params.BindingType = &BindingType
+	return params
+}
+func (params *ListBindingParams) SetIdentity(Identity []string) *ListBindingParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *ListBindingParams) SetPageSize(PageSize int32) *ListBindingParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListBinding Method for ListBinding
 //
 // param: ServiceSid
@@ -1412,6 +1645,15 @@ type ListChannelParams struct {
 	PageSize *int32    `json:"PageSize,omitempty"`
 }
 
+func (params *ListChannelParams) SetType(Type []string) *ListChannelParams {
+	params.Type = &Type
+	return params
+}
+func (params *ListChannelParams) SetPageSize(PageSize int32) *ListChannelParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListChannel Method for ListChannel
 //
 // param: ServiceSid
@@ -1457,6 +1699,11 @@ type ListChannelWebhookParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListChannelWebhookParams) SetPageSize(PageSize int32) *ListChannelWebhookParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListChannelWebhook Method for ListChannelWebhook
 //
 // param: ServiceSid
@@ -1500,6 +1747,11 @@ type ListCredentialParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListCredentialParams) SetPageSize(PageSize int32) *ListCredentialParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCredential Method for ListCredential
 //
 // param: optional nil or *ListCredentialParams - Optional Parameters:
@@ -1536,6 +1788,15 @@ func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListC
 type ListInviteParams struct {
 	Identity *[]string `json:"Identity,omitempty"`
 	PageSize *int32    `json:"PageSize,omitempty"`
+}
+
+func (params *ListInviteParams) SetIdentity(Identity []string) *ListInviteParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *ListInviteParams) SetPageSize(PageSize int32) *ListInviteParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListInvite Method for ListInvite
@@ -1587,6 +1848,15 @@ type ListMemberParams struct {
 	PageSize *int32    `json:"PageSize,omitempty"`
 }
 
+func (params *ListMemberParams) SetIdentity(Identity []string) *ListMemberParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *ListMemberParams) SetPageSize(PageSize int32) *ListMemberParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListMember Method for ListMember
 //
 // param: ServiceSid
@@ -1634,6 +1904,15 @@ func (c *DefaultApiService) ListMember(ServiceSid string, ChannelSid string, par
 type ListMessageParams struct {
 	Order    *string `json:"Order,omitempty"`
 	PageSize *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListMessageParams) SetOrder(Order string) *ListMessageParams {
+	params.Order = &Order
+	return params
+}
+func (params *ListMessageParams) SetPageSize(PageSize int32) *ListMessageParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListMessage Method for ListMessage
@@ -1684,6 +1963,11 @@ type ListRoleParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListRoleParams) SetPageSize(PageSize int32) *ListRoleParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListRole Method for ListRole
 //
 // param: ServiceSid
@@ -1724,6 +2008,11 @@ type ListServiceParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListService Method for ListService
 //
 // param: optional nil or *ListServiceParams - Optional Parameters:
@@ -1759,6 +2048,11 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // ListUserParams Optional parameters for the method 'ListUser'
 type ListUserParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListUserParams) SetPageSize(PageSize int32) *ListUserParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListUser Method for ListUser
@@ -1800,6 +2094,15 @@ func (c *DefaultApiService) ListUser(ServiceSid string, params *ListUserParams) 
 type ListUserBindingParams struct {
 	BindingType *[]string `json:"BindingType,omitempty"`
 	PageSize    *int32    `json:"PageSize,omitempty"`
+}
+
+func (params *ListUserBindingParams) SetBindingType(BindingType []string) *ListUserBindingParams {
+	params.BindingType = &BindingType
+	return params
+}
+func (params *ListUserBindingParams) SetPageSize(PageSize int32) *ListUserBindingParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListUserBinding Method for ListUserBinding
@@ -1850,6 +2153,11 @@ type ListUserChannelParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListUserChannelParams) SetPageSize(PageSize int32) *ListUserChannelParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListUserChannel Method for ListUserChannel
 //
 // param: ServiceSid
@@ -1897,6 +2205,35 @@ type UpdateChannelParams struct {
 	DateUpdated           *time.Time `json:"DateUpdated,omitempty"`
 	FriendlyName          *string    `json:"FriendlyName,omitempty"`
 	UniqueName            *string    `json:"UniqueName,omitempty"`
+}
+
+func (params *UpdateChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateChannelParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *UpdateChannelParams) SetAttributes(Attributes string) *UpdateChannelParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateChannelParams) SetCreatedBy(CreatedBy string) *UpdateChannelParams {
+	params.CreatedBy = &CreatedBy
+	return params
+}
+func (params *UpdateChannelParams) SetDateCreated(DateCreated time.Time) *UpdateChannelParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *UpdateChannelParams) SetDateUpdated(DateUpdated time.Time) *UpdateChannelParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *UpdateChannelParams) SetFriendlyName(FriendlyName string) *UpdateChannelParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateChannelParams) SetUniqueName(UniqueName string) *UpdateChannelParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // UpdateChannel Method for UpdateChannel
@@ -1978,6 +2315,31 @@ type UpdateChannelWebhookParams struct {
 	ConfigurationUrl        *string   `json:"Configuration.Url,omitempty"`
 }
 
+func (params *UpdateChannelWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *UpdateChannelWebhookParams {
+	params.ConfigurationFilters = &ConfigurationFilters
+	return params
+}
+func (params *UpdateChannelWebhookParams) SetConfigurationFlowSid(ConfigurationFlowSid string) *UpdateChannelWebhookParams {
+	params.ConfigurationFlowSid = &ConfigurationFlowSid
+	return params
+}
+func (params *UpdateChannelWebhookParams) SetConfigurationMethod(ConfigurationMethod string) *UpdateChannelWebhookParams {
+	params.ConfigurationMethod = &ConfigurationMethod
+	return params
+}
+func (params *UpdateChannelWebhookParams) SetConfigurationRetryCount(ConfigurationRetryCount int32) *UpdateChannelWebhookParams {
+	params.ConfigurationRetryCount = &ConfigurationRetryCount
+	return params
+}
+func (params *UpdateChannelWebhookParams) SetConfigurationTriggers(ConfigurationTriggers []string) *UpdateChannelWebhookParams {
+	params.ConfigurationTriggers = &ConfigurationTriggers
+	return params
+}
+func (params *UpdateChannelWebhookParams) SetConfigurationUrl(ConfigurationUrl string) *UpdateChannelWebhookParams {
+	params.ConfigurationUrl = &ConfigurationUrl
+	return params
+}
+
 // UpdateChannelWebhook Method for UpdateChannelWebhook
 //
 // param: ServiceSid
@@ -2054,6 +2416,31 @@ type UpdateCredentialParams struct {
 	Secret       *string `json:"Secret,omitempty"`
 }
 
+func (params *UpdateCredentialParams) SetApiKey(ApiKey string) *UpdateCredentialParams {
+	params.ApiKey = &ApiKey
+	return params
+}
+func (params *UpdateCredentialParams) SetCertificate(Certificate string) *UpdateCredentialParams {
+	params.Certificate = &Certificate
+	return params
+}
+func (params *UpdateCredentialParams) SetFriendlyName(FriendlyName string) *UpdateCredentialParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateCredentialParams) SetPrivateKey(PrivateKey string) *UpdateCredentialParams {
+	params.PrivateKey = &PrivateKey
+	return params
+}
+func (params *UpdateCredentialParams) SetSandbox(Sandbox bool) *UpdateCredentialParams {
+	params.Sandbox = &Sandbox
+	return params
+}
+func (params *UpdateCredentialParams) SetSecret(Secret string) *UpdateCredentialParams {
+	params.Secret = &Secret
+	return params
+}
+
 // UpdateCredential Method for UpdateCredential
 //
 // param: Sid
@@ -2123,6 +2510,35 @@ type UpdateMemberParams struct {
 	LastConsumedMessageIndex *int32     `json:"LastConsumedMessageIndex,omitempty"`
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
 	RoleSid                  *string    `json:"RoleSid,omitempty"`
+}
+
+func (params *UpdateMemberParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateMemberParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *UpdateMemberParams) SetAttributes(Attributes string) *UpdateMemberParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateMemberParams) SetDateCreated(DateCreated time.Time) *UpdateMemberParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *UpdateMemberParams) SetDateUpdated(DateUpdated time.Time) *UpdateMemberParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int32) *UpdateMemberParams {
+	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
+	return params
+}
+func (params *UpdateMemberParams) SetLastConsumptionTimestamp(LastConsumptionTimestamp time.Time) *UpdateMemberParams {
+	params.LastConsumptionTimestamp = &LastConsumptionTimestamp
+	return params
+}
+func (params *UpdateMemberParams) SetRoleSid(RoleSid string) *UpdateMemberParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // UpdateMember Method for UpdateMember
@@ -2208,6 +2624,35 @@ type UpdateMessageParams struct {
 	LastUpdatedBy         *string    `json:"LastUpdatedBy,omitempty"`
 }
 
+func (params *UpdateMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateMessageParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *UpdateMessageParams) SetAttributes(Attributes string) *UpdateMessageParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateMessageParams) SetBody(Body string) *UpdateMessageParams {
+	params.Body = &Body
+	return params
+}
+func (params *UpdateMessageParams) SetDateCreated(DateCreated time.Time) *UpdateMessageParams {
+	params.DateCreated = &DateCreated
+	return params
+}
+func (params *UpdateMessageParams) SetDateUpdated(DateUpdated time.Time) *UpdateMessageParams {
+	params.DateUpdated = &DateUpdated
+	return params
+}
+func (params *UpdateMessageParams) SetFrom(From string) *UpdateMessageParams {
+	params.From = &From
+	return params
+}
+func (params *UpdateMessageParams) SetLastUpdatedBy(LastUpdatedBy string) *UpdateMessageParams {
+	params.LastUpdatedBy = &LastUpdatedBy
+	return params
+}
+
 // UpdateMessage Method for UpdateMessage
 //
 // param: ServiceSid
@@ -2285,6 +2730,11 @@ type UpdateRoleParams struct {
 	Permission *[]string `json:"Permission,omitempty"`
 }
 
+func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRoleParams {
+	params.Permission = &Permission
+	return params
+}
+
 // UpdateRole Method for UpdateRole
 //
 // param: ServiceSid
@@ -2356,6 +2806,131 @@ type UpdateServiceParams struct {
 	TypingIndicatorTimeout                   *int32    `json:"TypingIndicatorTimeout,omitempty"`
 	WebhookFilters                           *[]string `json:"WebhookFilters,omitempty"`
 	WebhookMethod                            *string   `json:"WebhookMethod,omitempty"`
+}
+
+func (params *UpdateServiceParams) SetConsumptionReportInterval(ConsumptionReportInterval int32) *UpdateServiceParams {
+	params.ConsumptionReportInterval = &ConsumptionReportInterval
+	return params
+}
+func (params *UpdateServiceParams) SetDefaultChannelCreatorRoleSid(DefaultChannelCreatorRoleSid string) *UpdateServiceParams {
+	params.DefaultChannelCreatorRoleSid = &DefaultChannelCreatorRoleSid
+	return params
+}
+func (params *UpdateServiceParams) SetDefaultChannelRoleSid(DefaultChannelRoleSid string) *UpdateServiceParams {
+	params.DefaultChannelRoleSid = &DefaultChannelRoleSid
+	return params
+}
+func (params *UpdateServiceParams) SetDefaultServiceRoleSid(DefaultServiceRoleSid string) *UpdateServiceParams {
+	params.DefaultServiceRoleSid = &DefaultServiceRoleSid
+	return params
+}
+func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateServiceParams) SetLimitsChannelMembers(LimitsChannelMembers int32) *UpdateServiceParams {
+	params.LimitsChannelMembers = &LimitsChannelMembers
+	return params
+}
+func (params *UpdateServiceParams) SetLimitsUserChannels(LimitsUserChannels int32) *UpdateServiceParams {
+	params.LimitsUserChannels = &LimitsUserChannels
+	return params
+}
+func (params *UpdateServiceParams) SetMediaCompatibilityMessage(MediaCompatibilityMessage string) *UpdateServiceParams {
+	params.MediaCompatibilityMessage = &MediaCompatibilityMessage
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsAddedToChannelEnabled(NotificationsAddedToChannelEnabled bool) *UpdateServiceParams {
+	params.NotificationsAddedToChannelEnabled = &NotificationsAddedToChannelEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsAddedToChannelSound(NotificationsAddedToChannelSound string) *UpdateServiceParams {
+	params.NotificationsAddedToChannelSound = &NotificationsAddedToChannelSound
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsAddedToChannelTemplate(NotificationsAddedToChannelTemplate string) *UpdateServiceParams {
+	params.NotificationsAddedToChannelTemplate = &NotificationsAddedToChannelTemplate
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsInvitedToChannelEnabled(NotificationsInvitedToChannelEnabled bool) *UpdateServiceParams {
+	params.NotificationsInvitedToChannelEnabled = &NotificationsInvitedToChannelEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsInvitedToChannelSound(NotificationsInvitedToChannelSound string) *UpdateServiceParams {
+	params.NotificationsInvitedToChannelSound = &NotificationsInvitedToChannelSound
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsInvitedToChannelTemplate(NotificationsInvitedToChannelTemplate string) *UpdateServiceParams {
+	params.NotificationsInvitedToChannelTemplate = &NotificationsInvitedToChannelTemplate
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsLogEnabled(NotificationsLogEnabled bool) *UpdateServiceParams {
+	params.NotificationsLogEnabled = &NotificationsLogEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsNewMessageBadgeCountEnabled(NotificationsNewMessageBadgeCountEnabled bool) *UpdateServiceParams {
+	params.NotificationsNewMessageBadgeCountEnabled = &NotificationsNewMessageBadgeCountEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsNewMessageEnabled(NotificationsNewMessageEnabled bool) *UpdateServiceParams {
+	params.NotificationsNewMessageEnabled = &NotificationsNewMessageEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsNewMessageSound(NotificationsNewMessageSound string) *UpdateServiceParams {
+	params.NotificationsNewMessageSound = &NotificationsNewMessageSound
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsNewMessageTemplate(NotificationsNewMessageTemplate string) *UpdateServiceParams {
+	params.NotificationsNewMessageTemplate = &NotificationsNewMessageTemplate
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsRemovedFromChannelEnabled(NotificationsRemovedFromChannelEnabled bool) *UpdateServiceParams {
+	params.NotificationsRemovedFromChannelEnabled = &NotificationsRemovedFromChannelEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsRemovedFromChannelSound(NotificationsRemovedFromChannelSound string) *UpdateServiceParams {
+	params.NotificationsRemovedFromChannelSound = &NotificationsRemovedFromChannelSound
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsRemovedFromChannelTemplate(NotificationsRemovedFromChannelTemplate string) *UpdateServiceParams {
+	params.NotificationsRemovedFromChannelTemplate = &NotificationsRemovedFromChannelTemplate
+	return params
+}
+func (params *UpdateServiceParams) SetPostWebhookRetryCount(PostWebhookRetryCount int32) *UpdateServiceParams {
+	params.PostWebhookRetryCount = &PostWebhookRetryCount
+	return params
+}
+func (params *UpdateServiceParams) SetPostWebhookUrl(PostWebhookUrl string) *UpdateServiceParams {
+	params.PostWebhookUrl = &PostWebhookUrl
+	return params
+}
+func (params *UpdateServiceParams) SetPreWebhookRetryCount(PreWebhookRetryCount int32) *UpdateServiceParams {
+	params.PreWebhookRetryCount = &PreWebhookRetryCount
+	return params
+}
+func (params *UpdateServiceParams) SetPreWebhookUrl(PreWebhookUrl string) *UpdateServiceParams {
+	params.PreWebhookUrl = &PreWebhookUrl
+	return params
+}
+func (params *UpdateServiceParams) SetReachabilityEnabled(ReachabilityEnabled bool) *UpdateServiceParams {
+	params.ReachabilityEnabled = &ReachabilityEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetReadStatusEnabled(ReadStatusEnabled bool) *UpdateServiceParams {
+	params.ReadStatusEnabled = &ReadStatusEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetTypingIndicatorTimeout(TypingIndicatorTimeout int32) *UpdateServiceParams {
+	params.TypingIndicatorTimeout = &TypingIndicatorTimeout
+	return params
+}
+func (params *UpdateServiceParams) SetWebhookFilters(WebhookFilters []string) *UpdateServiceParams {
+	params.WebhookFilters = &WebhookFilters
+	return params
+}
+func (params *UpdateServiceParams) SetWebhookMethod(WebhookMethod string) *UpdateServiceParams {
+	params.WebhookMethod = &WebhookMethod
+	return params
 }
 
 // UpdateService Method for UpdateService
@@ -2551,6 +3126,23 @@ type UpdateUserParams struct {
 	RoleSid               *string `json:"RoleSid,omitempty"`
 }
 
+func (params *UpdateUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateUserParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+func (params *UpdateUserParams) SetAttributes(Attributes string) *UpdateUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) *UpdateUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateUserParams) SetRoleSid(RoleSid string) *UpdateUserParams {
+	params.RoleSid = &RoleSid
+	return params
+}
+
 // UpdateUser Method for UpdateUser
 //
 // param: ServiceSid
@@ -2610,6 +3202,19 @@ type UpdateUserChannelParams struct {
 	LastConsumedMessageIndex *int32     `json:"LastConsumedMessageIndex,omitempty"`
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
 	NotificationLevel        *string    `json:"NotificationLevel,omitempty"`
+}
+
+func (params *UpdateUserChannelParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int32) *UpdateUserChannelParams {
+	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
+	return params
+}
+func (params *UpdateUserChannelParams) SetLastConsumptionTimestamp(LastConsumptionTimestamp time.Time) *UpdateUserChannelParams {
+	params.LastConsumptionTimestamp = &LastConsumptionTimestamp
+	return params
+}
+func (params *UpdateUserChannelParams) SetNotificationLevel(NotificationLevel string) *UpdateUserChannelParams {
+	params.NotificationLevel = &NotificationLevel
+	return params
 }
 
 // UpdateUserChannel Method for UpdateUserChannel

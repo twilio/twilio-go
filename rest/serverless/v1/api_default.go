@@ -38,6 +38,11 @@ type CreateAssetParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateAssetParams) SetFriendlyName(FriendlyName string) *CreateAssetParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateAsset Method for CreateAsset
 //
 // Create a new Asset resource.
@@ -81,6 +86,23 @@ type CreateBuildParams struct {
 	Dependencies     *string   `json:"Dependencies,omitempty"`
 	FunctionVersions *[]string `json:"FunctionVersions,omitempty"`
 	Runtime          *string   `json:"Runtime,omitempty"`
+}
+
+func (params *CreateBuildParams) SetAssetVersions(AssetVersions []string) *CreateBuildParams {
+	params.AssetVersions = &AssetVersions
+	return params
+}
+func (params *CreateBuildParams) SetDependencies(Dependencies string) *CreateBuildParams {
+	params.Dependencies = &Dependencies
+	return params
+}
+func (params *CreateBuildParams) SetFunctionVersions(FunctionVersions []string) *CreateBuildParams {
+	params.FunctionVersions = &FunctionVersions
+	return params
+}
+func (params *CreateBuildParams) SetRuntime(Runtime string) *CreateBuildParams {
+	params.Runtime = &Runtime
+	return params
 }
 
 // CreateBuild Method for CreateBuild
@@ -140,6 +162,11 @@ type CreateDeploymentParams struct {
 	BuildSid *string `json:"BuildSid,omitempty"`
 }
 
+func (params *CreateDeploymentParams) SetBuildSid(BuildSid string) *CreateDeploymentParams {
+	params.BuildSid = &BuildSid
+	return params
+}
+
 // CreateDeployment Method for CreateDeployment
 //
 // Create a new Deployment.
@@ -184,6 +211,15 @@ func (c *DefaultApiService) CreateDeployment(ServiceSid string, EnvironmentSid s
 type CreateEnvironmentParams struct {
 	DomainSuffix *string `json:"DomainSuffix,omitempty"`
 	UniqueName   *string `json:"UniqueName,omitempty"`
+}
+
+func (params *CreateEnvironmentParams) SetDomainSuffix(DomainSuffix string) *CreateEnvironmentParams {
+	params.DomainSuffix = &DomainSuffix
+	return params
+}
+func (params *CreateEnvironmentParams) SetUniqueName(UniqueName string) *CreateEnvironmentParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // CreateEnvironment Method for CreateEnvironment
@@ -233,6 +269,11 @@ type CreateFunctionParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateFunctionParams) SetFriendlyName(FriendlyName string) *CreateFunctionParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateFunction Method for CreateFunction
 //
 // Create a new Function resource.
@@ -276,6 +317,23 @@ type CreateServiceParams struct {
 	IncludeCredentials *bool   `json:"IncludeCredentials,omitempty"`
 	UiEditable         *bool   `json:"UiEditable,omitempty"`
 	UniqueName         *string `json:"UniqueName,omitempty"`
+}
+
+func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateServiceParams) SetIncludeCredentials(IncludeCredentials bool) *CreateServiceParams {
+	params.IncludeCredentials = &IncludeCredentials
+	return params
+}
+func (params *CreateServiceParams) SetUiEditable(UiEditable bool) *CreateServiceParams {
+	params.UiEditable = &UiEditable
+	return params
+}
+func (params *CreateServiceParams) SetUniqueName(UniqueName string) *CreateServiceParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // CreateService Method for CreateService
@@ -331,6 +389,15 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*Serverl
 type CreateVariableParams struct {
 	Key   *string `json:"Key,omitempty"`
 	Value *string `json:"Value,omitempty"`
+}
+
+func (params *CreateVariableParams) SetKey(Key string) *CreateVariableParams {
+	params.Key = &Key
+	return params
+}
+func (params *CreateVariableParams) SetValue(Value string) *CreateVariableParams {
+	params.Value = &Value
+	return params
 }
 
 // CreateVariable Method for CreateVariable
@@ -938,6 +1005,11 @@ type ListAssetParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListAssetParams) SetPageSize(PageSize int32) *ListAssetParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListAsset Method for ListAsset
 //
 // Retrieve a list of all Assets.
@@ -978,6 +1050,11 @@ func (c *DefaultApiService) ListAsset(ServiceSid string, params *ListAssetParams
 // ListAssetVersionParams Optional parameters for the method 'ListAssetVersion'
 type ListAssetVersionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListAssetVersionParams) SetPageSize(PageSize int32) *ListAssetVersionParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListAssetVersion Method for ListAssetVersion
@@ -1025,6 +1102,11 @@ type ListBuildParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListBuildParams) SetPageSize(PageSize int32) *ListBuildParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListBuild Method for ListBuild
 //
 // Retrieve a list of all Builds.
@@ -1065,6 +1147,11 @@ func (c *DefaultApiService) ListBuild(ServiceSid string, params *ListBuildParams
 // ListDeploymentParams Optional parameters for the method 'ListDeployment'
 type ListDeploymentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListDeploymentParams) SetPageSize(PageSize int32) *ListDeploymentParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListDeployment Method for ListDeployment
@@ -1112,6 +1199,11 @@ type ListEnvironmentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListEnvironmentParams) SetPageSize(PageSize int32) *ListEnvironmentParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListEnvironment Method for ListEnvironment
 //
 // Retrieve a list of all environments.
@@ -1154,6 +1246,11 @@ type ListFunctionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListFunctionParams) SetPageSize(PageSize int32) *ListFunctionParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListFunction Method for ListFunction
 //
 // Retrieve a list of all Functions.
@@ -1194,6 +1291,11 @@ func (c *DefaultApiService) ListFunction(ServiceSid string, params *ListFunction
 // ListFunctionVersionParams Optional parameters for the method 'ListFunctionVersion'
 type ListFunctionVersionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListFunctionVersionParams) SetPageSize(PageSize int32) *ListFunctionVersionParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListFunctionVersion Method for ListFunctionVersion
@@ -1242,6 +1344,23 @@ type ListLogParams struct {
 	StartDate   *time.Time `json:"StartDate,omitempty"`
 	EndDate     *time.Time `json:"EndDate,omitempty"`
 	PageSize    *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListLogParams) SetFunctionSid(FunctionSid string) *ListLogParams {
+	params.FunctionSid = &FunctionSid
+	return params
+}
+func (params *ListLogParams) SetStartDate(StartDate time.Time) *ListLogParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListLogParams) SetEndDate(EndDate time.Time) *ListLogParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListLogParams) SetPageSize(PageSize int32) *ListLogParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListLog Method for ListLog
@@ -1304,6 +1423,11 @@ type ListServiceParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListService Method for ListService
 //
 // Retrieve a list of all Services.
@@ -1341,6 +1465,11 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // ListVariableParams Optional parameters for the method 'ListVariable'
 type ListVariableParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListVariableParams) SetPageSize(PageSize int32) *ListVariableParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListVariable Method for ListVariable
@@ -1388,6 +1517,11 @@ type UpdateAssetParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateAssetParams) SetFriendlyName(FriendlyName string) *UpdateAssetParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // UpdateAsset Method for UpdateAsset
 //
 // Update a specific Asset resource.
@@ -1431,6 +1565,11 @@ func (c *DefaultApiService) UpdateAsset(ServiceSid string, Sid string, params *U
 // UpdateFunctionParams Optional parameters for the method 'UpdateFunction'
 type UpdateFunctionParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+}
+
+func (params *UpdateFunctionParams) SetFriendlyName(FriendlyName string) *UpdateFunctionParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // UpdateFunction Method for UpdateFunction
@@ -1478,6 +1617,19 @@ type UpdateServiceParams struct {
 	FriendlyName       *string `json:"FriendlyName,omitempty"`
 	IncludeCredentials *bool   `json:"IncludeCredentials,omitempty"`
 	UiEditable         *bool   `json:"UiEditable,omitempty"`
+}
+
+func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateServiceParams) SetIncludeCredentials(IncludeCredentials bool) *UpdateServiceParams {
+	params.IncludeCredentials = &IncludeCredentials
+	return params
+}
+func (params *UpdateServiceParams) SetUiEditable(UiEditable bool) *UpdateServiceParams {
+	params.UiEditable = &UiEditable
+	return params
 }
 
 // UpdateService Method for UpdateService
@@ -1531,6 +1683,15 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 type UpdateVariableParams struct {
 	Key   *string `json:"Key,omitempty"`
 	Value *string `json:"Value,omitempty"`
+}
+
+func (params *UpdateVariableParams) SetKey(Key string) *UpdateVariableParams {
+	params.Key = &Key
+	return params
+}
+func (params *UpdateVariableParams) SetValue(Value string) *UpdateVariableParams {
+	params.Value = &Value
+	return params
 }
 
 // UpdateVariable Method for UpdateVariable

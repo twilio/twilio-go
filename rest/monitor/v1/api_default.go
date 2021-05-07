@@ -95,6 +95,23 @@ type ListAlertParams struct {
 	PageSize  *int32     `json:"PageSize,omitempty"`
 }
 
+func (params *ListAlertParams) SetLogLevel(LogLevel string) *ListAlertParams {
+	params.LogLevel = &LogLevel
+	return params
+}
+func (params *ListAlertParams) SetStartDate(StartDate time.Time) *ListAlertParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListAlertParams) SetEndDate(EndDate time.Time) *ListAlertParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListAlertParams) SetPageSize(PageSize int32) *ListAlertParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListAlert Method for ListAlert
 //
 // param: optional nil or *ListAlertParams - Optional Parameters:
@@ -151,6 +168,35 @@ type ListEventParams struct {
 	StartDate       *time.Time `json:"StartDate,omitempty"`
 	EndDate         *time.Time `json:"EndDate,omitempty"`
 	PageSize        *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListEventParams) SetActorSid(ActorSid string) *ListEventParams {
+	params.ActorSid = &ActorSid
+	return params
+}
+func (params *ListEventParams) SetEventType(EventType string) *ListEventParams {
+	params.EventType = &EventType
+	return params
+}
+func (params *ListEventParams) SetResourceSid(ResourceSid string) *ListEventParams {
+	params.ResourceSid = &ResourceSid
+	return params
+}
+func (params *ListEventParams) SetSourceIpAddress(SourceIpAddress string) *ListEventParams {
+	params.SourceIpAddress = &SourceIpAddress
+	return params
+}
+func (params *ListEventParams) SetStartDate(StartDate time.Time) *ListEventParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListEventParams) SetEndDate(EndDate time.Time) *ListEventParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListEventParams) SetPageSize(PageSize int32) *ListEventParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListEvent Method for ListEvent

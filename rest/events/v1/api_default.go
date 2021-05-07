@@ -39,6 +39,19 @@ type CreateSinkParams struct {
 	SinkType          *string                 `json:"SinkType,omitempty"`
 }
 
+func (params *CreateSinkParams) SetDescription(Description string) *CreateSinkParams {
+	params.Description = &Description
+	return params
+}
+func (params *CreateSinkParams) SetSinkConfiguration(SinkConfiguration map[string]interface{}) *CreateSinkParams {
+	params.SinkConfiguration = &SinkConfiguration
+	return params
+}
+func (params *CreateSinkParams) SetSinkType(SinkType string) *CreateSinkParams {
+	params.SinkType = &SinkType
+	return params
+}
+
 // CreateSink Method for CreateSink
 //
 // Create a new Sink
@@ -123,6 +136,11 @@ type CreateSinkValidateParams struct {
 	TestId *string `json:"TestId,omitempty"`
 }
 
+func (params *CreateSinkValidateParams) SetTestId(TestId string) *CreateSinkValidateParams {
+	params.TestId = &TestId
+	return params
+}
+
 // CreateSinkValidate Method for CreateSinkValidate
 //
 // Validate that a test event for a Sink was received.
@@ -164,6 +182,15 @@ func (c *DefaultApiService) CreateSinkValidate(Sid string, params *CreateSinkVal
 type CreateSubscribedEventParams struct {
 	SchemaVersion *int32  `json:"SchemaVersion,omitempty"`
 	Type          *string `json:"Type,omitempty"`
+}
+
+func (params *CreateSubscribedEventParams) SetSchemaVersion(SchemaVersion int32) *CreateSubscribedEventParams {
+	params.SchemaVersion = &SchemaVersion
+	return params
+}
+func (params *CreateSubscribedEventParams) SetType(Type string) *CreateSubscribedEventParams {
+	params.Type = &Type
+	return params
 }
 
 // CreateSubscribedEvent Method for CreateSubscribedEvent
@@ -213,6 +240,19 @@ type CreateSubscriptionParams struct {
 	Description *string                   `json:"Description,omitempty"`
 	SinkSid     *string                   `json:"SinkSid,omitempty"`
 	Types       *[]map[string]interface{} `json:"Types,omitempty"`
+}
+
+func (params *CreateSubscriptionParams) SetDescription(Description string) *CreateSubscriptionParams {
+	params.Description = &Description
+	return params
+}
+func (params *CreateSubscriptionParams) SetSinkSid(SinkSid string) *CreateSubscriptionParams {
+	params.SinkSid = &SinkSid
+	return params
+}
+func (params *CreateSubscriptionParams) SetTypes(Types []map[string]interface{}) *CreateSubscriptionParams {
+	params.Types = &Types
+	return params
 }
 
 // CreateSubscription Method for CreateSubscription
@@ -522,6 +562,11 @@ type ListEventTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListEventTypeParams) SetPageSize(PageSize int32) *ListEventTypeParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListEventType Method for ListEventType
 //
 // Retrieve a paginated list of all the available Event Types.
@@ -559,6 +604,11 @@ func (c *DefaultApiService) ListEventType(params *ListEventTypeParams) (*ListEve
 // ListSchemaVersionParams Optional parameters for the method 'ListSchemaVersion'
 type ListSchemaVersionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListSchemaVersionParams) SetPageSize(PageSize int32) *ListSchemaVersionParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSchemaVersion Method for ListSchemaVersion
@@ -603,6 +653,11 @@ type ListSinkParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListSinkParams) SetPageSize(PageSize int32) *ListSinkParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSink Method for ListSink
 //
 // Retrieve a paginated list of Sinks belonging to the account used to make the request.
@@ -640,6 +695,11 @@ func (c *DefaultApiService) ListSink(params *ListSinkParams) (*ListSinkResponse,
 // ListSubscribedEventParams Optional parameters for the method 'ListSubscribedEvent'
 type ListSubscribedEventParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListSubscribedEventParams) SetPageSize(PageSize int32) *ListSubscribedEventParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSubscribedEvent Method for ListSubscribedEvent
@@ -683,6 +743,15 @@ func (c *DefaultApiService) ListSubscribedEvent(SubscriptionSid string, params *
 type ListSubscriptionParams struct {
 	SinkSid  *string `json:"SinkSid,omitempty"`
 	PageSize *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListSubscriptionParams) SetSinkSid(SinkSid string) *ListSubscriptionParams {
+	params.SinkSid = &SinkSid
+	return params
+}
+func (params *ListSubscriptionParams) SetPageSize(PageSize int32) *ListSubscriptionParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSubscription Method for ListSubscription
@@ -729,6 +798,11 @@ type UpdateSinkParams struct {
 	Description *string `json:"Description,omitempty"`
 }
 
+func (params *UpdateSinkParams) SetDescription(Description string) *UpdateSinkParams {
+	params.Description = &Description
+	return params
+}
+
 // UpdateSink Method for UpdateSink
 //
 // Update a specific Sink
@@ -769,6 +843,11 @@ func (c *DefaultApiService) UpdateSink(Sid string, params *UpdateSinkParams) (*E
 // UpdateSubscribedEventParams Optional parameters for the method 'UpdateSubscribedEvent'
 type UpdateSubscribedEventParams struct {
 	SchemaVersion *int32 `json:"SchemaVersion,omitempty"`
+}
+
+func (params *UpdateSubscribedEventParams) SetSchemaVersion(SchemaVersion int32) *UpdateSubscribedEventParams {
+	params.SchemaVersion = &SchemaVersion
+	return params
 }
 
 // UpdateSubscribedEvent Method for UpdateSubscribedEvent
@@ -815,6 +894,15 @@ func (c *DefaultApiService) UpdateSubscribedEvent(SubscriptionSid string, Type s
 type UpdateSubscriptionParams struct {
 	Description *string `json:"Description,omitempty"`
 	SinkSid     *string `json:"SinkSid,omitempty"`
+}
+
+func (params *UpdateSubscriptionParams) SetDescription(Description string) *UpdateSubscriptionParams {
+	params.Description = &Description
+	return params
+}
+func (params *UpdateSubscriptionParams) SetSinkSid(SinkSid string) *UpdateSubscriptionParams {
+	params.SinkSid = &SinkSid
+	return params
 }
 
 // UpdateSubscription Method for UpdateSubscription
