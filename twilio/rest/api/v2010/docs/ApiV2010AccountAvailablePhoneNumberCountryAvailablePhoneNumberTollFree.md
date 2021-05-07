@@ -1,6 +1,7 @@
 # ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFree
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AddressRequirements** | Pointer to **string** | The type of Address resource the phone number requires |

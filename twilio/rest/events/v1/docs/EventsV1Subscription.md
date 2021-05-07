@@ -1,6 +1,7 @@
 # EventsV1Subscription
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | Account SID. |

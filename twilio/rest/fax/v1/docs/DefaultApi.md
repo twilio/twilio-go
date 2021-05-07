@@ -31,6 +31,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateFaxParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **From** | **string** | The number the fax was sent from. Can be the phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the SIP &#x60;from&#x60; value. The caller ID displayed to the recipient uses this value. If this is a phone number, it must be a Twilio number or a verified outgoing caller id from your account. If &#x60;to&#x60; is a SIP address, this can be any alphanumeric string (and also the characters &#x60;+&#x60;, &#x60;_&#x60;, &#x60;.&#x60;, and &#x60;-&#x60;), which will be used in the &#x60;from&#x60; header of the SIP request.
@@ -81,6 +82,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteFaxParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -123,6 +125,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteFaxMediaParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -163,6 +166,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchFaxParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -206,6 +210,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchFaxMediaParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -242,6 +247,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListFaxParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -289,6 +295,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListFaxMediaParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -330,6 +337,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateFaxParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

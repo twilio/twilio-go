@@ -1,6 +1,7 @@
 # InsightsV1CallSummary
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** |  |

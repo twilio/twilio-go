@@ -1,6 +1,7 @@
 # ApiV2010AccountQueueMember
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CallSid** | Pointer to **string** | The SID of the Call the resource is associated with |

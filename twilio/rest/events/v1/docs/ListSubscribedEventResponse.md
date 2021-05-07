@@ -1,6 +1,7 @@
 # ListSubscribedEventResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Meta** | [**ListSchemaVersionResponseMeta**](ListSchemaVersionResponse_meta.md) |  |[optional] 

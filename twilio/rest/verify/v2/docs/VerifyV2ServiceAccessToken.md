@@ -1,6 +1,7 @@
 # VerifyV2ServiceAccessToken
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Token** | Pointer to **string** | Generated access token. |

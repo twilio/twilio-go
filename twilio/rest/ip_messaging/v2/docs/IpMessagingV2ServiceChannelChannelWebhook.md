@@ -1,6 +1,7 @@
 # IpMessagingV2ServiceChannelChannelWebhook
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** |  |

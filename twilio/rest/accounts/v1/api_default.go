@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -41,17 +41,17 @@ type CreateCredentialAwsParams struct {
 
 // CreateCredentialAws Method for CreateCredentialAws
 //
-// * Create a new AWS Credential
+// Create a new AWS Credential
 //
-// * @param: optional nil or *CreateCredentialAwsParams - Optional Parameters:
+// param: optional nil or *CreateCredentialAwsParams - Optional Parameters:
 //
-// * @param: "AccountSid" (string) - The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
+// param: "AccountSid" (string) - The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
 //
-// * @param: "Credentials" (string) - A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`
+// param: "Credentials" (string) - A string that contains the AWS access credentials in the format `<AWS_ACCESS_KEY_ID>:<AWS_SECRET_ACCESS_KEY>`. For example, `AKIAIOSFODNN7EXAMPLE:wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 //
-// * @return: AccountsV1CredentialCredentialAws
+// return: AccountsV1CredentialCredentialAws
 func (c *DefaultApiService) CreateCredentialAws(params *CreateCredentialAwsParams) (*AccountsV1CredentialCredentialAws, error) {
 	path := "/v1/Credentials/AWS"
 
@@ -92,17 +92,17 @@ type CreateCredentialPublicKeyParams struct {
 
 // CreateCredentialPublicKey Method for CreateCredentialPublicKey
 //
-// * Create a new Public Key Credential
+// Create a new Public Key Credential
 //
-// * @param: optional nil or *CreateCredentialPublicKeyParams - Optional Parameters:
+// param: optional nil or *CreateCredentialPublicKeyParams - Optional Parameters:
 //
-// * @param: "AccountSid" (string) - The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
+// param: "AccountSid" (string) - The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 //
-// * @param: "PublicKey" (string) - A URL encoded representation of the public key. For example, `-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----`
+// param: "PublicKey" (string) - A URL encoded representation of the public key. For example, `-----BEGIN PUBLIC KEY-----MIIBIjANB.pa9xQIDAQAB-----END PUBLIC KEY-----`
 //
-// * @return: AccountsV1CredentialCredentialPublicKey
+// return: AccountsV1CredentialCredentialPublicKey
 func (c *DefaultApiService) CreateCredentialPublicKey(params *CreateCredentialPublicKeyParams) (*AccountsV1CredentialCredentialPublicKey, error) {
 	path := "/v1/Credentials/PublicKeys"
 
@@ -136,9 +136,9 @@ func (c *DefaultApiService) CreateCredentialPublicKey(params *CreateCredentialPu
 
 // CreateSecondaryAuthToken Method for CreateSecondaryAuthToken
 //
-// * Create a new secondary Auth Token
+// Create a new secondary Auth Token
 //
-// * @return: AccountsV1SecondaryAuthToken
+// return: AccountsV1SecondaryAuthToken
 func (c *DefaultApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuthToken, error) {
 	path := "/v1/AuthTokens/Secondary"
 
@@ -162,9 +162,10 @@ func (c *DefaultApiService) CreateSecondaryAuthToken() (*AccountsV1SecondaryAuth
 
 // DeleteCredentialAws Method for DeleteCredentialAws
 //
-// * Delete a Credential from your account
+// Delete a Credential from your account
 //
-// * @param: Sid The Twilio-provided string that uniquely identifies the AWS resource to delete.
+// param: Sid The Twilio-provided string that uniquely identifies the AWS resource to delete.
+//
 func (c *DefaultApiService) DeleteCredentialAws(Sid string) error {
 	path := "/v1/Credentials/AWS/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -184,9 +185,10 @@ func (c *DefaultApiService) DeleteCredentialAws(Sid string) error {
 
 // DeleteCredentialPublicKey Method for DeleteCredentialPublicKey
 //
-// * Delete a Credential from your account
+// Delete a Credential from your account
 //
-// * @param: Sid The Twilio-provided string that uniquely identifies the PublicKey resource to delete.
+// param: Sid The Twilio-provided string that uniquely identifies the PublicKey resource to delete.
+//
 func (c *DefaultApiService) DeleteCredentialPublicKey(Sid string) error {
 	path := "/v1/Credentials/PublicKeys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -206,7 +208,8 @@ func (c *DefaultApiService) DeleteCredentialPublicKey(Sid string) error {
 
 // DeleteSecondaryAuthToken Method for DeleteSecondaryAuthToken
 //
-// * Delete the secondary Auth Token from your account
+// Delete the secondary Auth Token from your account
+//
 func (c *DefaultApiService) DeleteSecondaryAuthToken() error {
 	path := "/v1/AuthTokens/Secondary"
 
@@ -225,11 +228,11 @@ func (c *DefaultApiService) DeleteSecondaryAuthToken() error {
 
 // FetchCredentialAws Method for FetchCredentialAws
 //
-// * Fetch the AWS credentials specified by the provided Credential Sid
+// Fetch the AWS credentials specified by the provided Credential Sid
 //
-// * @param: Sid The Twilio-provided string that uniquely identifies the AWS resource to fetch.
+// param: Sid The Twilio-provided string that uniquely identifies the AWS resource to fetch.
 //
-// * @return: AccountsV1CredentialCredentialAws
+// return: AccountsV1CredentialCredentialAws
 func (c *DefaultApiService) FetchCredentialAws(Sid string) (*AccountsV1CredentialCredentialAws, error) {
 	path := "/v1/Credentials/AWS/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -254,11 +257,11 @@ func (c *DefaultApiService) FetchCredentialAws(Sid string) (*AccountsV1Credentia
 
 // FetchCredentialPublicKey Method for FetchCredentialPublicKey
 //
-// * Fetch the public key specified by the provided Credential Sid
+// Fetch the public key specified by the provided Credential Sid
 //
-// * @param: Sid The Twilio-provided string that uniquely identifies the PublicKey resource to fetch.
+// param: Sid The Twilio-provided string that uniquely identifies the PublicKey resource to fetch.
 //
-// * @return: AccountsV1CredentialCredentialPublicKey
+// return: AccountsV1CredentialCredentialPublicKey
 func (c *DefaultApiService) FetchCredentialPublicKey(Sid string) (*AccountsV1CredentialCredentialPublicKey, error) {
 	path := "/v1/Credentials/PublicKeys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -288,13 +291,13 @@ type ListCredentialAwsParams struct {
 
 // ListCredentialAws Method for ListCredentialAws
 //
-// * Retrieves a collection of AWS Credentials belonging to the account used to make the request
+// Retrieves a collection of AWS Credentials belonging to the account used to make the request
 //
-// * @param: optional nil or *ListCredentialAwsParams - Optional Parameters:
+// param: optional nil or *ListCredentialAwsParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListCredentialAwsResponse
+// return: ListCredentialAwsResponse
 func (c *DefaultApiService) ListCredentialAws(params *ListCredentialAwsParams) (*ListCredentialAwsResponse, error) {
 	path := "/v1/Credentials/AWS"
 
@@ -327,13 +330,13 @@ type ListCredentialPublicKeyParams struct {
 
 // ListCredentialPublicKey Method for ListCredentialPublicKey
 //
-// * Retrieves a collection of Public Key Credentials belonging to the account used to make the request
+// Retrieves a collection of Public Key Credentials belonging to the account used to make the request
 //
-// * @param: optional nil or *ListCredentialPublicKeyParams - Optional Parameters:
+// param: optional nil or *ListCredentialPublicKeyParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListCredentialPublicKeyResponse
+// return: ListCredentialPublicKeyResponse
 func (c *DefaultApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyParams) (*ListCredentialPublicKeyResponse, error) {
 	path := "/v1/Credentials/PublicKeys"
 
@@ -361,9 +364,9 @@ func (c *DefaultApiService) ListCredentialPublicKey(params *ListCredentialPublic
 
 // UpdateAuthTokenPromotion Method for UpdateAuthTokenPromotion
 //
-// * Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
+// Promote the secondary Auth Token to primary. After promoting the new token, all requests to Twilio using your old primary Auth Token will result in an error.
 //
-// * @return: AccountsV1AuthTokenPromotion
+// return: AccountsV1AuthTokenPromotion
 func (c *DefaultApiService) UpdateAuthTokenPromotion() (*AccountsV1AuthTokenPromotion, error) {
 	path := "/v1/AuthTokens/Promote"
 
@@ -392,15 +395,15 @@ type UpdateCredentialAwsParams struct {
 
 // UpdateCredentialAws Method for UpdateCredentialAws
 //
-// * Modify the properties of a given Account
+// Modify the properties of a given Account
 //
-// * @param: Sid The Twilio-provided string that uniquely identifies the AWS resource to update.
+// param: Sid The Twilio-provided string that uniquely identifies the AWS resource to update.
 //
-// * @param: optional nil or *UpdateCredentialAwsParams - Optional Parameters:
+// param: optional nil or *UpdateCredentialAwsParams - Optional Parameters:
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 //
-// * @return: AccountsV1CredentialCredentialAws
+// return: AccountsV1CredentialCredentialAws
 func (c *DefaultApiService) UpdateCredentialAws(Sid string, params *UpdateCredentialAwsParams) (*AccountsV1CredentialCredentialAws, error) {
 	path := "/v1/Credentials/AWS/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -434,15 +437,15 @@ type UpdateCredentialPublicKeyParams struct {
 
 // UpdateCredentialPublicKey Method for UpdateCredentialPublicKey
 //
-// * Modify the properties of a given Account
+// Modify the properties of a given Account
 //
-// * @param: Sid The Twilio-provided string that uniquely identifies the PublicKey resource to update.
+// param: Sid The Twilio-provided string that uniquely identifies the PublicKey resource to update.
 //
-// * @param: optional nil or *UpdateCredentialPublicKeyParams - Optional Parameters:
+// param: optional nil or *UpdateCredentialPublicKeyParams - Optional Parameters:
 //
-// * @param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 //
-// * @return: AccountsV1CredentialCredentialPublicKey
+// return: AccountsV1CredentialCredentialPublicKey
 func (c *DefaultApiService) UpdateCredentialPublicKey(Sid string, params *UpdateCredentialPublicKeyParams) (*AccountsV1CredentialCredentialPublicKey, error) {
 	path := "/v1/Credentials/PublicKeys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

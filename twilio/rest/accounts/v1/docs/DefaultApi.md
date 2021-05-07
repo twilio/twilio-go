@@ -36,6 +36,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateCredentialAwsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **AccountSid** | **string** | The SID of the Subaccount that this Credential should be associated with. Must be a valid Subaccount of the account issuing the request.
@@ -75,6 +76,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateCredentialPublicKeyParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -155,6 +157,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteCredentialAwsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -195,6 +198,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCredentialPublicKeyParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -272,6 +276,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCredentialAwsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -313,6 +318,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCredentialPublicKeyParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -349,6 +355,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListCredentialAwsParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -387,6 +394,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListCredentialPublicKeyParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -465,6 +473,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateCredentialAwsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
@@ -506,6 +515,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateCredentialPublicKeyParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

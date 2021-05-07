@@ -1,6 +1,7 @@
 # ApiV2010AccountSipSipCredentialList
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The unique sid that identifies this account |

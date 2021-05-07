@@ -1,6 +1,7 @@
 # ListLogResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Logs** | [**[]ServerlessV1ServiceEnvironmentLog**](serverless.v1.service.environment.log.md) |  |[optional] 

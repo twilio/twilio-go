@@ -1,6 +1,7 @@
 # ApiV2010AccountSipSipDomainSipIpAccessControlListMapping
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The unique id of the Account that is responsible for this resource. |

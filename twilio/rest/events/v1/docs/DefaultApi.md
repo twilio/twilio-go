@@ -23,6 +23,7 @@ Method | HTTP request | Description
 [**ListSink**](DefaultApi.md#ListSink) | **Get** /v1/Sinks | 
 [**ListSubscribedEvent**](DefaultApi.md#ListSubscribedEvent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents | 
 [**ListSubscription**](DefaultApi.md#ListSubscription) | **Get** /v1/Subscriptions | 
+[**UpdateSink**](DefaultApi.md#UpdateSink) | **Post** /v1/Sinks/{Sid} | 
 [**UpdateSubscribedEvent**](DefaultApi.md#UpdateSubscribedEvent) | **Post** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
 [**UpdateSubscription**](DefaultApi.md#UpdateSubscription) | **Post** /v1/Subscriptions/{Sid} | 
 
@@ -43,6 +44,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateSinkParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -88,6 +90,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSinkTestParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -128,6 +131,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateSinkValidateParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -171,6 +175,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSubscribedEventParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **SchemaVersion** | **int32** | The schema version that the subscription should use.
@@ -209,6 +214,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateSubscriptionParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -254,6 +260,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSinkParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -296,6 +303,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSubscribedEventParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -336,6 +344,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteSubscriptionParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -378,6 +387,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchEventTypeParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -418,6 +428,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchSchemaParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -461,6 +472,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSchemaVersionParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -501,6 +513,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchSinkParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -544,6 +557,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSubscribedEventParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -585,6 +599,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSubscriptionParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -621,6 +636,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListEventTypeParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -664,6 +680,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSchemaVersionParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -701,6 +718,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListSinkParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -744,6 +762,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSubscribedEventParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -782,6 +801,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListSubscriptionParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **SinkSid** | **string** | The SID of the sink that the list of Subscriptions should be filtered by.
@@ -798,6 +818,49 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateSink
+
+> EventsV1Sink UpdateSink(ctx, Sidoptional)
+
+
+
+Update a specific Sink
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Sid** | **string** | A 34 character string that uniquely identifies this Sink.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateSinkParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Description** | **string** | A human readable description for the Sink **This value should not contain PII.**
+
+### Return type
+
+[**EventsV1Sink**](EventsV1Sink.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -825,6 +888,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateSubscribedEventParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -867,6 +931,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateSubscriptionParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

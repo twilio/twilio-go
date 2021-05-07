@@ -1,6 +1,7 @@
 # ConversationsV1ServiceServiceConfiguration
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ChatServiceSid** | Pointer to **string** | The unique string that identifies the resource |

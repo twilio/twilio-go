@@ -37,6 +37,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChatFriendlyName** | **string** | The chat channel&#39;s friendly name.
@@ -81,6 +82,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateFlexFlowParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -134,6 +136,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateWebChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChatFriendlyName** | **string** | The chat channel&#39;s friendly name.
@@ -179,6 +182,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -217,6 +221,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteFlexFlowParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -257,6 +262,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteWebChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -296,6 +302,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -330,6 +337,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchConfigurationParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -371,6 +379,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchFlexFlowParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -410,6 +419,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWebChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -444,6 +454,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListChannelParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -481,6 +492,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListFlexFlowParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the Flex Flow resources to read.
@@ -517,6 +529,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListWebChannelParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -591,6 +604,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateFlexFlowParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChannelType** | **string** | The channel type. Can be: &#x60;web&#x60;, &#x60;facebook&#x60;, &#x60;sms&#x60;, &#x60;whatsapp&#x60;, &#x60;line&#x60; or &#x60;custom&#x60;.
@@ -646,6 +660,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateWebChannelParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

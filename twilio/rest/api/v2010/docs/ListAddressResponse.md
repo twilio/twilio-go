@@ -1,6 +1,7 @@
 # ListAddressResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Addresses** | [**[]ApiV2010AccountAddress**](api.v2010.account.address.md) |  |[optional] 

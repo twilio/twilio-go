@@ -71,6 +71,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateCustomerProfileParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Email** | **string** | The email address that will receive updates when the Customer-Profile resource changes status.
@@ -116,6 +117,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateCustomerProfileChannelEndpointAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChannelEndpointSid** | **string** | The SID of an channel endpoint
@@ -159,6 +161,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateCustomerProfileEntityAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ObjectSid** | **string** | The SID of an object bag that holds information of the different items.
@@ -201,6 +204,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateCustomerProfileEvaluationParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PolicySid** | **string** | The unique string of a policy that is associated to the customer_profile resource.
@@ -238,6 +242,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateEndUserParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -279,6 +284,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateSupportingDocumentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
@@ -318,6 +324,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateTrustProductParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -364,6 +371,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateTrustProductChannelEndpointAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChannelEndpointSid** | **string** | The SID of an channel endpoint
@@ -407,6 +415,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateTrustProductEntityAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ObjectSid** | **string** | The SID of an object bag that holds information of the different items.
@@ -448,6 +457,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateTrustProductEvaluationParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -491,6 +501,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteCustomerProfileParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -532,6 +543,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCustomerProfileChannelEndpointAssignmentParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -575,6 +587,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteCustomerProfileEntityAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -615,6 +628,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteEndUserParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -657,6 +671,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSupportingDocumentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -697,6 +712,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteTrustProductParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -740,6 +756,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteTrustProductChannelEndpointAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -782,6 +799,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteTrustProductEntityAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -822,6 +840,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCustomerProfileParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -865,6 +884,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCustomerProfileChannelEndpointAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -906,6 +926,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCustomerProfileEntityAssignmentParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -949,6 +970,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCustomerProfileEvaluationParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -989,6 +1011,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchEndUserParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1031,6 +1054,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchEndUserTypeParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1071,6 +1095,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchPoliciesParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1113,6 +1138,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSupportingDocumentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1154,6 +1180,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSupportingDocumentTypeParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1194,6 +1221,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchTrustProductParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1237,6 +1265,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTrustProductChannelEndpointAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1278,6 +1307,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchTrustProductEntityAssignmentParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1321,6 +1351,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTrustProductEvaluationParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1357,6 +1388,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListCustomerProfileParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1403,6 +1435,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListCustomerProfileChannelEndpointAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChannelEndpointSid** | **string** | The SID of an channel endpoint
@@ -1447,6 +1480,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListCustomerProfileEntityAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1489,6 +1523,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListCustomerProfileEvaluationParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1526,6 +1561,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListEndUserParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1565,6 +1601,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListEndUserTypeParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1602,6 +1639,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListPoliciesParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1641,6 +1679,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListSupportingDocumentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1679,6 +1718,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListSupportingDocumentTypeParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1716,6 +1756,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListTrustProductParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1762,6 +1803,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListTrustProductChannelEndpointAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChannelEndpointSid** | **string** | The SID of an channel endpoint
@@ -1806,6 +1848,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListTrustProductEntityAssignmentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1848,6 +1891,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListTrustProductEvaluationParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1889,6 +1933,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateCustomerProfileParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1935,6 +1980,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateEndUserParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the End User resource which are derived End User Types.
@@ -1978,6 +2024,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateSupportingDocumentParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Attributes** | [**map[string]interface{}**](map[string]interface{}.md) | The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
@@ -2020,6 +2067,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateTrustProductParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

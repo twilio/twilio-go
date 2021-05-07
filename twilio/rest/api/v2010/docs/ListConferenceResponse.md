@@ -1,6 +1,7 @@
 # ListConferenceResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Conferences** | [**[]ApiV2010AccountConference**](api.v2010.account.conference.md) |  |[optional] 

@@ -34,6 +34,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateExportCustomJobParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Email** | **string** | The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job&#39;s status.
@@ -79,6 +80,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteJobParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -121,6 +123,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchDayParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -161,6 +164,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchExportParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -203,6 +207,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchExportConfigurationParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -241,6 +246,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchJobParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -283,6 +289,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListDayParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -322,6 +329,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListExportCustomJobParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -364,6 +372,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateExportConfigurationParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

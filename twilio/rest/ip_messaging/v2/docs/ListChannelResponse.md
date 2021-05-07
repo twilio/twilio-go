@@ -1,6 +1,7 @@
 # ListChannelResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Channels** | [**[]IpMessagingV2ServiceChannel**](ip_messaging.v2.service.channel.md) |  |[optional] 

@@ -48,6 +48,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateCommandParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is POST.
@@ -88,6 +89,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateFleetParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -136,6 +138,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateNetworkAccessProfileParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Networks** | **[]string** | List of Network SIDs that this Network Access Profile will allow connections to.
@@ -179,6 +182,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateNetworkAccessProfileNetworkParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Network** | **string** | The SID of the Network resource to be added to the Network Access Profile resource.
@@ -216,6 +220,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateSimParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -255,6 +260,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateSmsCommandParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -302,6 +308,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteNetworkAccessProfileNetworkParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -342,6 +349,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCommandParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -384,6 +392,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchFleetParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -425,6 +434,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchNetworkParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -465,6 +475,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchNetworkAccessProfileParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -508,6 +519,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchNetworkAccessProfileNetworkParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -548,6 +560,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchSimParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -590,6 +603,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSmsCommandParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -626,6 +640,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListCommandParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -668,6 +683,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListFleetParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **NetworkAccessProfile** | **string** | The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet&#39;s SIMs can connect to.
@@ -706,6 +722,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListNetworkParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -747,6 +764,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListNetworkAccessProfileParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -790,6 +808,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListNetworkAccessProfileNetworkParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -827,6 +846,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListSimParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -869,6 +889,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListSmsCommandParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Sim** | **string** | The SID or unique name of the Sim resource that SMS Command was sent to or from.
@@ -909,6 +930,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListUsageRecordParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -960,6 +982,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateFleetParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **CommandsMethod** | **string** | A string representing the HTTP method to use when making a request to &#x60;commands_url&#x60;. Can be one of &#x60;POST&#x60; or &#x60;GET&#x60;. Defaults to &#x60;POST&#x60;.
@@ -1007,6 +1030,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateNetworkAccessProfileParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **UniqueName** | **string** | The new unique name of the Network Access Profile.
@@ -1048,6 +1072,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateSimParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

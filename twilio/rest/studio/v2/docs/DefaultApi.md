@@ -46,9 +46,10 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateExecutionParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
-**From** | **string** | The Twilio phone number to send messages or initiate calls from during the Flow&#39;s Execution. Available as variable &#x60;{{flow.channel.address}}&#x60;.
+**From** | **string** | The Twilio phone number to send messages or initiate calls from during the Flow&#39;s Execution. Available as variable &#x60;{{flow.channel.address}}&#x60;. For SMS, this can also be a Messaging Service SID.
 **Parameters** | [**map[string]interface{}**](map[string]interface{}.md) | JSON data that will be added to the Flow&#39;s context and that can be accessed as variables inside your Flow. For example, if you pass in &#x60;Parameters&#x3D;{\\\&quot;name\\\&quot;:\\\&quot;Zeke\\\&quot;}&#x60;, a widget in your Flow can reference the variable &#x60;{{flow.data.name}}&#x60;, which returns \\\&quot;Zeke\\\&quot;. Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
 **To** | **string** | The Contact phone number to start a Studio Flow Execution, available as variable &#x60;{{contact.channel.address}}&#x60;.
 
@@ -85,6 +86,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateFlowParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -132,6 +134,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteExecutionParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -172,6 +175,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteFlowParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -215,6 +219,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchExecutionParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -256,6 +261,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchExecutionContextParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -300,6 +306,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchExecutionStepParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -343,6 +350,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchExecutionStepContextParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -383,6 +391,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchFlowParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -426,6 +435,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchFlowRevisionParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -467,6 +477,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTestUserParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -507,6 +518,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListExecutionParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -553,6 +565,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListExecutionStepParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -590,6 +603,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListFlowParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -632,6 +646,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListFlowRevisionParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -676,6 +691,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateExecutionParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Status** | **string** | The status of the Execution. Can only be &#x60;ended&#x60;.
@@ -718,6 +734,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateFlowParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **CommitMessage** | **string** | Description of change made in the revision.
@@ -758,6 +775,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateFlowValidateParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -803,6 +821,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateTestUserParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

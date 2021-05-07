@@ -1,6 +1,7 @@
 # ListSyncListItemResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | [**[]SyncV1ServiceSyncListSyncListItem**](sync.v1.service.sync_list.sync_list_item.md) |  |[optional] 

@@ -1,6 +1,7 @@
 # ListTaskChannelResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Channels** | [**[]TaskrouterV1WorkspaceTaskChannel**](taskrouter.v1.workspace.task_channel.md) |  |[optional] 

@@ -1,6 +1,7 @@
 # ListSipCredentialListResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CredentialLists** | [**[]ApiV2010AccountSipSipCredentialList**](api.v2010.account.sip.sip_credential_list.md) |  |[optional] 

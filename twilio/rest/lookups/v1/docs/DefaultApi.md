@@ -26,6 +26,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchPhoneNumberParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **CountryCode** | **string** | The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format.

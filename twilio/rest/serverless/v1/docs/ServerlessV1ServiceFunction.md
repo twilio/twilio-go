@@ -1,6 +1,7 @@
 # ServerlessV1ServiceFunction
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the Function resource |

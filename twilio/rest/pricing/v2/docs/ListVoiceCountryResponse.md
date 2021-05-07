@@ -1,6 +1,7 @@
 # ListVoiceCountryResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Countries** | [**[]PricingV2VoiceVoiceCountry**](pricing.v2.voice.voice_country.md) |  |[optional] 

@@ -55,6 +55,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateCompositionParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **AudioSources** | **[]string** | An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in &#x60;audio_sources&#x60; except for those specified in &#x60;audio_sources_excluded&#x60;. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, &#x60;student*&#x60; includes &#x60;student&#x60; as well as &#x60;studentTeam&#x60;. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
@@ -98,6 +99,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateCompositionHookParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -144,6 +146,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateCompositionSettingsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **AwsCredentialsSid** | **string** | The SID of the stored Credential resource.
@@ -185,6 +188,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateRecordingSettingsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **AwsCredentialsSid** | **string** | The SID of the stored Credential resource.
@@ -225,6 +229,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateRoomParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -277,6 +282,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteCompositionParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -317,6 +323,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCompositionHookParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -359,6 +366,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteRecordingParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -398,6 +406,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteRoomRecordingParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -440,6 +449,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCompositionParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -480,6 +490,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCompositionHookParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -555,6 +566,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchRecordingParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -627,6 +639,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchRoomParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -666,6 +679,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchRoomParticipantParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -710,6 +724,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchRoomParticipantPublishedTrackParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -751,6 +766,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchRoomParticipantSubscribeRuleParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -795,6 +811,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchRoomParticipantSubscribedTrackParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -834,6 +851,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchRoomRecordingParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -876,6 +894,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchRoomRecordingRuleParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -912,6 +931,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListCompositionParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -955,6 +975,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListCompositionHookParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Enabled** | **bool** | Read only CompositionHook resources with an &#x60;enabled&#x60; value that matches this parameter.
@@ -997,6 +1018,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListRecordingParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Status** | **string** | Read only the recordings that have this status. Can be: &#x60;processing&#x60;, &#x60;completed&#x60;, or &#x60;deleted&#x60;.
@@ -1038,6 +1060,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListRoomParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1082,6 +1105,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListRoomParticipantParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1130,6 +1154,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListRoomParticipantPublishedTrackParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1173,6 +1198,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListRoomParticipantSubscribedTrackParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1212,6 +1238,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListRoomRecordingParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1256,6 +1283,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateCompositionHookParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1306,6 +1334,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateRoomParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Status** | **string** | The new status of the resource. Set to &#x60;completed&#x60; to end the room.
@@ -1346,6 +1375,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateRoomParticipantParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1390,6 +1420,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateRoomParticipantSubscribeRuleParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Rules** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
@@ -1431,6 +1462,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateRoomRecordingRuleParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

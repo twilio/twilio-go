@@ -1,6 +1,7 @@
 # MessagingV1BrandRegistrations
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **A2pProfileBundleSid** | Pointer to **string** | A2P Messaging Profile Bundle BundleSid |

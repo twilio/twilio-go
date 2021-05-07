@@ -1,6 +1,7 @@
 # ApiV2010AccountAvailablePhoneNumberCountry
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Beta** | Pointer to **bool** | Whether all phone numbers available in the country are new to the Twilio platform. |

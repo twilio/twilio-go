@@ -85,6 +85,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateActivityParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Available** | **bool** | Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of &#x60;true&#x60;, &#x60;1&#x60;, or &#x60;yes&#x60; specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
@@ -125,6 +126,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateTaskParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -170,6 +172,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateTaskChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChannelOptimizedRouting** | **bool** | Whether the Task Channel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
@@ -211,6 +214,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateTaskQueueParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -257,6 +261,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateWorkerParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ActivitySid** | **string** | The SID of a valid Activity that will describe the new Worker&#39;s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker&#39;s initial state is the &#x60;default_activity_sid&#x60; configured on the Workspace.
@@ -299,6 +304,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateWorkflowParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **AssignmentCallbackUrl** | **string** | The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
@@ -338,6 +344,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateWorkspaceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -385,6 +392,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteActivityParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -424,6 +432,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteTaskParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -466,6 +475,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteTaskChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -505,6 +515,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteTaskQueueParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -546,6 +557,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteWorkerParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -586,6 +598,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteWorkflowParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -624,6 +637,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteWorkspaceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -665,6 +679,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchActivityParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -704,6 +719,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchEventParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -745,6 +761,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTaskParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -784,6 +801,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchTaskChannelParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -825,6 +843,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTaskQueueParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -864,6 +883,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchTaskQueueCumulativeStatisticsParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -910,6 +930,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTaskQueueRealTimeStatisticsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **TaskChannel** | **string** | The TaskChannel for which to fetch statistics. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
@@ -950,6 +971,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchTaskQueueStatisticsParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -997,6 +1019,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTaskReservationParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1036,6 +1059,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchWorkerParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1078,6 +1102,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkerChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1117,6 +1142,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchWorkerInstanceStatisticsParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1163,6 +1189,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkerReservationParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1201,6 +1228,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchWorkerStatisticsParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1248,6 +1276,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkersCumulativeStatisticsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -1291,6 +1320,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkersRealTimeStatisticsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **TaskChannel** | **string** | Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
@@ -1332,6 +1362,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkflowParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1371,6 +1402,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchWorkflowCumulativeStatisticsParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1417,6 +1449,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkflowRealTimeStatisticsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **TaskChannel** | **string** | Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
@@ -1457,6 +1490,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchWorkflowStatisticsParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1502,6 +1536,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkspaceParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1540,6 +1575,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchWorkspaceCumulativeStatisticsParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1585,6 +1621,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWorkspaceRealTimeStatisticsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **TaskChannel** | **string** | Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
@@ -1624,6 +1661,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchWorkspaceStatisticsParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1669,6 +1707,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListActivityParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the Activity resources to read.
@@ -1710,6 +1749,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListEventParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1762,6 +1802,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListTaskParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Priority** | **int32** | The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
@@ -1811,6 +1852,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListTaskChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1850,6 +1892,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListTaskQueueParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1893,6 +1936,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListTaskQueuesStatisticsParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1941,6 +1985,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListTaskReservationParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ReservationStatus** | **string** | Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
@@ -1981,6 +2026,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListWorkerParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2030,6 +2076,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListWorkerChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -2070,6 +2117,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListWorkerReservationParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2112,6 +2160,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListWorkflowParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the Workflow resources to read.
@@ -2148,6 +2197,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListWorkspaceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2191,6 +2241,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateActivityParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: &#x60;on-call&#x60;, &#x60;break&#x60;, and &#x60;email&#x60;.
@@ -2231,6 +2282,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateTaskParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2278,6 +2330,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateTaskChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ChannelOptimizedRouting** | **bool** | Whether the TaskChannel should prioritize Workers that have been idle. If &#x60;true&#x60;, Workers that have been idle the longest are prioritized.
@@ -2319,6 +2372,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateTaskQueueParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2366,6 +2420,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateTaskReservationParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2460,6 +2515,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateWorkerParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **ActivitySid** | **string** | The SID of a valid Activity that will describe the Worker&#39;s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
@@ -2505,6 +2561,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateWorkerChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Available** | **bool** | Whether the WorkerChannel is available. Set to &#x60;false&#x60; to prevent the Worker from receiving any new Tasks of this TaskChannel type.
@@ -2547,6 +2604,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateWorkerReservationParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2639,6 +2697,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateWorkflowParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **AssignmentCallbackUrl** | **string** | The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
@@ -2683,6 +2742,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateWorkspaceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

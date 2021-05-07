@@ -52,6 +52,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateByocTrunkParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **CnamLookupEnabled** | **bool** | Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the BYOC Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
@@ -97,6 +98,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateConnectionPolicyParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
@@ -136,6 +138,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateConnectionPolicyTargetParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -179,6 +182,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateDialingPermissionsCountryBulkUpdateParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **UpdateRequest** | **string** | URL encoded JSON array of update objects. example : &#x60;[ { \\\&quot;iso_code\\\&quot;: \\\&quot;GB\\\&quot;, \\\&quot;low_risk_numbers_enabled\\\&quot;: \\\&quot;true\\\&quot;, \\\&quot;high_risk_special_numbers_enabled\\\&quot;:\\\&quot;true\\\&quot;, \\\&quot;high_risk_tollfraud_numbers_enabled\\\&quot;: \\\&quot;false\\\&quot; } ]&#x60;
@@ -214,6 +218,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateIpRecordParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -252,6 +257,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateSourceIpMappingParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -294,6 +300,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteByocTrunkParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -332,6 +339,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteConnectionPolicyParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -373,6 +381,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteConnectionPolicyTargetParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -411,6 +420,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteIpRecordParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -451,6 +461,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSourceIpMappingParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -490,6 +501,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchByocTrunkParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -528,6 +540,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchConnectionPolicyParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -569,6 +582,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchConnectionPolicyTargetParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -609,6 +623,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchDialingPermissionsCountryParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -684,6 +699,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchIpRecordParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -723,6 +739,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSourceIpMappingParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -757,6 +774,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListByocTrunkParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -793,6 +811,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListConnectionPolicyParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -834,6 +853,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListConnectionPolicyTargetParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -871,6 +891,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListDialingPermissionsCountryParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -920,6 +941,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListDialingPermissionsHrsPrefixesParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -956,6 +978,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListIpRecordParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -991,6 +1014,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListSourceIpMappingParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1031,6 +1055,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateByocTrunkParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1081,6 +1106,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateConnectionPolicyParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
@@ -1121,6 +1147,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateConnectionPolicyTargetParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1164,6 +1191,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a UpdateDialingPermissionsSettingsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **DialingPermissionsInheritance** | **bool** | &#x60;true&#x60; for the sub-account to inherit voice dialing permissions from the Master Project; otherwise &#x60;false&#x60;.
@@ -1204,6 +1232,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateIpRecordParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
@@ -1243,6 +1272,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateSourceIpMappingParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

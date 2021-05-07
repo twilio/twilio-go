@@ -40,6 +40,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateBindingParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Address** | **string** | The channel-specific address. For APNS, the device token. For FCM and GCM, the registration token. For SMS, a phone number in E.164 format. For Facebook Messenger, the Messenger ID of the user or a phone number in E.164 format.
@@ -81,6 +82,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateCredentialParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -127,6 +129,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateNotificationParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -180,6 +183,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateServiceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -235,6 +239,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteBindingParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -274,6 +279,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteCredentialParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -312,6 +318,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteServiceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -353,6 +360,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchBindingParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -391,6 +399,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCredentialParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -431,6 +440,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchServiceParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -469,6 +479,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListBindingParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -510,6 +521,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a ListCredentialParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -545,6 +557,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListServiceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -586,6 +599,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateCredentialParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -631,6 +645,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateServiceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

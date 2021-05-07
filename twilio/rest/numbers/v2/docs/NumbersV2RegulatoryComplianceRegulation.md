@@ -1,6 +1,7 @@
 # NumbersV2RegulatoryComplianceRegulation
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EndUserType** | Pointer to **string** | The type of End User of the Regulation resource |

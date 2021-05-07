@@ -1,6 +1,7 @@
 # ListConnectAppResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ConnectApps** | [**[]ApiV2010AccountConnectApp**](api.v2010.account.connect_app.md) |  |[optional] 

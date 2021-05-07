@@ -1,6 +1,7 @@
 # TrusthubV1EndUserType
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Fields** | Pointer to **[]map[string]interface{}** | The required information for creating an End-User. |

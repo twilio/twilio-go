@@ -1,6 +1,7 @@
 # ListAuthorizedConnectAppResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AuthorizedConnectApps** | [**[]ApiV2010AccountAuthorizedConnectApp**](api.v2010.account.authorized_connect_app.md) |  |[optional] 

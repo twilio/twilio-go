@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -35,9 +35,9 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 
 // FetchCall Method for FetchCall
 //
-// * @param: Sid
+// param: Sid
 //
-// * @return: InsightsV1Call
+// return: InsightsV1Call
 func (c *DefaultApiService) FetchCall(Sid string) (*InsightsV1Call, error) {
 	path := "/v1/Voice/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -67,13 +67,13 @@ type FetchSummaryParams struct {
 
 // FetchSummary Method for FetchSummary
 //
-// * @param: CallSid
+// param: CallSid
 //
-// * @param: optional nil or *FetchSummaryParams - Optional Parameters:
+// param: optional nil or *FetchSummaryParams - Optional Parameters:
 //
-// * @param: "ProcessingState" (string) -
+// param: "ProcessingState" (string) -
 //
-// * @return: InsightsV1CallSummary
+// return: InsightsV1CallSummary
 func (c *DefaultApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*InsightsV1CallSummary, error) {
 	path := "/v1/Voice/{CallSid}/Summary"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -102,13 +102,13 @@ func (c *DefaultApiService) FetchSummary(CallSid string, params *FetchSummaryPar
 
 // FetchVideoParticipantSummary Method for FetchVideoParticipantSummary
 //
-// * Get Video Log Analyzer data for a Room Participant.
+// Get Video Log Analyzer data for a Room Participant.
 //
-// * @param: RoomSid The SID of the Room resource.
+// param: RoomSid The SID of the Room resource.
 //
-// * @param: ParticipantSid The SID of the Participant resource.
+// param: ParticipantSid The SID of the Participant resource.
 //
-// * @return: InsightsV1VideoRoomSummaryVideoParticipantSummary
+// return: InsightsV1VideoRoomSummaryVideoParticipantSummary
 func (c *DefaultApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid string) (*InsightsV1VideoRoomSummaryVideoParticipantSummary, error) {
 	path := "/v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -134,11 +134,11 @@ func (c *DefaultApiService) FetchVideoParticipantSummary(RoomSid string, Partici
 
 // FetchVideoRoomSummary Method for FetchVideoRoomSummary
 //
-// * Get Video Log Analyzer data for a Room.
+// Get Video Log Analyzer data for a Room.
 //
-// * @param: RoomSid The SID of the Room resource.
+// param: RoomSid The SID of the Room resource.
 //
-// * @return: InsightsV1VideoRoomSummary
+// return: InsightsV1VideoRoomSummary
 func (c *DefaultApiService) FetchVideoRoomSummary(RoomSid string) (*InsightsV1VideoRoomSummary, error) {
 	path := "/v1/Video/Rooms/{RoomSid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -169,15 +169,15 @@ type ListEventParams struct {
 
 // ListEvent Method for ListEvent
 //
-// * @param: CallSid
+// param: CallSid
 //
-// * @param: optional nil or *ListEventParams - Optional Parameters:
+// param: optional nil or *ListEventParams - Optional Parameters:
 //
-// * @param: "Edge" (string) -
+// param: "Edge" (string) -
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListEventResponse
+// return: ListEventResponse
 func (c *DefaultApiService) ListEvent(CallSid string, params *ListEventParams) (*ListEventResponse, error) {
 	path := "/v1/Voice/{CallSid}/Events"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -216,17 +216,17 @@ type ListMetricParams struct {
 
 // ListMetric Method for ListMetric
 //
-// * @param: CallSid
+// param: CallSid
 //
-// * @param: optional nil or *ListMetricParams - Optional Parameters:
+// param: optional nil or *ListMetricParams - Optional Parameters:
 //
-// * @param: "Edge" (string) -
+// param: "Edge" (string) -
 //
-// * @param: "Direction" (string) -
+// param: "Direction" (string) -
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListMetricResponse
+// return: ListMetricResponse
 func (c *DefaultApiService) ListMetric(CallSid string, params *ListMetricParams) (*ListMetricResponse, error) {
 	path := "/v1/Voice/{CallSid}/Metrics"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -266,15 +266,15 @@ type ListVideoParticipantSummaryParams struct {
 
 // ListVideoParticipantSummary Method for ListVideoParticipantSummary
 //
-// * Get a list of room participants.
+// Get a list of room participants.
 //
-// * @param: RoomSid The SID of the Room resource.
+// param: RoomSid The SID of the Room resource.
 //
-// * @param: optional nil or *ListVideoParticipantSummaryParams - Optional Parameters:
+// param: optional nil or *ListVideoParticipantSummaryParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListVideoParticipantSummaryResponse
+// return: ListVideoParticipantSummaryResponse
 func (c *DefaultApiService) ListVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) (*ListVideoParticipantSummaryResponse, error) {
 	path := "/v1/Video/Rooms/{RoomSid}/Participants"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -313,23 +313,23 @@ type ListVideoRoomSummaryParams struct {
 
 // ListVideoRoomSummary Method for ListVideoRoomSummary
 //
-// * Get a list of Programmable Video Rooms.
+// Get a list of Programmable Video Rooms.
 //
-// * @param: optional nil or *ListVideoRoomSummaryParams - Optional Parameters:
+// param: optional nil or *ListVideoRoomSummaryParams - Optional Parameters:
 //
-// * @param: "RoomType" ([]string) - Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+// param: "RoomType" ([]string) - Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
 //
-// * @param: "Codec" ([]string) - Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+// param: "Codec" ([]string) - Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
 //
-// * @param: "RoomName" (string) - Room friendly name.
+// param: "RoomName" (string) - Room friendly name.
 //
-// * @param: "CreatedAfter" (time.Time) - Only read rooms that started on or after this ISO 8601 timestamp.
+// param: "CreatedAfter" (time.Time) - Only read rooms that started on or after this ISO 8601 timestamp.
 //
-// * @param: "CreatedBefore" (time.Time) - Only read rooms that started before this ISO 8601 timestamp.
+// param: "CreatedBefore" (time.Time) - Only read rooms that started before this ISO 8601 timestamp.
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListVideoRoomSummaryResponse
+// return: ListVideoRoomSummaryResponse
 func (c *DefaultApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) (*ListVideoRoomSummaryResponse, error) {
 	path := "/v1/Video/Rooms"
 

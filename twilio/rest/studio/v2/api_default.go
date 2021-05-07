@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -42,19 +42,19 @@ type CreateExecutionParams struct {
 
 // CreateExecution Method for CreateExecution
 //
-// * Triggers a new Execution for the Flow
+// Triggers a new Execution for the Flow
 //
-// * @param: FlowSid The SID of the Excecution's Flow.
+// param: FlowSid The SID of the Excecution's Flow.
 //
-// * @param: optional nil or *CreateExecutionParams - Optional Parameters:
+// param: optional nil or *CreateExecutionParams - Optional Parameters:
 //
-// * @param: "From" (string) - The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`.
+// param: "From" (string) - The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID.
 //
-// * @param: "Parameters" (map[string]interface{}) - JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
+// param: "Parameters" (map[string]interface{}) - JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
 //
-// * @param: "To" (string) - The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
+// param: "To" (string) - The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
 //
-// * @return: StudioV2FlowExecution
+// return: StudioV2FlowExecution
 func (c *DefaultApiService) CreateExecution(FlowSid string, params *CreateExecutionParams) (*StudioV2FlowExecution, error) {
 	path := "/v2/Flows/{FlowSid}/Executions"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -103,19 +103,19 @@ type CreateFlowParams struct {
 
 // CreateFlow Method for CreateFlow
 //
-// * Create a Flow.
+// Create a Flow.
 //
-// * @param: optional nil or *CreateFlowParams - Optional Parameters:
+// param: optional nil or *CreateFlowParams - Optional Parameters:
 //
-// * @param: "CommitMessage" (string) - Description of change made in the revision.
+// param: "CommitMessage" (string) - Description of change made in the revision.
 //
-// * @param: "Definition" (map[string]interface{}) - JSON representation of flow definition.
+// param: "Definition" (map[string]interface{}) - JSON representation of flow definition.
 //
-// * @param: "FriendlyName" (string) - The string that you assigned to describe the Flow.
+// param: "FriendlyName" (string) - The string that you assigned to describe the Flow.
 //
-// * @param: "Status" (string) - The status of the Flow. Can be: `draft` or `published`.
+// param: "Status" (string) - The status of the Flow. Can be: `draft` or `published`.
 //
-// * @return: StudioV2Flow
+// return: StudioV2Flow
 func (c *DefaultApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow, error) {
 	path := "/v2/Flows"
 
@@ -158,11 +158,12 @@ func (c *DefaultApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow,
 
 // DeleteExecution Method for DeleteExecution
 //
-// * Delete the Execution and all Steps relating to it.
+// Delete the Execution and all Steps relating to it.
 //
-// * @param: FlowSid The SID of the Flow with the Execution resources to delete.
+// param: FlowSid The SID of the Flow with the Execution resources to delete.
 //
-// * @param: Sid The SID of the Execution resource to delete.
+// param: Sid The SID of the Execution resource to delete.
+//
 func (c *DefaultApiService) DeleteExecution(FlowSid string, Sid string) error {
 	path := "/v2/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -183,9 +184,10 @@ func (c *DefaultApiService) DeleteExecution(FlowSid string, Sid string) error {
 
 // DeleteFlow Method for DeleteFlow
 //
-// * Delete a specific Flow.
+// Delete a specific Flow.
 //
-// * @param: Sid The SID of the Flow resource to delete.
+// param: Sid The SID of the Flow resource to delete.
+//
 func (c *DefaultApiService) DeleteFlow(Sid string) error {
 	path := "/v2/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -205,13 +207,13 @@ func (c *DefaultApiService) DeleteFlow(Sid string) error {
 
 // FetchExecution Method for FetchExecution
 //
-// * Retrieve an Execution
+// Retrieve an Execution
 //
-// * @param: FlowSid The SID of the Flow with the Execution resource to fetch
+// param: FlowSid The SID of the Flow with the Execution resource to fetch
 //
-// * @param: Sid The SID of the Execution resource to fetch.
+// param: Sid The SID of the Execution resource to fetch.
 //
-// * @return: StudioV2FlowExecution
+// return: StudioV2FlowExecution
 func (c *DefaultApiService) FetchExecution(FlowSid string, Sid string) (*StudioV2FlowExecution, error) {
 	path := "/v2/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -237,13 +239,13 @@ func (c *DefaultApiService) FetchExecution(FlowSid string, Sid string) (*StudioV
 
 // FetchExecutionContext Method for FetchExecutionContext
 //
-// * Retrieve the most recent context for an Execution.
+// Retrieve the most recent context for an Execution.
 //
-// * @param: FlowSid The SID of the Flow with the Execution context to fetch.
+// param: FlowSid The SID of the Flow with the Execution context to fetch.
 //
-// * @param: ExecutionSid The SID of the Execution context to fetch.
+// param: ExecutionSid The SID of the Execution context to fetch.
 //
-// * @return: StudioV2FlowExecutionExecutionContext
+// return: StudioV2FlowExecutionExecutionContext
 func (c *DefaultApiService) FetchExecutionContext(FlowSid string, ExecutionSid string) (*StudioV2FlowExecutionExecutionContext, error) {
 	path := "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Context"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -269,15 +271,15 @@ func (c *DefaultApiService) FetchExecutionContext(FlowSid string, ExecutionSid s
 
 // FetchExecutionStep Method for FetchExecutionStep
 //
-// * Retrieve a Step.
+// Retrieve a Step.
 //
-// * @param: FlowSid The SID of the Flow with the Step to fetch.
+// param: FlowSid The SID of the Flow with the Step to fetch.
 //
-// * @param: ExecutionSid The SID of the Execution resource with the Step to fetch.
+// param: ExecutionSid The SID of the Execution resource with the Step to fetch.
 //
-// * @param: Sid The SID of the ExecutionStep resource to fetch.
+// param: Sid The SID of the ExecutionStep resource to fetch.
 //
-// * @return: StudioV2FlowExecutionExecutionStep
+// return: StudioV2FlowExecutionExecutionStep
 func (c *DefaultApiService) FetchExecutionStep(FlowSid string, ExecutionSid string, Sid string) (*StudioV2FlowExecutionExecutionStep, error) {
 	path := "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -304,15 +306,15 @@ func (c *DefaultApiService) FetchExecutionStep(FlowSid string, ExecutionSid stri
 
 // FetchExecutionStepContext Method for FetchExecutionStepContext
 //
-// * Retrieve the context for an Execution Step.
+// Retrieve the context for an Execution Step.
 //
-// * @param: FlowSid The SID of the Flow with the Step to fetch.
+// param: FlowSid The SID of the Flow with the Step to fetch.
 //
-// * @param: ExecutionSid The SID of the Execution resource with the Step to fetch.
+// param: ExecutionSid The SID of the Execution resource with the Step to fetch.
 //
-// * @param: StepSid The SID of the Step to fetch.
+// param: StepSid The SID of the Step to fetch.
 //
-// * @return: StudioV2FlowExecutionExecutionStepExecutionStepContext
+// return: StudioV2FlowExecutionExecutionStepExecutionStepContext
 func (c *DefaultApiService) FetchExecutionStepContext(FlowSid string, ExecutionSid string, StepSid string) (*StudioV2FlowExecutionExecutionStepExecutionStepContext, error) {
 	path := "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -339,11 +341,11 @@ func (c *DefaultApiService) FetchExecutionStepContext(FlowSid string, ExecutionS
 
 // FetchFlow Method for FetchFlow
 //
-// * Retrieve a specific Flow.
+// Retrieve a specific Flow.
 //
-// * @param: Sid The SID of the Flow resource to fetch.
+// param: Sid The SID of the Flow resource to fetch.
 //
-// * @return: StudioV2Flow
+// return: StudioV2Flow
 func (c *DefaultApiService) FetchFlow(Sid string) (*StudioV2Flow, error) {
 	path := "/v2/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -368,13 +370,13 @@ func (c *DefaultApiService) FetchFlow(Sid string) (*StudioV2Flow, error) {
 
 // FetchFlowRevision Method for FetchFlowRevision
 //
-// * Retrieve a specific Flow revision.
+// Retrieve a specific Flow revision.
 //
-// * @param: Sid The SID of the Flow resource to fetch.
+// param: Sid The SID of the Flow resource to fetch.
 //
-// * @param: Revision Specific Revision number or can be `LatestPublished` and `LatestRevision`.
+// param: Revision Specific Revision number or can be `LatestPublished` and `LatestRevision`.
 //
-// * @return: StudioV2FlowFlowRevision
+// return: StudioV2FlowFlowRevision
 func (c *DefaultApiService) FetchFlowRevision(Sid string, Revision string) (*StudioV2FlowFlowRevision, error) {
 	path := "/v2/Flows/{Sid}/Revisions/{Revision}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -400,11 +402,11 @@ func (c *DefaultApiService) FetchFlowRevision(Sid string, Revision string) (*Stu
 
 // FetchTestUser Method for FetchTestUser
 //
-// * Fetch flow test users
+// Fetch flow test users
 //
-// * @param: Sid Unique identifier of the flow.
+// param: Sid Unique identifier of the flow.
 //
-// * @return: StudioV2FlowTestUser
+// return: StudioV2FlowTestUser
 func (c *DefaultApiService) FetchTestUser(Sid string) (*StudioV2FlowTestUser, error) {
 	path := "/v2/Flows/{Sid}/TestUsers"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -436,19 +438,19 @@ type ListExecutionParams struct {
 
 // ListExecution Method for ListExecution
 //
-// * Retrieve a list of all Executions for the Flow.
+// Retrieve a list of all Executions for the Flow.
 //
-// * @param: FlowSid The SID of the Flow with the Execution resources to read.
+// param: FlowSid The SID of the Flow with the Execution resources to read.
 //
-// * @param: optional nil or *ListExecutionParams - Optional Parameters:
+// param: optional nil or *ListExecutionParams - Optional Parameters:
 //
-// * @param: "DateCreatedFrom" (time.Time) - Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
+// param: "DateCreatedFrom" (time.Time) - Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
 //
-// * @param: "DateCreatedTo" (time.Time) - Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
+// param: "DateCreatedTo" (time.Time) - Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListExecutionResponse
+// return: ListExecutionResponse
 func (c *DefaultApiService) ListExecution(FlowSid string, params *ListExecutionParams) (*ListExecutionResponse, error) {
 	path := "/v2/Flows/{FlowSid}/Executions"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -488,17 +490,17 @@ type ListExecutionStepParams struct {
 
 // ListExecutionStep Method for ListExecutionStep
 //
-// * Retrieve a list of all Steps for an Execution.
+// Retrieve a list of all Steps for an Execution.
 //
-// * @param: FlowSid The SID of the Flow with the Steps to read.
+// param: FlowSid The SID of the Flow with the Steps to read.
 //
-// * @param: ExecutionSid The SID of the Execution with the Steps to read.
+// param: ExecutionSid The SID of the Execution with the Steps to read.
 //
-// * @param: optional nil or *ListExecutionStepParams - Optional Parameters:
+// param: optional nil or *ListExecutionStepParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListExecutionStepResponse
+// return: ListExecutionStepResponse
 func (c *DefaultApiService) ListExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams) (*ListExecutionStepResponse, error) {
 	path := "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -533,13 +535,13 @@ type ListFlowParams struct {
 
 // ListFlow Method for ListFlow
 //
-// * Retrieve a list of all Flows.
+// Retrieve a list of all Flows.
 //
-// * @param: optional nil or *ListFlowParams - Optional Parameters:
+// param: optional nil or *ListFlowParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListFlowResponse
+// return: ListFlowResponse
 func (c *DefaultApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse, error) {
 	path := "/v2/Flows"
 
@@ -572,15 +574,15 @@ type ListFlowRevisionParams struct {
 
 // ListFlowRevision Method for ListFlowRevision
 //
-// * Retrieve a list of all Flows revisions.
+// Retrieve a list of all Flows revisions.
 //
-// * @param: Sid The SID of the Flow resource to fetch.
+// param: Sid The SID of the Flow resource to fetch.
 //
-// * @param: optional nil or *ListFlowRevisionParams - Optional Parameters:
+// param: optional nil or *ListFlowRevisionParams - Optional Parameters:
 //
-// * @param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
+// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
 //
-// * @return: ListFlowRevisionResponse
+// return: ListFlowRevisionResponse
 func (c *DefaultApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams) (*ListFlowRevisionResponse, error) {
 	path := "/v2/Flows/{Sid}/Revisions"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -614,17 +616,17 @@ type UpdateExecutionParams struct {
 
 // UpdateExecution Method for UpdateExecution
 //
-// * Update the status of an Execution to &#x60;ended&#x60;.
+// Update the status of an Execution to &#x60;ended&#x60;.
 //
-// * @param: FlowSid The SID of the Flow with the Execution resources to update.
+// param: FlowSid The SID of the Flow with the Execution resources to update.
 //
-// * @param: Sid The SID of the Execution resource to update.
+// param: Sid The SID of the Execution resource to update.
 //
-// * @param: optional nil or *UpdateExecutionParams - Optional Parameters:
+// param: optional nil or *UpdateExecutionParams - Optional Parameters:
 //
-// * @param: "Status" (string) - The status of the Execution. Can only be `ended`.
+// param: "Status" (string) - The status of the Execution. Can only be `ended`.
 //
-// * @return: StudioV2FlowExecution
+// return: StudioV2FlowExecution
 func (c *DefaultApiService) UpdateExecution(FlowSid string, Sid string, params *UpdateExecutionParams) (*StudioV2FlowExecution, error) {
 	path := "/v2/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -662,21 +664,21 @@ type UpdateFlowParams struct {
 
 // UpdateFlow Method for UpdateFlow
 //
-// * Update a Flow.
+// Update a Flow.
 //
-// * @param: Sid The SID of the Flow resource to fetch.
+// param: Sid The SID of the Flow resource to fetch.
 //
-// * @param: optional nil or *UpdateFlowParams - Optional Parameters:
+// param: optional nil or *UpdateFlowParams - Optional Parameters:
 //
-// * @param: "CommitMessage" (string) - Description of change made in the revision.
+// param: "CommitMessage" (string) - Description of change made in the revision.
 //
-// * @param: "Definition" (map[string]interface{}) - JSON representation of flow definition.
+// param: "Definition" (map[string]interface{}) - JSON representation of flow definition.
 //
-// * @param: "FriendlyName" (string) - The string that you assigned to describe the Flow.
+// param: "FriendlyName" (string) - The string that you assigned to describe the Flow.
 //
-// * @param: "Status" (string) - The status of the Flow. Can be: `draft` or `published`.
+// param: "Status" (string) - The status of the Flow. Can be: `draft` or `published`.
 //
-// * @return: StudioV2Flow
+// return: StudioV2Flow
 func (c *DefaultApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*StudioV2Flow, error) {
 	path := "/v2/Flows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -728,19 +730,19 @@ type UpdateFlowValidateParams struct {
 
 // UpdateFlowValidate Method for UpdateFlowValidate
 //
-// * Validate flow JSON definition
+// Validate flow JSON definition
 //
-// * @param: optional nil or *UpdateFlowValidateParams - Optional Parameters:
+// param: optional nil or *UpdateFlowValidateParams - Optional Parameters:
 //
-// * @param: "CommitMessage" (string) - Description of change made in the revision.
+// param: "CommitMessage" (string) - Description of change made in the revision.
 //
-// * @param: "Definition" (map[string]interface{}) - JSON representation of flow definition.
+// param: "Definition" (map[string]interface{}) - JSON representation of flow definition.
 //
-// * @param: "FriendlyName" (string) - The string that you assigned to describe the Flow.
+// param: "FriendlyName" (string) - The string that you assigned to describe the Flow.
 //
-// * @param: "Status" (string) - The status of the Flow. Can be: `draft` or `published`.
+// param: "Status" (string) - The status of the Flow. Can be: `draft` or `published`.
 //
-// * @return: StudioV2FlowValidate
+// return: StudioV2FlowValidate
 func (c *DefaultApiService) UpdateFlowValidate(params *UpdateFlowValidateParams) (*StudioV2FlowValidate, error) {
 	path := "/v2/Flows/Validate"
 
@@ -788,15 +790,15 @@ type UpdateTestUserParams struct {
 
 // UpdateTestUser Method for UpdateTestUser
 //
-// * Update flow test users
+// Update flow test users
 //
-// * @param: Sid Unique identifier of the flow.
+// param: Sid Unique identifier of the flow.
 //
-// * @param: optional nil or *UpdateTestUserParams - Optional Parameters:
+// param: optional nil or *UpdateTestUserParams - Optional Parameters:
 //
-// * @param: "TestUsers" ([]string) - List of test user identities that can test draft versions of the flow.
+// param: "TestUsers" ([]string) - List of test user identities that can test draft versions of the flow.
 //
-// * @return: StudioV2FlowTestUser
+// return: StudioV2FlowTestUser
 func (c *DefaultApiService) UpdateTestUser(Sid string, params *UpdateTestUserParams) (*StudioV2FlowTestUser, error) {
 	path := "/v2/Flows/{Sid}/TestUsers"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

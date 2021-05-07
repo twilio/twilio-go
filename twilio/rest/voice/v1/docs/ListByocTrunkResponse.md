@@ -1,6 +1,7 @@
 # ListByocTrunkResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ByocTrunks** | [**[]VoiceV1ByocTrunk**](voice.v1.byoc_trunk.md) |  |[optional] 

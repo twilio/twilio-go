@@ -1,6 +1,7 @@
 # ListRoleResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Meta** | [**ListConversationResponseMeta**](ListConversationResponse_meta.md) |  |[optional] 

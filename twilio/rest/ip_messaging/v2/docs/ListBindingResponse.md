@@ -1,6 +1,7 @@
 # ListBindingResponse
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bindings** | [**[]IpMessagingV2ServiceBinding**](ip_messaging.v2.service.binding.md) |  |[optional] 

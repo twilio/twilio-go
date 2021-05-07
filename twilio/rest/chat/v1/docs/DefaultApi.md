@@ -65,6 +65,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Attributes** | **string** | A valid JSON string that contains application-specific data.
@@ -103,6 +104,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateCredentialParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -151,6 +153,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateInviteParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Identity** | **string** | The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/api/chat/rest/v1/user) within the [Service](https://www.twilio.com/docs/api/chat/rest/v1/service). See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more info.
@@ -192,6 +195,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateMemberParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -235,6 +239,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateMessageParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Attributes** | **string** | A valid JSON string that contains application-specific data.
@@ -277,6 +282,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateRoleParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
@@ -314,6 +320,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateServiceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -354,6 +361,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateUserParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -399,6 +407,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -437,6 +446,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteCredentialParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -479,6 +489,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteInviteParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -519,6 +530,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteMemberParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -561,6 +573,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteMessageParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -601,6 +614,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteRoleParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -639,6 +653,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteServiceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -680,6 +695,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteUserParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -720,6 +736,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -758,6 +775,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchCredentialParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -800,6 +818,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchInviteParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -840,6 +859,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchMemberParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -882,6 +902,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchMessageParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -922,6 +943,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchRoleParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -960,6 +982,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchServiceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1001,6 +1024,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchUserParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1040,6 +1064,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Type** | **[]string** | The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
@@ -1076,6 +1101,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListCredentialParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1117,6 +1143,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListInviteParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1160,6 +1187,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListMemberParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Identity** | **[]string** | The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
@@ -1202,6 +1230,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListMessageParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Order** | **string** | The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;asc&#x60; as the default.
@@ -1243,6 +1272,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListRoleParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1278,6 +1308,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListServiceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1318,6 +1349,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListUserParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1362,6 +1394,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListUserChannelParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1402,6 +1435,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateChannelParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1444,6 +1478,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateCredentialParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1492,6 +1527,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateMemberParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **LastConsumedMessageIndex** | **int32** | The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
@@ -1535,6 +1571,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateMessageParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Attributes** | **string** | A valid JSON string that contains application-specific data.
@@ -1577,6 +1614,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateRoleParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Permission** | **[]string** | A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role&#39;s &#x60;type&#x60; and are described in the documentation.
@@ -1616,6 +1654,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateServiceParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1710,6 +1749,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateUserParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

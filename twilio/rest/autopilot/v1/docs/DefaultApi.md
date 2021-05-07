@@ -73,6 +73,7 @@ This endpoint does not need any path parameter.
 
 Other parameters are passed through a pointer to a CreateAssistantParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **CallbackEvents** | **string** | Reserved.
@@ -120,6 +121,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateFieldParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **FieldType** | **string** | The Field Type of the new field. Can be: a [Built-in Field Type](https://www.twilio.com/docs/autopilot/built-in-field-types), the &#x60;unique_name&#x60;, or the &#x60;sid&#x60; of a custom Field Type.
@@ -160,6 +162,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateFieldTypeParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -203,6 +206,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateFieldValueParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: &#x60;en-US&#x60;
@@ -245,6 +249,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateModelBuildParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **StatusCallback** | **string** | The URL we should call using a POST method to send status information to your application.
@@ -285,6 +290,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateQueryParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -330,6 +336,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateSampleParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: &#x60;en-US&#x60;.
@@ -371,6 +378,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateTaskParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -415,6 +423,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateWebhookParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Events** | **string** | The list of space-separated events that this Webhook will subscribe to.
@@ -458,6 +467,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteAssistantParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -499,6 +509,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteFieldParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -538,6 +549,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteFieldTypeParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -580,6 +592,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteFieldValueParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -620,6 +633,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteModelBuildParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -659,6 +673,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteQueryParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -701,6 +716,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteSampleParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -740,6 +756,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteTaskParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -781,6 +798,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteWebhookParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -819,6 +837,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchAssistantParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -859,6 +878,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchDefaultsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -898,6 +918,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchDialogueParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -940,6 +961,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchFieldParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -979,6 +1001,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchFieldTypeParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1021,6 +1044,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchFieldValueParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1061,6 +1085,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchModelBuildParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1100,6 +1125,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchQueryParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1142,6 +1168,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchSampleParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1183,6 +1210,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchStyleSheetParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1222,6 +1250,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchTaskParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1265,6 +1294,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTaskActionsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1304,6 +1334,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchTaskStatisticsParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1345,6 +1376,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchWebhookParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -1379,6 +1411,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListAssistantParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1421,6 +1454,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListFieldParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1460,6 +1494,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListFieldTypeParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1502,6 +1537,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListFieldValueParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: &#x60;en-US&#x60;
@@ -1543,6 +1579,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListModelBuildParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1582,6 +1619,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListQueryParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1628,6 +1666,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListSampleParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Language** | **string** | The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: &#x60;en-US&#x60;.
@@ -1669,6 +1708,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListTaskParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1709,6 +1749,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListWebhookParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -1748,6 +1789,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateAssistantParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1796,6 +1838,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateDefaultsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Defaults** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that describes the default task links for the &#x60;assistant_initiation&#x60;, &#x60;collect&#x60;, and &#x60;fallback&#x60; situations.
@@ -1836,6 +1879,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateFieldTypeParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1879,6 +1923,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateModelBuildParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
@@ -1920,6 +1965,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateQueryParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **SampleSid** | **string** | The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
@@ -1956,6 +2002,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateRestoreAssistantParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -1998,6 +2045,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateSampleParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2043,6 +2091,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateStyleSheetParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **StyleSheet** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON string that describes the style sheet object.
@@ -2083,6 +2132,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateTaskParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -2130,6 +2180,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateTaskActionsParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Actions** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
@@ -2170,6 +2221,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateWebhookParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

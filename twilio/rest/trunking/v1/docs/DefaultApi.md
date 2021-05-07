@@ -49,6 +49,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateCredentialListParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **CredentialListSid** | **string** | The SID of the [Credential List](https://www.twilio.com/docs/voice/sip/api/sip-credentiallist-resource) that you want to associate with the trunk. Once associated, we will authenticate access to the trunk against this list.
@@ -91,6 +92,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreateIpAccessControlListParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **IpAccessControlListSid** | **string** | The SID of the [IP Access Control List](https://www.twilio.com/docs/voice/sip/api/sip-ipaccesscontrollist-resource) that you want to associate with the trunk.
@@ -130,6 +132,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateOriginationUrlParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -175,6 +178,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a CreatePhoneNumberParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PhoneNumberSid** | **string** | The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
@@ -210,6 +214,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a CreateTrunkParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -258,6 +263,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteCredentialListParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -300,6 +306,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeleteIpAccessControlListParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -339,6 +346,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteOriginationUrlParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -380,6 +388,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a DeletePhoneNumberParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -418,6 +427,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a DeleteTrunkParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -459,6 +469,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchCredentialListParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -498,6 +509,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchIpAccessControlListParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -539,6 +551,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchOriginationUrlParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -579,6 +592,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchPhoneNumberParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -617,6 +631,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a FetchRecordingParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -657,6 +672,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a FetchTrunkParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 
@@ -695,6 +711,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListCredentialListParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -738,6 +755,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListIpAccessControlListParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -777,6 +795,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListOriginationUrlParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -818,6 +837,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a ListPhoneNumberParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -853,6 +873,7 @@ This endpoint does not need any path parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a ListTrunkParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -894,6 +915,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateOriginationUrlParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------
@@ -939,6 +961,7 @@ Name | Type | Description
 
 Other parameters are passed through a pointer to a UpdateRecordingParams struct
 
+
 Name | Type | Description
 ------------- | ------------- | -------------
 **Mode** | **string** | The recording mode for the trunk. Can be do-not-record (default), record-from-ringing, record-from-answer, record-from-ringing-dual, or record-from-answer-dual.
@@ -979,6 +1002,7 @@ Name | Type | Description
 ### Other Parameters
 
 Other parameters are passed through a pointer to a UpdateTrunkParams struct
+
 
 Name | Type | Description
 ------------- | ------------- | -------------

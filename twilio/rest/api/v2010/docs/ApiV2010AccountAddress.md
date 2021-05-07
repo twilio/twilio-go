@@ -1,6 +1,7 @@
 # ApiV2010AccountAddress
 
 ## Properties
+
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that is responsible for the resource |
