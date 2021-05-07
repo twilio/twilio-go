@@ -41,8 +41,8 @@ import (
 	WirelessV1 "github.com/twilio/twilio-go/rest/wireless/v1"
 )
 
-// Twilio provides access to Twilio services.
-type Twilio struct {
+// RestClient provides access to Twilio services.
+type RestClient struct {
 	*client.Credentials
 	*client.Client
 	common          service
@@ -82,7 +82,7 @@ type Twilio struct {
 }
 
 type service struct {
-	client *Twilio
+	client *RestClient
 }
 
 // Meta holds relevant pagination resources.
@@ -97,17 +97,22 @@ type Meta struct {
 	URL             *string `json:"url"`
 }
 
-// NewClient provides an initialized Twilio client.
-func NewClient(accountSID string, authToken string) *Twilio {
-	credentials := &client.Credentials{AccountSID: accountSID, AuthToken: authToken}
+type RestClientParams struct {
+	AccountSid string
+}
 
-	c := &Twilio{
+// NewRestClientWithParams provides an initialized Twilio RestClient with params.
+func NewRestClientWithParams(username string, password string, params RestClientParams) *RestClient {
+	credentials := &client.Credentials{Username: username, Password: password}
+
+	c := &RestClient{
 		Credentials: credentials,
 		Client: &client.Client{
 			Credentials: credentials,
 			BaseURL:     "twilio.com",
 			Edge:        os.Getenv("TWILIO_EDGE"),
 			Region:      os.Getenv("TWILIO_REGION"),
+			AccountSid:  params.AccountSid,
 		},
 	}
 
@@ -150,17 +155,24 @@ func NewClient(accountSID string, authToken string) *Twilio {
 	return c
 }
 
+// NewRestClient provides an initialized Twilio RestClient.
+func NewRestClient(username string, password string) *RestClient {
+	return NewRestClientWithParams(username, password, RestClientParams{
+		AccountSid: username,
+	})
+}
+
 // SetTimeout sets the Timeout for Twilio HTTP requests.
-func (c *Twilio) SetTimeout(timeout time.Duration) {
+func (c *RestClient) SetTimeout(timeout time.Duration) {
 	c.Client.SetTimeout(timeout)
 }
 
 // SetEdge sets the Edge for the Twilio request.
-func (c *Twilio) SetEdge(edge string) {
+func (c *RestClient) SetEdge(edge string) {
 	c.Client.Edge = edge
 }
 
 // SetRegion sets the Region for the Twilio request. Defaults to "us1" if an edge is provided.
-func (c *Twilio) SetRegion(region string) {
+func (c *RestClient) SetRegion(region string) {
 	c.Client.Region = region
 }
