@@ -14,8 +14,8 @@ import (
 
 func NewClient(accountSid string, authToken string) *twilio.Client {
 	creds := &twilio.Credentials{
-		AccountSID: accountSid,
-		AuthToken:  authToken,
+		Username: accountSid,
+		Password: authToken,
 	}
 	c := &twilio.Client{
 		Credentials: creds,
