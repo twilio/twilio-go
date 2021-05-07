@@ -1,6 +1,9 @@
-.PHONY: install test goimports govet golint githooks
+.PHONY: githooks install test goimports govet golint
 
-install:
+githooks:
+	ln -sf ../../githooks/pre-commit .git/hooks/pre-commit
+
+install: githooks
 	go build -v ./...
 
 test:
@@ -16,7 +19,3 @@ govet: goimports
 golint: govet
 	go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.39.0
 	golangci-lint run
-
-githooks:
-	cp githooks/pre-commit `git rev-parse --git-dir`/hooks/pre-commit
-	chmod +x `git rev-parse --git-dir`/hooks/pre-commit

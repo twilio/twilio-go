@@ -13753,8 +13753,8 @@ type UpdateIncomingPhoneNumberParams struct {
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
 }
 
-func (params *UpdateIncomingPhoneNumberParams) SetAccountSid2(AccountSid2 string) *UpdateIncomingPhoneNumberParams {
-	params.AccountSid2 = &AccountSid2
+func (params *UpdateIncomingPhoneNumberParams) SetAccountSid(AccountSid string) *UpdateIncomingPhoneNumberParams {
+	params.AccountSid = &AccountSid
 	return params
 }
 func (params *UpdateIncomingPhoneNumberParams) SetAddressSid(AddressSid string) *UpdateIncomingPhoneNumberParams {
