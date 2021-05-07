@@ -39,6 +39,15 @@ type CreateAccessTokenParams struct {
 	Identity   *string `json:"Identity,omitempty"`
 }
 
+func (params *CreateAccessTokenParams) SetFactorType(FactorType string) *CreateAccessTokenParams {
+	params.FactorType = &FactorType
+	return params
+}
+func (params *CreateAccessTokenParams) SetIdentity(Identity string) *CreateAccessTokenParams {
+	params.Identity = &Identity
+	return params
+}
+
 // CreateAccessToken Method for CreateAccessToken
 //
 // Create a new enrollment Access Token for the Entity
@@ -85,6 +94,15 @@ func (c *DefaultApiService) CreateAccessToken(ServiceSid string, params *CreateA
 type CreateBucketParams struct {
 	Interval *int32 `json:"Interval,omitempty"`
 	Max      *int32 `json:"Max,omitempty"`
+}
+
+func (params *CreateBucketParams) SetInterval(Interval int32) *CreateBucketParams {
+	params.Interval = &Interval
+	return params
+}
+func (params *CreateBucketParams) SetMax(Max int32) *CreateBucketParams {
+	params.Max = &Max
+	return params
 }
 
 // CreateBucket Method for CreateBucket
@@ -140,6 +158,31 @@ type CreateChallengeParams struct {
 	ExpirationDate *time.Time                `json:"ExpirationDate,omitempty"`
 	FactorSid      *string                   `json:"FactorSid,omitempty"`
 	HiddenDetails  *map[string]interface{}   `json:"HiddenDetails,omitempty"`
+}
+
+func (params *CreateChallengeParams) SetAuthPayload(AuthPayload string) *CreateChallengeParams {
+	params.AuthPayload = &AuthPayload
+	return params
+}
+func (params *CreateChallengeParams) SetDetailsFields(DetailsFields []map[string]interface{}) *CreateChallengeParams {
+	params.DetailsFields = &DetailsFields
+	return params
+}
+func (params *CreateChallengeParams) SetDetailsMessage(DetailsMessage string) *CreateChallengeParams {
+	params.DetailsMessage = &DetailsMessage
+	return params
+}
+func (params *CreateChallengeParams) SetExpirationDate(ExpirationDate time.Time) *CreateChallengeParams {
+	params.ExpirationDate = &ExpirationDate
+	return params
+}
+func (params *CreateChallengeParams) SetFactorSid(FactorSid string) *CreateChallengeParams {
+	params.FactorSid = &FactorSid
+	return params
+}
+func (params *CreateChallengeParams) SetHiddenDetails(HiddenDetails map[string]interface{}) *CreateChallengeParams {
+	params.HiddenDetails = &HiddenDetails
+	return params
 }
 
 // CreateChallenge Method for CreateChallenge
@@ -224,6 +267,11 @@ type CreateEntityParams struct {
 	Identity *string `json:"Identity,omitempty"`
 }
 
+func (params *CreateEntityParams) SetIdentity(Identity string) *CreateEntityParams {
+	params.Identity = &Identity
+	return params
+}
+
 // CreateEntity Method for CreateEntity
 //
 // Create a new Entity for the Service
@@ -265,6 +313,15 @@ func (c *DefaultApiService) CreateEntity(ServiceSid string, params *CreateEntity
 type CreateMessagingConfigurationParams struct {
 	Country             *string `json:"Country,omitempty"`
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+}
+
+func (params *CreateMessagingConfigurationParams) SetCountry(Country string) *CreateMessagingConfigurationParams {
+	params.Country = &Country
+	return params
+}
+func (params *CreateMessagingConfigurationParams) SetMessagingServiceSid(MessagingServiceSid string) *CreateMessagingConfigurationParams {
+	params.MessagingServiceSid = &MessagingServiceSid
+	return params
 }
 
 // CreateMessagingConfiguration Method for CreateMessagingConfiguration
@@ -324,6 +381,59 @@ type CreateNewFactorParams struct {
 	ConfigTimeStep             *int32  `json:"Config.TimeStep,omitempty"`
 	FactorType                 *string `json:"FactorType,omitempty"`
 	FriendlyName               *string `json:"FriendlyName,omitempty"`
+}
+
+func (params *CreateNewFactorParams) SetBindingAlg(BindingAlg string) *CreateNewFactorParams {
+	params.BindingAlg = &BindingAlg
+	return params
+}
+func (params *CreateNewFactorParams) SetBindingPublicKey(BindingPublicKey string) *CreateNewFactorParams {
+	params.BindingPublicKey = &BindingPublicKey
+	return params
+}
+func (params *CreateNewFactorParams) SetBindingSecret(BindingSecret string) *CreateNewFactorParams {
+	params.BindingSecret = &BindingSecret
+	return params
+}
+func (params *CreateNewFactorParams) SetConfigAlg(ConfigAlg string) *CreateNewFactorParams {
+	params.ConfigAlg = &ConfigAlg
+	return params
+}
+func (params *CreateNewFactorParams) SetConfigAppId(ConfigAppId string) *CreateNewFactorParams {
+	params.ConfigAppId = &ConfigAppId
+	return params
+}
+func (params *CreateNewFactorParams) SetConfigCodeLength(ConfigCodeLength int32) *CreateNewFactorParams {
+	params.ConfigCodeLength = &ConfigCodeLength
+	return params
+}
+func (params *CreateNewFactorParams) SetConfigNotificationPlatform(ConfigNotificationPlatform string) *CreateNewFactorParams {
+	params.ConfigNotificationPlatform = &ConfigNotificationPlatform
+	return params
+}
+func (params *CreateNewFactorParams) SetConfigNotificationToken(ConfigNotificationToken string) *CreateNewFactorParams {
+	params.ConfigNotificationToken = &ConfigNotificationToken
+	return params
+}
+func (params *CreateNewFactorParams) SetConfigSdkVersion(ConfigSdkVersion string) *CreateNewFactorParams {
+	params.ConfigSdkVersion = &ConfigSdkVersion
+	return params
+}
+func (params *CreateNewFactorParams) SetConfigSkew(ConfigSkew int32) *CreateNewFactorParams {
+	params.ConfigSkew = &ConfigSkew
+	return params
+}
+func (params *CreateNewFactorParams) SetConfigTimeStep(ConfigTimeStep int32) *CreateNewFactorParams {
+	params.ConfigTimeStep = &ConfigTimeStep
+	return params
+}
+func (params *CreateNewFactorParams) SetFactorType(FactorType string) *CreateNewFactorParams {
+	params.FactorType = &FactorType
+	return params
+}
+func (params *CreateNewFactorParams) SetFriendlyName(FriendlyName string) *CreateNewFactorParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // CreateNewFactor Method for CreateNewFactor
@@ -431,6 +541,11 @@ type CreateNotificationParams struct {
 	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
+func (params *CreateNotificationParams) SetTtl(Ttl int32) *CreateNotificationParams {
+	params.Ttl = &Ttl
+	return params
+}
+
 // CreateNotification Method for CreateNotification
 //
 // Create a new Notification for the corresponding Challenge
@@ -478,6 +593,15 @@ func (c *DefaultApiService) CreateNotification(ServiceSid string, Identity strin
 type CreateRateLimitParams struct {
 	Description *string `json:"Description,omitempty"`
 	UniqueName  *string `json:"UniqueName,omitempty"`
+}
+
+func (params *CreateRateLimitParams) SetDescription(Description string) *CreateRateLimitParams {
+	params.Description = &Description
+	return params
+}
+func (params *CreateRateLimitParams) SetUniqueName(UniqueName string) *CreateRateLimitParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // CreateRateLimit Method for CreateRateLimit
@@ -540,6 +664,71 @@ type CreateServiceParams struct {
 	TotpSkew                 *int32  `json:"Totp.Skew,omitempty"`
 	TotpTimeStep             *int32  `json:"Totp.TimeStep,omitempty"`
 	TtsName                  *string `json:"TtsName,omitempty"`
+}
+
+func (params *CreateServiceParams) SetCodeLength(CodeLength int32) *CreateServiceParams {
+	params.CodeLength = &CodeLength
+	return params
+}
+func (params *CreateServiceParams) SetCustomCodeEnabled(CustomCodeEnabled bool) *CreateServiceParams {
+	params.CustomCodeEnabled = &CustomCodeEnabled
+	return params
+}
+func (params *CreateServiceParams) SetDoNotShareWarningEnabled(DoNotShareWarningEnabled bool) *CreateServiceParams {
+	params.DoNotShareWarningEnabled = &DoNotShareWarningEnabled
+	return params
+}
+func (params *CreateServiceParams) SetDtmfInputRequired(DtmfInputRequired bool) *CreateServiceParams {
+	params.DtmfInputRequired = &DtmfInputRequired
+	return params
+}
+func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateServiceParams) SetLookupEnabled(LookupEnabled bool) *CreateServiceParams {
+	params.LookupEnabled = &LookupEnabled
+	return params
+}
+func (params *CreateServiceParams) SetPsd2Enabled(Psd2Enabled bool) *CreateServiceParams {
+	params.Psd2Enabled = &Psd2Enabled
+	return params
+}
+func (params *CreateServiceParams) SetPushApnCredentialSid(PushApnCredentialSid string) *CreateServiceParams {
+	params.PushApnCredentialSid = &PushApnCredentialSid
+	return params
+}
+func (params *CreateServiceParams) SetPushFcmCredentialSid(PushFcmCredentialSid string) *CreateServiceParams {
+	params.PushFcmCredentialSid = &PushFcmCredentialSid
+	return params
+}
+func (params *CreateServiceParams) SetPushIncludeDate(PushIncludeDate bool) *CreateServiceParams {
+	params.PushIncludeDate = &PushIncludeDate
+	return params
+}
+func (params *CreateServiceParams) SetSkipSmsToLandlines(SkipSmsToLandlines bool) *CreateServiceParams {
+	params.SkipSmsToLandlines = &SkipSmsToLandlines
+	return params
+}
+func (params *CreateServiceParams) SetTotpCodeLength(TotpCodeLength int32) *CreateServiceParams {
+	params.TotpCodeLength = &TotpCodeLength
+	return params
+}
+func (params *CreateServiceParams) SetTotpIssuer(TotpIssuer string) *CreateServiceParams {
+	params.TotpIssuer = &TotpIssuer
+	return params
+}
+func (params *CreateServiceParams) SetTotpSkew(TotpSkew int32) *CreateServiceParams {
+	params.TotpSkew = &TotpSkew
+	return params
+}
+func (params *CreateServiceParams) SetTotpTimeStep(TotpTimeStep int32) *CreateServiceParams {
+	params.TotpTimeStep = &TotpTimeStep
+	return params
+}
+func (params *CreateServiceParams) SetTtsName(TtsName string) *CreateServiceParams {
+	params.TtsName = &TtsName
+	return params
 }
 
 // CreateService Method for CreateService
@@ -667,6 +856,55 @@ type CreateVerificationParams struct {
 	To                   *string                 `json:"To,omitempty"`
 }
 
+func (params *CreateVerificationParams) SetAmount(Amount string) *CreateVerificationParams {
+	params.Amount = &Amount
+	return params
+}
+func (params *CreateVerificationParams) SetAppHash(AppHash string) *CreateVerificationParams {
+	params.AppHash = &AppHash
+	return params
+}
+func (params *CreateVerificationParams) SetChannel(Channel string) *CreateVerificationParams {
+	params.Channel = &Channel
+	return params
+}
+func (params *CreateVerificationParams) SetChannelConfiguration(ChannelConfiguration map[string]interface{}) *CreateVerificationParams {
+	params.ChannelConfiguration = &ChannelConfiguration
+	return params
+}
+func (params *CreateVerificationParams) SetCustomCode(CustomCode string) *CreateVerificationParams {
+	params.CustomCode = &CustomCode
+	return params
+}
+func (params *CreateVerificationParams) SetCustomFriendlyName(CustomFriendlyName string) *CreateVerificationParams {
+	params.CustomFriendlyName = &CustomFriendlyName
+	return params
+}
+func (params *CreateVerificationParams) SetCustomMessage(CustomMessage string) *CreateVerificationParams {
+	params.CustomMessage = &CustomMessage
+	return params
+}
+func (params *CreateVerificationParams) SetLocale(Locale string) *CreateVerificationParams {
+	params.Locale = &Locale
+	return params
+}
+func (params *CreateVerificationParams) SetPayee(Payee string) *CreateVerificationParams {
+	params.Payee = &Payee
+	return params
+}
+func (params *CreateVerificationParams) SetRateLimits(RateLimits map[string]interface{}) *CreateVerificationParams {
+	params.RateLimits = &RateLimits
+	return params
+}
+func (params *CreateVerificationParams) SetSendDigits(SendDigits string) *CreateVerificationParams {
+	params.SendDigits = &SendDigits
+	return params
+}
+func (params *CreateVerificationParams) SetTo(To string) *CreateVerificationParams {
+	params.To = &To
+	return params
+}
+
 // CreateVerification Method for CreateVerification
 //
 // Create a new Verification using a Service
@@ -780,6 +1018,27 @@ type CreateVerificationCheckParams struct {
 	VerificationSid *string `json:"VerificationSid,omitempty"`
 }
 
+func (params *CreateVerificationCheckParams) SetAmount(Amount string) *CreateVerificationCheckParams {
+	params.Amount = &Amount
+	return params
+}
+func (params *CreateVerificationCheckParams) SetCode(Code string) *CreateVerificationCheckParams {
+	params.Code = &Code
+	return params
+}
+func (params *CreateVerificationCheckParams) SetPayee(Payee string) *CreateVerificationCheckParams {
+	params.Payee = &Payee
+	return params
+}
+func (params *CreateVerificationCheckParams) SetTo(To string) *CreateVerificationCheckParams {
+	params.To = &To
+	return params
+}
+func (params *CreateVerificationCheckParams) SetVerificationSid(VerificationSid string) *CreateVerificationCheckParams {
+	params.VerificationSid = &VerificationSid
+	return params
+}
+
 // CreateVerificationCheck Method for CreateVerificationCheck
 //
 // challenge a specific Verification Check.
@@ -843,6 +1102,23 @@ type CreateWebhookParams struct {
 	FriendlyName *string   `json:"FriendlyName,omitempty"`
 	Status       *string   `json:"Status,omitempty"`
 	WebhookUrl   *string   `json:"WebhookUrl,omitempty"`
+}
+
+func (params *CreateWebhookParams) SetEventTypes(EventTypes []string) *CreateWebhookParams {
+	params.EventTypes = &EventTypes
+	return params
+}
+func (params *CreateWebhookParams) SetFriendlyName(FriendlyName string) *CreateWebhookParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateWebhookParams) SetStatus(Status string) *CreateWebhookParams {
+	params.Status = &Status
+	return params
+}
+func (params *CreateWebhookParams) SetWebhookUrl(WebhookUrl string) *CreateWebhookParams {
+	params.WebhookUrl = &WebhookUrl
+	return params
 }
 
 // CreateWebhook Method for CreateWebhook
@@ -1439,6 +1715,11 @@ type ListBucketParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListBucketParams) SetPageSize(PageSize int32) *ListBucketParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListBucket Method for ListBucket
 //
 // Retrieve a list of all Buckets for a Rate Limit.
@@ -1484,6 +1765,19 @@ type ListChallengeParams struct {
 	FactorSid *string `json:"FactorSid,omitempty"`
 	Status    *string `json:"Status,omitempty"`
 	PageSize  *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListChallengeParams) SetFactorSid(FactorSid string) *ListChallengeParams {
+	params.FactorSid = &FactorSid
+	return params
+}
+func (params *ListChallengeParams) SetStatus(Status string) *ListChallengeParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListChallengeParams) SetPageSize(PageSize int32) *ListChallengeParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListChallenge Method for ListChallenge
@@ -1541,6 +1835,11 @@ type ListEntityParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListEntityParams) SetPageSize(PageSize int32) *ListEntityParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListEntity Method for ListEntity
 //
 // Retrieve a list of all Entities for a Service.
@@ -1581,6 +1880,11 @@ func (c *DefaultApiService) ListEntity(ServiceSid string, params *ListEntityPara
 // ListFactorParams Optional parameters for the method 'ListFactor'
 type ListFactorParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListFactorParams) SetPageSize(PageSize int32) *ListFactorParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListFactor Method for ListFactor
@@ -1628,6 +1932,11 @@ type ListMessagingConfigurationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListMessagingConfigurationParams) SetPageSize(PageSize int32) *ListMessagingConfigurationParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListMessagingConfiguration Method for ListMessagingConfiguration
 //
 // Retrieve a list of all Messaging Configurations for a Service.
@@ -1668,6 +1977,11 @@ func (c *DefaultApiService) ListMessagingConfiguration(ServiceSid string, params
 // ListRateLimitParams Optional parameters for the method 'ListRateLimit'
 type ListRateLimitParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListRateLimitParams) SetPageSize(PageSize int32) *ListRateLimitParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListRateLimit Method for ListRateLimit
@@ -1712,6 +2026,11 @@ type ListServiceParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListService Method for ListService
 //
 // Retrieve a list of all Verification Services for an account.
@@ -1752,6 +2071,23 @@ type ListVerificationAttemptParams struct {
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	ChannelDataTo     *string    `json:"ChannelData.To,omitempty"`
 	PageSize          *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListVerificationAttemptParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListVerificationAttemptParams {
+	params.DateCreatedAfter = &DateCreatedAfter
+	return params
+}
+func (params *ListVerificationAttemptParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListVerificationAttemptParams {
+	params.DateCreatedBefore = &DateCreatedBefore
+	return params
+}
+func (params *ListVerificationAttemptParams) SetChannelDataTo(ChannelDataTo string) *ListVerificationAttemptParams {
+	params.ChannelDataTo = &ChannelDataTo
+	return params
+}
+func (params *ListVerificationAttemptParams) SetPageSize(PageSize int32) *ListVerificationAttemptParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListVerificationAttempt Method for ListVerificationAttempt
@@ -1808,6 +2144,11 @@ type ListWebhookParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListWebhookParams) SetPageSize(PageSize int32) *ListWebhookParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListWebhook Method for ListWebhook
 //
 // Retrieve a list of all Webhooks for a Service.
@@ -1849,6 +2190,15 @@ func (c *DefaultApiService) ListWebhook(ServiceSid string, params *ListWebhookPa
 type UpdateBucketParams struct {
 	Interval *int32 `json:"Interval,omitempty"`
 	Max      *int32 `json:"Max,omitempty"`
+}
+
+func (params *UpdateBucketParams) SetInterval(Interval int32) *UpdateBucketParams {
+	params.Interval = &Interval
+	return params
+}
+func (params *UpdateBucketParams) SetMax(Max int32) *UpdateBucketParams {
+	params.Max = &Max
+	return params
 }
 
 // UpdateBucket Method for UpdateBucket
@@ -1904,6 +2254,11 @@ type UpdateChallengeParams struct {
 	AuthPayload *string `json:"AuthPayload,omitempty"`
 }
 
+func (params *UpdateChallengeParams) SetAuthPayload(AuthPayload string) *UpdateChallengeParams {
+	params.AuthPayload = &AuthPayload
+	return params
+}
+
 // UpdateChallenge Method for UpdateChallenge
 //
 // Verify a specific Challenge.
@@ -1957,6 +2312,39 @@ type UpdateFactorParams struct {
 	ConfigSkew              *int32  `json:"Config.Skew,omitempty"`
 	ConfigTimeStep          *int32  `json:"Config.TimeStep,omitempty"`
 	FriendlyName            *string `json:"FriendlyName,omitempty"`
+}
+
+func (params *UpdateFactorParams) SetAuthPayload(AuthPayload string) *UpdateFactorParams {
+	params.AuthPayload = &AuthPayload
+	return params
+}
+func (params *UpdateFactorParams) SetConfigAlg(ConfigAlg string) *UpdateFactorParams {
+	params.ConfigAlg = &ConfigAlg
+	return params
+}
+func (params *UpdateFactorParams) SetConfigCodeLength(ConfigCodeLength int32) *UpdateFactorParams {
+	params.ConfigCodeLength = &ConfigCodeLength
+	return params
+}
+func (params *UpdateFactorParams) SetConfigNotificationToken(ConfigNotificationToken string) *UpdateFactorParams {
+	params.ConfigNotificationToken = &ConfigNotificationToken
+	return params
+}
+func (params *UpdateFactorParams) SetConfigSdkVersion(ConfigSdkVersion string) *UpdateFactorParams {
+	params.ConfigSdkVersion = &ConfigSdkVersion
+	return params
+}
+func (params *UpdateFactorParams) SetConfigSkew(ConfigSkew int32) *UpdateFactorParams {
+	params.ConfigSkew = &ConfigSkew
+	return params
+}
+func (params *UpdateFactorParams) SetConfigTimeStep(ConfigTimeStep int32) *UpdateFactorParams {
+	params.ConfigTimeStep = &ConfigTimeStep
+	return params
+}
+func (params *UpdateFactorParams) SetFriendlyName(FriendlyName string) *UpdateFactorParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // UpdateFactor Method for UpdateFactor
@@ -2042,6 +2430,11 @@ type UpdateMessagingConfigurationParams struct {
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 }
 
+func (params *UpdateMessagingConfigurationParams) SetMessagingServiceSid(MessagingServiceSid string) *UpdateMessagingConfigurationParams {
+	params.MessagingServiceSid = &MessagingServiceSid
+	return params
+}
+
 // UpdateMessagingConfiguration Method for UpdateMessagingConfiguration
 //
 // Update a specific MessagingConfiguration
@@ -2085,6 +2478,11 @@ func (c *DefaultApiService) UpdateMessagingConfiguration(ServiceSid string, Coun
 // UpdateRateLimitParams Optional parameters for the method 'UpdateRateLimit'
 type UpdateRateLimitParams struct {
 	Description *string `json:"Description,omitempty"`
+}
+
+func (params *UpdateRateLimitParams) SetDescription(Description string) *UpdateRateLimitParams {
+	params.Description = &Description
+	return params
 }
 
 // UpdateRateLimit Method for UpdateRateLimit
@@ -2145,6 +2543,71 @@ type UpdateServiceParams struct {
 	TotpSkew                 *int32  `json:"Totp.Skew,omitempty"`
 	TotpTimeStep             *int32  `json:"Totp.TimeStep,omitempty"`
 	TtsName                  *string `json:"TtsName,omitempty"`
+}
+
+func (params *UpdateServiceParams) SetCodeLength(CodeLength int32) *UpdateServiceParams {
+	params.CodeLength = &CodeLength
+	return params
+}
+func (params *UpdateServiceParams) SetCustomCodeEnabled(CustomCodeEnabled bool) *UpdateServiceParams {
+	params.CustomCodeEnabled = &CustomCodeEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetDoNotShareWarningEnabled(DoNotShareWarningEnabled bool) *UpdateServiceParams {
+	params.DoNotShareWarningEnabled = &DoNotShareWarningEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetDtmfInputRequired(DtmfInputRequired bool) *UpdateServiceParams {
+	params.DtmfInputRequired = &DtmfInputRequired
+	return params
+}
+func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateServiceParams) SetLookupEnabled(LookupEnabled bool) *UpdateServiceParams {
+	params.LookupEnabled = &LookupEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetPsd2Enabled(Psd2Enabled bool) *UpdateServiceParams {
+	params.Psd2Enabled = &Psd2Enabled
+	return params
+}
+func (params *UpdateServiceParams) SetPushApnCredentialSid(PushApnCredentialSid string) *UpdateServiceParams {
+	params.PushApnCredentialSid = &PushApnCredentialSid
+	return params
+}
+func (params *UpdateServiceParams) SetPushFcmCredentialSid(PushFcmCredentialSid string) *UpdateServiceParams {
+	params.PushFcmCredentialSid = &PushFcmCredentialSid
+	return params
+}
+func (params *UpdateServiceParams) SetPushIncludeDate(PushIncludeDate bool) *UpdateServiceParams {
+	params.PushIncludeDate = &PushIncludeDate
+	return params
+}
+func (params *UpdateServiceParams) SetSkipSmsToLandlines(SkipSmsToLandlines bool) *UpdateServiceParams {
+	params.SkipSmsToLandlines = &SkipSmsToLandlines
+	return params
+}
+func (params *UpdateServiceParams) SetTotpCodeLength(TotpCodeLength int32) *UpdateServiceParams {
+	params.TotpCodeLength = &TotpCodeLength
+	return params
+}
+func (params *UpdateServiceParams) SetTotpIssuer(TotpIssuer string) *UpdateServiceParams {
+	params.TotpIssuer = &TotpIssuer
+	return params
+}
+func (params *UpdateServiceParams) SetTotpSkew(TotpSkew int32) *UpdateServiceParams {
+	params.TotpSkew = &TotpSkew
+	return params
+}
+func (params *UpdateServiceParams) SetTotpTimeStep(TotpTimeStep int32) *UpdateServiceParams {
+	params.TotpTimeStep = &TotpTimeStep
+	return params
+}
+func (params *UpdateServiceParams) SetTtsName(TtsName string) *UpdateServiceParams {
+	params.TtsName = &TtsName
+	return params
 }
 
 // UpdateService Method for UpdateService
@@ -2264,6 +2727,11 @@ type UpdateVerificationParams struct {
 	Status *string `json:"Status,omitempty"`
 }
 
+func (params *UpdateVerificationParams) SetStatus(Status string) *UpdateVerificationParams {
+	params.Status = &Status
+	return params
+}
+
 // UpdateVerification Method for UpdateVerification
 //
 // Update a Verification status
@@ -2310,6 +2778,23 @@ type UpdateWebhookParams struct {
 	FriendlyName *string   `json:"FriendlyName,omitempty"`
 	Status       *string   `json:"Status,omitempty"`
 	WebhookUrl   *string   `json:"WebhookUrl,omitempty"`
+}
+
+func (params *UpdateWebhookParams) SetEventTypes(EventTypes []string) *UpdateWebhookParams {
+	params.EventTypes = &EventTypes
+	return params
+}
+func (params *UpdateWebhookParams) SetFriendlyName(FriendlyName string) *UpdateWebhookParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateWebhookParams) SetStatus(Status string) *UpdateWebhookParams {
+	params.Status = &Status
+	return params
+}
+func (params *UpdateWebhookParams) SetWebhookUrl(WebhookUrl string) *UpdateWebhookParams {
+	params.WebhookUrl = &WebhookUrl
+	return params
 }
 
 // UpdateWebhook Method for UpdateWebhook

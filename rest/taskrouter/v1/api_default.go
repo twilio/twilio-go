@@ -39,6 +39,15 @@ type CreateActivityParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateActivityParams) SetAvailable(Available bool) *CreateActivityParams {
+	params.Available = &Available
+	return params
+}
+func (params *CreateActivityParams) SetFriendlyName(FriendlyName string) *CreateActivityParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateActivity Method for CreateActivity
 //
 // param: WorkspaceSid The SID of the Workspace that the new Activity belongs to.
@@ -86,6 +95,27 @@ type CreateTaskParams struct {
 	TaskChannel *string `json:"TaskChannel,omitempty"`
 	Timeout     *int32  `json:"Timeout,omitempty"`
 	WorkflowSid *string `json:"WorkflowSid,omitempty"`
+}
+
+func (params *CreateTaskParams) SetAttributes(Attributes string) *CreateTaskParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateTaskParams) SetPriority(Priority int32) *CreateTaskParams {
+	params.Priority = &Priority
+	return params
+}
+func (params *CreateTaskParams) SetTaskChannel(TaskChannel string) *CreateTaskParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+func (params *CreateTaskParams) SetTimeout(Timeout int32) *CreateTaskParams {
+	params.Timeout = &Timeout
+	return params
+}
+func (params *CreateTaskParams) SetWorkflowSid(WorkflowSid string) *CreateTaskParams {
+	params.WorkflowSid = &WorkflowSid
+	return params
 }
 
 // CreateTask Method for CreateTask
@@ -150,6 +180,19 @@ type CreateTaskChannelParams struct {
 	UniqueName              *string `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimizedRouting bool) *CreateTaskChannelParams {
+	params.ChannelOptimizedRouting = &ChannelOptimizedRouting
+	return params
+}
+func (params *CreateTaskChannelParams) SetFriendlyName(FriendlyName string) *CreateTaskChannelParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateTaskChannelParams) SetUniqueName(UniqueName string) *CreateTaskChannelParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateTaskChannel Method for CreateTaskChannel
 //
 // param: WorkspaceSid The SID of the Workspace that the new Task Channel belongs to.
@@ -203,6 +246,31 @@ type CreateTaskQueueParams struct {
 	ReservationActivitySid *string `json:"ReservationActivitySid,omitempty"`
 	TargetWorkers          *string `json:"TargetWorkers,omitempty"`
 	TaskOrder              *string `json:"TaskOrder,omitempty"`
+}
+
+func (params *CreateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivitySid string) *CreateTaskQueueParams {
+	params.AssignmentActivitySid = &AssignmentActivitySid
+	return params
+}
+func (params *CreateTaskQueueParams) SetFriendlyName(FriendlyName string) *CreateTaskQueueParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateTaskQueueParams) SetMaxReservedWorkers(MaxReservedWorkers int32) *CreateTaskQueueParams {
+	params.MaxReservedWorkers = &MaxReservedWorkers
+	return params
+}
+func (params *CreateTaskQueueParams) SetReservationActivitySid(ReservationActivitySid string) *CreateTaskQueueParams {
+	params.ReservationActivitySid = &ReservationActivitySid
+	return params
+}
+func (params *CreateTaskQueueParams) SetTargetWorkers(TargetWorkers string) *CreateTaskQueueParams {
+	params.TargetWorkers = &TargetWorkers
+	return params
+}
+func (params *CreateTaskQueueParams) SetTaskOrder(TaskOrder string) *CreateTaskQueueParams {
+	params.TaskOrder = &TaskOrder
+	return params
 }
 
 // CreateTaskQueue Method for CreateTaskQueue
@@ -272,6 +340,19 @@ type CreateWorkerParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateWorkerParams) SetActivitySid(ActivitySid string) *CreateWorkerParams {
+	params.ActivitySid = &ActivitySid
+	return params
+}
+func (params *CreateWorkerParams) SetAttributes(Attributes string) *CreateWorkerParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateWorkerParams) SetFriendlyName(FriendlyName string) *CreateWorkerParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateWorker Method for CreateWorker
 //
 // param: WorkspaceSid The SID of the Workspace that the new Worker belongs to.
@@ -324,6 +405,27 @@ type CreateWorkflowParams struct {
 	FallbackAssignmentCallbackUrl *string `json:"FallbackAssignmentCallbackUrl,omitempty"`
 	FriendlyName                  *string `json:"FriendlyName,omitempty"`
 	TaskReservationTimeout        *int32  `json:"TaskReservationTimeout,omitempty"`
+}
+
+func (params *CreateWorkflowParams) SetAssignmentCallbackUrl(AssignmentCallbackUrl string) *CreateWorkflowParams {
+	params.AssignmentCallbackUrl = &AssignmentCallbackUrl
+	return params
+}
+func (params *CreateWorkflowParams) SetConfiguration(Configuration string) *CreateWorkflowParams {
+	params.Configuration = &Configuration
+	return params
+}
+func (params *CreateWorkflowParams) SetFallbackAssignmentCallbackUrl(FallbackAssignmentCallbackUrl string) *CreateWorkflowParams {
+	params.FallbackAssignmentCallbackUrl = &FallbackAssignmentCallbackUrl
+	return params
+}
+func (params *CreateWorkflowParams) SetFriendlyName(FriendlyName string) *CreateWorkflowParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateWorkflowParams) SetTaskReservationTimeout(TaskReservationTimeout int32) *CreateWorkflowParams {
+	params.TaskReservationTimeout = &TaskReservationTimeout
+	return params
 }
 
 // CreateWorkflow Method for CreateWorkflow
@@ -389,6 +491,31 @@ type CreateWorkspaceParams struct {
 	MultiTaskEnabled     *bool   `json:"MultiTaskEnabled,omitempty"`
 	PrioritizeQueueOrder *string `json:"PrioritizeQueueOrder,omitempty"`
 	Template             *string `json:"Template,omitempty"`
+}
+
+func (params *CreateWorkspaceParams) SetEventCallbackUrl(EventCallbackUrl string) *CreateWorkspaceParams {
+	params.EventCallbackUrl = &EventCallbackUrl
+	return params
+}
+func (params *CreateWorkspaceParams) SetEventsFilter(EventsFilter string) *CreateWorkspaceParams {
+	params.EventsFilter = &EventsFilter
+	return params
+}
+func (params *CreateWorkspaceParams) SetFriendlyName(FriendlyName string) *CreateWorkspaceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateWorkspaceParams) SetMultiTaskEnabled(MultiTaskEnabled bool) *CreateWorkspaceParams {
+	params.MultiTaskEnabled = &MultiTaskEnabled
+	return params
+}
+func (params *CreateWorkspaceParams) SetPrioritizeQueueOrder(PrioritizeQueueOrder string) *CreateWorkspaceParams {
+	params.PrioritizeQueueOrder = &PrioritizeQueueOrder
+	return params
+}
+func (params *CreateWorkspaceParams) SetTemplate(Template string) *CreateWorkspaceParams {
+	params.Template = &Template
+	return params
 }
 
 // CreateWorkspace Method for CreateWorkspace
@@ -475,6 +602,11 @@ func (c *DefaultApiService) DeleteActivity(WorkspaceSid string, Sid string) erro
 // DeleteTaskParams Optional parameters for the method 'DeleteTask'
 type DeleteTaskParams struct {
 	IfMatch *string `json:"If-Match,omitempty"`
+}
+
+func (params *DeleteTaskParams) SetIfMatch(IfMatch string) *DeleteTaskParams {
+	params.IfMatch = &IfMatch
+	return params
 }
 
 // DeleteTask Method for DeleteTask
@@ -785,6 +917,27 @@ type FetchTaskQueueCumulativeStatisticsParams struct {
 	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
 }
 
+func (params *FetchTaskQueueCumulativeStatisticsParams) SetEndDate(EndDate time.Time) *FetchTaskQueueCumulativeStatisticsParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *FetchTaskQueueCumulativeStatisticsParams) SetMinutes(Minutes int32) *FetchTaskQueueCumulativeStatisticsParams {
+	params.Minutes = &Minutes
+	return params
+}
+func (params *FetchTaskQueueCumulativeStatisticsParams) SetStartDate(StartDate time.Time) *FetchTaskQueueCumulativeStatisticsParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *FetchTaskQueueCumulativeStatisticsParams) SetTaskChannel(TaskChannel string) *FetchTaskQueueCumulativeStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+func (params *FetchTaskQueueCumulativeStatisticsParams) SetSplitByWaitTime(SplitByWaitTime string) *FetchTaskQueueCumulativeStatisticsParams {
+	params.SplitByWaitTime = &SplitByWaitTime
+	return params
+}
+
 // FetchTaskQueueCumulativeStatistics Method for FetchTaskQueueCumulativeStatistics
 //
 // param: WorkspaceSid The SID of the Workspace with the TaskQueue to fetch.
@@ -848,6 +1001,11 @@ type FetchTaskQueueRealTimeStatisticsParams struct {
 	TaskChannel *string `json:"TaskChannel,omitempty"`
 }
 
+func (params *FetchTaskQueueRealTimeStatisticsParams) SetTaskChannel(TaskChannel string) *FetchTaskQueueRealTimeStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+
 // FetchTaskQueueRealTimeStatistics Method for FetchTaskQueueRealTimeStatistics
 //
 // param: WorkspaceSid The SID of the Workspace with the TaskQueue to fetch.
@@ -893,6 +1051,27 @@ type FetchTaskQueueStatisticsParams struct {
 	StartDate       *time.Time `json:"StartDate,omitempty"`
 	TaskChannel     *string    `json:"TaskChannel,omitempty"`
 	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
+}
+
+func (params *FetchTaskQueueStatisticsParams) SetEndDate(EndDate time.Time) *FetchTaskQueueStatisticsParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *FetchTaskQueueStatisticsParams) SetMinutes(Minutes int32) *FetchTaskQueueStatisticsParams {
+	params.Minutes = &Minutes
+	return params
+}
+func (params *FetchTaskQueueStatisticsParams) SetStartDate(StartDate time.Time) *FetchTaskQueueStatisticsParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *FetchTaskQueueStatisticsParams) SetTaskChannel(TaskChannel string) *FetchTaskQueueStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+func (params *FetchTaskQueueStatisticsParams) SetSplitByWaitTime(SplitByWaitTime string) *FetchTaskQueueStatisticsParams {
+	params.SplitByWaitTime = &SplitByWaitTime
+	return params
 }
 
 // FetchTaskQueueStatistics Method for FetchTaskQueueStatistics
@@ -1057,6 +1236,23 @@ type FetchWorkerInstanceStatisticsParams struct {
 	TaskChannel *string    `json:"TaskChannel,omitempty"`
 }
 
+func (params *FetchWorkerInstanceStatisticsParams) SetMinutes(Minutes int32) *FetchWorkerInstanceStatisticsParams {
+	params.Minutes = &Minutes
+	return params
+}
+func (params *FetchWorkerInstanceStatisticsParams) SetStartDate(StartDate time.Time) *FetchWorkerInstanceStatisticsParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *FetchWorkerInstanceStatisticsParams) SetEndDate(EndDate time.Time) *FetchWorkerInstanceStatisticsParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *FetchWorkerInstanceStatisticsParams) SetTaskChannel(TaskChannel string) *FetchWorkerInstanceStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+
 // FetchWorkerInstanceStatistics Method for FetchWorkerInstanceStatistics
 //
 // param: WorkspaceSid The SID of the Workspace with the WorkerChannel to fetch.
@@ -1154,6 +1350,35 @@ type FetchWorkerStatisticsParams struct {
 	TaskChannel   *string    `json:"TaskChannel,omitempty"`
 }
 
+func (params *FetchWorkerStatisticsParams) SetMinutes(Minutes int32) *FetchWorkerStatisticsParams {
+	params.Minutes = &Minutes
+	return params
+}
+func (params *FetchWorkerStatisticsParams) SetStartDate(StartDate time.Time) *FetchWorkerStatisticsParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *FetchWorkerStatisticsParams) SetEndDate(EndDate time.Time) *FetchWorkerStatisticsParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *FetchWorkerStatisticsParams) SetTaskQueueSid(TaskQueueSid string) *FetchWorkerStatisticsParams {
+	params.TaskQueueSid = &TaskQueueSid
+	return params
+}
+func (params *FetchWorkerStatisticsParams) SetTaskQueueName(TaskQueueName string) *FetchWorkerStatisticsParams {
+	params.TaskQueueName = &TaskQueueName
+	return params
+}
+func (params *FetchWorkerStatisticsParams) SetFriendlyName(FriendlyName string) *FetchWorkerStatisticsParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *FetchWorkerStatisticsParams) SetTaskChannel(TaskChannel string) *FetchWorkerStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+
 // FetchWorkerStatistics Method for FetchWorkerStatistics
 //
 // param: WorkspaceSid The SID of the Workspace with the Worker to fetch.
@@ -1227,6 +1452,23 @@ type FetchWorkersCumulativeStatisticsParams struct {
 	TaskChannel *string    `json:"TaskChannel,omitempty"`
 }
 
+func (params *FetchWorkersCumulativeStatisticsParams) SetEndDate(EndDate time.Time) *FetchWorkersCumulativeStatisticsParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *FetchWorkersCumulativeStatisticsParams) SetMinutes(Minutes int32) *FetchWorkersCumulativeStatisticsParams {
+	params.Minutes = &Minutes
+	return params
+}
+func (params *FetchWorkersCumulativeStatisticsParams) SetStartDate(StartDate time.Time) *FetchWorkersCumulativeStatisticsParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *FetchWorkersCumulativeStatisticsParams) SetTaskChannel(TaskChannel string) *FetchWorkersCumulativeStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+
 // FetchWorkersCumulativeStatistics Method for FetchWorkersCumulativeStatistics
 //
 // param: WorkspaceSid The SID of the Workspace with the resource to fetch.
@@ -1280,6 +1522,11 @@ func (c *DefaultApiService) FetchWorkersCumulativeStatistics(WorkspaceSid string
 // FetchWorkersRealTimeStatisticsParams Optional parameters for the method 'FetchWorkersRealTimeStatistics'
 type FetchWorkersRealTimeStatisticsParams struct {
 	TaskChannel *string `json:"TaskChannel,omitempty"`
+}
+
+func (params *FetchWorkersRealTimeStatisticsParams) SetTaskChannel(TaskChannel string) *FetchWorkersRealTimeStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
 }
 
 // FetchWorkersRealTimeStatistics Method for FetchWorkersRealTimeStatistics
@@ -1356,6 +1603,27 @@ type FetchWorkflowCumulativeStatisticsParams struct {
 	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
 }
 
+func (params *FetchWorkflowCumulativeStatisticsParams) SetEndDate(EndDate time.Time) *FetchWorkflowCumulativeStatisticsParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *FetchWorkflowCumulativeStatisticsParams) SetMinutes(Minutes int32) *FetchWorkflowCumulativeStatisticsParams {
+	params.Minutes = &Minutes
+	return params
+}
+func (params *FetchWorkflowCumulativeStatisticsParams) SetStartDate(StartDate time.Time) *FetchWorkflowCumulativeStatisticsParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *FetchWorkflowCumulativeStatisticsParams) SetTaskChannel(TaskChannel string) *FetchWorkflowCumulativeStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+func (params *FetchWorkflowCumulativeStatisticsParams) SetSplitByWaitTime(SplitByWaitTime string) *FetchWorkflowCumulativeStatisticsParams {
+	params.SplitByWaitTime = &SplitByWaitTime
+	return params
+}
+
 // FetchWorkflowCumulativeStatistics Method for FetchWorkflowCumulativeStatistics
 //
 // param: WorkspaceSid The SID of the Workspace with the resource to fetch.
@@ -1419,6 +1687,11 @@ type FetchWorkflowRealTimeStatisticsParams struct {
 	TaskChannel *string `json:"TaskChannel,omitempty"`
 }
 
+func (params *FetchWorkflowRealTimeStatisticsParams) SetTaskChannel(TaskChannel string) *FetchWorkflowRealTimeStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+
 // FetchWorkflowRealTimeStatistics Method for FetchWorkflowRealTimeStatistics
 //
 // param: WorkspaceSid The SID of the Workspace with the Workflow to fetch.
@@ -1464,6 +1737,27 @@ type FetchWorkflowStatisticsParams struct {
 	EndDate         *time.Time `json:"EndDate,omitempty"`
 	TaskChannel     *string    `json:"TaskChannel,omitempty"`
 	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
+}
+
+func (params *FetchWorkflowStatisticsParams) SetMinutes(Minutes int32) *FetchWorkflowStatisticsParams {
+	params.Minutes = &Minutes
+	return params
+}
+func (params *FetchWorkflowStatisticsParams) SetStartDate(StartDate time.Time) *FetchWorkflowStatisticsParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *FetchWorkflowStatisticsParams) SetEndDate(EndDate time.Time) *FetchWorkflowStatisticsParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *FetchWorkflowStatisticsParams) SetTaskChannel(TaskChannel string) *FetchWorkflowStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+func (params *FetchWorkflowStatisticsParams) SetSplitByWaitTime(SplitByWaitTime string) *FetchWorkflowStatisticsParams {
+	params.SplitByWaitTime = &SplitByWaitTime
+	return params
 }
 
 // FetchWorkflowStatistics Method for FetchWorkflowStatistics
@@ -1560,6 +1854,27 @@ type FetchWorkspaceCumulativeStatisticsParams struct {
 	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
 }
 
+func (params *FetchWorkspaceCumulativeStatisticsParams) SetEndDate(EndDate time.Time) *FetchWorkspaceCumulativeStatisticsParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *FetchWorkspaceCumulativeStatisticsParams) SetMinutes(Minutes int32) *FetchWorkspaceCumulativeStatisticsParams {
+	params.Minutes = &Minutes
+	return params
+}
+func (params *FetchWorkspaceCumulativeStatisticsParams) SetStartDate(StartDate time.Time) *FetchWorkspaceCumulativeStatisticsParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *FetchWorkspaceCumulativeStatisticsParams) SetTaskChannel(TaskChannel string) *FetchWorkspaceCumulativeStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+func (params *FetchWorkspaceCumulativeStatisticsParams) SetSplitByWaitTime(SplitByWaitTime string) *FetchWorkspaceCumulativeStatisticsParams {
+	params.SplitByWaitTime = &SplitByWaitTime
+	return params
+}
+
 // FetchWorkspaceCumulativeStatistics Method for FetchWorkspaceCumulativeStatistics
 //
 // param: WorkspaceSid The SID of the Workspace to fetch.
@@ -1620,6 +1935,11 @@ type FetchWorkspaceRealTimeStatisticsParams struct {
 	TaskChannel *string `json:"TaskChannel,omitempty"`
 }
 
+func (params *FetchWorkspaceRealTimeStatisticsParams) SetTaskChannel(TaskChannel string) *FetchWorkspaceRealTimeStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+
 // FetchWorkspaceRealTimeStatistics Method for FetchWorkspaceRealTimeStatistics
 //
 // param: WorkspaceSid The SID of the Workspace to fetch.
@@ -1662,6 +1982,27 @@ type FetchWorkspaceStatisticsParams struct {
 	EndDate         *time.Time `json:"EndDate,omitempty"`
 	TaskChannel     *string    `json:"TaskChannel,omitempty"`
 	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
+}
+
+func (params *FetchWorkspaceStatisticsParams) SetMinutes(Minutes int32) *FetchWorkspaceStatisticsParams {
+	params.Minutes = &Minutes
+	return params
+}
+func (params *FetchWorkspaceStatisticsParams) SetStartDate(StartDate time.Time) *FetchWorkspaceStatisticsParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *FetchWorkspaceStatisticsParams) SetEndDate(EndDate time.Time) *FetchWorkspaceStatisticsParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *FetchWorkspaceStatisticsParams) SetTaskChannel(TaskChannel string) *FetchWorkspaceStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+func (params *FetchWorkspaceStatisticsParams) SetSplitByWaitTime(SplitByWaitTime string) *FetchWorkspaceStatisticsParams {
+	params.SplitByWaitTime = &SplitByWaitTime
+	return params
 }
 
 // FetchWorkspaceStatistics Method for FetchWorkspaceStatistics
@@ -1726,6 +2067,19 @@ type ListActivityParams struct {
 	PageSize     *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListActivityParams) SetFriendlyName(FriendlyName string) *ListActivityParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListActivityParams) SetAvailable(Available string) *ListActivityParams {
+	params.Available = &Available
+	return params
+}
+func (params *ListActivityParams) SetPageSize(PageSize int32) *ListActivityParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListActivity Method for ListActivity
 //
 // param: WorkspaceSid The SID of the Workspace with the Activity resources to read.
@@ -1785,6 +2139,55 @@ type ListEventParams struct {
 	TaskChannel    *string    `json:"TaskChannel,omitempty"`
 	Sid            *string    `json:"Sid,omitempty"`
 	PageSize       *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListEventParams) SetEndDate(EndDate time.Time) *ListEventParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListEventParams) SetEventType(EventType string) *ListEventParams {
+	params.EventType = &EventType
+	return params
+}
+func (params *ListEventParams) SetMinutes(Minutes int32) *ListEventParams {
+	params.Minutes = &Minutes
+	return params
+}
+func (params *ListEventParams) SetReservationSid(ReservationSid string) *ListEventParams {
+	params.ReservationSid = &ReservationSid
+	return params
+}
+func (params *ListEventParams) SetStartDate(StartDate time.Time) *ListEventParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListEventParams) SetTaskQueueSid(TaskQueueSid string) *ListEventParams {
+	params.TaskQueueSid = &TaskQueueSid
+	return params
+}
+func (params *ListEventParams) SetTaskSid(TaskSid string) *ListEventParams {
+	params.TaskSid = &TaskSid
+	return params
+}
+func (params *ListEventParams) SetWorkerSid(WorkerSid string) *ListEventParams {
+	params.WorkerSid = &WorkerSid
+	return params
+}
+func (params *ListEventParams) SetWorkflowSid(WorkflowSid string) *ListEventParams {
+	params.WorkflowSid = &WorkflowSid
+	return params
+}
+func (params *ListEventParams) SetTaskChannel(TaskChannel string) *ListEventParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+func (params *ListEventParams) SetSid(Sid string) *ListEventParams {
+	params.Sid = &Sid
+	return params
+}
+func (params *ListEventParams) SetPageSize(PageSize int32) *ListEventParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListEvent Method for ListEvent
@@ -1891,6 +2294,47 @@ type ListTaskParams struct {
 	PageSize               *int32    `json:"PageSize,omitempty"`
 }
 
+func (params *ListTaskParams) SetPriority(Priority int32) *ListTaskParams {
+	params.Priority = &Priority
+	return params
+}
+func (params *ListTaskParams) SetAssignmentStatus(AssignmentStatus []string) *ListTaskParams {
+	params.AssignmentStatus = &AssignmentStatus
+	return params
+}
+func (params *ListTaskParams) SetWorkflowSid(WorkflowSid string) *ListTaskParams {
+	params.WorkflowSid = &WorkflowSid
+	return params
+}
+func (params *ListTaskParams) SetWorkflowName(WorkflowName string) *ListTaskParams {
+	params.WorkflowName = &WorkflowName
+	return params
+}
+func (params *ListTaskParams) SetTaskQueueSid(TaskQueueSid string) *ListTaskParams {
+	params.TaskQueueSid = &TaskQueueSid
+	return params
+}
+func (params *ListTaskParams) SetTaskQueueName(TaskQueueName string) *ListTaskParams {
+	params.TaskQueueName = &TaskQueueName
+	return params
+}
+func (params *ListTaskParams) SetEvaluateTaskAttributes(EvaluateTaskAttributes string) *ListTaskParams {
+	params.EvaluateTaskAttributes = &EvaluateTaskAttributes
+	return params
+}
+func (params *ListTaskParams) SetOrdering(Ordering string) *ListTaskParams {
+	params.Ordering = &Ordering
+	return params
+}
+func (params *ListTaskParams) SetHasAddons(HasAddons bool) *ListTaskParams {
+	params.HasAddons = &HasAddons
+	return params
+}
+func (params *ListTaskParams) SetPageSize(PageSize int32) *ListTaskParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListTask Method for ListTask
 //
 // param: WorkspaceSid The SID of the Workspace with the Tasks to read.
@@ -1976,6 +2420,11 @@ type ListTaskChannelParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListTaskChannelParams) SetPageSize(PageSize int32) *ListTaskChannelParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListTaskChannel Method for ListTaskChannel
 //
 // param: WorkspaceSid The SID of the Workspace with the Task Channel to read.
@@ -2017,6 +2466,23 @@ type ListTaskQueueParams struct {
 	EvaluateWorkerAttributes *string `json:"EvaluateWorkerAttributes,omitempty"`
 	WorkerSid                *string `json:"WorkerSid,omitempty"`
 	PageSize                 *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListTaskQueueParams) SetFriendlyName(FriendlyName string) *ListTaskQueueParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListTaskQueueParams) SetEvaluateWorkerAttributes(EvaluateWorkerAttributes string) *ListTaskQueueParams {
+	params.EvaluateWorkerAttributes = &EvaluateWorkerAttributes
+	return params
+}
+func (params *ListTaskQueueParams) SetWorkerSid(WorkerSid string) *ListTaskQueueParams {
+	params.WorkerSid = &WorkerSid
+	return params
+}
+func (params *ListTaskQueueParams) SetPageSize(PageSize int32) *ListTaskQueueParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListTaskQueue Method for ListTaskQueue
@@ -2078,6 +2544,35 @@ type ListTaskQueuesStatisticsParams struct {
 	TaskChannel     *string    `json:"TaskChannel,omitempty"`
 	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
 	PageSize        *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListTaskQueuesStatisticsParams) SetEndDate(EndDate time.Time) *ListTaskQueuesStatisticsParams {
+	params.EndDate = &EndDate
+	return params
+}
+func (params *ListTaskQueuesStatisticsParams) SetFriendlyName(FriendlyName string) *ListTaskQueuesStatisticsParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListTaskQueuesStatisticsParams) SetMinutes(Minutes int32) *ListTaskQueuesStatisticsParams {
+	params.Minutes = &Minutes
+	return params
+}
+func (params *ListTaskQueuesStatisticsParams) SetStartDate(StartDate time.Time) *ListTaskQueuesStatisticsParams {
+	params.StartDate = &StartDate
+	return params
+}
+func (params *ListTaskQueuesStatisticsParams) SetTaskChannel(TaskChannel string) *ListTaskQueuesStatisticsParams {
+	params.TaskChannel = &TaskChannel
+	return params
+}
+func (params *ListTaskQueuesStatisticsParams) SetSplitByWaitTime(SplitByWaitTime string) *ListTaskQueuesStatisticsParams {
+	params.SplitByWaitTime = &SplitByWaitTime
+	return params
+}
+func (params *ListTaskQueuesStatisticsParams) SetPageSize(PageSize int32) *ListTaskQueuesStatisticsParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListTaskQueuesStatistics Method for ListTaskQueuesStatistics
@@ -2151,6 +2646,15 @@ type ListTaskReservationParams struct {
 	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListTaskReservationParams) SetReservationStatus(ReservationStatus string) *ListTaskReservationParams {
+	params.ReservationStatus = &ReservationStatus
+	return params
+}
+func (params *ListTaskReservationParams) SetPageSize(PageSize int32) *ListTaskReservationParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListTaskReservation Method for ListTaskReservation
 //
 // param: WorkspaceSid The SID of the Workspace with the TaskReservation resources to read.
@@ -2204,6 +2708,39 @@ type ListWorkerParams struct {
 	TaskQueueName           *string `json:"TaskQueueName,omitempty"`
 	TaskQueueSid            *string `json:"TaskQueueSid,omitempty"`
 	PageSize                *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListWorkerParams) SetActivityName(ActivityName string) *ListWorkerParams {
+	params.ActivityName = &ActivityName
+	return params
+}
+func (params *ListWorkerParams) SetActivitySid(ActivitySid string) *ListWorkerParams {
+	params.ActivitySid = &ActivitySid
+	return params
+}
+func (params *ListWorkerParams) SetAvailable(Available string) *ListWorkerParams {
+	params.Available = &Available
+	return params
+}
+func (params *ListWorkerParams) SetFriendlyName(FriendlyName string) *ListWorkerParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListWorkerParams) SetTargetWorkersExpression(TargetWorkersExpression string) *ListWorkerParams {
+	params.TargetWorkersExpression = &TargetWorkersExpression
+	return params
+}
+func (params *ListWorkerParams) SetTaskQueueName(TaskQueueName string) *ListWorkerParams {
+	params.TaskQueueName = &TaskQueueName
+	return params
+}
+func (params *ListWorkerParams) SetTaskQueueSid(TaskQueueSid string) *ListWorkerParams {
+	params.TaskQueueSid = &TaskQueueSid
+	return params
+}
+func (params *ListWorkerParams) SetPageSize(PageSize int32) *ListWorkerParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListWorker Method for ListWorker
@@ -2281,6 +2818,11 @@ type ListWorkerChannelParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListWorkerChannelParams) SetPageSize(PageSize int32) *ListWorkerChannelParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListWorkerChannel Method for ListWorkerChannel
 //
 // param: WorkspaceSid The SID of the Workspace with the WorkerChannels to read.
@@ -2323,6 +2865,15 @@ func (c *DefaultApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid str
 type ListWorkerReservationParams struct {
 	ReservationStatus *string `json:"ReservationStatus,omitempty"`
 	PageSize          *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListWorkerReservationParams) SetReservationStatus(ReservationStatus string) *ListWorkerReservationParams {
+	params.ReservationStatus = &ReservationStatus
+	return params
+}
+func (params *ListWorkerReservationParams) SetPageSize(PageSize int32) *ListWorkerReservationParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListWorkerReservation Method for ListWorkerReservation
@@ -2374,6 +2925,15 @@ type ListWorkflowParams struct {
 	PageSize     *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListWorkflowParams) SetFriendlyName(FriendlyName string) *ListWorkflowParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListWorkflowParams) SetPageSize(PageSize int32) *ListWorkflowParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListWorkflow Method for ListWorkflow
 //
 // param: WorkspaceSid The SID of the Workspace with the Workflow to read.
@@ -2420,6 +2980,15 @@ type ListWorkspaceParams struct {
 	PageSize     *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListWorkspaceParams) SetFriendlyName(FriendlyName string) *ListWorkspaceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListWorkspaceParams) SetPageSize(PageSize int32) *ListWorkspaceParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListWorkspace Method for ListWorkspace
 //
 // param: optional nil or *ListWorkspaceParams - Optional Parameters:
@@ -2460,6 +3029,11 @@ func (c *DefaultApiService) ListWorkspace(params *ListWorkspaceParams) (*ListWor
 // UpdateActivityParams Optional parameters for the method 'UpdateActivity'
 type UpdateActivityParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+}
+
+func (params *UpdateActivityParams) SetFriendlyName(FriendlyName string) *UpdateActivityParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // UpdateActivity Method for UpdateActivity
@@ -2508,6 +3082,31 @@ type UpdateTaskParams struct {
 	Priority         *int32  `json:"Priority,omitempty"`
 	Reason           *string `json:"Reason,omitempty"`
 	TaskChannel      *string `json:"TaskChannel,omitempty"`
+}
+
+func (params *UpdateTaskParams) SetIfMatch(IfMatch string) *UpdateTaskParams {
+	params.IfMatch = &IfMatch
+	return params
+}
+func (params *UpdateTaskParams) SetAssignmentStatus(AssignmentStatus string) *UpdateTaskParams {
+	params.AssignmentStatus = &AssignmentStatus
+	return params
+}
+func (params *UpdateTaskParams) SetAttributes(Attributes string) *UpdateTaskParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateTaskParams) SetPriority(Priority int32) *UpdateTaskParams {
+	params.Priority = &Priority
+	return params
+}
+func (params *UpdateTaskParams) SetReason(Reason string) *UpdateTaskParams {
+	params.Reason = &Reason
+	return params
+}
+func (params *UpdateTaskParams) SetTaskChannel(TaskChannel string) *UpdateTaskParams {
+	params.TaskChannel = &TaskChannel
+	return params
 }
 
 // UpdateTask Method for UpdateTask
@@ -2580,6 +3179,15 @@ type UpdateTaskChannelParams struct {
 	FriendlyName            *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimizedRouting bool) *UpdateTaskChannelParams {
+	params.ChannelOptimizedRouting = &ChannelOptimizedRouting
+	return params
+}
+func (params *UpdateTaskChannelParams) SetFriendlyName(FriendlyName string) *UpdateTaskChannelParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // UpdateTaskChannel Method for UpdateTaskChannel
 //
 // param: WorkspaceSid The SID of the Workspace with the Task Channel to update.
@@ -2631,6 +3239,31 @@ type UpdateTaskQueueParams struct {
 	ReservationActivitySid *string `json:"ReservationActivitySid,omitempty"`
 	TargetWorkers          *string `json:"TargetWorkers,omitempty"`
 	TaskOrder              *string `json:"TaskOrder,omitempty"`
+}
+
+func (params *UpdateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivitySid string) *UpdateTaskQueueParams {
+	params.AssignmentActivitySid = &AssignmentActivitySid
+	return params
+}
+func (params *UpdateTaskQueueParams) SetFriendlyName(FriendlyName string) *UpdateTaskQueueParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateTaskQueueParams) SetMaxReservedWorkers(MaxReservedWorkers int32) *UpdateTaskQueueParams {
+	params.MaxReservedWorkers = &MaxReservedWorkers
+	return params
+}
+func (params *UpdateTaskQueueParams) SetReservationActivitySid(ReservationActivitySid string) *UpdateTaskQueueParams {
+	params.ReservationActivitySid = &ReservationActivitySid
+	return params
+}
+func (params *UpdateTaskQueueParams) SetTargetWorkers(TargetWorkers string) *UpdateTaskQueueParams {
+	params.TargetWorkers = &TargetWorkers
+	return params
+}
+func (params *UpdateTaskQueueParams) SetTaskOrder(TaskOrder string) *UpdateTaskQueueParams {
+	params.TaskOrder = &TaskOrder
+	return params
 }
 
 // UpdateTaskQueue Method for UpdateTaskQueue
@@ -2751,6 +3384,219 @@ type UpdateTaskReservationParams struct {
 	WaitMethod                              *string   `json:"WaitMethod,omitempty"`
 	WaitUrl                                 *string   `json:"WaitUrl,omitempty"`
 	WorkerActivitySid                       *string   `json:"WorkerActivitySid,omitempty"`
+}
+
+func (params *UpdateTaskReservationParams) SetBeep(Beep string) *UpdateTaskReservationParams {
+	params.Beep = &Beep
+	return params
+}
+func (params *UpdateTaskReservationParams) SetBeepOnCustomerEntrance(BeepOnCustomerEntrance bool) *UpdateTaskReservationParams {
+	params.BeepOnCustomerEntrance = &BeepOnCustomerEntrance
+	return params
+}
+func (params *UpdateTaskReservationParams) SetCallAccept(CallAccept bool) *UpdateTaskReservationParams {
+	params.CallAccept = &CallAccept
+	return params
+}
+func (params *UpdateTaskReservationParams) SetCallFrom(CallFrom string) *UpdateTaskReservationParams {
+	params.CallFrom = &CallFrom
+	return params
+}
+func (params *UpdateTaskReservationParams) SetCallRecord(CallRecord string) *UpdateTaskReservationParams {
+	params.CallRecord = &CallRecord
+	return params
+}
+func (params *UpdateTaskReservationParams) SetCallStatusCallbackUrl(CallStatusCallbackUrl string) *UpdateTaskReservationParams {
+	params.CallStatusCallbackUrl = &CallStatusCallbackUrl
+	return params
+}
+func (params *UpdateTaskReservationParams) SetCallTimeout(CallTimeout int32) *UpdateTaskReservationParams {
+	params.CallTimeout = &CallTimeout
+	return params
+}
+func (params *UpdateTaskReservationParams) SetCallTo(CallTo string) *UpdateTaskReservationParams {
+	params.CallTo = &CallTo
+	return params
+}
+func (params *UpdateTaskReservationParams) SetCallUrl(CallUrl string) *UpdateTaskReservationParams {
+	params.CallUrl = &CallUrl
+	return params
+}
+func (params *UpdateTaskReservationParams) SetConferenceRecord(ConferenceRecord string) *UpdateTaskReservationParams {
+	params.ConferenceRecord = &ConferenceRecord
+	return params
+}
+func (params *UpdateTaskReservationParams) SetConferenceRecordingStatusCallback(ConferenceRecordingStatusCallback string) *UpdateTaskReservationParams {
+	params.ConferenceRecordingStatusCallback = &ConferenceRecordingStatusCallback
+	return params
+}
+func (params *UpdateTaskReservationParams) SetConferenceRecordingStatusCallbackMethod(ConferenceRecordingStatusCallbackMethod string) *UpdateTaskReservationParams {
+	params.ConferenceRecordingStatusCallbackMethod = &ConferenceRecordingStatusCallbackMethod
+	return params
+}
+func (params *UpdateTaskReservationParams) SetConferenceStatusCallback(ConferenceStatusCallback string) *UpdateTaskReservationParams {
+	params.ConferenceStatusCallback = &ConferenceStatusCallback
+	return params
+}
+func (params *UpdateTaskReservationParams) SetConferenceStatusCallbackEvent(ConferenceStatusCallbackEvent []string) *UpdateTaskReservationParams {
+	params.ConferenceStatusCallbackEvent = &ConferenceStatusCallbackEvent
+	return params
+}
+func (params *UpdateTaskReservationParams) SetConferenceStatusCallbackMethod(ConferenceStatusCallbackMethod string) *UpdateTaskReservationParams {
+	params.ConferenceStatusCallbackMethod = &ConferenceStatusCallbackMethod
+	return params
+}
+func (params *UpdateTaskReservationParams) SetConferenceTrim(ConferenceTrim string) *UpdateTaskReservationParams {
+	params.ConferenceTrim = &ConferenceTrim
+	return params
+}
+func (params *UpdateTaskReservationParams) SetDequeueFrom(DequeueFrom string) *UpdateTaskReservationParams {
+	params.DequeueFrom = &DequeueFrom
+	return params
+}
+func (params *UpdateTaskReservationParams) SetDequeuePostWorkActivitySid(DequeuePostWorkActivitySid string) *UpdateTaskReservationParams {
+	params.DequeuePostWorkActivitySid = &DequeuePostWorkActivitySid
+	return params
+}
+func (params *UpdateTaskReservationParams) SetDequeueRecord(DequeueRecord string) *UpdateTaskReservationParams {
+	params.DequeueRecord = &DequeueRecord
+	return params
+}
+func (params *UpdateTaskReservationParams) SetDequeueStatusCallbackEvent(DequeueStatusCallbackEvent []string) *UpdateTaskReservationParams {
+	params.DequeueStatusCallbackEvent = &DequeueStatusCallbackEvent
+	return params
+}
+func (params *UpdateTaskReservationParams) SetDequeueStatusCallbackUrl(DequeueStatusCallbackUrl string) *UpdateTaskReservationParams {
+	params.DequeueStatusCallbackUrl = &DequeueStatusCallbackUrl
+	return params
+}
+func (params *UpdateTaskReservationParams) SetDequeueTimeout(DequeueTimeout int32) *UpdateTaskReservationParams {
+	params.DequeueTimeout = &DequeueTimeout
+	return params
+}
+func (params *UpdateTaskReservationParams) SetDequeueTo(DequeueTo string) *UpdateTaskReservationParams {
+	params.DequeueTo = &DequeueTo
+	return params
+}
+func (params *UpdateTaskReservationParams) SetEarlyMedia(EarlyMedia bool) *UpdateTaskReservationParams {
+	params.EarlyMedia = &EarlyMedia
+	return params
+}
+func (params *UpdateTaskReservationParams) SetEndConferenceOnCustomerExit(EndConferenceOnCustomerExit bool) *UpdateTaskReservationParams {
+	params.EndConferenceOnCustomerExit = &EndConferenceOnCustomerExit
+	return params
+}
+func (params *UpdateTaskReservationParams) SetEndConferenceOnExit(EndConferenceOnExit bool) *UpdateTaskReservationParams {
+	params.EndConferenceOnExit = &EndConferenceOnExit
+	return params
+}
+func (params *UpdateTaskReservationParams) SetFrom(From string) *UpdateTaskReservationParams {
+	params.From = &From
+	return params
+}
+func (params *UpdateTaskReservationParams) SetInstruction(Instruction string) *UpdateTaskReservationParams {
+	params.Instruction = &Instruction
+	return params
+}
+func (params *UpdateTaskReservationParams) SetMaxParticipants(MaxParticipants int32) *UpdateTaskReservationParams {
+	params.MaxParticipants = &MaxParticipants
+	return params
+}
+func (params *UpdateTaskReservationParams) SetMuted(Muted bool) *UpdateTaskReservationParams {
+	params.Muted = &Muted
+	return params
+}
+func (params *UpdateTaskReservationParams) SetPostWorkActivitySid(PostWorkActivitySid string) *UpdateTaskReservationParams {
+	params.PostWorkActivitySid = &PostWorkActivitySid
+	return params
+}
+func (params *UpdateTaskReservationParams) SetRecord(Record bool) *UpdateTaskReservationParams {
+	params.Record = &Record
+	return params
+}
+func (params *UpdateTaskReservationParams) SetRecordingChannels(RecordingChannels string) *UpdateTaskReservationParams {
+	params.RecordingChannels = &RecordingChannels
+	return params
+}
+func (params *UpdateTaskReservationParams) SetRecordingStatusCallback(RecordingStatusCallback string) *UpdateTaskReservationParams {
+	params.RecordingStatusCallback = &RecordingStatusCallback
+	return params
+}
+func (params *UpdateTaskReservationParams) SetRecordingStatusCallbackMethod(RecordingStatusCallbackMethod string) *UpdateTaskReservationParams {
+	params.RecordingStatusCallbackMethod = &RecordingStatusCallbackMethod
+	return params
+}
+func (params *UpdateTaskReservationParams) SetRedirectAccept(RedirectAccept bool) *UpdateTaskReservationParams {
+	params.RedirectAccept = &RedirectAccept
+	return params
+}
+func (params *UpdateTaskReservationParams) SetRedirectCallSid(RedirectCallSid string) *UpdateTaskReservationParams {
+	params.RedirectCallSid = &RedirectCallSid
+	return params
+}
+func (params *UpdateTaskReservationParams) SetRedirectUrl(RedirectUrl string) *UpdateTaskReservationParams {
+	params.RedirectUrl = &RedirectUrl
+	return params
+}
+func (params *UpdateTaskReservationParams) SetRegion(Region string) *UpdateTaskReservationParams {
+	params.Region = &Region
+	return params
+}
+func (params *UpdateTaskReservationParams) SetReservationStatus(ReservationStatus string) *UpdateTaskReservationParams {
+	params.ReservationStatus = &ReservationStatus
+	return params
+}
+func (params *UpdateTaskReservationParams) SetSipAuthPassword(SipAuthPassword string) *UpdateTaskReservationParams {
+	params.SipAuthPassword = &SipAuthPassword
+	return params
+}
+func (params *UpdateTaskReservationParams) SetSipAuthUsername(SipAuthUsername string) *UpdateTaskReservationParams {
+	params.SipAuthUsername = &SipAuthUsername
+	return params
+}
+func (params *UpdateTaskReservationParams) SetStartConferenceOnEnter(StartConferenceOnEnter bool) *UpdateTaskReservationParams {
+	params.StartConferenceOnEnter = &StartConferenceOnEnter
+	return params
+}
+func (params *UpdateTaskReservationParams) SetStatusCallback(StatusCallback string) *UpdateTaskReservationParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *UpdateTaskReservationParams) SetStatusCallbackEvent(StatusCallbackEvent []string) *UpdateTaskReservationParams {
+	params.StatusCallbackEvent = &StatusCallbackEvent
+	return params
+}
+func (params *UpdateTaskReservationParams) SetStatusCallbackMethod(StatusCallbackMethod string) *UpdateTaskReservationParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *UpdateTaskReservationParams) SetSupervisor(Supervisor string) *UpdateTaskReservationParams {
+	params.Supervisor = &Supervisor
+	return params
+}
+func (params *UpdateTaskReservationParams) SetSupervisorMode(SupervisorMode string) *UpdateTaskReservationParams {
+	params.SupervisorMode = &SupervisorMode
+	return params
+}
+func (params *UpdateTaskReservationParams) SetTimeout(Timeout int32) *UpdateTaskReservationParams {
+	params.Timeout = &Timeout
+	return params
+}
+func (params *UpdateTaskReservationParams) SetTo(To string) *UpdateTaskReservationParams {
+	params.To = &To
+	return params
+}
+func (params *UpdateTaskReservationParams) SetWaitMethod(WaitMethod string) *UpdateTaskReservationParams {
+	params.WaitMethod = &WaitMethod
+	return params
+}
+func (params *UpdateTaskReservationParams) SetWaitUrl(WaitUrl string) *UpdateTaskReservationParams {
+	params.WaitUrl = &WaitUrl
+	return params
+}
+func (params *UpdateTaskReservationParams) SetWorkerActivitySid(WorkerActivitySid string) *UpdateTaskReservationParams {
+	params.WorkerActivitySid = &WorkerActivitySid
+	return params
 }
 
 // UpdateTaskReservation Method for UpdateTaskReservation
@@ -3062,6 +3908,23 @@ type UpdateWorkerParams struct {
 	RejectPendingReservations *bool   `json:"RejectPendingReservations,omitempty"`
 }
 
+func (params *UpdateWorkerParams) SetActivitySid(ActivitySid string) *UpdateWorkerParams {
+	params.ActivitySid = &ActivitySid
+	return params
+}
+func (params *UpdateWorkerParams) SetAttributes(Attributes string) *UpdateWorkerParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateWorkerParams) SetFriendlyName(FriendlyName string) *UpdateWorkerParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateWorkerParams) SetRejectPendingReservations(RejectPendingReservations bool) *UpdateWorkerParams {
+	params.RejectPendingReservations = &RejectPendingReservations
+	return params
+}
+
 // UpdateWorker Method for UpdateWorker
 //
 // param: WorkspaceSid The SID of the Workspace with the Worker to update.
@@ -3119,6 +3982,15 @@ func (c *DefaultApiService) UpdateWorker(WorkspaceSid string, Sid string, params
 type UpdateWorkerChannelParams struct {
 	Available *bool  `json:"Available,omitempty"`
 	Capacity  *int32 `json:"Capacity,omitempty"`
+}
+
+func (params *UpdateWorkerChannelParams) SetAvailable(Available bool) *UpdateWorkerChannelParams {
+	params.Available = &Available
+	return params
+}
+func (params *UpdateWorkerChannelParams) SetCapacity(Capacity int32) *UpdateWorkerChannelParams {
+	params.Capacity = &Capacity
+	return params
 }
 
 // UpdateWorkerChannel Method for UpdateWorkerChannel
@@ -3220,6 +4092,211 @@ type UpdateWorkerReservationParams struct {
 	WaitMethod                              *string   `json:"WaitMethod,omitempty"`
 	WaitUrl                                 *string   `json:"WaitUrl,omitempty"`
 	WorkerActivitySid                       *string   `json:"WorkerActivitySid,omitempty"`
+}
+
+func (params *UpdateWorkerReservationParams) SetBeep(Beep string) *UpdateWorkerReservationParams {
+	params.Beep = &Beep
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetBeepOnCustomerEntrance(BeepOnCustomerEntrance bool) *UpdateWorkerReservationParams {
+	params.BeepOnCustomerEntrance = &BeepOnCustomerEntrance
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetCallAccept(CallAccept bool) *UpdateWorkerReservationParams {
+	params.CallAccept = &CallAccept
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetCallFrom(CallFrom string) *UpdateWorkerReservationParams {
+	params.CallFrom = &CallFrom
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetCallRecord(CallRecord string) *UpdateWorkerReservationParams {
+	params.CallRecord = &CallRecord
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetCallStatusCallbackUrl(CallStatusCallbackUrl string) *UpdateWorkerReservationParams {
+	params.CallStatusCallbackUrl = &CallStatusCallbackUrl
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetCallTimeout(CallTimeout int32) *UpdateWorkerReservationParams {
+	params.CallTimeout = &CallTimeout
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetCallTo(CallTo string) *UpdateWorkerReservationParams {
+	params.CallTo = &CallTo
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetCallUrl(CallUrl string) *UpdateWorkerReservationParams {
+	params.CallUrl = &CallUrl
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetConferenceRecord(ConferenceRecord string) *UpdateWorkerReservationParams {
+	params.ConferenceRecord = &ConferenceRecord
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetConferenceRecordingStatusCallback(ConferenceRecordingStatusCallback string) *UpdateWorkerReservationParams {
+	params.ConferenceRecordingStatusCallback = &ConferenceRecordingStatusCallback
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetConferenceRecordingStatusCallbackMethod(ConferenceRecordingStatusCallbackMethod string) *UpdateWorkerReservationParams {
+	params.ConferenceRecordingStatusCallbackMethod = &ConferenceRecordingStatusCallbackMethod
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetConferenceStatusCallback(ConferenceStatusCallback string) *UpdateWorkerReservationParams {
+	params.ConferenceStatusCallback = &ConferenceStatusCallback
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetConferenceStatusCallbackEvent(ConferenceStatusCallbackEvent []string) *UpdateWorkerReservationParams {
+	params.ConferenceStatusCallbackEvent = &ConferenceStatusCallbackEvent
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetConferenceStatusCallbackMethod(ConferenceStatusCallbackMethod string) *UpdateWorkerReservationParams {
+	params.ConferenceStatusCallbackMethod = &ConferenceStatusCallbackMethod
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetConferenceTrim(ConferenceTrim string) *UpdateWorkerReservationParams {
+	params.ConferenceTrim = &ConferenceTrim
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetDequeueFrom(DequeueFrom string) *UpdateWorkerReservationParams {
+	params.DequeueFrom = &DequeueFrom
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetDequeuePostWorkActivitySid(DequeuePostWorkActivitySid string) *UpdateWorkerReservationParams {
+	params.DequeuePostWorkActivitySid = &DequeuePostWorkActivitySid
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetDequeueRecord(DequeueRecord string) *UpdateWorkerReservationParams {
+	params.DequeueRecord = &DequeueRecord
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetDequeueStatusCallbackEvent(DequeueStatusCallbackEvent []string) *UpdateWorkerReservationParams {
+	params.DequeueStatusCallbackEvent = &DequeueStatusCallbackEvent
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetDequeueStatusCallbackUrl(DequeueStatusCallbackUrl string) *UpdateWorkerReservationParams {
+	params.DequeueStatusCallbackUrl = &DequeueStatusCallbackUrl
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetDequeueTimeout(DequeueTimeout int32) *UpdateWorkerReservationParams {
+	params.DequeueTimeout = &DequeueTimeout
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetDequeueTo(DequeueTo string) *UpdateWorkerReservationParams {
+	params.DequeueTo = &DequeueTo
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetEarlyMedia(EarlyMedia bool) *UpdateWorkerReservationParams {
+	params.EarlyMedia = &EarlyMedia
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetEndConferenceOnCustomerExit(EndConferenceOnCustomerExit bool) *UpdateWorkerReservationParams {
+	params.EndConferenceOnCustomerExit = &EndConferenceOnCustomerExit
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetEndConferenceOnExit(EndConferenceOnExit bool) *UpdateWorkerReservationParams {
+	params.EndConferenceOnExit = &EndConferenceOnExit
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetFrom(From string) *UpdateWorkerReservationParams {
+	params.From = &From
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetInstruction(Instruction string) *UpdateWorkerReservationParams {
+	params.Instruction = &Instruction
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetMaxParticipants(MaxParticipants int32) *UpdateWorkerReservationParams {
+	params.MaxParticipants = &MaxParticipants
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetMuted(Muted bool) *UpdateWorkerReservationParams {
+	params.Muted = &Muted
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetPostWorkActivitySid(PostWorkActivitySid string) *UpdateWorkerReservationParams {
+	params.PostWorkActivitySid = &PostWorkActivitySid
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetRecord(Record bool) *UpdateWorkerReservationParams {
+	params.Record = &Record
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetRecordingChannels(RecordingChannels string) *UpdateWorkerReservationParams {
+	params.RecordingChannels = &RecordingChannels
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetRecordingStatusCallback(RecordingStatusCallback string) *UpdateWorkerReservationParams {
+	params.RecordingStatusCallback = &RecordingStatusCallback
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetRecordingStatusCallbackMethod(RecordingStatusCallbackMethod string) *UpdateWorkerReservationParams {
+	params.RecordingStatusCallbackMethod = &RecordingStatusCallbackMethod
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetRedirectAccept(RedirectAccept bool) *UpdateWorkerReservationParams {
+	params.RedirectAccept = &RedirectAccept
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetRedirectCallSid(RedirectCallSid string) *UpdateWorkerReservationParams {
+	params.RedirectCallSid = &RedirectCallSid
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetRedirectUrl(RedirectUrl string) *UpdateWorkerReservationParams {
+	params.RedirectUrl = &RedirectUrl
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetRegion(Region string) *UpdateWorkerReservationParams {
+	params.Region = &Region
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetReservationStatus(ReservationStatus string) *UpdateWorkerReservationParams {
+	params.ReservationStatus = &ReservationStatus
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetSipAuthPassword(SipAuthPassword string) *UpdateWorkerReservationParams {
+	params.SipAuthPassword = &SipAuthPassword
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetSipAuthUsername(SipAuthUsername string) *UpdateWorkerReservationParams {
+	params.SipAuthUsername = &SipAuthUsername
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetStartConferenceOnEnter(StartConferenceOnEnter bool) *UpdateWorkerReservationParams {
+	params.StartConferenceOnEnter = &StartConferenceOnEnter
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetStatusCallback(StatusCallback string) *UpdateWorkerReservationParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetStatusCallbackEvent(StatusCallbackEvent []string) *UpdateWorkerReservationParams {
+	params.StatusCallbackEvent = &StatusCallbackEvent
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetStatusCallbackMethod(StatusCallbackMethod string) *UpdateWorkerReservationParams {
+	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetTimeout(Timeout int32) *UpdateWorkerReservationParams {
+	params.Timeout = &Timeout
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetTo(To string) *UpdateWorkerReservationParams {
+	params.To = &To
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetWaitMethod(WaitMethod string) *UpdateWorkerReservationParams {
+	params.WaitMethod = &WaitMethod
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetWaitUrl(WaitUrl string) *UpdateWorkerReservationParams {
+	params.WaitUrl = &WaitUrl
+	return params
+}
+func (params *UpdateWorkerReservationParams) SetWorkerActivitySid(WorkerActivitySid string) *UpdateWorkerReservationParams {
+	params.WorkerActivitySid = &WorkerActivitySid
+	return params
 }
 
 // UpdateWorkerReservation Method for UpdateWorkerReservation
@@ -3523,6 +4600,31 @@ type UpdateWorkflowParams struct {
 	TaskReservationTimeout        *int32  `json:"TaskReservationTimeout,omitempty"`
 }
 
+func (params *UpdateWorkflowParams) SetAssignmentCallbackUrl(AssignmentCallbackUrl string) *UpdateWorkflowParams {
+	params.AssignmentCallbackUrl = &AssignmentCallbackUrl
+	return params
+}
+func (params *UpdateWorkflowParams) SetConfiguration(Configuration string) *UpdateWorkflowParams {
+	params.Configuration = &Configuration
+	return params
+}
+func (params *UpdateWorkflowParams) SetFallbackAssignmentCallbackUrl(FallbackAssignmentCallbackUrl string) *UpdateWorkflowParams {
+	params.FallbackAssignmentCallbackUrl = &FallbackAssignmentCallbackUrl
+	return params
+}
+func (params *UpdateWorkflowParams) SetFriendlyName(FriendlyName string) *UpdateWorkflowParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateWorkflowParams) SetReEvaluateTasks(ReEvaluateTasks string) *UpdateWorkflowParams {
+	params.ReEvaluateTasks = &ReEvaluateTasks
+	return params
+}
+func (params *UpdateWorkflowParams) SetTaskReservationTimeout(TaskReservationTimeout int32) *UpdateWorkflowParams {
+	params.TaskReservationTimeout = &TaskReservationTimeout
+	return params
+}
+
 // UpdateWorkflow Method for UpdateWorkflow
 //
 // param: WorkspaceSid The SID of the Workspace with the Workflow to update.
@@ -3595,6 +4697,35 @@ type UpdateWorkspaceParams struct {
 	MultiTaskEnabled     *bool   `json:"MultiTaskEnabled,omitempty"`
 	PrioritizeQueueOrder *string `json:"PrioritizeQueueOrder,omitempty"`
 	TimeoutActivitySid   *string `json:"TimeoutActivitySid,omitempty"`
+}
+
+func (params *UpdateWorkspaceParams) SetDefaultActivitySid(DefaultActivitySid string) *UpdateWorkspaceParams {
+	params.DefaultActivitySid = &DefaultActivitySid
+	return params
+}
+func (params *UpdateWorkspaceParams) SetEventCallbackUrl(EventCallbackUrl string) *UpdateWorkspaceParams {
+	params.EventCallbackUrl = &EventCallbackUrl
+	return params
+}
+func (params *UpdateWorkspaceParams) SetEventsFilter(EventsFilter string) *UpdateWorkspaceParams {
+	params.EventsFilter = &EventsFilter
+	return params
+}
+func (params *UpdateWorkspaceParams) SetFriendlyName(FriendlyName string) *UpdateWorkspaceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateWorkspaceParams) SetMultiTaskEnabled(MultiTaskEnabled bool) *UpdateWorkspaceParams {
+	params.MultiTaskEnabled = &MultiTaskEnabled
+	return params
+}
+func (params *UpdateWorkspaceParams) SetPrioritizeQueueOrder(PrioritizeQueueOrder string) *UpdateWorkspaceParams {
+	params.PrioritizeQueueOrder = &PrioritizeQueueOrder
+	return params
+}
+func (params *UpdateWorkspaceParams) SetTimeoutActivitySid(TimeoutActivitySid string) *UpdateWorkspaceParams {
+	params.TimeoutActivitySid = &TimeoutActivitySid
+	return params
 }
 
 // UpdateWorkspace Method for UpdateWorkspace

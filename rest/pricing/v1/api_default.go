@@ -145,6 +145,11 @@ type ListMessagingCountryParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListMessagingCountryParams) SetPageSize(PageSize int32) *ListMessagingCountryParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListMessagingCountry Method for ListMessagingCountry
 //
 // param: optional nil or *ListMessagingCountryParams - Optional Parameters:
@@ -182,6 +187,11 @@ type ListPhoneNumberCountryParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListPhoneNumberCountryParams) SetPageSize(PageSize int32) *ListPhoneNumberCountryParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListPhoneNumberCountry Method for ListPhoneNumberCountry
 //
 // param: optional nil or *ListPhoneNumberCountryParams - Optional Parameters:
@@ -217,6 +227,11 @@ func (c *DefaultApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountr
 // ListVoiceCountryParams Optional parameters for the method 'ListVoiceCountry'
 type ListVoiceCountryParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListVoiceCountryParams) SetPageSize(PageSize int32) *ListVoiceCountryParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListVoiceCountry Method for ListVoiceCountry

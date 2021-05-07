@@ -42,6 +42,31 @@ type CreateExportCustomJobParams struct {
 	WebhookUrl    *string `json:"WebhookUrl,omitempty"`
 }
 
+func (params *CreateExportCustomJobParams) SetEmail(Email string) *CreateExportCustomJobParams {
+	params.Email = &Email
+	return params
+}
+func (params *CreateExportCustomJobParams) SetEndDay(EndDay string) *CreateExportCustomJobParams {
+	params.EndDay = &EndDay
+	return params
+}
+func (params *CreateExportCustomJobParams) SetFriendlyName(FriendlyName string) *CreateExportCustomJobParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateExportCustomJobParams) SetStartDay(StartDay string) *CreateExportCustomJobParams {
+	params.StartDay = &StartDay
+	return params
+}
+func (params *CreateExportCustomJobParams) SetWebhookMethod(WebhookMethod string) *CreateExportCustomJobParams {
+	params.WebhookMethod = &WebhookMethod
+	return params
+}
+func (params *CreateExportCustomJobParams) SetWebhookUrl(WebhookUrl string) *CreateExportCustomJobParams {
+	params.WebhookUrl = &WebhookUrl
+	return params
+}
+
 // CreateExportCustomJob Method for CreateExportCustomJob
 //
 // param: ResourceType The type of communication – Messages or Calls, Conferences, and Participants
@@ -239,6 +264,11 @@ type ListDayParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListDayParams) SetPageSize(PageSize int32) *ListDayParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListDay Method for ListDay
 //
 // Retrieve a list of all Days for a resource.
@@ -281,6 +311,11 @@ type ListExportCustomJobParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListExportCustomJobParams) SetPageSize(PageSize int32) *ListExportCustomJobParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListExportCustomJob Method for ListExportCustomJob
 //
 // param: ResourceType The type of communication – Messages, Calls, Conferences, and Participants
@@ -321,6 +356,19 @@ type UpdateExportConfigurationParams struct {
 	Enabled       *bool   `json:"Enabled,omitempty"`
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
 	WebhookUrl    *string `json:"WebhookUrl,omitempty"`
+}
+
+func (params *UpdateExportConfigurationParams) SetEnabled(Enabled bool) *UpdateExportConfigurationParams {
+	params.Enabled = &Enabled
+	return params
+}
+func (params *UpdateExportConfigurationParams) SetWebhookMethod(WebhookMethod string) *UpdateExportConfigurationParams {
+	params.WebhookMethod = &WebhookMethod
+	return params
+}
+func (params *UpdateExportConfigurationParams) SetWebhookUrl(WebhookUrl string) *UpdateExportConfigurationParams {
+	params.WebhookUrl = &WebhookUrl
+	return params
 }
 
 // UpdateExportConfiguration Method for UpdateExportConfiguration

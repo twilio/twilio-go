@@ -40,6 +40,23 @@ type CreateChannelParams struct {
 	UniqueName   *string `json:"UniqueName,omitempty"`
 }
 
+func (params *CreateChannelParams) SetAttributes(Attributes string) *CreateChannelParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateChannelParams) SetFriendlyName(FriendlyName string) *CreateChannelParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateChannelParams) SetType(Type string) *CreateChannelParams {
+	params.Type = &Type
+	return params
+}
+func (params *CreateChannelParams) SetUniqueName(UniqueName string) *CreateChannelParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+
 // CreateChannel Method for CreateChannel
 //
 // param: ServiceSid
@@ -99,6 +116,35 @@ type CreateCredentialParams struct {
 	Sandbox      *bool   `json:"Sandbox,omitempty"`
 	Secret       *string `json:"Secret,omitempty"`
 	Type         *string `json:"Type,omitempty"`
+}
+
+func (params *CreateCredentialParams) SetApiKey(ApiKey string) *CreateCredentialParams {
+	params.ApiKey = &ApiKey
+	return params
+}
+func (params *CreateCredentialParams) SetCertificate(Certificate string) *CreateCredentialParams {
+	params.Certificate = &Certificate
+	return params
+}
+func (params *CreateCredentialParams) SetFriendlyName(FriendlyName string) *CreateCredentialParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateCredentialParams) SetPrivateKey(PrivateKey string) *CreateCredentialParams {
+	params.PrivateKey = &PrivateKey
+	return params
+}
+func (params *CreateCredentialParams) SetSandbox(Sandbox bool) *CreateCredentialParams {
+	params.Sandbox = &Sandbox
+	return params
+}
+func (params *CreateCredentialParams) SetSecret(Secret string) *CreateCredentialParams {
+	params.Secret = &Secret
+	return params
+}
+func (params *CreateCredentialParams) SetType(Type string) *CreateCredentialParams {
+	params.Type = &Type
+	return params
 }
 
 // CreateCredential Method for CreateCredential
@@ -169,6 +215,15 @@ type CreateInviteParams struct {
 	RoleSid  *string `json:"RoleSid,omitempty"`
 }
 
+func (params *CreateInviteParams) SetIdentity(Identity string) *CreateInviteParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams {
+	params.RoleSid = &RoleSid
+	return params
+}
+
 // CreateInvite Method for CreateInvite
 //
 // param: ServiceSid
@@ -216,6 +271,15 @@ func (c *DefaultApiService) CreateInvite(ServiceSid string, ChannelSid string, p
 type CreateMemberParams struct {
 	Identity *string `json:"Identity,omitempty"`
 	RoleSid  *string `json:"RoleSid,omitempty"`
+}
+
+func (params *CreateMemberParams) SetIdentity(Identity string) *CreateMemberParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateMemberParams) SetRoleSid(RoleSid string) *CreateMemberParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // CreateMember Method for CreateMember
@@ -266,6 +330,19 @@ type CreateMessageParams struct {
 	Attributes *string `json:"Attributes,omitempty"`
 	Body       *string `json:"Body,omitempty"`
 	From       *string `json:"From,omitempty"`
+}
+
+func (params *CreateMessageParams) SetAttributes(Attributes string) *CreateMessageParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateMessageParams) SetBody(Body string) *CreateMessageParams {
+	params.Body = &Body
+	return params
+}
+func (params *CreateMessageParams) SetFrom(From string) *CreateMessageParams {
+	params.From = &From
+	return params
 }
 
 // CreateMessage Method for CreateMessage
@@ -323,6 +400,19 @@ type CreateRoleParams struct {
 	Type         *string   `json:"Type,omitempty"`
 }
 
+func (params *CreateRoleParams) SetFriendlyName(FriendlyName string) *CreateRoleParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateRoleParams) SetPermission(Permission []string) *CreateRoleParams {
+	params.Permission = &Permission
+	return params
+}
+func (params *CreateRoleParams) SetType(Type string) *CreateRoleParams {
+	params.Type = &Type
+	return params
+}
+
 // CreateRole Method for CreateRole
 //
 // param: ServiceSid
@@ -373,6 +463,11 @@ type CreateServiceParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateService Method for CreateService
 //
 // param: optional nil or *CreateServiceParams - Optional Parameters:
@@ -411,6 +506,23 @@ type CreateUserParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	Identity     *string `json:"Identity,omitempty"`
 	RoleSid      *string `json:"RoleSid,omitempty"`
+}
+
+func (params *CreateUserParams) SetAttributes(Attributes string) *CreateUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateUserParams) SetFriendlyName(FriendlyName string) *CreateUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateUserParams) SetIdentity(Identity string) *CreateUserParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *CreateUserParams) SetRoleSid(RoleSid string) *CreateUserParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // CreateUser Method for CreateUser
@@ -907,6 +1019,15 @@ type ListChannelParams struct {
 	PageSize *int32    `json:"PageSize,omitempty"`
 }
 
+func (params *ListChannelParams) SetType(Type []string) *ListChannelParams {
+	params.Type = &Type
+	return params
+}
+func (params *ListChannelParams) SetPageSize(PageSize int32) *ListChannelParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListChannel Method for ListChannel
 //
 // param: ServiceSid
@@ -952,6 +1073,11 @@ type ListCredentialParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListCredentialParams) SetPageSize(PageSize int32) *ListCredentialParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCredential Method for ListCredential
 //
 // param: optional nil or *ListCredentialParams - Optional Parameters:
@@ -988,6 +1114,15 @@ func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListC
 type ListInviteParams struct {
 	Identity *[]string `json:"Identity,omitempty"`
 	PageSize *int32    `json:"PageSize,omitempty"`
+}
+
+func (params *ListInviteParams) SetIdentity(Identity []string) *ListInviteParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *ListInviteParams) SetPageSize(PageSize int32) *ListInviteParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListInvite Method for ListInvite
@@ -1039,6 +1174,15 @@ type ListMemberParams struct {
 	PageSize *int32    `json:"PageSize,omitempty"`
 }
 
+func (params *ListMemberParams) SetIdentity(Identity []string) *ListMemberParams {
+	params.Identity = &Identity
+	return params
+}
+func (params *ListMemberParams) SetPageSize(PageSize int32) *ListMemberParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListMember Method for ListMember
 //
 // param: ServiceSid
@@ -1086,6 +1230,15 @@ func (c *DefaultApiService) ListMember(ServiceSid string, ChannelSid string, par
 type ListMessageParams struct {
 	Order    *string `json:"Order,omitempty"`
 	PageSize *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListMessageParams) SetOrder(Order string) *ListMessageParams {
+	params.Order = &Order
+	return params
+}
+func (params *ListMessageParams) SetPageSize(PageSize int32) *ListMessageParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListMessage Method for ListMessage
@@ -1136,6 +1289,11 @@ type ListRoleParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListRoleParams) SetPageSize(PageSize int32) *ListRoleParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListRole Method for ListRole
 //
 // param: ServiceSid
@@ -1176,6 +1334,11 @@ type ListServiceParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListService Method for ListService
 //
 // param: optional nil or *ListServiceParams - Optional Parameters:
@@ -1211,6 +1374,11 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // ListUserParams Optional parameters for the method 'ListUser'
 type ListUserParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListUserParams) SetPageSize(PageSize int32) *ListUserParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListUser Method for ListUser
@@ -1251,6 +1419,11 @@ func (c *DefaultApiService) ListUser(ServiceSid string, params *ListUserParams) 
 // ListUserChannelParams Optional parameters for the method 'ListUserChannel'
 type ListUserChannelParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListUserChannelParams) SetPageSize(PageSize int32) *ListUserChannelParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListUserChannel Method for ListUserChannel
@@ -1296,6 +1469,19 @@ type UpdateChannelParams struct {
 	Attributes   *string `json:"Attributes,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	UniqueName   *string `json:"UniqueName,omitempty"`
+}
+
+func (params *UpdateChannelParams) SetAttributes(Attributes string) *UpdateChannelParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateChannelParams) SetFriendlyName(FriendlyName string) *UpdateChannelParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateChannelParams) SetUniqueName(UniqueName string) *UpdateChannelParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // UpdateChannel Method for UpdateChannel
@@ -1354,6 +1540,31 @@ type UpdateCredentialParams struct {
 	PrivateKey   *string `json:"PrivateKey,omitempty"`
 	Sandbox      *bool   `json:"Sandbox,omitempty"`
 	Secret       *string `json:"Secret,omitempty"`
+}
+
+func (params *UpdateCredentialParams) SetApiKey(ApiKey string) *UpdateCredentialParams {
+	params.ApiKey = &ApiKey
+	return params
+}
+func (params *UpdateCredentialParams) SetCertificate(Certificate string) *UpdateCredentialParams {
+	params.Certificate = &Certificate
+	return params
+}
+func (params *UpdateCredentialParams) SetFriendlyName(FriendlyName string) *UpdateCredentialParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateCredentialParams) SetPrivateKey(PrivateKey string) *UpdateCredentialParams {
+	params.PrivateKey = &PrivateKey
+	return params
+}
+func (params *UpdateCredentialParams) SetSandbox(Sandbox bool) *UpdateCredentialParams {
+	params.Sandbox = &Sandbox
+	return params
+}
+func (params *UpdateCredentialParams) SetSecret(Secret string) *UpdateCredentialParams {
+	params.Secret = &Secret
+	return params
 }
 
 // UpdateCredential Method for UpdateCredential
@@ -1422,6 +1633,15 @@ type UpdateMemberParams struct {
 	RoleSid                  *string `json:"RoleSid,omitempty"`
 }
 
+func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int32) *UpdateMemberParams {
+	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
+	return params
+}
+func (params *UpdateMemberParams) SetRoleSid(RoleSid string) *UpdateMemberParams {
+	params.RoleSid = &RoleSid
+	return params
+}
+
 // UpdateMember Method for UpdateMember
 //
 // param: ServiceSid
@@ -1474,6 +1694,15 @@ type UpdateMessageParams struct {
 	Body       *string `json:"Body,omitempty"`
 }
 
+func (params *UpdateMessageParams) SetAttributes(Attributes string) *UpdateMessageParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateMessageParams) SetBody(Body string) *UpdateMessageParams {
+	params.Body = &Body
+	return params
+}
+
 // UpdateMessage Method for UpdateMessage
 //
 // param: ServiceSid
@@ -1523,6 +1752,11 @@ func (c *DefaultApiService) UpdateMessage(ServiceSid string, ChannelSid string, 
 // UpdateRoleParams Optional parameters for the method 'UpdateRole'
 type UpdateRoleParams struct {
 	Permission *[]string `json:"Permission,omitempty"`
+}
+
+func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRoleParams {
+	params.Permission = &Permission
+	return params
 }
 
 // UpdateRole Method for UpdateRole
@@ -1619,6 +1853,223 @@ type UpdateServiceParams struct {
 	WebhooksOnMessageUpdateUrl              *string   `json:"Webhooks.OnMessageUpdate.Url,omitempty"`
 	WebhooksOnMessageUpdatedMethod          *string   `json:"Webhooks.OnMessageUpdated.Method,omitempty"`
 	WebhooksOnMessageUpdatedUrl             *string   `json:"Webhooks.OnMessageUpdated.Url,omitempty"`
+}
+
+func (params *UpdateServiceParams) SetConsumptionReportInterval(ConsumptionReportInterval int32) *UpdateServiceParams {
+	params.ConsumptionReportInterval = &ConsumptionReportInterval
+	return params
+}
+func (params *UpdateServiceParams) SetDefaultChannelCreatorRoleSid(DefaultChannelCreatorRoleSid string) *UpdateServiceParams {
+	params.DefaultChannelCreatorRoleSid = &DefaultChannelCreatorRoleSid
+	return params
+}
+func (params *UpdateServiceParams) SetDefaultChannelRoleSid(DefaultChannelRoleSid string) *UpdateServiceParams {
+	params.DefaultChannelRoleSid = &DefaultChannelRoleSid
+	return params
+}
+func (params *UpdateServiceParams) SetDefaultServiceRoleSid(DefaultServiceRoleSid string) *UpdateServiceParams {
+	params.DefaultServiceRoleSid = &DefaultServiceRoleSid
+	return params
+}
+func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateServiceParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateServiceParams) SetLimitsChannelMembers(LimitsChannelMembers int32) *UpdateServiceParams {
+	params.LimitsChannelMembers = &LimitsChannelMembers
+	return params
+}
+func (params *UpdateServiceParams) SetLimitsUserChannels(LimitsUserChannels int32) *UpdateServiceParams {
+	params.LimitsUserChannels = &LimitsUserChannels
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsAddedToChannelEnabled(NotificationsAddedToChannelEnabled bool) *UpdateServiceParams {
+	params.NotificationsAddedToChannelEnabled = &NotificationsAddedToChannelEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsAddedToChannelTemplate(NotificationsAddedToChannelTemplate string) *UpdateServiceParams {
+	params.NotificationsAddedToChannelTemplate = &NotificationsAddedToChannelTemplate
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsInvitedToChannelEnabled(NotificationsInvitedToChannelEnabled bool) *UpdateServiceParams {
+	params.NotificationsInvitedToChannelEnabled = &NotificationsInvitedToChannelEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsInvitedToChannelTemplate(NotificationsInvitedToChannelTemplate string) *UpdateServiceParams {
+	params.NotificationsInvitedToChannelTemplate = &NotificationsInvitedToChannelTemplate
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsNewMessageEnabled(NotificationsNewMessageEnabled bool) *UpdateServiceParams {
+	params.NotificationsNewMessageEnabled = &NotificationsNewMessageEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsNewMessageTemplate(NotificationsNewMessageTemplate string) *UpdateServiceParams {
+	params.NotificationsNewMessageTemplate = &NotificationsNewMessageTemplate
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsRemovedFromChannelEnabled(NotificationsRemovedFromChannelEnabled bool) *UpdateServiceParams {
+	params.NotificationsRemovedFromChannelEnabled = &NotificationsRemovedFromChannelEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetNotificationsRemovedFromChannelTemplate(NotificationsRemovedFromChannelTemplate string) *UpdateServiceParams {
+	params.NotificationsRemovedFromChannelTemplate = &NotificationsRemovedFromChannelTemplate
+	return params
+}
+func (params *UpdateServiceParams) SetPostWebhookUrl(PostWebhookUrl string) *UpdateServiceParams {
+	params.PostWebhookUrl = &PostWebhookUrl
+	return params
+}
+func (params *UpdateServiceParams) SetPreWebhookUrl(PreWebhookUrl string) *UpdateServiceParams {
+	params.PreWebhookUrl = &PreWebhookUrl
+	return params
+}
+func (params *UpdateServiceParams) SetReachabilityEnabled(ReachabilityEnabled bool) *UpdateServiceParams {
+	params.ReachabilityEnabled = &ReachabilityEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetReadStatusEnabled(ReadStatusEnabled bool) *UpdateServiceParams {
+	params.ReadStatusEnabled = &ReadStatusEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetTypingIndicatorTimeout(TypingIndicatorTimeout int32) *UpdateServiceParams {
+	params.TypingIndicatorTimeout = &TypingIndicatorTimeout
+	return params
+}
+func (params *UpdateServiceParams) SetWebhookFilters(WebhookFilters []string) *UpdateServiceParams {
+	params.WebhookFilters = &WebhookFilters
+	return params
+}
+func (params *UpdateServiceParams) SetWebhookMethod(WebhookMethod string) *UpdateServiceParams {
+	params.WebhookMethod = &WebhookMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelAddMethod(WebhooksOnChannelAddMethod string) *UpdateServiceParams {
+	params.WebhooksOnChannelAddMethod = &WebhooksOnChannelAddMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelAddUrl(WebhooksOnChannelAddUrl string) *UpdateServiceParams {
+	params.WebhooksOnChannelAddUrl = &WebhooksOnChannelAddUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelAddedMethod(WebhooksOnChannelAddedMethod string) *UpdateServiceParams {
+	params.WebhooksOnChannelAddedMethod = &WebhooksOnChannelAddedMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelAddedUrl(WebhooksOnChannelAddedUrl string) *UpdateServiceParams {
+	params.WebhooksOnChannelAddedUrl = &WebhooksOnChannelAddedUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelDestroyMethod(WebhooksOnChannelDestroyMethod string) *UpdateServiceParams {
+	params.WebhooksOnChannelDestroyMethod = &WebhooksOnChannelDestroyMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelDestroyUrl(WebhooksOnChannelDestroyUrl string) *UpdateServiceParams {
+	params.WebhooksOnChannelDestroyUrl = &WebhooksOnChannelDestroyUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelDestroyedMethod(WebhooksOnChannelDestroyedMethod string) *UpdateServiceParams {
+	params.WebhooksOnChannelDestroyedMethod = &WebhooksOnChannelDestroyedMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelDestroyedUrl(WebhooksOnChannelDestroyedUrl string) *UpdateServiceParams {
+	params.WebhooksOnChannelDestroyedUrl = &WebhooksOnChannelDestroyedUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelUpdateMethod(WebhooksOnChannelUpdateMethod string) *UpdateServiceParams {
+	params.WebhooksOnChannelUpdateMethod = &WebhooksOnChannelUpdateMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelUpdateUrl(WebhooksOnChannelUpdateUrl string) *UpdateServiceParams {
+	params.WebhooksOnChannelUpdateUrl = &WebhooksOnChannelUpdateUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelUpdatedMethod(WebhooksOnChannelUpdatedMethod string) *UpdateServiceParams {
+	params.WebhooksOnChannelUpdatedMethod = &WebhooksOnChannelUpdatedMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnChannelUpdatedUrl(WebhooksOnChannelUpdatedUrl string) *UpdateServiceParams {
+	params.WebhooksOnChannelUpdatedUrl = &WebhooksOnChannelUpdatedUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMemberAddMethod(WebhooksOnMemberAddMethod string) *UpdateServiceParams {
+	params.WebhooksOnMemberAddMethod = &WebhooksOnMemberAddMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMemberAddUrl(WebhooksOnMemberAddUrl string) *UpdateServiceParams {
+	params.WebhooksOnMemberAddUrl = &WebhooksOnMemberAddUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMemberAddedMethod(WebhooksOnMemberAddedMethod string) *UpdateServiceParams {
+	params.WebhooksOnMemberAddedMethod = &WebhooksOnMemberAddedMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMemberAddedUrl(WebhooksOnMemberAddedUrl string) *UpdateServiceParams {
+	params.WebhooksOnMemberAddedUrl = &WebhooksOnMemberAddedUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMemberRemoveMethod(WebhooksOnMemberRemoveMethod string) *UpdateServiceParams {
+	params.WebhooksOnMemberRemoveMethod = &WebhooksOnMemberRemoveMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMemberRemoveUrl(WebhooksOnMemberRemoveUrl string) *UpdateServiceParams {
+	params.WebhooksOnMemberRemoveUrl = &WebhooksOnMemberRemoveUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMemberRemovedMethod(WebhooksOnMemberRemovedMethod string) *UpdateServiceParams {
+	params.WebhooksOnMemberRemovedMethod = &WebhooksOnMemberRemovedMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMemberRemovedUrl(WebhooksOnMemberRemovedUrl string) *UpdateServiceParams {
+	params.WebhooksOnMemberRemovedUrl = &WebhooksOnMemberRemovedUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageRemoveMethod(WebhooksOnMessageRemoveMethod string) *UpdateServiceParams {
+	params.WebhooksOnMessageRemoveMethod = &WebhooksOnMessageRemoveMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageRemoveUrl(WebhooksOnMessageRemoveUrl string) *UpdateServiceParams {
+	params.WebhooksOnMessageRemoveUrl = &WebhooksOnMessageRemoveUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageRemovedMethod(WebhooksOnMessageRemovedMethod string) *UpdateServiceParams {
+	params.WebhooksOnMessageRemovedMethod = &WebhooksOnMessageRemovedMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageRemovedUrl(WebhooksOnMessageRemovedUrl string) *UpdateServiceParams {
+	params.WebhooksOnMessageRemovedUrl = &WebhooksOnMessageRemovedUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageSendMethod(WebhooksOnMessageSendMethod string) *UpdateServiceParams {
+	params.WebhooksOnMessageSendMethod = &WebhooksOnMessageSendMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageSendUrl(WebhooksOnMessageSendUrl string) *UpdateServiceParams {
+	params.WebhooksOnMessageSendUrl = &WebhooksOnMessageSendUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageSentMethod(WebhooksOnMessageSentMethod string) *UpdateServiceParams {
+	params.WebhooksOnMessageSentMethod = &WebhooksOnMessageSentMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageSentUrl(WebhooksOnMessageSentUrl string) *UpdateServiceParams {
+	params.WebhooksOnMessageSentUrl = &WebhooksOnMessageSentUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageUpdateMethod(WebhooksOnMessageUpdateMethod string) *UpdateServiceParams {
+	params.WebhooksOnMessageUpdateMethod = &WebhooksOnMessageUpdateMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageUpdateUrl(WebhooksOnMessageUpdateUrl string) *UpdateServiceParams {
+	params.WebhooksOnMessageUpdateUrl = &WebhooksOnMessageUpdateUrl
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageUpdatedMethod(WebhooksOnMessageUpdatedMethod string) *UpdateServiceParams {
+	params.WebhooksOnMessageUpdatedMethod = &WebhooksOnMessageUpdatedMethod
+	return params
+}
+func (params *UpdateServiceParams) SetWebhooksOnMessageUpdatedUrl(WebhooksOnMessageUpdatedUrl string) *UpdateServiceParams {
+	params.WebhooksOnMessageUpdatedUrl = &WebhooksOnMessageUpdatedUrl
+	return params
 }
 
 // UpdateService Method for UpdateService
@@ -1926,6 +2377,19 @@ type UpdateUserParams struct {
 	Attributes   *string `json:"Attributes,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	RoleSid      *string `json:"RoleSid,omitempty"`
+}
+
+func (params *UpdateUserParams) SetAttributes(Attributes string) *UpdateUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) *UpdateUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateUserParams) SetRoleSid(RoleSid string) *UpdateUserParams {
+	params.RoleSid = &RoleSid
+	return params
 }
 
 // UpdateUser Method for UpdateUser

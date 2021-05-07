@@ -65,6 +65,11 @@ type FetchSummaryParams struct {
 	ProcessingState *string `json:"ProcessingState,omitempty"`
 }
 
+func (params *FetchSummaryParams) SetProcessingState(ProcessingState string) *FetchSummaryParams {
+	params.ProcessingState = &ProcessingState
+	return params
+}
+
 // FetchSummary Method for FetchSummary
 //
 // param: CallSid
@@ -167,6 +172,15 @@ type ListEventParams struct {
 	PageSize *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListEventParams) SetEdge(Edge string) *ListEventParams {
+	params.Edge = &Edge
+	return params
+}
+func (params *ListEventParams) SetPageSize(PageSize int32) *ListEventParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListEvent Method for ListEvent
 //
 // param: CallSid
@@ -212,6 +226,19 @@ type ListMetricParams struct {
 	Edge      *string `json:"Edge,omitempty"`
 	Direction *string `json:"Direction,omitempty"`
 	PageSize  *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListMetricParams) SetEdge(Edge string) *ListMetricParams {
+	params.Edge = &Edge
+	return params
+}
+func (params *ListMetricParams) SetDirection(Direction string) *ListMetricParams {
+	params.Direction = &Direction
+	return params
+}
+func (params *ListMetricParams) SetPageSize(PageSize int32) *ListMetricParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListMetric Method for ListMetric
@@ -264,6 +291,11 @@ type ListVideoParticipantSummaryParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListVideoParticipantSummaryParams) SetPageSize(PageSize int32) *ListVideoParticipantSummaryParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListVideoParticipantSummary Method for ListVideoParticipantSummary
 //
 // Get a list of room participants.
@@ -309,6 +341,31 @@ type ListVideoRoomSummaryParams struct {
 	CreatedAfter  *time.Time `json:"CreatedAfter,omitempty"`
 	CreatedBefore *time.Time `json:"CreatedBefore,omitempty"`
 	PageSize      *int32     `json:"PageSize,omitempty"`
+}
+
+func (params *ListVideoRoomSummaryParams) SetRoomType(RoomType []string) *ListVideoRoomSummaryParams {
+	params.RoomType = &RoomType
+	return params
+}
+func (params *ListVideoRoomSummaryParams) SetCodec(Codec []string) *ListVideoRoomSummaryParams {
+	params.Codec = &Codec
+	return params
+}
+func (params *ListVideoRoomSummaryParams) SetRoomName(RoomName string) *ListVideoRoomSummaryParams {
+	params.RoomName = &RoomName
+	return params
+}
+func (params *ListVideoRoomSummaryParams) SetCreatedAfter(CreatedAfter time.Time) *ListVideoRoomSummaryParams {
+	params.CreatedAfter = &CreatedAfter
+	return params
+}
+func (params *ListVideoRoomSummaryParams) SetCreatedBefore(CreatedBefore time.Time) *ListVideoRoomSummaryParams {
+	params.CreatedBefore = &CreatedBefore
+	return params
+}
+func (params *ListVideoRoomSummaryParams) SetPageSize(PageSize int32) *ListVideoRoomSummaryParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListVideoRoomSummary Method for ListVideoRoomSummary

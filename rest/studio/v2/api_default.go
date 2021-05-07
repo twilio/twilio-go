@@ -40,6 +40,19 @@ type CreateExecutionParams struct {
 	To         *string                 `json:"To,omitempty"`
 }
 
+func (params *CreateExecutionParams) SetFrom(From string) *CreateExecutionParams {
+	params.From = &From
+	return params
+}
+func (params *CreateExecutionParams) SetParameters(Parameters map[string]interface{}) *CreateExecutionParams {
+	params.Parameters = &Parameters
+	return params
+}
+func (params *CreateExecutionParams) SetTo(To string) *CreateExecutionParams {
+	params.To = &To
+	return params
+}
+
 // CreateExecution Method for CreateExecution
 //
 // Triggers a new Execution for the Flow
@@ -99,6 +112,23 @@ type CreateFlowParams struct {
 	Definition    *map[string]interface{} `json:"Definition,omitempty"`
 	FriendlyName  *string                 `json:"FriendlyName,omitempty"`
 	Status        *string                 `json:"Status,omitempty"`
+}
+
+func (params *CreateFlowParams) SetCommitMessage(CommitMessage string) *CreateFlowParams {
+	params.CommitMessage = &CommitMessage
+	return params
+}
+func (params *CreateFlowParams) SetDefinition(Definition map[string]interface{}) *CreateFlowParams {
+	params.Definition = &Definition
+	return params
+}
+func (params *CreateFlowParams) SetFriendlyName(FriendlyName string) *CreateFlowParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateFlowParams) SetStatus(Status string) *CreateFlowParams {
+	params.Status = &Status
+	return params
 }
 
 // CreateFlow Method for CreateFlow
@@ -436,6 +466,19 @@ type ListExecutionParams struct {
 	PageSize        *int32     `json:"PageSize,omitempty"`
 }
 
+func (params *ListExecutionParams) SetDateCreatedFrom(DateCreatedFrom time.Time) *ListExecutionParams {
+	params.DateCreatedFrom = &DateCreatedFrom
+	return params
+}
+func (params *ListExecutionParams) SetDateCreatedTo(DateCreatedTo time.Time) *ListExecutionParams {
+	params.DateCreatedTo = &DateCreatedTo
+	return params
+}
+func (params *ListExecutionParams) SetPageSize(PageSize int32) *ListExecutionParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListExecution Method for ListExecution
 //
 // Retrieve a list of all Executions for the Flow.
@@ -488,6 +531,11 @@ type ListExecutionStepParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListExecutionStepParams) SetPageSize(PageSize int32) *ListExecutionStepParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListExecutionStep Method for ListExecutionStep
 //
 // Retrieve a list of all Steps for an Execution.
@@ -533,6 +581,11 @@ type ListFlowParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListFlowParams) SetPageSize(PageSize int32) *ListFlowParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListFlow Method for ListFlow
 //
 // Retrieve a list of all Flows.
@@ -570,6 +623,11 @@ func (c *DefaultApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse,
 // ListFlowRevisionParams Optional parameters for the method 'ListFlowRevision'
 type ListFlowRevisionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListFlowRevisionParams) SetPageSize(PageSize int32) *ListFlowRevisionParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListFlowRevision Method for ListFlowRevision
@@ -612,6 +670,11 @@ func (c *DefaultApiService) ListFlowRevision(Sid string, params *ListFlowRevisio
 // UpdateExecutionParams Optional parameters for the method 'UpdateExecution'
 type UpdateExecutionParams struct {
 	Status *string `json:"Status,omitempty"`
+}
+
+func (params *UpdateExecutionParams) SetStatus(Status string) *UpdateExecutionParams {
+	params.Status = &Status
+	return params
 }
 
 // UpdateExecution Method for UpdateExecution
@@ -660,6 +723,23 @@ type UpdateFlowParams struct {
 	Definition    *map[string]interface{} `json:"Definition,omitempty"`
 	FriendlyName  *string                 `json:"FriendlyName,omitempty"`
 	Status        *string                 `json:"Status,omitempty"`
+}
+
+func (params *UpdateFlowParams) SetCommitMessage(CommitMessage string) *UpdateFlowParams {
+	params.CommitMessage = &CommitMessage
+	return params
+}
+func (params *UpdateFlowParams) SetDefinition(Definition map[string]interface{}) *UpdateFlowParams {
+	params.Definition = &Definition
+	return params
+}
+func (params *UpdateFlowParams) SetFriendlyName(FriendlyName string) *UpdateFlowParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateFlowParams) SetStatus(Status string) *UpdateFlowParams {
+	params.Status = &Status
+	return params
 }
 
 // UpdateFlow Method for UpdateFlow
@@ -728,6 +808,23 @@ type UpdateFlowValidateParams struct {
 	Status        *string                 `json:"Status,omitempty"`
 }
 
+func (params *UpdateFlowValidateParams) SetCommitMessage(CommitMessage string) *UpdateFlowValidateParams {
+	params.CommitMessage = &CommitMessage
+	return params
+}
+func (params *UpdateFlowValidateParams) SetDefinition(Definition map[string]interface{}) *UpdateFlowValidateParams {
+	params.Definition = &Definition
+	return params
+}
+func (params *UpdateFlowValidateParams) SetFriendlyName(FriendlyName string) *UpdateFlowValidateParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateFlowValidateParams) SetStatus(Status string) *UpdateFlowValidateParams {
+	params.Status = &Status
+	return params
+}
+
 // UpdateFlowValidate Method for UpdateFlowValidate
 //
 // Validate flow JSON definition
@@ -786,6 +883,11 @@ func (c *DefaultApiService) UpdateFlowValidate(params *UpdateFlowValidateParams)
 // UpdateTestUserParams Optional parameters for the method 'UpdateTestUser'
 type UpdateTestUserParams struct {
 	TestUsers *[]string `json:"TestUsers,omitempty"`
+}
+
+func (params *UpdateTestUserParams) SetTestUsers(TestUsers []string) *UpdateTestUserParams {
+	params.TestUsers = &TestUsers
+	return params
 }
 
 // UpdateTestUser Method for UpdateTestUser

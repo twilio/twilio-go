@@ -66,6 +66,11 @@ type FetchVoiceNumberParams struct {
 	OriginationNumber *string `json:"OriginationNumber,omitempty"`
 }
 
+func (params *FetchVoiceNumberParams) SetOriginationNumber(OriginationNumber string) *FetchVoiceNumberParams {
+	params.OriginationNumber = &OriginationNumber
+	return params
+}
+
 // FetchVoiceNumber Method for FetchVoiceNumber
 //
 // Fetch pricing information for a specific destination and, optionally, origination phone number.
@@ -106,6 +111,11 @@ func (c *DefaultApiService) FetchVoiceNumber(DestinationNumber string, params *F
 // ListVoiceCountryParams Optional parameters for the method 'ListVoiceCountry'
 type ListVoiceCountryParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListVoiceCountryParams) SetPageSize(PageSize int32) *ListVoiceCountryParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListVoiceCountry Method for ListVoiceCountry

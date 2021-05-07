@@ -37,6 +37,11 @@ type CreateCredentialListParams struct {
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
+func (params *CreateCredentialListParams) SetCredentialListSid(CredentialListSid string) *CreateCredentialListParams {
+	params.CredentialListSid = &CredentialListSid
+	return params
+}
+
 // CreateCredentialList Method for CreateCredentialList
 //
 // param: TrunkSid The SID of the Trunk to associate the credential list with.
@@ -75,6 +80,11 @@ func (c *DefaultApiService) CreateCredentialList(TrunkSid string, params *Create
 // CreateIpAccessControlListParams Optional parameters for the method 'CreateIpAccessControlList'
 type CreateIpAccessControlListParams struct {
 	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
+}
+
+func (params *CreateIpAccessControlListParams) SetIpAccessControlListSid(IpAccessControlListSid string) *CreateIpAccessControlListParams {
+	params.IpAccessControlListSid = &IpAccessControlListSid
+	return params
 }
 
 // CreateIpAccessControlList Method for CreateIpAccessControlList
@@ -121,6 +131,27 @@ type CreateOriginationUrlParams struct {
 	Priority     *int32  `json:"Priority,omitempty"`
 	SipUrl       *string `json:"SipUrl,omitempty"`
 	Weight       *int32  `json:"Weight,omitempty"`
+}
+
+func (params *CreateOriginationUrlParams) SetEnabled(Enabled bool) *CreateOriginationUrlParams {
+	params.Enabled = &Enabled
+	return params
+}
+func (params *CreateOriginationUrlParams) SetFriendlyName(FriendlyName string) *CreateOriginationUrlParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateOriginationUrlParams) SetPriority(Priority int32) *CreateOriginationUrlParams {
+	params.Priority = &Priority
+	return params
+}
+func (params *CreateOriginationUrlParams) SetSipUrl(SipUrl string) *CreateOriginationUrlParams {
+	params.SipUrl = &SipUrl
+	return params
+}
+func (params *CreateOriginationUrlParams) SetWeight(Weight int32) *CreateOriginationUrlParams {
+	params.Weight = &Weight
+	return params
 }
 
 // CreateOriginationUrl Method for CreateOriginationUrl
@@ -183,6 +214,11 @@ type CreatePhoneNumberParams struct {
 	PhoneNumberSid *string `json:"PhoneNumberSid,omitempty"`
 }
 
+func (params *CreatePhoneNumberParams) SetPhoneNumberSid(PhoneNumberSid string) *CreatePhoneNumberParams {
+	params.PhoneNumberSid = &PhoneNumberSid
+	return params
+}
+
 // CreatePhoneNumber Method for CreatePhoneNumber
 //
 // param: TrunkSid The SID of the Trunk to associate the phone number with.
@@ -227,6 +263,35 @@ type CreateTrunkParams struct {
 	FriendlyName           *string `json:"FriendlyName,omitempty"`
 	Secure                 *bool   `json:"Secure,omitempty"`
 	TransferMode           *string `json:"TransferMode,omitempty"`
+}
+
+func (params *CreateTrunkParams) SetCnamLookupEnabled(CnamLookupEnabled bool) *CreateTrunkParams {
+	params.CnamLookupEnabled = &CnamLookupEnabled
+	return params
+}
+func (params *CreateTrunkParams) SetDisasterRecoveryMethod(DisasterRecoveryMethod string) *CreateTrunkParams {
+	params.DisasterRecoveryMethod = &DisasterRecoveryMethod
+	return params
+}
+func (params *CreateTrunkParams) SetDisasterRecoveryUrl(DisasterRecoveryUrl string) *CreateTrunkParams {
+	params.DisasterRecoveryUrl = &DisasterRecoveryUrl
+	return params
+}
+func (params *CreateTrunkParams) SetDomainName(DomainName string) *CreateTrunkParams {
+	params.DomainName = &DomainName
+	return params
+}
+func (params *CreateTrunkParams) SetFriendlyName(FriendlyName string) *CreateTrunkParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateTrunkParams) SetSecure(Secure bool) *CreateTrunkParams {
+	params.Secure = &Secure
+	return params
+}
+func (params *CreateTrunkParams) SetTransferMode(TransferMode string) *CreateTrunkParams {
+	params.TransferMode = &TransferMode
+	return params
 }
 
 // CreateTrunk Method for CreateTrunk
@@ -589,6 +654,11 @@ type ListCredentialListParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListCredentialListParams) SetPageSize(PageSize int32) *ListCredentialListParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCredentialList Method for ListCredentialList
 //
 // param: TrunkSid The SID of the Trunk from which to read the credential lists.
@@ -627,6 +697,11 @@ func (c *DefaultApiService) ListCredentialList(TrunkSid string, params *ListCred
 // ListIpAccessControlListParams Optional parameters for the method 'ListIpAccessControlList'
 type ListIpAccessControlListParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListIpAccessControlListParams) SetPageSize(PageSize int32) *ListIpAccessControlListParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListIpAccessControlList Method for ListIpAccessControlList
@@ -671,6 +746,11 @@ type ListOriginationUrlParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListOriginationUrlParams) SetPageSize(PageSize int32) *ListOriginationUrlParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListOriginationUrl Method for ListOriginationUrl
 //
 // param: TrunkSid The SID of the Trunk from which to read the OriginationUrl.
@@ -709,6 +789,11 @@ func (c *DefaultApiService) ListOriginationUrl(TrunkSid string, params *ListOrig
 // ListPhoneNumberParams Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListPhoneNumberParams) SetPageSize(PageSize int32) *ListPhoneNumberParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListPhoneNumber Method for ListPhoneNumber
@@ -751,6 +836,11 @@ type ListTrunkParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListTrunkParams) SetPageSize(PageSize int32) *ListTrunkParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListTrunk Method for ListTrunk
 //
 // param: optional nil or *ListTrunkParams - Optional Parameters:
@@ -790,6 +880,27 @@ type UpdateOriginationUrlParams struct {
 	Priority     *int32  `json:"Priority,omitempty"`
 	SipUrl       *string `json:"SipUrl,omitempty"`
 	Weight       *int32  `json:"Weight,omitempty"`
+}
+
+func (params *UpdateOriginationUrlParams) SetEnabled(Enabled bool) *UpdateOriginationUrlParams {
+	params.Enabled = &Enabled
+	return params
+}
+func (params *UpdateOriginationUrlParams) SetFriendlyName(FriendlyName string) *UpdateOriginationUrlParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateOriginationUrlParams) SetPriority(Priority int32) *UpdateOriginationUrlParams {
+	params.Priority = &Priority
+	return params
+}
+func (params *UpdateOriginationUrlParams) SetSipUrl(SipUrl string) *UpdateOriginationUrlParams {
+	params.SipUrl = &SipUrl
+	return params
+}
+func (params *UpdateOriginationUrlParams) SetWeight(Weight int32) *UpdateOriginationUrlParams {
+	params.Weight = &Weight
+	return params
 }
 
 // UpdateOriginationUrl Method for UpdateOriginationUrl
@@ -856,6 +967,15 @@ type UpdateRecordingParams struct {
 	Trim *string `json:"Trim,omitempty"`
 }
 
+func (params *UpdateRecordingParams) SetMode(Mode string) *UpdateRecordingParams {
+	params.Mode = &Mode
+	return params
+}
+func (params *UpdateRecordingParams) SetTrim(Trim string) *UpdateRecordingParams {
+	params.Trim = &Trim
+	return params
+}
+
 // UpdateRecording Method for UpdateRecording
 //
 // param: TrunkSid The SID of the Trunk that will have its recording settings updated.
@@ -905,6 +1025,35 @@ type UpdateTrunkParams struct {
 	FriendlyName           *string `json:"FriendlyName,omitempty"`
 	Secure                 *bool   `json:"Secure,omitempty"`
 	TransferMode           *string `json:"TransferMode,omitempty"`
+}
+
+func (params *UpdateTrunkParams) SetCnamLookupEnabled(CnamLookupEnabled bool) *UpdateTrunkParams {
+	params.CnamLookupEnabled = &CnamLookupEnabled
+	return params
+}
+func (params *UpdateTrunkParams) SetDisasterRecoveryMethod(DisasterRecoveryMethod string) *UpdateTrunkParams {
+	params.DisasterRecoveryMethod = &DisasterRecoveryMethod
+	return params
+}
+func (params *UpdateTrunkParams) SetDisasterRecoveryUrl(DisasterRecoveryUrl string) *UpdateTrunkParams {
+	params.DisasterRecoveryUrl = &DisasterRecoveryUrl
+	return params
+}
+func (params *UpdateTrunkParams) SetDomainName(DomainName string) *UpdateTrunkParams {
+	params.DomainName = &DomainName
+	return params
+}
+func (params *UpdateTrunkParams) SetFriendlyName(FriendlyName string) *UpdateTrunkParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateTrunkParams) SetSecure(Secure bool) *UpdateTrunkParams {
+	params.Secure = &Secure
+	return params
+}
+func (params *UpdateTrunkParams) SetTransferMode(TransferMode string) *UpdateTrunkParams {
+	params.TransferMode = &TransferMode
+	return params
 }
 
 // UpdateTrunk Method for UpdateTrunk

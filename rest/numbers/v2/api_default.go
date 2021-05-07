@@ -43,6 +43,35 @@ type CreateBundleParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
+func (params *CreateBundleParams) SetEmail(Email string) *CreateBundleParams {
+	params.Email = &Email
+	return params
+}
+func (params *CreateBundleParams) SetEndUserType(EndUserType string) *CreateBundleParams {
+	params.EndUserType = &EndUserType
+	return params
+}
+func (params *CreateBundleParams) SetFriendlyName(FriendlyName string) *CreateBundleParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateBundleParams) SetIsoCountry(IsoCountry string) *CreateBundleParams {
+	params.IsoCountry = &IsoCountry
+	return params
+}
+func (params *CreateBundleParams) SetNumberType(NumberType string) *CreateBundleParams {
+	params.NumberType = &NumberType
+	return params
+}
+func (params *CreateBundleParams) SetRegulationSid(RegulationSid string) *CreateBundleParams {
+	params.RegulationSid = &RegulationSid
+	return params
+}
+func (params *CreateBundleParams) SetStatusCallback(StatusCallback string) *CreateBundleParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+
 // CreateBundle Method for CreateBundle
 //
 // Create a new Bundle.
@@ -112,6 +141,19 @@ type CreateEndUserParams struct {
 	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
 	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 	Type         *string                 `json:"Type,omitempty"`
+}
+
+func (params *CreateEndUserParams) SetAttributes(Attributes map[string]interface{}) *CreateEndUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateEndUserParams) SetFriendlyName(FriendlyName string) *CreateEndUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateEndUserParams) SetType(Type string) *CreateEndUserParams {
+	params.Type = &Type
+	return params
 }
 
 // CreateEndUser Method for CreateEndUser
@@ -198,6 +240,11 @@ type CreateItemAssignmentParams struct {
 	ObjectSid *string `json:"ObjectSid,omitempty"`
 }
 
+func (params *CreateItemAssignmentParams) SetObjectSid(ObjectSid string) *CreateItemAssignmentParams {
+	params.ObjectSid = &ObjectSid
+	return params
+}
+
 // CreateItemAssignment Method for CreateItemAssignment
 //
 // Create a new Assigned Item.
@@ -240,6 +287,19 @@ type CreateSupportingDocumentParams struct {
 	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
 	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 	Type         *string                 `json:"Type,omitempty"`
+}
+
+func (params *CreateSupportingDocumentParams) SetAttributes(Attributes map[string]interface{}) *CreateSupportingDocumentParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateSupportingDocumentParams) SetFriendlyName(FriendlyName string) *CreateSupportingDocumentParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateSupportingDocumentParams) SetType(Type string) *CreateSupportingDocumentParams {
+	params.Type = &Type
+	return params
 }
 
 // CreateSupportingDocument Method for CreateSupportingDocument
@@ -635,6 +695,31 @@ type ListBundleParams struct {
 	PageSize      *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListBundleParams) SetStatus(Status string) *ListBundleParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListBundleParams) SetFriendlyName(FriendlyName string) *ListBundleParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListBundleParams) SetRegulationSid(RegulationSid string) *ListBundleParams {
+	params.RegulationSid = &RegulationSid
+	return params
+}
+func (params *ListBundleParams) SetIsoCountry(IsoCountry string) *ListBundleParams {
+	params.IsoCountry = &IsoCountry
+	return params
+}
+func (params *ListBundleParams) SetNumberType(NumberType string) *ListBundleParams {
+	params.NumberType = &NumberType
+	return params
+}
+func (params *ListBundleParams) SetPageSize(PageSize int32) *ListBundleParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListBundle Method for ListBundle
 //
 // Retrieve a list of all Bundles for an account.
@@ -699,6 +784,11 @@ type ListEndUserParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListEndUserParams) SetPageSize(PageSize int32) *ListEndUserParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListEndUser Method for ListEndUser
 //
 // Retrieve a list of all End User for an account.
@@ -738,6 +828,11 @@ type ListEndUserTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListEndUserTypeParams) SetPageSize(PageSize int32) *ListEndUserTypeParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListEndUserType Method for ListEndUserType
 //
 // Retrieve a list of all End-User Types.
@@ -775,6 +870,11 @@ func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*Lis
 // ListEvaluationParams Optional parameters for the method 'ListEvaluation'
 type ListEvaluationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListEvaluationParams) SetPageSize(PageSize int32) *ListEvaluationParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListEvaluation Method for ListEvaluation
@@ -817,6 +917,11 @@ func (c *DefaultApiService) ListEvaluation(BundleSid string, params *ListEvaluat
 // ListItemAssignmentParams Optional parameters for the method 'ListItemAssignment'
 type ListItemAssignmentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListItemAssignmentParams) SetPageSize(PageSize int32) *ListItemAssignmentParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListItemAssignment Method for ListItemAssignment
@@ -862,6 +967,23 @@ type ListRegulationParams struct {
 	IsoCountry  *string `json:"IsoCountry,omitempty"`
 	NumberType  *string `json:"NumberType,omitempty"`
 	PageSize    *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListRegulationParams) SetEndUserType(EndUserType string) *ListRegulationParams {
+	params.EndUserType = &EndUserType
+	return params
+}
+func (params *ListRegulationParams) SetIsoCountry(IsoCountry string) *ListRegulationParams {
+	params.IsoCountry = &IsoCountry
+	return params
+}
+func (params *ListRegulationParams) SetNumberType(NumberType string) *ListRegulationParams {
+	params.NumberType = &NumberType
+	return params
+}
+func (params *ListRegulationParams) SetPageSize(PageSize int32) *ListRegulationParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListRegulation Method for ListRegulation
@@ -918,6 +1040,11 @@ type ListSupportingDocumentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListSupportingDocumentParams) SetPageSize(PageSize int32) *ListSupportingDocumentParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSupportingDocument Method for ListSupportingDocument
 //
 // Retrieve a list of all Supporting Document for an account.
@@ -955,6 +1082,11 @@ func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumen
 // ListSupportingDocumentTypeParams Optional parameters for the method 'ListSupportingDocumentType'
 type ListSupportingDocumentTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListSupportingDocumentTypeParams) SetPageSize(PageSize int32) *ListSupportingDocumentTypeParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSupportingDocumentType Method for ListSupportingDocumentType
@@ -997,6 +1129,23 @@ type UpdateBundleParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 	Status         *string `json:"Status,omitempty"`
 	StatusCallback *string `json:"StatusCallback,omitempty"`
+}
+
+func (params *UpdateBundleParams) SetEmail(Email string) *UpdateBundleParams {
+	params.Email = &Email
+	return params
+}
+func (params *UpdateBundleParams) SetFriendlyName(FriendlyName string) *UpdateBundleParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateBundleParams) SetStatus(Status string) *UpdateBundleParams {
+	params.Status = &Status
+	return params
+}
+func (params *UpdateBundleParams) SetStatusCallback(StatusCallback string) *UpdateBundleParams {
+	params.StatusCallback = &StatusCallback
+	return params
 }
 
 // UpdateBundle Method for UpdateBundle
@@ -1057,6 +1206,15 @@ type UpdateEndUserParams struct {
 	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateEndUserParams) SetAttributes(Attributes map[string]interface{}) *UpdateEndUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateEndUserParams) SetFriendlyName(FriendlyName string) *UpdateEndUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // UpdateEndUser Method for UpdateEndUser
 //
 // Update an existing End User.
@@ -1109,6 +1267,15 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 type UpdateSupportingDocumentParams struct {
 	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
 	FriendlyName *string                 `json:"FriendlyName,omitempty"`
+}
+
+func (params *UpdateSupportingDocumentParams) SetAttributes(Attributes map[string]interface{}) *UpdateSupportingDocumentParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateSupportingDocumentParams) SetFriendlyName(FriendlyName string) *UpdateSupportingDocumentParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // UpdateSupportingDocument Method for UpdateSupportingDocument

@@ -44,6 +44,35 @@ type CreateCommandParams struct {
 	Sim                      *string `json:"Sim,omitempty"`
 }
 
+func (params *CreateCommandParams) SetCallbackMethod(CallbackMethod string) *CreateCommandParams {
+	params.CallbackMethod = &CallbackMethod
+	return params
+}
+func (params *CreateCommandParams) SetCallbackUrl(CallbackUrl string) *CreateCommandParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *CreateCommandParams) SetCommand(Command string) *CreateCommandParams {
+	params.Command = &Command
+	return params
+}
+func (params *CreateCommandParams) SetCommandMode(CommandMode string) *CreateCommandParams {
+	params.CommandMode = &CommandMode
+	return params
+}
+func (params *CreateCommandParams) SetDeliveryReceiptRequested(DeliveryReceiptRequested bool) *CreateCommandParams {
+	params.DeliveryReceiptRequested = &DeliveryReceiptRequested
+	return params
+}
+func (params *CreateCommandParams) SetIncludeSid(IncludeSid string) *CreateCommandParams {
+	params.IncludeSid = &IncludeSid
+	return params
+}
+func (params *CreateCommandParams) SetSim(Sim string) *CreateCommandParams {
+	params.Sim = &Sim
+	return params
+}
+
 // CreateCommand Method for CreateCommand
 //
 // Send a Command to a Sim.
@@ -121,6 +150,51 @@ type CreateRatePlanParams struct {
 	NationalRoamingEnabled        *bool     `json:"NationalRoamingEnabled,omitempty"`
 	UniqueName                    *string   `json:"UniqueName,omitempty"`
 	VoiceEnabled                  *bool     `json:"VoiceEnabled,omitempty"`
+}
+
+func (params *CreateRatePlanParams) SetDataEnabled(DataEnabled bool) *CreateRatePlanParams {
+	params.DataEnabled = &DataEnabled
+	return params
+}
+func (params *CreateRatePlanParams) SetDataLimit(DataLimit int32) *CreateRatePlanParams {
+	params.DataLimit = &DataLimit
+	return params
+}
+func (params *CreateRatePlanParams) SetDataMetering(DataMetering string) *CreateRatePlanParams {
+	params.DataMetering = &DataMetering
+	return params
+}
+func (params *CreateRatePlanParams) SetFriendlyName(FriendlyName string) *CreateRatePlanParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateRatePlanParams) SetInternationalRoaming(InternationalRoaming []string) *CreateRatePlanParams {
+	params.InternationalRoaming = &InternationalRoaming
+	return params
+}
+func (params *CreateRatePlanParams) SetInternationalRoamingDataLimit(InternationalRoamingDataLimit int32) *CreateRatePlanParams {
+	params.InternationalRoamingDataLimit = &InternationalRoamingDataLimit
+	return params
+}
+func (params *CreateRatePlanParams) SetMessagingEnabled(MessagingEnabled bool) *CreateRatePlanParams {
+	params.MessagingEnabled = &MessagingEnabled
+	return params
+}
+func (params *CreateRatePlanParams) SetNationalRoamingDataLimit(NationalRoamingDataLimit int32) *CreateRatePlanParams {
+	params.NationalRoamingDataLimit = &NationalRoamingDataLimit
+	return params
+}
+func (params *CreateRatePlanParams) SetNationalRoamingEnabled(NationalRoamingEnabled bool) *CreateRatePlanParams {
+	params.NationalRoamingEnabled = &NationalRoamingEnabled
+	return params
+}
+func (params *CreateRatePlanParams) SetUniqueName(UniqueName string) *CreateRatePlanParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+func (params *CreateRatePlanParams) SetVoiceEnabled(VoiceEnabled bool) *CreateRatePlanParams {
+	params.VoiceEnabled = &VoiceEnabled
+	return params
 }
 
 // CreateRatePlan Method for CreateRatePlan
@@ -365,6 +439,23 @@ type ListAccountUsageRecordParams struct {
 	PageSize    *int32     `json:"PageSize,omitempty"`
 }
 
+func (params *ListAccountUsageRecordParams) SetEnd(End time.Time) *ListAccountUsageRecordParams {
+	params.End = &End
+	return params
+}
+func (params *ListAccountUsageRecordParams) SetStart(Start time.Time) *ListAccountUsageRecordParams {
+	params.Start = &Start
+	return params
+}
+func (params *ListAccountUsageRecordParams) SetGranularity(Granularity string) *ListAccountUsageRecordParams {
+	params.Granularity = &Granularity
+	return params
+}
+func (params *ListAccountUsageRecordParams) SetPageSize(PageSize int32) *ListAccountUsageRecordParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListAccountUsageRecord Method for ListAccountUsageRecord
 //
 // param: optional nil or *ListAccountUsageRecordParams - Optional Parameters:
@@ -419,6 +510,27 @@ type ListCommandParams struct {
 	Direction *string `json:"Direction,omitempty"`
 	Transport *string `json:"Transport,omitempty"`
 	PageSize  *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListCommandParams) SetSim(Sim string) *ListCommandParams {
+	params.Sim = &Sim
+	return params
+}
+func (params *ListCommandParams) SetStatus(Status string) *ListCommandParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListCommandParams) SetDirection(Direction string) *ListCommandParams {
+	params.Direction = &Direction
+	return params
+}
+func (params *ListCommandParams) SetTransport(Transport string) *ListCommandParams {
+	params.Transport = &Transport
+	return params
+}
+func (params *ListCommandParams) SetPageSize(PageSize int32) *ListCommandParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListCommand Method for ListCommand
@@ -480,6 +592,11 @@ type ListDataSessionParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListDataSessionParams) SetPageSize(PageSize int32) *ListDataSessionParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListDataSession Method for ListDataSession
 //
 // param: SimSid The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) with the Data Sessions to read.
@@ -518,6 +635,11 @@ func (c *DefaultApiService) ListDataSession(SimSid string, params *ListDataSessi
 // ListRatePlanParams Optional parameters for the method 'ListRatePlan'
 type ListRatePlanParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListRatePlanParams) SetPageSize(PageSize int32) *ListRatePlanParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListRatePlan Method for ListRatePlan
@@ -560,6 +682,31 @@ type ListSimParams struct {
 	EId                 *string `json:"EId,omitempty"`
 	SimRegistrationCode *string `json:"SimRegistrationCode,omitempty"`
 	PageSize            *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListSimParams) SetStatus(Status string) *ListSimParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListSimParams) SetIccid(Iccid string) *ListSimParams {
+	params.Iccid = &Iccid
+	return params
+}
+func (params *ListSimParams) SetRatePlan(RatePlan string) *ListSimParams {
+	params.RatePlan = &RatePlan
+	return params
+}
+func (params *ListSimParams) SetEId(EId string) *ListSimParams {
+	params.EId = &EId
+	return params
+}
+func (params *ListSimParams) SetSimRegistrationCode(SimRegistrationCode string) *ListSimParams {
+	params.SimRegistrationCode = &SimRegistrationCode
+	return params
+}
+func (params *ListSimParams) SetPageSize(PageSize int32) *ListSimParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSim Method for ListSim
@@ -629,6 +776,23 @@ type ListUsageRecordParams struct {
 	PageSize    *int32     `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordParams) SetEnd(End time.Time) *ListUsageRecordParams {
+	params.End = &End
+	return params
+}
+func (params *ListUsageRecordParams) SetStart(Start time.Time) *ListUsageRecordParams {
+	params.Start = &Start
+	return params
+}
+func (params *ListUsageRecordParams) SetGranularity(Granularity string) *ListUsageRecordParams {
+	params.Granularity = &Granularity
+	return params
+}
+func (params *ListUsageRecordParams) SetPageSize(PageSize int32) *ListUsageRecordParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListUsageRecord Method for ListUsageRecord
 //
 // param: SimSid The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource)  to read the usage from.
@@ -683,6 +847,15 @@ func (c *DefaultApiService) ListUsageRecord(SimSid string, params *ListUsageReco
 type UpdateRatePlanParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	UniqueName   *string `json:"UniqueName,omitempty"`
+}
+
+func (params *UpdateRatePlanParams) SetFriendlyName(FriendlyName string) *UpdateRatePlanParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateRatePlanParams) SetUniqueName(UniqueName string) *UpdateRatePlanParams {
+	params.UniqueName = &UniqueName
+	return params
 }
 
 // UpdateRatePlan Method for UpdateRatePlan
@@ -745,6 +918,79 @@ type UpdateSimParams struct {
 	VoiceFallbackUrl       *string `json:"VoiceFallbackUrl,omitempty"`
 	VoiceMethod            *string `json:"VoiceMethod,omitempty"`
 	VoiceUrl               *string `json:"VoiceUrl,omitempty"`
+}
+
+func (params *UpdateSimParams) SetAccountSid(AccountSid string) *UpdateSimParams {
+	params.AccountSid = &AccountSid
+	return params
+}
+func (params *UpdateSimParams) SetCallbackMethod(CallbackMethod string) *UpdateSimParams {
+	params.CallbackMethod = &CallbackMethod
+	return params
+}
+func (params *UpdateSimParams) SetCallbackUrl(CallbackUrl string) *UpdateSimParams {
+	params.CallbackUrl = &CallbackUrl
+	return params
+}
+func (params *UpdateSimParams) SetCommandsCallbackMethod(CommandsCallbackMethod string) *UpdateSimParams {
+	params.CommandsCallbackMethod = &CommandsCallbackMethod
+	return params
+}
+func (params *UpdateSimParams) SetCommandsCallbackUrl(CommandsCallbackUrl string) *UpdateSimParams {
+	params.CommandsCallbackUrl = &CommandsCallbackUrl
+	return params
+}
+func (params *UpdateSimParams) SetFriendlyName(FriendlyName string) *UpdateSimParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateSimParams) SetRatePlan(RatePlan string) *UpdateSimParams {
+	params.RatePlan = &RatePlan
+	return params
+}
+func (params *UpdateSimParams) SetResetStatus(ResetStatus string) *UpdateSimParams {
+	params.ResetStatus = &ResetStatus
+	return params
+}
+func (params *UpdateSimParams) SetSmsFallbackMethod(SmsFallbackMethod string) *UpdateSimParams {
+	params.SmsFallbackMethod = &SmsFallbackMethod
+	return params
+}
+func (params *UpdateSimParams) SetSmsFallbackUrl(SmsFallbackUrl string) *UpdateSimParams {
+	params.SmsFallbackUrl = &SmsFallbackUrl
+	return params
+}
+func (params *UpdateSimParams) SetSmsMethod(SmsMethod string) *UpdateSimParams {
+	params.SmsMethod = &SmsMethod
+	return params
+}
+func (params *UpdateSimParams) SetSmsUrl(SmsUrl string) *UpdateSimParams {
+	params.SmsUrl = &SmsUrl
+	return params
+}
+func (params *UpdateSimParams) SetStatus(Status string) *UpdateSimParams {
+	params.Status = &Status
+	return params
+}
+func (params *UpdateSimParams) SetUniqueName(UniqueName string) *UpdateSimParams {
+	params.UniqueName = &UniqueName
+	return params
+}
+func (params *UpdateSimParams) SetVoiceFallbackMethod(VoiceFallbackMethod string) *UpdateSimParams {
+	params.VoiceFallbackMethod = &VoiceFallbackMethod
+	return params
+}
+func (params *UpdateSimParams) SetVoiceFallbackUrl(VoiceFallbackUrl string) *UpdateSimParams {
+	params.VoiceFallbackUrl = &VoiceFallbackUrl
+	return params
+}
+func (params *UpdateSimParams) SetVoiceMethod(VoiceMethod string) *UpdateSimParams {
+	params.VoiceMethod = &VoiceMethod
+	return params
+}
+func (params *UpdateSimParams) SetVoiceUrl(VoiceUrl string) *UpdateSimParams {
+	params.VoiceUrl = &VoiceUrl
+	return params
 }
 
 // UpdateSim Method for UpdateSim

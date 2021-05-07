@@ -40,6 +40,23 @@ type CreateCustomerProfileParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
+func (params *CreateCustomerProfileParams) SetEmail(Email string) *CreateCustomerProfileParams {
+	params.Email = &Email
+	return params
+}
+func (params *CreateCustomerProfileParams) SetFriendlyName(FriendlyName string) *CreateCustomerProfileParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateCustomerProfileParams) SetPolicySid(PolicySid string) *CreateCustomerProfileParams {
+	params.PolicySid = &PolicySid
+	return params
+}
+func (params *CreateCustomerProfileParams) SetStatusCallback(StatusCallback string) *CreateCustomerProfileParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+
 // CreateCustomerProfile Method for CreateCustomerProfile
 //
 // Create a new Customer-Profile.
@@ -95,6 +112,15 @@ type CreateCustomerProfileChannelEndpointAssignmentParams struct {
 	ChannelEndpointType *string `json:"ChannelEndpointType,omitempty"`
 }
 
+func (params *CreateCustomerProfileChannelEndpointAssignmentParams) SetChannelEndpointSid(ChannelEndpointSid string) *CreateCustomerProfileChannelEndpointAssignmentParams {
+	params.ChannelEndpointSid = &ChannelEndpointSid
+	return params
+}
+func (params *CreateCustomerProfileChannelEndpointAssignmentParams) SetChannelEndpointType(ChannelEndpointType string) *CreateCustomerProfileChannelEndpointAssignmentParams {
+	params.ChannelEndpointType = &ChannelEndpointType
+	return params
+}
+
 // CreateCustomerProfileChannelEndpointAssignment Method for CreateCustomerProfileChannelEndpointAssignment
 //
 // Create a new Assigned Item.
@@ -142,6 +168,11 @@ type CreateCustomerProfileEntityAssignmentParams struct {
 	ObjectSid *string `json:"ObjectSid,omitempty"`
 }
 
+func (params *CreateCustomerProfileEntityAssignmentParams) SetObjectSid(ObjectSid string) *CreateCustomerProfileEntityAssignmentParams {
+	params.ObjectSid = &ObjectSid
+	return params
+}
+
 // CreateCustomerProfileEntityAssignment Method for CreateCustomerProfileEntityAssignment
 //
 // Create a new Assigned Item.
@@ -182,6 +213,11 @@ func (c *DefaultApiService) CreateCustomerProfileEntityAssignment(CustomerProfil
 // CreateCustomerProfileEvaluationParams Optional parameters for the method 'CreateCustomerProfileEvaluation'
 type CreateCustomerProfileEvaluationParams struct {
 	PolicySid *string `json:"PolicySid,omitempty"`
+}
+
+func (params *CreateCustomerProfileEvaluationParams) SetPolicySid(PolicySid string) *CreateCustomerProfileEvaluationParams {
+	params.PolicySid = &PolicySid
+	return params
 }
 
 // CreateCustomerProfileEvaluation Method for CreateCustomerProfileEvaluation
@@ -226,6 +262,19 @@ type CreateEndUserParams struct {
 	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
 	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 	Type         *string                 `json:"Type,omitempty"`
+}
+
+func (params *CreateEndUserParams) SetAttributes(Attributes map[string]interface{}) *CreateEndUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateEndUserParams) SetFriendlyName(FriendlyName string) *CreateEndUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateEndUserParams) SetType(Type string) *CreateEndUserParams {
+	params.Type = &Type
+	return params
 }
 
 // CreateEndUser Method for CreateEndUser
@@ -283,6 +332,19 @@ type CreateSupportingDocumentParams struct {
 	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
 	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 	Type         *string                 `json:"Type,omitempty"`
+}
+
+func (params *CreateSupportingDocumentParams) SetAttributes(Attributes map[string]interface{}) *CreateSupportingDocumentParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *CreateSupportingDocumentParams) SetFriendlyName(FriendlyName string) *CreateSupportingDocumentParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateSupportingDocumentParams) SetType(Type string) *CreateSupportingDocumentParams {
+	params.Type = &Type
+	return params
 }
 
 // CreateSupportingDocument Method for CreateSupportingDocument
@@ -343,6 +405,23 @@ type CreateTrustProductParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
+func (params *CreateTrustProductParams) SetEmail(Email string) *CreateTrustProductParams {
+	params.Email = &Email
+	return params
+}
+func (params *CreateTrustProductParams) SetFriendlyName(FriendlyName string) *CreateTrustProductParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateTrustProductParams) SetPolicySid(PolicySid string) *CreateTrustProductParams {
+	params.PolicySid = &PolicySid
+	return params
+}
+func (params *CreateTrustProductParams) SetStatusCallback(StatusCallback string) *CreateTrustProductParams {
+	params.StatusCallback = &StatusCallback
+	return params
+}
+
 // CreateTrustProduct Method for CreateTrustProduct
 //
 // Create a new Customer-Profile.
@@ -398,6 +477,15 @@ type CreateTrustProductChannelEndpointAssignmentParams struct {
 	ChannelEndpointType *string `json:"ChannelEndpointType,omitempty"`
 }
 
+func (params *CreateTrustProductChannelEndpointAssignmentParams) SetChannelEndpointSid(ChannelEndpointSid string) *CreateTrustProductChannelEndpointAssignmentParams {
+	params.ChannelEndpointSid = &ChannelEndpointSid
+	return params
+}
+func (params *CreateTrustProductChannelEndpointAssignmentParams) SetChannelEndpointType(ChannelEndpointType string) *CreateTrustProductChannelEndpointAssignmentParams {
+	params.ChannelEndpointType = &ChannelEndpointType
+	return params
+}
+
 // CreateTrustProductChannelEndpointAssignment Method for CreateTrustProductChannelEndpointAssignment
 //
 // Create a new Assigned Item.
@@ -445,6 +533,11 @@ type CreateTrustProductEntityAssignmentParams struct {
 	ObjectSid *string `json:"ObjectSid,omitempty"`
 }
 
+func (params *CreateTrustProductEntityAssignmentParams) SetObjectSid(ObjectSid string) *CreateTrustProductEntityAssignmentParams {
+	params.ObjectSid = &ObjectSid
+	return params
+}
+
 // CreateTrustProductEntityAssignment Method for CreateTrustProductEntityAssignment
 //
 // Create a new Assigned Item.
@@ -485,6 +578,11 @@ func (c *DefaultApiService) CreateTrustProductEntityAssignment(TrustProductSid s
 // CreateTrustProductEvaluationParams Optional parameters for the method 'CreateTrustProductEvaluation'
 type CreateTrustProductEvaluationParams struct {
 	PolicySid *string `json:"PolicySid,omitempty"`
+}
+
+func (params *CreateTrustProductEvaluationParams) SetPolicySid(PolicySid string) *CreateTrustProductEvaluationParams {
+	params.PolicySid = &PolicySid
+	return params
 }
 
 // CreateTrustProductEvaluation Method for CreateTrustProductEvaluation
@@ -1123,6 +1221,23 @@ type ListCustomerProfileParams struct {
 	PageSize     *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListCustomerProfileParams) SetStatus(Status string) *ListCustomerProfileParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListCustomerProfileParams) SetFriendlyName(FriendlyName string) *ListCustomerProfileParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListCustomerProfileParams) SetPolicySid(PolicySid string) *ListCustomerProfileParams {
+	params.PolicySid = &PolicySid
+	return params
+}
+func (params *ListCustomerProfileParams) SetPageSize(PageSize int32) *ListCustomerProfileParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCustomerProfile Method for ListCustomerProfile
 //
 // Retrieve a list of all Customer-Profiles for an account.
@@ -1179,6 +1294,19 @@ type ListCustomerProfileChannelEndpointAssignmentParams struct {
 	PageSize            *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetChannelEndpointSid(ChannelEndpointSid string) *ListCustomerProfileChannelEndpointAssignmentParams {
+	params.ChannelEndpointSid = &ChannelEndpointSid
+	return params
+}
+func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetChannelEndpointSids(ChannelEndpointSids string) *ListCustomerProfileChannelEndpointAssignmentParams {
+	params.ChannelEndpointSids = &ChannelEndpointSids
+	return params
+}
+func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetPageSize(PageSize int32) *ListCustomerProfileChannelEndpointAssignmentParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCustomerProfileChannelEndpointAssignment Method for ListCustomerProfileChannelEndpointAssignment
 //
 // Retrieve a list of all Assigned Items for an account.
@@ -1231,6 +1359,11 @@ type ListCustomerProfileEntityAssignmentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListCustomerProfileEntityAssignmentParams) SetPageSize(PageSize int32) *ListCustomerProfileEntityAssignmentParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCustomerProfileEntityAssignment Method for ListCustomerProfileEntityAssignment
 //
 // Retrieve a list of all Assigned Items for an account.
@@ -1271,6 +1404,11 @@ func (c *DefaultApiService) ListCustomerProfileEntityAssignment(CustomerProfileS
 // ListCustomerProfileEvaluationParams Optional parameters for the method 'ListCustomerProfileEvaluation'
 type ListCustomerProfileEvaluationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListCustomerProfileEvaluationParams) SetPageSize(PageSize int32) *ListCustomerProfileEvaluationParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListCustomerProfileEvaluation Method for ListCustomerProfileEvaluation
@@ -1315,6 +1453,11 @@ type ListEndUserParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListEndUserParams) SetPageSize(PageSize int32) *ListEndUserParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListEndUser Method for ListEndUser
 //
 // Retrieve a list of all End User for an account.
@@ -1352,6 +1495,11 @@ func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*ListEndUser
 // ListEndUserTypeParams Optional parameters for the method 'ListEndUserType'
 type ListEndUserTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListEndUserTypeParams) SetPageSize(PageSize int32) *ListEndUserTypeParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListEndUserType Method for ListEndUserType
@@ -1393,6 +1541,11 @@ type ListPoliciesParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListPoliciesParams) SetPageSize(PageSize int32) *ListPoliciesParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListPolicies Method for ListPolicies
 //
 // Retrieve a list of all Policys.
@@ -1432,6 +1585,11 @@ type ListSupportingDocumentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListSupportingDocumentParams) SetPageSize(PageSize int32) *ListSupportingDocumentParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListSupportingDocument Method for ListSupportingDocument
 //
 // Retrieve a list of all Supporting Document for an account.
@@ -1469,6 +1627,11 @@ func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumen
 // ListSupportingDocumentTypeParams Optional parameters for the method 'ListSupportingDocumentType'
 type ListSupportingDocumentTypeParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListSupportingDocumentTypeParams) SetPageSize(PageSize int32) *ListSupportingDocumentTypeParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListSupportingDocumentType Method for ListSupportingDocumentType
@@ -1511,6 +1674,23 @@ type ListTrustProductParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	PolicySid    *string `json:"PolicySid,omitempty"`
 	PageSize     *int32  `json:"PageSize,omitempty"`
+}
+
+func (params *ListTrustProductParams) SetStatus(Status string) *ListTrustProductParams {
+	params.Status = &Status
+	return params
+}
+func (params *ListTrustProductParams) SetFriendlyName(FriendlyName string) *ListTrustProductParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *ListTrustProductParams) SetPolicySid(PolicySid string) *ListTrustProductParams {
+	params.PolicySid = &PolicySid
+	return params
+}
+func (params *ListTrustProductParams) SetPageSize(PageSize int32) *ListTrustProductParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListTrustProduct Method for ListTrustProduct
@@ -1569,6 +1749,19 @@ type ListTrustProductChannelEndpointAssignmentParams struct {
 	PageSize            *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListTrustProductChannelEndpointAssignmentParams) SetChannelEndpointSid(ChannelEndpointSid string) *ListTrustProductChannelEndpointAssignmentParams {
+	params.ChannelEndpointSid = &ChannelEndpointSid
+	return params
+}
+func (params *ListTrustProductChannelEndpointAssignmentParams) SetChannelEndpointSids(ChannelEndpointSids string) *ListTrustProductChannelEndpointAssignmentParams {
+	params.ChannelEndpointSids = &ChannelEndpointSids
+	return params
+}
+func (params *ListTrustProductChannelEndpointAssignmentParams) SetPageSize(PageSize int32) *ListTrustProductChannelEndpointAssignmentParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListTrustProductChannelEndpointAssignment Method for ListTrustProductChannelEndpointAssignment
 //
 // Retrieve a list of all Assigned Items for an account.
@@ -1621,6 +1814,11 @@ type ListTrustProductEntityAssignmentParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListTrustProductEntityAssignmentParams) SetPageSize(PageSize int32) *ListTrustProductEntityAssignmentParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListTrustProductEntityAssignment Method for ListTrustProductEntityAssignment
 //
 // Retrieve a list of all Assigned Items for an account.
@@ -1661,6 +1859,11 @@ func (c *DefaultApiService) ListTrustProductEntityAssignment(TrustProductSid str
 // ListTrustProductEvaluationParams Optional parameters for the method 'ListTrustProductEvaluation'
 type ListTrustProductEvaluationParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListTrustProductEvaluationParams) SetPageSize(PageSize int32) *ListTrustProductEvaluationParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListTrustProductEvaluation Method for ListTrustProductEvaluation
@@ -1706,6 +1909,23 @@ type UpdateCustomerProfileParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 	Status         *string `json:"Status,omitempty"`
 	StatusCallback *string `json:"StatusCallback,omitempty"`
+}
+
+func (params *UpdateCustomerProfileParams) SetEmail(Email string) *UpdateCustomerProfileParams {
+	params.Email = &Email
+	return params
+}
+func (params *UpdateCustomerProfileParams) SetFriendlyName(FriendlyName string) *UpdateCustomerProfileParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateCustomerProfileParams) SetStatus(Status string) *UpdateCustomerProfileParams {
+	params.Status = &Status
+	return params
+}
+func (params *UpdateCustomerProfileParams) SetStatusCallback(StatusCallback string) *UpdateCustomerProfileParams {
+	params.StatusCallback = &StatusCallback
+	return params
 }
 
 // UpdateCustomerProfile Method for UpdateCustomerProfile
@@ -1766,6 +1986,15 @@ type UpdateEndUserParams struct {
 	FriendlyName *string                 `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateEndUserParams) SetAttributes(Attributes map[string]interface{}) *UpdateEndUserParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateEndUserParams) SetFriendlyName(FriendlyName string) *UpdateEndUserParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // UpdateEndUser Method for UpdateEndUser
 //
 // Update an existing End User.
@@ -1818,6 +2047,15 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 type UpdateSupportingDocumentParams struct {
 	Attributes   *map[string]interface{} `json:"Attributes,omitempty"`
 	FriendlyName *string                 `json:"FriendlyName,omitempty"`
+}
+
+func (params *UpdateSupportingDocumentParams) SetAttributes(Attributes map[string]interface{}) *UpdateSupportingDocumentParams {
+	params.Attributes = &Attributes
+	return params
+}
+func (params *UpdateSupportingDocumentParams) SetFriendlyName(FriendlyName string) *UpdateSupportingDocumentParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // UpdateSupportingDocument Method for UpdateSupportingDocument
@@ -1874,6 +2112,23 @@ type UpdateTrustProductParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 	Status         *string `json:"Status,omitempty"`
 	StatusCallback *string `json:"StatusCallback,omitempty"`
+}
+
+func (params *UpdateTrustProductParams) SetEmail(Email string) *UpdateTrustProductParams {
+	params.Email = &Email
+	return params
+}
+func (params *UpdateTrustProductParams) SetFriendlyName(FriendlyName string) *UpdateTrustProductParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateTrustProductParams) SetStatus(Status string) *UpdateTrustProductParams {
+	params.Status = &Status
+	return params
+}
+func (params *UpdateTrustProductParams) SetStatusCallback(StatusCallback string) *UpdateTrustProductParams {
+	params.StatusCallback = &StatusCallback
+	return params
 }
 
 // UpdateTrustProduct Method for UpdateTrustProduct

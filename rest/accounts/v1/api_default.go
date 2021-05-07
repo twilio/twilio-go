@@ -39,6 +39,19 @@ type CreateCredentialAwsParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateCredentialAwsParams) SetAccountSid(AccountSid string) *CreateCredentialAwsParams {
+	params.AccountSid = &AccountSid
+	return params
+}
+func (params *CreateCredentialAwsParams) SetCredentials(Credentials string) *CreateCredentialAwsParams {
+	params.Credentials = &Credentials
+	return params
+}
+func (params *CreateCredentialAwsParams) SetFriendlyName(FriendlyName string) *CreateCredentialAwsParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // CreateCredentialAws Method for CreateCredentialAws
 //
 // Create a new AWS Credential
@@ -88,6 +101,19 @@ type CreateCredentialPublicKeyParams struct {
 	AccountSid   *string `json:"AccountSid,omitempty"`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	PublicKey    *string `json:"PublicKey,omitempty"`
+}
+
+func (params *CreateCredentialPublicKeyParams) SetAccountSid(AccountSid string) *CreateCredentialPublicKeyParams {
+	params.AccountSid = &AccountSid
+	return params
+}
+func (params *CreateCredentialPublicKeyParams) SetFriendlyName(FriendlyName string) *CreateCredentialPublicKeyParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *CreateCredentialPublicKeyParams) SetPublicKey(PublicKey string) *CreateCredentialPublicKeyParams {
+	params.PublicKey = &PublicKey
+	return params
 }
 
 // CreateCredentialPublicKey Method for CreateCredentialPublicKey
@@ -289,6 +315,11 @@ type ListCredentialAwsParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListCredentialAwsParams) SetPageSize(PageSize int32) *ListCredentialAwsParams {
+	params.PageSize = &PageSize
+	return params
+}
+
 // ListCredentialAws Method for ListCredentialAws
 //
 // Retrieves a collection of AWS Credentials belonging to the account used to make the request
@@ -326,6 +357,11 @@ func (c *DefaultApiService) ListCredentialAws(params *ListCredentialAwsParams) (
 // ListCredentialPublicKeyParams Optional parameters for the method 'ListCredentialPublicKey'
 type ListCredentialPublicKeyParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListCredentialPublicKeyParams) SetPageSize(PageSize int32) *ListCredentialPublicKeyParams {
+	params.PageSize = &PageSize
+	return params
 }
 
 // ListCredentialPublicKey Method for ListCredentialPublicKey
@@ -393,6 +429,11 @@ type UpdateCredentialAwsParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateCredentialAwsParams) SetFriendlyName(FriendlyName string) *UpdateCredentialAwsParams {
+	params.FriendlyName = &FriendlyName
+	return params
+}
+
 // UpdateCredentialAws Method for UpdateCredentialAws
 //
 // Modify the properties of a given Account
@@ -433,6 +474,11 @@ func (c *DefaultApiService) UpdateCredentialAws(Sid string, params *UpdateCreden
 // UpdateCredentialPublicKeyParams Optional parameters for the method 'UpdateCredentialPublicKey'
 type UpdateCredentialPublicKeyParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+}
+
+func (params *UpdateCredentialPublicKeyParams) SetFriendlyName(FriendlyName string) *UpdateCredentialPublicKeyParams {
+	params.FriendlyName = &FriendlyName
+	return params
 }
 
 // UpdateCredentialPublicKey Method for UpdateCredentialPublicKey
