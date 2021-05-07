@@ -43,9 +43,7 @@ import (
 
 // RestClient provides access to Twilio services.
 type RestClient struct {
-	*client.Credentials
 	*client.Client
-	common          service
 	AccountsV1      *AccountsV1.DefaultApiService
 	ApiV2010        *ApiV2010.DefaultApiService
 	AutopilotV1     *AutopilotV1.DefaultApiService
@@ -81,10 +79,6 @@ type RestClient struct {
 	WirelessV1      *WirelessV1.DefaultApiService
 }
 
-type service struct {
-	client *RestClient
-}
-
 // Meta holds relevant pagination resources.
 type Meta struct {
 	FirstPageURL    *string `json:"first_page_url"`
@@ -103,20 +97,19 @@ type RestClientParams struct {
 
 // NewRestClientWithParams provides an initialized Twilio RestClient with params.
 func NewRestClientWithParams(username string, password string, params RestClientParams) *RestClient {
-	credentials := &client.Credentials{Username: username, Password: password}
-
 	c := &RestClient{
-		Credentials: credentials,
 		Client: &client.Client{
-			Credentials: credentials,
+			Credentials: client.NewCredentials(username, password),
 			BaseURL:     "twilio.com",
 			Edge:        os.Getenv("TWILIO_EDGE"),
 			Region:      os.Getenv("TWILIO_REGION"),
-			AccountSid:  params.AccountSid,
+			AccountSid:  username,
 		},
 	}
 
-	c.common.client = c
+	if params.AccountSid != "" {
+		c.AccountSid = params.AccountSid
+	}
 
 	c.AccountsV1 = AccountsV1.NewDefaultApiService(c.Client)
 	c.ApiV2010 = ApiV2010.NewDefaultApiService(c.Client)

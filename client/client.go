@@ -23,6 +23,10 @@ type Credentials struct {
 	Password string
 }
 
+func NewCredentials(username string, password string) *Credentials {
+	return &Credentials{Username: username, Password: password}
+}
+
 // Client encapsulates a standard HTTP backend with authorization.
 type Client struct {
 	*Credentials
