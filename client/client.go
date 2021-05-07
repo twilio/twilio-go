@@ -19,8 +19,8 @@ import (
 
 // Credentials store user authentication credentials.
 type Credentials struct {
-	AccountSID string
-	AuthToken  string
+	Username string
+	Password string
 }
 
 // Client encapsulates a standard HTTP backend with authorization.
@@ -30,6 +30,7 @@ type Client struct {
 	BaseURL    string
 	Edge       string
 	Region     string
+	AccountSid string
 }
 
 // default http Client should not follow redirects and return the most recent response.
@@ -43,7 +44,7 @@ func defaultHTTPClient() *http.Client {
 }
 
 func (c *Client) basicAuth() (string, string) {
-	return c.Credentials.AccountSID, c.Credentials.AuthToken
+	return c.Credentials.Username, c.Credentials.Password
 }
 
 // BuildHost builds the target host string taking into account region and edge configurations.
@@ -176,6 +177,11 @@ func (c Client) SendRequest(method string, rawURL string, queryParams interface{
 	}
 
 	return c.doWithErr(req)
+}
+
+// Returns the Account SID.
+func (c Client) GetAccountSid() string {
+	return c.AccountSid
 }
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
