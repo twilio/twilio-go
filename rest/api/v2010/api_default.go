@@ -91,6 +91,10 @@ type CreateAddressParams struct {
 	Street             *string `json:"Street,omitempty"`
 }
 
+func (params *CreateAddressParams) SetPathAccountSid(PathAccountSid string) *CreateAddressParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool) *CreateAddressParams {
 	params.AutoCorrectAddress = &AutoCorrectAddress
 	return params
@@ -227,6 +231,10 @@ type CreateApplicationParams struct {
 	VoiceUrl              *string `json:"VoiceUrl,omitempty"`
 }
 
+func (params *CreateApplicationParams) SetPathAccountSid(PathAccountSid string) *CreateApplicationParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateApplicationParams) SetApiVersion(ApiVersion string) *CreateApplicationParams {
 	params.ApiVersion = &ApiVersion
 	return params
@@ -438,6 +446,10 @@ type CreateCallParams struct {
 	Url                                *string   `json:"Url,omitempty"`
 }
 
+func (params *CreateCallParams) SetPathAccountSid(PathAccountSid string) *CreateCallParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateCallParams) SetApplicationSid(ApplicationSid string) *CreateCallParams {
 	params.ApplicationSid = &ApplicationSid
 	return params
@@ -791,6 +803,10 @@ type CreateCallFeedbackSummaryParams struct {
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 }
 
+func (params *CreateCallFeedbackSummaryParams) SetPathAccountSid(PathAccountSid string) *CreateCallFeedbackSummaryParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateCallFeedbackSummaryParams) SetEndDate(EndDate string) *CreateCallFeedbackSummaryParams {
 	params.EndDate = &EndDate
 	return params
@@ -884,6 +900,10 @@ type CreateCallRecordingParams struct {
 	Trim                          *string   `json:"Trim,omitempty"`
 }
 
+func (params *CreateCallRecordingParams) SetPathAccountSid(PathAccountSid string) *CreateCallRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateCallRecordingParams) SetRecordingChannels(RecordingChannels string) *CreateCallRecordingParams {
 	params.RecordingChannels = &RecordingChannels
 	return params
@@ -1007,6 +1027,10 @@ type CreateIncomingPhoneNumberParams struct {
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
 }
 
+func (params *CreateIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *CreateIncomingPhoneNumberParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateIncomingPhoneNumberParams) SetAddressSid(AddressSid string) *CreateIncomingPhoneNumberParams {
 	params.AddressSid = &AddressSid
 	return params
@@ -1266,6 +1290,10 @@ type CreateIncomingPhoneNumberAssignedAddOnParams struct {
 	InstalledAddOnSid *string `json:"InstalledAddOnSid,omitempty"`
 }
 
+func (params *CreateIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) *CreateIncomingPhoneNumberAssignedAddOnParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateIncomingPhoneNumberAssignedAddOnParams) SetInstalledAddOnSid(InstalledAddOnSid string) *CreateIncomingPhoneNumberAssignedAddOnParams {
 	params.InstalledAddOnSid = &InstalledAddOnSid
 	return params
@@ -1343,6 +1371,10 @@ type CreateIncomingPhoneNumberLocalParams struct {
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
 }
 
+func (params *CreateIncomingPhoneNumberLocalParams) SetPathAccountSid(PathAccountSid string) *CreateIncomingPhoneNumberLocalParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateIncomingPhoneNumberLocalParams) SetAddressSid(AddressSid string) *CreateIncomingPhoneNumberLocalParams {
 	params.AddressSid = &AddressSid
 	return params
@@ -1613,6 +1645,10 @@ type CreateIncomingPhoneNumberMobileParams struct {
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
 }
 
+func (params *CreateIncomingPhoneNumberMobileParams) SetPathAccountSid(PathAccountSid string) *CreateIncomingPhoneNumberMobileParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateIncomingPhoneNumberMobileParams) SetAddressSid(AddressSid string) *CreateIncomingPhoneNumberMobileParams {
 	params.AddressSid = &AddressSid
 	return params
@@ -1883,6 +1919,10 @@ type CreateIncomingPhoneNumberTollFreeParams struct {
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
 }
 
+func (params *CreateIncomingPhoneNumberTollFreeParams) SetPathAccountSid(PathAccountSid string) *CreateIncomingPhoneNumberTollFreeParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateIncomingPhoneNumberTollFreeParams) SetAddressSid(AddressSid string) *CreateIncomingPhoneNumberTollFreeParams {
 	params.AddressSid = &AddressSid
 	return params
@@ -2146,6 +2186,10 @@ type CreateMessageParams struct {
 	ValidityPeriod      *int32    `json:"ValidityPeriod,omitempty"`
 }
 
+func (params *CreateMessageParams) SetPathAccountSid(PathAccountSid string) *CreateMessageParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateMessageParams) SetAddressRetention(AddressRetention string) *CreateMessageParams {
 	params.AddressRetention = &AddressRetention
 	return params
@@ -2333,6 +2377,10 @@ type CreateMessageFeedbackParams struct {
 	Outcome        *string `json:"Outcome,omitempty"`
 }
 
+func (params *CreateMessageFeedbackParams) SetPathAccountSid(PathAccountSid string) *CreateMessageFeedbackParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateMessageFeedbackParams) SetOutcome(Outcome string) *CreateMessageFeedbackParams {
 	params.Outcome = &Outcome
 	return params
@@ -2386,6 +2434,10 @@ type CreateNewKeyParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateNewKeyParams) SetPathAccountSid(PathAccountSid string) *CreateNewKeyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateNewKeyParams) SetFriendlyName(FriendlyName string) *CreateNewKeyParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -2436,6 +2488,10 @@ type CreateNewSigningKeyParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateNewSigningKeyParams) SetPathAccountSid(PathAccountSid string) *CreateNewSigningKeyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateNewSigningKeyParams) SetFriendlyName(FriendlyName string) *CreateNewSigningKeyParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -2525,6 +2581,10 @@ type CreateParticipantParams struct {
 	WaitUrl                                 *string   `json:"WaitUrl,omitempty"`
 }
 
+func (params *CreateParticipantParams) SetPathAccountSid(PathAccountSid string) *CreateParticipantParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateParticipantParams) SetBeep(Beep string) *CreateParticipantParams {
 	params.Beep = &Beep
 	return params
@@ -2926,6 +2986,10 @@ type CreatePaymentsParams struct {
 	ValidCardTypes      *string                 `json:"ValidCardTypes,omitempty"`
 }
 
+func (params *CreatePaymentsParams) SetPathAccountSid(PathAccountSid string) *CreatePaymentsParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreatePaymentsParams) SetBankAccountType(BankAccountType string) *CreatePaymentsParams {
 	params.BankAccountType = &BankAccountType
 	return params
@@ -3123,6 +3187,10 @@ type CreateQueueParams struct {
 	MaxSize        *int32  `json:"MaxSize,omitempty"`
 }
 
+func (params *CreateQueueParams) SetPathAccountSid(PathAccountSid string) *CreateQueueParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateQueueParams) SetFriendlyName(FriendlyName string) *CreateQueueParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -3184,6 +3252,10 @@ type CreateSipAuthCallsCredentialListMappingParams struct {
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
+func (params *CreateSipAuthCallsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *CreateSipAuthCallsCredentialListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateSipAuthCallsCredentialListMappingParams) SetCredentialListSid(CredentialListSid string) *CreateSipAuthCallsCredentialListMappingParams {
 	params.CredentialListSid = &CredentialListSid
 	return params
@@ -3239,6 +3311,10 @@ type CreateSipAuthCallsIpAccessControlListMappingParams struct {
 	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
 }
 
+func (params *CreateSipAuthCallsIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *CreateSipAuthCallsIpAccessControlListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateSipAuthCallsIpAccessControlListMappingParams) SetIpAccessControlListSid(IpAccessControlListSid string) *CreateSipAuthCallsIpAccessControlListMappingParams {
 	params.IpAccessControlListSid = &IpAccessControlListSid
 	return params
@@ -3294,6 +3370,10 @@ type CreateSipAuthRegistrationsCredentialListMappingParams struct {
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
+func (params *CreateSipAuthRegistrationsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *CreateSipAuthRegistrationsCredentialListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateSipAuthRegistrationsCredentialListMappingParams) SetCredentialListSid(CredentialListSid string) *CreateSipAuthRegistrationsCredentialListMappingParams {
 	params.CredentialListSid = &CredentialListSid
 	return params
@@ -3350,6 +3430,10 @@ type CreateSipCredentialParams struct {
 	Username       *string `json:"Username,omitempty"`
 }
 
+func (params *CreateSipCredentialParams) SetPathAccountSid(PathAccountSid string) *CreateSipCredentialParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateSipCredentialParams) SetPassword(Password string) *CreateSipCredentialParams {
 	params.Password = &Password
 	return params
@@ -3414,6 +3498,10 @@ type CreateSipCredentialListParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *CreateSipCredentialListParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateSipCredentialListParams) SetFriendlyName(FriendlyName string) *CreateSipCredentialListParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -3466,6 +3554,10 @@ type CreateSipCredentialListMappingParams struct {
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
+func (params *CreateSipCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *CreateSipCredentialListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateSipCredentialListMappingParams) SetCredentialListSid(CredentialListSid string) *CreateSipCredentialListMappingParams {
 	params.CredentialListSid = &CredentialListSid
 	return params
@@ -3533,6 +3625,10 @@ type CreateSipDomainParams struct {
 	VoiceUrl                  *string `json:"VoiceUrl,omitempty"`
 }
 
+func (params *CreateSipDomainParams) SetPathAccountSid(PathAccountSid string) *CreateSipDomainParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateSipDomainParams) SetByocTrunkSid(ByocTrunkSid string) *CreateSipDomainParams {
 	params.ByocTrunkSid = &ByocTrunkSid
 	return params
@@ -3693,6 +3789,10 @@ type CreateSipIpAccessControlListParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *CreateSipIpAccessControlListParams) SetPathAccountSid(PathAccountSid string) *CreateSipIpAccessControlListParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateSipIpAccessControlListParams) SetFriendlyName(FriendlyName string) *CreateSipIpAccessControlListParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -3745,6 +3845,10 @@ type CreateSipIpAccessControlListMappingParams struct {
 	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
 }
 
+func (params *CreateSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *CreateSipIpAccessControlListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateSipIpAccessControlListMappingParams) SetIpAccessControlListSid(IpAccessControlListSid string) *CreateSipIpAccessControlListMappingParams {
 	params.IpAccessControlListSid = &IpAccessControlListSid
 	return params
@@ -3802,6 +3906,10 @@ type CreateSipIpAddressParams struct {
 	IpAddress        *string `json:"IpAddress,omitempty"`
 }
 
+func (params *CreateSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *CreateSipIpAddressParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateSipIpAddressParams) SetCidrPrefixLength(CidrPrefixLength int32) *CreateSipIpAddressParams {
 	params.CidrPrefixLength = &CidrPrefixLength
 	return params
@@ -3875,6 +3983,10 @@ type CreateTokenParams struct {
 	Ttl            *int32  `json:"Ttl,omitempty"`
 }
 
+func (params *CreateTokenParams) SetPathAccountSid(PathAccountSid string) *CreateTokenParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateTokenParams) SetTtl(Ttl int32) *CreateTokenParams {
 	params.Ttl = &Ttl
 	return params
@@ -3933,6 +4045,10 @@ type CreateUsageTriggerParams struct {
 	UsageCategory  *string `json:"UsageCategory,omitempty"`
 }
 
+func (params *CreateUsageTriggerParams) SetPathAccountSid(PathAccountSid string) *CreateUsageTriggerParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateUsageTriggerParams) SetCallbackMethod(CallbackMethod string) *CreateUsageTriggerParams {
 	params.CallbackMethod = &CallbackMethod
 	return params
@@ -4044,6 +4160,10 @@ type CreateValidationRequestParams struct {
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 }
 
+func (params *CreateValidationRequestParams) SetPathAccountSid(PathAccountSid string) *CreateValidationRequestParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *CreateValidationRequestParams) SetCallDelay(CallDelay int32) *CreateValidationRequestParams {
 	params.CallDelay = &CallDelay
 	return params
@@ -4138,6 +4258,11 @@ type DeleteAddressParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteAddressParams) SetPathAccountSid(PathAccountSid string) *DeleteAddressParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteAddress Method for DeleteAddress
 //
 // param: Sid The Twilio-provided string that uniquely identifies the Address resource to delete.
@@ -4171,6 +4296,11 @@ func (c *DefaultApiService) DeleteAddress(Sid string, params *DeleteAddressParam
 // DeleteApplicationParams Optional parameters for the method 'DeleteApplication'
 type DeleteApplicationParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *DeleteApplicationParams) SetPathAccountSid(PathAccountSid string) *DeleteApplicationParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // DeleteApplication Method for DeleteApplication
@@ -4210,6 +4340,11 @@ type DeleteCallParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteCallParams) SetPathAccountSid(PathAccountSid string) *DeleteCallParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteCall Method for DeleteCall
 //
 // Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
@@ -4247,6 +4382,11 @@ type DeleteCallFeedbackSummaryParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteCallFeedbackSummaryParams) SetPathAccountSid(PathAccountSid string) *DeleteCallFeedbackSummaryParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteCallFeedbackSummary Method for DeleteCallFeedbackSummary
 //
 // Delete a FeedbackSummary resource from a call
@@ -4282,6 +4422,11 @@ func (c *DefaultApiService) DeleteCallFeedbackSummary(Sid string, params *Delete
 // DeleteCallRecordingParams Optional parameters for the method 'DeleteCallRecording'
 type DeleteCallRecordingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *DeleteCallRecordingParams) SetPathAccountSid(PathAccountSid string) *DeleteCallRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // DeleteCallRecording Method for DeleteCallRecording
@@ -4324,6 +4469,11 @@ type DeleteConferenceRecordingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteConferenceRecordingParams) SetPathAccountSid(PathAccountSid string) *DeleteConferenceRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteConferenceRecording Method for DeleteConferenceRecording
 //
 // Delete a recording from your account
@@ -4364,6 +4514,11 @@ type DeleteConnectAppParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteConnectAppParams) SetPathAccountSid(PathAccountSid string) *DeleteConnectAppParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteConnectApp Method for DeleteConnectApp
 //
 // Delete an instance of a connect-app
@@ -4401,6 +4556,11 @@ type DeleteIncomingPhoneNumberParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *DeleteIncomingPhoneNumberParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteIncomingPhoneNumber Method for DeleteIncomingPhoneNumber
 //
 // Delete a phone-numbers belonging to the account used to make the request.
@@ -4436,6 +4596,11 @@ func (c *DefaultApiService) DeleteIncomingPhoneNumber(Sid string, params *Delete
 // DeleteIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'DeleteIncomingPhoneNumberAssignedAddOn'
 type DeleteIncomingPhoneNumberAssignedAddOnParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *DeleteIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) *DeleteIncomingPhoneNumberAssignedAddOnParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // DeleteIncomingPhoneNumberAssignedAddOn Method for DeleteIncomingPhoneNumberAssignedAddOn
@@ -4478,6 +4643,11 @@ type DeleteKeyParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteKeyParams) SetPathAccountSid(PathAccountSid string) *DeleteKeyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteKey Method for DeleteKey
 //
 // param: Sid The Twilio-provided string that uniquely identifies the Key resource to delete.
@@ -4511,6 +4681,11 @@ func (c *DefaultApiService) DeleteKey(Sid string, params *DeleteKeyParams) error
 // DeleteMediaParams Optional parameters for the method 'DeleteMedia'
 type DeleteMediaParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *DeleteMediaParams) SetPathAccountSid(PathAccountSid string) *DeleteMediaParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // DeleteMedia Method for DeleteMedia
@@ -4553,6 +4728,11 @@ type DeleteMessageParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteMessageParams) SetPathAccountSid(PathAccountSid string) *DeleteMessageParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteMessage Method for DeleteMessage
 //
 // Deletes a message record from your account
@@ -4590,6 +4770,11 @@ type DeleteOutgoingCallerIdParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid string) *DeleteOutgoingCallerIdParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteOutgoingCallerId Method for DeleteOutgoingCallerId
 //
 // Delete the caller-id specified from the account
@@ -4625,6 +4810,11 @@ func (c *DefaultApiService) DeleteOutgoingCallerId(Sid string, params *DeleteOut
 // DeleteParticipantParams Optional parameters for the method 'DeleteParticipant'
 type DeleteParticipantParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *DeleteParticipantParams) SetPathAccountSid(PathAccountSid string) *DeleteParticipantParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // DeleteParticipant Method for DeleteParticipant
@@ -4667,6 +4857,11 @@ type DeleteQueueParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteQueueParams) SetPathAccountSid(PathAccountSid string) *DeleteQueueParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteQueue Method for DeleteQueue
 //
 // Remove an empty queue
@@ -4704,6 +4899,11 @@ type DeleteRecordingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteRecordingParams) SetPathAccountSid(PathAccountSid string) *DeleteRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteRecording Method for DeleteRecording
 //
 // Delete a recording from your account
@@ -4739,6 +4939,11 @@ func (c *DefaultApiService) DeleteRecording(Sid string, params *DeleteRecordingP
 // DeleteRecordingAddOnResultParams Optional parameters for the method 'DeleteRecordingAddOnResult'
 type DeleteRecordingAddOnResultParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *DeleteRecordingAddOnResultParams) SetPathAccountSid(PathAccountSid string) *DeleteRecordingAddOnResultParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // DeleteRecordingAddOnResult Method for DeleteRecordingAddOnResult
@@ -4779,6 +4984,11 @@ func (c *DefaultApiService) DeleteRecordingAddOnResult(ReferenceSid string, Sid 
 // DeleteRecordingAddOnResultPayloadParams Optional parameters for the method 'DeleteRecordingAddOnResultPayload'
 type DeleteRecordingAddOnResultPayloadParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *DeleteRecordingAddOnResultPayloadParams) SetPathAccountSid(PathAccountSid string) *DeleteRecordingAddOnResultPayloadParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // DeleteRecordingAddOnResultPayload Method for DeleteRecordingAddOnResultPayload
@@ -4824,6 +5034,11 @@ type DeleteRecordingTranscriptionParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteRecordingTranscriptionParams) SetPathAccountSid(PathAccountSid string) *DeleteRecordingTranscriptionParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteRecordingTranscription Method for DeleteRecordingTranscription
 //
 // param: RecordingSid The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to delete.
@@ -4862,6 +5077,11 @@ type DeleteSigningKeyParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteSigningKeyParams) SetPathAccountSid(PathAccountSid string) *DeleteSigningKeyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteSigningKey Method for DeleteSigningKey
 //
 // param: Sid
@@ -4895,6 +5115,11 @@ func (c *DefaultApiService) DeleteSigningKey(Sid string, params *DeleteSigningKe
 // DeleteSipAuthCallsCredentialListMappingParams Optional parameters for the method 'DeleteSipAuthCallsCredentialListMapping'
 type DeleteSipAuthCallsCredentialListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *DeleteSipAuthCallsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *DeleteSipAuthCallsCredentialListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // DeleteSipAuthCallsCredentialListMapping Method for DeleteSipAuthCallsCredentialListMapping
@@ -4937,6 +5162,11 @@ type DeleteSipAuthCallsIpAccessControlListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteSipAuthCallsIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *DeleteSipAuthCallsIpAccessControlListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteSipAuthCallsIpAccessControlListMapping Method for DeleteSipAuthCallsIpAccessControlListMapping
 //
 // Delete an IP Access Control List mapping from the requested domain
@@ -4975,6 +5205,11 @@ func (c *DefaultApiService) DeleteSipAuthCallsIpAccessControlListMapping(DomainS
 // DeleteSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'DeleteSipAuthRegistrationsCredentialListMapping'
 type DeleteSipAuthRegistrationsCredentialListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *DeleteSipAuthRegistrationsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *DeleteSipAuthRegistrationsCredentialListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // DeleteSipAuthRegistrationsCredentialListMapping Method for DeleteSipAuthRegistrationsCredentialListMapping
@@ -5017,6 +5252,11 @@ type DeleteSipCredentialParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteSipCredentialParams) SetPathAccountSid(PathAccountSid string) *DeleteSipCredentialParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteSipCredential Method for DeleteSipCredential
 //
 // Delete a credential resource.
@@ -5057,6 +5297,11 @@ type DeleteSipCredentialListParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *DeleteSipCredentialListParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteSipCredentialList Method for DeleteSipCredentialList
 //
 // Delete a Credential List
@@ -5092,6 +5337,11 @@ func (c *DefaultApiService) DeleteSipCredentialList(Sid string, params *DeleteSi
 // DeleteSipCredentialListMappingParams Optional parameters for the method 'DeleteSipCredentialListMapping'
 type DeleteSipCredentialListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *DeleteSipCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *DeleteSipCredentialListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // DeleteSipCredentialListMapping Method for DeleteSipCredentialListMapping
@@ -5134,6 +5384,11 @@ type DeleteSipDomainParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteSipDomainParams) SetPathAccountSid(PathAccountSid string) *DeleteSipDomainParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteSipDomain Method for DeleteSipDomain
 //
 // Delete an instance of a Domain
@@ -5171,6 +5426,11 @@ type DeleteSipIpAccessControlListParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteSipIpAccessControlListParams) SetPathAccountSid(PathAccountSid string) *DeleteSipIpAccessControlListParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteSipIpAccessControlList Method for DeleteSipIpAccessControlList
 //
 // Delete an IpAccessControlList from the requested account
@@ -5206,6 +5466,11 @@ func (c *DefaultApiService) DeleteSipIpAccessControlList(Sid string, params *Del
 // DeleteSipIpAccessControlListMappingParams Optional parameters for the method 'DeleteSipIpAccessControlListMapping'
 type DeleteSipIpAccessControlListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *DeleteSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *DeleteSipIpAccessControlListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // DeleteSipIpAccessControlListMapping Method for DeleteSipIpAccessControlListMapping
@@ -5248,6 +5513,11 @@ type DeleteSipIpAddressParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *DeleteSipIpAddressParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteSipIpAddress Method for DeleteSipIpAddress
 //
 // Delete an IpAddress resource.
@@ -5288,6 +5558,11 @@ type DeleteTranscriptionParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *DeleteTranscriptionParams) SetPathAccountSid(PathAccountSid string) *DeleteTranscriptionParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // DeleteTranscription Method for DeleteTranscription
 //
 // Delete a transcription from the account used to make the request
@@ -5323,6 +5598,11 @@ func (c *DefaultApiService) DeleteTranscription(Sid string, params *DeleteTransc
 // DeleteUsageTriggerParams Optional parameters for the method 'DeleteUsageTrigger'
 type DeleteUsageTriggerParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *DeleteUsageTriggerParams) SetPathAccountSid(PathAccountSid string) *DeleteUsageTriggerParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // DeleteUsageTrigger Method for DeleteUsageTrigger
@@ -5389,6 +5669,11 @@ type FetchAddressParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchAddressParams) SetPathAccountSid(PathAccountSid string) *FetchAddressParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchAddress Method for FetchAddress
 //
 // param: Sid The Twilio-provided string that uniquely identifies the Address resource to fetch.
@@ -5428,6 +5713,11 @@ func (c *DefaultApiService) FetchAddress(Sid string, params *FetchAddressParams)
 // FetchApplicationParams Optional parameters for the method 'FetchApplication'
 type FetchApplicationParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchApplicationParams) SetPathAccountSid(PathAccountSid string) *FetchApplicationParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchApplication Method for FetchApplication
@@ -5473,6 +5763,11 @@ type FetchAuthorizedConnectAppParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchAuthorizedConnectAppParams) SetPathAccountSid(PathAccountSid string) *FetchAuthorizedConnectAppParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchAuthorizedConnectApp Method for FetchAuthorizedConnectApp
 //
 // Fetch an instance of an authorized-connect-app
@@ -5516,6 +5811,11 @@ type FetchAvailablePhoneNumberCountryParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAccountSid string) *FetchAvailablePhoneNumberCountryParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchAvailablePhoneNumberCountry Method for FetchAvailablePhoneNumberCountry
 //
 // param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
@@ -5557,6 +5857,11 @@ type FetchBalanceParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchBalanceParams) SetPathAccountSid(PathAccountSid string) *FetchBalanceParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchBalance Method for FetchBalance
 //
 // Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information
@@ -5595,6 +5900,11 @@ func (c *DefaultApiService) FetchBalance(params *FetchBalanceParams) (*ApiV2010A
 // FetchCallParams Optional parameters for the method 'FetchCall'
 type FetchCallParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchCallParams) SetPathAccountSid(PathAccountSid string) *FetchCallParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchCall Method for FetchCall
@@ -5640,6 +5950,11 @@ type FetchCallFeedbackParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchCallFeedbackParams) SetPathAccountSid(PathAccountSid string) *FetchCallFeedbackParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchCallFeedback Method for FetchCallFeedback
 //
 // Fetch a Feedback resource from a call
@@ -5681,6 +5996,11 @@ func (c *DefaultApiService) FetchCallFeedback(CallSid string, params *FetchCallF
 // FetchCallFeedbackSummaryParams Optional parameters for the method 'FetchCallFeedbackSummary'
 type FetchCallFeedbackSummaryParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchCallFeedbackSummaryParams) SetPathAccountSid(PathAccountSid string) *FetchCallFeedbackSummaryParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchCallFeedbackSummary Method for FetchCallFeedbackSummary
@@ -5726,6 +6046,11 @@ type FetchCallNotificationParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchCallNotificationParams) SetPathAccountSid(PathAccountSid string) *FetchCallNotificationParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchCallNotification Method for FetchCallNotification
 //
 // param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resource to fetch.
@@ -5768,6 +6093,11 @@ func (c *DefaultApiService) FetchCallNotification(CallSid string, Sid string, pa
 // FetchCallRecordingParams Optional parameters for the method 'FetchCallRecording'
 type FetchCallRecordingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchCallRecordingParams) SetPathAccountSid(PathAccountSid string) *FetchCallRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchCallRecording Method for FetchCallRecording
@@ -5816,6 +6146,11 @@ type FetchConferenceParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchConferenceParams) SetPathAccountSid(PathAccountSid string) *FetchConferenceParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchConference Method for FetchConference
 //
 // Fetch an instance of a conference
@@ -5857,6 +6192,11 @@ func (c *DefaultApiService) FetchConference(Sid string, params *FetchConferenceP
 // FetchConferenceRecordingParams Optional parameters for the method 'FetchConferenceRecording'
 type FetchConferenceRecordingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchConferenceRecordingParams) SetPathAccountSid(PathAccountSid string) *FetchConferenceRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchConferenceRecording Method for FetchConferenceRecording
@@ -5905,6 +6245,11 @@ type FetchConnectAppParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchConnectAppParams) SetPathAccountSid(PathAccountSid string) *FetchConnectAppParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchConnectApp Method for FetchConnectApp
 //
 // Fetch an instance of a connect-app
@@ -5948,6 +6293,11 @@ type FetchIncomingPhoneNumberParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *FetchIncomingPhoneNumberParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchIncomingPhoneNumber Method for FetchIncomingPhoneNumber
 //
 // Fetch an incoming-phone-number belonging to the account used to make the request.
@@ -5989,6 +6339,11 @@ func (c *DefaultApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIn
 // FetchIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'FetchIncomingPhoneNumberAssignedAddOn'
 type FetchIncomingPhoneNumberAssignedAddOnParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) *FetchIncomingPhoneNumberAssignedAddOnParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchIncomingPhoneNumberAssignedAddOn Method for FetchIncomingPhoneNumberAssignedAddOn
@@ -6035,6 +6390,11 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid st
 // FetchIncomingPhoneNumberAssignedAddOnExtensionParams Optional parameters for the method 'FetchIncomingPhoneNumberAssignedAddOnExtension'
 type FetchIncomingPhoneNumberAssignedAddOnExtensionParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchIncomingPhoneNumberAssignedAddOnExtensionParams) SetPathAccountSid(PathAccountSid string) *FetchIncomingPhoneNumberAssignedAddOnExtensionParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchIncomingPhoneNumberAssignedAddOnExtension Method for FetchIncomingPhoneNumberAssignedAddOnExtension
@@ -6086,6 +6446,11 @@ type FetchKeyParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchKeyParams) SetPathAccountSid(PathAccountSid string) *FetchKeyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchKey Method for FetchKey
 //
 // param: Sid The Twilio-provided string that uniquely identifies the Key resource to fetch.
@@ -6125,6 +6490,11 @@ func (c *DefaultApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2
 // FetchMediaParams Optional parameters for the method 'FetchMedia'
 type FetchMediaParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchMediaParams) SetPathAccountSid(PathAccountSid string) *FetchMediaParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchMedia Method for FetchMedia
@@ -6173,6 +6543,11 @@ type FetchMemberParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchMemberParams) SetPathAccountSid(PathAccountSid string) *FetchMemberParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchMember Method for FetchMember
 //
 // Fetch a specific member from the queue
@@ -6219,6 +6594,11 @@ type FetchMessageParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchMessageParams) SetPathAccountSid(PathAccountSid string) *FetchMessageParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchMessage Method for FetchMessage
 //
 // Fetch a message belonging to the account used to make the request
@@ -6260,6 +6640,11 @@ func (c *DefaultApiService) FetchMessage(Sid string, params *FetchMessageParams)
 // FetchNotificationParams Optional parameters for the method 'FetchNotification'
 type FetchNotificationParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchNotificationParams) SetPathAccountSid(PathAccountSid string) *FetchNotificationParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchNotification Method for FetchNotification
@@ -6305,6 +6690,11 @@ type FetchOutgoingCallerIdParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid string) *FetchOutgoingCallerIdParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchOutgoingCallerId Method for FetchOutgoingCallerId
 //
 // Fetch an outgoing-caller-id belonging to the account used to make the request
@@ -6346,6 +6736,11 @@ func (c *DefaultApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgo
 // FetchParticipantParams Optional parameters for the method 'FetchParticipant'
 type FetchParticipantParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchParticipantParams) SetPathAccountSid(PathAccountSid string) *FetchParticipantParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchParticipant Method for FetchParticipant
@@ -6394,6 +6789,11 @@ type FetchQueueParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchQueueParams) SetPathAccountSid(PathAccountSid string) *FetchQueueParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchQueue Method for FetchQueue
 //
 // Fetch an instance of a queue identified by the QueueSid
@@ -6437,6 +6837,11 @@ type FetchRecordingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchRecordingParams) SetPathAccountSid(PathAccountSid string) *FetchRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchRecording Method for FetchRecording
 //
 // Fetch an instance of a recording
@@ -6478,6 +6883,11 @@ func (c *DefaultApiService) FetchRecording(Sid string, params *FetchRecordingPar
 // FetchRecordingAddOnResultParams Optional parameters for the method 'FetchRecordingAddOnResult'
 type FetchRecordingAddOnResultParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchRecordingAddOnResultParams) SetPathAccountSid(PathAccountSid string) *FetchRecordingAddOnResultParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchRecordingAddOnResult Method for FetchRecordingAddOnResult
@@ -6524,6 +6934,11 @@ func (c *DefaultApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid s
 // FetchRecordingAddOnResultPayloadParams Optional parameters for the method 'FetchRecordingAddOnResultPayload'
 type FetchRecordingAddOnResultPayloadParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchRecordingAddOnResultPayloadParams) SetPathAccountSid(PathAccountSid string) *FetchRecordingAddOnResultPayloadParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchRecordingAddOnResultPayload Method for FetchRecordingAddOnResultPayload
@@ -6575,6 +6990,11 @@ type FetchRecordingTranscriptionParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchRecordingTranscriptionParams) SetPathAccountSid(PathAccountSid string) *FetchRecordingTranscriptionParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchRecordingTranscription Method for FetchRecordingTranscription
 //
 // param: RecordingSid The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to fetch.
@@ -6617,6 +7037,11 @@ func (c *DefaultApiService) FetchRecordingTranscription(RecordingSid string, Sid
 // FetchShortCodeParams Optional parameters for the method 'FetchShortCode'
 type FetchShortCodeParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchShortCodeParams) SetPathAccountSid(PathAccountSid string) *FetchShortCodeParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchShortCode Method for FetchShortCode
@@ -6662,6 +7087,11 @@ type FetchSigningKeyParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchSigningKeyParams) SetPathAccountSid(PathAccountSid string) *FetchSigningKeyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchSigningKey Method for FetchSigningKey
 //
 // param: Sid
@@ -6701,6 +7131,11 @@ func (c *DefaultApiService) FetchSigningKey(Sid string, params *FetchSigningKeyP
 // FetchSipAuthCallsCredentialListMappingParams Optional parameters for the method 'FetchSipAuthCallsCredentialListMapping'
 type FetchSipAuthCallsCredentialListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchSipAuthCallsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *FetchSipAuthCallsCredentialListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchSipAuthCallsCredentialListMapping Method for FetchSipAuthCallsCredentialListMapping
@@ -6749,6 +7184,11 @@ type FetchSipAuthCallsIpAccessControlListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchSipAuthCallsIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *FetchSipAuthCallsIpAccessControlListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchSipAuthCallsIpAccessControlListMapping Method for FetchSipAuthCallsIpAccessControlListMapping
 //
 // Fetch a specific instance of an IP Access Control List mapping
@@ -6793,6 +7233,11 @@ func (c *DefaultApiService) FetchSipAuthCallsIpAccessControlListMapping(DomainSi
 // FetchSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'FetchSipAuthRegistrationsCredentialListMapping'
 type FetchSipAuthRegistrationsCredentialListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchSipAuthRegistrationsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *FetchSipAuthRegistrationsCredentialListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchSipAuthRegistrationsCredentialListMapping Method for FetchSipAuthRegistrationsCredentialListMapping
@@ -6841,6 +7286,11 @@ type FetchSipCredentialParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchSipCredentialParams) SetPathAccountSid(PathAccountSid string) *FetchSipCredentialParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchSipCredential Method for FetchSipCredential
 //
 // Fetch a single credential.
@@ -6887,6 +7337,11 @@ type FetchSipCredentialListParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *FetchSipCredentialListParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchSipCredentialList Method for FetchSipCredentialList
 //
 // Get a Credential List
@@ -6928,6 +7383,11 @@ func (c *DefaultApiService) FetchSipCredentialList(Sid string, params *FetchSipC
 // FetchSipCredentialListMappingParams Optional parameters for the method 'FetchSipCredentialListMapping'
 type FetchSipCredentialListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchSipCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *FetchSipCredentialListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchSipCredentialListMapping Method for FetchSipCredentialListMapping
@@ -6976,6 +7436,11 @@ type FetchSipDomainParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchSipDomainParams) SetPathAccountSid(PathAccountSid string) *FetchSipDomainParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchSipDomain Method for FetchSipDomain
 //
 // Fetch an instance of a Domain
@@ -7019,6 +7484,11 @@ type FetchSipIpAccessControlListParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchSipIpAccessControlListParams) SetPathAccountSid(PathAccountSid string) *FetchSipIpAccessControlListParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchSipIpAccessControlList Method for FetchSipIpAccessControlList
 //
 // Fetch a specific instance of an IpAccessControlList
@@ -7060,6 +7530,11 @@ func (c *DefaultApiService) FetchSipIpAccessControlList(Sid string, params *Fetc
 // FetchSipIpAccessControlListMappingParams Optional parameters for the method 'FetchSipIpAccessControlListMapping'
 type FetchSipIpAccessControlListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *FetchSipIpAccessControlListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchSipIpAccessControlListMapping Method for FetchSipIpAccessControlListMapping
@@ -7108,6 +7583,11 @@ type FetchSipIpAddressParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *FetchSipIpAddressParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchSipIpAddress Method for FetchSipIpAddress
 //
 // Read one IpAddress resource.
@@ -7154,6 +7634,11 @@ type FetchTranscriptionParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
+func (params *FetchTranscriptionParams) SetPathAccountSid(PathAccountSid string) *FetchTranscriptionParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
+
 // FetchTranscription Method for FetchTranscription
 //
 // Fetch an instance of a Transcription
@@ -7195,6 +7680,11 @@ func (c *DefaultApiService) FetchTranscription(Sid string, params *FetchTranscri
 // FetchUsageTriggerParams Optional parameters for the method 'FetchUsageTrigger'
 type FetchUsageTriggerParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+}
+
+func (params *FetchUsageTriggerParams) SetPathAccountSid(PathAccountSid string) *FetchUsageTriggerParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
 }
 
 // FetchUsageTrigger Method for FetchUsageTrigger
@@ -7308,6 +7798,10 @@ type ListAddressParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAddressParams) SetPathAccountSid(PathAccountSid string) *ListAddressParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListAddressParams) SetCustomerName(CustomerName string) *ListAddressParams {
 	params.CustomerName = &CustomerName
 	return params
@@ -7386,6 +7880,10 @@ type ListApplicationParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListApplicationParams) SetPathAccountSid(PathAccountSid string) *ListApplicationParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListApplicationParams) SetFriendlyName(FriendlyName string) *ListApplicationParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -7447,6 +7945,10 @@ type ListAuthorizedConnectAppParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAuthorizedConnectAppParams) SetPathAccountSid(PathAccountSid string) *ListAuthorizedConnectAppParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListAuthorizedConnectAppParams) SetPageSize(PageSize int32) *ListAuthorizedConnectAppParams {
 	params.PageSize = &PageSize
 	return params
@@ -7499,6 +8001,10 @@ type ListAvailablePhoneNumberCountryParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberCountryParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListAvailablePhoneNumberCountryParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberCountryParams {
 	params.PageSize = &PageSize
 	return params
@@ -7567,6 +8073,10 @@ type ListAvailablePhoneNumberLocalParams struct {
 	PageSize                      *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAvailablePhoneNumberLocalParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberLocalParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListAvailablePhoneNumberLocalParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberLocalParams {
 	params.AreaCode = &AreaCode
 	return params
@@ -7800,6 +8310,10 @@ type ListAvailablePhoneNumberMachineToMachineParams struct {
 	PageSize                      *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListAvailablePhoneNumberMachineToMachineParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberMachineToMachineParams {
 	params.AreaCode = &AreaCode
 	return params
@@ -8033,6 +8547,10 @@ type ListAvailablePhoneNumberMobileParams struct {
 	PageSize                      *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAvailablePhoneNumberMobileParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberMobileParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListAvailablePhoneNumberMobileParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberMobileParams {
 	params.AreaCode = &AreaCode
 	return params
@@ -8266,6 +8784,10 @@ type ListAvailablePhoneNumberNationalParams struct {
 	PageSize                      *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAvailablePhoneNumberNationalParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberNationalParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListAvailablePhoneNumberNationalParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberNationalParams {
 	params.AreaCode = &AreaCode
 	return params
@@ -8499,6 +9021,10 @@ type ListAvailablePhoneNumberSharedCostParams struct {
 	PageSize                      *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAvailablePhoneNumberSharedCostParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberSharedCostParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListAvailablePhoneNumberSharedCostParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberSharedCostParams {
 	params.AreaCode = &AreaCode
 	return params
@@ -8732,6 +9258,10 @@ type ListAvailablePhoneNumberTollFreeParams struct {
 	PageSize                      *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAvailablePhoneNumberTollFreeParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberTollFreeParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListAvailablePhoneNumberTollFreeParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberTollFreeParams {
 	params.AreaCode = &AreaCode
 	return params
@@ -8965,6 +9495,10 @@ type ListAvailablePhoneNumberVoipParams struct {
 	PageSize                      *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListAvailablePhoneNumberVoipParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberVoipParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListAvailablePhoneNumberVoipParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberVoipParams {
 	params.AreaCode = &AreaCode
 	return params
@@ -9190,6 +9724,10 @@ type ListCallParams struct {
 	PageSize        *int32     `json:"PageSize,omitempty"`
 }
 
+func (params *ListCallParams) SetPathAccountSid(PathAccountSid string) *ListCallParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListCallParams) SetTo(To string) *ListCallParams {
 	params.To = &To
 	return params
@@ -9332,6 +9870,10 @@ type ListCallEventParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListCallEventParams) SetPathAccountSid(PathAccountSid string) *ListCallEventParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListCallEventParams) SetPageSize(PageSize int32) *ListCallEventParams {
 	params.PageSize = &PageSize
 	return params
@@ -9391,6 +9933,10 @@ type ListCallNotificationParams struct {
 	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListCallNotificationParams) SetPathAccountSid(PathAccountSid string) *ListCallNotificationParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListCallNotificationParams) SetLog(Log int32) *ListCallNotificationParams {
 	params.Log = &Log
 	return params
@@ -9483,6 +10029,10 @@ type ListCallRecordingParams struct {
 	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListCallRecordingParams) SetPathAccountSid(PathAccountSid string) *ListCallRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListCallRecordingParams) SetDateCreated(DateCreated string) *ListCallRecordingParams {
 	params.DateCreated = &DateCreated
 	return params
@@ -9573,6 +10123,10 @@ type ListConferenceParams struct {
 	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListConferenceParams) SetPathAccountSid(PathAccountSid string) *ListConferenceParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListConferenceParams) SetDateCreated(DateCreated string) *ListConferenceParams {
 	params.DateCreated = &DateCreated
 	return params
@@ -9700,6 +10254,10 @@ type ListConferenceRecordingParams struct {
 	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListConferenceRecordingParams) SetPathAccountSid(PathAccountSid string) *ListConferenceRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListConferenceRecordingParams) SetDateCreated(DateCreated string) *ListConferenceRecordingParams {
 	params.DateCreated = &DateCreated
 	return params
@@ -9782,6 +10340,10 @@ type ListConnectAppParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListConnectAppParams) SetPathAccountSid(PathAccountSid string) *ListConnectAppParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListConnectAppParams) SetPageSize(PageSize int32) *ListConnectAppParams {
 	params.PageSize = &PageSize
 	return params
@@ -9834,6 +10396,10 @@ type ListDependentPhoneNumberParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListDependentPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *ListDependentPhoneNumberParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListDependentPhoneNumberParams) SetPageSize(PageSize int32) *ListDependentPhoneNumberParams {
 	params.PageSize = &PageSize
 	return params
@@ -9891,6 +10457,10 @@ type ListIncomingPhoneNumberParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListIncomingPhoneNumberParams) SetBeta(Beta bool) *ListIncomingPhoneNumberParams {
 	params.Beta = &Beta
 	return params
@@ -9979,6 +10549,10 @@ type ListIncomingPhoneNumberAssignedAddOnParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberAssignedAddOnParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberAssignedAddOnParams {
 	params.PageSize = &PageSize
 	return params
@@ -10034,6 +10608,10 @@ type ListIncomingPhoneNumberAssignedAddOnExtensionParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
 	params.PageSize = &PageSize
 	return params
@@ -10096,6 +10674,10 @@ type ListIncomingPhoneNumberLocalParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListIncomingPhoneNumberLocalParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberLocalParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListIncomingPhoneNumberLocalParams) SetBeta(Beta bool) *ListIncomingPhoneNumberLocalParams {
 	params.Beta = &Beta
 	return params
@@ -10186,6 +10768,10 @@ type ListIncomingPhoneNumberMobileParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListIncomingPhoneNumberMobileParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberMobileParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListIncomingPhoneNumberMobileParams) SetBeta(Beta bool) *ListIncomingPhoneNumberMobileParams {
 	params.Beta = &Beta
 	return params
@@ -10276,6 +10862,10 @@ type ListIncomingPhoneNumberTollFreeParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListIncomingPhoneNumberTollFreeParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberTollFreeParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListIncomingPhoneNumberTollFreeParams) SetBeta(Beta bool) *ListIncomingPhoneNumberTollFreeParams {
 	params.Beta = &Beta
 	return params
@@ -10362,6 +10952,10 @@ type ListKeyParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListKeyParams) SetPathAccountSid(PathAccountSid string) *ListKeyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListKeyParams) SetPageSize(PageSize int32) *ListKeyParams {
 	params.PageSize = &PageSize
 	return params
@@ -10415,6 +11009,10 @@ type ListMediaParams struct {
 	PageSize          *int32     `json:"PageSize,omitempty"`
 }
 
+func (params *ListMediaParams) SetPathAccountSid(PathAccountSid string) *ListMediaParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListMediaParams) SetDateCreated(DateCreated time.Time) *ListMediaParams {
 	params.DateCreated = &DateCreated
 	return params
@@ -10497,6 +11095,10 @@ type ListMemberParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListMemberParams) SetPathAccountSid(PathAccountSid string) *ListMemberParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListMemberParams) SetPageSize(PageSize int32) *ListMemberParams {
 	params.PageSize = &PageSize
 	return params
@@ -10557,6 +11159,10 @@ type ListMessageParams struct {
 	PageSize       *int32     `json:"PageSize,omitempty"`
 }
 
+func (params *ListMessageParams) SetPathAccountSid(PathAccountSid string) *ListMessageParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListMessageParams) SetTo(To string) *ListMessageParams {
 	params.To = &To
 	return params
@@ -10658,6 +11264,10 @@ type ListNotificationParams struct {
 	PageSize          *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListNotificationParams) SetPathAccountSid(PathAccountSid string) *ListNotificationParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListNotificationParams) SetLog(Log int32) *ListNotificationParams {
 	params.Log = &Log
 	return params
@@ -10748,6 +11358,10 @@ type ListOutgoingCallerIdParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid string) *ListOutgoingCallerIdParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListOutgoingCallerIdParams) SetPhoneNumber(PhoneNumber string) *ListOutgoingCallerIdParams {
 	params.PhoneNumber = &PhoneNumber
 	return params
@@ -10821,6 +11435,10 @@ type ListParticipantParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListParticipantParams) SetPathAccountSid(PathAccountSid string) *ListParticipantParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListParticipantParams) SetMuted(Muted bool) *ListParticipantParams {
 	params.Muted = &Muted
 	return params
@@ -10903,6 +11521,10 @@ type ListQueueParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListQueueParams) SetPathAccountSid(PathAccountSid string) *ListQueueParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListQueueParams) SetPageSize(PageSize int32) *ListQueueParams {
 	params.PageSize = &PageSize
 	return params
@@ -10960,6 +11582,10 @@ type ListRecordingParams struct {
 	PageSize          *int32     `json:"PageSize,omitempty"`
 }
 
+func (params *ListRecordingParams) SetPathAccountSid(PathAccountSid string) *ListRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListRecordingParams) SetDateCreated(DateCreated time.Time) *ListRecordingParams {
 	params.DateCreated = &DateCreated
 	return params
@@ -11057,6 +11683,10 @@ type ListRecordingAddOnResultParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListRecordingAddOnResultParams) SetPathAccountSid(PathAccountSid string) *ListRecordingAddOnResultParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListRecordingAddOnResultParams) SetPageSize(PageSize int32) *ListRecordingAddOnResultParams {
 	params.PageSize = &PageSize
 	return params
@@ -11112,6 +11742,10 @@ type ListRecordingAddOnResultPayloadParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListRecordingAddOnResultPayloadParams) SetPathAccountSid(PathAccountSid string) *ListRecordingAddOnResultPayloadParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListRecordingAddOnResultPayloadParams) SetPageSize(PageSize int32) *ListRecordingAddOnResultPayloadParams {
 	params.PageSize = &PageSize
 	return params
@@ -11170,6 +11804,10 @@ type ListRecordingTranscriptionParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListRecordingTranscriptionParams) SetPathAccountSid(PathAccountSid string) *ListRecordingTranscriptionParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListRecordingTranscriptionParams) SetPageSize(PageSize int32) *ListRecordingTranscriptionParams {
 	params.PageSize = &PageSize
 	return params
@@ -11225,6 +11863,10 @@ type ListShortCodeParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListShortCodeParams) SetPathAccountSid(PathAccountSid string) *ListShortCodeParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListShortCodeParams) SetFriendlyName(FriendlyName string) *ListShortCodeParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -11295,6 +11937,10 @@ type ListSigningKeyParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSigningKeyParams) SetPathAccountSid(PathAccountSid string) *ListSigningKeyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListSigningKeyParams) SetPageSize(PageSize int32) *ListSigningKeyParams {
 	params.PageSize = &PageSize
 	return params
@@ -11345,6 +11991,10 @@ type ListSipAuthCallsCredentialListMappingParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipAuthCallsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipAuthCallsCredentialListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListSipAuthCallsCredentialListMappingParams) SetPageSize(PageSize int32) *ListSipAuthCallsCredentialListMappingParams {
 	params.PageSize = &PageSize
 	return params
@@ -11400,6 +12050,10 @@ type ListSipAuthCallsIpAccessControlListMappingParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipAuthCallsIpAccessControlListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetPageSize(PageSize int32) *ListSipAuthCallsIpAccessControlListMappingParams {
 	params.PageSize = &PageSize
 	return params
@@ -11455,6 +12109,10 @@ type ListSipAuthRegistrationsCredentialListMappingParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipAuthRegistrationsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipAuthRegistrationsCredentialListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListSipAuthRegistrationsCredentialListMappingParams) SetPageSize(PageSize int32) *ListSipAuthRegistrationsCredentialListMappingParams {
 	params.PageSize = &PageSize
 	return params
@@ -11510,6 +12168,10 @@ type ListSipCredentialParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipCredentialParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListSipCredentialParams) SetPageSize(PageSize int32) *ListSipCredentialParams {
 	params.PageSize = &PageSize
 	return params
@@ -11565,6 +12227,10 @@ type ListSipCredentialListParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialListParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListSipCredentialListParams) SetPageSize(PageSize int32) *ListSipCredentialListParams {
 	params.PageSize = &PageSize
 	return params
@@ -11617,6 +12283,10 @@ type ListSipCredentialListMappingParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListSipCredentialListMappingParams) SetPageSize(PageSize int32) *ListSipCredentialListMappingParams {
 	params.PageSize = &PageSize
 	return params
@@ -11672,6 +12342,10 @@ type ListSipDomainParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipDomainParams) SetPathAccountSid(PathAccountSid string) *ListSipDomainParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListSipDomainParams) SetPageSize(PageSize int32) *ListSipDomainParams {
 	params.PageSize = &PageSize
 	return params
@@ -11724,6 +12398,10 @@ type ListSipIpAccessControlListParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipIpAccessControlListParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAccessControlListParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListSipIpAccessControlListParams) SetPageSize(PageSize int32) *ListSipIpAccessControlListParams {
 	params.PageSize = &PageSize
 	return params
@@ -11776,6 +12454,10 @@ type ListSipIpAccessControlListMappingParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAccessControlListMappingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListSipIpAccessControlListMappingParams) SetPageSize(PageSize int32) *ListSipIpAccessControlListMappingParams {
 	params.PageSize = &PageSize
 	return params
@@ -11831,6 +12513,10 @@ type ListSipIpAddressParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAddressParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListSipIpAddressParams) SetPageSize(PageSize int32) *ListSipIpAddressParams {
 	params.PageSize = &PageSize
 	return params
@@ -11886,6 +12572,10 @@ type ListTranscriptionParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListTranscriptionParams) SetPathAccountSid(PathAccountSid string) *ListTranscriptionParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListTranscriptionParams) SetPageSize(PageSize int32) *ListTranscriptionParams {
 	params.PageSize = &PageSize
 	return params
@@ -11942,6 +12632,10 @@ type ListUsageRecordParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListUsageRecordParams) SetCategory(Category string) *ListUsageRecordParams {
 	params.Category = &Category
 	return params
@@ -12034,6 +12728,10 @@ type ListUsageRecordAllTimeParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordAllTimeParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordAllTimeParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListUsageRecordAllTimeParams) SetCategory(Category string) *ListUsageRecordAllTimeParams {
 	params.Category = &Category
 	return params
@@ -12124,6 +12822,10 @@ type ListUsageRecordDailyParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordDailyParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordDailyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListUsageRecordDailyParams) SetCategory(Category string) *ListUsageRecordDailyParams {
 	params.Category = &Category
 	return params
@@ -12214,6 +12916,10 @@ type ListUsageRecordLastMonthParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordLastMonthParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordLastMonthParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListUsageRecordLastMonthParams) SetCategory(Category string) *ListUsageRecordLastMonthParams {
 	params.Category = &Category
 	return params
@@ -12304,6 +13010,10 @@ type ListUsageRecordMonthlyParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordMonthlyParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordMonthlyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListUsageRecordMonthlyParams) SetCategory(Category string) *ListUsageRecordMonthlyParams {
 	params.Category = &Category
 	return params
@@ -12394,6 +13104,10 @@ type ListUsageRecordThisMonthParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordThisMonthParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordThisMonthParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListUsageRecordThisMonthParams) SetCategory(Category string) *ListUsageRecordThisMonthParams {
 	params.Category = &Category
 	return params
@@ -12484,6 +13198,10 @@ type ListUsageRecordTodayParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordTodayParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordTodayParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListUsageRecordTodayParams) SetCategory(Category string) *ListUsageRecordTodayParams {
 	params.Category = &Category
 	return params
@@ -12574,6 +13292,10 @@ type ListUsageRecordYearlyParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordYearlyParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordYearlyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListUsageRecordYearlyParams) SetCategory(Category string) *ListUsageRecordYearlyParams {
 	params.Category = &Category
 	return params
@@ -12664,6 +13386,10 @@ type ListUsageRecordYesterdayParams struct {
 	PageSize           *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageRecordYesterdayParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordYesterdayParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListUsageRecordYesterdayParams) SetCategory(Category string) *ListUsageRecordYesterdayParams {
 	params.Category = &Category
 	return params
@@ -12753,6 +13479,10 @@ type ListUsageTriggerParams struct {
 	PageSize       *int32  `json:"PageSize,omitempty"`
 }
 
+func (params *ListUsageTriggerParams) SetPathAccountSid(PathAccountSid string) *ListUsageTriggerParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *ListUsageTriggerParams) SetRecurring(Recurring string) *ListUsageTriggerParams {
 	params.Recurring = &Recurring
 	return params
@@ -12896,6 +13626,10 @@ type UpdateAddressParams struct {
 	Street             *string `json:"Street,omitempty"`
 }
 
+func (params *UpdateAddressParams) SetPathAccountSid(PathAccountSid string) *UpdateAddressParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateAddressParams) SetAutoCorrectAddress(AutoCorrectAddress bool) *UpdateAddressParams {
 	params.AutoCorrectAddress = &AutoCorrectAddress
 	return params
@@ -13026,6 +13760,10 @@ type UpdateApplicationParams struct {
 	VoiceUrl              *string `json:"VoiceUrl,omitempty"`
 }
 
+func (params *UpdateApplicationParams) SetPathAccountSid(PathAccountSid string) *UpdateApplicationParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateApplicationParams) SetApiVersion(ApiVersion string) *UpdateApplicationParams {
 	params.ApiVersion = &ApiVersion
 	return params
@@ -13214,6 +13952,10 @@ type UpdateCallParams struct {
 	Url                  *string `json:"Url,omitempty"`
 }
 
+func (params *UpdateCallParams) SetPathAccountSid(PathAccountSid string) *UpdateCallParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateCallParams) SetFallbackMethod(FallbackMethod string) *UpdateCallParams {
 	params.FallbackMethod = &FallbackMethod
 	return params
@@ -13333,6 +14075,10 @@ type UpdateCallFeedbackParams struct {
 	QualityScore   *int32    `json:"QualityScore,omitempty"`
 }
 
+func (params *UpdateCallFeedbackParams) SetPathAccountSid(PathAccountSid string) *UpdateCallFeedbackParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateCallFeedbackParams) SetIssue(Issue []string) *UpdateCallFeedbackParams {
 	params.Issue = &Issue
 	return params
@@ -13398,6 +14144,10 @@ type UpdateCallRecordingParams struct {
 	Status         *string `json:"Status,omitempty"`
 }
 
+func (params *UpdateCallRecordingParams) SetPathAccountSid(PathAccountSid string) *UpdateCallRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateCallRecordingParams) SetPauseBehavior(PauseBehavior string) *UpdateCallRecordingParams {
 	params.PauseBehavior = &PauseBehavior
 	return params
@@ -13467,6 +14217,10 @@ type UpdateConferenceParams struct {
 	Status         *string `json:"Status,omitempty"`
 }
 
+func (params *UpdateConferenceParams) SetPathAccountSid(PathAccountSid string) *UpdateConferenceParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateConferenceParams) SetAnnounceMethod(AnnounceMethod string) *UpdateConferenceParams {
 	params.AnnounceMethod = &AnnounceMethod
 	return params
@@ -13539,6 +14293,10 @@ type UpdateConferenceRecordingParams struct {
 	Status         *string `json:"Status,omitempty"`
 }
 
+func (params *UpdateConferenceRecordingParams) SetPathAccountSid(PathAccountSid string) *UpdateConferenceRecordingParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateConferenceRecordingParams) SetPauseBehavior(PauseBehavior string) *UpdateConferenceRecordingParams {
 	params.PauseBehavior = &PauseBehavior
 	return params
@@ -13613,6 +14371,10 @@ type UpdateConnectAppParams struct {
 	Permissions               *[]string `json:"Permissions,omitempty"`
 }
 
+func (params *UpdateConnectAppParams) SetPathAccountSid(PathAccountSid string) *UpdateConnectAppParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateConnectAppParams) SetAuthorizeRedirectUrl(AuthorizeRedirectUrl string) *UpdateConnectAppParams {
 	params.AuthorizeRedirectUrl = &AuthorizeRedirectUrl
 	return params
@@ -13753,6 +14515,10 @@ type UpdateIncomingPhoneNumberParams struct {
 	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
 }
 
+func (params *UpdateIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *UpdateIncomingPhoneNumberParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateIncomingPhoneNumberParams) SetAccountSid(AccountSid string) *UpdateIncomingPhoneNumberParams {
 	params.AccountSid = &AccountSid
 	return params
@@ -14006,6 +14772,10 @@ type UpdateKeyParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateKeyParams) SetPathAccountSid(PathAccountSid string) *UpdateKeyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateKeyParams) SetFriendlyName(FriendlyName string) *UpdateKeyParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -14060,6 +14830,10 @@ type UpdateMemberParams struct {
 	Url            *string `json:"Url,omitempty"`
 }
 
+func (params *UpdateMemberParams) SetPathAccountSid(PathAccountSid string) *UpdateMemberParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateMemberParams) SetMethod(Method string) *UpdateMemberParams {
 	params.Method = &Method
 	return params
@@ -14127,6 +14901,10 @@ type UpdateMessageParams struct {
 	Body           *string `json:"Body,omitempty"`
 }
 
+func (params *UpdateMessageParams) SetPathAccountSid(PathAccountSid string) *UpdateMessageParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateMessageParams) SetBody(Body string) *UpdateMessageParams {
 	params.Body = &Body
 	return params
@@ -14182,6 +14960,10 @@ type UpdateOutgoingCallerIdParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid string) *UpdateOutgoingCallerIdParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateOutgoingCallerIdParams) SetFriendlyName(FriendlyName string) *UpdateOutgoingCallerIdParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -14248,6 +15030,10 @@ type UpdateParticipantParams struct {
 	WaitUrl             *string `json:"WaitUrl,omitempty"`
 }
 
+func (params *UpdateParticipantParams) SetPathAccountSid(PathAccountSid string) *UpdateParticipantParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateParticipantParams) SetAnnounceMethod(AnnounceMethod string) *UpdateParticipantParams {
 	params.AnnounceMethod = &AnnounceMethod
 	return params
@@ -14408,6 +15194,10 @@ type UpdatePaymentsParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
+func (params *UpdatePaymentsParams) SetPathAccountSid(PathAccountSid string) *UpdatePaymentsParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdatePaymentsParams) SetCapture(Capture string) *UpdatePaymentsParams {
 	params.Capture = &Capture
 	return params
@@ -14494,6 +15284,10 @@ type UpdateQueueParams struct {
 	MaxSize        *int32  `json:"MaxSize,omitempty"`
 }
 
+func (params *UpdateQueueParams) SetPathAccountSid(PathAccountSid string) *UpdateQueueParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateQueueParams) SetFriendlyName(FriendlyName string) *UpdateQueueParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -14563,6 +15357,10 @@ type UpdateShortCodeParams struct {
 	SmsUrl            *string `json:"SmsUrl,omitempty"`
 }
 
+func (params *UpdateShortCodeParams) SetPathAccountSid(PathAccountSid string) *UpdateShortCodeParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateShortCodeParams) SetApiVersion(ApiVersion string) *UpdateShortCodeParams {
 	params.ApiVersion = &ApiVersion
 	return params
@@ -14663,6 +15461,10 @@ type UpdateSigningKeyParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateSigningKeyParams) SetPathAccountSid(PathAccountSid string) *UpdateSigningKeyParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateSigningKeyParams) SetFriendlyName(FriendlyName string) *UpdateSigningKeyParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -14716,6 +15518,10 @@ type UpdateSipCredentialParams struct {
 	Password       *string `json:"Password,omitempty"`
 }
 
+func (params *UpdateSipCredentialParams) SetPathAccountSid(PathAccountSid string) *UpdateSipCredentialParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateSipCredentialParams) SetPassword(Password string) *UpdateSipCredentialParams {
 	params.Password = &Password
 	return params
@@ -14774,6 +15580,10 @@ type UpdateSipCredentialListParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *UpdateSipCredentialListParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateSipCredentialListParams) SetFriendlyName(FriendlyName string) *UpdateSipCredentialListParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -14841,6 +15651,10 @@ type UpdateSipDomainParams struct {
 	VoiceUrl                  *string `json:"VoiceUrl,omitempty"`
 }
 
+func (params *UpdateSipDomainParams) SetPathAccountSid(PathAccountSid string) *UpdateSipDomainParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateSipDomainParams) SetByocTrunkSid(ByocTrunkSid string) *UpdateSipDomainParams {
 	params.ByocTrunkSid = &ByocTrunkSid
 	return params
@@ -15004,6 +15818,10 @@ type UpdateSipIpAccessControlListParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateSipIpAccessControlListParams) SetPathAccountSid(PathAccountSid string) *UpdateSipIpAccessControlListParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateSipIpAccessControlListParams) SetFriendlyName(FriendlyName string) *UpdateSipIpAccessControlListParams {
 	params.FriendlyName = &FriendlyName
 	return params
@@ -15061,6 +15879,10 @@ type UpdateSipIpAddressParams struct {
 	IpAddress        *string `json:"IpAddress,omitempty"`
 }
 
+func (params *UpdateSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *UpdateSipIpAddressParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateSipIpAddressParams) SetCidrPrefixLength(CidrPrefixLength int32) *UpdateSipIpAddressParams {
 	params.CidrPrefixLength = &CidrPrefixLength
 	return params
@@ -15139,6 +15961,10 @@ type UpdateUsageTriggerParams struct {
 	FriendlyName   *string `json:"FriendlyName,omitempty"`
 }
 
+func (params *UpdateUsageTriggerParams) SetPathAccountSid(PathAccountSid string) *UpdateUsageTriggerParams {
+	params.PathAccountSid = &PathAccountSid
+	return params
+}
 func (params *UpdateUsageTriggerParams) SetCallbackMethod(CallbackMethod string) *UpdateUsageTriggerParams {
 	params.CallbackMethod = &CallbackMethod
 	return params
