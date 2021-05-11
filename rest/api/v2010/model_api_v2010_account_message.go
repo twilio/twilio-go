@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,24 +13,44 @@ package openapi
 
 // ApiV2010AccountMessage struct for ApiV2010AccountMessage
 type ApiV2010AccountMessage struct {
-	AccountSid          *string                 `json:"account_sid,omitempty"`
-	ApiVersion          *string                 `json:"api_version,omitempty"`
-	Body                *string                 `json:"body,omitempty"`
-	DateCreated         *string                 `json:"date_created,omitempty"`
-	DateSent            *string                 `json:"date_sent,omitempty"`
-	DateUpdated         *string                 `json:"date_updated,omitempty"`
-	Direction           *MessageDirection       `json:"direction,omitempty"`
-	ErrorCode           *int32                  `json:"error_code,omitempty"`
-	ErrorMessage        *string                 `json:"error_message,omitempty"`
-	From                *string                 `json:"from,omitempty"`
-	MessagingServiceSid *string                 `json:"messaging_service_sid,omitempty"`
-	NumMedia            *string                 `json:"num_media,omitempty"`
-	NumSegments         *string                 `json:"num_segments,omitempty"`
-	Price               *string                 `json:"price,omitempty"`
-	PriceUnit           *string                 `json:"price_unit,omitempty"`
-	Sid                 *string                 `json:"sid,omitempty"`
-	Status              *MessageStatus          `json:"status,omitempty"`
-	SubresourceUris     *map[string]interface{} `json:"subresource_uris,omitempty"`
-	To                  *string                 `json:"to,omitempty"`
-	Uri                 *string                 `json:"uri,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The API version used to process the message
+	ApiVersion *string `json:"api_version,omitempty"`
+	// The message text
+	Body *string `json:"body,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"date_created,omitempty"`
+	// The RFC 2822 date and time in GMT when the message was sent
+	DateSent *string `json:"date_sent,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"date_updated,omitempty"`
+	// The direction of the message
+	Direction *string `json:"direction,omitempty"`
+	// The error code associated with the message
+	ErrorCode *int32 `json:"error_code,omitempty"`
+	// The description of the error_code
+	ErrorMessage *string `json:"error_message,omitempty"`
+	// The phone number that initiated the message
+	From *string `json:"from,omitempty"`
+	// The SID of the Messaging Service used with the message.
+	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
+	// The number of media files associated with the message
+	NumMedia *string `json:"num_media,omitempty"`
+	// The number of messages used to deliver the message body
+	NumSegments *string `json:"num_segments,omitempty"`
+	// The amount billed for the message
+	Price *string `json:"price,omitempty"`
+	// The currency in which price is measured
+	PriceUnit *string `json:"price_unit,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// The status of the message
+	Status *string `json:"status,omitempty"`
+	// A list of related resources identified by their relative URIs
+	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
+	// The phone number that received the message
+	To *string `json:"to,omitempty"`
+	// The URI of the resource, relative to `https://api.twilio.com`
+	Uri *string `json:"uri,omitempty"`
 }

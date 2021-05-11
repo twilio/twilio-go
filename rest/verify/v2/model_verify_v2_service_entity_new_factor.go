@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,17 +17,30 @@ import (
 
 // VerifyV2ServiceEntityNewFactor struct for VerifyV2ServiceEntityNewFactor
 type VerifyV2ServiceEntityNewFactor struct {
-	AccountSid   *string                  `json:"account_sid,omitempty"`
-	Binding      *map[string]interface{}  `json:"binding,omitempty"`
-	Config       *map[string]interface{}  `json:"config,omitempty"`
-	DateCreated  *time.Time               `json:"date_created,omitempty"`
-	DateUpdated  *time.Time               `json:"date_updated,omitempty"`
-	EntitySid    *string                  `json:"entity_sid,omitempty"`
-	FactorType   *NewFactorFactorTypes    `json:"factor_type,omitempty"`
-	FriendlyName *string                  `json:"friendly_name,omitempty"`
-	Identity     *string                  `json:"identity,omitempty"`
-	ServiceSid   *string                  `json:"service_sid,omitempty"`
-	Sid          *string                  `json:"sid,omitempty"`
-	Status       *NewFactorFactorStatuses `json:"status,omitempty"`
-	Url          *string                  `json:"url,omitempty"`
+	// Account Sid.
+	AccountSid *string `json:"account_sid,omitempty"`
+	// Unique external identifier of the Entity
+	Binding *map[string]interface{} `json:"binding,omitempty"`
+	// Binding for a `factor_type`.
+	Config *map[string]interface{} `json:"config,omitempty"`
+	// The date this Factor was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The date this Factor was updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// Entity Sid.
+	EntitySid *string `json:"entity_sid,omitempty"`
+	// The Type of this Factor
+	FactorType *string `json:"factor_type,omitempty"`
+	// A human readable description of this resource.
+	FriendlyName *string `json:"friendly_name,omitempty"`
+	// Unique external identifier of the Entity
+	Identity *string `json:"identity,omitempty"`
+	// Service Sid.
+	ServiceSid *string `json:"service_sid,omitempty"`
+	// A string that uniquely identifies this Factor.
+	Sid *string `json:"sid,omitempty"`
+	// The Status of this Factor
+	Status *string `json:"status,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"url,omitempty"`
 }

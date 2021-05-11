@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,15 +17,26 @@ import (
 
 // ConversationsV1ServiceServiceBinding struct for ConversationsV1ServiceServiceBinding
 type ConversationsV1ServiceServiceBinding struct {
-	AccountSid     *string                    `json:"account_sid,omitempty"`
-	BindingType    *ServiceBindingBindingType `json:"binding_type,omitempty"`
-	ChatServiceSid *string                    `json:"chat_service_sid,omitempty"`
-	CredentialSid  *string                    `json:"credential_sid,omitempty"`
-	DateCreated    *time.Time                 `json:"date_created,omitempty"`
-	DateUpdated    *time.Time                 `json:"date_updated,omitempty"`
-	Endpoint       *string                    `json:"endpoint,omitempty"`
-	Identity       *string                    `json:"identity,omitempty"`
-	MessageTypes   *[]string                  `json:"message_types,omitempty"`
-	Sid            *string                    `json:"sid,omitempty"`
-	Url            *string                    `json:"url,omitempty"`
+	// The unique ID of the Account responsible for this binding.
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The push technology to use for the binding.
+	BindingType *string `json:"binding_type,omitempty"`
+	// The SID of the Conversation Service that the resource is associated with.
+	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
+	// The SID of the Credential for the binding.
+	CredentialSid *string `json:"credential_sid,omitempty"`
+	// The date that this resource was created.
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The date that this resource was last updated.
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The unique endpoint identifier for the Binding.
+	Endpoint *string `json:"endpoint,omitempty"`
+	// The identity of Conversation User associated with this binding.
+	Identity *string `json:"identity,omitempty"`
+	// The Conversation message types the binding is subscribed to.
+	MessageTypes *[]string `json:"message_types,omitempty"`
+	// A 34 character string that uniquely identifies this resource.
+	Sid *string `json:"sid,omitempty"`
+	// An absolute URL for this binding.
+	Url *string `json:"url,omitempty"`
 }

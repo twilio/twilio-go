@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Links** | Pointer to **map[string]interface{}** |  |
 **MemberSid** | Pointer to **string** |  |
 **ServiceSid** | Pointer to **string** |  |
-**Status** | Pointer to [**UserChannelChannelStatus**](user_channel_channel_status.md) |  |
+**Status** | Pointer to **string** |  |
 **UnreadMessagesCount** | Pointer to **int32** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

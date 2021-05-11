@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,5 +13,6 @@ package openapi
 
 // EventsV1SinkSinkTest struct for EventsV1SinkSinkTest
 type EventsV1SinkSinkTest struct {
+	// Feedback indicating whether the test event was generated.
 	Result *string `json:"result,omitempty"`
 }

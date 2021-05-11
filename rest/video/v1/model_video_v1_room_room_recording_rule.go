@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,8 +17,12 @@ import (
 
 // VideoV1RoomRoomRecordingRule struct for VideoV1RoomRoomRecordingRule
 type VideoV1RoomRoomRecordingRule struct {
-	DateCreated *time.Time                `json:"date_created,omitempty"`
-	DateUpdated *time.Time                `json:"date_updated,omitempty"`
-	RoomSid     *string                   `json:"room_sid,omitempty"`
-	Rules       *[]map[string]interface{} `json:"rules,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The SID of the Room resource for the Recording Rules
+	RoomSid *string `json:"room_sid,omitempty"`
+	// A collection of recording Rules that describe how to include or exclude matching tracks for recording
+	Rules *[]VideoV1RoomRoomRecordingRuleRules `json:"rules,omitempty"`
 }

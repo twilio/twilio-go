@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,8 @@ package openapi
 
 // VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate struct for VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate
 type VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate struct {
-	UpdateCount   *int32  `json:"update_count,omitempty"`
+	// The number of countries updated
+	UpdateCount *int32 `json:"update_count,omitempty"`
+	// A URL encoded JSON array of update objects
 	UpdateRequest *string `json:"update_request,omitempty"`
 }

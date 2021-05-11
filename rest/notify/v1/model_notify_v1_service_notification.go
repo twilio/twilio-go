@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,24 +17,44 @@ import (
 
 // NotifyV1ServiceNotification struct for NotifyV1ServiceNotification
 type NotifyV1ServiceNotification struct {
-	AccountSid        *string                 `json:"account_sid,omitempty"`
-	Action            *string                 `json:"action,omitempty"`
-	Alexa             *map[string]interface{} `json:"alexa,omitempty"`
-	Apn               *map[string]interface{} `json:"apn,omitempty"`
-	Body              *string                 `json:"body,omitempty"`
-	Data              *map[string]interface{} `json:"data,omitempty"`
-	DateCreated       *time.Time              `json:"date_created,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The actions to display for the notification
+	Action *string `json:"action,omitempty"`
+	// Deprecated
+	Alexa *map[string]interface{} `json:"alexa,omitempty"`
+	// The APNS-specific payload that overrides corresponding attributes in a generic payload for APNS Bindings
+	Apn *map[string]interface{} `json:"apn,omitempty"`
+	// The notification body text
+	Body *string `json:"body,omitempty"`
+	// The custom key-value pairs of the notification's payload
+	Data *map[string]interface{} `json:"data,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// Deprecated
 	FacebookMessenger *map[string]interface{} `json:"facebook_messenger,omitempty"`
-	Fcm               *map[string]interface{} `json:"fcm,omitempty"`
-	Gcm               *map[string]interface{} `json:"gcm,omitempty"`
-	Identities        *[]string               `json:"identities,omitempty"`
-	Priority          *NotificationPriority   `json:"priority,omitempty"`
-	Segments          *[]string               `json:"segments,omitempty"`
-	ServiceSid        *string                 `json:"service_sid,omitempty"`
-	Sid               *string                 `json:"sid,omitempty"`
-	Sms               *map[string]interface{} `json:"sms,omitempty"`
-	Sound             *string                 `json:"sound,omitempty"`
-	Tags              *[]string               `json:"tags,omitempty"`
-	Title             *string                 `json:"title,omitempty"`
-	Ttl               *int32                  `json:"ttl,omitempty"`
+	// The FCM-specific payload that overrides corresponding attributes in generic payload for FCM Bindings
+	Fcm *map[string]interface{} `json:"fcm,omitempty"`
+	// The GCM-specific payload that overrides corresponding attributes in generic payload for GCM Bindings
+	Gcm *map[string]interface{} `json:"gcm,omitempty"`
+	// The list of identity values of the Users to notify
+	Identities *[]string `json:"identities,omitempty"`
+	// The priority of the notification
+	Priority *string `json:"priority,omitempty"`
+	// The list of Segments to notify
+	Segments *[]string `json:"segments,omitempty"`
+	// The SID of the Service that the resource is associated with
+	ServiceSid *string `json:"service_sid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// The SMS-specific payload that overrides corresponding attributes in generic payload for SMS Bindings
+	Sms *map[string]interface{} `json:"sms,omitempty"`
+	// The name of the sound to be played for the notification
+	Sound *string `json:"sound,omitempty"`
+	// The tags that select the Bindings to notify
+	Tags *[]string `json:"tags,omitempty"`
+	// The notification title
+	Title *string `json:"title,omitempty"`
+	// How long, in seconds, the notification is valid
+	Ttl *int32 `json:"ttl,omitempty"`
 }

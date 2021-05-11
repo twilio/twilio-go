@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,15 +13,26 @@ package openapi
 
 // ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload struct for ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload
 type ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload struct {
-	AccountSid            *string                 `json:"account_sid,omitempty"`
-	AddOnConfigurationSid *string                 `json:"add_on_configuration_sid,omitempty"`
-	AddOnResultSid        *string                 `json:"add_on_result_sid,omitempty"`
-	AddOnSid              *string                 `json:"add_on_sid,omitempty"`
-	ContentType           *string                 `json:"content_type,omitempty"`
-	DateCreated           *string                 `json:"date_created,omitempty"`
-	DateUpdated           *string                 `json:"date_updated,omitempty"`
-	Label                 *string                 `json:"label,omitempty"`
-	ReferenceSid          *string                 `json:"reference_sid,omitempty"`
-	Sid                   *string                 `json:"sid,omitempty"`
-	SubresourceUris       *map[string]interface{} `json:"subresource_uris,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The SID of the Add-on configuration
+	AddOnConfigurationSid *string `json:"add_on_configuration_sid,omitempty"`
+	// The SID of the AddOnResult to which the payload belongs
+	AddOnResultSid *string `json:"add_on_result_sid,omitempty"`
+	// The SID of the Add-on to which the result belongs
+	AddOnSid *string `json:"add_on_sid,omitempty"`
+	// The MIME type of the payload
+	ContentType *string `json:"content_type,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"date_created,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"date_updated,omitempty"`
+	// The string that describes the payload
+	Label *string `json:"label,omitempty"`
+	// The SID of the recording to which the AddOnResult resource that contains the payload belongs
+	ReferenceSid *string `json:"reference_sid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// A list of related resources identified by their relative URIs
+	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
 }

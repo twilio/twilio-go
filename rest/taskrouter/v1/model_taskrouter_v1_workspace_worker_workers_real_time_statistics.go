@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,9 +13,14 @@ package openapi
 
 // TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics struct for TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics
 type TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics struct {
-	AccountSid         *string                   `json:"account_sid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The number of current Workers by Activity
 	ActivityStatistics *[]map[string]interface{} `json:"activity_statistics,omitempty"`
-	TotalWorkers       *int32                    `json:"total_workers,omitempty"`
-	Url                *string                   `json:"url,omitempty"`
-	WorkspaceSid       *string                   `json:"workspace_sid,omitempty"`
+	// The total number of Workers
+	TotalWorkers *int32 `json:"total_workers,omitempty"`
+	// The absolute URL of the Workers statistics resource
+	Url *string `json:"url,omitempty"`
+	// The SID of the Workspace that contains the Workers
+	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 }

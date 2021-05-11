@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,16 +17,28 @@ import (
 
 // WirelessV1Command struct for WirelessV1Command
 type WirelessV1Command struct {
-	AccountSid               *string             `json:"account_sid,omitempty"`
-	Command                  *string             `json:"command,omitempty"`
-	CommandMode              *CommandCommandMode `json:"command_mode,omitempty"`
-	DateCreated              *time.Time          `json:"date_created,omitempty"`
-	DateUpdated              *time.Time          `json:"date_updated,omitempty"`
-	DeliveryReceiptRequested *bool               `json:"delivery_receipt_requested,omitempty"`
-	Direction                *CommandDirection   `json:"direction,omitempty"`
-	Sid                      *string             `json:"sid,omitempty"`
-	SimSid                   *string             `json:"sim_sid,omitempty"`
-	Status                   *CommandStatus      `json:"status,omitempty"`
-	Transport                *CommandTransport   `json:"transport,omitempty"`
-	Url                      *string             `json:"url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The message being sent to or from the SIM
+	Command *string `json:"command,omitempty"`
+	// The mode used to send the SMS message
+	CommandMode *string `json:"command_mode,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated format
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// Whether to request a delivery receipt
+	DeliveryReceiptRequested *bool `json:"delivery_receipt_requested,omitempty"`
+	// The direction of the Command
+	Direction *string `json:"direction,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// The SID of the Sim resource that the Command was sent to or from
+	SimSid *string `json:"sim_sid,omitempty"`
+	// The status of the Command
+	Status *string `json:"status,omitempty"`
+	// The type of transport used
+	Transport *string `json:"transport,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"url,omitempty"`
 }

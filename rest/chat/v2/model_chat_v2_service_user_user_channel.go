@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,15 +13,26 @@ package openapi
 
 // ChatV2ServiceUserUserChannel struct for ChatV2ServiceUserUserChannel
 type ChatV2ServiceUserUserChannel struct {
-	AccountSid               *string                       `json:"account_sid,omitempty"`
-	ChannelSid               *string                       `json:"channel_sid,omitempty"`
-	LastConsumedMessageIndex *int32                        `json:"last_consumed_message_index,omitempty"`
-	Links                    *map[string]interface{}       `json:"links,omitempty"`
-	MemberSid                *string                       `json:"member_sid,omitempty"`
-	NotificationLevel        *UserChannelNotificationLevel `json:"notification_level,omitempty"`
-	ServiceSid               *string                       `json:"service_sid,omitempty"`
-	Status                   *UserChannelChannelStatus     `json:"status,omitempty"`
-	UnreadMessagesCount      *int32                        `json:"unread_messages_count,omitempty"`
-	Url                      *string                       `json:"url,omitempty"`
-	UserSid                  *string                       `json:"user_sid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The SID of the Channel the resource belongs to
+	ChannelSid *string `json:"channel_sid,omitempty"`
+	// The index of the last Message in the Channel the Member has read
+	LastConsumedMessageIndex *int32 `json:"last_consumed_message_index,omitempty"`
+	// Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
+	Links *map[string]interface{} `json:"links,omitempty"`
+	// The SID of the User as a Member in the Channel
+	MemberSid *string `json:"member_sid,omitempty"`
+	// The push notification level of the User for the Channel
+	NotificationLevel *string `json:"notification_level,omitempty"`
+	// The SID of the Service that the resource is associated with
+	ServiceSid *string `json:"service_sid,omitempty"`
+	// The status of the User on the Channel
+	Status *string `json:"status,omitempty"`
+	// The number of unread Messages in the Channel for the User
+	UnreadMessagesCount *int32 `json:"unread_messages_count,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"url,omitempty"`
+	// The SID of the User the User Channel belongs to
+	UserSid *string `json:"user_sid,omitempty"`
 }

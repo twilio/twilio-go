@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,5 +13,6 @@ package openapi
 
 // StudioV2FlowValidate struct for StudioV2FlowValidate
 type StudioV2FlowValidate struct {
+	// Boolean if the flow definition is valid
 	Valid *bool `json:"valid,omitempty"`
 }

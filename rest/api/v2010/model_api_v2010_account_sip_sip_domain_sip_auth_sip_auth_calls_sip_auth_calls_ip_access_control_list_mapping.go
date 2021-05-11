@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,9 +13,14 @@ package openapi
 
 // ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping struct for ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping
 type ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping struct {
-	AccountSid   *string `json:"account_sid,omitempty"`
-	DateCreated  *string `json:"date_created,omitempty"`
-	DateUpdated  *string `json:"date_updated,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was created
+	DateCreated *string `json:"date_created,omitempty"`
+	// The RFC 2822 date and time in GMT that the resource was last updated
+	DateUpdated *string `json:"date_updated,omitempty"`
+	// The string that you assigned to describe the resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
-	Sid          *string `json:"sid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
 }

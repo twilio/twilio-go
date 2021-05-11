@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,11 +17,17 @@ import (
 
 // EventsV1EventType struct for EventsV1EventType
 type EventsV1EventType struct {
-	DateCreated *time.Time              `json:"date_created,omitempty"`
-	DateUpdated *time.Time              `json:"date_updated,omitempty"`
+	// The date this Event Type was created.
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The date this Event Type was updated.
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// Event Type description.
 	Description *string                 `json:"description,omitempty"`
 	Links       *map[string]interface{} `json:"links,omitempty"`
-	SchemaId    *string                 `json:"schema_id,omitempty"`
-	Type        *string                 `json:"type,omitempty"`
-	Url         *string                 `json:"url,omitempty"`
+	// The Schema identifier for this Event Type.
+	SchemaId *string `json:"schema_id,omitempty"`
+	// The Event Type identifier.
+	Type *string `json:"type,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"url,omitempty"`
 }

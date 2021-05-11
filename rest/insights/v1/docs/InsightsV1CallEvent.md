@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 **CallSid** | Pointer to **string** |  |
 **CarrierEdge** | Pointer to **map[string]interface{}** |  |
 **ClientEdge** | Pointer to **map[string]interface{}** |  |
-**Edge** | Pointer to [**EventTwilioEdge**](event_twilio_edge.md) |  |
+**Edge** | Pointer to **string** |  |
 **Group** | Pointer to **string** |  |
-**Level** | Pointer to [**EventLevel**](event_level.md) |  |
+**Level** | Pointer to **string** |  |
 **Name** | Pointer to **string** |  |
 **SdkEdge** | Pointer to **map[string]interface{}** |  |
 **SipEdge** | Pointer to **map[string]interface{}** |  |

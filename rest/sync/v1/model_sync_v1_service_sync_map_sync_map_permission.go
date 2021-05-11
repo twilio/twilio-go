@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,12 +13,20 @@ package openapi
 
 // SyncV1ServiceSyncMapSyncMapPermission struct for SyncV1ServiceSyncMapSyncMapPermission
 type SyncV1ServiceSyncMapSyncMapPermission struct {
+	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
-	Identity   *string `json:"identity,omitempty"`
-	Manage     *bool   `json:"manage,omitempty"`
-	MapSid     *string `json:"map_sid,omitempty"`
-	Read       *bool   `json:"read,omitempty"`
+	// The identity of the user to whom the Sync Document Permission applies
+	Identity *string `json:"identity,omitempty"`
+	// Manage access
+	Manage *bool `json:"manage,omitempty"`
+	// Sync Map SID
+	MapSid *string `json:"map_sid,omitempty"`
+	// Read access
+	Read *bool `json:"read,omitempty"`
+	// The SID of the Sync Service that the resource is associated with
 	ServiceSid *string `json:"service_sid,omitempty"`
-	Url        *string `json:"url,omitempty"`
-	Write      *bool   `json:"write,omitempty"`
+	// The absolute URL of the Sync Map Permission resource
+	Url *string `json:"url,omitempty"`
+	// Write access
+	Write *bool `json:"write,omitempty"`
 }

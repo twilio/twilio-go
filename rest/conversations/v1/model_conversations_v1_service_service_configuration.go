@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,11 +13,18 @@ package openapi
 
 // ConversationsV1ServiceServiceConfiguration struct for ConversationsV1ServiceServiceConfiguration
 type ConversationsV1ServiceServiceConfiguration struct {
-	ChatServiceSid                    *string                 `json:"chat_service_sid,omitempty"`
-	DefaultChatServiceRoleSid         *string                 `json:"default_chat_service_role_sid,omitempty"`
-	DefaultConversationCreatorRoleSid *string                 `json:"default_conversation_creator_role_sid,omitempty"`
-	DefaultConversationRoleSid        *string                 `json:"default_conversation_role_sid,omitempty"`
-	Links                             *map[string]interface{} `json:"links,omitempty"`
-	ReachabilityEnabled               *bool                   `json:"reachability_enabled,omitempty"`
-	Url                               *string                 `json:"url,omitempty"`
+	// The unique string that identifies the resource
+	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
+	// The service role assigned to users when they are added to the service
+	DefaultChatServiceRoleSid *string `json:"default_chat_service_role_sid,omitempty"`
+	// The role assigned to a conversation creator user when they join a new conversation
+	DefaultConversationCreatorRoleSid *string `json:"default_conversation_creator_role_sid,omitempty"`
+	// The role assigned to users when they are added to a conversation
+	DefaultConversationRoleSid *string `json:"default_conversation_role_sid,omitempty"`
+	// Absolute URL to access the push notifications configuration of this service.
+	Links *map[string]interface{} `json:"links,omitempty"`
+	// Whether the Reachability Indicator feature is enabled for this Conversations Service
+	ReachabilityEnabled *bool `json:"reachability_enabled,omitempty"`
+	// An absolute URL for this service configuration.
+	Url *string `json:"url,omitempty"`
 }

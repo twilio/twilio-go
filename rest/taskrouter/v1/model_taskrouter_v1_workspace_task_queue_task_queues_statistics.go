@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,9 +13,14 @@ package openapi
 
 // TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics struct for TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics
 type TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics struct {
-	AccountSid   *string                 `json:"account_sid,omitempty"`
-	Cumulative   *map[string]interface{} `json:"cumulative,omitempty"`
-	Realtime     *map[string]interface{} `json:"realtime,omitempty"`
-	TaskQueueSid *string                 `json:"task_queue_sid,omitempty"`
-	WorkspaceSid *string                 `json:"workspace_sid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// An object that contains the cumulative statistics for the TaskQueues
+	Cumulative *map[string]interface{} `json:"cumulative,omitempty"`
+	// An object that contains the real-time statistics for the TaskQueues
+	Realtime *map[string]interface{} `json:"realtime,omitempty"`
+	// The SID of the TaskQueue from which these statistics were calculated
+	TaskQueueSid *string `json:"task_queue_sid,omitempty"`
+	// The SID of the Workspace that contains the TaskQueues
+	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,14 +17,24 @@ import (
 
 // AutopilotV1AssistantModelBuild struct for AutopilotV1AssistantModelBuild
 type AutopilotV1AssistantModelBuild struct {
-	AccountSid    *string           `json:"account_sid,omitempty"`
-	AssistantSid  *string           `json:"assistant_sid,omitempty"`
-	BuildDuration *int32            `json:"build_duration,omitempty"`
-	DateCreated   *time.Time        `json:"date_created,omitempty"`
-	DateUpdated   *time.Time        `json:"date_updated,omitempty"`
-	ErrorCode     *int32            `json:"error_code,omitempty"`
-	Sid           *string           `json:"sid,omitempty"`
-	Status        *ModelBuildStatus `json:"status,omitempty"`
-	UniqueName    *string           `json:"unique_name,omitempty"`
-	Url           *string           `json:"url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The SID of the Assistant that is the parent of the resource
+	AssistantSid *string `json:"assistant_sid,omitempty"`
+	// The time in seconds it took to build the model
+	BuildDuration *int32 `json:"build_duration,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// More information about why the model build failed, if `status` is `failed`
+	ErrorCode *int32 `json:"error_code,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// The status of the model build process
+	Status *string `json:"status,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"unique_name,omitempty"`
+	// The absolute URL of the ModelBuild resource
+	Url *string `json:"url,omitempty"`
 }

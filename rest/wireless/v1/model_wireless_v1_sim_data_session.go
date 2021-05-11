@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,20 +17,36 @@ import (
 
 // WirelessV1SimDataSession struct for WirelessV1SimDataSession
 type WirelessV1SimDataSession struct {
-	AccountSid           *string                 `json:"account_sid,omitempty"`
-	CellId               *string                 `json:"cell_id,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated
+	CellId *string `json:"cell_id,omitempty"`
+	// An object with the estimated location where the device's Data Session took place
 	CellLocationEstimate *map[string]interface{} `json:"cell_location_estimate,omitempty"`
-	End                  *time.Time              `json:"end,omitempty"`
-	Imei                 *string                 `json:"imei,omitempty"`
-	LastUpdated          *time.Time              `json:"last_updated,omitempty"`
-	OperatorCountry      *string                 `json:"operator_country,omitempty"`
-	OperatorMcc          *string                 `json:"operator_mcc,omitempty"`
-	OperatorMnc          *string                 `json:"operator_mnc,omitempty"`
-	OperatorName         *string                 `json:"operator_name,omitempty"`
-	PacketsDownloaded    *int32                  `json:"packets_downloaded,omitempty"`
-	PacketsUploaded      *int32                  `json:"packets_uploaded,omitempty"`
-	RadioLink            *string                 `json:"radio_link,omitempty"`
-	Sid                  *string                 `json:"sid,omitempty"`
-	SimSid               *string                 `json:"sim_sid,omitempty"`
-	Start                *time.Time              `json:"start,omitempty"`
+	// The date that the record ended, given as GMT in ISO 8601 format
+	End *time.Time `json:"end,omitempty"`
+	// The unique ID of the device using the SIM to connect
+	Imei *string `json:"imei,omitempty"`
+	// The date that the resource was last updated, given as GMT in ISO 8601 format
+	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	// The three letter country code representing where the device's Data Session took place
+	OperatorCountry *string `json:"operator_country,omitempty"`
+	// The 'mobile country code' is the unique ID of the home country where the Data Session took place
+	OperatorMcc *string `json:"operator_mcc,omitempty"`
+	// The 'mobile network code' is the unique ID specific to the mobile operator network where the Data Session took place
+	OperatorMnc *string `json:"operator_mnc,omitempty"`
+	// The friendly name of the mobile operator network that the SIM-connected device is attached to
+	OperatorName *string `json:"operator_name,omitempty"`
+	// The number of packets downloaded by the device between the start time and when the Data Session was last updated
+	PacketsDownloaded *int32 `json:"packets_downloaded,omitempty"`
+	// The number of packets uploaded by the device between the start time and when the Data Session was last updated
+	PacketsUploaded *int32 `json:"packets_uploaded,omitempty"`
+	// The generation of wireless technology that the device was using
+	RadioLink *string `json:"radio_link,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// The SID of the Sim resource that the Data Session is for
+	SimSid *string `json:"sim_sid,omitempty"`
+	// The date that the Data Session started, given as GMT in ISO 8601 format
+	Start *time.Time `json:"start,omitempty"`
 }

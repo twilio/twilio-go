@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
-**Enabled** | Pointer to **bool** |  |
-**Kind** | Pointer to [**RoomParticipantPublishedTrackKind**](room_participant_published_track_kind.md) |  |
-**Name** | Pointer to **string** |  |
-**ParticipantSid** | Pointer to **string** |  |
-**RoomSid** | Pointer to **string** |  |
-**Sid** | Pointer to **string** |  |
-**Url** | Pointer to **string** |  |
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
+**Enabled** | Pointer to **bool** | Whether the track is enabled |
+**Kind** | Pointer to **string** | The track type |
+**Name** | Pointer to **string** | The track name |
+**ParticipantSid** | Pointer to **string** | The SID of the Participant resource with the published track |
+**RoomSid** | Pointer to **string** | The SID of the Room resource where the track is published |
+**Sid** | Pointer to **string** | The unique string that identifies the resource |
+**Url** | Pointer to **string** | The absolute URL of the resource |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

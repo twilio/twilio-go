@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,12 +17,20 @@ import (
 
 // TaskrouterV1WorkspaceActivity struct for TaskrouterV1WorkspaceActivity
 type TaskrouterV1WorkspaceActivity struct {
-	AccountSid   *string    `json:"account_sid,omitempty"`
-	Available    *bool      `json:"available,omitempty"`
-	DateCreated  *time.Time `json:"date_created,omitempty"`
-	DateUpdated  *time.Time `json:"date_updated,omitempty"`
-	FriendlyName *string    `json:"friendly_name,omitempty"`
-	Sid          *string    `json:"sid,omitempty"`
-	Url          *string    `json:"url,omitempty"`
-	WorkspaceSid *string    `json:"workspace_sid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// Whether the Worker should be eligible to receive a Task when it occupies the Activity
+	Available *bool `json:"available,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The string that you assigned to describe the Activity resource
+	FriendlyName *string `json:"friendly_name,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// The absolute URL of the Activity resource
+	Url *string `json:"url,omitempty"`
+	// The SID of the Workspace that contains the Activity
+	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 }

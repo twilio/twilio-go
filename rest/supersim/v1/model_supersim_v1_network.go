@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,9 +13,14 @@ package openapi
 
 // SupersimV1Network struct for SupersimV1Network
 type SupersimV1Network struct {
-	FriendlyName *string                   `json:"friendly_name,omitempty"`
-	Identifiers  *[]map[string]interface{} `json:"identifiers,omitempty"`
-	IsoCountry   *string                   `json:"iso_country,omitempty"`
-	Sid          *string                   `json:"sid,omitempty"`
-	Url          *string                   `json:"url,omitempty"`
+	// A human readable identifier of this resource
+	FriendlyName *string `json:"friendly_name,omitempty"`
+	// The MCC/MNCs included in the Network resource
+	Identifiers *[]map[string]interface{} `json:"identifiers,omitempty"`
+	// The ISO country code of the Network resource
+	IsoCountry *string `json:"iso_country,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// The absolute URL of the Network resource
+	Url *string `json:"url,omitempty"`
 }

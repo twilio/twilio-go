@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **LastConsumedMessageIndex** | Pointer to **int32** |  |
 **Links** | Pointer to **map[string]interface{}** |  |
 **MemberSid** | Pointer to **string** |  |
-**NotificationLevel** | Pointer to [**UserChannelNotificationLevel**](user_channel_notification_level.md) |  |
+**NotificationLevel** | Pointer to **string** |  |
 **ServiceSid** | Pointer to **string** |  |
-**Status** | Pointer to [**UserChannelChannelStatus**](user_channel_channel_status.md) |  |
+**Status** | Pointer to **string** |  |
 **UnreadMessagesCount** | Pointer to **int32** |  |
 **Url** | Pointer to **string** |  |
 **UserSid** | Pointer to **string** |  |

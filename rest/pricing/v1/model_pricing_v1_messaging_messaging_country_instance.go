@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,10 +13,16 @@ package openapi
 
 // PricingV1MessagingMessagingCountryInstance struct for PricingV1MessagingMessagingCountryInstance
 type PricingV1MessagingMessagingCountryInstance struct {
-	Country           *string                   `json:"country,omitempty"`
-	InboundSmsPrices  *[]map[string]interface{} `json:"inbound_sms_prices,omitempty"`
-	IsoCountry        *string                   `json:"iso_country,omitempty"`
-	OutboundSmsPrices *[]map[string]interface{} `json:"outbound_sms_prices,omitempty"`
-	PriceUnit         *string                   `json:"price_unit,omitempty"`
-	Url               *string                   `json:"url,omitempty"`
+	// The name of the country
+	Country *string `json:"country,omitempty"`
+	// The list of InboundPrice records
+	InboundSmsPrices *[]PricingV1MessagingMessagingCountryInstanceInboundSmsPrices `json:"inbound_sms_prices,omitempty"`
+	// The ISO country code
+	IsoCountry *string `json:"iso_country,omitempty"`
+	// The list of OutboundSMSPrice records
+	OutboundSmsPrices *[]PricingV1MessagingMessagingCountryInstanceOutboundSmsPrices `json:"outbound_sms_prices,omitempty"`
+	// The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy)
+	PriceUnit *string `json:"price_unit,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"url,omitempty"`
 }

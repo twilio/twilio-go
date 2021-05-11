@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -16,7 +16,6 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
-	"time"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
@@ -721,9 +720,9 @@ func (c *DefaultApiService) FetchService(Sid string) (*NotifyV1Service, error) {
 // Optional parameters for the method 'ListBinding'
 type ListBindingParams struct {
 	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`.
-	StartDate *time.Time `json:"StartDate,omitempty"`
+	StartDate *string `json:"StartDate,omitempty"`
 	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.
-	EndDate *time.Time `json:"EndDate,omitempty"`
+	EndDate *string `json:"EndDate,omitempty"`
 	// The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read.
 	Identity *[]string `json:"Identity,omitempty"`
 	// Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
@@ -732,11 +731,11 @@ type ListBindingParams struct {
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
-func (params *ListBindingParams) SetStartDate(StartDate time.Time) *ListBindingParams {
+func (params *ListBindingParams) SetStartDate(StartDate string) *ListBindingParams {
 	params.StartDate = &StartDate
 	return params
 }
-func (params *ListBindingParams) SetEndDate(EndDate time.Time) *ListBindingParams {
+func (params *ListBindingParams) SetEndDate(EndDate string) *ListBindingParams {
 	params.EndDate = &EndDate
 	return params
 }
@@ -761,10 +760,10 @@ func (c *DefaultApiService) ListBinding(ServiceSid string, params *ListBindingPa
 	headers := make(map[string]interface{})
 
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+		data.Set("StartDate", fmt.Sprint(*params.StartDate))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", strings.Join(*params.Identity, ","))

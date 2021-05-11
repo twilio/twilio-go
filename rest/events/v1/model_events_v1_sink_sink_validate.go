@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,5 +13,6 @@ package openapi
 
 // EventsV1SinkSinkValidate struct for EventsV1SinkSinkValidate
 type EventsV1SinkSinkValidate struct {
+	// Feedback indicating whether the given Sink was validated.
 	Result *string `json:"result,omitempty"`
 }

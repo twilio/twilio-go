@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,16 +17,28 @@ import (
 
 // ChatV2ServiceChannelMember struct for ChatV2ServiceChannelMember
 type ChatV2ServiceChannelMember struct {
-	AccountSid               *string    `json:"account_sid,omitempty"`
-	Attributes               *string    `json:"attributes,omitempty"`
-	ChannelSid               *string    `json:"channel_sid,omitempty"`
-	DateCreated              *time.Time `json:"date_created,omitempty"`
-	DateUpdated              *time.Time `json:"date_updated,omitempty"`
-	Identity                 *string    `json:"identity,omitempty"`
-	LastConsumedMessageIndex *int32     `json:"last_consumed_message_index,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The JSON string that stores application-specific data
+	Attributes *string `json:"attributes,omitempty"`
+	// The SID of the Channel for the member
+	ChannelSid *string `json:"channel_sid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The string that identifies the resource's User
+	Identity *string `json:"identity,omitempty"`
+	// The index of the last Message that the Member has read within the Channel
+	LastConsumedMessageIndex *int32 `json:"last_consumed_message_index,omitempty"`
+	// The ISO 8601 based timestamp string that represents the datetime of the last Message read event for the Member within the Channel
 	LastConsumptionTimestamp *time.Time `json:"last_consumption_timestamp,omitempty"`
-	RoleSid                  *string    `json:"role_sid,omitempty"`
-	ServiceSid               *string    `json:"service_sid,omitempty"`
-	Sid                      *string    `json:"sid,omitempty"`
-	Url                      *string    `json:"url,omitempty"`
+	// The SID of the Role assigned to the member
+	RoleSid *string `json:"role_sid,omitempty"`
+	// The SID of the Service that the resource is associated with
+	ServiceSid *string `json:"service_sid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// The absolute URL of the Member resource
+	Url *string `json:"url,omitempty"`
 }

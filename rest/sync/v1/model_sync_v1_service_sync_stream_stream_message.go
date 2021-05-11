@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,8 @@ package openapi
 
 // SyncV1ServiceSyncStreamStreamMessage struct for SyncV1ServiceSyncStreamStreamMessage
 type SyncV1ServiceSyncStreamStreamMessage struct {
+	// Stream Message body
 	Data *map[string]interface{} `json:"data,omitempty"`
-	Sid  *string                 `json:"sid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
 }

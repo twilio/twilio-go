@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,7 +13,10 @@ package openapi
 
 // ApiV2010AccountBalance struct for ApiV2010AccountBalance
 type ApiV2010AccountBalance struct {
+	// Account Sid.
 	AccountSid *string `json:"account_sid,omitempty"`
-	Balance    *string `json:"balance,omitempty"`
-	Currency   *string `json:"currency,omitempty"`
+	// Account balance
+	Balance *string `json:"balance,omitempty"`
+	// Currency units
+	Currency *string `json:"currency,omitempty"`
 }

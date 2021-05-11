@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AddOns** | Pointer to **map[string]interface{}** |  |
-**CallerName** | Pointer to **map[string]interface{}** |  |
-**Carrier** | Pointer to **map[string]interface{}** |  |
-**CountryCode** | Pointer to **string** |  |
-**NationalFormat** | Pointer to **string** |  |
-**PhoneNumber** | Pointer to **string** |  |
-**Url** | Pointer to **string** |  |
+**AddOns** | Pointer to **map[string]interface{}** | A JSON string with the results of the Add-ons you specified |
+**CallerName** | Pointer to **map[string]interface{}** | The name of the phone number's owner |
+**Carrier** | Pointer to **map[string]interface{}** | The telecom company that provides the phone number |
+**CountryCode** | Pointer to **string** | The ISO country code for the phone number |
+**NationalFormat** | Pointer to **string** | The phone number, in national format |
+**PhoneNumber** | Pointer to **string** | The phone number in E.164 format |
+**Url** | Pointer to **string** | The absolute URL of the resource |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

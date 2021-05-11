@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,8 +13,12 @@ package openapi
 
 // TrusthubV1Policies struct for TrusthubV1Policies
 type TrusthubV1Policies struct {
-	FriendlyName *string                 `json:"friendly_name,omitempty"`
+	// A human-readable description of the Policy resource
+	FriendlyName *string `json:"friendly_name,omitempty"`
+	// The sid of a Policy object that dictates requirements
 	Requirements *map[string]interface{} `json:"requirements,omitempty"`
-	Sid          *string                 `json:"sid,omitempty"`
-	Url          *string                 `json:"url,omitempty"`
+	// The unique string that identifies the Policy resource
+	Sid *string `json:"sid,omitempty"`
+	// The absolute URL of the Policy resource
+	Url *string `json:"url,omitempty"`
 }

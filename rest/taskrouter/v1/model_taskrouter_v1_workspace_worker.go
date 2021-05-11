@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,17 +17,30 @@ import (
 
 // TaskrouterV1WorkspaceWorker struct for TaskrouterV1WorkspaceWorker
 type TaskrouterV1WorkspaceWorker struct {
-	AccountSid        *string                 `json:"account_sid,omitempty"`
-	ActivityName      *string                 `json:"activity_name,omitempty"`
-	ActivitySid       *string                 `json:"activity_sid,omitempty"`
-	Attributes        *string                 `json:"attributes,omitempty"`
-	Available         *bool                   `json:"available,omitempty"`
-	DateCreated       *time.Time              `json:"date_created,omitempty"`
-	DateStatusChanged *time.Time              `json:"date_status_changed,omitempty"`
-	DateUpdated       *time.Time              `json:"date_updated,omitempty"`
-	FriendlyName      *string                 `json:"friendly_name,omitempty"`
-	Links             *map[string]interface{} `json:"links,omitempty"`
-	Sid               *string                 `json:"sid,omitempty"`
-	Url               *string                 `json:"url,omitempty"`
-	WorkspaceSid      *string                 `json:"workspace_sid,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The friendly_name of the Worker's current Activity
+	ActivityName *string `json:"activity_name,omitempty"`
+	// The SID of the Worker's current Activity
+	ActivitySid *string `json:"activity_sid,omitempty"`
+	// The JSON string that describes the Worker
+	Attributes *string `json:"attributes,omitempty"`
+	// Whether the Worker is available to perform tasks
+	Available *bool `json:"available,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The date and time in GMT of the last change to the Worker's activity
+	DateStatusChanged *time.Time `json:"date_status_changed,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The string that you assigned to describe the resource
+	FriendlyName *string `json:"friendly_name,omitempty"`
+	// The URLs of related resources
+	Links *map[string]interface{} `json:"links,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// The absolute URL of the Worker resource
+	Url *string `json:"url,omitempty"`
+	// The SID of the Workspace that contains the Worker
+	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 }

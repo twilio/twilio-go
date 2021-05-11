@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,11 +17,17 @@ import (
 
 // SupersimV1NetworkAccessProfile struct for SupersimV1NetworkAccessProfile
 type SupersimV1NetworkAccessProfile struct {
-	AccountSid  *string                 `json:"account_sid,omitempty"`
-	DateCreated *time.Time              `json:"date_created,omitempty"`
+	// The SID of the Account that the Network Access Profile belongs to
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time              `json:"date_updated,omitempty"`
 	Links       *map[string]interface{} `json:"links,omitempty"`
-	Sid         *string                 `json:"sid,omitempty"`
-	UniqueName  *string                 `json:"unique_name,omitempty"`
-	Url         *string                 `json:"url,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// An application-defined string that uniquely identifies the resource
+	UniqueName *string `json:"unique_name,omitempty"`
+	// The absolute URL of the resource
+	Url *string `json:"url,omitempty"`
 }

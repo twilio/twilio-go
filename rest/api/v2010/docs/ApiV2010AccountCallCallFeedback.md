@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** |  |
-**DateCreated** | Pointer to **string** |  |
-**DateUpdated** | Pointer to **string** |  |
-**Issues** | Pointer to **[]string** |  |
-**QualityScore** | Pointer to **int32** |  |
-**Sid** | Pointer to **string** |  |
+**AccountSid** | Pointer to **string** | The unique sid that identifies this account |
+**DateCreated** | Pointer to **string** | The date this resource was created |
+**DateUpdated** | Pointer to **string** | The date this resource was last updated |
+**Issues** | Pointer to **[]string** | Issues experienced during the call |
+**QualityScore** | Pointer to **int32** | 1 to 5 quality score |
+**Sid** | Pointer to **string** | A string that uniquely identifies this feedback resource |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

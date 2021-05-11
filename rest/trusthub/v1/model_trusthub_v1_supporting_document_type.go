@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,9 +13,14 @@ package openapi
 
 // TrusthubV1SupportingDocumentType struct for TrusthubV1SupportingDocumentType
 type TrusthubV1SupportingDocumentType struct {
-	Fields       *[]map[string]interface{} `json:"fields,omitempty"`
-	FriendlyName *string                   `json:"friendly_name,omitempty"`
-	MachineName  *string                   `json:"machine_name,omitempty"`
-	Sid          *string                   `json:"sid,omitempty"`
-	Url          *string                   `json:"url,omitempty"`
+	// The required information for creating a Supporting Document
+	Fields *[]map[string]interface{} `json:"fields,omitempty"`
+	// A human-readable description of the Supporting Document Type resource
+	FriendlyName *string `json:"friendly_name,omitempty"`
+	// The machine-readable description of the Supporting Document Type resource
+	MachineName *string `json:"machine_name,omitempty"`
+	// The unique string that identifies the Supporting Document Type resource
+	Sid *string `json:"sid,omitempty"`
+	// The absolute URL of the Supporting Document Type resource
+	Url *string `json:"url,omitempty"`
 }

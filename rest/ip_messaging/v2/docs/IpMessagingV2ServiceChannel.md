@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **MessagesCount** | Pointer to **int32** |  |
 **ServiceSid** | Pointer to **string** |  |
 **Sid** | Pointer to **string** |  |
-**Type** | Pointer to [**ChannelChannelType**](channel_channel_type.md) |  |
+**Type** | Pointer to **string** |  |
 **UniqueName** | Pointer to **string** |  |
 **Url** | Pointer to **string** |  |
 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,13 +17,22 @@ import (
 
 // VerifyV2ServiceRateLimitBucket struct for VerifyV2ServiceRateLimitBucket
 type VerifyV2ServiceRateLimitBucket struct {
-	AccountSid   *string    `json:"account_sid,omitempty"`
-	DateCreated  *time.Time `json:"date_created,omitempty"`
-	DateUpdated  *time.Time `json:"date_updated,omitempty"`
-	Interval     *int32     `json:"interval,omitempty"`
-	Max          *int32     `json:"max,omitempty"`
-	RateLimitSid *string    `json:"rate_limit_sid,omitempty"`
-	ServiceSid   *string    `json:"service_sid,omitempty"`
-	Sid          *string    `json:"sid,omitempty"`
-	Url          *string    `json:"url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The RFC 2822 date and time in GMT when the resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// Number of seconds that the rate limit will be enforced over.
+	Interval *int32 `json:"interval,omitempty"`
+	// Max number of requests.
+	Max *int32 `json:"max,omitempty"`
+	// Rate Limit Sid.
+	RateLimitSid *string `json:"rate_limit_sid,omitempty"`
+	// The SID of the Service that the resource is associated with
+	ServiceSid *string `json:"service_sid,omitempty"`
+	// A string that uniquely identifies this Bucket.
+	Sid *string `json:"sid,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"url,omitempty"`
 }

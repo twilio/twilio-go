@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** |  |
-**ActorSid** | Pointer to **string** |  |
-**ActorType** | Pointer to **string** |  |
-**Description** | Pointer to **string** |  |
-**EventData** | Pointer to **map[string]interface{}** |  |
-**EventDate** | Pointer to [**time.Time**](time.Time.md) |  |
-**EventType** | Pointer to **string** |  |
-**Links** | Pointer to **map[string]interface{}** |  |
-**ResourceSid** | Pointer to **string** |  |
-**ResourceType** | Pointer to **string** |  |
-**Sid** | Pointer to **string** |  |
-**Source** | Pointer to **string** |  |
-**SourceIpAddress** | Pointer to **string** |  |
-**Url** | Pointer to **string** |  |
+**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
+**ActorSid** | Pointer to **string** | The SID of the actor that caused the event, if available |
+**ActorType** | Pointer to **string** | The type of actor that caused the event |
+**Description** | Pointer to **string** | A description of the event |
+**EventData** | Pointer to **map[string]interface{}** | A JSON string that represents an object with additional data about the event |
+**EventDate** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the event was recorded |
+**EventType** | Pointer to **string** | The event's type |
+**Links** | Pointer to **map[string]interface{}** | The absolute URLs of related resources |
+**ResourceSid** | Pointer to **string** | The SID of the resource that was affected |
+**ResourceType** | Pointer to **string** | The type of resource that was affected |
+**Sid** | Pointer to **string** | The unique string that identifies the resource |
+**Source** | Pointer to **string** | The originating system or interface that caused the event |
+**SourceIpAddress** | Pointer to **string** | The IP address of the source |
+**Url** | Pointer to **string** | The absolute URL of the resource that was affected |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

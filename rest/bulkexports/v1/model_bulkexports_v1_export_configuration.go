@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,9 +13,14 @@ package openapi
 
 // BulkexportsV1ExportConfiguration struct for BulkexportsV1ExportConfiguration
 type BulkexportsV1ExportConfiguration struct {
-	Enabled       *bool   `json:"enabled,omitempty"`
-	ResourceType  *string `json:"resource_type,omitempty"`
-	Url           *string `json:"url,omitempty"`
+	// Whether files are automatically generated
+	Enabled *bool `json:"enabled,omitempty"`
+	// The type of communication – Messages, Calls, Conferences, and Participants
+	ResourceType *string `json:"resource_type,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"url,omitempty"`
+	// Whether to GET or POST to the webhook url
 	WebhookMethod *string `json:"webhook_method,omitempty"`
-	WebhookUrl    *string `json:"webhook_url,omitempty"`
+	// URL targeted at export
+	WebhookUrl *string `json:"webhook_url,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,9 +13,14 @@ package openapi
 
 // BulkexportsV1ExportDay struct for BulkexportsV1ExportDay
 type BulkexportsV1ExportDay struct {
-	CreateDate   *string `json:"create_date,omitempty"`
-	Day          *string `json:"day,omitempty"`
+	// The date when resource is created
+	CreateDate *string `json:"create_date,omitempty"`
+	// The date of the data in the file
+	Day *string `json:"day,omitempty"`
+	// The friendly name specified when creating the job
 	FriendlyName *string `json:"friendly_name,omitempty"`
+	// The type of communication – Messages, Calls, Conferences, and Participants
 	ResourceType *string `json:"resource_type,omitempty"`
-	Size         *int32  `json:"size,omitempty"`
+	// Size of the file in bytes
+	Size *int32 `json:"size,omitempty"`
 }

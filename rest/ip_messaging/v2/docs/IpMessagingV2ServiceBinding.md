@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** |  |
-**BindingType** | Pointer to [**BindingBindingType**](binding_binding_type.md) |  |
+**BindingType** | Pointer to **string** |  |
 **CredentialSid** | Pointer to **string** |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |

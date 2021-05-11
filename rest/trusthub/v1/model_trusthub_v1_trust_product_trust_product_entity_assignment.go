@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,10 +17,16 @@ import (
 
 // TrusthubV1TrustProductTrustProductEntityAssignment struct for TrusthubV1TrustProductTrustProductEntityAssignment
 type TrusthubV1TrustProductTrustProductEntityAssignment struct {
-	AccountSid      *string    `json:"account_sid,omitempty"`
-	DateCreated     *time.Time `json:"date_created,omitempty"`
-	ObjectSid       *string    `json:"object_sid,omitempty"`
-	Sid             *string    `json:"sid,omitempty"`
-	TrustProductSid *string    `json:"trust_product_sid,omitempty"`
-	Url             *string    `json:"url,omitempty"`
+	// The SID of the Account that created the resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The ISO 8601 date and time in GMT when the resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The sid of an object bag
+	ObjectSid *string `json:"object_sid,omitempty"`
+	// The unique string that identifies the resource
+	Sid *string `json:"sid,omitempty"`
+	// The unique string that identifies the TrustProduct resource.
+	TrustProductSid *string `json:"trust_product_sid,omitempty"`
+	// The absolute URL of the Identity resource
+	Url *string `json:"url,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.0.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,15 +17,26 @@ import (
 
 // ServerlessV1ServiceEnvironment struct for ServerlessV1ServiceEnvironment
 type ServerlessV1ServiceEnvironment struct {
-	AccountSid   *string                 `json:"account_sid,omitempty"`
-	BuildSid     *string                 `json:"build_sid,omitempty"`
-	DateCreated  *time.Time              `json:"date_created,omitempty"`
-	DateUpdated  *time.Time              `json:"date_updated,omitempty"`
-	DomainName   *string                 `json:"domain_name,omitempty"`
-	DomainSuffix *string                 `json:"domain_suffix,omitempty"`
-	Links        *map[string]interface{} `json:"links,omitempty"`
-	ServiceSid   *string                 `json:"service_sid,omitempty"`
-	Sid          *string                 `json:"sid,omitempty"`
-	UniqueName   *string                 `json:"unique_name,omitempty"`
-	Url          *string                 `json:"url,omitempty"`
+	// The SID of the Account that created the Environment resource
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The SID of the build deployed in the environment
+	BuildSid *string `json:"build_sid,omitempty"`
+	// The ISO 8601 date and time in GMT when the Environment resource was created
+	DateCreated *time.Time `json:"date_created,omitempty"`
+	// The ISO 8601 date and time in GMT when the Environment resource was last updated
+	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The base domain name for all Functions and Assets deployed in the Environment
+	DomainName *string `json:"domain_name,omitempty"`
+	// A URL-friendly name that represents the environment
+	DomainSuffix *string `json:"domain_suffix,omitempty"`
+	// The URLs of the Environment resource's nested resources
+	Links *map[string]interface{} `json:"links,omitempty"`
+	// The SID of the Service that the Environment resource is associated with
+	ServiceSid *string `json:"service_sid,omitempty"`
+	// The unique string that identifies the Environment resource
+	Sid *string `json:"sid,omitempty"`
+	// A user-defined string that uniquely identifies the Environment resource
+	UniqueName *string `json:"unique_name,omitempty"`
+	// The absolute URL of the Environment resource
+	Url *string `json:"url,omitempty"`
 }
