@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,46 +17,25 @@ import (
 
 // TaskrouterV1WorkspaceTask struct for TaskrouterV1WorkspaceTask
 type TaskrouterV1WorkspaceTask struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// An object that contains the addon data for all installed addons
-	Addons *string `json:"addons,omitempty"`
-	// The number of seconds since the Task was created
-	Age *int32 `json:"age,omitempty"`
-	// The current status of the Task's assignment
-	AssignmentStatus *string `json:"assignment_status,omitempty"`
-	// The JSON string with custom attributes of the work
-	Attributes *string `json:"attributes,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The URLs of related resources
-	Links *map[string]interface{} `json:"links,omitempty"`
-	// Retrieve the list of all Tasks in the Workspace with the specified priority
-	Priority *int32 `json:"priority,omitempty"`
-	// The reason the Task was canceled or completed
-	Reason *string `json:"reason,omitempty"`
-	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
-	// The SID of the TaskChannel
-	TaskChannelSid *string `json:"task_channel_sid,omitempty"`
-	// The unique name of the TaskChannel
-	TaskChannelUniqueName *string `json:"task_channel_unique_name,omitempty"`
-	// The ISO 8601 date and time in GMT when the Task entered the TaskQueue.
-	TaskQueueEnteredDate *time.Time `json:"task_queue_entered_date,omitempty"`
-	// The friendly name of the TaskQueue
-	TaskQueueFriendlyName *string `json:"task_queue_friendly_name,omitempty"`
-	// The SID of the TaskQueue
-	TaskQueueSid *string `json:"task_queue_sid,omitempty"`
-	// The amount of time in seconds that the Task can live before being assigned
-	Timeout *int32 `json:"timeout,omitempty"`
-	// The absolute URL of the Task resource
-	Url *string `json:"url,omitempty"`
-	// The friendly name of the Workflow that is controlling the Task
-	WorkflowFriendlyName *string `json:"workflow_friendly_name,omitempty"`
-	// The SID of the Workflow that is controlling the Task
-	WorkflowSid *string `json:"workflow_sid,omitempty"`
-	// The SID of the Workspace that contains the Task
-	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	AccountSid            *string                 `json:"account_sid,omitempty"`
+	Addons                *string                 `json:"addons,omitempty"`
+	Age                   *int32                  `json:"age,omitempty"`
+	AssignmentStatus      *TaskStatus             `json:"assignment_status,omitempty"`
+	Attributes            *string                 `json:"attributes,omitempty"`
+	DateCreated           *time.Time              `json:"date_created,omitempty"`
+	DateUpdated           *time.Time              `json:"date_updated,omitempty"`
+	Links                 *map[string]interface{} `json:"links,omitempty"`
+	Priority              *int32                  `json:"priority,omitempty"`
+	Reason                *string                 `json:"reason,omitempty"`
+	Sid                   *string                 `json:"sid,omitempty"`
+	TaskChannelSid        *string                 `json:"task_channel_sid,omitempty"`
+	TaskChannelUniqueName *string                 `json:"task_channel_unique_name,omitempty"`
+	TaskQueueEnteredDate  *time.Time              `json:"task_queue_entered_date,omitempty"`
+	TaskQueueFriendlyName *string                 `json:"task_queue_friendly_name,omitempty"`
+	TaskQueueSid          *string                 `json:"task_queue_sid,omitempty"`
+	Timeout               *int32                  `json:"timeout,omitempty"`
+	Url                   *string                 `json:"url,omitempty"`
+	WorkflowFriendlyName  *string                 `json:"workflow_friendly_name,omitempty"`
+	WorkflowSid           *string                 `json:"workflow_sid,omitempty"`
+	WorkspaceSid          *string                 `json:"workspace_sid,omitempty"`
 }

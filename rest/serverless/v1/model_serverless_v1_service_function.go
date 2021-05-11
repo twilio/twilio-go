@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,20 +17,12 @@ import (
 
 // ServerlessV1ServiceFunction struct for ServerlessV1ServiceFunction
 type ServerlessV1ServiceFunction struct {
-	// The SID of the Account that created the Function resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The ISO 8601 date and time in GMT when the Function resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the Function resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The string that you assigned to describe the Function resource
-	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The URLs of nested resources of the Function resource
-	Links *map[string]interface{} `json:"links,omitempty"`
-	// The SID of the Service that the Function resource is associated with
-	ServiceSid *string `json:"service_sid,omitempty"`
-	// The unique string that identifies the Function resource
-	Sid *string `json:"sid,omitempty"`
-	// The absolute URL of the Function resource
-	Url *string `json:"url,omitempty"`
+	AccountSid   *string                 `json:"account_sid,omitempty"`
+	DateCreated  *time.Time              `json:"date_created,omitempty"`
+	DateUpdated  *time.Time              `json:"date_updated,omitempty"`
+	FriendlyName *string                 `json:"friendly_name,omitempty"`
+	Links        *map[string]interface{} `json:"links,omitempty"`
+	ServiceSid   *string                 `json:"service_sid,omitempty"`
+	Sid          *string                 `json:"sid,omitempty"`
+	Url          *string                 `json:"url,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,9 +17,9 @@ type InsightsV1CallEvent struct {
 	CallSid     *string                 `json:"call_sid,omitempty"`
 	CarrierEdge *map[string]interface{} `json:"carrier_edge,omitempty"`
 	ClientEdge  *map[string]interface{} `json:"client_edge,omitempty"`
-	Edge        *string                 `json:"edge,omitempty"`
+	Edge        *EventTwilioEdge        `json:"edge,omitempty"`
 	Group       *string                 `json:"group,omitempty"`
-	Level       *string                 `json:"level,omitempty"`
+	Level       *EventLevel             `json:"level,omitempty"`
 	Name        *string                 `json:"name,omitempty"`
 	SdkEdge     *map[string]interface{} `json:"sdk_edge,omitempty"`
 	SipEdge     *map[string]interface{} `json:"sip_edge,omitempty"`

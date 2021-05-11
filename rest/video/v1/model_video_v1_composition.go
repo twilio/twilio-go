@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,40 +17,22 @@ import (
 
 // VideoV1Composition struct for VideoV1Composition
 type VideoV1Composition struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The array of track names to include in the composition
-	AudioSources *[]string `json:"audio_sources,omitempty"`
-	// The array of track names to exclude from the composition
-	AudioSourcesExcluded *[]string `json:"audio_sources_excluded,omitempty"`
-	// The average bit rate of the composition's media
-	Bitrate *int32 `json:"bitrate,omitempty"`
-	// Date when the media processing task finished
-	DateCompleted *time.Time `json:"date_completed,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the composition generated media was deleted
-	DateDeleted *time.Time `json:"date_deleted,omitempty"`
-	// The duration of the composition's media file in seconds
-	Duration *int32 `json:"duration,omitempty"`
-	// The container format of the composition's media files as specified in the POST request that created the Composition resource
-	Format *string `json:"format,omitempty"`
-	// The URL of the media file associated with the composition
-	Links *map[string]interface{} `json:"links,omitempty"`
-	// The dimensions of the video image in pixels expressed as columns (width) and rows (height)
-	Resolution *string `json:"resolution,omitempty"`
-	// The SID of the Group Room that generated the audio and video tracks used in the composition
-	RoomSid *string `json:"room_sid,omitempty"`
-	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
-	// The size of the composed media file in bytes
-	Size *int32 `json:"size,omitempty"`
-	// The status of the composition
-	Status *string `json:"status,omitempty"`
-	// Whether to remove intervals with no media
-	Trim *bool `json:"trim,omitempty"`
-	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
-	// An object that describes the video layout of the composition
-	VideoLayout *map[string]interface{} `json:"video_layout,omitempty"`
+	AccountSid           *string                 `json:"account_sid,omitempty"`
+	AudioSources         *[]string               `json:"audio_sources,omitempty"`
+	AudioSourcesExcluded *[]string               `json:"audio_sources_excluded,omitempty"`
+	Bitrate              *int32                  `json:"bitrate,omitempty"`
+	DateCompleted        *time.Time              `json:"date_completed,omitempty"`
+	DateCreated          *time.Time              `json:"date_created,omitempty"`
+	DateDeleted          *time.Time              `json:"date_deleted,omitempty"`
+	Duration             *int32                  `json:"duration,omitempty"`
+	Format               *CompositionFormat      `json:"format,omitempty"`
+	Links                *map[string]interface{} `json:"links,omitempty"`
+	Resolution           *string                 `json:"resolution,omitempty"`
+	RoomSid              *string                 `json:"room_sid,omitempty"`
+	Sid                  *string                 `json:"sid,omitempty"`
+	Size                 *int32                  `json:"size,omitempty"`
+	Status               *CompositionStatus      `json:"status,omitempty"`
+	Trim                 *bool                   `json:"trim,omitempty"`
+	Url                  *string                 `json:"url,omitempty"`
+	VideoLayout          *map[string]interface{} `json:"video_layout,omitempty"`
 }

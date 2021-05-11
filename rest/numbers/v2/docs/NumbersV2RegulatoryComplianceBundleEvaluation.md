@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**BundleSid** | Pointer to **string** | The unique string that identifies the resource |
+**AccountSid** | Pointer to **string** |  |
+**BundleSid** | Pointer to **string** |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
-**RegulationSid** | Pointer to **string** | The unique string of a regulation |
-**Results** | Pointer to **[]map[string]interface{}** | The results of the Evaluation resource |
-**Sid** | Pointer to **string** | The unique string that identifies the Evaluation resource |
-**Status** | Pointer to **string** | The compliance status of the Evaluation resource |
+**RegulationSid** | Pointer to **string** |  |
+**Results** | Pointer to **[]map[string]interface{}** |  |
+**Sid** | Pointer to **string** |  |
+**Status** | Pointer to [**EvaluationStatus**](evaluation_status.md) |  |
 **Url** | Pointer to **string** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

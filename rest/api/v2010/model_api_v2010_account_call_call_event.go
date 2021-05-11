@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,8 +13,6 @@ package openapi
 
 // ApiV2010AccountCallCallEvent struct for ApiV2010AccountCallCallEvent
 type ApiV2010AccountCallCallEvent struct {
-	// Call Request.
-	Request *map[string]interface{} `json:"request,omitempty"`
-	// Call Response with Events.
+	Request  *map[string]interface{} `json:"request,omitempty"`
 	Response *map[string]interface{} `json:"response,omitempty"`
 }

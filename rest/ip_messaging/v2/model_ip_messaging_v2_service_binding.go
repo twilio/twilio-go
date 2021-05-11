@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -18,7 +18,7 @@ import (
 // IpMessagingV2ServiceBinding struct for IpMessagingV2ServiceBinding
 type IpMessagingV2ServiceBinding struct {
 	AccountSid    *string                 `json:"account_sid,omitempty"`
-	BindingType   *string                 `json:"binding_type,omitempty"`
+	BindingType   *BindingBindingType     `json:"binding_type,omitempty"`
 	CredentialSid *string                 `json:"credential_sid,omitempty"`
 	DateCreated   *time.Time              `json:"date_created,omitempty"`
 	DateUpdated   *time.Time              `json:"date_updated,omitempty"`

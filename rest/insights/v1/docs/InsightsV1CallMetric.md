@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **CallSid** | Pointer to **string** |  |
 **CarrierEdge** | Pointer to **map[string]interface{}** |  |
 **ClientEdge** | Pointer to **map[string]interface{}** |  |
-**Direction** | Pointer to **string** |  |
-**Edge** | Pointer to **string** |  |
+**Direction** | Pointer to [**MetricStreamDirection**](metric_stream_direction.md) |  |
+**Edge** | Pointer to [**MetricTwilioEdge**](metric_twilio_edge.md) |  |
 **SdkEdge** | Pointer to **map[string]interface{}** |  |
 **SipEdge** | Pointer to **map[string]interface{}** |  |
 **Timestamp** | Pointer to **string** |  |

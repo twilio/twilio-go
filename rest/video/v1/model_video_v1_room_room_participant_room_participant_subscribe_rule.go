@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,14 +17,9 @@ import (
 
 // VideoV1RoomRoomParticipantRoomParticipantSubscribeRule struct for VideoV1RoomRoomParticipantRoomParticipantSubscribeRule
 type VideoV1RoomRoomParticipantRoomParticipantSubscribeRule struct {
-	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The SID of the Participant resource for the Subscribe Rules
-	ParticipantSid *string `json:"participant_sid,omitempty"`
-	// The SID of the Room resource for the Subscribe Rules
-	RoomSid *string `json:"room_sid,omitempty"`
-	// A collection of Subscribe Rules that describe how to include or exclude matching tracks
-	Rules *[]map[string]interface{} `json:"rules,omitempty"`
+	DateCreated    *time.Time                `json:"date_created,omitempty"`
+	DateUpdated    *time.Time                `json:"date_updated,omitempty"`
+	ParticipantSid *string                   `json:"participant_sid,omitempty"`
+	RoomSid        *string                   `json:"room_sid,omitempty"`
+	Rules          *[]map[string]interface{} `json:"rules,omitempty"`
 }

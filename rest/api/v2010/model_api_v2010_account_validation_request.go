@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,14 +13,9 @@ package openapi
 
 // ApiV2010AccountValidationRequest struct for ApiV2010AccountValidationRequest
 type ApiV2010AccountValidationRequest struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Call the resource is associated with
-	CallSid *string `json:"call_sid,omitempty"`
-	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The phone number to verify in E.164 format
-	PhoneNumber *string `json:"phone_number,omitempty"`
-	// The 6 digit validation code that someone must enter to validate the Caller ID  when `phone_number` is called
+	AccountSid     *string `json:"account_sid,omitempty"`
+	CallSid        *string `json:"call_sid,omitempty"`
+	FriendlyName   *string `json:"friendly_name,omitempty"`
+	PhoneNumber    *string `json:"phone_number,omitempty"`
 	ValidationCode *string `json:"validation_code,omitempty"`
 }

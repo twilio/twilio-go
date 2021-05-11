@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,29 +13,17 @@ package openapi
 
 // ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost struct for ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost
 type ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost struct {
-	// The type of Address resource the phone number requires
-	AddressRequirements *string `json:"address_requirements,omitempty"`
-	// Whether the phone number is new to the Twilio platform
-	Beta         *bool                                                                            `json:"beta,omitempty"`
-	Capabilities *ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities `json:"capabilities,omitempty"`
-	// A formatted version of the phone number
-	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The ISO country code of this phone number
-	IsoCountry *string `json:"iso_country,omitempty"`
-	// The LATA of this phone number
-	Lata *string `json:"lata,omitempty"`
-	// The latitude of this phone number's location
-	Latitude *float32 `json:"latitude,omitempty"`
-	// The locality or city of this phone number's location
-	Locality *string `json:"locality,omitempty"`
-	// The longitude of this phone number's location
-	Longitude *float32 `json:"longitude,omitempty"`
-	// The phone number in E.164 format
-	PhoneNumber *string `json:"phone_number,omitempty"`
-	// The postal or ZIP code of this phone number's location
-	PostalCode *string `json:"postal_code,omitempty"`
-	// The rate center of this phone number
-	RateCenter *string `json:"rate_center,omitempty"`
-	// The two-letter state or province abbreviation of this phone number's location
-	Region *string `json:"region,omitempty"`
+	AddressRequirements *string                  `json:"address_requirements,omitempty"`
+	Beta                *bool                    `json:"beta,omitempty"`
+	Capabilities        *PhoneNumberCapabilities `json:"capabilities,omitempty"`
+	FriendlyName        *string                  `json:"friendly_name,omitempty"`
+	IsoCountry          *string                  `json:"iso_country,omitempty"`
+	Lata                *string                  `json:"lata,omitempty"`
+	Latitude            *float32                 `json:"latitude,omitempty"`
+	Locality            *string                  `json:"locality,omitempty"`
+	Longitude           *float32                 `json:"longitude,omitempty"`
+	PhoneNumber         *string                  `json:"phone_number,omitempty"`
+	PostalCode          *string                  `json:"postal_code,omitempty"`
+	RateCenter          *string                  `json:"rate_center,omitempty"`
+	Region              *string                  `json:"region,omitempty"`
 }

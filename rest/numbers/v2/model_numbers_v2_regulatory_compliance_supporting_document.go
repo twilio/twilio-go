@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,24 +17,14 @@ import (
 
 // NumbersV2RegulatoryComplianceSupportingDocument struct for NumbersV2RegulatoryComplianceSupportingDocument
 type NumbersV2RegulatoryComplianceSupportingDocument struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The set of parameters that compose the Supporting Documents resource
-	Attributes *map[string]interface{} `json:"attributes,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The string that you assigned to describe the resource
-	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The image type of the file
-	MimeType *string `json:"mime_type,omitempty"`
-	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
-	// The verification status of the Supporting Document resource
-	Status *string `json:"status,omitempty"`
-	// The type of the Supporting Document
-	Type *string `json:"type,omitempty"`
-	// The absolute URL of the Supporting Document resource
-	Url *string `json:"url,omitempty"`
+	AccountSid   *string                   `json:"account_sid,omitempty"`
+	Attributes   *map[string]interface{}   `json:"attributes,omitempty"`
+	DateCreated  *time.Time                `json:"date_created,omitempty"`
+	DateUpdated  *time.Time                `json:"date_updated,omitempty"`
+	FriendlyName *string                   `json:"friendly_name,omitempty"`
+	MimeType     *string                   `json:"mime_type,omitempty"`
+	Sid          *string                   `json:"sid,omitempty"`
+	Status       *SupportingDocumentStatus `json:"status,omitempty"`
+	Type         *string                   `json:"type,omitempty"`
+	Url          *string                   `json:"url,omitempty"`
 }

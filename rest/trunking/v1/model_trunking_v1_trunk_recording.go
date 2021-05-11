@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,8 +13,6 @@ package openapi
 
 // TrunkingV1TrunkRecording struct for TrunkingV1TrunkRecording
 type TrunkingV1TrunkRecording struct {
-	// The recording mode for the trunk.
-	Mode *string `json:"mode,omitempty"`
-	// The recording trim setting for the trunk.
-	Trim *string `json:"trim,omitempty"`
+	Mode *RecordingRecordingMode `json:"mode,omitempty"`
+	Trim *RecordingRecordingTrim `json:"trim,omitempty"`
 }

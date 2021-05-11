@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,24 +13,14 @@ package openapi
 
 // ApiV2010AccountRecordingRecordingAddOnResult struct for ApiV2010AccountRecordingRecordingAddOnResult
 type ApiV2010AccountRecordingRecordingAddOnResult struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Add-on configuration
-	AddOnConfigurationSid *string `json:"add_on_configuration_sid,omitempty"`
-	// The SID of the Add-on to which the result belongs
-	AddOnSid *string `json:"add_on_sid,omitempty"`
-	// The date and time in GMT that the result was completed
-	DateCompleted *string `json:"date_completed,omitempty"`
-	// The RFC 2822 date and time in GMT that the resource was created
-	DateCreated *string `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT that the resource was last updated
-	DateUpdated *string `json:"date_updated,omitempty"`
-	// The SID of the recording to which the AddOnResult resource belongs
-	ReferenceSid *string `json:"reference_sid,omitempty"`
-	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
-	// The status of the result
-	Status *string `json:"status,omitempty"`
-	// A list of related resources identified by their relative URIs
-	SubresourceUris *map[string]interface{} `json:"subresource_uris,omitempty"`
+	AccountSid            *string                     `json:"account_sid,omitempty"`
+	AddOnConfigurationSid *string                     `json:"add_on_configuration_sid,omitempty"`
+	AddOnSid              *string                     `json:"add_on_sid,omitempty"`
+	DateCompleted         *string                     `json:"date_completed,omitempty"`
+	DateCreated           *string                     `json:"date_created,omitempty"`
+	DateUpdated           *string                     `json:"date_updated,omitempty"`
+	ReferenceSid          *string                     `json:"reference_sid,omitempty"`
+	Sid                   *string                     `json:"sid,omitempty"`
+	Status                *RecordingAddOnResultStatus `json:"status,omitempty"`
+	SubresourceUris       *map[string]interface{}     `json:"subresource_uris,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,14 +13,9 @@ package openapi
 
 // WirelessV1SimUsageRecord struct for WirelessV1SimUsageRecord
 type WirelessV1SimUsageRecord struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// An object that describes the SIM's usage of Commands during the specified period
-	Commands *map[string]interface{} `json:"commands,omitempty"`
-	// An object that describes the SIM's data usage during the specified period
-	Data *map[string]interface{} `json:"data,omitempty"`
-	// The time period for which the usage is reported
-	Period *map[string]interface{} `json:"period,omitempty"`
-	// The SID of the Sim resource that this Usage Record is for
-	SimSid *string `json:"sim_sid,omitempty"`
+	AccountSid *string                 `json:"account_sid,omitempty"`
+	Commands   *map[string]interface{} `json:"commands,omitempty"`
+	Data       *map[string]interface{} `json:"data,omitempty"`
+	Period     *map[string]interface{} `json:"period,omitempty"`
+	SimSid     *string                 `json:"sim_sid,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,28 +17,16 @@ import (
 
 // TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics struct for TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics
 type TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The minimum, average, maximum, and total time that Workers spent in each Activity
-	ActivityDurations *[]map[string]interface{} `json:"activity_durations,omitempty"`
-	// The end of the interval during which these statistics were calculated
-	EndTime *time.Time `json:"end_time,omitempty"`
-	// The total number of Reservations that were accepted
-	ReservationsAccepted *int32 `json:"reservations_accepted,omitempty"`
-	// The total number of Reservations that were canceled
-	ReservationsCanceled *int32 `json:"reservations_canceled,omitempty"`
-	// The total number of Reservations that were created
-	ReservationsCreated *int32 `json:"reservations_created,omitempty"`
-	// The total number of Reservations that were rejected
-	ReservationsRejected *int32 `json:"reservations_rejected,omitempty"`
-	// The total number of Reservations that were rescinded
-	ReservationsRescinded *int32 `json:"reservations_rescinded,omitempty"`
-	// The total number of Reservations that were timed out
-	ReservationsTimedOut *int32 `json:"reservations_timed_out,omitempty"`
-	// The beginning of the interval during which these statistics were calculated
-	StartTime *time.Time `json:"start_time,omitempty"`
-	// The absolute URL of the Workers statistics resource
-	Url *string `json:"url,omitempty"`
-	// The SID of the Workspace that contains the Workers
-	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	AccountSid            *string                   `json:"account_sid,omitempty"`
+	ActivityDurations     *[]map[string]interface{} `json:"activity_durations,omitempty"`
+	EndTime               *time.Time                `json:"end_time,omitempty"`
+	ReservationsAccepted  *int32                    `json:"reservations_accepted,omitempty"`
+	ReservationsCanceled  *int32                    `json:"reservations_canceled,omitempty"`
+	ReservationsCreated   *int32                    `json:"reservations_created,omitempty"`
+	ReservationsRejected  *int32                    `json:"reservations_rejected,omitempty"`
+	ReservationsRescinded *int32                    `json:"reservations_rescinded,omitempty"`
+	ReservationsTimedOut  *int32                    `json:"reservations_timed_out,omitempty"`
+	StartTime             *time.Time                `json:"start_time,omitempty"`
+	Url                   *string                   `json:"url,omitempty"`
+	WorkspaceSid          *string                   `json:"workspace_sid,omitempty"`
 }

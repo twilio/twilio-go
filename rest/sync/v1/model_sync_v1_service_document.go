@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,28 +17,16 @@ import (
 
 // SyncV1ServiceDocument struct for SyncV1ServiceDocument
 type SyncV1ServiceDocument struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The identity of the Sync Document's creator
-	CreatedBy *string `json:"created_by,omitempty"`
-	// An arbitrary, schema-less object that the Sync Document stores
-	Data *map[string]interface{} `json:"data,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the Sync Document expires
-	DateExpires *time.Time `json:"date_expires,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The URLs of resources related to the Sync Document
-	Links *map[string]interface{} `json:"links,omitempty"`
-	// The current revision of the Sync Document, represented by a string identifier
-	Revision *string `json:"revision,omitempty"`
-	// The SID of the Sync Service that the resource is associated with
-	ServiceSid *string `json:"service_sid,omitempty"`
-	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
-	// An application-defined string that uniquely identifies the resource
-	UniqueName *string `json:"unique_name,omitempty"`
-	// The absolute URL of the Document resource
-	Url *string `json:"url,omitempty"`
+	AccountSid  *string                 `json:"account_sid,omitempty"`
+	CreatedBy   *string                 `json:"created_by,omitempty"`
+	Data        *map[string]interface{} `json:"data,omitempty"`
+	DateCreated *time.Time              `json:"date_created,omitempty"`
+	DateExpires *time.Time              `json:"date_expires,omitempty"`
+	DateUpdated *time.Time              `json:"date_updated,omitempty"`
+	Links       *map[string]interface{} `json:"links,omitempty"`
+	Revision    *string                 `json:"revision,omitempty"`
+	ServiceSid  *string                 `json:"service_sid,omitempty"`
+	Sid         *string                 `json:"sid,omitempty"`
+	UniqueName  *string                 `json:"unique_name,omitempty"`
+	Url         *string                 `json:"url,omitempty"`
 }

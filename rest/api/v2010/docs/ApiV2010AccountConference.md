@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** | The SID of the Account that created this resource |
-**ApiVersion** | Pointer to **string** | The API version used to create this conference |
-**CallSidEndingConference** | Pointer to **string** | The call SID that caused the conference to end |
-**DateCreated** | Pointer to **string** | The RFC 2822 date and time in GMT that this resource was created |
-**DateUpdated** | Pointer to **string** | The RFC 2822 date and time in GMT that this resource was last updated |
-**FriendlyName** | Pointer to **string** | A string that you assigned to describe this conference room |
-**ReasonConferenceEnded** | Pointer to **string** | The reason why a conference ended. |
-**Region** | Pointer to **string** | A string that represents the Twilio Region where the conference was mixed |
-**Sid** | Pointer to **string** | The unique string that identifies this resource |
-**Status** | Pointer to **string** | The status of this conference |
-**SubresourceUris** | Pointer to **map[string]interface{}** | A list of related resources identified by their relative URIs |
-**Uri** | Pointer to **string** | The URI of this resource, relative to `https://api.twilio.com` |
+**AccountSid** | Pointer to **string** |  |
+**ApiVersion** | Pointer to **string** |  |
+**CallSidEndingConference** | Pointer to **string** |  |
+**DateCreated** | Pointer to **string** |  |
+**DateUpdated** | Pointer to **string** |  |
+**FriendlyName** | Pointer to **string** |  |
+**ReasonConferenceEnded** | Pointer to [**ConferenceReasonConferenceEnded**](conference_reason_conference_ended.md) |  |
+**Region** | Pointer to **string** |  |
+**Sid** | Pointer to **string** |  |
+**Status** | Pointer to [**ConferenceStatus**](conference_status.md) |  |
+**SubresourceUris** | Pointer to **map[string]interface{}** |  |
+**Uri** | Pointer to **string** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

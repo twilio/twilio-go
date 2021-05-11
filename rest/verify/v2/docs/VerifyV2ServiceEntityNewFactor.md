@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** | Account Sid. |
-**Binding** | Pointer to **map[string]interface{}** | Unique external identifier of the Entity |
-**Config** | Pointer to **map[string]interface{}** | Binding for a `factor_type`. |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date this Factor was created |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date this Factor was updated |
-**EntitySid** | Pointer to **string** | Entity Sid. |
-**FactorType** | Pointer to **string** | The Type of this Factor |
-**FriendlyName** | Pointer to **string** | A human readable description of this resource. |
-**Identity** | Pointer to **string** | Unique external identifier of the Entity |
-**ServiceSid** | Pointer to **string** | Service Sid. |
-**Sid** | Pointer to **string** | A string that uniquely identifies this Factor. |
-**Status** | Pointer to **string** | The Status of this Factor |
-**Url** | Pointer to **string** | The URL of this resource. |
+**AccountSid** | Pointer to **string** |  |
+**Binding** | Pointer to **map[string]interface{}** |  |
+**Config** | Pointer to **map[string]interface{}** |  |
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
+**EntitySid** | Pointer to **string** |  |
+**FactorType** | Pointer to [**NewFactorFactorTypes**](new_factor_factor_types.md) |  |
+**FriendlyName** | Pointer to **string** |  |
+**Identity** | Pointer to **string** |  |
+**ServiceSid** | Pointer to **string** |  |
+**Sid** | Pointer to **string** |  |
+**Status** | Pointer to [**NewFactorFactorStatuses**](new_factor_factor_statuses.md) |  |
+**Url** | Pointer to **string** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

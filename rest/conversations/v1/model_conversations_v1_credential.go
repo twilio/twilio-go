@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,20 +17,12 @@ import (
 
 // ConversationsV1Credential struct for ConversationsV1Credential
 type ConversationsV1Credential struct {
-	// The unique ID of the Account responsible for this credential.
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The date that this resource was created.
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date that this resource was last updated.
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The human-readable name of this credential.
-	FriendlyName *string `json:"friendly_name,omitempty"`
-	// [APN only] Whether to send the credential to sandbox APNs.
-	Sandbox *string `json:"sandbox,omitempty"`
-	// A 34 character string that uniquely identifies this resource.
-	Sid *string `json:"sid,omitempty"`
-	// The type of push-notification service the credential is for.
-	Type *string `json:"type,omitempty"`
-	// An absolute URL for this credential.
-	Url *string `json:"url,omitempty"`
+	AccountSid   *string             `json:"account_sid,omitempty"`
+	DateCreated  *time.Time          `json:"date_created,omitempty"`
+	DateUpdated  *time.Time          `json:"date_updated,omitempty"`
+	FriendlyName *string             `json:"friendly_name,omitempty"`
+	Sandbox      *string             `json:"sandbox,omitempty"`
+	Sid          *string             `json:"sid,omitempty"`
+	Type         *CredentialPushType `json:"type,omitempty"`
+	Url          *string             `json:"url,omitempty"`
 }

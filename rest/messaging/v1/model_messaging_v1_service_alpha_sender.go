@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,20 +17,12 @@ import (
 
 // MessagingV1ServiceAlphaSender struct for MessagingV1ServiceAlphaSender
 type MessagingV1ServiceAlphaSender struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The Alphanumeric Sender ID string
-	AlphaSender *string `json:"alpha_sender,omitempty"`
-	// An array of values that describe whether the number can receive calls or messages
-	Capabilities *[]string `json:"capabilities,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The SID of the Service that the resource is associated with
-	ServiceSid *string `json:"service_sid,omitempty"`
-	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
-	// The absolute URL of the AlphaSender resource
-	Url *string `json:"url,omitempty"`
+	AccountSid   *string    `json:"account_sid,omitempty"`
+	AlphaSender  *string    `json:"alpha_sender,omitempty"`
+	Capabilities *[]string  `json:"capabilities,omitempty"`
+	DateCreated  *time.Time `json:"date_created,omitempty"`
+	DateUpdated  *time.Time `json:"date_updated,omitempty"`
+	ServiceSid   *string    `json:"service_sid,omitempty"`
+	Sid          *string    `json:"sid,omitempty"`
+	Url          *string    `json:"url,omitempty"`
 }

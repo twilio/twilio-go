@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,38 +17,21 @@ import (
 
 // VerifyV2Service struct for VerifyV2Service
 type VerifyV2Service struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The length of the verification code
-	CodeLength *int32 `json:"code_length,omitempty"`
-	// Whether to allow sending verifications with a custom code.
-	CustomCodeEnabled *bool `json:"custom_code_enabled,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// Whether to add a security warning at the end of an SMS.
-	DoNotShareWarningEnabled *bool `json:"do_not_share_warning_enabled,omitempty"`
-	// Whether to ask the user to press a number before delivering the verify code in a phone call
-	DtmfInputRequired *bool `json:"dtmf_input_required,omitempty"`
-	// The string that you assigned to describe the verification service
-	FriendlyName *string `json:"friendly_name,omitempty"`
-	// The URLs of related resources
-	Links *map[string]interface{} `json:"links,omitempty"`
-	// Whether to perform a lookup with each verification
-	LookupEnabled *bool `json:"lookup_enabled,omitempty"`
-	// Whether to pass PSD2 transaction parameters when starting a verification
-	Psd2Enabled *bool `json:"psd2_enabled,omitempty"`
-	// The service level configuration of factor push type.
-	Push *map[string]interface{} `json:"push,omitempty"`
-	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
-	// Whether to skip sending SMS verifications to landlines
-	SkipSmsToLandlines *bool `json:"skip_sms_to_landlines,omitempty"`
-	// The service level configuration of factor TOTP type.
-	Totp *map[string]interface{} `json:"totp,omitempty"`
-	// The name of an alternative text-to-speech service to use in phone calls
-	TtsName *string `json:"tts_name,omitempty"`
-	// The absolute URL of the resource
-	Url *string `json:"url,omitempty"`
+	AccountSid               *string                 `json:"account_sid,omitempty"`
+	CodeLength               *int32                  `json:"code_length,omitempty"`
+	CustomCodeEnabled        *bool                   `json:"custom_code_enabled,omitempty"`
+	DateCreated              *time.Time              `json:"date_created,omitempty"`
+	DateUpdated              *time.Time              `json:"date_updated,omitempty"`
+	DoNotShareWarningEnabled *bool                   `json:"do_not_share_warning_enabled,omitempty"`
+	DtmfInputRequired        *bool                   `json:"dtmf_input_required,omitempty"`
+	FriendlyName             *string                 `json:"friendly_name,omitempty"`
+	Links                    *map[string]interface{} `json:"links,omitempty"`
+	LookupEnabled            *bool                   `json:"lookup_enabled,omitempty"`
+	Psd2Enabled              *bool                   `json:"psd2_enabled,omitempty"`
+	Push                     *map[string]interface{} `json:"push,omitempty"`
+	Sid                      *string                 `json:"sid,omitempty"`
+	SkipSmsToLandlines       *bool                   `json:"skip_sms_to_landlines,omitempty"`
+	Totp                     *map[string]interface{} `json:"totp,omitempty"`
+	TtsName                  *string                 `json:"tts_name,omitempty"`
+	Url                      *string                 `json:"url,omitempty"`
 }

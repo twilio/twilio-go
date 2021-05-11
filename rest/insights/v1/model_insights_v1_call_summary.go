@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -20,8 +20,8 @@ type InsightsV1CallSummary struct {
 	AccountSid      *string                 `json:"account_sid,omitempty"`
 	Attributes      *map[string]interface{} `json:"attributes,omitempty"`
 	CallSid         *string                 `json:"call_sid,omitempty"`
-	CallState       *string                 `json:"call_state,omitempty"`
-	CallType        *string                 `json:"call_type,omitempty"`
+	CallState       *SummaryCallState       `json:"call_state,omitempty"`
+	CallType        *SummaryCallType        `json:"call_type,omitempty"`
 	CarrierEdge     *map[string]interface{} `json:"carrier_edge,omitempty"`
 	ClientEdge      *map[string]interface{} `json:"client_edge,omitempty"`
 	ConnectDuration *int32                  `json:"connect_duration,omitempty"`
@@ -29,7 +29,7 @@ type InsightsV1CallSummary struct {
 	Duration        *int32                  `json:"duration,omitempty"`
 	EndTime         *time.Time              `json:"end_time,omitempty"`
 	From            *map[string]interface{} `json:"from,omitempty"`
-	ProcessingState *string                 `json:"processing_state,omitempty"`
+	ProcessingState *SummaryProcessingState `json:"processing_state,omitempty"`
 	Properties      *map[string]interface{} `json:"properties,omitempty"`
 	SdkEdge         *map[string]interface{} `json:"sdk_edge,omitempty"`
 	SipEdge         *map[string]interface{} `json:"sip_edge,omitempty"`

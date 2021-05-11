@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,16 +13,10 @@ package openapi
 
 // AutopilotV1AssistantTaskTaskStatistics struct for AutopilotV1AssistantTaskTaskStatistics
 type AutopilotV1AssistantTaskTaskStatistics struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The SID of the Assistant that is the parent of the Task associated with the resource
+	AccountSid   *string `json:"account_sid,omitempty"`
 	AssistantSid *string `json:"assistant_sid,omitempty"`
-	// The total number of Fields associated with the Task
-	FieldsCount *int32 `json:"fields_count,omitempty"`
-	// The total number of Samples associated with the Task
-	SamplesCount *int32 `json:"samples_count,omitempty"`
-	// The SID of the Task for which the statistics were collected
-	TaskSid *string `json:"task_sid,omitempty"`
-	// The absolute URL of the TaskStatistics resource
-	Url *string `json:"url,omitempty"`
+	FieldsCount  *int32  `json:"fields_count,omitempty"`
+	SamplesCount *int32  `json:"samples_count,omitempty"`
+	TaskSid      *string `json:"task_sid,omitempty"`
+	Url          *string `json:"url,omitempty"`
 }

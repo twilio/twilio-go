@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,20 +17,12 @@ import (
 
 // EventsV1Subscription struct for EventsV1Subscription
 type EventsV1Subscription struct {
-	// Account SID.
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The date this Subscription was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The date this Subscription was updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// Subscription description
-	Description *string `json:"description,omitempty"`
-	// Nested resource URLs.
-	Links *map[string]interface{} `json:"links,omitempty"`
-	// A string that uniquely identifies this Subscription.
-	Sid *string `json:"sid,omitempty"`
-	// Sink SID.
-	SinkSid *string `json:"sink_sid,omitempty"`
-	// The URL of this resource.
-	Url *string `json:"url,omitempty"`
+	AccountSid  *string                 `json:"account_sid,omitempty"`
+	DateCreated *time.Time              `json:"date_created,omitempty"`
+	DateUpdated *time.Time              `json:"date_updated,omitempty"`
+	Description *string                 `json:"description,omitempty"`
+	Links       *map[string]interface{} `json:"links,omitempty"`
+	Sid         *string                 `json:"sid,omitempty"`
+	SinkSid     *string                 `json:"sink_sid,omitempty"`
+	Url         *string                 `json:"url,omitempty"`
 }

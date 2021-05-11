@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,30 +17,17 @@ import (
 
 // TaskrouterV1WorkspaceWorkerWorkerChannel struct for TaskrouterV1WorkspaceWorkerWorkerChannel
 type TaskrouterV1WorkspaceWorkerWorkerChannel struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The total number of Tasks assigned to Worker for the TaskChannel type
-	AssignedTasks *int32 `json:"assigned_tasks,omitempty"`
-	// Whether the Worker should receive Tasks of the TaskChannel type
-	Available *bool `json:"available,omitempty"`
-	// The current available capacity between 0 to 100 for the TaskChannel
-	AvailableCapacityPercentage *int32 `json:"available_capacity_percentage,omitempty"`
-	// The current configured capacity for the WorkerChannel
-	ConfiguredCapacity *int32 `json:"configured_capacity,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
-	// The SID of the TaskChannel
-	TaskChannelSid *string `json:"task_channel_sid,omitempty"`
-	// The unique name of the TaskChannel, such as 'voice' or 'sms'
-	TaskChannelUniqueName *string `json:"task_channel_unique_name,omitempty"`
-	// The absolute URL of the WorkerChannel resource
-	Url *string `json:"url,omitempty"`
-	// The SID of the Worker that contains the WorkerChannel
-	WorkerSid *string `json:"worker_sid,omitempty"`
-	// The SID of the Workspace that contains the WorkerChannel
-	WorkspaceSid *string `json:"workspace_sid,omitempty"`
+	AccountSid                  *string    `json:"account_sid,omitempty"`
+	AssignedTasks               *int32     `json:"assigned_tasks,omitempty"`
+	Available                   *bool      `json:"available,omitempty"`
+	AvailableCapacityPercentage *int32     `json:"available_capacity_percentage,omitempty"`
+	ConfiguredCapacity          *int32     `json:"configured_capacity,omitempty"`
+	DateCreated                 *time.Time `json:"date_created,omitempty"`
+	DateUpdated                 *time.Time `json:"date_updated,omitempty"`
+	Sid                         *string    `json:"sid,omitempty"`
+	TaskChannelSid              *string    `json:"task_channel_sid,omitempty"`
+	TaskChannelUniqueName       *string    `json:"task_channel_unique_name,omitempty"`
+	Url                         *string    `json:"url,omitempty"`
+	WorkerSid                   *string    `json:"worker_sid,omitempty"`
+	WorkspaceSid                *string    `json:"workspace_sid,omitempty"`
 }

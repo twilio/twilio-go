@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -28,7 +28,7 @@ type IpMessagingV2ServiceChannel struct {
 	MessagesCount *int32                  `json:"messages_count,omitempty"`
 	ServiceSid    *string                 `json:"service_sid,omitempty"`
 	Sid           *string                 `json:"sid,omitempty"`
-	Type          *string                 `json:"type,omitempty"`
+	Type          *ChannelChannelType     `json:"type,omitempty"`
 	UniqueName    *string                 `json:"unique_name,omitempty"`
 	Url           *string                 `json:"url,omitempty"`
 }

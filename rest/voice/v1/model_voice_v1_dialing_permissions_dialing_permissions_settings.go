@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,8 +13,6 @@ package openapi
 
 // VoiceV1DialingPermissionsDialingPermissionsSettings struct for VoiceV1DialingPermissionsDialingPermissionsSettings
 type VoiceV1DialingPermissionsDialingPermissionsSettings struct {
-	// `true` if the sub-account will inherit voice dialing permissions from the Master Project; otherwise `false`
-	DialingPermissionsInheritance *bool `json:"dialing_permissions_inheritance,omitempty"`
-	// The absolute URL of this resource
-	Url *string `json:"url,omitempty"`
+	DialingPermissionsInheritance *bool   `json:"dialing_permissions_inheritance,omitempty"`
+	Url                           *string `json:"url,omitempty"`
 }

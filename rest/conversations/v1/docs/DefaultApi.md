@@ -1,6 +1,6 @@
 # DefaultApi
 
-All URIs are relative to *https://conversations.twilio.com*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

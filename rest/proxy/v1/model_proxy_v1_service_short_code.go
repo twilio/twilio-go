@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,23 +17,14 @@ import (
 
 // ProxyV1ServiceShortCode struct for ProxyV1ServiceShortCode
 type ProxyV1ServiceShortCode struct {
-	// The SID of the Account that created the resource
-	AccountSid   *string                              `json:"account_sid,omitempty"`
-	Capabilities *ProxyV1ServiceShortCodeCapabilities `json:"capabilities,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// Whether the short code should be reserved for manual assignment to participants only
-	IsReserved *bool `json:"is_reserved,omitempty"`
-	// The ISO Country Code
-	IsoCountry *string `json:"iso_country,omitempty"`
-	// The SID of the resource's parent Service
-	ServiceSid *string `json:"service_sid,omitempty"`
-	// The short code's number
-	ShortCode *string `json:"short_code,omitempty"`
-	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
-	// The absolute URL of the ShortCode resource
-	Url *string `json:"url,omitempty"`
+	AccountSid   *string                  `json:"account_sid,omitempty"`
+	Capabilities *PhoneNumberCapabilities `json:"capabilities,omitempty"`
+	DateCreated  *time.Time               `json:"date_created,omitempty"`
+	DateUpdated  *time.Time               `json:"date_updated,omitempty"`
+	IsReserved   *bool                    `json:"is_reserved,omitempty"`
+	IsoCountry   *string                  `json:"iso_country,omitempty"`
+	ServiceSid   *string                  `json:"service_sid,omitempty"`
+	ShortCode    *string                  `json:"short_code,omitempty"`
+	Sid          *string                  `json:"sid,omitempty"`
+	Url          *string                  `json:"url,omitempty"`
 }

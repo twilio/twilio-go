@@ -1,6 +1,6 @@
 # DefaultApi
 
-All URIs are relative to *https://messaging.twilio.com*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -633,7 +633,7 @@ Other parameters are passed through a pointer to a FetchDeactivationParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Date** | **string** | The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
+**Date** | **time.Time** | The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 
 ### Return type
 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,22 +17,13 @@ import (
 
 // VerifyV2ServiceEntityChallengeNotification struct for VerifyV2ServiceEntityChallengeNotification
 type VerifyV2ServiceEntityChallengeNotification struct {
-	// Account Sid.
-	AccountSid *string `json:"account_sid,omitempty"`
-	// Challenge Sid.
-	ChallengeSid *string `json:"challenge_sid,omitempty"`
-	// The date this Notification was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// Entity Sid.
-	EntitySid *string `json:"entity_sid,omitempty"`
-	// Unique external identifier of the Entity
-	Identity *string `json:"identity,omitempty"`
-	// The priority of the Notification.
-	Priority *string `json:"priority,omitempty"`
-	// Service Sid.
-	ServiceSid *string `json:"service_sid,omitempty"`
-	// A string that uniquely identifies this Notification.
-	Sid *string `json:"sid,omitempty"`
-	// How long, in seconds, the Notification is valid.
-	Ttl *int32 `json:"ttl,omitempty"`
+	AccountSid   *string    `json:"account_sid,omitempty"`
+	ChallengeSid *string    `json:"challenge_sid,omitempty"`
+	DateCreated  *time.Time `json:"date_created,omitempty"`
+	EntitySid    *string    `json:"entity_sid,omitempty"`
+	Identity     *string    `json:"identity,omitempty"`
+	Priority     *string    `json:"priority,omitempty"`
+	ServiceSid   *string    `json:"service_sid,omitempty"`
+	Sid          *string    `json:"sid,omitempty"`
+	Ttl          *int32     `json:"ttl,omitempty"`
 }

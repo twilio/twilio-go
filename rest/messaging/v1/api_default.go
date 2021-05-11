@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -16,6 +16,7 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+	"time"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
@@ -613,10 +614,10 @@ func (c *DefaultApiService) FetchBrandRegistrations(Sid string) (*MessagingV1Bra
 // Optional parameters for the method 'FetchDeactivation'
 type FetchDeactivationParams struct {
 	// The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
-	Date *string `json:"Date,omitempty"`
+	Date *time.Time `json:"Date,omitempty"`
 }
 
-func (params *FetchDeactivationParams) SetDate(Date string) *FetchDeactivationParams {
+func (params *FetchDeactivationParams) SetDate(Date time.Time) *FetchDeactivationParams {
 	params.Date = &Date
 	return params
 }
@@ -629,7 +630,7 @@ func (c *DefaultApiService) FetchDeactivation(params *FetchDeactivationParams) e
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Date != nil {
-		data.Set("Date", fmt.Sprint(*params.Date))
+		data.Set("Date", fmt.Sprint((*params.Date).Format(time.RFC3339)))
 	}
 
 	resp, err := c.client.Get(c.baseURL+path, data, headers)

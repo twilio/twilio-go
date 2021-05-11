@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -713,11 +713,11 @@ type CreateCallFeedbackSummaryParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
-	EndDate *string `json:"EndDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
 	// Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
-	StartDate *string `json:"StartDate,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
 	// The URL that we will request when the feedback summary is complete.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
@@ -728,7 +728,7 @@ func (params *CreateCallFeedbackSummaryParams) SetPathAccountSid(PathAccountSid 
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *CreateCallFeedbackSummaryParams) SetEndDate(EndDate string) *CreateCallFeedbackSummaryParams {
+func (params *CreateCallFeedbackSummaryParams) SetEndDate(EndDate time.Time) *CreateCallFeedbackSummaryParams {
 	params.EndDate = &EndDate
 	return params
 }
@@ -736,7 +736,7 @@ func (params *CreateCallFeedbackSummaryParams) SetIncludeSubaccounts(IncludeSuba
 	params.IncludeSubaccounts = &IncludeSubaccounts
 	return params
 }
-func (params *CreateCallFeedbackSummaryParams) SetStartDate(StartDate string) *CreateCallFeedbackSummaryParams {
+func (params *CreateCallFeedbackSummaryParams) SetStartDate(StartDate time.Time) *CreateCallFeedbackSummaryParams {
 	params.StartDate = &StartDate
 	return params
 }
@@ -762,13 +762,13 @@ func (c *DefaultApiService) CreateCallFeedbackSummary(params *CreateCallFeedback
 	headers := make(map[string]interface{})
 
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
 		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
@@ -8461,11 +8461,11 @@ type ListCallNotificationParams struct {
 	// Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
 	Log *int32 `json:"Log,omitempty"`
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-	MessageDate *string `json:"MessageDate,omitempty"`
+	MessageDate *time.Time `json:"MessageDate,omitempty"`
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-	MessageDateBefore *string `json:"MessageDate&lt;,omitempty"`
+	MessageDateBefore *time.Time `json:"MessageDate&lt;,omitempty"`
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-	MessageDateAfter *string `json:"MessageDate&gt;,omitempty"`
+	MessageDateAfter *time.Time `json:"MessageDate&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
@@ -8478,15 +8478,15 @@ func (params *ListCallNotificationParams) SetLog(Log int32) *ListCallNotificatio
 	params.Log = &Log
 	return params
 }
-func (params *ListCallNotificationParams) SetMessageDate(MessageDate string) *ListCallNotificationParams {
+func (params *ListCallNotificationParams) SetMessageDate(MessageDate time.Time) *ListCallNotificationParams {
 	params.MessageDate = &MessageDate
 	return params
 }
-func (params *ListCallNotificationParams) SetMessageDateBefore(MessageDateBefore string) *ListCallNotificationParams {
+func (params *ListCallNotificationParams) SetMessageDateBefore(MessageDateBefore time.Time) *ListCallNotificationParams {
 	params.MessageDateBefore = &MessageDateBefore
 	return params
 }
-func (params *ListCallNotificationParams) SetMessageDateAfter(MessageDateAfter string) *ListCallNotificationParams {
+func (params *ListCallNotificationParams) SetMessageDateAfter(MessageDateAfter time.Time) *ListCallNotificationParams {
 	params.MessageDateAfter = &MessageDateAfter
 	return params
 }
@@ -8511,13 +8511,13 @@ func (c *DefaultApiService) ListCallNotification(CallSid string, params *ListCal
 		data.Set("Log", fmt.Sprint(*params.Log))
 	}
 	if params != nil && params.MessageDate != nil {
-		data.Set("MessageDate", fmt.Sprint(*params.MessageDate))
+		data.Set("MessageDate", fmt.Sprint((*params.MessageDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.MessageDateBefore != nil {
-		data.Set("MessageDate<", fmt.Sprint(*params.MessageDateBefore))
+		data.Set("MessageDate<", fmt.Sprint((*params.MessageDateBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.MessageDateAfter != nil {
-		data.Set("MessageDate>", fmt.Sprint(*params.MessageDateAfter))
+		data.Set("MessageDate>", fmt.Sprint((*params.MessageDateAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -8543,11 +8543,11 @@ type ListCallRecordingParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-	DateCreated *string `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-	DateCreatedAfter *string `json:"DateCreated&gt;,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
@@ -8556,15 +8556,15 @@ func (params *ListCallRecordingParams) SetPathAccountSid(PathAccountSid string) 
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListCallRecordingParams) SetDateCreated(DateCreated string) *ListCallRecordingParams {
+func (params *ListCallRecordingParams) SetDateCreated(DateCreated time.Time) *ListCallRecordingParams {
 	params.DateCreated = &DateCreated
 	return params
 }
-func (params *ListCallRecordingParams) SetDateCreatedBefore(DateCreatedBefore string) *ListCallRecordingParams {
+func (params *ListCallRecordingParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListCallRecordingParams {
 	params.DateCreatedBefore = &DateCreatedBefore
 	return params
 }
-func (params *ListCallRecordingParams) SetDateCreatedAfter(DateCreatedAfter string) *ListCallRecordingParams {
+func (params *ListCallRecordingParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListCallRecordingParams {
 	params.DateCreatedAfter = &DateCreatedAfter
 	return params
 }
@@ -8587,13 +8587,13 @@ func (c *DefaultApiService) ListCallRecording(CallSid string, params *ListCallRe
 	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreated<", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreated>", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -8619,17 +8619,17 @@ type ListConferenceParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-	DateCreated *string `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-	DateCreatedAfter *string `json:"DateCreated&gt;,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
 	// The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-	DateUpdated *string `json:"DateUpdated,omitempty"`
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	// The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-	DateUpdatedBefore *string `json:"DateUpdated&lt;,omitempty"`
+	DateUpdatedBefore *time.Time `json:"DateUpdated&lt;,omitempty"`
 	// The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-	DateUpdatedAfter *string `json:"DateUpdated&gt;,omitempty"`
+	DateUpdatedAfter *time.Time `json:"DateUpdated&gt;,omitempty"`
 	// The string that identifies the Conference resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
@@ -8642,27 +8642,27 @@ func (params *ListConferenceParams) SetPathAccountSid(PathAccountSid string) *Li
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListConferenceParams) SetDateCreated(DateCreated string) *ListConferenceParams {
+func (params *ListConferenceParams) SetDateCreated(DateCreated time.Time) *ListConferenceParams {
 	params.DateCreated = &DateCreated
 	return params
 }
-func (params *ListConferenceParams) SetDateCreatedBefore(DateCreatedBefore string) *ListConferenceParams {
+func (params *ListConferenceParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListConferenceParams {
 	params.DateCreatedBefore = &DateCreatedBefore
 	return params
 }
-func (params *ListConferenceParams) SetDateCreatedAfter(DateCreatedAfter string) *ListConferenceParams {
+func (params *ListConferenceParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListConferenceParams {
 	params.DateCreatedAfter = &DateCreatedAfter
 	return params
 }
-func (params *ListConferenceParams) SetDateUpdated(DateUpdated string) *ListConferenceParams {
+func (params *ListConferenceParams) SetDateUpdated(DateUpdated time.Time) *ListConferenceParams {
 	params.DateUpdated = &DateUpdated
 	return params
 }
-func (params *ListConferenceParams) SetDateUpdatedBefore(DateUpdatedBefore string) *ListConferenceParams {
+func (params *ListConferenceParams) SetDateUpdatedBefore(DateUpdatedBefore time.Time) *ListConferenceParams {
 	params.DateUpdatedBefore = &DateUpdatedBefore
 	return params
 }
-func (params *ListConferenceParams) SetDateUpdatedAfter(DateUpdatedAfter string) *ListConferenceParams {
+func (params *ListConferenceParams) SetDateUpdatedAfter(DateUpdatedAfter time.Time) *ListConferenceParams {
 	params.DateUpdatedAfter = &DateUpdatedAfter
 	return params
 }
@@ -8692,22 +8692,22 @@ func (c *DefaultApiService) ListConference(params *ListConferenceParams) (*ListC
 	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreated<", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreated>", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdated != nil {
-		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+		data.Set("DateUpdated", fmt.Sprint((*params.DateUpdated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdatedBefore != nil {
-		data.Set("DateUpdated<", fmt.Sprint(*params.DateUpdatedBefore))
+		data.Set("DateUpdated<", fmt.Sprint((*params.DateUpdatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateUpdatedAfter != nil {
-		data.Set("DateUpdated>", fmt.Sprint(*params.DateUpdatedAfter))
+		data.Set("DateUpdated>", fmt.Sprint((*params.DateUpdatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -8739,11 +8739,11 @@ type ListConferenceRecordingParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-	DateCreated *string `json:"DateCreated,omitempty"`
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-	DateCreatedAfter *string `json:"DateCreated&gt;,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
@@ -8752,15 +8752,15 @@ func (params *ListConferenceRecordingParams) SetPathAccountSid(PathAccountSid st
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListConferenceRecordingParams) SetDateCreated(DateCreated string) *ListConferenceRecordingParams {
+func (params *ListConferenceRecordingParams) SetDateCreated(DateCreated time.Time) *ListConferenceRecordingParams {
 	params.DateCreated = &DateCreated
 	return params
 }
-func (params *ListConferenceRecordingParams) SetDateCreatedBefore(DateCreatedBefore string) *ListConferenceRecordingParams {
+func (params *ListConferenceRecordingParams) SetDateCreatedBefore(DateCreatedBefore time.Time) *ListConferenceRecordingParams {
 	params.DateCreatedBefore = &DateCreatedBefore
 	return params
 }
-func (params *ListConferenceRecordingParams) SetDateCreatedAfter(DateCreatedAfter string) *ListConferenceRecordingParams {
+func (params *ListConferenceRecordingParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListConferenceRecordingParams {
 	params.DateCreatedAfter = &DateCreatedAfter
 	return params
 }
@@ -8783,13 +8783,13 @@ func (c *DefaultApiService) ListConferenceRecording(ConferenceSid string, params
 	headers := make(map[string]interface{})
 
 	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
+		data.Set("DateCreated<", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
+		data.Set("DateCreated>", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -9610,11 +9610,11 @@ type ListNotificationParams struct {
 	// Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
 	Log *int32 `json:"Log,omitempty"`
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-	MessageDate *string `json:"MessageDate,omitempty"`
+	MessageDate *time.Time `json:"MessageDate,omitempty"`
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-	MessageDateBefore *string `json:"MessageDate&lt;,omitempty"`
+	MessageDateBefore *time.Time `json:"MessageDate&lt;,omitempty"`
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-	MessageDateAfter *string `json:"MessageDate&gt;,omitempty"`
+	MessageDateAfter *time.Time `json:"MessageDate&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
@@ -9627,15 +9627,15 @@ func (params *ListNotificationParams) SetLog(Log int32) *ListNotificationParams 
 	params.Log = &Log
 	return params
 }
-func (params *ListNotificationParams) SetMessageDate(MessageDate string) *ListNotificationParams {
+func (params *ListNotificationParams) SetMessageDate(MessageDate time.Time) *ListNotificationParams {
 	params.MessageDate = &MessageDate
 	return params
 }
-func (params *ListNotificationParams) SetMessageDateBefore(MessageDateBefore string) *ListNotificationParams {
+func (params *ListNotificationParams) SetMessageDateBefore(MessageDateBefore time.Time) *ListNotificationParams {
 	params.MessageDateBefore = &MessageDateBefore
 	return params
 }
-func (params *ListNotificationParams) SetMessageDateAfter(MessageDateAfter string) *ListNotificationParams {
+func (params *ListNotificationParams) SetMessageDateAfter(MessageDateAfter time.Time) *ListNotificationParams {
 	params.MessageDateAfter = &MessageDateAfter
 	return params
 }
@@ -9660,13 +9660,13 @@ func (c *DefaultApiService) ListNotification(params *ListNotificationParams) (*L
 		data.Set("Log", fmt.Sprint(*params.Log))
 	}
 	if params != nil && params.MessageDate != nil {
-		data.Set("MessageDate", fmt.Sprint(*params.MessageDate))
+		data.Set("MessageDate", fmt.Sprint((*params.MessageDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.MessageDateBefore != nil {
-		data.Set("MessageDate<", fmt.Sprint(*params.MessageDateBefore))
+		data.Set("MessageDate<", fmt.Sprint((*params.MessageDateBefore).Format(time.RFC3339)))
 	}
 	if params != nil && params.MessageDateAfter != nil {
-		data.Set("MessageDate>", fmt.Sprint(*params.MessageDateAfter))
+		data.Set("MessageDate>", fmt.Sprint((*params.MessageDateAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -10772,9 +10772,9 @@ type ListUsageRecordParams struct {
 	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 	Category *string `json:"Category,omitempty"`
 	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-	StartDate *string `json:"StartDate,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
 	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-	EndDate *string `json:"EndDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -10789,11 +10789,11 @@ func (params *ListUsageRecordParams) SetCategory(Category string) *ListUsageReco
 	params.Category = &Category
 	return params
 }
-func (params *ListUsageRecordParams) SetStartDate(StartDate string) *ListUsageRecordParams {
+func (params *ListUsageRecordParams) SetStartDate(StartDate time.Time) *ListUsageRecordParams {
 	params.StartDate = &StartDate
 	return params
 }
-func (params *ListUsageRecordParams) SetEndDate(EndDate string) *ListUsageRecordParams {
+func (params *ListUsageRecordParams) SetEndDate(EndDate time.Time) *ListUsageRecordParams {
 	params.EndDate = &EndDate
 	return params
 }
@@ -10822,10 +10822,10 @@ func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*Lis
 		data.Set("Category", *params.Category)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
 		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
@@ -10856,9 +10856,9 @@ type ListUsageRecordAllTimeParams struct {
 	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 	Category *string `json:"Category,omitempty"`
 	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-	StartDate *string `json:"StartDate,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
 	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-	EndDate *string `json:"EndDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -10873,11 +10873,11 @@ func (params *ListUsageRecordAllTimeParams) SetCategory(Category string) *ListUs
 	params.Category = &Category
 	return params
 }
-func (params *ListUsageRecordAllTimeParams) SetStartDate(StartDate string) *ListUsageRecordAllTimeParams {
+func (params *ListUsageRecordAllTimeParams) SetStartDate(StartDate time.Time) *ListUsageRecordAllTimeParams {
 	params.StartDate = &StartDate
 	return params
 }
-func (params *ListUsageRecordAllTimeParams) SetEndDate(EndDate string) *ListUsageRecordAllTimeParams {
+func (params *ListUsageRecordAllTimeParams) SetEndDate(EndDate time.Time) *ListUsageRecordAllTimeParams {
 	params.EndDate = &EndDate
 	return params
 }
@@ -10905,10 +10905,10 @@ func (c *DefaultApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTim
 		data.Set("Category", *params.Category)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
 		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
@@ -10939,9 +10939,9 @@ type ListUsageRecordDailyParams struct {
 	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 	Category *string `json:"Category,omitempty"`
 	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-	StartDate *string `json:"StartDate,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
 	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-	EndDate *string `json:"EndDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -10956,11 +10956,11 @@ func (params *ListUsageRecordDailyParams) SetCategory(Category string) *ListUsag
 	params.Category = &Category
 	return params
 }
-func (params *ListUsageRecordDailyParams) SetStartDate(StartDate string) *ListUsageRecordDailyParams {
+func (params *ListUsageRecordDailyParams) SetStartDate(StartDate time.Time) *ListUsageRecordDailyParams {
 	params.StartDate = &StartDate
 	return params
 }
-func (params *ListUsageRecordDailyParams) SetEndDate(EndDate string) *ListUsageRecordDailyParams {
+func (params *ListUsageRecordDailyParams) SetEndDate(EndDate time.Time) *ListUsageRecordDailyParams {
 	params.EndDate = &EndDate
 	return params
 }
@@ -10988,10 +10988,10 @@ func (c *DefaultApiService) ListUsageRecordDaily(params *ListUsageRecordDailyPar
 		data.Set("Category", *params.Category)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
 		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
@@ -11022,9 +11022,9 @@ type ListUsageRecordLastMonthParams struct {
 	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 	Category *string `json:"Category,omitempty"`
 	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-	StartDate *string `json:"StartDate,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
 	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-	EndDate *string `json:"EndDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -11039,11 +11039,11 @@ func (params *ListUsageRecordLastMonthParams) SetCategory(Category string) *List
 	params.Category = &Category
 	return params
 }
-func (params *ListUsageRecordLastMonthParams) SetStartDate(StartDate string) *ListUsageRecordLastMonthParams {
+func (params *ListUsageRecordLastMonthParams) SetStartDate(StartDate time.Time) *ListUsageRecordLastMonthParams {
 	params.StartDate = &StartDate
 	return params
 }
-func (params *ListUsageRecordLastMonthParams) SetEndDate(EndDate string) *ListUsageRecordLastMonthParams {
+func (params *ListUsageRecordLastMonthParams) SetEndDate(EndDate time.Time) *ListUsageRecordLastMonthParams {
 	params.EndDate = &EndDate
 	return params
 }
@@ -11071,10 +11071,10 @@ func (c *DefaultApiService) ListUsageRecordLastMonth(params *ListUsageRecordLast
 		data.Set("Category", *params.Category)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
 		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
@@ -11105,9 +11105,9 @@ type ListUsageRecordMonthlyParams struct {
 	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 	Category *string `json:"Category,omitempty"`
 	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-	StartDate *string `json:"StartDate,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
 	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-	EndDate *string `json:"EndDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -11122,11 +11122,11 @@ func (params *ListUsageRecordMonthlyParams) SetCategory(Category string) *ListUs
 	params.Category = &Category
 	return params
 }
-func (params *ListUsageRecordMonthlyParams) SetStartDate(StartDate string) *ListUsageRecordMonthlyParams {
+func (params *ListUsageRecordMonthlyParams) SetStartDate(StartDate time.Time) *ListUsageRecordMonthlyParams {
 	params.StartDate = &StartDate
 	return params
 }
-func (params *ListUsageRecordMonthlyParams) SetEndDate(EndDate string) *ListUsageRecordMonthlyParams {
+func (params *ListUsageRecordMonthlyParams) SetEndDate(EndDate time.Time) *ListUsageRecordMonthlyParams {
 	params.EndDate = &EndDate
 	return params
 }
@@ -11154,10 +11154,10 @@ func (c *DefaultApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthl
 		data.Set("Category", *params.Category)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
 		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
@@ -11188,9 +11188,9 @@ type ListUsageRecordThisMonthParams struct {
 	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 	Category *string `json:"Category,omitempty"`
 	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-	StartDate *string `json:"StartDate,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
 	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-	EndDate *string `json:"EndDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -11205,11 +11205,11 @@ func (params *ListUsageRecordThisMonthParams) SetCategory(Category string) *List
 	params.Category = &Category
 	return params
 }
-func (params *ListUsageRecordThisMonthParams) SetStartDate(StartDate string) *ListUsageRecordThisMonthParams {
+func (params *ListUsageRecordThisMonthParams) SetStartDate(StartDate time.Time) *ListUsageRecordThisMonthParams {
 	params.StartDate = &StartDate
 	return params
 }
-func (params *ListUsageRecordThisMonthParams) SetEndDate(EndDate string) *ListUsageRecordThisMonthParams {
+func (params *ListUsageRecordThisMonthParams) SetEndDate(EndDate time.Time) *ListUsageRecordThisMonthParams {
 	params.EndDate = &EndDate
 	return params
 }
@@ -11237,10 +11237,10 @@ func (c *DefaultApiService) ListUsageRecordThisMonth(params *ListUsageRecordThis
 		data.Set("Category", *params.Category)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
 		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
@@ -11271,9 +11271,9 @@ type ListUsageRecordTodayParams struct {
 	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 	Category *string `json:"Category,omitempty"`
 	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-	StartDate *string `json:"StartDate,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
 	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-	EndDate *string `json:"EndDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -11288,11 +11288,11 @@ func (params *ListUsageRecordTodayParams) SetCategory(Category string) *ListUsag
 	params.Category = &Category
 	return params
 }
-func (params *ListUsageRecordTodayParams) SetStartDate(StartDate string) *ListUsageRecordTodayParams {
+func (params *ListUsageRecordTodayParams) SetStartDate(StartDate time.Time) *ListUsageRecordTodayParams {
 	params.StartDate = &StartDate
 	return params
 }
-func (params *ListUsageRecordTodayParams) SetEndDate(EndDate string) *ListUsageRecordTodayParams {
+func (params *ListUsageRecordTodayParams) SetEndDate(EndDate time.Time) *ListUsageRecordTodayParams {
 	params.EndDate = &EndDate
 	return params
 }
@@ -11320,10 +11320,10 @@ func (c *DefaultApiService) ListUsageRecordToday(params *ListUsageRecordTodayPar
 		data.Set("Category", *params.Category)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
 		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
@@ -11354,9 +11354,9 @@ type ListUsageRecordYearlyParams struct {
 	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 	Category *string `json:"Category,omitempty"`
 	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-	StartDate *string `json:"StartDate,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
 	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-	EndDate *string `json:"EndDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -11371,11 +11371,11 @@ func (params *ListUsageRecordYearlyParams) SetCategory(Category string) *ListUsa
 	params.Category = &Category
 	return params
 }
-func (params *ListUsageRecordYearlyParams) SetStartDate(StartDate string) *ListUsageRecordYearlyParams {
+func (params *ListUsageRecordYearlyParams) SetStartDate(StartDate time.Time) *ListUsageRecordYearlyParams {
 	params.StartDate = &StartDate
 	return params
 }
-func (params *ListUsageRecordYearlyParams) SetEndDate(EndDate string) *ListUsageRecordYearlyParams {
+func (params *ListUsageRecordYearlyParams) SetEndDate(EndDate time.Time) *ListUsageRecordYearlyParams {
 	params.EndDate = &EndDate
 	return params
 }
@@ -11403,10 +11403,10 @@ func (c *DefaultApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyP
 		data.Set("Category", *params.Category)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
 		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
@@ -11437,9 +11437,9 @@ type ListUsageRecordYesterdayParams struct {
 	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
 	Category *string `json:"Category,omitempty"`
 	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-	StartDate *string `json:"StartDate,omitempty"`
+	StartDate *time.Time `json:"StartDate,omitempty"`
 	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-	EndDate *string `json:"EndDate,omitempty"`
+	EndDate *time.Time `json:"EndDate,omitempty"`
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
@@ -11454,11 +11454,11 @@ func (params *ListUsageRecordYesterdayParams) SetCategory(Category string) *List
 	params.Category = &Category
 	return params
 }
-func (params *ListUsageRecordYesterdayParams) SetStartDate(StartDate string) *ListUsageRecordYesterdayParams {
+func (params *ListUsageRecordYesterdayParams) SetStartDate(StartDate time.Time) *ListUsageRecordYesterdayParams {
 	params.StartDate = &StartDate
 	return params
 }
-func (params *ListUsageRecordYesterdayParams) SetEndDate(EndDate string) *ListUsageRecordYesterdayParams {
+func (params *ListUsageRecordYesterdayParams) SetEndDate(EndDate time.Time) *ListUsageRecordYesterdayParams {
 	params.EndDate = &EndDate
 	return params
 }
@@ -11486,10 +11486,10 @@ func (c *DefaultApiService) ListUsageRecordYesterday(params *ListUsageRecordYest
 		data.Set("Category", *params.Category)
 	}
 	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
 	if params != nil && params.IncludeSubaccounts != nil {
 		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))

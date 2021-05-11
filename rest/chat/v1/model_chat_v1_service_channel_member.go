@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,26 +17,15 @@ import (
 
 // ChatV1ServiceChannelMember struct for ChatV1ServiceChannelMember
 type ChatV1ServiceChannelMember struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The unique ID of the Channel for the member
-	ChannelSid *string `json:"channel_sid,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The string that identifies the resource's User
-	Identity *string `json:"identity,omitempty"`
-	// The index of the last Message that the Member has read within the Channel
-	LastConsumedMessageIndex *int32 `json:"last_consumed_message_index,omitempty"`
-	// The ISO 8601 based timestamp string that represents the date-time of the last Message read event for the Member within the Channel
+	AccountSid               *string    `json:"account_sid,omitempty"`
+	ChannelSid               *string    `json:"channel_sid,omitempty"`
+	DateCreated              *time.Time `json:"date_created,omitempty"`
+	DateUpdated              *time.Time `json:"date_updated,omitempty"`
+	Identity                 *string    `json:"identity,omitempty"`
+	LastConsumedMessageIndex *int32     `json:"last_consumed_message_index,omitempty"`
 	LastConsumptionTimestamp *time.Time `json:"last_consumption_timestamp,omitempty"`
-	// The SID of the Role assigned to the member
-	RoleSid *string `json:"role_sid,omitempty"`
-	// The SID of the Service that the resource is associated with
-	ServiceSid *string `json:"service_sid,omitempty"`
-	// The unique string that identifies the resource
-	Sid *string `json:"sid,omitempty"`
-	// The absolute URL of the Member resource
-	Url *string `json:"url,omitempty"`
+	RoleSid                  *string    `json:"role_sid,omitempty"`
+	ServiceSid               *string    `json:"service_sid,omitempty"`
+	Sid                      *string    `json:"sid,omitempty"`
+	Url                      *string    `json:"url,omitempty"`
 }

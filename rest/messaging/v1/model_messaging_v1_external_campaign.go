@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -17,12 +17,8 @@ import (
 
 // MessagingV1ExternalCampaign struct for MessagingV1ExternalCampaign
 type MessagingV1ExternalCampaign struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// ID of the preregistered campaign.
-	CampaignId *string `json:"campaign_id,omitempty"`
-	// The ISO 8601 date and time in GMT when the resource was created
-	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The SID of the Messaging Service the resource is associated with
-	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
+	AccountSid          *string    `json:"account_sid,omitempty"`
+	CampaignId          *string    `json:"campaign_id,omitempty"`
+	DateCreated         *time.Time `json:"date_created,omitempty"`
+	MessagingServiceSid *string    `json:"messaging_service_sid,omitempty"`
 }

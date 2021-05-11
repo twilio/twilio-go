@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,18 +13,11 @@ package openapi
 
 // ApiV2010AccountToken struct for ApiV2010AccountToken
 type ApiV2010AccountToken struct {
-	// The SID of the Account that created the resource
-	AccountSid *string `json:"account_sid,omitempty"`
-	// The RFC 2822 date and time in GMT that the resource was created
-	DateCreated *string `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT that the resource was last updated
-	DateUpdated *string `json:"date_updated,omitempty"`
-	// An array representing the ephemeral credentials
-	IceServers *[]ApiV2010AccountTokenIceServers `json:"ice_servers,omitempty"`
-	// The temporary password used for authenticating
-	Password *string `json:"password,omitempty"`
-	// The duration in seconds the credentials are valid
-	Ttl *string `json:"ttl,omitempty"`
-	// The temporary username that uniquely identifies a Token
-	Username *string `json:"username,omitempty"`
+	AccountSid  *string                   `json:"account_sid,omitempty"`
+	DateCreated *string                   `json:"date_created,omitempty"`
+	DateUpdated *string                   `json:"date_updated,omitempty"`
+	IceServers  *[]map[string]interface{} `json:"ice_servers,omitempty"`
+	Password    *string                   `json:"password,omitempty"`
+	Ttl         *string                   `json:"ttl,omitempty"`
+	Username    *string                   `json:"username,omitempty"`
 }

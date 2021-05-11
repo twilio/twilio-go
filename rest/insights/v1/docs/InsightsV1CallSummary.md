@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** |  |
 **Attributes** | Pointer to **map[string]interface{}** |  |
 **CallSid** | Pointer to **string** |  |
-**CallState** | Pointer to **string** |  |
-**CallType** | Pointer to **string** |  |
+**CallState** | Pointer to [**SummaryCallState**](summary_call_state.md) |  |
+**CallType** | Pointer to [**SummaryCallType**](summary_call_type.md) |  |
 **CarrierEdge** | Pointer to **map[string]interface{}** |  |
 **ClientEdge** | Pointer to **map[string]interface{}** |  |
 **ConnectDuration** | Pointer to **int32** |  |
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Duration** | Pointer to **int32** |  |
 **EndTime** | Pointer to [**time.Time**](time.Time.md) |  |
 **From** | Pointer to **map[string]interface{}** |  |
-**ProcessingState** | Pointer to **string** |  |
+**ProcessingState** | Pointer to [**SummaryProcessingState**](summary_processing_state.md) |  |
 **Properties** | Pointer to **map[string]interface{}** |  |
 **SdkEdge** | Pointer to **map[string]interface{}** |  |
 **SipEdge** | Pointer to **map[string]interface{}** |  |

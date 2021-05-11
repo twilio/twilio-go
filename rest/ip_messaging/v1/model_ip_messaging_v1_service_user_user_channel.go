@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,12 +13,12 @@ package openapi
 
 // IpMessagingV1ServiceUserUserChannel struct for IpMessagingV1ServiceUserUserChannel
 type IpMessagingV1ServiceUserUserChannel struct {
-	AccountSid               *string                 `json:"account_sid,omitempty"`
-	ChannelSid               *string                 `json:"channel_sid,omitempty"`
-	LastConsumedMessageIndex *int32                  `json:"last_consumed_message_index,omitempty"`
-	Links                    *map[string]interface{} `json:"links,omitempty"`
-	MemberSid                *string                 `json:"member_sid,omitempty"`
-	ServiceSid               *string                 `json:"service_sid,omitempty"`
-	Status                   *string                 `json:"status,omitempty"`
-	UnreadMessagesCount      *int32                  `json:"unread_messages_count,omitempty"`
+	AccountSid               *string                   `json:"account_sid,omitempty"`
+	ChannelSid               *string                   `json:"channel_sid,omitempty"`
+	LastConsumedMessageIndex *int32                    `json:"last_consumed_message_index,omitempty"`
+	Links                    *map[string]interface{}   `json:"links,omitempty"`
+	MemberSid                *string                   `json:"member_sid,omitempty"`
+	ServiceSid               *string                   `json:"service_sid,omitempty"`
+	Status                   *UserChannelChannelStatus `json:"status,omitempty"`
+	UnreadMessagesCount      *int32                    `json:"unread_messages_count,omitempty"`
 }

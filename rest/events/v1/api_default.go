@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -646,6 +646,44 @@ func (c *DefaultApiService) ListSubscription(params *ListSubscriptionParams) (*L
 	defer resp.Body.Close()
 
 	ps := &ListSubscriptionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// Optional parameters for the method 'UpdateSink'
+type UpdateSinkParams struct {
+	// A human readable description for the Sink **This value should not contain PII.**
+	Description *string `json:"Description,omitempty"`
+}
+
+func (params *UpdateSinkParams) SetDescription(Description string) *UpdateSinkParams {
+	params.Description = &Description
+	return params
+}
+
+// Update a specific Sink
+func (c *DefaultApiService) UpdateSink(Sid string, params *UpdateSinkParams) (*EventsV1Sink, error) {
+	path := "/v1/Sinks/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.Description != nil {
+		data.Set("Description", *params.Description)
+	}
+
+	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &EventsV1Sink{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

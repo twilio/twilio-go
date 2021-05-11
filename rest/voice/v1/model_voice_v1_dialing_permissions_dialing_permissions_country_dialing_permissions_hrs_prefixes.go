@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.14.0
+ * API version: 1.15.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,5 @@ package openapi
 
 // VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes struct for VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes
 type VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes struct {
-	// A prefix that includes the E.164 assigned country code
 	Prefix *string `json:"prefix,omitempty"`
 }

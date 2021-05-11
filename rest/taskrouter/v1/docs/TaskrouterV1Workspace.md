@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
-**DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
-**DefaultActivityName** | Pointer to **string** | The name of the default activity |
-**DefaultActivitySid** | Pointer to **string** | The SID of the Activity that will be used when new Workers are created in the Workspace |
-**EventCallbackUrl** | Pointer to **string** | The URL we call when an event occurs |
-**EventsFilter** | Pointer to **string** | The list of Workspace events for which to call event_callback_url |
-**FriendlyName** | Pointer to **string** | The string that you assigned to describe the Workspace resource |
-**Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
-**MultiTaskEnabled** | Pointer to **bool** | Whether multi-tasking is enabled |
-**PrioritizeQueueOrder** | Pointer to **string** | The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues |
-**Sid** | Pointer to **string** | The unique string that identifies the resource |
-**TimeoutActivityName** | Pointer to **string** | The name of the timeout activity |
-**TimeoutActivitySid** | Pointer to **string** | The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response |
-**Url** | Pointer to **string** | The absolute URL of the Workspace resource |
+**AccountSid** | Pointer to **string** |  |
+**DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
+**DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
+**DefaultActivityName** | Pointer to **string** |  |
+**DefaultActivitySid** | Pointer to **string** |  |
+**EventCallbackUrl** | Pointer to **string** |  |
+**EventsFilter** | Pointer to **string** |  |
+**FriendlyName** | Pointer to **string** |  |
+**Links** | Pointer to **map[string]interface{}** |  |
+**MultiTaskEnabled** | Pointer to **bool** |  |
+**PrioritizeQueueOrder** | Pointer to [**WorkspaceQueueOrder**](workspace_queue_order.md) |  |
+**Sid** | Pointer to **string** |  |
+**TimeoutActivityName** | Pointer to **string** |  |
+**TimeoutActivitySid** | Pointer to **string** |  |
+**Url** | Pointer to **string** |  |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
