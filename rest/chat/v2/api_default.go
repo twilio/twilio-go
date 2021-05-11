@@ -33,16 +33,24 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 	}
 }
 
-// CreateChannelParams Optional parameters for the method 'CreateChannel'
+// Optional parameters for the method 'CreateChannel'
 type CreateChannelParams struct {
-	XTwilioWebhookEnabled *string    `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	Attributes            *string    `json:"Attributes,omitempty"`
-	CreatedBy             *string    `json:"CreatedBy,omitempty"`
-	DateCreated           *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated           *time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName          *string    `json:"FriendlyName,omitempty"`
-	Type                  *string    `json:"Type,omitempty"`
-	UniqueName            *string    `json:"UniqueName,omitempty"`
+	// The X-Twilio-Webhook-Enabled HTTP request header
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
+	// The `identity` of the User that created the channel. Default is: `system`.
+	CreatedBy *string `json:"CreatedBy,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The visibility of the channel. Can be: `public` or `private` and defaults to `public`.
+	Type *string `json:"Type,omitempty"`
+	// An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *CreateChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateChannelParams {
@@ -78,29 +86,6 @@ func (params *CreateChannelParams) SetUniqueName(UniqueName string) *CreateChann
 	return params
 }
 
-// CreateChannel Method for CreateChannel
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the Channel resource under.
-//
-// param: optional nil or *CreateChannelParams - Optional Parameters:
-//
-// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-//
-// param: "Attributes" (string) - A valid JSON string that contains application-specific data.
-//
-// param: "CreatedBy" (string) - The `identity` of the User that created the channel. Default is: `system`.
-//
-// param: "DateCreated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
-//
-// param: "DateUpdated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used in cases where a Channel is being recreated from a backup/separate source  and where a Message was previously updated.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-//
-// param: "Type" (string) - The visibility of the channel. Can be: `public` or `private` and defaults to `public`.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the Channel resource's `sid` in the URL. This value must be 64 characters or less in length and be unique within the Service.
-//
-// return: ChatV2ServiceChannel
 func (c *DefaultApiService) CreateChannel(ServiceSid string, params *CreateChannelParams) (*ChatV2ServiceChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -149,15 +134,22 @@ func (c *DefaultApiService) CreateChannel(ServiceSid string, params *CreateChann
 	return ps, err
 }
 
-// CreateChannelWebhookParams Optional parameters for the method 'CreateChannelWebhook'
+// Optional parameters for the method 'CreateChannelWebhook'
 type CreateChannelWebhookParams struct {
-	ConfigurationFilters    *[]string `json:"Configuration.Filters,omitempty"`
-	ConfigurationFlowSid    *string   `json:"Configuration.FlowSid,omitempty"`
-	ConfigurationMethod     *string   `json:"Configuration.Method,omitempty"`
-	ConfigurationRetryCount *int32    `json:"Configuration.RetryCount,omitempty"`
-	ConfigurationTriggers   *[]string `json:"Configuration.Triggers,omitempty"`
-	ConfigurationUrl        *string   `json:"Configuration.Url,omitempty"`
-	Type                    *string   `json:"Type,omitempty"`
+	// The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	// The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	// The HTTP method used to call `configuration.url`. Can be: `GET` or `POST` and the default is `POST`.
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+	ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
+	// A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	// The URL of the webhook to call using the `configuration.method`.
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
+	// The type of webhook. Can be: `webhook`, `studio`, or `trigger`.
+	Type *string `json:"Type,omitempty"`
 }
 
 func (params *CreateChannelWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *CreateChannelWebhookParams {
@@ -189,29 +181,6 @@ func (params *CreateChannelWebhookParams) SetType(Type string) *CreateChannelWeb
 	return params
 }
 
-// CreateChannelWebhook Method for CreateChannelWebhook
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) with the Channel to create the Webhook resource under.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the new Channel Webhook resource belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: optional nil or *CreateChannelWebhookParams - Optional Parameters:
-//
-// param: "ConfigurationFilters" ([]string) - The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-//
-// param: "ConfigurationFlowSid" (string) - The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` is `studio`.
-//
-// param: "ConfigurationMethod" (string) - The HTTP method used to call `configuration.url`. Can be: `GET` or `POST` and the default is `POST`.
-//
-// param: "ConfigurationRetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
-//
-// param: "ConfigurationTriggers" ([]string) - A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-//
-// param: "ConfigurationUrl" (string) - The URL of the webhook to call using the `configuration.method`.
-//
-// param: "Type" (string) - The type of webhook. Can be: `webhook`, `studio`, or `trigger`.
-//
-// return: ChatV2ServiceChannelChannelWebhook
 func (c *DefaultApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, params *CreateChannelWebhookParams) (*ChatV2ServiceChannelChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -257,15 +226,22 @@ func (c *DefaultApiService) CreateChannelWebhook(ServiceSid string, ChannelSid s
 	return ps, err
 }
 
-// CreateCredentialParams Optional parameters for the method 'CreateCredential'
+// Optional parameters for the method 'CreateCredential'
 type CreateCredentialParams struct {
-	ApiKey       *string `json:"ApiKey,omitempty"`
-	Certificate  *string `json:"Certificate,omitempty"`
+	// [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
+	ApiKey *string `json:"ApiKey,omitempty"`
+	// [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
+	Certificate *string `json:"Certificate,omitempty"`
+	// A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PrivateKey   *string `json:"PrivateKey,omitempty"`
-	Sandbox      *bool   `json:"Sandbox,omitempty"`
-	Secret       *string `json:"Secret,omitempty"`
-	Type         *string `json:"Type,omitempty"`
+	// [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	// [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	// [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
+	Secret *string `json:"Secret,omitempty"`
+	// The type of push-notification service the credential is for. Can be: `gcm`, `fcm`, or `apn`.
+	Type *string `json:"Type,omitempty"`
 }
 
 func (params *CreateCredentialParams) SetApiKey(ApiKey string) *CreateCredentialParams {
@@ -297,25 +273,6 @@ func (params *CreateCredentialParams) SetType(Type string) *CreateCredentialPara
 	return params
 }
 
-// CreateCredential Method for CreateCredential
-//
-// param: optional nil or *CreateCredentialParams - Optional Parameters:
-//
-// param: "ApiKey" (string) - [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
-//
-// param: "Certificate" (string) - [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-//
-// param: "PrivateKey" (string) - [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
-//
-// param: "Sandbox" (bool) - [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-//
-// param: "Secret" (string) - [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
-//
-// param: "Type" (string) - The type of push-notification service the credential is for. Can be: `gcm`, `fcm`, or `apn`.
-//
-// return: ChatV2Credential
 func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*ChatV2Credential, error) {
 	path := "/v2/Credentials"
 
@@ -359,10 +316,12 @@ func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*C
 	return ps, err
 }
 
-// CreateInviteParams Optional parameters for the method 'CreateInvite'
+// Optional parameters for the method 'CreateInvite'
 type CreateInviteParams struct {
+	// The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
 	Identity *string `json:"Identity,omitempty"`
-	RoleSid  *string `json:"RoleSid,omitempty"`
+	// The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) assigned to the new member.
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 func (params *CreateInviteParams) SetIdentity(Identity string) *CreateInviteParams {
@@ -374,19 +333,6 @@ func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams
 	return params
 }
 
-// CreateInvite Method for CreateInvite
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the Invite resource under.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the new Invite resource belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: optional nil or *CreateInviteParams - Optional Parameters:
-//
-// param: "Identity" (string) - The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
-//
-// param: "RoleSid" (string) - The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) assigned to the new member.
-//
-// return: ChatV2ServiceChannelInvite
 func (c *DefaultApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*ChatV2ServiceChannelInvite, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -417,16 +363,24 @@ func (c *DefaultApiService) CreateInvite(ServiceSid string, ChannelSid string, p
 	return ps, err
 }
 
-// CreateMemberParams Optional parameters for the method 'CreateMember'
+// Optional parameters for the method 'CreateMember'
 type CreateMemberParams struct {
-	XTwilioWebhookEnabled    *string    `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	Attributes               *string    `json:"Attributes,omitempty"`
-	DateCreated              *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated              *time.Time `json:"DateUpdated,omitempty"`
-	Identity                 *string    `json:"Identity,omitempty"`
-	LastConsumedMessageIndex *int32     `json:"LastConsumedMessageIndex,omitempty"`
+	// The X-Twilio-Webhook-Enabled HTTP request header
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this parameter should only be used when a Member is being recreated from a backup/separate source.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used when a Member is being recreated from a backup/separate source and where a Member was previously updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
+	Identity *string `json:"Identity,omitempty"`
+	// The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read. This parameter should only be used when recreating a Member from a backup/separate source.
+	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
-	RoleSid                  *string    `json:"RoleSid,omitempty"`
+	// The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/rest/service-resource).
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 func (params *CreateMemberParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateMemberParams {
@@ -462,31 +416,6 @@ func (params *CreateMemberParams) SetRoleSid(RoleSid string) *CreateMemberParams
 	return params
 }
 
-// CreateMember Method for CreateMember
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the Member resource under.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the new Member resource belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: optional nil or *CreateMemberParams - Optional Parameters:
-//
-// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-//
-// param: "Attributes" (string) - A valid JSON string that contains application-specific data.
-//
-// param: "DateCreated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this parameter should only be used when a Member is being recreated from a backup/separate source.
-//
-// param: "DateUpdated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is `null`. Note that this parameter should only be used when a Member is being recreated from a backup/separate source and where a Member was previously updated.
-//
-// param: "Identity" (string) - The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
-//
-// param: "LastConsumedMessageIndex" (*int32) - The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read. This parameter should only be used when recreating a Member from a backup/separate source.
-//
-// param: "LastConsumptionTimestamp" (time.Time) - The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
-//
-// param: "RoleSid" (string) - The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/rest/service-resource).
-//
-// return: ChatV2ServiceChannelMember
 func (c *DefaultApiService) CreateMember(ServiceSid string, ChannelSid string, params *CreateMemberParams) (*ChatV2ServiceChannelMember, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -536,16 +465,24 @@ func (c *DefaultApiService) CreateMember(ServiceSid string, ChannelSid string, p
 	return ps, err
 }
 
-// CreateMessageParams Optional parameters for the method 'CreateMessage'
+// Optional parameters for the method 'CreateMessage'
 type CreateMessageParams struct {
-	XTwilioWebhookEnabled *string    `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	Attributes            *string    `json:"Attributes,omitempty"`
-	Body                  *string    `json:"Body,omitempty"`
-	DateCreated           *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated           *time.Time `json:"DateUpdated,omitempty"`
-	From                  *string    `json:"From,omitempty"`
-	LastUpdatedBy         *string    `json:"LastUpdatedBy,omitempty"`
-	MediaSid              *string    `json:"MediaSid,omitempty"`
+	// The X-Twilio-Webhook-Enabled HTTP request header
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
+	// The message to send to the channel. Can be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
+	Body *string `json:"Body,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat's history is being recreated from a backup/separate source.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The [Identity](https://www.twilio.com/docs/chat/identity) of the new message's author. The default value is `system`.
+	From *string `json:"From,omitempty"`
+	// The [Identity](https://www.twilio.com/docs/chat/identity) of the User who last updated the Message, if applicable.
+	LastUpdatedBy *string `json:"LastUpdatedBy,omitempty"`
+	// The SID of the [Media](https://www.twilio.com/docs/chat/rest/media) to attach to the new Message.
+	MediaSid *string `json:"MediaSid,omitempty"`
 }
 
 func (params *CreateMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateMessageParams {
@@ -581,31 +518,6 @@ func (params *CreateMessageParams) SetMediaSid(MediaSid string) *CreateMessagePa
 	return params
 }
 
-// CreateMessage Method for CreateMessage
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the Message resource under.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the new Message resource belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: optional nil or *CreateMessageParams - Optional Parameters:
-//
-// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-//
-// param: "Attributes" (string) - A valid JSON string that contains application-specific data.
-//
-// param: "Body" (string) - The message to send to the channel. Can be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
-//
-// param: "DateCreated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat's history is being recreated from a backup/separate source.
-//
-// param: "DateUpdated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-//
-// param: "From" (string) - The [Identity](https://www.twilio.com/docs/chat/identity) of the new message's author. The default value is `system`.
-//
-// param: "LastUpdatedBy" (string) - The [Identity](https://www.twilio.com/docs/chat/identity) of the User who last updated the Message, if applicable.
-//
-// param: "MediaSid" (string) - The SID of the [Media](https://www.twilio.com/docs/chat/rest/media) to attach to the new Message.
-//
-// return: ChatV2ServiceChannelMessage
 func (c *DefaultApiService) CreateMessage(ServiceSid string, ChannelSid string, params *CreateMessageParams) (*ChatV2ServiceChannelMessage, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -655,11 +567,14 @@ func (c *DefaultApiService) CreateMessage(ServiceSid string, ChannelSid string, 
 	return ps, err
 }
 
-// CreateRoleParams Optional parameters for the method 'CreateRole'
+// Optional parameters for the method 'CreateRole'
 type CreateRoleParams struct {
-	FriendlyName *string   `json:"FriendlyName,omitempty"`
-	Permission   *[]string `json:"Permission,omitempty"`
-	Type         *string   `json:"Type,omitempty"`
+	// A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
+	Permission *[]string `json:"Permission,omitempty"`
+	// The type of role. Can be: `channel` for [Channel](https://www.twilio.com/docs/chat/channels) roles or `deployment` for [Service](https://www.twilio.com/docs/chat/rest/service-resource) roles.
+	Type *string `json:"Type,omitempty"`
 }
 
 func (params *CreateRoleParams) SetFriendlyName(FriendlyName string) *CreateRoleParams {
@@ -675,19 +590,6 @@ func (params *CreateRoleParams) SetType(Type string) *CreateRoleParams {
 	return params
 }
 
-// CreateRole Method for CreateRole
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the Role resource under.
-//
-// param: optional nil or *CreateRoleParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-//
-// param: "Permission" ([]string) - A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
-//
-// param: "Type" (string) - The type of role. Can be: `channel` for [Channel](https://www.twilio.com/docs/chat/channels) roles or `deployment` for [Service](https://www.twilio.com/docs/chat/rest/service-resource) roles.
-//
-// return: ChatV2ServiceRole
 func (c *DefaultApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*ChatV2ServiceRole, error) {
 	path := "/v2/Services/{ServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -720,8 +622,9 @@ func (c *DefaultApiService) CreateRole(ServiceSid string, params *CreateRolePara
 	return ps, err
 }
 
-// CreateServiceParams Optional parameters for the method 'CreateService'
+// Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
+	// A descriptive string that you create to describe the new resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -730,13 +633,6 @@ func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateS
 	return params
 }
 
-// CreateService Method for CreateService
-//
-// param: optional nil or *CreateServiceParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the new resource.
-//
-// return: ChatV2Service
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ChatV2Service, error) {
 	path := "/v2/Services"
 
@@ -762,13 +658,18 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ChatV2S
 	return ps, err
 }
 
-// CreateUserParams Optional parameters for the method 'CreateUser'
+// Optional parameters for the method 'CreateUser'
 type CreateUserParams struct {
+	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	Attributes            *string `json:"Attributes,omitempty"`
-	FriendlyName          *string `json:"FriendlyName,omitempty"`
-	Identity              *string `json:"Identity,omitempty"`
-	RoleSid               *string `json:"RoleSid,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
+	// A descriptive string that you create to describe the new resource. This value is often used for display purposes.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). This value is often a username or email address. See the Identity documentation for more info.
+	Identity *string `json:"Identity,omitempty"`
+	// The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the new User.
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 func (params *CreateUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *CreateUserParams {
@@ -792,23 +693,6 @@ func (params *CreateUserParams) SetRoleSid(RoleSid string) *CreateUserParams {
 	return params
 }
 
-// CreateUser Method for CreateUser
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the User resource under.
-//
-// param: optional nil or *CreateUserParams - Optional Parameters:
-//
-// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-//
-// param: "Attributes" (string) - A valid JSON string that contains application-specific data.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the new resource. This value is often used for display purposes.
-//
-// param: "Identity" (string) - The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). This value is often a username or email address. See the Identity documentation for more info.
-//
-// param: "RoleSid" (string) - The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the new User.
-//
-// return: ChatV2ServiceUser
 func (c *DefaultApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*ChatV2ServiceUser, error) {
 	path := "/v2/Services/{ServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -848,12 +732,6 @@ func (c *DefaultApiService) CreateUser(ServiceSid string, params *CreateUserPara
 	return ps, err
 }
 
-// DeleteBinding Method for DeleteBinding
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the Binding resource from.
-//
-// param: Sid The SID of the Binding resource to delete.
-//
 func (c *DefaultApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -872,8 +750,9 @@ func (c *DefaultApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	return nil
 }
 
-// DeleteChannelParams Optional parameters for the method 'DeleteChannel'
+// Optional parameters for the method 'DeleteChannel'
 type DeleteChannelParams struct {
+	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
@@ -882,16 +761,6 @@ func (params *DeleteChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnable
 	return params
 }
 
-// DeleteChannel Method for DeleteChannel
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from.
-//
-// param: Sid The SID of the Channel resource to delete.  This value can be either the `sid` or the `unique_name` of the Channel resource to delete.
-//
-// param: optional nil or *DeleteChannelParams - Optional Parameters:
-//
-// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-//
 func (c *DefaultApiService) DeleteChannel(ServiceSid string, Sid string, params *DeleteChannelParams) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -914,14 +783,6 @@ func (c *DefaultApiService) DeleteChannel(ServiceSid string, Sid string, params 
 	return nil
 }
 
-// DeleteChannelWebhook Method for DeleteChannelWebhook
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) with the Channel to delete the Webhook resource from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Channel Webhook resource to delete belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: Sid The SID of the Channel Webhook resource to delete.
-//
 func (c *DefaultApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -941,10 +802,6 @@ func (c *DefaultApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid s
 	return nil
 }
 
-// DeleteCredential Method for DeleteCredential
-//
-// param: Sid The SID of the Credential resource to delete.
-//
 func (c *DefaultApiService) DeleteCredential(Sid string) error {
 	path := "/v2/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -962,14 +819,6 @@ func (c *DefaultApiService) DeleteCredential(Sid string) error {
 	return nil
 }
 
-// DeleteInvite Method for DeleteInvite
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the Invite resource from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Invite resource to delete belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: Sid The SID of the Invite resource to delete.
-//
 func (c *DefaultApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -989,8 +838,9 @@ func (c *DefaultApiService) DeleteInvite(ServiceSid string, ChannelSid string, S
 	return nil
 }
 
-// DeleteMemberParams Optional parameters for the method 'DeleteMember'
+// Optional parameters for the method 'DeleteMember'
 type DeleteMemberParams struct {
+	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
@@ -999,18 +849,6 @@ func (params *DeleteMemberParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled
 	return params
 }
 
-// DeleteMember Method for DeleteMember
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the Member resource from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Member resource to delete belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: Sid The SID of the Member resource to delete. This value can be either the Member's `sid` or its `identity` value.
-//
-// param: optional nil or *DeleteMemberParams - Optional Parameters:
-//
-// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-//
 func (c *DefaultApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid string, params *DeleteMemberParams) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1034,8 +872,9 @@ func (c *DefaultApiService) DeleteMember(ServiceSid string, ChannelSid string, S
 	return nil
 }
 
-// DeleteMessageParams Optional parameters for the method 'DeleteMessage'
+// Optional parameters for the method 'DeleteMessage'
 type DeleteMessageParams struct {
+	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
 }
 
@@ -1044,18 +883,6 @@ func (params *DeleteMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnable
 	return params
 }
 
-// DeleteMessage Method for DeleteMessage
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the Message resource from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Message resource to delete belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: Sid The SID of the Message resource to delete.
-//
-// param: optional nil or *DeleteMessageParams - Optional Parameters:
-//
-// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-//
 func (c *DefaultApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid string, params *DeleteMessageParams) error {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1079,12 +906,6 @@ func (c *DefaultApiService) DeleteMessage(ServiceSid string, ChannelSid string, 
 	return nil
 }
 
-// DeleteRole Method for DeleteRole
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the Role resource from.
-//
-// param: Sid The SID of the Role resource to delete.
-//
 func (c *DefaultApiService) DeleteRole(ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1103,10 +924,6 @@ func (c *DefaultApiService) DeleteRole(ServiceSid string, Sid string) error {
 	return nil
 }
 
-// DeleteService Method for DeleteService
-//
-// param: Sid The SID of the Service resource to delete.
-//
 func (c *DefaultApiService) DeleteService(Sid string) error {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1124,12 +941,6 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	return nil
 }
 
-// DeleteUser Method for DeleteUser
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the User resource from.
-//
-// param: Sid The SID of the User resource to delete. This value can be either the `sid` or the `identity` of the User resource to delete.
-//
 func (c *DefaultApiService) DeleteUser(ServiceSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1148,14 +959,6 @@ func (c *DefaultApiService) DeleteUser(ServiceSid string, Sid string) error {
 	return nil
 }
 
-// DeleteUserBinding Method for DeleteUserBinding
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the User Binding resource from.
-//
-// param: UserSid The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) with the User Binding resources to delete.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-//
-// param: Sid The SID of the User Binding resource to delete.
-//
 func (c *DefaultApiService) DeleteUserBinding(ServiceSid string, UserSid string, Sid string) error {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1175,16 +978,7 @@ func (c *DefaultApiService) DeleteUserBinding(ServiceSid string, UserSid string,
 	return nil
 }
 
-// DeleteUserChannel Method for DeleteUserChannel
-//
 // Removes User from selected Channel.
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from.
-//
-// param: UserSid The SID of the [User](https://www.twilio.com/docs/api/chat/rest/users) to read the User Channel resources from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/api/chat/rest/channels) the resource belongs to.
-//
 func (c *DefaultApiService) DeleteUserChannel(ServiceSid string, UserSid string, ChannelSid string) error {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1204,13 +998,6 @@ func (c *DefaultApiService) DeleteUserChannel(ServiceSid string, UserSid string,
 	return nil
 }
 
-// FetchBinding Method for FetchBinding
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the Binding resource from.
-//
-// param: Sid The SID of the Binding resource to fetch.
-//
-// return: ChatV2ServiceBinding
 func (c *DefaultApiService) FetchBinding(ServiceSid string, Sid string) (*ChatV2ServiceBinding, error) {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1234,13 +1021,6 @@ func (c *DefaultApiService) FetchBinding(ServiceSid string, Sid string) (*ChatV2
 	return ps, err
 }
 
-// FetchChannel Method for FetchChannel
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the Channel resource from.
-//
-// param: Sid The SID of the Channel resource to fetch. This value can be either the `sid` or the `unique_name` of the Channel resource to fetch.
-//
-// return: ChatV2ServiceChannel
 func (c *DefaultApiService) FetchChannel(ServiceSid string, Sid string) (*ChatV2ServiceChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1264,15 +1044,6 @@ func (c *DefaultApiService) FetchChannel(ServiceSid string, Sid string) (*ChatV2
 	return ps, err
 }
 
-// FetchChannelWebhook Method for FetchChannelWebhook
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) with the Channel to fetch the Webhook resource from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Channel Webhook resource to fetch belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: Sid The SID of the Channel Webhook resource to fetch.
-//
-// return: ChatV2ServiceChannelChannelWebhook
 func (c *DefaultApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, Sid string) (*ChatV2ServiceChannelChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1297,11 +1068,6 @@ func (c *DefaultApiService) FetchChannelWebhook(ServiceSid string, ChannelSid st
 	return ps, err
 }
 
-// FetchCredential Method for FetchCredential
-//
-// param: Sid The SID of the Credential resource to fetch.
-//
-// return: ChatV2Credential
 func (c *DefaultApiService) FetchCredential(Sid string) (*ChatV2Credential, error) {
 	path := "/v2/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1324,15 +1090,6 @@ func (c *DefaultApiService) FetchCredential(Sid string) (*ChatV2Credential, erro
 	return ps, err
 }
 
-// FetchInvite Method for FetchInvite
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the Invite resource from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Invite resource to fetch belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: Sid The SID of the Invite resource to fetch.
-//
-// return: ChatV2ServiceChannelInvite
 func (c *DefaultApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*ChatV2ServiceChannelInvite, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1357,15 +1114,6 @@ func (c *DefaultApiService) FetchInvite(ServiceSid string, ChannelSid string, Si
 	return ps, err
 }
 
-// FetchMember Method for FetchMember
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the Member resource from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Member resource to fetch belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: Sid The SID of the Member resource to fetch. This value can be either the Member's `sid` or its `identity` value.
-//
-// return: ChatV2ServiceChannelMember
 func (c *DefaultApiService) FetchMember(ServiceSid string, ChannelSid string, Sid string) (*ChatV2ServiceChannelMember, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1390,15 +1138,6 @@ func (c *DefaultApiService) FetchMember(ServiceSid string, ChannelSid string, Si
 	return ps, err
 }
 
-// FetchMessage Method for FetchMessage
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the Message resource from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Message resource to fetch belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: Sid The SID of the Message resource to fetch.
-//
-// return: ChatV2ServiceChannelMessage
 func (c *DefaultApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid string) (*ChatV2ServiceChannelMessage, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1423,13 +1162,6 @@ func (c *DefaultApiService) FetchMessage(ServiceSid string, ChannelSid string, S
 	return ps, err
 }
 
-// FetchRole Method for FetchRole
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the Role resource from.
-//
-// param: Sid The SID of the Role resource to fetch.
-//
-// return: ChatV2ServiceRole
 func (c *DefaultApiService) FetchRole(ServiceSid string, Sid string) (*ChatV2ServiceRole, error) {
 	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1453,11 +1185,6 @@ func (c *DefaultApiService) FetchRole(ServiceSid string, Sid string) (*ChatV2Ser
 	return ps, err
 }
 
-// FetchService Method for FetchService
-//
-// param: Sid The SID of the Service resource to fetch.
-//
-// return: ChatV2Service
 func (c *DefaultApiService) FetchService(Sid string) (*ChatV2Service, error) {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1480,13 +1207,6 @@ func (c *DefaultApiService) FetchService(Sid string) (*ChatV2Service, error) {
 	return ps, err
 }
 
-// FetchUser Method for FetchUser
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the User resource from.
-//
-// param: Sid The SID of the User resource to fetch. This value can be either the `sid` or the `identity` of the User resource to fetch.
-//
-// return: ChatV2ServiceUser
 func (c *DefaultApiService) FetchUser(ServiceSid string, Sid string) (*ChatV2ServiceUser, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1510,15 +1230,6 @@ func (c *DefaultApiService) FetchUser(ServiceSid string, Sid string) (*ChatV2Ser
 	return ps, err
 }
 
-// FetchUserBinding Method for FetchUserBinding
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the User Binding resource from.
-//
-// param: UserSid The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) with the User Binding resource to fetch.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-//
-// param: Sid The SID of the User Binding resource to fetch.
-//
-// return: ChatV2ServiceUserUserBinding
 func (c *DefaultApiService) FetchUserBinding(ServiceSid string, UserSid string, Sid string) (*ChatV2ServiceUserUserBinding, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1543,15 +1254,6 @@ func (c *DefaultApiService) FetchUserBinding(ServiceSid string, UserSid string, 
 	return ps, err
 }
 
-// FetchUserChannel Method for FetchUserChannel
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the User Channel resource from.
-//
-// param: UserSid The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) to fetch the User Channel resource from. This value can be either the `sid` or the `identity` of the User resource.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) that has the User Channel to fetch. This value can be either the `sid` or the `unique_name` of the Channel to fetch.
-//
-// return: ChatV2ServiceUserUserChannel
 func (c *DefaultApiService) FetchUserChannel(ServiceSid string, UserSid string, ChannelSid string) (*ChatV2ServiceUserUserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1576,11 +1278,14 @@ func (c *DefaultApiService) FetchUserChannel(ServiceSid string, UserSid string, 
 	return ps, err
 }
 
-// ListBindingParams Optional parameters for the method 'ListBinding'
+// Optional parameters for the method 'ListBinding'
 type ListBindingParams struct {
+	// The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
 	BindingType *[]string `json:"BindingType,omitempty"`
-	Identity    *[]string `json:"Identity,omitempty"`
-	PageSize    *int32    `json:"PageSize,omitempty"`
+	// The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
+	Identity *[]string `json:"Identity,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListBindingParams) SetBindingType(BindingType []string) *ListBindingParams {
@@ -1596,19 +1301,6 @@ func (params *ListBindingParams) SetPageSize(PageSize int32) *ListBindingParams 
 	return params
 }
 
-// ListBinding Method for ListBinding
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the Binding resources from.
-//
-// param: optional nil or *ListBindingParams - Optional Parameters:
-//
-// param: "BindingType" ([]string) - The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-//
-// param: "Identity" ([]string) - The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListBindingResponse
 func (c *DefaultApiService) ListBinding(ServiceSid string, params *ListBindingParams) (*ListBindingResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Bindings"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1641,10 +1333,12 @@ func (c *DefaultApiService) ListBinding(ServiceSid string, params *ListBindingPa
 	return ps, err
 }
 
-// ListChannelParams Optional parameters for the method 'ListChannel'
+// Optional parameters for the method 'ListChannel'
 type ListChannelParams struct {
-	Type     *[]string `json:"Type,omitempty"`
-	PageSize *int32    `json:"PageSize,omitempty"`
+	// The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
+	Type *[]string `json:"Type,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListChannelParams) SetType(Type []string) *ListChannelParams {
@@ -1656,17 +1350,6 @@ func (params *ListChannelParams) SetPageSize(PageSize int32) *ListChannelParams 
 	return params
 }
 
-// ListChannel Method for ListChannel
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the Channel resources from.
-//
-// param: optional nil or *ListChannelParams - Optional Parameters:
-//
-// param: "Type" ([]string) - The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListChannelResponse
 func (c *DefaultApiService) ListChannel(ServiceSid string, params *ListChannelParams) (*ListChannelResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1696,8 +1379,9 @@ func (c *DefaultApiService) ListChannel(ServiceSid string, params *ListChannelPa
 	return ps, err
 }
 
-// ListChannelWebhookParams Optional parameters for the method 'ListChannelWebhook'
+// Optional parameters for the method 'ListChannelWebhook'
 type ListChannelWebhookParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1706,17 +1390,6 @@ func (params *ListChannelWebhookParams) SetPageSize(PageSize int32) *ListChannel
 	return params
 }
 
-// ListChannelWebhook Method for ListChannelWebhook
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) with the Channel to read the resources from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Channel Webhook resources to read belong to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: optional nil or *ListChannelWebhookParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListChannelWebhookResponse
 func (c *DefaultApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) (*ListChannelWebhookResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1744,8 +1417,9 @@ func (c *DefaultApiService) ListChannelWebhook(ServiceSid string, ChannelSid str
 	return ps, err
 }
 
-// ListCredentialParams Optional parameters for the method 'ListCredential'
+// Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1754,13 +1428,6 @@ func (params *ListCredentialParams) SetPageSize(PageSize int32) *ListCredentialP
 	return params
 }
 
-// ListCredential Method for ListCredential
-//
-// param: optional nil or *ListCredentialParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListCredentialResponse
 func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListCredentialResponse, error) {
 	path := "/v2/Credentials"
 
@@ -1786,10 +1453,12 @@ func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListC
 	return ps, err
 }
 
-// ListInviteParams Optional parameters for the method 'ListInvite'
+// Optional parameters for the method 'ListInvite'
 type ListInviteParams struct {
+	// The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
 	Identity *[]string `json:"Identity,omitempty"`
-	PageSize *int32    `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListInviteParams) SetIdentity(Identity []string) *ListInviteParams {
@@ -1801,19 +1470,6 @@ func (params *ListInviteParams) SetPageSize(PageSize int32) *ListInviteParams {
 	return params
 }
 
-// ListInvite Method for ListInvite
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the Invite resources from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Invite resources to read belong to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: optional nil or *ListInviteParams - Optional Parameters:
-//
-// param: "Identity" ([]string) - The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListInviteResponse
 func (c *DefaultApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) (*ListInviteResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1844,10 +1500,12 @@ func (c *DefaultApiService) ListInvite(ServiceSid string, ChannelSid string, par
 	return ps, err
 }
 
-// ListMemberParams Optional parameters for the method 'ListMember'
+// Optional parameters for the method 'ListMember'
 type ListMemberParams struct {
+	// The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the Member resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
 	Identity *[]string `json:"Identity,omitempty"`
-	PageSize *int32    `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListMemberParams) SetIdentity(Identity []string) *ListMemberParams {
@@ -1859,19 +1517,6 @@ func (params *ListMemberParams) SetPageSize(PageSize int32) *ListMemberParams {
 	return params
 }
 
-// ListMember Method for ListMember
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the Member resources from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Member resources to read belong to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: optional nil or *ListMemberParams - Optional Parameters:
-//
-// param: "Identity" ([]string) - The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the Member resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListMemberResponse
 func (c *DefaultApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams) (*ListMemberResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1902,10 +1547,12 @@ func (c *DefaultApiService) ListMember(ServiceSid string, ChannelSid string, par
 	return ps, err
 }
 
-// ListMessageParams Optional parameters for the method 'ListMessage'
+// Optional parameters for the method 'ListMessage'
 type ListMessageParams struct {
-	Order    *string `json:"Order,omitempty"`
-	PageSize *int32  `json:"PageSize,omitempty"`
+	// The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default.
+	Order *string `json:"Order,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListMessageParams) SetOrder(Order string) *ListMessageParams {
@@ -1917,19 +1564,6 @@ func (params *ListMessageParams) SetPageSize(PageSize int32) *ListMessageParams 
 	return params
 }
 
-// ListMessage Method for ListMessage
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the Message resources from.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Message resource to read belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: optional nil or *ListMessageParams - Optional Parameters:
-//
-// param: "Order" (string) - The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListMessageResponse
 func (c *DefaultApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) (*ListMessageResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1960,8 +1594,9 @@ func (c *DefaultApiService) ListMessage(ServiceSid string, ChannelSid string, pa
 	return ps, err
 }
 
-// ListRoleParams Optional parameters for the method 'ListRole'
+// Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1970,15 +1605,6 @@ func (params *ListRoleParams) SetPageSize(PageSize int32) *ListRoleParams {
 	return params
 }
 
-// ListRole Method for ListRole
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the Role resources from.
-//
-// param: optional nil or *ListRoleParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListRoleResponse
 func (c *DefaultApiService) ListRole(ServiceSid string, params *ListRoleParams) (*ListRoleResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2005,8 +1631,9 @@ func (c *DefaultApiService) ListRole(ServiceSid string, params *ListRoleParams) 
 	return ps, err
 }
 
-// ListServiceParams Optional parameters for the method 'ListService'
+// Optional parameters for the method 'ListService'
 type ListServiceParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -2015,13 +1642,6 @@ func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams 
 	return params
 }
 
-// ListService Method for ListService
-//
-// param: optional nil or *ListServiceParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListServiceResponse
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListServiceResponse, error) {
 	path := "/v2/Services"
 
@@ -2047,8 +1667,9 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 	return ps, err
 }
 
-// ListUserParams Optional parameters for the method 'ListUser'
+// Optional parameters for the method 'ListUser'
 type ListUserParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -2057,15 +1678,6 @@ func (params *ListUserParams) SetPageSize(PageSize int32) *ListUserParams {
 	return params
 }
 
-// ListUser Method for ListUser
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the User resources from.
-//
-// param: optional nil or *ListUserParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUserResponse
 func (c *DefaultApiService) ListUser(ServiceSid string, params *ListUserParams) (*ListUserResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2092,10 +1704,12 @@ func (c *DefaultApiService) ListUser(ServiceSid string, params *ListUserParams) 
 	return ps, err
 }
 
-// ListUserBindingParams Optional parameters for the method 'ListUserBinding'
+// Optional parameters for the method 'ListUserBinding'
 type ListUserBindingParams struct {
+	// The push technology used by the User Binding resources to read. Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
 	BindingType *[]string `json:"BindingType,omitempty"`
-	PageSize    *int32    `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListUserBindingParams) SetBindingType(BindingType []string) *ListUserBindingParams {
@@ -2107,19 +1721,6 @@ func (params *ListUserBindingParams) SetPageSize(PageSize int32) *ListUserBindin
 	return params
 }
 
-// ListUserBinding Method for ListUserBinding
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the User Binding resources from.
-//
-// param: UserSid The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) with the User Binding resources to read.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-//
-// param: optional nil or *ListUserBindingParams - Optional Parameters:
-//
-// param: "BindingType" ([]string) - The push technology used by the User Binding resources to read. Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUserBindingResponse
 func (c *DefaultApiService) ListUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams) (*ListUserBindingResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2150,8 +1751,9 @@ func (c *DefaultApiService) ListUserBinding(ServiceSid string, UserSid string, p
 	return ps, err
 }
 
-// ListUserChannelParams Optional parameters for the method 'ListUserChannel'
+// Optional parameters for the method 'ListUserChannel'
 type ListUserChannelParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -2160,19 +1762,7 @@ func (params *ListUserChannelParams) SetPageSize(PageSize int32) *ListUserChanne
 	return params
 }
 
-// ListUserChannel Method for ListUserChannel
-//
 // List all Channels for a given User.
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the User Channel resources from.
-//
-// param: UserSid The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) to read the User Channel resources from. This value can be either the `sid` or the `identity` of the User resource.
-//
-// param: optional nil or *ListUserChannelParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUserChannelResponse
 func (c *DefaultApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) (*ListUserChannelResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2200,15 +1790,22 @@ func (c *DefaultApiService) ListUserChannel(ServiceSid string, UserSid string, p
 	return ps, err
 }
 
-// UpdateChannelParams Optional parameters for the method 'UpdateChannel'
+// Optional parameters for the method 'UpdateChannel'
 type UpdateChannelParams struct {
-	XTwilioWebhookEnabled *string    `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	Attributes            *string    `json:"Attributes,omitempty"`
-	CreatedBy             *string    `json:"CreatedBy,omitempty"`
-	DateCreated           *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated           *time.Time `json:"DateUpdated,omitempty"`
-	FriendlyName          *string    `json:"FriendlyName,omitempty"`
-	UniqueName            *string    `json:"UniqueName,omitempty"`
+	// The X-Twilio-Webhook-Enabled HTTP request header
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
+	// The `identity` of the User that created the channel. Default is: `system`.
+	CreatedBy *string `json:"CreatedBy,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 256 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *UpdateChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateChannelParams {
@@ -2240,29 +1837,6 @@ func (params *UpdateChannelParams) SetUniqueName(UniqueName string) *UpdateChann
 	return params
 }
 
-// UpdateChannel Method for UpdateChannel
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Channel resource in.
-//
-// param: Sid The SID of the Channel resource to update. This value can be either the `sid` or the `unique_name` of the Channel resource to update.
-//
-// param: optional nil or *UpdateChannelParams - Optional Parameters:
-//
-// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-//
-// param: "Attributes" (string) - A valid JSON string that contains application-specific data.
-//
-// param: "CreatedBy" (string) - The `identity` of the User that created the channel. Default is: `system`.
-//
-// param: "DateCreated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this should only be used in cases where a Channel is being recreated from a backup/separate source.
-//
-// param: "DateUpdated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 256 characters long.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL. This value must be 256 characters or less in length and unique within the Service.
-//
-// return: ChatV2ServiceChannel
 func (c *DefaultApiService) UpdateChannel(ServiceSid string, Sid string, params *UpdateChannelParams) (*ChatV2ServiceChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2309,14 +1883,20 @@ func (c *DefaultApiService) UpdateChannel(ServiceSid string, Sid string, params 
 	return ps, err
 }
 
-// UpdateChannelWebhookParams Optional parameters for the method 'UpdateChannelWebhook'
+// Optional parameters for the method 'UpdateChannelWebhook'
 type UpdateChannelWebhookParams struct {
-	ConfigurationFilters    *[]string `json:"Configuration.Filters,omitempty"`
-	ConfigurationFlowSid    *string   `json:"Configuration.FlowSid,omitempty"`
-	ConfigurationMethod     *string   `json:"Configuration.Method,omitempty"`
-	ConfigurationRetryCount *int32    `json:"Configuration.RetryCount,omitempty"`
-	ConfigurationTriggers   *[]string `json:"Configuration.Triggers,omitempty"`
-	ConfigurationUrl        *string   `json:"Configuration.Url,omitempty"`
+	// The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
+	ConfigurationFilters *[]string `json:"Configuration.Filters,omitempty"`
+	// The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
+	ConfigurationFlowSid *string `json:"Configuration.FlowSid,omitempty"`
+	// The HTTP method used to call `configuration.url`. Can be: `GET` or `POST` and the default is `POST`.
+	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
+	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+	ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
+	// A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
+	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
+	// The URL of the webhook to call using the `configuration.method`.
+	ConfigurationUrl *string `json:"Configuration.Url,omitempty"`
 }
 
 func (params *UpdateChannelWebhookParams) SetConfigurationFilters(ConfigurationFilters []string) *UpdateChannelWebhookParams {
@@ -2344,29 +1924,6 @@ func (params *UpdateChannelWebhookParams) SetConfigurationUrl(ConfigurationUrl s
 	return params
 }
 
-// UpdateChannelWebhook Method for UpdateChannelWebhook
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) with the Channel that has the Webhook resource to update.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Channel Webhook resource to update belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: Sid The SID of the Channel Webhook resource to update.
-//
-// param: optional nil or *UpdateChannelWebhookParams - Optional Parameters:
-//
-// param: "ConfigurationFilters" ([]string) - The events that cause us to call the Channel Webhook. Used when `type` is `webhook`. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
-//
-// param: "ConfigurationFlowSid" (string) - The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in `configuration.filters` occurs. Used only when `type` = `studio`.
-//
-// param: "ConfigurationMethod" (string) - The HTTP method used to call `configuration.url`. Can be: `GET` or `POST` and the default is `POST`.
-//
-// param: "ConfigurationRetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
-//
-// param: "ConfigurationTriggers" ([]string) - A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
-//
-// param: "ConfigurationUrl" (string) - The URL of the webhook to call using the `configuration.method`.
-//
-// return: ChatV2ServiceChannelChannelWebhook
 func (c *DefaultApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*ChatV2ServiceChannelChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2410,14 +1967,20 @@ func (c *DefaultApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid s
 	return ps, err
 }
 
-// UpdateCredentialParams Optional parameters for the method 'UpdateCredential'
+// Optional parameters for the method 'UpdateCredential'
 type UpdateCredentialParams struct {
-	ApiKey       *string `json:"ApiKey,omitempty"`
-	Certificate  *string `json:"Certificate,omitempty"`
+	// [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
+	ApiKey *string `json:"ApiKey,omitempty"`
+	// [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
+	Certificate *string `json:"Certificate,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PrivateKey   *string `json:"PrivateKey,omitempty"`
-	Sandbox      *bool   `json:"Sandbox,omitempty"`
-	Secret       *string `json:"Secret,omitempty"`
+	// [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	// [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	// [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
+	Secret *string `json:"Secret,omitempty"`
 }
 
 func (params *UpdateCredentialParams) SetApiKey(ApiKey string) *UpdateCredentialParams {
@@ -2445,25 +2008,6 @@ func (params *UpdateCredentialParams) SetSecret(Secret string) *UpdateCredential
 	return params
 }
 
-// UpdateCredential Method for UpdateCredential
-//
-// param: Sid The SID of the Credential resource to update.
-//
-// param: optional nil or *UpdateCredentialParams - Optional Parameters:
-//
-// param: "ApiKey" (string) - [GCM only] The API key for the project that was obtained from the Google Developer console for your GCM Service application credential.
-//
-// param: "Certificate" (string) - [APN only] The URL encoded representation of the certificate. For example,  `-----BEGIN CERTIFICATE----- MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEF.....A== -----END CERTIFICATE-----`
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-//
-// param: "PrivateKey" (string) - [APN only] The URL encoded representation of the private key. For example, `-----BEGIN RSA PRIVATE KEY----- MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fG... -----END RSA PRIVATE KEY-----`
-//
-// param: "Sandbox" (bool) - [APN only] Whether to send the credential to sandbox APNs. Can be `true` to send to sandbox APNs or `false` to send to production.
-//
-// param: "Secret" (string) - [FCM only] The **Server key** of your project from the Firebase console, found under Settings / Cloud messaging.
-//
-// return: ChatV2Credential
 func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentialParams) (*ChatV2Credential, error) {
 	path := "/v2/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -2505,15 +2049,22 @@ func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentia
 	return ps, err
 }
 
-// UpdateMemberParams Optional parameters for the method 'UpdateMember'
+// Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
-	XTwilioWebhookEnabled    *string    `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	Attributes               *string    `json:"Attributes,omitempty"`
-	DateCreated              *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated              *time.Time `json:"DateUpdated,omitempty"`
-	LastConsumedMessageIndex *int32     `json:"LastConsumedMessageIndex,omitempty"`
+	// The X-Twilio-Webhook-Enabled HTTP request header
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this parameter should only be used when a Member is being recreated from a backup/separate source.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) that the Member has read within the [Channel](https://www.twilio.com/docs/chat/channels).
+	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
-	RoleSid                  *string    `json:"RoleSid,omitempty"`
+	// The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/rest/service-resource).
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 func (params *UpdateMemberParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateMemberParams {
@@ -2545,31 +2096,6 @@ func (params *UpdateMemberParams) SetRoleSid(RoleSid string) *UpdateMemberParams
 	return params
 }
 
-// UpdateMember Method for UpdateMember
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Member resource in.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Member resource to update belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: Sid The SID of the Member resource to update. This value can be either the Member's `sid` or its `identity` value.
-//
-// param: optional nil or *UpdateMemberParams - Optional Parameters:
-//
-// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-//
-// param: "Attributes" (string) - A valid JSON string that contains application-specific data.
-//
-// param: "DateCreated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this parameter should only be used when a Member is being recreated from a backup/separate source.
-//
-// param: "DateUpdated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-//
-// param: "LastConsumedMessageIndex" (*int32) - The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) that the Member has read within the [Channel](https://www.twilio.com/docs/chat/channels).
-//
-// param: "LastConsumptionTimestamp" (time.Time) - The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
-//
-// param: "RoleSid" (string) - The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/rest/service-resource).
-//
-// return: ChatV2ServiceChannelMember
 func (c *DefaultApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*ChatV2ServiceChannelMember, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2617,15 +2143,22 @@ func (c *DefaultApiService) UpdateMember(ServiceSid string, ChannelSid string, S
 	return ps, err
 }
 
-// UpdateMessageParams Optional parameters for the method 'UpdateMessage'
+// Optional parameters for the method 'UpdateMessage'
 type UpdateMessageParams struct {
-	XTwilioWebhookEnabled *string    `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	Attributes            *string    `json:"Attributes,omitempty"`
-	Body                  *string    `json:"Body,omitempty"`
-	DateCreated           *time.Time `json:"DateCreated,omitempty"`
-	DateUpdated           *time.Time `json:"DateUpdated,omitempty"`
-	From                  *string    `json:"From,omitempty"`
-	LastUpdatedBy         *string    `json:"LastUpdatedBy,omitempty"`
+	// The X-Twilio-Webhook-Enabled HTTP request header
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
+	// The message to send to the channel. Can be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
+	Body *string `json:"Body,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat's history is being recreated from a backup/separate source.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
+	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
+	// The [Identity](https://www.twilio.com/docs/chat/identity) of the message's author.
+	From *string `json:"From,omitempty"`
+	// The [Identity](https://www.twilio.com/docs/chat/identity) of the User who last updated the Message, if applicable.
+	LastUpdatedBy *string `json:"LastUpdatedBy,omitempty"`
 }
 
 func (params *UpdateMessageParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateMessageParams {
@@ -2657,31 +2190,6 @@ func (params *UpdateMessageParams) SetLastUpdatedBy(LastUpdatedBy string) *Updat
 	return params
 }
 
-// UpdateMessage Method for UpdateMessage
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Message resource in.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) the Message resource to update belongs to. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: Sid The SID of the Message resource to update.
-//
-// param: optional nil or *UpdateMessageParams - Optional Parameters:
-//
-// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-//
-// param: "Attributes" (string) - A valid JSON string that contains application-specific data.
-//
-// param: "Body" (string) - The message to send to the channel. Can be an empty string or `null`, which sets the value as an empty string. You can send structured data in the body by serializing it as a string.
-//
-// param: "DateCreated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service. This parameter should only be used when a Chat's history is being recreated from a backup/separate source.
-//
-// param: "DateUpdated" (time.Time) - The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-//
-// param: "From" (string) - The [Identity](https://www.twilio.com/docs/chat/identity) of the message's author.
-//
-// param: "LastUpdatedBy" (string) - The [Identity](https://www.twilio.com/docs/chat/identity) of the User who last updated the Message, if applicable.
-//
-// return: ChatV2ServiceChannelMessage
 func (c *DefaultApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*ChatV2ServiceChannelMessage, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2729,8 +2237,9 @@ func (c *DefaultApiService) UpdateMessage(ServiceSid string, ChannelSid string, 
 	return ps, err
 }
 
-// UpdateRoleParams Optional parameters for the method 'UpdateRole'
+// Optional parameters for the method 'UpdateRole'
 type UpdateRoleParams struct {
+	// A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
 	Permission *[]string `json:"Permission,omitempty"`
 }
 
@@ -2739,17 +2248,6 @@ func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRolePa
 	return params
 }
 
-// UpdateRole Method for UpdateRole
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the Role resource in.
-//
-// param: Sid The SID of the Role resource to update.
-//
-// param: optional nil or *UpdateRoleParams - Optional Parameters:
-//
-// param: "Permission" ([]string) - A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
-//
-// return: ChatV2ServiceRole
 func (c *DefaultApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRoleParams) (*ChatV2ServiceRole, error) {
 	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2777,39 +2275,70 @@ func (c *DefaultApiService) UpdateRole(ServiceSid string, Sid string, params *Up
 	return ps, err
 }
 
-// UpdateServiceParams Optional parameters for the method 'UpdateService'
+// Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-	ConsumptionReportInterval                *int32    `json:"ConsumptionReportInterval,omitempty"`
-	DefaultChannelCreatorRoleSid             *string   `json:"DefaultChannelCreatorRoleSid,omitempty"`
-	DefaultChannelRoleSid                    *string   `json:"DefaultChannelRoleSid,omitempty"`
-	DefaultServiceRoleSid                    *string   `json:"DefaultServiceRoleSid,omitempty"`
-	FriendlyName                             *string   `json:"FriendlyName,omitempty"`
-	LimitsChannelMembers                     *int32    `json:"Limits.ChannelMembers,omitempty"`
-	LimitsUserChannels                       *int32    `json:"Limits.UserChannels,omitempty"`
-	MediaCompatibilityMessage                *string   `json:"Media.CompatibilityMessage,omitempty"`
-	NotificationsAddedToChannelEnabled       *bool     `json:"Notifications.AddedToChannel.Enabled,omitempty"`
-	NotificationsAddedToChannelSound         *string   `json:"Notifications.AddedToChannel.Sound,omitempty"`
-	NotificationsAddedToChannelTemplate      *string   `json:"Notifications.AddedToChannel.Template,omitempty"`
-	NotificationsInvitedToChannelEnabled     *bool     `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
-	NotificationsInvitedToChannelSound       *string   `json:"Notifications.InvitedToChannel.Sound,omitempty"`
-	NotificationsInvitedToChannelTemplate    *string   `json:"Notifications.InvitedToChannel.Template,omitempty"`
-	NotificationsLogEnabled                  *bool     `json:"Notifications.LogEnabled,omitempty"`
-	NotificationsNewMessageBadgeCountEnabled *bool     `json:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
-	NotificationsNewMessageEnabled           *bool     `json:"Notifications.NewMessage.Enabled,omitempty"`
-	NotificationsNewMessageSound             *string   `json:"Notifications.NewMessage.Sound,omitempty"`
-	NotificationsNewMessageTemplate          *string   `json:"Notifications.NewMessage.Template,omitempty"`
-	NotificationsRemovedFromChannelEnabled   *bool     `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
-	NotificationsRemovedFromChannelSound     *string   `json:"Notifications.RemovedFromChannel.Sound,omitempty"`
-	NotificationsRemovedFromChannelTemplate  *string   `json:"Notifications.RemovedFromChannel.Template,omitempty"`
-	PostWebhookRetryCount                    *int32    `json:"PostWebhookRetryCount,omitempty"`
-	PostWebhookUrl                           *string   `json:"PostWebhookUrl,omitempty"`
-	PreWebhookRetryCount                     *int32    `json:"PreWebhookRetryCount,omitempty"`
-	PreWebhookUrl                            *string   `json:"PreWebhookUrl,omitempty"`
-	ReachabilityEnabled                      *bool     `json:"ReachabilityEnabled,omitempty"`
-	ReadStatusEnabled                        *bool     `json:"ReadStatusEnabled,omitempty"`
-	TypingIndicatorTimeout                   *int32    `json:"TypingIndicatorTimeout,omitempty"`
-	WebhookFilters                           *[]string `json:"WebhookFilters,omitempty"`
-	WebhookMethod                            *string   `json:"WebhookMethod,omitempty"`
+	// DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
+	ConsumptionReportInterval *int32 `json:"ConsumptionReportInterval,omitempty"`
+	// The channel role assigned to a channel creator when they join a new channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
+	DefaultChannelCreatorRoleSid *string `json:"DefaultChannelCreatorRoleSid,omitempty"`
+	// The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
+	DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
+	// The service role assigned to users when they are added to the service. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
+	DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
+	// A descriptive string that you create to describe the resource.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
+	LimitsChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
+	// The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
+	LimitsUserChannels *int32 `json:"Limits.UserChannels,omitempty"`
+	// The message to send when a media message has no text. Can be used as placeholder message.
+	MediaCompatibilityMessage *string `json:"Media.CompatibilityMessage,omitempty"`
+	// Whether to send a notification when a member is added to a channel. The default is `false`.
+	NotificationsAddedToChannelEnabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
+	// The name of the sound to play when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
+	NotificationsAddedToChannelSound *string `json:"Notifications.AddedToChannel.Sound,omitempty"`
+	// The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
+	NotificationsAddedToChannelTemplate *string `json:"Notifications.AddedToChannel.Template,omitempty"`
+	// Whether to send a notification when a user is invited to a channel. The default is `false`.
+	NotificationsInvitedToChannelEnabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
+	// The name of the sound to play when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
+	NotificationsInvitedToChannelSound *string `json:"Notifications.InvitedToChannel.Sound,omitempty"`
+	// The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
+	NotificationsInvitedToChannelTemplate *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
+	// Whether to log notifications. The default is `false`.
+	NotificationsLogEnabled *bool `json:"Notifications.LogEnabled,omitempty"`
+	// Whether the new message badge is enabled. The default is `false`.
+	NotificationsNewMessageBadgeCountEnabled *bool `json:"Notifications.NewMessage.BadgeCountEnabled,omitempty"`
+	// Whether to send a notification when a new message is added to a channel. The default is `false`.
+	NotificationsNewMessageEnabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
+	// The name of the sound to play when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
+	NotificationsNewMessageSound *string `json:"Notifications.NewMessage.Sound,omitempty"`
+	// The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
+	NotificationsNewMessageTemplate *string `json:"Notifications.NewMessage.Template,omitempty"`
+	// Whether to send a notification to a user when they are removed from a channel. The default is `false`.
+	NotificationsRemovedFromChannelEnabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
+	// The name of the sound to play to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
+	NotificationsRemovedFromChannelSound *string `json:"Notifications.RemovedFromChannel.Sound,omitempty"`
+	// The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
+	NotificationsRemovedFromChannelTemplate *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
+	// The number of times to retry a call to the `post_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. The default is 0, which means the call won't be retried.
+	PostWebhookRetryCount *int32 `json:"PostWebhookRetryCount,omitempty"`
+	// The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
+	// The number of times to retry a call to the `pre_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. Default retry count is 0 times, which means the call won't be retried.
+	PreWebhookRetryCount *int32 `json:"PreWebhookRetryCount,omitempty"`
+	// The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
+	// Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
+	ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
+	// Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
+	ReadStatusEnabled *bool `json:"ReadStatusEnabled,omitempty"`
+	// How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
+	TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
+	// The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+	WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
+	// The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
 }
 
 func (params *UpdateServiceParams) SetConsumptionReportInterval(ConsumptionReportInterval int32) *UpdateServiceParams {
@@ -2937,75 +2466,6 @@ func (params *UpdateServiceParams) SetWebhookMethod(WebhookMethod string) *Updat
 	return params
 }
 
-// UpdateService Method for UpdateService
-//
-// param: Sid The SID of the Service resource to update.
-//
-// param: optional nil or *UpdateServiceParams - Optional Parameters:
-//
-// param: "ConsumptionReportInterval" (int32) - DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-//
-// param: "DefaultChannelCreatorRoleSid" (string) - The channel role assigned to a channel creator when they join a new channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
-//
-// param: "DefaultChannelRoleSid" (string) - The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
-//
-// param: "DefaultServiceRoleSid" (string) - The service role assigned to users when they are added to the service. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource.
-//
-// param: "LimitsChannelMembers" (int32) - The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
-//
-// param: "LimitsUserChannels" (int32) - The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
-//
-// param: "MediaCompatibilityMessage" (string) - The message to send when a media message has no text. Can be used as placeholder message.
-//
-// param: "NotificationsAddedToChannelEnabled" (bool) - Whether to send a notification when a member is added to a channel. The default is `false`.
-//
-// param: "NotificationsAddedToChannelSound" (string) - The name of the sound to play when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
-//
-// param: "NotificationsAddedToChannelTemplate" (string) - The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
-//
-// param: "NotificationsInvitedToChannelEnabled" (bool) - Whether to send a notification when a user is invited to a channel. The default is `false`.
-//
-// param: "NotificationsInvitedToChannelSound" (string) - The name of the sound to play when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
-//
-// param: "NotificationsInvitedToChannelTemplate" (string) - The template to use to create the notification text displayed when a user is invited to a channel and `notifications.invited_to_channel.enabled` is `true`.
-//
-// param: "NotificationsLogEnabled" (bool) - Whether to log notifications. The default is `false`.
-//
-// param: "NotificationsNewMessageBadgeCountEnabled" (bool) - Whether the new message badge is enabled. The default is `false`.
-//
-// param: "NotificationsNewMessageEnabled" (bool) - Whether to send a notification when a new message is added to a channel. The default is `false`.
-//
-// param: "NotificationsNewMessageSound" (string) - The name of the sound to play when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
-//
-// param: "NotificationsNewMessageTemplate" (string) - The template to use to create the notification text displayed when a new message is added to a channel and `notifications.new_message.enabled` is `true`.
-//
-// param: "NotificationsRemovedFromChannelEnabled" (bool) - Whether to send a notification to a user when they are removed from a channel. The default is `false`.
-//
-// param: "NotificationsRemovedFromChannelSound" (string) - The name of the sound to play to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
-//
-// param: "NotificationsRemovedFromChannelTemplate" (string) - The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
-//
-// param: "PostWebhookRetryCount" (int32) - The number of times to retry a call to the `post_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. The default is 0, which means the call won't be retried.
-//
-// param: "PostWebhookUrl" (string) - The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-//
-// param: "PreWebhookRetryCount" (int32) - The number of times to retry a call to the `pre_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. Default retry count is 0 times, which means the call won't be retried.
-//
-// param: "PreWebhookUrl" (string) - The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-//
-// param: "ReachabilityEnabled" (bool) - Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
-//
-// param: "ReadStatusEnabled" (bool) - Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
-//
-// param: "TypingIndicatorTimeout" (int32) - How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
-//
-// param: "WebhookFilters" ([]string) - The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-//
-// param: "WebhookMethod" (string) - The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-//
-// return: ChatV2Service
 func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*ChatV2Service, error) {
 	path := "/v2/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -3122,12 +2582,16 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	return ps, err
 }
 
-// UpdateUserParams Optional parameters for the method 'UpdateUser'
+// Optional parameters for the method 'UpdateUser'
 type UpdateUserParams struct {
+	// The X-Twilio-Webhook-Enabled HTTP request header
 	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
-	Attributes            *string `json:"Attributes,omitempty"`
-	FriendlyName          *string `json:"FriendlyName,omitempty"`
-	RoleSid               *string `json:"RoleSid,omitempty"`
+	// A valid JSON string that contains application-specific data.
+	Attributes *string `json:"Attributes,omitempty"`
+	// A descriptive string that you create to describe the resource. It is often used for display purposes.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User.
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 func (params *UpdateUserParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *UpdateUserParams {
@@ -3147,23 +2611,6 @@ func (params *UpdateUserParams) SetRoleSid(RoleSid string) *UpdateUserParams {
 	return params
 }
 
-// UpdateUser Method for UpdateUser
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the User resource in.
-//
-// param: Sid The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
-//
-// param: optional nil or *UpdateUserParams - Optional Parameters:
-//
-// param: "XTwilioWebhookEnabled" (string) - The X-Twilio-Webhook-Enabled HTTP request header
-//
-// param: "Attributes" (string) - A valid JSON string that contains application-specific data.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is often used for display purposes.
-//
-// param: "RoleSid" (string) - The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the User.
-//
-// return: ChatV2ServiceUser
 func (c *DefaultApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUserParams) (*ChatV2ServiceUser, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -3201,11 +2648,14 @@ func (c *DefaultApiService) UpdateUser(ServiceSid string, Sid string, params *Up
 	return ps, err
 }
 
-// UpdateUserChannelParams Optional parameters for the method 'UpdateUserChannel'
+// Optional parameters for the method 'UpdateUserChannel'
 type UpdateUserChannelParams struct {
-	LastConsumedMessageIndex *int32     `json:"LastConsumedMessageIndex,omitempty"`
+	// The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
+	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
-	NotificationLevel        *string    `json:"NotificationLevel,omitempty"`
+	// The push notification level to assign to the User Channel. Can be: `default` or `muted`.
+	NotificationLevel *string `json:"NotificationLevel,omitempty"`
 }
 
 func (params *UpdateUserChannelParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int32) *UpdateUserChannelParams {
@@ -3221,23 +2671,6 @@ func (params *UpdateUserChannelParams) SetNotificationLevel(NotificationLevel st
 	return params
 }
 
-// UpdateUserChannel Method for UpdateUserChannel
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to update the User Channel resource in.
-//
-// param: UserSid The SID of the [User](https://www.twilio.com/docs/chat/rest/user-resource) to update the User Channel resource from. This value can be either the `sid` or the `identity` of the User resource.
-//
-// param: ChannelSid The SID of the [Channel](https://www.twilio.com/docs/chat/channels) with the User Channel resource to update. This value can be the Channel resource's `sid` or `unique_name`.
-//
-// param: optional nil or *UpdateUserChannelParams - Optional Parameters:
-//
-// param: "LastConsumedMessageIndex" (*int32) - The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
-//
-// param: "LastConsumptionTimestamp" (time.Time) - The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
-//
-// param: "NotificationLevel" (string) - The push notification level to assign to the User Channel. Can be: `default` or `muted`.
-//
-// return: ChatV2ServiceUserUserChannel
 func (c *DefaultApiService) UpdateUserChannel(ServiceSid string, UserSid string, ChannelSid string, params *UpdateUserChannelParams) (*ChatV2ServiceUserUserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

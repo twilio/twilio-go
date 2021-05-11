@@ -33,9 +33,11 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 	}
 }
 
-// CreateActivityParams Optional parameters for the method 'CreateActivity'
+// Optional parameters for the method 'CreateActivity'
 type CreateActivityParams struct {
-	Available    *bool   `json:"Available,omitempty"`
+	// Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
+	Available *bool `json:"Available,omitempty"`
+	// A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -48,17 +50,6 @@ func (params *CreateActivityParams) SetFriendlyName(FriendlyName string) *Create
 	return params
 }
 
-// CreateActivity Method for CreateActivity
-//
-// param: WorkspaceSid The SID of the Workspace that the new Activity belongs to.
-//
-// param: optional nil or *CreateActivityParams - Optional Parameters:
-//
-// param: "Available" (bool) - Whether the Worker should be eligible to receive a Task when it occupies the Activity. A value of `true`, `1`, or `yes` specifies the Activity is available. All other values specify that it is not. The value cannot be changed after the Activity is created.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
-//
-// return: TaskrouterV1WorkspaceActivity
 func (c *DefaultApiService) CreateActivity(WorkspaceSid string, params *CreateActivityParams) (*TaskrouterV1WorkspaceActivity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -88,12 +79,17 @@ func (c *DefaultApiService) CreateActivity(WorkspaceSid string, params *CreateAc
 	return ps, err
 }
 
-// CreateTaskParams Optional parameters for the method 'CreateTask'
+// Optional parameters for the method 'CreateTask'
 type CreateTaskParams struct {
-	Attributes  *string `json:"Attributes,omitempty"`
-	Priority    *int32  `json:"Priority,omitempty"`
+	// A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
+	Attributes *string `json:"Attributes,omitempty"`
+	// The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
+	Priority *int32 `json:"Priority,omitempty"`
+	// When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
 	TaskChannel *string `json:"TaskChannel,omitempty"`
-	Timeout     *int32  `json:"Timeout,omitempty"`
+	// The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the `task.canceled` event will fire with description `Task TTL Exceeded`.
+	Timeout *int32 `json:"Timeout,omitempty"`
+	// The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
 	WorkflowSid *string `json:"WorkflowSid,omitempty"`
 }
 
@@ -118,23 +114,6 @@ func (params *CreateTaskParams) SetWorkflowSid(WorkflowSid string) *CreateTaskPa
 	return params
 }
 
-// CreateTask Method for CreateTask
-//
-// param: WorkspaceSid The SID of the Workspace that the new Task belongs to.
-//
-// param: optional nil or *CreateTaskParams - Optional Parameters:
-//
-// param: "Attributes" (string) - A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
-//
-// param: "Priority" (int32) - The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
-//
-// param: "TaskChannel" (string) - When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
-//
-// param: "Timeout" (int32) - The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the `task.canceled` event will fire with description `Task TTL Exceeded`.
-//
-// param: "WorkflowSid" (string) - The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
-//
-// return: TaskrouterV1WorkspaceTask
 func (c *DefaultApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (*TaskrouterV1WorkspaceTask, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -173,11 +152,14 @@ func (c *DefaultApiService) CreateTask(WorkspaceSid string, params *CreateTaskPa
 	return ps, err
 }
 
-// CreateTaskChannelParams Optional parameters for the method 'CreateTaskChannel'
+// Optional parameters for the method 'CreateTaskChannel'
 type CreateTaskChannelParams struct {
-	ChannelOptimizedRouting *bool   `json:"ChannelOptimizedRouting,omitempty"`
-	FriendlyName            *string `json:"FriendlyName,omitempty"`
-	UniqueName              *string `json:"UniqueName,omitempty"`
+	// Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+	ChannelOptimizedRouting *bool `json:"ChannelOptimizedRouting,omitempty"`
+	// A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *CreateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimizedRouting bool) *CreateTaskChannelParams {
@@ -193,19 +175,6 @@ func (params *CreateTaskChannelParams) SetUniqueName(UniqueName string) *CreateT
 	return params
 }
 
-// CreateTaskChannel Method for CreateTaskChannel
-//
-// param: WorkspaceSid The SID of the Workspace that the new Task Channel belongs to.
-//
-// param: optional nil or *CreateTaskChannelParams - Optional Parameters:
-//
-// param: "ChannelOptimizedRouting" (bool) - Whether the Task Channel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the Task Channel, such as `voice` or `sms`.
-//
-// return: TaskrouterV1WorkspaceTaskChannel
 func (c *DefaultApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskChannelParams) (*TaskrouterV1WorkspaceTaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -238,14 +207,20 @@ func (c *DefaultApiService) CreateTaskChannel(WorkspaceSid string, params *Creat
 	return ps, err
 }
 
-// CreateTaskQueueParams Optional parameters for the method 'CreateTaskQueue'
+// Optional parameters for the method 'CreateTaskQueue'
 type CreateTaskQueueParams struct {
-	AssignmentActivitySid  *string `json:"AssignmentActivitySid,omitempty"`
-	FriendlyName           *string `json:"FriendlyName,omitempty"`
-	MaxReservedWorkers     *int32  `json:"MaxReservedWorkers,omitempty"`
+	// The SID of the Activity to assign Workers when a task is assigned to them.
+	AssignmentActivitySid *string `json:"AssignmentActivitySid,omitempty"`
+	// A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
+	MaxReservedWorkers *int32 `json:"MaxReservedWorkers,omitempty"`
+	// The SID of the Activity to assign Workers when a task is reserved for them.
 	ReservationActivitySid *string `json:"ReservationActivitySid,omitempty"`
-	TargetWorkers          *string `json:"TargetWorkers,omitempty"`
-	TaskOrder              *string `json:"TaskOrder,omitempty"`
+	// A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
+	TargetWorkers *string `json:"TargetWorkers,omitempty"`
+	// How Tasks will be assigned to Workers. Set this parameter to `LIFO` to assign most recently created Task first or FIFO to assign the oldest Task first. Default is `FIFO`. [Click here](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo) to learn more.
+	TaskOrder *string `json:"TaskOrder,omitempty"`
 }
 
 func (params *CreateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivitySid string) *CreateTaskQueueParams {
@@ -273,25 +248,6 @@ func (params *CreateTaskQueueParams) SetTaskOrder(TaskOrder string) *CreateTaskQ
 	return params
 }
 
-// CreateTaskQueue Method for CreateTaskQueue
-//
-// param: WorkspaceSid The SID of the Workspace that the new TaskQueue belongs to.
-//
-// param: optional nil or *CreateTaskQueueParams - Optional Parameters:
-//
-// param: "AssignmentActivitySid" (string) - The SID of the Activity to assign Workers when a task is assigned to them.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-//
-// param: "MaxReservedWorkers" (int32) - The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
-//
-// param: "ReservationActivitySid" (string) - The SID of the Activity to assign Workers when a task is reserved for them.
-//
-// param: "TargetWorkers" (string) - A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
-//
-// param: "TaskOrder" (string) - How Tasks will be assigned to Workers. Set this parameter to `LIFO` to assign most recently created Task first or FIFO to assign the oldest Task first. Default is `FIFO`. [Click here](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo) to learn more.
-//
-// return: TaskrouterV1WorkspaceTaskQueue
 func (c *DefaultApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1WorkspaceTaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -333,10 +289,13 @@ func (c *DefaultApiService) CreateTaskQueue(WorkspaceSid string, params *CreateT
 	return ps, err
 }
 
-// CreateWorkerParams Optional parameters for the method 'CreateWorker'
+// Optional parameters for the method 'CreateWorker'
 type CreateWorkerParams struct {
-	ActivitySid  *string `json:"ActivitySid,omitempty"`
-	Attributes   *string `json:"Attributes,omitempty"`
+	// The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
+	ActivitySid *string `json:"ActivitySid,omitempty"`
+	// A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+	Attributes *string `json:"Attributes,omitempty"`
+	// A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -353,19 +312,6 @@ func (params *CreateWorkerParams) SetFriendlyName(FriendlyName string) *CreateWo
 	return params
 }
 
-// CreateWorker Method for CreateWorker
-//
-// param: WorkspaceSid The SID of the Workspace that the new Worker belongs to.
-//
-// param: optional nil or *CreateWorkerParams - Optional Parameters:
-//
-// param: "ActivitySid" (string) - The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
-//
-// param: "Attributes" (string) - A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
-//
-// return: TaskrouterV1WorkspaceWorker
 func (c *DefaultApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParams) (*TaskrouterV1WorkspaceWorker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -398,13 +344,18 @@ func (c *DefaultApiService) CreateWorker(WorkspaceSid string, params *CreateWork
 	return ps, err
 }
 
-// CreateWorkflowParams Optional parameters for the method 'CreateWorkflow'
+// Optional parameters for the method 'CreateWorkflow'
 type CreateWorkflowParams struct {
-	AssignmentCallbackUrl         *string `json:"AssignmentCallbackUrl,omitempty"`
-	Configuration                 *string `json:"Configuration,omitempty"`
+	// The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
+	AssignmentCallbackUrl *string `json:"AssignmentCallbackUrl,omitempty"`
+	// A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
+	Configuration *string `json:"Configuration,omitempty"`
+	// The URL that we should call when a call to the `assignment_callback_url` fails.
 	FallbackAssignmentCallbackUrl *string `json:"FallbackAssignmentCallbackUrl,omitempty"`
-	FriendlyName                  *string `json:"FriendlyName,omitempty"`
-	TaskReservationTimeout        *int32  `json:"TaskReservationTimeout,omitempty"`
+	// A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
+	TaskReservationTimeout *int32 `json:"TaskReservationTimeout,omitempty"`
 }
 
 func (params *CreateWorkflowParams) SetAssignmentCallbackUrl(AssignmentCallbackUrl string) *CreateWorkflowParams {
@@ -428,23 +379,6 @@ func (params *CreateWorkflowParams) SetTaskReservationTimeout(TaskReservationTim
 	return params
 }
 
-// CreateWorkflow Method for CreateWorkflow
-//
-// param: WorkspaceSid The SID of the Workspace that the new Workflow to create belongs to.
-//
-// param: optional nil or *CreateWorkflowParams - Optional Parameters:
-//
-// param: "AssignmentCallbackUrl" (string) - The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
-//
-// param: "Configuration" (string) - A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
-//
-// param: "FallbackAssignmentCallbackUrl" (string) - The URL that we should call when a call to the `assignment_callback_url` fails.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
-//
-// param: "TaskReservationTimeout" (int32) - How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
-//
-// return: TaskrouterV1WorkspaceWorkflow
 func (c *DefaultApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1WorkspaceWorkflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -483,14 +417,20 @@ func (c *DefaultApiService) CreateWorkflow(WorkspaceSid string, params *CreateWo
 	return ps, err
 }
 
-// CreateWorkspaceParams Optional parameters for the method 'CreateWorkspace'
+// Optional parameters for the method 'CreateWorkspace'
 type CreateWorkspaceParams struct {
-	EventCallbackUrl     *string `json:"EventCallbackUrl,omitempty"`
-	EventsFilter         *string `json:"EventsFilter,omitempty"`
-	FriendlyName         *string `json:"FriendlyName,omitempty"`
-	MultiTaskEnabled     *bool   `json:"MultiTaskEnabled,omitempty"`
+	// The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information.
+	EventCallbackUrl *string `json:"EventCallbackUrl,omitempty"`
+	// The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+	EventsFilter *string `json:"EventsFilter,omitempty"`
+	// A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. The default is `false`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. Otherwise, each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+	MultiTaskEnabled *bool `json:"MultiTaskEnabled,omitempty"`
+	// The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`. For more information, see [Queue Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo).
 	PrioritizeQueueOrder *string `json:"PrioritizeQueueOrder,omitempty"`
-	Template             *string `json:"Template,omitempty"`
+	// An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
+	Template *string `json:"Template,omitempty"`
 }
 
 func (params *CreateWorkspaceParams) SetEventCallbackUrl(EventCallbackUrl string) *CreateWorkspaceParams {
@@ -518,23 +458,6 @@ func (params *CreateWorkspaceParams) SetTemplate(Template string) *CreateWorkspa
 	return params
 }
 
-// CreateWorkspace Method for CreateWorkspace
-//
-// param: optional nil or *CreateWorkspaceParams - Optional Parameters:
-//
-// param: "EventCallbackUrl" (string) - The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information.
-//
-// param: "EventsFilter" (string) - The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
-//
-// param: "MultiTaskEnabled" (bool) - Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. The default is `false`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. Otherwise, each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-//
-// param: "PrioritizeQueueOrder" (string) - The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`. For more information, see [Queue Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo).
-//
-// param: "Template" (string) - An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
-//
-// return: TaskrouterV1Workspace
 func (c *DefaultApiService) CreateWorkspace(params *CreateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces"
 
@@ -575,12 +498,6 @@ func (c *DefaultApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Tas
 	return ps, err
 }
 
-// DeleteActivity Method for DeleteActivity
-//
-// param: WorkspaceSid The SID of the Workspace with the Activity resources to delete.
-//
-// param: Sid The SID of the Activity resource to delete.
-//
 func (c *DefaultApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -599,8 +516,9 @@ func (c *DefaultApiService) DeleteActivity(WorkspaceSid string, Sid string) erro
 	return nil
 }
 
-// DeleteTaskParams Optional parameters for the method 'DeleteTask'
+// Optional parameters for the method 'DeleteTask'
 type DeleteTaskParams struct {
+	// If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 	IfMatch *string `json:"If-Match,omitempty"`
 }
 
@@ -609,16 +527,6 @@ func (params *DeleteTaskParams) SetIfMatch(IfMatch string) *DeleteTaskParams {
 	return params
 }
 
-// DeleteTask Method for DeleteTask
-//
-// param: WorkspaceSid The SID of the Workspace with the Task to delete.
-//
-// param: Sid The SID of the Task resource to delete.
-//
-// param: optional nil or *DeleteTaskParams - Optional Parameters:
-//
-// param: "IfMatch" (string) - If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-//
 func (c *DefaultApiService) DeleteTask(WorkspaceSid string, Sid string, params *DeleteTaskParams) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -641,12 +549,6 @@ func (c *DefaultApiService) DeleteTask(WorkspaceSid string, Sid string, params *
 	return nil
 }
 
-// DeleteTaskChannel Method for DeleteTaskChannel
-//
-// param: WorkspaceSid The SID of the Workspace with the Task Channel to delete.
-//
-// param: Sid The SID of the Task Channel resource to delete.
-//
 func (c *DefaultApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -665,12 +567,6 @@ func (c *DefaultApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) e
 	return nil
 }
 
-// DeleteTaskQueue Method for DeleteTaskQueue
-//
-// param: WorkspaceSid The SID of the Workspace with the TaskQueue to delete.
-//
-// param: Sid The SID of the TaskQueue resource to delete.
-//
 func (c *DefaultApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -689,12 +585,6 @@ func (c *DefaultApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) err
 	return nil
 }
 
-// DeleteWorker Method for DeleteWorker
-//
-// param: WorkspaceSid The SID of the Workspace with the Worker to delete.
-//
-// param: Sid The SID of the Worker resource to delete.
-//
 func (c *DefaultApiService) DeleteWorker(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -713,12 +603,6 @@ func (c *DefaultApiService) DeleteWorker(WorkspaceSid string, Sid string) error 
 	return nil
 }
 
-// DeleteWorkflow Method for DeleteWorkflow
-//
-// param: WorkspaceSid The SID of the Workspace with the Workflow to delete.
-//
-// param: Sid The SID of the Workflow resource to delete.
-//
 func (c *DefaultApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -737,10 +621,6 @@ func (c *DefaultApiService) DeleteWorkflow(WorkspaceSid string, Sid string) erro
 	return nil
 }
 
-// DeleteWorkspace Method for DeleteWorkspace
-//
-// param: Sid The SID of the Workspace resource to delete.
-//
 func (c *DefaultApiService) DeleteWorkspace(Sid string) error {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -758,13 +638,6 @@ func (c *DefaultApiService) DeleteWorkspace(Sid string) error {
 	return nil
 }
 
-// FetchActivity Method for FetchActivity
-//
-// param: WorkspaceSid The SID of the Workspace with the Activity resources to fetch.
-//
-// param: Sid The SID of the Activity resource to fetch.
-//
-// return: TaskrouterV1WorkspaceActivity
 func (c *DefaultApiService) FetchActivity(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceActivity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -788,13 +661,6 @@ func (c *DefaultApiService) FetchActivity(WorkspaceSid string, Sid string) (*Tas
 	return ps, err
 }
 
-// FetchEvent Method for FetchEvent
-//
-// param: WorkspaceSid The SID of the Workspace with the Event to fetch.
-//
-// param: Sid The SID of the Event resource to fetch.
-//
-// return: TaskrouterV1WorkspaceEvent
 func (c *DefaultApiService) FetchEvent(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceEvent, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Events/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -818,13 +684,6 @@ func (c *DefaultApiService) FetchEvent(WorkspaceSid string, Sid string) (*Taskro
 	return ps, err
 }
 
-// FetchTask Method for FetchTask
-//
-// param: WorkspaceSid The SID of the Workspace with the Task to fetch.
-//
-// param: Sid The SID of the Task resource to fetch.
-//
-// return: TaskrouterV1WorkspaceTask
 func (c *DefaultApiService) FetchTask(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceTask, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -848,13 +707,6 @@ func (c *DefaultApiService) FetchTask(WorkspaceSid string, Sid string) (*Taskrou
 	return ps, err
 }
 
-// FetchTaskChannel Method for FetchTaskChannel
-//
-// param: WorkspaceSid The SID of the Workspace with the Task Channel to fetch.
-//
-// param: Sid The SID of the Task Channel resource to fetch.
-//
-// return: TaskrouterV1WorkspaceTaskChannel
 func (c *DefaultApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceTaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -878,13 +730,6 @@ func (c *DefaultApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*
 	return ps, err
 }
 
-// FetchTaskQueue Method for FetchTaskQueue
-//
-// param: WorkspaceSid The SID of the Workspace with the TaskQueue to fetch.
-//
-// param: Sid The SID of the TaskQueue resource to fetch.
-//
-// return: TaskrouterV1WorkspaceTaskQueue
 func (c *DefaultApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceTaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -908,13 +753,18 @@ func (c *DefaultApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*Ta
 	return ps, err
 }
 
-// FetchTaskQueueCumulativeStatisticsParams Optional parameters for the method 'FetchTaskQueueCumulativeStatistics'
+// Optional parameters for the method 'FetchTaskQueueCumulativeStatistics'
 type FetchTaskQueueCumulativeStatisticsParams struct {
-	EndDate         *time.Time `json:"EndDate,omitempty"`
-	Minutes         *int32     `json:"Minutes,omitempty"`
-	StartDate       *time.Time `json:"StartDate,omitempty"`
-	TaskChannel     *string    `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
+	// Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+	Minutes *int32 `json:"Minutes,omitempty"`
+	// Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+	TaskChannel *string `json:"TaskChannel,omitempty"`
+	// A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
 }
 
 func (params *FetchTaskQueueCumulativeStatisticsParams) SetEndDate(EndDate time.Time) *FetchTaskQueueCumulativeStatisticsParams {
@@ -938,25 +788,6 @@ func (params *FetchTaskQueueCumulativeStatisticsParams) SetSplitByWaitTime(Split
 	return params
 }
 
-// FetchTaskQueueCumulativeStatistics Method for FetchTaskQueueCumulativeStatistics
-//
-// param: WorkspaceSid The SID of the Workspace with the TaskQueue to fetch.
-//
-// param: TaskQueueSid The SID of the TaskQueue for which to fetch statistics.
-//
-// param: optional nil or *FetchTaskQueueCumulativeStatisticsParams - Optional Parameters:
-//
-// param: "EndDate" (time.Time) - Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-//
-// param: "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-//
-// param: "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "TaskChannel" (string) - Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// param: "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-//
-// return: TaskrouterV1WorkspaceTaskQueueTaskQueueCumulativeStatistics
 func (c *DefaultApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueCumulativeStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueueCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/CumulativeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -996,8 +827,9 @@ func (c *DefaultApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid stri
 	return ps, err
 }
 
-// FetchTaskQueueRealTimeStatisticsParams Optional parameters for the method 'FetchTaskQueueRealTimeStatistics'
+// Optional parameters for the method 'FetchTaskQueueRealTimeStatistics'
 type FetchTaskQueueRealTimeStatisticsParams struct {
+	// The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 	TaskChannel *string `json:"TaskChannel,omitempty"`
 }
 
@@ -1006,17 +838,6 @@ func (params *FetchTaskQueueRealTimeStatisticsParams) SetTaskChannel(TaskChannel
 	return params
 }
 
-// FetchTaskQueueRealTimeStatistics Method for FetchTaskQueueRealTimeStatistics
-//
-// param: WorkspaceSid The SID of the Workspace with the TaskQueue to fetch.
-//
-// param: TaskQueueSid The SID of the TaskQueue for which to fetch statistics.
-//
-// param: optional nil or *FetchTaskQueueRealTimeStatisticsParams - Optional Parameters:
-//
-// param: "TaskChannel" (string) - The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// return: TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics
 func (c *DefaultApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueRealTimeStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1044,13 +865,18 @@ func (c *DefaultApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string
 	return ps, err
 }
 
-// FetchTaskQueueStatisticsParams Optional parameters for the method 'FetchTaskQueueStatistics'
+// Optional parameters for the method 'FetchTaskQueueStatistics'
 type FetchTaskQueueStatisticsParams struct {
-	EndDate         *time.Time `json:"EndDate,omitempty"`
-	Minutes         *int32     `json:"Minutes,omitempty"`
-	StartDate       *time.Time `json:"StartDate,omitempty"`
-	TaskChannel     *string    `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
+	// Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+	Minutes *int32 `json:"Minutes,omitempty"`
+	// Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+	TaskChannel *string `json:"TaskChannel,omitempty"`
+	// A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
 }
 
 func (params *FetchTaskQueueStatisticsParams) SetEndDate(EndDate time.Time) *FetchTaskQueueStatisticsParams {
@@ -1074,25 +900,6 @@ func (params *FetchTaskQueueStatisticsParams) SetSplitByWaitTime(SplitByWaitTime
 	return params
 }
 
-// FetchTaskQueueStatistics Method for FetchTaskQueueStatistics
-//
-// param: WorkspaceSid The SID of the Workspace with the TaskQueue to fetch.
-//
-// param: TaskQueueSid The SID of the TaskQueue for which to fetch statistics.
-//
-// param: optional nil or *FetchTaskQueueStatisticsParams - Optional Parameters:
-//
-// param: "EndDate" (time.Time) - Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-//
-// param: "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-//
-// param: "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "TaskChannel" (string) - Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// param: "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-//
-// return: TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics
 func (c *DefaultApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1132,15 +939,6 @@ func (c *DefaultApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQu
 	return ps, err
 }
 
-// FetchTaskReservation Method for FetchTaskReservation
-//
-// param: WorkspaceSid The SID of the Workspace with the TaskReservation resource to fetch.
-//
-// param: TaskSid The SID of the reserved Task resource with the TaskReservation resource to fetch.
-//
-// param: Sid The SID of the TaskReservation resource to fetch.
-//
-// return: TaskrouterV1WorkspaceTaskTaskReservation
 func (c *DefaultApiService) FetchTaskReservation(WorkspaceSid string, TaskSid string, Sid string) (*TaskrouterV1WorkspaceTaskTaskReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1165,13 +963,6 @@ func (c *DefaultApiService) FetchTaskReservation(WorkspaceSid string, TaskSid st
 	return ps, err
 }
 
-// FetchWorker Method for FetchWorker
-//
-// param: WorkspaceSid The SID of the Workspace with the Worker to fetch.
-//
-// param: Sid The SID of the Worker resource to fetch.
-//
-// return: TaskrouterV1WorkspaceWorker
 func (c *DefaultApiService) FetchWorker(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceWorker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1195,15 +986,6 @@ func (c *DefaultApiService) FetchWorker(WorkspaceSid string, Sid string) (*Taskr
 	return ps, err
 }
 
-// FetchWorkerChannel Method for FetchWorkerChannel
-//
-// param: WorkspaceSid The SID of the Workspace with the WorkerChannel to fetch.
-//
-// param: WorkerSid The SID of the Worker with the WorkerChannel to fetch.
-//
-// param: Sid The SID of the WorkerChannel to fetch.
-//
-// return: TaskrouterV1WorkspaceWorkerWorkerChannel
 func (c *DefaultApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1228,12 +1010,16 @@ func (c *DefaultApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid st
 	return ps, err
 }
 
-// FetchWorkerInstanceStatisticsParams Optional parameters for the method 'FetchWorkerInstanceStatistics'
+// Optional parameters for the method 'FetchWorkerInstanceStatistics'
 type FetchWorkerInstanceStatisticsParams struct {
-	Minutes     *int32     `json:"Minutes,omitempty"`
-	StartDate   *time.Time `json:"StartDate,omitempty"`
-	EndDate     *time.Time `json:"EndDate,omitempty"`
-	TaskChannel *string    `json:"TaskChannel,omitempty"`
+	// Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+	Minutes *int32 `json:"Minutes,omitempty"`
+	// Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+	TaskChannel *string `json:"TaskChannel,omitempty"`
 }
 
 func (params *FetchWorkerInstanceStatisticsParams) SetMinutes(Minutes int32) *FetchWorkerInstanceStatisticsParams {
@@ -1253,23 +1039,6 @@ func (params *FetchWorkerInstanceStatisticsParams) SetTaskChannel(TaskChannel st
 	return params
 }
 
-// FetchWorkerInstanceStatistics Method for FetchWorkerInstanceStatistics
-//
-// param: WorkspaceSid The SID of the Workspace with the WorkerChannel to fetch.
-//
-// param: WorkerSid The SID of the Worker with the WorkerChannel to fetch.
-//
-// param: optional nil or *FetchWorkerInstanceStatisticsParams - Optional Parameters:
-//
-// param: "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-//
-// param: "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "EndDate" (time.Time) - Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-//
-// param: "TaskChannel" (string) - Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// return: TaskrouterV1WorkspaceWorkerWorkerInstanceStatistics
 func (c *DefaultApiService) FetchWorkerInstanceStatistics(WorkspaceSid string, WorkerSid string, params *FetchWorkerInstanceStatisticsParams) (*TaskrouterV1WorkspaceWorkerWorkerInstanceStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1306,15 +1075,6 @@ func (c *DefaultApiService) FetchWorkerInstanceStatistics(WorkspaceSid string, W
 	return ps, err
 }
 
-// FetchWorkerReservation Method for FetchWorkerReservation
-//
-// param: WorkspaceSid The SID of the Workspace with the WorkerReservation resource to fetch.
-//
-// param: WorkerSid The SID of the reserved Worker resource with the WorkerReservation resource to fetch.
-//
-// param: Sid The SID of the WorkerReservation resource to fetch.
-//
-// return: TaskrouterV1WorkspaceWorkerWorkerReservation
 func (c *DefaultApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1339,15 +1099,22 @@ func (c *DefaultApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSi
 	return ps, err
 }
 
-// FetchWorkerStatisticsParams Optional parameters for the method 'FetchWorkerStatistics'
+// Optional parameters for the method 'FetchWorkerStatistics'
 type FetchWorkerStatisticsParams struct {
-	Minutes       *int32     `json:"Minutes,omitempty"`
-	StartDate     *time.Time `json:"StartDate,omitempty"`
-	EndDate       *time.Time `json:"EndDate,omitempty"`
-	TaskQueueSid  *string    `json:"TaskQueueSid,omitempty"`
-	TaskQueueName *string    `json:"TaskQueueName,omitempty"`
-	FriendlyName  *string    `json:"FriendlyName,omitempty"`
-	TaskChannel   *string    `json:"TaskChannel,omitempty"`
+	// Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+	Minutes *int32 `json:"Minutes,omitempty"`
+	// Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// The SID of the TaskQueue for which to fetch Worker statistics.
+	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
+	// The `friendly_name` of the TaskQueue for which to fetch Worker statistics.
+	TaskQueueName *string `json:"TaskQueueName,omitempty"`
+	// Only include Workers with `friendly_name` values that match this parameter.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+	TaskChannel *string `json:"TaskChannel,omitempty"`
 }
 
 func (params *FetchWorkerStatisticsParams) SetMinutes(Minutes int32) *FetchWorkerStatisticsParams {
@@ -1379,27 +1146,6 @@ func (params *FetchWorkerStatisticsParams) SetTaskChannel(TaskChannel string) *F
 	return params
 }
 
-// FetchWorkerStatistics Method for FetchWorkerStatistics
-//
-// param: WorkspaceSid The SID of the Workspace with the Worker to fetch.
-//
-// param: optional nil or *FetchWorkerStatisticsParams - Optional Parameters:
-//
-// param: "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-//
-// param: "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "EndDate" (time.Time) - Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-//
-// param: "TaskQueueSid" (string) - The SID of the TaskQueue for which to fetch Worker statistics.
-//
-// param: "TaskQueueName" (string) - The `friendly_name` of the TaskQueue for which to fetch Worker statistics.
-//
-// param: "FriendlyName" (string) - Only include Workers with `friendly_name` values that match this parameter.
-//
-// param: "TaskChannel" (string) - Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// return: TaskrouterV1WorkspaceWorkerWorkerStatistics
 func (c *DefaultApiService) FetchWorkerStatistics(WorkspaceSid string, params *FetchWorkerStatisticsParams) (*TaskrouterV1WorkspaceWorkerWorkerStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1444,12 +1190,16 @@ func (c *DefaultApiService) FetchWorkerStatistics(WorkspaceSid string, params *F
 	return ps, err
 }
 
-// FetchWorkersCumulativeStatisticsParams Optional parameters for the method 'FetchWorkersCumulativeStatistics'
+// Optional parameters for the method 'FetchWorkersCumulativeStatistics'
 type FetchWorkersCumulativeStatisticsParams struct {
-	EndDate     *time.Time `json:"EndDate,omitempty"`
-	Minutes     *int32     `json:"Minutes,omitempty"`
-	StartDate   *time.Time `json:"StartDate,omitempty"`
-	TaskChannel *string    `json:"TaskChannel,omitempty"`
+	// Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+	Minutes *int32 `json:"Minutes,omitempty"`
+	// Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+	TaskChannel *string `json:"TaskChannel,omitempty"`
 }
 
 func (params *FetchWorkersCumulativeStatisticsParams) SetEndDate(EndDate time.Time) *FetchWorkersCumulativeStatisticsParams {
@@ -1469,21 +1219,6 @@ func (params *FetchWorkersCumulativeStatisticsParams) SetTaskChannel(TaskChannel
 	return params
 }
 
-// FetchWorkersCumulativeStatistics Method for FetchWorkersCumulativeStatistics
-//
-// param: WorkspaceSid The SID of the Workspace with the resource to fetch.
-//
-// param: optional nil or *FetchWorkersCumulativeStatisticsParams - Optional Parameters:
-//
-// param: "EndDate" (time.Time) - Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-//
-// param: "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "TaskChannel" (string) - Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// return: TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics
 func (c *DefaultApiService) FetchWorkersCumulativeStatistics(WorkspaceSid string, params *FetchWorkersCumulativeStatisticsParams) (*TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1519,8 +1254,9 @@ func (c *DefaultApiService) FetchWorkersCumulativeStatistics(WorkspaceSid string
 	return ps, err
 }
 
-// FetchWorkersRealTimeStatisticsParams Optional parameters for the method 'FetchWorkersRealTimeStatistics'
+// Optional parameters for the method 'FetchWorkersRealTimeStatistics'
 type FetchWorkersRealTimeStatisticsParams struct {
+	// Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 	TaskChannel *string `json:"TaskChannel,omitempty"`
 }
 
@@ -1529,15 +1265,6 @@ func (params *FetchWorkersRealTimeStatisticsParams) SetTaskChannel(TaskChannel s
 	return params
 }
 
-// FetchWorkersRealTimeStatistics Method for FetchWorkersRealTimeStatistics
-//
-// param: WorkspaceSid The SID of the Workspace with the resource to fetch.
-//
-// param: optional nil or *FetchWorkersRealTimeStatisticsParams - Optional Parameters:
-//
-// param: "TaskChannel" (string) - Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// return: TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics
 func (c *DefaultApiService) FetchWorkersRealTimeStatistics(WorkspaceSid string, params *FetchWorkersRealTimeStatisticsParams) (*TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1564,13 +1291,6 @@ func (c *DefaultApiService) FetchWorkersRealTimeStatistics(WorkspaceSid string, 
 	return ps, err
 }
 
-// FetchWorkflow Method for FetchWorkflow
-//
-// param: WorkspaceSid The SID of the Workspace with the Workflow to fetch.
-//
-// param: Sid The SID of the Workflow resource to fetch.
-//
-// return: TaskrouterV1WorkspaceWorkflow
 func (c *DefaultApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceWorkflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1594,13 +1314,18 @@ func (c *DefaultApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*Tas
 	return ps, err
 }
 
-// FetchWorkflowCumulativeStatisticsParams Optional parameters for the method 'FetchWorkflowCumulativeStatistics'
+// Optional parameters for the method 'FetchWorkflowCumulativeStatistics'
 type FetchWorkflowCumulativeStatisticsParams struct {
-	EndDate         *time.Time `json:"EndDate,omitempty"`
-	Minutes         *int32     `json:"Minutes,omitempty"`
-	StartDate       *time.Time `json:"StartDate,omitempty"`
-	TaskChannel     *string    `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
+	// Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+	Minutes *int32 `json:"Minutes,omitempty"`
+	// Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+	TaskChannel *string `json:"TaskChannel,omitempty"`
+	// A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
+	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
 }
 
 func (params *FetchWorkflowCumulativeStatisticsParams) SetEndDate(EndDate time.Time) *FetchWorkflowCumulativeStatisticsParams {
@@ -1624,25 +1349,6 @@ func (params *FetchWorkflowCumulativeStatisticsParams) SetSplitByWaitTime(SplitB
 	return params
 }
 
-// FetchWorkflowCumulativeStatistics Method for FetchWorkflowCumulativeStatistics
-//
-// param: WorkspaceSid The SID of the Workspace with the resource to fetch.
-//
-// param: WorkflowSid Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
-//
-// param: optional nil or *FetchWorkflowCumulativeStatisticsParams - Optional Parameters:
-//
-// param: "EndDate" (time.Time) - Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-//
-// param: "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-//
-// param: "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "TaskChannel" (string) - Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// param: "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
-//
-// return: TaskrouterV1WorkspaceWorkflowWorkflowCumulativeStatistics
 func (c *DefaultApiService) FetchWorkflowCumulativeStatistics(WorkspaceSid string, WorkflowSid string, params *FetchWorkflowCumulativeStatisticsParams) (*TaskrouterV1WorkspaceWorkflowWorkflowCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/CumulativeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1682,8 +1388,9 @@ func (c *DefaultApiService) FetchWorkflowCumulativeStatistics(WorkspaceSid strin
 	return ps, err
 }
 
-// FetchWorkflowRealTimeStatisticsParams Optional parameters for the method 'FetchWorkflowRealTimeStatistics'
+// Optional parameters for the method 'FetchWorkflowRealTimeStatistics'
 type FetchWorkflowRealTimeStatisticsParams struct {
+	// Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 	TaskChannel *string `json:"TaskChannel,omitempty"`
 }
 
@@ -1692,17 +1399,6 @@ func (params *FetchWorkflowRealTimeStatisticsParams) SetTaskChannel(TaskChannel 
 	return params
 }
 
-// FetchWorkflowRealTimeStatistics Method for FetchWorkflowRealTimeStatistics
-//
-// param: WorkspaceSid The SID of the Workspace with the Workflow to fetch.
-//
-// param: WorkflowSid Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
-//
-// param: optional nil or *FetchWorkflowRealTimeStatisticsParams - Optional Parameters:
-//
-// param: "TaskChannel" (string) - Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// return: TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics
 func (c *DefaultApiService) FetchWorkflowRealTimeStatistics(WorkspaceSid string, WorkflowSid string, params *FetchWorkflowRealTimeStatisticsParams) (*TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1730,13 +1426,18 @@ func (c *DefaultApiService) FetchWorkflowRealTimeStatistics(WorkspaceSid string,
 	return ps, err
 }
 
-// FetchWorkflowStatisticsParams Optional parameters for the method 'FetchWorkflowStatistics'
+// Optional parameters for the method 'FetchWorkflowStatistics'
 type FetchWorkflowStatisticsParams struct {
-	Minutes         *int32     `json:"Minutes,omitempty"`
-	StartDate       *time.Time `json:"StartDate,omitempty"`
-	EndDate         *time.Time `json:"EndDate,omitempty"`
-	TaskChannel     *string    `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
+	// Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+	Minutes *int32 `json:"Minutes,omitempty"`
+	// Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+	TaskChannel *string `json:"TaskChannel,omitempty"`
+	// A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
+	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
 }
 
 func (params *FetchWorkflowStatisticsParams) SetMinutes(Minutes int32) *FetchWorkflowStatisticsParams {
@@ -1760,25 +1461,6 @@ func (params *FetchWorkflowStatisticsParams) SetSplitByWaitTime(SplitByWaitTime 
 	return params
 }
 
-// FetchWorkflowStatistics Method for FetchWorkflowStatistics
-//
-// param: WorkspaceSid The SID of the Workspace with the Workflow to fetch.
-//
-// param: WorkflowSid Returns the list of Tasks that are being controlled by the Workflow with the specified SID value.
-//
-// param: optional nil or *FetchWorkflowStatisticsParams - Optional Parameters:
-//
-// param: "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-//
-// param: "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "EndDate" (time.Time) - Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-//
-// param: "TaskChannel" (string) - Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// param: "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
-//
-// return: TaskrouterV1WorkspaceWorkflowWorkflowStatistics
 func (c *DefaultApiService) FetchWorkflowStatistics(WorkspaceSid string, WorkflowSid string, params *FetchWorkflowStatisticsParams) (*TaskrouterV1WorkspaceWorkflowWorkflowStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1818,11 +1500,6 @@ func (c *DefaultApiService) FetchWorkflowStatistics(WorkspaceSid string, Workflo
 	return ps, err
 }
 
-// FetchWorkspace Method for FetchWorkspace
-//
-// param: Sid The SID of the Workspace resource to fetch.
-//
-// return: TaskrouterV1Workspace
 func (c *DefaultApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1845,13 +1522,18 @@ func (c *DefaultApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, 
 	return ps, err
 }
 
-// FetchWorkspaceCumulativeStatisticsParams Optional parameters for the method 'FetchWorkspaceCumulativeStatistics'
+// Optional parameters for the method 'FetchWorkspaceCumulativeStatistics'
 type FetchWorkspaceCumulativeStatisticsParams struct {
-	EndDate         *time.Time `json:"EndDate,omitempty"`
-	Minutes         *int32     `json:"Minutes,omitempty"`
-	StartDate       *time.Time `json:"StartDate,omitempty"`
-	TaskChannel     *string    `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
+	// Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+	Minutes *int32 `json:"Minutes,omitempty"`
+	// Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+	TaskChannel *string `json:"TaskChannel,omitempty"`
+	// A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
+	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
 }
 
 func (params *FetchWorkspaceCumulativeStatisticsParams) SetEndDate(EndDate time.Time) *FetchWorkspaceCumulativeStatisticsParams {
@@ -1875,23 +1557,6 @@ func (params *FetchWorkspaceCumulativeStatisticsParams) SetSplitByWaitTime(Split
 	return params
 }
 
-// FetchWorkspaceCumulativeStatistics Method for FetchWorkspaceCumulativeStatistics
-//
-// param: WorkspaceSid The SID of the Workspace to fetch.
-//
-// param: optional nil or *FetchWorkspaceCumulativeStatisticsParams - Optional Parameters:
-//
-// param: "EndDate" (time.Time) - Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-//
-// param: "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-//
-// param: "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "TaskChannel" (string) - Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// param: "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
-//
-// return: TaskrouterV1WorkspaceWorkspaceCumulativeStatistics
 func (c *DefaultApiService) FetchWorkspaceCumulativeStatistics(WorkspaceSid string, params *FetchWorkspaceCumulativeStatisticsParams) (*TaskrouterV1WorkspaceWorkspaceCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/CumulativeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1930,8 +1595,9 @@ func (c *DefaultApiService) FetchWorkspaceCumulativeStatistics(WorkspaceSid stri
 	return ps, err
 }
 
-// FetchWorkspaceRealTimeStatisticsParams Optional parameters for the method 'FetchWorkspaceRealTimeStatistics'
+// Optional parameters for the method 'FetchWorkspaceRealTimeStatistics'
 type FetchWorkspaceRealTimeStatisticsParams struct {
+	// Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
 	TaskChannel *string `json:"TaskChannel,omitempty"`
 }
 
@@ -1940,15 +1606,6 @@ func (params *FetchWorkspaceRealTimeStatisticsParams) SetTaskChannel(TaskChannel
 	return params
 }
 
-// FetchWorkspaceRealTimeStatistics Method for FetchWorkspaceRealTimeStatistics
-//
-// param: WorkspaceSid The SID of the Workspace to fetch.
-//
-// param: optional nil or *FetchWorkspaceRealTimeStatisticsParams - Optional Parameters:
-//
-// param: "TaskChannel" (string) - Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// return: TaskrouterV1WorkspaceWorkspaceRealTimeStatistics
 func (c *DefaultApiService) FetchWorkspaceRealTimeStatistics(WorkspaceSid string, params *FetchWorkspaceRealTimeStatisticsParams) (*TaskrouterV1WorkspaceWorkspaceRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -1975,13 +1632,18 @@ func (c *DefaultApiService) FetchWorkspaceRealTimeStatistics(WorkspaceSid string
 	return ps, err
 }
 
-// FetchWorkspaceStatisticsParams Optional parameters for the method 'FetchWorkspaceStatistics'
+// Optional parameters for the method 'FetchWorkspaceStatistics'
 type FetchWorkspaceStatisticsParams struct {
-	Minutes         *int32     `json:"Minutes,omitempty"`
-	StartDate       *time.Time `json:"StartDate,omitempty"`
-	EndDate         *time.Time `json:"EndDate,omitempty"`
-	TaskChannel     *string    `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
+	// Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+	Minutes *int32 `json:"Minutes,omitempty"`
+	// Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+	TaskChannel *string `json:"TaskChannel,omitempty"`
+	// A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
+	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
 }
 
 func (params *FetchWorkspaceStatisticsParams) SetMinutes(Minutes int32) *FetchWorkspaceStatisticsParams {
@@ -2005,23 +1667,6 @@ func (params *FetchWorkspaceStatisticsParams) SetSplitByWaitTime(SplitByWaitTime
 	return params
 }
 
-// FetchWorkspaceStatistics Method for FetchWorkspaceStatistics
-//
-// param: WorkspaceSid The SID of the Workspace to fetch.
-//
-// param: optional nil or *FetchWorkspaceStatisticsParams - Optional Parameters:
-//
-// param: "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
-//
-// param: "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "EndDate" (time.Time) - Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-//
-// param: "TaskChannel" (string) - Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// param: "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, `5,30` would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
-//
-// return: TaskrouterV1WorkspaceWorkspaceStatistics
 func (c *DefaultApiService) FetchWorkspaceStatistics(WorkspaceSid string, params *FetchWorkspaceStatisticsParams) (*TaskrouterV1WorkspaceWorkspaceStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -2060,11 +1705,14 @@ func (c *DefaultApiService) FetchWorkspaceStatistics(WorkspaceSid string, params
 	return ps, err
 }
 
-// ListActivityParams Optional parameters for the method 'ListActivity'
+// Optional parameters for the method 'ListActivity'
 type ListActivityParams struct {
+	// The `friendly_name` of the Activity resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Available    *string `json:"Available,omitempty"`
-	PageSize     *int32  `json:"PageSize,omitempty"`
+	// Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
+	Available *string `json:"Available,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListActivityParams) SetFriendlyName(FriendlyName string) *ListActivityParams {
@@ -2080,19 +1728,6 @@ func (params *ListActivityParams) SetPageSize(PageSize int32) *ListActivityParam
 	return params
 }
 
-// ListActivity Method for ListActivity
-//
-// param: WorkspaceSid The SID of the Workspace with the Activity resources to read.
-//
-// param: optional nil or *ListActivityParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - The `friendly_name` of the Activity resources to read.
-//
-// param: "Available" (string) - Whether return only Activity resources that are available or unavailable. A value of `true` returns only available activities. Values of '1' or `yes` also indicate `true`. All other values represent `false` and return activities that are unavailable.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListActivityResponse
 func (c *DefaultApiService) ListActivity(WorkspaceSid string, params *ListActivityParams) (*ListActivityResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -2125,20 +1760,32 @@ func (c *DefaultApiService) ListActivity(WorkspaceSid string, params *ListActivi
 	return ps, err
 }
 
-// ListEventParams Optional parameters for the method 'ListEvent'
+// Optional parameters for the method 'ListEvent'
 type ListEventParams struct {
-	EndDate        *time.Time `json:"EndDate,omitempty"`
-	EventType      *string    `json:"EventType,omitempty"`
-	Minutes        *int32     `json:"Minutes,omitempty"`
-	ReservationSid *string    `json:"ReservationSid,omitempty"`
-	StartDate      *time.Time `json:"StartDate,omitempty"`
-	TaskQueueSid   *string    `json:"TaskQueueSid,omitempty"`
-	TaskSid        *string    `json:"TaskSid,omitempty"`
-	WorkerSid      *string    `json:"WorkerSid,omitempty"`
-	WorkflowSid    *string    `json:"WorkflowSid,omitempty"`
-	TaskChannel    *string    `json:"TaskChannel,omitempty"`
-	Sid            *string    `json:"Sid,omitempty"`
-	PageSize       *int32     `json:"PageSize,omitempty"`
+	// Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// The type of Events to read. Returns only Events of the type specified.
+	EventType *string `json:"EventType,omitempty"`
+	// The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
+	Minutes *int32 `json:"Minutes,omitempty"`
+	// The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
+	ReservationSid *string `json:"ReservationSid,omitempty"`
+	// Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
+	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
+	// The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
+	TaskSid *string `json:"TaskSid,omitempty"`
+	// The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
+	WorkerSid *string `json:"WorkerSid,omitempty"`
+	// The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
+	WorkflowSid *string `json:"WorkflowSid,omitempty"`
+	// The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
+	TaskChannel *string `json:"TaskChannel,omitempty"`
+	// The SID of the Event resource to read.
+	Sid *string `json:"Sid,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListEventParams) SetEndDate(EndDate time.Time) *ListEventParams {
@@ -2190,37 +1837,6 @@ func (params *ListEventParams) SetPageSize(PageSize int32) *ListEventParams {
 	return params
 }
 
-// ListEvent Method for ListEvent
-//
-// param: WorkspaceSid The SID of the Workspace with the Events to read. Returns only the Events that pertain to the specified Workspace.
-//
-// param: optional nil or *ListEventParams - Optional Parameters:
-//
-// param: "EndDate" (time.Time) - Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-//
-// param: "EventType" (string) - The type of Events to read. Returns only Events of the type specified.
-//
-// param: "Minutes" (int32) - The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
-//
-// param: "ReservationSid" (string) - The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
-//
-// param: "StartDate" (time.Time) - Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
-//
-// param: "TaskQueueSid" (string) - The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
-//
-// param: "TaskSid" (string) - The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
-//
-// param: "WorkerSid" (string) - The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
-//
-// param: "WorkflowSid" (string) - The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
-//
-// param: "TaskChannel" (string) - The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
-//
-// param: "Sid" (string) - The SID of the Event resource to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListEventResponse
 func (c *DefaultApiService) ListEvent(WorkspaceSid string, params *ListEventParams) (*ListEventResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Events"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -2280,18 +1896,28 @@ func (c *DefaultApiService) ListEvent(WorkspaceSid string, params *ListEventPara
 	return ps, err
 }
 
-// ListTaskParams Optional parameters for the method 'ListTask'
+// Optional parameters for the method 'ListTask'
 type ListTaskParams struct {
-	Priority               *int32    `json:"Priority,omitempty"`
-	AssignmentStatus       *[]string `json:"AssignmentStatus,omitempty"`
-	WorkflowSid            *string   `json:"WorkflowSid,omitempty"`
-	WorkflowName           *string   `json:"WorkflowName,omitempty"`
-	TaskQueueSid           *string   `json:"TaskQueueSid,omitempty"`
-	TaskQueueName          *string   `json:"TaskQueueName,omitempty"`
-	EvaluateTaskAttributes *string   `json:"EvaluateTaskAttributes,omitempty"`
-	Ordering               *string   `json:"Ordering,omitempty"`
-	HasAddons              *bool     `json:"HasAddons,omitempty"`
-	PageSize               *int32    `json:"PageSize,omitempty"`
+	// The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
+	Priority *int32 `json:"Priority,omitempty"`
+	// The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
+	AssignmentStatus *[]string `json:"AssignmentStatus,omitempty"`
+	// The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
+	WorkflowSid *string `json:"WorkflowSid,omitempty"`
+	// The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
+	WorkflowName *string `json:"WorkflowName,omitempty"`
+	// The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
+	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
+	// The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
+	TaskQueueName *string `json:"TaskQueueName,omitempty"`
+	// The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
+	EvaluateTaskAttributes *string `json:"EvaluateTaskAttributes,omitempty"`
+	// How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
+	Ordering *string `json:"Ordering,omitempty"`
+	// Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
+	HasAddons *bool `json:"HasAddons,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListTaskParams) SetPriority(Priority int32) *ListTaskParams {
@@ -2335,33 +1961,6 @@ func (params *ListTaskParams) SetPageSize(PageSize int32) *ListTaskParams {
 	return params
 }
 
-// ListTask Method for ListTask
-//
-// param: WorkspaceSid The SID of the Workspace with the Tasks to read.
-//
-// param: optional nil or *ListTaskParams - Optional Parameters:
-//
-// param: "Priority" (int32) - The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
-//
-// param: "AssignmentStatus" ([]string) - The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
-//
-// param: "WorkflowSid" (string) - The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
-//
-// param: "WorkflowName" (string) - The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
-//
-// param: "TaskQueueSid" (string) - The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
-//
-// param: "TaskQueueName" (string) - The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
-//
-// param: "EvaluateTaskAttributes" (string) - The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
-//
-// param: "Ordering" (string) - How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `Priority` or `DateCreated` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order.
-//
-// param: "HasAddons" (bool) - Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListTaskResponse
 func (c *DefaultApiService) ListTask(WorkspaceSid string, params *ListTaskParams) (*ListTaskResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -2415,8 +2014,9 @@ func (c *DefaultApiService) ListTask(WorkspaceSid string, params *ListTaskParams
 	return ps, err
 }
 
-// ListTaskChannelParams Optional parameters for the method 'ListTaskChannel'
+// Optional parameters for the method 'ListTaskChannel'
 type ListTaskChannelParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -2425,15 +2025,6 @@ func (params *ListTaskChannelParams) SetPageSize(PageSize int32) *ListTaskChanne
 	return params
 }
 
-// ListTaskChannel Method for ListTaskChannel
-//
-// param: WorkspaceSid The SID of the Workspace with the Task Channel to read.
-//
-// param: optional nil or *ListTaskChannelParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListTaskChannelResponse
 func (c *DefaultApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChannelParams) (*ListTaskChannelResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -2460,12 +2051,16 @@ func (c *DefaultApiService) ListTaskChannel(WorkspaceSid string, params *ListTas
 	return ps, err
 }
 
-// ListTaskQueueParams Optional parameters for the method 'ListTaskQueue'
+// Optional parameters for the method 'ListTaskQueue'
 type ListTaskQueueParams struct {
-	FriendlyName             *string `json:"FriendlyName,omitempty"`
+	// The `friendly_name` of the TaskQueue resources to read.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
 	EvaluateWorkerAttributes *string `json:"EvaluateWorkerAttributes,omitempty"`
-	WorkerSid                *string `json:"WorkerSid,omitempty"`
-	PageSize                 *int32  `json:"PageSize,omitempty"`
+	// The SID of the Worker with the TaskQueue resources to read.
+	WorkerSid *string `json:"WorkerSid,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListTaskQueueParams) SetFriendlyName(FriendlyName string) *ListTaskQueueParams {
@@ -2485,21 +2080,6 @@ func (params *ListTaskQueueParams) SetPageSize(PageSize int32) *ListTaskQueuePar
 	return params
 }
 
-// ListTaskQueue Method for ListTaskQueue
-//
-// param: WorkspaceSid The SID of the Workspace with the TaskQueue to read.
-//
-// param: optional nil or *ListTaskQueueParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - The `friendly_name` of the TaskQueue resources to read.
-//
-// param: "EvaluateWorkerAttributes" (string) - The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
-//
-// param: "WorkerSid" (string) - The SID of the Worker with the TaskQueue resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListTaskQueueResponse
 func (c *DefaultApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueueParams) (*ListTaskQueueResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -2535,15 +2115,22 @@ func (c *DefaultApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQ
 	return ps, err
 }
 
-// ListTaskQueuesStatisticsParams Optional parameters for the method 'ListTaskQueuesStatistics'
+// Optional parameters for the method 'ListTaskQueuesStatistics'
 type ListTaskQueuesStatisticsParams struct {
-	EndDate         *time.Time `json:"EndDate,omitempty"`
-	FriendlyName    *string    `json:"FriendlyName,omitempty"`
-	Minutes         *int32     `json:"Minutes,omitempty"`
-	StartDate       *time.Time `json:"StartDate,omitempty"`
-	TaskChannel     *string    `json:"TaskChannel,omitempty"`
-	SplitByWaitTime *string    `json:"SplitByWaitTime,omitempty"`
-	PageSize        *int32     `json:"PageSize,omitempty"`
+	// Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// The `friendly_name` of the TaskQueue statistics to read.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+	Minutes *int32 `json:"Minutes,omitempty"`
+	// Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+	TaskChannel *string `json:"TaskChannel,omitempty"`
+	// A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListTaskQueuesStatisticsParams) SetEndDate(EndDate time.Time) *ListTaskQueuesStatisticsParams {
@@ -2575,27 +2162,6 @@ func (params *ListTaskQueuesStatisticsParams) SetPageSize(PageSize int32) *ListT
 	return params
 }
 
-// ListTaskQueuesStatistics Method for ListTaskQueuesStatistics
-//
-// param: WorkspaceSid The SID of the Workspace with the TaskQueues to read.
-//
-// param: optional nil or *ListTaskQueuesStatisticsParams - Optional Parameters:
-//
-// param: "EndDate" (time.Time) - Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-//
-// param: "FriendlyName" (string) - The `friendly_name` of the TaskQueue statistics to read.
-//
-// param: "Minutes" (int32) - Only calculate statistics since this many minutes in the past. The default is 15 minutes.
-//
-// param: "StartDate" (time.Time) - Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "TaskChannel" (string) - Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// param: "SplitByWaitTime" (string) - A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListTaskQueuesStatisticsResponse
 func (c *DefaultApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) (*ListTaskQueuesStatisticsResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -2640,10 +2206,12 @@ func (c *DefaultApiService) ListTaskQueuesStatistics(WorkspaceSid string, params
 	return ps, err
 }
 
-// ListTaskReservationParams Optional parameters for the method 'ListTaskReservation'
+// Optional parameters for the method 'ListTaskReservation'
 type ListTaskReservationParams struct {
+	// Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
 	ReservationStatus *string `json:"ReservationStatus,omitempty"`
-	PageSize          *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListTaskReservationParams) SetReservationStatus(ReservationStatus string) *ListTaskReservationParams {
@@ -2655,19 +2223,6 @@ func (params *ListTaskReservationParams) SetPageSize(PageSize int32) *ListTaskRe
 	return params
 }
 
-// ListTaskReservation Method for ListTaskReservation
-//
-// param: WorkspaceSid The SID of the Workspace with the TaskReservation resources to read.
-//
-// param: TaskSid The SID of the reserved Task resource with the TaskReservation resources to read.
-//
-// param: optional nil or *ListTaskReservationParams - Optional Parameters:
-//
-// param: "ReservationStatus" (string) - Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListTaskReservationResponse
 func (c *DefaultApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) (*ListTaskReservationResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -2698,16 +2253,24 @@ func (c *DefaultApiService) ListTaskReservation(WorkspaceSid string, TaskSid str
 	return ps, err
 }
 
-// ListWorkerParams Optional parameters for the method 'ListWorker'
+// Optional parameters for the method 'ListWorker'
 type ListWorkerParams struct {
-	ActivityName            *string `json:"ActivityName,omitempty"`
-	ActivitySid             *string `json:"ActivitySid,omitempty"`
-	Available               *string `json:"Available,omitempty"`
-	FriendlyName            *string `json:"FriendlyName,omitempty"`
+	// The `activity_name` of the Worker resources to read.
+	ActivityName *string `json:"ActivityName,omitempty"`
+	// The `activity_sid` of the Worker resources to read.
+	ActivitySid *string `json:"ActivitySid,omitempty"`
+	// Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+	Available *string `json:"Available,omitempty"`
+	// The `friendly_name` of the Worker resources to read.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
 	TargetWorkersExpression *string `json:"TargetWorkersExpression,omitempty"`
-	TaskQueueName           *string `json:"TaskQueueName,omitempty"`
-	TaskQueueSid            *string `json:"TaskQueueSid,omitempty"`
-	PageSize                *int32  `json:"PageSize,omitempty"`
+	// The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+	TaskQueueName *string `json:"TaskQueueName,omitempty"`
+	// The SID of the TaskQueue that the Workers to read are eligible for.
+	TaskQueueSid *string `json:"TaskQueueSid,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListWorkerParams) SetActivityName(ActivityName string) *ListWorkerParams {
@@ -2743,29 +2306,6 @@ func (params *ListWorkerParams) SetPageSize(PageSize int32) *ListWorkerParams {
 	return params
 }
 
-// ListWorker Method for ListWorker
-//
-// param: WorkspaceSid The SID of the Workspace with the Workers to read.
-//
-// param: optional nil or *ListWorkerParams - Optional Parameters:
-//
-// param: "ActivityName" (string) - The `activity_name` of the Worker resources to read.
-//
-// param: "ActivitySid" (string) - The `activity_sid` of the Worker resources to read.
-//
-// param: "Available" (string) - Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
-//
-// param: "FriendlyName" (string) - The `friendly_name` of the Worker resources to read.
-//
-// param: "TargetWorkersExpression" (string) - Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
-//
-// param: "TaskQueueName" (string) - The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
-//
-// param: "TaskQueueSid" (string) - The SID of the TaskQueue that the Workers to read are eligible for.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListWorkerResponse
 func (c *DefaultApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams) (*ListWorkerResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -2813,8 +2353,9 @@ func (c *DefaultApiService) ListWorker(WorkspaceSid string, params *ListWorkerPa
 	return ps, err
 }
 
-// ListWorkerChannelParams Optional parameters for the method 'ListWorkerChannel'
+// Optional parameters for the method 'ListWorkerChannel'
 type ListWorkerChannelParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -2823,17 +2364,6 @@ func (params *ListWorkerChannelParams) SetPageSize(PageSize int32) *ListWorkerCh
 	return params
 }
 
-// ListWorkerChannel Method for ListWorkerChannel
-//
-// param: WorkspaceSid The SID of the Workspace with the WorkerChannels to read.
-//
-// param: WorkerSid The SID of the Worker with the WorkerChannels to read.
-//
-// param: optional nil or *ListWorkerChannelParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListWorkerChannelResponse
 func (c *DefaultApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (*ListWorkerChannelResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -2861,10 +2391,12 @@ func (c *DefaultApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid str
 	return ps, err
 }
 
-// ListWorkerReservationParams Optional parameters for the method 'ListWorkerReservation'
+// Optional parameters for the method 'ListWorkerReservation'
 type ListWorkerReservationParams struct {
+	// Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
 	ReservationStatus *string `json:"ReservationStatus,omitempty"`
-	PageSize          *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListWorkerReservationParams) SetReservationStatus(ReservationStatus string) *ListWorkerReservationParams {
@@ -2876,19 +2408,6 @@ func (params *ListWorkerReservationParams) SetPageSize(PageSize int32) *ListWork
 	return params
 }
 
-// ListWorkerReservation Method for ListWorkerReservation
-//
-// param: WorkspaceSid The SID of the Workspace with the WorkerReservation resources to read.
-//
-// param: WorkerSid The SID of the reserved Worker resource with the WorkerReservation resources to read.
-//
-// param: optional nil or *ListWorkerReservationParams - Optional Parameters:
-//
-// param: "ReservationStatus" (string) - Returns the list of reservations for a worker with a specified ReservationStatus. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListWorkerReservationResponse
 func (c *DefaultApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams) (*ListWorkerReservationResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -2919,10 +2438,12 @@ func (c *DefaultApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid
 	return ps, err
 }
 
-// ListWorkflowParams Optional parameters for the method 'ListWorkflow'
+// Optional parameters for the method 'ListWorkflow'
 type ListWorkflowParams struct {
+	// The `friendly_name` of the Workflow resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PageSize     *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListWorkflowParams) SetFriendlyName(FriendlyName string) *ListWorkflowParams {
@@ -2934,17 +2455,6 @@ func (params *ListWorkflowParams) SetPageSize(PageSize int32) *ListWorkflowParam
 	return params
 }
 
-// ListWorkflow Method for ListWorkflow
-//
-// param: WorkspaceSid The SID of the Workspace with the Workflow to read.
-//
-// param: optional nil or *ListWorkflowParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - The `friendly_name` of the Workflow resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListWorkflowResponse
 func (c *DefaultApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParams) (*ListWorkflowResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -2974,10 +2484,12 @@ func (c *DefaultApiService) ListWorkflow(WorkspaceSid string, params *ListWorkfl
 	return ps, err
 }
 
-// ListWorkspaceParams Optional parameters for the method 'ListWorkspace'
+// Optional parameters for the method 'ListWorkspace'
 type ListWorkspaceParams struct {
+	// The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PageSize     *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListWorkspaceParams) SetFriendlyName(FriendlyName string) *ListWorkspaceParams {
@@ -2989,15 +2501,6 @@ func (params *ListWorkspaceParams) SetPageSize(PageSize int32) *ListWorkspacePar
 	return params
 }
 
-// ListWorkspace Method for ListWorkspace
-//
-// param: optional nil or *ListWorkspaceParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListWorkspaceResponse
 func (c *DefaultApiService) ListWorkspace(params *ListWorkspaceParams) (*ListWorkspaceResponse, error) {
 	path := "/v1/Workspaces"
 
@@ -3026,8 +2529,9 @@ func (c *DefaultApiService) ListWorkspace(params *ListWorkspaceParams) (*ListWor
 	return ps, err
 }
 
-// UpdateActivityParams Optional parameters for the method 'UpdateActivity'
+// Optional parameters for the method 'UpdateActivity'
 type UpdateActivityParams struct {
+	// A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -3036,17 +2540,6 @@ func (params *UpdateActivityParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-// UpdateActivity Method for UpdateActivity
-//
-// param: WorkspaceSid The SID of the Workspace with the Activity resources to update.
-//
-// param: Sid The SID of the Activity resource to update.
-//
-// param: optional nil or *UpdateActivityParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the Activity resource. It can be up to 64 characters long. These names are used to calculate and expose statistics about Workers, and provide visibility into the state of each Worker. Examples of friendly names include: `on-call`, `break`, and `email`.
-//
-// return: TaskrouterV1WorkspaceActivity
 func (c *DefaultApiService) UpdateActivity(WorkspaceSid string, Sid string, params *UpdateActivityParams) (*TaskrouterV1WorkspaceActivity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -3074,14 +2567,20 @@ func (c *DefaultApiService) UpdateActivity(WorkspaceSid string, Sid string, para
 	return ps, err
 }
 
-// UpdateTaskParams Optional parameters for the method 'UpdateTask'
+// Optional parameters for the method 'UpdateTask'
 type UpdateTaskParams struct {
-	IfMatch          *string `json:"If-Match,omitempty"`
+	// If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+	IfMatch *string `json:"If-Match,omitempty"`
+	// The new status of the task. Can be: `canceled`, to cancel a Task that is currently `pending` or `reserved`; `wrapping`, to move the Task to wrapup state; or `completed`, to move a Task to the completed state.
 	AssignmentStatus *string `json:"AssignmentStatus,omitempty"`
-	Attributes       *string `json:"Attributes,omitempty"`
-	Priority         *int32  `json:"Priority,omitempty"`
-	Reason           *string `json:"Reason,omitempty"`
-	TaskChannel      *string `json:"TaskChannel,omitempty"`
+	// The JSON string that describes the custom attributes of the task.
+	Attributes *string `json:"Attributes,omitempty"`
+	// The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
+	Priority *int32 `json:"Priority,omitempty"`
+	// The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
+	Reason *string `json:"Reason,omitempty"`
+	// When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+	TaskChannel *string `json:"TaskChannel,omitempty"`
 }
 
 func (params *UpdateTaskParams) SetIfMatch(IfMatch string) *UpdateTaskParams {
@@ -3109,27 +2608,6 @@ func (params *UpdateTaskParams) SetTaskChannel(TaskChannel string) *UpdateTaskPa
 	return params
 }
 
-// UpdateTask Method for UpdateTask
-//
-// param: WorkspaceSid The SID of the Workspace with the Task to update.
-//
-// param: Sid The SID of the Task resource to update.
-//
-// param: optional nil or *UpdateTaskParams - Optional Parameters:
-//
-// param: "IfMatch" (string) - If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-//
-// param: "AssignmentStatus" (string) - The new status of the task. Can be: `canceled`, to cancel a Task that is currently `pending` or `reserved`; `wrapping`, to move the Task to wrapup state; or `completed`, to move a Task to the completed state.
-//
-// param: "Attributes" (string) - The JSON string that describes the custom attributes of the task.
-//
-// param: "Priority" (int32) - The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
-//
-// param: "Reason" (string) - The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
-//
-// param: "TaskChannel" (string) - When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-//
-// return: TaskrouterV1WorkspaceTask
 func (c *DefaultApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateTaskParams) (*TaskrouterV1WorkspaceTask, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -3173,10 +2651,12 @@ func (c *DefaultApiService) UpdateTask(WorkspaceSid string, Sid string, params *
 	return ps, err
 }
 
-// UpdateTaskChannelParams Optional parameters for the method 'UpdateTaskChannel'
+// Optional parameters for the method 'UpdateTaskChannel'
 type UpdateTaskChannelParams struct {
-	ChannelOptimizedRouting *bool   `json:"ChannelOptimizedRouting,omitempty"`
-	FriendlyName            *string `json:"FriendlyName,omitempty"`
+	// Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
+	ChannelOptimizedRouting *bool `json:"ChannelOptimizedRouting,omitempty"`
+	// A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 func (params *UpdateTaskChannelParams) SetChannelOptimizedRouting(ChannelOptimizedRouting bool) *UpdateTaskChannelParams {
@@ -3188,19 +2668,6 @@ func (params *UpdateTaskChannelParams) SetFriendlyName(FriendlyName string) *Upd
 	return params
 }
 
-// UpdateTaskChannel Method for UpdateTaskChannel
-//
-// param: WorkspaceSid The SID of the Workspace with the Task Channel to update.
-//
-// param: Sid The SID of the Task Channel resource to update.
-//
-// param: optional nil or *UpdateTaskChannelParams - Optional Parameters:
-//
-// param: "ChannelOptimizedRouting" (bool) - Whether the TaskChannel should prioritize Workers that have been idle. If `true`, Workers that have been idle the longest are prioritized.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the Task Channel. It can be up to 64 characters long.
-//
-// return: TaskrouterV1WorkspaceTaskChannel
 func (c *DefaultApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, params *UpdateTaskChannelParams) (*TaskrouterV1WorkspaceTaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -3231,14 +2698,20 @@ func (c *DefaultApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, p
 	return ps, err
 }
 
-// UpdateTaskQueueParams Optional parameters for the method 'UpdateTaskQueue'
+// Optional parameters for the method 'UpdateTaskQueue'
 type UpdateTaskQueueParams struct {
-	AssignmentActivitySid  *string `json:"AssignmentActivitySid,omitempty"`
-	FriendlyName           *string `json:"FriendlyName,omitempty"`
-	MaxReservedWorkers     *int32  `json:"MaxReservedWorkers,omitempty"`
+	// The SID of the Activity to assign Workers when a task is assigned for them.
+	AssignmentActivitySid *string `json:"AssignmentActivitySid,omitempty"`
+	// A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+	MaxReservedWorkers *int32 `json:"MaxReservedWorkers,omitempty"`
+	// The SID of the Activity to assign Workers when a task is reserved for them.
 	ReservationActivitySid *string `json:"ReservationActivitySid,omitempty"`
-	TargetWorkers          *string `json:"TargetWorkers,omitempty"`
-	TaskOrder              *string `json:"TaskOrder,omitempty"`
+	// A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+	TargetWorkers *string `json:"TargetWorkers,omitempty"`
+	// How Tasks will be assigned to Workers. Can be: `FIFO` or `LIFO` and the default is `FIFO`. Use `FIFO` to assign the oldest task first and `LIFO` to assign the most recent task first. For more information, see [Queue Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo).
+	TaskOrder *string `json:"TaskOrder,omitempty"`
 }
 
 func (params *UpdateTaskQueueParams) SetAssignmentActivitySid(AssignmentActivitySid string) *UpdateTaskQueueParams {
@@ -3266,27 +2739,6 @@ func (params *UpdateTaskQueueParams) SetTaskOrder(TaskOrder string) *UpdateTaskQ
 	return params
 }
 
-// UpdateTaskQueue Method for UpdateTaskQueue
-//
-// param: WorkspaceSid The SID of the Workspace with the TaskQueue to update.
-//
-// param: Sid The SID of the TaskQueue resource to update.
-//
-// param: optional nil or *UpdateTaskQueueParams - Optional Parameters:
-//
-// param: "AssignmentActivitySid" (string) - The SID of the Activity to assign Workers when a task is assigned for them.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
-//
-// param: "MaxReservedWorkers" (int32) - The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
-//
-// param: "ReservationActivitySid" (string) - The SID of the Activity to assign Workers when a task is reserved for them.
-//
-// param: "TargetWorkers" (string) - A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
-//
-// param: "TaskOrder" (string) - How Tasks will be assigned to Workers. Can be: `FIFO` or `LIFO` and the default is `FIFO`. Use `FIFO` to assign the oldest task first and `LIFO` to assign the most recent task first. For more information, see [Queue Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo).
-//
-// return: TaskrouterV1WorkspaceTaskQueue
 func (c *DefaultApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1WorkspaceTaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -3329,61 +2781,114 @@ func (c *DefaultApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, par
 	return ps, err
 }
 
-// UpdateTaskReservationParams Optional parameters for the method 'UpdateTaskReservation'
+// Optional parameters for the method 'UpdateTaskReservation'
 type UpdateTaskReservationParams struct {
-	Beep                                    *string   `json:"Beep,omitempty"`
-	BeepOnCustomerEntrance                  *bool     `json:"BeepOnCustomerEntrance,omitempty"`
-	CallAccept                              *bool     `json:"CallAccept,omitempty"`
-	CallFrom                                *string   `json:"CallFrom,omitempty"`
-	CallRecord                              *string   `json:"CallRecord,omitempty"`
-	CallStatusCallbackUrl                   *string   `json:"CallStatusCallbackUrl,omitempty"`
-	CallTimeout                             *int32    `json:"CallTimeout,omitempty"`
-	CallTo                                  *string   `json:"CallTo,omitempty"`
-	CallUrl                                 *string   `json:"CallUrl,omitempty"`
-	ConferenceRecord                        *string   `json:"ConferenceRecord,omitempty"`
-	ConferenceRecordingStatusCallback       *string   `json:"ConferenceRecordingStatusCallback,omitempty"`
-	ConferenceRecordingStatusCallbackMethod *string   `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
-	ConferenceStatusCallback                *string   `json:"ConferenceStatusCallback,omitempty"`
-	ConferenceStatusCallbackEvent           *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
-	ConferenceStatusCallbackMethod          *string   `json:"ConferenceStatusCallbackMethod,omitempty"`
-	ConferenceTrim                          *string   `json:"ConferenceTrim,omitempty"`
-	DequeueFrom                             *string   `json:"DequeueFrom,omitempty"`
-	DequeuePostWorkActivitySid              *string   `json:"DequeuePostWorkActivitySid,omitempty"`
-	DequeueRecord                           *string   `json:"DequeueRecord,omitempty"`
-	DequeueStatusCallbackEvent              *[]string `json:"DequeueStatusCallbackEvent,omitempty"`
-	DequeueStatusCallbackUrl                *string   `json:"DequeueStatusCallbackUrl,omitempty"`
-	DequeueTimeout                          *int32    `json:"DequeueTimeout,omitempty"`
-	DequeueTo                               *string   `json:"DequeueTo,omitempty"`
-	EarlyMedia                              *bool     `json:"EarlyMedia,omitempty"`
-	EndConferenceOnCustomerExit             *bool     `json:"EndConferenceOnCustomerExit,omitempty"`
-	EndConferenceOnExit                     *bool     `json:"EndConferenceOnExit,omitempty"`
-	From                                    *string   `json:"From,omitempty"`
-	Instruction                             *string   `json:"Instruction,omitempty"`
-	MaxParticipants                         *int32    `json:"MaxParticipants,omitempty"`
-	Muted                                   *bool     `json:"Muted,omitempty"`
-	PostWorkActivitySid                     *string   `json:"PostWorkActivitySid,omitempty"`
-	Record                                  *bool     `json:"Record,omitempty"`
-	RecordingChannels                       *string   `json:"RecordingChannels,omitempty"`
-	RecordingStatusCallback                 *string   `json:"RecordingStatusCallback,omitempty"`
-	RecordingStatusCallbackMethod           *string   `json:"RecordingStatusCallbackMethod,omitempty"`
-	RedirectAccept                          *bool     `json:"RedirectAccept,omitempty"`
-	RedirectCallSid                         *string   `json:"RedirectCallSid,omitempty"`
-	RedirectUrl                             *string   `json:"RedirectUrl,omitempty"`
-	Region                                  *string   `json:"Region,omitempty"`
-	ReservationStatus                       *string   `json:"ReservationStatus,omitempty"`
-	SipAuthPassword                         *string   `json:"SipAuthPassword,omitempty"`
-	SipAuthUsername                         *string   `json:"SipAuthUsername,omitempty"`
-	StartConferenceOnEnter                  *bool     `json:"StartConferenceOnEnter,omitempty"`
-	StatusCallback                          *string   `json:"StatusCallback,omitempty"`
-	StatusCallbackEvent                     *[]string `json:"StatusCallbackEvent,omitempty"`
-	StatusCallbackMethod                    *string   `json:"StatusCallbackMethod,omitempty"`
-	Supervisor                              *string   `json:"Supervisor,omitempty"`
-	SupervisorMode                          *string   `json:"SupervisorMode,omitempty"`
-	Timeout                                 *int32    `json:"Timeout,omitempty"`
-	To                                      *string   `json:"To,omitempty"`
-	WaitMethod                              *string   `json:"WaitMethod,omitempty"`
-	WaitUrl                                 *string   `json:"WaitUrl,omitempty"`
-	WorkerActivitySid                       *string   `json:"WorkerActivitySid,omitempty"`
+	// Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
+	Beep *string `json:"Beep,omitempty"`
+	// Whether to play a notification beep when the customer joins.
+	BeepOnCustomerEntrance *bool `json:"BeepOnCustomerEntrance,omitempty"`
+	// Whether to accept a reservation when executing a Call instruction.
+	CallAccept *bool `json:"CallAccept,omitempty"`
+	// The Caller ID of the outbound call when executing a Call instruction.
+	CallFrom *string `json:"CallFrom,omitempty"`
+	// Whether to record both legs of a call when executing a Call instruction or which leg to record.
+	CallRecord *string `json:"CallRecord,omitempty"`
+	// The URL to call  for the completed call event when executing a Call instruction.
+	CallStatusCallbackUrl *string `json:"CallStatusCallbackUrl,omitempty"`
+	// Timeout for call when executing a Call instruction.
+	CallTimeout *int32 `json:"CallTimeout,omitempty"`
+	// The Contact URI of the worker when executing a Call instruction.  Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+	CallTo *string `json:"CallTo,omitempty"`
+	// TwiML URI executed on answering the worker's leg as a result of the Call instruction.
+	CallUrl *string `json:"CallUrl,omitempty"`
+	// Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
+	ConferenceRecord *string `json:"ConferenceRecord,omitempty"`
+	// The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
+	ConferenceRecordingStatusCallback *string `json:"ConferenceRecordingStatusCallback,omitempty"`
+	// The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+	ConferenceRecordingStatusCallbackMethod *string `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
+	// The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
+	ConferenceStatusCallback *string `json:"ConferenceStatusCallback,omitempty"`
+	// The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+	ConferenceStatusCallbackEvent *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
+	// The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+	ConferenceStatusCallbackMethod *string `json:"ConferenceStatusCallbackMethod,omitempty"`
+	// How to trim the leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+	ConferenceTrim *string `json:"ConferenceTrim,omitempty"`
+	// The Caller ID of the call to the worker when executing a Dequeue instruction.
+	DequeueFrom *string `json:"DequeueFrom,omitempty"`
+	// The SID of the Activity resource to start after executing a Dequeue instruction.
+	DequeuePostWorkActivitySid *string `json:"DequeuePostWorkActivitySid,omitempty"`
+	// Whether to record both legs of a call when executing a Dequeue instruction or which leg to record.
+	DequeueRecord *string `json:"DequeueRecord,omitempty"`
+	// The Call progress events sent via webhooks as a result of a Dequeue instruction.
+	DequeueStatusCallbackEvent *[]string `json:"DequeueStatusCallbackEvent,omitempty"`
+	// The Callback URL for completed call event when executing a Dequeue instruction.
+	DequeueStatusCallbackUrl *string `json:"DequeueStatusCallbackUrl,omitempty"`
+	// Timeout for call when executing a Dequeue instruction.
+	DequeueTimeout *int32 `json:"DequeueTimeout,omitempty"`
+	// The Contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+	DequeueTo *string `json:"DequeueTo,omitempty"`
+	// Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is `true`.
+	EarlyMedia *bool `json:"EarlyMedia,omitempty"`
+	// Whether to end the conference when the customer leaves.
+	EndConferenceOnCustomerExit *bool `json:"EndConferenceOnCustomerExit,omitempty"`
+	// Whether to end the conference when the agent leaves.
+	EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
+	// The Caller ID of the call to the worker when executing a Conference instruction.
+	From *string `json:"From,omitempty"`
+	// The assignment instruction for reservation.
+	Instruction *string `json:"Instruction,omitempty"`
+	// The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
+	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
+	// Whether the agent is muted in the conference. The default is `false`.
+	Muted *bool `json:"Muted,omitempty"`
+	// The new worker activity SID after executing a Conference instruction.
+	PostWorkActivitySid *string `json:"PostWorkActivitySid,omitempty"`
+	// Whether to record the participant and their conferences, including the time between conferences. The default is `false`.
+	Record *bool `json:"Record,omitempty"`
+	// The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
+	RecordingChannels *string `json:"RecordingChannels,omitempty"`
+	// The URL that we should call using the `recording_status_callback_method` when the recording status changes.
+	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
+	// The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	// Whether the reservation should be accepted when executing a Redirect instruction.
+	RedirectAccept *bool `json:"RedirectAccept,omitempty"`
+	// The Call SID of the call parked in the queue when executing a Redirect instruction.
+	RedirectCallSid *string `json:"RedirectCallSid,omitempty"`
+	// TwiML URI to redirect the call to when executing the Redirect instruction.
+	RedirectUrl *string `json:"RedirectUrl,omitempty"`
+	// The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+	Region *string `json:"Region,omitempty"`
+	// The new status of the reservation. Can be: `pending`, `accepted`, `rejected`, or `timeout`.
+	ReservationStatus *string `json:"ReservationStatus,omitempty"`
+	// The SIP password for authentication.
+	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
+	// The SIP username used for authentication.
+	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
+	// Whether to start the conference when the participant joins, if it has not already started. The default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+	StartConferenceOnEnter *bool `json:"StartConferenceOnEnter,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
+	// The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The Supervisor SID/URI when executing the Supervise instruction.
+	Supervisor *string `json:"Supervisor,omitempty"`
+	// The Supervisor mode when executing the Supervise instruction.
+	SupervisorMode *string `json:"SupervisorMode,omitempty"`
+	// Timeout for call when executing a Conference instruction.
+	Timeout *int32 `json:"Timeout,omitempty"`
+	// The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+	To *string `json:"To,omitempty"`
+	// The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+	WaitMethod *string `json:"WaitMethod,omitempty"`
+	// The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+	WaitUrl *string `json:"WaitUrl,omitempty"`
+	// The new worker activity SID if rejecting a reservation.
+	WorkerActivitySid *string `json:"WorkerActivitySid,omitempty"`
 }
 
 func (params *UpdateTaskReservationParams) SetBeep(Beep string) *UpdateTaskReservationParams {
@@ -3599,123 +3104,6 @@ func (params *UpdateTaskReservationParams) SetWorkerActivitySid(WorkerActivitySi
 	return params
 }
 
-// UpdateTaskReservation Method for UpdateTaskReservation
-//
-// param: WorkspaceSid The SID of the Workspace with the TaskReservation resources to update.
-//
-// param: TaskSid The SID of the reserved Task resource with the TaskReservation resources to update.
-//
-// param: Sid The SID of the TaskReservation resource to update.
-//
-// param: optional nil or *UpdateTaskReservationParams - Optional Parameters:
-//
-// param: "Beep" (string) - Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
-//
-// param: "BeepOnCustomerEntrance" (bool) - Whether to play a notification beep when the customer joins.
-//
-// param: "CallAccept" (bool) - Whether to accept a reservation when executing a Call instruction.
-//
-// param: "CallFrom" (string) - The Caller ID of the outbound call when executing a Call instruction.
-//
-// param: "CallRecord" (string) - Whether to record both legs of a call when executing a Call instruction or which leg to record.
-//
-// param: "CallStatusCallbackUrl" (string) - The URL to call  for the completed call event when executing a Call instruction.
-//
-// param: "CallTimeout" (int32) - Timeout for call when executing a Call instruction.
-//
-// param: "CallTo" (string) - The Contact URI of the worker when executing a Call instruction.  Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
-//
-// param: "CallUrl" (string) - TwiML URI executed on answering the worker's leg as a result of the Call instruction.
-//
-// param: "ConferenceRecord" (string) - Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
-//
-// param: "ConferenceRecordingStatusCallback" (string) - The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
-//
-// param: "ConferenceRecordingStatusCallbackMethod" (string) - The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "ConferenceStatusCallback" (string) - The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
-//
-// param: "ConferenceStatusCallbackEvent" ([]string) - The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
-//
-// param: "ConferenceStatusCallbackMethod" (string) - The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "ConferenceTrim" (string) - How to trim the leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
-//
-// param: "DequeueFrom" (string) - The Caller ID of the call to the worker when executing a Dequeue instruction.
-//
-// param: "DequeuePostWorkActivitySid" (string) - The SID of the Activity resource to start after executing a Dequeue instruction.
-//
-// param: "DequeueRecord" (string) - Whether to record both legs of a call when executing a Dequeue instruction or which leg to record.
-//
-// param: "DequeueStatusCallbackEvent" ([]string) - The Call progress events sent via webhooks as a result of a Dequeue instruction.
-//
-// param: "DequeueStatusCallbackUrl" (string) - The Callback URL for completed call event when executing a Dequeue instruction.
-//
-// param: "DequeueTimeout" (int32) - Timeout for call when executing a Dequeue instruction.
-//
-// param: "DequeueTo" (string) - The Contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
-//
-// param: "EarlyMedia" (bool) - Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is `true`.
-//
-// param: "EndConferenceOnCustomerExit" (bool) - Whether to end the conference when the customer leaves.
-//
-// param: "EndConferenceOnExit" (bool) - Whether to end the conference when the agent leaves.
-//
-// param: "From" (string) - The Caller ID of the call to the worker when executing a Conference instruction.
-//
-// param: "Instruction" (string) - The assignment instruction for reservation.
-//
-// param: "MaxParticipants" (int32) - The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
-//
-// param: "Muted" (bool) - Whether the agent is muted in the conference. The default is `false`.
-//
-// param: "PostWorkActivitySid" (string) - The new worker activity SID after executing a Conference instruction.
-//
-// param: "Record" (bool) - Whether to record the participant and their conferences, including the time between conferences. The default is `false`.
-//
-// param: "RecordingChannels" (string) - The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
-//
-// param: "RecordingStatusCallback" (string) - The URL that we should call using the `recording_status_callback_method` when the recording status changes.
-//
-// param: "RecordingStatusCallbackMethod" (string) - The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "RedirectAccept" (bool) - Whether the reservation should be accepted when executing a Redirect instruction.
-//
-// param: "RedirectCallSid" (string) - The Call SID of the call parked in the queue when executing a Redirect instruction.
-//
-// param: "RedirectUrl" (string) - TwiML URI to redirect the call to when executing the Redirect instruction.
-//
-// param: "Region" (string) - The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
-//
-// param: "ReservationStatus" (string) - The new status of the reservation. Can be: `pending`, `accepted`, `rejected`, or `timeout`.
-//
-// param: "SipAuthPassword" (string) - The SIP password for authentication.
-//
-// param: "SipAuthUsername" (string) - The SIP username used for authentication.
-//
-// param: "StartConferenceOnEnter" (bool) - Whether to start the conference when the participant joins, if it has not already started. The default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application.
-//
-// param: "StatusCallbackEvent" ([]string) - The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-//
-// param: "Supervisor" (string) - The Supervisor SID/URI when executing the Supervise instruction.
-//
-// param: "SupervisorMode" (string) - The Supervisor mode when executing the Supervise instruction.
-//
-// param: "Timeout" (int32) - Timeout for call when executing a Conference instruction.
-//
-// param: "To" (string) - The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
-//
-// param: "WaitMethod" (string) - The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-//
-// param: "WaitUrl" (string) - The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-//
-// param: "WorkerActivitySid" (string) - The new worker activity SID if rejecting a reservation.
-//
-// return: TaskrouterV1WorkspaceTaskTaskReservation
 func (c *DefaultApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid string, Sid string, params *UpdateTaskReservationParams) (*TaskrouterV1WorkspaceTaskTaskReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -3900,12 +3288,16 @@ func (c *DefaultApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid s
 	return ps, err
 }
 
-// UpdateWorkerParams Optional parameters for the method 'UpdateWorker'
+// Optional parameters for the method 'UpdateWorker'
 type UpdateWorkerParams struct {
-	ActivitySid               *string `json:"ActivitySid,omitempty"`
-	Attributes                *string `json:"Attributes,omitempty"`
-	FriendlyName              *string `json:"FriendlyName,omitempty"`
-	RejectPendingReservations *bool   `json:"RejectPendingReservations,omitempty"`
+	// The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+	ActivitySid *string `json:"ActivitySid,omitempty"`
+	// The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+	Attributes *string `json:"Attributes,omitempty"`
+	// A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether to reject pending reservations.
+	RejectPendingReservations *bool `json:"RejectPendingReservations,omitempty"`
 }
 
 func (params *UpdateWorkerParams) SetActivitySid(ActivitySid string) *UpdateWorkerParams {
@@ -3925,23 +3317,6 @@ func (params *UpdateWorkerParams) SetRejectPendingReservations(RejectPendingRese
 	return params
 }
 
-// UpdateWorker Method for UpdateWorker
-//
-// param: WorkspaceSid The SID of the Workspace with the Worker to update.
-//
-// param: Sid The SID of the Worker resource to update.
-//
-// param: optional nil or *UpdateWorkerParams - Optional Parameters:
-//
-// param: "ActivitySid" (string) - The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
-//
-// param: "Attributes" (string) - The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
-//
-// param: "RejectPendingReservations" (bool) - Whether to reject pending reservations.
-//
-// return: TaskrouterV1WorkspaceWorker
 func (c *DefaultApiService) UpdateWorker(WorkspaceSid string, Sid string, params *UpdateWorkerParams) (*TaskrouterV1WorkspaceWorker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -3978,10 +3353,12 @@ func (c *DefaultApiService) UpdateWorker(WorkspaceSid string, Sid string, params
 	return ps, err
 }
 
-// UpdateWorkerChannelParams Optional parameters for the method 'UpdateWorkerChannel'
+// Optional parameters for the method 'UpdateWorkerChannel'
 type UpdateWorkerChannelParams struct {
-	Available *bool  `json:"Available,omitempty"`
-	Capacity  *int32 `json:"Capacity,omitempty"`
+	// Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
+	Available *bool `json:"Available,omitempty"`
+	// The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
+	Capacity *int32 `json:"Capacity,omitempty"`
 }
 
 func (params *UpdateWorkerChannelParams) SetAvailable(Available bool) *UpdateWorkerChannelParams {
@@ -3993,21 +3370,6 @@ func (params *UpdateWorkerChannelParams) SetCapacity(Capacity int32) *UpdateWork
 	return params
 }
 
-// UpdateWorkerChannel Method for UpdateWorkerChannel
-//
-// param: WorkspaceSid The SID of the Workspace with the WorkerChannel to update.
-//
-// param: WorkerSid The SID of the Worker with the WorkerChannel to update.
-//
-// param: Sid The SID of the WorkerChannel to update.
-//
-// param: optional nil or *UpdateWorkerChannelParams - Optional Parameters:
-//
-// param: "Available" (bool) - Whether the WorkerChannel is available. Set to `false` to prevent the Worker from receiving any new Tasks of this TaskChannel type.
-//
-// param: "Capacity" (int32) - The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
-//
-// return: TaskrouterV1WorkspaceWorkerWorkerChannel
 func (c *DefaultApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerChannelParams) (*TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -4039,59 +3401,110 @@ func (c *DefaultApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid s
 	return ps, err
 }
 
-// UpdateWorkerReservationParams Optional parameters for the method 'UpdateWorkerReservation'
+// Optional parameters for the method 'UpdateWorkerReservation'
 type UpdateWorkerReservationParams struct {
-	Beep                                    *string   `json:"Beep,omitempty"`
-	BeepOnCustomerEntrance                  *bool     `json:"BeepOnCustomerEntrance,omitempty"`
-	CallAccept                              *bool     `json:"CallAccept,omitempty"`
-	CallFrom                                *string   `json:"CallFrom,omitempty"`
-	CallRecord                              *string   `json:"CallRecord,omitempty"`
-	CallStatusCallbackUrl                   *string   `json:"CallStatusCallbackUrl,omitempty"`
-	CallTimeout                             *int32    `json:"CallTimeout,omitempty"`
-	CallTo                                  *string   `json:"CallTo,omitempty"`
-	CallUrl                                 *string   `json:"CallUrl,omitempty"`
-	ConferenceRecord                        *string   `json:"ConferenceRecord,omitempty"`
-	ConferenceRecordingStatusCallback       *string   `json:"ConferenceRecordingStatusCallback,omitempty"`
-	ConferenceRecordingStatusCallbackMethod *string   `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
-	ConferenceStatusCallback                *string   `json:"ConferenceStatusCallback,omitempty"`
-	ConferenceStatusCallbackEvent           *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
-	ConferenceStatusCallbackMethod          *string   `json:"ConferenceStatusCallbackMethod,omitempty"`
-	ConferenceTrim                          *string   `json:"ConferenceTrim,omitempty"`
-	DequeueFrom                             *string   `json:"DequeueFrom,omitempty"`
-	DequeuePostWorkActivitySid              *string   `json:"DequeuePostWorkActivitySid,omitempty"`
-	DequeueRecord                           *string   `json:"DequeueRecord,omitempty"`
-	DequeueStatusCallbackEvent              *[]string `json:"DequeueStatusCallbackEvent,omitempty"`
-	DequeueStatusCallbackUrl                *string   `json:"DequeueStatusCallbackUrl,omitempty"`
-	DequeueTimeout                          *int32    `json:"DequeueTimeout,omitempty"`
-	DequeueTo                               *string   `json:"DequeueTo,omitempty"`
-	EarlyMedia                              *bool     `json:"EarlyMedia,omitempty"`
-	EndConferenceOnCustomerExit             *bool     `json:"EndConferenceOnCustomerExit,omitempty"`
-	EndConferenceOnExit                     *bool     `json:"EndConferenceOnExit,omitempty"`
-	From                                    *string   `json:"From,omitempty"`
-	Instruction                             *string   `json:"Instruction,omitempty"`
-	MaxParticipants                         *int32    `json:"MaxParticipants,omitempty"`
-	Muted                                   *bool     `json:"Muted,omitempty"`
-	PostWorkActivitySid                     *string   `json:"PostWorkActivitySid,omitempty"`
-	Record                                  *bool     `json:"Record,omitempty"`
-	RecordingChannels                       *string   `json:"RecordingChannels,omitempty"`
-	RecordingStatusCallback                 *string   `json:"RecordingStatusCallback,omitempty"`
-	RecordingStatusCallbackMethod           *string   `json:"RecordingStatusCallbackMethod,omitempty"`
-	RedirectAccept                          *bool     `json:"RedirectAccept,omitempty"`
-	RedirectCallSid                         *string   `json:"RedirectCallSid,omitempty"`
-	RedirectUrl                             *string   `json:"RedirectUrl,omitempty"`
-	Region                                  *string   `json:"Region,omitempty"`
-	ReservationStatus                       *string   `json:"ReservationStatus,omitempty"`
-	SipAuthPassword                         *string   `json:"SipAuthPassword,omitempty"`
-	SipAuthUsername                         *string   `json:"SipAuthUsername,omitempty"`
-	StartConferenceOnEnter                  *bool     `json:"StartConferenceOnEnter,omitempty"`
-	StatusCallback                          *string   `json:"StatusCallback,omitempty"`
-	StatusCallbackEvent                     *[]string `json:"StatusCallbackEvent,omitempty"`
-	StatusCallbackMethod                    *string   `json:"StatusCallbackMethod,omitempty"`
-	Timeout                                 *int32    `json:"Timeout,omitempty"`
-	To                                      *string   `json:"To,omitempty"`
-	WaitMethod                              *string   `json:"WaitMethod,omitempty"`
-	WaitUrl                                 *string   `json:"WaitUrl,omitempty"`
-	WorkerActivitySid                       *string   `json:"WorkerActivitySid,omitempty"`
+	// Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
+	Beep *string `json:"Beep,omitempty"`
+	// Whether to play a notification beep when the customer joins.
+	BeepOnCustomerEntrance *bool `json:"BeepOnCustomerEntrance,omitempty"`
+	// Whether to accept a reservation when executing a Call instruction.
+	CallAccept *bool `json:"CallAccept,omitempty"`
+	// The Caller ID of the outbound call when executing a Call instruction.
+	CallFrom *string `json:"CallFrom,omitempty"`
+	// Whether to record both legs of a call when executing a Call instruction.
+	CallRecord *string `json:"CallRecord,omitempty"`
+	// The URL to call for the completed call event when executing a Call instruction.
+	CallStatusCallbackUrl *string `json:"CallStatusCallbackUrl,omitempty"`
+	// The timeout for a call when executing a Call instruction.
+	CallTimeout *int32 `json:"CallTimeout,omitempty"`
+	// The contact URI of the worker when executing a Call instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+	CallTo *string `json:"CallTo,omitempty"`
+	// TwiML URI executed on answering the worker's leg as a result of the Call instruction.
+	CallUrl *string `json:"CallUrl,omitempty"`
+	// Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
+	ConferenceRecord *string `json:"ConferenceRecord,omitempty"`
+	// The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
+	ConferenceRecordingStatusCallback *string `json:"ConferenceRecordingStatusCallback,omitempty"`
+	// The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+	ConferenceRecordingStatusCallbackMethod *string `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
+	// The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
+	ConferenceStatusCallback *string `json:"ConferenceStatusCallback,omitempty"`
+	// The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+	ConferenceStatusCallbackEvent *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
+	// The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+	ConferenceStatusCallbackMethod *string `json:"ConferenceStatusCallbackMethod,omitempty"`
+	// Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+	ConferenceTrim *string `json:"ConferenceTrim,omitempty"`
+	// The caller ID of the call to the worker when executing a Dequeue instruction.
+	DequeueFrom *string `json:"DequeueFrom,omitempty"`
+	// The SID of the Activity resource to start after executing a Dequeue instruction.
+	DequeuePostWorkActivitySid *string `json:"DequeuePostWorkActivitySid,omitempty"`
+	// Whether to record both legs of a call when executing a Dequeue instruction or which leg to record.
+	DequeueRecord *string `json:"DequeueRecord,omitempty"`
+	// The call progress events sent via webhooks as a result of a Dequeue instruction.
+	DequeueStatusCallbackEvent *[]string `json:"DequeueStatusCallbackEvent,omitempty"`
+	// The callback URL for completed call event when executing a Dequeue instruction.
+	DequeueStatusCallbackUrl *string `json:"DequeueStatusCallbackUrl,omitempty"`
+	// The timeout for call when executing a Dequeue instruction.
+	DequeueTimeout *int32 `json:"DequeueTimeout,omitempty"`
+	// The contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+	DequeueTo *string `json:"DequeueTo,omitempty"`
+	// Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is `true`.
+	EarlyMedia *bool `json:"EarlyMedia,omitempty"`
+	// Whether to end the conference when the customer leaves.
+	EndConferenceOnCustomerExit *bool `json:"EndConferenceOnCustomerExit,omitempty"`
+	// Whether to end the conference when the agent leaves.
+	EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
+	// The caller ID of the call to the worker when executing a Conference instruction.
+	From *string `json:"From,omitempty"`
+	// The assignment instruction for the reservation.
+	Instruction *string `json:"Instruction,omitempty"`
+	// The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
+	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
+	// Whether the agent is muted in the conference. Defaults to `false`.
+	Muted *bool `json:"Muted,omitempty"`
+	// The new worker activity SID after executing a Conference instruction.
+	PostWorkActivitySid *string `json:"PostWorkActivitySid,omitempty"`
+	// Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
+	Record *bool `json:"Record,omitempty"`
+	// The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
+	RecordingChannels *string `json:"RecordingChannels,omitempty"`
+	// The URL that we should call using the `recording_status_callback_method` when the recording status changes.
+	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
+	// The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	// Whether the reservation should be accepted when executing a Redirect instruction.
+	RedirectAccept *bool `json:"RedirectAccept,omitempty"`
+	// The Call SID of the call parked in the queue when executing a Redirect instruction.
+	RedirectCallSid *string `json:"RedirectCallSid,omitempty"`
+	// TwiML URI to redirect the call to when executing the Redirect instruction.
+	RedirectUrl *string `json:"RedirectUrl,omitempty"`
+	// The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+	Region *string `json:"Region,omitempty"`
+	// The new status of the reservation. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
+	ReservationStatus *string `json:"ReservationStatus,omitempty"`
+	// The SIP password for authentication.
+	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
+	// The SIP username used for authentication.
+	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
+	// Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+	StartConferenceOnEnter *bool `json:"StartConferenceOnEnter,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
+	// The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The timeout for a call when executing a Conference instruction.
+	Timeout *int32 `json:"Timeout,omitempty"`
+	// The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+	To *string `json:"To,omitempty"`
+	// The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+	WaitMethod *string `json:"WaitMethod,omitempty"`
+	// The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+	WaitUrl *string `json:"WaitUrl,omitempty"`
+	// The new worker activity SID if rejecting a reservation.
+	WorkerActivitySid *string `json:"WorkerActivitySid,omitempty"`
 }
 
 func (params *UpdateWorkerReservationParams) SetBeep(Beep string) *UpdateWorkerReservationParams {
@@ -4299,119 +3712,6 @@ func (params *UpdateWorkerReservationParams) SetWorkerActivitySid(WorkerActivity
 	return params
 }
 
-// UpdateWorkerReservation Method for UpdateWorkerReservation
-//
-// param: WorkspaceSid The SID of the Workspace with the WorkerReservation resources to update.
-//
-// param: WorkerSid The SID of the reserved Worker resource with the WorkerReservation resources to update.
-//
-// param: Sid The SID of the WorkerReservation resource to update.
-//
-// param: optional nil or *UpdateWorkerReservationParams - Optional Parameters:
-//
-// param: "Beep" (string) - Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
-//
-// param: "BeepOnCustomerEntrance" (bool) - Whether to play a notification beep when the customer joins.
-//
-// param: "CallAccept" (bool) - Whether to accept a reservation when executing a Call instruction.
-//
-// param: "CallFrom" (string) - The Caller ID of the outbound call when executing a Call instruction.
-//
-// param: "CallRecord" (string) - Whether to record both legs of a call when executing a Call instruction.
-//
-// param: "CallStatusCallbackUrl" (string) - The URL to call for the completed call event when executing a Call instruction.
-//
-// param: "CallTimeout" (int32) - The timeout for a call when executing a Call instruction.
-//
-// param: "CallTo" (string) - The contact URI of the worker when executing a Call instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
-//
-// param: "CallUrl" (string) - TwiML URI executed on answering the worker's leg as a result of the Call instruction.
-//
-// param: "ConferenceRecord" (string) - Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
-//
-// param: "ConferenceRecordingStatusCallback" (string) - The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
-//
-// param: "ConferenceRecordingStatusCallbackMethod" (string) - The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "ConferenceStatusCallback" (string) - The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
-//
-// param: "ConferenceStatusCallbackEvent" ([]string) - The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
-//
-// param: "ConferenceStatusCallbackMethod" (string) - The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "ConferenceTrim" (string) - Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
-//
-// param: "DequeueFrom" (string) - The caller ID of the call to the worker when executing a Dequeue instruction.
-//
-// param: "DequeuePostWorkActivitySid" (string) - The SID of the Activity resource to start after executing a Dequeue instruction.
-//
-// param: "DequeueRecord" (string) - Whether to record both legs of a call when executing a Dequeue instruction or which leg to record.
-//
-// param: "DequeueStatusCallbackEvent" ([]string) - The call progress events sent via webhooks as a result of a Dequeue instruction.
-//
-// param: "DequeueStatusCallbackUrl" (string) - The callback URL for completed call event when executing a Dequeue instruction.
-//
-// param: "DequeueTimeout" (int32) - The timeout for call when executing a Dequeue instruction.
-//
-// param: "DequeueTo" (string) - The contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
-//
-// param: "EarlyMedia" (bool) - Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is `true`.
-//
-// param: "EndConferenceOnCustomerExit" (bool) - Whether to end the conference when the customer leaves.
-//
-// param: "EndConferenceOnExit" (bool) - Whether to end the conference when the agent leaves.
-//
-// param: "From" (string) - The caller ID of the call to the worker when executing a Conference instruction.
-//
-// param: "Instruction" (string) - The assignment instruction for the reservation.
-//
-// param: "MaxParticipants" (int32) - The maximum number of participants allowed in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
-//
-// param: "Muted" (bool) - Whether the agent is muted in the conference. Defaults to `false`.
-//
-// param: "PostWorkActivitySid" (string) - The new worker activity SID after executing a Conference instruction.
-//
-// param: "Record" (bool) - Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
-//
-// param: "RecordingChannels" (string) - The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
-//
-// param: "RecordingStatusCallback" (string) - The URL that we should call using the `recording_status_callback_method` when the recording status changes.
-//
-// param: "RecordingStatusCallbackMethod" (string) - The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "RedirectAccept" (bool) - Whether the reservation should be accepted when executing a Redirect instruction.
-//
-// param: "RedirectCallSid" (string) - The Call SID of the call parked in the queue when executing a Redirect instruction.
-//
-// param: "RedirectUrl" (string) - TwiML URI to redirect the call to when executing the Redirect instruction.
-//
-// param: "Region" (string) - The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
-//
-// param: "ReservationStatus" (string) - The new status of the reservation. Can be: `pending`, `accepted`, `rejected`, `timeout`, `canceled`, or `rescinded`.
-//
-// param: "SipAuthPassword" (string) - The SIP password for authentication.
-//
-// param: "SipAuthUsername" (string) - The SIP username used for authentication.
-//
-// param: "StartConferenceOnEnter" (bool) - Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application.
-//
-// param: "StatusCallbackEvent" ([]string) - The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
-//
-// param: "Timeout" (int32) - The timeout for a call when executing a Conference instruction.
-//
-// param: "To" (string) - The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
-//
-// param: "WaitMethod" (string) - The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-//
-// param: "WaitUrl" (string) - The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-//
-// param: "WorkerActivitySid" (string) - The new worker activity SID if rejecting a reservation.
-//
-// return: TaskrouterV1WorkspaceWorkerWorkerReservation
 func (c *DefaultApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerReservationParams) (*TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -4590,14 +3890,20 @@ func (c *DefaultApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerS
 	return ps, err
 }
 
-// UpdateWorkflowParams Optional parameters for the method 'UpdateWorkflow'
+// Optional parameters for the method 'UpdateWorkflow'
 type UpdateWorkflowParams struct {
-	AssignmentCallbackUrl         *string `json:"AssignmentCallbackUrl,omitempty"`
-	Configuration                 *string `json:"Configuration,omitempty"`
+	// The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
+	AssignmentCallbackUrl *string `json:"AssignmentCallbackUrl,omitempty"`
+	// A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
+	Configuration *string `json:"Configuration,omitempty"`
+	// The URL that we should call when a call to the `assignment_callback_url` fails.
 	FallbackAssignmentCallbackUrl *string `json:"FallbackAssignmentCallbackUrl,omitempty"`
-	FriendlyName                  *string `json:"FriendlyName,omitempty"`
-	ReEvaluateTasks               *string `json:"ReEvaluateTasks,omitempty"`
-	TaskReservationTimeout        *int32  `json:"TaskReservationTimeout,omitempty"`
+	// A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again.
+	ReEvaluateTasks *string `json:"ReEvaluateTasks,omitempty"`
+	// How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
+	TaskReservationTimeout *int32 `json:"TaskReservationTimeout,omitempty"`
 }
 
 func (params *UpdateWorkflowParams) SetAssignmentCallbackUrl(AssignmentCallbackUrl string) *UpdateWorkflowParams {
@@ -4625,27 +3931,6 @@ func (params *UpdateWorkflowParams) SetTaskReservationTimeout(TaskReservationTim
 	return params
 }
 
-// UpdateWorkflow Method for UpdateWorkflow
-//
-// param: WorkspaceSid The SID of the Workspace with the Workflow to update.
-//
-// param: Sid The SID of the Workflow resource to update.
-//
-// param: optional nil or *UpdateWorkflowParams - Optional Parameters:
-//
-// param: "AssignmentCallbackUrl" (string) - The URL from your application that will process task assignment events. See [Handling Task Assignment Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks) for more details.
-//
-// param: "Configuration" (string) - A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
-//
-// param: "FallbackAssignmentCallbackUrl" (string) - The URL that we should call when a call to the `assignment_callback_url` fails.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the Workflow resource. For example, `Inbound Call Workflow` or `2014 Outbound Campaign`.
-//
-// param: "ReEvaluateTasks" (string) - Whether or not to re-evaluate Tasks. The default is `false`, which means Tasks in the Workflow will not be processed through the assignment loop again.
-//
-// param: "TaskReservationTimeout" (int32) - How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to `86,400` (24 hours) and the default is `120`.
-//
-// return: TaskrouterV1WorkspaceWorkflow
 func (c *DefaultApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*TaskrouterV1WorkspaceWorkflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -4688,15 +3973,22 @@ func (c *DefaultApiService) UpdateWorkflow(WorkspaceSid string, Sid string, para
 	return ps, err
 }
 
-// UpdateWorkspaceParams Optional parameters for the method 'UpdateWorkspace'
+// Optional parameters for the method 'UpdateWorkspace'
 type UpdateWorkspaceParams struct {
-	DefaultActivitySid   *string `json:"DefaultActivitySid,omitempty"`
-	EventCallbackUrl     *string `json:"EventCallbackUrl,omitempty"`
-	EventsFilter         *string `json:"EventsFilter,omitempty"`
-	FriendlyName         *string `json:"FriendlyName,omitempty"`
-	MultiTaskEnabled     *bool   `json:"MultiTaskEnabled,omitempty"`
+	// The SID of the Activity that will be used when new Workers are created in the Workspace.
+	DefaultActivitySid *string `json:"DefaultActivitySid,omitempty"`
+	// The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information.
+	EventCallbackUrl *string `json:"EventCallbackUrl,omitempty"`
+	// The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+	EventsFilter *string `json:"EventsFilter,omitempty"`
+	// A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. The default is `false`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. Otherwise, each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+	MultiTaskEnabled *bool `json:"MultiTaskEnabled,omitempty"`
+	// The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`. For more information, see [Queue Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo).
 	PrioritizeQueueOrder *string `json:"PrioritizeQueueOrder,omitempty"`
-	TimeoutActivitySid   *string `json:"TimeoutActivitySid,omitempty"`
+	// The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+	TimeoutActivitySid *string `json:"TimeoutActivitySid,omitempty"`
 }
 
 func (params *UpdateWorkspaceParams) SetDefaultActivitySid(DefaultActivitySid string) *UpdateWorkspaceParams {
@@ -4728,27 +4020,6 @@ func (params *UpdateWorkspaceParams) SetTimeoutActivitySid(TimeoutActivitySid st
 	return params
 }
 
-// UpdateWorkspace Method for UpdateWorkspace
-//
-// param: Sid The SID of the Workspace resource to update.
-//
-// param: optional nil or *UpdateWorkspaceParams - Optional Parameters:
-//
-// param: "DefaultActivitySid" (string) - The SID of the Activity that will be used when new Workers are created in the Workspace.
-//
-// param: "EventCallbackUrl" (string) - The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information.
-//
-// param: "EventsFilter" (string) - The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
-//
-// param: "MultiTaskEnabled" (bool) - Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. The default is `false`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. Otherwise, each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
-//
-// param: "PrioritizeQueueOrder" (string) - The type of TaskQueue to prioritize when Workers are receiving Tasks from both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`. For more information, see [Queue Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo).
-//
-// param: "TimeoutActivitySid" (string) - The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
-//
-// return: TaskrouterV1Workspace
 func (c *DefaultApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) (*TaskrouterV1Workspace, error) {
 	path := "/v1/Workspaces/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

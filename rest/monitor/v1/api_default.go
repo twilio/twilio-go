@@ -33,11 +33,6 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 	}
 }
 
-// FetchAlert Method for FetchAlert
-//
-// param: Sid The SID of the Alert resource to fetch.
-//
-// return: MonitorV1AlertInstance
 func (c *DefaultApiService) FetchAlert(Sid string) (*MonitorV1AlertInstance, error) {
 	path := "/v1/Alerts/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -60,11 +55,6 @@ func (c *DefaultApiService) FetchAlert(Sid string) (*MonitorV1AlertInstance, err
 	return ps, err
 }
 
-// FetchEvent Method for FetchEvent
-//
-// param: Sid The SID of the Event resource to fetch.
-//
-// return: MonitorV1Event
 func (c *DefaultApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
 	path := "/v1/Events/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -87,12 +77,16 @@ func (c *DefaultApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
 	return ps, err
 }
 
-// ListAlertParams Optional parameters for the method 'ListAlert'
+// Optional parameters for the method 'ListAlert'
 type ListAlertParams struct {
-	LogLevel  *string    `json:"LogLevel,omitempty"`
+	// Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
+	LogLevel *string `json:"LogLevel,omitempty"`
+	// Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
 	StartDate *time.Time `json:"StartDate,omitempty"`
-	EndDate   *time.Time `json:"EndDate,omitempty"`
-	PageSize  *int32     `json:"PageSize,omitempty"`
+	// Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAlertParams) SetLogLevel(LogLevel string) *ListAlertParams {
@@ -112,19 +106,6 @@ func (params *ListAlertParams) SetPageSize(PageSize int32) *ListAlertParams {
 	return params
 }
 
-// ListAlert Method for ListAlert
-//
-// param: optional nil or *ListAlertParams - Optional Parameters:
-//
-// param: "LogLevel" (string) - Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
-//
-// param: "StartDate" (time.Time) - Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
-//
-// param: "EndDate" (time.Time) - Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAlertResponse
 func (c *DefaultApiService) ListAlert(params *ListAlertParams) (*ListAlertResponse, error) {
 	path := "/v1/Alerts"
 
@@ -159,15 +140,22 @@ func (c *DefaultApiService) ListAlert(params *ListAlertParams) (*ListAlertRespon
 	return ps, err
 }
 
-// ListEventParams Optional parameters for the method 'ListEvent'
+// Optional parameters for the method 'ListEvent'
 type ListEventParams struct {
-	ActorSid        *string    `json:"ActorSid,omitempty"`
-	EventType       *string    `json:"EventType,omitempty"`
-	ResourceSid     *string    `json:"ResourceSid,omitempty"`
-	SourceIpAddress *string    `json:"SourceIpAddress,omitempty"`
-	StartDate       *time.Time `json:"StartDate,omitempty"`
-	EndDate         *time.Time `json:"EndDate,omitempty"`
-	PageSize        *int32     `json:"PageSize,omitempty"`
+	// Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
+	ActorSid *string `json:"ActorSid,omitempty"`
+	// Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
+	EventType *string `json:"EventType,omitempty"`
+	// Only include events that refer to this resource. Useful for discovering the history of a specific resource.
+	ResourceSid *string `json:"ResourceSid,omitempty"`
+	// Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
+	SourceIpAddress *string `json:"SourceIpAddress,omitempty"`
+	// Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	StartDate *time.Time `json:"StartDate,omitempty"`
+	// Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+	EndDate *time.Time `json:"EndDate,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListEventParams) SetActorSid(ActorSid string) *ListEventParams {
@@ -199,27 +187,7 @@ func (params *ListEventParams) SetPageSize(PageSize int32) *ListEventParams {
 	return params
 }
 
-// ListEvent Method for ListEvent
-//
 // Returns a list of events in the account, sorted by event-date.
-//
-// param: optional nil or *ListEventParams - Optional Parameters:
-//
-// param: "ActorSid" (string) - Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
-//
-// param: "EventType" (string) - Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
-//
-// param: "ResourceSid" (string) - Only include events that refer to this resource. Useful for discovering the history of a specific resource.
-//
-// param: "SourceIpAddress" (string) - Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
-//
-// param: "StartDate" (time.Time) - Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "EndDate" (time.Time) - Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListEventResponse
 func (c *DefaultApiService) ListEvent(params *ListEventParams) (*ListEventResponse, error) {
 	path := "/v1/Events"
 
