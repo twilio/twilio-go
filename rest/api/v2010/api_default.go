@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -33,8 +33,9 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 	}
 }
 
-// CreateAccountParams Optional parameters for the method 'CreateAccount'
+// Optional parameters for the method 'CreateAccount'
 type CreateAccountParams struct {
+	// A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -43,15 +44,7 @@ func (params *CreateAccountParams) SetFriendlyName(FriendlyName string) *CreateA
 	return params
 }
 
-// CreateAccount Method for CreateAccount
-//
 // Create a new Twilio Subaccount from the account making the request
-//
-// param: optional nil or *CreateAccountParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
-//
-// return: ApiV2010Account
 func (c *DefaultApiService) CreateAccount(params *CreateAccountParams) (*ApiV2010Account, error) {
 	path := "/2010-04-01/Accounts.json"
 
@@ -77,18 +70,28 @@ func (c *DefaultApiService) CreateAccount(params *CreateAccountParams) (*ApiV201
 	return ps, err
 }
 
-// CreateAddressParams Optional parameters for the method 'CreateAddress'
+// Optional parameters for the method 'CreateAddress'
 type CreateAddressParams struct {
-	PathAccountSid     *string `json:"PathAccountSid,omitempty"`
-	AutoCorrectAddress *bool   `json:"AutoCorrectAddress,omitempty"`
-	City               *string `json:"City,omitempty"`
-	CustomerName       *string `json:"CustomerName,omitempty"`
-	EmergencyEnabled   *bool   `json:"EmergencyEnabled,omitempty"`
-	FriendlyName       *string `json:"FriendlyName,omitempty"`
-	IsoCountry         *string `json:"IsoCountry,omitempty"`
-	PostalCode         *string `json:"PostalCode,omitempty"`
-	Region             *string `json:"Region,omitempty"`
-	Street             *string `json:"Street,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Address resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+	AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
+	// The city of the new address.
+	City *string `json:"City,omitempty"`
+	// The name to associate with the new address.
+	CustomerName *string `json:"CustomerName,omitempty"`
+	// Whether to enable emergency calling on the new address. Can be: `true` or `false`.
+	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
+	// A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The ISO country code of the new address.
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	// The postal code of the new address.
+	PostalCode *string `json:"PostalCode,omitempty"`
+	// The state or region of the new address.
+	Region *string `json:"Region,omitempty"`
+	// The number and street address of the new address.
+	Street *string `json:"Street,omitempty"`
 }
 
 func (params *CreateAddressParams) SetPathAccountSid(PathAccountSid string) *CreateAddressParams {
@@ -132,31 +135,6 @@ func (params *CreateAddressParams) SetStreet(Street string) *CreateAddressParams
 	return params
 }
 
-// CreateAddress Method for CreateAddress
-//
-// param: optional nil or *CreateAddressParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Address resource.
-//
-// param: "AutoCorrectAddress" (bool) - Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-//
-// param: "City" (string) - The city of the new address.
-//
-// param: "CustomerName" (string) - The name to associate with the new address.
-//
-// param: "EmergencyEnabled" (bool) - Whether to enable emergency calling on the new address. Can be: `true` or `false`.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the new address. It can be up to 64 characters long.
-//
-// param: "IsoCountry" (string) - The ISO country code of the new address.
-//
-// param: "PostalCode" (string) - The postal code of the new address.
-//
-// param: "Region" (string) - The state or region of the new address.
-//
-// param: "Street" (string) - The number and street address of the new address.
-//
-// return: ApiV2010AccountAddress
 func (c *DefaultApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010AccountAddress, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -211,24 +189,40 @@ func (c *DefaultApiService) CreateAddress(params *CreateAddressParams) (*ApiV201
 	return ps, err
 }
 
-// CreateApplicationParams Optional parameters for the method 'CreateApplication'
+// Optional parameters for the method 'CreateApplication'
 type CreateApplicationParams struct {
-	PathAccountSid        *string `json:"PathAccountSid,omitempty"`
-	ApiVersion            *string `json:"ApiVersion,omitempty"`
-	FriendlyName          *string `json:"FriendlyName,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// A descriptive string that you create to describe the new application. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The URL we should call using a POST method to send message status information to your application.
 	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
-	SmsFallbackMethod     *string `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl        *string `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod             *string `json:"SmsMethod,omitempty"`
-	SmsStatusCallback     *string `json:"SmsStatusCallback,omitempty"`
-	SmsUrl                *string `json:"SmsUrl,omitempty"`
-	StatusCallback        *string `json:"StatusCallback,omitempty"`
-	StatusCallbackMethod  *string `json:"StatusCallbackMethod,omitempty"`
-	VoiceCallerIdLookup   *bool   `json:"VoiceCallerIdLookup,omitempty"`
-	VoiceFallbackMethod   *string `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl      *string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod           *string `json:"VoiceMethod,omitempty"`
-	VoiceUrl              *string `json:"VoiceUrl,omitempty"`
+	// The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL we should call using a POST method to send status information about SMS messages sent by the application.
+	SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
+	// The URL we should call when the phone number receives an incoming SMS message.
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The URL we should call when the phone number assigned to this application receives a call.
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 func (params *CreateApplicationParams) SetPathAccountSid(PathAccountSid string) *CreateApplicationParams {
@@ -296,45 +290,7 @@ func (params *CreateApplicationParams) SetVoiceUrl(VoiceUrl string) *CreateAppli
 	return params
 }
 
-// CreateApplication Method for CreateApplication
-//
 // Create a new application within your account
-//
-// param: optional nil or *CreateApplicationParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "ApiVersion" (string) - The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is the account's default API version.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the new application. It can be up to 64 characters long.
-//
-// param: "MessageStatusCallback" (string) - The URL we should call using a POST method to send message status information to your application.
-//
-// param: "SmsFallbackMethod" (string) - The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-//
-// param: "SmsFallbackUrl" (string) - The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-//
-// param: "SmsMethod" (string) - The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
-//
-// param: "SmsStatusCallback" (string) - The URL we should call using a POST method to send status information about SMS messages sent by the application.
-//
-// param: "SmsUrl" (string) - The URL we should call when the phone number receives an incoming SMS message.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
-//
-// param: "VoiceCallerIdLookup" (bool) - Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
-//
-// param: "VoiceFallbackMethod" (string) - The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-//
-// param: "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-//
-// param: "VoiceMethod" (string) - The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-//
-// param: "VoiceUrl" (string) - The URL we should call when the phone number assigned to this application receives a call.
-//
-// return: ApiV2010AccountApplication
 func (c *DefaultApiService) CreateApplication(params *CreateApplicationParams) (*ApiV2010AccountApplication, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -407,43 +363,78 @@ func (c *DefaultApiService) CreateApplication(params *CreateApplicationParams) (
 	return ps, err
 }
 
-// CreateCallParams Optional parameters for the method 'CreateCall'
+// Optional parameters for the method 'CreateCall'
 type CreateCallParams struct {
-	PathAccountSid                     *string   `json:"PathAccountSid,omitempty"`
-	ApplicationSid                     *string   `json:"ApplicationSid,omitempty"`
-	AsyncAmd                           *string   `json:"AsyncAmd,omitempty"`
-	AsyncAmdStatusCallback             *string   `json:"AsyncAmdStatusCallback,omitempty"`
-	AsyncAmdStatusCallbackMethod       *string   `json:"AsyncAmdStatusCallbackMethod,omitempty"`
-	Byoc                               *string   `json:"Byoc,omitempty"`
-	CallReason                         *string   `json:"CallReason,omitempty"`
-	CallToken                          *string   `json:"CallToken,omitempty"`
-	CallerId                           *string   `json:"CallerId,omitempty"`
-	FallbackMethod                     *string   `json:"FallbackMethod,omitempty"`
-	FallbackUrl                        *string   `json:"FallbackUrl,omitempty"`
-	From                               *string   `json:"From,omitempty"`
-	MachineDetection                   *string   `json:"MachineDetection,omitempty"`
-	MachineDetectionSilenceTimeout     *int32    `json:"MachineDetectionSilenceTimeout,omitempty"`
-	MachineDetectionSpeechEndThreshold *int32    `json:"MachineDetectionSpeechEndThreshold,omitempty"`
-	MachineDetectionSpeechThreshold    *int32    `json:"MachineDetectionSpeechThreshold,omitempty"`
-	MachineDetectionTimeout            *int32    `json:"MachineDetectionTimeout,omitempty"`
-	Method                             *string   `json:"Method,omitempty"`
-	Record                             *bool     `json:"Record,omitempty"`
-	RecordingChannels                  *string   `json:"RecordingChannels,omitempty"`
-	RecordingStatusCallback            *string   `json:"RecordingStatusCallback,omitempty"`
-	RecordingStatusCallbackEvent       *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
-	RecordingStatusCallbackMethod      *string   `json:"RecordingStatusCallbackMethod,omitempty"`
-	RecordingTrack                     *string   `json:"RecordingTrack,omitempty"`
-	SendDigits                         *string   `json:"SendDigits,omitempty"`
-	SipAuthPassword                    *string   `json:"SipAuthPassword,omitempty"`
-	SipAuthUsername                    *string   `json:"SipAuthUsername,omitempty"`
-	StatusCallback                     *string   `json:"StatusCallback,omitempty"`
-	StatusCallbackEvent                *[]string `json:"StatusCallbackEvent,omitempty"`
-	StatusCallbackMethod               *string   `json:"StatusCallbackMethod,omitempty"`
-	Timeout                            *int32    `json:"Timeout,omitempty"`
-	To                                 *string   `json:"To,omitempty"`
-	Trim                               *string   `json:"Trim,omitempty"`
-	Twiml                              *string   `json:"Twiml,omitempty"`
-	Url                                *string   `json:"Url,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The SID of the Application resource that will handle the call, if the call will be handled by an application.
+	ApplicationSid *string `json:"ApplicationSid,omitempty"`
+	// Select whether to perform answering machine detection in the background. Default, blocks the execution of the call until Answering Machine Detection is completed. Can be: `true` or `false`.
+	AsyncAmd *string `json:"AsyncAmd,omitempty"`
+	// The URL that we should call using the `async_amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
+	AsyncAmdStatusCallback *string `json:"AsyncAmdStatusCallback,omitempty"`
+	// The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+	AsyncAmdStatusCallbackMethod *string `json:"AsyncAmdStatusCallbackMethod,omitempty"`
+	// The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
+	Byoc *string `json:"Byoc,omitempty"`
+	// The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
+	CallReason *string `json:"CallReason,omitempty"`
+	// A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. this field should be populated by the incoming call's call_token to make this outgoing call as a forwarded call of incoming call. A forwarded call should bear the same caller-id of incoming call.
+	CallToken *string `json:"CallToken,omitempty"`
+	// The phone number, SIP address, or Client identifier that made this call. Phone numbers are in [E.164 format](https://wwnw.twilio.com/docs/glossary/what-e164) (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
+	CallerId *string `json:"CallerId,omitempty"`
+	// The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+	FallbackMethod *string `json:"FallbackMethod,omitempty"`
+	// The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
+	FallbackUrl *string `json:"FallbackUrl,omitempty"`
+	// The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `From` must also be a phone number.
+	From *string `json:"From,omitempty"`
+	// Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
+	MachineDetection *string `json:"MachineDetection,omitempty"`
+	// The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
+	MachineDetectionSilenceTimeout *int32 `json:"MachineDetectionSilenceTimeout,omitempty"`
+	// The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
+	MachineDetectionSpeechEndThreshold *int32 `json:"MachineDetectionSpeechEndThreshold,omitempty"`
+	// The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
+	MachineDetectionSpeechThreshold *int32 `json:"MachineDetectionSpeechThreshold,omitempty"`
+	// The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
+	MachineDetectionTimeout *int32 `json:"MachineDetectionTimeout,omitempty"`
+	// The HTTP method we should use when calling the `url` parameter's value. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+	Method *string `json:"Method,omitempty"`
+	// Whether to record the call. Can be `true` to record the phone call, or `false` to not. The default is `false`. The `recording_url` is sent to the `status_callback` URL.
+	Record *bool `json:"Record,omitempty"`
+	// The number of channels in the final recording. Can be: `mono` or `dual`. The default is `mono`. `mono` records both legs of the call in a single channel of the recording file. `dual` records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call.
+	RecordingChannels *string `json:"RecordingChannels,omitempty"`
+	// The URL that we call when the recording is available to be accessed.
+	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
+	// The recording status events that will trigger calls to the URL specified in `recording_status_callback`. Can be: `in-progress`, `completed` and `absent`. Defaults to `completed`. Separate  multiple values with a space.
+	RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
+	// The HTTP method we should use when calling the `recording_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	// The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is generated from Twilio. `both` records the audio that is received and generated by Twilio.
+	RecordingTrack *string `json:"RecordingTrack,omitempty"`
+	// A string of keys to dial after connecting to the number, maximum of 32 digits. Valid digits in the string include: any digit (`0`-`9`), '`#`', '`*`' and '`w`', to insert a half second pause. For example, if you connected to a company phone number and wanted to pause for one second, and then dial extension 1234 followed by the pound key, the value of this parameter would be `ww1234#`. Remember to URL-encode this string, since the '`#`' character has special meaning in a URL. If both `SendDigits` and `MachineDetection` parameters are provided, then `MachineDetection` will be ignored.
+	SendDigits *string `json:"SendDigits,omitempty"`
+	// The password required to authenticate the user account specified in `sip_auth_username`.
+	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
+	// The username used to authenticate the caller making a SIP call.
+	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The call progress events that we will send to the `status_callback` URL. Can be: `initiated`, `ringing`, `answered`, and `completed`. If no event is specified, we send the `completed` status. If you want to receive multiple events, specify each one in a separate `status_callback_event` parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&code-sdk-version=json). If an `application_sid` is present, this parameter is ignored.
+	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
+	// The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail.
+	Timeout *int32 `json:"Timeout,omitempty"`
+	// The phone number, SIP address, or client identifier to call.
+	To *string `json:"To,omitempty"`
+	// Whether to trim any leading and trailing silence from the recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
+	Trim *string `json:"Trim,omitempty"`
+	// TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored.
+	Twiml *string `json:"Twiml,omitempty"`
+	// The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
+	Url *string `json:"Url,omitempty"`
 }
 
 func (params *CreateCallParams) SetPathAccountSid(PathAccountSid string) *CreateCallParams {
@@ -587,83 +578,7 @@ func (params *CreateCallParams) SetUrl(Url string) *CreateCallParams {
 	return params
 }
 
-// CreateCall Method for CreateCall
-//
 // Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
-//
-// param: optional nil or *CreateCallParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "ApplicationSid" (string) - The SID of the Application resource that will handle the call, if the call will be handled by an application.
-//
-// param: "AsyncAmd" (string) - Select whether to perform answering machine detection in the background. Default, blocks the execution of the call until Answering Machine Detection is completed. Can be: `true` or `false`.
-//
-// param: "AsyncAmdStatusCallback" (string) - The URL that we should call using the `async_amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
-//
-// param: "AsyncAmdStatusCallbackMethod" (string) - The HTTP method we should use when calling the `async_amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
-//
-// param: "Byoc" (string) - The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
-//
-// param: "CallReason" (string) - The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
-//
-// param: "CallToken" (string) - A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. this field should be populated by the incoming call's call_token to make this outgoing call as a forwarded call of incoming call. A forwarded call should bear the same caller-id of incoming call.
-//
-// param: "CallerId" (string) - The phone number, SIP address, or Client identifier that made this call. Phone numbers are in [E.164 format](https://wwnw.twilio.com/docs/glossary/what-e164) (e.g., +16175551212). SIP addresses are formatted as `name@company.com`.
-//
-// param: "FallbackMethod" (string) - The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-//
-// param: "FallbackUrl" (string) - The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
-//
-// param: "From" (string) - The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `From` must also be a phone number.
-//
-// param: "MachineDetection" (string) - Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
-//
-// param: "MachineDetectionSilenceTimeout" (int32) - The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
-//
-// param: "MachineDetectionSpeechEndThreshold" (int32) - The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
-//
-// param: "MachineDetectionSpeechThreshold" (int32) - The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
-//
-// param: "MachineDetectionTimeout" (int32) - The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
-//
-// param: "Method" (string) - The HTTP method we should use when calling the `url` parameter's value. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-//
-// param: "Record" (bool) - Whether to record the call. Can be `true` to record the phone call, or `false` to not. The default is `false`. The `recording_url` is sent to the `status_callback` URL.
-//
-// param: "RecordingChannels" (string) - The number of channels in the final recording. Can be: `mono` or `dual`. The default is `mono`. `mono` records both legs of the call in a single channel of the recording file. `dual` records each leg to a separate channel of the recording file. The first channel of a dual-channel recording contains the parent call and the second channel contains the child call.
-//
-// param: "RecordingStatusCallback" (string) - The URL that we call when the recording is available to be accessed.
-//
-// param: "RecordingStatusCallbackEvent" ([]string) - The recording status events that will trigger calls to the URL specified in `recording_status_callback`. Can be: `in-progress`, `completed` and `absent`. Defaults to `completed`. Separate  multiple values with a space.
-//
-// param: "RecordingStatusCallbackMethod" (string) - The HTTP method we should use when calling the `recording_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
-//
-// param: "RecordingTrack" (string) - The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is generated from Twilio. `both` records the audio that is received and generated by Twilio.
-//
-// param: "SendDigits" (string) - A string of keys to dial after connecting to the number, maximum of 32 digits. Valid digits in the string include: any digit (`0`-`9`), '`#`', '`*`' and '`w`', to insert a half second pause. For example, if you connected to a company phone number and wanted to pause for one second, and then dial extension 1234 followed by the pound key, the value of this parameter would be `ww1234#`. Remember to URL-encode this string, since the '`#`' character has special meaning in a URL. If both `SendDigits` and `MachineDetection` parameters are provided, then `MachineDetection` will be ignored.
-//
-// param: "SipAuthPassword" (string) - The password required to authenticate the user account specified in `sip_auth_username`.
-//
-// param: "SipAuthUsername" (string) - The username used to authenticate the caller making a SIP call.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
-//
-// param: "StatusCallbackEvent" ([]string) - The call progress events that we will send to the `status_callback` URL. Can be: `initiated`, `ringing`, `answered`, and `completed`. If no event is specified, we send the `completed` status. If you want to receive multiple events, specify each one in a separate `status_callback_event` parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&code-sdk-version=json). If an `application_sid` is present, this parameter is ignored.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-//
-// param: "Timeout" (int32) - The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail.
-//
-// param: "To" (string) - The phone number, SIP address, or client identifier to call.
-//
-// param: "Trim" (string) - Whether to trim any leading and trailing silence from the recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
-//
-// param: "Twiml" (string) - TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored.
-//
-// param: "Url" (string) - The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
-//
-// return: ApiV2010AccountCall
 func (c *DefaultApiService) CreateCall(params *CreateCallParams) (*ApiV2010AccountCall, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -793,13 +708,19 @@ func (c *DefaultApiService) CreateCall(params *CreateCallParams) (*ApiV2010Accou
 	return ps, err
 }
 
-// CreateCallFeedbackSummaryParams Optional parameters for the method 'CreateCallFeedbackSummary'
+// Optional parameters for the method 'CreateCallFeedbackSummary'
 type CreateCallFeedbackSummaryParams struct {
-	PathAccountSid       *string `json:"PathAccountSid,omitempty"`
-	EndDate              *string `json:"EndDate,omitempty"`
-	IncludeSubaccounts   *bool   `json:"IncludeSubaccounts,omitempty"`
-	StartDate            *string `json:"StartDate,omitempty"`
-	StatusCallback       *string `json:"StatusCallback,omitempty"`
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
+	EndDate *string `json:"EndDate,omitempty"`
+	// Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	// Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
+	StartDate *string `json:"StartDate,omitempty"`
+	// The URL that we will request when the feedback summary is complete.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 }
 
@@ -828,25 +749,7 @@ func (params *CreateCallFeedbackSummaryParams) SetStatusCallbackMethod(StatusCal
 	return params
 }
 
-// CreateCallFeedbackSummary Method for CreateCallFeedbackSummary
-//
 // Create a FeedbackSummary resource for a call
-//
-// param: optional nil or *CreateCallFeedbackSummaryParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// param: "EndDate" (string) - Only include feedback given on or before this date. Format is `YYYY-MM-DD` and specified in UTC.
-//
-// param: "IncludeSubaccounts" (bool) - Whether to also include Feedback resources from all subaccounts. `true` includes feedback from all subaccounts and `false`, the default, includes feedback from only the specified account.
-//
-// param: "StartDate" (string) - Only include feedback given on or after this date. Format is `YYYY-MM-DD` and specified in UTC.
-//
-// param: "StatusCallback" (string) - The URL that we will request when the feedback summary is complete.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method (`GET` or `POST`) we use to make the request to the `StatusCallback` URL.
-//
-// return: ApiV2010AccountCallCallFeedbackSummary
 func (c *DefaultApiService) CreateCallFeedbackSummary(params *CreateCallFeedbackSummaryParams) (*ApiV2010AccountCallCallFeedbackSummary, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -889,15 +792,22 @@ func (c *DefaultApiService) CreateCallFeedbackSummary(params *CreateCallFeedback
 	return ps, err
 }
 
-// CreateCallRecordingParams Optional parameters for the method 'CreateCallRecording'
+// Optional parameters for the method 'CreateCallRecording'
 type CreateCallRecordingParams struct {
-	PathAccountSid                *string   `json:"PathAccountSid,omitempty"`
-	RecordingChannels             *string   `json:"RecordingChannels,omitempty"`
-	RecordingStatusCallback       *string   `json:"RecordingStatusCallback,omitempty"`
-	RecordingStatusCallbackEvent  *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
-	RecordingStatusCallbackMethod *string   `json:"RecordingStatusCallbackMethod,omitempty"`
-	RecordingTrack                *string   `json:"RecordingTrack,omitempty"`
-	Trim                          *string   `json:"Trim,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The number of channels used in the recording. Can be: `mono` or `dual` and the default is `mono`. `mono` records all parties of the call into one channel. `dual` records each party of a 2-party call into separate channels.
+	RecordingChannels *string `json:"RecordingChannels,omitempty"`
+	// The URL we should call using the `recording_status_callback_method` on each recording event specified in  `recording_status_callback_event`. For more information, see [RecordingStatusCallback parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback).
+	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
+	// The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
+	RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
+	// The HTTP method we should use to call `recording_status_callback`. Can be: `GET` or `POST` and the default is `POST`.
+	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	// The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is generated from Twilio. `both` records the audio that is received and generated by Twilio.
+	RecordingTrack *string `json:"RecordingTrack,omitempty"`
+	// Whether to trim any leading and trailing silence in the recording. Can be: `trim-silence` or `do-not-trim` and the default is `do-not-trim`. `trim-silence` trims the silence from the beginning and end of the recording and `do-not-trim` does not.
+	Trim *string `json:"Trim,omitempty"`
 }
 
 func (params *CreateCallRecordingParams) SetPathAccountSid(PathAccountSid string) *CreateCallRecordingParams {
@@ -929,29 +839,7 @@ func (params *CreateCallRecordingParams) SetTrim(Trim string) *CreateCallRecordi
 	return params
 }
 
-// CreateCallRecording Method for CreateCallRecording
-//
 // Create a recording for the call
-//
-// param: CallSid The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) to associate the resource with.
-//
-// param: optional nil or *CreateCallRecordingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "RecordingChannels" (string) - The number of channels used in the recording. Can be: `mono` or `dual` and the default is `mono`. `mono` records all parties of the call into one channel. `dual` records each party of a 2-party call into separate channels.
-//
-// param: "RecordingStatusCallback" (string) - The URL we should call using the `recording_status_callback_method` on each recording event specified in  `recording_status_callback_event`. For more information, see [RecordingStatusCallback parameters](https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback).
-//
-// param: "RecordingStatusCallbackEvent" ([]string) - The recording status events on which we should call the `recording_status_callback` URL. Can be: `in-progress`, `completed` and `absent` and the default is `completed`. Separate multiple event values with a space.
-//
-// param: "RecordingStatusCallbackMethod" (string) - The HTTP method we should use to call `recording_status_callback`. Can be: `GET` or `POST` and the default is `POST`.
-//
-// param: "RecordingTrack" (string) - The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is generated from Twilio. `both` records the audio that is received and generated by Twilio.
-//
-// param: "Trim" (string) - Whether to trim any leading and trailing silence in the recording. Can be: `trim-silence` or `do-not-trim` and the default is `do-not-trim`. `trim-silence` trims the silence from the beginning and end of the recording and `do-not-trim` does not.
-//
-// return: ApiV2010AccountCallCallRecording
 func (c *DefaultApiService) CreateCallRecording(CallSid string, params *CreateCallRecordingParams) (*ApiV2010AccountCallCallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -998,33 +886,58 @@ func (c *DefaultApiService) CreateCallRecording(CallSid string, params *CreateCa
 	return ps, err
 }
 
-// CreateIncomingPhoneNumberParams Optional parameters for the method 'CreateIncomingPhoneNumber'
+// Optional parameters for the method 'CreateIncomingPhoneNumber'
 type CreateIncomingPhoneNumberParams struct {
-	PathAccountSid       *string `json:"PathAccountSid,omitempty"`
-	AddressSid           *string `json:"AddressSid,omitempty"`
-	ApiVersion           *string `json:"ApiVersion,omitempty"`
-	AreaCode             *string `json:"AreaCode,omitempty"`
-	BundleSid            *string `json:"BundleSid,omitempty"`
-	EmergencyAddressSid  *string `json:"EmergencyAddressSid,omitempty"`
-	EmergencyStatus      *string `json:"EmergencyStatus,omitempty"`
-	FriendlyName         *string `json:"FriendlyName,omitempty"`
-	IdentitySid          *string `json:"IdentitySid,omitempty"`
-	PhoneNumber          *string `json:"PhoneNumber,omitempty"`
-	SmsApplicationSid    *string `json:"SmsApplicationSid,omitempty"`
-	SmsFallbackMethod    *string `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl       *string `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod            *string `json:"SmsMethod,omitempty"`
-	SmsUrl               *string `json:"SmsUrl,omitempty"`
-	StatusCallback       *string `json:"StatusCallback,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
+	AddressSid *string `json:"AddressSid,omitempty"`
+	// The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The desired area code for your new incoming phone number. Can be any three-digit, US or Canada area code. We will provision an available phone number within this area code for you. **You must provide an `area_code` or a `phone_number`.** (US and Canada only).
+	AreaCode *string `json:"AreaCode,omitempty"`
+	// The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
+	BundleSid *string `json:"BundleSid,omitempty"`
+	// The SID of the emergency address configuration to use for emergency calling from the new phone number.
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	// The configuration status parameter that determines whether the new phone number is enabled for emergency calling.
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	// A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the new phone number.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	// The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	// The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL we should call when the new phone number receives an incoming SMS message.
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	TrunkSid             *string `json:"TrunkSid,omitempty"`
-	VoiceApplicationSid  *string `json:"VoiceApplicationSid,omitempty"`
-	VoiceCallerIdLookup  *bool   `json:"VoiceCallerIdLookup,omitempty"`
-	VoiceFallbackMethod  *string `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl     *string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod          *string `json:"VoiceMethod,omitempty"`
-	VoiceReceiveMode     *string `json:"VoiceReceiveMode,omitempty"`
-	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
+	// The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	// The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	// Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	// The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`.
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	// The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 func (params *CreateIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *CreateIncomingPhoneNumberParams {
@@ -1128,63 +1041,7 @@ func (params *CreateIncomingPhoneNumberParams) SetVoiceUrl(VoiceUrl string) *Cre
 	return params
 }
 
-// CreateIncomingPhoneNumber Method for CreateIncomingPhoneNumber
-//
 // Purchase a phone-number for the account.
-//
-// param: optional nil or *CreateIncomingPhoneNumberParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "AddressSid" (string) - The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-//
-// param: "ApiVersion" (string) - The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
-//
-// param: "AreaCode" (string) - The desired area code for your new incoming phone number. Can be any three-digit, US or Canada area code. We will provision an available phone number within this area code for you. **You must provide an `area_code` or a `phone_number`.** (US and Canada only).
-//
-// param: "BundleSid" (string) - The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
-//
-// param: "EmergencyAddressSid" (string) - The SID of the emergency address configuration to use for emergency calling from the new phone number.
-//
-// param: "EmergencyStatus" (string) - The configuration status parameter that determines whether the new phone number is enabled for emergency calling.
-//
-// param: "FriendlyName" (string) - A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the new phone number.
-//
-// param: "IdentitySid" (string) - The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
-//
-// param: "PhoneNumber" (string) - The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
-//
-// param: "SmsApplicationSid" (string) - The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
-//
-// param: "SmsFallbackMethod" (string) - The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "SmsFallbackUrl" (string) - The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
-//
-// param: "SmsMethod" (string) - The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "SmsUrl" (string) - The URL we should call when the new phone number receives an incoming SMS message.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "TrunkSid" (string) - The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-//
-// param: "VoiceApplicationSid" (string) - The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
-//
-// param: "VoiceCallerIdLookup" (bool) - Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
-//
-// param: "VoiceFallbackMethod" (string) - The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-//
-// param: "VoiceMethod" (string) - The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "VoiceReceiveMode" (string) - The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`.
-//
-// param: "VoiceUrl" (string) - The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-//
-// return: ApiV2010AccountIncomingPhoneNumber
 func (c *DefaultApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumberParams) (*ApiV2010AccountIncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -1284,9 +1141,11 @@ func (c *DefaultApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhon
 	return ps, err
 }
 
-// CreateIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'CreateIncomingPhoneNumberAssignedAddOn'
+// Optional parameters for the method 'CreateIncomingPhoneNumberAssignedAddOn'
 type CreateIncomingPhoneNumberAssignedAddOnParams struct {
-	PathAccountSid    *string `json:"PathAccountSid,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The SID that identifies the Add-on installation.
 	InstalledAddOnSid *string `json:"InstalledAddOnSid,omitempty"`
 }
 
@@ -1299,19 +1158,7 @@ func (params *CreateIncomingPhoneNumberAssignedAddOnParams) SetInstalledAddOnSid
 	return params
 }
 
-// CreateIncomingPhoneNumberAssignedAddOn Method for CreateIncomingPhoneNumberAssignedAddOn
-//
 // Assign an Add-on installation to the Number specified.
-//
-// param: ResourceSid The SID of the Phone Number to assign the Add-on.
-//
-// param: optional nil or *CreateIncomingPhoneNumberAssignedAddOnParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "InstalledAddOnSid" (string) - The SID that identifies the Add-on installation.
-//
-// return: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn
 func (c *DefaultApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *CreateIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -1343,32 +1190,56 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid s
 	return ps, err
 }
 
-// CreateIncomingPhoneNumberLocalParams Optional parameters for the method 'CreateIncomingPhoneNumberLocal'
+// Optional parameters for the method 'CreateIncomingPhoneNumberLocal'
 type CreateIncomingPhoneNumberLocalParams struct {
-	PathAccountSid       *string `json:"PathAccountSid,omitempty"`
-	AddressSid           *string `json:"AddressSid,omitempty"`
-	ApiVersion           *string `json:"ApiVersion,omitempty"`
-	BundleSid            *string `json:"BundleSid,omitempty"`
-	EmergencyAddressSid  *string `json:"EmergencyAddressSid,omitempty"`
-	EmergencyStatus      *string `json:"EmergencyStatus,omitempty"`
-	FriendlyName         *string `json:"FriendlyName,omitempty"`
-	IdentitySid          *string `json:"IdentitySid,omitempty"`
-	PhoneNumber          *string `json:"PhoneNumber,omitempty"`
-	SmsApplicationSid    *string `json:"SmsApplicationSid,omitempty"`
-	SmsFallbackMethod    *string `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl       *string `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod            *string `json:"SmsMethod,omitempty"`
-	SmsUrl               *string `json:"SmsUrl,omitempty"`
-	StatusCallback       *string `json:"StatusCallback,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
+	AddressSid *string `json:"AddressSid,omitempty"`
+	// The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
+	BundleSid *string `json:"BundleSid,omitempty"`
+	// The SID of the emergency address configuration to use for emergency calling from the new phone number.
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	// The configuration status parameter that determines whether the new phone number is enabled for emergency calling.
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	// A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	// The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	// The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL we should call when the new phone number receives an incoming SMS message.
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	TrunkSid             *string `json:"TrunkSid,omitempty"`
-	VoiceApplicationSid  *string `json:"VoiceApplicationSid,omitempty"`
-	VoiceCallerIdLookup  *bool   `json:"VoiceCallerIdLookup,omitempty"`
-	VoiceFallbackMethod  *string `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl     *string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod          *string `json:"VoiceMethod,omitempty"`
-	VoiceReceiveMode     *string `json:"VoiceReceiveMode,omitempty"`
-	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
+	// The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	// The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	// Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	// The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`.
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	// The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 func (params *CreateIncomingPhoneNumberLocalParams) SetPathAccountSid(PathAccountSid string) *CreateIncomingPhoneNumberLocalParams {
@@ -1468,59 +1339,6 @@ func (params *CreateIncomingPhoneNumberLocalParams) SetVoiceUrl(VoiceUrl string)
 	return params
 }
 
-// CreateIncomingPhoneNumberLocal Method for CreateIncomingPhoneNumberLocal
-//
-// param: optional nil or *CreateIncomingPhoneNumberLocalParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "AddressSid" (string) - The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-//
-// param: "ApiVersion" (string) - The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
-//
-// param: "BundleSid" (string) - The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
-//
-// param: "EmergencyAddressSid" (string) - The SID of the emergency address configuration to use for emergency calling from the new phone number.
-//
-// param: "EmergencyStatus" (string) - The configuration status parameter that determines whether the new phone number is enabled for emergency calling.
-//
-// param: "FriendlyName" (string) - A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
-//
-// param: "IdentitySid" (string) - The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
-//
-// param: "PhoneNumber" (string) - The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
-//
-// param: "SmsApplicationSid" (string) - The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
-//
-// param: "SmsFallbackMethod" (string) - The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "SmsFallbackUrl" (string) - The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
-//
-// param: "SmsMethod" (string) - The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "SmsUrl" (string) - The URL we should call when the new phone number receives an incoming SMS message.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "TrunkSid" (string) - The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-//
-// param: "VoiceApplicationSid" (string) - The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
-//
-// param: "VoiceCallerIdLookup" (bool) - Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
-//
-// param: "VoiceFallbackMethod" (string) - The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-//
-// param: "VoiceMethod" (string) - The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "VoiceReceiveMode" (string) - The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`.
-//
-// param: "VoiceUrl" (string) - The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-//
-// return: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal
 func (c *DefaultApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomingPhoneNumberLocalParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -1617,32 +1435,56 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomin
 	return ps, err
 }
 
-// CreateIncomingPhoneNumberMobileParams Optional parameters for the method 'CreateIncomingPhoneNumberMobile'
+// Optional parameters for the method 'CreateIncomingPhoneNumberMobile'
 type CreateIncomingPhoneNumberMobileParams struct {
-	PathAccountSid       *string `json:"PathAccountSid,omitempty"`
-	AddressSid           *string `json:"AddressSid,omitempty"`
-	ApiVersion           *string `json:"ApiVersion,omitempty"`
-	BundleSid            *string `json:"BundleSid,omitempty"`
-	EmergencyAddressSid  *string `json:"EmergencyAddressSid,omitempty"`
-	EmergencyStatus      *string `json:"EmergencyStatus,omitempty"`
-	FriendlyName         *string `json:"FriendlyName,omitempty"`
-	IdentitySid          *string `json:"IdentitySid,omitempty"`
-	PhoneNumber          *string `json:"PhoneNumber,omitempty"`
-	SmsApplicationSid    *string `json:"SmsApplicationSid,omitempty"`
-	SmsFallbackMethod    *string `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl       *string `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod            *string `json:"SmsMethod,omitempty"`
-	SmsUrl               *string `json:"SmsUrl,omitempty"`
-	StatusCallback       *string `json:"StatusCallback,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
+	AddressSid *string `json:"AddressSid,omitempty"`
+	// The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
+	BundleSid *string `json:"BundleSid,omitempty"`
+	// The SID of the emergency address configuration to use for emergency calling from the new phone number.
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	// The configuration status parameter that determines whether the new phone number is enabled for emergency calling.
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	// A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, the is a formatted version of the phone number.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	// The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those of the application.
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	// The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL we should call when the new phone number receives an incoming SMS message.
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	TrunkSid             *string `json:"TrunkSid,omitempty"`
-	VoiceApplicationSid  *string `json:"VoiceApplicationSid,omitempty"`
-	VoiceCallerIdLookup  *bool   `json:"VoiceCallerIdLookup,omitempty"`
-	VoiceFallbackMethod  *string `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl     *string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod          *string `json:"VoiceMethod,omitempty"`
-	VoiceReceiveMode     *string `json:"VoiceReceiveMode,omitempty"`
-	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
+	// The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	// The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	// Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	// The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`.
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	// The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 func (params *CreateIncomingPhoneNumberMobileParams) SetPathAccountSid(PathAccountSid string) *CreateIncomingPhoneNumberMobileParams {
@@ -1742,59 +1584,6 @@ func (params *CreateIncomingPhoneNumberMobileParams) SetVoiceUrl(VoiceUrl string
 	return params
 }
 
-// CreateIncomingPhoneNumberMobile Method for CreateIncomingPhoneNumberMobile
-//
-// param: optional nil or *CreateIncomingPhoneNumberMobileParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "AddressSid" (string) - The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-//
-// param: "ApiVersion" (string) - The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
-//
-// param: "BundleSid" (string) - The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
-//
-// param: "EmergencyAddressSid" (string) - The SID of the emergency address configuration to use for emergency calling from the new phone number.
-//
-// param: "EmergencyStatus" (string) - The configuration status parameter that determines whether the new phone number is enabled for emergency calling.
-//
-// param: "FriendlyName" (string) - A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, the is a formatted version of the phone number.
-//
-// param: "IdentitySid" (string) - The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
-//
-// param: "PhoneNumber" (string) - The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
-//
-// param: "SmsApplicationSid" (string) - The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those of the application.
-//
-// param: "SmsFallbackMethod" (string) - The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "SmsFallbackUrl" (string) - The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
-//
-// param: "SmsMethod" (string) - The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "SmsUrl" (string) - The URL we should call when the new phone number receives an incoming SMS message.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "TrunkSid" (string) - The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-//
-// param: "VoiceApplicationSid" (string) - The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
-//
-// param: "VoiceCallerIdLookup" (bool) - Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
-//
-// param: "VoiceFallbackMethod" (string) - The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-//
-// param: "VoiceMethod" (string) - The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "VoiceReceiveMode" (string) - The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`.
-//
-// param: "VoiceUrl" (string) - The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-//
-// return: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile
 func (c *DefaultApiService) CreateIncomingPhoneNumberMobile(params *CreateIncomingPhoneNumberMobileParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -1891,32 +1680,56 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberMobile(params *CreateIncomi
 	return ps, err
 }
 
-// CreateIncomingPhoneNumberTollFreeParams Optional parameters for the method 'CreateIncomingPhoneNumberTollFree'
+// Optional parameters for the method 'CreateIncomingPhoneNumberTollFree'
 type CreateIncomingPhoneNumberTollFreeParams struct {
-	PathAccountSid       *string `json:"PathAccountSid,omitempty"`
-	AddressSid           *string `json:"AddressSid,omitempty"`
-	ApiVersion           *string `json:"ApiVersion,omitempty"`
-	BundleSid            *string `json:"BundleSid,omitempty"`
-	EmergencyAddressSid  *string `json:"EmergencyAddressSid,omitempty"`
-	EmergencyStatus      *string `json:"EmergencyStatus,omitempty"`
-	FriendlyName         *string `json:"FriendlyName,omitempty"`
-	IdentitySid          *string `json:"IdentitySid,omitempty"`
-	PhoneNumber          *string `json:"PhoneNumber,omitempty"`
-	SmsApplicationSid    *string `json:"SmsApplicationSid,omitempty"`
-	SmsFallbackMethod    *string `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl       *string `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod            *string `json:"SmsMethod,omitempty"`
-	SmsUrl               *string `json:"SmsUrl,omitempty"`
-	StatusCallback       *string `json:"StatusCallback,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
+	AddressSid *string `json:"AddressSid,omitempty"`
+	// The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
+	BundleSid *string `json:"BundleSid,omitempty"`
+	// The SID of the emergency address configuration to use for emergency calling from the new phone number.
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	// The configuration status parameter that determines whether the new phone number is enabled for emergency calling.
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	// A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The SID of the Identity resource that we should associate with the new phone number. Some regions require an Identity to meet local regulations.
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	// The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all `sms_*_url` values and use those of the application.
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	// The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL we should call when the new phone number receives an incoming SMS message.
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	TrunkSid             *string `json:"TrunkSid,omitempty"`
-	VoiceApplicationSid  *string `json:"VoiceApplicationSid,omitempty"`
-	VoiceCallerIdLookup  *bool   `json:"VoiceCallerIdLookup,omitempty"`
-	VoiceFallbackMethod  *string `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl     *string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod          *string `json:"VoiceMethod,omitempty"`
-	VoiceReceiveMode     *string `json:"VoiceReceiveMode,omitempty"`
-	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
+	// The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	// The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	// Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	// The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`.
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	// The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 func (params *CreateIncomingPhoneNumberTollFreeParams) SetPathAccountSid(PathAccountSid string) *CreateIncomingPhoneNumberTollFreeParams {
@@ -2016,59 +1829,6 @@ func (params *CreateIncomingPhoneNumberTollFreeParams) SetVoiceUrl(VoiceUrl stri
 	return params
 }
 
-// CreateIncomingPhoneNumberTollFree Method for CreateIncomingPhoneNumberTollFree
-//
-// param: optional nil or *CreateIncomingPhoneNumberTollFreeParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "AddressSid" (string) - The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-//
-// param: "ApiVersion" (string) - The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
-//
-// param: "BundleSid" (string) - The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
-//
-// param: "EmergencyAddressSid" (string) - The SID of the emergency address configuration to use for emergency calling from the new phone number.
-//
-// param: "EmergencyStatus" (string) - The configuration status parameter that determines whether the new phone number is enabled for emergency calling.
-//
-// param: "FriendlyName" (string) - A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
-//
-// param: "IdentitySid" (string) - The SID of the Identity resource that we should associate with the new phone number. Some regions require an Identity to meet local regulations.
-//
-// param: "PhoneNumber" (string) - The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
-//
-// param: "SmsApplicationSid" (string) - The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all `sms_*_url` values and use those of the application.
-//
-// param: "SmsFallbackMethod" (string) - The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "SmsFallbackUrl" (string) - The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
-//
-// param: "SmsMethod" (string) - The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "SmsUrl" (string) - The URL we should call when the new phone number receives an incoming SMS message.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "TrunkSid" (string) - The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-//
-// param: "VoiceApplicationSid" (string) - The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
-//
-// param: "VoiceCallerIdLookup" (bool) - Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
-//
-// param: "VoiceFallbackMethod" (string) - The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-//
-// param: "VoiceMethod" (string) - The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "VoiceReceiveMode" (string) - The configuration parameter for the new phone number to receive incoming voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`.
-//
-// param: "VoiceUrl" (string) - The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-//
-// return: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree
 func (c *DefaultApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPhoneNumberTollFreeParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -2165,25 +1925,42 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberTollFree(params *CreateInco
 	return ps, err
 }
 
-// CreateMessageParams Optional parameters for the method 'CreateMessage'
+// Optional parameters for the method 'CreateMessage'
 type CreateMessageParams struct {
-	PathAccountSid      *string   `json:"PathAccountSid,omitempty"`
-	AddressRetention    *string   `json:"AddressRetention,omitempty"`
-	ApplicationSid      *string   `json:"ApplicationSid,omitempty"`
-	Attempt             *int32    `json:"Attempt,omitempty"`
-	Body                *string   `json:"Body,omitempty"`
-	ContentRetention    *string   `json:"ContentRetention,omitempty"`
-	ForceDelivery       *bool     `json:"ForceDelivery,omitempty"`
-	From                *string   `json:"From,omitempty"`
-	MaxPrice            *float32  `json:"MaxPrice,omitempty"`
-	MediaUrl            *[]string `json:"MediaUrl,omitempty"`
-	MessagingServiceSid *string   `json:"MessagingServiceSid,omitempty"`
-	PersistentAction    *[]string `json:"PersistentAction,omitempty"`
-	ProvideFeedback     *bool     `json:"ProvideFeedback,omitempty"`
-	SmartEncoded        *bool     `json:"SmartEncoded,omitempty"`
-	StatusCallback      *string   `json:"StatusCallback,omitempty"`
-	To                  *string   `json:"To,omitempty"`
-	ValidityPeriod      *int32    `json:"ValidityPeriod,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Determines if the address can be stored or obfuscated based on privacy settings
+	AddressRetention *string `json:"AddressRetention,omitempty"`
+	// The SID of the application that should receive message status. We POST a `message_sid` parameter and a `message_status` parameter with a value of `sent` or `failed` to the [application](https://www.twilio.com/docs/usage/api/applications)'s `message_status_callback`. If a `status_callback` parameter is also passed, it will be ignored and the application's `message_status_callback` parameter will be used.
+	ApplicationSid *string `json:"ApplicationSid,omitempty"`
+	// Total number of attempts made ( including this ) to send out the message regardless of the provider used
+	Attempt *int32 `json:"Attempt,omitempty"`
+	// The text of the message you want to send. Can be up to 1,600 characters in length.
+	Body *string `json:"Body,omitempty"`
+	// Determines if the message content can be stored or redacted based on privacy settings
+	ContentRetention *string `json:"ContentRetention,omitempty"`
+	// Reserved
+	ForceDelivery *bool `json:"ForceDelivery,omitempty"`
+	// A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty.
+	From *string `json:"From,omitempty"`
+	// The maximum total price in US dollars that you will pay for the message to be delivered. Can be a decimal value that has up to 4 decimal places. All messages are queued for delivery and the message cost is checked before the message is sent. If the cost exceeds `max_price`, the message will fail and a status of `Failed` is sent to the status callback. If `MaxPrice` is not set, the message cost is not checked.
+	MaxPrice *float32 `json:"MaxPrice,omitempty"`
+	// The URL of the media to send with the message. The media can be of type `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF) and 500KB for [other types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted media. To send more than one image in the message body, provide multiple `media_url` parameters in the POST request. You can include up to 10 `media_url` parameters per message. You can send images in an SMS message in only the US and Canada.
+	MediaUrl *[]string `json:"MediaUrl,omitempty"`
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services#send-a-message-with-copilot) you want to associate with the Message. Set this parameter to use the [Messaging Service Settings and Copilot Features](https://www.twilio.com/console/sms/services) you have configured and leave the `from` parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the `from` phone number for delivery.
+	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
+	// Rich actions for Channels Messages.
+	PersistentAction *[]string `json:"PersistentAction,omitempty"`
+	// Whether to confirm delivery of the message. Set this value to `true` if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the [Message Feedback API](https://www.twilio.com/docs/sms/api/message-feedback-resource). This parameter is `false` by default.
+	ProvideFeedback *bool `json:"ProvideFeedback,omitempty"`
+	// Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
+	SmartEncoded *bool `json:"SmartEncoded,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application. If specified, we POST these message status changes to the URL: `queued`, `failed`, `sent`, `delivered`, or `undelivered`. Twilio will POST its [standard request parameters](https://www.twilio.com/docs/sms/twiml#request-parameters) as well as some additional parameters including `MessageSid`, `MessageStatus`, and `ErrorCode`. If you include this parameter with the `messaging_service_sid`, we use this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/sms/services/api). URLs must contain a valid hostname and underscores are not allowed.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format for SMS/MMS or [Channel user address](https://www.twilio.com/docs/sms/channels#channel-addresses) for other 3rd-party channels.
+	To *string `json:"To,omitempty"`
+	// How long in seconds the message can remain in our outgoing message queue. After this period elapses, the message fails and we call your status callback. Can be between 1 and the default value of 14,400 seconds. After a message has been accepted by a carrier, however, we cannot guarantee that the message will not be queued after this period. We recommend that this value be at least 5 seconds.
+	ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
 }
 
 func (params *CreateMessageParams) SetPathAccountSid(PathAccountSid string) *CreateMessageParams {
@@ -2255,47 +2032,7 @@ func (params *CreateMessageParams) SetValidityPeriod(ValidityPeriod int32) *Crea
 	return params
 }
 
-// CreateMessage Method for CreateMessage
-//
 // Send a message from the account used to make the request
-//
-// param: optional nil or *CreateMessageParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "AddressRetention" (string) - Determines if the address can be stored or obfuscated based on privacy settings
-//
-// param: "ApplicationSid" (string) - The SID of the application that should receive message status. We POST a `message_sid` parameter and a `message_status` parameter with a value of `sent` or `failed` to the [application](https://www.twilio.com/docs/usage/api/applications)'s `message_status_callback`. If a `status_callback` parameter is also passed, it will be ignored and the application's `message_status_callback` parameter will be used.
-//
-// param: "Attempt" (int32) - Total number of attempts made ( including this ) to send out the message regardless of the provider used
-//
-// param: "Body" (string) - The text of the message you want to send. Can be up to 1,600 characters in length.
-//
-// param: "ContentRetention" (string) - Determines if the message content can be stored or redacted based on privacy settings
-//
-// param: "ForceDelivery" (bool) - Reserved
-//
-// param: "From" (string) - A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty.
-//
-// param: "MaxPrice" (float32) - The maximum total price in US dollars that you will pay for the message to be delivered. Can be a decimal value that has up to 4 decimal places. All messages are queued for delivery and the message cost is checked before the message is sent. If the cost exceeds `max_price`, the message will fail and a status of `Failed` is sent to the status callback. If `MaxPrice` is not set, the message cost is not checked.
-//
-// param: "MediaUrl" ([]string) - The URL of the media to send with the message. The media can be of type `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF) and 500KB for [other types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted media. To send more than one image in the message body, provide multiple `media_url` parameters in the POST request. You can include up to 10 `media_url` parameters per message. You can send images in an SMS message in only the US and Canada.
-//
-// param: "MessagingServiceSid" (string) - The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services#send-a-message-with-copilot) you want to associate with the Message. Set this parameter to use the [Messaging Service Settings and Copilot Features](https://www.twilio.com/console/sms/services) you have configured and leave the `from` parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the `from` phone number for delivery.
-//
-// param: "PersistentAction" ([]string) - Rich actions for Channels Messages.
-//
-// param: "ProvideFeedback" (bool) - Whether to confirm delivery of the message. Set this value to `true` if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the [Message Feedback API](https://www.twilio.com/docs/sms/api/message-feedback-resource). This parameter is `false` by default.
-//
-// param: "SmartEncoded" (bool) - Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application. If specified, we POST these message status changes to the URL: `queued`, `failed`, `sent`, `delivered`, or `undelivered`. Twilio will POST its [standard request parameters](https://www.twilio.com/docs/sms/twiml#request-parameters) as well as some additional parameters including `MessageSid`, `MessageStatus`, and `ErrorCode`. If you include this parameter with the `messaging_service_sid`, we use this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/sms/services/api). URLs must contain a valid hostname and underscores are not allowed.
-//
-// param: "To" (string) - The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format for SMS/MMS or [Channel user address](https://www.twilio.com/docs/sms/channels#channel-addresses) for other 3rd-party channels.
-//
-// param: "ValidityPeriod" (int32) - How long in seconds the message can remain in our outgoing message queue. After this period elapses, the message fails and we call your status callback. Can be between 1 and the default value of 14,400 seconds. After a message has been accepted by a carrier, however, we cannot guarantee that the message will not be queued after this period. We recommend that this value be at least 5 seconds.
-//
-// return: ApiV2010AccountMessage
 func (c *DefaultApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010AccountMessage, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -2371,10 +2108,12 @@ func (c *DefaultApiService) CreateMessage(params *CreateMessageParams) (*ApiV201
 	return ps, err
 }
 
-// CreateMessageFeedbackParams Optional parameters for the method 'CreateMessageFeedback'
+// Optional parameters for the method 'CreateMessageFeedback'
 type CreateMessageFeedbackParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Outcome        *string `json:"Outcome,omitempty"`
+	// Whether the feedback has arrived. Can be: `unconfirmed` or `confirmed`. If `provide_feedback`=`true` in [the initial HTTP POST](https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource), the initial value of this property is `unconfirmed`. After the message arrives, update the value to `confirmed`.
+	Outcome *string `json:"Outcome,omitempty"`
 }
 
 func (params *CreateMessageFeedbackParams) SetPathAccountSid(PathAccountSid string) *CreateMessageFeedbackParams {
@@ -2386,17 +2125,6 @@ func (params *CreateMessageFeedbackParams) SetOutcome(Outcome string) *CreateMes
 	return params
 }
 
-// CreateMessageFeedback Method for CreateMessageFeedback
-//
-// param: MessageSid The SID of the Message resource for which the feedback was provided.
-//
-// param: optional nil or *CreateMessageFeedbackParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "Outcome" (string) - Whether the feedback has arrived. Can be: `unconfirmed` or `confirmed`. If `provide_feedback`=`true` in [the initial HTTP POST](https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource), the initial value of this property is `unconfirmed`. After the message arrives, update the value to `confirmed`.
-//
-// return: ApiV2010AccountMessageMessageFeedback
 func (c *DefaultApiService) CreateMessageFeedback(MessageSid string, params *CreateMessageFeedbackParams) (*ApiV2010AccountMessageMessageFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -2428,10 +2156,12 @@ func (c *DefaultApiService) CreateMessageFeedback(MessageSid string, params *Cre
 	return ps, err
 }
 
-// CreateNewKeyParams Optional parameters for the method 'CreateNewKey'
+// Optional parameters for the method 'CreateNewKey'
 type CreateNewKeyParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 func (params *CreateNewKeyParams) SetPathAccountSid(PathAccountSid string) *CreateNewKeyParams {
@@ -2443,15 +2173,6 @@ func (params *CreateNewKeyParams) SetFriendlyName(FriendlyName string) *CreateNe
 	return params
 }
 
-// CreateNewKey Method for CreateNewKey
-//
-// param: optional nil or *CreateNewKeyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-//
-// return: ApiV2010AccountNewKey
 func (c *DefaultApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010AccountNewKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -2482,10 +2203,12 @@ func (c *DefaultApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010A
 	return ps, err
 }
 
-// CreateNewSigningKeyParams Optional parameters for the method 'CreateNewSigningKey'
+// Optional parameters for the method 'CreateNewSigningKey'
 type CreateNewSigningKeyParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 func (params *CreateNewSigningKeyParams) SetPathAccountSid(PathAccountSid string) *CreateNewSigningKeyParams {
@@ -2497,17 +2220,7 @@ func (params *CreateNewSigningKeyParams) SetFriendlyName(FriendlyName string) *C
 	return params
 }
 
-// CreateNewSigningKey Method for CreateNewSigningKey
-//
 // Create a new Signing Key for the account making the request.
-//
-// param: optional nil or *CreateNewSigningKeyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will be responsible for the new Key resource.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-//
-// return: ApiV2010AccountNewSigningKey
 func (c *DefaultApiService) CreateNewSigningKey(params *CreateNewSigningKeyParams) (*ApiV2010AccountNewSigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -2538,47 +2251,86 @@ func (c *DefaultApiService) CreateNewSigningKey(params *CreateNewSigningKeyParam
 	return ps, err
 }
 
-// CreateParticipantParams Optional parameters for the method 'CreateParticipant'
+// Optional parameters for the method 'CreateParticipant'
 type CreateParticipantParams struct {
-	PathAccountSid                          *string   `json:"PathAccountSid,omitempty"`
-	Beep                                    *string   `json:"Beep,omitempty"`
-	Byoc                                    *string   `json:"Byoc,omitempty"`
-	CallReason                              *string   `json:"CallReason,omitempty"`
-	CallSidToCoach                          *string   `json:"CallSidToCoach,omitempty"`
-	CallerId                                *string   `json:"CallerId,omitempty"`
-	Coaching                                *bool     `json:"Coaching,omitempty"`
-	ConferenceRecord                        *string   `json:"ConferenceRecord,omitempty"`
-	ConferenceRecordingStatusCallback       *string   `json:"ConferenceRecordingStatusCallback,omitempty"`
-	ConferenceRecordingStatusCallbackEvent  *[]string `json:"ConferenceRecordingStatusCallbackEvent,omitempty"`
-	ConferenceRecordingStatusCallbackMethod *string   `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
-	ConferenceStatusCallback                *string   `json:"ConferenceStatusCallback,omitempty"`
-	ConferenceStatusCallbackEvent           *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
-	ConferenceStatusCallbackMethod          *string   `json:"ConferenceStatusCallbackMethod,omitempty"`
-	ConferenceTrim                          *string   `json:"ConferenceTrim,omitempty"`
-	EarlyMedia                              *bool     `json:"EarlyMedia,omitempty"`
-	EndConferenceOnExit                     *bool     `json:"EndConferenceOnExit,omitempty"`
-	From                                    *string   `json:"From,omitempty"`
-	JitterBufferSize                        *string   `json:"JitterBufferSize,omitempty"`
-	Label                                   *string   `json:"Label,omitempty"`
-	MaxParticipants                         *int32    `json:"MaxParticipants,omitempty"`
-	Muted                                   *bool     `json:"Muted,omitempty"`
-	Record                                  *bool     `json:"Record,omitempty"`
-	RecordingChannels                       *string   `json:"RecordingChannels,omitempty"`
-	RecordingStatusCallback                 *string   `json:"RecordingStatusCallback,omitempty"`
-	RecordingStatusCallbackEvent            *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
-	RecordingStatusCallbackMethod           *string   `json:"RecordingStatusCallbackMethod,omitempty"`
-	RecordingTrack                          *string   `json:"RecordingTrack,omitempty"`
-	Region                                  *string   `json:"Region,omitempty"`
-	SipAuthPassword                         *string   `json:"SipAuthPassword,omitempty"`
-	SipAuthUsername                         *string   `json:"SipAuthUsername,omitempty"`
-	StartConferenceOnEnter                  *bool     `json:"StartConferenceOnEnter,omitempty"`
-	StatusCallback                          *string   `json:"StatusCallback,omitempty"`
-	StatusCallbackEvent                     *[]string `json:"StatusCallbackEvent,omitempty"`
-	StatusCallbackMethod                    *string   `json:"StatusCallbackMethod,omitempty"`
-	Timeout                                 *int32    `json:"Timeout,omitempty"`
-	To                                      *string   `json:"To,omitempty"`
-	WaitMethod                              *string   `json:"WaitMethod,omitempty"`
-	WaitUrl                                 *string   `json:"WaitUrl,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Whether to play a notification beep to the conference when the participant joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
+	Beep *string `json:"Beep,omitempty"`
+	// The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
+	Byoc *string `json:"Byoc,omitempty"`
+	// The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
+	CallReason *string `json:"CallReason,omitempty"`
+	// The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+	CallSidToCoach *string `json:"CallSidToCoach,omitempty"`
+	// The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
+	CallerId *string `json:"CallerId,omitempty"`
+	// Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+	Coaching *bool `json:"Coaching,omitempty"`
+	// Whether to record the conference the participant is joining. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
+	ConferenceRecord *string `json:"ConferenceRecord,omitempty"`
+	// The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
+	ConferenceRecordingStatusCallback *string `json:"ConferenceRecordingStatusCallback,omitempty"`
+	// The conference recording state changes that generate a call to `conference_recording_status_callback`. Can be: `in-progress`, `completed`, and `failed`. Separate multiple values with a space. The default value is `in-progress completed failed`.
+	ConferenceRecordingStatusCallbackEvent *[]string `json:"ConferenceRecordingStatusCallbackEvent,omitempty"`
+	// The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+	ConferenceRecordingStatusCallbackMethod *string `json:"ConferenceRecordingStatusCallbackMethod,omitempty"`
+	// The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
+	ConferenceStatusCallback *string `json:"ConferenceStatusCallback,omitempty"`
+	// The conference state changes that should generate a call to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`, and `announcement`. Separate multiple values with a space. Defaults to `start end`.
+	ConferenceStatusCallbackEvent *[]string `json:"ConferenceStatusCallbackEvent,omitempty"`
+	// The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+	ConferenceStatusCallbackMethod *string `json:"ConferenceStatusCallbackMethod,omitempty"`
+	// Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+	ConferenceTrim *string `json:"ConferenceTrim,omitempty"`
+	// Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: `true` or `false` and defaults to `true`.
+	EarlyMedia *bool `json:"EarlyMedia,omitempty"`
+	// Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+	EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
+	// The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint.
+	From *string `json:"From,omitempty"`
+	// Jitter buffer size for the connecting participant. Twilio will use this setting to apply Jitter Buffer before participant's audio is mixed into the conference. Can be: `off`, `small`, `medium`, and `large`. Default to `large`.
+	JitterBufferSize *string `json:"JitterBufferSize,omitempty"`
+	// A label for this participant. If one is supplied, it may subsequently be used to fetch, update or delete the participant.
+	Label *string `json:"Label,omitempty"`
+	// The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
+	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
+	// Whether the agent is muted in the conference. Can be `true` or `false` and the default is `false`.
+	Muted *bool `json:"Muted,omitempty"`
+	// Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
+	Record *bool `json:"Record,omitempty"`
+	// The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
+	RecordingChannels *string `json:"RecordingChannels,omitempty"`
+	// The URL that we should call using the `recording_status_callback_method` when the recording status changes.
+	RecordingStatusCallback *string `json:"RecordingStatusCallback,omitempty"`
+	// The recording state changes that should generate a call to `recording_status_callback`. Can be: `in-progress`, `completed`, and `failed`. Separate multiple values with a space. The default value is `in-progress completed failed`.
+	RecordingStatusCallbackEvent *[]string `json:"RecordingStatusCallbackEvent,omitempty"`
+	// The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+	RecordingStatusCallbackMethod *string `json:"RecordingStatusCallbackMethod,omitempty"`
+	// The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
+	RecordingTrack *string `json:"RecordingTrack,omitempty"`
+	// The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+	Region *string `json:"Region,omitempty"`
+	// The SIP password for authentication.
+	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
+	// The SIP username used for authentication.
+	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
+	// Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+	StartConferenceOnEnter *bool `json:"StartConferenceOnEnter,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The conference state changes that should generate a call to `status_callback`. Can be: `initiated`, `ringing`, `answered`, and `completed`. Separate multiple values with a space. The default value is `completed`.
+	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
+	// The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`.
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between `5` and `600`, inclusive. The default value is `60`. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds.
+	Timeout *int32 `json:"Timeout,omitempty"`
+	// The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
+	To *string `json:"To,omitempty"`
+	// The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+	WaitMethod *string `json:"WaitMethod,omitempty"`
+	// The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+	WaitUrl *string `json:"WaitUrl,omitempty"`
 }
 
 func (params *CreateParticipantParams) SetPathAccountSid(PathAccountSid string) *CreateParticipantParams {
@@ -2738,91 +2490,6 @@ func (params *CreateParticipantParams) SetWaitUrl(WaitUrl string) *CreatePartici
 	return params
 }
 
-// CreateParticipant Method for CreateParticipant
-//
-// param: ConferenceSid The SID of the participant's conference.
-//
-// param: optional nil or *CreateParticipantParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "Beep" (string) - Whether to play a notification beep to the conference when the participant joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
-//
-// param: "Byoc" (string) - The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
-//
-// param: "CallReason" (string) - The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
-//
-// param: "CallSidToCoach" (string) - The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
-//
-// param: "CallerId" (string) - The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
-//
-// param: "Coaching" (bool) - Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-//
-// param: "ConferenceRecord" (string) - Whether to record the conference the participant is joining. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
-//
-// param: "ConferenceRecordingStatusCallback" (string) - The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
-//
-// param: "ConferenceRecordingStatusCallbackEvent" ([]string) - The conference recording state changes that generate a call to `conference_recording_status_callback`. Can be: `in-progress`, `completed`, and `failed`. Separate multiple values with a space. The default value is `in-progress completed failed`.
-//
-// param: "ConferenceRecordingStatusCallbackMethod" (string) - The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "ConferenceStatusCallback" (string) - The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
-//
-// param: "ConferenceStatusCallbackEvent" ([]string) - The conference state changes that should generate a call to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`, and `announcement`. Separate multiple values with a space. Defaults to `start end`.
-//
-// param: "ConferenceStatusCallbackMethod" (string) - The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "ConferenceTrim" (string) - Whether to trim leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
-//
-// param: "EarlyMedia" (bool) - Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: `true` or `false` and defaults to `true`.
-//
-// param: "EndConferenceOnExit" (bool) - Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-//
-// param: "From" (string) - The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint.
-//
-// param: "JitterBufferSize" (string) - Jitter buffer size for the connecting participant. Twilio will use this setting to apply Jitter Buffer before participant's audio is mixed into the conference. Can be: `off`, `small`, `medium`, and `large`. Default to `large`.
-//
-// param: "Label" (string) - A label for this participant. If one is supplied, it may subsequently be used to fetch, update or delete the participant.
-//
-// param: "MaxParticipants" (int32) - The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
-//
-// param: "Muted" (bool) - Whether the agent is muted in the conference. Can be `true` or `false` and the default is `false`.
-//
-// param: "Record" (bool) - Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
-//
-// param: "RecordingChannels" (string) - The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
-//
-// param: "RecordingStatusCallback" (string) - The URL that we should call using the `recording_status_callback_method` when the recording status changes.
-//
-// param: "RecordingStatusCallbackEvent" ([]string) - The recording state changes that should generate a call to `recording_status_callback`. Can be: `in-progress`, `completed`, and `failed`. Separate multiple values with a space. The default value is `in-progress completed failed`.
-//
-// param: "RecordingStatusCallbackMethod" (string) - The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "RecordingTrack" (string) - The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
-//
-// param: "Region" (string) - The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
-//
-// param: "SipAuthPassword" (string) - The SIP password for authentication.
-//
-// param: "SipAuthUsername" (string) - The SIP username used for authentication.
-//
-// param: "StartConferenceOnEnter" (bool) - Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application.
-//
-// param: "StatusCallbackEvent" ([]string) - The conference state changes that should generate a call to `status_callback`. Can be: `initiated`, `ringing`, `answered`, and `completed`. Separate multiple values with a space. The default value is `completed`.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`.
-//
-// param: "Timeout" (int32) - The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between `5` and `600`, inclusive. The default value is `60`. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds.
-//
-// param: "To" (string) - The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
-//
-// param: "WaitMethod" (string) - The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-//
-// param: "WaitUrl" (string) - The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-//
-// return: ApiV2010AccountConferenceParticipant
 func (c *DefaultApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010AccountConferenceParticipant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -2965,25 +2632,42 @@ func (c *DefaultApiService) CreateParticipant(ConferenceSid string, params *Crea
 	return ps, err
 }
 
-// CreatePaymentsParams Optional parameters for the method 'CreatePayments'
+// Optional parameters for the method 'CreatePayments'
 type CreatePaymentsParams struct {
-	PathAccountSid      *string                 `json:"PathAccountSid,omitempty"`
-	BankAccountType     *string                 `json:"BankAccountType,omitempty"`
-	ChargeAmount        *float32                `json:"ChargeAmount,omitempty"`
-	Currency            *string                 `json:"Currency,omitempty"`
-	Description         *string                 `json:"Description,omitempty"`
-	IdempotencyKey      *string                 `json:"IdempotencyKey,omitempty"`
-	Input               *string                 `json:"Input,omitempty"`
-	MinPostalCodeLength *int32                  `json:"MinPostalCodeLength,omitempty"`
-	Parameter           *map[string]interface{} `json:"Parameter,omitempty"`
-	PaymentConnector    *string                 `json:"PaymentConnector,omitempty"`
-	PaymentMethod       *string                 `json:"PaymentMethod,omitempty"`
-	PostalCode          *bool                   `json:"PostalCode,omitempty"`
-	SecurityCode        *bool                   `json:"SecurityCode,omitempty"`
-	StatusCallback      *string                 `json:"StatusCallback,omitempty"`
-	Timeout             *int32                  `json:"Timeout,omitempty"`
-	TokenType           *string                 `json:"TokenType,omitempty"`
-	ValidCardTypes      *string                 `json:"ValidCardTypes,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Type of bank account if payment source is ACH. One of `consumer-checking`, `consumer-savings`, or `commercial-checking`. The default value is `consumer-checking`.
+	BankAccountType *string `json:"BankAccountType,omitempty"`
+	// A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
+	ChargeAmount *float32 `json:"ChargeAmount,omitempty"`
+	// The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the <Pay> Connector are accepted.
+	Currency *string `json:"Currency,omitempty"`
+	// The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
+	Description *string `json:"Description,omitempty"`
+	// A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+	IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
+	// A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs.
+	Input *string `json:"Input,omitempty"`
+	// A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
+	MinPostalCodeLength *int32 `json:"MinPostalCodeLength,omitempty"`
+	// A single level JSON string that is required when accepting certain information specific only to ACH payments. The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
+	Parameter *map[string]interface{} `json:"Parameter,omitempty"`
+	// This is the unique name corresponding to the Payment Gateway Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
+	PaymentConnector *string `json:"PaymentConnector,omitempty"`
+	// Type of payment being captured. One of `credit-card` or `ach-debit`. The default value is `credit-card`.
+	PaymentMethod *string `json:"PaymentMethod,omitempty"`
+	// Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
+	PostalCode *bool `json:"PostalCode,omitempty"`
+	// Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`.
+	SecurityCode *bool `json:"SecurityCode,omitempty"`
+	// Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
+	Timeout *int32 `json:"Timeout,omitempty"`
+	// Indicates whether the payment method should be tokenized as a `one-time` or `reusable` token. The default value is `reusable`. Do not enter a charge amount when tokenizing. If a charge amount is entered, the payment method will be charged and not tokenized.
+	TokenType *string `json:"TokenType,omitempty"`
+	// Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
+	ValidCardTypes *string `json:"ValidCardTypes,omitempty"`
 }
 
 func (params *CreatePaymentsParams) SetPathAccountSid(PathAccountSid string) *CreatePaymentsParams {
@@ -3055,49 +2739,7 @@ func (params *CreatePaymentsParams) SetValidCardTypes(ValidCardTypes string) *Cr
 	return params
 }
 
-// CreatePayments Method for CreatePayments
-//
 // create an instance of payments. This will start a new payments session
-//
-// param: CallSid The SID of the call that will create the resource. Call leg associated with this sid is expected to provide payment information thru DTMF.
-//
-// param: optional nil or *CreatePaymentsParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "BankAccountType" (string) - Type of bank account if payment source is ACH. One of `consumer-checking`, `consumer-savings`, or `commercial-checking`. The default value is `consumer-checking`.
-//
-// param: "ChargeAmount" (float32) - A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
-//
-// param: "Currency" (string) - The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the <Pay> Connector are accepted.
-//
-// param: "Description" (string) - The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
-//
-// param: "IdempotencyKey" (string) - A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
-//
-// param: "Input" (string) - A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs.
-//
-// param: "MinPostalCodeLength" (int32) - A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
-//
-// param: "Parameter" (map[string]interface{}) - A single level JSON string that is required when accepting certain information specific only to ACH payments. The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
-//
-// param: "PaymentConnector" (string) - This is the unique name corresponding to the Payment Gateway Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
-//
-// param: "PaymentMethod" (string) - Type of payment being captured. One of `credit-card` or `ach-debit`. The default value is `credit-card`.
-//
-// param: "PostalCode" (bool) - Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
-//
-// param: "SecurityCode" (bool) - Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`.
-//
-// param: "StatusCallback" (string) - Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
-//
-// param: "Timeout" (int32) - The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
-//
-// param: "TokenType" (string) - Indicates whether the payment method should be tokenized as a `one-time` or `reusable` token. The default value is `reusable`. Do not enter a charge amount when tokenizing. If a charge amount is entered, the payment method will be charged and not tokenized.
-//
-// param: "ValidCardTypes" (string) - Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
-//
-// return: ApiV2010AccountCallPayments
 func (c *DefaultApiService) CreatePayments(CallSid string, params *CreatePaymentsParams) (*ApiV2010AccountCallPayments, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -3180,11 +2822,14 @@ func (c *DefaultApiService) CreatePayments(CallSid string, params *CreatePayment
 	return ps, err
 }
 
-// CreateQueueParams Optional parameters for the method 'CreateQueue'
+// Optional parameters for the method 'CreateQueue'
 type CreateQueueParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
-	MaxSize        *int32  `json:"MaxSize,omitempty"`
+	// A descriptive string that you created to describe this resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+	MaxSize *int32 `json:"MaxSize,omitempty"`
 }
 
 func (params *CreateQueueParams) SetPathAccountSid(PathAccountSid string) *CreateQueueParams {
@@ -3200,19 +2845,7 @@ func (params *CreateQueueParams) SetMaxSize(MaxSize int32) *CreateQueueParams {
 	return params
 }
 
-// CreateQueue Method for CreateQueue
-//
 // Create a queue
-//
-// param: optional nil or *CreateQueueParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "FriendlyName" (string) - A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-//
-// param: "MaxSize" (int32) - The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
-//
-// return: ApiV2010AccountQueue
 func (c *DefaultApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010AccountQueue, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -3246,9 +2879,11 @@ func (c *DefaultApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010Acc
 	return ps, err
 }
 
-// CreateSipAuthCallsCredentialListMappingParams Optional parameters for the method 'CreateSipAuthCallsCredentialListMapping'
+// Optional parameters for the method 'CreateSipAuthCallsCredentialListMapping'
 type CreateSipAuthCallsCredentialListMappingParams struct {
-	PathAccountSid    *string `json:"PathAccountSid,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The SID of the CredentialList resource to map to the SIP domain.
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
@@ -3261,19 +2896,7 @@ func (params *CreateSipAuthCallsCredentialListMappingParams) SetCredentialListSi
 	return params
 }
 
-// CreateSipAuthCallsCredentialListMapping Method for CreateSipAuthCallsCredentialListMapping
-//
 // Create a new credential list mapping resource
-//
-// param: DomainSid The SID of the SIP domain that will contain the new resource.
-//
-// param: optional nil or *CreateSipAuthCallsCredentialListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "CredentialListSid" (string) - The SID of the CredentialList resource to map to the SIP domain.
-//
-// return: ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping
 func (c *DefaultApiService) CreateSipAuthCallsCredentialListMapping(DomainSid string, params *CreateSipAuthCallsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -3305,9 +2928,11 @@ func (c *DefaultApiService) CreateSipAuthCallsCredentialListMapping(DomainSid st
 	return ps, err
 }
 
-// CreateSipAuthCallsIpAccessControlListMappingParams Optional parameters for the method 'CreateSipAuthCallsIpAccessControlListMapping'
+// Optional parameters for the method 'CreateSipAuthCallsIpAccessControlListMapping'
 type CreateSipAuthCallsIpAccessControlListMappingParams struct {
-	PathAccountSid         *string `json:"PathAccountSid,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The SID of the IpAccessControlList resource to map to the SIP domain.
 	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
 }
 
@@ -3320,19 +2945,7 @@ func (params *CreateSipAuthCallsIpAccessControlListMappingParams) SetIpAccessCon
 	return params
 }
 
-// CreateSipAuthCallsIpAccessControlListMapping Method for CreateSipAuthCallsIpAccessControlListMapping
-//
 // Create a new IP Access Control List mapping
-//
-// param: DomainSid The SID of the SIP domain that will contain the new resource.
-//
-// param: optional nil or *CreateSipAuthCallsIpAccessControlListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "IpAccessControlListSid" (string) - The SID of the IpAccessControlList resource to map to the SIP domain.
-//
-// return: ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping
 func (c *DefaultApiService) CreateSipAuthCallsIpAccessControlListMapping(DomainSid string, params *CreateSipAuthCallsIpAccessControlListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -3364,9 +2977,11 @@ func (c *DefaultApiService) CreateSipAuthCallsIpAccessControlListMapping(DomainS
 	return ps, err
 }
 
-// CreateSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'CreateSipAuthRegistrationsCredentialListMapping'
+// Optional parameters for the method 'CreateSipAuthRegistrationsCredentialListMapping'
 type CreateSipAuthRegistrationsCredentialListMappingParams struct {
-	PathAccountSid    *string `json:"PathAccountSid,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The SID of the CredentialList resource to map to the SIP domain.
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
@@ -3379,19 +2994,7 @@ func (params *CreateSipAuthRegistrationsCredentialListMappingParams) SetCredenti
 	return params
 }
 
-// CreateSipAuthRegistrationsCredentialListMapping Method for CreateSipAuthRegistrationsCredentialListMapping
-//
 // Create a new credential list mapping resource
-//
-// param: DomainSid The SID of the SIP domain that will contain the new resource.
-//
-// param: optional nil or *CreateSipAuthRegistrationsCredentialListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "CredentialListSid" (string) - The SID of the CredentialList resource to map to the SIP domain.
-//
-// return: ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping
 func (c *DefaultApiService) CreateSipAuthRegistrationsCredentialListMapping(DomainSid string, params *CreateSipAuthRegistrationsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -3423,11 +3026,14 @@ func (c *DefaultApiService) CreateSipAuthRegistrationsCredentialListMapping(Doma
 	return ps, err
 }
 
-// CreateSipCredentialParams Optional parameters for the method 'CreateSipCredential'
+// Optional parameters for the method 'CreateSipCredential'
 type CreateSipCredentialParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Password       *string `json:"Password,omitempty"`
-	Username       *string `json:"Username,omitempty"`
+	// The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
+	Password *string `json:"Password,omitempty"`
+	// The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio's challenge of the initial INVITE. It can be up to 32 characters long.
+	Username *string `json:"Username,omitempty"`
 }
 
 func (params *CreateSipCredentialParams) SetPathAccountSid(PathAccountSid string) *CreateSipCredentialParams {
@@ -3443,21 +3049,7 @@ func (params *CreateSipCredentialParams) SetUsername(Username string) *CreateSip
 	return params
 }
 
-// CreateSipCredential Method for CreateSipCredential
-//
 // Create a new credential resource.
-//
-// param: CredentialListSid The unique id that identifies the credential list to include the created credential.
-//
-// param: optional nil or *CreateSipCredentialParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
-// param: "Password" (string) - The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
-//
-// param: "Username" (string) - The username that will be passed when authenticating SIP requests. The username should be sent in response to Twilio's challenge of the initial INVITE. It can be up to 32 characters long.
-//
-// return: ApiV2010AccountSipSipCredentialListSipCredential
 func (c *DefaultApiService) CreateSipCredential(CredentialListSid string, params *CreateSipCredentialParams) (*ApiV2010AccountSipSipCredentialListSipCredential, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -3492,10 +3084,12 @@ func (c *DefaultApiService) CreateSipCredential(CredentialListSid string, params
 	return ps, err
 }
 
-// CreateSipCredentialListParams Optional parameters for the method 'CreateSipCredentialList'
+// Optional parameters for the method 'CreateSipCredentialList'
 type CreateSipCredentialListParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	// A human readable descriptive text that describes the CredentialList, up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 func (params *CreateSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *CreateSipCredentialListParams {
@@ -3507,17 +3101,7 @@ func (params *CreateSipCredentialListParams) SetFriendlyName(FriendlyName string
 	return params
 }
 
-// CreateSipCredentialList Method for CreateSipCredentialList
-//
 // Create a Credential List
-//
-// param: optional nil or *CreateSipCredentialListParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
-// param: "FriendlyName" (string) - A human readable descriptive text that describes the CredentialList, up to 64 characters long.
-//
-// return: ApiV2010AccountSipSipCredentialList
 func (c *DefaultApiService) CreateSipCredentialList(params *CreateSipCredentialListParams) (*ApiV2010AccountSipSipCredentialList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -3548,9 +3132,11 @@ func (c *DefaultApiService) CreateSipCredentialList(params *CreateSipCredentialL
 	return ps, err
 }
 
-// CreateSipCredentialListMappingParams Optional parameters for the method 'CreateSipCredentialListMapping'
+// Optional parameters for the method 'CreateSipCredentialListMapping'
 type CreateSipCredentialListMappingParams struct {
-	PathAccountSid    *string `json:"PathAccountSid,omitempty"`
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain.
 	CredentialListSid *string `json:"CredentialListSid,omitempty"`
 }
 
@@ -3563,19 +3149,7 @@ func (params *CreateSipCredentialListMappingParams) SetCredentialListSid(Credent
 	return params
 }
 
-// CreateSipCredentialListMapping Method for CreateSipCredentialListMapping
-//
 // Create a CredentialListMapping resource for an account.
-//
-// param: DomainSid A 34 character string that uniquely identifies the SIP Domain for which the CredentialList resource will be mapped.
-//
-// param: optional nil or *CreateSipCredentialListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// param: "CredentialListSid" (string) - A 34 character string that uniquely identifies the CredentialList resource to map to the SIP domain.
-//
-// return: ApiV2010AccountSipSipDomainSipCredentialListMapping
 func (c *DefaultApiService) CreateSipCredentialListMapping(DomainSid string, params *CreateSipCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -3607,22 +3181,36 @@ func (c *DefaultApiService) CreateSipCredentialListMapping(DomainSid string, par
 	return ps, err
 }
 
-// CreateSipDomainParams Optional parameters for the method 'CreateSipDomain'
+// Optional parameters for the method 'CreateSipDomain'
 type CreateSipDomainParams struct {
-	PathAccountSid            *string `json:"PathAccountSid,omitempty"`
-	ByocTrunkSid              *string `json:"ByocTrunkSid,omitempty"`
-	DomainName                *string `json:"DomainName,omitempty"`
-	EmergencyCallerSid        *string `json:"EmergencyCallerSid,omitempty"`
-	EmergencyCallingEnabled   *bool   `json:"EmergencyCallingEnabled,omitempty"`
-	FriendlyName              *string `json:"FriendlyName,omitempty"`
-	Secure                    *bool   `json:"Secure,omitempty"`
-	SipRegistration           *bool   `json:"SipRegistration,omitempty"`
-	VoiceFallbackMethod       *string `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl          *string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod               *string `json:"VoiceMethod,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+	ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
+	// The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
+	DomainName *string `json:"DomainName,omitempty"`
+	// Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+	EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
+	// Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+	EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
+	// A descriptive string that you created to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+	Secure *bool `json:"Secure,omitempty"`
+	// Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+	SipRegistration *bool `json:"SipRegistration,omitempty"`
+	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
 	VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
-	VoiceStatusCallbackUrl    *string `json:"VoiceStatusCallbackUrl,omitempty"`
-	VoiceUrl                  *string `json:"VoiceUrl,omitempty"`
+	// The URL that we should call to pass status parameters (such as call ended) to your application.
+	VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
+	// The URL we should when the domain receives a call.
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 func (params *CreateSipDomainParams) SetPathAccountSid(PathAccountSid string) *CreateSipDomainParams {
@@ -3682,41 +3270,7 @@ func (params *CreateSipDomainParams) SetVoiceUrl(VoiceUrl string) *CreateSipDoma
 	return params
 }
 
-// CreateSipDomain Method for CreateSipDomain
-//
 // Create a new Domain
-//
-// param: optional nil or *CreateSipDomainParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "ByocTrunkSid" (string) - The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-//
-// param: "DomainName" (string) - The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
-//
-// param: "EmergencyCallerSid" (string) - Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
-//
-// param: "EmergencyCallingEnabled" (bool) - Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-//
-// param: "FriendlyName" (string) - A descriptive string that you created to describe the resource. It can be up to 64 characters long.
-//
-// param: "Secure" (bool) - Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-//
-// param: "SipRegistration" (bool) - Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
-//
-// param: "VoiceFallbackMethod" (string) - The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-//
-// param: "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs while retrieving or executing the TwiML from `voice_url`.
-//
-// param: "VoiceMethod" (string) - The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-//
-// param: "VoiceStatusCallbackMethod" (string) - The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
-//
-// param: "VoiceStatusCallbackUrl" (string) - The URL that we should call to pass status parameters (such as call ended) to your application.
-//
-// param: "VoiceUrl" (string) - The URL we should when the domain receives a call.
-//
-// return: ApiV2010AccountSipSipDomain
 func (c *DefaultApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010AccountSipSipDomain, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -3783,10 +3337,12 @@ func (c *DefaultApiService) CreateSipDomain(params *CreateSipDomainParams) (*Api
 	return ps, err
 }
 
-// CreateSipIpAccessControlListParams Optional parameters for the method 'CreateSipIpAccessControlList'
+// Optional parameters for the method 'CreateSipIpAccessControlList'
 type CreateSipIpAccessControlListParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	// A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 func (params *CreateSipIpAccessControlListParams) SetPathAccountSid(PathAccountSid string) *CreateSipIpAccessControlListParams {
@@ -3798,17 +3354,7 @@ func (params *CreateSipIpAccessControlListParams) SetFriendlyName(FriendlyName s
 	return params
 }
 
-// CreateSipIpAccessControlList Method for CreateSipIpAccessControlList
-//
 // Create a new IpAccessControlList resource
-//
-// param: optional nil or *CreateSipIpAccessControlListParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// param: "FriendlyName" (string) - A human readable descriptive text that describes the IpAccessControlList, up to 64 characters long.
-//
-// return: ApiV2010AccountSipSipIpAccessControlList
 func (c *DefaultApiService) CreateSipIpAccessControlList(params *CreateSipIpAccessControlListParams) (*ApiV2010AccountSipSipIpAccessControlList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -3839,9 +3385,11 @@ func (c *DefaultApiService) CreateSipIpAccessControlList(params *CreateSipIpAcce
 	return ps, err
 }
 
-// CreateSipIpAccessControlListMappingParams Optional parameters for the method 'CreateSipIpAccessControlListMapping'
+// Optional parameters for the method 'CreateSipIpAccessControlListMapping'
 type CreateSipIpAccessControlListMappingParams struct {
-	PathAccountSid         *string `json:"PathAccountSid,omitempty"`
+	// The unique id of the Account that is responsible for this resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The unique id of the IP access control list to map to the SIP domain.
 	IpAccessControlListSid *string `json:"IpAccessControlListSid,omitempty"`
 }
 
@@ -3854,19 +3402,7 @@ func (params *CreateSipIpAccessControlListMappingParams) SetIpAccessControlListS
 	return params
 }
 
-// CreateSipIpAccessControlListMapping Method for CreateSipIpAccessControlListMapping
-//
 // Create a new IpAccessControlListMapping resource.
-//
-// param: DomainSid A 34 character string that uniquely identifies the SIP domain.
-//
-// param: optional nil or *CreateSipIpAccessControlListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
-// param: "IpAccessControlListSid" (string) - The unique id of the IP access control list to map to the SIP domain.
-//
-// return: ApiV2010AccountSipSipDomainSipIpAccessControlListMapping
 func (c *DefaultApiService) CreateSipIpAccessControlListMapping(DomainSid string, params *CreateSipIpAccessControlListMappingParams) (*ApiV2010AccountSipSipDomainSipIpAccessControlListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -3898,12 +3434,16 @@ func (c *DefaultApiService) CreateSipIpAccessControlListMapping(DomainSid string
 	return ps, err
 }
 
-// CreateSipIpAddressParams Optional parameters for the method 'CreateSipIpAddress'
+// Optional parameters for the method 'CreateSipIpAddress'
 type CreateSipIpAddressParams struct {
-	PathAccountSid   *string `json:"PathAccountSid,omitempty"`
-	CidrPrefixLength *int32  `json:"CidrPrefixLength,omitempty"`
-	FriendlyName     *string `json:"FriendlyName,omitempty"`
-	IpAddress        *string `json:"IpAddress,omitempty"`
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+	CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
+	// A human readable descriptive text for this resource, up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+	IpAddress *string `json:"IpAddress,omitempty"`
 }
 
 func (params *CreateSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *CreateSipIpAddressParams {
@@ -3923,23 +3463,7 @@ func (params *CreateSipIpAddressParams) SetIpAddress(IpAddress string) *CreateSi
 	return params
 }
 
-// CreateSipIpAddress Method for CreateSipIpAddress
-//
 // Create a new IpAddress resource.
-//
-// param: IpAccessControlListSid The IpAccessControlList Sid with which to associate the created IpAddress resource.
-//
-// param: optional nil or *CreateSipIpAddressParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// param: "CidrPrefixLength" (int32) - An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-//
-// param: "FriendlyName" (string) - A human readable descriptive text for this resource, up to 64 characters long.
-//
-// param: "IpAddress" (string) - An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-//
-// return: ApiV2010AccountSipSipIpAccessControlListSipIpAddress
 func (c *DefaultApiService) CreateSipIpAddress(IpAccessControlListSid string, params *CreateSipIpAddressParams) (*ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -3977,10 +3501,12 @@ func (c *DefaultApiService) CreateSipIpAddress(IpAccessControlListSid string, pa
 	return ps, err
 }
 
-// CreateTokenParams Optional parameters for the method 'CreateToken'
+// Optional parameters for the method 'CreateToken'
 type CreateTokenParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Ttl            *int32  `json:"Ttl,omitempty"`
+	// The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 func (params *CreateTokenParams) SetPathAccountSid(PathAccountSid string) *CreateTokenParams {
@@ -3992,17 +3518,7 @@ func (params *CreateTokenParams) SetTtl(Ttl int32) *CreateTokenParams {
 	return params
 }
 
-// CreateToken Method for CreateToken
-//
 // Create a new token for ICE servers
-//
-// param: optional nil or *CreateTokenParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "Ttl" (int32) - The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
-//
-// return: ApiV2010AccountToken
 func (c *DefaultApiService) CreateToken(params *CreateTokenParams) (*ApiV2010AccountToken, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Tokens.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4033,16 +3549,24 @@ func (c *DefaultApiService) CreateToken(params *CreateTokenParams) (*ApiV2010Acc
 	return ps, err
 }
 
-// CreateUsageTriggerParams Optional parameters for the method 'CreateUsageTrigger'
+// Optional parameters for the method 'CreateUsageTrigger'
 type CreateUsageTriggerParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
 	CallbackMethod *string `json:"CallbackMethod,omitempty"`
-	CallbackUrl    *string `json:"CallbackUrl,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
-	Recurring      *string `json:"Recurring,omitempty"`
-	TriggerBy      *string `json:"TriggerBy,omitempty"`
-	TriggerValue   *string `json:"TriggerValue,omitempty"`
-	UsageCategory  *string `json:"UsageCategory,omitempty"`
+	// The URL we should call using `callback_method` when the trigger fires.
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The frequency of a recurring UsageTrigger.  Can be: `daily`, `monthly`, or `yearly` for recurring triggers or empty for non-recurring triggers. A trigger will only fire once during each period. Recurring times are in GMT.
+	Recurring *string `json:"Recurring,omitempty"`
+	// The field in the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource that should fire the trigger.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).  The default is `usage`.
+	TriggerBy *string `json:"TriggerBy,omitempty"`
+	// The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
+	TriggerValue *string `json:"TriggerValue,omitempty"`
+	// The usage category that the trigger should watch.  Use one of the supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) for this value.
+	UsageCategory *string `json:"UsageCategory,omitempty"`
 }
 
 func (params *CreateUsageTriggerParams) SetPathAccountSid(PathAccountSid string) *CreateUsageTriggerParams {
@@ -4078,29 +3602,7 @@ func (params *CreateUsageTriggerParams) SetUsageCategory(UsageCategory string) *
 	return params
 }
 
-// CreateUsageTrigger Method for CreateUsageTrigger
-//
 // Create a new UsageTrigger
-//
-// param: optional nil or *CreateUsageTriggerParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-//
-// param: "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
-//
-// param: "CallbackUrl" (string) - The URL we should call using `callback_method` when the trigger fires.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-//
-// param: "Recurring" (string) - The frequency of a recurring UsageTrigger.  Can be: `daily`, `monthly`, or `yearly` for recurring triggers or empty for non-recurring triggers. A trigger will only fire once during each period. Recurring times are in GMT.
-//
-// param: "TriggerBy" (string) - The field in the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource that should fire the trigger.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).  The default is `usage`.
-//
-// param: "TriggerValue" (string) - The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
-//
-// param: "UsageCategory" (string) - The usage category that the trigger should watch.  Use one of the supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) for this value.
-//
-// return: ApiV2010AccountUsageUsageTrigger
 func (c *DefaultApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV2010AccountUsageUsageTrigger, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4149,14 +3651,21 @@ func (c *DefaultApiService) CreateUsageTrigger(params *CreateUsageTriggerParams)
 	return ps, err
 }
 
-// CreateValidationRequestParams Optional parameters for the method 'CreateValidationRequest'
+// Optional parameters for the method 'CreateValidationRequest'
 type CreateValidationRequestParams struct {
-	PathAccountSid       *string `json:"PathAccountSid,omitempty"`
-	CallDelay            *int32  `json:"CallDelay,omitempty"`
-	Extension            *string `json:"Extension,omitempty"`
-	FriendlyName         *string `json:"FriendlyName,omitempty"`
-	PhoneNumber          *string `json:"PhoneNumber,omitempty"`
-	StatusCallback       *string `json:"StatusCallback,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the new caller ID resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
+	CallDelay *int32 `json:"CallDelay,omitempty"`
+	// The digits to dial after connecting the verification call.
+	Extension *string `json:"Extension,omitempty"`
+	// A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 }
 
@@ -4189,25 +3698,6 @@ func (params *CreateValidationRequestParams) SetStatusCallbackMethod(StatusCallb
 	return params
 }
 
-// CreateValidationRequest Method for CreateValidationRequest
-//
-// param: optional nil or *CreateValidationRequestParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the new caller ID resource.
-//
-// param: "CallDelay" (int32) - The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
-//
-// param: "Extension" (string) - The digits to dial after connecting the verification call.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
-//
-// param: "PhoneNumber" (string) - The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
-//
-// return: ApiV2010AccountValidationRequest
 func (c *DefaultApiService) CreateValidationRequest(params *CreateValidationRequestParams) (*ApiV2010AccountValidationRequest, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4253,8 +3743,9 @@ func (c *DefaultApiService) CreateValidationRequest(params *CreateValidationRequ
 	return ps, err
 }
 
-// DeleteAddressParams Optional parameters for the method 'DeleteAddress'
+// Optional parameters for the method 'DeleteAddress'
 type DeleteAddressParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4263,14 +3754,6 @@ func (params *DeleteAddressParams) SetPathAccountSid(PathAccountSid string) *Del
 	return params
 }
 
-// DeleteAddress Method for DeleteAddress
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Address resource to delete.
-//
-// param: optional nil or *DeleteAddressParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to delete.
-//
 func (c *DefaultApiService) DeleteAddress(Sid string, params *DeleteAddressParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4293,8 +3776,9 @@ func (c *DefaultApiService) DeleteAddress(Sid string, params *DeleteAddressParam
 	return nil
 }
 
-// DeleteApplicationParams Optional parameters for the method 'DeleteApplication'
+// Optional parameters for the method 'DeleteApplication'
 type DeleteApplicationParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4303,16 +3787,7 @@ func (params *DeleteApplicationParams) SetPathAccountSid(PathAccountSid string) 
 	return params
 }
 
-// DeleteApplication Method for DeleteApplication
-//
 // Delete the application by the specified application sid
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Application resource to delete.
-//
-// param: optional nil or *DeleteApplicationParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to delete.
-//
 func (c *DefaultApiService) DeleteApplication(Sid string, params *DeleteApplicationParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4335,8 +3810,9 @@ func (c *DefaultApiService) DeleteApplication(Sid string, params *DeleteApplicat
 	return nil
 }
 
-// DeleteCallParams Optional parameters for the method 'DeleteCall'
+// Optional parameters for the method 'DeleteCall'
 type DeleteCallParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4345,16 +3821,7 @@ func (params *DeleteCallParams) SetPathAccountSid(PathAccountSid string) *Delete
 	return params
 }
 
-// DeleteCall Method for DeleteCall
-//
 // Delete a Call record from your account. Once the record is deleted, it will no longer appear in the API and Account Portal logs.
-//
-// param: Sid The Twilio-provided Call SID that uniquely identifies the Call resource to delete
-//
-// param: optional nil or *DeleteCallParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to delete.
-//
 func (c *DefaultApiService) DeleteCall(Sid string, params *DeleteCallParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4377,8 +3844,9 @@ func (c *DefaultApiService) DeleteCall(Sid string, params *DeleteCallParams) err
 	return nil
 }
 
-// DeleteCallFeedbackSummaryParams Optional parameters for the method 'DeleteCallFeedbackSummary'
+// Optional parameters for the method 'DeleteCallFeedbackSummary'
 type DeleteCallFeedbackSummaryParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4387,16 +3855,7 @@ func (params *DeleteCallFeedbackSummaryParams) SetPathAccountSid(PathAccountSid 
 	return params
 }
 
-// DeleteCallFeedbackSummary Method for DeleteCallFeedbackSummary
-//
 // Delete a FeedbackSummary resource from a call
-//
-// param: Sid A 34 character string that uniquely identifies this resource.
-//
-// param: optional nil or *DeleteCallFeedbackSummaryParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
 func (c *DefaultApiService) DeleteCallFeedbackSummary(Sid string, params *DeleteCallFeedbackSummaryParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4419,8 +3878,9 @@ func (c *DefaultApiService) DeleteCallFeedbackSummary(Sid string, params *Delete
 	return nil
 }
 
-// DeleteCallRecordingParams Optional parameters for the method 'DeleteCallRecording'
+// Optional parameters for the method 'DeleteCallRecording'
 type DeleteCallRecordingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4429,18 +3889,7 @@ func (params *DeleteCallRecordingParams) SetPathAccountSid(PathAccountSid string
 	return params
 }
 
-// DeleteCallRecording Method for DeleteCallRecording
-//
 // Delete a recording from your account
-//
-// param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Recording resource to delete.
-//
-// param: optional nil or *DeleteCallRecordingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to delete.
-//
 func (c *DefaultApiService) DeleteCallRecording(CallSid string, Sid string, params *DeleteCallRecordingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4464,8 +3913,9 @@ func (c *DefaultApiService) DeleteCallRecording(CallSid string, Sid string, para
 	return nil
 }
 
-// DeleteConferenceRecordingParams Optional parameters for the method 'DeleteConferenceRecording'
+// Optional parameters for the method 'DeleteConferenceRecording'
 type DeleteConferenceRecordingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4474,18 +3924,7 @@ func (params *DeleteConferenceRecordingParams) SetPathAccountSid(PathAccountSid 
 	return params
 }
 
-// DeleteConferenceRecording Method for DeleteConferenceRecording
-//
 // Delete a recording from your account
-//
-// param: ConferenceSid The Conference SID that identifies the conference associated with the recording to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Conference Recording resource to delete.
-//
-// param: optional nil or *DeleteConferenceRecordingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to delete.
-//
 func (c *DefaultApiService) DeleteConferenceRecording(ConferenceSid string, Sid string, params *DeleteConferenceRecordingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4509,8 +3948,9 @@ func (c *DefaultApiService) DeleteConferenceRecording(ConferenceSid string, Sid 
 	return nil
 }
 
-// DeleteConnectAppParams Optional parameters for the method 'DeleteConnectApp'
+// Optional parameters for the method 'DeleteConnectApp'
 type DeleteConnectAppParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4519,16 +3959,7 @@ func (params *DeleteConnectAppParams) SetPathAccountSid(PathAccountSid string) *
 	return params
 }
 
-// DeleteConnectApp Method for DeleteConnectApp
-//
 // Delete an instance of a connect-app
-//
-// param: Sid The Twilio-provided string that uniquely identifies the ConnectApp resource to fetch.
-//
-// param: optional nil or *DeleteConnectAppParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resource to fetch.
-//
 func (c *DefaultApiService) DeleteConnectApp(Sid string, params *DeleteConnectAppParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4551,8 +3982,9 @@ func (c *DefaultApiService) DeleteConnectApp(Sid string, params *DeleteConnectAp
 	return nil
 }
 
-// DeleteIncomingPhoneNumberParams Optional parameters for the method 'DeleteIncomingPhoneNumber'
+// Optional parameters for the method 'DeleteIncomingPhoneNumber'
 type DeleteIncomingPhoneNumberParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4561,16 +3993,7 @@ func (params *DeleteIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid 
 	return params
 }
 
-// DeleteIncomingPhoneNumber Method for DeleteIncomingPhoneNumber
-//
 // Delete a phone-numbers belonging to the account used to make the request.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to delete.
-//
-// param: optional nil or *DeleteIncomingPhoneNumberParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to delete.
-//
 func (c *DefaultApiService) DeleteIncomingPhoneNumber(Sid string, params *DeleteIncomingPhoneNumberParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4593,8 +4016,9 @@ func (c *DefaultApiService) DeleteIncomingPhoneNumber(Sid string, params *Delete
 	return nil
 }
 
-// DeleteIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'DeleteIncomingPhoneNumberAssignedAddOn'
+// Optional parameters for the method 'DeleteIncomingPhoneNumberAssignedAddOn'
 type DeleteIncomingPhoneNumberAssignedAddOnParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4603,18 +4027,7 @@ func (params *DeleteIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(Pa
 	return params
 }
 
-// DeleteIncomingPhoneNumberAssignedAddOn Method for DeleteIncomingPhoneNumberAssignedAddOn
-//
 // Remove the assignment of an Add-on installation from the Number specified.
-//
-// param: ResourceSid The SID of the Phone Number to which the Add-on is assigned.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the resource to delete.
-//
-// param: optional nil or *DeleteIncomingPhoneNumberAssignedAddOnParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to delete.
-//
 func (c *DefaultApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string, params *DeleteIncomingPhoneNumberAssignedAddOnParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4638,8 +4051,9 @@ func (c *DefaultApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid s
 	return nil
 }
 
-// DeleteKeyParams Optional parameters for the method 'DeleteKey'
+// Optional parameters for the method 'DeleteKey'
 type DeleteKeyParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4648,14 +4062,6 @@ func (params *DeleteKeyParams) SetPathAccountSid(PathAccountSid string) *DeleteK
 	return params
 }
 
-// DeleteKey Method for DeleteKey
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Key resource to delete.
-//
-// param: optional nil or *DeleteKeyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to delete.
-//
 func (c *DefaultApiService) DeleteKey(Sid string, params *DeleteKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4678,8 +4084,9 @@ func (c *DefaultApiService) DeleteKey(Sid string, params *DeleteKeyParams) error
 	return nil
 }
 
-// DeleteMediaParams Optional parameters for the method 'DeleteMedia'
+// Optional parameters for the method 'DeleteMedia'
 type DeleteMediaParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4688,18 +4095,7 @@ func (params *DeleteMediaParams) SetPathAccountSid(PathAccountSid string) *Delet
 	return params
 }
 
-// DeleteMedia Method for DeleteMedia
-//
 // Delete media from your account. Once delete, you will no longer be billed
-//
-// param: MessageSid The SID of the Message resource that this Media resource belongs to.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Media resource to delete
-//
-// param: optional nil or *DeleteMediaParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to delete.
-//
 func (c *DefaultApiService) DeleteMedia(MessageSid string, Sid string, params *DeleteMediaParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4723,8 +4119,9 @@ func (c *DefaultApiService) DeleteMedia(MessageSid string, Sid string, params *D
 	return nil
 }
 
-// DeleteMessageParams Optional parameters for the method 'DeleteMessage'
+// Optional parameters for the method 'DeleteMessage'
 type DeleteMessageParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4733,16 +4130,7 @@ func (params *DeleteMessageParams) SetPathAccountSid(PathAccountSid string) *Del
 	return params
 }
 
-// DeleteMessage Method for DeleteMessage
-//
 // Deletes a message record from your account
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Message resource to delete.
-//
-// param: optional nil or *DeleteMessageParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to delete.
-//
 func (c *DefaultApiService) DeleteMessage(Sid string, params *DeleteMessageParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4765,8 +4153,9 @@ func (c *DefaultApiService) DeleteMessage(Sid string, params *DeleteMessageParam
 	return nil
 }
 
-// DeleteOutgoingCallerIdParams Optional parameters for the method 'DeleteOutgoingCallerId'
+// Optional parameters for the method 'DeleteOutgoingCallerId'
 type DeleteOutgoingCallerIdParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4775,16 +4164,7 @@ func (params *DeleteOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid str
 	return params
 }
 
-// DeleteOutgoingCallerId Method for DeleteOutgoingCallerId
-//
 // Delete the caller-id specified from the account
-//
-// param: Sid The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to delete.
-//
-// param: optional nil or *DeleteOutgoingCallerIdParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to delete.
-//
 func (c *DefaultApiService) DeleteOutgoingCallerId(Sid string, params *DeleteOutgoingCallerIdParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4807,8 +4187,9 @@ func (c *DefaultApiService) DeleteOutgoingCallerId(Sid string, params *DeleteOut
 	return nil
 }
 
-// DeleteParticipantParams Optional parameters for the method 'DeleteParticipant'
+// Optional parameters for the method 'DeleteParticipant'
 type DeleteParticipantParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4817,18 +4198,7 @@ func (params *DeleteParticipantParams) SetPathAccountSid(PathAccountSid string) 
 	return params
 }
 
-// DeleteParticipant Method for DeleteParticipant
-//
 // Kick a participant from a given conference
-//
-// param: ConferenceSid The SID of the conference with the participants to delete.
-//
-// param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to delete. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
-//
-// param: optional nil or *DeleteParticipantParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to delete.
-//
 func (c *DefaultApiService) DeleteParticipant(ConferenceSid string, CallSid string, params *DeleteParticipantParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4852,8 +4222,9 @@ func (c *DefaultApiService) DeleteParticipant(ConferenceSid string, CallSid stri
 	return nil
 }
 
-// DeleteQueueParams Optional parameters for the method 'DeleteQueue'
+// Optional parameters for the method 'DeleteQueue'
 type DeleteQueueParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4862,16 +4233,7 @@ func (params *DeleteQueueParams) SetPathAccountSid(PathAccountSid string) *Delet
 	return params
 }
 
-// DeleteQueue Method for DeleteQueue
-//
 // Remove an empty queue
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Queue resource to delete
-//
-// param: optional nil or *DeleteQueueParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to delete.
-//
 func (c *DefaultApiService) DeleteQueue(Sid string, params *DeleteQueueParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4894,8 +4256,9 @@ func (c *DefaultApiService) DeleteQueue(Sid string, params *DeleteQueueParams) e
 	return nil
 }
 
-// DeleteRecordingParams Optional parameters for the method 'DeleteRecording'
+// Optional parameters for the method 'DeleteRecording'
 type DeleteRecordingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4904,16 +4267,7 @@ func (params *DeleteRecordingParams) SetPathAccountSid(PathAccountSid string) *D
 	return params
 }
 
-// DeleteRecording Method for DeleteRecording
-//
 // Delete a recording from your account
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Recording resource to delete.
-//
-// param: optional nil or *DeleteRecordingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to delete.
-//
 func (c *DefaultApiService) DeleteRecording(Sid string, params *DeleteRecordingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4936,8 +4290,9 @@ func (c *DefaultApiService) DeleteRecording(Sid string, params *DeleteRecordingP
 	return nil
 }
 
-// DeleteRecordingAddOnResultParams Optional parameters for the method 'DeleteRecordingAddOnResult'
+// Optional parameters for the method 'DeleteRecordingAddOnResult'
 type DeleteRecordingAddOnResultParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4946,18 +4301,7 @@ func (params *DeleteRecordingAddOnResultParams) SetPathAccountSid(PathAccountSid
 	return params
 }
 
-// DeleteRecordingAddOnResult Method for DeleteRecordingAddOnResult
-//
 // Delete a result and purge all associated Payloads
-//
-// param: ReferenceSid The SID of the recording to which the result to delete belongs.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to delete.
-//
-// param: optional nil or *DeleteRecordingAddOnResultParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to delete.
-//
 func (c *DefaultApiService) DeleteRecordingAddOnResult(ReferenceSid string, Sid string, params *DeleteRecordingAddOnResultParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -4981,8 +4325,9 @@ func (c *DefaultApiService) DeleteRecordingAddOnResult(ReferenceSid string, Sid 
 	return nil
 }
 
-// DeleteRecordingAddOnResultPayloadParams Optional parameters for the method 'DeleteRecordingAddOnResultPayload'
+// Optional parameters for the method 'DeleteRecordingAddOnResultPayload'
 type DeleteRecordingAddOnResultPayloadParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -4991,20 +4336,7 @@ func (params *DeleteRecordingAddOnResultPayloadParams) SetPathAccountSid(PathAcc
 	return params
 }
 
-// DeleteRecordingAddOnResultPayload Method for DeleteRecordingAddOnResultPayload
-//
 // Delete a payload from the result along with all associated Data
-//
-// param: ReferenceSid The SID of the recording to which the AddOnResult resource that contains the payloads to delete belongs.
-//
-// param: AddOnResultSid The SID of the AddOnResult to which the payloads to delete belongs.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to delete.
-//
-// param: optional nil or *DeleteRecordingAddOnResultPayloadParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to delete.
-//
 func (c *DefaultApiService) DeleteRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, Sid string, params *DeleteRecordingAddOnResultPayloadParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5029,8 +4361,9 @@ func (c *DefaultApiService) DeleteRecordingAddOnResultPayload(ReferenceSid strin
 	return nil
 }
 
-// DeleteRecordingTranscriptionParams Optional parameters for the method 'DeleteRecordingTranscription'
+// Optional parameters for the method 'DeleteRecordingTranscription'
 type DeleteRecordingTranscriptionParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5039,16 +4372,6 @@ func (params *DeleteRecordingTranscriptionParams) SetPathAccountSid(PathAccountS
 	return params
 }
 
-// DeleteRecordingTranscription Method for DeleteRecordingTranscription
-//
-// param: RecordingSid The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Transcription resource to delete.
-//
-// param: optional nil or *DeleteRecordingTranscriptionParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to delete.
-//
 func (c *DefaultApiService) DeleteRecordingTranscription(RecordingSid string, Sid string, params *DeleteRecordingTranscriptionParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5072,8 +4395,9 @@ func (c *DefaultApiService) DeleteRecordingTranscription(RecordingSid string, Si
 	return nil
 }
 
-// DeleteSigningKeyParams Optional parameters for the method 'DeleteSigningKey'
+// Optional parameters for the method 'DeleteSigningKey'
 type DeleteSigningKeyParams struct {
+	//
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5082,14 +4406,6 @@ func (params *DeleteSigningKeyParams) SetPathAccountSid(PathAccountSid string) *
 	return params
 }
 
-// DeleteSigningKey Method for DeleteSigningKey
-//
-// param: Sid
-//
-// param: optional nil or *DeleteSigningKeyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) -
-//
 func (c *DefaultApiService) DeleteSigningKey(Sid string, params *DeleteSigningKeyParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5112,8 +4428,9 @@ func (c *DefaultApiService) DeleteSigningKey(Sid string, params *DeleteSigningKe
 	return nil
 }
 
-// DeleteSipAuthCallsCredentialListMappingParams Optional parameters for the method 'DeleteSipAuthCallsCredentialListMapping'
+// Optional parameters for the method 'DeleteSipAuthCallsCredentialListMapping'
 type DeleteSipAuthCallsCredentialListMappingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5122,18 +4439,7 @@ func (params *DeleteSipAuthCallsCredentialListMappingParams) SetPathAccountSid(P
 	return params
 }
 
-// DeleteSipAuthCallsCredentialListMapping Method for DeleteSipAuthCallsCredentialListMapping
-//
 // Delete a credential list mapping from the requested domain
-//
-// param: DomainSid The SID of the SIP domain that contains the resource to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the CredentialListMapping resource to delete.
-//
-// param: optional nil or *DeleteSipAuthCallsCredentialListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to delete.
-//
 func (c *DefaultApiService) DeleteSipAuthCallsCredentialListMapping(DomainSid string, Sid string, params *DeleteSipAuthCallsCredentialListMappingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5157,8 +4463,9 @@ func (c *DefaultApiService) DeleteSipAuthCallsCredentialListMapping(DomainSid st
 	return nil
 }
 
-// DeleteSipAuthCallsIpAccessControlListMappingParams Optional parameters for the method 'DeleteSipAuthCallsIpAccessControlListMapping'
+// Optional parameters for the method 'DeleteSipAuthCallsIpAccessControlListMapping'
 type DeleteSipAuthCallsIpAccessControlListMappingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5167,18 +4474,7 @@ func (params *DeleteSipAuthCallsIpAccessControlListMappingParams) SetPathAccount
 	return params
 }
 
-// DeleteSipAuthCallsIpAccessControlListMapping Method for DeleteSipAuthCallsIpAccessControlListMapping
-//
 // Delete an IP Access Control List mapping from the requested domain
-//
-// param: DomainSid The SID of the SIP domain that contains the resources to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the IpAccessControlListMapping resource to delete.
-//
-// param: optional nil or *DeleteSipAuthCallsIpAccessControlListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resources to delete.
-//
 func (c *DefaultApiService) DeleteSipAuthCallsIpAccessControlListMapping(DomainSid string, Sid string, params *DeleteSipAuthCallsIpAccessControlListMappingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5202,8 +4498,9 @@ func (c *DefaultApiService) DeleteSipAuthCallsIpAccessControlListMapping(DomainS
 	return nil
 }
 
-// DeleteSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'DeleteSipAuthRegistrationsCredentialListMapping'
+// Optional parameters for the method 'DeleteSipAuthRegistrationsCredentialListMapping'
 type DeleteSipAuthRegistrationsCredentialListMappingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5212,18 +4509,7 @@ func (params *DeleteSipAuthRegistrationsCredentialListMappingParams) SetPathAcco
 	return params
 }
 
-// DeleteSipAuthRegistrationsCredentialListMapping Method for DeleteSipAuthRegistrationsCredentialListMapping
-//
 // Delete a credential list mapping from the requested domain
-//
-// param: DomainSid The SID of the SIP domain that contains the resources to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the CredentialListMapping resource to delete.
-//
-// param: optional nil or *DeleteSipAuthRegistrationsCredentialListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to delete.
-//
 func (c *DefaultApiService) DeleteSipAuthRegistrationsCredentialListMapping(DomainSid string, Sid string, params *DeleteSipAuthRegistrationsCredentialListMappingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5247,8 +4533,9 @@ func (c *DefaultApiService) DeleteSipAuthRegistrationsCredentialListMapping(Doma
 	return nil
 }
 
-// DeleteSipCredentialParams Optional parameters for the method 'DeleteSipCredential'
+// Optional parameters for the method 'DeleteSipCredential'
 type DeleteSipCredentialParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5257,18 +4544,7 @@ func (params *DeleteSipCredentialParams) SetPathAccountSid(PathAccountSid string
 	return params
 }
 
-// DeleteSipCredential Method for DeleteSipCredential
-//
 // Delete a credential resource.
-//
-// param: CredentialListSid The unique id that identifies the credential list that contains the desired credentials.
-//
-// param: Sid The unique id that identifies the resource to delete.
-//
-// param: optional nil or *DeleteSipCredentialParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
 func (c *DefaultApiService) DeleteSipCredential(CredentialListSid string, Sid string, params *DeleteSipCredentialParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5292,8 +4568,9 @@ func (c *DefaultApiService) DeleteSipCredential(CredentialListSid string, Sid st
 	return nil
 }
 
-// DeleteSipCredentialListParams Optional parameters for the method 'DeleteSipCredentialList'
+// Optional parameters for the method 'DeleteSipCredentialList'
 type DeleteSipCredentialListParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5302,16 +4579,7 @@ func (params *DeleteSipCredentialListParams) SetPathAccountSid(PathAccountSid st
 	return params
 }
 
-// DeleteSipCredentialList Method for DeleteSipCredentialList
-//
 // Delete a Credential List
-//
-// param: Sid The credential list Sid that uniquely identifies this resource
-//
-// param: optional nil or *DeleteSipCredentialListParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
 func (c *DefaultApiService) DeleteSipCredentialList(Sid string, params *DeleteSipCredentialListParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5334,8 +4602,9 @@ func (c *DefaultApiService) DeleteSipCredentialList(Sid string, params *DeleteSi
 	return nil
 }
 
-// DeleteSipCredentialListMappingParams Optional parameters for the method 'DeleteSipCredentialListMapping'
+// Optional parameters for the method 'DeleteSipCredentialListMapping'
 type DeleteSipCredentialListMappingParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5344,18 +4613,7 @@ func (params *DeleteSipCredentialListMappingParams) SetPathAccountSid(PathAccoun
 	return params
 }
 
-// DeleteSipCredentialListMapping Method for DeleteSipCredentialListMapping
-//
 // Delete a CredentialListMapping resource from an account.
-//
-// param: DomainSid A 34 character string that uniquely identifies the SIP Domain that includes the resource to delete.
-//
-// param: Sid A 34 character string that uniquely identifies the resource to delete.
-//
-// param: optional nil or *DeleteSipCredentialListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
 func (c *DefaultApiService) DeleteSipCredentialListMapping(DomainSid string, Sid string, params *DeleteSipCredentialListMappingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5379,8 +4637,9 @@ func (c *DefaultApiService) DeleteSipCredentialListMapping(DomainSid string, Sid
 	return nil
 }
 
-// DeleteSipDomainParams Optional parameters for the method 'DeleteSipDomain'
+// Optional parameters for the method 'DeleteSipDomain'
 type DeleteSipDomainParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5389,16 +4648,7 @@ func (params *DeleteSipDomainParams) SetPathAccountSid(PathAccountSid string) *D
 	return params
 }
 
-// DeleteSipDomain Method for DeleteSipDomain
-//
 // Delete an instance of a Domain
-//
-// param: Sid The Twilio-provided string that uniquely identifies the SipDomain resource to delete.
-//
-// param: optional nil or *DeleteSipDomainParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to delete.
-//
 func (c *DefaultApiService) DeleteSipDomain(Sid string, params *DeleteSipDomainParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5421,8 +4671,9 @@ func (c *DefaultApiService) DeleteSipDomain(Sid string, params *DeleteSipDomainP
 	return nil
 }
 
-// DeleteSipIpAccessControlListParams Optional parameters for the method 'DeleteSipIpAccessControlList'
+// Optional parameters for the method 'DeleteSipIpAccessControlList'
 type DeleteSipIpAccessControlListParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5431,16 +4682,7 @@ func (params *DeleteSipIpAccessControlListParams) SetPathAccountSid(PathAccountS
 	return params
 }
 
-// DeleteSipIpAccessControlList Method for DeleteSipIpAccessControlList
-//
 // Delete an IpAccessControlList from the requested account
-//
-// param: Sid A 34 character string that uniquely identifies the resource to delete.
-//
-// param: optional nil or *DeleteSipIpAccessControlListParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
 func (c *DefaultApiService) DeleteSipIpAccessControlList(Sid string, params *DeleteSipIpAccessControlListParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5463,8 +4705,9 @@ func (c *DefaultApiService) DeleteSipIpAccessControlList(Sid string, params *Del
 	return nil
 }
 
-// DeleteSipIpAccessControlListMappingParams Optional parameters for the method 'DeleteSipIpAccessControlListMapping'
+// Optional parameters for the method 'DeleteSipIpAccessControlListMapping'
 type DeleteSipIpAccessControlListMappingParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5473,18 +4716,7 @@ func (params *DeleteSipIpAccessControlListMappingParams) SetPathAccountSid(PathA
 	return params
 }
 
-// DeleteSipIpAccessControlListMapping Method for DeleteSipIpAccessControlListMapping
-//
 // Delete an IpAccessControlListMapping resource.
-//
-// param: DomainSid A 34 character string that uniquely identifies the SIP domain.
-//
-// param: Sid A 34 character string that uniquely identifies the resource to delete.
-//
-// param: optional nil or *DeleteSipIpAccessControlListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
 func (c *DefaultApiService) DeleteSipIpAccessControlListMapping(DomainSid string, Sid string, params *DeleteSipIpAccessControlListMappingParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5508,8 +4740,9 @@ func (c *DefaultApiService) DeleteSipIpAccessControlListMapping(DomainSid string
 	return nil
 }
 
-// DeleteSipIpAddressParams Optional parameters for the method 'DeleteSipIpAddress'
+// Optional parameters for the method 'DeleteSipIpAddress'
 type DeleteSipIpAddressParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5518,18 +4751,7 @@ func (params *DeleteSipIpAddressParams) SetPathAccountSid(PathAccountSid string)
 	return params
 }
 
-// DeleteSipIpAddress Method for DeleteSipIpAddress
-//
 // Delete an IpAddress resource.
-//
-// param: IpAccessControlListSid The IpAccessControlList Sid that identifies the IpAddress resources to delete.
-//
-// param: Sid A 34 character string that uniquely identifies the resource to delete.
-//
-// param: optional nil or *DeleteSipIpAddressParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
 func (c *DefaultApiService) DeleteSipIpAddress(IpAccessControlListSid string, Sid string, params *DeleteSipIpAddressParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5553,8 +4775,9 @@ func (c *DefaultApiService) DeleteSipIpAddress(IpAccessControlListSid string, Si
 	return nil
 }
 
-// DeleteTranscriptionParams Optional parameters for the method 'DeleteTranscription'
+// Optional parameters for the method 'DeleteTranscription'
 type DeleteTranscriptionParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5563,16 +4786,7 @@ func (params *DeleteTranscriptionParams) SetPathAccountSid(PathAccountSid string
 	return params
 }
 
-// DeleteTranscription Method for DeleteTranscription
-//
 // Delete a transcription from the account used to make the request
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Transcription resource to delete.
-//
-// param: optional nil or *DeleteTranscriptionParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to delete.
-//
 func (c *DefaultApiService) DeleteTranscription(Sid string, params *DeleteTranscriptionParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5595,8 +4809,9 @@ func (c *DefaultApiService) DeleteTranscription(Sid string, params *DeleteTransc
 	return nil
 }
 
-// DeleteUsageTriggerParams Optional parameters for the method 'DeleteUsageTrigger'
+// Optional parameters for the method 'DeleteUsageTrigger'
 type DeleteUsageTriggerParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to delete.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5605,14 +4820,6 @@ func (params *DeleteUsageTriggerParams) SetPathAccountSid(PathAccountSid string)
 	return params
 }
 
-// DeleteUsageTrigger Method for DeleteUsageTrigger
-//
-// param: Sid The Twilio-provided string that uniquely identifies the UsageTrigger resource to delete.
-//
-// param: optional nil or *DeleteUsageTriggerParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to delete.
-//
 func (c *DefaultApiService) DeleteUsageTrigger(Sid string, params *DeleteUsageTriggerParams) error {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5635,13 +4842,7 @@ func (c *DefaultApiService) DeleteUsageTrigger(Sid string, params *DeleteUsageTr
 	return nil
 }
 
-// FetchAccount Method for FetchAccount
-//
 // Fetch the account specified by the provided Account Sid
-//
-// param: Sid The Account Sid that uniquely identifies the account to fetch
-//
-// return: ApiV2010Account
 func (c *DefaultApiService) FetchAccount(Sid string) (*ApiV2010Account, error) {
 	path := "/2010-04-01/Accounts/{Sid}.json"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -5664,8 +4865,9 @@ func (c *DefaultApiService) FetchAccount(Sid string) (*ApiV2010Account, error) {
 	return ps, err
 }
 
-// FetchAddressParams Optional parameters for the method 'FetchAddress'
+// Optional parameters for the method 'FetchAddress'
 type FetchAddressParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5674,15 +4876,6 @@ func (params *FetchAddressParams) SetPathAccountSid(PathAccountSid string) *Fetc
 	return params
 }
 
-// FetchAddress Method for FetchAddress
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Address resource to fetch.
-//
-// param: optional nil or *FetchAddressParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to fetch.
-//
-// return: ApiV2010AccountAddress
 func (c *DefaultApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV2010AccountAddress, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5710,8 +4903,9 @@ func (c *DefaultApiService) FetchAddress(Sid string, params *FetchAddressParams)
 	return ps, err
 }
 
-// FetchApplicationParams Optional parameters for the method 'FetchApplication'
+// Optional parameters for the method 'FetchApplication'
 type FetchApplicationParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5720,17 +4914,7 @@ func (params *FetchApplicationParams) SetPathAccountSid(PathAccountSid string) *
 	return params
 }
 
-// FetchApplication Method for FetchApplication
-//
 // Fetch the application specified by the provided sid
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Application resource to fetch.
-//
-// param: optional nil or *FetchApplicationParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resource to fetch.
-//
-// return: ApiV2010AccountApplication
 func (c *DefaultApiService) FetchApplication(Sid string, params *FetchApplicationParams) (*ApiV2010AccountApplication, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5758,8 +4942,9 @@ func (c *DefaultApiService) FetchApplication(Sid string, params *FetchApplicatio
 	return ps, err
 }
 
-// FetchAuthorizedConnectAppParams Optional parameters for the method 'FetchAuthorizedConnectApp'
+// Optional parameters for the method 'FetchAuthorizedConnectApp'
 type FetchAuthorizedConnectAppParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5768,17 +4953,7 @@ func (params *FetchAuthorizedConnectAppParams) SetPathAccountSid(PathAccountSid 
 	return params
 }
 
-// FetchAuthorizedConnectApp Method for FetchAuthorizedConnectApp
-//
 // Fetch an instance of an authorized-connect-app
-//
-// param: ConnectAppSid The SID of the Connect App to fetch.
-//
-// param: optional nil or *FetchAuthorizedConnectAppParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resource to fetch.
-//
-// return: ApiV2010AccountAuthorizedConnectApp
 func (c *DefaultApiService) FetchAuthorizedConnectApp(ConnectAppSid string, params *FetchAuthorizedConnectAppParams) (*ApiV2010AccountAuthorizedConnectApp, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5806,8 +4981,9 @@ func (c *DefaultApiService) FetchAuthorizedConnectApp(ConnectAppSid string, para
 	return ps, err
 }
 
-// FetchAvailablePhoneNumberCountryParams Optional parameters for the method 'FetchAvailablePhoneNumberCountry'
+// Optional parameters for the method 'FetchAvailablePhoneNumberCountry'
 type FetchAvailablePhoneNumberCountryParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5816,15 +4992,6 @@ func (params *FetchAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAcco
 	return params
 }
 
-// FetchAvailablePhoneNumberCountry Method for FetchAvailablePhoneNumberCountry
-//
-// param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country to fetch available phone number information about.
-//
-// param: optional nil or *FetchAvailablePhoneNumberCountryParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resource.
-//
-// return: ApiV2010AccountAvailablePhoneNumberCountry
 func (c *DefaultApiService) FetchAvailablePhoneNumberCountry(CountryCode string, params *FetchAvailablePhoneNumberCountryParams) (*ApiV2010AccountAvailablePhoneNumberCountry, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5852,8 +5019,9 @@ func (c *DefaultApiService) FetchAvailablePhoneNumberCountry(CountryCode string,
 	return ps, err
 }
 
-// FetchBalanceParams Optional parameters for the method 'FetchBalance'
+// Optional parameters for the method 'FetchBalance'
 type FetchBalanceParams struct {
+	// The unique SID identifier of the Account.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5862,15 +5030,7 @@ func (params *FetchBalanceParams) SetPathAccountSid(PathAccountSid string) *Fetc
 	return params
 }
 
-// FetchBalance Method for FetchBalance
-//
 // Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information
-//
-// param: optional nil or *FetchBalanceParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique SID identifier of the Account.
-//
-// return: ApiV2010AccountBalance
 func (c *DefaultApiService) FetchBalance(params *FetchBalanceParams) (*ApiV2010AccountBalance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Balance.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5897,8 +5057,9 @@ func (c *DefaultApiService) FetchBalance(params *FetchBalanceParams) (*ApiV2010A
 	return ps, err
 }
 
-// FetchCallParams Optional parameters for the method 'FetchCall'
+// Optional parameters for the method 'FetchCall'
 type FetchCallParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5907,17 +5068,7 @@ func (params *FetchCallParams) SetPathAccountSid(PathAccountSid string) *FetchCa
 	return params
 }
 
-// FetchCall Method for FetchCall
-//
 // Fetch the call specified by the provided Call SID
-//
-// param: Sid The SID of the Call resource to fetch.
-//
-// param: optional nil or *FetchCallParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to fetch.
-//
-// return: ApiV2010AccountCall
 func (c *DefaultApiService) FetchCall(Sid string, params *FetchCallParams) (*ApiV2010AccountCall, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5945,8 +5096,9 @@ func (c *DefaultApiService) FetchCall(Sid string, params *FetchCallParams) (*Api
 	return ps, err
 }
 
-// FetchCallFeedbackParams Optional parameters for the method 'FetchCallFeedback'
+// Optional parameters for the method 'FetchCallFeedback'
 type FetchCallFeedbackParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -5955,17 +5107,7 @@ func (params *FetchCallFeedbackParams) SetPathAccountSid(PathAccountSid string) 
 	return params
 }
 
-// FetchCallFeedback Method for FetchCallFeedback
-//
 // Fetch a Feedback resource from a call
-//
-// param: CallSid The call sid that uniquely identifies the call
-//
-// param: optional nil or *FetchCallFeedbackParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// return: ApiV2010AccountCallCallFeedback
 func (c *DefaultApiService) FetchCallFeedback(CallSid string, params *FetchCallFeedbackParams) (*ApiV2010AccountCallCallFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -5993,8 +5135,9 @@ func (c *DefaultApiService) FetchCallFeedback(CallSid string, params *FetchCallF
 	return ps, err
 }
 
-// FetchCallFeedbackSummaryParams Optional parameters for the method 'FetchCallFeedbackSummary'
+// Optional parameters for the method 'FetchCallFeedbackSummary'
 type FetchCallFeedbackSummaryParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6003,17 +5146,7 @@ func (params *FetchCallFeedbackSummaryParams) SetPathAccountSid(PathAccountSid s
 	return params
 }
 
-// FetchCallFeedbackSummary Method for FetchCallFeedbackSummary
-//
 // Fetch a FeedbackSummary resource from a call
-//
-// param: Sid A 34 character string that uniquely identifies this resource.
-//
-// param: optional nil or *FetchCallFeedbackSummaryParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// return: ApiV2010AccountCallCallFeedbackSummary
 func (c *DefaultApiService) FetchCallFeedbackSummary(Sid string, params *FetchCallFeedbackSummaryParams) (*ApiV2010AccountCallCallFeedbackSummary, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6041,8 +5174,9 @@ func (c *DefaultApiService) FetchCallFeedbackSummary(Sid string, params *FetchCa
 	return ps, err
 }
 
-// FetchCallNotificationParams Optional parameters for the method 'FetchCallNotification'
+// Optional parameters for the method 'FetchCallNotification'
 type FetchCallNotificationParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6051,17 +5185,6 @@ func (params *FetchCallNotificationParams) SetPathAccountSid(PathAccountSid stri
 	return params
 }
 
-// FetchCallNotification Method for FetchCallNotification
-//
-// param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Call Notification resource to fetch.
-//
-// param: optional nil or *FetchCallNotificationParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resource to fetch.
-//
-// return: ApiV2010AccountCallCallNotificationInstance
 func (c *DefaultApiService) FetchCallNotification(CallSid string, Sid string, params *FetchCallNotificationParams) (*ApiV2010AccountCallCallNotificationInstance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6090,8 +5213,9 @@ func (c *DefaultApiService) FetchCallNotification(CallSid string, Sid string, pa
 	return ps, err
 }
 
-// FetchCallRecordingParams Optional parameters for the method 'FetchCallRecording'
+// Optional parameters for the method 'FetchCallRecording'
 type FetchCallRecordingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6100,19 +5224,7 @@ func (params *FetchCallRecordingParams) SetPathAccountSid(PathAccountSid string)
 	return params
 }
 
-// FetchCallRecording Method for FetchCallRecording
-//
 // Fetch an instance of a recording for a call
-//
-// param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Recording resource to fetch.
-//
-// param: optional nil or *FetchCallRecordingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.
-//
-// return: ApiV2010AccountCallCallRecording
 func (c *DefaultApiService) FetchCallRecording(CallSid string, Sid string, params *FetchCallRecordingParams) (*ApiV2010AccountCallCallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6141,8 +5253,9 @@ func (c *DefaultApiService) FetchCallRecording(CallSid string, Sid string, param
 	return ps, err
 }
 
-// FetchConferenceParams Optional parameters for the method 'FetchConference'
+// Optional parameters for the method 'FetchConference'
 type FetchConferenceParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6151,17 +5264,7 @@ func (params *FetchConferenceParams) SetPathAccountSid(PathAccountSid string) *F
 	return params
 }
 
-// FetchConference Method for FetchConference
-//
 // Fetch an instance of a conference
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Conference resource to fetch
-//
-// param: optional nil or *FetchConferenceParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to fetch.
-//
-// return: ApiV2010AccountConference
 func (c *DefaultApiService) FetchConference(Sid string, params *FetchConferenceParams) (*ApiV2010AccountConference, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6189,8 +5292,9 @@ func (c *DefaultApiService) FetchConference(Sid string, params *FetchConferenceP
 	return ps, err
 }
 
-// FetchConferenceRecordingParams Optional parameters for the method 'FetchConferenceRecording'
+// Optional parameters for the method 'FetchConferenceRecording'
 type FetchConferenceRecordingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6199,19 +5303,7 @@ func (params *FetchConferenceRecordingParams) SetPathAccountSid(PathAccountSid s
 	return params
 }
 
-// FetchConferenceRecording Method for FetchConferenceRecording
-//
 // Fetch an instance of a recording for a call
-//
-// param: ConferenceSid The Conference SID that identifies the conference associated with the recording to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Conference Recording resource to fetch.
-//
-// param: optional nil or *FetchConferenceRecordingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to fetch.
-//
-// return: ApiV2010AccountConferenceConferenceRecording
 func (c *DefaultApiService) FetchConferenceRecording(ConferenceSid string, Sid string, params *FetchConferenceRecordingParams) (*ApiV2010AccountConferenceConferenceRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6240,8 +5332,9 @@ func (c *DefaultApiService) FetchConferenceRecording(ConferenceSid string, Sid s
 	return ps, err
 }
 
-// FetchConnectAppParams Optional parameters for the method 'FetchConnectApp'
+// Optional parameters for the method 'FetchConnectApp'
 type FetchConnectAppParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6250,17 +5343,7 @@ func (params *FetchConnectAppParams) SetPathAccountSid(PathAccountSid string) *F
 	return params
 }
 
-// FetchConnectApp Method for FetchConnectApp
-//
 // Fetch an instance of a connect-app
-//
-// param: Sid The Twilio-provided string that uniquely identifies the ConnectApp resource to fetch.
-//
-// param: optional nil or *FetchConnectAppParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resource to fetch.
-//
-// return: ApiV2010AccountConnectApp
 func (c *DefaultApiService) FetchConnectApp(Sid string, params *FetchConnectAppParams) (*ApiV2010AccountConnectApp, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6288,8 +5371,9 @@ func (c *DefaultApiService) FetchConnectApp(Sid string, params *FetchConnectAppP
 	return ps, err
 }
 
-// FetchIncomingPhoneNumberParams Optional parameters for the method 'FetchIncomingPhoneNumber'
+// Optional parameters for the method 'FetchIncomingPhoneNumber'
 type FetchIncomingPhoneNumberParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6298,17 +5382,7 @@ func (params *FetchIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid s
 	return params
 }
 
-// FetchIncomingPhoneNumber Method for FetchIncomingPhoneNumber
-//
 // Fetch an incoming-phone-number belonging to the account used to make the request.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to fetch.
-//
-// param: optional nil or *FetchIncomingPhoneNumberParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to fetch.
-//
-// return: ApiV2010AccountIncomingPhoneNumber
 func (c *DefaultApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIncomingPhoneNumberParams) (*ApiV2010AccountIncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6336,8 +5410,9 @@ func (c *DefaultApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIn
 	return ps, err
 }
 
-// FetchIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'FetchIncomingPhoneNumberAssignedAddOn'
+// Optional parameters for the method 'FetchIncomingPhoneNumberAssignedAddOn'
 type FetchIncomingPhoneNumberAssignedAddOnParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6346,19 +5421,7 @@ func (params *FetchIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(Pat
 	return params
 }
 
-// FetchIncomingPhoneNumberAssignedAddOn Method for FetchIncomingPhoneNumberAssignedAddOn
-//
 // Fetch an instance of an Add-on installation currently assigned to this Number.
-//
-// param: ResourceSid The SID of the Phone Number to which the Add-on is assigned.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the resource to fetch.
-//
-// param: optional nil or *FetchIncomingPhoneNumberAssignedAddOnParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.
-//
-// return: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn
 func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string, params *FetchIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6387,8 +5450,9 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid st
 	return ps, err
 }
 
-// FetchIncomingPhoneNumberAssignedAddOnExtensionParams Optional parameters for the method 'FetchIncomingPhoneNumberAssignedAddOnExtension'
+// Optional parameters for the method 'FetchIncomingPhoneNumberAssignedAddOnExtension'
 type FetchIncomingPhoneNumberAssignedAddOnExtensionParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6397,21 +5461,7 @@ func (params *FetchIncomingPhoneNumberAssignedAddOnExtensionParams) SetPathAccou
 	return params
 }
 
-// FetchIncomingPhoneNumberAssignedAddOnExtension Method for FetchIncomingPhoneNumberAssignedAddOnExtension
-//
 // Fetch an instance of an Extension for the Assigned Add-on.
-//
-// param: ResourceSid The SID of the Phone Number to which the Add-on is assigned.
-//
-// param: AssignedAddOnSid The SID that uniquely identifies the assigned Add-on installation.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the resource to fetch.
-//
-// param: optional nil or *FetchIncomingPhoneNumberAssignedAddOnExtensionParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource to fetch.
-//
-// return: ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension
 func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, Sid string, params *FetchIncomingPhoneNumberAssignedAddOnExtensionParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6441,8 +5491,9 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOnExtension(Resou
 	return ps, err
 }
 
-// FetchKeyParams Optional parameters for the method 'FetchKey'
+// Optional parameters for the method 'FetchKey'
 type FetchKeyParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6451,15 +5502,6 @@ func (params *FetchKeyParams) SetPathAccountSid(PathAccountSid string) *FetchKey
 	return params
 }
 
-// FetchKey Method for FetchKey
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Key resource to fetch.
-//
-// param: optional nil or *FetchKeyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resource to fetch.
-//
-// return: ApiV2010AccountKey
 func (c *DefaultApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2010AccountKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6487,8 +5529,9 @@ func (c *DefaultApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2
 	return ps, err
 }
 
-// FetchMediaParams Optional parameters for the method 'FetchMedia'
+// Optional parameters for the method 'FetchMedia'
 type FetchMediaParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6497,19 +5540,7 @@ func (params *FetchMediaParams) SetPathAccountSid(PathAccountSid string) *FetchM
 	return params
 }
 
-// FetchMedia Method for FetchMedia
-//
 // Fetch a single media instance belonging to the account used to make the request
-//
-// param: MessageSid The SID of the Message resource that this Media resource belongs to.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Media resource to fetch
-//
-// param: optional nil or *FetchMediaParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to fetch.
-//
-// return: ApiV2010AccountMessageMedia
 func (c *DefaultApiService) FetchMedia(MessageSid string, Sid string, params *FetchMediaParams) (*ApiV2010AccountMessageMedia, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6538,8 +5569,9 @@ func (c *DefaultApiService) FetchMedia(MessageSid string, Sid string, params *Fe
 	return ps, err
 }
 
-// FetchMemberParams Optional parameters for the method 'FetchMember'
+// Optional parameters for the method 'FetchMember'
 type FetchMemberParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6548,19 +5580,7 @@ func (params *FetchMemberParams) SetPathAccountSid(PathAccountSid string) *Fetch
 	return params
 }
 
-// FetchMember Method for FetchMember
-//
 // Fetch a specific member from the queue
-//
-// param: QueueSid The SID of the Queue in which to find the members to fetch.
-//
-// param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to fetch.
-//
-// param: optional nil or *FetchMemberParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to fetch.
-//
-// return: ApiV2010AccountQueueMember
 func (c *DefaultApiService) FetchMember(QueueSid string, CallSid string, params *FetchMemberParams) (*ApiV2010AccountQueueMember, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6589,8 +5609,9 @@ func (c *DefaultApiService) FetchMember(QueueSid string, CallSid string, params 
 	return ps, err
 }
 
-// FetchMessageParams Optional parameters for the method 'FetchMessage'
+// Optional parameters for the method 'FetchMessage'
 type FetchMessageParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6599,17 +5620,7 @@ func (params *FetchMessageParams) SetPathAccountSid(PathAccountSid string) *Fetc
 	return params
 }
 
-// FetchMessage Method for FetchMessage
-//
 // Fetch a message belonging to the account used to make the request
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Message resource to fetch.
-//
-// param: optional nil or *FetchMessageParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resource to fetch.
-//
-// return: ApiV2010AccountMessage
 func (c *DefaultApiService) FetchMessage(Sid string, params *FetchMessageParams) (*ApiV2010AccountMessage, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6637,8 +5648,9 @@ func (c *DefaultApiService) FetchMessage(Sid string, params *FetchMessageParams)
 	return ps, err
 }
 
-// FetchNotificationParams Optional parameters for the method 'FetchNotification'
+// Optional parameters for the method 'FetchNotification'
 type FetchNotificationParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6647,17 +5659,7 @@ func (params *FetchNotificationParams) SetPathAccountSid(PathAccountSid string) 
 	return params
 }
 
-// FetchNotification Method for FetchNotification
-//
 // Fetch a notification belonging to the account used to make the request
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Notification resource to fetch.
-//
-// param: optional nil or *FetchNotificationParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resource to fetch.
-//
-// return: ApiV2010AccountNotificationInstance
 func (c *DefaultApiService) FetchNotification(Sid string, params *FetchNotificationParams) (*ApiV2010AccountNotificationInstance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6685,8 +5687,9 @@ func (c *DefaultApiService) FetchNotification(Sid string, params *FetchNotificat
 	return ps, err
 }
 
-// FetchOutgoingCallerIdParams Optional parameters for the method 'FetchOutgoingCallerId'
+// Optional parameters for the method 'FetchOutgoingCallerId'
 type FetchOutgoingCallerIdParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6695,17 +5698,7 @@ func (params *FetchOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid stri
 	return params
 }
 
-// FetchOutgoingCallerId Method for FetchOutgoingCallerId
-//
 // Fetch an outgoing-caller-id belonging to the account used to make the request
-//
-// param: Sid The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to fetch.
-//
-// param: optional nil or *FetchOutgoingCallerIdParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resource to fetch.
-//
-// return: ApiV2010AccountOutgoingCallerId
 func (c *DefaultApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgoingCallerIdParams) (*ApiV2010AccountOutgoingCallerId, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6733,8 +5726,9 @@ func (c *DefaultApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgo
 	return ps, err
 }
 
-// FetchParticipantParams Optional parameters for the method 'FetchParticipant'
+// Optional parameters for the method 'FetchParticipant'
 type FetchParticipantParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6743,19 +5737,7 @@ func (params *FetchParticipantParams) SetPathAccountSid(PathAccountSid string) *
 	return params
 }
 
-// FetchParticipant Method for FetchParticipant
-//
 // Fetch an instance of a participant
-//
-// param: ConferenceSid The SID of the conference with the participant to fetch.
-//
-// param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to fetch. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
-//
-// param: optional nil or *FetchParticipantParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resource to fetch.
-//
-// return: ApiV2010AccountConferenceParticipant
 func (c *DefaultApiService) FetchParticipant(ConferenceSid string, CallSid string, params *FetchParticipantParams) (*ApiV2010AccountConferenceParticipant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6784,8 +5766,9 @@ func (c *DefaultApiService) FetchParticipant(ConferenceSid string, CallSid strin
 	return ps, err
 }
 
-// FetchQueueParams Optional parameters for the method 'FetchQueue'
+// Optional parameters for the method 'FetchQueue'
 type FetchQueueParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6794,17 +5777,7 @@ func (params *FetchQueueParams) SetPathAccountSid(PathAccountSid string) *FetchQ
 	return params
 }
 
-// FetchQueue Method for FetchQueue
-//
 // Fetch an instance of a queue identified by the QueueSid
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Queue resource to fetch
-//
-// param: optional nil or *FetchQueueParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to fetch.
-//
-// return: ApiV2010AccountQueue
 func (c *DefaultApiService) FetchQueue(Sid string, params *FetchQueueParams) (*ApiV2010AccountQueue, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6832,8 +5805,9 @@ func (c *DefaultApiService) FetchQueue(Sid string, params *FetchQueueParams) (*A
 	return ps, err
 }
 
-// FetchRecordingParams Optional parameters for the method 'FetchRecording'
+// Optional parameters for the method 'FetchRecording'
 type FetchRecordingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6842,17 +5816,7 @@ func (params *FetchRecordingParams) SetPathAccountSid(PathAccountSid string) *Fe
 	return params
 }
 
-// FetchRecording Method for FetchRecording
-//
 // Fetch an instance of a recording
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Recording resource to fetch.
-//
-// param: optional nil or *FetchRecordingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.
-//
-// return: ApiV2010AccountRecording
 func (c *DefaultApiService) FetchRecording(Sid string, params *FetchRecordingParams) (*ApiV2010AccountRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6880,8 +5844,9 @@ func (c *DefaultApiService) FetchRecording(Sid string, params *FetchRecordingPar
 	return ps, err
 }
 
-// FetchRecordingAddOnResultParams Optional parameters for the method 'FetchRecordingAddOnResult'
+// Optional parameters for the method 'FetchRecordingAddOnResult'
 type FetchRecordingAddOnResultParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6890,19 +5855,7 @@ func (params *FetchRecordingAddOnResultParams) SetPathAccountSid(PathAccountSid 
 	return params
 }
 
-// FetchRecordingAddOnResult Method for FetchRecordingAddOnResult
-//
 // Fetch an instance of an AddOnResult
-//
-// param: ReferenceSid The SID of the recording to which the result to fetch belongs.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Recording AddOnResult resource to fetch.
-//
-// param: optional nil or *FetchRecordingAddOnResultParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resource to fetch.
-//
-// return: ApiV2010AccountRecordingRecordingAddOnResult
 func (c *DefaultApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid string, params *FetchRecordingAddOnResultParams) (*ApiV2010AccountRecordingRecordingAddOnResult, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6931,8 +5884,9 @@ func (c *DefaultApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid s
 	return ps, err
 }
 
-// FetchRecordingAddOnResultPayloadParams Optional parameters for the method 'FetchRecordingAddOnResultPayload'
+// Optional parameters for the method 'FetchRecordingAddOnResultPayload'
 type FetchRecordingAddOnResultPayloadParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6941,21 +5895,7 @@ func (params *FetchRecordingAddOnResultPayloadParams) SetPathAccountSid(PathAcco
 	return params
 }
 
-// FetchRecordingAddOnResultPayload Method for FetchRecordingAddOnResultPayload
-//
 // Fetch an instance of a result payload
-//
-// param: ReferenceSid The SID of the recording to which the AddOnResult resource that contains the payload to fetch belongs.
-//
-// param: AddOnResultSid The SID of the AddOnResult to which the payload to fetch belongs.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
-//
-// param: optional nil or *FetchRecordingAddOnResultPayloadParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resource to fetch.
-//
-// return: ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload
 func (c *DefaultApiService) FetchRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, Sid string, params *FetchRecordingAddOnResultPayloadParams) (*ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -6985,8 +5925,9 @@ func (c *DefaultApiService) FetchRecordingAddOnResultPayload(ReferenceSid string
 	return ps, err
 }
 
-// FetchRecordingTranscriptionParams Optional parameters for the method 'FetchRecordingTranscription'
+// Optional parameters for the method 'FetchRecordingTranscription'
 type FetchRecordingTranscriptionParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -6995,17 +5936,6 @@ func (params *FetchRecordingTranscriptionParams) SetPathAccountSid(PathAccountSi
 	return params
 }
 
-// FetchRecordingTranscription Method for FetchRecordingTranscription
-//
-// param: RecordingSid The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcription to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
-//
-// param: optional nil or *FetchRecordingTranscriptionParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch.
-//
-// return: ApiV2010AccountRecordingRecordingTranscription
 func (c *DefaultApiService) FetchRecordingTranscription(RecordingSid string, Sid string, params *FetchRecordingTranscriptionParams) (*ApiV2010AccountRecordingRecordingTranscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7034,8 +5964,9 @@ func (c *DefaultApiService) FetchRecordingTranscription(RecordingSid string, Sid
 	return ps, err
 }
 
-// FetchShortCodeParams Optional parameters for the method 'FetchShortCode'
+// Optional parameters for the method 'FetchShortCode'
 type FetchShortCodeParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7044,17 +5975,7 @@ func (params *FetchShortCodeParams) SetPathAccountSid(PathAccountSid string) *Fe
 	return params
 }
 
-// FetchShortCode Method for FetchShortCode
-//
 // Fetch an instance of a short code
-//
-// param: Sid The Twilio-provided string that uniquely identifies the ShortCode resource to fetch
-//
-// param: optional nil or *FetchShortCodeParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to fetch.
-//
-// return: ApiV2010AccountShortCode
 func (c *DefaultApiService) FetchShortCode(Sid string, params *FetchShortCodeParams) (*ApiV2010AccountShortCode, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7082,8 +6003,9 @@ func (c *DefaultApiService) FetchShortCode(Sid string, params *FetchShortCodePar
 	return ps, err
 }
 
-// FetchSigningKeyParams Optional parameters for the method 'FetchSigningKey'
+// Optional parameters for the method 'FetchSigningKey'
 type FetchSigningKeyParams struct {
+	//
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7092,15 +6014,6 @@ func (params *FetchSigningKeyParams) SetPathAccountSid(PathAccountSid string) *F
 	return params
 }
 
-// FetchSigningKey Method for FetchSigningKey
-//
-// param: Sid
-//
-// param: optional nil or *FetchSigningKeyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) -
-//
-// return: ApiV2010AccountSigningKey
 func (c *DefaultApiService) FetchSigningKey(Sid string, params *FetchSigningKeyParams) (*ApiV2010AccountSigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7128,8 +6041,9 @@ func (c *DefaultApiService) FetchSigningKey(Sid string, params *FetchSigningKeyP
 	return ps, err
 }
 
-// FetchSipAuthCallsCredentialListMappingParams Optional parameters for the method 'FetchSipAuthCallsCredentialListMapping'
+// Optional parameters for the method 'FetchSipAuthCallsCredentialListMapping'
 type FetchSipAuthCallsCredentialListMappingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7138,19 +6052,7 @@ func (params *FetchSipAuthCallsCredentialListMappingParams) SetPathAccountSid(Pa
 	return params
 }
 
-// FetchSipAuthCallsCredentialListMapping Method for FetchSipAuthCallsCredentialListMapping
-//
 // Fetch a specific instance of a credential list mapping
-//
-// param: DomainSid The SID of the SIP domain that contains the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the CredentialListMapping resource to fetch.
-//
-// param: optional nil or *FetchSipAuthCallsCredentialListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
-//
-// return: ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping
 func (c *DefaultApiService) FetchSipAuthCallsCredentialListMapping(DomainSid string, Sid string, params *FetchSipAuthCallsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7179,8 +6081,9 @@ func (c *DefaultApiService) FetchSipAuthCallsCredentialListMapping(DomainSid str
 	return ps, err
 }
 
-// FetchSipAuthCallsIpAccessControlListMappingParams Optional parameters for the method 'FetchSipAuthCallsIpAccessControlListMapping'
+// Optional parameters for the method 'FetchSipAuthCallsIpAccessControlListMapping'
 type FetchSipAuthCallsIpAccessControlListMappingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7189,19 +6092,7 @@ func (params *FetchSipAuthCallsIpAccessControlListMappingParams) SetPathAccountS
 	return params
 }
 
-// FetchSipAuthCallsIpAccessControlListMapping Method for FetchSipAuthCallsIpAccessControlListMapping
-//
 // Fetch a specific instance of an IP Access Control List mapping
-//
-// param: DomainSid The SID of the SIP domain that contains the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the IpAccessControlListMapping resource to fetch.
-//
-// param: optional nil or *FetchSipAuthCallsIpAccessControlListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resource to fetch.
-//
-// return: ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping
 func (c *DefaultApiService) FetchSipAuthCallsIpAccessControlListMapping(DomainSid string, Sid string, params *FetchSipAuthCallsIpAccessControlListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7230,8 +6121,9 @@ func (c *DefaultApiService) FetchSipAuthCallsIpAccessControlListMapping(DomainSi
 	return ps, err
 }
 
-// FetchSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'FetchSipAuthRegistrationsCredentialListMapping'
+// Optional parameters for the method 'FetchSipAuthRegistrationsCredentialListMapping'
 type FetchSipAuthRegistrationsCredentialListMappingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7240,19 +6132,7 @@ func (params *FetchSipAuthRegistrationsCredentialListMappingParams) SetPathAccou
 	return params
 }
 
-// FetchSipAuthRegistrationsCredentialListMapping Method for FetchSipAuthRegistrationsCredentialListMapping
-//
 // Fetch a specific instance of a credential list mapping
-//
-// param: DomainSid The SID of the SIP domain that contains the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the CredentialListMapping resource to fetch.
-//
-// param: optional nil or *FetchSipAuthRegistrationsCredentialListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
-//
-// return: ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping
 func (c *DefaultApiService) FetchSipAuthRegistrationsCredentialListMapping(DomainSid string, Sid string, params *FetchSipAuthRegistrationsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7281,8 +6161,9 @@ func (c *DefaultApiService) FetchSipAuthRegistrationsCredentialListMapping(Domai
 	return ps, err
 }
 
-// FetchSipCredentialParams Optional parameters for the method 'FetchSipCredential'
+// Optional parameters for the method 'FetchSipCredential'
 type FetchSipCredentialParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7291,19 +6172,7 @@ func (params *FetchSipCredentialParams) SetPathAccountSid(PathAccountSid string)
 	return params
 }
 
-// FetchSipCredential Method for FetchSipCredential
-//
 // Fetch a single credential.
-//
-// param: CredentialListSid The unique id that identifies the credential list that contains the desired credential.
-//
-// param: Sid The unique id that identifies the resource to fetch.
-//
-// param: optional nil or *FetchSipCredentialParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
-// return: ApiV2010AccountSipSipCredentialListSipCredential
 func (c *DefaultApiService) FetchSipCredential(CredentialListSid string, Sid string, params *FetchSipCredentialParams) (*ApiV2010AccountSipSipCredentialListSipCredential, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7332,8 +6201,9 @@ func (c *DefaultApiService) FetchSipCredential(CredentialListSid string, Sid str
 	return ps, err
 }
 
-// FetchSipCredentialListParams Optional parameters for the method 'FetchSipCredentialList'
+// Optional parameters for the method 'FetchSipCredentialList'
 type FetchSipCredentialListParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7342,17 +6212,7 @@ func (params *FetchSipCredentialListParams) SetPathAccountSid(PathAccountSid str
 	return params
 }
 
-// FetchSipCredentialList Method for FetchSipCredentialList
-//
 // Get a Credential List
-//
-// param: Sid The credential list Sid that uniquely identifies this resource
-//
-// param: optional nil or *FetchSipCredentialListParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
-// return: ApiV2010AccountSipSipCredentialList
 func (c *DefaultApiService) FetchSipCredentialList(Sid string, params *FetchSipCredentialListParams) (*ApiV2010AccountSipSipCredentialList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7380,8 +6240,9 @@ func (c *DefaultApiService) FetchSipCredentialList(Sid string, params *FetchSipC
 	return ps, err
 }
 
-// FetchSipCredentialListMappingParams Optional parameters for the method 'FetchSipCredentialListMapping'
+// Optional parameters for the method 'FetchSipCredentialListMapping'
 type FetchSipCredentialListMappingParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7390,19 +6251,7 @@ func (params *FetchSipCredentialListMappingParams) SetPathAccountSid(PathAccount
 	return params
 }
 
-// FetchSipCredentialListMapping Method for FetchSipCredentialListMapping
-//
 // Fetch a single CredentialListMapping resource from an account.
-//
-// param: DomainSid A 34 character string that uniquely identifies the SIP Domain that includes the resource to fetch.
-//
-// param: Sid A 34 character string that uniquely identifies the resource to fetch.
-//
-// param: optional nil or *FetchSipCredentialListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// return: ApiV2010AccountSipSipDomainSipCredentialListMapping
 func (c *DefaultApiService) FetchSipCredentialListMapping(DomainSid string, Sid string, params *FetchSipCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7431,8 +6280,9 @@ func (c *DefaultApiService) FetchSipCredentialListMapping(DomainSid string, Sid 
 	return ps, err
 }
 
-// FetchSipDomainParams Optional parameters for the method 'FetchSipDomain'
+// Optional parameters for the method 'FetchSipDomain'
 type FetchSipDomainParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7441,17 +6291,7 @@ func (params *FetchSipDomainParams) SetPathAccountSid(PathAccountSid string) *Fe
 	return params
 }
 
-// FetchSipDomain Method for FetchSipDomain
-//
 // Fetch an instance of a Domain
-//
-// param: Sid The Twilio-provided string that uniquely identifies the SipDomain resource to fetch.
-//
-// param: optional nil or *FetchSipDomainParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to fetch.
-//
-// return: ApiV2010AccountSipSipDomain
 func (c *DefaultApiService) FetchSipDomain(Sid string, params *FetchSipDomainParams) (*ApiV2010AccountSipSipDomain, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7479,8 +6319,9 @@ func (c *DefaultApiService) FetchSipDomain(Sid string, params *FetchSipDomainPar
 	return ps, err
 }
 
-// FetchSipIpAccessControlListParams Optional parameters for the method 'FetchSipIpAccessControlList'
+// Optional parameters for the method 'FetchSipIpAccessControlList'
 type FetchSipIpAccessControlListParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7489,17 +6330,7 @@ func (params *FetchSipIpAccessControlListParams) SetPathAccountSid(PathAccountSi
 	return params
 }
 
-// FetchSipIpAccessControlList Method for FetchSipIpAccessControlList
-//
 // Fetch a specific instance of an IpAccessControlList
-//
-// param: Sid A 34 character string that uniquely identifies the resource to fetch.
-//
-// param: optional nil or *FetchSipIpAccessControlListParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// return: ApiV2010AccountSipSipIpAccessControlList
 func (c *DefaultApiService) FetchSipIpAccessControlList(Sid string, params *FetchSipIpAccessControlListParams) (*ApiV2010AccountSipSipIpAccessControlList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7527,8 +6358,9 @@ func (c *DefaultApiService) FetchSipIpAccessControlList(Sid string, params *Fetc
 	return ps, err
 }
 
-// FetchSipIpAccessControlListMappingParams Optional parameters for the method 'FetchSipIpAccessControlListMapping'
+// Optional parameters for the method 'FetchSipIpAccessControlListMapping'
 type FetchSipIpAccessControlListMappingParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7537,19 +6369,7 @@ func (params *FetchSipIpAccessControlListMappingParams) SetPathAccountSid(PathAc
 	return params
 }
 
-// FetchSipIpAccessControlListMapping Method for FetchSipIpAccessControlListMapping
-//
 // Fetch an IpAccessControlListMapping resource.
-//
-// param: DomainSid A 34 character string that uniquely identifies the SIP domain.
-//
-// param: Sid A 34 character string that uniquely identifies the resource to fetch.
-//
-// param: optional nil or *FetchSipIpAccessControlListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
-// return: ApiV2010AccountSipSipDomainSipIpAccessControlListMapping
 func (c *DefaultApiService) FetchSipIpAccessControlListMapping(DomainSid string, Sid string, params *FetchSipIpAccessControlListMappingParams) (*ApiV2010AccountSipSipDomainSipIpAccessControlListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7578,8 +6398,9 @@ func (c *DefaultApiService) FetchSipIpAccessControlListMapping(DomainSid string,
 	return ps, err
 }
 
-// FetchSipIpAddressParams Optional parameters for the method 'FetchSipIpAddress'
+// Optional parameters for the method 'FetchSipIpAddress'
 type FetchSipIpAddressParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7588,19 +6409,7 @@ func (params *FetchSipIpAddressParams) SetPathAccountSid(PathAccountSid string) 
 	return params
 }
 
-// FetchSipIpAddress Method for FetchSipIpAddress
-//
 // Read one IpAddress resource.
-//
-// param: IpAccessControlListSid The IpAccessControlList Sid that identifies the IpAddress resources to fetch.
-//
-// param: Sid A 34 character string that uniquely identifies the IpAddress resource to fetch.
-//
-// param: optional nil or *FetchSipIpAddressParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// return: ApiV2010AccountSipSipIpAccessControlListSipIpAddress
 func (c *DefaultApiService) FetchSipIpAddress(IpAccessControlListSid string, Sid string, params *FetchSipIpAddressParams) (*ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7629,8 +6438,9 @@ func (c *DefaultApiService) FetchSipIpAddress(IpAccessControlListSid string, Sid
 	return ps, err
 }
 
-// FetchTranscriptionParams Optional parameters for the method 'FetchTranscription'
+// Optional parameters for the method 'FetchTranscription'
 type FetchTranscriptionParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7639,17 +6449,7 @@ func (params *FetchTranscriptionParams) SetPathAccountSid(PathAccountSid string)
 	return params
 }
 
-// FetchTranscription Method for FetchTranscription
-//
 // Fetch an instance of a Transcription
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
-//
-// param: optional nil or *FetchTranscriptionParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resource to fetch.
-//
-// return: ApiV2010AccountTranscription
 func (c *DefaultApiService) FetchTranscription(Sid string, params *FetchTranscriptionParams) (*ApiV2010AccountTranscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7677,8 +6477,9 @@ func (c *DefaultApiService) FetchTranscription(Sid string, params *FetchTranscri
 	return ps, err
 }
 
-// FetchUsageTriggerParams Optional parameters for the method 'FetchUsageTrigger'
+// Optional parameters for the method 'FetchUsageTrigger'
 type FetchUsageTriggerParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 }
 
@@ -7687,17 +6488,7 @@ func (params *FetchUsageTriggerParams) SetPathAccountSid(PathAccountSid string) 
 	return params
 }
 
-// FetchUsageTrigger Method for FetchUsageTrigger
-//
 // Fetch and instance of a usage-trigger
-//
-// param: Sid The Twilio-provided string that uniquely identifies the UsageTrigger resource to fetch.
-//
-// param: optional nil or *FetchUsageTriggerParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resource to fetch.
-//
-// return: ApiV2010AccountUsageUsageTrigger
 func (c *DefaultApiService) FetchUsageTrigger(Sid string, params *FetchUsageTriggerParams) (*ApiV2010AccountUsageUsageTrigger, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7725,11 +6516,14 @@ func (c *DefaultApiService) FetchUsageTrigger(Sid string, params *FetchUsageTrig
 	return ps, err
 }
 
-// ListAccountParams Optional parameters for the method 'ListAccount'
+// Optional parameters for the method 'ListAccount'
 type ListAccountParams struct {
+	// Only return the Account resources with friendly names that exactly match this name.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Status       *string `json:"Status,omitempty"`
-	PageSize     *int32  `json:"PageSize,omitempty"`
+	// Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
+	Status *string `json:"Status,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAccountParams) SetFriendlyName(FriendlyName string) *ListAccountParams {
@@ -7745,19 +6539,7 @@ func (params *ListAccountParams) SetPageSize(PageSize int32) *ListAccountParams 
 	return params
 }
 
-// ListAccount Method for ListAccount
-//
 // Retrieves a collection of Accounts belonging to the account used to make the request
-//
-// param: optional nil or *ListAccountParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - Only return the Account resources with friendly names that exactly match this name.
-//
-// param: "Status" (string) - Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAccountResponse
 func (c *DefaultApiService) ListAccount(params *ListAccountParams) (*ListAccountResponse, error) {
 	path := "/2010-04-01/Accounts.json"
 
@@ -7789,13 +6571,18 @@ func (c *DefaultApiService) ListAccount(params *ListAccountParams) (*ListAccount
 	return ps, err
 }
 
-// ListAddressParams Optional parameters for the method 'ListAddress'
+// Optional parameters for the method 'ListAddress'
 type ListAddressParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	CustomerName   *string `json:"CustomerName,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
-	IsoCountry     *string `json:"IsoCountry,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// The `customer_name` of the Address resources to read.
+	CustomerName *string `json:"CustomerName,omitempty"`
+	// The string that identifies the Address resources to read.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The ISO country code of the Address resources to read.
+	IsoCountry *string `json:"IsoCountry,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAddressParams) SetPathAccountSid(PathAccountSid string) *ListAddressParams {
@@ -7819,21 +6606,6 @@ func (params *ListAddressParams) SetPageSize(PageSize int32) *ListAddressParams 
 	return params
 }
 
-// ListAddress Method for ListAddress
-//
-// param: optional nil or *ListAddressParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to read.
-//
-// param: "CustomerName" (string) - The `customer_name` of the Address resources to read.
-//
-// param: "FriendlyName" (string) - The string that identifies the Address resources to read.
-//
-// param: "IsoCountry" (string) - The ISO country code of the Address resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAddressResponse
 func (c *DefaultApiService) ListAddress(params *ListAddressParams) (*ListAddressResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7873,11 +6645,14 @@ func (c *DefaultApiService) ListAddress(params *ListAddressParams) (*ListAddress
 	return ps, err
 }
 
-// ListApplicationParams Optional parameters for the method 'ListApplication'
+// Optional parameters for the method 'ListApplication'
 type ListApplicationParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// The string that identifies the Application resources to read.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListApplicationParams) SetPathAccountSid(PathAccountSid string) *ListApplicationParams {
@@ -7893,19 +6668,7 @@ func (params *ListApplicationParams) SetPageSize(PageSize int32) *ListApplicatio
 	return params
 }
 
-// ListApplication Method for ListApplication
-//
 // Retrieve a list of applications representing an application within the requesting account
-//
-// param: optional nil or *ListApplicationParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to read.
-//
-// param: "FriendlyName" (string) - The string that identifies the Application resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListApplicationResponse
 func (c *DefaultApiService) ListApplication(params *ListApplicationParams) (*ListApplicationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7939,10 +6702,12 @@ func (c *DefaultApiService) ListApplication(params *ListApplicationParams) (*Lis
 	return ps, err
 }
 
-// ListAuthorizedConnectAppParams Optional parameters for the method 'ListAuthorizedConnectApp'
+// Optional parameters for the method 'ListAuthorizedConnectApp'
 type ListAuthorizedConnectAppParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAuthorizedConnectAppParams) SetPathAccountSid(PathAccountSid string) *ListAuthorizedConnectAppParams {
@@ -7954,17 +6719,7 @@ func (params *ListAuthorizedConnectAppParams) SetPageSize(PageSize int32) *ListA
 	return params
 }
 
-// ListAuthorizedConnectApp Method for ListAuthorizedConnectApp
-//
 // Retrieve a list of authorized-connect-apps belonging to the account used to make the request
-//
-// param: optional nil or *ListAuthorizedConnectAppParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAuthorizedConnectAppResponse
 func (c *DefaultApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) (*ListAuthorizedConnectAppResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -7995,10 +6750,12 @@ func (c *DefaultApiService) ListAuthorizedConnectApp(params *ListAuthorizedConne
 	return ps, err
 }
 
-// ListAvailablePhoneNumberCountryParams Optional parameters for the method 'ListAvailablePhoneNumberCountry'
+// Optional parameters for the method 'ListAvailablePhoneNumberCountry'
 type ListAvailablePhoneNumberCountryParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberCountryParams {
@@ -8010,15 +6767,6 @@ func (params *ListAvailablePhoneNumberCountryParams) SetPageSize(PageSize int32)
 	return params
 }
 
-// ListAvailablePhoneNumberCountry Method for ListAvailablePhoneNumberCountry
-//
-// param: optional nil or *ListAvailablePhoneNumberCountryParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAvailablePhoneNumberCountryResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams) (*ListAvailablePhoneNumberCountryResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -8049,28 +6797,48 @@ func (c *DefaultApiService) ListAvailablePhoneNumberCountry(params *ListAvailabl
 	return ps, err
 }
 
-// ListAvailablePhoneNumberLocalParams Optional parameters for the method 'ListAvailablePhoneNumberLocal'
+// Optional parameters for the method 'ListAvailablePhoneNumberLocal'
 type ListAvailablePhoneNumberLocalParams struct {
-	PathAccountSid                *string `json:"PathAccountSid,omitempty"`
-	AreaCode                      *int32  `json:"AreaCode,omitempty"`
-	Contains                      *string `json:"Contains,omitempty"`
-	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
-	MmsEnabled                    *bool   `json:"MmsEnabled,omitempty"`
-	VoiceEnabled                  *bool   `json:"VoiceEnabled,omitempty"`
-	ExcludeAllAddressRequired     *bool   `json:"ExcludeAllAddressRequired,omitempty"`
-	ExcludeLocalAddressRequired   *bool   `json:"ExcludeLocalAddressRequired,omitempty"`
-	ExcludeForeignAddressRequired *bool   `json:"ExcludeForeignAddressRequired,omitempty"`
-	Beta                          *bool   `json:"Beta,omitempty"`
-	NearNumber                    *string `json:"NearNumber,omitempty"`
-	NearLatLong                   *string `json:"NearLatLong,omitempty"`
-	Distance                      *int32  `json:"Distance,omitempty"`
-	InPostalCode                  *string `json:"InPostalCode,omitempty"`
-	InRegion                      *string `json:"InRegion,omitempty"`
-	InRateCenter                  *string `json:"InRateCenter,omitempty"`
-	InLata                        *string `json:"InLata,omitempty"`
-	InLocality                    *string `json:"InLocality,omitempty"`
-	FaxEnabled                    *bool   `json:"FaxEnabled,omitempty"`
-	PageSize                      *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-number-pattern) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-character-pattern). If specified, this value must have at least two characters.
+	Contains *string `json:"Contains,omitempty"`
+	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	// Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	// Whether the phone numbers can receive calls. Can be: `true` or `false`.
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	// Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	// Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+	Beta *bool `json:"Beta,omitempty"`
+	// Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
+	NearNumber *string `json:"NearNumber,omitempty"`
+	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
+	Distance *int32 `json:"Distance,omitempty"`
+	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
+	InRegion *string `json:"InRegion,omitempty"`
+	// Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	// Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
+	InLata *string `json:"InLata,omitempty"`
+	// Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
+	InLocality *string `json:"InLocality,omitempty"`
+	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberLocalParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberLocalParams {
@@ -8154,53 +6922,6 @@ func (params *ListAvailablePhoneNumberLocalParams) SetPageSize(PageSize int32) *
 	return params
 }
 
-// ListAvailablePhoneNumberLocal Method for ListAvailablePhoneNumberLocal
-//
-// param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
-//
-// param: optional nil or *ListAvailablePhoneNumberLocalParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
-//
-// param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-//
-// param: "Contains" (string) - The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-number-pattern) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-character-pattern). If specified, this value must have at least two characters.
-//
-// param: "SmsEnabled" (bool) - Whether the phone numbers can receive text messages. Can be: `true` or `false`.
-//
-// param: "MmsEnabled" (bool) - Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
-//
-// param: "VoiceEnabled" (bool) - Whether the phone numbers can receive calls. Can be: `true` or `false`.
-//
-// param: "ExcludeAllAddressRequired" (bool) - Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeLocalAddressRequired" (bool) - Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeForeignAddressRequired" (bool) - Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "Beta" (bool) - Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-//
-// param: "NearNumber" (string) - Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "NearLatLong" (string) - Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "Distance" (int32) - The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-//
-// param: "InPostalCode" (string) - Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRegion" (string) - Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRateCenter" (string) - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLata" (string) - Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLocality" (string) - Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
-//
-// param: "FaxEnabled" (bool) - Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAvailablePhoneNumberLocalResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberLocal(CountryCode string, params *ListAvailablePhoneNumberLocalParams) (*ListAvailablePhoneNumberLocalResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Local.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -8286,28 +7007,48 @@ func (c *DefaultApiService) ListAvailablePhoneNumberLocal(CountryCode string, pa
 	return ps, err
 }
 
-// ListAvailablePhoneNumberMachineToMachineParams Optional parameters for the method 'ListAvailablePhoneNumberMachineToMachine'
+// Optional parameters for the method 'ListAvailablePhoneNumberMachineToMachine'
 type ListAvailablePhoneNumberMachineToMachineParams struct {
-	PathAccountSid                *string `json:"PathAccountSid,omitempty"`
-	AreaCode                      *int32  `json:"AreaCode,omitempty"`
-	Contains                      *string `json:"Contains,omitempty"`
-	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
-	MmsEnabled                    *bool   `json:"MmsEnabled,omitempty"`
-	VoiceEnabled                  *bool   `json:"VoiceEnabled,omitempty"`
-	ExcludeAllAddressRequired     *bool   `json:"ExcludeAllAddressRequired,omitempty"`
-	ExcludeLocalAddressRequired   *bool   `json:"ExcludeLocalAddressRequired,omitempty"`
-	ExcludeForeignAddressRequired *bool   `json:"ExcludeForeignAddressRequired,omitempty"`
-	Beta                          *bool   `json:"Beta,omitempty"`
-	NearNumber                    *string `json:"NearNumber,omitempty"`
-	NearLatLong                   *string `json:"NearLatLong,omitempty"`
-	Distance                      *int32  `json:"Distance,omitempty"`
-	InPostalCode                  *string `json:"InPostalCode,omitempty"`
-	InRegion                      *string `json:"InRegion,omitempty"`
-	InRateCenter                  *string `json:"InRateCenter,omitempty"`
-	InLata                        *string `json:"InLata,omitempty"`
-	InLocality                    *string `json:"InLocality,omitempty"`
-	FaxEnabled                    *bool   `json:"FaxEnabled,omitempty"`
-	PageSize                      *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
+	Contains *string `json:"Contains,omitempty"`
+	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	// Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	// Whether the phone numbers can receive calls. Can be: `true` or `false`.
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	// Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	// Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+	Beta *bool `json:"Beta,omitempty"`
+	// Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
+	NearNumber *string `json:"NearNumber,omitempty"`
+	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
+	Distance *int32 `json:"Distance,omitempty"`
+	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
+	InRegion *string `json:"InRegion,omitempty"`
+	// Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	// Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
+	InLata *string `json:"InLata,omitempty"`
+	// Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
+	InLocality *string `json:"InLocality,omitempty"`
+	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberMachineToMachineParams {
@@ -8391,53 +7132,6 @@ func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPageSize(PageSi
 	return params
 }
 
-// ListAvailablePhoneNumberMachineToMachine Method for ListAvailablePhoneNumberMachineToMachine
-//
-// param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
-//
-// param: optional nil or *ListAvailablePhoneNumberMachineToMachineParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
-//
-// param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-//
-// param: "Contains" (string) - The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
-//
-// param: "SmsEnabled" (bool) - Whether the phone numbers can receive text messages. Can be: `true` or `false`.
-//
-// param: "MmsEnabled" (bool) - Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
-//
-// param: "VoiceEnabled" (bool) - Whether the phone numbers can receive calls. Can be: `true` or `false`.
-//
-// param: "ExcludeAllAddressRequired" (bool) - Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeLocalAddressRequired" (bool) - Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeForeignAddressRequired" (bool) - Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "Beta" (bool) - Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-//
-// param: "NearNumber" (string) - Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "NearLatLong" (string) - Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "Distance" (int32) - The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-//
-// param: "InPostalCode" (string) - Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRegion" (string) - Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRateCenter" (string) - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLata" (string) - Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLocality" (string) - Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
-//
-// param: "FaxEnabled" (bool) - Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAvailablePhoneNumberMachineToMachineResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (*ListAvailablePhoneNumberMachineToMachineResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -8523,28 +7217,48 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode
 	return ps, err
 }
 
-// ListAvailablePhoneNumberMobileParams Optional parameters for the method 'ListAvailablePhoneNumberMobile'
+// Optional parameters for the method 'ListAvailablePhoneNumberMobile'
 type ListAvailablePhoneNumberMobileParams struct {
-	PathAccountSid                *string `json:"PathAccountSid,omitempty"`
-	AreaCode                      *int32  `json:"AreaCode,omitempty"`
-	Contains                      *string `json:"Contains,omitempty"`
-	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
-	MmsEnabled                    *bool   `json:"MmsEnabled,omitempty"`
-	VoiceEnabled                  *bool   `json:"VoiceEnabled,omitempty"`
-	ExcludeAllAddressRequired     *bool   `json:"ExcludeAllAddressRequired,omitempty"`
-	ExcludeLocalAddressRequired   *bool   `json:"ExcludeLocalAddressRequired,omitempty"`
-	ExcludeForeignAddressRequired *bool   `json:"ExcludeForeignAddressRequired,omitempty"`
-	Beta                          *bool   `json:"Beta,omitempty"`
-	NearNumber                    *string `json:"NearNumber,omitempty"`
-	NearLatLong                   *string `json:"NearLatLong,omitempty"`
-	Distance                      *int32  `json:"Distance,omitempty"`
-	InPostalCode                  *string `json:"InPostalCode,omitempty"`
-	InRegion                      *string `json:"InRegion,omitempty"`
-	InRateCenter                  *string `json:"InRateCenter,omitempty"`
-	InLata                        *string `json:"InLata,omitempty"`
-	InLocality                    *string `json:"InLocality,omitempty"`
-	FaxEnabled                    *bool   `json:"FaxEnabled,omitempty"`
-	PageSize                      *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
+	Contains *string `json:"Contains,omitempty"`
+	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	// Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	// Whether the phone numbers can receive calls. Can be: `true` or `false`.
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	// Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	// Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+	Beta *bool `json:"Beta,omitempty"`
+	// Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
+	NearNumber *string `json:"NearNumber,omitempty"`
+	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
+	Distance *int32 `json:"Distance,omitempty"`
+	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
+	InRegion *string `json:"InRegion,omitempty"`
+	// Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	// Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
+	InLata *string `json:"InLata,omitempty"`
+	// Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
+	InLocality *string `json:"InLocality,omitempty"`
+	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberMobileParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberMobileParams {
@@ -8628,53 +7342,6 @@ func (params *ListAvailablePhoneNumberMobileParams) SetPageSize(PageSize int32) 
 	return params
 }
 
-// ListAvailablePhoneNumberMobile Method for ListAvailablePhoneNumberMobile
-//
-// param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
-//
-// param: optional nil or *ListAvailablePhoneNumberMobileParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
-//
-// param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-//
-// param: "Contains" (string) - The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
-//
-// param: "SmsEnabled" (bool) - Whether the phone numbers can receive text messages. Can be: `true` or `false`.
-//
-// param: "MmsEnabled" (bool) - Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
-//
-// param: "VoiceEnabled" (bool) - Whether the phone numbers can receive calls. Can be: `true` or `false`.
-//
-// param: "ExcludeAllAddressRequired" (bool) - Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeLocalAddressRequired" (bool) - Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeForeignAddressRequired" (bool) - Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "Beta" (bool) - Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-//
-// param: "NearNumber" (string) - Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "NearLatLong" (string) - Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "Distance" (int32) - The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-//
-// param: "InPostalCode" (string) - Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRegion" (string) - Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRateCenter" (string) - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLata" (string) - Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLocality" (string) - Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
-//
-// param: "FaxEnabled" (bool) - Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAvailablePhoneNumberMobileResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberMobile(CountryCode string, params *ListAvailablePhoneNumberMobileParams) (*ListAvailablePhoneNumberMobileResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -8760,28 +7427,48 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMobile(CountryCode string, p
 	return ps, err
 }
 
-// ListAvailablePhoneNumberNationalParams Optional parameters for the method 'ListAvailablePhoneNumberNational'
+// Optional parameters for the method 'ListAvailablePhoneNumberNational'
 type ListAvailablePhoneNumberNationalParams struct {
-	PathAccountSid                *string `json:"PathAccountSid,omitempty"`
-	AreaCode                      *int32  `json:"AreaCode,omitempty"`
-	Contains                      *string `json:"Contains,omitempty"`
-	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
-	MmsEnabled                    *bool   `json:"MmsEnabled,omitempty"`
-	VoiceEnabled                  *bool   `json:"VoiceEnabled,omitempty"`
-	ExcludeAllAddressRequired     *bool   `json:"ExcludeAllAddressRequired,omitempty"`
-	ExcludeLocalAddressRequired   *bool   `json:"ExcludeLocalAddressRequired,omitempty"`
-	ExcludeForeignAddressRequired *bool   `json:"ExcludeForeignAddressRequired,omitempty"`
-	Beta                          *bool   `json:"Beta,omitempty"`
-	NearNumber                    *string `json:"NearNumber,omitempty"`
-	NearLatLong                   *string `json:"NearLatLong,omitempty"`
-	Distance                      *int32  `json:"Distance,omitempty"`
-	InPostalCode                  *string `json:"InPostalCode,omitempty"`
-	InRegion                      *string `json:"InRegion,omitempty"`
-	InRateCenter                  *string `json:"InRateCenter,omitempty"`
-	InLata                        *string `json:"InLata,omitempty"`
-	InLocality                    *string `json:"InLocality,omitempty"`
-	FaxEnabled                    *bool   `json:"FaxEnabled,omitempty"`
-	PageSize                      *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
+	Contains *string `json:"Contains,omitempty"`
+	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	// Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	// Whether the phone numbers can receive calls. Can be: `true` or `false`.
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	// Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	// Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+	Beta *bool `json:"Beta,omitempty"`
+	// Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
+	NearNumber *string `json:"NearNumber,omitempty"`
+	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
+	Distance *int32 `json:"Distance,omitempty"`
+	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
+	InRegion *string `json:"InRegion,omitempty"`
+	// Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	// Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
+	InLata *string `json:"InLata,omitempty"`
+	// Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
+	InLocality *string `json:"InLocality,omitempty"`
+	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberNationalParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberNationalParams {
@@ -8865,53 +7552,6 @@ func (params *ListAvailablePhoneNumberNationalParams) SetPageSize(PageSize int32
 	return params
 }
 
-// ListAvailablePhoneNumberNational Method for ListAvailablePhoneNumberNational
-//
-// param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
-//
-// param: optional nil or *ListAvailablePhoneNumberNationalParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
-//
-// param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-//
-// param: "Contains" (string) - The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
-//
-// param: "SmsEnabled" (bool) - Whether the phone numbers can receive text messages. Can be: `true` or `false`.
-//
-// param: "MmsEnabled" (bool) - Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
-//
-// param: "VoiceEnabled" (bool) - Whether the phone numbers can receive calls. Can be: `true` or `false`.
-//
-// param: "ExcludeAllAddressRequired" (bool) - Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeLocalAddressRequired" (bool) - Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeForeignAddressRequired" (bool) - Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "Beta" (bool) - Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-//
-// param: "NearNumber" (string) - Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "NearLatLong" (string) - Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "Distance" (int32) - The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-//
-// param: "InPostalCode" (string) - Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRegion" (string) - Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRateCenter" (string) - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLata" (string) - Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLocality" (string) - Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
-//
-// param: "FaxEnabled" (bool) - Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAvailablePhoneNumberNationalResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberNational(CountryCode string, params *ListAvailablePhoneNumberNationalParams) (*ListAvailablePhoneNumberNationalResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -8997,28 +7637,48 @@ func (c *DefaultApiService) ListAvailablePhoneNumberNational(CountryCode string,
 	return ps, err
 }
 
-// ListAvailablePhoneNumberSharedCostParams Optional parameters for the method 'ListAvailablePhoneNumberSharedCost'
+// Optional parameters for the method 'ListAvailablePhoneNumberSharedCost'
 type ListAvailablePhoneNumberSharedCostParams struct {
-	PathAccountSid                *string `json:"PathAccountSid,omitempty"`
-	AreaCode                      *int32  `json:"AreaCode,omitempty"`
-	Contains                      *string `json:"Contains,omitempty"`
-	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
-	MmsEnabled                    *bool   `json:"MmsEnabled,omitempty"`
-	VoiceEnabled                  *bool   `json:"VoiceEnabled,omitempty"`
-	ExcludeAllAddressRequired     *bool   `json:"ExcludeAllAddressRequired,omitempty"`
-	ExcludeLocalAddressRequired   *bool   `json:"ExcludeLocalAddressRequired,omitempty"`
-	ExcludeForeignAddressRequired *bool   `json:"ExcludeForeignAddressRequired,omitempty"`
-	Beta                          *bool   `json:"Beta,omitempty"`
-	NearNumber                    *string `json:"NearNumber,omitempty"`
-	NearLatLong                   *string `json:"NearLatLong,omitempty"`
-	Distance                      *int32  `json:"Distance,omitempty"`
-	InPostalCode                  *string `json:"InPostalCode,omitempty"`
-	InRegion                      *string `json:"InRegion,omitempty"`
-	InRateCenter                  *string `json:"InRateCenter,omitempty"`
-	InLata                        *string `json:"InLata,omitempty"`
-	InLocality                    *string `json:"InLocality,omitempty"`
-	FaxEnabled                    *bool   `json:"FaxEnabled,omitempty"`
-	PageSize                      *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
+	Contains *string `json:"Contains,omitempty"`
+	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	// Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	// Whether the phone numbers can receive calls. Can be: `true` or `false`.
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	// Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	// Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+	Beta *bool `json:"Beta,omitempty"`
+	// Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
+	NearNumber *string `json:"NearNumber,omitempty"`
+	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
+	Distance *int32 `json:"Distance,omitempty"`
+	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
+	InRegion *string `json:"InRegion,omitempty"`
+	// Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	// Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
+	InLata *string `json:"InLata,omitempty"`
+	// Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
+	InLocality *string `json:"InLocality,omitempty"`
+	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberSharedCostParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberSharedCostParams {
@@ -9102,53 +7762,6 @@ func (params *ListAvailablePhoneNumberSharedCostParams) SetPageSize(PageSize int
 	return params
 }
 
-// ListAvailablePhoneNumberSharedCost Method for ListAvailablePhoneNumberSharedCost
-//
-// param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
-//
-// param: optional nil or *ListAvailablePhoneNumberSharedCostParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
-//
-// param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-//
-// param: "Contains" (string) - The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
-//
-// param: "SmsEnabled" (bool) - Whether the phone numbers can receive text messages. Can be: `true` or `false`.
-//
-// param: "MmsEnabled" (bool) - Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
-//
-// param: "VoiceEnabled" (bool) - Whether the phone numbers can receive calls. Can be: `true` or `false`.
-//
-// param: "ExcludeAllAddressRequired" (bool) - Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeLocalAddressRequired" (bool) - Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeForeignAddressRequired" (bool) - Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "Beta" (bool) - Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-//
-// param: "NearNumber" (string) - Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "NearLatLong" (string) - Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "Distance" (int32) - The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-//
-// param: "InPostalCode" (string) - Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRegion" (string) - Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRateCenter" (string) - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLata" (string) - Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLocality" (string) - Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
-//
-// param: "FaxEnabled" (bool) - Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAvailablePhoneNumberSharedCostResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) (*ListAvailablePhoneNumberSharedCostResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -9234,28 +7847,48 @@ func (c *DefaultApiService) ListAvailablePhoneNumberSharedCost(CountryCode strin
 	return ps, err
 }
 
-// ListAvailablePhoneNumberTollFreeParams Optional parameters for the method 'ListAvailablePhoneNumberTollFree'
+// Optional parameters for the method 'ListAvailablePhoneNumberTollFree'
 type ListAvailablePhoneNumberTollFreeParams struct {
-	PathAccountSid                *string `json:"PathAccountSid,omitempty"`
-	AreaCode                      *int32  `json:"AreaCode,omitempty"`
-	Contains                      *string `json:"Contains,omitempty"`
-	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
-	MmsEnabled                    *bool   `json:"MmsEnabled,omitempty"`
-	VoiceEnabled                  *bool   `json:"VoiceEnabled,omitempty"`
-	ExcludeAllAddressRequired     *bool   `json:"ExcludeAllAddressRequired,omitempty"`
-	ExcludeLocalAddressRequired   *bool   `json:"ExcludeLocalAddressRequired,omitempty"`
-	ExcludeForeignAddressRequired *bool   `json:"ExcludeForeignAddressRequired,omitempty"`
-	Beta                          *bool   `json:"Beta,omitempty"`
-	NearNumber                    *string `json:"NearNumber,omitempty"`
-	NearLatLong                   *string `json:"NearLatLong,omitempty"`
-	Distance                      *int32  `json:"Distance,omitempty"`
-	InPostalCode                  *string `json:"InPostalCode,omitempty"`
-	InRegion                      *string `json:"InRegion,omitempty"`
-	InRateCenter                  *string `json:"InRateCenter,omitempty"`
-	InLata                        *string `json:"InLata,omitempty"`
-	InLocality                    *string `json:"InLocality,omitempty"`
-	FaxEnabled                    *bool   `json:"FaxEnabled,omitempty"`
-	PageSize                      *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
+	Contains *string `json:"Contains,omitempty"`
+	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	// Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	// Whether the phone numbers can receive calls. Can be: `true` or `false`.
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	// Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	// Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+	Beta *bool `json:"Beta,omitempty"`
+	// Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
+	NearNumber *string `json:"NearNumber,omitempty"`
+	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
+	Distance *int32 `json:"Distance,omitempty"`
+	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
+	InRegion *string `json:"InRegion,omitempty"`
+	// Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	// Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
+	InLata *string `json:"InLata,omitempty"`
+	// Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
+	InLocality *string `json:"InLocality,omitempty"`
+	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberTollFreeParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberTollFreeParams {
@@ -9339,53 +7972,6 @@ func (params *ListAvailablePhoneNumberTollFreeParams) SetPageSize(PageSize int32
 	return params
 }
 
-// ListAvailablePhoneNumberTollFree Method for ListAvailablePhoneNumberTollFree
-//
-// param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
-//
-// param: optional nil or *ListAvailablePhoneNumberTollFreeParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
-//
-// param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-//
-// param: "Contains" (string) - The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
-//
-// param: "SmsEnabled" (bool) - Whether the phone numbers can receive text messages. Can be: `true` or `false`.
-//
-// param: "MmsEnabled" (bool) - Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
-//
-// param: "VoiceEnabled" (bool) - Whether the phone numbers can receive calls. Can be: `true` or `false`.
-//
-// param: "ExcludeAllAddressRequired" (bool) - Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeLocalAddressRequired" (bool) - Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeForeignAddressRequired" (bool) - Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "Beta" (bool) - Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-//
-// param: "NearNumber" (string) - Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "NearLatLong" (string) - Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "Distance" (int32) - The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-//
-// param: "InPostalCode" (string) - Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRegion" (string) - Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRateCenter" (string) - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLata" (string) - Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLocality" (string) - Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
-//
-// param: "FaxEnabled" (bool) - Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAvailablePhoneNumberTollFreeResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams) (*ListAvailablePhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -9471,28 +8057,48 @@ func (c *DefaultApiService) ListAvailablePhoneNumberTollFree(CountryCode string,
 	return ps, err
 }
 
-// ListAvailablePhoneNumberVoipParams Optional parameters for the method 'ListAvailablePhoneNumberVoip'
+// Optional parameters for the method 'ListAvailablePhoneNumberVoip'
 type ListAvailablePhoneNumberVoipParams struct {
-	PathAccountSid                *string `json:"PathAccountSid,omitempty"`
-	AreaCode                      *int32  `json:"AreaCode,omitempty"`
-	Contains                      *string `json:"Contains,omitempty"`
-	SmsEnabled                    *bool   `json:"SmsEnabled,omitempty"`
-	MmsEnabled                    *bool   `json:"MmsEnabled,omitempty"`
-	VoiceEnabled                  *bool   `json:"VoiceEnabled,omitempty"`
-	ExcludeAllAddressRequired     *bool   `json:"ExcludeAllAddressRequired,omitempty"`
-	ExcludeLocalAddressRequired   *bool   `json:"ExcludeLocalAddressRequired,omitempty"`
-	ExcludeForeignAddressRequired *bool   `json:"ExcludeForeignAddressRequired,omitempty"`
-	Beta                          *bool   `json:"Beta,omitempty"`
-	NearNumber                    *string `json:"NearNumber,omitempty"`
-	NearLatLong                   *string `json:"NearLatLong,omitempty"`
-	Distance                      *int32  `json:"Distance,omitempty"`
-	InPostalCode                  *string `json:"InPostalCode,omitempty"`
-	InRegion                      *string `json:"InRegion,omitempty"`
-	InRateCenter                  *string `json:"InRateCenter,omitempty"`
-	InLata                        *string `json:"InLata,omitempty"`
-	InLocality                    *string `json:"InLocality,omitempty"`
-	FaxEnabled                    *bool   `json:"FaxEnabled,omitempty"`
-	PageSize                      *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
+	AreaCode *int32 `json:"AreaCode,omitempty"`
+	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
+	Contains *string `json:"Contains,omitempty"`
+	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
+	SmsEnabled *bool `json:"SmsEnabled,omitempty"`
+	// Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
+	MmsEnabled *bool `json:"MmsEnabled,omitempty"`
+	// Whether the phone numbers can receive calls. Can be: `true` or `false`.
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
+	// Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeAllAddressRequired *bool `json:"ExcludeAllAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeLocalAddressRequired *bool `json:"ExcludeLocalAddressRequired,omitempty"`
+	// Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
+	ExcludeForeignAddressRequired *bool `json:"ExcludeForeignAddressRequired,omitempty"`
+	// Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+	Beta *bool `json:"Beta,omitempty"`
+	// Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
+	NearNumber *string `json:"NearNumber,omitempty"`
+	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
+	NearLatLong *string `json:"NearLatLong,omitempty"`
+	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
+	Distance *int32 `json:"Distance,omitempty"`
+	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
+	InPostalCode *string `json:"InPostalCode,omitempty"`
+	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
+	InRegion *string `json:"InRegion,omitempty"`
+	// Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
+	InRateCenter *string `json:"InRateCenter,omitempty"`
+	// Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
+	InLata *string `json:"InLata,omitempty"`
+	// Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
+	InLocality *string `json:"InLocality,omitempty"`
+	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
+	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberVoipParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberVoipParams {
@@ -9576,53 +8182,6 @@ func (params *ListAvailablePhoneNumberVoipParams) SetPageSize(PageSize int32) *L
 	return params
 }
 
-// ListAvailablePhoneNumberVoip Method for ListAvailablePhoneNumberVoip
-//
-// param: CountryCode The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
-//
-// param: optional nil or *ListAvailablePhoneNumberVoipParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
-//
-// param: "AreaCode" (int32) - The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-//
-// param: "Contains" (string) - The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
-//
-// param: "SmsEnabled" (bool) - Whether the phone numbers can receive text messages. Can be: `true` or `false`.
-//
-// param: "MmsEnabled" (bool) - Whether the phone numbers can receive MMS messages. Can be: `true` or `false`.
-//
-// param: "VoiceEnabled" (bool) - Whether the phone numbers can receive calls. Can be: `true` or `false`.
-//
-// param: "ExcludeAllAddressRequired" (bool) - Whether to exclude phone numbers that require an [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeLocalAddressRequired" (bool) - Whether to exclude phone numbers that require a local [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "ExcludeForeignAddressRequired" (bool) - Whether to exclude phone numbers that require a foreign [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or `false` and the default is `false`.
-//
-// param: "Beta" (bool) - Whether to read phone numbers that are new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-//
-// param: "NearNumber" (string) - Given a phone number, find a geographically close number within `distance` miles. Distance defaults to 25 miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "NearLatLong" (string) - Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
-//
-// param: "Distance" (int32) - The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-//
-// param: "InPostalCode" (string) - Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRegion" (string) - Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InRateCenter" (string) - Limit results to a specific rate center, or given a phone number search within the same rate center as that number. Requires `in_lata` to be set as well. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLata" (string) - Limit results to a specific local access and transport area ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)). Given a phone number, search within the same [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that number. Applies to only phone numbers in the US and Canada.
-//
-// param: "InLocality" (string) - Limit results to a particular locality or city. Given a phone number, search within the same Locality as that number.
-//
-// param: "FaxEnabled" (bool) - Whether the phone numbers can receive faxes. Can be: `true` or `false`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAvailablePhoneNumberVoipResponse
 func (c *DefaultApiService) ListAvailablePhoneNumberVoip(CountryCode string, params *ListAvailablePhoneNumberVoipParams) (*ListAvailablePhoneNumberVoipResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -9708,20 +8267,32 @@ func (c *DefaultApiService) ListAvailablePhoneNumberVoip(CountryCode string, par
 	return ps, err
 }
 
-// ListCallParams Optional parameters for the method 'ListCall'
+// Optional parameters for the method 'ListCall'
 type ListCallParams struct {
-	PathAccountSid  *string    `json:"PathAccountSid,omitempty"`
-	To              *string    `json:"To,omitempty"`
-	From            *string    `json:"From,omitempty"`
-	ParentCallSid   *string    `json:"ParentCallSid,omitempty"`
-	Status          *string    `json:"Status,omitempty"`
-	StartTime       *time.Time `json:"StartTime,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
+	To *string `json:"To,omitempty"`
+	// Only include calls from this phone number, SIP address, Client identifier or SIM SID.
+	From *string `json:"From,omitempty"`
+	// Only include calls spawned by calls with this SID.
+	ParentCallSid *string `json:"ParentCallSid,omitempty"`
+	// The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
+	Status *string `json:"Status,omitempty"`
+	// Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+	StartTime *time.Time `json:"StartTime,omitempty"`
+	// Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
 	StartTimeBefore *time.Time `json:"StartTime&lt;,omitempty"`
-	StartTimeAfter  *time.Time `json:"StartTime&gt;,omitempty"`
-	EndTime         *time.Time `json:"EndTime,omitempty"`
-	EndTimeBefore   *time.Time `json:"EndTime&lt;,omitempty"`
-	EndTimeAfter    *time.Time `json:"EndTime&gt;,omitempty"`
-	PageSize        *int32     `json:"PageSize,omitempty"`
+	// Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
+	StartTimeAfter *time.Time `json:"StartTime&gt;,omitempty"`
+	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+	EndTime *time.Time `json:"EndTime,omitempty"`
+	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+	EndTimeBefore *time.Time `json:"EndTime&lt;,omitempty"`
+	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
+	EndTimeAfter *time.Time `json:"EndTime&gt;,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListCallParams) SetPathAccountSid(PathAccountSid string) *ListCallParams {
@@ -9773,37 +8344,7 @@ func (params *ListCallParams) SetPageSize(PageSize int32) *ListCallParams {
 	return params
 }
 
-// ListCall Method for ListCall
-//
 // Retrieves a collection of calls made to and from your account
-//
-// param: optional nil or *ListCallParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to read.
-//
-// param: "To" (string) - Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
-//
-// param: "From" (string) - Only include calls from this phone number, SIP address, Client identifier or SIM SID.
-//
-// param: "ParentCallSid" (string) - Only include calls spawned by calls with this SID.
-//
-// param: "Status" (string) - The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
-//
-// param: "StartTime" (time.Time) - Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-//
-// param: "StartTimeBefore" (time.Time) - Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-//
-// param: "StartTimeAfter" (time.Time) - Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-//
-// param: "EndTime" (time.Time) - Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-//
-// param: "EndTimeBefore" (time.Time) - Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-//
-// param: "EndTimeAfter" (time.Time) - Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListCallResponse
 func (c *DefaultApiService) ListCall(params *ListCallParams) (*ListCallResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -9864,10 +8405,12 @@ func (c *DefaultApiService) ListCall(params *ListCallParams) (*ListCallResponse,
 	return ps, err
 }
 
-// ListCallEventParams Optional parameters for the method 'ListCallEvent'
+// Optional parameters for the method 'ListCallEvent'
 type ListCallEventParams struct {
+	// The unique SID identifier of the Account.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListCallEventParams) SetPathAccountSid(PathAccountSid string) *ListCallEventParams {
@@ -9879,19 +8422,7 @@ func (params *ListCallEventParams) SetPageSize(PageSize int32) *ListCallEventPar
 	return params
 }
 
-// ListCallEvent Method for ListCallEvent
-//
 // Retrieve a list of all events for a call.
-//
-// param: CallSid The unique SID identifier of the Call.
-//
-// param: optional nil or *ListCallEventParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique SID identifier of the Account.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListCallEventResponse
 func (c *DefaultApiService) ListCallEvent(CallSid string, params *ListCallEventParams) (*ListCallEventResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -9923,14 +8454,20 @@ func (c *DefaultApiService) ListCallEvent(CallSid string, params *ListCallEventP
 	return ps, err
 }
 
-// ListCallNotificationParams Optional parameters for the method 'ListCallNotification'
+// Optional parameters for the method 'ListCallNotification'
 type ListCallNotificationParams struct {
-	PathAccountSid    *string `json:"PathAccountSid,omitempty"`
-	Log               *int32  `json:"Log,omitempty"`
-	MessageDate       *string `json:"MessageDate,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
+	Log *int32 `json:"Log,omitempty"`
+	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+	MessageDate *string `json:"MessageDate,omitempty"`
+	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
 	MessageDateBefore *string `json:"MessageDate&lt;,omitempty"`
-	MessageDateAfter  *string `json:"MessageDate&gt;,omitempty"`
-	PageSize          *int32  `json:"PageSize,omitempty"`
+	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+	MessageDateAfter *string `json:"MessageDate&gt;,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListCallNotificationParams) SetPathAccountSid(PathAccountSid string) *ListCallNotificationParams {
@@ -9958,25 +8495,6 @@ func (params *ListCallNotificationParams) SetPageSize(PageSize int32) *ListCallN
 	return params
 }
 
-// ListCallNotification Method for ListCallNotification
-//
-// param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the Call Notification resources to read.
-//
-// param: optional nil or *ListCallNotificationParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resources to read.
-//
-// param: "Log" (int32) - Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
-//
-// param: "MessageDate" (string) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-//
-// param: "MessageDateBefore" (string) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-//
-// param: "MessageDateAfter" (string) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListCallNotificationResponse
 func (c *DefaultApiService) ListCallNotification(CallSid string, params *ListCallNotificationParams) (*ListCallNotificationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -10020,13 +8538,18 @@ func (c *DefaultApiService) ListCallNotification(CallSid string, params *ListCal
 	return ps, err
 }
 
-// ListCallRecordingParams Optional parameters for the method 'ListCallRecording'
+// Optional parameters for the method 'ListCallRecording'
 type ListCallRecordingParams struct {
-	PathAccountSid    *string `json:"PathAccountSid,omitempty"`
-	DateCreated       *string `json:"DateCreated,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
 	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
-	DateCreatedAfter  *string `json:"DateCreated&gt;,omitempty"`
-	PageSize          *int32  `json:"PageSize,omitempty"`
+	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+	DateCreatedAfter *string `json:"DateCreated&gt;,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListCallRecordingParams) SetPathAccountSid(PathAccountSid string) *ListCallRecordingParams {
@@ -10050,25 +8573,7 @@ func (params *ListCallRecordingParams) SetPageSize(PageSize int32) *ListCallReco
 	return params
 }
 
-// ListCallRecording Method for ListCallRecording
-//
 // Retrieve a list of recordings belonging to the call used to make the request
-//
-// param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
-//
-// param: optional nil or *ListCallRecordingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read.
-//
-// param: "DateCreated" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-//
-// param: "DateCreatedBefore" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-//
-// param: "DateCreatedAfter" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListCallRecordingResponse
 func (c *DefaultApiService) ListCallRecording(CallSid string, params *ListCallRecordingParams) (*ListCallRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -10109,18 +8614,28 @@ func (c *DefaultApiService) ListCallRecording(CallSid string, params *ListCallRe
 	return ps, err
 }
 
-// ListConferenceParams Optional parameters for the method 'ListConference'
+// Optional parameters for the method 'ListConference'
 type ListConferenceParams struct {
-	PathAccountSid    *string `json:"PathAccountSid,omitempty"`
-	DateCreated       *string `json:"DateCreated,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
 	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
-	DateCreatedAfter  *string `json:"DateCreated&gt;,omitempty"`
-	DateUpdated       *string `json:"DateUpdated,omitempty"`
+	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
+	DateCreatedAfter *string `json:"DateCreated&gt;,omitempty"`
+	// The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+	DateUpdated *string `json:"DateUpdated,omitempty"`
+	// The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
 	DateUpdatedBefore *string `json:"DateUpdated&lt;,omitempty"`
-	DateUpdatedAfter  *string `json:"DateUpdated&gt;,omitempty"`
-	FriendlyName      *string `json:"FriendlyName,omitempty"`
-	Status            *string `json:"Status,omitempty"`
-	PageSize          *int32  `json:"PageSize,omitempty"`
+	// The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
+	DateUpdatedAfter *string `json:"DateUpdated&gt;,omitempty"`
+	// The string that identifies the Conference resources to read.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+	Status *string `json:"Status,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListConferenceParams) SetPathAccountSid(PathAccountSid string) *ListConferenceParams {
@@ -10164,33 +8679,7 @@ func (params *ListConferenceParams) SetPageSize(PageSize int32) *ListConferenceP
 	return params
 }
 
-// ListConference Method for ListConference
-//
 // Retrieve a list of conferences belonging to the account used to make the request
-//
-// param: optional nil or *ListConferenceParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to read.
-//
-// param: "DateCreated" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-//
-// param: "DateCreatedBefore" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-//
-// param: "DateCreatedAfter" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-//
-// param: "DateUpdated" (string) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-//
-// param: "DateUpdatedBefore" (string) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-//
-// param: "DateUpdatedAfter" (string) - The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-//
-// param: "FriendlyName" (string) - The string that identifies the Conference resources to read.
-//
-// param: "Status" (string) - The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListConferenceResponse
 func (c *DefaultApiService) ListConference(params *ListConferenceParams) (*ListConferenceResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -10245,13 +8734,18 @@ func (c *DefaultApiService) ListConference(params *ListConferenceParams) (*ListC
 	return ps, err
 }
 
-// ListConferenceRecordingParams Optional parameters for the method 'ListConferenceRecording'
+// Optional parameters for the method 'ListConferenceRecording'
 type ListConferenceRecordingParams struct {
-	PathAccountSid    *string `json:"PathAccountSid,omitempty"`
-	DateCreated       *string `json:"DateCreated,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+	DateCreated *string `json:"DateCreated,omitempty"`
+	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
 	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
-	DateCreatedAfter  *string `json:"DateCreated&gt;,omitempty"`
-	PageSize          *int32  `json:"PageSize,omitempty"`
+	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
+	DateCreatedAfter *string `json:"DateCreated&gt;,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListConferenceRecordingParams) SetPathAccountSid(PathAccountSid string) *ListConferenceRecordingParams {
@@ -10275,25 +8769,7 @@ func (params *ListConferenceRecordingParams) SetPageSize(PageSize int32) *ListCo
 	return params
 }
 
-// ListConferenceRecording Method for ListConferenceRecording
-//
 // Retrieve a list of recordings belonging to the call used to make the request
-//
-// param: ConferenceSid The Conference SID that identifies the conference associated with the recording to read.
-//
-// param: optional nil or *ListConferenceRecordingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resources to read.
-//
-// param: "DateCreated" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-//
-// param: "DateCreatedBefore" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-//
-// param: "DateCreatedAfter" (string) - The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListConferenceRecordingResponse
 func (c *DefaultApiService) ListConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) (*ListConferenceRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -10334,10 +8810,12 @@ func (c *DefaultApiService) ListConferenceRecording(ConferenceSid string, params
 	return ps, err
 }
 
-// ListConnectAppParams Optional parameters for the method 'ListConnectApp'
+// Optional parameters for the method 'ListConnectApp'
 type ListConnectAppParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListConnectAppParams) SetPathAccountSid(PathAccountSid string) *ListConnectAppParams {
@@ -10349,17 +8827,7 @@ func (params *ListConnectAppParams) SetPageSize(PageSize int32) *ListConnectAppP
 	return params
 }
 
-// ListConnectApp Method for ListConnectApp
-//
 // Retrieve a list of connect-apps belonging to the account used to make the request
-//
-// param: optional nil or *ListConnectAppParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListConnectAppResponse
 func (c *DefaultApiService) ListConnectApp(params *ListConnectAppParams) (*ListConnectAppResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -10390,10 +8858,12 @@ func (c *DefaultApiService) ListConnectApp(params *ListConnectAppParams) (*ListC
 	return ps, err
 }
 
-// ListDependentPhoneNumberParams Optional parameters for the method 'ListDependentPhoneNumber'
+// Optional parameters for the method 'ListDependentPhoneNumber'
 type ListDependentPhoneNumberParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DependentPhoneNumber resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListDependentPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *ListDependentPhoneNumberParams {
@@ -10405,17 +8875,6 @@ func (params *ListDependentPhoneNumberParams) SetPageSize(PageSize int32) *ListD
 	return params
 }
 
-// ListDependentPhoneNumber Method for ListDependentPhoneNumber
-//
-// param: AddressSid The SID of the Address resource associated with the phone number.
-//
-// param: optional nil or *ListDependentPhoneNumberParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DependentPhoneNumber resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListDependentPhoneNumberResponse
 func (c *DefaultApiService) ListDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) (*ListDependentPhoneNumberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -10447,14 +8906,20 @@ func (c *DefaultApiService) ListDependentPhoneNumber(AddressSid string, params *
 	return ps, err
 }
 
-// ListIncomingPhoneNumberParams Optional parameters for the method 'ListIncomingPhoneNumber'
+// Optional parameters for the method 'ListIncomingPhoneNumber'
 type ListIncomingPhoneNumberParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Beta           *bool   `json:"Beta,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
-	PhoneNumber    *string `json:"PhoneNumber,omitempty"`
-	Origin         *string `json:"Origin,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+	Beta *bool `json:"Beta,omitempty"`
+	// A string that identifies the IncomingPhoneNumber resources to read.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+	Origin *string `json:"Origin,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberParams {
@@ -10482,25 +8947,7 @@ func (params *ListIncomingPhoneNumberParams) SetPageSize(PageSize int32) *ListIn
 	return params
 }
 
-// ListIncomingPhoneNumber Method for ListIncomingPhoneNumber
-//
 // Retrieve a list of incoming-phone-numbers belonging to the account used to make the request.
-//
-// param: optional nil or *ListIncomingPhoneNumberParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to read.
-//
-// param: "Beta" (bool) - Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-//
-// param: "FriendlyName" (string) - A string that identifies the IncomingPhoneNumber resources to read.
-//
-// param: "PhoneNumber" (string) - The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
-//
-// param: "Origin" (string) - Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListIncomingPhoneNumberResponse
 func (c *DefaultApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberParams) (*ListIncomingPhoneNumberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -10543,10 +8990,12 @@ func (c *DefaultApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNum
 	return ps, err
 }
 
-// ListIncomingPhoneNumberAssignedAddOnParams Optional parameters for the method 'ListIncomingPhoneNumberAssignedAddOn'
+// Optional parameters for the method 'ListIncomingPhoneNumberAssignedAddOn'
 type ListIncomingPhoneNumberAssignedAddOnParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberAssignedAddOnParams {
@@ -10558,19 +9007,7 @@ func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPageSize(PageSize i
 	return params
 }
 
-// ListIncomingPhoneNumberAssignedAddOn Method for ListIncomingPhoneNumberAssignedAddOn
-//
 // Retrieve a list of Add-on installations currently assigned to this Number.
-//
-// param: ResourceSid The SID of the Phone Number to which the Add-on is assigned.
-//
-// param: optional nil or *ListIncomingPhoneNumberAssignedAddOnParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListIncomingPhoneNumberAssignedAddOnResponse
 func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -10602,10 +9039,12 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid str
 	return ps, err
 }
 
-// ListIncomingPhoneNumberAssignedAddOnExtensionParams Optional parameters for the method 'ListIncomingPhoneNumberAssignedAddOnExtension'
+// Optional parameters for the method 'ListIncomingPhoneNumberAssignedAddOnExtension'
 type ListIncomingPhoneNumberAssignedAddOnExtensionParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
@@ -10617,21 +9056,7 @@ func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPageSize(P
 	return params
 }
 
-// ListIncomingPhoneNumberAssignedAddOnExtension Method for ListIncomingPhoneNumberAssignedAddOnExtension
-//
 // Retrieve a list of Extensions for the Assigned Add-on.
-//
-// param: ResourceSid The SID of the Phone Number to which the Add-on is assigned.
-//
-// param: AssignedAddOnSid The SID that uniquely identifies the assigned Add-on installation.
-//
-// param: optional nil or *ListIncomingPhoneNumberAssignedAddOnExtensionParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListIncomingPhoneNumberAssignedAddOnExtensionResponse
 func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) (*ListIncomingPhoneNumberAssignedAddOnExtensionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -10664,14 +9089,20 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOnExtension(Resour
 	return ps, err
 }
 
-// ListIncomingPhoneNumberLocalParams Optional parameters for the method 'ListIncomingPhoneNumberLocal'
+// Optional parameters for the method 'ListIncomingPhoneNumberLocal'
 type ListIncomingPhoneNumberLocalParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Beta           *bool   `json:"Beta,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
-	PhoneNumber    *string `json:"PhoneNumber,omitempty"`
-	Origin         *string `json:"Origin,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+	Beta *bool `json:"Beta,omitempty"`
+	// A string that identifies the resources to read.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+	Origin *string `json:"Origin,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberLocalParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberLocalParams {
@@ -10699,23 +9130,6 @@ func (params *ListIncomingPhoneNumberLocalParams) SetPageSize(PageSize int32) *L
 	return params
 }
 
-// ListIncomingPhoneNumberLocal Method for ListIncomingPhoneNumberLocal
-//
-// param: optional nil or *ListIncomingPhoneNumberLocalParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
-//
-// param: "Beta" (bool) - Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-//
-// param: "FriendlyName" (string) - A string that identifies the resources to read.
-//
-// param: "PhoneNumber" (string) - The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
-//
-// param: "Origin" (string) - Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListIncomingPhoneNumberLocalResponse
 func (c *DefaultApiService) ListIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams) (*ListIncomingPhoneNumberLocalResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -10758,14 +9172,20 @@ func (c *DefaultApiService) ListIncomingPhoneNumberLocal(params *ListIncomingPho
 	return ps, err
 }
 
-// ListIncomingPhoneNumberMobileParams Optional parameters for the method 'ListIncomingPhoneNumberMobile'
+// Optional parameters for the method 'ListIncomingPhoneNumberMobile'
 type ListIncomingPhoneNumberMobileParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Beta           *bool   `json:"Beta,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
-	PhoneNumber    *string `json:"PhoneNumber,omitempty"`
-	Origin         *string `json:"Origin,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+	Beta *bool `json:"Beta,omitempty"`
+	// A string that identifies the resources to read.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+	Origin *string `json:"Origin,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberMobileParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberMobileParams {
@@ -10793,23 +9213,6 @@ func (params *ListIncomingPhoneNumberMobileParams) SetPageSize(PageSize int32) *
 	return params
 }
 
-// ListIncomingPhoneNumberMobile Method for ListIncomingPhoneNumberMobile
-//
-// param: optional nil or *ListIncomingPhoneNumberMobileParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
-//
-// param: "Beta" (bool) - Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-//
-// param: "FriendlyName" (string) - A string that identifies the resources to read.
-//
-// param: "PhoneNumber" (string) - The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
-//
-// param: "Origin" (string) - Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListIncomingPhoneNumberMobileResponse
 func (c *DefaultApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams) (*ListIncomingPhoneNumberMobileResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -10852,14 +9255,20 @@ func (c *DefaultApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPh
 	return ps, err
 }
 
-// ListIncomingPhoneNumberTollFreeParams Optional parameters for the method 'ListIncomingPhoneNumberTollFree'
+// Optional parameters for the method 'ListIncomingPhoneNumberTollFree'
 type ListIncomingPhoneNumberTollFreeParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Beta           *bool   `json:"Beta,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
-	PhoneNumber    *string `json:"PhoneNumber,omitempty"`
-	Origin         *string `json:"Origin,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+	Beta *bool `json:"Beta,omitempty"`
+	// A string that identifies the resources to read.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+	Origin *string `json:"Origin,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberTollFreeParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberTollFreeParams {
@@ -10887,23 +9296,6 @@ func (params *ListIncomingPhoneNumberTollFreeParams) SetPageSize(PageSize int32)
 	return params
 }
 
-// ListIncomingPhoneNumberTollFree Method for ListIncomingPhoneNumberTollFree
-//
-// param: optional nil or *ListIncomingPhoneNumberTollFreeParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
-//
-// param: "Beta" (bool) - Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
-//
-// param: "FriendlyName" (string) - A string that identifies the resources to read.
-//
-// param: "PhoneNumber" (string) - The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
-//
-// param: "Origin" (string) - Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListIncomingPhoneNumberTollFreeResponse
 func (c *DefaultApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) (*ListIncomingPhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -10946,10 +9338,12 @@ func (c *DefaultApiService) ListIncomingPhoneNumberTollFree(params *ListIncoming
 	return ps, err
 }
 
-// ListKeyParams Optional parameters for the method 'ListKey'
+// Optional parameters for the method 'ListKey'
 type ListKeyParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListKeyParams) SetPathAccountSid(PathAccountSid string) *ListKeyParams {
@@ -10961,15 +9355,6 @@ func (params *ListKeyParams) SetPageSize(PageSize int32) *ListKeyParams {
 	return params
 }
 
-// ListKey Method for ListKey
-//
-// param: optional nil or *ListKeyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListKeyResponse
 func (c *DefaultApiService) ListKey(params *ListKeyParams) (*ListKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11000,13 +9385,18 @@ func (c *DefaultApiService) ListKey(params *ListKeyParams) (*ListKeyResponse, er
 	return ps, err
 }
 
-// ListMediaParams Optional parameters for the method 'ListMedia'
+// Optional parameters for the method 'ListMedia'
 type ListMediaParams struct {
-	PathAccountSid    *string    `json:"PathAccountSid,omitempty"`
-	DateCreated       *time.Time `json:"DateCreated,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
 	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
-	DateCreatedAfter  *time.Time `json:"DateCreated&gt;,omitempty"`
-	PageSize          *int32     `json:"PageSize,omitempty"`
+	// Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
+	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListMediaParams) SetPathAccountSid(PathAccountSid string) *ListMediaParams {
@@ -11030,25 +9420,7 @@ func (params *ListMediaParams) SetPageSize(PageSize int32) *ListMediaParams {
 	return params
 }
 
-// ListMedia Method for ListMedia
-//
 // Retrieve a list of Media resources belonging to the account used to make the request
-//
-// param: MessageSid The SID of the Message resource that this Media resource belongs to.
-//
-// param: optional nil or *ListMediaParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Media resource(s) to read.
-//
-// param: "DateCreated" (time.Time) - Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
-//
-// param: "DateCreatedBefore" (time.Time) - Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
-//
-// param: "DateCreatedAfter" (time.Time) - Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListMediaResponse
 func (c *DefaultApiService) ListMedia(MessageSid string, params *ListMediaParams) (*ListMediaResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11089,10 +9461,12 @@ func (c *DefaultApiService) ListMedia(MessageSid string, params *ListMediaParams
 	return ps, err
 }
 
-// ListMemberParams Optional parameters for the method 'ListMember'
+// Optional parameters for the method 'ListMember'
 type ListMemberParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListMemberParams) SetPathAccountSid(PathAccountSid string) *ListMemberParams {
@@ -11104,19 +9478,7 @@ func (params *ListMemberParams) SetPageSize(PageSize int32) *ListMemberParams {
 	return params
 }
 
-// ListMember Method for ListMember
-//
 // Retrieve the members of the queue
-//
-// param: QueueSid The SID of the Queue in which to find the members
-//
-// param: optional nil or *ListMemberParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListMemberResponse
 func (c *DefaultApiService) ListMember(QueueSid string, params *ListMemberParams) (*ListMemberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11148,15 +9510,22 @@ func (c *DefaultApiService) ListMember(QueueSid string, params *ListMemberParams
 	return ps, err
 }
 
-// ListMessageParams Optional parameters for the method 'ListMessage'
+// Optional parameters for the method 'ListMessage'
 type ListMessageParams struct {
-	PathAccountSid *string    `json:"PathAccountSid,omitempty"`
-	To             *string    `json:"To,omitempty"`
-	From           *string    `json:"From,omitempty"`
-	DateSent       *time.Time `json:"DateSent,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Read messages sent to only this phone number.
+	To *string `json:"To,omitempty"`
+	// Read messages sent from only this phone number or alphanumeric sender ID.
+	From *string `json:"From,omitempty"`
+	// The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
+	DateSent *time.Time `json:"DateSent,omitempty"`
+	// The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
 	DateSentBefore *time.Time `json:"DateSent&lt;,omitempty"`
-	DateSentAfter  *time.Time `json:"DateSent&gt;,omitempty"`
-	PageSize       *int32     `json:"PageSize,omitempty"`
+	// The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
+	DateSentAfter *time.Time `json:"DateSent&gt;,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListMessageParams) SetPathAccountSid(PathAccountSid string) *ListMessageParams {
@@ -11188,27 +9557,7 @@ func (params *ListMessageParams) SetPageSize(PageSize int32) *ListMessageParams 
 	return params
 }
 
-// ListMessage Method for ListMessage
-//
 // Retrieve a list of messages belonging to the account used to make the request
-//
-// param: optional nil or *ListMessageParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to read.
-//
-// param: "To" (string) - Read messages sent to only this phone number.
-//
-// param: "From" (string) - Read messages sent from only this phone number or alphanumeric sender ID.
-//
-// param: "DateSent" (time.Time) - The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
-//
-// param: "DateSentBefore" (time.Time) - The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
-//
-// param: "DateSentAfter" (time.Time) - The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListMessageResponse
 func (c *DefaultApiService) ListMessage(params *ListMessageParams) (*ListMessageResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11254,14 +9603,20 @@ func (c *DefaultApiService) ListMessage(params *ListMessageParams) (*ListMessage
 	return ps, err
 }
 
-// ListNotificationParams Optional parameters for the method 'ListNotification'
+// Optional parameters for the method 'ListNotification'
 type ListNotificationParams struct {
-	PathAccountSid    *string `json:"PathAccountSid,omitempty"`
-	Log               *int32  `json:"Log,omitempty"`
-	MessageDate       *string `json:"MessageDate,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
+	Log *int32 `json:"Log,omitempty"`
+	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+	MessageDate *string `json:"MessageDate,omitempty"`
+	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
 	MessageDateBefore *string `json:"MessageDate&lt;,omitempty"`
-	MessageDateAfter  *string `json:"MessageDate&gt;,omitempty"`
-	PageSize          *int32  `json:"PageSize,omitempty"`
+	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
+	MessageDateAfter *string `json:"MessageDate&gt;,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListNotificationParams) SetPathAccountSid(PathAccountSid string) *ListNotificationParams {
@@ -11289,25 +9644,7 @@ func (params *ListNotificationParams) SetPageSize(PageSize int32) *ListNotificat
 	return params
 }
 
-// ListNotification Method for ListNotification
-//
 // Retrieve a list of notifications belonging to the account used to make the request
-//
-// param: optional nil or *ListNotificationParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resources to read.
-//
-// param: "Log" (int32) - Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
-//
-// param: "MessageDate" (string) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-//
-// param: "MessageDateBefore" (string) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-//
-// param: "MessageDateAfter" (string) - Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListNotificationResponse
 func (c *DefaultApiService) ListNotification(params *ListNotificationParams) (*ListNotificationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Notifications.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11350,12 +9687,16 @@ func (c *DefaultApiService) ListNotification(params *ListNotificationParams) (*L
 	return ps, err
 }
 
-// ListOutgoingCallerIdParams Optional parameters for the method 'ListOutgoingCallerId'
+// Optional parameters for the method 'ListOutgoingCallerId'
 type ListOutgoingCallerIdParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PhoneNumber    *string `json:"PhoneNumber,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// The phone number of the OutgoingCallerId resources to read.
+	PhoneNumber *string `json:"PhoneNumber,omitempty"`
+	// The string that identifies the OutgoingCallerId resources to read.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid string) *ListOutgoingCallerIdParams {
@@ -11375,21 +9716,7 @@ func (params *ListOutgoingCallerIdParams) SetPageSize(PageSize int32) *ListOutgo
 	return params
 }
 
-// ListOutgoingCallerId Method for ListOutgoingCallerId
-//
 // Retrieve a list of outgoing-caller-ids belonging to the account used to make the request
-//
-// param: optional nil or *ListOutgoingCallerIdParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to read.
-//
-// param: "PhoneNumber" (string) - The phone number of the OutgoingCallerId resources to read.
-//
-// param: "FriendlyName" (string) - The string that identifies the OutgoingCallerId resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListOutgoingCallerIdResponse
 func (c *DefaultApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) (*ListOutgoingCallerIdResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11426,13 +9753,18 @@ func (c *DefaultApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdPar
 	return ps, err
 }
 
-// ListParticipantParams Optional parameters for the method 'ListParticipant'
+// Optional parameters for the method 'ListParticipant'
 type ListParticipantParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Muted          *bool   `json:"Muted,omitempty"`
-	Hold           *bool   `json:"Hold,omitempty"`
-	Coaching       *bool   `json:"Coaching,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// Whether to return only participants that are muted. Can be: `true` or `false`.
+	Muted *bool `json:"Muted,omitempty"`
+	// Whether to return only participants that are on hold. Can be: `true` or `false`.
+	Hold *bool `json:"Hold,omitempty"`
+	// Whether to return only participants who are coaching another call. Can be: `true` or `false`.
+	Coaching *bool `json:"Coaching,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListParticipantParams) SetPathAccountSid(PathAccountSid string) *ListParticipantParams {
@@ -11456,25 +9788,7 @@ func (params *ListParticipantParams) SetPageSize(PageSize int32) *ListParticipan
 	return params
 }
 
-// ListParticipant Method for ListParticipant
-//
 // Retrieve a list of participants belonging to the account used to make the request
-//
-// param: ConferenceSid The SID of the conference with the participants to read.
-//
-// param: optional nil or *ListParticipantParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to read.
-//
-// param: "Muted" (bool) - Whether to return only participants that are muted. Can be: `true` or `false`.
-//
-// param: "Hold" (bool) - Whether to return only participants that are on hold. Can be: `true` or `false`.
-//
-// param: "Coaching" (bool) - Whether to return only participants who are coaching another call. Can be: `true` or `false`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListParticipantResponse
 func (c *DefaultApiService) ListParticipant(ConferenceSid string, params *ListParticipantParams) (*ListParticipantResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11515,10 +9829,12 @@ func (c *DefaultApiService) ListParticipant(ConferenceSid string, params *ListPa
 	return ps, err
 }
 
-// ListQueueParams Optional parameters for the method 'ListQueue'
+// Optional parameters for the method 'ListQueue'
 type ListQueueParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListQueueParams) SetPathAccountSid(PathAccountSid string) *ListQueueParams {
@@ -11530,17 +9846,7 @@ func (params *ListQueueParams) SetPageSize(PageSize int32) *ListQueueParams {
 	return params
 }
 
-// ListQueue Method for ListQueue
-//
 // Retrieve a list of queues belonging to the account used to make the request
-//
-// param: optional nil or *ListQueueParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListQueueResponse
 func (c *DefaultApiService) ListQueue(params *ListQueueParams) (*ListQueueResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11571,15 +9877,22 @@ func (c *DefaultApiService) ListQueue(params *ListQueueParams) (*ListQueueRespon
 	return ps, err
 }
 
-// ListRecordingParams Optional parameters for the method 'ListRecording'
+// Optional parameters for the method 'ListRecording'
 type ListRecordingParams struct {
-	PathAccountSid    *string    `json:"PathAccountSid,omitempty"`
-	DateCreated       *time.Time `json:"DateCreated,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
+	DateCreated *time.Time `json:"DateCreated,omitempty"`
+	// Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
 	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
-	DateCreatedAfter  *time.Time `json:"DateCreated&gt;,omitempty"`
-	CallSid           *string    `json:"CallSid,omitempty"`
-	ConferenceSid     *string    `json:"ConferenceSid,omitempty"`
-	PageSize          *int32     `json:"PageSize,omitempty"`
+	// Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
+	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
+	// The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
+	CallSid *string `json:"CallSid,omitempty"`
+	// The Conference SID that identifies the conference associated with the recording to read.
+	ConferenceSid *string `json:"ConferenceSid,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListRecordingParams) SetPathAccountSid(PathAccountSid string) *ListRecordingParams {
@@ -11611,27 +9924,7 @@ func (params *ListRecordingParams) SetPageSize(PageSize int32) *ListRecordingPar
 	return params
 }
 
-// ListRecording Method for ListRecording
-//
 // Retrieve a list of recordings belonging to the account used to make the request
-//
-// param: optional nil or *ListRecordingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read.
-//
-// param: "DateCreated" (time.Time) - Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
-//
-// param: "DateCreatedBefore" (time.Time) - Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
-//
-// param: "DateCreatedAfter" (time.Time) - Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
-//
-// param: "CallSid" (string) - The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
-//
-// param: "ConferenceSid" (string) - The Conference SID that identifies the conference associated with the recording to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListRecordingResponse
 func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*ListRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11677,10 +9970,12 @@ func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*ListRec
 	return ps, err
 }
 
-// ListRecordingAddOnResultParams Optional parameters for the method 'ListRecordingAddOnResult'
+// Optional parameters for the method 'ListRecordingAddOnResult'
 type ListRecordingAddOnResultParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListRecordingAddOnResultParams) SetPathAccountSid(PathAccountSid string) *ListRecordingAddOnResultParams {
@@ -11692,19 +9987,7 @@ func (params *ListRecordingAddOnResultParams) SetPageSize(PageSize int32) *ListR
 	return params
 }
 
-// ListRecordingAddOnResult Method for ListRecordingAddOnResult
-//
 // Retrieve a list of results belonging to the recording
-//
-// param: ReferenceSid The SID of the recording to which the result to read belongs.
-//
-// param: optional nil or *ListRecordingAddOnResultParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListRecordingAddOnResultResponse
 func (c *DefaultApiService) ListRecordingAddOnResult(ReferenceSid string, params *ListRecordingAddOnResultParams) (*ListRecordingAddOnResultResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11736,10 +10019,12 @@ func (c *DefaultApiService) ListRecordingAddOnResult(ReferenceSid string, params
 	return ps, err
 }
 
-// ListRecordingAddOnResultPayloadParams Optional parameters for the method 'ListRecordingAddOnResultPayload'
+// Optional parameters for the method 'ListRecordingAddOnResultPayload'
 type ListRecordingAddOnResultPayloadParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListRecordingAddOnResultPayloadParams) SetPathAccountSid(PathAccountSid string) *ListRecordingAddOnResultPayloadParams {
@@ -11751,21 +10036,7 @@ func (params *ListRecordingAddOnResultPayloadParams) SetPageSize(PageSize int32)
 	return params
 }
 
-// ListRecordingAddOnResultPayload Method for ListRecordingAddOnResultPayload
-//
 // Retrieve a list of payloads belonging to the AddOnResult
-//
-// param: ReferenceSid The SID of the recording to which the AddOnResult resource that contains the payloads to read belongs.
-//
-// param: AddOnResultSid The SID of the AddOnResult to which the payloads to read belongs.
-//
-// param: optional nil or *ListRecordingAddOnResultPayloadParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListRecordingAddOnResultPayloadResponse
 func (c *DefaultApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams) (*ListRecordingAddOnResultPayloadResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11798,10 +10069,12 @@ func (c *DefaultApiService) ListRecordingAddOnResultPayload(ReferenceSid string,
 	return ps, err
 }
 
-// ListRecordingTranscriptionParams Optional parameters for the method 'ListRecordingTranscription'
+// Optional parameters for the method 'ListRecordingTranscription'
 type ListRecordingTranscriptionParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListRecordingTranscriptionParams) SetPathAccountSid(PathAccountSid string) *ListRecordingTranscriptionParams {
@@ -11813,17 +10086,6 @@ func (params *ListRecordingTranscriptionParams) SetPageSize(PageSize int32) *Lis
 	return params
 }
 
-// ListRecordingTranscription Method for ListRecordingTranscription
-//
-// param: RecordingSid The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcriptions to read.
-//
-// param: optional nil or *ListRecordingTranscriptionParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListRecordingTranscriptionResponse
 func (c *DefaultApiService) ListRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams) (*ListRecordingTranscriptionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11855,12 +10117,16 @@ func (c *DefaultApiService) ListRecordingTranscription(RecordingSid string, para
 	return ps, err
 }
 
-// ListShortCodeParams Optional parameters for the method 'ListShortCode'
+// Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
-	ShortCode      *string `json:"ShortCode,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// The string that identifies the ShortCode resources to read.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
+	ShortCode *string `json:"ShortCode,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListShortCodeParams) SetPathAccountSid(PathAccountSid string) *ListShortCodeParams {
@@ -11880,21 +10146,7 @@ func (params *ListShortCodeParams) SetPageSize(PageSize int32) *ListShortCodePar
 	return params
 }
 
-// ListShortCode Method for ListShortCode
-//
 // Retrieve a list of short-codes belonging to the account used to make the request
-//
-// param: optional nil or *ListShortCodeParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to read.
-//
-// param: "FriendlyName" (string) - The string that identifies the ShortCode resources to read.
-//
-// param: "ShortCode" (string) - Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListShortCodeResponse
 func (c *DefaultApiService) ListShortCode(params *ListShortCodeParams) (*ListShortCodeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11931,10 +10183,12 @@ func (c *DefaultApiService) ListShortCode(params *ListShortCodeParams) (*ListSho
 	return ps, err
 }
 
-// ListSigningKeyParams Optional parameters for the method 'ListSigningKey'
+// Optional parameters for the method 'ListSigningKey'
 type ListSigningKeyParams struct {
+	//
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSigningKeyParams) SetPathAccountSid(PathAccountSid string) *ListSigningKeyParams {
@@ -11946,15 +10200,6 @@ func (params *ListSigningKeyParams) SetPageSize(PageSize int32) *ListSigningKeyP
 	return params
 }
 
-// ListSigningKey Method for ListSigningKey
-//
-// param: optional nil or *ListSigningKeyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) -
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSigningKeyResponse
 func (c *DefaultApiService) ListSigningKey(params *ListSigningKeyParams) (*ListSigningKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -11985,10 +10230,12 @@ func (c *DefaultApiService) ListSigningKey(params *ListSigningKeyParams) (*ListS
 	return ps, err
 }
 
-// ListSipAuthCallsCredentialListMappingParams Optional parameters for the method 'ListSipAuthCallsCredentialListMapping'
+// Optional parameters for the method 'ListSipAuthCallsCredentialListMapping'
 type ListSipAuthCallsCredentialListMappingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipAuthCallsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipAuthCallsCredentialListMappingParams {
@@ -12000,19 +10247,7 @@ func (params *ListSipAuthCallsCredentialListMappingParams) SetPageSize(PageSize 
 	return params
 }
 
-// ListSipAuthCallsCredentialListMapping Method for ListSipAuthCallsCredentialListMapping
-//
 // Retrieve a list of credential list mappings belonging to the domain used in the request
-//
-// param: DomainSid The SID of the SIP domain that contains the resources to read.
-//
-// param: optional nil or *ListSipAuthCallsCredentialListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSipAuthCallsCredentialListMappingResponse
 func (c *DefaultApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) (*ListSipAuthCallsCredentialListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12044,10 +10279,12 @@ func (c *DefaultApiService) ListSipAuthCallsCredentialListMapping(DomainSid stri
 	return ps, err
 }
 
-// ListSipAuthCallsIpAccessControlListMappingParams Optional parameters for the method 'ListSipAuthCallsIpAccessControlListMapping'
+// Optional parameters for the method 'ListSipAuthCallsIpAccessControlListMapping'
 type ListSipAuthCallsIpAccessControlListMappingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipAuthCallsIpAccessControlListMappingParams {
@@ -12059,19 +10296,7 @@ func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetPageSize(Page
 	return params
 }
 
-// ListSipAuthCallsIpAccessControlListMapping Method for ListSipAuthCallsIpAccessControlListMapping
-//
 // Retrieve a list of IP Access Control List mappings belonging to the domain used in the request
-//
-// param: DomainSid The SID of the SIP domain that contains the resources to read.
-//
-// param: optional nil or *ListSipAuthCallsIpAccessControlListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSipAuthCallsIpAccessControlListMappingResponse
 func (c *DefaultApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams) (*ListSipAuthCallsIpAccessControlListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12103,10 +10328,12 @@ func (c *DefaultApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid
 	return ps, err
 }
 
-// ListSipAuthRegistrationsCredentialListMappingParams Optional parameters for the method 'ListSipAuthRegistrationsCredentialListMapping'
+// Optional parameters for the method 'ListSipAuthRegistrationsCredentialListMapping'
 type ListSipAuthRegistrationsCredentialListMappingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipAuthRegistrationsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipAuthRegistrationsCredentialListMappingParams {
@@ -12118,19 +10345,7 @@ func (params *ListSipAuthRegistrationsCredentialListMappingParams) SetPageSize(P
 	return params
 }
 
-// ListSipAuthRegistrationsCredentialListMapping Method for ListSipAuthRegistrationsCredentialListMapping
-//
 // Retrieve a list of credential list mappings belonging to the domain used in the request
-//
-// param: DomainSid The SID of the SIP domain that contains the resources to read.
-//
-// param: optional nil or *ListSipAuthRegistrationsCredentialListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSipAuthRegistrationsCredentialListMappingResponse
 func (c *DefaultApiService) ListSipAuthRegistrationsCredentialListMapping(DomainSid string, params *ListSipAuthRegistrationsCredentialListMappingParams) (*ListSipAuthRegistrationsCredentialListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12162,10 +10377,12 @@ func (c *DefaultApiService) ListSipAuthRegistrationsCredentialListMapping(Domain
 	return ps, err
 }
 
-// ListSipCredentialParams Optional parameters for the method 'ListSipCredential'
+// Optional parameters for the method 'ListSipCredential'
 type ListSipCredentialParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipCredentialParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialParams {
@@ -12177,19 +10394,7 @@ func (params *ListSipCredentialParams) SetPageSize(PageSize int32) *ListSipCrede
 	return params
 }
 
-// ListSipCredential Method for ListSipCredential
-//
 // Retrieve a list of credentials.
-//
-// param: CredentialListSid The unique id that identifies the credential list that contains the desired credentials.
-//
-// param: optional nil or *ListSipCredentialParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSipCredentialResponse
 func (c *DefaultApiService) ListSipCredential(CredentialListSid string, params *ListSipCredentialParams) (*ListSipCredentialResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12221,10 +10426,12 @@ func (c *DefaultApiService) ListSipCredential(CredentialListSid string, params *
 	return ps, err
 }
 
-// ListSipCredentialListParams Optional parameters for the method 'ListSipCredentialList'
+// Optional parameters for the method 'ListSipCredentialList'
 type ListSipCredentialListParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialListParams {
@@ -12236,17 +10443,7 @@ func (params *ListSipCredentialListParams) SetPageSize(PageSize int32) *ListSipC
 	return params
 }
 
-// ListSipCredentialList Method for ListSipCredentialList
-//
 // Get All Credential Lists
-//
-// param: optional nil or *ListSipCredentialListParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSipCredentialListResponse
 func (c *DefaultApiService) ListSipCredentialList(params *ListSipCredentialListParams) (*ListSipCredentialListResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12277,10 +10474,12 @@ func (c *DefaultApiService) ListSipCredentialList(params *ListSipCredentialListP
 	return ps, err
 }
 
-// ListSipCredentialListMappingParams Optional parameters for the method 'ListSipCredentialListMapping'
+// Optional parameters for the method 'ListSipCredentialListMapping'
 type ListSipCredentialListMappingParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialListMappingParams {
@@ -12292,19 +10491,7 @@ func (params *ListSipCredentialListMappingParams) SetPageSize(PageSize int32) *L
 	return params
 }
 
-// ListSipCredentialListMapping Method for ListSipCredentialListMapping
-//
 // Read multiple CredentialListMapping resources from an account.
-//
-// param: DomainSid A 34 character string that uniquely identifies the SIP Domain that includes the resource to read.
-//
-// param: optional nil or *ListSipCredentialListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSipCredentialListMappingResponse
 func (c *DefaultApiService) ListSipCredentialListMapping(DomainSid string, params *ListSipCredentialListMappingParams) (*ListSipCredentialListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12336,10 +10523,12 @@ func (c *DefaultApiService) ListSipCredentialListMapping(DomainSid string, param
 	return ps, err
 }
 
-// ListSipDomainParams Optional parameters for the method 'ListSipDomain'
+// Optional parameters for the method 'ListSipDomain'
 type ListSipDomainParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipDomainParams) SetPathAccountSid(PathAccountSid string) *ListSipDomainParams {
@@ -12351,17 +10540,7 @@ func (params *ListSipDomainParams) SetPageSize(PageSize int32) *ListSipDomainPar
 	return params
 }
 
-// ListSipDomain Method for ListSipDomain
-//
 // Retrieve a list of domains belonging to the account used to make the request
-//
-// param: optional nil or *ListSipDomainParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSipDomainResponse
 func (c *DefaultApiService) ListSipDomain(params *ListSipDomainParams) (*ListSipDomainResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12392,10 +10571,12 @@ func (c *DefaultApiService) ListSipDomain(params *ListSipDomainParams) (*ListSip
 	return ps, err
 }
 
-// ListSipIpAccessControlListParams Optional parameters for the method 'ListSipIpAccessControlList'
+// Optional parameters for the method 'ListSipIpAccessControlList'
 type ListSipIpAccessControlListParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipIpAccessControlListParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAccessControlListParams {
@@ -12407,17 +10588,7 @@ func (params *ListSipIpAccessControlListParams) SetPageSize(PageSize int32) *Lis
 	return params
 }
 
-// ListSipIpAccessControlList Method for ListSipIpAccessControlList
-//
 // Retrieve a list of IpAccessControlLists that belong to the account used to make the request
-//
-// param: optional nil or *ListSipIpAccessControlListParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSipIpAccessControlListResponse
 func (c *DefaultApiService) ListSipIpAccessControlList(params *ListSipIpAccessControlListParams) (*ListSipIpAccessControlListResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12448,10 +10619,12 @@ func (c *DefaultApiService) ListSipIpAccessControlList(params *ListSipIpAccessCo
 	return ps, err
 }
 
-// ListSipIpAccessControlListMappingParams Optional parameters for the method 'ListSipIpAccessControlListMapping'
+// Optional parameters for the method 'ListSipIpAccessControlListMapping'
 type ListSipIpAccessControlListMappingParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAccessControlListMappingParams {
@@ -12463,19 +10636,7 @@ func (params *ListSipIpAccessControlListMappingParams) SetPageSize(PageSize int3
 	return params
 }
 
-// ListSipIpAccessControlListMapping Method for ListSipIpAccessControlListMapping
-//
 // Retrieve a list of IpAccessControlListMapping resources.
-//
-// param: DomainSid A 34 character string that uniquely identifies the SIP domain.
-//
-// param: optional nil or *ListSipIpAccessControlListMappingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSipIpAccessControlListMappingResponse
 func (c *DefaultApiService) ListSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams) (*ListSipIpAccessControlListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12507,10 +10668,12 @@ func (c *DefaultApiService) ListSipIpAccessControlListMapping(DomainSid string, 
 	return ps, err
 }
 
-// ListSipIpAddressParams Optional parameters for the method 'ListSipIpAddress'
+// Optional parameters for the method 'ListSipIpAddress'
 type ListSipIpAddressParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAddressParams {
@@ -12522,19 +10685,7 @@ func (params *ListSipIpAddressParams) SetPageSize(PageSize int32) *ListSipIpAddr
 	return params
 }
 
-// ListSipIpAddress Method for ListSipIpAddress
-//
 // Read multiple IpAddress resources.
-//
-// param: IpAccessControlListSid The IpAccessControlList Sid that identifies the IpAddress resources to read.
-//
-// param: optional nil or *ListSipIpAddressParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSipIpAddressResponse
 func (c *DefaultApiService) ListSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams) (*ListSipIpAddressResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12566,10 +10717,12 @@ func (c *DefaultApiService) ListSipIpAddress(IpAccessControlListSid string, para
 	return ps, err
 }
 
-// ListTranscriptionParams Optional parameters for the method 'ListTranscription'
+// Optional parameters for the method 'ListTranscription'
 type ListTranscriptionParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListTranscriptionParams) SetPathAccountSid(PathAccountSid string) *ListTranscriptionParams {
@@ -12581,17 +10734,7 @@ func (params *ListTranscriptionParams) SetPageSize(PageSize int32) *ListTranscri
 	return params
 }
 
-// ListTranscription Method for ListTranscription
-//
 // Retrieve a list of transcriptions belonging to the account used to make the request
-//
-// param: optional nil or *ListTranscriptionParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListTranscriptionResponse
 func (c *DefaultApiService) ListTranscription(params *ListTranscriptionParams) (*ListTranscriptionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12622,14 +10765,20 @@ func (c *DefaultApiService) ListTranscription(params *ListTranscriptionParams) (
 	return ps, err
 }
 
-// ListUsageRecordParams Optional parameters for the method 'ListUsageRecord'
+// Optional parameters for the method 'ListUsageRecord'
 type ListUsageRecordParams struct {
-	PathAccountSid     *string `json:"PathAccountSid,omitempty"`
-	Category           *string `json:"Category,omitempty"`
-	StartDate          *string `json:"StartDate,omitempty"`
-	EndDate            *string `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+	Category *string `json:"Category,omitempty"`
+	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+	StartDate *string `json:"StartDate,omitempty"`
+	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+	EndDate *string `json:"EndDate,omitempty"`
+	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordParams {
@@ -12657,25 +10806,7 @@ func (params *ListUsageRecordParams) SetPageSize(PageSize int32) *ListUsageRecor
 	return params
 }
 
-// ListUsageRecord Method for ListUsageRecord
-//
 // Retrieve a list of usage-records belonging to the account used to make the request
-//
-// param: optional nil or *ListUsageRecordParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-//
-// param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-//
-// param: "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-//
-// param: "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-//
-// param: "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUsageRecordResponse
 func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*ListUsageRecordResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12718,14 +10849,20 @@ func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*Lis
 	return ps, err
 }
 
-// ListUsageRecordAllTimeParams Optional parameters for the method 'ListUsageRecordAllTime'
+// Optional parameters for the method 'ListUsageRecordAllTime'
 type ListUsageRecordAllTimeParams struct {
-	PathAccountSid     *string `json:"PathAccountSid,omitempty"`
-	Category           *string `json:"Category,omitempty"`
-	StartDate          *string `json:"StartDate,omitempty"`
-	EndDate            *string `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+	Category *string `json:"Category,omitempty"`
+	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+	StartDate *string `json:"StartDate,omitempty"`
+	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+	EndDate *string `json:"EndDate,omitempty"`
+	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordAllTimeParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordAllTimeParams {
@@ -12753,23 +10890,6 @@ func (params *ListUsageRecordAllTimeParams) SetPageSize(PageSize int32) *ListUsa
 	return params
 }
 
-// ListUsageRecordAllTime Method for ListUsageRecordAllTime
-//
-// param: optional nil or *ListUsageRecordAllTimeParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-//
-// param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-//
-// param: "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-//
-// param: "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-//
-// param: "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUsageRecordAllTimeResponse
 func (c *DefaultApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams) (*ListUsageRecordAllTimeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12812,14 +10932,20 @@ func (c *DefaultApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTim
 	return ps, err
 }
 
-// ListUsageRecordDailyParams Optional parameters for the method 'ListUsageRecordDaily'
+// Optional parameters for the method 'ListUsageRecordDaily'
 type ListUsageRecordDailyParams struct {
-	PathAccountSid     *string `json:"PathAccountSid,omitempty"`
-	Category           *string `json:"Category,omitempty"`
-	StartDate          *string `json:"StartDate,omitempty"`
-	EndDate            *string `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+	Category *string `json:"Category,omitempty"`
+	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+	StartDate *string `json:"StartDate,omitempty"`
+	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+	EndDate *string `json:"EndDate,omitempty"`
+	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordDailyParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordDailyParams {
@@ -12847,23 +10973,6 @@ func (params *ListUsageRecordDailyParams) SetPageSize(PageSize int32) *ListUsage
 	return params
 }
 
-// ListUsageRecordDaily Method for ListUsageRecordDaily
-//
-// param: optional nil or *ListUsageRecordDailyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-//
-// param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-//
-// param: "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-//
-// param: "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-//
-// param: "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUsageRecordDailyResponse
 func (c *DefaultApiService) ListUsageRecordDaily(params *ListUsageRecordDailyParams) (*ListUsageRecordDailyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -12906,14 +11015,20 @@ func (c *DefaultApiService) ListUsageRecordDaily(params *ListUsageRecordDailyPar
 	return ps, err
 }
 
-// ListUsageRecordLastMonthParams Optional parameters for the method 'ListUsageRecordLastMonth'
+// Optional parameters for the method 'ListUsageRecordLastMonth'
 type ListUsageRecordLastMonthParams struct {
-	PathAccountSid     *string `json:"PathAccountSid,omitempty"`
-	Category           *string `json:"Category,omitempty"`
-	StartDate          *string `json:"StartDate,omitempty"`
-	EndDate            *string `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+	Category *string `json:"Category,omitempty"`
+	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+	StartDate *string `json:"StartDate,omitempty"`
+	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+	EndDate *string `json:"EndDate,omitempty"`
+	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordLastMonthParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordLastMonthParams {
@@ -12941,23 +11056,6 @@ func (params *ListUsageRecordLastMonthParams) SetPageSize(PageSize int32) *ListU
 	return params
 }
 
-// ListUsageRecordLastMonth Method for ListUsageRecordLastMonth
-//
-// param: optional nil or *ListUsageRecordLastMonthParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-//
-// param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-//
-// param: "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-//
-// param: "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-//
-// param: "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUsageRecordLastMonthResponse
 func (c *DefaultApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthParams) (*ListUsageRecordLastMonthResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -13000,14 +11098,20 @@ func (c *DefaultApiService) ListUsageRecordLastMonth(params *ListUsageRecordLast
 	return ps, err
 }
 
-// ListUsageRecordMonthlyParams Optional parameters for the method 'ListUsageRecordMonthly'
+// Optional parameters for the method 'ListUsageRecordMonthly'
 type ListUsageRecordMonthlyParams struct {
-	PathAccountSid     *string `json:"PathAccountSid,omitempty"`
-	Category           *string `json:"Category,omitempty"`
-	StartDate          *string `json:"StartDate,omitempty"`
-	EndDate            *string `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+	Category *string `json:"Category,omitempty"`
+	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+	StartDate *string `json:"StartDate,omitempty"`
+	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+	EndDate *string `json:"EndDate,omitempty"`
+	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordMonthlyParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordMonthlyParams {
@@ -13035,23 +11139,6 @@ func (params *ListUsageRecordMonthlyParams) SetPageSize(PageSize int32) *ListUsa
 	return params
 }
 
-// ListUsageRecordMonthly Method for ListUsageRecordMonthly
-//
-// param: optional nil or *ListUsageRecordMonthlyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-//
-// param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-//
-// param: "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-//
-// param: "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-//
-// param: "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUsageRecordMonthlyResponse
 func (c *DefaultApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthlyParams) (*ListUsageRecordMonthlyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Monthly.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -13094,14 +11181,20 @@ func (c *DefaultApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthl
 	return ps, err
 }
 
-// ListUsageRecordThisMonthParams Optional parameters for the method 'ListUsageRecordThisMonth'
+// Optional parameters for the method 'ListUsageRecordThisMonth'
 type ListUsageRecordThisMonthParams struct {
-	PathAccountSid     *string `json:"PathAccountSid,omitempty"`
-	Category           *string `json:"Category,omitempty"`
-	StartDate          *string `json:"StartDate,omitempty"`
-	EndDate            *string `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+	Category *string `json:"Category,omitempty"`
+	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+	StartDate *string `json:"StartDate,omitempty"`
+	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+	EndDate *string `json:"EndDate,omitempty"`
+	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordThisMonthParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordThisMonthParams {
@@ -13129,23 +11222,6 @@ func (params *ListUsageRecordThisMonthParams) SetPageSize(PageSize int32) *ListU
 	return params
 }
 
-// ListUsageRecordThisMonth Method for ListUsageRecordThisMonth
-//
-// param: optional nil or *ListUsageRecordThisMonthParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-//
-// param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-//
-// param: "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-//
-// param: "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-//
-// param: "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUsageRecordThisMonthResponse
 func (c *DefaultApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthParams) (*ListUsageRecordThisMonthResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -13188,14 +11264,20 @@ func (c *DefaultApiService) ListUsageRecordThisMonth(params *ListUsageRecordThis
 	return ps, err
 }
 
-// ListUsageRecordTodayParams Optional parameters for the method 'ListUsageRecordToday'
+// Optional parameters for the method 'ListUsageRecordToday'
 type ListUsageRecordTodayParams struct {
-	PathAccountSid     *string `json:"PathAccountSid,omitempty"`
-	Category           *string `json:"Category,omitempty"`
-	StartDate          *string `json:"StartDate,omitempty"`
-	EndDate            *string `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+	Category *string `json:"Category,omitempty"`
+	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+	StartDate *string `json:"StartDate,omitempty"`
+	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+	EndDate *string `json:"EndDate,omitempty"`
+	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordTodayParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordTodayParams {
@@ -13223,23 +11305,6 @@ func (params *ListUsageRecordTodayParams) SetPageSize(PageSize int32) *ListUsage
 	return params
 }
 
-// ListUsageRecordToday Method for ListUsageRecordToday
-//
-// param: optional nil or *ListUsageRecordTodayParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-//
-// param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-//
-// param: "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-//
-// param: "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-//
-// param: "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUsageRecordTodayResponse
 func (c *DefaultApiService) ListUsageRecordToday(params *ListUsageRecordTodayParams) (*ListUsageRecordTodayResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Today.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -13282,14 +11347,20 @@ func (c *DefaultApiService) ListUsageRecordToday(params *ListUsageRecordTodayPar
 	return ps, err
 }
 
-// ListUsageRecordYearlyParams Optional parameters for the method 'ListUsageRecordYearly'
+// Optional parameters for the method 'ListUsageRecordYearly'
 type ListUsageRecordYearlyParams struct {
-	PathAccountSid     *string `json:"PathAccountSid,omitempty"`
-	Category           *string `json:"Category,omitempty"`
-	StartDate          *string `json:"StartDate,omitempty"`
-	EndDate            *string `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+	Category *string `json:"Category,omitempty"`
+	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+	StartDate *string `json:"StartDate,omitempty"`
+	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+	EndDate *string `json:"EndDate,omitempty"`
+	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordYearlyParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordYearlyParams {
@@ -13317,23 +11388,6 @@ func (params *ListUsageRecordYearlyParams) SetPageSize(PageSize int32) *ListUsag
 	return params
 }
 
-// ListUsageRecordYearly Method for ListUsageRecordYearly
-//
-// param: optional nil or *ListUsageRecordYearlyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-//
-// param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-//
-// param: "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-//
-// param: "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-//
-// param: "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUsageRecordYearlyResponse
 func (c *DefaultApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyParams) (*ListUsageRecordYearlyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -13376,14 +11430,20 @@ func (c *DefaultApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyP
 	return ps, err
 }
 
-// ListUsageRecordYesterdayParams Optional parameters for the method 'ListUsageRecordYesterday'
+// Optional parameters for the method 'ListUsageRecordYesterday'
 type ListUsageRecordYesterdayParams struct {
-	PathAccountSid     *string `json:"PathAccountSid,omitempty"`
-	Category           *string `json:"Category,omitempty"`
-	StartDate          *string `json:"StartDate,omitempty"`
-	EndDate            *string `json:"EndDate,omitempty"`
-	IncludeSubaccounts *bool   `json:"IncludeSubaccounts,omitempty"`
-	PageSize           *int32  `json:"PageSize,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
+	Category *string `json:"Category,omitempty"`
+	// Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
+	StartDate *string `json:"StartDate,omitempty"`
+	// Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
+	EndDate *string `json:"EndDate,omitempty"`
+	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
+	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordYesterdayParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordYesterdayParams {
@@ -13411,23 +11471,6 @@ func (params *ListUsageRecordYesterdayParams) SetPageSize(PageSize int32) *ListU
 	return params
 }
 
-// ListUsageRecordYesterday Method for ListUsageRecordYesterday
-//
-// param: optional nil or *ListUsageRecordYesterdayParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-//
-// param: "Category" (string) - The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
-//
-// param: "StartDate" (string) - Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
-//
-// param: "EndDate" (string) - Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
-//
-// param: "IncludeSubaccounts" (bool) - Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUsageRecordYesterdayResponse
 func (c *DefaultApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayParams) (*ListUsageRecordYesterdayResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -13470,13 +11513,18 @@ func (c *DefaultApiService) ListUsageRecordYesterday(params *ListUsageRecordYest
 	return ps, err
 }
 
-// ListUsageTriggerParams Optional parameters for the method 'ListUsageTrigger'
+// Optional parameters for the method 'ListUsageTrigger'
 type ListUsageTriggerParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Recurring      *string `json:"Recurring,omitempty"`
-	TriggerBy      *string `json:"TriggerBy,omitempty"`
-	UsageCategory  *string `json:"UsageCategory,omitempty"`
-	PageSize       *int32  `json:"PageSize,omitempty"`
+	// The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
+	Recurring *string `json:"Recurring,omitempty"`
+	// The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+	TriggerBy *string `json:"TriggerBy,omitempty"`
+	// The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+	UsageCategory *string `json:"UsageCategory,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageTriggerParams) SetPathAccountSid(PathAccountSid string) *ListUsageTriggerParams {
@@ -13500,23 +11548,7 @@ func (params *ListUsageTriggerParams) SetPageSize(PageSize int32) *ListUsageTrig
 	return params
 }
 
-// ListUsageTrigger Method for ListUsageTrigger
-//
 // Retrieve a list of usage-triggers belonging to the account used to make the request
-//
-// param: optional nil or *ListUsageTriggerParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to read.
-//
-// param: "Recurring" (string) - The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
-//
-// param: "TriggerBy" (string) - The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
-//
-// param: "UsageCategory" (string) - The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUsageTriggerResponse
 func (c *DefaultApiService) ListUsageTrigger(params *ListUsageTriggerParams) (*ListUsageTriggerResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -13556,10 +11588,12 @@ func (c *DefaultApiService) ListUsageTrigger(params *ListUsageTriggerParams) (*L
 	return ps, err
 }
 
-// UpdateAccountParams Optional parameters for the method 'UpdateAccount'
+// Optional parameters for the method 'UpdateAccount'
 type UpdateAccountParams struct {
+	// Update the human-readable description of this Account
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Status       *string `json:"Status,omitempty"`
+	// Alter the status of this account: use `closed` to irreversibly close this account, `suspended` to temporarily suspend it, or `active` to reactivate it.
+	Status *string `json:"Status,omitempty"`
 }
 
 func (params *UpdateAccountParams) SetFriendlyName(FriendlyName string) *UpdateAccountParams {
@@ -13571,19 +11605,7 @@ func (params *UpdateAccountParams) SetStatus(Status string) *UpdateAccountParams
 	return params
 }
 
-// UpdateAccount Method for UpdateAccount
-//
 // Modify the properties of a given Account
-//
-// param: Sid The Account Sid that uniquely identifies the account to update
-//
-// param: optional nil or *UpdateAccountParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - Update the human-readable description of this Account
-//
-// param: "Status" (string) - Alter the status of this account: use `closed` to irreversibly close this account, `suspended` to temporarily suspend it, or `active` to reactivate it.
-//
-// return: ApiV2010Account
 func (c *DefaultApiService) UpdateAccount(Sid string, params *UpdateAccountParams) (*ApiV2010Account, error) {
 	path := "/2010-04-01/Accounts/{Sid}.json"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -13613,17 +11635,26 @@ func (c *DefaultApiService) UpdateAccount(Sid string, params *UpdateAccountParam
 	return ps, err
 }
 
-// UpdateAddressParams Optional parameters for the method 'UpdateAddress'
+// Optional parameters for the method 'UpdateAddress'
 type UpdateAddressParams struct {
-	PathAccountSid     *string `json:"PathAccountSid,omitempty"`
-	AutoCorrectAddress *bool   `json:"AutoCorrectAddress,omitempty"`
-	City               *string `json:"City,omitempty"`
-	CustomerName       *string `json:"CustomerName,omitempty"`
-	EmergencyEnabled   *bool   `json:"EmergencyEnabled,omitempty"`
-	FriendlyName       *string `json:"FriendlyName,omitempty"`
-	PostalCode         *string `json:"PostalCode,omitempty"`
-	Region             *string `json:"Region,omitempty"`
-	Street             *string `json:"Street,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+	AutoCorrectAddress *bool `json:"AutoCorrectAddress,omitempty"`
+	// The city of the address.
+	City *string `json:"City,omitempty"`
+	// The name to associate with the address.
+	CustomerName *string `json:"CustomerName,omitempty"`
+	// Whether to enable emergency calling on the address. Can be: `true` or `false`.
+	EmergencyEnabled *bool `json:"EmergencyEnabled,omitempty"`
+	// A descriptive string that you create to describe the address. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The postal code of the address.
+	PostalCode *string `json:"PostalCode,omitempty"`
+	// The state or region of the address.
+	Region *string `json:"Region,omitempty"`
+	// The number and street address of the address.
+	Street *string `json:"Street,omitempty"`
 }
 
 func (params *UpdateAddressParams) SetPathAccountSid(PathAccountSid string) *UpdateAddressParams {
@@ -13663,31 +11694,6 @@ func (params *UpdateAddressParams) SetStreet(Street string) *UpdateAddressParams
 	return params
 }
 
-// UpdateAddress Method for UpdateAddress
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Address resource to update.
-//
-// param: optional nil or *UpdateAddressParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to update.
-//
-// param: "AutoCorrectAddress" (bool) - Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
-//
-// param: "City" (string) - The city of the address.
-//
-// param: "CustomerName" (string) - The name to associate with the address.
-//
-// param: "EmergencyEnabled" (bool) - Whether to enable emergency calling on the address. Can be: `true` or `false`.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the address. It can be up to 64 characters long.
-//
-// param: "PostalCode" (string) - The postal code of the address.
-//
-// param: "Region" (string) - The state or region of the address.
-//
-// param: "Street" (string) - The number and street address of the address.
-//
-// return: ApiV2010AccountAddress
 func (c *DefaultApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*ApiV2010AccountAddress, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -13740,24 +11746,40 @@ func (c *DefaultApiService) UpdateAddress(Sid string, params *UpdateAddressParam
 	return ps, err
 }
 
-// UpdateApplicationParams Optional parameters for the method 'UpdateApplication'
+// Optional parameters for the method 'UpdateApplication'
 type UpdateApplicationParams struct {
-	PathAccountSid        *string `json:"PathAccountSid,omitempty"`
-	ApiVersion            *string `json:"ApiVersion,omitempty"`
-	FriendlyName          *string `json:"FriendlyName,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to update.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The URL we should call using a POST method to send message status information to your application.
 	MessageStatusCallback *string `json:"MessageStatusCallback,omitempty"`
-	SmsFallbackMethod     *string `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl        *string `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod             *string `json:"SmsMethod,omitempty"`
-	SmsStatusCallback     *string `json:"SmsStatusCallback,omitempty"`
-	SmsUrl                *string `json:"SmsUrl,omitempty"`
-	StatusCallback        *string `json:"StatusCallback,omitempty"`
-	StatusCallbackMethod  *string `json:"StatusCallbackMethod,omitempty"`
-	VoiceCallerIdLookup   *bool   `json:"VoiceCallerIdLookup,omitempty"`
-	VoiceFallbackMethod   *string `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl      *string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod           *string `json:"VoiceMethod,omitempty"`
-	VoiceUrl              *string `json:"VoiceUrl,omitempty"`
+	// The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
+	SmsStatusCallback *string `json:"SmsStatusCallback,omitempty"`
+	// The URL we should call when the phone number receives an incoming SMS message.
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
+	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The URL we should call when the phone number assigned to this application receives a call.
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 func (params *UpdateApplicationParams) SetPathAccountSid(PathAccountSid string) *UpdateApplicationParams {
@@ -13825,47 +11847,7 @@ func (params *UpdateApplicationParams) SetVoiceUrl(VoiceUrl string) *UpdateAppli
 	return params
 }
 
-// UpdateApplication Method for UpdateApplication
-//
 // Updates the application&#39;s properties
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Application resource to update.
-//
-// param: optional nil or *UpdateApplicationParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to update.
-//
-// param: "ApiVersion" (string) - The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-//
-// param: "MessageStatusCallback" (string) - The URL we should call using a POST method to send message status information to your application.
-//
-// param: "SmsFallbackMethod" (string) - The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`.
-//
-// param: "SmsFallbackUrl" (string) - The URL that we should call when an error occurs while retrieving or executing the TwiML from `sms_url`.
-//
-// param: "SmsMethod" (string) - The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`.
-//
-// param: "SmsStatusCallback" (string) - Same as message_status_callback: The URL we should call using a POST method to send status information about SMS messages sent by the application. Deprecated, included for backwards compatibility.
-//
-// param: "SmsUrl" (string) - The URL we should call when the phone number receives an incoming SMS message.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`.
-//
-// param: "VoiceCallerIdLookup" (bool) - Whether we should look up the caller's caller-ID name from the CNAM database (additional charges apply). Can be: `true` or `false`.
-//
-// param: "VoiceFallbackMethod" (string) - The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-//
-// param: "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-//
-// param: "VoiceMethod" (string) - The HTTP method we should use to call `voice_url`. Can be: `GET` or `POST`.
-//
-// param: "VoiceUrl" (string) - The URL we should call when the phone number assigned to this application receives a call.
-//
-// return: ApiV2010AccountApplication
 func (c *DefaultApiService) UpdateApplication(Sid string, params *UpdateApplicationParams) (*ApiV2010AccountApplication, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -13939,17 +11921,26 @@ func (c *DefaultApiService) UpdateApplication(Sid string, params *UpdateApplicat
 	return ps, err
 }
 
-// UpdateCallParams Optional parameters for the method 'UpdateCall'
+// Optional parameters for the method 'UpdateCall'
 type UpdateCallParams struct {
-	PathAccountSid       *string `json:"PathAccountSid,omitempty"`
-	FallbackMethod       *string `json:"FallbackMethod,omitempty"`
-	FallbackUrl          *string `json:"FallbackUrl,omitempty"`
-	Method               *string `json:"Method,omitempty"`
-	Status               *string `json:"Status,omitempty"`
-	StatusCallback       *string `json:"StatusCallback,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+	FallbackMethod *string `json:"FallbackMethod,omitempty"`
+	// The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
+	FallbackUrl *string `json:"FallbackUrl,omitempty"`
+	// The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
+	Method *string `json:"Method,omitempty"`
+	// The new status of the resource. Can be: `canceled` or `completed`. Specifying `canceled` will attempt to hang up calls that are queued or ringing; however, it will not affect calls already in progress. Specifying `completed` will attempt to hang up a call even if it's already in progress.
+	Status *string `json:"Status,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	Twiml                *string `json:"Twiml,omitempty"`
-	Url                  *string `json:"Url,omitempty"`
+	// TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
+	Twiml *string `json:"Twiml,omitempty"`
+	// The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
+	Url *string `json:"Url,omitempty"`
 }
 
 func (params *UpdateCallParams) SetPathAccountSid(PathAccountSid string) *UpdateCallParams {
@@ -13989,33 +11980,7 @@ func (params *UpdateCallParams) SetUrl(Url string) *UpdateCallParams {
 	return params
 }
 
-// UpdateCall Method for UpdateCall
-//
 // Initiates a call redirect or terminates a call
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Call resource to update
-//
-// param: optional nil or *UpdateCallParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to update.
-//
-// param: "FallbackMethod" (string) - The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-//
-// param: "FallbackUrl" (string) - The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
-//
-// param: "Method" (string) - The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-//
-// param: "Status" (string) - The new status of the resource. Can be: `canceled` or `completed`. Specifying `canceled` will attempt to hang up calls that are queued or ringing; however, it will not affect calls already in progress. Specifying `completed` will attempt to hang up a call even if it's already in progress.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-//
-// param: "Twiml" (string) - TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
-//
-// param: "Url" (string) - The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
-//
-// return: ApiV2010AccountCall
 func (c *DefaultApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010AccountCall, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -14068,11 +12033,14 @@ func (c *DefaultApiService) UpdateCall(Sid string, params *UpdateCallParams) (*A
 	return ps, err
 }
 
-// UpdateCallFeedbackParams Optional parameters for the method 'UpdateCallFeedback'
+// Optional parameters for the method 'UpdateCallFeedback'
 type UpdateCallFeedbackParams struct {
-	PathAccountSid *string   `json:"PathAccountSid,omitempty"`
-	Issue          *[]string `json:"Issue,omitempty"`
-	QualityScore   *int32    `json:"QualityScore,omitempty"`
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
+	Issue *[]string `json:"Issue,omitempty"`
+	// The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
+	QualityScore *int32 `json:"QualityScore,omitempty"`
 }
 
 func (params *UpdateCallFeedbackParams) SetPathAccountSid(PathAccountSid string) *UpdateCallFeedbackParams {
@@ -14088,21 +12056,7 @@ func (params *UpdateCallFeedbackParams) SetQualityScore(QualityScore int32) *Upd
 	return params
 }
 
-// UpdateCallFeedback Method for UpdateCallFeedback
-//
 // Update a Feedback resource for a call
-//
-// param: CallSid The call sid that uniquely identifies the call
-//
-// param: optional nil or *UpdateCallFeedbackParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// param: "Issue" ([]string) - One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
-//
-// param: "QualityScore" (int32) - The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
-//
-// return: ApiV2010AccountCallCallFeedback
 func (c *DefaultApiService) UpdateCallFeedback(CallSid string, params *UpdateCallFeedbackParams) (*ApiV2010AccountCallCallFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -14137,11 +12091,14 @@ func (c *DefaultApiService) UpdateCallFeedback(CallSid string, params *UpdateCal
 	return ps, err
 }
 
-// UpdateCallRecordingParams Optional parameters for the method 'UpdateCallRecording'
+// Optional parameters for the method 'UpdateCallRecording'
 type UpdateCallRecordingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PauseBehavior  *string `json:"PauseBehavior,omitempty"`
-	Status         *string `json:"Status,omitempty"`
+	// Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+	PauseBehavior *string `json:"PauseBehavior,omitempty"`
+	// The new status of the recording. Can be: `stopped`, `paused`, `in-progress`.
+	Status *string `json:"Status,omitempty"`
 }
 
 func (params *UpdateCallRecordingParams) SetPathAccountSid(PathAccountSid string) *UpdateCallRecordingParams {
@@ -14157,23 +12114,7 @@ func (params *UpdateCallRecordingParams) SetStatus(Status string) *UpdateCallRec
 	return params
 }
 
-// UpdateCallRecording Method for UpdateCallRecording
-//
 // Changes the status of the recording to paused, stopped, or in-progress. Note: Pass &#x60;Twilio.CURRENT&#x60; instead of recording sid to reference current active recording.
-//
-// param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource to update.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Recording resource to update.
-//
-// param: optional nil or *UpdateCallRecordingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to update.
-//
-// param: "PauseBehavior" (string) - Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
-//
-// param: "Status" (string) - The new status of the recording. Can be: `stopped`, `paused`, `in-progress`.
-//
-// return: ApiV2010AccountCallCallRecording
 func (c *DefaultApiService) UpdateCallRecording(CallSid string, Sid string, params *UpdateCallRecordingParams) (*ApiV2010AccountCallCallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -14209,12 +12150,16 @@ func (c *DefaultApiService) UpdateCallRecording(CallSid string, Sid string, para
 	return ps, err
 }
 
-// UpdateConferenceParams Optional parameters for the method 'UpdateConference'
+// Optional parameters for the method 'UpdateConference'
 type UpdateConferenceParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 	AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
-	AnnounceUrl    *string `json:"AnnounceUrl,omitempty"`
-	Status         *string `json:"Status,omitempty"`
+	// The URL we should call to announce something into the conference. The URL can return an MP3, a WAV, or a TwiML document with `<Play>` or `<Say>`.
+	AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
+	// The new status of the resource. Can be:  Can be: `init`, `in-progress`, or `completed`. Specifying `completed` will end the conference and hang up all participants
+	Status *string `json:"Status,omitempty"`
 }
 
 func (params *UpdateConferenceParams) SetPathAccountSid(PathAccountSid string) *UpdateConferenceParams {
@@ -14234,21 +12179,6 @@ func (params *UpdateConferenceParams) SetStatus(Status string) *UpdateConference
 	return params
 }
 
-// UpdateConference Method for UpdateConference
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Conference resource to update
-//
-// param: optional nil or *UpdateConferenceParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to update.
-//
-// param: "AnnounceMethod" (string) - The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
-//
-// param: "AnnounceUrl" (string) - The URL we should call to announce something into the conference. The URL can return an MP3, a WAV, or a TwiML document with `<Play>` or `<Say>`.
-//
-// param: "Status" (string) - The new status of the resource. Can be:  Can be: `init`, `in-progress`, or `completed`. Specifying `completed` will end the conference and hang up all participants
-//
-// return: ApiV2010AccountConference
 func (c *DefaultApiService) UpdateConference(Sid string, params *UpdateConferenceParams) (*ApiV2010AccountConference, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -14286,11 +12216,14 @@ func (c *DefaultApiService) UpdateConference(Sid string, params *UpdateConferenc
 	return ps, err
 }
 
-// UpdateConferenceRecordingParams Optional parameters for the method 'UpdateConferenceRecording'
+// Optional parameters for the method 'UpdateConferenceRecording'
 type UpdateConferenceRecordingParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	PauseBehavior  *string `json:"PauseBehavior,omitempty"`
-	Status         *string `json:"Status,omitempty"`
+	// Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
+	PauseBehavior *string `json:"PauseBehavior,omitempty"`
+	// The new status of the recording. Can be: `stopped`, `paused`, `in-progress`.
+	Status *string `json:"Status,omitempty"`
 }
 
 func (params *UpdateConferenceRecordingParams) SetPathAccountSid(PathAccountSid string) *UpdateConferenceRecordingParams {
@@ -14306,23 +12239,7 @@ func (params *UpdateConferenceRecordingParams) SetStatus(Status string) *UpdateC
 	return params
 }
 
-// UpdateConferenceRecording Method for UpdateConferenceRecording
-//
 // Changes the status of the recording to paused, stopped, or in-progress. Note: To use &#x60;Twilio.CURRENT&#x60;, pass it as recording sid.
-//
-// param: ConferenceSid The Conference SID that identifies the conference associated with the recording to update.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Conference Recording resource to update. Use `Twilio.CURRENT` to reference the current active recording.
-//
-// param: optional nil or *UpdateConferenceRecordingParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference Recording resource to update.
-//
-// param: "PauseBehavior" (string) - Whether to record during a pause. Can be: `skip` or `silence` and the default is `silence`. `skip` does not record during the pause period, while `silence` will replace the actual audio of the call with silence during the pause period. This parameter only applies when setting `status` is set to `paused`.
-//
-// param: "Status" (string) - The new status of the recording. Can be: `stopped`, `paused`, `in-progress`.
-//
-// return: ApiV2010AccountConferenceConferenceRecording
 func (c *DefaultApiService) UpdateConferenceRecording(ConferenceSid string, Sid string, params *UpdateConferenceRecordingParams) (*ApiV2010AccountConferenceConferenceRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -14358,17 +12275,26 @@ func (c *DefaultApiService) UpdateConferenceRecording(ConferenceSid string, Sid 
 	return ps, err
 }
 
-// UpdateConnectAppParams Optional parameters for the method 'UpdateConnectApp'
+// Optional parameters for the method 'UpdateConnectApp'
 type UpdateConnectAppParams struct {
-	PathAccountSid            *string   `json:"PathAccountSid,omitempty"`
-	AuthorizeRedirectUrl      *string   `json:"AuthorizeRedirectUrl,omitempty"`
-	CompanyName               *string   `json:"CompanyName,omitempty"`
-	DeauthorizeCallbackMethod *string   `json:"DeauthorizeCallbackMethod,omitempty"`
-	DeauthorizeCallbackUrl    *string   `json:"DeauthorizeCallbackUrl,omitempty"`
-	Description               *string   `json:"Description,omitempty"`
-	FriendlyName              *string   `json:"FriendlyName,omitempty"`
-	HomepageUrl               *string   `json:"HomepageUrl,omitempty"`
-	Permissions               *[]string `json:"Permissions,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to update.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
+	AuthorizeRedirectUrl *string `json:"AuthorizeRedirectUrl,omitempty"`
+	// The company name to set for the Connect App.
+	CompanyName *string `json:"CompanyName,omitempty"`
+	// The HTTP method to use when calling `deauthorize_callback_url`.
+	DeauthorizeCallbackMethod *string `json:"DeauthorizeCallbackMethod,omitempty"`
+	// The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
+	DeauthorizeCallbackUrl *string `json:"DeauthorizeCallbackUrl,omitempty"`
+	// A description of the Connect App.
+	Description *string `json:"Description,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// A public URL where users can obtain more information about this Connect App.
+	HomepageUrl *string `json:"HomepageUrl,omitempty"`
+	// A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+	Permissions *[]string `json:"Permissions,omitempty"`
 }
 
 func (params *UpdateConnectAppParams) SetPathAccountSid(PathAccountSid string) *UpdateConnectAppParams {
@@ -14408,33 +12334,7 @@ func (params *UpdateConnectAppParams) SetPermissions(Permissions []string) *Upda
 	return params
 }
 
-// UpdateConnectApp Method for UpdateConnectApp
-//
 // Update a connect-app with the specified parameters
-//
-// param: Sid The Twilio-provided string that uniquely identifies the ConnectApp resource to update.
-//
-// param: optional nil or *UpdateConnectAppParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to update.
-//
-// param: "AuthorizeRedirectUrl" (string) - The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
-//
-// param: "CompanyName" (string) - The company name to set for the Connect App.
-//
-// param: "DeauthorizeCallbackMethod" (string) - The HTTP method to use when calling `deauthorize_callback_url`.
-//
-// param: "DeauthorizeCallbackUrl" (string) - The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
-//
-// param: "Description" (string) - A description of the Connect App.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-//
-// param: "HomepageUrl" (string) - A public URL where users can obtain more information about this Connect App.
-//
-// param: "Permissions" ([]string) - A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
-//
-// return: ApiV2010AccountConnectApp
 func (c *DefaultApiService) UpdateConnectApp(Sid string, params *UpdateConnectAppParams) (*ApiV2010AccountConnectApp, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -14487,32 +12387,56 @@ func (c *DefaultApiService) UpdateConnectApp(Sid string, params *UpdateConnectAp
 	return ps, err
 }
 
-// UpdateIncomingPhoneNumberParams Optional parameters for the method 'UpdateIncomingPhoneNumber'
+// Optional parameters for the method 'UpdateIncomingPhoneNumber'
 type UpdateIncomingPhoneNumberParams struct {
-	PathAccountSid       *string `json:"PathAccountSid,omitempty"`
-	AccountSid           *string `json:"AccountSid,omitempty"`
-	AddressSid           *string `json:"AddressSid,omitempty"`
-	ApiVersion           *string `json:"ApiVersion,omitempty"`
-	BundleSid            *string `json:"BundleSid,omitempty"`
-	EmergencyAddressSid  *string `json:"EmergencyAddressSid,omitempty"`
-	EmergencyStatus      *string `json:"EmergencyStatus,omitempty"`
-	FriendlyName         *string `json:"FriendlyName,omitempty"`
-	IdentitySid          *string `json:"IdentitySid,omitempty"`
-	SmsApplicationSid    *string `json:"SmsApplicationSid,omitempty"`
-	SmsFallbackMethod    *string `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl       *string `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod            *string `json:"SmsMethod,omitempty"`
-	SmsUrl               *string `json:"SmsUrl,omitempty"`
-	StatusCallback       *string `json:"StatusCallback,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
+	AddressSid *string `json:"AddressSid,omitempty"`
+	// The API version to use for incoming calls made to the phone number. The default is `2010-04-01`.
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
+	BundleSid *string `json:"BundleSid,omitempty"`
+	// The SID of the emergency address configuration to use for emergency calling from this phone number.
+	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
+	// The configuration status parameter that determines whether the phone number is enabled for emergency calling.
+	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
+	// A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations.
+	IdentitySid *string `json:"IdentitySid,omitempty"`
+	// The SID of the application that should handle SMS messages sent to the number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
+	SmsApplicationSid *string `json:"SmsApplicationSid,omitempty"`
+	// The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL we should call when the phone number receives an incoming SMS message.
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The URL we should call using the `status_callback_method` to send status information to your application.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
-	TrunkSid             *string `json:"TrunkSid,omitempty"`
-	VoiceApplicationSid  *string `json:"VoiceApplicationSid,omitempty"`
-	VoiceCallerIdLookup  *bool   `json:"VoiceCallerIdLookup,omitempty"`
-	VoiceFallbackMethod  *string `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl     *string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod          *string `json:"VoiceMethod,omitempty"`
-	VoiceReceiveMode     *string `json:"VoiceReceiveMode,omitempty"`
-	VoiceUrl             *string `json:"VoiceUrl,omitempty"`
+	// The SID of the Trunk we should use to handle phone calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
+	TrunkSid *string `json:"TrunkSid,omitempty"`
+	// The SID of the application we should use to handle phone calls to the phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
+	VoiceApplicationSid *string `json:"VoiceApplicationSid,omitempty"`
+	// Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
+	VoiceCallerIdLookup *bool `json:"VoiceCallerIdLookup,omitempty"`
+	// The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The configuration parameter for the phone number to receive incoming voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`.
+	VoiceReceiveMode *string `json:"VoiceReceiveMode,omitempty"`
+	// The URL that we should call to answer a call to the phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 func (params *UpdateIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *UpdateIncomingPhoneNumberParams {
@@ -14612,63 +12536,7 @@ func (params *UpdateIncomingPhoneNumberParams) SetVoiceUrl(VoiceUrl string) *Upd
 	return params
 }
 
-// UpdateIncomingPhoneNumber Method for UpdateIncomingPhoneNumber
-//
 // Update an incoming-phone-number instance.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update.
-//
-// param: optional nil or *UpdateIncomingPhoneNumberParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
-//
-// param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
-//
-// param: "AddressSid" (string) - The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
-//
-// param: "ApiVersion" (string) - The API version to use for incoming calls made to the phone number. The default is `2010-04-01`.
-//
-// param: "BundleSid" (string) - The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
-//
-// param: "EmergencyAddressSid" (string) - The SID of the emergency address configuration to use for emergency calling from this phone number.
-//
-// param: "EmergencyStatus" (string) - The configuration status parameter that determines whether the phone number is enabled for emergency calling.
-//
-// param: "FriendlyName" (string) - A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
-//
-// param: "IdentitySid" (string) - The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations.
-//
-// param: "SmsApplicationSid" (string) - The SID of the application that should handle SMS messages sent to the number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
-//
-// param: "SmsFallbackMethod" (string) - The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "SmsFallbackUrl" (string) - The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
-//
-// param: "SmsMethod" (string) - The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "SmsUrl" (string) - The URL we should call when the phone number receives an incoming SMS message.
-//
-// param: "StatusCallback" (string) - The URL we should call using the `status_callback_method` to send status information to your application.
-//
-// param: "StatusCallbackMethod" (string) - The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "TrunkSid" (string) - The SID of the Trunk we should use to handle phone calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-//
-// param: "VoiceApplicationSid" (string) - The SID of the application we should use to handle phone calls to the phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
-//
-// param: "VoiceCallerIdLookup" (bool) - Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
-//
-// param: "VoiceFallbackMethod" (string) - The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
-//
-// param: "VoiceMethod" (string) - The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "VoiceReceiveMode" (string) - The configuration parameter for the phone number to receive incoming voice calls or faxes. Can be: `fax` or `voice` and defaults to `voice`.
-//
-// param: "VoiceUrl" (string) - The URL that we should call to answer a call to the phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-//
-// return: ApiV2010AccountIncomingPhoneNumber
 func (c *DefaultApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomingPhoneNumberParams) (*ApiV2010AccountIncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -14766,10 +12634,12 @@ func (c *DefaultApiService) UpdateIncomingPhoneNumber(Sid string, params *Update
 	return ps, err
 }
 
-// UpdateKeyParams Optional parameters for the method 'UpdateKey'
+// Optional parameters for the method 'UpdateKey'
 type UpdateKeyParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 func (params *UpdateKeyParams) SetPathAccountSid(PathAccountSid string) *UpdateKeyParams {
@@ -14781,17 +12651,6 @@ func (params *UpdateKeyParams) SetFriendlyName(FriendlyName string) *UpdateKeyPa
 	return params
 }
 
-// UpdateKey Method for UpdateKey
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Key resource to update.
-//
-// param: optional nil or *UpdateKeyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to update.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-//
-// return: ApiV2010AccountKey
 func (c *DefaultApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*ApiV2010AccountKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -14823,11 +12682,14 @@ func (c *DefaultApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*Api
 	return ps, err
 }
 
-// UpdateMemberParams Optional parameters for the method 'UpdateMember'
+// Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Method         *string `json:"Method,omitempty"`
-	Url            *string `json:"Url,omitempty"`
+	// How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
+	Method *string `json:"Method,omitempty"`
+	// The absolute URL of the Queue resource.
+	Url *string `json:"Url,omitempty"`
 }
 
 func (params *UpdateMemberParams) SetPathAccountSid(PathAccountSid string) *UpdateMemberParams {
@@ -14843,23 +12705,7 @@ func (params *UpdateMemberParams) SetUrl(Url string) *UpdateMemberParams {
 	return params
 }
 
-// UpdateMember Method for UpdateMember
-//
 // Dequeue a member from a queue and have the member&#39;s call begin executing the TwiML document at that URL
-//
-// param: QueueSid The SID of the Queue in which to find the members to update.
-//
-// param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update.
-//
-// param: optional nil or *UpdateMemberParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to update.
-//
-// param: "Method" (string) - How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
-//
-// param: "Url" (string) - The absolute URL of the Queue resource.
-//
-// return: ApiV2010AccountQueueMember
 func (c *DefaultApiService) UpdateMember(QueueSid string, CallSid string, params *UpdateMemberParams) (*ApiV2010AccountQueueMember, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -14895,10 +12741,12 @@ func (c *DefaultApiService) UpdateMember(QueueSid string, CallSid string, params
 	return ps, err
 }
 
-// UpdateMessageParams Optional parameters for the method 'UpdateMessage'
+// Optional parameters for the method 'UpdateMessage'
 type UpdateMessageParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Body           *string `json:"Body,omitempty"`
+	// The text of the message you want to send. Can be up to 1,600 characters long.
+	Body *string `json:"Body,omitempty"`
 }
 
 func (params *UpdateMessageParams) SetPathAccountSid(PathAccountSid string) *UpdateMessageParams {
@@ -14910,19 +12758,7 @@ func (params *UpdateMessageParams) SetBody(Body string) *UpdateMessageParams {
 	return params
 }
 
-// UpdateMessage Method for UpdateMessage
-//
 // To redact a message-body from a post-flight message record, post to the message instance resource with an empty body
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Message resource to update.
-//
-// param: optional nil or *UpdateMessageParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Message resources to update.
-//
-// param: "Body" (string) - The text of the message you want to send. Can be up to 1,600 characters long.
-//
-// return: ApiV2010AccountMessage
 func (c *DefaultApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*ApiV2010AccountMessage, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -14954,10 +12790,12 @@ func (c *DefaultApiService) UpdateMessage(Sid string, params *UpdateMessageParam
 	return ps, err
 }
 
-// UpdateOutgoingCallerIdParams Optional parameters for the method 'UpdateOutgoingCallerId'
+// Optional parameters for the method 'UpdateOutgoingCallerId'
 type UpdateOutgoingCallerIdParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 func (params *UpdateOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid string) *UpdateOutgoingCallerIdParams {
@@ -14969,19 +12807,7 @@ func (params *UpdateOutgoingCallerIdParams) SetFriendlyName(FriendlyName string)
 	return params
 }
 
-// UpdateOutgoingCallerId Method for UpdateOutgoingCallerId
-//
 // Updates the caller-id
-//
-// param: Sid The Twilio-provided string that uniquely identifies the OutgoingCallerId resource to update.
-//
-// param: optional nil or *UpdateOutgoingCallerIdParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the OutgoingCallerId resources to update.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-//
-// return: ApiV2010AccountOutgoingCallerId
 func (c *DefaultApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOutgoingCallerIdParams) (*ApiV2010AccountOutgoingCallerId, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -15013,21 +12839,34 @@ func (c *DefaultApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOut
 	return ps, err
 }
 
-// UpdateParticipantParams Optional parameters for the method 'UpdateParticipant'
+// Optional parameters for the method 'UpdateParticipant'
 type UpdateParticipantParams struct {
-	PathAccountSid      *string `json:"PathAccountSid,omitempty"`
-	AnnounceMethod      *string `json:"AnnounceMethod,omitempty"`
-	AnnounceUrl         *string `json:"AnnounceUrl,omitempty"`
-	BeepOnExit          *bool   `json:"BeepOnExit,omitempty"`
-	CallSidToCoach      *string `json:"CallSidToCoach,omitempty"`
-	Coaching            *bool   `json:"Coaching,omitempty"`
-	EndConferenceOnExit *bool   `json:"EndConferenceOnExit,omitempty"`
-	Hold                *bool   `json:"Hold,omitempty"`
-	HoldMethod          *string `json:"HoldMethod,omitempty"`
-	HoldUrl             *string `json:"HoldUrl,omitempty"`
-	Muted               *bool   `json:"Muted,omitempty"`
-	WaitMethod          *string `json:"WaitMethod,omitempty"`
-	WaitUrl             *string `json:"WaitUrl,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to update.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+	AnnounceMethod *string `json:"AnnounceMethod,omitempty"`
+	// The URL we call using the `announce_method` for an announcement to the participant. The URL must return an MP3 file, a WAV file, or a TwiML document that contains `<Play>` or `<Say>` commands.
+	AnnounceUrl *string `json:"AnnounceUrl,omitempty"`
+	// Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+	BeepOnExit *bool `json:"BeepOnExit,omitempty"`
+	// The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+	CallSidToCoach *string `json:"CallSidToCoach,omitempty"`
+	// Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+	Coaching *bool `json:"Coaching,omitempty"`
+	// Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+	EndConferenceOnExit *bool `json:"EndConferenceOnExit,omitempty"`
+	// Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+	Hold *bool `json:"Hold,omitempty"`
+	// The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+	HoldMethod *string `json:"HoldMethod,omitempty"`
+	// The URL we call using the `hold_method` for  music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains the `<Play>`, `<Say>` or `<Redirect>` commands.
+	HoldUrl *string `json:"HoldUrl,omitempty"`
+	// Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+	Muted *bool `json:"Muted,omitempty"`
+	// The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+	WaitMethod *string `json:"WaitMethod,omitempty"`
+	// The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+	WaitUrl *string `json:"WaitUrl,omitempty"`
 }
 
 func (params *UpdateParticipantParams) SetPathAccountSid(PathAccountSid string) *UpdateParticipantParams {
@@ -15083,43 +12922,7 @@ func (params *UpdateParticipantParams) SetWaitUrl(WaitUrl string) *UpdatePartici
 	return params
 }
 
-// UpdateParticipant Method for UpdateParticipant
-//
 // Update the properties of the participant
-//
-// param: ConferenceSid The SID of the conference with the participant to update.
-//
-// param: CallSid The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID or label of the participant to update. Non URL safe characters in a label must be percent encoded, for example, a space character is represented as %20.
-//
-// param: optional nil or *UpdateParticipantParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Participant resources to update.
-//
-// param: "AnnounceMethod" (string) - The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
-//
-// param: "AnnounceUrl" (string) - The URL we call using the `announce_method` for an announcement to the participant. The URL must return an MP3 file, a WAV file, or a TwiML document that contains `<Play>` or `<Say>` commands.
-//
-// param: "BeepOnExit" (bool) - Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
-//
-// param: "CallSidToCoach" (string) - The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
-//
-// param: "Coaching" (bool) - Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
-//
-// param: "EndConferenceOnExit" (bool) - Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
-//
-// param: "Hold" (bool) - Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
-//
-// param: "HoldMethod" (string) - The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
-//
-// param: "HoldUrl" (string) - The URL we call using the `hold_method` for  music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains the `<Play>`, `<Say>` or `<Redirect>` commands.
-//
-// param: "Muted" (bool) - Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
-//
-// param: "WaitMethod" (string) - The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
-//
-// param: "WaitUrl" (string) - The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
-//
-// return: ApiV2010AccountConferenceParticipant
 func (c *DefaultApiService) UpdateParticipant(ConferenceSid string, CallSid string, params *UpdateParticipantParams) (*ApiV2010AccountConferenceParticipant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -15185,12 +12988,17 @@ func (c *DefaultApiService) UpdateParticipant(ConferenceSid string, CallSid stri
 	return ps, err
 }
 
-// UpdatePaymentsParams Optional parameters for the method 'UpdatePayments'
+// Optional parameters for the method 'UpdatePayments'
 type UpdatePaymentsParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Capture        *string `json:"Capture,omitempty"`
+	// The piece of payment information that you wish the caller to enter. Must be one of `payment-card-number`, `expiration-date`, `security-code`, `postal-code`, `bank-routing-number`, or `bank-account-number`.
+	Capture *string `json:"Capture,omitempty"`
+	// A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
 	IdempotencyKey *string `json:"IdempotencyKey,omitempty"`
-	Status         *string `json:"Status,omitempty"`
+	// Indicates whether the current payment session should be cancelled or completed. When `cancel` the payment session is cancelled. When `complete`, Twilio sends the payment information to the selected <Pay> connector for processing.
+	Status *string `json:"Status,omitempty"`
+	// Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 }
 
@@ -15215,27 +13023,7 @@ func (params *UpdatePaymentsParams) SetStatusCallback(StatusCallback string) *Up
 	return params
 }
 
-// UpdatePayments Method for UpdatePayments
-//
 // update an instance of payments with different phases of payment flows.
-//
-// param: CallSid The SID of the call that will update the resource. This should be the same call sid that was used to create payments resource.
-//
-// param: Sid The SID of Payments session that needs to be updated.
-//
-// param: optional nil or *UpdatePaymentsParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will update the resource.
-//
-// param: "Capture" (string) - The piece of payment information that you wish the caller to enter. Must be one of `payment-card-number`, `expiration-date`, `security-code`, `postal-code`, `bank-routing-number`, or `bank-account-number`.
-//
-// param: "IdempotencyKey" (string) - A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
-//
-// param: "Status" (string) - Indicates whether the current payment session should be cancelled or completed. When `cancel` the payment session is cancelled. When `complete`, Twilio sends the payment information to the selected <Pay> connector for processing.
-//
-// param: "StatusCallback" (string) - Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
-//
-// return: ApiV2010AccountCallPayments
 func (c *DefaultApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePaymentsParams) (*ApiV2010AccountCallPayments, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -15277,11 +13065,14 @@ func (c *DefaultApiService) UpdatePayments(CallSid string, Sid string, params *U
 	return ps, err
 }
 
-// UpdateQueueParams Optional parameters for the method 'UpdateQueue'
+// Optional parameters for the method 'UpdateQueue'
 type UpdateQueueParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
-	MaxSize        *int32  `json:"MaxSize,omitempty"`
+	// A descriptive string that you created to describe this resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
+	MaxSize *int32 `json:"MaxSize,omitempty"`
 }
 
 func (params *UpdateQueueParams) SetPathAccountSid(PathAccountSid string) *UpdateQueueParams {
@@ -15297,21 +13088,7 @@ func (params *UpdateQueueParams) SetMaxSize(MaxSize int32) *UpdateQueueParams {
 	return params
 }
 
-// UpdateQueue Method for UpdateQueue
-//
 // Update the queue with the new parameters
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Queue resource to update
-//
-// param: optional nil or *UpdateQueueParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resource to update.
-//
-// param: "FriendlyName" (string) - A descriptive string that you created to describe this resource. It can be up to 64 characters long.
-//
-// param: "MaxSize" (int32) - The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
-//
-// return: ApiV2010AccountQueue
 func (c *DefaultApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (*ApiV2010AccountQueue, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -15346,15 +13123,22 @@ func (c *DefaultApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (
 	return ps, err
 }
 
-// UpdateShortCodeParams Optional parameters for the method 'UpdateShortCode'
+// Optional parameters for the method 'UpdateShortCode'
 type UpdateShortCodeParams struct {
-	PathAccountSid    *string `json:"PathAccountSid,omitempty"`
-	ApiVersion        *string `json:"ApiVersion,omitempty"`
-	FriendlyName      *string `json:"FriendlyName,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
+	ApiVersion *string `json:"ApiVersion,omitempty"`
+	// A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
 	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl    *string `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod         *string `json:"SmsMethod,omitempty"`
-	SmsUrl            *string `json:"SmsUrl,omitempty"`
+	// The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL we should call when receiving an incoming SMS message to this short code.
+	SmsUrl *string `json:"SmsUrl,omitempty"`
 }
 
 func (params *UpdateShortCodeParams) SetPathAccountSid(PathAccountSid string) *UpdateShortCodeParams {
@@ -15386,29 +13170,7 @@ func (params *UpdateShortCodeParams) SetSmsUrl(SmsUrl string) *UpdateShortCodePa
 	return params
 }
 
-// UpdateShortCode Method for UpdateShortCode
-//
 // Update a short code with the following parameters
-//
-// param: Sid The Twilio-provided string that uniquely identifies the ShortCode resource to update
-//
-// param: optional nil or *UpdateShortCodeParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource(s) to update.
-//
-// param: "ApiVersion" (string) - The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`.
-//
-// param: "FriendlyName" (string) - A descriptive string that you created to describe this resource. It can be up to 64 characters long. By default, the `FriendlyName` is the short code.
-//
-// param: "SmsFallbackMethod" (string) - The HTTP method that we should use to call the `sms_fallback_url`. Can be: `GET` or `POST`.
-//
-// param: "SmsFallbackUrl" (string) - The URL that we should call if an error occurs while retrieving or executing the TwiML from `sms_url`.
-//
-// param: "SmsMethod" (string) - The HTTP method we should use when calling the `sms_url`. Can be: `GET` or `POST`.
-//
-// param: "SmsUrl" (string) - The URL we should call when receiving an incoming SMS message to this short code.
-//
-// return: ApiV2010AccountShortCode
 func (c *DefaultApiService) UpdateShortCode(Sid string, params *UpdateShortCodeParams) (*ApiV2010AccountShortCode, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -15455,10 +13217,12 @@ func (c *DefaultApiService) UpdateShortCode(Sid string, params *UpdateShortCodeP
 	return ps, err
 }
 
-// UpdateSigningKeyParams Optional parameters for the method 'UpdateSigningKey'
+// Optional parameters for the method 'UpdateSigningKey'
 type UpdateSigningKeyParams struct {
+	//
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	//
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 func (params *UpdateSigningKeyParams) SetPathAccountSid(PathAccountSid string) *UpdateSigningKeyParams {
@@ -15470,17 +13234,6 @@ func (params *UpdateSigningKeyParams) SetFriendlyName(FriendlyName string) *Upda
 	return params
 }
 
-// UpdateSigningKey Method for UpdateSigningKey
-//
-// param: Sid
-//
-// param: optional nil or *UpdateSigningKeyParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) -
-//
-// param: "FriendlyName" (string) -
-//
-// return: ApiV2010AccountSigningKey
 func (c *DefaultApiService) UpdateSigningKey(Sid string, params *UpdateSigningKeyParams) (*ApiV2010AccountSigningKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -15512,10 +13265,12 @@ func (c *DefaultApiService) UpdateSigningKey(Sid string, params *UpdateSigningKe
 	return ps, err
 }
 
-// UpdateSipCredentialParams Optional parameters for the method 'UpdateSipCredential'
+// Optional parameters for the method 'UpdateSipCredential'
 type UpdateSipCredentialParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	Password       *string `json:"Password,omitempty"`
+	// The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
+	Password *string `json:"Password,omitempty"`
 }
 
 func (params *UpdateSipCredentialParams) SetPathAccountSid(PathAccountSid string) *UpdateSipCredentialParams {
@@ -15527,21 +13282,7 @@ func (params *UpdateSipCredentialParams) SetPassword(Password string) *UpdateSip
 	return params
 }
 
-// UpdateSipCredential Method for UpdateSipCredential
-//
 // Update a credential resource.
-//
-// param: CredentialListSid The unique id that identifies the credential list that includes this credential.
-//
-// param: Sid The unique id that identifies the resource to update.
-//
-// param: optional nil or *UpdateSipCredentialParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
-// param: "Password" (string) - The password that the username will use when authenticating SIP requests. The password must be a minimum of 12 characters, contain at least 1 digit, and have mixed case. (eg `IWasAtSignal2018`)
-//
-// return: ApiV2010AccountSipSipCredentialListSipCredential
 func (c *DefaultApiService) UpdateSipCredential(CredentialListSid string, Sid string, params *UpdateSipCredentialParams) (*ApiV2010AccountSipSipCredentialListSipCredential, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -15574,10 +13315,12 @@ func (c *DefaultApiService) UpdateSipCredential(CredentialListSid string, Sid st
 	return ps, err
 }
 
-// UpdateSipCredentialListParams Optional parameters for the method 'UpdateSipCredentialList'
+// Optional parameters for the method 'UpdateSipCredentialList'
 type UpdateSipCredentialListParams struct {
+	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	// A human readable descriptive text for a CredentialList, up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 func (params *UpdateSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *UpdateSipCredentialListParams {
@@ -15589,19 +13332,7 @@ func (params *UpdateSipCredentialListParams) SetFriendlyName(FriendlyName string
 	return params
 }
 
-// UpdateSipCredentialList Method for UpdateSipCredentialList
-//
 // Update a Credential List
-//
-// param: Sid The credential list Sid that uniquely identifies this resource
-//
-// param: optional nil or *UpdateSipCredentialListParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the Account that is responsible for this resource.
-//
-// param: "FriendlyName" (string) - A human readable descriptive text for a CredentialList, up to 64 characters long.
-//
-// return: ApiV2010AccountSipSipCredentialList
 func (c *DefaultApiService) UpdateSipCredentialList(Sid string, params *UpdateSipCredentialListParams) (*ApiV2010AccountSipSipCredentialList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -15633,22 +13364,36 @@ func (c *DefaultApiService) UpdateSipCredentialList(Sid string, params *UpdateSi
 	return ps, err
 }
 
-// UpdateSipDomainParams Optional parameters for the method 'UpdateSipDomain'
+// Optional parameters for the method 'UpdateSipDomain'
 type UpdateSipDomainParams struct {
-	PathAccountSid            *string `json:"PathAccountSid,omitempty"`
-	ByocTrunkSid              *string `json:"ByocTrunkSid,omitempty"`
-	DomainName                *string `json:"DomainName,omitempty"`
-	EmergencyCallerSid        *string `json:"EmergencyCallerSid,omitempty"`
-	EmergencyCallingEnabled   *bool   `json:"EmergencyCallingEnabled,omitempty"`
-	FriendlyName              *string `json:"FriendlyName,omitempty"`
-	Secure                    *bool   `json:"Secure,omitempty"`
-	SipRegistration           *bool   `json:"SipRegistration,omitempty"`
-	VoiceFallbackMethod       *string `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl          *string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod               *string `json:"VoiceMethod,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to update.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
+	ByocTrunkSid *string `json:"ByocTrunkSid,omitempty"`
+	// The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
+	DomainName *string `json:"DomainName,omitempty"`
+	// Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
+	EmergencyCallerSid *string `json:"EmergencyCallerSid,omitempty"`
+	// Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
+	EmergencyCallingEnabled *bool `json:"EmergencyCallingEnabled,omitempty"`
+	// A descriptive string that you created to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
+	Secure *bool `json:"Secure,omitempty"`
+	// Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
+	SipRegistration *bool `json:"SipRegistration,omitempty"`
+	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method we should use to call `voice_url`
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
 	VoiceStatusCallbackMethod *string `json:"VoiceStatusCallbackMethod,omitempty"`
-	VoiceStatusCallbackUrl    *string `json:"VoiceStatusCallbackUrl,omitempty"`
-	VoiceUrl                  *string `json:"VoiceUrl,omitempty"`
+	// The URL that we should call to pass status parameters (such as call ended) to your application.
+	VoiceStatusCallbackUrl *string `json:"VoiceStatusCallbackUrl,omitempty"`
+	// The URL we should call when the domain receives a call.
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 func (params *UpdateSipDomainParams) SetPathAccountSid(PathAccountSid string) *UpdateSipDomainParams {
@@ -15708,43 +13453,7 @@ func (params *UpdateSipDomainParams) SetVoiceUrl(VoiceUrl string) *UpdateSipDoma
 	return params
 }
 
-// UpdateSipDomain Method for UpdateSipDomain
-//
 // Update the attributes of a domain
-//
-// param: Sid The Twilio-provided string that uniquely identifies the SipDomain resource to update.
-//
-// param: optional nil or *UpdateSipDomainParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource to update.
-//
-// param: "ByocTrunkSid" (string) - The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
-//
-// param: "DomainName" (string) - The unique address you reserve on Twilio to which you route your SIP traffic. Domain names can contain letters, digits, and \\\"-\\\" and must end with `sip.twilio.com`.
-//
-// param: "EmergencyCallerSid" (string) - Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
-//
-// param: "EmergencyCallingEnabled" (bool) - Whether emergency calling is enabled for the domain. If enabled, allows emergency calls on the domain from phone numbers with validated addresses.
-//
-// param: "FriendlyName" (string) - A descriptive string that you created to describe the resource. It can be up to 64 characters long.
-//
-// param: "Secure" (bool) - Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
-//
-// param: "SipRegistration" (bool) - Whether to allow SIP Endpoints to register with the domain to receive calls. Can be `true` or `false`. `true` allows SIP Endpoints to register with the domain to receive calls, `false` does not.
-//
-// param: "VoiceFallbackMethod" (string) - The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-//
-// param: "VoiceFallbackUrl" (string) - The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
-//
-// param: "VoiceMethod" (string) - The HTTP method we should use to call `voice_url`
-//
-// param: "VoiceStatusCallbackMethod" (string) - The HTTP method we should use to call `voice_status_callback_url`. Can be: `GET` or `POST`.
-//
-// param: "VoiceStatusCallbackUrl" (string) - The URL that we should call to pass status parameters (such as call ended) to your application.
-//
-// param: "VoiceUrl" (string) - The URL we should call when the domain receives a call.
-//
-// return: ApiV2010AccountSipSipDomain
 func (c *DefaultApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) (*ApiV2010AccountSipSipDomain, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -15812,10 +13521,12 @@ func (c *DefaultApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainP
 	return ps, err
 }
 
-// UpdateSipIpAccessControlListParams Optional parameters for the method 'UpdateSipIpAccessControlList'
+// Optional parameters for the method 'UpdateSipIpAccessControlList'
 type UpdateSipIpAccessControlListParams struct {
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	// A human readable descriptive text, up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 func (params *UpdateSipIpAccessControlListParams) SetPathAccountSid(PathAccountSid string) *UpdateSipIpAccessControlListParams {
@@ -15827,19 +13538,7 @@ func (params *UpdateSipIpAccessControlListParams) SetFriendlyName(FriendlyName s
 	return params
 }
 
-// UpdateSipIpAccessControlList Method for UpdateSipIpAccessControlList
-//
 // Rename an IpAccessControlList
-//
-// param: Sid A 34 character string that uniquely identifies the resource to udpate.
-//
-// param: optional nil or *UpdateSipIpAccessControlListParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// param: "FriendlyName" (string) - A human readable descriptive text, up to 64 characters long.
-//
-// return: ApiV2010AccountSipSipIpAccessControlList
 func (c *DefaultApiService) UpdateSipIpAccessControlList(Sid string, params *UpdateSipIpAccessControlListParams) (*ApiV2010AccountSipSipIpAccessControlList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -15871,12 +13570,16 @@ func (c *DefaultApiService) UpdateSipIpAccessControlList(Sid string, params *Upd
 	return ps, err
 }
 
-// UpdateSipIpAddressParams Optional parameters for the method 'UpdateSipIpAddress'
+// Optional parameters for the method 'UpdateSipIpAddress'
 type UpdateSipIpAddressParams struct {
-	PathAccountSid   *string `json:"PathAccountSid,omitempty"`
-	CidrPrefixLength *int32  `json:"CidrPrefixLength,omitempty"`
-	FriendlyName     *string `json:"FriendlyName,omitempty"`
-	IpAddress        *string `json:"IpAddress,omitempty"`
+	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
+	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
+	CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
+	// A human readable descriptive text for this resource, up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
+	IpAddress *string `json:"IpAddress,omitempty"`
 }
 
 func (params *UpdateSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *UpdateSipIpAddressParams {
@@ -15896,25 +13599,7 @@ func (params *UpdateSipIpAddressParams) SetIpAddress(IpAddress string) *UpdateSi
 	return params
 }
 
-// UpdateSipIpAddress Method for UpdateSipIpAddress
-//
 // Update an IpAddress resource.
-//
-// param: IpAccessControlListSid The IpAccessControlList Sid that identifies the IpAddress resources to update.
-//
-// param: Sid A 34 character string that identifies the IpAddress resource to update.
-//
-// param: optional nil or *UpdateSipIpAddressParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-//
-// param: "CidrPrefixLength" (int32) - An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-//
-// param: "FriendlyName" (string) - A human readable descriptive text for this resource, up to 64 characters long.
-//
-// param: "IpAddress" (string) - An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
-//
-// return: ApiV2010AccountSipSipIpAccessControlListSipIpAddress
 func (c *DefaultApiService) UpdateSipIpAddress(IpAccessControlListSid string, Sid string, params *UpdateSipIpAddressParams) (*ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
@@ -15953,12 +13638,16 @@ func (c *DefaultApiService) UpdateSipIpAddress(IpAccessControlListSid string, Si
 	return ps, err
 }
 
-// UpdateUsageTriggerParams Optional parameters for the method 'UpdateUsageTrigger'
+// Optional parameters for the method 'UpdateUsageTrigger'
 type UpdateUsageTriggerParams struct {
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
 	CallbackMethod *string `json:"CallbackMethod,omitempty"`
-	CallbackUrl    *string `json:"CallbackUrl,omitempty"`
-	FriendlyName   *string `json:"FriendlyName,omitempty"`
+	// The URL we should call using `callback_method` when the trigger fires.
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
 func (params *UpdateUsageTriggerParams) SetPathAccountSid(PathAccountSid string) *UpdateUsageTriggerParams {
@@ -15978,23 +13667,7 @@ func (params *UpdateUsageTriggerParams) SetFriendlyName(FriendlyName string) *Up
 	return params
 }
 
-// UpdateUsageTrigger Method for UpdateUsageTrigger
-//
 // Update an instance of a usage trigger
-//
-// param: Sid The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
-//
-// param: optional nil or *UpdateUsageTriggerParams - Optional Parameters:
-//
-// param: "PathAccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update.
-//
-// param: "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
-//
-// param: "CallbackUrl" (string) - The URL we should call using `callback_method` when the trigger fires.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-//
-// return: ApiV2010AccountUsageUsageTrigger
 func (c *DefaultApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerParams) (*ApiV2010AccountUsageUsageTrigger, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -33,9 +33,11 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 	}
 }
 
-// CreateMessageInteractionParams Optional parameters for the method 'CreateMessageInteraction'
+// Optional parameters for the method 'CreateMessageInteraction'
 type CreateMessageInteractionParams struct {
-	Body     *string   `json:"Body,omitempty"`
+	// The message to send to the participant
+	Body *string `json:"Body,omitempty"`
+	// Reserved. Not currently supported.
 	MediaUrl *[]string `json:"MediaUrl,omitempty"`
 }
 
@@ -48,23 +50,7 @@ func (params *CreateMessageInteractionParams) SetMediaUrl(MediaUrl []string) *Cr
 	return params
 }
 
-// CreateMessageInteraction Method for CreateMessageInteraction
-//
 // Create a new message Interaction to send directly from your system to one [Participant](https://www.twilio.com/docs/proxy/api/participant).  The &#x60;inbound&#x60; properties for the Interaction will always be empty.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
-//
-// param: SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
-//
-// param: ParticipantSid The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
-//
-// param: optional nil or *CreateMessageInteractionParams - Optional Parameters:
-//
-// param: "Body" (string) - The message to send to the participant
-//
-// param: "MediaUrl" ([]string) - Reserved. Not currently supported.
-//
-// return: ProxyV1ServiceSessionParticipantMessageInteraction
 func (c *DefaultApiService) CreateMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *CreateMessageInteractionParams) (*ProxyV1ServiceSessionParticipantMessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -96,13 +82,18 @@ func (c *DefaultApiService) CreateMessageInteraction(ServiceSid string, SessionS
 	return ps, err
 }
 
-// CreateParticipantParams Optional parameters for the method 'CreateParticipant'
+// Optional parameters for the method 'CreateParticipant'
 type CreateParticipantParams struct {
-	FailOnParticipantConflict *bool   `json:"FailOnParticipantConflict,omitempty"`
-	FriendlyName              *string `json:"FriendlyName,omitempty"`
-	Identifier                *string `json:"Identifier,omitempty"`
-	ProxyIdentifier           *string `json:"ProxyIdentifier,omitempty"`
-	ProxyIdentifierSid        *string `json:"ProxyIdentifierSid,omitempty"`
+	// [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Participant create request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
+	FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
+	// The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.**
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The phone number of the Participant.
+	Identifier *string `json:"Identifier,omitempty"`
+	// The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool.
+	ProxyIdentifier *string `json:"ProxyIdentifier,omitempty"`
+	// The SID of the Proxy Identifier to assign to the Participant.
+	ProxyIdentifierSid *string `json:"ProxyIdentifierSid,omitempty"`
 }
 
 func (params *CreateParticipantParams) SetFailOnParticipantConflict(FailOnParticipantConflict bool) *CreateParticipantParams {
@@ -126,27 +117,7 @@ func (params *CreateParticipantParams) SetProxyIdentifierSid(ProxyIdentifierSid 
 	return params
 }
 
-// CreateParticipant Method for CreateParticipant
-//
 // Add a new Participant to the Session
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
-//
-// param: SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
-//
-// param: optional nil or *CreateParticipantParams - Optional Parameters:
-//
-// param: "FailOnParticipantConflict" (bool) - [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Participant create request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
-//
-// param: "FriendlyName" (string) - The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.**
-//
-// param: "Identifier" (string) - The phone number of the Participant.
-//
-// param: "ProxyIdentifier" (string) - The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool.
-//
-// param: "ProxyIdentifierSid" (string) - The SID of the Proxy Identifier to assign to the Participant.
-//
-// return: ProxyV1ServiceSessionParticipant
 func (c *DefaultApiService) CreateParticipant(ServiceSid string, SessionSid string, params *CreateParticipantParams) (*ProxyV1ServiceSessionParticipant, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -186,11 +157,14 @@ func (c *DefaultApiService) CreateParticipant(ServiceSid string, SessionSid stri
 	return ps, err
 }
 
-// CreatePhoneNumberParams Optional parameters for the method 'CreatePhoneNumber'
+// Optional parameters for the method 'CreatePhoneNumber'
 type CreatePhoneNumberParams struct {
-	IsReserved  *bool   `json:"IsReserved,omitempty"`
+	// Whether the new phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
+	IsReserved *bool `json:"IsReserved,omitempty"`
+	// The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
 	PhoneNumber *string `json:"PhoneNumber,omitempty"`
-	Sid         *string `json:"Sid,omitempty"`
+	// The SID of a Twilio [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service.
+	Sid *string `json:"Sid,omitempty"`
 }
 
 func (params *CreatePhoneNumberParams) SetIsReserved(IsReserved bool) *CreatePhoneNumberParams {
@@ -206,21 +180,7 @@ func (params *CreatePhoneNumberParams) SetSid(Sid string) *CreatePhoneNumberPara
 	return params
 }
 
-// CreatePhoneNumber Method for CreatePhoneNumber
-//
 // Add a Phone Number to a Service&#39;s Proxy Number Pool.
-//
-// param: ServiceSid The SID parent [Service](https://www.twilio.com/docs/proxy/api/service) resource of the new PhoneNumber resource.
-//
-// param: optional nil or *CreatePhoneNumberParams - Optional Parameters:
-//
-// param: "IsReserved" (bool) - Whether the new phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
-//
-// param: "PhoneNumber" (string) - The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
-//
-// param: "Sid" (string) - The SID of a Twilio [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service.
-//
-// return: ProxyV1ServicePhoneNumber
 func (c *DefaultApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNumberParams) (*ProxyV1ServicePhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -253,16 +213,24 @@ func (c *DefaultApiService) CreatePhoneNumber(ServiceSid string, params *CreateP
 	return ps, err
 }
 
-// CreateServiceParams Optional parameters for the method 'CreateService'
+// Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-	CallbackUrl             *string `json:"CallbackUrl,omitempty"`
-	ChatInstanceSid         *string `json:"ChatInstanceSid,omitempty"`
-	DefaultTtl              *int32  `json:"DefaultTtl,omitempty"`
-	GeoMatchLevel           *string `json:"GeoMatchLevel,omitempty"`
-	InterceptCallbackUrl    *string `json:"InterceptCallbackUrl,omitempty"`
+	// The URL we should call when the interaction status changes.
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
+	ChatInstanceSid *string `json:"ChatInstanceSid,omitempty"`
+	// The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
+	DefaultTtl *int32 `json:"DefaultTtl,omitempty"`
+	// Where a proxy number must be located relative to the participant identifier. Can be: `country`, `area-code`, or `extended-area-code`. The default value is `country` and more specific areas than `country` are only available in North America.
+	GeoMatchLevel *string `json:"GeoMatchLevel,omitempty"`
+	// The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
+	InterceptCallbackUrl *string `json:"InterceptCallbackUrl,omitempty"`
+	// The preference for Proxy Number selection in the Service instance. Can be: `prefer-sticky` or `avoid-sticky` and the default is `prefer-sticky`. `prefer-sticky` means that we will try and select the same Proxy Number for a given participant if they have previous [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not fail if that Proxy Number cannot be used.  `avoid-sticky` means that we will try to use different Proxy Numbers as long as that is possible within a given pool rather than try and use a previously assigned number.
 	NumberSelectionBehavior *string `json:"NumberSelectionBehavior,omitempty"`
+	// The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
 	OutOfSessionCallbackUrl *string `json:"OutOfSessionCallbackUrl,omitempty"`
-	UniqueName              *string `json:"UniqueName,omitempty"`
+	// An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *CreateServiceParams) SetCallbackUrl(CallbackUrl string) *CreateServiceParams {
@@ -298,29 +266,7 @@ func (params *CreateServiceParams) SetUniqueName(UniqueName string) *CreateServi
 	return params
 }
 
-// CreateService Method for CreateService
-//
 // Create a new Service for Twilio Proxy
-//
-// param: optional nil or *CreateServiceParams - Optional Parameters:
-//
-// param: "CallbackUrl" (string) - The URL we should call when the interaction status changes.
-//
-// param: "ChatInstanceSid" (string) - The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
-//
-// param: "DefaultTtl" (int32) - The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
-//
-// param: "GeoMatchLevel" (string) - Where a proxy number must be located relative to the participant identifier. Can be: `country`, `area-code`, or `extended-area-code`. The default value is `country` and more specific areas than `country` are only available in North America.
-//
-// param: "InterceptCallbackUrl" (string) - The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
-//
-// param: "NumberSelectionBehavior" (string) - The preference for Proxy Number selection in the Service instance. Can be: `prefer-sticky` or `avoid-sticky` and the default is `prefer-sticky`. `prefer-sticky` means that we will try and select the same Proxy Number for a given participant if they have previous [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not fail if that Proxy Number cannot be used.  `avoid-sticky` means that we will try to use different Proxy Numbers as long as that is possible within a given pool rather than try and use a previously assigned number.
-//
-// param: "OutOfSessionCallbackUrl" (string) - The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
-//
-// return: ProxyV1Service
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ProxyV1Service, error) {
 	path := "/v1/Services"
 
@@ -367,15 +313,22 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*ProxyV1
 	return ps, err
 }
 
-// CreateSessionParams Optional parameters for the method 'CreateSession'
+// Optional parameters for the method 'CreateSession'
 type CreateSessionParams struct {
-	DateExpiry                *time.Time                `json:"DateExpiry,omitempty"`
-	FailOnParticipantConflict *bool                     `json:"FailOnParticipantConflict,omitempty"`
-	Mode                      *string                   `json:"Mode,omitempty"`
-	Participants              *[]map[string]interface{} `json:"Participants,omitempty"`
-	Status                    *string                   `json:"Status,omitempty"`
-	Ttl                       *int32                    `json:"Ttl,omitempty"`
-	UniqueName                *string                   `json:"UniqueName,omitempty"`
+	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+	DateExpiry *time.Time `json:"DateExpiry,omitempty"`
+	// [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Session create (with Participants) request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
+	FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
+	// The Mode of the Session. Can be: `message-only`, `voice-only`, or `voice-and-message` and the default value is `voice-and-message`.
+	Mode *string `json:"Mode,omitempty"`
+	// The Participant objects to include in the new session.
+	Participants *[]map[string]interface{} `json:"Participants,omitempty"`
+	// The initial status of the Session. Can be: `open`, `in-progress`, `closed`, `failed`, or `unknown`. The default is `open` on create.
+	Status *string `json:"Status,omitempty"`
+	// The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+	Ttl *int32 `json:"Ttl,omitempty"`
+	// An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *CreateSessionParams) SetDateExpiry(DateExpiry time.Time) *CreateSessionParams {
@@ -407,29 +360,7 @@ func (params *CreateSessionParams) SetUniqueName(UniqueName string) *CreateSessi
 	return params
 }
 
-// CreateSession Method for CreateSession
-//
 // Create a new Session
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
-//
-// param: optional nil or *CreateSessionParams - Optional Parameters:
-//
-// param: "DateExpiry" (time.Time) - The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
-//
-// param: "FailOnParticipantConflict" (bool) - [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to reject a Session create (with Participants) request that could cause the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending on the context, this could be a 409 error (Twilio error code 80623) or a 400 error (Twilio error code 80604). If not provided, requests will be allowed to succeed and a Debugger notification (80802) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
-//
-// param: "Mode" (string) - The Mode of the Session. Can be: `message-only`, `voice-only`, or `voice-and-message` and the default value is `voice-and-message`.
-//
-// param: "Participants" ([]map[string]interface{}) - The Participant objects to include in the new session.
-//
-// param: "Status" (string) - The initial status of the Session. Can be: `open`, `in-progress`, `closed`, `failed`, or `unknown`. The default is `open` on create.
-//
-// param: "Ttl" (int32) - The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
-//
-// return: ProxyV1ServiceSession
 func (c *DefaultApiService) CreateSession(ServiceSid string, params *CreateSessionParams) (*ProxyV1ServiceSession, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -480,8 +411,9 @@ func (c *DefaultApiService) CreateSession(ServiceSid string, params *CreateSessi
 	return ps, err
 }
 
-// CreateShortCodeParams Optional parameters for the method 'CreateShortCode'
+// Optional parameters for the method 'CreateShortCode'
 type CreateShortCodeParams struct {
+	// The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
 	Sid *string `json:"Sid,omitempty"`
 }
 
@@ -490,17 +422,7 @@ func (params *CreateShortCodeParams) SetSid(Sid string) *CreateShortCodeParams {
 	return params
 }
 
-// CreateShortCode Method for CreateShortCode
-//
 // Add a Short Code to the Proxy Number Pool for the Service.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource.
-//
-// param: optional nil or *CreateShortCodeParams - Optional Parameters:
-//
-// param: "Sid" (string) - The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
-//
-// return: ProxyV1ServiceShortCode
 func (c *DefaultApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*ProxyV1ServiceShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -527,16 +449,7 @@ func (c *DefaultApiService) CreateShortCode(ServiceSid string, params *CreateSho
 	return ps, err
 }
 
-// DeleteInteraction Method for DeleteInteraction
-//
 // Delete a specific Interaction.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete.
-//
-// param: SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Interaction resource to delete.
-//
 func (c *DefaultApiService) DeleteInteraction(ServiceSid string, SessionSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -556,16 +469,7 @@ func (c *DefaultApiService) DeleteInteraction(ServiceSid string, SessionSid stri
 	return nil
 }
 
-// DeleteParticipant Method for DeleteParticipant
-//
 // Delete a specific Participant. This is a soft-delete. The participant remains associated with the session and cannot be re-added. Participants are only permanently deleted when the [Session](https://www.twilio.com/docs/proxy/api/session) is deleted.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete.
-//
-// param: SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Participant resource to delete.
-//
 func (c *DefaultApiService) DeleteParticipant(ServiceSid string, SessionSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -585,14 +489,7 @@ func (c *DefaultApiService) DeleteParticipant(ServiceSid string, SessionSid stri
 	return nil
 }
 
-// DeletePhoneNumber Method for DeletePhoneNumber
-//
 // Delete a specific Phone Number from a Service.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the PhoneNumber resource to delete.
-//
 func (c *DefaultApiService) DeletePhoneNumber(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -611,12 +508,7 @@ func (c *DefaultApiService) DeletePhoneNumber(ServiceSid string, Sid string) err
 	return nil
 }
 
-// DeleteService Method for DeleteService
-//
 // Delete a specific Service.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Service resource to delete.
-//
 func (c *DefaultApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -634,14 +526,7 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	return nil
 }
 
-// DeleteSession Method for DeleteSession
-//
 // Delete a specific Session.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Session resource to delete.
-//
 func (c *DefaultApiService) DeleteSession(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -660,14 +545,7 @@ func (c *DefaultApiService) DeleteSession(ServiceSid string, Sid string) error {
 	return nil
 }
 
-// DeleteShortCode Method for DeleteShortCode
-//
 // Delete a specific Short Code from a Service.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) resource to delete the ShortCode resource from.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the ShortCode resource to delete.
-//
 func (c *DefaultApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -686,17 +564,7 @@ func (c *DefaultApiService) DeleteShortCode(ServiceSid string, Sid string) error
 	return nil
 }
 
-// FetchInteraction Method for FetchInteraction
-//
 // Retrieve a list of Interactions for a given [Session](https://www.twilio.com/docs/proxy/api/session).
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
-//
-// param: SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
-//
-// return: ProxyV1ServiceSessionInteraction
 func (c *DefaultApiService) FetchInteraction(ServiceSid string, SessionSid string, Sid string) (*ProxyV1ServiceSessionInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -721,17 +589,6 @@ func (c *DefaultApiService) FetchInteraction(ServiceSid string, SessionSid strin
 	return ps, err
 }
 
-// FetchMessageInteraction Method for FetchMessageInteraction
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
-//
-// param: SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
-//
-// param: ParticipantSid The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
-//
-// return: ProxyV1ServiceSessionParticipantMessageInteraction
 func (c *DefaultApiService) FetchMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*ProxyV1ServiceSessionParticipantMessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -757,17 +614,7 @@ func (c *DefaultApiService) FetchMessageInteraction(ServiceSid string, SessionSi
 	return ps, err
 }
 
-// FetchParticipant Method for FetchParticipant
-//
 // Fetch a specific Participant.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
-//
-// param: SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Participant resource to fetch.
-//
-// return: ProxyV1ServiceSessionParticipant
 func (c *DefaultApiService) FetchParticipant(ServiceSid string, SessionSid string, Sid string) (*ProxyV1ServiceSessionParticipant, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -792,15 +639,7 @@ func (c *DefaultApiService) FetchParticipant(ServiceSid string, SessionSid strin
 	return ps, err
 }
 
-// FetchPhoneNumber Method for FetchPhoneNumber
-//
 // Fetch a specific Phone Number.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the PhoneNumber resource to fetch.
-//
-// return: ProxyV1ServicePhoneNumber
 func (c *DefaultApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*ProxyV1ServicePhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -824,13 +663,7 @@ func (c *DefaultApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*Pr
 	return ps, err
 }
 
-// FetchService Method for FetchService
-//
 // Fetch a specific Service.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Service resource to fetch.
-//
-// return: ProxyV1Service
 func (c *DefaultApiService) FetchService(Sid string) (*ProxyV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -853,15 +686,7 @@ func (c *DefaultApiService) FetchService(Sid string) (*ProxyV1Service, error) {
 	return ps, err
 }
 
-// FetchSession Method for FetchSession
-//
 // Fetch a specific Session.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Session resource to fetch.
-//
-// return: ProxyV1ServiceSession
 func (c *DefaultApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV1ServiceSession, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -885,15 +710,7 @@ func (c *DefaultApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV
 	return ps, err
 }
 
-// FetchShortCode Method for FetchShortCode
-//
 // Fetch a specific Short Code.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to fetch the resource from.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the ShortCode resource to fetch.
-//
-// return: ProxyV1ServiceShortCode
 func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*ProxyV1ServiceShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -917,8 +734,9 @@ func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*Prox
 	return ps, err
 }
 
-// ListInteractionParams Optional parameters for the method 'ListInteraction'
+// Optional parameters for the method 'ListInteraction'
 type ListInteractionParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -927,19 +745,7 @@ func (params *ListInteractionParams) SetPageSize(PageSize int32) *ListInteractio
 	return params
 }
 
-// ListInteraction Method for ListInteraction
-//
 // Retrieve a list of all Interactions for a Session. A maximum of 100 records will be returned per page.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
-//
-// param: SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from.
-//
-// param: optional nil or *ListInteractionParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListInteractionResponse
 func (c *DefaultApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams) (*ListInteractionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -967,8 +773,9 @@ func (c *DefaultApiService) ListInteraction(ServiceSid string, SessionSid string
 	return ps, err
 }
 
-// ListMessageInteractionParams Optional parameters for the method 'ListMessageInteraction'
+// Optional parameters for the method 'ListMessageInteraction'
 type ListMessageInteractionParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -977,19 +784,6 @@ func (params *ListMessageInteractionParams) SetPageSize(PageSize int32) *ListMes
 	return params
 }
 
-// ListMessageInteraction Method for ListMessageInteraction
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
-//
-// param: SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from.
-//
-// param: ParticipantSid The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) to read the resources from.
-//
-// param: optional nil or *ListMessageInteractionParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListMessageInteractionResponse
 func (c *DefaultApiService) ListMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) (*ListMessageInteractionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1018,8 +812,9 @@ func (c *DefaultApiService) ListMessageInteraction(ServiceSid string, SessionSid
 	return ps, err
 }
 
-// ListParticipantParams Optional parameters for the method 'ListParticipant'
+// Optional parameters for the method 'ListParticipant'
 type ListParticipantParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1028,19 +823,7 @@ func (params *ListParticipantParams) SetPageSize(PageSize int32) *ListParticipan
 	return params
 }
 
-// ListParticipant Method for ListParticipant
-//
 // Retrieve a list of all Participants in a Session.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resources to read.
-//
-// param: SessionSid The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resources to read.
-//
-// param: optional nil or *ListParticipantParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListParticipantResponse
 func (c *DefaultApiService) ListParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams) (*ListParticipantResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1068,8 +851,9 @@ func (c *DefaultApiService) ListParticipant(ServiceSid string, SessionSid string
 	return ps, err
 }
 
-// ListPhoneNumberParams Optional parameters for the method 'ListPhoneNumber'
+// Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1078,17 +862,7 @@ func (params *ListPhoneNumberParams) SetPageSize(PageSize int32) *ListPhoneNumbe
 	return params
 }
 
-// ListPhoneNumber Method for ListPhoneNumber
-//
 // Retrieve a list of all Phone Numbers in the Proxy Number Pool for a Service. A maximum of 100 records will be returned per page.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resources to read.
-//
-// param: optional nil or *ListPhoneNumberParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListPhoneNumberResponse
 func (c *DefaultApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) (*ListPhoneNumberResponse, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1115,8 +889,9 @@ func (c *DefaultApiService) ListPhoneNumber(ServiceSid string, params *ListPhone
 	return ps, err
 }
 
-// ListServiceParams Optional parameters for the method 'ListService'
+// Optional parameters for the method 'ListService'
 type ListServiceParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1125,15 +900,7 @@ func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams 
 	return params
 }
 
-// ListService Method for ListService
-//
 // Retrieve a list of all Services for Twilio Proxy. A maximum of 100 records will be returned per page.
-//
-// param: optional nil or *ListServiceParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListServiceResponse
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
@@ -1159,8 +926,9 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 	return ps, err
 }
 
-// ListSessionParams Optional parameters for the method 'ListSession'
+// Optional parameters for the method 'ListSession'
 type ListSessionParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1169,17 +937,7 @@ func (params *ListSessionParams) SetPageSize(PageSize int32) *ListSessionParams 
 	return params
 }
 
-// ListSession Method for ListSession
-//
 // Retrieve a list of all Sessions for the Service. A maximum of 100 records will be returned per page.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to read.
-//
-// param: optional nil or *ListSessionParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSessionResponse
 func (c *DefaultApiService) ListSession(ServiceSid string, params *ListSessionParams) (*ListSessionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1206,8 +964,9 @@ func (c *DefaultApiService) ListSession(ServiceSid string, params *ListSessionPa
 	return ps, err
 }
 
-// ListShortCodeParams Optional parameters for the method 'ListShortCode'
+// Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1216,17 +975,7 @@ func (params *ListShortCodeParams) SetPageSize(PageSize int32) *ListShortCodePar
 	return params
 }
 
-// ListShortCode Method for ListShortCode
-//
 // Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A maximum of 100 records will be returned per page.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
-//
-// param: optional nil or *ListShortCodeParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListShortCodeResponse
 func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) (*ListShortCodeResponse, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1253,8 +1002,9 @@ func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCo
 	return ps, err
 }
 
-// UpdatePhoneNumberParams Optional parameters for the method 'UpdatePhoneNumber'
+// Optional parameters for the method 'UpdatePhoneNumber'
 type UpdatePhoneNumberParams struct {
+	// Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
 	IsReserved *bool `json:"IsReserved,omitempty"`
 }
 
@@ -1263,19 +1013,7 @@ func (params *UpdatePhoneNumberParams) SetIsReserved(IsReserved bool) *UpdatePho
 	return params
 }
 
-// UpdatePhoneNumber Method for UpdatePhoneNumber
-//
 // Update a specific Proxy Number.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the PhoneNumber resource to update.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the PhoneNumber resource to update.
-//
-// param: optional nil or *UpdatePhoneNumberParams - Optional Parameters:
-//
-// param: "IsReserved" (bool) - Whether the phone number should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
-//
-// return: ProxyV1ServicePhoneNumber
 func (c *DefaultApiService) UpdatePhoneNumber(ServiceSid string, Sid string, params *UpdatePhoneNumberParams) (*ProxyV1ServicePhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1303,16 +1041,24 @@ func (c *DefaultApiService) UpdatePhoneNumber(ServiceSid string, Sid string, par
 	return ps, err
 }
 
-// UpdateServiceParams Optional parameters for the method 'UpdateService'
+// Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-	CallbackUrl             *string `json:"CallbackUrl,omitempty"`
-	ChatInstanceSid         *string `json:"ChatInstanceSid,omitempty"`
-	DefaultTtl              *int32  `json:"DefaultTtl,omitempty"`
-	GeoMatchLevel           *string `json:"GeoMatchLevel,omitempty"`
-	InterceptCallbackUrl    *string `json:"InterceptCallbackUrl,omitempty"`
+	// The URL we should call when the interaction status changes.
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
+	ChatInstanceSid *string `json:"ChatInstanceSid,omitempty"`
+	// The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
+	DefaultTtl *int32 `json:"DefaultTtl,omitempty"`
+	// Where a proxy number must be located relative to the participant identifier. Can be: `country`, `area-code`, or `extended-area-code`. The default value is `country` and more specific areas than `country` are only available in North America.
+	GeoMatchLevel *string `json:"GeoMatchLevel,omitempty"`
+	// The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
+	InterceptCallbackUrl *string `json:"InterceptCallbackUrl,omitempty"`
+	// The preference for Proxy Number selection in the Service instance. Can be: `prefer-sticky` or `avoid-sticky` and the default is `prefer-sticky`. `prefer-sticky` means that we will try and select the same Proxy Number for a given participant if they have previous [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not fail if that Proxy Number cannot be used.  `avoid-sticky` means that we will try to use different Proxy Numbers as long as that is possible within a given pool rather than try and use a previously assigned number.
 	NumberSelectionBehavior *string `json:"NumberSelectionBehavior,omitempty"`
+	// The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
 	OutOfSessionCallbackUrl *string `json:"OutOfSessionCallbackUrl,omitempty"`
-	UniqueName              *string `json:"UniqueName,omitempty"`
+	// An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *UpdateServiceParams) SetCallbackUrl(CallbackUrl string) *UpdateServiceParams {
@@ -1348,31 +1094,7 @@ func (params *UpdateServiceParams) SetUniqueName(UniqueName string) *UpdateServi
 	return params
 }
 
-// UpdateService Method for UpdateService
-//
 // Update a specific Service.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Service resource to update.
-//
-// param: optional nil or *UpdateServiceParams - Optional Parameters:
-//
-// param: "CallbackUrl" (string) - The URL we should call when the interaction status changes.
-//
-// param: "ChatInstanceSid" (string) - The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
-//
-// param: "DefaultTtl" (int32) - The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
-//
-// param: "GeoMatchLevel" (string) - Where a proxy number must be located relative to the participant identifier. Can be: `country`, `area-code`, or `extended-area-code`. The default value is `country` and more specific areas than `country` are only available in North America.
-//
-// param: "InterceptCallbackUrl" (string) - The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
-//
-// param: "NumberSelectionBehavior" (string) - The preference for Proxy Number selection in the Service instance. Can be: `prefer-sticky` or `avoid-sticky` and the default is `prefer-sticky`. `prefer-sticky` means that we will try and select the same Proxy Number for a given participant if they have previous [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not fail if that Proxy Number cannot be used.  `avoid-sticky` means that we will try to use different Proxy Numbers as long as that is possible within a given pool rather than try and use a previously assigned number.
-//
-// param: "OutOfSessionCallbackUrl" (string) - The URL we should call when an inbound call or SMS action occurs on a closed or non-existent Session. If your server (or a Twilio [function](https://www.twilio.com/functions)) responds with valid [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This means it is possible, for example, to play a message for a call, send an automated text message response, or redirect a call to another Phone Number. See [Out-of-Session Callback Response Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide) for more information.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
-//
-// return: ProxyV1Service
 func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*ProxyV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1420,12 +1142,16 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	return ps, err
 }
 
-// UpdateSessionParams Optional parameters for the method 'UpdateSession'
+// Optional parameters for the method 'UpdateSession'
 type UpdateSessionParams struct {
-	DateExpiry                *time.Time `json:"DateExpiry,omitempty"`
-	FailOnParticipantConflict *bool      `json:"FailOnParticipantConflict,omitempty"`
-	Status                    *string    `json:"Status,omitempty"`
-	Ttl                       *int32     `json:"Ttl,omitempty"`
+	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
+	DateExpiry *time.Time `json:"DateExpiry,omitempty"`
+	// [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to return a 400 error (Twilio error code 80604) when a request to set a Session to in-progress would cause Participants with the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. If not provided, requests will be allowed to succeed, and a Debugger notification (80801) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
+	FailOnParticipantConflict *bool `json:"FailOnParticipantConflict,omitempty"`
+	// The new status of the resource. Can be: `in-progress` to re-open a session or `closed` to close a session.
+	Status *string `json:"Status,omitempty"`
+	// The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 func (params *UpdateSessionParams) SetDateExpiry(DateExpiry time.Time) *UpdateSessionParams {
@@ -1445,25 +1171,7 @@ func (params *UpdateSessionParams) SetTtl(Ttl int32) *UpdateSessionParams {
 	return params
 }
 
-// UpdateSession Method for UpdateSession
-//
 // Update a specific Session.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Session resource to update.
-//
-// param: optional nil or *UpdateSessionParams - Optional Parameters:
-//
-// param: "DateExpiry" (time.Time) - The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session should expire. If this is value is present, it overrides the `ttl` value.
-//
-// param: "FailOnParticipantConflict" (bool) - [Experimental] For accounts with the ProxyAllowParticipantConflict account flag, setting to true enables per-request opt-in to allowing Proxy to return a 400 error (Twilio error code 80604) when a request to set a Session to in-progress would cause Participants with the same Identifier/ProxyIdentifier pair to be active in multiple Sessions. If not provided, requests will be allowed to succeed, and a Debugger notification (80801) will be emitted. Having multiple, active Participants with the same Identifier/ProxyIdentifier pair causes calls and messages from affected Participants to be routed incorrectly. Please note, the default behavior for accounts without the ProxyAllowParticipantConflict flag is to reject the request as described.  This will eventually be the default for all accounts.
-//
-// param: "Status" (string) - The new status of the resource. Can be: `in-progress` to re-open a session or `closed` to close a session.
-//
-// param: "Ttl" (int32) - The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-//
-// return: ProxyV1ServiceSession
 func (c *DefaultApiService) UpdateSession(ServiceSid string, Sid string, params *UpdateSessionParams) (*ProxyV1ServiceSession, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1500,8 +1208,9 @@ func (c *DefaultApiService) UpdateSession(ServiceSid string, Sid string, params 
 	return ps, err
 }
 
-// UpdateShortCodeParams Optional parameters for the method 'UpdateShortCode'
+// Optional parameters for the method 'UpdateShortCode'
 type UpdateShortCodeParams struct {
+	// Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
 	IsReserved *bool `json:"IsReserved,omitempty"`
 }
 
@@ -1510,19 +1219,7 @@ func (params *UpdateShortCodeParams) SetIsReserved(IsReserved bool) *UpdateShort
 	return params
 }
 
-// UpdateShortCode Method for UpdateShortCode
-//
 // Update a specific Short Code.
-//
-// param: ServiceSid The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resource to update.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the ShortCode resource to update.
-//
-// param: optional nil or *UpdateShortCodeParams - Optional Parameters:
-//
-// param: "IsReserved" (bool) - Whether the short code should be reserved and not be assigned to a participant using proxy pool logic. See [Reserved Phone Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more information.
-//
-// return: ProxyV1ServiceShortCode
 func (c *DefaultApiService) UpdateShortCode(ServiceSid string, Sid string, params *UpdateShortCodeParams) (*ProxyV1ServiceShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

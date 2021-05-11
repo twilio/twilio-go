@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -32,12 +32,16 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 	}
 }
 
-// CreateChannelParams Optional parameters for the method 'CreateChannel'
+// Optional parameters for the method 'CreateChannel'
 type CreateChannelParams struct {
-	Attributes   *string `json:"Attributes,omitempty"`
+	//
+	Attributes *string `json:"Attributes,omitempty"`
+	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Type         *string `json:"Type,omitempty"`
-	UniqueName   *string `json:"UniqueName,omitempty"`
+	//
+	Type *string `json:"Type,omitempty"`
+	//
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *CreateChannelParams) SetAttributes(Attributes string) *CreateChannelParams {
@@ -57,21 +61,6 @@ func (params *CreateChannelParams) SetUniqueName(UniqueName string) *CreateChann
 	return params
 }
 
-// CreateChannel Method for CreateChannel
-//
-// param: ServiceSid
-//
-// param: optional nil or *CreateChannelParams - Optional Parameters:
-//
-// param: "Attributes" (string) -
-//
-// param: "FriendlyName" (string) -
-//
-// param: "Type" (string) -
-//
-// param: "UniqueName" (string) -
-//
-// return: IpMessagingV1ServiceChannel
 func (c *DefaultApiService) CreateChannel(ServiceSid string, params *CreateChannelParams) (*IpMessagingV1ServiceChannel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -107,15 +96,22 @@ func (c *DefaultApiService) CreateChannel(ServiceSid string, params *CreateChann
 	return ps, err
 }
 
-// CreateCredentialParams Optional parameters for the method 'CreateCredential'
+// Optional parameters for the method 'CreateCredential'
 type CreateCredentialParams struct {
-	ApiKey       *string `json:"ApiKey,omitempty"`
-	Certificate  *string `json:"Certificate,omitempty"`
+	//
+	ApiKey *string `json:"ApiKey,omitempty"`
+	//
+	Certificate *string `json:"Certificate,omitempty"`
+	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PrivateKey   *string `json:"PrivateKey,omitempty"`
-	Sandbox      *bool   `json:"Sandbox,omitempty"`
-	Secret       *string `json:"Secret,omitempty"`
-	Type         *string `json:"Type,omitempty"`
+	//
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	//
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	//
+	Secret *string `json:"Secret,omitempty"`
+	//
+	Type *string `json:"Type,omitempty"`
 }
 
 func (params *CreateCredentialParams) SetApiKey(ApiKey string) *CreateCredentialParams {
@@ -147,25 +143,6 @@ func (params *CreateCredentialParams) SetType(Type string) *CreateCredentialPara
 	return params
 }
 
-// CreateCredential Method for CreateCredential
-//
-// param: optional nil or *CreateCredentialParams - Optional Parameters:
-//
-// param: "ApiKey" (string) -
-//
-// param: "Certificate" (string) -
-//
-// param: "FriendlyName" (string) -
-//
-// param: "PrivateKey" (string) -
-//
-// param: "Sandbox" (bool) -
-//
-// param: "Secret" (string) -
-//
-// param: "Type" (string) -
-//
-// return: IpMessagingV1Credential
 func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*IpMessagingV1Credential, error) {
 	path := "/v1/Credentials"
 
@@ -209,10 +186,12 @@ func (c *DefaultApiService) CreateCredential(params *CreateCredentialParams) (*I
 	return ps, err
 }
 
-// CreateInviteParams Optional parameters for the method 'CreateInvite'
+// Optional parameters for the method 'CreateInvite'
 type CreateInviteParams struct {
+	//
 	Identity *string `json:"Identity,omitempty"`
-	RoleSid  *string `json:"RoleSid,omitempty"`
+	//
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 func (params *CreateInviteParams) SetIdentity(Identity string) *CreateInviteParams {
@@ -224,19 +203,6 @@ func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams
 	return params
 }
 
-// CreateInvite Method for CreateInvite
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: optional nil or *CreateInviteParams - Optional Parameters:
-//
-// param: "Identity" (string) -
-//
-// param: "RoleSid" (string) -
-//
-// return: IpMessagingV1ServiceChannelInvite
 func (c *DefaultApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*IpMessagingV1ServiceChannelInvite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -267,10 +233,12 @@ func (c *DefaultApiService) CreateInvite(ServiceSid string, ChannelSid string, p
 	return ps, err
 }
 
-// CreateMemberParams Optional parameters for the method 'CreateMember'
+// Optional parameters for the method 'CreateMember'
 type CreateMemberParams struct {
+	//
 	Identity *string `json:"Identity,omitempty"`
-	RoleSid  *string `json:"RoleSid,omitempty"`
+	//
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 func (params *CreateMemberParams) SetIdentity(Identity string) *CreateMemberParams {
@@ -282,19 +250,6 @@ func (params *CreateMemberParams) SetRoleSid(RoleSid string) *CreateMemberParams
 	return params
 }
 
-// CreateMember Method for CreateMember
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: optional nil or *CreateMemberParams - Optional Parameters:
-//
-// param: "Identity" (string) -
-//
-// param: "RoleSid" (string) -
-//
-// return: IpMessagingV1ServiceChannelMember
 func (c *DefaultApiService) CreateMember(ServiceSid string, ChannelSid string, params *CreateMemberParams) (*IpMessagingV1ServiceChannelMember, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -325,11 +280,14 @@ func (c *DefaultApiService) CreateMember(ServiceSid string, ChannelSid string, p
 	return ps, err
 }
 
-// CreateMessageParams Optional parameters for the method 'CreateMessage'
+// Optional parameters for the method 'CreateMessage'
 type CreateMessageParams struct {
+	//
 	Attributes *string `json:"Attributes,omitempty"`
-	Body       *string `json:"Body,omitempty"`
-	From       *string `json:"From,omitempty"`
+	//
+	Body *string `json:"Body,omitempty"`
+	//
+	From *string `json:"From,omitempty"`
 }
 
 func (params *CreateMessageParams) SetAttributes(Attributes string) *CreateMessageParams {
@@ -345,21 +303,6 @@ func (params *CreateMessageParams) SetFrom(From string) *CreateMessageParams {
 	return params
 }
 
-// CreateMessage Method for CreateMessage
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: optional nil or *CreateMessageParams - Optional Parameters:
-//
-// param: "Attributes" (string) -
-//
-// param: "Body" (string) -
-//
-// param: "From" (string) -
-//
-// return: IpMessagingV1ServiceChannelMessage
 func (c *DefaultApiService) CreateMessage(ServiceSid string, ChannelSid string, params *CreateMessageParams) (*IpMessagingV1ServiceChannelMessage, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -393,11 +336,14 @@ func (c *DefaultApiService) CreateMessage(ServiceSid string, ChannelSid string, 
 	return ps, err
 }
 
-// CreateRoleParams Optional parameters for the method 'CreateRole'
+// Optional parameters for the method 'CreateRole'
 type CreateRoleParams struct {
-	FriendlyName *string   `json:"FriendlyName,omitempty"`
-	Permission   *[]string `json:"Permission,omitempty"`
-	Type         *string   `json:"Type,omitempty"`
+	//
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	//
+	Permission *[]string `json:"Permission,omitempty"`
+	//
+	Type *string `json:"Type,omitempty"`
 }
 
 func (params *CreateRoleParams) SetFriendlyName(FriendlyName string) *CreateRoleParams {
@@ -413,19 +359,6 @@ func (params *CreateRoleParams) SetType(Type string) *CreateRoleParams {
 	return params
 }
 
-// CreateRole Method for CreateRole
-//
-// param: ServiceSid
-//
-// param: optional nil or *CreateRoleParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) -
-//
-// param: "Permission" ([]string) -
-//
-// param: "Type" (string) -
-//
-// return: IpMessagingV1ServiceRole
 func (c *DefaultApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*IpMessagingV1ServiceRole, error) {
 	path := "/v1/Services/{ServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -458,8 +391,9 @@ func (c *DefaultApiService) CreateRole(ServiceSid string, params *CreateRolePara
 	return ps, err
 }
 
-// CreateServiceParams Optional parameters for the method 'CreateService'
+// Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
+	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
@@ -468,13 +402,6 @@ func (params *CreateServiceParams) SetFriendlyName(FriendlyName string) *CreateS
 	return params
 }
 
-// CreateService Method for CreateService
-//
-// param: optional nil or *CreateServiceParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) -
-//
-// return: IpMessagingV1Service
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*IpMessagingV1Service, error) {
 	path := "/v1/Services"
 
@@ -500,12 +427,16 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*IpMessa
 	return ps, err
 }
 
-// CreateUserParams Optional parameters for the method 'CreateUser'
+// Optional parameters for the method 'CreateUser'
 type CreateUserParams struct {
-	Attributes   *string `json:"Attributes,omitempty"`
+	//
+	Attributes *string `json:"Attributes,omitempty"`
+	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	Identity     *string `json:"Identity,omitempty"`
-	RoleSid      *string `json:"RoleSid,omitempty"`
+	//
+	Identity *string `json:"Identity,omitempty"`
+	//
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 func (params *CreateUserParams) SetAttributes(Attributes string) *CreateUserParams {
@@ -525,21 +456,6 @@ func (params *CreateUserParams) SetRoleSid(RoleSid string) *CreateUserParams {
 	return params
 }
 
-// CreateUser Method for CreateUser
-//
-// param: ServiceSid
-//
-// param: optional nil or *CreateUserParams - Optional Parameters:
-//
-// param: "Attributes" (string) -
-//
-// param: "FriendlyName" (string) -
-//
-// param: "Identity" (string) -
-//
-// param: "RoleSid" (string) -
-//
-// return: IpMessagingV1ServiceUser
 func (c *DefaultApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*IpMessagingV1ServiceUser, error) {
 	path := "/v1/Services/{ServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -575,12 +491,6 @@ func (c *DefaultApiService) CreateUser(ServiceSid string, params *CreateUserPara
 	return ps, err
 }
 
-// DeleteChannel Method for DeleteChannel
-//
-// param: ServiceSid
-//
-// param: Sid
-//
 func (c *DefaultApiService) DeleteChannel(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -599,10 +509,6 @@ func (c *DefaultApiService) DeleteChannel(ServiceSid string, Sid string) error {
 	return nil
 }
 
-// DeleteCredential Method for DeleteCredential
-//
-// param: Sid
-//
 func (c *DefaultApiService) DeleteCredential(Sid string) error {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -620,14 +526,6 @@ func (c *DefaultApiService) DeleteCredential(Sid string) error {
 	return nil
 }
 
-// DeleteInvite Method for DeleteInvite
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: Sid
-//
 func (c *DefaultApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -647,14 +545,6 @@ func (c *DefaultApiService) DeleteInvite(ServiceSid string, ChannelSid string, S
 	return nil
 }
 
-// DeleteMember Method for DeleteMember
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: Sid
-//
 func (c *DefaultApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -674,14 +564,6 @@ func (c *DefaultApiService) DeleteMember(ServiceSid string, ChannelSid string, S
 	return nil
 }
 
-// DeleteMessage Method for DeleteMessage
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: Sid
-//
 func (c *DefaultApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -701,12 +583,6 @@ func (c *DefaultApiService) DeleteMessage(ServiceSid string, ChannelSid string, 
 	return nil
 }
 
-// DeleteRole Method for DeleteRole
-//
-// param: ServiceSid
-//
-// param: Sid
-//
 func (c *DefaultApiService) DeleteRole(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -725,10 +601,6 @@ func (c *DefaultApiService) DeleteRole(ServiceSid string, Sid string) error {
 	return nil
 }
 
-// DeleteService Method for DeleteService
-//
-// param: Sid
-//
 func (c *DefaultApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -746,12 +618,6 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	return nil
 }
 
-// DeleteUser Method for DeleteUser
-//
-// param: ServiceSid
-//
-// param: Sid
-//
 func (c *DefaultApiService) DeleteUser(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -770,13 +636,6 @@ func (c *DefaultApiService) DeleteUser(ServiceSid string, Sid string) error {
 	return nil
 }
 
-// FetchChannel Method for FetchChannel
-//
-// param: ServiceSid
-//
-// param: Sid
-//
-// return: IpMessagingV1ServiceChannel
 func (c *DefaultApiService) FetchChannel(ServiceSid string, Sid string) (*IpMessagingV1ServiceChannel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -800,11 +659,6 @@ func (c *DefaultApiService) FetchChannel(ServiceSid string, Sid string) (*IpMess
 	return ps, err
 }
 
-// FetchCredential Method for FetchCredential
-//
-// param: Sid
-//
-// return: IpMessagingV1Credential
 func (c *DefaultApiService) FetchCredential(Sid string) (*IpMessagingV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -827,15 +681,6 @@ func (c *DefaultApiService) FetchCredential(Sid string) (*IpMessagingV1Credentia
 	return ps, err
 }
 
-// FetchInvite Method for FetchInvite
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: Sid
-//
-// return: IpMessagingV1ServiceChannelInvite
 func (c *DefaultApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1ServiceChannelInvite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -860,15 +705,6 @@ func (c *DefaultApiService) FetchInvite(ServiceSid string, ChannelSid string, Si
 	return ps, err
 }
 
-// FetchMember Method for FetchMember
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: Sid
-//
-// return: IpMessagingV1ServiceChannelMember
 func (c *DefaultApiService) FetchMember(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1ServiceChannelMember, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -893,15 +729,6 @@ func (c *DefaultApiService) FetchMember(ServiceSid string, ChannelSid string, Si
 	return ps, err
 }
 
-// FetchMessage Method for FetchMessage
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: Sid
-//
-// return: IpMessagingV1ServiceChannelMessage
 func (c *DefaultApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1ServiceChannelMessage, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -926,13 +753,6 @@ func (c *DefaultApiService) FetchMessage(ServiceSid string, ChannelSid string, S
 	return ps, err
 }
 
-// FetchRole Method for FetchRole
-//
-// param: ServiceSid
-//
-// param: Sid
-//
-// return: IpMessagingV1ServiceRole
 func (c *DefaultApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagingV1ServiceRole, error) {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -956,11 +776,6 @@ func (c *DefaultApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagi
 	return ps, err
 }
 
-// FetchService Method for FetchService
-//
-// param: Sid
-//
-// return: IpMessagingV1Service
 func (c *DefaultApiService) FetchService(Sid string) (*IpMessagingV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -983,13 +798,6 @@ func (c *DefaultApiService) FetchService(Sid string) (*IpMessagingV1Service, err
 	return ps, err
 }
 
-// FetchUser Method for FetchUser
-//
-// param: ServiceSid
-//
-// param: Sid
-//
-// return: IpMessagingV1ServiceUser
 func (c *DefaultApiService) FetchUser(ServiceSid string, Sid string) (*IpMessagingV1ServiceUser, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1013,10 +821,12 @@ func (c *DefaultApiService) FetchUser(ServiceSid string, Sid string) (*IpMessagi
 	return ps, err
 }
 
-// ListChannelParams Optional parameters for the method 'ListChannel'
+// Optional parameters for the method 'ListChannel'
 type ListChannelParams struct {
-	Type     *[]string `json:"Type,omitempty"`
-	PageSize *int32    `json:"PageSize,omitempty"`
+	//
+	Type *[]string `json:"Type,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListChannelParams) SetType(Type []string) *ListChannelParams {
@@ -1028,17 +838,6 @@ func (params *ListChannelParams) SetPageSize(PageSize int32) *ListChannelParams 
 	return params
 }
 
-// ListChannel Method for ListChannel
-//
-// param: ServiceSid
-//
-// param: optional nil or *ListChannelParams - Optional Parameters:
-//
-// param: "Type" ([]string) -
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListChannelResponse
 func (c *DefaultApiService) ListChannel(ServiceSid string, params *ListChannelParams) (*ListChannelResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1068,8 +867,9 @@ func (c *DefaultApiService) ListChannel(ServiceSid string, params *ListChannelPa
 	return ps, err
 }
 
-// ListCredentialParams Optional parameters for the method 'ListCredential'
+// Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1078,13 +878,6 @@ func (params *ListCredentialParams) SetPageSize(PageSize int32) *ListCredentialP
 	return params
 }
 
-// ListCredential Method for ListCredential
-//
-// param: optional nil or *ListCredentialParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListCredentialResponse
 func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListCredentialResponse, error) {
 	path := "/v1/Credentials"
 
@@ -1110,10 +903,12 @@ func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListC
 	return ps, err
 }
 
-// ListInviteParams Optional parameters for the method 'ListInvite'
+// Optional parameters for the method 'ListInvite'
 type ListInviteParams struct {
+	//
 	Identity *[]string `json:"Identity,omitempty"`
-	PageSize *int32    `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListInviteParams) SetIdentity(Identity []string) *ListInviteParams {
@@ -1125,19 +920,6 @@ func (params *ListInviteParams) SetPageSize(PageSize int32) *ListInviteParams {
 	return params
 }
 
-// ListInvite Method for ListInvite
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: optional nil or *ListInviteParams - Optional Parameters:
-//
-// param: "Identity" ([]string) -
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListInviteResponse
 func (c *DefaultApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) (*ListInviteResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1168,10 +950,12 @@ func (c *DefaultApiService) ListInvite(ServiceSid string, ChannelSid string, par
 	return ps, err
 }
 
-// ListMemberParams Optional parameters for the method 'ListMember'
+// Optional parameters for the method 'ListMember'
 type ListMemberParams struct {
+	//
 	Identity *[]string `json:"Identity,omitempty"`
-	PageSize *int32    `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListMemberParams) SetIdentity(Identity []string) *ListMemberParams {
@@ -1183,19 +967,6 @@ func (params *ListMemberParams) SetPageSize(PageSize int32) *ListMemberParams {
 	return params
 }
 
-// ListMember Method for ListMember
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: optional nil or *ListMemberParams - Optional Parameters:
-//
-// param: "Identity" ([]string) -
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListMemberResponse
 func (c *DefaultApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams) (*ListMemberResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1226,10 +997,12 @@ func (c *DefaultApiService) ListMember(ServiceSid string, ChannelSid string, par
 	return ps, err
 }
 
-// ListMessageParams Optional parameters for the method 'ListMessage'
+// Optional parameters for the method 'ListMessage'
 type ListMessageParams struct {
-	Order    *string `json:"Order,omitempty"`
-	PageSize *int32  `json:"PageSize,omitempty"`
+	//
+	Order *string `json:"Order,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListMessageParams) SetOrder(Order string) *ListMessageParams {
@@ -1241,19 +1014,6 @@ func (params *ListMessageParams) SetPageSize(PageSize int32) *ListMessageParams 
 	return params
 }
 
-// ListMessage Method for ListMessage
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: optional nil or *ListMessageParams - Optional Parameters:
-//
-// param: "Order" (string) -
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListMessageResponse
 func (c *DefaultApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) (*ListMessageResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1284,8 +1044,9 @@ func (c *DefaultApiService) ListMessage(ServiceSid string, ChannelSid string, pa
 	return ps, err
 }
 
-// ListRoleParams Optional parameters for the method 'ListRole'
+// Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1294,15 +1055,6 @@ func (params *ListRoleParams) SetPageSize(PageSize int32) *ListRoleParams {
 	return params
 }
 
-// ListRole Method for ListRole
-//
-// param: ServiceSid
-//
-// param: optional nil or *ListRoleParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListRoleResponse
 func (c *DefaultApiService) ListRole(ServiceSid string, params *ListRoleParams) (*ListRoleResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1329,8 +1081,9 @@ func (c *DefaultApiService) ListRole(ServiceSid string, params *ListRoleParams) 
 	return ps, err
 }
 
-// ListServiceParams Optional parameters for the method 'ListService'
+// Optional parameters for the method 'ListService'
 type ListServiceParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1339,13 +1092,6 @@ func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams 
 	return params
 }
 
-// ListService Method for ListService
-//
-// param: optional nil or *ListServiceParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListServiceResponse
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
@@ -1371,8 +1117,9 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 	return ps, err
 }
 
-// ListUserParams Optional parameters for the method 'ListUser'
+// Optional parameters for the method 'ListUser'
 type ListUserParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1381,15 +1128,6 @@ func (params *ListUserParams) SetPageSize(PageSize int32) *ListUserParams {
 	return params
 }
 
-// ListUser Method for ListUser
-//
-// param: ServiceSid
-//
-// param: optional nil or *ListUserParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUserResponse
 func (c *DefaultApiService) ListUser(ServiceSid string, params *ListUserParams) (*ListUserResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1416,8 +1154,9 @@ func (c *DefaultApiService) ListUser(ServiceSid string, params *ListUserParams) 
 	return ps, err
 }
 
-// ListUserChannelParams Optional parameters for the method 'ListUserChannel'
+// Optional parameters for the method 'ListUserChannel'
 type ListUserChannelParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1426,17 +1165,6 @@ func (params *ListUserChannelParams) SetPageSize(PageSize int32) *ListUserChanne
 	return params
 }
 
-// ListUserChannel Method for ListUserChannel
-//
-// param: ServiceSid
-//
-// param: UserSid
-//
-// param: optional nil or *ListUserChannelParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUserChannelResponse
 func (c *DefaultApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) (*ListUserChannelResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1464,11 +1192,14 @@ func (c *DefaultApiService) ListUserChannel(ServiceSid string, UserSid string, p
 	return ps, err
 }
 
-// UpdateChannelParams Optional parameters for the method 'UpdateChannel'
+// Optional parameters for the method 'UpdateChannel'
 type UpdateChannelParams struct {
-	Attributes   *string `json:"Attributes,omitempty"`
+	//
+	Attributes *string `json:"Attributes,omitempty"`
+	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName   *string `json:"UniqueName,omitempty"`
+	//
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *UpdateChannelParams) SetAttributes(Attributes string) *UpdateChannelParams {
@@ -1484,21 +1215,6 @@ func (params *UpdateChannelParams) SetUniqueName(UniqueName string) *UpdateChann
 	return params
 }
 
-// UpdateChannel Method for UpdateChannel
-//
-// param: ServiceSid
-//
-// param: Sid
-//
-// param: optional nil or *UpdateChannelParams - Optional Parameters:
-//
-// param: "Attributes" (string) -
-//
-// param: "FriendlyName" (string) -
-//
-// param: "UniqueName" (string) -
-//
-// return: IpMessagingV1ServiceChannel
 func (c *DefaultApiService) UpdateChannel(ServiceSid string, Sid string, params *UpdateChannelParams) (*IpMessagingV1ServiceChannel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1532,14 +1248,20 @@ func (c *DefaultApiService) UpdateChannel(ServiceSid string, Sid string, params 
 	return ps, err
 }
 
-// UpdateCredentialParams Optional parameters for the method 'UpdateCredential'
+// Optional parameters for the method 'UpdateCredential'
 type UpdateCredentialParams struct {
-	ApiKey       *string `json:"ApiKey,omitempty"`
-	Certificate  *string `json:"Certificate,omitempty"`
+	//
+	ApiKey *string `json:"ApiKey,omitempty"`
+	//
+	Certificate *string `json:"Certificate,omitempty"`
+	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PrivateKey   *string `json:"PrivateKey,omitempty"`
-	Sandbox      *bool   `json:"Sandbox,omitempty"`
-	Secret       *string `json:"Secret,omitempty"`
+	//
+	PrivateKey *string `json:"PrivateKey,omitempty"`
+	//
+	Sandbox *bool `json:"Sandbox,omitempty"`
+	//
+	Secret *string `json:"Secret,omitempty"`
 }
 
 func (params *UpdateCredentialParams) SetApiKey(ApiKey string) *UpdateCredentialParams {
@@ -1567,25 +1289,6 @@ func (params *UpdateCredentialParams) SetSecret(Secret string) *UpdateCredential
 	return params
 }
 
-// UpdateCredential Method for UpdateCredential
-//
-// param: Sid
-//
-// param: optional nil or *UpdateCredentialParams - Optional Parameters:
-//
-// param: "ApiKey" (string) -
-//
-// param: "Certificate" (string) -
-//
-// param: "FriendlyName" (string) -
-//
-// param: "PrivateKey" (string) -
-//
-// param: "Sandbox" (bool) -
-//
-// param: "Secret" (string) -
-//
-// return: IpMessagingV1Credential
 func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentialParams) (*IpMessagingV1Credential, error) {
 	path := "/v1/Credentials/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1627,10 +1330,12 @@ func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentia
 	return ps, err
 }
 
-// UpdateMemberParams Optional parameters for the method 'UpdateMember'
+// Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
-	LastConsumedMessageIndex *int32  `json:"LastConsumedMessageIndex,omitempty"`
-	RoleSid                  *string `json:"RoleSid,omitempty"`
+	//
+	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	//
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int32) *UpdateMemberParams {
@@ -1642,21 +1347,6 @@ func (params *UpdateMemberParams) SetRoleSid(RoleSid string) *UpdateMemberParams
 	return params
 }
 
-// UpdateMember Method for UpdateMember
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: Sid
-//
-// param: optional nil or *UpdateMemberParams - Optional Parameters:
-//
-// param: "LastConsumedMessageIndex" (*int32) -
-//
-// param: "RoleSid" (string) -
-//
-// return: IpMessagingV1ServiceChannelMember
 func (c *DefaultApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*IpMessagingV1ServiceChannelMember, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1688,10 +1378,12 @@ func (c *DefaultApiService) UpdateMember(ServiceSid string, ChannelSid string, S
 	return ps, err
 }
 
-// UpdateMessageParams Optional parameters for the method 'UpdateMessage'
+// Optional parameters for the method 'UpdateMessage'
 type UpdateMessageParams struct {
+	//
 	Attributes *string `json:"Attributes,omitempty"`
-	Body       *string `json:"Body,omitempty"`
+	//
+	Body *string `json:"Body,omitempty"`
 }
 
 func (params *UpdateMessageParams) SetAttributes(Attributes string) *UpdateMessageParams {
@@ -1703,21 +1395,6 @@ func (params *UpdateMessageParams) SetBody(Body string) *UpdateMessageParams {
 	return params
 }
 
-// UpdateMessage Method for UpdateMessage
-//
-// param: ServiceSid
-//
-// param: ChannelSid
-//
-// param: Sid
-//
-// param: optional nil or *UpdateMessageParams - Optional Parameters:
-//
-// param: "Attributes" (string) -
-//
-// param: "Body" (string) -
-//
-// return: IpMessagingV1ServiceChannelMessage
 func (c *DefaultApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*IpMessagingV1ServiceChannelMessage, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1749,8 +1426,9 @@ func (c *DefaultApiService) UpdateMessage(ServiceSid string, ChannelSid string, 
 	return ps, err
 }
 
-// UpdateRoleParams Optional parameters for the method 'UpdateRole'
+// Optional parameters for the method 'UpdateRole'
 type UpdateRoleParams struct {
+	//
 	Permission *[]string `json:"Permission,omitempty"`
 }
 
@@ -1759,17 +1437,6 @@ func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRolePa
 	return params
 }
 
-// UpdateRole Method for UpdateRole
-//
-// param: ServiceSid
-//
-// param: Sid
-//
-// param: optional nil or *UpdateRoleParams - Optional Parameters:
-//
-// param: "Permission" ([]string) -
-//
-// return: IpMessagingV1ServiceRole
 func (c *DefaultApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRoleParams) (*IpMessagingV1ServiceRole, error) {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1797,62 +1464,116 @@ func (c *DefaultApiService) UpdateRole(ServiceSid string, Sid string, params *Up
 	return ps, err
 }
 
-// UpdateServiceParams Optional parameters for the method 'UpdateService'
+// Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-	ConsumptionReportInterval               *int32    `json:"ConsumptionReportInterval,omitempty"`
-	DefaultChannelCreatorRoleSid            *string   `json:"DefaultChannelCreatorRoleSid,omitempty"`
-	DefaultChannelRoleSid                   *string   `json:"DefaultChannelRoleSid,omitempty"`
-	DefaultServiceRoleSid                   *string   `json:"DefaultServiceRoleSid,omitempty"`
-	FriendlyName                            *string   `json:"FriendlyName,omitempty"`
-	LimitsChannelMembers                    *int32    `json:"Limits.ChannelMembers,omitempty"`
-	LimitsUserChannels                      *int32    `json:"Limits.UserChannels,omitempty"`
-	NotificationsAddedToChannelEnabled      *bool     `json:"Notifications.AddedToChannel.Enabled,omitempty"`
-	NotificationsAddedToChannelTemplate     *string   `json:"Notifications.AddedToChannel.Template,omitempty"`
-	NotificationsInvitedToChannelEnabled    *bool     `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
-	NotificationsInvitedToChannelTemplate   *string   `json:"Notifications.InvitedToChannel.Template,omitempty"`
-	NotificationsNewMessageEnabled          *bool     `json:"Notifications.NewMessage.Enabled,omitempty"`
-	NotificationsNewMessageTemplate         *string   `json:"Notifications.NewMessage.Template,omitempty"`
-	NotificationsRemovedFromChannelEnabled  *bool     `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
-	NotificationsRemovedFromChannelTemplate *string   `json:"Notifications.RemovedFromChannel.Template,omitempty"`
-	PostWebhookUrl                          *string   `json:"PostWebhookUrl,omitempty"`
-	PreWebhookUrl                           *string   `json:"PreWebhookUrl,omitempty"`
-	ReachabilityEnabled                     *bool     `json:"ReachabilityEnabled,omitempty"`
-	ReadStatusEnabled                       *bool     `json:"ReadStatusEnabled,omitempty"`
-	TypingIndicatorTimeout                  *int32    `json:"TypingIndicatorTimeout,omitempty"`
-	WebhookFilters                          *[]string `json:"WebhookFilters,omitempty"`
-	WebhookMethod                           *string   `json:"WebhookMethod,omitempty"`
-	WebhooksOnChannelAddMethod              *string   `json:"Webhooks.OnChannelAdd.Method,omitempty"`
-	WebhooksOnChannelAddUrl                 *string   `json:"Webhooks.OnChannelAdd.Url,omitempty"`
-	WebhooksOnChannelAddedMethod            *string   `json:"Webhooks.OnChannelAdded.Method,omitempty"`
-	WebhooksOnChannelAddedUrl               *string   `json:"Webhooks.OnChannelAdded.Url,omitempty"`
-	WebhooksOnChannelDestroyMethod          *string   `json:"Webhooks.OnChannelDestroy.Method,omitempty"`
-	WebhooksOnChannelDestroyUrl             *string   `json:"Webhooks.OnChannelDestroy.Url,omitempty"`
-	WebhooksOnChannelDestroyedMethod        *string   `json:"Webhooks.OnChannelDestroyed.Method,omitempty"`
-	WebhooksOnChannelDestroyedUrl           *string   `json:"Webhooks.OnChannelDestroyed.Url,omitempty"`
-	WebhooksOnChannelUpdateMethod           *string   `json:"Webhooks.OnChannelUpdate.Method,omitempty"`
-	WebhooksOnChannelUpdateUrl              *string   `json:"Webhooks.OnChannelUpdate.Url,omitempty"`
-	WebhooksOnChannelUpdatedMethod          *string   `json:"Webhooks.OnChannelUpdated.Method,omitempty"`
-	WebhooksOnChannelUpdatedUrl             *string   `json:"Webhooks.OnChannelUpdated.Url,omitempty"`
-	WebhooksOnMemberAddMethod               *string   `json:"Webhooks.OnMemberAdd.Method,omitempty"`
-	WebhooksOnMemberAddUrl                  *string   `json:"Webhooks.OnMemberAdd.Url,omitempty"`
-	WebhooksOnMemberAddedMethod             *string   `json:"Webhooks.OnMemberAdded.Method,omitempty"`
-	WebhooksOnMemberAddedUrl                *string   `json:"Webhooks.OnMemberAdded.Url,omitempty"`
-	WebhooksOnMemberRemoveMethod            *string   `json:"Webhooks.OnMemberRemove.Method,omitempty"`
-	WebhooksOnMemberRemoveUrl               *string   `json:"Webhooks.OnMemberRemove.Url,omitempty"`
-	WebhooksOnMemberRemovedMethod           *string   `json:"Webhooks.OnMemberRemoved.Method,omitempty"`
-	WebhooksOnMemberRemovedUrl              *string   `json:"Webhooks.OnMemberRemoved.Url,omitempty"`
-	WebhooksOnMessageRemoveMethod           *string   `json:"Webhooks.OnMessageRemove.Method,omitempty"`
-	WebhooksOnMessageRemoveUrl              *string   `json:"Webhooks.OnMessageRemove.Url,omitempty"`
-	WebhooksOnMessageRemovedMethod          *string   `json:"Webhooks.OnMessageRemoved.Method,omitempty"`
-	WebhooksOnMessageRemovedUrl             *string   `json:"Webhooks.OnMessageRemoved.Url,omitempty"`
-	WebhooksOnMessageSendMethod             *string   `json:"Webhooks.OnMessageSend.Method,omitempty"`
-	WebhooksOnMessageSendUrl                *string   `json:"Webhooks.OnMessageSend.Url,omitempty"`
-	WebhooksOnMessageSentMethod             *string   `json:"Webhooks.OnMessageSent.Method,omitempty"`
-	WebhooksOnMessageSentUrl                *string   `json:"Webhooks.OnMessageSent.Url,omitempty"`
-	WebhooksOnMessageUpdateMethod           *string   `json:"Webhooks.OnMessageUpdate.Method,omitempty"`
-	WebhooksOnMessageUpdateUrl              *string   `json:"Webhooks.OnMessageUpdate.Url,omitempty"`
-	WebhooksOnMessageUpdatedMethod          *string   `json:"Webhooks.OnMessageUpdated.Method,omitempty"`
-	WebhooksOnMessageUpdatedUrl             *string   `json:"Webhooks.OnMessageUpdated.Url,omitempty"`
+	//
+	ConsumptionReportInterval *int32 `json:"ConsumptionReportInterval,omitempty"`
+	//
+	DefaultChannelCreatorRoleSid *string `json:"DefaultChannelCreatorRoleSid,omitempty"`
+	//
+	DefaultChannelRoleSid *string `json:"DefaultChannelRoleSid,omitempty"`
+	//
+	DefaultServiceRoleSid *string `json:"DefaultServiceRoleSid,omitempty"`
+	//
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	//
+	LimitsChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
+	//
+	LimitsUserChannels *int32 `json:"Limits.UserChannels,omitempty"`
+	//
+	NotificationsAddedToChannelEnabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
+	//
+	NotificationsAddedToChannelTemplate *string `json:"Notifications.AddedToChannel.Template,omitempty"`
+	//
+	NotificationsInvitedToChannelEnabled *bool `json:"Notifications.InvitedToChannel.Enabled,omitempty"`
+	//
+	NotificationsInvitedToChannelTemplate *string `json:"Notifications.InvitedToChannel.Template,omitempty"`
+	//
+	NotificationsNewMessageEnabled *bool `json:"Notifications.NewMessage.Enabled,omitempty"`
+	//
+	NotificationsNewMessageTemplate *string `json:"Notifications.NewMessage.Template,omitempty"`
+	//
+	NotificationsRemovedFromChannelEnabled *bool `json:"Notifications.RemovedFromChannel.Enabled,omitempty"`
+	//
+	NotificationsRemovedFromChannelTemplate *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
+	//
+	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
+	//
+	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
+	//
+	ReachabilityEnabled *bool `json:"ReachabilityEnabled,omitempty"`
+	//
+	ReadStatusEnabled *bool `json:"ReadStatusEnabled,omitempty"`
+	//
+	TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
+	//
+	WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
+	//
+	WebhookMethod *string `json:"WebhookMethod,omitempty"`
+	//
+	WebhooksOnChannelAddMethod *string `json:"Webhooks.OnChannelAdd.Method,omitempty"`
+	//
+	WebhooksOnChannelAddUrl *string `json:"Webhooks.OnChannelAdd.Url,omitempty"`
+	//
+	WebhooksOnChannelAddedMethod *string `json:"Webhooks.OnChannelAdded.Method,omitempty"`
+	//
+	WebhooksOnChannelAddedUrl *string `json:"Webhooks.OnChannelAdded.Url,omitempty"`
+	//
+	WebhooksOnChannelDestroyMethod *string `json:"Webhooks.OnChannelDestroy.Method,omitempty"`
+	//
+	WebhooksOnChannelDestroyUrl *string `json:"Webhooks.OnChannelDestroy.Url,omitempty"`
+	//
+	WebhooksOnChannelDestroyedMethod *string `json:"Webhooks.OnChannelDestroyed.Method,omitempty"`
+	//
+	WebhooksOnChannelDestroyedUrl *string `json:"Webhooks.OnChannelDestroyed.Url,omitempty"`
+	//
+	WebhooksOnChannelUpdateMethod *string `json:"Webhooks.OnChannelUpdate.Method,omitempty"`
+	//
+	WebhooksOnChannelUpdateUrl *string `json:"Webhooks.OnChannelUpdate.Url,omitempty"`
+	//
+	WebhooksOnChannelUpdatedMethod *string `json:"Webhooks.OnChannelUpdated.Method,omitempty"`
+	//
+	WebhooksOnChannelUpdatedUrl *string `json:"Webhooks.OnChannelUpdated.Url,omitempty"`
+	//
+	WebhooksOnMemberAddMethod *string `json:"Webhooks.OnMemberAdd.Method,omitempty"`
+	//
+	WebhooksOnMemberAddUrl *string `json:"Webhooks.OnMemberAdd.Url,omitempty"`
+	//
+	WebhooksOnMemberAddedMethod *string `json:"Webhooks.OnMemberAdded.Method,omitempty"`
+	//
+	WebhooksOnMemberAddedUrl *string `json:"Webhooks.OnMemberAdded.Url,omitempty"`
+	//
+	WebhooksOnMemberRemoveMethod *string `json:"Webhooks.OnMemberRemove.Method,omitempty"`
+	//
+	WebhooksOnMemberRemoveUrl *string `json:"Webhooks.OnMemberRemove.Url,omitempty"`
+	//
+	WebhooksOnMemberRemovedMethod *string `json:"Webhooks.OnMemberRemoved.Method,omitempty"`
+	//
+	WebhooksOnMemberRemovedUrl *string `json:"Webhooks.OnMemberRemoved.Url,omitempty"`
+	//
+	WebhooksOnMessageRemoveMethod *string `json:"Webhooks.OnMessageRemove.Method,omitempty"`
+	//
+	WebhooksOnMessageRemoveUrl *string `json:"Webhooks.OnMessageRemove.Url,omitempty"`
+	//
+	WebhooksOnMessageRemovedMethod *string `json:"Webhooks.OnMessageRemoved.Method,omitempty"`
+	//
+	WebhooksOnMessageRemovedUrl *string `json:"Webhooks.OnMessageRemoved.Url,omitempty"`
+	//
+	WebhooksOnMessageSendMethod *string `json:"Webhooks.OnMessageSend.Method,omitempty"`
+	//
+	WebhooksOnMessageSendUrl *string `json:"Webhooks.OnMessageSend.Url,omitempty"`
+	//
+	WebhooksOnMessageSentMethod *string `json:"Webhooks.OnMessageSent.Method,omitempty"`
+	//
+	WebhooksOnMessageSentUrl *string `json:"Webhooks.OnMessageSent.Url,omitempty"`
+	//
+	WebhooksOnMessageUpdateMethod *string `json:"Webhooks.OnMessageUpdate.Method,omitempty"`
+	//
+	WebhooksOnMessageUpdateUrl *string `json:"Webhooks.OnMessageUpdate.Url,omitempty"`
+	//
+	WebhooksOnMessageUpdatedMethod *string `json:"Webhooks.OnMessageUpdated.Method,omitempty"`
+	//
+	WebhooksOnMessageUpdatedUrl *string `json:"Webhooks.OnMessageUpdated.Url,omitempty"`
 }
 
 func (params *UpdateServiceParams) SetConsumptionReportInterval(ConsumptionReportInterval int32) *UpdateServiceParams {
@@ -2072,121 +1793,6 @@ func (params *UpdateServiceParams) SetWebhooksOnMessageUpdatedUrl(WebhooksOnMess
 	return params
 }
 
-// UpdateService Method for UpdateService
-//
-// param: Sid
-//
-// param: optional nil or *UpdateServiceParams - Optional Parameters:
-//
-// param: "ConsumptionReportInterval" (int32) -
-//
-// param: "DefaultChannelCreatorRoleSid" (string) -
-//
-// param: "DefaultChannelRoleSid" (string) -
-//
-// param: "DefaultServiceRoleSid" (string) -
-//
-// param: "FriendlyName" (string) -
-//
-// param: "LimitsChannelMembers" (int32) -
-//
-// param: "LimitsUserChannels" (int32) -
-//
-// param: "NotificationsAddedToChannelEnabled" (bool) -
-//
-// param: "NotificationsAddedToChannelTemplate" (string) -
-//
-// param: "NotificationsInvitedToChannelEnabled" (bool) -
-//
-// param: "NotificationsInvitedToChannelTemplate" (string) -
-//
-// param: "NotificationsNewMessageEnabled" (bool) -
-//
-// param: "NotificationsNewMessageTemplate" (string) -
-//
-// param: "NotificationsRemovedFromChannelEnabled" (bool) -
-//
-// param: "NotificationsRemovedFromChannelTemplate" (string) -
-//
-// param: "PostWebhookUrl" (string) -
-//
-// param: "PreWebhookUrl" (string) -
-//
-// param: "ReachabilityEnabled" (bool) -
-//
-// param: "ReadStatusEnabled" (bool) -
-//
-// param: "TypingIndicatorTimeout" (int32) -
-//
-// param: "WebhookFilters" ([]string) -
-//
-// param: "WebhookMethod" (string) -
-//
-// param: "WebhooksOnChannelAddMethod" (string) -
-//
-// param: "WebhooksOnChannelAddUrl" (string) -
-//
-// param: "WebhooksOnChannelAddedMethod" (string) -
-//
-// param: "WebhooksOnChannelAddedUrl" (string) -
-//
-// param: "WebhooksOnChannelDestroyMethod" (string) -
-//
-// param: "WebhooksOnChannelDestroyUrl" (string) -
-//
-// param: "WebhooksOnChannelDestroyedMethod" (string) -
-//
-// param: "WebhooksOnChannelDestroyedUrl" (string) -
-//
-// param: "WebhooksOnChannelUpdateMethod" (string) -
-//
-// param: "WebhooksOnChannelUpdateUrl" (string) -
-//
-// param: "WebhooksOnChannelUpdatedMethod" (string) -
-//
-// param: "WebhooksOnChannelUpdatedUrl" (string) -
-//
-// param: "WebhooksOnMemberAddMethod" (string) -
-//
-// param: "WebhooksOnMemberAddUrl" (string) -
-//
-// param: "WebhooksOnMemberAddedMethod" (string) -
-//
-// param: "WebhooksOnMemberAddedUrl" (string) -
-//
-// param: "WebhooksOnMemberRemoveMethod" (string) -
-//
-// param: "WebhooksOnMemberRemoveUrl" (string) -
-//
-// param: "WebhooksOnMemberRemovedMethod" (string) -
-//
-// param: "WebhooksOnMemberRemovedUrl" (string) -
-//
-// param: "WebhooksOnMessageRemoveMethod" (string) -
-//
-// param: "WebhooksOnMessageRemoveUrl" (string) -
-//
-// param: "WebhooksOnMessageRemovedMethod" (string) -
-//
-// param: "WebhooksOnMessageRemovedUrl" (string) -
-//
-// param: "WebhooksOnMessageSendMethod" (string) -
-//
-// param: "WebhooksOnMessageSendUrl" (string) -
-//
-// param: "WebhooksOnMessageSentMethod" (string) -
-//
-// param: "WebhooksOnMessageSentUrl" (string) -
-//
-// param: "WebhooksOnMessageUpdateMethod" (string) -
-//
-// param: "WebhooksOnMessageUpdateUrl" (string) -
-//
-// param: "WebhooksOnMessageUpdatedMethod" (string) -
-//
-// param: "WebhooksOnMessageUpdatedUrl" (string) -
-//
-// return: IpMessagingV1Service
 func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*IpMessagingV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -2372,11 +1978,14 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	return ps, err
 }
 
-// UpdateUserParams Optional parameters for the method 'UpdateUser'
+// Optional parameters for the method 'UpdateUser'
 type UpdateUserParams struct {
-	Attributes   *string `json:"Attributes,omitempty"`
+	//
+	Attributes *string `json:"Attributes,omitempty"`
+	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	RoleSid      *string `json:"RoleSid,omitempty"`
+	//
+	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
 func (params *UpdateUserParams) SetAttributes(Attributes string) *UpdateUserParams {
@@ -2392,21 +2001,6 @@ func (params *UpdateUserParams) SetRoleSid(RoleSid string) *UpdateUserParams {
 	return params
 }
 
-// UpdateUser Method for UpdateUser
-//
-// param: ServiceSid
-//
-// param: Sid
-//
-// param: optional nil or *UpdateUserParams - Optional Parameters:
-//
-// param: "Attributes" (string) -
-//
-// param: "FriendlyName" (string) -
-//
-// param: "RoleSid" (string) -
-//
-// return: IpMessagingV1ServiceUser
 func (c *DefaultApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUserParams) (*IpMessagingV1ServiceUser, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

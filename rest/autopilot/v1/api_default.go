@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -32,15 +32,22 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 	}
 }
 
-// CreateAssistantParams Optional parameters for the method 'CreateAssistant'
+// Optional parameters for the method 'CreateAssistant'
 type CreateAssistantParams struct {
-	CallbackEvents *string                 `json:"CallbackEvents,omitempty"`
-	CallbackUrl    *string                 `json:"CallbackUrl,omitempty"`
-	Defaults       *map[string]interface{} `json:"Defaults,omitempty"`
-	FriendlyName   *string                 `json:"FriendlyName,omitempty"`
-	LogQueries     *bool                   `json:"LogQueries,omitempty"`
-	StyleSheet     *map[string]interface{} `json:"StyleSheet,omitempty"`
-	UniqueName     *string                 `json:"UniqueName,omitempty"`
+	// Reserved.
+	CallbackEvents *string `json:"CallbackEvents,omitempty"`
+	// Reserved.
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
+	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
+	// A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
+	LogQueries *bool `json:"LogQueries,omitempty"`
+	// The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
+	// An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *CreateAssistantParams) SetCallbackEvents(CallbackEvents string) *CreateAssistantParams {
@@ -72,25 +79,6 @@ func (params *CreateAssistantParams) SetUniqueName(UniqueName string) *CreateAss
 	return params
 }
 
-// CreateAssistant Method for CreateAssistant
-//
-// param: optional nil or *CreateAssistantParams - Optional Parameters:
-//
-// param: "CallbackEvents" (string) - Reserved.
-//
-// param: "CallbackUrl" (string) - Reserved.
-//
-// param: "Defaults" (map[string]interface{}) - A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
-//
-// param: "LogQueries" (bool) - Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
-//
-// param: "StyleSheet" (map[string]interface{}) - The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
-//
-// return: AutopilotV1Assistant
 func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants"
 
@@ -146,9 +134,11 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Aut
 	return ps, err
 }
 
-// CreateFieldParams Optional parameters for the method 'CreateField'
+// Optional parameters for the method 'CreateField'
 type CreateFieldParams struct {
-	FieldType  *string `json:"FieldType,omitempty"`
+	// The Field Type of the new field. Can be: a [Built-in Field Type](https://www.twilio.com/docs/autopilot/built-in-field-types), the `unique_name`, or the `sid` of a custom Field Type.
+	FieldType *string `json:"FieldType,omitempty"`
+	// An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -161,19 +151,6 @@ func (params *CreateFieldParams) SetUniqueName(UniqueName string) *CreateFieldPa
 	return params
 }
 
-// CreateField Method for CreateField
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the new resource.
-//
-// param: TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with the new Field resource.
-//
-// param: optional nil or *CreateFieldParams - Optional Parameters:
-//
-// param: "FieldType" (string) - The Field Type of the new field. Can be: a [Built-in Field Type](https://www.twilio.com/docs/autopilot/built-in-field-types), the `unique_name`, or the `sid` of a custom Field Type.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
-//
-// return: AutopilotV1AssistantTaskField
 func (c *DefaultApiService) CreateField(AssistantSid string, TaskSid string, params *CreateFieldParams) (*AutopilotV1AssistantTaskField, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -204,10 +181,12 @@ func (c *DefaultApiService) CreateField(AssistantSid string, TaskSid string, par
 	return ps, err
 }
 
-// CreateFieldTypeParams Optional parameters for the method 'CreateFieldType'
+// Optional parameters for the method 'CreateFieldType'
 type CreateFieldTypeParams struct {
+	// A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName   *string `json:"UniqueName,omitempty"`
+	// An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *CreateFieldTypeParams) SetFriendlyName(FriendlyName string) *CreateFieldTypeParams {
@@ -219,17 +198,6 @@ func (params *CreateFieldTypeParams) SetUniqueName(UniqueName string) *CreateFie
 	return params
 }
 
-// CreateFieldType Method for CreateFieldType
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the new resource.
-//
-// param: optional nil or *CreateFieldTypeParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
-//
-// return: AutopilotV1AssistantFieldType
 func (c *DefaultApiService) CreateFieldType(AssistantSid string, params *CreateFieldTypeParams) (*AutopilotV1AssistantFieldType, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -259,11 +227,14 @@ func (c *DefaultApiService) CreateFieldType(AssistantSid string, params *CreateF
 	return ps, err
 }
 
-// CreateFieldValueParams Optional parameters for the method 'CreateFieldValue'
+// Optional parameters for the method 'CreateFieldValue'
 type CreateFieldValueParams struct {
-	Language  *string `json:"Language,omitempty"`
+	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`
+	Language *string `json:"Language,omitempty"`
+	// The string value that indicates which word the field value is a synonym of.
 	SynonymOf *string `json:"SynonymOf,omitempty"`
-	Value     *string `json:"Value,omitempty"`
+	// The Field Value data.
+	Value *string `json:"Value,omitempty"`
 }
 
 func (params *CreateFieldValueParams) SetLanguage(Language string) *CreateFieldValueParams {
@@ -279,21 +250,6 @@ func (params *CreateFieldValueParams) SetValue(Value string) *CreateFieldValuePa
 	return params
 }
 
-// CreateFieldValue Method for CreateFieldValue
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the new resource.
-//
-// param: FieldTypeSid The SID of the Field Type associated with the Field Value.
-//
-// param: optional nil or *CreateFieldValueParams - Optional Parameters:
-//
-// param: "Language" (string) - The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`
-//
-// param: "SynonymOf" (string) - The string value that indicates which word the field value is a synonym of.
-//
-// param: "Value" (string) - The Field Value data.
-//
-// return: AutopilotV1AssistantFieldTypeFieldValue
 func (c *DefaultApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, params *CreateFieldValueParams) (*AutopilotV1AssistantFieldTypeFieldValue, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -327,10 +283,12 @@ func (c *DefaultApiService) CreateFieldValue(AssistantSid string, FieldTypeSid s
 	return ps, err
 }
 
-// CreateModelBuildParams Optional parameters for the method 'CreateModelBuild'
+// Optional parameters for the method 'CreateModelBuild'
 type CreateModelBuildParams struct {
+	// The URL we should call using a POST method to send status information to your application.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
-	UniqueName     *string `json:"UniqueName,omitempty"`
+	// An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *CreateModelBuildParams) SetStatusCallback(StatusCallback string) *CreateModelBuildParams {
@@ -342,17 +300,6 @@ func (params *CreateModelBuildParams) SetUniqueName(UniqueName string) *CreateMo
 	return params
 }
 
-// CreateModelBuild Method for CreateModelBuild
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the new resource.
-//
-// param: optional nil or *CreateModelBuildParams - Optional Parameters:
-//
-// param: "StatusCallback" (string) - The URL we should call using a POST method to send status information to your application.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the new resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
-//
-// return: AutopilotV1AssistantModelBuild
 func (c *DefaultApiService) CreateModelBuild(AssistantSid string, params *CreateModelBuildParams) (*AutopilotV1AssistantModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -382,12 +329,16 @@ func (c *DefaultApiService) CreateModelBuild(AssistantSid string, params *Create
 	return ps, err
 }
 
-// CreateQueryParams Optional parameters for the method 'CreateQuery'
+// Optional parameters for the method 'CreateQuery'
 type CreateQueryParams struct {
-	Language   *string `json:"Language,omitempty"`
+	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
+	Language *string `json:"Language,omitempty"`
+	// The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
 	ModelBuild *string `json:"ModelBuild,omitempty"`
-	Query      *string `json:"Query,omitempty"`
-	Tasks      *string `json:"Tasks,omitempty"`
+	// The end-user's natural language input. It can be up to 2048 characters long.
+	Query *string `json:"Query,omitempty"`
+	// The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
+	Tasks *string `json:"Tasks,omitempty"`
 }
 
 func (params *CreateQueryParams) SetLanguage(Language string) *CreateQueryParams {
@@ -407,21 +358,6 @@ func (params *CreateQueryParams) SetTasks(Tasks string) *CreateQueryParams {
 	return params
 }
 
-// CreateQuery Method for CreateQuery
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the new resource.
-//
-// param: optional nil or *CreateQueryParams - Optional Parameters:
-//
-// param: "Language" (string) - The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new query. For example: `en-US`.
-//
-// param: "ModelBuild" (string) - The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-//
-// param: "Query" (string) - The end-user's natural language input. It can be up to 2048 characters long.
-//
-// param: "Tasks" (string) - The list of tasks to limit the new query to. Tasks are expressed as a comma-separated list of task `unique_name` values. For example, `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to constrain the paths that a user can take.
-//
-// return: AutopilotV1AssistantQuery
 func (c *DefaultApiService) CreateQuery(AssistantSid string, params *CreateQueryParams) (*AutopilotV1AssistantQuery, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -457,11 +393,14 @@ func (c *DefaultApiService) CreateQuery(AssistantSid string, params *CreateQuery
 	return ps, err
 }
 
-// CreateSampleParams Optional parameters for the method 'CreateSample'
+// Optional parameters for the method 'CreateSample'
 type CreateSampleParams struct {
-	Language      *string `json:"Language,omitempty"`
+	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`.
+	Language *string `json:"Language,omitempty"`
+	// The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
 	SourceChannel *string `json:"SourceChannel,omitempty"`
-	TaggedText    *string `json:"TaggedText,omitempty"`
+	// The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+	TaggedText *string `json:"TaggedText,omitempty"`
 }
 
 func (params *CreateSampleParams) SetLanguage(Language string) *CreateSampleParams {
@@ -477,21 +416,6 @@ func (params *CreateSampleParams) SetTaggedText(TaggedText string) *CreateSample
 	return params
 }
 
-// CreateSample Method for CreateSample
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the new resource.
-//
-// param: TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resource to create.
-//
-// param: optional nil or *CreateSampleParams - Optional Parameters:
-//
-// param: "Language" (string) - The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the new sample. For example: `en-US`.
-//
-// param: "SourceChannel" (string) - The communication channel from which the new sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
-//
-// param: "TaggedText" (string) - The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
-//
-// return: AutopilotV1AssistantTaskSample
 func (c *DefaultApiService) CreateSample(AssistantSid string, TaskSid string, params *CreateSampleParams) (*AutopilotV1AssistantTaskSample, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -525,12 +449,16 @@ func (c *DefaultApiService) CreateSample(AssistantSid string, TaskSid string, pa
 	return ps, err
 }
 
-// CreateTaskParams Optional parameters for the method 'CreateTask'
+// Optional parameters for the method 'CreateTask'
 type CreateTaskParams struct {
-	Actions      *map[string]interface{} `json:"Actions,omitempty"`
-	ActionsUrl   *string                 `json:"ActionsUrl,omitempty"`
-	FriendlyName *string                 `json:"FriendlyName,omitempty"`
-	UniqueName   *string                 `json:"UniqueName,omitempty"`
+	// The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task. It is optional and not unique.
+	Actions *map[string]interface{} `json:"Actions,omitempty"`
+	// The URL from which the Assistant can fetch actions.
+	ActionsUrl *string `json:"ActionsUrl,omitempty"`
+	// A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *CreateTaskParams) SetActions(Actions map[string]interface{}) *CreateTaskParams {
@@ -550,21 +478,6 @@ func (params *CreateTaskParams) SetUniqueName(UniqueName string) *CreateTaskPara
 	return params
 }
 
-// CreateTask Method for CreateTask
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the new resource.
-//
-// param: optional nil or *CreateTaskParams - Optional Parameters:
-//
-// param: "Actions" (map[string]interface{}) - The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task. It is optional and not unique.
-//
-// param: "ActionsUrl" (string) - The URL from which the Assistant can fetch actions.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
-//
-// return: AutopilotV1AssistantTask
 func (c *DefaultApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (*AutopilotV1AssistantTask, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -606,12 +519,16 @@ func (c *DefaultApiService) CreateTask(AssistantSid string, params *CreateTaskPa
 	return ps, err
 }
 
-// CreateWebhookParams Optional parameters for the method 'CreateWebhook'
+// Optional parameters for the method 'CreateWebhook'
 type CreateWebhookParams struct {
-	Events        *string `json:"Events,omitempty"`
-	UniqueName    *string `json:"UniqueName,omitempty"`
+	// The list of space-separated events that this Webhook will subscribe to.
+	Events *string `json:"Events,omitempty"`
+	// An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The method to be used when calling the webhook's URL.
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
-	WebhookUrl    *string `json:"WebhookUrl,omitempty"`
+	// The URL associated with this Webhook.
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
 
 func (params *CreateWebhookParams) SetEvents(Events string) *CreateWebhookParams {
@@ -631,21 +548,6 @@ func (params *CreateWebhookParams) SetWebhookUrl(WebhookUrl string) *CreateWebho
 	return params
 }
 
-// CreateWebhook Method for CreateWebhook
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the new resource.
-//
-// param: optional nil or *CreateWebhookParams - Optional Parameters:
-//
-// param: "Events" (string) - The list of space-separated events that this Webhook will subscribe to.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
-//
-// param: "WebhookMethod" (string) - The method to be used when calling the webhook's URL.
-//
-// param: "WebhookUrl" (string) - The URL associated with this Webhook.
-//
-// return: AutopilotV1AssistantWebhook
 func (c *DefaultApiService) CreateWebhook(AssistantSid string, params *CreateWebhookParams) (*AutopilotV1AssistantWebhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -681,10 +583,6 @@ func (c *DefaultApiService) CreateWebhook(AssistantSid string, params *CreateWeb
 	return ps, err
 }
 
-// DeleteAssistant Method for DeleteAssistant
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Assistant resource to delete.
-//
 func (c *DefaultApiService) DeleteAssistant(Sid string) error {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -702,14 +600,6 @@ func (c *DefaultApiService) DeleteAssistant(Sid string) error {
 	return nil
 }
 
-// DeleteField Method for DeleteField
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resources to delete.
-//
-// param: TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with the Field resource to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Field resource to delete.
-//
 func (c *DefaultApiService) DeleteField(AssistantSid string, TaskSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -729,12 +619,6 @@ func (c *DefaultApiService) DeleteField(AssistantSid string, TaskSid string, Sid
 	return nil
 }
 
-// DeleteFieldType Method for DeleteFieldType
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the FieldType resource to delete.
-//
 func (c *DefaultApiService) DeleteFieldType(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -753,14 +637,6 @@ func (c *DefaultApiService) DeleteFieldType(AssistantSid string, Sid string) err
 	return nil
 }
 
-// DeleteFieldValue Method for DeleteFieldValue
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resources to delete.
-//
-// param: FieldTypeSid The SID of the Field Type associated with the Field Value to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the FieldValue resource to delete.
-//
 func (c *DefaultApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -780,12 +656,6 @@ func (c *DefaultApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid s
 	return nil
 }
 
-// DeleteModelBuild Method for DeleteModelBuild
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the ModelBuild resource to delete.
-//
 func (c *DefaultApiService) DeleteModelBuild(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -804,12 +674,6 @@ func (c *DefaultApiService) DeleteModelBuild(AssistantSid string, Sid string) er
 	return nil
 }
 
-// DeleteQuery Method for DeleteQuery
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Query resource to delete.
-//
 func (c *DefaultApiService) DeleteQuery(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -828,14 +692,6 @@ func (c *DefaultApiService) DeleteQuery(AssistantSid string, Sid string) error {
 	return nil
 }
 
-// DeleteSample Method for DeleteSample
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resources to delete.
-//
-// param: TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resource to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Sample resource to delete.
-//
 func (c *DefaultApiService) DeleteSample(AssistantSid string, TaskSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -855,12 +711,6 @@ func (c *DefaultApiService) DeleteSample(AssistantSid string, TaskSid string, Si
 	return nil
 }
 
-// DeleteTask Method for DeleteTask
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Task resource to delete.
-//
 func (c *DefaultApiService) DeleteTask(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -879,12 +729,6 @@ func (c *DefaultApiService) DeleteTask(AssistantSid string, Sid string) error {
 	return nil
 }
 
-// DeleteWebhook Method for DeleteWebhook
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to delete.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Webhook resource to delete.
-//
 func (c *DefaultApiService) DeleteWebhook(AssistantSid string, Sid string) error {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -903,11 +747,6 @@ func (c *DefaultApiService) DeleteWebhook(AssistantSid string, Sid string) error
 	return nil
 }
 
-// FetchAssistant Method for FetchAssistant
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Assistant resource to fetch.
-//
-// return: AutopilotV1Assistant
 func (c *DefaultApiService) FetchAssistant(Sid string) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -930,11 +769,6 @@ func (c *DefaultApiService) FetchAssistant(Sid string) (*AutopilotV1Assistant, e
 	return ps, err
 }
 
-// FetchDefaults Method for FetchDefaults
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
-//
-// return: AutopilotV1AssistantDefaults
 func (c *DefaultApiService) FetchDefaults(AssistantSid string) (*AutopilotV1AssistantDefaults, error) {
 	path := "/v1/Assistants/{AssistantSid}/Defaults"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -957,13 +791,6 @@ func (c *DefaultApiService) FetchDefaults(AssistantSid string) (*AutopilotV1Assi
 	return ps, err
 }
 
-// FetchDialogue Method for FetchDialogue
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Dialogue resource to fetch.
-//
-// return: AutopilotV1AssistantDialogue
 func (c *DefaultApiService) FetchDialogue(AssistantSid string, Sid string) (*AutopilotV1AssistantDialogue, error) {
 	path := "/v1/Assistants/{AssistantSid}/Dialogues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -987,15 +814,6 @@ func (c *DefaultApiService) FetchDialogue(AssistantSid string, Sid string) (*Aut
 	return ps, err
 }
 
-// FetchField Method for FetchField
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource to fetch.
-//
-// param: TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with the Field resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Field resource to fetch.
-//
-// return: AutopilotV1AssistantTaskField
 func (c *DefaultApiService) FetchField(AssistantSid string, TaskSid string, Sid string) (*AutopilotV1AssistantTaskField, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1020,13 +838,6 @@ func (c *DefaultApiService) FetchField(AssistantSid string, TaskSid string, Sid 
 	return ps, err
 }
 
-// FetchFieldType Method for FetchFieldType
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the FieldType resource to fetch.
-//
-// return: AutopilotV1AssistantFieldType
 func (c *DefaultApiService) FetchFieldType(AssistantSid string, Sid string) (*AutopilotV1AssistantFieldType, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1050,15 +861,6 @@ func (c *DefaultApiService) FetchFieldType(AssistantSid string, Sid string) (*Au
 	return ps, err
 }
 
-// FetchFieldValue Method for FetchFieldValue
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resource to fetch.
-//
-// param: FieldTypeSid The SID of the Field Type associated with the Field Value to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the FieldValue resource to fetch.
-//
-// return: AutopilotV1AssistantFieldTypeFieldValue
 func (c *DefaultApiService) FetchFieldValue(AssistantSid string, FieldTypeSid string, Sid string) (*AutopilotV1AssistantFieldTypeFieldValue, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1083,13 +885,6 @@ func (c *DefaultApiService) FetchFieldValue(AssistantSid string, FieldTypeSid st
 	return ps, err
 }
 
-// FetchModelBuild Method for FetchModelBuild
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the ModelBuild resource to fetch.
-//
-// return: AutopilotV1AssistantModelBuild
 func (c *DefaultApiService) FetchModelBuild(AssistantSid string, Sid string) (*AutopilotV1AssistantModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1113,13 +908,6 @@ func (c *DefaultApiService) FetchModelBuild(AssistantSid string, Sid string) (*A
 	return ps, err
 }
 
-// FetchQuery Method for FetchQuery
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Query resource to fetch.
-//
-// return: AutopilotV1AssistantQuery
 func (c *DefaultApiService) FetchQuery(AssistantSid string, Sid string) (*AutopilotV1AssistantQuery, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1143,15 +931,6 @@ func (c *DefaultApiService) FetchQuery(AssistantSid string, Sid string) (*Autopi
 	return ps, err
 }
 
-// FetchSample Method for FetchSample
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource to fetch.
-//
-// param: TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resource to create.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Sample resource to fetch.
-//
-// return: AutopilotV1AssistantTaskSample
 func (c *DefaultApiService) FetchSample(AssistantSid string, TaskSid string, Sid string) (*AutopilotV1AssistantTaskSample, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1176,13 +955,7 @@ func (c *DefaultApiService) FetchSample(AssistantSid string, TaskSid string, Sid
 	return ps, err
 }
 
-// FetchStyleSheet Method for FetchStyleSheet
-//
 // Returns Style sheet JSON object for the Assistant
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
-//
-// return: AutopilotV1AssistantStyleSheet
 func (c *DefaultApiService) FetchStyleSheet(AssistantSid string) (*AutopilotV1AssistantStyleSheet, error) {
 	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1205,13 +978,6 @@ func (c *DefaultApiService) FetchStyleSheet(AssistantSid string) (*AutopilotV1As
 	return ps, err
 }
 
-// FetchTask Method for FetchTask
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Task resource to fetch.
-//
-// return: AutopilotV1AssistantTask
 func (c *DefaultApiService) FetchTask(AssistantSid string, Sid string) (*AutopilotV1AssistantTask, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1235,15 +1001,7 @@ func (c *DefaultApiService) FetchTask(AssistantSid string, Sid string) (*Autopil
 	return ps, err
 }
 
-// FetchTaskActions Method for FetchTaskActions
-//
 // Returns JSON actions for the Task.
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task for which the task actions to fetch were defined.
-//
-// param: TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) for which the task actions to fetch were defined.
-//
-// return: AutopilotV1AssistantTaskTaskActions
 func (c *DefaultApiService) FetchTaskActions(AssistantSid string, TaskSid string) (*AutopilotV1AssistantTaskTaskActions, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1267,13 +1025,6 @@ func (c *DefaultApiService) FetchTaskActions(AssistantSid string, TaskSid string
 	return ps, err
 }
 
-// FetchTaskStatistics Method for FetchTaskStatistics
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
-//
-// param: TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) that is associated with the resource to fetch.
-//
-// return: AutopilotV1AssistantTaskTaskStatistics
 func (c *DefaultApiService) FetchTaskStatistics(AssistantSid string, TaskSid string) (*AutopilotV1AssistantTaskTaskStatistics, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1297,13 +1048,6 @@ func (c *DefaultApiService) FetchTaskStatistics(AssistantSid string, TaskSid str
 	return ps, err
 }
 
-// FetchWebhook Method for FetchWebhook
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to fetch.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Webhook resource to fetch.
-//
-// return: AutopilotV1AssistantWebhook
 func (c *DefaultApiService) FetchWebhook(AssistantSid string, Sid string) (*AutopilotV1AssistantWebhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1327,8 +1071,9 @@ func (c *DefaultApiService) FetchWebhook(AssistantSid string, Sid string) (*Auto
 	return ps, err
 }
 
-// ListAssistantParams Optional parameters for the method 'ListAssistant'
+// Optional parameters for the method 'ListAssistant'
 type ListAssistantParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1337,13 +1082,6 @@ func (params *ListAssistantParams) SetPageSize(PageSize int32) *ListAssistantPar
 	return params
 }
 
-// ListAssistant Method for ListAssistant
-//
-// param: optional nil or *ListAssistantParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAssistantResponse
 func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*ListAssistantResponse, error) {
 	path := "/v1/Assistants"
 
@@ -1369,8 +1107,9 @@ func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*ListAss
 	return ps, err
 }
 
-// ListFieldParams Optional parameters for the method 'ListField'
+// Optional parameters for the method 'ListField'
 type ListFieldParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1379,17 +1118,6 @@ func (params *ListFieldParams) SetPageSize(PageSize int32) *ListFieldParams {
 	return params
 }
 
-// ListField Method for ListField
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resources to read.
-//
-// param: TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) resource associated with the Field resources to read.
-//
-// param: optional nil or *ListFieldParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListFieldResponse
 func (c *DefaultApiService) ListField(AssistantSid string, TaskSid string, params *ListFieldParams) (*ListFieldResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1417,8 +1145,9 @@ func (c *DefaultApiService) ListField(AssistantSid string, TaskSid string, param
 	return ps, err
 }
 
-// ListFieldTypeParams Optional parameters for the method 'ListFieldType'
+// Optional parameters for the method 'ListFieldType'
 type ListFieldTypeParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1427,15 +1156,6 @@ func (params *ListFieldTypeParams) SetPageSize(PageSize int32) *ListFieldTypePar
 	return params
 }
 
-// ListFieldType Method for ListFieldType
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
-//
-// param: optional nil or *ListFieldTypeParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListFieldTypeResponse
 func (c *DefaultApiService) ListFieldType(AssistantSid string, params *ListFieldTypeParams) (*ListFieldTypeResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1462,10 +1182,12 @@ func (c *DefaultApiService) ListFieldType(AssistantSid string, params *ListField
 	return ps, err
 }
 
-// ListFieldValueParams Optional parameters for the method 'ListFieldValue'
+// Optional parameters for the method 'ListFieldValue'
 type ListFieldValueParams struct {
+	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`
 	Language *string `json:"Language,omitempty"`
-	PageSize *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListFieldValueParams) SetLanguage(Language string) *ListFieldValueParams {
@@ -1477,19 +1199,6 @@ func (params *ListFieldValueParams) SetPageSize(PageSize int32) *ListFieldValueP
 	return params
 }
 
-// ListFieldValue Method for ListFieldValue
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the FieldType associated with the resources to read.
-//
-// param: FieldTypeSid The SID of the Field Type associated with the Field Value to read.
-//
-// param: optional nil or *ListFieldValueParams - Optional Parameters:
-//
-// param: "Language" (string) - The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListFieldValueResponse
 func (c *DefaultApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) (*ListFieldValueResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1520,8 +1229,9 @@ func (c *DefaultApiService) ListFieldValue(AssistantSid string, FieldTypeSid str
 	return ps, err
 }
 
-// ListModelBuildParams Optional parameters for the method 'ListModelBuild'
+// Optional parameters for the method 'ListModelBuild'
 type ListModelBuildParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1530,15 +1240,6 @@ func (params *ListModelBuildParams) SetPageSize(PageSize int32) *ListModelBuildP
 	return params
 }
 
-// ListModelBuild Method for ListModelBuild
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
-//
-// param: optional nil or *ListModelBuildParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListModelBuildResponse
 func (c *DefaultApiService) ListModelBuild(AssistantSid string, params *ListModelBuildParams) (*ListModelBuildResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1565,13 +1266,18 @@ func (c *DefaultApiService) ListModelBuild(AssistantSid string, params *ListMode
 	return ps, err
 }
 
-// ListQueryParams Optional parameters for the method 'ListQuery'
+// Optional parameters for the method 'ListQuery'
 type ListQueryParams struct {
-	Language    *string `json:"Language,omitempty"`
-	ModelBuild  *string `json:"ModelBuild,omitempty"`
-	Status      *string `json:"Status,omitempty"`
+	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
+	Language *string `json:"Language,omitempty"`
+	// The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
+	ModelBuild *string `json:"ModelBuild,omitempty"`
+	// The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
+	Status *string `json:"Status,omitempty"`
+	// The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
 	DialogueSid *string `json:"DialogueSid,omitempty"`
-	PageSize    *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListQueryParams) SetLanguage(Language string) *ListQueryParams {
@@ -1595,23 +1301,6 @@ func (params *ListQueryParams) SetPageSize(PageSize int32) *ListQueryParams {
 	return params
 }
 
-// ListQuery Method for ListQuery
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
-//
-// param: optional nil or *ListQueryParams - Optional Parameters:
-//
-// param: "Language" (string) - The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`.
-//
-// param: "ModelBuild" (string) - The SID or unique name of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried.
-//
-// param: "Status" (string) - The status of the resources to read. Can be: `pending-review`, `reviewed`, or `discarded`
-//
-// param: "DialogueSid" (string) - The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListQueryResponse
 func (c *DefaultApiService) ListQuery(AssistantSid string, params *ListQueryParams) (*ListQueryResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1650,10 +1339,12 @@ func (c *DefaultApiService) ListQuery(AssistantSid string, params *ListQueryPara
 	return ps, err
 }
 
-// ListSampleParams Optional parameters for the method 'ListSample'
+// Optional parameters for the method 'ListSample'
 type ListSampleParams struct {
+	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
 	Language *string `json:"Language,omitempty"`
-	PageSize *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSampleParams) SetLanguage(Language string) *ListSampleParams {
@@ -1665,19 +1356,6 @@ func (params *ListSampleParams) SetPageSize(PageSize int32) *ListSampleParams {
 	return params
 }
 
-// ListSample Method for ListSample
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resources to read.
-//
-// param: TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resources to read.
-//
-// param: optional nil or *ListSampleParams - Optional Parameters:
-//
-// param: "Language" (string) - The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSampleResponse
 func (c *DefaultApiService) ListSample(AssistantSid string, TaskSid string, params *ListSampleParams) (*ListSampleResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1708,8 +1386,9 @@ func (c *DefaultApiService) ListSample(AssistantSid string, TaskSid string, para
 	return ps, err
 }
 
-// ListTaskParams Optional parameters for the method 'ListTask'
+// Optional parameters for the method 'ListTask'
 type ListTaskParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1718,15 +1397,6 @@ func (params *ListTaskParams) SetPageSize(PageSize int32) *ListTaskParams {
 	return params
 }
 
-// ListTask Method for ListTask
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
-//
-// param: optional nil or *ListTaskParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListTaskResponse
 func (c *DefaultApiService) ListTask(AssistantSid string, params *ListTaskParams) (*ListTaskResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1753,8 +1423,9 @@ func (c *DefaultApiService) ListTask(AssistantSid string, params *ListTaskParams
 	return ps, err
 }
 
-// ListWebhookParams Optional parameters for the method 'ListWebhook'
+// Optional parameters for the method 'ListWebhook'
 type ListWebhookParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1763,15 +1434,6 @@ func (params *ListWebhookParams) SetPageSize(PageSize int32) *ListWebhookParams 
 	return params
 }
 
-// ListWebhook Method for ListWebhook
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resources to read.
-//
-// param: optional nil or *ListWebhookParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListWebhookResponse
 func (c *DefaultApiService) ListWebhook(AssistantSid string, params *ListWebhookParams) (*ListWebhookResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1798,16 +1460,24 @@ func (c *DefaultApiService) ListWebhook(AssistantSid string, params *ListWebhook
 	return ps, err
 }
 
-// UpdateAssistantParams Optional parameters for the method 'UpdateAssistant'
+// Optional parameters for the method 'UpdateAssistant'
 type UpdateAssistantParams struct {
-	CallbackEvents   *string                 `json:"CallbackEvents,omitempty"`
-	CallbackUrl      *string                 `json:"CallbackUrl,omitempty"`
-	Defaults         *map[string]interface{} `json:"Defaults,omitempty"`
-	DevelopmentStage *string                 `json:"DevelopmentStage,omitempty"`
-	FriendlyName     *string                 `json:"FriendlyName,omitempty"`
-	LogQueries       *bool                   `json:"LogQueries,omitempty"`
-	StyleSheet       *map[string]interface{} `json:"StyleSheet,omitempty"`
-	UniqueName       *string                 `json:"UniqueName,omitempty"`
+	// Reserved.
+	CallbackEvents *string `json:"CallbackEvents,omitempty"`
+	// Reserved.
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
+	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
+	// A string describing the state of the assistant.
+	DevelopmentStage *string `json:"DevelopmentStage,omitempty"`
+	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
+	LogQueries *bool `json:"LogQueries,omitempty"`
+	// The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
+	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
+	// An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *UpdateAssistantParams) SetCallbackEvents(CallbackEvents string) *UpdateAssistantParams {
@@ -1843,29 +1513,6 @@ func (params *UpdateAssistantParams) SetUniqueName(UniqueName string) *UpdateAss
 	return params
 }
 
-// UpdateAssistant Method for UpdateAssistant
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Assistant resource to update.
-//
-// param: optional nil or *UpdateAssistantParams - Optional Parameters:
-//
-// param: "CallbackEvents" (string) - Reserved.
-//
-// param: "CallbackUrl" (string) - Reserved.
-//
-// param: "Defaults" (map[string]interface{}) - A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
-//
-// param: "DevelopmentStage" (string) - A string describing the state of the assistant.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-//
-// param: "LogQueries" (bool) - Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
-//
-// param: "StyleSheet" (map[string]interface{}) - The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
-//
-// return: AutopilotV1Assistant
 func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantParams) (*AutopilotV1Assistant, error) {
 	path := "/v1/Assistants/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1925,8 +1572,9 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 	return ps, err
 }
 
-// UpdateDefaultsParams Optional parameters for the method 'UpdateDefaults'
+// Optional parameters for the method 'UpdateDefaults'
 type UpdateDefaultsParams struct {
+	// A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
 	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
 }
 
@@ -1935,15 +1583,6 @@ func (params *UpdateDefaultsParams) SetDefaults(Defaults map[string]interface{})
 	return params
 }
 
-// UpdateDefaults Method for UpdateDefaults
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
-//
-// param: optional nil or *UpdateDefaultsParams - Optional Parameters:
-//
-// param: "Defaults" (map[string]interface{}) - A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
-//
-// return: AutopilotV1AssistantDefaults
 func (c *DefaultApiService) UpdateDefaults(AssistantSid string, params *UpdateDefaultsParams) (*AutopilotV1AssistantDefaults, error) {
 	path := "/v1/Assistants/{AssistantSid}/Defaults"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -1976,10 +1615,12 @@ func (c *DefaultApiService) UpdateDefaults(AssistantSid string, params *UpdateDe
 	return ps, err
 }
 
-// UpdateFieldTypeParams Optional parameters for the method 'UpdateFieldType'
+// Optional parameters for the method 'UpdateFieldType'
 type UpdateFieldTypeParams struct {
+	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName   *string `json:"UniqueName,omitempty"`
+	// An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *UpdateFieldTypeParams) SetFriendlyName(FriendlyName string) *UpdateFieldTypeParams {
@@ -1991,19 +1632,6 @@ func (params *UpdateFieldTypeParams) SetUniqueName(UniqueName string) *UpdateFie
 	return params
 }
 
-// UpdateFieldType Method for UpdateFieldType
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the to update.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the FieldType resource to update.
-//
-// param: optional nil or *UpdateFieldTypeParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
-//
-// return: AutopilotV1AssistantFieldType
 func (c *DefaultApiService) UpdateFieldType(AssistantSid string, Sid string, params *UpdateFieldTypeParams) (*AutopilotV1AssistantFieldType, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -2034,8 +1662,9 @@ func (c *DefaultApiService) UpdateFieldType(AssistantSid string, Sid string, par
 	return ps, err
 }
 
-// UpdateModelBuildParams Optional parameters for the method 'UpdateModelBuild'
+// Optional parameters for the method 'UpdateModelBuild'
 type UpdateModelBuildParams struct {
+	// An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -2044,17 +1673,6 @@ func (params *UpdateModelBuildParams) SetUniqueName(UniqueName string) *UpdateMo
 	return params
 }
 
-// UpdateModelBuild Method for UpdateModelBuild
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the ModelBuild resource to update.
-//
-// param: optional nil or *UpdateModelBuildParams - Optional Parameters:
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. This value must be a unique string of no more than 64 characters. It can be used as an alternative to the `sid` in the URL path to address the resource.
-//
-// return: AutopilotV1AssistantModelBuild
 func (c *DefaultApiService) UpdateModelBuild(AssistantSid string, Sid string, params *UpdateModelBuildParams) (*AutopilotV1AssistantModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -2082,10 +1700,12 @@ func (c *DefaultApiService) UpdateModelBuild(AssistantSid string, Sid string, pa
 	return ps, err
 }
 
-// UpdateQueryParams Optional parameters for the method 'UpdateQuery'
+// Optional parameters for the method 'UpdateQuery'
 type UpdateQueryParams struct {
+	// The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
 	SampleSid *string `json:"SampleSid,omitempty"`
-	Status    *string `json:"Status,omitempty"`
+	// The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
+	Status *string `json:"Status,omitempty"`
 }
 
 func (params *UpdateQueryParams) SetSampleSid(SampleSid string) *UpdateQueryParams {
@@ -2097,19 +1717,6 @@ func (params *UpdateQueryParams) SetStatus(Status string) *UpdateQueryParams {
 	return params
 }
 
-// UpdateQuery Method for UpdateQuery
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Query resource to update.
-//
-// param: optional nil or *UpdateQueryParams - Optional Parameters:
-//
-// param: "SampleSid" (string) - The SID of an optional reference to the [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from the query.
-//
-// param: "Status" (string) - The new status of the resource. Can be: `pending-review`, `reviewed`, or `discarded`
-//
-// return: AutopilotV1AssistantQuery
 func (c *DefaultApiService) UpdateQuery(AssistantSid string, Sid string, params *UpdateQueryParams) (*AutopilotV1AssistantQuery, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -2140,8 +1747,9 @@ func (c *DefaultApiService) UpdateQuery(AssistantSid string, Sid string, params 
 	return ps, err
 }
 
-// UpdateRestoreAssistantParams Optional parameters for the method 'UpdateRestoreAssistant'
+// Optional parameters for the method 'UpdateRestoreAssistant'
 type UpdateRestoreAssistantParams struct {
+	// The Twilio-provided string that uniquely identifies the Assistant resource to restore.
 	Assistant *string `json:"Assistant,omitempty"`
 }
 
@@ -2150,13 +1758,6 @@ func (params *UpdateRestoreAssistantParams) SetAssistant(Assistant string) *Upda
 	return params
 }
 
-// UpdateRestoreAssistant Method for UpdateRestoreAssistant
-//
-// param: optional nil or *UpdateRestoreAssistantParams - Optional Parameters:
-//
-// param: "Assistant" (string) - The Twilio-provided string that uniquely identifies the Assistant resource to restore.
-//
-// return: AutopilotV1RestoreAssistant
 func (c *DefaultApiService) UpdateRestoreAssistant(params *UpdateRestoreAssistantParams) (*AutopilotV1RestoreAssistant, error) {
 	path := "/v1/Assistants/Restore"
 
@@ -2182,11 +1783,14 @@ func (c *DefaultApiService) UpdateRestoreAssistant(params *UpdateRestoreAssistan
 	return ps, err
 }
 
-// UpdateSampleParams Optional parameters for the method 'UpdateSample'
+// Optional parameters for the method 'UpdateSample'
 type UpdateSampleParams struct {
-	Language      *string `json:"Language,omitempty"`
+	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
+	Language *string `json:"Language,omitempty"`
+	// The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
 	SourceChannel *string `json:"SourceChannel,omitempty"`
-	TaggedText    *string `json:"TaggedText,omitempty"`
+	// The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
+	TaggedText *string `json:"TaggedText,omitempty"`
 }
 
 func (params *UpdateSampleParams) SetLanguage(Language string) *UpdateSampleParams {
@@ -2202,23 +1806,6 @@ func (params *UpdateSampleParams) SetTaggedText(TaggedText string) *UpdateSample
 	return params
 }
 
-// UpdateSample Method for UpdateSample
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource to update.
-//
-// param: TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) associated with the Sample resource to update.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Sample resource to update.
-//
-// param: optional nil or *UpdateSampleParams - Optional Parameters:
-//
-// param: "Language" (string) - The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
-//
-// param: "SourceChannel" (string) - The communication channel from which the sample was captured. Can be: `voice`, `sms`, `chat`, `alexa`, `google-assistant`, `slack`, or null if not included.
-//
-// param: "TaggedText" (string) - The text example of how end users might express the task. The sample can contain [Field tag blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging).
-//
-// return: AutopilotV1AssistantTaskSample
 func (c *DefaultApiService) UpdateSample(AssistantSid string, TaskSid string, Sid string, params *UpdateSampleParams) (*AutopilotV1AssistantTaskSample, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -2253,8 +1840,9 @@ func (c *DefaultApiService) UpdateSample(AssistantSid string, TaskSid string, Si
 	return ps, err
 }
 
-// UpdateStyleSheetParams Optional parameters for the method 'UpdateStyleSheet'
+// Optional parameters for the method 'UpdateStyleSheet'
 type UpdateStyleSheetParams struct {
+	// The JSON string that describes the style sheet object.
 	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
 }
 
@@ -2263,17 +1851,7 @@ func (params *UpdateStyleSheetParams) SetStyleSheet(StyleSheet map[string]interf
 	return params
 }
 
-// UpdateStyleSheet Method for UpdateStyleSheet
-//
 // Updates the style sheet for an Assistant identified by &#x60;assistant_sid&#x60;.
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
-//
-// param: optional nil or *UpdateStyleSheetParams - Optional Parameters:
-//
-// param: "StyleSheet" (map[string]interface{}) - The JSON string that describes the style sheet object.
-//
-// return: AutopilotV1AssistantStyleSheet
 func (c *DefaultApiService) UpdateStyleSheet(AssistantSid string, params *UpdateStyleSheetParams) (*AutopilotV1AssistantStyleSheet, error) {
 	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -2306,12 +1884,16 @@ func (c *DefaultApiService) UpdateStyleSheet(AssistantSid string, params *Update
 	return ps, err
 }
 
-// UpdateTaskParams Optional parameters for the method 'UpdateTask'
+// Optional parameters for the method 'UpdateTask'
 type UpdateTaskParams struct {
-	Actions      *map[string]interface{} `json:"Actions,omitempty"`
-	ActionsUrl   *string                 `json:"ActionsUrl,omitempty"`
-	FriendlyName *string                 `json:"FriendlyName,omitempty"`
-	UniqueName   *string                 `json:"UniqueName,omitempty"`
+	// The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
+	Actions *map[string]interface{} `json:"Actions,omitempty"`
+	// The URL from which the Assistant can fetch actions.
+	ActionsUrl *string `json:"ActionsUrl,omitempty"`
+	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// An application-defined string that uniquely identifies the resource. This value must be 64 characters or less in length and be unique. It can be used as an alternative to the `sid` in the URL path to address the resource.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *UpdateTaskParams) SetActions(Actions map[string]interface{}) *UpdateTaskParams {
@@ -2331,23 +1913,6 @@ func (params *UpdateTaskParams) SetUniqueName(UniqueName string) *UpdateTaskPara
 	return params
 }
 
-// UpdateTask Method for UpdateTask
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Task resource to update.
-//
-// param: optional nil or *UpdateTaskParams - Optional Parameters:
-//
-// param: "Actions" (map[string]interface{}) - The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
-//
-// param: "ActionsUrl" (string) - The URL from which the Assistant can fetch actions.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. This value must be 64 characters or less in length and be unique. It can be used as an alternative to the `sid` in the URL path to address the resource.
-//
-// return: AutopilotV1AssistantTask
 func (c *DefaultApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateTaskParams) (*AutopilotV1AssistantTask, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -2390,8 +1955,9 @@ func (c *DefaultApiService) UpdateTask(AssistantSid string, Sid string, params *
 	return ps, err
 }
 
-// UpdateTaskActionsParams Optional parameters for the method 'UpdateTaskActions'
+// Optional parameters for the method 'UpdateTaskActions'
 type UpdateTaskActionsParams struct {
+	// The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
 	Actions *map[string]interface{} `json:"Actions,omitempty"`
 }
 
@@ -2400,19 +1966,7 @@ func (params *UpdateTaskActionsParams) SetActions(Actions map[string]interface{}
 	return params
 }
 
-// UpdateTaskActions Method for UpdateTaskActions
-//
 // Updates the actions of an Task identified by {TaskSid} or {TaskUniqueName}.
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task for which the task actions to update were defined.
-//
-// param: TaskSid The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task) for which the task actions to update were defined.
-//
-// param: optional nil or *UpdateTaskActionsParams - Optional Parameters:
-//
-// param: "Actions" (map[string]interface{}) - The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
-//
-// return: AutopilotV1AssistantTaskTaskActions
 func (c *DefaultApiService) UpdateTaskActions(AssistantSid string, TaskSid string, params *UpdateTaskActionsParams) (*AutopilotV1AssistantTaskTaskActions, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -2446,12 +2000,16 @@ func (c *DefaultApiService) UpdateTaskActions(AssistantSid string, TaskSid strin
 	return ps, err
 }
 
-// UpdateWebhookParams Optional parameters for the method 'UpdateWebhook'
+// Optional parameters for the method 'UpdateWebhook'
 type UpdateWebhookParams struct {
-	Events        *string `json:"Events,omitempty"`
-	UniqueName    *string `json:"UniqueName,omitempty"`
+	// The list of space-separated events that this Webhook will subscribe to.
+	Events *string `json:"Events,omitempty"`
+	// An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The method to be used when calling the webhook's URL.
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
-	WebhookUrl    *string `json:"WebhookUrl,omitempty"`
+	// The URL associated with this Webhook.
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
 
 func (params *UpdateWebhookParams) SetEvents(Events string) *UpdateWebhookParams {
@@ -2471,23 +2029,6 @@ func (params *UpdateWebhookParams) SetWebhookUrl(WebhookUrl string) *UpdateWebho
 	return params
 }
 
-// UpdateWebhook Method for UpdateWebhook
-//
-// param: AssistantSid The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the resource to update.
-//
-// param: Sid The Twilio-provided string that uniquely identifies the Webhook resource to update.
-//
-// param: optional nil or *UpdateWebhookParams - Optional Parameters:
-//
-// param: "Events" (string) - The list of space-separated events that this Webhook will subscribe to.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. This value must be unique and 64 characters or less in length.
-//
-// param: "WebhookMethod" (string) - The method to be used when calling the webhook's URL.
-//
-// param: "WebhookUrl" (string) - The URL associated with this Webhook.
-//
-// return: AutopilotV1AssistantWebhook
 func (c *DefaultApiService) UpdateWebhook(AssistantSid string, Sid string, params *UpdateWebhookParams) (*AutopilotV1AssistantWebhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)

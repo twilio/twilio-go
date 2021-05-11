@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -33,11 +33,6 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 	}
 }
 
-// FetchCall Method for FetchCall
-//
-// param: Sid
-//
-// return: InsightsV1Call
 func (c *DefaultApiService) FetchCall(Sid string) (*InsightsV1Call, error) {
 	path := "/v1/Voice/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -60,8 +55,9 @@ func (c *DefaultApiService) FetchCall(Sid string) (*InsightsV1Call, error) {
 	return ps, err
 }
 
-// FetchSummaryParams Optional parameters for the method 'FetchSummary'
+// Optional parameters for the method 'FetchSummary'
 type FetchSummaryParams struct {
+	//
 	ProcessingState *string `json:"ProcessingState,omitempty"`
 }
 
@@ -70,15 +66,6 @@ func (params *FetchSummaryParams) SetProcessingState(ProcessingState string) *Fe
 	return params
 }
 
-// FetchSummary Method for FetchSummary
-//
-// param: CallSid
-//
-// param: optional nil or *FetchSummaryParams - Optional Parameters:
-//
-// param: "ProcessingState" (string) -
-//
-// return: InsightsV1CallSummary
 func (c *DefaultApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*InsightsV1CallSummary, error) {
 	path := "/v1/Voice/{CallSid}/Summary"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -105,15 +92,7 @@ func (c *DefaultApiService) FetchSummary(CallSid string, params *FetchSummaryPar
 	return ps, err
 }
 
-// FetchVideoParticipantSummary Method for FetchVideoParticipantSummary
-//
 // Get Video Log Analyzer data for a Room Participant.
-//
-// param: RoomSid The SID of the Room resource.
-//
-// param: ParticipantSid The SID of the Participant resource.
-//
-// return: InsightsV1VideoRoomSummaryVideoParticipantSummary
 func (c *DefaultApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid string) (*InsightsV1VideoRoomSummaryVideoParticipantSummary, error) {
 	path := "/v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -137,13 +116,7 @@ func (c *DefaultApiService) FetchVideoParticipantSummary(RoomSid string, Partici
 	return ps, err
 }
 
-// FetchVideoRoomSummary Method for FetchVideoRoomSummary
-//
 // Get Video Log Analyzer data for a Room.
-//
-// param: RoomSid The SID of the Room resource.
-//
-// return: InsightsV1VideoRoomSummary
 func (c *DefaultApiService) FetchVideoRoomSummary(RoomSid string) (*InsightsV1VideoRoomSummary, error) {
 	path := "/v1/Video/Rooms/{RoomSid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -166,10 +139,12 @@ func (c *DefaultApiService) FetchVideoRoomSummary(RoomSid string) (*InsightsV1Vi
 	return ps, err
 }
 
-// ListEventParams Optional parameters for the method 'ListEvent'
+// Optional parameters for the method 'ListEvent'
 type ListEventParams struct {
-	Edge     *string `json:"Edge,omitempty"`
-	PageSize *int32  `json:"PageSize,omitempty"`
+	//
+	Edge *string `json:"Edge,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListEventParams) SetEdge(Edge string) *ListEventParams {
@@ -181,17 +156,6 @@ func (params *ListEventParams) SetPageSize(PageSize int32) *ListEventParams {
 	return params
 }
 
-// ListEvent Method for ListEvent
-//
-// param: CallSid
-//
-// param: optional nil or *ListEventParams - Optional Parameters:
-//
-// param: "Edge" (string) -
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListEventResponse
 func (c *DefaultApiService) ListEvent(CallSid string, params *ListEventParams) (*ListEventResponse, error) {
 	path := "/v1/Voice/{CallSid}/Events"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -221,11 +185,14 @@ func (c *DefaultApiService) ListEvent(CallSid string, params *ListEventParams) (
 	return ps, err
 }
 
-// ListMetricParams Optional parameters for the method 'ListMetric'
+// Optional parameters for the method 'ListMetric'
 type ListMetricParams struct {
-	Edge      *string `json:"Edge,omitempty"`
+	//
+	Edge *string `json:"Edge,omitempty"`
+	//
 	Direction *string `json:"Direction,omitempty"`
-	PageSize  *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListMetricParams) SetEdge(Edge string) *ListMetricParams {
@@ -241,19 +208,6 @@ func (params *ListMetricParams) SetPageSize(PageSize int32) *ListMetricParams {
 	return params
 }
 
-// ListMetric Method for ListMetric
-//
-// param: CallSid
-//
-// param: optional nil or *ListMetricParams - Optional Parameters:
-//
-// param: "Edge" (string) -
-//
-// param: "Direction" (string) -
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListMetricResponse
 func (c *DefaultApiService) ListMetric(CallSid string, params *ListMetricParams) (*ListMetricResponse, error) {
 	path := "/v1/Voice/{CallSid}/Metrics"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -286,8 +240,9 @@ func (c *DefaultApiService) ListMetric(CallSid string, params *ListMetricParams)
 	return ps, err
 }
 
-// ListVideoParticipantSummaryParams Optional parameters for the method 'ListVideoParticipantSummary'
+// Optional parameters for the method 'ListVideoParticipantSummary'
 type ListVideoParticipantSummaryParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -296,17 +251,7 @@ func (params *ListVideoParticipantSummaryParams) SetPageSize(PageSize int32) *Li
 	return params
 }
 
-// ListVideoParticipantSummary Method for ListVideoParticipantSummary
-//
 // Get a list of room participants.
-//
-// param: RoomSid The SID of the Room resource.
-//
-// param: optional nil or *ListVideoParticipantSummaryParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListVideoParticipantSummaryResponse
 func (c *DefaultApiService) ListVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) (*ListVideoParticipantSummaryResponse, error) {
 	path := "/v1/Video/Rooms/{RoomSid}/Participants"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -333,14 +278,20 @@ func (c *DefaultApiService) ListVideoParticipantSummary(RoomSid string, params *
 	return ps, err
 }
 
-// ListVideoRoomSummaryParams Optional parameters for the method 'ListVideoRoomSummary'
+// Optional parameters for the method 'ListVideoRoomSummary'
 type ListVideoRoomSummaryParams struct {
-	RoomType      *[]string  `json:"RoomType,omitempty"`
-	Codec         *[]string  `json:"Codec,omitempty"`
-	RoomName      *string    `json:"RoomName,omitempty"`
-	CreatedAfter  *time.Time `json:"CreatedAfter,omitempty"`
+	// Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
+	RoomType *[]string `json:"RoomType,omitempty"`
+	// Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
+	Codec *[]string `json:"Codec,omitempty"`
+	// Room friendly name.
+	RoomName *string `json:"RoomName,omitempty"`
+	// Only read rooms that started on or after this ISO 8601 timestamp.
+	CreatedAfter *time.Time `json:"CreatedAfter,omitempty"`
+	// Only read rooms that started before this ISO 8601 timestamp.
 	CreatedBefore *time.Time `json:"CreatedBefore,omitempty"`
-	PageSize      *int32     `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListVideoRoomSummaryParams) SetRoomType(RoomType []string) *ListVideoRoomSummaryParams {
@@ -368,25 +319,7 @@ func (params *ListVideoRoomSummaryParams) SetPageSize(PageSize int32) *ListVideo
 	return params
 }
 
-// ListVideoRoomSummary Method for ListVideoRoomSummary
-//
 // Get a list of Programmable Video Rooms.
-//
-// param: optional nil or *ListVideoRoomSummaryParams - Optional Parameters:
-//
-// param: "RoomType" ([]string) - Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`.
-//
-// param: "Codec" ([]string) - Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`.
-//
-// param: "RoomName" (string) - Room friendly name.
-//
-// param: "CreatedAfter" (time.Time) - Only read rooms that started on or after this ISO 8601 timestamp.
-//
-// param: "CreatedBefore" (time.Time) - Only read rooms that started before this ISO 8601 timestamp.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListVideoRoomSummaryResponse
 func (c *DefaultApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) (*ListVideoRoomSummaryResponse, error) {
 	path := "/v1/Video/Rooms"
 

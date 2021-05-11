@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -32,11 +32,14 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 	}
 }
 
-// CreateDocumentParams Optional parameters for the method 'CreateDocument'
+// Optional parameters for the method 'CreateDocument'
 type CreateDocumentParams struct {
-	Data       *map[string]interface{} `json:"Data,omitempty"`
-	Ttl        *int32                  `json:"Ttl,omitempty"`
-	UniqueName *string                 `json:"UniqueName,omitempty"`
+	// A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
+	Ttl *int32 `json:"Ttl,omitempty"`
+	// An application-defined string that uniquely identifies the Sync Document
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *CreateDocumentParams) SetData(Data map[string]interface{}) *CreateDocumentParams {
@@ -52,19 +55,6 @@ func (params *CreateDocumentParams) SetUniqueName(UniqueName string) *CreateDocu
 	return params
 }
 
-// CreateDocument Method for CreateDocument
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Document resource in.
-//
-// param: optional nil or *CreateDocumentParams - Optional Parameters:
-//
-// param: "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-//
-// param: "Ttl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the Sync Document
-//
-// return: SyncV1ServiceDocument
 func (c *DefaultApiService) CreateDocument(ServiceSid string, params *CreateDocumentParams) (*SyncV1ServiceDocument, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -103,15 +93,22 @@ func (c *DefaultApiService) CreateDocument(ServiceSid string, params *CreateDocu
 	return ps, err
 }
 
-// CreateServiceParams Optional parameters for the method 'CreateService'
+// Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-	AclEnabled                    *bool   `json:"AclEnabled,omitempty"`
-	FriendlyName                  *string `json:"FriendlyName,omitempty"`
-	ReachabilityDebouncingEnabled *bool   `json:"ReachabilityDebouncingEnabled,omitempty"`
-	ReachabilityDebouncingWindow  *int32  `json:"ReachabilityDebouncingWindow,omitempty"`
-	ReachabilityWebhooksEnabled   *bool   `json:"ReachabilityWebhooksEnabled,omitempty"`
-	WebhookUrl                    *string `json:"WebhookUrl,omitempty"`
-	WebhooksFromRestEnabled       *bool   `json:"WebhooksFromRestEnabled,omitempty"`
+	// Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
+	AclEnabled *bool `json:"AclEnabled,omitempty"`
+	// A string that you assign to describe the resource.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
+	ReachabilityDebouncingEnabled *bool `json:"ReachabilityDebouncingEnabled,omitempty"`
+	// The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the `webhook_url` is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the call to `webhook_url`.
+	ReachabilityDebouncingWindow *int32 `json:"ReachabilityDebouncingWindow,omitempty"`
+	// Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
+	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
+	// The URL we should call when Sync objects are manipulated.
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	// Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
+	WebhooksFromRestEnabled *bool `json:"WebhooksFromRestEnabled,omitempty"`
 }
 
 func (params *CreateServiceParams) SetAclEnabled(AclEnabled bool) *CreateServiceParams {
@@ -143,25 +140,6 @@ func (params *CreateServiceParams) SetWebhooksFromRestEnabled(WebhooksFromRestEn
 	return params
 }
 
-// CreateService Method for CreateService
-//
-// param: optional nil or *CreateServiceParams - Optional Parameters:
-//
-// param: "AclEnabled" (bool) - Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
-//
-// param: "FriendlyName" (string) - A string that you assign to describe the resource.
-//
-// param: "ReachabilityDebouncingEnabled" (bool) - Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
-//
-// param: "ReachabilityDebouncingWindow" (int32) - The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the `webhook_url` is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the call to `webhook_url`.
-//
-// param: "ReachabilityWebhooksEnabled" (bool) - Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
-//
-// param: "WebhookUrl" (string) - The URL we should call when Sync objects are manipulated.
-//
-// param: "WebhooksFromRestEnabled" (bool) - Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
-//
-// return: SyncV1Service
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*SyncV1Service, error) {
 	path := "/v1/Services"
 
@@ -205,8 +183,9 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*SyncV1S
 	return ps, err
 }
 
-// CreateStreamMessageParams Optional parameters for the method 'CreateStreamMessage'
+// Optional parameters for the method 'CreateStreamMessage'
 type CreateStreamMessageParams struct {
+	// A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
 	Data *map[string]interface{} `json:"Data,omitempty"`
 }
 
@@ -215,19 +194,7 @@ func (params *CreateStreamMessageParams) SetData(Data map[string]interface{}) *C
 	return params
 }
 
-// CreateStreamMessage Method for CreateStreamMessage
-//
 // Create a new Stream Message.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Stream Message in.
-//
-// param: StreamSid The SID of the Sync Stream to create the new Stream Message resource for.
-//
-// param: optional nil or *CreateStreamMessageParams - Optional Parameters:
-//
-// param: "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
-//
-// return: SyncV1ServiceSyncStreamStreamMessage
 func (c *DefaultApiService) CreateStreamMessage(ServiceSid string, StreamSid string, params *CreateStreamMessageParams) (*SyncV1ServiceSyncStreamStreamMessage, error) {
 	path := "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -261,11 +228,14 @@ func (c *DefaultApiService) CreateStreamMessage(ServiceSid string, StreamSid str
 	return ps, err
 }
 
-// CreateSyncListParams Optional parameters for the method 'CreateSyncList'
+// Optional parameters for the method 'CreateSyncList'
 type CreateSyncListParams struct {
-	CollectionTtl *int32  `json:"CollectionTtl,omitempty"`
-	Ttl           *int32  `json:"Ttl,omitempty"`
-	UniqueName    *string `json:"UniqueName,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	// Alias for collection_ttl. If both are provided, this value is ignored.
+	Ttl *int32 `json:"Ttl,omitempty"`
+	// An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *CreateSyncListParams) SetCollectionTtl(CollectionTtl int32) *CreateSyncListParams {
@@ -281,19 +251,6 @@ func (params *CreateSyncListParams) SetUniqueName(UniqueName string) *CreateSync
 	return params
 }
 
-// CreateSyncList Method for CreateSyncList
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Sync List in.
-//
-// param: optional nil or *CreateSyncListParams - Optional Parameters:
-//
-// param: "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
-//
-// param: "Ttl" (int32) - Alias for collection_ttl. If both are provided, this value is ignored.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
-//
-// return: SyncV1ServiceSyncList
 func (c *DefaultApiService) CreateSyncList(ServiceSid string, params *CreateSyncListParams) (*SyncV1ServiceSyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -326,12 +283,16 @@ func (c *DefaultApiService) CreateSyncList(ServiceSid string, params *CreateSync
 	return ps, err
 }
 
-// CreateSyncListItemParams Optional parameters for the method 'CreateSyncListItem'
+// Optional parameters for the method 'CreateSyncListItem'
 type CreateSyncListItemParams struct {
-	CollectionTtl *int32                  `json:"CollectionTtl,omitempty"`
-	Data          *map[string]interface{} `json:"Data,omitempty"`
-	ItemTtl       *int32                  `json:"ItemTtl,omitempty"`
-	Ttl           *int32                  `json:"Ttl,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted.
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	// A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
+	ItemTtl *int32 `json:"ItemTtl,omitempty"`
+	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 func (params *CreateSyncListItemParams) SetCollectionTtl(CollectionTtl int32) *CreateSyncListItemParams {
@@ -351,23 +312,6 @@ func (params *CreateSyncListItemParams) SetTtl(Ttl int32) *CreateSyncListItemPar
 	return params
 }
 
-// CreateSyncListItem Method for CreateSyncListItem
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new List Item in.
-//
-// param: ListSid The SID of the Sync List to add the new List Item to. Can be the Sync List resource's `sid` or its `unique_name`.
-//
-// param: optional nil or *CreateSyncListItemParams - Optional Parameters:
-//
-// param: "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted.
-//
-// param: "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-//
-// param: "ItemTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
-//
-// param: "Ttl" (int32) - An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-//
-// return: SyncV1ServiceSyncListSyncListItem
 func (c *DefaultApiService) CreateSyncListItem(ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*SyncV1ServiceSyncListSyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -410,11 +354,14 @@ func (c *DefaultApiService) CreateSyncListItem(ServiceSid string, ListSid string
 	return ps, err
 }
 
-// CreateSyncMapParams Optional parameters for the method 'CreateSyncMap'
+// Optional parameters for the method 'CreateSyncMap'
 type CreateSyncMapParams struct {
-	CollectionTtl *int32  `json:"CollectionTtl,omitempty"`
-	Ttl           *int32  `json:"Ttl,omitempty"`
-	UniqueName    *string `json:"UniqueName,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	// An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
+	Ttl *int32 `json:"Ttl,omitempty"`
+	// An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *CreateSyncMapParams) SetCollectionTtl(CollectionTtl int32) *CreateSyncMapParams {
@@ -430,19 +377,6 @@ func (params *CreateSyncMapParams) SetUniqueName(UniqueName string) *CreateSyncM
 	return params
 }
 
-// CreateSyncMap Method for CreateSyncMap
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the Sync Map in.
-//
-// param: optional nil or *CreateSyncMapParams - Optional Parameters:
-//
-// param: "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
-//
-// param: "Ttl" (int32) - An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
-//
-// return: SyncV1ServiceSyncMap
 func (c *DefaultApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParams) (*SyncV1ServiceSyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -475,13 +409,18 @@ func (c *DefaultApiService) CreateSyncMap(ServiceSid string, params *CreateSyncM
 	return ps, err
 }
 
-// CreateSyncMapItemParams Optional parameters for the method 'CreateSyncMapItem'
+// Optional parameters for the method 'CreateSyncMapItem'
 type CreateSyncMapItemParams struct {
-	CollectionTtl *int32                  `json:"CollectionTtl,omitempty"`
-	Data          *map[string]interface{} `json:"Data,omitempty"`
-	ItemTtl       *int32                  `json:"ItemTtl,omitempty"`
-	Key           *string                 `json:"Key,omitempty"`
-	Ttl           *int32                  `json:"Ttl,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	// A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+	ItemTtl *int32 `json:"ItemTtl,omitempty"`
+	// The unique, user-defined key for the Map Item. Can be up to 320 characters long.
+	Key *string `json:"Key,omitempty"`
+	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 func (params *CreateSyncMapItemParams) SetCollectionTtl(CollectionTtl int32) *CreateSyncMapItemParams {
@@ -505,25 +444,6 @@ func (params *CreateSyncMapItemParams) SetTtl(Ttl int32) *CreateSyncMapItemParam
 	return params
 }
 
-// CreateSyncMapItem Method for CreateSyncMapItem
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the Map Item in.
-//
-// param: MapSid The SID of the Sync Map to add the new Map Item to. Can be the Sync Map resource's `sid` or its `unique_name`.
-//
-// param: optional nil or *CreateSyncMapItemParams - Optional Parameters:
-//
-// param: "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
-//
-// param: "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-//
-// param: "ItemTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-//
-// param: "Key" (string) - The unique, user-defined key for the Map Item. Can be up to 320 characters long.
-//
-// param: "Ttl" (int32) - An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-//
-// return: SyncV1ServiceSyncMapSyncMapItem
 func (c *DefaultApiService) CreateSyncMapItem(ServiceSid string, MapSid string, params *CreateSyncMapItemParams) (*SyncV1ServiceSyncMapSyncMapItem, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -569,9 +489,11 @@ func (c *DefaultApiService) CreateSyncMapItem(ServiceSid string, MapSid string, 
 	return ps, err
 }
 
-// CreateSyncStreamParams Optional parameters for the method 'CreateSyncStream'
+// Optional parameters for the method 'CreateSyncStream'
 type CreateSyncStreamParams struct {
-	Ttl        *int32  `json:"Ttl,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+	Ttl *int32 `json:"Ttl,omitempty"`
+	// An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
@@ -584,19 +506,7 @@ func (params *CreateSyncStreamParams) SetUniqueName(UniqueName string) *CreateSy
 	return params
 }
 
-// CreateSyncStream Method for CreateSyncStream
-//
 // Create a new Stream.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Stream in.
-//
-// param: optional nil or *CreateSyncStreamParams - Optional Parameters:
-//
-// param: "Ttl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
-//
-// return: SyncV1ServiceSyncStream
 func (c *DefaultApiService) CreateSyncStream(ServiceSid string, params *CreateSyncStreamParams) (*SyncV1ServiceSyncStream, error) {
 	path := "/v1/Services/{ServiceSid}/Streams"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -626,12 +536,6 @@ func (c *DefaultApiService) CreateSyncStream(ServiceSid string, params *CreateSy
 	return ps, err
 }
 
-// DeleteDocument Method for DeleteDocument
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to delete.
-//
-// param: Sid The SID of the Document resource to delete. Can be the Document resource's `sid` or its `unique_name`.
-//
 func (c *DefaultApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -650,16 +554,7 @@ func (c *DefaultApiService) DeleteDocument(ServiceSid string, Sid string) error 
 	return nil
 }
 
-// DeleteDocumentPermission Method for DeleteDocumentPermission
-//
 // Delete a specific Sync Document Permission.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resource to delete.
-//
-// param: DocumentSid The SID of the Sync Document with the Document Permission resource to delete. Can be the Document resource's `sid` or its `unique_name`.
-//
-// param: Identity The application-defined string that uniquely identifies the User's Document Permission resource to delete.
-//
 func (c *DefaultApiService) DeleteDocumentPermission(ServiceSid string, DocumentSid string, Identity string) error {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -679,10 +574,6 @@ func (c *DefaultApiService) DeleteDocumentPermission(ServiceSid string, Document
 	return nil
 }
 
-// DeleteService Method for DeleteService
-//
-// param: Sid The SID of the Service resource to delete.
-//
 func (c *DefaultApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -700,12 +591,6 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	return nil
 }
 
-// DeleteSyncList Method for DeleteSyncList
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to delete.
-//
-// param: Sid The SID of the Sync List resource to delete. Can be the Sync List resource's `sid` or its `unique_name`.
-//
 func (c *DefaultApiService) DeleteSyncList(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -724,8 +609,9 @@ func (c *DefaultApiService) DeleteSyncList(ServiceSid string, Sid string) error 
 	return nil
 }
 
-// DeleteSyncListItemParams Optional parameters for the method 'DeleteSyncListItem'
+// Optional parameters for the method 'DeleteSyncListItem'
 type DeleteSyncListItemParams struct {
+	// If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 	IfMatch *string `json:"If-Match,omitempty"`
 }
 
@@ -734,18 +620,6 @@ func (params *DeleteSyncListItemParams) SetIfMatch(IfMatch string) *DeleteSyncLi
 	return params
 }
 
-// DeleteSyncListItem Method for DeleteSyncListItem
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to delete.
-//
-// param: ListSid The SID of the Sync List with the Sync List Item resource to delete. Can be the Sync List resource's `sid` or its `unique_name`.
-//
-// param: Index The index of the Sync List Item resource to delete.
-//
-// param: optional nil or *DeleteSyncListItemParams - Optional Parameters:
-//
-// param: "IfMatch" (string) - If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-//
 func (c *DefaultApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int32, params *DeleteSyncListItemParams) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -769,16 +643,7 @@ func (c *DefaultApiService) DeleteSyncListItem(ServiceSid string, ListSid string
 	return nil
 }
 
-// DeleteSyncListPermission Method for DeleteSyncListPermission
-//
 // Delete a specific Sync List Permission.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Permission resource to delete.
-//
-// param: ListSid The SID of the Sync List with the Sync List Permission resource to delete. Can be the Sync List resource's `sid` or its `unique_name`.
-//
-// param: Identity The application-defined string that uniquely identifies the User's Sync List Permission resource to delete.
-//
 func (c *DefaultApiService) DeleteSyncListPermission(ServiceSid string, ListSid string, Identity string) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -798,12 +663,6 @@ func (c *DefaultApiService) DeleteSyncListPermission(ServiceSid string, ListSid 
 	return nil
 }
 
-// DeleteSyncMap Method for DeleteSyncMap
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resource to delete.
-//
-// param: Sid The SID of the Sync Map resource to delete. Can be the Sync Map's `sid` or its `unique_name`.
-//
 func (c *DefaultApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -822,8 +681,9 @@ func (c *DefaultApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 	return nil
 }
 
-// DeleteSyncMapItemParams Optional parameters for the method 'DeleteSyncMapItem'
+// Optional parameters for the method 'DeleteSyncMapItem'
 type DeleteSyncMapItemParams struct {
+	// If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 	IfMatch *string `json:"If-Match,omitempty"`
 }
 
@@ -832,18 +692,6 @@ func (params *DeleteSyncMapItemParams) SetIfMatch(IfMatch string) *DeleteSyncMap
 	return params
 }
 
-// DeleteSyncMapItem Method for DeleteSyncMapItem
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to delete.
-//
-// param: MapSid The SID of the Sync Map with the Sync Map Item resource to delete. Can be the Sync Map resource's `sid` or its `unique_name`.
-//
-// param: Key The `key` value of the Sync Map Item resource to delete.
-//
-// param: optional nil or *DeleteSyncMapItemParams - Optional Parameters:
-//
-// param: "IfMatch" (string) - If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-//
 func (c *DefaultApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key string, params *DeleteSyncMapItemParams) error {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -867,16 +715,7 @@ func (c *DefaultApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, 
 	return nil
 }
 
-// DeleteSyncMapPermission Method for DeleteSyncMapPermission
-//
 // Delete a specific Sync Map Permission.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to delete. Can be the Service's `sid` value or `default`.
-//
-// param: MapSid The SID of the Sync Map with the Sync Map Permission resource to delete. Can be the Sync Map resource's `sid` or its `unique_name`.
-//
-// param: Identity The application-defined string that uniquely identifies the User's Sync Map Permission resource to delete.
-//
 func (c *DefaultApiService) DeleteSyncMapPermission(ServiceSid string, MapSid string, Identity string) error {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -896,14 +735,7 @@ func (c *DefaultApiService) DeleteSyncMapPermission(ServiceSid string, MapSid st
 	return nil
 }
 
-// DeleteSyncStream Method for DeleteSyncStream
-//
 // Delete a specific Stream.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to delete.
-//
-// param: Sid The SID of the Stream resource to delete.
-//
 func (c *DefaultApiService) DeleteSyncStream(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -922,13 +754,6 @@ func (c *DefaultApiService) DeleteSyncStream(ServiceSid string, Sid string) erro
 	return nil
 }
 
-// FetchDocument Method for FetchDocument
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to fetch.
-//
-// param: Sid The SID of the Document resource to fetch. Can be the Document resource's `sid` or its `unique_name`.
-//
-// return: SyncV1ServiceDocument
 func (c *DefaultApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1ServiceDocument, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -952,17 +777,7 @@ func (c *DefaultApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV
 	return ps, err
 }
 
-// FetchDocumentPermission Method for FetchDocumentPermission
-//
 // Fetch a specific Sync Document Permission.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resource to fetch.
-//
-// param: DocumentSid The SID of the Sync Document with the Document Permission resource to fetch. Can be the Document resource's `sid` or its `unique_name`.
-//
-// param: Identity The application-defined string that uniquely identifies the User's Document Permission resource to fetch.
-//
-// return: SyncV1ServiceDocumentDocumentPermission
 func (c *DefaultApiService) FetchDocumentPermission(ServiceSid string, DocumentSid string, Identity string) (*SyncV1ServiceDocumentDocumentPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -987,11 +802,6 @@ func (c *DefaultApiService) FetchDocumentPermission(ServiceSid string, DocumentS
 	return ps, err
 }
 
-// FetchService Method for FetchService
-//
-// param: Sid The SID of the Service resource to fetch.
-//
-// return: SyncV1Service
 func (c *DefaultApiService) FetchService(Sid string) (*SyncV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1014,13 +824,6 @@ func (c *DefaultApiService) FetchService(Sid string) (*SyncV1Service, error) {
 	return ps, err
 }
 
-// FetchSyncList Method for FetchSyncList
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to fetch.
-//
-// param: Sid The SID of the Sync List resource to fetch. Can be the Sync List resource's `sid` or its `unique_name`.
-//
-// return: SyncV1ServiceSyncList
 func (c *DefaultApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV1ServiceSyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1044,15 +847,6 @@ func (c *DefaultApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV
 	return ps, err
 }
 
-// FetchSyncListItem Method for FetchSyncListItem
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to fetch.
-//
-// param: ListSid The SID of the Sync List with the Sync List Item resource to fetch. Can be the Sync List resource's `sid` or its `unique_name`.
-//
-// param: Index The index of the Sync List Item resource to fetch.
-//
-// return: SyncV1ServiceSyncListSyncListItem
 func (c *DefaultApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index int32) (*SyncV1ServiceSyncListSyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1077,17 +871,7 @@ func (c *DefaultApiService) FetchSyncListItem(ServiceSid string, ListSid string,
 	return ps, err
 }
 
-// FetchSyncListPermission Method for FetchSyncListPermission
-//
 // Fetch a specific Sync List Permission.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Permission resource to fetch.
-//
-// param: ListSid The SID of the Sync List with the Sync List Permission resource to fetch. Can be the Sync List resource's `sid` or its `unique_name`.
-//
-// param: Identity The application-defined string that uniquely identifies the User's Sync List Permission resource to fetch.
-//
-// return: SyncV1ServiceSyncListSyncListPermission
 func (c *DefaultApiService) FetchSyncListPermission(ServiceSid string, ListSid string, Identity string) (*SyncV1ServiceSyncListSyncListPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1112,13 +896,6 @@ func (c *DefaultApiService) FetchSyncListPermission(ServiceSid string, ListSid s
 	return ps, err
 }
 
-// FetchSyncMap Method for FetchSyncMap
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resource to fetch.
-//
-// param: Sid The SID of the Sync Map resource to fetch. Can be the Sync Map's `sid` or its `unique_name`.
-//
-// return: SyncV1ServiceSyncMap
 func (c *DefaultApiService) FetchSyncMap(ServiceSid string, Sid string) (*SyncV1ServiceSyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1142,15 +919,6 @@ func (c *DefaultApiService) FetchSyncMap(ServiceSid string, Sid string) (*SyncV1
 	return ps, err
 }
 
-// FetchSyncMapItem Method for FetchSyncMapItem
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to fetch.
-//
-// param: MapSid The SID of the Sync Map with the Sync Map Item resource to fetch. Can be the Sync Map resource's `sid` or its `unique_name`.
-//
-// param: Key The `key` value of the Sync Map Item resource to fetch.
-//
-// return: SyncV1ServiceSyncMapSyncMapItem
 func (c *DefaultApiService) FetchSyncMapItem(ServiceSid string, MapSid string, Key string) (*SyncV1ServiceSyncMapSyncMapItem, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1175,17 +943,7 @@ func (c *DefaultApiService) FetchSyncMapItem(ServiceSid string, MapSid string, K
 	return ps, err
 }
 
-// FetchSyncMapPermission Method for FetchSyncMapPermission
-//
 // Fetch a specific Sync Map Permission.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to fetch. Can be the Service's `sid` value or `default`.
-//
-// param: MapSid The SID of the Sync Map with the Sync Map Permission resource to fetch. Can be the Sync Map resource's `sid` or its `unique_name`.
-//
-// param: Identity The application-defined string that uniquely identifies the User's Sync Map Permission resource to fetch.
-//
-// return: SyncV1ServiceSyncMapSyncMapPermission
 func (c *DefaultApiService) FetchSyncMapPermission(ServiceSid string, MapSid string, Identity string) (*SyncV1ServiceSyncMapSyncMapPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1210,15 +968,7 @@ func (c *DefaultApiService) FetchSyncMapPermission(ServiceSid string, MapSid str
 	return ps, err
 }
 
-// FetchSyncStream Method for FetchSyncStream
-//
 // Fetch a specific Stream.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to fetch.
-//
-// param: Sid The SID of the Stream resource to fetch.
-//
-// return: SyncV1ServiceSyncStream
 func (c *DefaultApiService) FetchSyncStream(ServiceSid string, Sid string) (*SyncV1ServiceSyncStream, error) {
 	path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1242,8 +992,9 @@ func (c *DefaultApiService) FetchSyncStream(ServiceSid string, Sid string) (*Syn
 	return ps, err
 }
 
-// ListDocumentParams Optional parameters for the method 'ListDocument'
+// Optional parameters for the method 'ListDocument'
 type ListDocumentParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1252,15 +1003,6 @@ func (params *ListDocumentParams) SetPageSize(PageSize int32) *ListDocumentParam
 	return params
 }
 
-// ListDocument Method for ListDocument
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resources to read.
-//
-// param: optional nil or *ListDocumentParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListDocumentResponse
 func (c *DefaultApiService) ListDocument(ServiceSid string, params *ListDocumentParams) (*ListDocumentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1287,8 +1029,9 @@ func (c *DefaultApiService) ListDocument(ServiceSid string, params *ListDocument
 	return ps, err
 }
 
-// ListDocumentPermissionParams Optional parameters for the method 'ListDocumentPermission'
+// Optional parameters for the method 'ListDocumentPermission'
 type ListDocumentPermissionParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1297,19 +1040,7 @@ func (params *ListDocumentPermissionParams) SetPageSize(PageSize int32) *ListDoc
 	return params
 }
 
-// ListDocumentPermission Method for ListDocumentPermission
-//
 // Retrieve a list of all Permissions applying to a Sync Document.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resources to read.
-//
-// param: DocumentSid The SID of the Sync Document with the Document Permission resources to read. Can be the Document resource's `sid` or its `unique_name`.
-//
-// param: optional nil or *ListDocumentPermissionParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListDocumentPermissionResponse
 func (c *DefaultApiService) ListDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams) (*ListDocumentPermissionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1337,8 +1068,9 @@ func (c *DefaultApiService) ListDocumentPermission(ServiceSid string, DocumentSi
 	return ps, err
 }
 
-// ListServiceParams Optional parameters for the method 'ListService'
+// Optional parameters for the method 'ListService'
 type ListServiceParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1347,13 +1079,6 @@ func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams 
 	return params
 }
 
-// ListService Method for ListService
-//
-// param: optional nil or *ListServiceParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListServiceResponse
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
@@ -1379,8 +1104,9 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 	return ps, err
 }
 
-// ListSyncListParams Optional parameters for the method 'ListSyncList'
+// Optional parameters for the method 'ListSyncList'
 type ListSyncListParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1389,15 +1115,6 @@ func (params *ListSyncListParams) SetPageSize(PageSize int32) *ListSyncListParam
 	return params
 }
 
-// ListSyncList Method for ListSyncList
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resources to read.
-//
-// param: optional nil or *ListSyncListParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSyncListResponse
 func (c *DefaultApiService) ListSyncList(ServiceSid string, params *ListSyncListParams) (*ListSyncListResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Lists"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1424,12 +1141,16 @@ func (c *DefaultApiService) ListSyncList(ServiceSid string, params *ListSyncList
 	return ps, err
 }
 
-// ListSyncListItemParams Optional parameters for the method 'ListSyncListItem'
+// Optional parameters for the method 'ListSyncListItem'
 type ListSyncListItemParams struct {
-	Order    *string `json:"Order,omitempty"`
-	From     *string `json:"From,omitempty"`
-	Bounds   *string `json:"Bounds,omitempty"`
-	PageSize *int32  `json:"PageSize,omitempty"`
+	// How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
+	Order *string `json:"Order,omitempty"`
+	// The `index` of the first Sync List Item resource to read. See also `bounds`.
+	From *string `json:"From,omitempty"`
+	// Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
+	Bounds *string `json:"Bounds,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSyncListItemParams) SetOrder(Order string) *ListSyncListItemParams {
@@ -1449,23 +1170,6 @@ func (params *ListSyncListItemParams) SetPageSize(PageSize int32) *ListSyncListI
 	return params
 }
 
-// ListSyncListItem Method for ListSyncListItem
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the List Item resources to read.
-//
-// param: ListSid The SID of the Sync List with the List Items to read. Can be the Sync List resource's `sid` or its `unique_name`.
-//
-// param: optional nil or *ListSyncListItemParams - Optional Parameters:
-//
-// param: "Order" (string) - How to order the List Items returned by their `index` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending.
-//
-// param: "From" (string) - The `index` of the first Sync List Item resource to read. See also `bounds`.
-//
-// param: "Bounds" (string) - Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSyncListItemResponse
 func (c *DefaultApiService) ListSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) (*ListSyncListItemResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1502,8 +1206,9 @@ func (c *DefaultApiService) ListSyncListItem(ServiceSid string, ListSid string, 
 	return ps, err
 }
 
-// ListSyncListPermissionParams Optional parameters for the method 'ListSyncListPermission'
+// Optional parameters for the method 'ListSyncListPermission'
 type ListSyncListPermissionParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1512,19 +1217,7 @@ func (params *ListSyncListPermissionParams) SetPageSize(PageSize int32) *ListSyn
 	return params
 }
 
-// ListSyncListPermission Method for ListSyncListPermission
-//
 // Retrieve a list of all Permissions applying to a Sync List.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Permission resources to read.
-//
-// param: ListSid The SID of the Sync List with the Sync List Permission resources to read. Can be the Sync List resource's `sid` or its `unique_name`.
-//
-// param: optional nil or *ListSyncListPermissionParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSyncListPermissionResponse
 func (c *DefaultApiService) ListSyncListPermission(ServiceSid string, ListSid string, params *ListSyncListPermissionParams) (*ListSyncListPermissionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1552,8 +1245,9 @@ func (c *DefaultApiService) ListSyncListPermission(ServiceSid string, ListSid st
 	return ps, err
 }
 
-// ListSyncMapParams Optional parameters for the method 'ListSyncMap'
+// Optional parameters for the method 'ListSyncMap'
 type ListSyncMapParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1562,15 +1256,6 @@ func (params *ListSyncMapParams) SetPageSize(PageSize int32) *ListSyncMapParams 
 	return params
 }
 
-// ListSyncMap Method for ListSyncMap
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resources to read.
-//
-// param: optional nil or *ListSyncMapParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSyncMapResponse
 func (c *DefaultApiService) ListSyncMap(ServiceSid string, params *ListSyncMapParams) (*ListSyncMapResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Maps"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1597,12 +1282,16 @@ func (c *DefaultApiService) ListSyncMap(ServiceSid string, params *ListSyncMapPa
 	return ps, err
 }
 
-// ListSyncMapItemParams Optional parameters for the method 'ListSyncMapItem'
+// Optional parameters for the method 'ListSyncMapItem'
 type ListSyncMapItemParams struct {
-	Order    *string `json:"Order,omitempty"`
-	From     *string `json:"From,omitempty"`
-	Bounds   *string `json:"Bounds,omitempty"`
-	PageSize *int32  `json:"PageSize,omitempty"`
+	// How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
+	Order *string `json:"Order,omitempty"`
+	// The `key` of the first Sync Map Item resource to read. See also `bounds`.
+	From *string `json:"From,omitempty"`
+	// Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
+	Bounds *string `json:"Bounds,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSyncMapItemParams) SetOrder(Order string) *ListSyncMapItemParams {
@@ -1622,23 +1311,6 @@ func (params *ListSyncMapItemParams) SetPageSize(PageSize int32) *ListSyncMapIte
 	return params
 }
 
-// ListSyncMapItem Method for ListSyncMapItem
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Map Item resources to read.
-//
-// param: MapSid The SID of the Sync Map with the Sync Map Item resource to fetch. Can be the Sync Map resource's `sid` or its `unique_name`.
-//
-// param: optional nil or *ListSyncMapItemParams - Optional Parameters:
-//
-// param: "Order" (string) - How to order the Map Items returned by their `key` value. Can be: `asc` (ascending) or `desc` (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
-//
-// param: "From" (string) - The `key` of the first Sync Map Item resource to read. See also `bounds`.
-//
-// param: "Bounds" (string) - Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSyncMapItemResponse
 func (c *DefaultApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams) (*ListSyncMapItemResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1675,8 +1347,9 @@ func (c *DefaultApiService) ListSyncMapItem(ServiceSid string, MapSid string, pa
 	return ps, err
 }
 
-// ListSyncMapPermissionParams Optional parameters for the method 'ListSyncMapPermission'
+// Optional parameters for the method 'ListSyncMapPermission'
 type ListSyncMapPermissionParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1685,19 +1358,7 @@ func (params *ListSyncMapPermissionParams) SetPageSize(PageSize int32) *ListSync
 	return params
 }
 
-// ListSyncMapPermission Method for ListSyncMapPermission
-//
 // Retrieve a list of all Permissions applying to a Sync Map.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resources to read. Can be the Service's `sid` value or `default`.
-//
-// param: MapSid The SID of the Sync Map with the Permission resources to read. Can be the Sync Map resource's `sid` or its `unique_name`.
-//
-// param: optional nil or *ListSyncMapPermissionParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSyncMapPermissionResponse
 func (c *DefaultApiService) ListSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams) (*ListSyncMapPermissionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1725,8 +1386,9 @@ func (c *DefaultApiService) ListSyncMapPermission(ServiceSid string, MapSid stri
 	return ps, err
 }
 
-// ListSyncStreamParams Optional parameters for the method 'ListSyncStream'
+// Optional parameters for the method 'ListSyncStream'
 type ListSyncStreamParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1735,17 +1397,7 @@ func (params *ListSyncStreamParams) SetPageSize(PageSize int32) *ListSyncStreamP
 	return params
 }
 
-// ListSyncStream Method for ListSyncStream
-//
 // Retrieve a list of all Streams in a Service Instance.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Stream resources to read.
-//
-// param: optional nil or *ListSyncStreamParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSyncStreamResponse
 func (c *DefaultApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamParams) (*ListSyncStreamResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Streams"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1772,11 +1424,14 @@ func (c *DefaultApiService) ListSyncStream(ServiceSid string, params *ListSyncSt
 	return ps, err
 }
 
-// UpdateDocumentParams Optional parameters for the method 'UpdateDocument'
+// Optional parameters for the method 'UpdateDocument'
 type UpdateDocumentParams struct {
-	IfMatch *string                 `json:"If-Match,omitempty"`
-	Data    *map[string]interface{} `json:"Data,omitempty"`
-	Ttl     *int32                  `json:"Ttl,omitempty"`
+	// The If-Match HTTP request header
+	IfMatch *string `json:"If-Match,omitempty"`
+	// A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 func (params *UpdateDocumentParams) SetIfMatch(IfMatch string) *UpdateDocumentParams {
@@ -1792,21 +1447,6 @@ func (params *UpdateDocumentParams) SetTtl(Ttl int32) *UpdateDocumentParams {
 	return params
 }
 
-// UpdateDocument Method for UpdateDocument
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document resource to update.
-//
-// param: Sid The SID of the Document resource to update. Can be the Document resource's `sid` or its `unique_name`.
-//
-// param: optional nil or *UpdateDocumentParams - Optional Parameters:
-//
-// param: "IfMatch" (string) - The If-Match HTTP request header
-//
-// param: "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-//
-// param: "Ttl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
-//
-// return: SyncV1ServiceDocument
 func (c *DefaultApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1ServiceDocument, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1847,11 +1487,14 @@ func (c *DefaultApiService) UpdateDocument(ServiceSid string, Sid string, params
 	return ps, err
 }
 
-// UpdateDocumentPermissionParams Optional parameters for the method 'UpdateDocumentPermission'
+// Optional parameters for the method 'UpdateDocumentPermission'
 type UpdateDocumentPermissionParams struct {
+	// Whether the identity can delete the Sync Document. Default value is `false`.
 	Manage *bool `json:"Manage,omitempty"`
-	Read   *bool `json:"Read,omitempty"`
-	Write  *bool `json:"Write,omitempty"`
+	// Whether the identity can read the Sync Document. Default value is `false`.
+	Read *bool `json:"Read,omitempty"`
+	// Whether the identity can update the Sync Document. Default value is `false`.
+	Write *bool `json:"Write,omitempty"`
 }
 
 func (params *UpdateDocumentPermissionParams) SetManage(Manage bool) *UpdateDocumentPermissionParams {
@@ -1867,25 +1510,7 @@ func (params *UpdateDocumentPermissionParams) SetWrite(Write bool) *UpdateDocume
 	return params
 }
 
-// UpdateDocumentPermission Method for UpdateDocumentPermission
-//
 // Update an identity&#39;s access to a specific Sync Document.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Document Permission resource to update.
-//
-// param: DocumentSid The SID of the Sync Document with the Document Permission resource to update. Can be the Document resource's `sid` or its `unique_name`.
-//
-// param: Identity The application-defined string that uniquely identifies the User's Document Permission resource to update.
-//
-// param: optional nil or *UpdateDocumentPermissionParams - Optional Parameters:
-//
-// param: "Manage" (bool) - Whether the identity can delete the Sync Document. Default value is `false`.
-//
-// param: "Read" (bool) - Whether the identity can read the Sync Document. Default value is `false`.
-//
-// param: "Write" (bool) - Whether the identity can update the Sync Document. Default value is `false`.
-//
-// return: SyncV1ServiceDocumentDocumentPermission
 func (c *DefaultApiService) UpdateDocumentPermission(ServiceSid string, DocumentSid string, Identity string, params *UpdateDocumentPermissionParams) (*SyncV1ServiceDocumentDocumentPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1920,15 +1545,22 @@ func (c *DefaultApiService) UpdateDocumentPermission(ServiceSid string, Document
 	return ps, err
 }
 
-// UpdateServiceParams Optional parameters for the method 'UpdateService'
+// Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-	AclEnabled                    *bool   `json:"AclEnabled,omitempty"`
-	FriendlyName                  *string `json:"FriendlyName,omitempty"`
-	ReachabilityDebouncingEnabled *bool   `json:"ReachabilityDebouncingEnabled,omitempty"`
-	ReachabilityDebouncingWindow  *int32  `json:"ReachabilityDebouncingWindow,omitempty"`
-	ReachabilityWebhooksEnabled   *bool   `json:"ReachabilityWebhooksEnabled,omitempty"`
-	WebhookUrl                    *string `json:"WebhookUrl,omitempty"`
-	WebhooksFromRestEnabled       *bool   `json:"WebhooksFromRestEnabled,omitempty"`
+	// Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
+	AclEnabled *bool `json:"AclEnabled,omitempty"`
+	// A string that you assign to describe the resource.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
+	ReachabilityDebouncingEnabled *bool `json:"ReachabilityDebouncingEnabled,omitempty"`
+	// The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the webhook is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the webhook from being called.
+	ReachabilityDebouncingWindow *int32 `json:"ReachabilityDebouncingWindow,omitempty"`
+	// Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
+	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
+	// The URL we should call when Sync objects are manipulated.
+	WebhookUrl *string `json:"WebhookUrl,omitempty"`
+	// Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
+	WebhooksFromRestEnabled *bool `json:"WebhooksFromRestEnabled,omitempty"`
 }
 
 func (params *UpdateServiceParams) SetAclEnabled(AclEnabled bool) *UpdateServiceParams {
@@ -1960,27 +1592,6 @@ func (params *UpdateServiceParams) SetWebhooksFromRestEnabled(WebhooksFromRestEn
 	return params
 }
 
-// UpdateService Method for UpdateService
-//
-// param: Sid The SID of the Service resource to update.
-//
-// param: optional nil or *UpdateServiceParams - Optional Parameters:
-//
-// param: "AclEnabled" (bool) - Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
-//
-// param: "FriendlyName" (string) - A string that you assign to describe the resource.
-//
-// param: "ReachabilityDebouncingEnabled" (bool) - Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
-//
-// param: "ReachabilityDebouncingWindow" (int32) - The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the webhook is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the webhook from being called.
-//
-// param: "ReachabilityWebhooksEnabled" (bool) - Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
-//
-// param: "WebhookUrl" (string) - The URL we should call when Sync objects are manipulated.
-//
-// param: "WebhooksFromRestEnabled" (bool) - Whether the Service instance should call `webhook_url` when the REST API is used to update Sync objects. The default is `false`.
-//
-// return: SyncV1Service
 func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*SyncV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -2025,10 +1636,12 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 	return ps, err
 }
 
-// UpdateSyncListParams Optional parameters for the method 'UpdateSyncList'
+// Optional parameters for the method 'UpdateSyncList'
 type UpdateSyncListParams struct {
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
 	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
-	Ttl           *int32 `json:"Ttl,omitempty"`
+	// An alias for `collection_ttl`. If both are provided, this value is ignored.
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 func (params *UpdateSyncListParams) SetCollectionTtl(CollectionTtl int32) *UpdateSyncListParams {
@@ -2040,19 +1653,6 @@ func (params *UpdateSyncListParams) SetTtl(Ttl int32) *UpdateSyncListParams {
 	return params
 }
 
-// UpdateSyncList Method for UpdateSyncList
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to update.
-//
-// param: Sid The SID of the Sync List resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
-//
-// param: optional nil or *UpdateSyncListParams - Optional Parameters:
-//
-// param: "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
-//
-// param: "Ttl" (int32) - An alias for `collection_ttl`. If both are provided, this value is ignored.
-//
-// return: SyncV1ServiceSyncList
 func (c *DefaultApiService) UpdateSyncList(ServiceSid string, Sid string, params *UpdateSyncListParams) (*SyncV1ServiceSyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2083,13 +1683,18 @@ func (c *DefaultApiService) UpdateSyncList(ServiceSid string, Sid string, params
 	return ps, err
 }
 
-// UpdateSyncListItemParams Optional parameters for the method 'UpdateSyncListItem'
+// Optional parameters for the method 'UpdateSyncListItem'
 type UpdateSyncListItemParams struct {
-	IfMatch       *string                 `json:"If-Match,omitempty"`
-	CollectionTtl *int32                  `json:"CollectionTtl,omitempty"`
-	Data          *map[string]interface{} `json:"Data,omitempty"`
-	ItemTtl       *int32                  `json:"ItemTtl,omitempty"`
-	Ttl           *int32                  `json:"Ttl,omitempty"`
+	// If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+	IfMatch *string `json:"If-Match,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item's `data` or `ttl` is updated in the same request.
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	// A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
+	ItemTtl *int32 `json:"ItemTtl,omitempty"`
+	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 func (params *UpdateSyncListItemParams) SetIfMatch(IfMatch string) *UpdateSyncListItemParams {
@@ -2113,27 +1718,6 @@ func (params *UpdateSyncListItemParams) SetTtl(Ttl int32) *UpdateSyncListItemPar
 	return params
 }
 
-// UpdateSyncListItem Method for UpdateSyncListItem
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to update.
-//
-// param: ListSid The SID of the Sync List with the Sync List Item resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
-//
-// param: Index The index of the Sync List Item resource to update.
-//
-// param: optional nil or *UpdateSyncListItemParams - Optional Parameters:
-//
-// param: "IfMatch" (string) - If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-//
-// param: "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item's `data` or `ttl` is updated in the same request.
-//
-// param: "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-//
-// param: "ItemTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
-//
-// param: "Ttl" (int32) - An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-//
-// return: SyncV1ServiceSyncListSyncListItem
 func (c *DefaultApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index int32, params *UpdateSyncListItemParams) (*SyncV1ServiceSyncListSyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2181,11 +1765,14 @@ func (c *DefaultApiService) UpdateSyncListItem(ServiceSid string, ListSid string
 	return ps, err
 }
 
-// UpdateSyncListPermissionParams Optional parameters for the method 'UpdateSyncListPermission'
+// Optional parameters for the method 'UpdateSyncListPermission'
 type UpdateSyncListPermissionParams struct {
+	// Whether the identity can delete the Sync List. Default value is `false`.
 	Manage *bool `json:"Manage,omitempty"`
-	Read   *bool `json:"Read,omitempty"`
-	Write  *bool `json:"Write,omitempty"`
+	// Whether the identity can read the Sync List and its Items. Default value is `false`.
+	Read *bool `json:"Read,omitempty"`
+	// Whether the identity can create, update, and delete Items in the Sync List. Default value is `false`.
+	Write *bool `json:"Write,omitempty"`
 }
 
 func (params *UpdateSyncListPermissionParams) SetManage(Manage bool) *UpdateSyncListPermissionParams {
@@ -2201,25 +1788,7 @@ func (params *UpdateSyncListPermissionParams) SetWrite(Write bool) *UpdateSyncLi
 	return params
 }
 
-// UpdateSyncListPermission Method for UpdateSyncListPermission
-//
 // Update an identity&#39;s access to a specific Sync List.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Permission resource to update.
-//
-// param: ListSid The SID of the Sync List with the Sync List Permission resource to update. Can be the Sync List resource's `sid` or its `unique_name`.
-//
-// param: Identity The application-defined string that uniquely identifies the User's Sync List Permission resource to update.
-//
-// param: optional nil or *UpdateSyncListPermissionParams - Optional Parameters:
-//
-// param: "Manage" (bool) - Whether the identity can delete the Sync List. Default value is `false`.
-//
-// param: "Read" (bool) - Whether the identity can read the Sync List and its Items. Default value is `false`.
-//
-// param: "Write" (bool) - Whether the identity can create, update, and delete Items in the Sync List. Default value is `false`.
-//
-// return: SyncV1ServiceSyncListSyncListPermission
 func (c *DefaultApiService) UpdateSyncListPermission(ServiceSid string, ListSid string, Identity string, params *UpdateSyncListPermissionParams) (*SyncV1ServiceSyncListSyncListPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2254,10 +1823,12 @@ func (c *DefaultApiService) UpdateSyncListPermission(ServiceSid string, ListSid 
 	return ps, err
 }
 
-// UpdateSyncMapParams Optional parameters for the method 'UpdateSyncMap'
+// Optional parameters for the method 'UpdateSyncMap'
 type UpdateSyncMapParams struct {
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
 	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
-	Ttl           *int32 `json:"Ttl,omitempty"`
+	// An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 func (params *UpdateSyncMapParams) SetCollectionTtl(CollectionTtl int32) *UpdateSyncMapParams {
@@ -2269,19 +1840,6 @@ func (params *UpdateSyncMapParams) SetTtl(Ttl int32) *UpdateSyncMapParams {
 	return params
 }
 
-// UpdateSyncMap Method for UpdateSyncMap
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map resource to update.
-//
-// param: Sid The SID of the Sync Map resource to update. Can be the Sync Map's `sid` or its `unique_name`.
-//
-// param: optional nil or *UpdateSyncMapParams - Optional Parameters:
-//
-// param: "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
-//
-// param: "Ttl" (int32) - An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
-//
-// return: SyncV1ServiceSyncMap
 func (c *DefaultApiService) UpdateSyncMap(ServiceSid string, Sid string, params *UpdateSyncMapParams) (*SyncV1ServiceSyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2312,13 +1870,18 @@ func (c *DefaultApiService) UpdateSyncMap(ServiceSid string, Sid string, params 
 	return ps, err
 }
 
-// UpdateSyncMapItemParams Optional parameters for the method 'UpdateSyncMapItem'
+// Optional parameters for the method 'UpdateSyncMapItem'
 type UpdateSyncMapItemParams struct {
-	IfMatch       *string                 `json:"If-Match,omitempty"`
-	CollectionTtl *int32                  `json:"CollectionTtl,omitempty"`
-	Data          *map[string]interface{} `json:"Data,omitempty"`
-	ItemTtl       *int32                  `json:"ItemTtl,omitempty"`
-	Ttl           *int32                  `json:"Ttl,omitempty"`
+	// If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
+	IfMatch *string `json:"If-Match,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
+	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	// A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
+	Data *map[string]interface{} `json:"Data,omitempty"`
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+	ItemTtl *int32 `json:"ItemTtl,omitempty"`
+	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
+	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
 func (params *UpdateSyncMapItemParams) SetIfMatch(IfMatch string) *UpdateSyncMapItemParams {
@@ -2342,27 +1905,6 @@ func (params *UpdateSyncMapItemParams) SetTtl(Ttl int32) *UpdateSyncMapItemParam
 	return params
 }
 
-// UpdateSyncMapItem Method for UpdateSyncMapItem
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Item resource to update.
-//
-// param: MapSid The SID of the Sync Map with the Sync Map Item resource to update. Can be the Sync Map resource's `sid` or its `unique_name`.
-//
-// param: Key The `key` value of the Sync Map Item resource to update.
-//
-// param: optional nil or *UpdateSyncMapItemParams - Optional Parameters:
-//
-// param: "IfMatch" (string) - If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-//
-// param: "CollectionTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
-//
-// param: "Data" (map[string]interface{}) - A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-//
-// param: "ItemTtl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-//
-// param: "Ttl" (int32) - An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-//
-// return: SyncV1ServiceSyncMapSyncMapItem
 func (c *DefaultApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, Key string, params *UpdateSyncMapItemParams) (*SyncV1ServiceSyncMapSyncMapItem, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2410,11 +1952,14 @@ func (c *DefaultApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, 
 	return ps, err
 }
 
-// UpdateSyncMapPermissionParams Optional parameters for the method 'UpdateSyncMapPermission'
+// Optional parameters for the method 'UpdateSyncMapPermission'
 type UpdateSyncMapPermissionParams struct {
+	// Whether the identity can delete the Sync Map. Default value is `false`.
 	Manage *bool `json:"Manage,omitempty"`
-	Read   *bool `json:"Read,omitempty"`
-	Write  *bool `json:"Write,omitempty"`
+	// Whether the identity can read the Sync Map and its Items. Default value is `false`.
+	Read *bool `json:"Read,omitempty"`
+	// Whether the identity can create, update, and delete Items in the Sync Map. Default value is `false`.
+	Write *bool `json:"Write,omitempty"`
 }
 
 func (params *UpdateSyncMapPermissionParams) SetManage(Manage bool) *UpdateSyncMapPermissionParams {
@@ -2430,25 +1975,7 @@ func (params *UpdateSyncMapPermissionParams) SetWrite(Write bool) *UpdateSyncMap
 	return params
 }
 
-// UpdateSyncMapPermission Method for UpdateSyncMapPermission
-//
 // Update an identity&#39;s access to a specific Sync Map.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Map Permission resource to update. Can be the Service's `sid` value or `default`.
-//
-// param: MapSid The SID of the Sync Map with the Sync Map Permission resource to update. Can be the Sync Map resource's `sid` or its `unique_name`.
-//
-// param: Identity The application-defined string that uniquely identifies the User's Sync Map Permission resource to update.
-//
-// param: optional nil or *UpdateSyncMapPermissionParams - Optional Parameters:
-//
-// param: "Manage" (bool) - Whether the identity can delete the Sync Map. Default value is `false`.
-//
-// param: "Read" (bool) - Whether the identity can read the Sync Map and its Items. Default value is `false`.
-//
-// param: "Write" (bool) - Whether the identity can create, update, and delete Items in the Sync Map. Default value is `false`.
-//
-// return: SyncV1ServiceSyncMapSyncMapPermission
 func (c *DefaultApiService) UpdateSyncMapPermission(ServiceSid string, MapSid string, Identity string, params *UpdateSyncMapPermissionParams) (*SyncV1ServiceSyncMapSyncMapPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -2483,8 +2010,9 @@ func (c *DefaultApiService) UpdateSyncMapPermission(ServiceSid string, MapSid st
 	return ps, err
 }
 
-// UpdateSyncStreamParams Optional parameters for the method 'UpdateSyncStream'
+// Optional parameters for the method 'UpdateSyncStream'
 type UpdateSyncStreamParams struct {
+	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
 	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
@@ -2493,19 +2021,7 @@ func (params *UpdateSyncStreamParams) SetTtl(Ttl int32) *UpdateSyncStreamParams 
 	return params
 }
 
-// UpdateSyncStream Method for UpdateSyncStream
-//
 // Update a specific Stream.
-//
-// param: ServiceSid The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync Stream resource to update.
-//
-// param: Sid The SID of the Stream resource to update.
-//
-// param: optional nil or *UpdateSyncStreamParams - Optional Parameters:
-//
-// param: "Ttl" (int32) - How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
-//
-// return: SyncV1ServiceSyncStream
 func (c *DefaultApiService) UpdateSyncStream(ServiceSid string, Sid string, params *UpdateSyncStreamParams) (*SyncV1ServiceSyncStream, error) {
 	path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)

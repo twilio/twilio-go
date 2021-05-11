@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -33,15 +33,22 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 	}
 }
 
-// CreateCommandParams Optional parameters for the method 'CreateCommand'
+// Optional parameters for the method 'CreateCommand'
 type CreateCommandParams struct {
-	CallbackMethod           *string `json:"CallbackMethod,omitempty"`
-	CallbackUrl              *string `json:"CallbackUrl,omitempty"`
-	Command                  *string `json:"Command,omitempty"`
-	CommandMode              *string `json:"CommandMode,omitempty"`
-	DeliveryReceiptRequested *bool   `json:"DeliveryReceiptRequested,omitempty"`
-	IncludeSid               *string `json:"IncludeSid,omitempty"`
-	Sim                      *string `json:"Sim,omitempty"`
+	// The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	// The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
+	Command *string `json:"Command,omitempty"`
+	// The mode to use when sending the SMS message. Can be: `text` or `binary`. The default SMS mode is `text`.
+	CommandMode *string `json:"CommandMode,omitempty"`
+	// Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to 'delivered' once the server has received a delivery receipt from the device. The default value is `true`.
+	DeliveryReceiptRequested *bool `json:"DeliveryReceiptRequested,omitempty"`
+	// Whether to include the SID of the command in the message body. Can be: `none`, `start`, or `end`, and the default behavior is `none`. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of `start` will prepend the message with the Command SID, and `end` will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
+	IncludeSid *string `json:"IncludeSid,omitempty"`
+	// The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
+	Sim *string `json:"Sim,omitempty"`
 }
 
 func (params *CreateCommandParams) SetCallbackMethod(CallbackMethod string) *CreateCommandParams {
@@ -73,27 +80,7 @@ func (params *CreateCommandParams) SetSim(Sim string) *CreateCommandParams {
 	return params
 }
 
-// CreateCommand Method for CreateCommand
-//
 // Send a Command to a Sim.
-//
-// param: optional nil or *CreateCommandParams - Optional Parameters:
-//
-// param: "CallbackMethod" (string) - The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and the default is `POST`.
-//
-// param: "CallbackUrl" (string) - The URL we call using the `callback_url` when the Command has finished sending, whether the command was delivered or it failed.
-//
-// param: "Command" (string) - The message body of the Command. Can be plain text in text mode or a Base64 encoded byte string in binary mode.
-//
-// param: "CommandMode" (string) - The mode to use when sending the SMS message. Can be: `text` or `binary`. The default SMS mode is `text`.
-//
-// param: "DeliveryReceiptRequested" (bool) - Whether to request delivery receipt from the recipient. For Commands that request delivery receipt, the Command state transitions to 'delivered' once the server has received a delivery receipt from the device. The default value is `true`.
-//
-// param: "IncludeSid" (string) - Whether to include the SID of the command in the message body. Can be: `none`, `start`, or `end`, and the default behavior is `none`. When sending a Command to a SIM in text mode, we can automatically include the SID of the Command in the message body, which could be used to ensure that the device does not process the same Command more than once.  A value of `start` will prepend the message with the Command SID, and `end` will append it to the end, separating the Command SID from the message body with a space. The length of the Command SID is included in the 160 character limit so the SMS body must be 128 characters or less before the Command SID is included.
-//
-// param: "Sim" (string) - The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the Command to.
-//
-// return: WirelessV1Command
 func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Command, error) {
 	path := "/v1/Commands"
 
@@ -137,19 +124,30 @@ func (c *DefaultApiService) CreateCommand(params *CreateCommandParams) (*Wireles
 	return ps, err
 }
 
-// CreateRatePlanParams Optional parameters for the method 'CreateRatePlan'
+// Optional parameters for the method 'CreateRatePlan'
 type CreateRatePlanParams struct {
-	DataEnabled                   *bool     `json:"DataEnabled,omitempty"`
-	DataLimit                     *int32    `json:"DataLimit,omitempty"`
-	DataMetering                  *string   `json:"DataMetering,omitempty"`
-	FriendlyName                  *string   `json:"FriendlyName,omitempty"`
-	InternationalRoaming          *[]string `json:"InternationalRoaming,omitempty"`
-	InternationalRoamingDataLimit *int32    `json:"InternationalRoamingDataLimit,omitempty"`
-	MessagingEnabled              *bool     `json:"MessagingEnabled,omitempty"`
-	NationalRoamingDataLimit      *int32    `json:"NationalRoamingDataLimit,omitempty"`
-	NationalRoamingEnabled        *bool     `json:"NationalRoamingEnabled,omitempty"`
-	UniqueName                    *string   `json:"UniqueName,omitempty"`
-	VoiceEnabled                  *bool     `json:"VoiceEnabled,omitempty"`
+	// Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
+	DataEnabled *bool `json:"DataEnabled,omitempty"`
+	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`.
+	DataLimit *int32 `json:"DataLimit,omitempty"`
+	// The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
+	DataMetering *string `json:"DataMetering,omitempty"`
+	// A descriptive string that you create to describe the resource. It does not have to be unique.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can be: `data`, `voice`, and `messaging`.
+	InternationalRoaming *[]string `json:"InternationalRoaming,omitempty"`
+	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
+	InternationalRoamingDataLimit *int32 `json:"InternationalRoamingDataLimit,omitempty"`
+	// Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
+	MessagingEnabled *bool `json:"MessagingEnabled,omitempty"`
+	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming) for more info.
+	NationalRoamingDataLimit *int32 `json:"NationalRoamingDataLimit,omitempty"`
+	// Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
+	NationalRoamingEnabled *bool `json:"NationalRoamingEnabled,omitempty"`
+	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// Whether SIMs can make and receive voice calls.
+	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
 }
 
 func (params *CreateRatePlanParams) SetDataEnabled(DataEnabled bool) *CreateRatePlanParams {
@@ -197,33 +195,6 @@ func (params *CreateRatePlanParams) SetVoiceEnabled(VoiceEnabled bool) *CreateRa
 	return params
 }
 
-// CreateRatePlan Method for CreateRatePlan
-//
-// param: optional nil or *CreateRatePlanParams - Optional Parameters:
-//
-// param: "DataEnabled" (bool) - Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
-//
-// param: "DataLimit" (int32) - The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`.
-//
-// param: "DataMetering" (string) - The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It does not have to be unique.
-//
-// param: "InternationalRoaming" ([]string) - The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can be: `data`, `voice`, and `messaging`.
-//
-// param: "InternationalRoamingDataLimit" (int32) - The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
-//
-// param: "MessagingEnabled" (bool) - Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
-//
-// param: "NationalRoamingDataLimit" (int32) - The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming) for more info.
-//
-// param: "NationalRoamingEnabled" (bool) - Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-//
-// param: "VoiceEnabled" (bool) - Whether SIMs can make and receive voice calls.
-//
-// return: WirelessV1RatePlan
 func (c *DefaultApiService) CreateRatePlan(params *CreateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans"
 
@@ -279,12 +250,7 @@ func (c *DefaultApiService) CreateRatePlan(params *CreateRatePlanParams) (*Wirel
 	return ps, err
 }
 
-// DeleteCommand Method for DeleteCommand
-//
 // Delete a Command instance from your account.
-//
-// param: Sid The SID of the Command resource to delete.
-//
 func (c *DefaultApiService) DeleteCommand(Sid string) error {
 	path := "/v1/Commands/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -302,10 +268,6 @@ func (c *DefaultApiService) DeleteCommand(Sid string) error {
 	return nil
 }
 
-// DeleteRatePlan Method for DeleteRatePlan
-//
-// param: Sid The SID of the RatePlan resource to delete.
-//
 func (c *DefaultApiService) DeleteRatePlan(Sid string) error {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -323,12 +285,7 @@ func (c *DefaultApiService) DeleteRatePlan(Sid string) error {
 	return nil
 }
 
-// DeleteSim Method for DeleteSim
-//
 // Delete a Sim resource on your Account.
-//
-// param: Sid The SID or the `unique_name` of the Sim resource to delete.
-//
 func (c *DefaultApiService) DeleteSim(Sid string) error {
 	path := "/v1/Sims/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -346,13 +303,7 @@ func (c *DefaultApiService) DeleteSim(Sid string) error {
 	return nil
 }
 
-// FetchCommand Method for FetchCommand
-//
 // Fetch a Command instance from your account.
-//
-// param: Sid The SID of the Command resource to fetch.
-//
-// return: WirelessV1Command
 func (c *DefaultApiService) FetchCommand(Sid string) (*WirelessV1Command, error) {
 	path := "/v1/Commands/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -375,11 +326,6 @@ func (c *DefaultApiService) FetchCommand(Sid string) (*WirelessV1Command, error)
 	return ps, err
 }
 
-// FetchRatePlan Method for FetchRatePlan
-//
-// param: Sid The SID of the RatePlan resource to fetch.
-//
-// return: WirelessV1RatePlan
 func (c *DefaultApiService) FetchRatePlan(Sid string) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -402,13 +348,7 @@ func (c *DefaultApiService) FetchRatePlan(Sid string) (*WirelessV1RatePlan, erro
 	return ps, err
 }
 
-// FetchSim Method for FetchSim
-//
 // Fetch a Sim resource on your Account.
-//
-// param: Sid The SID or the `unique_name` of the Sim resource to fetch.
-//
-// return: WirelessV1Sim
 func (c *DefaultApiService) FetchSim(Sid string) (*WirelessV1Sim, error) {
 	path := "/v1/Sims/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -431,12 +371,16 @@ func (c *DefaultApiService) FetchSim(Sid string) (*WirelessV1Sim, error) {
 	return ps, err
 }
 
-// ListAccountUsageRecordParams Optional parameters for the method 'ListAccountUsageRecord'
+// Optional parameters for the method 'ListAccountUsageRecord'
 type ListAccountUsageRecordParams struct {
-	End         *time.Time `json:"End,omitempty"`
-	Start       *time.Time `json:"Start,omitempty"`
-	Granularity *string    `json:"Granularity,omitempty"`
-	PageSize    *int32     `json:"PageSize,omitempty"`
+	// Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
+	End *time.Time `json:"End,omitempty"`
+	// Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
+	Start *time.Time `json:"Start,omitempty"`
+	// How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
+	Granularity *string `json:"Granularity,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListAccountUsageRecordParams) SetEnd(End time.Time) *ListAccountUsageRecordParams {
@@ -456,19 +400,6 @@ func (params *ListAccountUsageRecordParams) SetPageSize(PageSize int32) *ListAcc
 	return params
 }
 
-// ListAccountUsageRecord Method for ListAccountUsageRecord
-//
-// param: optional nil or *ListAccountUsageRecordParams - Optional Parameters:
-//
-// param: "End" (time.Time) - Only include usage that has occurred on or before this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
-//
-// param: "Start" (time.Time) - Only include usage that has occurred on or after this date. Format is [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html).
-//
-// param: "Granularity" (string) - How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAccountUsageRecordResponse
 func (c *DefaultApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams) (*ListAccountUsageRecordResponse, error) {
 	path := "/v1/UsageRecords"
 
@@ -503,13 +434,18 @@ func (c *DefaultApiService) ListAccountUsageRecord(params *ListAccountUsageRecor
 	return ps, err
 }
 
-// ListCommandParams Optional parameters for the method 'ListCommand'
+// Optional parameters for the method 'ListCommand'
 type ListCommandParams struct {
-	Sim       *string `json:"Sim,omitempty"`
-	Status    *string `json:"Status,omitempty"`
+	// The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
+	Sim *string `json:"Sim,omitempty"`
+	// The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
+	Status *string `json:"Status,omitempty"`
+	// Only return Commands with this direction value.
 	Direction *string `json:"Direction,omitempty"`
+	// Only return Commands with this transport value. Can be: `sms` or `ip`.
 	Transport *string `json:"Transport,omitempty"`
-	PageSize  *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListCommandParams) SetSim(Sim string) *ListCommandParams {
@@ -533,23 +469,7 @@ func (params *ListCommandParams) SetPageSize(PageSize int32) *ListCommandParams 
 	return params
 }
 
-// ListCommand Method for ListCommand
-//
 // Retrieve a list of Commands from your account.
-//
-// param: optional nil or *ListCommandParams - Optional Parameters:
-//
-// param: "Sim" (string) - The `sid` or `unique_name` of the [Sim resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read.
-//
-// param: "Status" (string) - The status of the resources to read. Can be: `queued`, `sent`, `delivered`, `received`, or `failed`.
-//
-// param: "Direction" (string) - Only return Commands with this direction value.
-//
-// param: "Transport" (string) - Only return Commands with this transport value. Can be: `sms` or `ip`.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListCommandResponse
 func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*ListCommandResponse, error) {
 	path := "/v1/Commands"
 
@@ -587,8 +507,9 @@ func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*ListCommand
 	return ps, err
 }
 
-// ListDataSessionParams Optional parameters for the method 'ListDataSession'
+// Optional parameters for the method 'ListDataSession'
 type ListDataSessionParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -597,15 +518,6 @@ func (params *ListDataSessionParams) SetPageSize(PageSize int32) *ListDataSessio
 	return params
 }
 
-// ListDataSession Method for ListDataSession
-//
-// param: SimSid The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) with the Data Sessions to read.
-//
-// param: optional nil or *ListDataSessionParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListDataSessionResponse
 func (c *DefaultApiService) ListDataSession(SimSid string, params *ListDataSessionParams) (*ListDataSessionResponse, error) {
 	path := "/v1/Sims/{SimSid}/DataSessions"
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
@@ -632,8 +544,9 @@ func (c *DefaultApiService) ListDataSession(SimSid string, params *ListDataSessi
 	return ps, err
 }
 
-// ListRatePlanParams Optional parameters for the method 'ListRatePlan'
+// Optional parameters for the method 'ListRatePlan'
 type ListRatePlanParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -642,13 +555,6 @@ func (params *ListRatePlanParams) SetPageSize(PageSize int32) *ListRatePlanParam
 	return params
 }
 
-// ListRatePlan Method for ListRatePlan
-//
-// param: optional nil or *ListRatePlanParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListRatePlanResponse
 func (c *DefaultApiService) ListRatePlan(params *ListRatePlanParams) (*ListRatePlanResponse, error) {
 	path := "/v1/RatePlans"
 
@@ -674,14 +580,20 @@ func (c *DefaultApiService) ListRatePlan(params *ListRatePlanParams) (*ListRateP
 	return ps, err
 }
 
-// ListSimParams Optional parameters for the method 'ListSim'
+// Optional parameters for the method 'ListSim'
 type ListSimParams struct {
-	Status              *string `json:"Status,omitempty"`
-	Iccid               *string `json:"Iccid,omitempty"`
-	RatePlan            *string `json:"RatePlan,omitempty"`
-	EId                 *string `json:"EId,omitempty"`
+	// Only return Sim resources with this status.
+	Status *string `json:"Status,omitempty"`
+	// Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
+	Iccid *string `json:"Iccid,omitempty"`
+	// The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
+	RatePlan *string `json:"RatePlan,omitempty"`
+	// Deprecated.
+	EId *string `json:"EId,omitempty"`
+	// Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
 	SimRegistrationCode *string `json:"SimRegistrationCode,omitempty"`
-	PageSize            *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListSimParams) SetStatus(Status string) *ListSimParams {
@@ -709,25 +621,7 @@ func (params *ListSimParams) SetPageSize(PageSize int32) *ListSimParams {
 	return params
 }
 
-// ListSim Method for ListSim
-//
 // Retrieve a list of Sim resources on your Account.
-//
-// param: optional nil or *ListSimParams - Optional Parameters:
-//
-// param: "Status" (string) - Only return Sim resources with this status.
-//
-// param: "Iccid" (string) - Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
-//
-// param: "RatePlan" (string) - The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
-//
-// param: "EId" (string) - Deprecated.
-//
-// param: "SimRegistrationCode" (string) - Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListSimResponse
 func (c *DefaultApiService) ListSim(params *ListSimParams) (*ListSimResponse, error) {
 	path := "/v1/Sims"
 
@@ -768,12 +662,16 @@ func (c *DefaultApiService) ListSim(params *ListSimParams) (*ListSimResponse, er
 	return ps, err
 }
 
-// ListUsageRecordParams Optional parameters for the method 'ListUsageRecord'
+// Optional parameters for the method 'ListUsageRecord'
 type ListUsageRecordParams struct {
-	End         *time.Time `json:"End,omitempty"`
-	Start       *time.Time `json:"Start,omitempty"`
-	Granularity *string    `json:"Granularity,omitempty"`
-	PageSize    *int32     `json:"PageSize,omitempty"`
+	// Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
+	End *time.Time `json:"End,omitempty"`
+	// Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
+	Start *time.Time `json:"Start,omitempty"`
+	// How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
+	Granularity *string `json:"Granularity,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordParams) SetEnd(End time.Time) *ListUsageRecordParams {
@@ -793,21 +691,6 @@ func (params *ListUsageRecordParams) SetPageSize(PageSize int32) *ListUsageRecor
 	return params
 }
 
-// ListUsageRecord Method for ListUsageRecord
-//
-// param: SimSid The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource)  to read the usage from.
-//
-// param: optional nil or *ListUsageRecordParams - Optional Parameters:
-//
-// param: "End" (time.Time) - Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
-//
-// param: "Start" (time.Time) - Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
-//
-// param: "Granularity" (string) - How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListUsageRecordResponse
 func (c *DefaultApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParams) (*ListUsageRecordResponse, error) {
 	path := "/v1/Sims/{SimSid}/UsageRecords"
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
@@ -843,10 +726,12 @@ func (c *DefaultApiService) ListUsageRecord(SimSid string, params *ListUsageReco
 	return ps, err
 }
 
-// UpdateRatePlanParams Optional parameters for the method 'UpdateRatePlan'
+// Optional parameters for the method 'UpdateRatePlan'
 type UpdateRatePlanParams struct {
+	// A descriptive string that you create to describe the resource. It does not have to be unique.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	UniqueName   *string `json:"UniqueName,omitempty"`
+	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
 func (params *UpdateRatePlanParams) SetFriendlyName(FriendlyName string) *UpdateRatePlanParams {
@@ -858,17 +743,6 @@ func (params *UpdateRatePlanParams) SetUniqueName(UniqueName string) *UpdateRate
 	return params
 }
 
-// UpdateRatePlan Method for UpdateRatePlan
-//
-// param: Sid The SID of the RatePlan resource to update.
-//
-// param: optional nil or *UpdateRatePlanParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It does not have to be unique.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-//
-// return: WirelessV1RatePlan
 func (c *DefaultApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanParams) (*WirelessV1RatePlan, error) {
 	path := "/v1/RatePlans/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -898,26 +772,44 @@ func (c *DefaultApiService) UpdateRatePlan(Sid string, params *UpdateRatePlanPar
 	return ps, err
 }
 
-// UpdateSimParams Optional parameters for the method 'UpdateSim'
+// Optional parameters for the method 'UpdateSim'
 type UpdateSimParams struct {
-	AccountSid             *string `json:"AccountSid,omitempty"`
-	CallbackMethod         *string `json:"CallbackMethod,omitempty"`
-	CallbackUrl            *string `json:"CallbackUrl,omitempty"`
+	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
+	AccountSid *string `json:"AccountSid,omitempty"`
+	// The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
+	CallbackMethod *string `json:"CallbackMethod,omitempty"`
+	// The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
+	CallbackUrl *string `json:"CallbackUrl,omitempty"`
+	// The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
 	CommandsCallbackMethod *string `json:"CommandsCallbackMethod,omitempty"`
-	CommandsCallbackUrl    *string `json:"CommandsCallbackUrl,omitempty"`
-	FriendlyName           *string `json:"FriendlyName,omitempty"`
-	RatePlan               *string `json:"RatePlan,omitempty"`
-	ResetStatus            *string `json:"ResetStatus,omitempty"`
-	SmsFallbackMethod      *string `json:"SmsFallbackMethod,omitempty"`
-	SmsFallbackUrl         *string `json:"SmsFallbackUrl,omitempty"`
-	SmsMethod              *string `json:"SmsMethod,omitempty"`
-	SmsUrl                 *string `json:"SmsUrl,omitempty"`
-	Status                 *string `json:"Status,omitempty"`
-	UniqueName             *string `json:"UniqueName,omitempty"`
-	VoiceFallbackMethod    *string `json:"VoiceFallbackMethod,omitempty"`
-	VoiceFallbackUrl       *string `json:"VoiceFallbackUrl,omitempty"`
-	VoiceMethod            *string `json:"VoiceMethod,omitempty"`
-	VoiceUrl               *string `json:"VoiceUrl,omitempty"`
+	// The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
+	CommandsCallbackUrl *string `json:"CommandsCallbackUrl,omitempty"`
+	// A descriptive string that you create to describe the Sim resource. It does not need to be unique.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
+	RatePlan *string `json:"RatePlan,omitempty"`
+	// Initiate a connectivity reset on the SIM. Set to `resetting` to initiate a connectivity reset on the SIM. No other value is valid.
+	ResetStatus *string `json:"ResetStatus,omitempty"`
+	// The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
+	SmsFallbackMethod *string `json:"SmsFallbackMethod,omitempty"`
+	// The URL we should call using the `sms_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `sms_url`.
+	SmsFallbackUrl *string `json:"SmsFallbackUrl,omitempty"`
+	// The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. Default is `POST`.
+	SmsMethod *string `json:"SmsMethod,omitempty"`
+	// The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
+	SmsUrl *string `json:"SmsUrl,omitempty"`
+	// The new status of the Sim resource. Can be: `ready`, `active`, `suspended`, or `deactivated`.
+	Status *string `json:"Status,omitempty"`
+	// An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
+	UniqueName *string `json:"UniqueName,omitempty"`
+	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
+	// The URL we should call using the `voice_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
+	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
+	// The HTTP method we should use when we call `voice_url`. Can be: `GET` or `POST`.
+	VoiceMethod *string `json:"VoiceMethod,omitempty"`
+	// The URL we should call using the `voice_method` when the SIM-connected device makes a voice call.
+	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 
 func (params *UpdateSimParams) SetAccountSid(AccountSid string) *UpdateSimParams {
@@ -993,51 +885,7 @@ func (params *UpdateSimParams) SetVoiceUrl(VoiceUrl string) *UpdateSimParams {
 	return params
 }
 
-// UpdateSim Method for UpdateSim
-//
 // Updates the given properties of a Sim resource on your Account.
-//
-// param: Sid The SID or the `unique_name` of the Sim resource to update.
-//
-// param: optional nil or *UpdateSimParams - Optional Parameters:
-//
-// param: "AccountSid" (string) - The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts).
-//
-// param: "CallbackMethod" (string) - The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
-//
-// param: "CallbackUrl" (string) - The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
-//
-// param: "CommandsCallbackMethod" (string) - The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
-//
-// param: "CommandsCallbackUrl" (string) - The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the Sim resource. It does not need to be unique.
-//
-// param: "RatePlan" (string) - The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
-//
-// param: "ResetStatus" (string) - Initiate a connectivity reset on the SIM. Set to `resetting` to initiate a connectivity reset on the SIM. No other value is valid.
-//
-// param: "SmsFallbackMethod" (string) - The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
-//
-// param: "SmsFallbackUrl" (string) - The URL we should call using the `sms_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `sms_url`.
-//
-// param: "SmsMethod" (string) - The HTTP method we should use to call `sms_url`. Can be: `GET` or `POST`. Default is `POST`.
-//
-// param: "SmsUrl" (string) - The URL we should call using the `sms_method` when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
-//
-// param: "Status" (string) - The new status of the Sim resource. Can be: `ready`, `active`, `suspended`, or `deactivated`.
-//
-// param: "UniqueName" (string) - An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
-//
-// param: "VoiceFallbackMethod" (string) - The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
-//
-// param: "VoiceFallbackUrl" (string) - The URL we should call using the `voice_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
-//
-// param: "VoiceMethod" (string) - The HTTP method we should use when we call `voice_url`. Can be: `GET` or `POST`.
-//
-// param: "VoiceUrl" (string) - The URL we should call using the `voice_method` when the SIM-connected device makes a voice call.
-//
-// return: WirelessV1Sim
 func (c *DefaultApiService) UpdateSim(Sid string, params *UpdateSimParams) (*WirelessV1Sim, error) {
 	path := "/v1/Sims/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

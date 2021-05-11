@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -32,8 +32,9 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 	}
 }
 
-// CreateAlphaSenderParams Optional parameters for the method 'CreateAlphaSender'
+// Optional parameters for the method 'CreateAlphaSender'
 type CreateAlphaSenderParams struct {
+	// The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, and hyphen `-`. This value cannot contain only numbers.
 	AlphaSender *string `json:"AlphaSender,omitempty"`
 }
 
@@ -42,15 +43,6 @@ func (params *CreateAlphaSenderParams) SetAlphaSender(AlphaSender string) *Creat
 	return params
 }
 
-// CreateAlphaSender Method for CreateAlphaSender
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under.
-//
-// param: optional nil or *CreateAlphaSenderParams - Optional Parameters:
-//
-// param: "AlphaSender" (string) - The Alphanumeric Sender ID string. Can be up to 11 characters long. Valid characters are A-Z, a-z, 0-9, space, and hyphen `-`. This value cannot contain only numbers.
-//
-// return: MessagingV1ServiceAlphaSender
 func (c *DefaultApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSenderParams) (*MessagingV1ServiceAlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -77,9 +69,11 @@ func (c *DefaultApiService) CreateAlphaSender(ServiceSid string, params *CreateA
 	return ps, err
 }
 
-// CreateBrandRegistrationsParams Optional parameters for the method 'CreateBrandRegistrations'
+// Optional parameters for the method 'CreateBrandRegistrations'
 type CreateBrandRegistrationsParams struct {
-	A2pProfileBundleSid      *string `json:"A2pProfileBundleSid,omitempty"`
+	// A2P Messaging Profile Bundle Sid.
+	A2pProfileBundleSid *string `json:"A2pProfileBundleSid,omitempty"`
+	// Customer Profile Bundle Sid.
 	CustomerProfileBundleSid *string `json:"CustomerProfileBundleSid,omitempty"`
 }
 
@@ -92,15 +86,6 @@ func (params *CreateBrandRegistrationsParams) SetCustomerProfileBundleSid(Custom
 	return params
 }
 
-// CreateBrandRegistrations Method for CreateBrandRegistrations
-//
-// param: optional nil or *CreateBrandRegistrationsParams - Optional Parameters:
-//
-// param: "A2pProfileBundleSid" (string) - A2P Messaging Profile Bundle Sid.
-//
-// param: "CustomerProfileBundleSid" (string) - Customer Profile Bundle Sid.
-//
-// return: MessagingV1BrandRegistrations
 func (c *DefaultApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsParams) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations"
 
@@ -129,9 +114,11 @@ func (c *DefaultApiService) CreateBrandRegistrations(params *CreateBrandRegistra
 	return ps, err
 }
 
-// CreateExternalCampaignParams Optional parameters for the method 'CreateExternalCampaign'
+// Optional parameters for the method 'CreateExternalCampaign'
 type CreateExternalCampaignParams struct {
-	CampaignId          *string `json:"CampaignId,omitempty"`
+	// ID of the preregistered campaign.
+	CampaignId *string `json:"CampaignId,omitempty"`
+	// The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
 	MessagingServiceSid *string `json:"MessagingServiceSid,omitempty"`
 }
 
@@ -144,15 +131,6 @@ func (params *CreateExternalCampaignParams) SetMessagingServiceSid(MessagingServ
 	return params
 }
 
-// CreateExternalCampaign Method for CreateExternalCampaign
-//
-// param: optional nil or *CreateExternalCampaignParams - Optional Parameters:
-//
-// param: "CampaignId" (string) - ID of the preregistered campaign.
-//
-// param: "MessagingServiceSid" (string) - The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
-//
-// return: MessagingV1ExternalCampaign
 func (c *DefaultApiService) CreateExternalCampaign(params *CreateExternalCampaignParams) (*MessagingV1ExternalCampaign, error) {
 	path := "/v1/Services/PreregisteredUsa2p"
 
@@ -181,8 +159,9 @@ func (c *DefaultApiService) CreateExternalCampaign(params *CreateExternalCampaig
 	return ps, err
 }
 
-// CreatePhoneNumberParams Optional parameters for the method 'CreatePhoneNumber'
+// Optional parameters for the method 'CreatePhoneNumber'
 type CreatePhoneNumberParams struct {
+	// The SID of the Phone Number being added to the Service.
 	PhoneNumberSid *string `json:"PhoneNumberSid,omitempty"`
 }
 
@@ -191,15 +170,6 @@ func (params *CreatePhoneNumberParams) SetPhoneNumberSid(PhoneNumberSid string) 
 	return params
 }
 
-// CreatePhoneNumber Method for CreatePhoneNumber
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under.
-//
-// param: optional nil or *CreatePhoneNumberParams - Optional Parameters:
-//
-// param: "PhoneNumberSid" (string) - The SID of the Phone Number being added to the Service.
-//
-// return: MessagingV1ServicePhoneNumber
 func (c *DefaultApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNumberParams) (*MessagingV1ServicePhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -226,23 +196,38 @@ func (c *DefaultApiService) CreatePhoneNumber(ServiceSid string, params *CreateP
 	return ps, err
 }
 
-// CreateServiceParams Optional parameters for the method 'CreateService'
+// Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
-	AreaCodeGeomatch          *bool   `json:"AreaCodeGeomatch,omitempty"`
-	FallbackMethod            *string `json:"FallbackMethod,omitempty"`
-	FallbackToLongCode        *bool   `json:"FallbackToLongCode,omitempty"`
-	FallbackUrl               *string `json:"FallbackUrl,omitempty"`
-	FriendlyName              *string `json:"FriendlyName,omitempty"`
-	InboundMethod             *string `json:"InboundMethod,omitempty"`
-	InboundRequestUrl         *string `json:"InboundRequestUrl,omitempty"`
-	MmsConverter              *bool   `json:"MmsConverter,omitempty"`
-	ScanMessageContent        *string `json:"ScanMessageContent,omitempty"`
-	SmartEncoding             *bool   `json:"SmartEncoding,omitempty"`
-	StatusCallback            *string `json:"StatusCallback,omitempty"`
-	StickySender              *bool   `json:"StickySender,omitempty"`
-	SynchronousValidation     *bool   `json:"SynchronousValidation,omitempty"`
-	UseInboundWebhookOnNumber *bool   `json:"UseInboundWebhookOnNumber,omitempty"`
-	ValidityPeriod            *int32  `json:"ValidityPeriod,omitempty"`
+	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
+	AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
+	// The HTTP method we should use to call `fallback_url`. Can be: `GET` or `POST`.
+	FallbackMethod *string `json:"FallbackMethod,omitempty"`
+	// Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
+	FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
+	// The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
+	FallbackUrl *string `json:"FallbackUrl,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
+	InboundMethod *string `json:"InboundMethod,omitempty"`
+	// The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
+	InboundRequestUrl *string `json:"InboundRequestUrl,omitempty"`
+	// Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
+	MmsConverter *bool `json:"MmsConverter,omitempty"`
+	// Reserved.
+	ScanMessageContent *string `json:"ScanMessageContent,omitempty"`
+	// Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
+	SmartEncoding *bool `json:"SmartEncoding,omitempty"`
+	// The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
+	StickySender *bool `json:"StickySender,omitempty"`
+	// Reserved.
+	SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
+	// A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
+	UseInboundWebhookOnNumber *bool `json:"UseInboundWebhookOnNumber,omitempty"`
+	// How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
+	ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
 }
 
 func (params *CreateServiceParams) SetAreaCodeGeomatch(AreaCodeGeomatch bool) *CreateServiceParams {
@@ -306,41 +291,6 @@ func (params *CreateServiceParams) SetValidityPeriod(ValidityPeriod int32) *Crea
 	return params
 }
 
-// CreateService Method for CreateService
-//
-// param: optional nil or *CreateServiceParams - Optional Parameters:
-//
-// param: "AreaCodeGeomatch" (bool) - Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
-//
-// param: "FallbackMethod" (string) - The HTTP method we should use to call `fallback_url`. Can be: `GET` or `POST`.
-//
-// param: "FallbackToLongCode" (bool) - Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
-//
-// param: "FallbackUrl" (string) - The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-//
-// param: "InboundMethod" (string) - The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
-//
-// param: "InboundRequestUrl" (string) - The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
-//
-// param: "MmsConverter" (bool) - Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
-//
-// param: "ScanMessageContent" (string) - Reserved.
-//
-// param: "SmartEncoding" (bool) - Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-//
-// param: "StatusCallback" (string) - The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
-//
-// param: "StickySender" (bool) - Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
-//
-// param: "SynchronousValidation" (bool) - Reserved.
-//
-// param: "UseInboundWebhookOnNumber" (bool) - A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
-//
-// param: "ValidityPeriod" (int32) - How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
-//
-// return: MessagingV1Service
 func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*MessagingV1Service, error) {
 	path := "/v1/Services"
 
@@ -408,8 +358,9 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*Messagi
 	return ps, err
 }
 
-// CreateShortCodeParams Optional parameters for the method 'CreateShortCode'
+// Optional parameters for the method 'CreateShortCode'
 type CreateShortCodeParams struct {
+	// The SID of the ShortCode resource being added to the Service.
 	ShortCodeSid *string `json:"ShortCodeSid,omitempty"`
 }
 
@@ -418,15 +369,6 @@ func (params *CreateShortCodeParams) SetShortCodeSid(ShortCodeSid string) *Creat
 	return params
 }
 
-// CreateShortCode Method for CreateShortCode
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to create the resource under.
-//
-// param: optional nil or *CreateShortCodeParams - Optional Parameters:
-//
-// param: "ShortCodeSid" (string) - The SID of the ShortCode resource being added to the Service.
-//
-// return: MessagingV1ServiceShortCode
 func (c *DefaultApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*MessagingV1ServiceShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -453,14 +395,20 @@ func (c *DefaultApiService) CreateShortCode(ServiceSid string, params *CreateSho
 	return ps, err
 }
 
-// CreateUsAppToPersonParams Optional parameters for the method 'CreateUsAppToPerson'
+// Optional parameters for the method 'CreateUsAppToPerson'
 type CreateUsAppToPersonParams struct {
-	BrandRegistrationSid *string   `json:"BrandRegistrationSid,omitempty"`
-	Description          *string   `json:"Description,omitempty"`
-	HasEmbeddedLinks     *bool     `json:"HasEmbeddedLinks,omitempty"`
-	HasEmbeddedPhone     *bool     `json:"HasEmbeddedPhone,omitempty"`
-	MessageSamples       *[]string `json:"MessageSamples,omitempty"`
-	UsAppToPersonUsecase *string   `json:"UsAppToPersonUsecase,omitempty"`
+	// A2P Brand Registration SID
+	BrandRegistrationSid *string `json:"BrandRegistrationSid,omitempty"`
+	// A short description of what this SMS campaign does.
+	Description *string `json:"Description,omitempty"`
+	// Indicates that this SMS campaign will send messages that contain links.
+	HasEmbeddedLinks *bool `json:"HasEmbeddedLinks,omitempty"`
+	// Indicates that this SMS campaign will send messages that contain phone numbers.
+	HasEmbeddedPhone *bool `json:"HasEmbeddedPhone,omitempty"`
+	// Message samples, up to 5 sample messages, <=1024 chars each.
+	MessageSamples *[]string `json:"MessageSamples,omitempty"`
+	// A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
+	UsAppToPersonUsecase *string `json:"UsAppToPersonUsecase,omitempty"`
 }
 
 func (params *CreateUsAppToPersonParams) SetBrandRegistrationSid(BrandRegistrationSid string) *CreateUsAppToPersonParams {
@@ -488,25 +436,6 @@ func (params *CreateUsAppToPersonParams) SetUsAppToPersonUsecase(UsAppToPersonUs
 	return params
 }
 
-// CreateUsAppToPerson Method for CreateUsAppToPerson
-//
-// param: MessagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to create the resources from.
-//
-// param: optional nil or *CreateUsAppToPersonParams - Optional Parameters:
-//
-// param: "BrandRegistrationSid" (string) - A2P Brand Registration SID
-//
-// param: "Description" (string) - A short description of what this SMS campaign does.
-//
-// param: "HasEmbeddedLinks" (bool) - Indicates that this SMS campaign will send messages that contain links.
-//
-// param: "HasEmbeddedPhone" (bool) - Indicates that this SMS campaign will send messages that contain phone numbers.
-//
-// param: "MessageSamples" ([]string) - Message samples, up to 5 sample messages, <=1024 chars each.
-//
-// param: "UsAppToPersonUsecase" (string) - A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
-//
-// return: MessagingV1ServiceUsAppToPerson
 func (c *DefaultApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1ServiceUsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -548,12 +477,6 @@ func (c *DefaultApiService) CreateUsAppToPerson(MessagingServiceSid string, para
 	return ps, err
 }
 
-// DeleteAlphaSender Method for DeleteAlphaSender
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from.
-//
-// param: Sid The SID of the AlphaSender resource to delete.
-//
 func (c *DefaultApiService) DeleteAlphaSender(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -572,12 +495,6 @@ func (c *DefaultApiService) DeleteAlphaSender(ServiceSid string, Sid string) err
 	return nil
 }
 
-// DeletePhoneNumber Method for DeletePhoneNumber
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from.
-//
-// param: Sid The SID of the PhoneNumber resource to delete.
-//
 func (c *DefaultApiService) DeletePhoneNumber(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -596,10 +513,6 @@ func (c *DefaultApiService) DeletePhoneNumber(ServiceSid string, Sid string) err
 	return nil
 }
 
-// DeleteService Method for DeleteService
-//
-// param: Sid The SID of the Service resource to delete.
-//
 func (c *DefaultApiService) DeleteService(Sid string) error {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -617,12 +530,6 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	return nil
 }
 
-// DeleteShortCode Method for DeleteShortCode
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to delete the resource from.
-//
-// param: Sid The SID of the ShortCode resource to delete.
-//
 func (c *DefaultApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -641,10 +548,6 @@ func (c *DefaultApiService) DeleteShortCode(ServiceSid string, Sid string) error
 	return nil
 }
 
-// DeleteUsAppToPerson Method for DeleteUsAppToPerson
-//
-// param: MessagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to delete the resource from.
-//
 func (c *DefaultApiService) DeleteUsAppToPerson(MessagingServiceSid string) error {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -662,13 +565,6 @@ func (c *DefaultApiService) DeleteUsAppToPerson(MessagingServiceSid string) erro
 	return nil
 }
 
-// FetchAlphaSender Method for FetchAlphaSender
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
-//
-// param: Sid The SID of the AlphaSender resource to fetch.
-//
-// return: MessagingV1ServiceAlphaSender
 func (c *DefaultApiService) FetchAlphaSender(ServiceSid string, Sid string) (*MessagingV1ServiceAlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -692,11 +588,6 @@ func (c *DefaultApiService) FetchAlphaSender(ServiceSid string, Sid string) (*Me
 	return ps, err
 }
 
-// FetchBrandRegistrations Method for FetchBrandRegistrations
-//
-// param: Sid The SID of the Brand Registration resource to fetch.
-//
-// return: MessagingV1BrandRegistrations
 func (c *DefaultApiService) FetchBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
 	path := "/v1/a2p/BrandRegistrations/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -719,8 +610,9 @@ func (c *DefaultApiService) FetchBrandRegistrations(Sid string) (*MessagingV1Bra
 	return ps, err
 }
 
-// FetchDeactivationParams Optional parameters for the method 'FetchDeactivation'
+// Optional parameters for the method 'FetchDeactivation'
 type FetchDeactivationParams struct {
+	// The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
 	Date *string `json:"Date,omitempty"`
 }
 
@@ -729,14 +621,7 @@ func (params *FetchDeactivationParams) SetDate(Date string) *FetchDeactivationPa
 	return params
 }
 
-// FetchDeactivation Method for FetchDeactivation
-//
 // Fetch a list of all United States numbers that have been deactivated on a specific date.
-//
-// param: optional nil or *FetchDeactivationParams - Optional Parameters:
-//
-// param: "Date" (string) - The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
-//
 func (c *DefaultApiService) FetchDeactivation(params *FetchDeactivationParams) error {
 	path := "/v1/Deactivations"
 
@@ -757,13 +642,6 @@ func (c *DefaultApiService) FetchDeactivation(params *FetchDeactivationParams) e
 	return nil
 }
 
-// FetchPhoneNumber Method for FetchPhoneNumber
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
-//
-// param: Sid The SID of the PhoneNumber resource to fetch.
-//
-// return: MessagingV1ServicePhoneNumber
 func (c *DefaultApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*MessagingV1ServicePhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -787,11 +665,6 @@ func (c *DefaultApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*Me
 	return ps, err
 }
 
-// FetchService Method for FetchService
-//
-// param: Sid The SID of the Service resource to fetch.
-//
-// return: MessagingV1Service
 func (c *DefaultApiService) FetchService(Sid string) (*MessagingV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -814,13 +687,6 @@ func (c *DefaultApiService) FetchService(Sid string) (*MessagingV1Service, error
 	return ps, err
 }
 
-// FetchShortCode Method for FetchShortCode
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to fetch the resource from.
-//
-// param: Sid The SID of the ShortCode resource to fetch.
-//
-// return: MessagingV1ServiceShortCode
 func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1ServiceShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -844,11 +710,6 @@ func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*Mess
 	return ps, err
 }
 
-// FetchUsAppToPerson Method for FetchUsAppToPerson
-//
-// param: MessagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
-//
-// return: MessagingV1ServiceUsAppToPerson
 func (c *DefaultApiService) FetchUsAppToPerson(MessagingServiceSid string) (*MessagingV1ServiceUsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -871,11 +732,6 @@ func (c *DefaultApiService) FetchUsAppToPerson(MessagingServiceSid string) (*Mes
 	return ps, err
 }
 
-// FetchUsAppToPersonUsecase Method for FetchUsAppToPersonUsecase
-//
-// param: MessagingServiceSid The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
-//
-// return: MessagingV1ServiceUsAppToPersonUsecase
 func (c *DefaultApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string) (*MessagingV1ServiceUsAppToPersonUsecase, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -898,9 +754,6 @@ func (c *DefaultApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string
 	return ps, err
 }
 
-// FetchUsecase Method for FetchUsecase
-//
-// return: MessagingV1Usecase
 func (c *DefaultApiService) FetchUsecase() (*MessagingV1Usecase, error) {
 	path := "/v1/Services/Usecases"
 
@@ -922,8 +775,9 @@ func (c *DefaultApiService) FetchUsecase() (*MessagingV1Usecase, error) {
 	return ps, err
 }
 
-// ListAlphaSenderParams Optional parameters for the method 'ListAlphaSender'
+// Optional parameters for the method 'ListAlphaSender'
 type ListAlphaSenderParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -932,15 +786,6 @@ func (params *ListAlphaSenderParams) SetPageSize(PageSize int32) *ListAlphaSende
 	return params
 }
 
-// ListAlphaSender Method for ListAlphaSender
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
-//
-// param: optional nil or *ListAlphaSenderParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListAlphaSenderResponse
 func (c *DefaultApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderParams) (*ListAlphaSenderResponse, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -967,8 +812,9 @@ func (c *DefaultApiService) ListAlphaSender(ServiceSid string, params *ListAlpha
 	return ps, err
 }
 
-// ListBrandRegistrationsParams Optional parameters for the method 'ListBrandRegistrations'
+// Optional parameters for the method 'ListBrandRegistrations'
 type ListBrandRegistrationsParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -977,13 +823,6 @@ func (params *ListBrandRegistrationsParams) SetPageSize(PageSize int32) *ListBra
 	return params
 }
 
-// ListBrandRegistrations Method for ListBrandRegistrations
-//
-// param: optional nil or *ListBrandRegistrationsParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListBrandRegistrationsResponse
 func (c *DefaultApiService) ListBrandRegistrations(params *ListBrandRegistrationsParams) (*ListBrandRegistrationsResponse, error) {
 	path := "/v1/a2p/BrandRegistrations"
 
@@ -1009,8 +848,9 @@ func (c *DefaultApiService) ListBrandRegistrations(params *ListBrandRegistration
 	return ps, err
 }
 
-// ListPhoneNumberParams Optional parameters for the method 'ListPhoneNumber'
+// Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1019,15 +859,6 @@ func (params *ListPhoneNumberParams) SetPageSize(PageSize int32) *ListPhoneNumbe
 	return params
 }
 
-// ListPhoneNumber Method for ListPhoneNumber
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
-//
-// param: optional nil or *ListPhoneNumberParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListPhoneNumberResponse
 func (c *DefaultApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) (*ListPhoneNumberResponse, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1054,8 +885,9 @@ func (c *DefaultApiService) ListPhoneNumber(ServiceSid string, params *ListPhone
 	return ps, err
 }
 
-// ListServiceParams Optional parameters for the method 'ListService'
+// Optional parameters for the method 'ListService'
 type ListServiceParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1064,13 +896,6 @@ func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams 
 	return params
 }
 
-// ListService Method for ListService
-//
-// param: optional nil or *ListServiceParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListServiceResponse
 func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
@@ -1096,8 +921,9 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 	return ps, err
 }
 
-// ListShortCodeParams Optional parameters for the method 'ListShortCode'
+// Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -1106,15 +932,6 @@ func (params *ListShortCodeParams) SetPageSize(PageSize int32) *ListShortCodePar
 	return params
 }
 
-// ListShortCode Method for ListShortCode
-//
-// param: ServiceSid The SID of the [Service](https://www.twilio.com/docs/chat/rest/service-resource) to read the resources from.
-//
-// param: optional nil or *ListShortCodeParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListShortCodeResponse
 func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) (*ListShortCodeResponse, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -1141,23 +958,38 @@ func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCo
 	return ps, err
 }
 
-// UpdateServiceParams Optional parameters for the method 'UpdateService'
+// Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
-	AreaCodeGeomatch          *bool   `json:"AreaCodeGeomatch,omitempty"`
-	FallbackMethod            *string `json:"FallbackMethod,omitempty"`
-	FallbackToLongCode        *bool   `json:"FallbackToLongCode,omitempty"`
-	FallbackUrl               *string `json:"FallbackUrl,omitempty"`
-	FriendlyName              *string `json:"FriendlyName,omitempty"`
-	InboundMethod             *string `json:"InboundMethod,omitempty"`
-	InboundRequestUrl         *string `json:"InboundRequestUrl,omitempty"`
-	MmsConverter              *bool   `json:"MmsConverter,omitempty"`
-	ScanMessageContent        *string `json:"ScanMessageContent,omitempty"`
-	SmartEncoding             *bool   `json:"SmartEncoding,omitempty"`
-	StatusCallback            *string `json:"StatusCallback,omitempty"`
-	StickySender              *bool   `json:"StickySender,omitempty"`
-	SynchronousValidation     *bool   `json:"SynchronousValidation,omitempty"`
-	UseInboundWebhookOnNumber *bool   `json:"UseInboundWebhookOnNumber,omitempty"`
-	ValidityPeriod            *int32  `json:"ValidityPeriod,omitempty"`
+	// Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
+	AreaCodeGeomatch *bool `json:"AreaCodeGeomatch,omitempty"`
+	// The HTTP method we should use to call `fallback_url`. Can be: `GET` or `POST`.
+	FallbackMethod *string `json:"FallbackMethod,omitempty"`
+	// Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
+	FallbackToLongCode *bool `json:"FallbackToLongCode,omitempty"`
+	// The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
+	FallbackUrl *string `json:"FallbackUrl,omitempty"`
+	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
+	InboundMethod *string `json:"InboundMethod,omitempty"`
+	// The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
+	InboundRequestUrl *string `json:"InboundRequestUrl,omitempty"`
+	// Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
+	MmsConverter *bool `json:"MmsConverter,omitempty"`
+	// Reserved.
+	ScanMessageContent *string `json:"ScanMessageContent,omitempty"`
+	// Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
+	SmartEncoding *bool `json:"SmartEncoding,omitempty"`
+	// The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
+	StatusCallback *string `json:"StatusCallback,omitempty"`
+	// Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
+	StickySender *bool `json:"StickySender,omitempty"`
+	// Reserved.
+	SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
+	// A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
+	UseInboundWebhookOnNumber *bool `json:"UseInboundWebhookOnNumber,omitempty"`
+	// How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
+	ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
 }
 
 func (params *UpdateServiceParams) SetAreaCodeGeomatch(AreaCodeGeomatch bool) *UpdateServiceParams {
@@ -1221,43 +1053,6 @@ func (params *UpdateServiceParams) SetValidityPeriod(ValidityPeriod int32) *Upda
 	return params
 }
 
-// UpdateService Method for UpdateService
-//
-// param: Sid The SID of the Service resource to update.
-//
-// param: optional nil or *UpdateServiceParams - Optional Parameters:
-//
-// param: "AreaCodeGeomatch" (bool) - Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the Service Instance.
-//
-// param: "FallbackMethod" (string) - The HTTP method we should use to call `fallback_url`. Can be: `GET` or `POST`.
-//
-// param: "FallbackToLongCode" (bool) - Whether to enable [Fallback to Long Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for messages sent through the Service instance.
-//
-// param: "FallbackUrl" (string) - The URL that we call using `fallback_method` if an error occurs while retrieving or executing the TwiML from the Inbound Request URL. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `fallback_url` defined for the Messaging Service.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-//
-// param: "InboundMethod" (string) - The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
-//
-// param: "InboundRequestUrl" (string) - The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
-//
-// param: "MmsConverter" (bool) - Whether to enable the [MMS Converter](https://www.twilio.com/docs/sms/services#mms-converter) for messages sent through the Service instance.
-//
-// param: "ScanMessageContent" (string) - Reserved.
-//
-// param: "SmartEncoding" (bool) - Whether to enable [Smart Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for messages sent through the Service instance.
-//
-// param: "StatusCallback" (string) - The URL we should call to [pass status updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery.
-//
-// param: "StickySender" (bool) - Whether to enable [Sticky Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the Service instance.
-//
-// param: "SynchronousValidation" (bool) - Reserved.
-//
-// param: "UseInboundWebhookOnNumber" (bool) - A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
-//
-// param: "ValidityPeriod" (int32) - How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
-//
-// return: MessagingV1Service
 func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParams) (*MessagingV1Service, error) {
 	path := "/v1/Services/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)

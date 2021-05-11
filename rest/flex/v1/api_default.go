@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.14.0
  * Contact: support@twilio.com
  */
 
@@ -32,18 +32,28 @@ func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
 	}
 }
 
-// CreateChannelParams Optional parameters for the method 'CreateChannel'
+// Optional parameters for the method 'CreateChannel'
 type CreateChannelParams struct {
-	ChatFriendlyName     *string `json:"ChatFriendlyName,omitempty"`
-	ChatUniqueName       *string `json:"ChatUniqueName,omitempty"`
+	// The chat channel's friendly name.
+	ChatFriendlyName *string `json:"ChatFriendlyName,omitempty"`
+	// The chat channel's unique name.
+	ChatUniqueName *string `json:"ChatUniqueName,omitempty"`
+	// The chat participant's friendly name.
 	ChatUserFriendlyName *string `json:"ChatUserFriendlyName,omitempty"`
-	FlexFlowSid          *string `json:"FlexFlowSid,omitempty"`
-	Identity             *string `json:"Identity,omitempty"`
-	LongLived            *bool   `json:"LongLived,omitempty"`
-	PreEngagementData    *string `json:"PreEngagementData,omitempty"`
-	Target               *string `json:"Target,omitempty"`
-	TaskAttributes       *string `json:"TaskAttributes,omitempty"`
-	TaskSid              *string `json:"TaskSid,omitempty"`
+	// The SID of the Flex Flow.
+	FlexFlowSid *string `json:"FlexFlowSid,omitempty"`
+	// The `identity` value that uniquely identifies the new resource's chat User.
+	Identity *string `json:"Identity,omitempty"`
+	// Whether to create the channel as long-lived.
+	LongLived *bool `json:"LongLived,omitempty"`
+	// The pre-engagement data.
+	PreEngagementData *string `json:"PreEngagementData,omitempty"`
+	// The Target Contact Identity, for example the phone number of an SMS.
+	Target *string `json:"Target,omitempty"`
+	// The Task attributes to be added for the TaskRouter Task.
+	TaskAttributes *string `json:"TaskAttributes,omitempty"`
+	// The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
+	TaskSid *string `json:"TaskSid,omitempty"`
 }
 
 func (params *CreateChannelParams) SetChatFriendlyName(ChatFriendlyName string) *CreateChannelParams {
@@ -87,31 +97,6 @@ func (params *CreateChannelParams) SetTaskSid(TaskSid string) *CreateChannelPara
 	return params
 }
 
-// CreateChannel Method for CreateChannel
-//
-// param: optional nil or *CreateChannelParams - Optional Parameters:
-//
-// param: "ChatFriendlyName" (string) - The chat channel's friendly name.
-//
-// param: "ChatUniqueName" (string) - The chat channel's unique name.
-//
-// param: "ChatUserFriendlyName" (string) - The chat participant's friendly name.
-//
-// param: "FlexFlowSid" (string) - The SID of the Flex Flow.
-//
-// param: "Identity" (string) - The `identity` value that uniquely identifies the new resource's chat User.
-//
-// param: "LongLived" (bool) - Whether to create the channel as long-lived.
-//
-// param: "PreEngagementData" (string) - The pre-engagement data.
-//
-// param: "Target" (string) - The Target Contact Identity, for example the phone number of an SMS.
-//
-// param: "TaskAttributes" (string) - The Task attributes to be added for the TaskRouter Task.
-//
-// param: "TaskSid" (string) - The SID of the TaskRouter Task. Only valid when integration type is `task`. `null` for integration types `studio` & `external`
-//
-// return: FlexV1Channel
 func (c *DefaultApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel, error) {
 	path := "/v1/Channels"
 
@@ -164,25 +149,42 @@ func (c *DefaultApiService) CreateChannel(params *CreateChannelParams) (*FlexV1C
 	return ps, err
 }
 
-// CreateFlexFlowParams Optional parameters for the method 'CreateFlexFlow'
+// Optional parameters for the method 'CreateFlexFlow'
 type CreateFlexFlowParams struct {
-	ChannelType                  *string `json:"ChannelType,omitempty"`
-	ChatServiceSid               *string `json:"ChatServiceSid,omitempty"`
-	ContactIdentity              *string `json:"ContactIdentity,omitempty"`
-	Enabled                      *bool   `json:"Enabled,omitempty"`
-	FriendlyName                 *string `json:"FriendlyName,omitempty"`
-	IntegrationChannel           *string `json:"Integration.Channel,omitempty"`
-	IntegrationCreationOnMessage *bool   `json:"Integration.CreationOnMessage,omitempty"`
-	IntegrationFlowSid           *string `json:"Integration.FlowSid,omitempty"`
-	IntegrationPriority          *int32  `json:"Integration.Priority,omitempty"`
-	IntegrationRetryCount        *int32  `json:"Integration.RetryCount,omitempty"`
-	IntegrationTimeout           *int32  `json:"Integration.Timeout,omitempty"`
-	IntegrationUrl               *string `json:"Integration.Url,omitempty"`
-	IntegrationWorkflowSid       *string `json:"Integration.WorkflowSid,omitempty"`
-	IntegrationWorkspaceSid      *string `json:"Integration.WorkspaceSid,omitempty"`
-	IntegrationType              *string `json:"IntegrationType,omitempty"`
-	JanitorEnabled               *bool   `json:"JanitorEnabled,omitempty"`
-	LongLived                    *bool   `json:"LongLived,omitempty"`
+	// The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`.
+	ChannelType *string `json:"ChannelType,omitempty"`
+	// The SID of the chat service.
+	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	// The channel contact's Identity.
+	ContactIdentity *string `json:"ContactIdentity,omitempty"`
+	// Whether the new Flex Flow is enabled.
+	Enabled *bool `json:"Enabled,omitempty"`
+	// A descriptive string that you create to describe the Flex Flow resource.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
+	IntegrationChannel *string `json:"Integration.Channel,omitempty"`
+	// In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+	IntegrationCreationOnMessage *bool `json:"Integration.CreationOnMessage,omitempty"`
+	// The SID of the Studio Flow. Required when `integrationType` is `studio`.
+	IntegrationFlowSid *string `json:"Integration.FlowSid,omitempty"`
+	// The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+	IntegrationPriority *int32 `json:"Integration.Priority,omitempty"`
+	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
+	IntegrationRetryCount *int32 `json:"Integration.RetryCount,omitempty"`
+	// The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+	IntegrationTimeout *int32 `json:"Integration.Timeout,omitempty"`
+	// The URL of the external webhook. Required when `integrationType` is `external`.
+	IntegrationUrl *string `json:"Integration.Url,omitempty"`
+	// The Workflow SID for a new Task. Required when `integrationType` is `task`.
+	IntegrationWorkflowSid *string `json:"Integration.WorkflowSid,omitempty"`
+	// The Workspace SID for a new Task. Required when `integrationType` is `task`.
+	IntegrationWorkspaceSid *string `json:"Integration.WorkspaceSid,omitempty"`
+	// The integration type. Can be: `studio`, `external`, or `task`.
+	IntegrationType *string `json:"IntegrationType,omitempty"`
+	// When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+	JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
+	// When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+	LongLived *bool `json:"LongLived,omitempty"`
 }
 
 func (params *CreateFlexFlowParams) SetChannelType(ChannelType string) *CreateFlexFlowParams {
@@ -254,45 +256,6 @@ func (params *CreateFlexFlowParams) SetLongLived(LongLived bool) *CreateFlexFlow
 	return params
 }
 
-// CreateFlexFlow Method for CreateFlexFlow
-//
-// param: optional nil or *CreateFlexFlowParams - Optional Parameters:
-//
-// param: "ChannelType" (string) - The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`.
-//
-// param: "ChatServiceSid" (string) - The SID of the chat service.
-//
-// param: "ContactIdentity" (string) - The channel contact's Identity.
-//
-// param: "Enabled" (bool) - Whether the new Flex Flow is enabled.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the Flex Flow resource.
-//
-// param: "IntegrationChannel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
-//
-// param: "IntegrationCreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
-//
-// param: "IntegrationFlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
-//
-// param: "IntegrationPriority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-//
-// param: "IntegrationRetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
-//
-// param: "IntegrationTimeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-//
-// param: "IntegrationUrl" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
-//
-// param: "IntegrationWorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
-//
-// param: "IntegrationWorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
-//
-// param: "IntegrationType" (string) - The integration type. Can be: `studio`, `external`, or `task`.
-//
-// param: "JanitorEnabled" (bool) - When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-//
-// param: "LongLived" (bool) - When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-//
-// return: FlexV1FlexFlow
 func (c *DefaultApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows"
 
@@ -366,14 +329,20 @@ func (c *DefaultApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV
 	return ps, err
 }
 
-// CreateWebChannelParams Optional parameters for the method 'CreateWebChannel'
+// Optional parameters for the method 'CreateWebChannel'
 type CreateWebChannelParams struct {
-	ChatFriendlyName     *string `json:"ChatFriendlyName,omitempty"`
-	ChatUniqueName       *string `json:"ChatUniqueName,omitempty"`
+	// The chat channel's friendly name.
+	ChatFriendlyName *string `json:"ChatFriendlyName,omitempty"`
+	// The chat channel's unique name.
+	ChatUniqueName *string `json:"ChatUniqueName,omitempty"`
+	// The chat participant's friendly name.
 	CustomerFriendlyName *string `json:"CustomerFriendlyName,omitempty"`
-	FlexFlowSid          *string `json:"FlexFlowSid,omitempty"`
-	Identity             *string `json:"Identity,omitempty"`
-	PreEngagementData    *string `json:"PreEngagementData,omitempty"`
+	// The SID of the Flex Flow.
+	FlexFlowSid *string `json:"FlexFlowSid,omitempty"`
+	// The chat identity.
+	Identity *string `json:"Identity,omitempty"`
+	// The pre-engagement data.
+	PreEngagementData *string `json:"PreEngagementData,omitempty"`
 }
 
 func (params *CreateWebChannelParams) SetChatFriendlyName(ChatFriendlyName string) *CreateWebChannelParams {
@@ -401,23 +370,6 @@ func (params *CreateWebChannelParams) SetPreEngagementData(PreEngagementData str
 	return params
 }
 
-// CreateWebChannel Method for CreateWebChannel
-//
-// param: optional nil or *CreateWebChannelParams - Optional Parameters:
-//
-// param: "ChatFriendlyName" (string) - The chat channel's friendly name.
-//
-// param: "ChatUniqueName" (string) - The chat channel's unique name.
-//
-// param: "CustomerFriendlyName" (string) - The chat participant's friendly name.
-//
-// param: "FlexFlowSid" (string) - The SID of the Flex Flow.
-//
-// param: "Identity" (string) - The chat identity.
-//
-// param: "PreEngagementData" (string) - The pre-engagement data.
-//
-// return: FlexV1WebChannel
 func (c *DefaultApiService) CreateWebChannel(params *CreateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels"
 
@@ -458,10 +410,6 @@ func (c *DefaultApiService) CreateWebChannel(params *CreateWebChannelParams) (*F
 	return ps, err
 }
 
-// DeleteChannel Method for DeleteChannel
-//
-// param: Sid The SID of the Flex chat channel resource to delete.
-//
 func (c *DefaultApiService) DeleteChannel(Sid string) error {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -479,10 +427,6 @@ func (c *DefaultApiService) DeleteChannel(Sid string) error {
 	return nil
 }
 
-// DeleteFlexFlow Method for DeleteFlexFlow
-//
-// param: Sid The SID of the Flex Flow resource to delete.
-//
 func (c *DefaultApiService) DeleteFlexFlow(Sid string) error {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -500,10 +444,6 @@ func (c *DefaultApiService) DeleteFlexFlow(Sid string) error {
 	return nil
 }
 
-// DeleteWebChannel Method for DeleteWebChannel
-//
-// param: Sid The SID of the WebChannel resource to delete.
-//
 func (c *DefaultApiService) DeleteWebChannel(Sid string) error {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -521,11 +461,6 @@ func (c *DefaultApiService) DeleteWebChannel(Sid string) error {
 	return nil
 }
 
-// FetchChannel Method for FetchChannel
-//
-// param: Sid The SID of the Flex chat channel resource to fetch.
-//
-// return: FlexV1Channel
 func (c *DefaultApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 	path := "/v1/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -548,8 +483,9 @@ func (c *DefaultApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 	return ps, err
 }
 
-// FetchConfigurationParams Optional parameters for the method 'FetchConfiguration'
+// Optional parameters for the method 'FetchConfiguration'
 type FetchConfigurationParams struct {
+	// The Pinned UI version of the Configuration resource to fetch.
 	UiVersion *string `json:"UiVersion,omitempty"`
 }
 
@@ -558,13 +494,6 @@ func (params *FetchConfigurationParams) SetUiVersion(UiVersion string) *FetchCon
 	return params
 }
 
-// FetchConfiguration Method for FetchConfiguration
-//
-// param: optional nil or *FetchConfigurationParams - Optional Parameters:
-//
-// param: "UiVersion" (string) - The Pinned UI version of the Configuration resource to fetch.
-//
-// return: FlexV1Configuration
 func (c *DefaultApiService) FetchConfiguration(params *FetchConfigurationParams) (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
@@ -590,11 +519,6 @@ func (c *DefaultApiService) FetchConfiguration(params *FetchConfigurationParams)
 	return ps, err
 }
 
-// FetchFlexFlow Method for FetchFlexFlow
-//
-// param: Sid The SID of the Flex Flow resource to fetch.
-//
-// return: FlexV1FlexFlow
 func (c *DefaultApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -617,11 +541,6 @@ func (c *DefaultApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 	return ps, err
 }
 
-// FetchWebChannel Method for FetchWebChannel
-//
-// param: Sid The SID of the WebChannel resource to fetch.
-//
-// return: FlexV1WebChannel
 func (c *DefaultApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -644,8 +563,9 @@ func (c *DefaultApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, erro
 	return ps, err
 }
 
-// ListChannelParams Optional parameters for the method 'ListChannel'
+// Optional parameters for the method 'ListChannel'
 type ListChannelParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -654,13 +574,6 @@ func (params *ListChannelParams) SetPageSize(PageSize int32) *ListChannelParams 
 	return params
 }
 
-// ListChannel Method for ListChannel
-//
-// param: optional nil or *ListChannelParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListChannelResponse
 func (c *DefaultApiService) ListChannel(params *ListChannelParams) (*ListChannelResponse, error) {
 	path := "/v1/Channels"
 
@@ -686,10 +599,12 @@ func (c *DefaultApiService) ListChannel(params *ListChannelParams) (*ListChannel
 	return ps, err
 }
 
-// ListFlexFlowParams Optional parameters for the method 'ListFlexFlow'
+// Optional parameters for the method 'ListFlexFlow'
 type ListFlexFlowParams struct {
+	// The `friendly_name` of the Flex Flow resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	PageSize     *int32  `json:"PageSize,omitempty"`
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
 func (params *ListFlexFlowParams) SetFriendlyName(FriendlyName string) *ListFlexFlowParams {
@@ -701,15 +616,6 @@ func (params *ListFlexFlowParams) SetPageSize(PageSize int32) *ListFlexFlowParam
 	return params
 }
 
-// ListFlexFlow Method for ListFlexFlow
-//
-// param: optional nil or *ListFlexFlowParams - Optional Parameters:
-//
-// param: "FriendlyName" (string) - The `friendly_name` of the Flex Flow resources to read.
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListFlexFlowResponse
 func (c *DefaultApiService) ListFlexFlow(params *ListFlexFlowParams) (*ListFlexFlowResponse, error) {
 	path := "/v1/FlexFlows"
 
@@ -738,8 +644,9 @@ func (c *DefaultApiService) ListFlexFlow(params *ListFlexFlowParams) (*ListFlexF
 	return ps, err
 }
 
-// ListWebChannelParams Optional parameters for the method 'ListWebChannel'
+// Optional parameters for the method 'ListWebChannel'
 type ListWebChannelParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
@@ -748,13 +655,6 @@ func (params *ListWebChannelParams) SetPageSize(PageSize int32) *ListWebChannelP
 	return params
 }
 
-// ListWebChannel Method for ListWebChannel
-//
-// param: optional nil or *ListWebChannelParams - Optional Parameters:
-//
-// param: "PageSize" (int32) - How many resources to return in each list page. The default is 50, and the maximum is 1000.
-//
-// return: ListWebChannelResponse
 func (c *DefaultApiService) ListWebChannel(params *ListWebChannelParams) (*ListWebChannelResponse, error) {
 	path := "/v1/WebChannels"
 
@@ -780,9 +680,6 @@ func (c *DefaultApiService) ListWebChannel(params *ListWebChannelParams) (*ListW
 	return ps, err
 }
 
-// UpdateConfiguration Method for UpdateConfiguration
-//
-// return: FlexV1Configuration
 func (c *DefaultApiService) UpdateConfiguration() (*FlexV1Configuration, error) {
 	path := "/v1/Configuration"
 
@@ -804,25 +701,42 @@ func (c *DefaultApiService) UpdateConfiguration() (*FlexV1Configuration, error) 
 	return ps, err
 }
 
-// UpdateFlexFlowParams Optional parameters for the method 'UpdateFlexFlow'
+// Optional parameters for the method 'UpdateFlexFlow'
 type UpdateFlexFlowParams struct {
-	ChannelType                  *string `json:"ChannelType,omitempty"`
-	ChatServiceSid               *string `json:"ChatServiceSid,omitempty"`
-	ContactIdentity              *string `json:"ContactIdentity,omitempty"`
-	Enabled                      *bool   `json:"Enabled,omitempty"`
-	FriendlyName                 *string `json:"FriendlyName,omitempty"`
-	IntegrationChannel           *string `json:"Integration.Channel,omitempty"`
-	IntegrationCreationOnMessage *bool   `json:"Integration.CreationOnMessage,omitempty"`
-	IntegrationFlowSid           *string `json:"Integration.FlowSid,omitempty"`
-	IntegrationPriority          *int32  `json:"Integration.Priority,omitempty"`
-	IntegrationRetryCount        *int32  `json:"Integration.RetryCount,omitempty"`
-	IntegrationTimeout           *int32  `json:"Integration.Timeout,omitempty"`
-	IntegrationUrl               *string `json:"Integration.Url,omitempty"`
-	IntegrationWorkflowSid       *string `json:"Integration.WorkflowSid,omitempty"`
-	IntegrationWorkspaceSid      *string `json:"Integration.WorkspaceSid,omitempty"`
-	IntegrationType              *string `json:"IntegrationType,omitempty"`
-	JanitorEnabled               *bool   `json:"JanitorEnabled,omitempty"`
-	LongLived                    *bool   `json:"LongLived,omitempty"`
+	// The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`.
+	ChannelType *string `json:"ChannelType,omitempty"`
+	// The SID of the chat service.
+	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
+	// The channel contact's Identity.
+	ContactIdentity *string `json:"ContactIdentity,omitempty"`
+	// Whether the new Flex Flow is enabled.
+	Enabled *bool `json:"Enabled,omitempty"`
+	// A descriptive string that you create to describe the Flex Flow resource.
+	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
+	IntegrationChannel *string `json:"Integration.Channel,omitempty"`
+	// In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+	IntegrationCreationOnMessage *bool `json:"Integration.CreationOnMessage,omitempty"`
+	// The SID of the Studio Flow. Required when `integrationType` is `studio`.
+	IntegrationFlowSid *string `json:"Integration.FlowSid,omitempty"`
+	// The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+	IntegrationPriority *int32 `json:"Integration.Priority,omitempty"`
+	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
+	IntegrationRetryCount *int32 `json:"Integration.RetryCount,omitempty"`
+	// The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+	IntegrationTimeout *int32 `json:"Integration.Timeout,omitempty"`
+	// The URL of the external webhook. Required when `integrationType` is `external`.
+	IntegrationUrl *string `json:"Integration.Url,omitempty"`
+	// The Workflow SID for a new Task. Required when `integrationType` is `task`.
+	IntegrationWorkflowSid *string `json:"Integration.WorkflowSid,omitempty"`
+	// The Workspace SID for a new Task. Required when `integrationType` is `task`.
+	IntegrationWorkspaceSid *string `json:"Integration.WorkspaceSid,omitempty"`
+	// The integration type. Can be: `studio`, `external`, or `task`.
+	IntegrationType *string `json:"IntegrationType,omitempty"`
+	// When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+	JanitorEnabled *bool `json:"JanitorEnabled,omitempty"`
+	// When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+	LongLived *bool `json:"LongLived,omitempty"`
 }
 
 func (params *UpdateFlexFlowParams) SetChannelType(ChannelType string) *UpdateFlexFlowParams {
@@ -894,47 +808,6 @@ func (params *UpdateFlexFlowParams) SetLongLived(LongLived bool) *UpdateFlexFlow
 	return params
 }
 
-// UpdateFlexFlow Method for UpdateFlexFlow
-//
-// param: Sid The SID of the Flex Flow resource to update.
-//
-// param: optional nil or *UpdateFlexFlowParams - Optional Parameters:
-//
-// param: "ChannelType" (string) - The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`.
-//
-// param: "ChatServiceSid" (string) - The SID of the chat service.
-//
-// param: "ContactIdentity" (string) - The channel contact's Identity.
-//
-// param: "Enabled" (bool) - Whether the new Flex Flow is enabled.
-//
-// param: "FriendlyName" (string) - A descriptive string that you create to describe the Flex Flow resource.
-//
-// param: "IntegrationChannel" (string) - The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
-//
-// param: "IntegrationCreationOnMessage" (bool) - In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
-//
-// param: "IntegrationFlowSid" (string) - The SID of the Studio Flow. Required when `integrationType` is `studio`.
-//
-// param: "IntegrationPriority" (int32) - The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-//
-// param: "IntegrationRetryCount" (int32) - The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
-//
-// param: "IntegrationTimeout" (int32) - The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-//
-// param: "IntegrationUrl" (string) - The URL of the external webhook. Required when `integrationType` is `external`.
-//
-// param: "IntegrationWorkflowSid" (string) - The Workflow SID for a new Task. Required when `integrationType` is `task`.
-//
-// param: "IntegrationWorkspaceSid" (string) - The Workspace SID for a new Task. Required when `integrationType` is `task`.
-//
-// param: "IntegrationType" (string) - The integration type. Can be: `studio`, `external`, or `task`.
-//
-// param: "JanitorEnabled" (bool) - When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
-//
-// param: "LongLived" (bool) - When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
-//
-// return: FlexV1FlexFlow
 func (c *DefaultApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*FlexV1FlexFlow, error) {
 	path := "/v1/FlexFlows/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -1009,9 +882,11 @@ func (c *DefaultApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowPar
 	return ps, err
 }
 
-// UpdateWebChannelParams Optional parameters for the method 'UpdateWebChannel'
+// Optional parameters for the method 'UpdateWebChannel'
 type UpdateWebChannelParams struct {
-	ChatStatus         *string `json:"ChatStatus,omitempty"`
+	// The chat status. Can only be `inactive`.
+	ChatStatus *string `json:"ChatStatus,omitempty"`
+	// The post-engagement data.
 	PostEngagementData *string `json:"PostEngagementData,omitempty"`
 }
 
@@ -1024,17 +899,6 @@ func (params *UpdateWebChannelParams) SetPostEngagementData(PostEngagementData s
 	return params
 }
 
-// UpdateWebChannel Method for UpdateWebChannel
-//
-// param: Sid The SID of the WebChannel resource to update.
-//
-// param: optional nil or *UpdateWebChannelParams - Optional Parameters:
-//
-// param: "ChatStatus" (string) - The chat status. Can only be `inactive`.
-//
-// param: "PostEngagementData" (string) - The post-engagement data.
-//
-// return: FlexV1WebChannel
 func (c *DefaultApiService) UpdateWebChannel(Sid string, params *UpdateWebChannelParams) (*FlexV1WebChannel, error) {
 	path := "/v1/WebChannels/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
