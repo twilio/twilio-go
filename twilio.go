@@ -2,7 +2,6 @@
 package twilio
 
 import (
-	"os"
 	"time"
 
 	"github.com/twilio/twilio-go/client"
@@ -43,7 +42,7 @@ import (
 
 // RestClient provides access to Twilio services.
 type RestClient struct {
-	*client.Client
+	client.RequestHandler
 	AccountsV1      *AccountsV1.DefaultApiService
 	ApiV2010        *ApiV2010.DefaultApiService
 	AutopilotV1     *AutopilotV1.DefaultApiService
@@ -93,25 +92,30 @@ type Meta struct {
 
 type RestClientParams struct {
 	AccountSid string
+	Client     client.BaseClient
 }
 
 // NewRestClientWithParams provides an initialized Twilio RestClient with params.
 func NewRestClientWithParams(username string, password string, params RestClientParams) *RestClient {
-	c := &RestClient{
-		Client: &client.Client{
+	var apiClient = params.Client
+
+	if params.Client == nil {
+		apiClient := client.Client{
 			Credentials: client.NewCredentials(username, password),
 			BaseURL:     "twilio.com",
-			Edge:        os.Getenv("TWILIO_EDGE"),
-			Region:      os.Getenv("TWILIO_REGION"),
 			AccountSid:  username,
-		},
+		}
+
+		if params.AccountSid != "" {
+			apiClient.AccountSid = params.AccountSid
+		}
 	}
 
-	if params.AccountSid != "" {
-		c.AccountSid = params.AccountSid
+	c := &RestClient{
+		RequestHandler: client.NewRequestHandler(apiClient),
 	}
 
-	c.AccountsV1 = AccountsV1.NewDefaultApiService(c.Client)
+	c.AccountsV1 = AccountsV1.NewDefaultApiService(c.RequestHandler)
 	c.ApiV2010 = ApiV2010.NewDefaultApiService(c.Client)
 	c.AutopilotV1 = AutopilotV1.NewDefaultApiService(c.Client)
 	c.BulkexportsV1 = BulkexportsV1.NewDefaultApiService(c.Client)
@@ -157,15 +161,15 @@ func NewRestClient(username string, password string) *RestClient {
 
 // SetTimeout sets the Timeout for Twilio HTTP requests.
 func (c *RestClient) SetTimeout(timeout time.Duration) {
-	c.Client.SetTimeout(timeout)
+	c.RequestHandler.Client.SetTimeout(timeout)
 }
 
 // SetEdge sets the Edge for the Twilio request.
 func (c *RestClient) SetEdge(edge string) {
-	c.Client.Edge = edge
+	c.RequestHandler.Edge = edge
 }
 
 // SetRegion sets the Region for the Twilio request. Defaults to "us1" if an edge is provided.
 func (c *RestClient) SetRegion(region string) {
-	c.Client.Region = region
+	c.RequestHandler.Region = region
 }
