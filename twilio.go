@@ -42,7 +42,7 @@ import (
 
 // RestClient provides access to Twilio services.
 type RestClient struct {
-	client.RequestHandler
+	*client.RequestHandler
 	AccountsV1      *AccountsV1.DefaultApiService
 	ApiV2010        *ApiV2010.DefaultApiService
 	AutopilotV1     *AutopilotV1.DefaultApiService
@@ -97,12 +97,11 @@ type RestClientParams struct {
 
 // NewRestClientWithParams provides an initialized Twilio RestClient with params.
 func NewRestClientWithParams(username string, password string, params RestClientParams) *RestClient {
-	var apiClient = params.Client
+	apiClient := params.Client
 
 	if params.Client == nil {
 		apiClient := client.Client{
 			Credentials: client.NewCredentials(username, password),
-			BaseURL:     "twilio.com",
 			AccountSid:  username,
 		}
 
@@ -116,7 +115,7 @@ func NewRestClientWithParams(username string, password string, params RestClient
 	}
 
 	c.AccountsV1 = AccountsV1.NewDefaultApiService(c.RequestHandler)
-	c.ApiV2010 = ApiV2010.NewDefaultApiService(c.Client)
+	c.ApiV2010 = ApiV2010.NewDefaultApiService(c.RequestHandler)
 	c.AutopilotV1 = AutopilotV1.NewDefaultApiService(c.Client)
 	c.BulkexportsV1 = BulkexportsV1.NewDefaultApiService(c.Client)
 	c.ChatV1 = ChatV1.NewDefaultApiService(c.Client)

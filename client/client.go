@@ -31,7 +31,6 @@ func NewCredentials(username string, password string) *Credentials {
 type Client struct {
 	*Credentials
 	HTTPClient *http.Client
-	BaseURL    string
 	AccountSid string
 }
 

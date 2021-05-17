@@ -14,8 +14,8 @@ type RequestHandler struct {
 	Region string
 }
 
-func NewRequestHandler(client BaseClient) RequestHandler {
-	return RequestHandler{
+func NewRequestHandler(client BaseClient) *RequestHandler {
+	return &RequestHandler{
 		Client: client,
 		Edge:   os.Getenv("TWILIO_EDGE"),
 		Region: os.Getenv("TWILIO_REGION"),
@@ -24,39 +24,39 @@ func NewRequestHandler(client BaseClient) RequestHandler {
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
 // with the provided data as parameters.
-func (c RequestHandler) Post(path string, bodyData url.Values, headers map[string]interface{}) (*http.Response, error) {
+func (c *RequestHandler) Post(path string, bodyData url.Values, headers map[string]interface{}) (*http.Response, error) {
 	return c.Client.Post(path, bodyData, headers)
 }
 
 // Get performs a GET request on the object at the provided URI in the context of the Request's BaseURL
 // with the provided data as parameters.
-func (c RequestHandler) Get(path string, queryData interface{}, headers map[string]interface{}) (*http.Response, error) {
+func (c *RequestHandler) Get(path string, queryData interface{}, headers map[string]interface{}) (*http.Response, error) {
 	return c.Client.Get(path, queryData, headers)
 }
 
 // Delete performs a DELETE request on the object at the provided URI in the context of the Request's BaseURL
 // with the provided data as parameters.
-func (c RequestHandler) Delete(path string, nothing interface{}, headers map[string]interface{}) (*http.Response, error) {
+func (c *RequestHandler) Delete(path string, nothing interface{}, headers map[string]interface{}) (*http.Response, error) {
 	return c.Client.Delete(path, nil, headers)
 }
 
-// BuildHost builds the target host string taking into account region and edge configurations.
-func (c *RequestHandler) BuildHost(rawURL string) string {
-	u, err := url.Parse(rawURL)
+// BuildUrl builds the target host string taking into account region and edge configurations.
+func (c *RequestHandler) BuildUrl(rawURL string) string {
+	u, _ := url.Parse(rawURL)
 
 	var (
 		edge    = ""
 		region  = ""
-		pieces  = strings.Split(rawHost, ".")
+		suffix  = ""
+		pieces  = strings.Split(u.Host, ".")
 		product = pieces[0]
-		result  = []string{}
+		result  []string
 	)
-	suffix := ""
 
 	if len(pieces) >= 3 {
 		suffix = strings.Join(pieces[len(pieces)-2:], ".")
 	} else {
-		return rawHost
+		return u.Host
 	}
 
 	if len(pieces) == 4 {
@@ -78,15 +78,12 @@ func (c *RequestHandler) BuildHost(rawURL string) string {
 		region = "us1"
 	}
 
-	if c.BaseURL != "" {
-		suffix = c.BaseURL
-	}
-
 	for _, item := range []string{product, edge, region, suffix} {
 		if item != "" {
 			result = append(result, item)
 		}
 	}
 
-	return strings.Join(result, ".")
+	u.Host = strings.Join(result, ".")
+	return u.String()
 }

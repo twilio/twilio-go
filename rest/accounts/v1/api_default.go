@@ -22,10 +22,10 @@ import (
 
 type DefaultApiService struct {
 	baseURL        string
-	requestHandler twilio.RequestHandler
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(requestHandler twilio.RequestHandler) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
 		requestHandler: requestHandler,
 		baseURL:        "https://accounts.twilio.com",

@@ -22,15 +22,19 @@ import (
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://api.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://api.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateAccount'
@@ -55,7 +59,7 @@ func (c *DefaultApiService) CreateAccount(params *CreateAccountParams) (*ApiV201
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -174,7 +178,7 @@ func (c *DefaultApiService) CreateAddress(params *CreateAddressParams) (*ApiV201
 		data.Set("Street", *params.Street)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -296,7 +300,7 @@ func (c *DefaultApiService) CreateApplication(params *CreateApplicationParams) (
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.GetAccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -348,7 +352,7 @@ func (c *DefaultApiService) CreateApplication(params *CreateApplicationParams) (
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

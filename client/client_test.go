@@ -13,12 +13,8 @@ import (
 )
 
 func NewClient(accountSid string, authToken string) *twilio.Client {
-	creds := &twilio.Credentials{
-		Username: accountSid,
-		Password: authToken,
-	}
 	c := &twilio.Client{
-		Credentials: creds,
+		Credentials: twilio.NewCredentials(accountSid, authToken),
 		HTTPClient:  http.DefaultClient,
 	}
 
@@ -136,44 +132,4 @@ func TestClient_SetTimeoutSucceeds(t *testing.T) {
 	resp, err := client.SendRequest("get", mockServer.URL, nil, nil, nil) //nolint:bodyclose
 	assert.NoError(t, err)
 	assert.Equal(t, 200, resp.StatusCode)
-}
-
-//nolint:paralleltest
-func TestClient_BuildHostSetRegion(t *testing.T) {
-	// Region set via url
-	client := NewClient("user", "pass")
-	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.region.twilio.com"))
-
-	// Region set via client
-	client.Region = "region"
-	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.twilio.com"))
-	assert.Equal(t, "https://api.region.twilio.com", client.BuildHost("https://api.urlRegion.twilio.com"))
-}
-
-//nolint:paralleltest
-func TestClient_BuildHostSetEdgeDefaultRegion(t *testing.T) {
-	// Edge set via client
-	client := NewClient("user", "pass")
-	client.Edge = "edge"
-	assert.Equal(t, "https://api.edge.us1.twilio.com", client.BuildHost("https://api.twilio.com"))
-}
-
-//nolint:paralleltest
-func TestClient_BuildHostSetEdgeRegion(t *testing.T) {
-	//Edge and Region set via url
-	client := NewClient("user", "pass")
-	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.edge.region.twilio.com"))
-
-	// Edge and Region set via client
-	client.Edge = "edge"
-	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.region.twilio.com"))
-	client.Region = "region"
-	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.twilio.com"))
-	assert.Equal(t, "https://api.edge.region.twilio.com", client.BuildHost("https://api.urlEdge.urlRegion.twilio.com"))
-}
-
-//nolint:paralleltest
-func TestClient_BuildHostRawHostWithoutPeriods(t *testing.T) {
-	client := NewClient("user", "pass")
-	assert.Equal(t, "https://prism_twilio:4010", client.BuildHost("https://prism_twilio:4010"))
 }
