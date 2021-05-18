@@ -276,7 +276,7 @@ func main() {
             }
          },
          "transitions":[
-            
+
          ],
          "name":"Trigger",
          "type":"trigger"
@@ -336,6 +336,19 @@ func main() {
 
 For more descriptive exception types, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/go/usage-guide#exceptions).
 
+## Advanced Usage
+### Using a Custom Client
+```go
+type CustomClient struct {
+	client.Client
+}
+
+func (c *CustomClient) PreProcessRequest(req *http.Request) {
+
+}
+```
+
+## Local Usage
 ### Building
 To build *twilio-go* run:
 

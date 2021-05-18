@@ -7,7 +7,7 @@ import (
 )
 
 type BaseClient interface {
-	GetAccountSid() string
+	AccountSid() string
 	SetTimeout(timeout time.Duration)
 	Post(path string, bodyData url.Values, headers map[string]interface{}) (*http.Response, error)
 	Get(path string, queryData interface{}, headers map[string]interface{}) (*http.Response, error)

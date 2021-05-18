@@ -47,16 +47,16 @@ func (c *RequestHandler) BuildUrl(rawURL string) string {
 	var (
 		edge    = ""
 		region  = ""
-		suffix  = ""
 		pieces  = strings.Split(u.Host, ".")
 		product = pieces[0]
 		result  []string
 	)
+	suffix := ""
 
 	if len(pieces) >= 3 {
 		suffix = strings.Join(pieces[len(pieces)-2:], ".")
 	} else {
-		return u.Host
+		return u.String()
 	}
 
 	if len(pieces) == 4 {

@@ -45,5 +45,5 @@ func TestRequestHandler_BuildUrlSetEdgeRegion(t *testing.T) {
 
 func TestRequestHandler_BuildHostRawHostWithoutPeriods(t *testing.T) {
 	requestHandler := NewRequestHandler("user", "pass")
-	assert.Equal(t, "prism_twilio:4010", requestHandler.BuildUrl("prism_twilio:4010"))
+	assert.Equal(t, "https://prism_twilio:4010", requestHandler.BuildUrl("https://prism_twilio:4010"))
 }

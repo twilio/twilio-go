@@ -123,12 +123,35 @@ func TestClient_SetTimeoutSucceeds(t *testing.T) {
 			if err != nil {
 				t.Error(err)
 			}
-			writer.WriteHeader(http.StatusOK)
 		}))
 	defer mockServer.Close()
 
 	client := NewClient("user", "pass")
 	client.SetTimeout(10 * time.Second)
+	resp, err := client.SendRequest("get", mockServer.URL, nil, nil, nil) //nolint:bodyclose
+	assert.NoError(t, err)
+	assert.Equal(t, 200, resp.StatusCode)
+}
+
+func TestClient_SetTimeoutCreatesClient(t *testing.T) {
+	mockServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			d := map[string]interface{}{
+				"response": "ok",
+			}
+			time.Sleep(100 * time.Microsecond)
+			encoder := json.NewEncoder(writer)
+			err := encoder.Encode(&d)
+			if err != nil {
+				t.Error(err)
+			}
+		}))
+	defer mockServer.Close()
+
+	client := &twilio.Client{
+		Credentials: twilio.NewCredentials("user", "pass"),
+	}
+	client.SetTimeout(20 * time.Second)
 	resp, err := client.SendRequest("get", mockServer.URL, nil, nil, nil) //nolint:bodyclose
 	assert.NoError(t, err)
 	assert.Equal(t, 200, resp.StatusCode)

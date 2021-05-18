@@ -97,21 +97,23 @@ type RestClientParams struct {
 
 // NewRestClientWithParams provides an initialized Twilio RestClient with params.
 func NewRestClientWithParams(username string, password string, params RestClientParams) *RestClient {
-	apiClient := params.Client
+	requestHandler := client.NewRequestHandler(params.Client)
 
 	if params.Client == nil {
-		apiClient := client.Client{
+		defaultClient := &client.Client{
 			Credentials: client.NewCredentials(username, password),
-			AccountSid:  username,
 		}
 
 		if params.AccountSid != "" {
-			apiClient.AccountSid = params.AccountSid
+			defaultClient.SetAccountSid(params.AccountSid)
+		} else {
+			defaultClient.SetAccountSid(username)
 		}
+		requestHandler = client.NewRequestHandler(defaultClient)
 	}
 
 	c := &RestClient{
-		RequestHandler: client.NewRequestHandler(apiClient),
+		RequestHandler: requestHandler,
 	}
 
 	c.AccountsV1 = AccountsV1.NewDefaultApiService(c.RequestHandler)

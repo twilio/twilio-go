@@ -31,7 +31,7 @@ func NewCredentials(username string, password string) *Credentials {
 type Client struct {
 	*Credentials
 	HTTPClient *http.Client
-	AccountSid string
+	accountSid string
 }
 
 // default http Client should not follow redirects and return the most recent response.
@@ -50,6 +50,9 @@ func (c *Client) basicAuth() (string, string) {
 
 // SetTimeout sets the Timeout for HTTP requests.
 func (c *Client) SetTimeout(timeout time.Duration) {
+	if c.HTTPClient == nil {
+		c.HTTPClient = defaultHTTPClient()
+	}
 	c.HTTPClient.Timeout = timeout
 }
 
@@ -143,9 +146,13 @@ func (c *Client) PreProcessResponse(response *http.Response, err error) {
 	// No-op
 }
 
+func (c *Client) SetAccountSid(sid string) {
+	c.accountSid = sid
+}
+
 // Returns the Account SID.
-func (c *Client) GetAccountSid() string {
-	return c.AccountSid
+func (c *Client) AccountSid() string {
+	return c.accountSid
 }
 
 // Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
