@@ -88,7 +88,7 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 }
 
 // SendRequest verifies, constructs, and authorizes an HTTP request.
-func (c *Client) SendRequest(method string, rawURL string, queryParams interface{}, formData url.Values,
+func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	headers map[string]interface{}) (*http.Response, error) {
 	u, err := url.Parse(rawURL)
 	if err != nil {
@@ -98,16 +98,16 @@ func (c *Client) SendRequest(method string, rawURL string, queryParams interface
 	valueReader := &strings.Reader{}
 	goVersion := runtime.Version()
 
-	if queryParams != nil {
-		v, _ := EncodeToStringWith(queryParams, delimiter, escapee, keepZeros)
+	if method == http.MethodGet {
+		v, _ := EncodeToStringWith(data, delimiter, escapee, keepZeros)
 		regex := regexp.MustCompile(`\.\d+`)
 		s := regex.ReplaceAllString(v, "")
 
 		u.RawQuery = s
 	}
 
-	if formData != nil {
-		valueReader = strings.NewReader(formData.Encode())
+	if method == http.MethodPost {
+		valueReader = strings.NewReader(data.Encode())
 	}
 
 	req, err := http.NewRequest(method, u.String(), valueReader)
@@ -129,23 +129,10 @@ func (c *Client) SendRequest(method string, rawURL string, queryParams interface
 		req.Header.Add(k, fmt.Sprint(v))
 	}
 
-	c.PreProcessRequest(req)
-
-	response, err := c.doWithErr(req)
-
-	c.PreProcessResponse(response, err)
-
-	return response, err
+	return c.doWithErr(req)
 }
 
-func (c *Client) PreProcessRequest(req *http.Request) {
-	// No-op
-}
-
-func (c *Client) PreProcessResponse(response *http.Response, err error) {
-	// No-op
-}
-
+// SetAccountSid sets the Client's accountSid field
 func (c *Client) SetAccountSid(sid string) {
 	c.accountSid = sid
 }
@@ -153,22 +140,4 @@ func (c *Client) SetAccountSid(sid string) {
 // Returns the Account SID.
 func (c *Client) AccountSid() string {
 	return c.accountSid
-}
-
-// Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (c *Client) Post(path string, bodyData url.Values, headers map[string]interface{}) (*http.Response, error) {
-	return c.SendRequest(http.MethodPost, path, nil, bodyData, headers)
-}
-
-// Get performs a GET request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (c *Client) Get(path string, queryData interface{}, headers map[string]interface{}) (*http.Response, error) {
-	return c.SendRequest(http.MethodGet, path, queryData, nil, headers)
-}
-
-// Delete performs a DELETE request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (c *Client) Delete(path string, nothing interface{}, headers map[string]interface{}) (*http.Response, error) {
-	return c.SendRequest(http.MethodDelete, path, nil, nil, headers)
 }

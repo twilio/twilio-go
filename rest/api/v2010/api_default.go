@@ -4854,7 +4854,7 @@ func (c *DefaultApiService) FetchAccount(Sid string) (*ApiV2010Account, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -4892,7 +4892,7 @@ func (c *DefaultApiService) FetchAddress(Sid string, params *FetchAddressParams)
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -4931,7 +4931,7 @@ func (c *DefaultApiService) FetchApplication(Sid string, params *FetchApplicatio
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -4970,7 +4970,7 @@ func (c *DefaultApiService) FetchAuthorizedConnectApp(ConnectAppSid string, para
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5008,7 +5008,7 @@ func (c *DefaultApiService) FetchAvailablePhoneNumberCountry(CountryCode string,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5046,7 +5046,7 @@ func (c *DefaultApiService) FetchBalance(params *FetchBalanceParams) (*ApiV2010A
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5085,7 +5085,7 @@ func (c *DefaultApiService) FetchCall(Sid string, params *FetchCallParams) (*Api
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5124,7 +5124,7 @@ func (c *DefaultApiService) FetchCallFeedback(CallSid string, params *FetchCallF
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5163,7 +5163,7 @@ func (c *DefaultApiService) FetchCallFeedbackSummary(Sid string, params *FetchCa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5202,7 +5202,7 @@ func (c *DefaultApiService) FetchCallNotification(CallSid string, Sid string, pa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5242,7 +5242,7 @@ func (c *DefaultApiService) FetchCallRecording(CallSid string, Sid string, param
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5281,7 +5281,7 @@ func (c *DefaultApiService) FetchConference(Sid string, params *FetchConferenceP
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5321,7 +5321,7 @@ func (c *DefaultApiService) FetchConferenceRecording(ConferenceSid string, Sid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5360,7 +5360,7 @@ func (c *DefaultApiService) FetchConnectApp(Sid string, params *FetchConnectAppP
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5399,7 +5399,7 @@ func (c *DefaultApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIn
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5439,7 +5439,7 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5480,7 +5480,7 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOnExtension(Resou
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5518,7 +5518,7 @@ func (c *DefaultApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5558,7 +5558,7 @@ func (c *DefaultApiService) FetchMedia(MessageSid string, Sid string, params *Fe
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5598,7 +5598,7 @@ func (c *DefaultApiService) FetchMember(QueueSid string, CallSid string, params 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5637,7 +5637,7 @@ func (c *DefaultApiService) FetchMessage(Sid string, params *FetchMessageParams)
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5676,7 +5676,7 @@ func (c *DefaultApiService) FetchNotification(Sid string, params *FetchNotificat
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5715,7 +5715,7 @@ func (c *DefaultApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgo
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5755,7 +5755,7 @@ func (c *DefaultApiService) FetchParticipant(ConferenceSid string, CallSid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5794,7 +5794,7 @@ func (c *DefaultApiService) FetchQueue(Sid string, params *FetchQueueParams) (*A
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5833,7 +5833,7 @@ func (c *DefaultApiService) FetchRecording(Sid string, params *FetchRecordingPar
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5873,7 +5873,7 @@ func (c *DefaultApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5914,7 +5914,7 @@ func (c *DefaultApiService) FetchRecordingAddOnResultPayload(ReferenceSid string
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5953,7 +5953,7 @@ func (c *DefaultApiService) FetchRecordingTranscription(RecordingSid string, Sid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5992,7 +5992,7 @@ func (c *DefaultApiService) FetchShortCode(Sid string, params *FetchShortCodePar
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6030,7 +6030,7 @@ func (c *DefaultApiService) FetchSigningKey(Sid string, params *FetchSigningKeyP
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6070,7 +6070,7 @@ func (c *DefaultApiService) FetchSipAuthCallsCredentialListMapping(DomainSid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6110,7 +6110,7 @@ func (c *DefaultApiService) FetchSipAuthCallsIpAccessControlListMapping(DomainSi
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6150,7 +6150,7 @@ func (c *DefaultApiService) FetchSipAuthRegistrationsCredentialListMapping(Domai
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6190,7 +6190,7 @@ func (c *DefaultApiService) FetchSipCredential(CredentialListSid string, Sid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6229,7 +6229,7 @@ func (c *DefaultApiService) FetchSipCredentialList(Sid string, params *FetchSipC
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6269,7 +6269,7 @@ func (c *DefaultApiService) FetchSipCredentialListMapping(DomainSid string, Sid 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6308,7 +6308,7 @@ func (c *DefaultApiService) FetchSipDomain(Sid string, params *FetchSipDomainPar
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6347,7 +6347,7 @@ func (c *DefaultApiService) FetchSipIpAccessControlList(Sid string, params *Fetc
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6387,7 +6387,7 @@ func (c *DefaultApiService) FetchSipIpAccessControlListMapping(DomainSid string,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6427,7 +6427,7 @@ func (c *DefaultApiService) FetchSipIpAddress(IpAccessControlListSid string, Sid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6466,7 +6466,7 @@ func (c *DefaultApiService) FetchTranscription(Sid string, params *FetchTranscri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6505,7 +6505,7 @@ func (c *DefaultApiService) FetchUsageTrigger(Sid string, params *FetchUsageTrig
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6560,7 +6560,7 @@ func (c *DefaultApiService) ListAccount(params *ListAccountParams) (*ListAccount
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6634,7 +6634,7 @@ func (c *DefaultApiService) ListAddress(params *ListAddressParams) (*ListAddress
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6691,7 +6691,7 @@ func (c *DefaultApiService) ListApplication(params *ListApplicationParams) (*Lis
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6739,7 +6739,7 @@ func (c *DefaultApiService) ListAuthorizedConnectApp(params *ListAuthorizedConne
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6786,7 +6786,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberCountry(params *ListAvailabl
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6996,7 +6996,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberLocal(CountryCode string, pa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -7206,7 +7206,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -7416,7 +7416,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMobile(CountryCode string, p
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -7626,7 +7626,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberNational(CountryCode string,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -7836,7 +7836,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberSharedCost(CountryCode strin
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8046,7 +8046,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberTollFree(CountryCode string,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8256,7 +8256,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberVoip(CountryCode string, par
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8394,7 +8394,7 @@ func (c *DefaultApiService) ListCall(params *ListCallParams) (*ListCallResponse,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8443,7 +8443,7 @@ func (c *DefaultApiService) ListCallEvent(CallSid string, params *ListCallEventP
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8527,7 +8527,7 @@ func (c *DefaultApiService) ListCallNotification(CallSid string, params *ListCal
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8603,7 +8603,7 @@ func (c *DefaultApiService) ListCallRecording(CallSid string, params *ListCallRe
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8723,7 +8723,7 @@ func (c *DefaultApiService) ListConference(params *ListConferenceParams) (*ListC
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8799,7 +8799,7 @@ func (c *DefaultApiService) ListConferenceRecording(ConferenceSid string, params
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8847,7 +8847,7 @@ func (c *DefaultApiService) ListConnectApp(params *ListConnectAppParams) (*ListC
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8895,7 +8895,7 @@ func (c *DefaultApiService) ListDependentPhoneNumber(AddressSid string, params *
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8979,7 +8979,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNum
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9028,7 +9028,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid str
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9078,7 +9078,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOnExtension(Resour
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9161,7 +9161,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberLocal(params *ListIncomingPho
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9244,7 +9244,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPh
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9327,7 +9327,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberTollFree(params *ListIncoming
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9374,7 +9374,7 @@ func (c *DefaultApiService) ListKey(params *ListKeyParams) (*ListKeyResponse, er
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9450,7 +9450,7 @@ func (c *DefaultApiService) ListMedia(MessageSid string, params *ListMediaParams
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9499,7 +9499,7 @@ func (c *DefaultApiService) ListMember(QueueSid string, params *ListMemberParams
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9592,7 +9592,7 @@ func (c *DefaultApiService) ListMessage(params *ListMessageParams) (*ListMessage
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9676,7 +9676,7 @@ func (c *DefaultApiService) ListNotification(params *ListNotificationParams) (*L
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9742,7 +9742,7 @@ func (c *DefaultApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdPar
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9818,7 +9818,7 @@ func (c *DefaultApiService) ListParticipant(ConferenceSid string, params *ListPa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9866,7 +9866,7 @@ func (c *DefaultApiService) ListQueue(params *ListQueueParams) (*ListQueueRespon
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9959,7 +9959,7 @@ func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*ListRec
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10008,7 +10008,7 @@ func (c *DefaultApiService) ListRecordingAddOnResult(ReferenceSid string, params
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10058,7 +10058,7 @@ func (c *DefaultApiService) ListRecordingAddOnResultPayload(ReferenceSid string,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10106,7 +10106,7 @@ func (c *DefaultApiService) ListRecordingTranscription(RecordingSid string, para
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10172,7 +10172,7 @@ func (c *DefaultApiService) ListShortCode(params *ListShortCodeParams) (*ListSho
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10219,7 +10219,7 @@ func (c *DefaultApiService) ListSigningKey(params *ListSigningKeyParams) (*ListS
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10268,7 +10268,7 @@ func (c *DefaultApiService) ListSipAuthCallsCredentialListMapping(DomainSid stri
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10317,7 +10317,7 @@ func (c *DefaultApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10366,7 +10366,7 @@ func (c *DefaultApiService) ListSipAuthRegistrationsCredentialListMapping(Domain
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10415,7 +10415,7 @@ func (c *DefaultApiService) ListSipCredential(CredentialListSid string, params *
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10463,7 +10463,7 @@ func (c *DefaultApiService) ListSipCredentialList(params *ListSipCredentialListP
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10512,7 +10512,7 @@ func (c *DefaultApiService) ListSipCredentialListMapping(DomainSid string, param
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10560,7 +10560,7 @@ func (c *DefaultApiService) ListSipDomain(params *ListSipDomainParams) (*ListSip
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10608,7 +10608,7 @@ func (c *DefaultApiService) ListSipIpAccessControlList(params *ListSipIpAccessCo
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10657,7 +10657,7 @@ func (c *DefaultApiService) ListSipIpAccessControlListMapping(DomainSid string, 
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10706,7 +10706,7 @@ func (c *DefaultApiService) ListSipIpAddress(IpAccessControlListSid string, para
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10754,7 +10754,7 @@ func (c *DefaultApiService) ListTranscription(params *ListTranscriptionParams) (
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10838,7 +10838,7 @@ func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*Lis
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10921,7 +10921,7 @@ func (c *DefaultApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTim
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11004,7 +11004,7 @@ func (c *DefaultApiService) ListUsageRecordDaily(params *ListUsageRecordDailyPar
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11087,7 +11087,7 @@ func (c *DefaultApiService) ListUsageRecordLastMonth(params *ListUsageRecordLast
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11170,7 +11170,7 @@ func (c *DefaultApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthl
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11253,7 +11253,7 @@ func (c *DefaultApiService) ListUsageRecordThisMonth(params *ListUsageRecordThis
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11336,7 +11336,7 @@ func (c *DefaultApiService) ListUsageRecordToday(params *ListUsageRecordTodayPar
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11419,7 +11419,7 @@ func (c *DefaultApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyP
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11502,7 +11502,7 @@ func (c *DefaultApiService) ListUsageRecordYesterday(params *ListUsageRecordYest
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11577,7 +11577,7 @@ func (c *DefaultApiService) ListUsageTrigger(params *ListUsageTriggerParams) (*L
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

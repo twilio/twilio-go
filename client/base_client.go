@@ -9,7 +9,6 @@ import (
 type BaseClient interface {
 	AccountSid() string
 	SetTimeout(timeout time.Duration)
-	Post(path string, bodyData url.Values, headers map[string]interface{}) (*http.Response, error)
-	Get(path string, queryData interface{}, headers map[string]interface{}) (*http.Response, error)
-	Delete(path string, nothing interface{}, headers map[string]interface{}) (*http.Response, error)
+	SendRequest(method string, rawURL string, data url.Values,
+		headers map[string]interface{}) (*http.Response, error)
 }

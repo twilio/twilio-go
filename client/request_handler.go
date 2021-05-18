@@ -22,22 +22,9 @@ func NewRequestHandler(client BaseClient) *RequestHandler {
 	}
 }
 
-// Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (c *RequestHandler) Post(path string, bodyData url.Values, headers map[string]interface{}) (*http.Response, error) {
-	return c.Client.Post(path, bodyData, headers)
-}
-
-// Get performs a GET request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (c *RequestHandler) Get(path string, queryData interface{}, headers map[string]interface{}) (*http.Response, error) {
-	return c.Client.Get(path, queryData, headers)
-}
-
-// Delete performs a DELETE request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (c *RequestHandler) Delete(path string, nothing interface{}, headers map[string]interface{}) (*http.Response, error) {
-	return c.Client.Delete(path, nil, headers)
+func (c *RequestHandler) sendRequest(method string, rawURL string, data url.Values,
+	headers map[string]interface{}) (*http.Response, error) {
+	return c.Client.SendRequest(method, c.BuildUrl(rawURL), data, headers)
 }
 
 // BuildUrl builds the target host string taking into account region and edge configurations.
@@ -86,4 +73,16 @@ func (c *RequestHandler) BuildUrl(rawURL string) string {
 
 	u.Host = strings.Join(result, ".")
 	return u.String()
+}
+
+func (c *RequestHandler) Post(path string, bodyData url.Values, headers map[string]interface{}) (*http.Response, error) {
+	return c.sendRequest(http.MethodPost, path, bodyData, headers)
+}
+
+func (c *RequestHandler) Get(path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
+	return c.sendRequest(http.MethodGet, path, queryData, headers)
+}
+
+func (c *RequestHandler) Delete(path string, nothing url.Values, headers map[string]interface{}) (*http.Response, error) {
+	return c.sendRequest(http.MethodDelete, path, nil, headers)
 }
