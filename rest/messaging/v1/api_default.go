@@ -987,7 +987,7 @@ func (c *DefaultApiService) ListUsAppToPerson(MessagingServiceSid string, params
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
