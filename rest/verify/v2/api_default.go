@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.16.0
  * Contact: support@twilio.com
  */
 
@@ -319,15 +319,15 @@ type CreateNewFactorParams struct {
 	BindingSecret *string `json:"Binding.Secret,omitempty"`
 	// The algorithm used to derive the TOTP codes. Can be `sha1`, `sha256` or `sha512`. Defaults to `sha1`.  Used when `factor_type` is `totp`
 	ConfigAlg *string `json:"Config.Alg,omitempty"`
-	// The ID that uniquely identifies your app in the Google or Apple store, such as `com.example.myapp`.  Required when `factor_type` is `push`. If specified, it can be up to 100 characters long.
+	// The ID that uniquely identifies your app in the Google or Apple store, such as `com.example.myapp`. It can be up to 100 characters long.  Required when `factor_type` is `push`.
 	ConfigAppId *string `json:"Config.AppId,omitempty"`
 	// Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property `totp.code_length`. If not configured defaults to 6.  Used when `factor_type` is `totp`
 	ConfigCodeLength *int32 `json:"Config.CodeLength,omitempty"`
-	// The transport technology used to generate the Notification Token. Can be `apn` or `fcm`.  Required when `factor_type` is `push`
+	// The transport technology used to generate the Notification Token. Can be `apn` or `fcm`.  Required when `factor_type` is `push`.
 	ConfigNotificationPlatform *string `json:"Config.NotificationPlatform,omitempty"`
-	// For APN, the device token. For FCM the registration token. It used to send the push notifications.  Used when `factor_type` is `push`. If specified, must be between 32 and 255 characters long.
+	// For APN, the device token. For FCM the registration token. It used to send the push notifications. Must be between 32 and 255 characters long.  Required when `factor_type` is `push`.
 	ConfigNotificationToken *string `json:"Config.NotificationToken,omitempty"`
-	// The Verify Push SDK version used to configure the factor  Used when `factor_type` is `push`
+	// The Verify Push SDK version used to configure the factor  Required when `factor_type` is `push`
 	ConfigSdkVersion *string `json:"Config.SdkVersion,omitempty"`
 	// The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property `totp.skew`. If not configured defaults to 1.  Used when `factor_type` is `totp`
 	ConfigSkew *int32 `json:"Config.Skew,omitempty"`

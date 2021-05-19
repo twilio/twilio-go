@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.16.0
  * Contact: support@twilio.com
  */
 
@@ -459,10 +459,16 @@ func (c *DefaultApiService) FetchSubscription(Sid string) (*EventsV1Subscription
 
 // Optional parameters for the method 'ListEventType'
 type ListEventTypeParams struct {
+	// A string parameter filtering the results to return only the Event Types using a given schema.
+	SchemaId *string `json:"SchemaId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListEventTypeParams) SetSchemaId(SchemaId string) *ListEventTypeParams {
+	params.SchemaId = &SchemaId
+	return params
+}
 func (params *ListEventTypeParams) SetPageSize(PageSize int32) *ListEventTypeParams {
 	params.PageSize = &PageSize
 	return params
@@ -475,6 +481,9 @@ func (c *DefaultApiService) ListEventType(params *ListEventTypeParams) (*ListEve
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.SchemaId != nil {
+		data.Set("SchemaId", *params.SchemaId)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
@@ -534,10 +543,22 @@ func (c *DefaultApiService) ListSchemaVersion(Id string, params *ListSchemaVersi
 
 // Optional parameters for the method 'ListSink'
 type ListSinkParams struct {
+	// A boolean query parameter filtering the results to return sinks used/not used by a subscription.
+	InUse *bool `json:"InUse,omitempty"`
+	// A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
+	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int32 `json:"PageSize,omitempty"`
 }
 
+func (params *ListSinkParams) SetInUse(InUse bool) *ListSinkParams {
+	params.InUse = &InUse
+	return params
+}
+func (params *ListSinkParams) SetStatus(Status string) *ListSinkParams {
+	params.Status = &Status
+	return params
+}
 func (params *ListSinkParams) SetPageSize(PageSize int32) *ListSinkParams {
 	params.PageSize = &PageSize
 	return params
@@ -550,6 +571,12 @@ func (c *DefaultApiService) ListSink(params *ListSinkParams) (*ListSinkResponse,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.InUse != nil {
+		data.Set("InUse", fmt.Sprint(*params.InUse))
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}

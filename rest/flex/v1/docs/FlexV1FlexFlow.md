@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Enabled** | Pointer to **bool** | Whether the Flex Flow is enabled |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
 **Integration** | Pointer to **map[string]interface{}** | An object that contains specific parameters for the integration |
-**IntegrationType** | Pointer to **string** | The integration type |
+**IntegrationType** | Pointer to **string** | The software that will handle inbound messages. |
 **JanitorEnabled** | Pointer to **bool** | Remove active Proxy sessions if the corresponding Task is deleted. |
 **LongLived** | Pointer to **bool** | Re-use this chat channel for future interactions with a contact |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |

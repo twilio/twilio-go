@@ -15,14 +15,14 @@ Method | HTTP request | Description
 [**DeletePhoneNumber**](DefaultApi.md#DeletePhoneNumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
 [**DeleteService**](DefaultApi.md#DeleteService) | **Delete** /v1/Services/{Sid} | 
 [**DeleteShortCode**](DefaultApi.md#DeleteShortCode) | **Delete** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
-[**DeleteUsAppToPerson**](DefaultApi.md#DeleteUsAppToPerson) | **Delete** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
+[**DeleteUsAppToPerson**](DefaultApi.md#DeleteUsAppToPerson) | **Delete** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
 [**FetchAlphaSender**](DefaultApi.md#FetchAlphaSender) | **Get** /v1/Services/{ServiceSid}/AlphaSenders/{Sid} | 
 [**FetchBrandRegistrations**](DefaultApi.md#FetchBrandRegistrations) | **Get** /v1/a2p/BrandRegistrations/{Sid} | 
 [**FetchDeactivation**](DefaultApi.md#FetchDeactivation) | **Get** /v1/Deactivations | 
 [**FetchPhoneNumber**](DefaultApi.md#FetchPhoneNumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
 [**FetchService**](DefaultApi.md#FetchService) | **Get** /v1/Services/{Sid} | 
 [**FetchShortCode**](DefaultApi.md#FetchShortCode) | **Get** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
-[**FetchUsAppToPerson**](DefaultApi.md#FetchUsAppToPerson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
+[**FetchUsAppToPerson**](DefaultApi.md#FetchUsAppToPerson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
 [**FetchUsAppToPersonUsecase**](DefaultApi.md#FetchUsAppToPersonUsecase) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases | 
 [**FetchUsecase**](DefaultApi.md#FetchUsecase) | **Get** /v1/Services/Usecases | 
 [**ListAlphaSender**](DefaultApi.md#ListAlphaSender) | **Get** /v1/Services/{ServiceSid}/AlphaSenders | 
@@ -30,6 +30,7 @@ Method | HTTP request | Description
 [**ListPhoneNumber**](DefaultApi.md#ListPhoneNumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers | 
 [**ListService**](DefaultApi.md#ListService) | **Get** /v1/Services | 
 [**ListShortCode**](DefaultApi.md#ListShortCode) | **Get** /v1/Services/{ServiceSid}/ShortCodes | 
+[**ListUsAppToPerson**](DefaultApi.md#ListUsAppToPerson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
 [**UpdateService**](DefaultApi.md#UpdateService) | **Post** /v1/Services/{Sid} | 
 
 
@@ -495,7 +496,7 @@ Name | Type | Description
 
 ## DeleteUsAppToPerson
 
-> DeleteUsAppToPerson(ctx, MessagingServiceSid)
+> DeleteUsAppToPerson(ctx, MessagingServiceSidSid)
 
 
 
@@ -506,6 +507,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to delete the resource from.
+**Sid** | **string** | The SID of the US A2P Compliance resource to delete &#x60;QE2c6890da8086d771620e9b13fadeba0b&#x60;.
 
 ### Other Parameters
 
@@ -777,7 +779,7 @@ Name | Type | Description
 
 ## FetchUsAppToPerson
 
-> MessagingV1ServiceUsAppToPerson FetchUsAppToPerson(ctx, MessagingServiceSid)
+> MessagingV1ServiceUsAppToPerson FetchUsAppToPerson(ctx, MessagingServiceSidSid)
 
 
 
@@ -788,6 +790,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
+**Sid** | **string** | The SID of the US A2P Compliance resource to fetch &#x60;QE2c6890da8086d771620e9b13fadeba0b&#x60;.
 
 ### Other Parameters
 
@@ -1070,6 +1073,47 @@ Name | Type | Description
 ### Return type
 
 [**ListShortCodeResponse**](ListShortCodeResponse.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListUsAppToPerson
+
+> ListUsAppToPersonResponse ListUsAppToPerson(ctx, MessagingServiceSidoptional)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**MessagingServiceSid** | **string** | The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) to fetch the resource from.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListUsAppToPersonParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+### Return type
+
+[**ListUsAppToPersonResponse**](ListUsAppToPersonResponse.md)
 
 ### Authorization
 

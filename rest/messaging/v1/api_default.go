@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.16.0
  * Contact: support@twilio.com
  */
 
@@ -548,9 +548,10 @@ func (c *DefaultApiService) DeleteShortCode(ServiceSid string, Sid string) error
 	return nil
 }
 
-func (c *DefaultApiService) DeleteUsAppToPerson(MessagingServiceSid string) error {
-	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
+func (c *DefaultApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string) error {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -710,9 +711,10 @@ func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*Mess
 	return ps, err
 }
 
-func (c *DefaultApiService) FetchUsAppToPerson(MessagingServiceSid string) (*MessagingV1ServiceUsAppToPerson, error) {
-	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
+func (c *DefaultApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) (*MessagingV1ServiceUsAppToPerson, error) {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
@@ -951,6 +953,43 @@ func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCo
 	defer resp.Body.Close()
 
 	ps := &ListShortCodeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// Optional parameters for the method 'ListUsAppToPerson'
+type ListUsAppToPersonParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int32 `json:"PageSize,omitempty"`
+}
+
+func (params *ListUsAppToPersonParams) SetPageSize(PageSize int32) *ListUsAppToPersonParams {
+	params.PageSize = &PageSize
+	return params
+}
+
+func (c *DefaultApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) (*ListUsAppToPersonResponse, error) {
+	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
+	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUsAppToPersonResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

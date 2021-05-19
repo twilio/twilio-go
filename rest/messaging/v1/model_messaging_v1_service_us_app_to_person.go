@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.16.0
  * Contact: support@twilio.com
  */
 
@@ -43,6 +43,8 @@ type MessagingV1ServiceUsAppToPerson struct {
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
 	// Rate limit and/or classification set by each carrier
 	RateLimits *map[string]interface{} `json:"rate_limits,omitempty"`
+	// The unique string that identifies a US A2P Compliance resource
+	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the US App to Person resource
 	Url *string `json:"url,omitempty"`
 	// A2P Campaign Use Case.
