@@ -11,7 +11,7 @@ func TestClient_WithParams(t *testing.T) {
 		AccountSid: "subAccountSid",
 	})
 
-	assert.Equal(t, client.RequestHandler.Client.AccountSid(), "subaccountSid")
+	assert.Equal(t, client.RequestHandler.Client.AccountSid(), "subAccountSid")
 }
 
 func TestClient_WithNoAccountSid(t *testing.T) {
