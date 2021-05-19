@@ -15,6 +15,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 	"time"
 
@@ -22,15 +23,19 @@ import (
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://serverless.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://serverless.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateAsset'
@@ -56,7 +61,7 @@ func (c *DefaultApiService) CreateAsset(ServiceSid string, params *CreateAssetPa
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +126,7 @@ func (c *DefaultApiService) CreateBuild(ServiceSid string, params *CreateBuildPa
 		data.Set("Runtime", *params.Runtime)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -160,7 +165,7 @@ func (c *DefaultApiService) CreateDeployment(ServiceSid string, EnvironmentSid s
 		data.Set("BuildSid", *params.BuildSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -207,7 +212,7 @@ func (c *DefaultApiService) CreateEnvironment(ServiceSid string, params *CreateE
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -245,7 +250,7 @@ func (c *DefaultApiService) CreateFunction(ServiceSid string, params *CreateFunc
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -309,7 +314,7 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*Serverl
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -357,7 +362,7 @@ func (c *DefaultApiService) CreateVariable(ServiceSid string, EnvironmentSid str
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -381,7 +386,7 @@ func (c *DefaultApiService) DeleteAsset(ServiceSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -400,7 +405,7 @@ func (c *DefaultApiService) DeleteBuild(ServiceSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -419,7 +424,7 @@ func (c *DefaultApiService) DeleteEnvironment(ServiceSid string, Sid string) err
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -438,7 +443,7 @@ func (c *DefaultApiService) DeleteFunction(ServiceSid string, Sid string) error 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -456,7 +461,7 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -476,7 +481,7 @@ func (c *DefaultApiService) DeleteVariable(ServiceSid string, EnvironmentSid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -495,7 +500,7 @@ func (c *DefaultApiService) FetchAsset(ServiceSid string, Sid string) (*Serverle
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -520,7 +525,7 @@ func (c *DefaultApiService) FetchAssetVersion(ServiceSid string, AssetSid string
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -544,7 +549,7 @@ func (c *DefaultApiService) FetchBuild(ServiceSid string, Sid string) (*Serverle
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -568,7 +573,7 @@ func (c *DefaultApiService) FetchBuildStatus(ServiceSid string, Sid string) (*Se
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -593,7 +598,7 @@ func (c *DefaultApiService) FetchDeployment(ServiceSid string, EnvironmentSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -617,7 +622,7 @@ func (c *DefaultApiService) FetchEnvironment(ServiceSid string, Sid string) (*Se
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -641,7 +646,7 @@ func (c *DefaultApiService) FetchFunction(ServiceSid string, Sid string) (*Serve
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -666,7 +671,7 @@ func (c *DefaultApiService) FetchFunctionVersion(ServiceSid string, FunctionSid 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -691,7 +696,7 @@ func (c *DefaultApiService) FetchFunctionVersionContent(ServiceSid string, Funct
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -716,7 +721,7 @@ func (c *DefaultApiService) FetchLog(ServiceSid string, EnvironmentSid string, S
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -739,7 +744,7 @@ func (c *DefaultApiService) FetchService(Sid string) (*ServerlessV1Service, erro
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -764,7 +769,7 @@ func (c *DefaultApiService) FetchVariable(ServiceSid string, EnvironmentSid stri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -802,7 +807,7 @@ func (c *DefaultApiService) ListAsset(ServiceSid string, params *ListAssetParams
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -841,7 +846,7 @@ func (c *DefaultApiService) ListAssetVersion(ServiceSid string, AssetSid string,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -879,7 +884,7 @@ func (c *DefaultApiService) ListBuild(ServiceSid string, params *ListBuildParams
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -918,7 +923,7 @@ func (c *DefaultApiService) ListDeployment(ServiceSid string, EnvironmentSid str
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -956,7 +961,7 @@ func (c *DefaultApiService) ListEnvironment(ServiceSid string, params *ListEnvir
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -994,7 +999,7 @@ func (c *DefaultApiService) ListFunction(ServiceSid string, params *ListFunction
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1033,7 +1038,7 @@ func (c *DefaultApiService) ListFunctionVersion(ServiceSid string, FunctionSid s
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1099,7 +1104,7 @@ func (c *DefaultApiService) ListLog(ServiceSid string, EnvironmentSid string, pa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1136,7 +1141,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1175,7 +1180,7 @@ func (c *DefaultApiService) ListVariable(ServiceSid string, EnvironmentSid strin
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1214,7 +1219,7 @@ func (c *DefaultApiService) UpdateAsset(ServiceSid string, Sid string, params *U
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1253,7 +1258,7 @@ func (c *DefaultApiService) UpdateFunction(ServiceSid string, Sid string, params
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1309,7 +1314,7 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 		data.Set("UiEditable", fmt.Sprint(*params.UiEditable))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1358,7 +1363,7 @@ func (c *DefaultApiService) UpdateVariable(ServiceSid string, EnvironmentSid str
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

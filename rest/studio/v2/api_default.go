@@ -15,6 +15,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 	"time"
 
@@ -22,15 +23,19 @@ import (
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://studio.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://studio.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateExecution'
@@ -80,7 +85,7 @@ func (c *DefaultApiService) CreateExecution(FlowSid string, params *CreateExecut
 		data.Set("To", *params.To)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -150,7 +155,7 @@ func (c *DefaultApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow,
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -174,7 +179,7 @@ func (c *DefaultApiService) DeleteExecution(FlowSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -192,7 +197,7 @@ func (c *DefaultApiService) DeleteFlow(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -211,7 +216,7 @@ func (c *DefaultApiService) FetchExecution(FlowSid string, Sid string) (*StudioV
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -235,7 +240,7 @@ func (c *DefaultApiService) FetchExecutionContext(FlowSid string, ExecutionSid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -260,7 +265,7 @@ func (c *DefaultApiService) FetchExecutionStep(FlowSid string, ExecutionSid stri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -285,7 +290,7 @@ func (c *DefaultApiService) FetchExecutionStepContext(FlowSid string, ExecutionS
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -308,7 +313,7 @@ func (c *DefaultApiService) FetchFlow(Sid string) (*StudioV2Flow, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -332,7 +337,7 @@ func (c *DefaultApiService) FetchFlowRevision(Sid string, Revision string) (*Stu
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -355,7 +360,7 @@ func (c *DefaultApiService) FetchTestUser(Sid string) (*StudioV2FlowTestUser, er
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -411,7 +416,7 @@ func (c *DefaultApiService) ListExecution(FlowSid string, params *ListExecutionP
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -450,7 +455,7 @@ func (c *DefaultApiService) ListExecutionStep(FlowSid string, ExecutionSid strin
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -487,7 +492,7 @@ func (c *DefaultApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -525,7 +530,7 @@ func (c *DefaultApiService) ListFlowRevision(Sid string, params *ListFlowRevisio
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -564,7 +569,7 @@ func (c *DefaultApiService) UpdateExecution(FlowSid string, Sid string, params *
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -635,7 +640,7 @@ func (c *DefaultApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*S
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -705,7 +710,7 @@ func (c *DefaultApiService) UpdateFlowValidate(params *UpdateFlowValidateParams)
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -743,7 +748,7 @@ func (c *DefaultApiService) UpdateTestUser(Sid string, params *UpdateTestUserPar
 		data.Set("TestUsers", strings.Join(*params.TestUsers, ","))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

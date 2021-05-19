@@ -14,21 +14,26 @@ package openapi
 import (
 	"encoding/json"
 	"net/url"
+
 	"strings"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://lookups.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://lookups.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'FetchPhoneNumber'
@@ -86,7 +91,7 @@ func (c *DefaultApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPh
 		data.Set("AddOnsData", string(v))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

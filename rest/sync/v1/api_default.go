@@ -15,21 +15,26 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://sync.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://sync.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateDocument'
@@ -78,7 +83,7 @@ func (c *DefaultApiService) CreateDocument(ServiceSid string, params *CreateDocu
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +173,7 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*SyncV1S
 		data.Set("WebhooksFromRestEnabled", fmt.Sprint(*params.WebhooksFromRestEnabled))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -213,7 +218,7 @@ func (c *DefaultApiService) CreateStreamMessage(ServiceSid string, StreamSid str
 		data.Set("Data", string(v))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -268,7 +273,7 @@ func (c *DefaultApiService) CreateSyncList(ServiceSid string, params *CreateSync
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -339,7 +344,7 @@ func (c *DefaultApiService) CreateSyncListItem(ServiceSid string, ListSid string
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -394,7 +399,7 @@ func (c *DefaultApiService) CreateSyncMap(ServiceSid string, params *CreateSyncM
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -474,7 +479,7 @@ func (c *DefaultApiService) CreateSyncMapItem(ServiceSid string, MapSid string, 
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -521,7 +526,7 @@ func (c *DefaultApiService) CreateSyncStream(ServiceSid string, params *CreateSy
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -544,7 +549,7 @@ func (c *DefaultApiService) DeleteDocument(ServiceSid string, Sid string) error 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -564,7 +569,7 @@ func (c *DefaultApiService) DeleteDocumentPermission(ServiceSid string, Document
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -581,7 +586,7 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -599,7 +604,7 @@ func (c *DefaultApiService) DeleteSyncList(ServiceSid string, Sid string) error 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -633,7 +638,7 @@ func (c *DefaultApiService) DeleteSyncListItem(ServiceSid string, ListSid string
 		headers["If-Match"] = *params.IfMatch
 	}
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -653,7 +658,7 @@ func (c *DefaultApiService) DeleteSyncListPermission(ServiceSid string, ListSid 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -671,7 +676,7 @@ func (c *DefaultApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -705,7 +710,7 @@ func (c *DefaultApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, 
 		headers["If-Match"] = *params.IfMatch
 	}
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -725,7 +730,7 @@ func (c *DefaultApiService) DeleteSyncMapPermission(ServiceSid string, MapSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -744,7 +749,7 @@ func (c *DefaultApiService) DeleteSyncStream(ServiceSid string, Sid string) erro
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -762,7 +767,7 @@ func (c *DefaultApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -787,7 +792,7 @@ func (c *DefaultApiService) FetchDocumentPermission(ServiceSid string, DocumentS
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -809,7 +814,7 @@ func (c *DefaultApiService) FetchService(Sid string) (*SyncV1Service, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -832,7 +837,7 @@ func (c *DefaultApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -856,7 +861,7 @@ func (c *DefaultApiService) FetchSyncListItem(ServiceSid string, ListSid string,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -881,7 +886,7 @@ func (c *DefaultApiService) FetchSyncListPermission(ServiceSid string, ListSid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -904,7 +909,7 @@ func (c *DefaultApiService) FetchSyncMap(ServiceSid string, Sid string) (*SyncV1
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -928,7 +933,7 @@ func (c *DefaultApiService) FetchSyncMapItem(ServiceSid string, MapSid string, K
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -953,7 +958,7 @@ func (c *DefaultApiService) FetchSyncMapPermission(ServiceSid string, MapSid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -977,7 +982,7 @@ func (c *DefaultApiService) FetchSyncStream(ServiceSid string, Sid string) (*Syn
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1014,7 +1019,7 @@ func (c *DefaultApiService) ListDocument(ServiceSid string, params *ListDocument
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1053,7 +1058,7 @@ func (c *DefaultApiService) ListDocumentPermission(ServiceSid string, DocumentSi
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1089,7 +1094,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1126,7 +1131,7 @@ func (c *DefaultApiService) ListSyncList(ServiceSid string, params *ListSyncList
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1191,7 +1196,7 @@ func (c *DefaultApiService) ListSyncListItem(ServiceSid string, ListSid string, 
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1230,7 +1235,7 @@ func (c *DefaultApiService) ListSyncListPermission(ServiceSid string, ListSid st
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1267,7 +1272,7 @@ func (c *DefaultApiService) ListSyncMap(ServiceSid string, params *ListSyncMapPa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1332,7 +1337,7 @@ func (c *DefaultApiService) ListSyncMapItem(ServiceSid string, MapSid string, pa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1371,7 +1376,7 @@ func (c *DefaultApiService) ListSyncMapPermission(ServiceSid string, MapSid stri
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1409,7 +1414,7 @@ func (c *DefaultApiService) ListSyncStream(ServiceSid string, params *ListSyncSt
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1472,7 +1477,7 @@ func (c *DefaultApiService) UpdateDocument(ServiceSid string, Sid string, params
 		headers["If-Match"] = *params.IfMatch
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1530,7 +1535,7 @@ func (c *DefaultApiService) UpdateDocumentPermission(ServiceSid string, Document
 		data.Set("Write", fmt.Sprint(*params.Write))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1621,7 +1626,7 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 		data.Set("WebhooksFromRestEnabled", fmt.Sprint(*params.WebhooksFromRestEnabled))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1668,7 +1673,7 @@ func (c *DefaultApiService) UpdateSyncList(ServiceSid string, Sid string, params
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1750,7 +1755,7 @@ func (c *DefaultApiService) UpdateSyncListItem(ServiceSid string, ListSid string
 		headers["If-Match"] = *params.IfMatch
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1808,7 +1813,7 @@ func (c *DefaultApiService) UpdateSyncListPermission(ServiceSid string, ListSid 
 		data.Set("Write", fmt.Sprint(*params.Write))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1855,7 +1860,7 @@ func (c *DefaultApiService) UpdateSyncMap(ServiceSid string, Sid string, params 
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1937,7 +1942,7 @@ func (c *DefaultApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, 
 		headers["If-Match"] = *params.IfMatch
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1995,7 +2000,7 @@ func (c *DefaultApiService) UpdateSyncMapPermission(ServiceSid string, MapSid st
 		data.Set("Write", fmt.Sprint(*params.Write))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2034,7 +2039,7 @@ func (c *DefaultApiService) UpdateSyncStream(ServiceSid string, Sid string, para
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

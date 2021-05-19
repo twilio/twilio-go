@@ -15,21 +15,26 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://pricing.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://pricing.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Fetch a specific Country.
@@ -40,7 +45,7 @@ func (c *DefaultApiService) FetchVoiceCountry(IsoCountry string) (*PricingV2Voic
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +83,7 @@ func (c *DefaultApiService) FetchVoiceNumber(DestinationNumber string, params *F
 		data.Set("OriginationNumber", *params.OriginationNumber)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -114,7 +119,7 @@ func (c *DefaultApiService) ListVoiceCountry(params *ListVoiceCountryParams) (*L
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

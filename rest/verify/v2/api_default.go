@@ -15,6 +15,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 	"time"
 
@@ -22,15 +23,19 @@ import (
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://verify.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://verify.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateAccessToken'
@@ -65,7 +70,7 @@ func (c *DefaultApiService) CreateAccessToken(ServiceSid string, params *CreateA
 		data.Set("Identity", *params.Identity)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +118,7 @@ func (c *DefaultApiService) CreateBucket(ServiceSid string, RateLimitSid string,
 		data.Set("Max", fmt.Sprint(*params.Max))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -209,7 +214,7 @@ func (c *DefaultApiService) CreateChallenge(ServiceSid string, Identity string, 
 		data.Set("HiddenDetails", string(v))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -247,7 +252,7 @@ func (c *DefaultApiService) CreateEntity(ServiceSid string, params *CreateEntity
 		data.Set("Identity", *params.Identity)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -294,7 +299,7 @@ func (c *DefaultApiService) CreateMessagingConfiguration(ServiceSid string, para
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -441,7 +446,7 @@ func (c *DefaultApiService) CreateNewFactor(ServiceSid string, Identity string, 
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -481,7 +486,7 @@ func (c *DefaultApiService) CreateNotification(ServiceSid string, Identity strin
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -528,7 +533,7 @@ func (c *DefaultApiService) CreateRateLimit(ServiceSid string, params *CreateRat
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -700,7 +705,7 @@ func (c *DefaultApiService) CreateService(params *CreateServiceParams) (*VerifyV
 		data.Set("TtsName", *params.TtsName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -849,7 +854,7 @@ func (c *DefaultApiService) CreateVerification(ServiceSid string, params *Create
 		data.Set("To", *params.To)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -923,7 +928,7 @@ func (c *DefaultApiService) CreateVerificationCheck(ServiceSid string, params *C
 		data.Set("VerificationSid", *params.VerificationSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -988,7 +993,7 @@ func (c *DefaultApiService) CreateWebhook(ServiceSid string, params *CreateWebho
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1013,7 +1018,7 @@ func (c *DefaultApiService) DeleteBucket(ServiceSid string, RateLimitSid string,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -1032,7 +1037,7 @@ func (c *DefaultApiService) DeleteEntity(ServiceSid string, Identity string) err
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -1052,7 +1057,7 @@ func (c *DefaultApiService) DeleteFactor(ServiceSid string, Identity string, Sid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -1071,7 +1076,7 @@ func (c *DefaultApiService) DeleteMessagingConfiguration(ServiceSid string, Coun
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -1090,7 +1095,7 @@ func (c *DefaultApiService) DeleteRateLimit(ServiceSid string, Sid string) error
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -1108,7 +1113,7 @@ func (c *DefaultApiService) DeleteService(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -1127,7 +1132,7 @@ func (c *DefaultApiService) DeleteWebhook(ServiceSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -1147,7 +1152,7 @@ func (c *DefaultApiService) FetchBucket(ServiceSid string, RateLimitSid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1172,7 +1177,7 @@ func (c *DefaultApiService) FetchChallenge(ServiceSid string, Identity string, S
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1196,7 +1201,7 @@ func (c *DefaultApiService) FetchEntity(ServiceSid string, Identity string) (*Ve
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1221,7 +1226,7 @@ func (c *DefaultApiService) FetchFactor(ServiceSid string, Identity string, Sid 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1244,7 +1249,7 @@ func (c *DefaultApiService) FetchForm(FormType string) (*VerifyV2Form, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1268,7 +1273,7 @@ func (c *DefaultApiService) FetchMessagingConfiguration(ServiceSid string, Count
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1292,7 +1297,7 @@ func (c *DefaultApiService) FetchRateLimit(ServiceSid string, Sid string) (*Veri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1315,7 +1320,7 @@ func (c *DefaultApiService) FetchService(Sid string) (*VerifyV2Service, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1339,7 +1344,7 @@ func (c *DefaultApiService) FetchVerification(ServiceSid string, Sid string) (*V
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1362,7 +1367,7 @@ func (c *DefaultApiService) FetchVerificationAttempt(Sid string) (*VerifyV2Verif
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1386,7 +1391,7 @@ func (c *DefaultApiService) FetchWebhook(ServiceSid string, Sid string) (*Verify
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1425,7 +1430,7 @@ func (c *DefaultApiService) ListBucket(ServiceSid string, RateLimitSid string, p
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1482,7 +1487,7 @@ func (c *DefaultApiService) ListChallenge(ServiceSid string, Identity string, pa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1520,7 +1525,7 @@ func (c *DefaultApiService) ListEntity(ServiceSid string, params *ListEntityPara
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1559,7 +1564,7 @@ func (c *DefaultApiService) ListFactor(ServiceSid string, Identity string, param
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1597,7 +1602,7 @@ func (c *DefaultApiService) ListMessagingConfiguration(ServiceSid string, params
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1635,7 +1640,7 @@ func (c *DefaultApiService) ListRateLimit(ServiceSid string, params *ListRateLim
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1672,7 +1677,7 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1736,7 +1741,7 @@ func (c *DefaultApiService) ListVerificationAttempt(params *ListVerificationAtte
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1774,7 +1779,7 @@ func (c *DefaultApiService) ListWebhook(ServiceSid string, params *ListWebhookPa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1823,7 +1828,7 @@ func (c *DefaultApiService) UpdateBucket(ServiceSid string, RateLimitSid string,
 		data.Set("Max", fmt.Sprint(*params.Max))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1863,7 +1868,7 @@ func (c *DefaultApiService) UpdateChallenge(ServiceSid string, Identity string, 
 		data.Set("AuthPayload", *params.AuthPayload)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1966,7 +1971,7 @@ func (c *DefaultApiService) UpdateFactor(ServiceSid string, Identity string, Sid
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2005,7 +2010,7 @@ func (c *DefaultApiService) UpdateMessagingConfiguration(ServiceSid string, Coun
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2044,7 +2049,7 @@ func (c *DefaultApiService) UpdateRateLimit(ServiceSid string, Sid string, param
 		data.Set("Description", *params.Description)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2217,7 +2222,7 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 		data.Set("TtsName", *params.TtsName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2256,7 +2261,7 @@ func (c *DefaultApiService) UpdateVerification(ServiceSid string, Sid string, pa
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2321,7 +2326,7 @@ func (c *DefaultApiService) UpdateWebhook(ServiceSid string, Sid string, params 
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

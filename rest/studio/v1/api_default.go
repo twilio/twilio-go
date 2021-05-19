@@ -15,6 +15,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 	"time"
 
@@ -22,15 +23,19 @@ import (
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://studio.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://studio.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateEngagement'
@@ -80,7 +85,7 @@ func (c *DefaultApiService) CreateEngagement(FlowSid string, params *CreateEngag
 		data.Set("To", *params.To)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +147,7 @@ func (c *DefaultApiService) CreateExecution(FlowSid string, params *CreateExecut
 		data.Set("To", *params.To)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +171,7 @@ func (c *DefaultApiService) DeleteEngagement(FlowSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -185,7 +190,7 @@ func (c *DefaultApiService) DeleteExecution(FlowSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -203,7 +208,7 @@ func (c *DefaultApiService) DeleteFlow(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -222,7 +227,7 @@ func (c *DefaultApiService) FetchEngagement(FlowSid string, Sid string) (*Studio
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -246,7 +251,7 @@ func (c *DefaultApiService) FetchEngagementContext(FlowSid string, EngagementSid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -270,7 +275,7 @@ func (c *DefaultApiService) FetchExecution(FlowSid string, Sid string) (*StudioV
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -294,7 +299,7 @@ func (c *DefaultApiService) FetchExecutionContext(FlowSid string, ExecutionSid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -319,7 +324,7 @@ func (c *DefaultApiService) FetchExecutionStep(FlowSid string, ExecutionSid stri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -344,7 +349,7 @@ func (c *DefaultApiService) FetchExecutionStepContext(FlowSid string, ExecutionS
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -367,7 +372,7 @@ func (c *DefaultApiService) FetchFlow(Sid string) (*StudioV1Flow, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -392,7 +397,7 @@ func (c *DefaultApiService) FetchStep(FlowSid string, EngagementSid string, Sid 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -417,7 +422,7 @@ func (c *DefaultApiService) FetchStepContext(FlowSid string, EngagementSid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -455,7 +460,7 @@ func (c *DefaultApiService) ListEngagement(FlowSid string, params *ListEngagemen
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -511,7 +516,7 @@ func (c *DefaultApiService) ListExecution(FlowSid string, params *ListExecutionP
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -550,7 +555,7 @@ func (c *DefaultApiService) ListExecutionStep(FlowSid string, ExecutionSid strin
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -587,7 +592,7 @@ func (c *DefaultApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -626,7 +631,7 @@ func (c *DefaultApiService) ListStep(FlowSid string, EngagementSid string, param
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -665,7 +670,7 @@ func (c *DefaultApiService) UpdateExecution(FlowSid string, Sid string, params *
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

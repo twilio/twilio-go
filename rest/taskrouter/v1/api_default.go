@@ -15,6 +15,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 	"time"
 
@@ -22,15 +23,19 @@ import (
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://taskrouter.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://taskrouter.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateActivity'
@@ -64,7 +69,7 @@ func (c *DefaultApiService) CreateActivity(WorkspaceSid string, params *CreateAc
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -137,7 +142,7 @@ func (c *DefaultApiService) CreateTask(WorkspaceSid string, params *CreateTaskPa
 		data.Set("WorkflowSid", *params.WorkflowSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -192,7 +197,7 @@ func (c *DefaultApiService) CreateTaskChannel(WorkspaceSid string, params *Creat
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -274,7 +279,7 @@ func (c *DefaultApiService) CreateTaskQueue(WorkspaceSid string, params *CreateT
 		data.Set("TaskOrder", *params.TaskOrder)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -329,7 +334,7 @@ func (c *DefaultApiService) CreateWorker(WorkspaceSid string, params *CreateWork
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -402,7 +407,7 @@ func (c *DefaultApiService) CreateWorkflow(WorkspaceSid string, params *CreateWo
 		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -483,7 +488,7 @@ func (c *DefaultApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Tas
 		data.Set("Template", *params.Template)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -506,7 +511,7 @@ func (c *DefaultApiService) DeleteActivity(WorkspaceSid string, Sid string) erro
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -539,7 +544,7 @@ func (c *DefaultApiService) DeleteTask(WorkspaceSid string, Sid string, params *
 		headers["If-Match"] = *params.IfMatch
 	}
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -557,7 +562,7 @@ func (c *DefaultApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) e
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -575,7 +580,7 @@ func (c *DefaultApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) err
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -593,7 +598,7 @@ func (c *DefaultApiService) DeleteWorker(WorkspaceSid string, Sid string) error 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -611,7 +616,7 @@ func (c *DefaultApiService) DeleteWorkflow(WorkspaceSid string, Sid string) erro
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -628,7 +633,7 @@ func (c *DefaultApiService) DeleteWorkspace(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -646,7 +651,7 @@ func (c *DefaultApiService) FetchActivity(WorkspaceSid string, Sid string) (*Tas
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -669,7 +674,7 @@ func (c *DefaultApiService) FetchEvent(WorkspaceSid string, Sid string) (*Taskro
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -692,7 +697,7 @@ func (c *DefaultApiService) FetchTask(WorkspaceSid string, Sid string) (*Taskrou
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -715,7 +720,7 @@ func (c *DefaultApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -738,7 +743,7 @@ func (c *DefaultApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*Ta
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -812,7 +817,7 @@ func (c *DefaultApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid stri
 		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -850,7 +855,7 @@ func (c *DefaultApiService) FetchTaskQueueRealTimeStatistics(WorkspaceSid string
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -924,7 +929,7 @@ func (c *DefaultApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQu
 		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -948,7 +953,7 @@ func (c *DefaultApiService) FetchTaskReservation(WorkspaceSid string, TaskSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -971,7 +976,7 @@ func (c *DefaultApiService) FetchWorker(WorkspaceSid string, Sid string) (*Taskr
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -995,7 +1000,7 @@ func (c *DefaultApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1060,7 +1065,7 @@ func (c *DefaultApiService) FetchWorkerInstanceStatistics(WorkspaceSid string, W
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1084,7 +1089,7 @@ func (c *DefaultApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSi
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1175,7 +1180,7 @@ func (c *DefaultApiService) FetchWorkerStatistics(WorkspaceSid string, params *F
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1239,7 +1244,7 @@ func (c *DefaultApiService) FetchWorkersCumulativeStatistics(WorkspaceSid string
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1276,7 +1281,7 @@ func (c *DefaultApiService) FetchWorkersRealTimeStatistics(WorkspaceSid string, 
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1299,7 +1304,7 @@ func (c *DefaultApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*Tas
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1373,7 +1378,7 @@ func (c *DefaultApiService) FetchWorkflowCumulativeStatistics(WorkspaceSid strin
 		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1411,7 +1416,7 @@ func (c *DefaultApiService) FetchWorkflowRealTimeStatistics(WorkspaceSid string,
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1485,7 +1490,7 @@ func (c *DefaultApiService) FetchWorkflowStatistics(WorkspaceSid string, Workflo
 		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1507,7 +1512,7 @@ func (c *DefaultApiService) FetchWorkspace(Sid string) (*TaskrouterV1Workspace, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1580,7 +1585,7 @@ func (c *DefaultApiService) FetchWorkspaceCumulativeStatistics(WorkspaceSid stri
 		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1617,7 +1622,7 @@ func (c *DefaultApiService) FetchWorkspaceRealTimeStatistics(WorkspaceSid string
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1690,7 +1695,7 @@ func (c *DefaultApiService) FetchWorkspaceStatistics(WorkspaceSid string, params
 		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1745,7 +1750,7 @@ func (c *DefaultApiService) ListActivity(WorkspaceSid string, params *ListActivi
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1881,7 +1886,7 @@ func (c *DefaultApiService) ListEvent(WorkspaceSid string, params *ListEventPara
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1999,7 +2004,7 @@ func (c *DefaultApiService) ListTask(WorkspaceSid string, params *ListTaskParams
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2036,7 +2041,7 @@ func (c *DefaultApiService) ListTaskChannel(WorkspaceSid string, params *ListTas
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2100,7 +2105,7 @@ func (c *DefaultApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQ
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2191,7 +2196,7 @@ func (c *DefaultApiService) ListTaskQueuesStatistics(WorkspaceSid string, params
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2238,7 +2243,7 @@ func (c *DefaultApiService) ListTaskReservation(WorkspaceSid string, TaskSid str
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2338,7 +2343,7 @@ func (c *DefaultApiService) ListWorker(WorkspaceSid string, params *ListWorkerPa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2376,7 +2381,7 @@ func (c *DefaultApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid str
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2423,7 +2428,7 @@ func (c *DefaultApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2469,7 +2474,7 @@ func (c *DefaultApiService) ListWorkflow(WorkspaceSid string, params *ListWorkfl
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2514,7 +2519,7 @@ func (c *DefaultApiService) ListWorkspace(params *ListWorkspaceParams) (*ListWor
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2552,7 +2557,7 @@ func (c *DefaultApiService) UpdateActivity(WorkspaceSid string, Sid string, para
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2636,7 +2641,7 @@ func (c *DefaultApiService) UpdateTask(WorkspaceSid string, Sid string, params *
 		headers["If-Match"] = *params.IfMatch
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2683,7 +2688,7 @@ func (c *DefaultApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, p
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2766,7 +2771,7 @@ func (c *DefaultApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, par
 		data.Set("TaskOrder", *params.TaskOrder)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3273,7 +3278,7 @@ func (c *DefaultApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid s
 		data.Set("WorkerActivitySid", *params.WorkerActivitySid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3338,7 +3343,7 @@ func (c *DefaultApiService) UpdateWorker(WorkspaceSid string, Sid string, params
 		data.Set("RejectPendingReservations", fmt.Sprint(*params.RejectPendingReservations))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3386,7 +3391,7 @@ func (c *DefaultApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid s
 		data.Set("Capacity", fmt.Sprint(*params.Capacity))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3875,7 +3880,7 @@ func (c *DefaultApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerS
 		data.Set("WorkerActivitySid", *params.WorkerActivitySid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3958,7 +3963,7 @@ func (c *DefaultApiService) UpdateWorkflow(WorkspaceSid string, Sid string, para
 		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -4049,7 +4054,7 @@ func (c *DefaultApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceP
 		data.Set("TimeoutActivitySid", *params.TimeoutActivitySid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

@@ -15,6 +15,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 	"time"
 
@@ -22,15 +23,19 @@ import (
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://video.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://video.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateComposition'
@@ -132,7 +137,7 @@ func (c *DefaultApiService) CreateComposition(params *CreateCompositionParams) (
 		data.Set("VideoLayout", string(v))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -255,7 +260,7 @@ func (c *DefaultApiService) CreateCompositionHook(params *CreateCompositionHookP
 		data.Set("VideoLayout", string(v))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -336,7 +341,7 @@ func (c *DefaultApiService) CreateCompositionSettings(params *CreateCompositionS
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -417,7 +422,7 @@ func (c *DefaultApiService) CreateRecordingSettings(params *CreateRecordingSetti
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -540,7 +545,7 @@ func (c *DefaultApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, 
 		data.Set("VideoCodecs", strings.Join(*params.VideoCodecs, ","))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -563,7 +568,7 @@ func (c *DefaultApiService) DeleteComposition(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -581,7 +586,7 @@ func (c *DefaultApiService) DeleteCompositionHook(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -599,7 +604,7 @@ func (c *DefaultApiService) DeleteRecording(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -617,7 +622,7 @@ func (c *DefaultApiService) DeleteRoomRecording(RoomSid string, Sid string) erro
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -635,7 +640,7 @@ func (c *DefaultApiService) FetchComposition(Sid string) (*VideoV1Composition, e
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -658,7 +663,7 @@ func (c *DefaultApiService) FetchCompositionHook(Sid string) (*VideoV1Compositio
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -679,7 +684,7 @@ func (c *DefaultApiService) FetchCompositionSettings() (*VideoV1CompositionSetti
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -702,7 +707,7 @@ func (c *DefaultApiService) FetchRecording(Sid string) (*VideoV1Recording, error
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -723,7 +728,7 @@ func (c *DefaultApiService) FetchRecordingSettings() (*VideoV1RecordingSettings,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -745,7 +750,7 @@ func (c *DefaultApiService) FetchRoom(Sid string) (*VideoV1Room, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -768,7 +773,7 @@ func (c *DefaultApiService) FetchRoomParticipant(RoomSid string, Sid string) (*V
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -793,7 +798,7 @@ func (c *DefaultApiService) FetchRoomParticipantPublishedTrack(RoomSid string, P
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -817,7 +822,7 @@ func (c *DefaultApiService) FetchRoomParticipantSubscribeRule(RoomSid string, Pa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -842,7 +847,7 @@ func (c *DefaultApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -865,7 +870,7 @@ func (c *DefaultApiService) FetchRoomRecording(RoomSid string, Sid string) (*Vid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -888,7 +893,7 @@ func (c *DefaultApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1Room
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -961,7 +966,7 @@ func (c *DefaultApiService) ListComposition(params *ListCompositionParams) (*Lis
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1034,7 +1039,7 @@ func (c *DefaultApiService) ListCompositionHook(params *ListCompositionHookParam
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1125,7 +1130,7 @@ func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*ListRec
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1197,7 +1202,7 @@ func (c *DefaultApiService) ListRoom(params *ListRoomParams) (*ListRoomResponse,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1270,7 +1275,7 @@ func (c *DefaultApiService) ListRoomParticipant(RoomSid string, params *ListRoom
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1309,7 +1314,7 @@ func (c *DefaultApiService) ListRoomParticipantPublishedTrack(RoomSid string, Pa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1348,7 +1353,7 @@ func (c *DefaultApiService) ListRoomParticipantSubscribedTrack(RoomSid string, P
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1421,7 +1426,7 @@ func (c *DefaultApiService) ListRoomRecording(RoomSid string, params *ListRoomRe
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1545,7 +1550,7 @@ func (c *DefaultApiService) UpdateCompositionHook(Sid string, params *UpdateComp
 		data.Set("VideoLayout", string(v))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1582,7 +1587,7 @@ func (c *DefaultApiService) UpdateRoom(Sid string, params *UpdateRoomParams) (*V
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1620,7 +1625,7 @@ func (c *DefaultApiService) UpdateRoomParticipant(RoomSid string, Sid string, pa
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1665,7 +1670,7 @@ func (c *DefaultApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, P
 		data.Set("Rules", string(v))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1709,7 +1714,7 @@ func (c *DefaultApiService) UpdateRoomRecordingRule(RoomSid string, params *Upda
 		data.Set("Rules", string(v))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

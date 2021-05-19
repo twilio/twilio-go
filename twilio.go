@@ -16,8 +16,8 @@ import (
 	FaxV1 "github.com/twilio/twilio-go/rest/fax/v1"
 	FlexV1 "github.com/twilio/twilio-go/rest/flex/v1"
 	InsightsV1 "github.com/twilio/twilio-go/rest/insights/v1"
-	Ip_MessagingV1 "github.com/twilio/twilio-go/rest/ip_messaging/v1"
-	Ip_MessagingV2 "github.com/twilio/twilio-go/rest/ip_messaging/v2"
+	IpMessagingV1 "github.com/twilio/twilio-go/rest/ip_messaging/v1"
+	IpMessagingV2 "github.com/twilio/twilio-go/rest/ip_messaging/v2"
 	LookupsV1 "github.com/twilio/twilio-go/rest/lookups/v1"
 	MessagingV1 "github.com/twilio/twilio-go/rest/messaging/v1"
 	MonitorV1 "github.com/twilio/twilio-go/rest/monitor/v1"
@@ -54,8 +54,8 @@ type RestClient struct {
 	FaxV1           *FaxV1.DefaultApiService
 	FlexV1          *FlexV1.DefaultApiService
 	InsightsV1      *InsightsV1.DefaultApiService
-	Ip_MessagingV1  *Ip_MessagingV1.DefaultApiService
-	Ip_MessagingV2  *Ip_MessagingV2.DefaultApiService
+	IpMessagingV1   *IpMessagingV1.DefaultApiService
+	IpMessagingV2   *IpMessagingV2.DefaultApiService
 	LookupsV1       *LookupsV1.DefaultApiService
 	MessagingV1     *MessagingV1.DefaultApiService
 	MonitorV1       *MonitorV1.DefaultApiService
@@ -118,37 +118,37 @@ func NewRestClientWithParams(username string, password string, params RestClient
 
 	c.AccountsV1 = AccountsV1.NewDefaultApiService(c.RequestHandler)
 	c.ApiV2010 = ApiV2010.NewDefaultApiService(c.RequestHandler)
-	c.AutopilotV1 = AutopilotV1.NewDefaultApiService(c.Client)
-	c.BulkexportsV1 = BulkexportsV1.NewDefaultApiService(c.Client)
-	c.ChatV1 = ChatV1.NewDefaultApiService(c.Client)
-	c.ChatV2 = ChatV2.NewDefaultApiService(c.Client)
-	c.ConversationsV1 = ConversationsV1.NewDefaultApiService(c.Client)
-	c.EventsV1 = EventsV1.NewDefaultApiService(c.Client)
-	c.FaxV1 = FaxV1.NewDefaultApiService(c.Client)
-	c.FlexV1 = FlexV1.NewDefaultApiService(c.Client)
-	c.InsightsV1 = InsightsV1.NewDefaultApiService(c.Client)
-	c.Ip_MessagingV1 = Ip_MessagingV1.NewDefaultApiService(c.Client)
-	c.Ip_MessagingV2 = Ip_MessagingV2.NewDefaultApiService(c.Client)
-	c.LookupsV1 = LookupsV1.NewDefaultApiService(c.Client)
-	c.MessagingV1 = MessagingV1.NewDefaultApiService(c.Client)
-	c.MonitorV1 = MonitorV1.NewDefaultApiService(c.Client)
-	c.NotifyV1 = NotifyV1.NewDefaultApiService(c.Client)
-	c.NumbersV2 = NumbersV2.NewDefaultApiService(c.Client)
-	c.PricingV1 = PricingV1.NewDefaultApiService(c.Client)
-	c.PricingV2 = PricingV2.NewDefaultApiService(c.Client)
-	c.ProxyV1 = ProxyV1.NewDefaultApiService(c.Client)
-	c.ServerlessV1 = ServerlessV1.NewDefaultApiService(c.Client)
-	c.StudioV1 = StudioV1.NewDefaultApiService(c.Client)
-	c.StudioV2 = StudioV2.NewDefaultApiService(c.Client)
-	c.SupersimV1 = SupersimV1.NewDefaultApiService(c.Client)
-	c.SyncV1 = SyncV1.NewDefaultApiService(c.Client)
-	c.TaskrouterV1 = TaskrouterV1.NewDefaultApiService(c.Client)
-	c.TrunkingV1 = TrunkingV1.NewDefaultApiService(c.Client)
-	c.TrusthubV1 = TrusthubV1.NewDefaultApiService(c.Client)
-	c.VerifyV2 = VerifyV2.NewDefaultApiService(c.Client)
-	c.VideoV1 = VideoV1.NewDefaultApiService(c.Client)
-	c.VoiceV1 = VoiceV1.NewDefaultApiService(c.Client)
-	c.WirelessV1 = WirelessV1.NewDefaultApiService(c.Client)
+	c.AutopilotV1 = AutopilotV1.NewDefaultApiService(c.RequestHandler)
+	c.BulkexportsV1 = BulkexportsV1.NewDefaultApiService(c.RequestHandler)
+	c.ChatV1 = ChatV1.NewDefaultApiService(c.RequestHandler)
+	c.ChatV2 = ChatV2.NewDefaultApiService(c.RequestHandler)
+	c.ConversationsV1 = ConversationsV1.NewDefaultApiService(c.RequestHandler)
+	c.EventsV1 = EventsV1.NewDefaultApiService(c.RequestHandler)
+	c.FaxV1 = FaxV1.NewDefaultApiService(c.RequestHandler)
+	c.FlexV1 = FlexV1.NewDefaultApiService(c.RequestHandler)
+	c.InsightsV1 = InsightsV1.NewDefaultApiService(c.RequestHandler)
+	c.IpMessagingV1 = IpMessagingV1.NewDefaultApiService(c.RequestHandler)
+	c.IpMessagingV2 = IpMessagingV2.NewDefaultApiService(c.RequestHandler)
+	c.LookupsV1 = LookupsV1.NewDefaultApiService(c.RequestHandler)
+	c.MessagingV1 = MessagingV1.NewDefaultApiService(c.RequestHandler)
+	c.MonitorV1 = MonitorV1.NewDefaultApiService(c.RequestHandler)
+	c.NotifyV1 = NotifyV1.NewDefaultApiService(c.RequestHandler)
+	c.NumbersV2 = NumbersV2.NewDefaultApiService(c.RequestHandler)
+	c.PricingV1 = PricingV1.NewDefaultApiService(c.RequestHandler)
+	c.PricingV2 = PricingV2.NewDefaultApiService(c.RequestHandler)
+	c.ProxyV1 = ProxyV1.NewDefaultApiService(c.RequestHandler)
+	c.ServerlessV1 = ServerlessV1.NewDefaultApiService(c.RequestHandler)
+	c.StudioV1 = StudioV1.NewDefaultApiService(c.RequestHandler)
+	c.StudioV2 = StudioV2.NewDefaultApiService(c.RequestHandler)
+	c.SupersimV1 = SupersimV1.NewDefaultApiService(c.RequestHandler)
+	c.SyncV1 = SyncV1.NewDefaultApiService(c.RequestHandler)
+	c.TaskrouterV1 = TaskrouterV1.NewDefaultApiService(c.RequestHandler)
+	c.TrunkingV1 = TrunkingV1.NewDefaultApiService(c.RequestHandler)
+	c.TrusthubV1 = TrusthubV1.NewDefaultApiService(c.RequestHandler)
+	c.VerifyV2 = VerifyV2.NewDefaultApiService(c.RequestHandler)
+	c.VideoV1 = VideoV1.NewDefaultApiService(c.RequestHandler)
+	c.VoiceV1 = VoiceV1.NewDefaultApiService(c.RequestHandler)
+	c.WirelessV1 = WirelessV1.NewDefaultApiService(c.RequestHandler)
 
 	return c
 }

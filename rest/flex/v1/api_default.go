@@ -15,21 +15,26 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://flex-api.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://flex-api.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateChannel'
@@ -134,7 +139,7 @@ func (c *DefaultApiService) CreateChannel(params *CreateChannelParams) (*FlexV1C
 		data.Set("TaskSid", *params.TaskSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -314,7 +319,7 @@ func (c *DefaultApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV
 		data.Set("LongLived", fmt.Sprint(*params.LongLived))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -395,7 +400,7 @@ func (c *DefaultApiService) CreateWebChannel(params *CreateWebChannelParams) (*F
 		data.Set("PreEngagementData", *params.PreEngagementData)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -417,7 +422,7 @@ func (c *DefaultApiService) DeleteChannel(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -434,7 +439,7 @@ func (c *DefaultApiService) DeleteFlexFlow(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -451,7 +456,7 @@ func (c *DefaultApiService) DeleteWebChannel(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -468,7 +473,7 @@ func (c *DefaultApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -504,7 +509,7 @@ func (c *DefaultApiService) FetchConfiguration(params *FetchConfigurationParams)
 		data.Set("UiVersion", *params.UiVersion)
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -526,7 +531,7 @@ func (c *DefaultApiService) FetchFlexFlow(Sid string) (*FlexV1FlexFlow, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -548,7 +553,7 @@ func (c *DefaultApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, erro
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -584,7 +589,7 @@ func (c *DefaultApiService) ListChannel(params *ListChannelParams) (*ListChannel
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -629,7 +634,7 @@ func (c *DefaultApiService) ListFlexFlow(params *ListFlexFlowParams) (*ListFlexF
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -665,7 +670,7 @@ func (c *DefaultApiService) ListWebChannel(params *ListWebChannelParams) (*ListW
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -686,7 +691,7 @@ func (c *DefaultApiService) UpdateConfiguration() (*FlexV1Configuration, error) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -867,7 +872,7 @@ func (c *DefaultApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowPar
 		data.Set("LongLived", fmt.Sprint(*params.LongLived))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -913,7 +918,7 @@ func (c *DefaultApiService) UpdateWebChannel(Sid string, params *UpdateWebChanne
 		data.Set("PostEngagementData", *params.PostEngagementData)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

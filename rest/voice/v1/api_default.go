@@ -15,21 +15,26 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://voice.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://voice.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateByocTrunk'
@@ -134,7 +139,7 @@ func (c *DefaultApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*Voi
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -170,7 +175,7 @@ func (c *DefaultApiService) CreateConnectionPolicy(params *CreateConnectionPolic
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -243,7 +248,7 @@ func (c *DefaultApiService) CreateConnectionPolicyTarget(ConnectionPolicySid str
 		data.Set("Weight", fmt.Sprint(*params.Weight))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -280,7 +285,7 @@ func (c *DefaultApiService) CreateDialingPermissionsCountryBulkUpdate(params *Cr
 		data.Set("UpdateRequest", *params.UpdateRequest)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -334,7 +339,7 @@ func (c *DefaultApiService) CreateIpRecord(params *CreateIpRecordParams) (*Voice
 		data.Set("IpAddress", *params.IpAddress)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -379,7 +384,7 @@ func (c *DefaultApiService) CreateSourceIpMapping(params *CreateSourceIpMappingP
 		data.Set("SipDomainSid", *params.SipDomainSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -401,7 +406,7 @@ func (c *DefaultApiService) DeleteByocTrunk(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -418,7 +423,7 @@ func (c *DefaultApiService) DeleteConnectionPolicy(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -436,7 +441,7 @@ func (c *DefaultApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -453,7 +458,7 @@ func (c *DefaultApiService) DeleteIpRecord(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -470,7 +475,7 @@ func (c *DefaultApiService) DeleteSourceIpMapping(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -487,7 +492,7 @@ func (c *DefaultApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -509,7 +514,7 @@ func (c *DefaultApiService) FetchConnectionPolicy(Sid string) (*VoiceV1Connectio
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -532,7 +537,7 @@ func (c *DefaultApiService) FetchConnectionPolicyTarget(ConnectionPolicySid stri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -555,7 +560,7 @@ func (c *DefaultApiService) FetchDialingPermissionsCountry(IsoCode string) (*Voi
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -577,7 +582,7 @@ func (c *DefaultApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPe
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -599,7 +604,7 @@ func (c *DefaultApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -621,7 +626,7 @@ func (c *DefaultApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -657,7 +662,7 @@ func (c *DefaultApiService) ListByocTrunk(params *ListByocTrunkParams) (*ListByo
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -693,7 +698,7 @@ func (c *DefaultApiService) ListConnectionPolicy(params *ListConnectionPolicyPar
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -730,7 +735,7 @@ func (c *DefaultApiService) ListConnectionPolicyTarget(ConnectionPolicySid strin
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -821,7 +826,7 @@ func (c *DefaultApiService) ListDialingPermissionsCountry(params *ListDialingPer
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -859,7 +864,7 @@ func (c *DefaultApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, pa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -895,7 +900,7 @@ func (c *DefaultApiService) ListIpRecord(params *ListIpRecordParams) (*ListIpRec
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -931,7 +936,7 @@ func (c *DefaultApiService) ListSourceIpMapping(params *ListSourceIpMappingParam
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1049,7 +1054,7 @@ func (c *DefaultApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkP
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1086,7 +1091,7 @@ func (c *DefaultApiService) UpdateConnectionPolicy(Sid string, params *UpdateCon
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1160,7 +1165,7 @@ func (c *DefaultApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid str
 		data.Set("Weight", fmt.Sprint(*params.Weight))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1197,7 +1202,7 @@ func (c *DefaultApiService) UpdateDialingPermissionsSettings(params *UpdateDiali
 		data.Set("DialingPermissionsInheritance", fmt.Sprint(*params.DialingPermissionsInheritance))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1234,7 +1239,7 @@ func (c *DefaultApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordPar
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1271,7 +1276,7 @@ func (c *DefaultApiService) UpdateSourceIpMapping(Sid string, params *UpdateSour
 		data.Set("SipDomainSid", *params.SipDomainSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
