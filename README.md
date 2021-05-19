@@ -339,13 +339,40 @@ For more descriptive exception types, please see the [Twilio documentation](http
 ## Advanced Usage
 ### Using a Custom Client
 ```go
-type CustomClient struct {
-	client.Client
+package main
+
+import (
+	"fmt"
+	"os"
+
+    "github.com/twilio/twilio-go"
+    "github.com/twilio/twilio-go/client"
+)
+
+type MyClient struct {
+    client.Client
 }
 
-func (c *CustomClient) PreProcessRequest(req *http.Request) {
-
+func (c *MyClient) SendRequest(method string, rawURL string, data url.Values, headers map[string]interface{}) (*http.Response, error) {
+    // Custom code to pre-process request here
+    resp, err := c.Client.SendRequest(method, rawURL, data, headers)
+    // Custom code to pre-process response here
+    fmt.Println(resp.StatusCode)
+    return resp, err
 }
+
+func main() {
+    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+    authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+
+    customClient := &MyClient{
+        Client: client.Client{
+            Credentials: client.NewCredentials(accountSid, authToken),
+        },
+    }
+    customClient.SetAccountSid(accountSid)
+
+    twilioClient := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{Client: customClient})
 ```
 
 ## Local Usage
