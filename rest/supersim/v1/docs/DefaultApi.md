@@ -225,7 +225,7 @@ Other parameters are passed through a pointer to a CreateSimParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Iccid** | **string** | The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
-**RegistrationCode** | **string** | The 10 digit code required to claim the Super SIM for your Account.
+**RegistrationCode** | **string** | The 10-digit code required to claim the Super SIM for your Account.
 
 ### Return type
 

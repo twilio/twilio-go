@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.16.0
  * Contact: support@twilio.com
  */
 
@@ -25,4 +25,6 @@ type MessagingV1ExternalCampaign struct {
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The SID of the Messaging Service the resource is associated with
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
+	// The unique string that identifies a US A2P Compliance resource
+	Sid *string `json:"sid,omitempty"`
 }

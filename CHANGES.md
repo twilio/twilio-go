@@ -1,5 +1,39 @@
 twilio-go changelog
 ====================
+[2021-05-19] Version 0.8.0
+--------------------------
+**Library - Chore**
+- [PR #79](https://github.com/twilio/twilio-go/pull/79): rename Ip_MessagingVx to IpMessagingVx. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)! **(breaking change)**
+- [PR #77](https://github.com/twilio/twilio-go/pull/77): remove the unused client pointers. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #76](https://github.com/twilio/twilio-go/pull/76): sync the v2010 API with latest generator changes. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #75](https://github.com/twilio/twilio-go/pull/75): install pre-commit hooks on install. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #73](https://github.com/twilio/twilio-go/pull/73): move contents of 'twilio' folder to the top-level. Thanks to [@childish-sambino](https://github.com/childish-sambino)! **(breaking change)**
+
+**Library - Docs**
+- [PR #78](https://github.com/twilio/twilio-go/pull/78): update formatting for godocs. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Library - Feature**
+- [PR #74](https://github.com/twilio/twilio-go/pull/74): add param setters. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #71](https://github.com/twilio/twilio-go/pull/71): add subaccount support for v2010 apis. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)! **(breaking change)**
+
+**Events**
+- add query param to return types filtered by Schema Id
+- Add query param to return sinks filtered by status
+- Add query param to return sinks used/not used by a subscription
+
+**Messaging**
+- Add fetch and delete instance endpoints to us_app_to_person api **(breaking change)**
+- Remove delete list endpoint from us_app_to_person api **(breaking change)**
+- Update read list endpoint to return a list of us_app_to_person compliance objects **(breaking change)**
+- Add `sid` field to Preregistered US App To Person response
+
+**Supersim**
+- Mark `unique_name` in Sim, Fleet, NAP resources as not PII
+
+**Video**
+- [Composer] GA maturity level
+
+
 [2021-05-05] Version 0.7.0
 --------------------------
 **Library - Chore**

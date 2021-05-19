@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.16.0
  * Contact: support@twilio.com
  */
 
@@ -35,7 +35,7 @@ type FlexV1FlexFlow struct {
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// An object that contains specific parameters for the integration
 	Integration *map[string]interface{} `json:"integration,omitempty"`
-	// The integration type
+	// The software that will handle inbound messages.
 	IntegrationType *string `json:"integration_type,omitempty"`
 	// Remove active Proxy sessions if the corresponding Task is deleted.
 	JanitorEnabled *bool `json:"janitor_enabled,omitempty"`

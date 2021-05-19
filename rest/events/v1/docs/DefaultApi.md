@@ -640,6 +640,7 @@ Other parameters are passed through a pointer to a ListEventTypeParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**SchemaId** | **string** | A string parameter filtering the results to return only the Event Types using a given schema.
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
@@ -722,6 +723,8 @@ Other parameters are passed through a pointer to a ListSinkParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**InUse** | **bool** | A boolean query parameter filtering the results to return sinks used/not used by a subscription.
+**Status** | **string** | A String query parameter filtering the results by status &#x60;initialized&#x60;, &#x60;validating&#x60;, &#x60;active&#x60; or &#x60;failed&#x60;.
 **PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type

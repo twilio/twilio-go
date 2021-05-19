@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.15.0
+ * API version: 1.16.0
  * Contact: support@twilio.com
  */
 
@@ -308,7 +308,7 @@ func (c *DefaultApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfi
 type CreateSimParams struct {
 	// The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) of the Super SIM to be added to your Account.
 	Iccid *string `json:"Iccid,omitempty"`
-	// The 10 digit code required to claim the Super SIM for your Account.
+	// The 10-digit code required to claim the Super SIM for your Account.
 	RegistrationCode *string `json:"RegistrationCode,omitempty"`
 }
 
