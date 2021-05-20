@@ -35,11 +35,11 @@ go get github.com/twilio/twilio-go
 ## Getting Started
 
 Getting started with the Twilio API couldn't be easier. Create a
-`Client` and you're ready to go.
+`RestClient` and you're ready to go.
 
 ### API Credentials
 
-The Twilio `Client` needs your Twilio credentials. You should pass these
+The Twilio `RestClient` needs your Twilio credentials. You should pass these
 directly to the constructor (see the code below).
 
 ```go
@@ -55,7 +55,7 @@ func main(){
 
 ```go
 package main
-import "github.com/twilio/twilio-go/twilio"
+import "github.com/twilio/twilio-go"
 
 func main(){
     accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -72,8 +72,8 @@ We suggest storing your credentials as environment variables and then use it in 
 ```go
 package main
 import (
-	"github.com/twilio/twilio-go"
 	"os"
+	"github.com/twilio/twilio-go"
 )
 
 func main(){
@@ -89,8 +89,8 @@ func main(){
 package main
 
 import (
-	"github.com/twilio/twilio-go"
 	"os"
+	"github.com/twilio/twilio-go"
 )
 
 func main() {
@@ -229,13 +229,11 @@ func main() {
 	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_SID")
 	serviceSid := "ZSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-	friendlyName := "My Serverless func"
 
 	client := twilio.NewRestClient(accountSid, authToken)
 
-	params := &openapi.CreateFunctionParams{
-		FriendlyName: &friendlyName,
-	}
+	params := &openapi.CreateFunctionParams{}
+	params.SetFriendlyName("My Serverless func")
 
 	resp, err := client.ServerlessV1.CreateFunction(serviceSid, params)
 	if err != nil {
@@ -326,7 +324,7 @@ func main() {
     params := &openapi.CreateIncomingPhoneNumberParams{}
     params.SetPhoneNumber(phoneNumber)
 
-    resp, err := client.ApiV2010.CreateIncomingPhoneNumber(accountSid, params)
+    resp, err := client.ApiV2010.CreateIncomingPhoneNumber(params)
     if err != nil {
         twilioError := err.(*error.TwilioRestError)
         fmt.Println(twilioError.Error())
@@ -337,6 +335,35 @@ func main() {
 For more descriptive exception types, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/go/usage-guide#exceptions).
 
 ## Advanced Usage
+### Using Standalone Products
+Don't want to import the top-level Twilio RestClient with access to the full suite of Twilio products? Use standalone product services instead:
+```go
+package main
+
+import (
+	"os"
+
+	"github.com/twilio/twilio-go/client"
+    apiv2010 "github.com/twilio/twilio-go/rest/api/v2010"
+	serverless "github.com/twilio/twilio-go/rest/serverless/v1"
+)
+
+func main() {
+    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+    authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+
+    // Create an instance of our default BaseClient implementation
+    defaultClient := &client.Client{
+		Credentials: client.NewCredentials(accountSid, authToken),
+    }
+    defaultClient.SetAccountSid(accountSid)
+
+    coreApiService := apiv2010.NewDefaultApiServiceWithClient(defaultClient)
+    serverlessApiService := serverless.NewDefaultApiServiceWithClient(defaultClient)
+}
+
+```
+
 ### Using a Custom Client
 ```go
 package main
@@ -345,12 +372,13 @@ import (
 	"fmt"
 	"os"
 
-    "github.com/twilio/twilio-go"
-    "github.com/twilio/twilio-go/client"
+	"github.com/twilio/twilio-go"
+	"github.com/twilio/twilio-go/client"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 type MyClient struct {
-    client.Client
+	client.Client
 }
 
 func (c *MyClient) SendRequest(method string, rawURL string, data url.Values, headers map[string]interface{}) (*http.Response, error) {
@@ -373,6 +401,9 @@ func main() {
     customClient.SetAccountSid(accountSid)
 
     twilioClient := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{Client: customClient})
+
+    // You may also use custom clients with standalone product services
+    twilioApiV2010 := openapi.NewDefaultApiServiceWithClient(customClient)
 ```
 
 ## Local Usage
