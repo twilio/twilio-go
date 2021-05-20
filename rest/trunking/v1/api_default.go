@@ -15,21 +15,26 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://trunking.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://trunking.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateCredentialList'
@@ -54,7 +59,7 @@ func (c *DefaultApiService) CreateCredentialList(TrunkSid string, params *Create
 		data.Set("CredentialListSid", *params.CredentialListSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +97,7 @@ func (c *DefaultApiService) CreateIpAccessControlList(TrunkSid string, params *C
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -165,7 +170,7 @@ func (c *DefaultApiService) CreateOriginationUrl(TrunkSid string, params *Create
 		data.Set("Weight", fmt.Sprint(*params.Weight))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -202,7 +207,7 @@ func (c *DefaultApiService) CreatePhoneNumber(TrunkSid string, params *CreatePho
 		data.Set("PhoneNumberSid", *params.PhoneNumberSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -292,7 +297,7 @@ func (c *DefaultApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1T
 		data.Set("TransferMode", *params.TransferMode)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -315,7 +320,7 @@ func (c *DefaultApiService) DeleteCredentialList(TrunkSid string, Sid string) er
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -334,7 +339,7 @@ func (c *DefaultApiService) DeleteIpAccessControlList(TrunkSid string, Sid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -352,7 +357,7 @@ func (c *DefaultApiService) DeleteOriginationUrl(TrunkSid string, Sid string) er
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -370,7 +375,7 @@ func (c *DefaultApiService) DeletePhoneNumber(TrunkSid string, Sid string) error
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -387,7 +392,7 @@ func (c *DefaultApiService) DeleteTrunk(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -405,7 +410,7 @@ func (c *DefaultApiService) FetchCredentialList(TrunkSid string, Sid string) (*T
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -428,7 +433,7 @@ func (c *DefaultApiService) FetchIpAccessControlList(TrunkSid string, Sid string
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -451,7 +456,7 @@ func (c *DefaultApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*T
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -474,7 +479,7 @@ func (c *DefaultApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*Trun
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -496,7 +501,7 @@ func (c *DefaultApiService) FetchRecording(TrunkSid string) (*TrunkingV1TrunkRec
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -518,7 +523,7 @@ func (c *DefaultApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -555,7 +560,7 @@ func (c *DefaultApiService) ListCredentialList(TrunkSid string, params *ListCred
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -593,7 +598,7 @@ func (c *DefaultApiService) ListIpAccessControlList(TrunkSid string, params *Lis
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -630,7 +635,7 @@ func (c *DefaultApiService) ListOriginationUrl(TrunkSid string, params *ListOrig
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -667,7 +672,7 @@ func (c *DefaultApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNu
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -703,7 +708,7 @@ func (c *DefaultApiService) ListTrunk(params *ListTrunkParams) (*ListTrunkRespon
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -777,7 +782,7 @@ func (c *DefaultApiService) UpdateOriginationUrl(TrunkSid string, Sid string, pa
 		data.Set("Weight", fmt.Sprint(*params.Weight))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -823,7 +828,7 @@ func (c *DefaultApiService) UpdateRecording(TrunkSid string, params *UpdateRecor
 		data.Set("Trim", *params.Trim)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -914,7 +919,7 @@ func (c *DefaultApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (
 		data.Set("TransferMode", *params.TransferMode)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

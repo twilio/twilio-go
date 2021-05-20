@@ -15,21 +15,26 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://autopilot.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://autopilot.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateAssistant'
@@ -119,7 +124,7 @@ func (c *DefaultApiService) CreateAssistant(params *CreateAssistantParams) (*Aut
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +171,7 @@ func (c *DefaultApiService) CreateField(AssistantSid string, TaskSid string, par
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -212,7 +217,7 @@ func (c *DefaultApiService) CreateFieldType(AssistantSid string, params *CreateF
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -268,7 +273,7 @@ func (c *DefaultApiService) CreateFieldValue(AssistantSid string, FieldTypeSid s
 		data.Set("Value", *params.Value)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -314,7 +319,7 @@ func (c *DefaultApiService) CreateModelBuild(AssistantSid string, params *Create
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -378,7 +383,7 @@ func (c *DefaultApiService) CreateQuery(AssistantSid string, params *CreateQuery
 		data.Set("Tasks", *params.Tasks)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -434,7 +439,7 @@ func (c *DefaultApiService) CreateSample(AssistantSid string, TaskSid string, pa
 		data.Set("TaggedText", *params.TaggedText)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -504,7 +509,7 @@ func (c *DefaultApiService) CreateTask(AssistantSid string, params *CreateTaskPa
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -568,7 +573,7 @@ func (c *DefaultApiService) CreateWebhook(AssistantSid string, params *CreateWeb
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -590,7 +595,7 @@ func (c *DefaultApiService) DeleteAssistant(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -609,7 +614,7 @@ func (c *DefaultApiService) DeleteField(AssistantSid string, TaskSid string, Sid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -627,7 +632,7 @@ func (c *DefaultApiService) DeleteFieldType(AssistantSid string, Sid string) err
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -646,7 +651,7 @@ func (c *DefaultApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -664,7 +669,7 @@ func (c *DefaultApiService) DeleteModelBuild(AssistantSid string, Sid string) er
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -682,7 +687,7 @@ func (c *DefaultApiService) DeleteQuery(AssistantSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -701,7 +706,7 @@ func (c *DefaultApiService) DeleteSample(AssistantSid string, TaskSid string, Si
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -719,7 +724,7 @@ func (c *DefaultApiService) DeleteTask(AssistantSid string, Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -737,7 +742,7 @@ func (c *DefaultApiService) DeleteWebhook(AssistantSid string, Sid string) error
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -754,7 +759,7 @@ func (c *DefaultApiService) FetchAssistant(Sid string) (*AutopilotV1Assistant, e
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -776,7 +781,7 @@ func (c *DefaultApiService) FetchDefaults(AssistantSid string) (*AutopilotV1Assi
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -799,7 +804,7 @@ func (c *DefaultApiService) FetchDialogue(AssistantSid string, Sid string) (*Aut
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -823,7 +828,7 @@ func (c *DefaultApiService) FetchField(AssistantSid string, TaskSid string, Sid 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -846,7 +851,7 @@ func (c *DefaultApiService) FetchFieldType(AssistantSid string, Sid string) (*Au
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -870,7 +875,7 @@ func (c *DefaultApiService) FetchFieldValue(AssistantSid string, FieldTypeSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -893,7 +898,7 @@ func (c *DefaultApiService) FetchModelBuild(AssistantSid string, Sid string) (*A
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -916,7 +921,7 @@ func (c *DefaultApiService) FetchQuery(AssistantSid string, Sid string) (*Autopi
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -940,7 +945,7 @@ func (c *DefaultApiService) FetchSample(AssistantSid string, TaskSid string, Sid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -963,7 +968,7 @@ func (c *DefaultApiService) FetchStyleSheet(AssistantSid string) (*AutopilotV1As
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -986,7 +991,7 @@ func (c *DefaultApiService) FetchTask(AssistantSid string, Sid string) (*Autopil
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1010,7 +1015,7 @@ func (c *DefaultApiService) FetchTaskActions(AssistantSid string, TaskSid string
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1033,7 +1038,7 @@ func (c *DefaultApiService) FetchTaskStatistics(AssistantSid string, TaskSid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1056,7 +1061,7 @@ func (c *DefaultApiService) FetchWebhook(AssistantSid string, Sid string) (*Auto
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1092,7 +1097,7 @@ func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*ListAss
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1130,7 +1135,7 @@ func (c *DefaultApiService) ListField(AssistantSid string, TaskSid string, param
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1167,7 +1172,7 @@ func (c *DefaultApiService) ListFieldType(AssistantSid string, params *ListField
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1214,7 +1219,7 @@ func (c *DefaultApiService) ListFieldValue(AssistantSid string, FieldTypeSid str
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1251,7 +1256,7 @@ func (c *DefaultApiService) ListModelBuild(AssistantSid string, params *ListMode
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1324,7 +1329,7 @@ func (c *DefaultApiService) ListQuery(AssistantSid string, params *ListQueryPara
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1371,7 +1376,7 @@ func (c *DefaultApiService) ListSample(AssistantSid string, TaskSid string, para
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1408,7 +1413,7 @@ func (c *DefaultApiService) ListTask(AssistantSid string, params *ListTaskParams
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1445,7 +1450,7 @@ func (c *DefaultApiService) ListWebhook(AssistantSid string, params *ListWebhook
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1557,7 +1562,7 @@ func (c *DefaultApiService) UpdateAssistant(Sid string, params *UpdateAssistantP
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1600,7 +1605,7 @@ func (c *DefaultApiService) UpdateDefaults(AssistantSid string, params *UpdateDe
 		data.Set("Defaults", string(v))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1647,7 +1652,7 @@ func (c *DefaultApiService) UpdateFieldType(AssistantSid string, Sid string, par
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1685,7 +1690,7 @@ func (c *DefaultApiService) UpdateModelBuild(AssistantSid string, Sid string, pa
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1732,7 +1737,7 @@ func (c *DefaultApiService) UpdateQuery(AssistantSid string, Sid string, params 
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1768,7 +1773,7 @@ func (c *DefaultApiService) UpdateRestoreAssistant(params *UpdateRestoreAssistan
 		data.Set("Assistant", *params.Assistant)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1825,7 +1830,7 @@ func (c *DefaultApiService) UpdateSample(AssistantSid string, TaskSid string, Si
 		data.Set("TaggedText", *params.TaggedText)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1869,7 +1874,7 @@ func (c *DefaultApiService) UpdateStyleSheet(AssistantSid string, params *Update
 		data.Set("StyleSheet", string(v))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1940,7 +1945,7 @@ func (c *DefaultApiService) UpdateTask(AssistantSid string, Sid string, params *
 		data.Set("UniqueName", *params.UniqueName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1985,7 +1990,7 @@ func (c *DefaultApiService) UpdateTaskActions(AssistantSid string, TaskSid strin
 		data.Set("Actions", string(v))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2050,7 +2055,7 @@ func (c *DefaultApiService) UpdateWebhook(AssistantSid string, Sid string, param
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

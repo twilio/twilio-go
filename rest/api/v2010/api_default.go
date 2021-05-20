@@ -15,6 +15,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 	"time"
 
@@ -22,15 +23,19 @@ import (
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://api.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://api.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateAccount'
@@ -55,7 +60,7 @@ func (c *DefaultApiService) CreateAccount(params *CreateAccountParams) (*ApiV201
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -140,7 +145,7 @@ func (c *DefaultApiService) CreateAddress(params *CreateAddressParams) (*ApiV201
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -174,7 +179,7 @@ func (c *DefaultApiService) CreateAddress(params *CreateAddressParams) (*ApiV201
 		data.Set("Street", *params.Street)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -296,7 +301,7 @@ func (c *DefaultApiService) CreateApplication(params *CreateApplicationParams) (
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -348,7 +353,7 @@ func (c *DefaultApiService) CreateApplication(params *CreateApplicationParams) (
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -584,7 +589,7 @@ func (c *DefaultApiService) CreateCall(params *CreateCallParams) (*ApiV2010Accou
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -693,7 +698,7 @@ func (c *DefaultApiService) CreateCall(params *CreateCallParams) (*ApiV2010Accou
 		data.Set("Url", *params.Url)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -755,7 +760,7 @@ func (c *DefaultApiService) CreateCallFeedbackSummary(params *CreateCallFeedback
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -777,7 +782,7 @@ func (c *DefaultApiService) CreateCallFeedbackSummary(params *CreateCallFeedback
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -845,7 +850,7 @@ func (c *DefaultApiService) CreateCallRecording(CallSid string, params *CreateCa
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
@@ -871,7 +876,7 @@ func (c *DefaultApiService) CreateCallRecording(CallSid string, params *CreateCa
 		data.Set("Trim", *params.Trim)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1047,7 +1052,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhon
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -1126,7 +1131,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhon
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1164,7 +1169,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid s
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 
@@ -1175,7 +1180,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid s
 		data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1344,7 +1349,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomin
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -1420,7 +1425,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberLocal(params *CreateIncomin
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1589,7 +1594,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberMobile(params *CreateIncomi
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -1665,7 +1670,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberMobile(params *CreateIncomi
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1834,7 +1839,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberTollFree(params *CreateInco
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -1910,7 +1915,7 @@ func (c *DefaultApiService) CreateIncomingPhoneNumberTollFree(params *CreateInco
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2038,7 +2043,7 @@ func (c *DefaultApiService) CreateMessage(params *CreateMessageParams) (*ApiV201
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -2093,7 +2098,7 @@ func (c *DefaultApiService) CreateMessage(params *CreateMessageParams) (*ApiV201
 		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2130,7 +2135,7 @@ func (c *DefaultApiService) CreateMessageFeedback(MessageSid string, params *Cre
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 
@@ -2141,7 +2146,7 @@ func (c *DefaultApiService) CreateMessageFeedback(MessageSid string, params *Cre
 		data.Set("Outcome", *params.Outcome)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2178,7 +2183,7 @@ func (c *DefaultApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010A
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -2188,7 +2193,7 @@ func (c *DefaultApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010A
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2226,7 +2231,7 @@ func (c *DefaultApiService) CreateNewSigningKey(params *CreateNewSigningKeyParam
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -2236,7 +2241,7 @@ func (c *DefaultApiService) CreateNewSigningKey(params *CreateNewSigningKeyParam
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2495,7 +2500,7 @@ func (c *DefaultApiService) CreateParticipant(ConferenceSid string, params *Crea
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
@@ -2617,7 +2622,7 @@ func (c *DefaultApiService) CreateParticipant(ConferenceSid string, params *Crea
 		data.Set("WaitUrl", *params.WaitUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2745,7 +2750,7 @@ func (c *DefaultApiService) CreatePayments(CallSid string, params *CreatePayment
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
@@ -2807,7 +2812,7 @@ func (c *DefaultApiService) CreatePayments(CallSid string, params *CreatePayment
 		data.Set("ValidCardTypes", *params.ValidCardTypes)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2851,7 +2856,7 @@ func (c *DefaultApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010Acc
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -2864,7 +2869,7 @@ func (c *DefaultApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010Acc
 		data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2902,7 +2907,7 @@ func (c *DefaultApiService) CreateSipAuthCallsCredentialListMapping(DomainSid st
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -2913,7 +2918,7 @@ func (c *DefaultApiService) CreateSipAuthCallsCredentialListMapping(DomainSid st
 		data.Set("CredentialListSid", *params.CredentialListSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -2951,7 +2956,7 @@ func (c *DefaultApiService) CreateSipAuthCallsIpAccessControlListMapping(DomainS
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -2962,7 +2967,7 @@ func (c *DefaultApiService) CreateSipAuthCallsIpAccessControlListMapping(DomainS
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3000,7 +3005,7 @@ func (c *DefaultApiService) CreateSipAuthRegistrationsCredentialListMapping(Doma
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -3011,7 +3016,7 @@ func (c *DefaultApiService) CreateSipAuthRegistrationsCredentialListMapping(Doma
 		data.Set("CredentialListSid", *params.CredentialListSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3055,7 +3060,7 @@ func (c *DefaultApiService) CreateSipCredential(CredentialListSid string, params
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CredentialListSid"+"}", CredentialListSid, -1)
 
@@ -3069,7 +3074,7 @@ func (c *DefaultApiService) CreateSipCredential(CredentialListSid string, params
 		data.Set("Username", *params.Username)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3107,7 +3112,7 @@ func (c *DefaultApiService) CreateSipCredentialList(params *CreateSipCredentialL
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -3117,7 +3122,7 @@ func (c *DefaultApiService) CreateSipCredentialList(params *CreateSipCredentialL
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3155,7 +3160,7 @@ func (c *DefaultApiService) CreateSipCredentialListMapping(DomainSid string, par
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -3166,7 +3171,7 @@ func (c *DefaultApiService) CreateSipCredentialListMapping(DomainSid string, par
 		data.Set("CredentialListSid", *params.CredentialListSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3276,7 +3281,7 @@ func (c *DefaultApiService) CreateSipDomain(params *CreateSipDomainParams) (*Api
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -3322,7 +3327,7 @@ func (c *DefaultApiService) CreateSipDomain(params *CreateSipDomainParams) (*Api
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3360,7 +3365,7 @@ func (c *DefaultApiService) CreateSipIpAccessControlList(params *CreateSipIpAcce
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -3370,7 +3375,7 @@ func (c *DefaultApiService) CreateSipIpAccessControlList(params *CreateSipIpAcce
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3408,7 +3413,7 @@ func (c *DefaultApiService) CreateSipIpAccessControlListMapping(DomainSid string
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -3419,7 +3424,7 @@ func (c *DefaultApiService) CreateSipIpAccessControlListMapping(DomainSid string
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3469,7 +3474,7 @@ func (c *DefaultApiService) CreateSipIpAddress(IpAccessControlListSid string, pa
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 
@@ -3486,7 +3491,7 @@ func (c *DefaultApiService) CreateSipIpAddress(IpAccessControlListSid string, pa
 		data.Set("IpAddress", *params.IpAddress)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3524,7 +3529,7 @@ func (c *DefaultApiService) CreateToken(params *CreateTokenParams) (*ApiV2010Acc
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -3534,7 +3539,7 @@ func (c *DefaultApiService) CreateToken(params *CreateTokenParams) (*ApiV2010Acc
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3608,7 +3613,7 @@ func (c *DefaultApiService) CreateUsageTrigger(params *CreateUsageTriggerParams)
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -3636,7 +3641,7 @@ func (c *DefaultApiService) CreateUsageTrigger(params *CreateUsageTriggerParams)
 		data.Set("UsageCategory", *params.UsageCategory)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3703,7 +3708,7 @@ func (c *DefaultApiService) CreateValidationRequest(params *CreateValidationRequ
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -3728,7 +3733,7 @@ func (c *DefaultApiService) CreateValidationRequest(params *CreateValidationRequ
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -3759,14 +3764,14 @@ func (c *DefaultApiService) DeleteAddress(Sid string, params *DeleteAddressParam
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -3793,14 +3798,14 @@ func (c *DefaultApiService) DeleteApplication(Sid string, params *DeleteApplicat
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -3827,14 +3832,14 @@ func (c *DefaultApiService) DeleteCall(Sid string, params *DeleteCallParams) err
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -3861,14 +3866,14 @@ func (c *DefaultApiService) DeleteCallFeedbackSummary(Sid string, params *Delete
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -3895,7 +3900,7 @@ func (c *DefaultApiService) DeleteCallRecording(CallSid string, Sid string, para
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -3903,7 +3908,7 @@ func (c *DefaultApiService) DeleteCallRecording(CallSid string, Sid string, para
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -3930,7 +3935,7 @@ func (c *DefaultApiService) DeleteConferenceRecording(ConferenceSid string, Sid 
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -3938,7 +3943,7 @@ func (c *DefaultApiService) DeleteConferenceRecording(ConferenceSid string, Sid 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -3965,14 +3970,14 @@ func (c *DefaultApiService) DeleteConnectApp(Sid string, params *DeleteConnectAp
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -3999,14 +4004,14 @@ func (c *DefaultApiService) DeleteIncomingPhoneNumber(Sid string, params *Delete
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4033,7 +4038,7 @@ func (c *DefaultApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid s
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -4041,7 +4046,7 @@ func (c *DefaultApiService) DeleteIncomingPhoneNumberAssignedAddOn(ResourceSid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4067,14 +4072,14 @@ func (c *DefaultApiService) DeleteKey(Sid string, params *DeleteKeyParams) error
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4101,7 +4106,7 @@ func (c *DefaultApiService) DeleteMedia(MessageSid string, Sid string, params *D
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -4109,7 +4114,7 @@ func (c *DefaultApiService) DeleteMedia(MessageSid string, Sid string, params *D
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4136,14 +4141,14 @@ func (c *DefaultApiService) DeleteMessage(Sid string, params *DeleteMessageParam
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4170,14 +4175,14 @@ func (c *DefaultApiService) DeleteOutgoingCallerId(Sid string, params *DeleteOut
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4204,7 +4209,7 @@ func (c *DefaultApiService) DeleteParticipant(ConferenceSid string, CallSid stri
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -4212,7 +4217,7 @@ func (c *DefaultApiService) DeleteParticipant(ConferenceSid string, CallSid stri
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4239,14 +4244,14 @@ func (c *DefaultApiService) DeleteQueue(Sid string, params *DeleteQueueParams) e
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4273,14 +4278,14 @@ func (c *DefaultApiService) DeleteRecording(Sid string, params *DeleteRecordingP
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4307,7 +4312,7 @@ func (c *DefaultApiService) DeleteRecordingAddOnResult(ReferenceSid string, Sid 
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -4315,7 +4320,7 @@ func (c *DefaultApiService) DeleteRecordingAddOnResult(ReferenceSid string, Sid 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4342,7 +4347,7 @@ func (c *DefaultApiService) DeleteRecordingAddOnResultPayload(ReferenceSid strin
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 	path = strings.Replace(path, "{"+"AddOnResultSid"+"}", AddOnResultSid, -1)
@@ -4351,7 +4356,7 @@ func (c *DefaultApiService) DeleteRecordingAddOnResultPayload(ReferenceSid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4377,7 +4382,7 @@ func (c *DefaultApiService) DeleteRecordingTranscription(RecordingSid string, Si
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"RecordingSid"+"}", RecordingSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -4385,7 +4390,7 @@ func (c *DefaultApiService) DeleteRecordingTranscription(RecordingSid string, Si
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4411,14 +4416,14 @@ func (c *DefaultApiService) DeleteSigningKey(Sid string, params *DeleteSigningKe
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4445,7 +4450,7 @@ func (c *DefaultApiService) DeleteSipAuthCallsCredentialListMapping(DomainSid st
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -4453,7 +4458,7 @@ func (c *DefaultApiService) DeleteSipAuthCallsCredentialListMapping(DomainSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4480,7 +4485,7 @@ func (c *DefaultApiService) DeleteSipAuthCallsIpAccessControlListMapping(DomainS
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -4488,7 +4493,7 @@ func (c *DefaultApiService) DeleteSipAuthCallsIpAccessControlListMapping(DomainS
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4515,7 +4520,7 @@ func (c *DefaultApiService) DeleteSipAuthRegistrationsCredentialListMapping(Doma
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -4523,7 +4528,7 @@ func (c *DefaultApiService) DeleteSipAuthRegistrationsCredentialListMapping(Doma
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4550,7 +4555,7 @@ func (c *DefaultApiService) DeleteSipCredential(CredentialListSid string, Sid st
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CredentialListSid"+"}", CredentialListSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -4558,7 +4563,7 @@ func (c *DefaultApiService) DeleteSipCredential(CredentialListSid string, Sid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4585,14 +4590,14 @@ func (c *DefaultApiService) DeleteSipCredentialList(Sid string, params *DeleteSi
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4619,7 +4624,7 @@ func (c *DefaultApiService) DeleteSipCredentialListMapping(DomainSid string, Sid
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -4627,7 +4632,7 @@ func (c *DefaultApiService) DeleteSipCredentialListMapping(DomainSid string, Sid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4654,14 +4659,14 @@ func (c *DefaultApiService) DeleteSipDomain(Sid string, params *DeleteSipDomainP
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4688,14 +4693,14 @@ func (c *DefaultApiService) DeleteSipIpAccessControlList(Sid string, params *Del
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4722,7 +4727,7 @@ func (c *DefaultApiService) DeleteSipIpAccessControlListMapping(DomainSid string
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -4730,7 +4735,7 @@ func (c *DefaultApiService) DeleteSipIpAccessControlListMapping(DomainSid string
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4757,7 +4762,7 @@ func (c *DefaultApiService) DeleteSipIpAddress(IpAccessControlListSid string, Si
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -4765,7 +4770,7 @@ func (c *DefaultApiService) DeleteSipIpAddress(IpAccessControlListSid string, Si
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4792,14 +4797,14 @@ func (c *DefaultApiService) DeleteTranscription(Sid string, params *DeleteTransc
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4825,14 +4830,14 @@ func (c *DefaultApiService) DeleteUsageTrigger(Sid string, params *DeleteUsageTr
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -4850,7 +4855,7 @@ func (c *DefaultApiService) FetchAccount(Sid string) (*ApiV2010Account, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -4881,14 +4886,14 @@ func (c *DefaultApiService) FetchAddress(Sid string, params *FetchAddressParams)
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -4920,14 +4925,14 @@ func (c *DefaultApiService) FetchApplication(Sid string, params *FetchApplicatio
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -4959,14 +4964,14 @@ func (c *DefaultApiService) FetchAuthorizedConnectApp(ConnectAppSid string, para
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ConnectAppSid"+"}", ConnectAppSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -4997,14 +5002,14 @@ func (c *DefaultApiService) FetchAvailablePhoneNumberCountry(CountryCode string,
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5036,13 +5041,13 @@ func (c *DefaultApiService) FetchBalance(params *FetchBalanceParams) (*ApiV2010A
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5074,14 +5079,14 @@ func (c *DefaultApiService) FetchCall(Sid string, params *FetchCallParams) (*Api
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5113,14 +5118,14 @@ func (c *DefaultApiService) FetchCallFeedback(CallSid string, params *FetchCallF
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5152,14 +5157,14 @@ func (c *DefaultApiService) FetchCallFeedbackSummary(Sid string, params *FetchCa
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5190,7 +5195,7 @@ func (c *DefaultApiService) FetchCallNotification(CallSid string, Sid string, pa
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -5198,7 +5203,7 @@ func (c *DefaultApiService) FetchCallNotification(CallSid string, Sid string, pa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5230,7 +5235,7 @@ func (c *DefaultApiService) FetchCallRecording(CallSid string, Sid string, param
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -5238,7 +5243,7 @@ func (c *DefaultApiService) FetchCallRecording(CallSid string, Sid string, param
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5270,14 +5275,14 @@ func (c *DefaultApiService) FetchConference(Sid string, params *FetchConferenceP
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5309,7 +5314,7 @@ func (c *DefaultApiService) FetchConferenceRecording(ConferenceSid string, Sid s
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -5317,7 +5322,7 @@ func (c *DefaultApiService) FetchConferenceRecording(ConferenceSid string, Sid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5349,14 +5354,14 @@ func (c *DefaultApiService) FetchConnectApp(Sid string, params *FetchConnectAppP
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5388,14 +5393,14 @@ func (c *DefaultApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIn
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5427,7 +5432,7 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid st
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -5435,7 +5440,7 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5467,7 +5472,7 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOnExtension(Resou
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 	path = strings.Replace(path, "{"+"AssignedAddOnSid"+"}", AssignedAddOnSid, -1)
@@ -5476,7 +5481,7 @@ func (c *DefaultApiService) FetchIncomingPhoneNumberAssignedAddOnExtension(Resou
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5507,14 +5512,14 @@ func (c *DefaultApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5546,7 +5551,7 @@ func (c *DefaultApiService) FetchMedia(MessageSid string, Sid string, params *Fe
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -5554,7 +5559,7 @@ func (c *DefaultApiService) FetchMedia(MessageSid string, Sid string, params *Fe
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5586,7 +5591,7 @@ func (c *DefaultApiService) FetchMember(QueueSid string, CallSid string, params 
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"QueueSid"+"}", QueueSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -5594,7 +5599,7 @@ func (c *DefaultApiService) FetchMember(QueueSid string, CallSid string, params 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5626,14 +5631,14 @@ func (c *DefaultApiService) FetchMessage(Sid string, params *FetchMessageParams)
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5665,14 +5670,14 @@ func (c *DefaultApiService) FetchNotification(Sid string, params *FetchNotificat
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5704,14 +5709,14 @@ func (c *DefaultApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgo
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5743,7 +5748,7 @@ func (c *DefaultApiService) FetchParticipant(ConferenceSid string, CallSid strin
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -5751,7 +5756,7 @@ func (c *DefaultApiService) FetchParticipant(ConferenceSid string, CallSid strin
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5783,14 +5788,14 @@ func (c *DefaultApiService) FetchQueue(Sid string, params *FetchQueueParams) (*A
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5822,14 +5827,14 @@ func (c *DefaultApiService) FetchRecording(Sid string, params *FetchRecordingPar
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5861,7 +5866,7 @@ func (c *DefaultApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid s
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -5869,7 +5874,7 @@ func (c *DefaultApiService) FetchRecordingAddOnResult(ReferenceSid string, Sid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5901,7 +5906,7 @@ func (c *DefaultApiService) FetchRecordingAddOnResultPayload(ReferenceSid string
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 	path = strings.Replace(path, "{"+"AddOnResultSid"+"}", AddOnResultSid, -1)
@@ -5910,7 +5915,7 @@ func (c *DefaultApiService) FetchRecordingAddOnResultPayload(ReferenceSid string
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5941,7 +5946,7 @@ func (c *DefaultApiService) FetchRecordingTranscription(RecordingSid string, Sid
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"RecordingSid"+"}", RecordingSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -5949,7 +5954,7 @@ func (c *DefaultApiService) FetchRecordingTranscription(RecordingSid string, Sid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -5981,14 +5986,14 @@ func (c *DefaultApiService) FetchShortCode(Sid string, params *FetchShortCodePar
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6019,14 +6024,14 @@ func (c *DefaultApiService) FetchSigningKey(Sid string, params *FetchSigningKeyP
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6058,7 +6063,7 @@ func (c *DefaultApiService) FetchSipAuthCallsCredentialListMapping(DomainSid str
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -6066,7 +6071,7 @@ func (c *DefaultApiService) FetchSipAuthCallsCredentialListMapping(DomainSid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6098,7 +6103,7 @@ func (c *DefaultApiService) FetchSipAuthCallsIpAccessControlListMapping(DomainSi
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -6106,7 +6111,7 @@ func (c *DefaultApiService) FetchSipAuthCallsIpAccessControlListMapping(DomainSi
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6138,7 +6143,7 @@ func (c *DefaultApiService) FetchSipAuthRegistrationsCredentialListMapping(Domai
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -6146,7 +6151,7 @@ func (c *DefaultApiService) FetchSipAuthRegistrationsCredentialListMapping(Domai
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6178,7 +6183,7 @@ func (c *DefaultApiService) FetchSipCredential(CredentialListSid string, Sid str
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CredentialListSid"+"}", CredentialListSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -6186,7 +6191,7 @@ func (c *DefaultApiService) FetchSipCredential(CredentialListSid string, Sid str
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6218,14 +6223,14 @@ func (c *DefaultApiService) FetchSipCredentialList(Sid string, params *FetchSipC
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6257,7 +6262,7 @@ func (c *DefaultApiService) FetchSipCredentialListMapping(DomainSid string, Sid 
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -6265,7 +6270,7 @@ func (c *DefaultApiService) FetchSipCredentialListMapping(DomainSid string, Sid 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6297,14 +6302,14 @@ func (c *DefaultApiService) FetchSipDomain(Sid string, params *FetchSipDomainPar
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6336,14 +6341,14 @@ func (c *DefaultApiService) FetchSipIpAccessControlList(Sid string, params *Fetc
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6375,7 +6380,7 @@ func (c *DefaultApiService) FetchSipIpAccessControlListMapping(DomainSid string,
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -6383,7 +6388,7 @@ func (c *DefaultApiService) FetchSipIpAccessControlListMapping(DomainSid string,
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6415,7 +6420,7 @@ func (c *DefaultApiService) FetchSipIpAddress(IpAccessControlListSid string, Sid
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -6423,7 +6428,7 @@ func (c *DefaultApiService) FetchSipIpAddress(IpAccessControlListSid string, Sid
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6455,14 +6460,14 @@ func (c *DefaultApiService) FetchTranscription(Sid string, params *FetchTranscri
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6494,14 +6499,14 @@ func (c *DefaultApiService) FetchUsageTrigger(Sid string, params *FetchUsageTrig
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6556,7 +6561,7 @@ func (c *DefaultApiService) ListAccount(params *ListAccountParams) (*ListAccount
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6611,7 +6616,7 @@ func (c *DefaultApiService) ListAddress(params *ListAddressParams) (*ListAddress
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -6630,7 +6635,7 @@ func (c *DefaultApiService) ListAddress(params *ListAddressParams) (*ListAddress
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6674,7 +6679,7 @@ func (c *DefaultApiService) ListApplication(params *ListApplicationParams) (*Lis
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -6687,7 +6692,7 @@ func (c *DefaultApiService) ListApplication(params *ListApplicationParams) (*Lis
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6725,7 +6730,7 @@ func (c *DefaultApiService) ListAuthorizedConnectApp(params *ListAuthorizedConne
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -6735,7 +6740,7 @@ func (c *DefaultApiService) ListAuthorizedConnectApp(params *ListAuthorizedConne
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6772,7 +6777,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberCountry(params *ListAvailabl
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -6782,7 +6787,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberCountry(params *ListAvailabl
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -6927,7 +6932,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberLocal(CountryCode string, pa
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
@@ -6992,7 +6997,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberLocal(CountryCode string, pa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -7137,7 +7142,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
@@ -7202,7 +7207,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -7347,7 +7352,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMobile(CountryCode string, p
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
@@ -7412,7 +7417,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberMobile(CountryCode string, p
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -7557,7 +7562,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberNational(CountryCode string,
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
@@ -7622,7 +7627,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberNational(CountryCode string,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -7767,7 +7772,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberSharedCost(CountryCode strin
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
@@ -7832,7 +7837,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberSharedCost(CountryCode strin
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -7977,7 +7982,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberTollFree(CountryCode string,
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
@@ -8042,7 +8047,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberTollFree(CountryCode string,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8187,7 +8192,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberVoip(CountryCode string, par
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
@@ -8252,7 +8257,7 @@ func (c *DefaultApiService) ListAvailablePhoneNumberVoip(CountryCode string, par
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8350,7 +8355,7 @@ func (c *DefaultApiService) ListCall(params *ListCallParams) (*ListCallResponse,
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -8390,7 +8395,7 @@ func (c *DefaultApiService) ListCall(params *ListCallParams) (*ListCallResponse,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8428,7 +8433,7 @@ func (c *DefaultApiService) ListCallEvent(CallSid string, params *ListCallEventP
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
@@ -8439,7 +8444,7 @@ func (c *DefaultApiService) ListCallEvent(CallSid string, params *ListCallEventP
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8500,7 +8505,7 @@ func (c *DefaultApiService) ListCallNotification(CallSid string, params *ListCal
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
@@ -8523,7 +8528,7 @@ func (c *DefaultApiService) ListCallNotification(CallSid string, params *ListCal
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8579,7 +8584,7 @@ func (c *DefaultApiService) ListCallRecording(CallSid string, params *ListCallRe
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
@@ -8599,7 +8604,7 @@ func (c *DefaultApiService) ListCallRecording(CallSid string, params *ListCallRe
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8685,7 +8690,7 @@ func (c *DefaultApiService) ListConference(params *ListConferenceParams) (*ListC
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -8719,7 +8724,7 @@ func (c *DefaultApiService) ListConference(params *ListConferenceParams) (*ListC
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8775,7 +8780,7 @@ func (c *DefaultApiService) ListConferenceRecording(ConferenceSid string, params
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
@@ -8795,7 +8800,7 @@ func (c *DefaultApiService) ListConferenceRecording(ConferenceSid string, params
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8833,7 +8838,7 @@ func (c *DefaultApiService) ListConnectApp(params *ListConnectAppParams) (*ListC
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -8843,7 +8848,7 @@ func (c *DefaultApiService) ListConnectApp(params *ListConnectAppParams) (*ListC
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8880,7 +8885,7 @@ func (c *DefaultApiService) ListDependentPhoneNumber(AddressSid string, params *
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"AddressSid"+"}", AddressSid, -1)
 
@@ -8891,7 +8896,7 @@ func (c *DefaultApiService) ListDependentPhoneNumber(AddressSid string, params *
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -8953,7 +8958,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNum
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -8975,7 +8980,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNum
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9013,7 +9018,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid str
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 
@@ -9024,7 +9029,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid str
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9062,7 +9067,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOnExtension(Resour
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 	path = strings.Replace(path, "{"+"AssignedAddOnSid"+"}", AssignedAddOnSid, -1)
@@ -9074,7 +9079,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberAssignedAddOnExtension(Resour
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9135,7 +9140,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberLocal(params *ListIncomingPho
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -9157,7 +9162,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberLocal(params *ListIncomingPho
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9218,7 +9223,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPh
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -9240,7 +9245,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPh
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9301,7 +9306,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberTollFree(params *ListIncoming
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -9323,7 +9328,7 @@ func (c *DefaultApiService) ListIncomingPhoneNumberTollFree(params *ListIncoming
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9360,7 +9365,7 @@ func (c *DefaultApiService) ListKey(params *ListKeyParams) (*ListKeyResponse, er
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -9370,7 +9375,7 @@ func (c *DefaultApiService) ListKey(params *ListKeyParams) (*ListKeyResponse, er
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9426,7 +9431,7 @@ func (c *DefaultApiService) ListMedia(MessageSid string, params *ListMediaParams
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 
@@ -9446,7 +9451,7 @@ func (c *DefaultApiService) ListMedia(MessageSid string, params *ListMediaParams
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9484,7 +9489,7 @@ func (c *DefaultApiService) ListMember(QueueSid string, params *ListMemberParams
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"QueueSid"+"}", QueueSid, -1)
 
@@ -9495,7 +9500,7 @@ func (c *DefaultApiService) ListMember(QueueSid string, params *ListMemberParams
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9563,7 +9568,7 @@ func (c *DefaultApiService) ListMessage(params *ListMessageParams) (*ListMessage
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -9588,7 +9593,7 @@ func (c *DefaultApiService) ListMessage(params *ListMessageParams) (*ListMessage
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9650,7 +9655,7 @@ func (c *DefaultApiService) ListNotification(params *ListNotificationParams) (*L
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -9672,7 +9677,7 @@ func (c *DefaultApiService) ListNotification(params *ListNotificationParams) (*L
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9722,7 +9727,7 @@ func (c *DefaultApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdPar
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -9738,7 +9743,7 @@ func (c *DefaultApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdPar
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9794,7 +9799,7 @@ func (c *DefaultApiService) ListParticipant(ConferenceSid string, params *ListPa
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
@@ -9814,7 +9819,7 @@ func (c *DefaultApiService) ListParticipant(ConferenceSid string, params *ListPa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9852,7 +9857,7 @@ func (c *DefaultApiService) ListQueue(params *ListQueueParams) (*ListQueueRespon
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -9862,7 +9867,7 @@ func (c *DefaultApiService) ListQueue(params *ListQueueParams) (*ListQueueRespon
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9930,7 +9935,7 @@ func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*ListRec
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -9955,7 +9960,7 @@ func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*ListRec
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -9993,7 +9998,7 @@ func (c *DefaultApiService) ListRecordingAddOnResult(ReferenceSid string, params
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 
@@ -10004,7 +10009,7 @@ func (c *DefaultApiService) ListRecordingAddOnResult(ReferenceSid string, params
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10042,7 +10047,7 @@ func (c *DefaultApiService) ListRecordingAddOnResultPayload(ReferenceSid string,
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
 	path = strings.Replace(path, "{"+"AddOnResultSid"+"}", AddOnResultSid, -1)
@@ -10054,7 +10059,7 @@ func (c *DefaultApiService) ListRecordingAddOnResultPayload(ReferenceSid string,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10091,7 +10096,7 @@ func (c *DefaultApiService) ListRecordingTranscription(RecordingSid string, para
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"RecordingSid"+"}", RecordingSid, -1)
 
@@ -10102,7 +10107,7 @@ func (c *DefaultApiService) ListRecordingTranscription(RecordingSid string, para
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10152,7 +10157,7 @@ func (c *DefaultApiService) ListShortCode(params *ListShortCodeParams) (*ListSho
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -10168,7 +10173,7 @@ func (c *DefaultApiService) ListShortCode(params *ListShortCodeParams) (*ListSho
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10205,7 +10210,7 @@ func (c *DefaultApiService) ListSigningKey(params *ListSigningKeyParams) (*ListS
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -10215,7 +10220,7 @@ func (c *DefaultApiService) ListSigningKey(params *ListSigningKeyParams) (*ListS
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10253,7 +10258,7 @@ func (c *DefaultApiService) ListSipAuthCallsCredentialListMapping(DomainSid stri
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -10264,7 +10269,7 @@ func (c *DefaultApiService) ListSipAuthCallsCredentialListMapping(DomainSid stri
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10302,7 +10307,7 @@ func (c *DefaultApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -10313,7 +10318,7 @@ func (c *DefaultApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10351,7 +10356,7 @@ func (c *DefaultApiService) ListSipAuthRegistrationsCredentialListMapping(Domain
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -10362,7 +10367,7 @@ func (c *DefaultApiService) ListSipAuthRegistrationsCredentialListMapping(Domain
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10400,7 +10405,7 @@ func (c *DefaultApiService) ListSipCredential(CredentialListSid string, params *
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CredentialListSid"+"}", CredentialListSid, -1)
 
@@ -10411,7 +10416,7 @@ func (c *DefaultApiService) ListSipCredential(CredentialListSid string, params *
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10449,7 +10454,7 @@ func (c *DefaultApiService) ListSipCredentialList(params *ListSipCredentialListP
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -10459,7 +10464,7 @@ func (c *DefaultApiService) ListSipCredentialList(params *ListSipCredentialListP
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10497,7 +10502,7 @@ func (c *DefaultApiService) ListSipCredentialListMapping(DomainSid string, param
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -10508,7 +10513,7 @@ func (c *DefaultApiService) ListSipCredentialListMapping(DomainSid string, param
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10546,7 +10551,7 @@ func (c *DefaultApiService) ListSipDomain(params *ListSipDomainParams) (*ListSip
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -10556,7 +10561,7 @@ func (c *DefaultApiService) ListSipDomain(params *ListSipDomainParams) (*ListSip
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10594,7 +10599,7 @@ func (c *DefaultApiService) ListSipIpAccessControlList(params *ListSipIpAccessCo
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -10604,7 +10609,7 @@ func (c *DefaultApiService) ListSipIpAccessControlList(params *ListSipIpAccessCo
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10642,7 +10647,7 @@ func (c *DefaultApiService) ListSipIpAccessControlListMapping(DomainSid string, 
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
@@ -10653,7 +10658,7 @@ func (c *DefaultApiService) ListSipIpAccessControlListMapping(DomainSid string, 
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10691,7 +10696,7 @@ func (c *DefaultApiService) ListSipIpAddress(IpAccessControlListSid string, para
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 
@@ -10702,7 +10707,7 @@ func (c *DefaultApiService) ListSipIpAddress(IpAccessControlListSid string, para
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10740,7 +10745,7 @@ func (c *DefaultApiService) ListTranscription(params *ListTranscriptionParams) (
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -10750,7 +10755,7 @@ func (c *DefaultApiService) ListTranscription(params *ListTranscriptionParams) (
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10812,7 +10817,7 @@ func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*Lis
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -10834,7 +10839,7 @@ func (c *DefaultApiService) ListUsageRecord(params *ListUsageRecordParams) (*Lis
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10895,7 +10900,7 @@ func (c *DefaultApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTim
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -10917,7 +10922,7 @@ func (c *DefaultApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTim
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -10978,7 +10983,7 @@ func (c *DefaultApiService) ListUsageRecordDaily(params *ListUsageRecordDailyPar
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -11000,7 +11005,7 @@ func (c *DefaultApiService) ListUsageRecordDaily(params *ListUsageRecordDailyPar
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11061,7 +11066,7 @@ func (c *DefaultApiService) ListUsageRecordLastMonth(params *ListUsageRecordLast
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -11083,7 +11088,7 @@ func (c *DefaultApiService) ListUsageRecordLastMonth(params *ListUsageRecordLast
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11144,7 +11149,7 @@ func (c *DefaultApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthl
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -11166,7 +11171,7 @@ func (c *DefaultApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthl
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11227,7 +11232,7 @@ func (c *DefaultApiService) ListUsageRecordThisMonth(params *ListUsageRecordThis
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -11249,7 +11254,7 @@ func (c *DefaultApiService) ListUsageRecordThisMonth(params *ListUsageRecordThis
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11310,7 +11315,7 @@ func (c *DefaultApiService) ListUsageRecordToday(params *ListUsageRecordTodayPar
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -11332,7 +11337,7 @@ func (c *DefaultApiService) ListUsageRecordToday(params *ListUsageRecordTodayPar
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11393,7 +11398,7 @@ func (c *DefaultApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyP
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -11415,7 +11420,7 @@ func (c *DefaultApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyP
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11476,7 +11481,7 @@ func (c *DefaultApiService) ListUsageRecordYesterday(params *ListUsageRecordYest
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -11498,7 +11503,7 @@ func (c *DefaultApiService) ListUsageRecordYesterday(params *ListUsageRecordYest
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11554,7 +11559,7 @@ func (c *DefaultApiService) ListUsageTrigger(params *ListUsageTriggerParams) (*L
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 
 	data := url.Values{}
@@ -11573,7 +11578,7 @@ func (c *DefaultApiService) ListUsageTrigger(params *ListUsageTriggerParams) (*L
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11620,7 +11625,7 @@ func (c *DefaultApiService) UpdateAccount(Sid string, params *UpdateAccountParam
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11699,7 +11704,7 @@ func (c *DefaultApiService) UpdateAddress(Sid string, params *UpdateAddressParam
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -11731,7 +11736,7 @@ func (c *DefaultApiService) UpdateAddress(Sid string, params *UpdateAddressParam
 		data.Set("Street", *params.Street)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11853,7 +11858,7 @@ func (c *DefaultApiService) UpdateApplication(Sid string, params *UpdateApplicat
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -11906,7 +11911,7 @@ func (c *DefaultApiService) UpdateApplication(Sid string, params *UpdateApplicat
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -11986,7 +11991,7 @@ func (c *DefaultApiService) UpdateCall(Sid string, params *UpdateCallParams) (*A
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -12018,7 +12023,7 @@ func (c *DefaultApiService) UpdateCall(Sid string, params *UpdateCallParams) (*A
 		data.Set("Url", *params.Url)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -12062,7 +12067,7 @@ func (c *DefaultApiService) UpdateCallFeedback(CallSid string, params *UpdateCal
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
@@ -12076,7 +12081,7 @@ func (c *DefaultApiService) UpdateCallFeedback(CallSid string, params *UpdateCal
 		data.Set("QualityScore", fmt.Sprint(*params.QualityScore))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -12120,7 +12125,7 @@ func (c *DefaultApiService) UpdateCallRecording(CallSid string, Sid string, para
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -12135,7 +12140,7 @@ func (c *DefaultApiService) UpdateCallRecording(CallSid string, Sid string, para
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -12184,7 +12189,7 @@ func (c *DefaultApiService) UpdateConference(Sid string, params *UpdateConferenc
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -12201,7 +12206,7 @@ func (c *DefaultApiService) UpdateConference(Sid string, params *UpdateConferenc
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -12245,7 +12250,7 @@ func (c *DefaultApiService) UpdateConferenceRecording(ConferenceSid string, Sid 
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -12260,7 +12265,7 @@ func (c *DefaultApiService) UpdateConferenceRecording(ConferenceSid string, Sid 
 		data.Set("Status", *params.Status)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -12340,7 +12345,7 @@ func (c *DefaultApiService) UpdateConnectApp(Sid string, params *UpdateConnectAp
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -12372,7 +12377,7 @@ func (c *DefaultApiService) UpdateConnectApp(Sid string, params *UpdateConnectAp
 		data.Set("Permissions", strings.Join(*params.Permissions, ","))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -12542,7 +12547,7 @@ func (c *DefaultApiService) UpdateIncomingPhoneNumber(Sid string, params *Update
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -12619,7 +12624,7 @@ func (c *DefaultApiService) UpdateIncomingPhoneNumber(Sid string, params *Update
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -12656,7 +12661,7 @@ func (c *DefaultApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*Api
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -12667,7 +12672,7 @@ func (c *DefaultApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*Api
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -12711,7 +12716,7 @@ func (c *DefaultApiService) UpdateMember(QueueSid string, CallSid string, params
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"QueueSid"+"}", QueueSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -12726,7 +12731,7 @@ func (c *DefaultApiService) UpdateMember(QueueSid string, CallSid string, params
 		data.Set("Url", *params.Url)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -12764,7 +12769,7 @@ func (c *DefaultApiService) UpdateMessage(Sid string, params *UpdateMessageParam
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -12775,7 +12780,7 @@ func (c *DefaultApiService) UpdateMessage(Sid string, params *UpdateMessageParam
 		data.Set("Body", *params.Body)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -12813,7 +12818,7 @@ func (c *DefaultApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOut
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -12824,7 +12829,7 @@ func (c *DefaultApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOut
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -12928,7 +12933,7 @@ func (c *DefaultApiService) UpdateParticipant(ConferenceSid string, CallSid stri
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -12973,7 +12978,7 @@ func (c *DefaultApiService) UpdateParticipant(ConferenceSid string, CallSid stri
 		data.Set("WaitUrl", *params.WaitUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -13029,7 +13034,7 @@ func (c *DefaultApiService) UpdatePayments(CallSid string, Sid string, params *U
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -13050,7 +13055,7 @@ func (c *DefaultApiService) UpdatePayments(CallSid string, Sid string, params *U
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -13094,7 +13099,7 @@ func (c *DefaultApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -13108,7 +13113,7 @@ func (c *DefaultApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (
 		data.Set("MaxSize", fmt.Sprint(*params.MaxSize))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -13176,7 +13181,7 @@ func (c *DefaultApiService) UpdateShortCode(Sid string, params *UpdateShortCodeP
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -13202,7 +13207,7 @@ func (c *DefaultApiService) UpdateShortCode(Sid string, params *UpdateShortCodeP
 		data.Set("SmsUrl", *params.SmsUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -13239,7 +13244,7 @@ func (c *DefaultApiService) UpdateSigningKey(Sid string, params *UpdateSigningKe
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -13250,7 +13255,7 @@ func (c *DefaultApiService) UpdateSigningKey(Sid string, params *UpdateSigningKe
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -13288,7 +13293,7 @@ func (c *DefaultApiService) UpdateSipCredential(CredentialListSid string, Sid st
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"CredentialListSid"+"}", CredentialListSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -13300,7 +13305,7 @@ func (c *DefaultApiService) UpdateSipCredential(CredentialListSid string, Sid st
 		data.Set("Password", *params.Password)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -13338,7 +13343,7 @@ func (c *DefaultApiService) UpdateSipCredentialList(Sid string, params *UpdateSi
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -13349,7 +13354,7 @@ func (c *DefaultApiService) UpdateSipCredentialList(Sid string, params *UpdateSi
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -13459,7 +13464,7 @@ func (c *DefaultApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainP
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -13506,7 +13511,7 @@ func (c *DefaultApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainP
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -13544,7 +13549,7 @@ func (c *DefaultApiService) UpdateSipIpAccessControlList(Sid string, params *Upd
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -13555,7 +13560,7 @@ func (c *DefaultApiService) UpdateSipIpAccessControlList(Sid string, params *Upd
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -13605,7 +13610,7 @@ func (c *DefaultApiService) UpdateSipIpAddress(IpAccessControlListSid string, Si
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -13623,7 +13628,7 @@ func (c *DefaultApiService) UpdateSipIpAddress(IpAccessControlListSid string, Si
 		data.Set("IpAddress", *params.IpAddress)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -13673,7 +13678,7 @@ func (c *DefaultApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTr
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.client.GetAccountSid(), -1)
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
 	}
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -13690,7 +13695,7 @@ func (c *DefaultApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTr
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

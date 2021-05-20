@@ -15,21 +15,26 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://trusthub.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://trusthub.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateCustomerProfile'
@@ -81,7 +86,7 @@ func (c *DefaultApiService) CreateCustomerProfile(params *CreateCustomerProfileP
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +133,7 @@ func (c *DefaultApiService) CreateCustomerProfileChannelEndpointAssignment(Custo
 		data.Set("ChannelEndpointType", *params.ChannelEndpointType)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +171,7 @@ func (c *DefaultApiService) CreateCustomerProfileEntityAssignment(CustomerProfil
 		data.Set("ObjectSid", *params.ObjectSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -204,7 +209,7 @@ func (c *DefaultApiService) CreateCustomerProfileEvaluation(CustomerProfileSid s
 		data.Set("PolicySid", *params.PolicySid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -265,7 +270,7 @@ func (c *DefaultApiService) CreateEndUser(params *CreateEndUserParams) (*Trusthu
 		data.Set("Type", *params.Type)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -326,7 +331,7 @@ func (c *DefaultApiService) CreateSupportingDocument(params *CreateSupportingDoc
 		data.Set("Type", *params.Type)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -390,7 +395,7 @@ func (c *DefaultApiService) CreateTrustProduct(params *CreateTrustProductParams)
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -437,7 +442,7 @@ func (c *DefaultApiService) CreateTrustProductChannelEndpointAssignment(TrustPro
 		data.Set("ChannelEndpointType", *params.ChannelEndpointType)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -475,7 +480,7 @@ func (c *DefaultApiService) CreateTrustProductEntityAssignment(TrustProductSid s
 		data.Set("ObjectSid", *params.ObjectSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -513,7 +518,7 @@ func (c *DefaultApiService) CreateTrustProductEvaluation(TrustProductSid string,
 		data.Set("PolicySid", *params.PolicySid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -536,7 +541,7 @@ func (c *DefaultApiService) DeleteCustomerProfile(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -555,7 +560,7 @@ func (c *DefaultApiService) DeleteCustomerProfileChannelEndpointAssignment(Custo
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -574,7 +579,7 @@ func (c *DefaultApiService) DeleteCustomerProfileEntityAssignment(CustomerProfil
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -592,7 +597,7 @@ func (c *DefaultApiService) DeleteEndUser(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -610,7 +615,7 @@ func (c *DefaultApiService) DeleteSupportingDocument(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -628,7 +633,7 @@ func (c *DefaultApiService) DeleteTrustProduct(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -647,7 +652,7 @@ func (c *DefaultApiService) DeleteTrustProductChannelEndpointAssignment(TrustPro
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -666,7 +671,7 @@ func (c *DefaultApiService) DeleteTrustProductEntityAssignment(TrustProductSid s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -684,7 +689,7 @@ func (c *DefaultApiService) FetchCustomerProfile(Sid string) (*TrusthubV1Custome
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -708,7 +713,7 @@ func (c *DefaultApiService) FetchCustomerProfileChannelEndpointAssignment(Custom
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -732,7 +737,7 @@ func (c *DefaultApiService) FetchCustomerProfileEntityAssignment(CustomerProfile
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -756,7 +761,7 @@ func (c *DefaultApiService) FetchCustomerProfileEvaluation(CustomerProfileSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -779,7 +784,7 @@ func (c *DefaultApiService) FetchEndUser(Sid string) (*TrusthubV1EndUser, error)
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -802,7 +807,7 @@ func (c *DefaultApiService) FetchEndUserType(Sid string) (*TrusthubV1EndUserType
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -825,7 +830,7 @@ func (c *DefaultApiService) FetchPolicies(Sid string) (*TrusthubV1Policies, erro
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -848,7 +853,7 @@ func (c *DefaultApiService) FetchSupportingDocument(Sid string) (*TrusthubV1Supp
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -871,7 +876,7 @@ func (c *DefaultApiService) FetchSupportingDocumentType(Sid string) (*TrusthubV1
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -894,7 +899,7 @@ func (c *DefaultApiService) FetchTrustProduct(Sid string) (*TrusthubV1TrustProdu
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -918,7 +923,7 @@ func (c *DefaultApiService) FetchTrustProductChannelEndpointAssignment(TrustProd
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -942,7 +947,7 @@ func (c *DefaultApiService) FetchTrustProductEntityAssignment(TrustProductSid st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -966,7 +971,7 @@ func (c *DefaultApiService) FetchTrustProductEvaluation(TrustProductSid string, 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1030,7 +1035,7 @@ func (c *DefaultApiService) ListCustomerProfile(params *ListCustomerProfileParam
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1086,7 +1091,7 @@ func (c *DefaultApiService) ListCustomerProfileChannelEndpointAssignment(Custome
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1124,7 +1129,7 @@ func (c *DefaultApiService) ListCustomerProfileEntityAssignment(CustomerProfileS
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1162,7 +1167,7 @@ func (c *DefaultApiService) ListCustomerProfileEvaluation(CustomerProfileSid str
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1199,7 +1204,7 @@ func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*ListEndUser
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1236,7 +1241,7 @@ func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*Lis
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1273,7 +1278,7 @@ func (c *DefaultApiService) ListPolicies(params *ListPoliciesParams) (*ListPolic
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1310,7 +1315,7 @@ func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumen
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1347,7 +1352,7 @@ func (c *DefaultApiService) ListSupportingDocumentType(params *ListSupportingDoc
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1411,7 +1416,7 @@ func (c *DefaultApiService) ListTrustProduct(params *ListTrustProductParams) (*L
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1467,7 +1472,7 @@ func (c *DefaultApiService) ListTrustProductChannelEndpointAssignment(TrustProdu
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1505,7 +1510,7 @@ func (c *DefaultApiService) ListTrustProductEntityAssignment(TrustProductSid str
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1543,7 +1548,7 @@ func (c *DefaultApiService) ListTrustProductEvaluation(TrustProductSid string, p
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1608,7 +1613,7 @@ func (c *DefaultApiService) UpdateCustomerProfile(Sid string, params *UpdateCust
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1661,7 +1666,7 @@ func (c *DefaultApiService) UpdateEndUser(Sid string, params *UpdateEndUserParam
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1714,7 +1719,7 @@ func (c *DefaultApiService) UpdateSupportingDocument(Sid string, params *UpdateS
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -1779,7 +1784,7 @@ func (c *DefaultApiService) UpdateTrustProduct(Sid string, params *UpdateTrustPr
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

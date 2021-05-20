@@ -15,21 +15,26 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+
 	"strings"
 
 	twilio "github.com/twilio/twilio-go/client"
 )
 
 type DefaultApiService struct {
-	baseURL string
-	client  twilio.BaseClient
+	baseURL        string
+	requestHandler *twilio.RequestHandler
 }
 
-func NewDefaultApiService(client twilio.BaseClient) *DefaultApiService {
+func NewDefaultApiService(requestHandler *twilio.RequestHandler) *DefaultApiService {
 	return &DefaultApiService{
-		client:  client,
-		baseURL: "https://events.twilio.com",
+		requestHandler: requestHandler,
+		baseURL:        "https://events.twilio.com",
 	}
+}
+
+func NewDefaultApiServiceWithClient(client twilio.BaseClient) *DefaultApiService {
+	return NewDefaultApiService(twilio.NewRequestHandler(client))
 }
 
 // Optional parameters for the method 'CreateSink'
@@ -78,7 +83,7 @@ func (c *DefaultApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink,
 		data.Set("SinkType", *params.SinkType)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +106,7 @@ func (c *DefaultApiService) CreateSinkTest(Sid string) (*EventsV1SinkSinkTest, e
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -139,7 +144,7 @@ func (c *DefaultApiService) CreateSinkValidate(Sid string, params *CreateSinkVal
 		data.Set("TestId", *params.TestId)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -186,7 +191,7 @@ func (c *DefaultApiService) CreateSubscribedEvent(SubscriptionSid string, params
 		data.Set("Type", *params.Type)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -247,7 +252,7 @@ func (c *DefaultApiService) CreateSubscription(params *CreateSubscriptionParams)
 		data.Set("Types", string(v))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -270,7 +275,7 @@ func (c *DefaultApiService) DeleteSink(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -289,7 +294,7 @@ func (c *DefaultApiService) DeleteSubscribedEvent(SubscriptionSid string, Type s
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -307,7 +312,7 @@ func (c *DefaultApiService) DeleteSubscription(Sid string) error {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Delete(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
 		return err
 	}
@@ -325,7 +330,7 @@ func (c *DefaultApiService) FetchEventType(Type string) (*EventsV1EventType, err
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -348,7 +353,7 @@ func (c *DefaultApiService) FetchSchema(Id string) (*EventsV1Schema, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -372,7 +377,7 @@ func (c *DefaultApiService) FetchSchemaVersion(Id string, SchemaVersion int32) (
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -395,7 +400,7 @@ func (c *DefaultApiService) FetchSink(Sid string) (*EventsV1Sink, error) {
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -419,7 +424,7 @@ func (c *DefaultApiService) FetchSubscribedEvent(SubscriptionSid string, Type st
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -442,7 +447,7 @@ func (c *DefaultApiService) FetchSubscription(Sid string) (*EventsV1Subscription
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -488,7 +493,7 @@ func (c *DefaultApiService) ListEventType(params *ListEventTypeParams) (*ListEve
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -526,7 +531,7 @@ func (c *DefaultApiService) ListSchemaVersion(Id string, params *ListSchemaVersi
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -581,7 +586,7 @@ func (c *DefaultApiService) ListSink(params *ListSinkParams) (*ListSinkResponse,
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -619,7 +624,7 @@ func (c *DefaultApiService) ListSubscribedEvent(SubscriptionSid string, params *
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -665,7 +670,7 @@ func (c *DefaultApiService) ListSubscription(params *ListSubscriptionParams) (*L
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.client.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -703,7 +708,7 @@ func (c *DefaultApiService) UpdateSink(Sid string, params *UpdateSinkParams) (*E
 		data.Set("Description", *params.Description)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -742,7 +747,7 @@ func (c *DefaultApiService) UpdateSubscribedEvent(SubscriptionSid string, Type s
 		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -789,7 +794,7 @@ func (c *DefaultApiService) UpdateSubscription(Sid string, params *UpdateSubscri
 		data.Set("SinkSid", *params.SinkSid)
 	}
 
-	resp, err := c.client.Post(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

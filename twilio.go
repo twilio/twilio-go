@@ -2,7 +2,6 @@
 package twilio
 
 import (
-	"os"
 	"time"
 
 	"github.com/twilio/twilio-go/client"
@@ -43,7 +42,7 @@ import (
 
 // RestClient provides access to Twilio services.
 type RestClient struct {
-	*client.Client
+	*client.RequestHandler
 	AccountsV1      *AccountsV1.DefaultApiService
 	ApiV2010        *ApiV2010.DefaultApiService
 	AutopilotV1     *AutopilotV1.DefaultApiService
@@ -93,57 +92,63 @@ type Meta struct {
 
 type RestClientParams struct {
 	AccountSid string
+	Client     client.BaseClient
 }
 
 // NewRestClientWithParams provides an initialized Twilio RestClient with params.
 func NewRestClientWithParams(username string, password string, params RestClientParams) *RestClient {
-	c := &RestClient{
-		Client: &client.Client{
+	requestHandler := client.NewRequestHandler(params.Client)
+
+	if params.Client == nil {
+		defaultClient := &client.Client{
 			Credentials: client.NewCredentials(username, password),
-			BaseURL:     "twilio.com",
-			Edge:        os.Getenv("TWILIO_EDGE"),
-			Region:      os.Getenv("TWILIO_REGION"),
-			AccountSid:  username,
-		},
+		}
+
+		if params.AccountSid != "" {
+			defaultClient.SetAccountSid(params.AccountSid)
+		} else {
+			defaultClient.SetAccountSid(username)
+		}
+		requestHandler = client.NewRequestHandler(defaultClient)
 	}
 
-	if params.AccountSid != "" {
-		c.AccountSid = params.AccountSid
+	c := &RestClient{
+		RequestHandler: requestHandler,
 	}
 
-	c.AccountsV1 = AccountsV1.NewDefaultApiService(c.Client)
-	c.ApiV2010 = ApiV2010.NewDefaultApiService(c.Client)
-	c.AutopilotV1 = AutopilotV1.NewDefaultApiService(c.Client)
-	c.BulkexportsV1 = BulkexportsV1.NewDefaultApiService(c.Client)
-	c.ChatV1 = ChatV1.NewDefaultApiService(c.Client)
-	c.ChatV2 = ChatV2.NewDefaultApiService(c.Client)
-	c.ConversationsV1 = ConversationsV1.NewDefaultApiService(c.Client)
-	c.EventsV1 = EventsV1.NewDefaultApiService(c.Client)
-	c.FaxV1 = FaxV1.NewDefaultApiService(c.Client)
-	c.FlexV1 = FlexV1.NewDefaultApiService(c.Client)
-	c.InsightsV1 = InsightsV1.NewDefaultApiService(c.Client)
-	c.IpMessagingV1 = IpMessagingV1.NewDefaultApiService(c.Client)
-	c.IpMessagingV2 = IpMessagingV2.NewDefaultApiService(c.Client)
-	c.LookupsV1 = LookupsV1.NewDefaultApiService(c.Client)
-	c.MessagingV1 = MessagingV1.NewDefaultApiService(c.Client)
-	c.MonitorV1 = MonitorV1.NewDefaultApiService(c.Client)
-	c.NotifyV1 = NotifyV1.NewDefaultApiService(c.Client)
-	c.NumbersV2 = NumbersV2.NewDefaultApiService(c.Client)
-	c.PricingV1 = PricingV1.NewDefaultApiService(c.Client)
-	c.PricingV2 = PricingV2.NewDefaultApiService(c.Client)
-	c.ProxyV1 = ProxyV1.NewDefaultApiService(c.Client)
-	c.ServerlessV1 = ServerlessV1.NewDefaultApiService(c.Client)
-	c.StudioV1 = StudioV1.NewDefaultApiService(c.Client)
-	c.StudioV2 = StudioV2.NewDefaultApiService(c.Client)
-	c.SupersimV1 = SupersimV1.NewDefaultApiService(c.Client)
-	c.SyncV1 = SyncV1.NewDefaultApiService(c.Client)
-	c.TaskrouterV1 = TaskrouterV1.NewDefaultApiService(c.Client)
-	c.TrunkingV1 = TrunkingV1.NewDefaultApiService(c.Client)
-	c.TrusthubV1 = TrusthubV1.NewDefaultApiService(c.Client)
-	c.VerifyV2 = VerifyV2.NewDefaultApiService(c.Client)
-	c.VideoV1 = VideoV1.NewDefaultApiService(c.Client)
-	c.VoiceV1 = VoiceV1.NewDefaultApiService(c.Client)
-	c.WirelessV1 = WirelessV1.NewDefaultApiService(c.Client)
+	c.AccountsV1 = AccountsV1.NewDefaultApiService(c.RequestHandler)
+	c.ApiV2010 = ApiV2010.NewDefaultApiService(c.RequestHandler)
+	c.AutopilotV1 = AutopilotV1.NewDefaultApiService(c.RequestHandler)
+	c.BulkexportsV1 = BulkexportsV1.NewDefaultApiService(c.RequestHandler)
+	c.ChatV1 = ChatV1.NewDefaultApiService(c.RequestHandler)
+	c.ChatV2 = ChatV2.NewDefaultApiService(c.RequestHandler)
+	c.ConversationsV1 = ConversationsV1.NewDefaultApiService(c.RequestHandler)
+	c.EventsV1 = EventsV1.NewDefaultApiService(c.RequestHandler)
+	c.FaxV1 = FaxV1.NewDefaultApiService(c.RequestHandler)
+	c.FlexV1 = FlexV1.NewDefaultApiService(c.RequestHandler)
+	c.InsightsV1 = InsightsV1.NewDefaultApiService(c.RequestHandler)
+	c.IpMessagingV1 = IpMessagingV1.NewDefaultApiService(c.RequestHandler)
+	c.IpMessagingV2 = IpMessagingV2.NewDefaultApiService(c.RequestHandler)
+	c.LookupsV1 = LookupsV1.NewDefaultApiService(c.RequestHandler)
+	c.MessagingV1 = MessagingV1.NewDefaultApiService(c.RequestHandler)
+	c.MonitorV1 = MonitorV1.NewDefaultApiService(c.RequestHandler)
+	c.NotifyV1 = NotifyV1.NewDefaultApiService(c.RequestHandler)
+	c.NumbersV2 = NumbersV2.NewDefaultApiService(c.RequestHandler)
+	c.PricingV1 = PricingV1.NewDefaultApiService(c.RequestHandler)
+	c.PricingV2 = PricingV2.NewDefaultApiService(c.RequestHandler)
+	c.ProxyV1 = ProxyV1.NewDefaultApiService(c.RequestHandler)
+	c.ServerlessV1 = ServerlessV1.NewDefaultApiService(c.RequestHandler)
+	c.StudioV1 = StudioV1.NewDefaultApiService(c.RequestHandler)
+	c.StudioV2 = StudioV2.NewDefaultApiService(c.RequestHandler)
+	c.SupersimV1 = SupersimV1.NewDefaultApiService(c.RequestHandler)
+	c.SyncV1 = SyncV1.NewDefaultApiService(c.RequestHandler)
+	c.TaskrouterV1 = TaskrouterV1.NewDefaultApiService(c.RequestHandler)
+	c.TrunkingV1 = TrunkingV1.NewDefaultApiService(c.RequestHandler)
+	c.TrusthubV1 = TrusthubV1.NewDefaultApiService(c.RequestHandler)
+	c.VerifyV2 = VerifyV2.NewDefaultApiService(c.RequestHandler)
+	c.VideoV1 = VideoV1.NewDefaultApiService(c.RequestHandler)
+	c.VoiceV1 = VoiceV1.NewDefaultApiService(c.RequestHandler)
+	c.WirelessV1 = WirelessV1.NewDefaultApiService(c.RequestHandler)
 
 	return c
 }
@@ -157,15 +162,15 @@ func NewRestClient(username string, password string) *RestClient {
 
 // SetTimeout sets the Timeout for Twilio HTTP requests.
 func (c *RestClient) SetTimeout(timeout time.Duration) {
-	c.Client.SetTimeout(timeout)
+	c.RequestHandler.Client.SetTimeout(timeout)
 }
 
 // SetEdge sets the Edge for the Twilio request.
 func (c *RestClient) SetEdge(edge string) {
-	c.Client.Edge = edge
+	c.RequestHandler.Edge = edge
 }
 
 // SetRegion sets the Region for the Twilio request. Defaults to "us1" if an edge is provided.
 func (c *RestClient) SetRegion(region string) {
-	c.Client.Region = region
+	c.RequestHandler.Region = region
 }

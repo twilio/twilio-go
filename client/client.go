@@ -31,10 +31,7 @@ func NewCredentials(username string, password string) *Credentials {
 type Client struct {
 	*Credentials
 	HTTPClient *http.Client
-	BaseURL    string
-	Edge       string
-	Region     string
-	AccountSid string
+	accountSid string
 }
 
 // default http Client should not follow redirects and return the most recent response.
@@ -51,57 +48,11 @@ func (c *Client) basicAuth() (string, string) {
 	return c.Credentials.Username, c.Credentials.Password
 }
 
-// BuildHost builds the target host string taking into account region and edge configurations.
-func (c *Client) BuildHost(rawHost string) string {
-	var (
-		edge    = ""
-		region  = ""
-		pieces  = strings.Split(rawHost, ".")
-		product = pieces[0]
-		result  = []string{}
-	)
-	suffix := ""
-
-	if len(pieces) >= 3 {
-		suffix = strings.Join(pieces[len(pieces)-2:], ".")
-	} else {
-		return rawHost
-	}
-
-	if len(pieces) == 4 {
-		// product.region.twilio.com
-		region = pieces[1]
-	} else if len(pieces) == 5 {
-		// product.edge.region.twilio.com
-		edge = pieces[1]
-		region = pieces[2]
-	}
-
-	if c.Edge != "" {
-		edge = c.Edge
-	}
-
-	if c.Region != "" {
-		region = c.Region
-	} else if region == "" && edge != "" {
-		region = "us1"
-	}
-
-	if c.BaseURL != "" {
-		suffix = c.BaseURL
-	}
-
-	for _, item := range []string{product, edge, region, suffix} {
-		if item != "" {
-			result = append(result, item)
-		}
-	}
-
-	return strings.Join(result, ".")
-}
-
 // SetTimeout sets the Timeout for HTTP requests.
 func (c *Client) SetTimeout(timeout time.Duration) {
+	if c.HTTPClient == nil {
+		c.HTTPClient = defaultHTTPClient()
+	}
 	c.HTTPClient.Timeout = timeout
 }
 
@@ -137,7 +88,7 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 }
 
 // SendRequest verifies, constructs, and authorizes an HTTP request.
-func (c Client) SendRequest(method string, rawURL string, queryParams interface{}, formData url.Values,
+func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	headers map[string]interface{}) (*http.Response, error) {
 	u, err := url.Parse(rawURL)
 	if err != nil {
@@ -147,19 +98,17 @@ func (c Client) SendRequest(method string, rawURL string, queryParams interface{
 	valueReader := &strings.Reader{}
 	goVersion := runtime.Version()
 
-	if queryParams != nil {
-		v, _ := EncodeToStringWith(queryParams, delimiter, escapee, keepZeros)
+	if method == http.MethodGet {
+		v, _ := EncodeToStringWith(data, delimiter, escapee, keepZeros)
 		regex := regexp.MustCompile(`\.\d+`)
 		s := regex.ReplaceAllString(v, "")
 
 		u.RawQuery = s
 	}
 
-	if formData != nil {
-		valueReader = strings.NewReader(formData.Encode())
+	if method == http.MethodPost {
+		valueReader = strings.NewReader(data.Encode())
 	}
-
-	u.Host = c.BuildHost(u.Host)
 
 	req, err := http.NewRequest(method, u.String(), valueReader)
 	if err != nil {
@@ -183,25 +132,12 @@ func (c Client) SendRequest(method string, rawURL string, queryParams interface{
 	return c.doWithErr(req)
 }
 
+// SetAccountSid sets the Client's accountSid field
+func (c *Client) SetAccountSid(sid string) {
+	c.accountSid = sid
+}
+
 // Returns the Account SID.
-func (c Client) GetAccountSid() string {
-	return c.AccountSid
-}
-
-// Post performs a POST request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (c Client) Post(path string, bodyData url.Values, headers map[string]interface{}) (*http.Response, error) {
-	return c.SendRequest(http.MethodPost, path, nil, bodyData, headers)
-}
-
-// Get performs a GET request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (c Client) Get(path string, queryData interface{}, headers map[string]interface{}) (*http.Response, error) {
-	return c.SendRequest(http.MethodGet, path, queryData, nil, headers)
-}
-
-// Delete performs a DELETE request on the object at the provided URI in the context of the Request's BaseURL
-// with the provided data as parameters.
-func (c Client) Delete(path string, nothing interface{}, headers map[string]interface{}) (*http.Response, error) {
-	return c.SendRequest(http.MethodDelete, path, nil, nil, headers)
+func (c *Client) AccountSid() string {
+	return c.accountSid
 }
