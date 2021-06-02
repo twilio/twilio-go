@@ -1,5 +1,21 @@
 twilio-go changelog
 ====================
+[2021-06-02] Version 0.9.0
+--------------------------
+**Library - Docs**
+- [PR #81](https://github.com/twilio/twilio-go/pull/81): add standalone usage example. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Feature**
+- [PR #80](https://github.com/twilio/twilio-go/pull/80): add RequestHandler for custom client support. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Events**
+- join Sinks and Subscriptions service
+
+**Verify**
+- Improved the documentation of `challenge` adding the maximum and minimum expected lengths of some fields.
+- Improve documentation regarding `notification` by updating the documentation of the field `ttl`.
+
+
 [2021-05-19] Version 0.8.0
 --------------------------
 **Library - Chore**
