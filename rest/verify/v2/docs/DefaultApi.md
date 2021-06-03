@@ -167,12 +167,12 @@ Other parameters are passed through a pointer to a CreateChallengeParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AuthPayload** | **string** | Optional payload used to verify the Challenge upon creation. Only used with a Factor of type &#x60;totp&#x60; to carry the TOTP code that needs to be verified. For &#x60;TOTP&#x60; this value must be between 3 and 8 characters long.
-**DetailsFields** | **[]map[string]interface{}** | A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when &#x60;factor_type&#x60; is &#x60;push&#x60;. There can be up to 20 details fields.
-**DetailsMessage** | **string** | Shown to the user when the push notification arrives. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. Can be up to 256 characters in length
+**AuthPayload** | **string** | Optional payload used to verify the Challenge upon creation. Only used with a Factor of type &#x60;totp&#x60; to carry the TOTP code that needs to be verified.
+**DetailsFields** | **[]map[string]interface{}** | A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field. Used when &#x60;factor_type&#x60; is &#x60;push&#x60;.
+**DetailsMessage** | **string** | Shown to the user when the push notification arrives. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
 **ExpirationDate** | **time.Time** | The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
 **FactorSid** | **string** | The unique SID identifier of the Factor.
-**HiddenDetails** | [**map[string]interface{}**](map[string]interface{}.md) | Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. &#x60;{\\\&quot;ip\\\&quot;: \\\&quot;172.168.1.234\\\&quot;}&#x60;. Can be up to 1024 characters in length
+**HiddenDetails** | [**map[string]interface{}**](map[string]interface{}.md) | Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. &#x60;{\\\&quot;ip\\\&quot;: \\\&quot;172.168.1.234\\\&quot;}&#x60;
 
 ### Return type
 
@@ -360,7 +360,7 @@ Other parameters are passed through a pointer to a CreateNotificationParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Ttl** | **int32** | How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
+**Ttl** | **int32** | How long, in seconds, the Notification is valid. Delivery will be attempted if the device is offline until the TTL elapses. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. Must be an integer between 0 and 300 seconds, inclusive. Defaults to 300 seconds. 
 
 ### Return type
 
@@ -1858,7 +1858,7 @@ Other parameters are passed through a pointer to a UpdateChallengeParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**AuthPayload** | **string** | The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For &#x60;TOTP&#x60; this value must be between 3 and 8 characters long. For &#x60;Push&#x60; this value can be up to 5456 characters in length
+**AuthPayload** | **string** | The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code.
 
 ### Return type
 

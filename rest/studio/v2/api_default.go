@@ -745,7 +745,9 @@ func (c *DefaultApiService) UpdateTestUser(Sid string, params *UpdateTestUserPar
 	headers := make(map[string]interface{})
 
 	if params != nil && params.TestUsers != nil {
-		data.Set("TestUsers", strings.Join(*params.TestUsers, ","))
+		for _, item := range *params.TestUsers {
+			data.Add("TestUsers", item)
+		}
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

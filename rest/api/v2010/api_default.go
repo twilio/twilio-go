@@ -656,7 +656,9 @@ func (c *DefaultApiService) CreateCall(params *CreateCallParams) (*ApiV2010Accou
 		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
 	}
 	if params != nil && params.RecordingStatusCallbackEvent != nil {
-		data.Set("RecordingStatusCallbackEvent", strings.Join(*params.RecordingStatusCallbackEvent, ","))
+		for _, item := range *params.RecordingStatusCallbackEvent {
+			data.Add("RecordingStatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.RecordingStatusCallbackMethod != nil {
 		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
@@ -677,7 +679,9 @@ func (c *DefaultApiService) CreateCall(params *CreateCallParams) (*ApiV2010Accou
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.StatusCallbackEvent != nil {
-		data.Set("StatusCallbackEvent", strings.Join(*params.StatusCallbackEvent, ","))
+		for _, item := range *params.StatusCallbackEvent {
+			data.Add("StatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
@@ -864,7 +868,9 @@ func (c *DefaultApiService) CreateCallRecording(CallSid string, params *CreateCa
 		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
 	}
 	if params != nil && params.RecordingStatusCallbackEvent != nil {
-		data.Set("RecordingStatusCallbackEvent", strings.Join(*params.RecordingStatusCallbackEvent, ","))
+		for _, item := range *params.RecordingStatusCallbackEvent {
+			data.Add("RecordingStatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.RecordingStatusCallbackMethod != nil {
 		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
@@ -2074,13 +2080,17 @@ func (c *DefaultApiService) CreateMessage(params *CreateMessageParams) (*ApiV201
 		data.Set("MaxPrice", fmt.Sprint(*params.MaxPrice))
 	}
 	if params != nil && params.MediaUrl != nil {
-		data.Set("MediaUrl", strings.Join(*params.MediaUrl, ","))
+		for _, item := range *params.MediaUrl {
+			data.Add("MediaUrl", item)
+		}
 	}
 	if params != nil && params.MessagingServiceSid != nil {
 		data.Set("MessagingServiceSid", *params.MessagingServiceSid)
 	}
 	if params != nil && params.PersistentAction != nil {
-		data.Set("PersistentAction", strings.Join(*params.PersistentAction, ","))
+		for _, item := range *params.PersistentAction {
+			data.Add("PersistentAction", item)
+		}
 	}
 	if params != nil && params.ProvideFeedback != nil {
 		data.Set("ProvideFeedback", fmt.Sprint(*params.ProvideFeedback))
@@ -2532,7 +2542,9 @@ func (c *DefaultApiService) CreateParticipant(ConferenceSid string, params *Crea
 		data.Set("ConferenceRecordingStatusCallback", *params.ConferenceRecordingStatusCallback)
 	}
 	if params != nil && params.ConferenceRecordingStatusCallbackEvent != nil {
-		data.Set("ConferenceRecordingStatusCallbackEvent", strings.Join(*params.ConferenceRecordingStatusCallbackEvent, ","))
+		for _, item := range *params.ConferenceRecordingStatusCallbackEvent {
+			data.Add("ConferenceRecordingStatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.ConferenceRecordingStatusCallbackMethod != nil {
 		data.Set("ConferenceRecordingStatusCallbackMethod", *params.ConferenceRecordingStatusCallbackMethod)
@@ -2541,7 +2553,9 @@ func (c *DefaultApiService) CreateParticipant(ConferenceSid string, params *Crea
 		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback)
 	}
 	if params != nil && params.ConferenceStatusCallbackEvent != nil {
-		data.Set("ConferenceStatusCallbackEvent", strings.Join(*params.ConferenceStatusCallbackEvent, ","))
+		for _, item := range *params.ConferenceStatusCallbackEvent {
+			data.Add("ConferenceStatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.ConferenceStatusCallbackMethod != nil {
 		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod)
@@ -2580,7 +2594,9 @@ func (c *DefaultApiService) CreateParticipant(ConferenceSid string, params *Crea
 		data.Set("RecordingStatusCallback", *params.RecordingStatusCallback)
 	}
 	if params != nil && params.RecordingStatusCallbackEvent != nil {
-		data.Set("RecordingStatusCallbackEvent", strings.Join(*params.RecordingStatusCallbackEvent, ","))
+		for _, item := range *params.RecordingStatusCallbackEvent {
+			data.Add("RecordingStatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.RecordingStatusCallbackMethod != nil {
 		data.Set("RecordingStatusCallbackMethod", *params.RecordingStatusCallbackMethod)
@@ -2604,7 +2620,9 @@ func (c *DefaultApiService) CreateParticipant(ConferenceSid string, params *Crea
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.StatusCallbackEvent != nil {
-		data.Set("StatusCallbackEvent", strings.Join(*params.StatusCallbackEvent, ","))
+		for _, item := range *params.StatusCallbackEvent {
+			data.Add("StatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
@@ -12075,7 +12093,9 @@ func (c *DefaultApiService) UpdateCallFeedback(CallSid string, params *UpdateCal
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Issue != nil {
-		data.Set("Issue", strings.Join(*params.Issue, ","))
+		for _, item := range *params.Issue {
+			data.Add("Issue", item)
+		}
 	}
 	if params != nil && params.QualityScore != nil {
 		data.Set("QualityScore", fmt.Sprint(*params.QualityScore))
@@ -12374,7 +12394,9 @@ func (c *DefaultApiService) UpdateConnectApp(Sid string, params *UpdateConnectAp
 		data.Set("HomepageUrl", *params.HomepageUrl)
 	}
 	if params != nil && params.Permissions != nil {
-		data.Set("Permissions", strings.Join(*params.Permissions, ","))
+		for _, item := range *params.Permissions {
+			data.Add("Permissions", item)
+		}
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

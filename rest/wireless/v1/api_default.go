@@ -219,7 +219,9 @@ func (c *DefaultApiService) CreateRatePlan(params *CreateRatePlanParams) (*Wirel
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.InternationalRoaming != nil {
-		data.Set("InternationalRoaming", strings.Join(*params.InternationalRoaming, ","))
+		for _, item := range *params.InternationalRoaming {
+			data.Add("InternationalRoaming", item)
+		}
 	}
 	if params != nil && params.InternationalRoamingDataLimit != nil {
 		data.Set("InternationalRoamingDataLimit", fmt.Sprint(*params.InternationalRoamingDataLimit))

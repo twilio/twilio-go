@@ -1977,7 +1977,9 @@ func (c *DefaultApiService) ListTask(WorkspaceSid string, params *ListTaskParams
 		data.Set("Priority", fmt.Sprint(*params.Priority))
 	}
 	if params != nil && params.AssignmentStatus != nil {
-		data.Set("AssignmentStatus", strings.Join(*params.AssignmentStatus, ","))
+		for _, item := range *params.AssignmentStatus {
+			data.Add("AssignmentStatus", item)
+		}
 	}
 	if params != nil && params.WorkflowSid != nil {
 		data.Set("WorkflowSid", *params.WorkflowSid)
@@ -3158,7 +3160,9 @@ func (c *DefaultApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid s
 		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback)
 	}
 	if params != nil && params.ConferenceStatusCallbackEvent != nil {
-		data.Set("ConferenceStatusCallbackEvent", strings.Join(*params.ConferenceStatusCallbackEvent, ","))
+		for _, item := range *params.ConferenceStatusCallbackEvent {
+			data.Add("ConferenceStatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.ConferenceStatusCallbackMethod != nil {
 		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod)
@@ -3176,7 +3180,9 @@ func (c *DefaultApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid s
 		data.Set("DequeueRecord", *params.DequeueRecord)
 	}
 	if params != nil && params.DequeueStatusCallbackEvent != nil {
-		data.Set("DequeueStatusCallbackEvent", strings.Join(*params.DequeueStatusCallbackEvent, ","))
+		for _, item := range *params.DequeueStatusCallbackEvent {
+			data.Add("DequeueStatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.DequeueStatusCallbackUrl != nil {
 		data.Set("DequeueStatusCallbackUrl", *params.DequeueStatusCallbackUrl)
@@ -3251,7 +3257,9 @@ func (c *DefaultApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid s
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.StatusCallbackEvent != nil {
-		data.Set("StatusCallbackEvent", strings.Join(*params.StatusCallbackEvent, ","))
+		for _, item := range *params.StatusCallbackEvent {
+			data.Add("StatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
@@ -3766,7 +3774,9 @@ func (c *DefaultApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerS
 		data.Set("ConferenceStatusCallback", *params.ConferenceStatusCallback)
 	}
 	if params != nil && params.ConferenceStatusCallbackEvent != nil {
-		data.Set("ConferenceStatusCallbackEvent", strings.Join(*params.ConferenceStatusCallbackEvent, ","))
+		for _, item := range *params.ConferenceStatusCallbackEvent {
+			data.Add("ConferenceStatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.ConferenceStatusCallbackMethod != nil {
 		data.Set("ConferenceStatusCallbackMethod", *params.ConferenceStatusCallbackMethod)
@@ -3784,7 +3794,9 @@ func (c *DefaultApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerS
 		data.Set("DequeueRecord", *params.DequeueRecord)
 	}
 	if params != nil && params.DequeueStatusCallbackEvent != nil {
-		data.Set("DequeueStatusCallbackEvent", strings.Join(*params.DequeueStatusCallbackEvent, ","))
+		for _, item := range *params.DequeueStatusCallbackEvent {
+			data.Add("DequeueStatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.DequeueStatusCallbackUrl != nil {
 		data.Set("DequeueStatusCallbackUrl", *params.DequeueStatusCallbackUrl)
@@ -3859,7 +3871,9 @@ func (c *DefaultApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerS
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.StatusCallbackEvent != nil {
-		data.Set("StatusCallbackEvent", strings.Join(*params.StatusCallbackEvent, ","))
+		for _, item := range *params.StatusCallbackEvent {
+			data.Add("StatusCallbackEvent", item)
+		}
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)

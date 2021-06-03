@@ -332,10 +332,14 @@ func (c *DefaultApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryPar
 	headers := make(map[string]interface{})
 
 	if params != nil && params.RoomType != nil {
-		data.Set("RoomType", strings.Join(*params.RoomType, ","))
+		for _, item := range *params.RoomType {
+			data.Add("RoomType", item)
+		}
 	}
 	if params != nil && params.Codec != nil {
-		data.Set("Codec", strings.Join(*params.Codec, ","))
+		for _, item := range *params.Codec {
+			data.Add("Codec", item)
+		}
 	}
 	if params != nil && params.RoomName != nil {
 		data.Set("RoomName", *params.RoomName)

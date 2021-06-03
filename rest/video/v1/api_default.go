@@ -104,10 +104,14 @@ func (c *DefaultApiService) CreateComposition(params *CreateCompositionParams) (
 	headers := make(map[string]interface{})
 
 	if params != nil && params.AudioSources != nil {
-		data.Set("AudioSources", strings.Join(*params.AudioSources, ","))
+		for _, item := range *params.AudioSources {
+			data.Add("AudioSources", item)
+		}
 	}
 	if params != nil && params.AudioSourcesExcluded != nil {
-		data.Set("AudioSourcesExcluded", strings.Join(*params.AudioSourcesExcluded, ","))
+		for _, item := range *params.AudioSourcesExcluded {
+			data.Add("AudioSourcesExcluded", item)
+		}
 	}
 	if params != nil && params.Format != nil {
 		data.Set("Format", *params.Format)
@@ -224,10 +228,14 @@ func (c *DefaultApiService) CreateCompositionHook(params *CreateCompositionHookP
 	headers := make(map[string]interface{})
 
 	if params != nil && params.AudioSources != nil {
-		data.Set("AudioSources", strings.Join(*params.AudioSources, ","))
+		for _, item := range *params.AudioSources {
+			data.Add("AudioSources", item)
+		}
 	}
 	if params != nil && params.AudioSourcesExcluded != nil {
-		data.Set("AudioSourcesExcluded", strings.Join(*params.AudioSourcesExcluded, ","))
+		for _, item := range *params.AudioSourcesExcluded {
+			data.Add("AudioSourcesExcluded", item)
+		}
 	}
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
@@ -542,7 +550,9 @@ func (c *DefaultApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, 
 		data.Set("UniqueName", *params.UniqueName)
 	}
 	if params != nil && params.VideoCodecs != nil {
-		data.Set("VideoCodecs", strings.Join(*params.VideoCodecs, ","))
+		for _, item := range *params.VideoCodecs {
+			data.Add("VideoCodecs", item)
+		}
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -1115,7 +1125,9 @@ func (c *DefaultApiService) ListRecording(params *ListRecordingParams) (*ListRec
 		data.Set("SourceSid", *params.SourceSid)
 	}
 	if params != nil && params.GroupingSid != nil {
-		data.Set("GroupingSid", strings.Join(*params.GroupingSid, ","))
+		for _, item := range *params.GroupingSid {
+			data.Add("GroupingSid", item)
+		}
 	}
 	if params != nil && params.DateCreatedAfter != nil {
 		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
@@ -1514,10 +1526,14 @@ func (c *DefaultApiService) UpdateCompositionHook(Sid string, params *UpdateComp
 	headers := make(map[string]interface{})
 
 	if params != nil && params.AudioSources != nil {
-		data.Set("AudioSources", strings.Join(*params.AudioSources, ","))
+		for _, item := range *params.AudioSources {
+			data.Add("AudioSources", item)
+		}
 	}
 	if params != nil && params.AudioSourcesExcluded != nil {
-		data.Set("AudioSourcesExcluded", strings.Join(*params.AudioSourcesExcluded, ","))
+		for _, item := range *params.AudioSourcesExcluded {
+			data.Add("AudioSourcesExcluded", item)
+		}
 	}
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
