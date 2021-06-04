@@ -114,13 +114,17 @@ func (c *DefaultApiService) CreateBuild(ServiceSid string, params *CreateBuildPa
 	headers := make(map[string]interface{})
 
 	if params != nil && params.AssetVersions != nil {
-		data.Set("AssetVersions", strings.Join(*params.AssetVersions, ","))
+		for _, item := range *params.AssetVersions {
+			data.Add("AssetVersions", item)
+		}
 	}
 	if params != nil && params.Dependencies != nil {
 		data.Set("Dependencies", *params.Dependencies)
 	}
 	if params != nil && params.FunctionVersions != nil {
-		data.Set("FunctionVersions", strings.Join(*params.FunctionVersions, ","))
+		for _, item := range *params.FunctionVersions {
+			data.Add("FunctionVersions", item)
+		}
 	}
 	if params != nil && params.Runtime != nil {
 		data.Set("Runtime", *params.Runtime)

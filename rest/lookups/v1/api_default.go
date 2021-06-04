@@ -76,10 +76,14 @@ func (c *DefaultApiService) FetchPhoneNumber(PhoneNumber string, params *FetchPh
 		data.Set("CountryCode", *params.CountryCode)
 	}
 	if params != nil && params.Type != nil {
-		data.Set("Type", strings.Join(*params.Type, ","))
+		for _, item := range *params.Type {
+			data.Add("Type", item)
+		}
 	}
 	if params != nil && params.AddOns != nil {
-		data.Set("AddOns", strings.Join(*params.AddOns, ","))
+		for _, item := range *params.AddOns {
+			data.Add("AddOns", item)
+		}
 	}
 	if params != nil && params.AddOnsData != nil {
 		v, err := json.Marshal(params.AddOnsData)

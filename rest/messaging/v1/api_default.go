@@ -461,7 +461,9 @@ func (c *DefaultApiService) CreateUsAppToPerson(MessagingServiceSid string, para
 		data.Set("HasEmbeddedPhone", fmt.Sprint(*params.HasEmbeddedPhone))
 	}
 	if params != nil && params.MessageSamples != nil {
-		data.Set("MessageSamples", strings.Join(*params.MessageSamples, ","))
+		for _, item := range *params.MessageSamples {
+			data.Add("MessageSamples", item)
+		}
 	}
 	if params != nil && params.UsAppToPersonUsecase != nil {
 		data.Set("UsAppToPersonUsecase", *params.UsAppToPersonUsecase)

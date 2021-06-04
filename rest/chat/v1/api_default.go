@@ -375,7 +375,9 @@ func (c *DefaultApiService) CreateRole(ServiceSid string, params *CreateRolePara
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Permission != nil {
-		data.Set("Permission", strings.Join(*params.Permission, ","))
+		for _, item := range *params.Permission {
+			data.Add("Permission", item)
+		}
 	}
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
@@ -851,7 +853,9 @@ func (c *DefaultApiService) ListChannel(ServiceSid string, params *ListChannelPa
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Type != nil {
-		data.Set("Type", strings.Join(*params.Type, ","))
+		for _, item := range *params.Type {
+			data.Add("Type", item)
+		}
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -934,7 +938,9 @@ func (c *DefaultApiService) ListInvite(ServiceSid string, ChannelSid string, par
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", strings.Join(*params.Identity, ","))
+		for _, item := range *params.Identity {
+			data.Add("Identity", item)
+		}
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -981,7 +987,9 @@ func (c *DefaultApiService) ListMember(ServiceSid string, ChannelSid string, par
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", strings.Join(*params.Identity, ","))
+		for _, item := range *params.Identity {
+			data.Add("Identity", item)
+		}
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -1452,7 +1460,9 @@ func (c *DefaultApiService) UpdateRole(ServiceSid string, Sid string, params *Up
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Permission != nil {
-		data.Set("Permission", strings.Join(*params.Permission, ","))
+		for _, item := range *params.Permission {
+			data.Add("Permission", item)
+		}
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -1867,7 +1877,9 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 		data.Set("TypingIndicatorTimeout", fmt.Sprint(*params.TypingIndicatorTimeout))
 	}
 	if params != nil && params.WebhookFilters != nil {
-		data.Set("WebhookFilters", strings.Join(*params.WebhookFilters, ","))
+		for _, item := range *params.WebhookFilters {
+			data.Add("WebhookFilters", item)
+		}
 	}
 	if params != nil && params.WebhookMethod != nil {
 		data.Set("WebhookMethod", *params.WebhookMethod)

@@ -69,7 +69,9 @@ func (c *DefaultApiService) CreateMessageInteraction(ServiceSid string, SessionS
 		data.Set("Body", *params.Body)
 	}
 	if params != nil && params.MediaUrl != nil {
-		data.Set("MediaUrl", strings.Join(*params.MediaUrl, ","))
+		for _, item := range *params.MediaUrl {
+			data.Add("MediaUrl", item)
+		}
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

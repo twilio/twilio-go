@@ -245,7 +245,9 @@ func (c *DefaultApiService) CreateNetworkAccessProfile(params *CreateNetworkAcce
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Networks != nil {
-		data.Set("Networks", strings.Join(*params.Networks, ","))
+		for _, item := range *params.Networks {
+			data.Add("Networks", item)
+		}
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)

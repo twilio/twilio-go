@@ -981,7 +981,9 @@ func (c *DefaultApiService) CreateWebhook(ServiceSid string, params *CreateWebho
 	headers := make(map[string]interface{})
 
 	if params != nil && params.EventTypes != nil {
-		data.Set("EventTypes", strings.Join(*params.EventTypes, ","))
+		for _, item := range *params.EventTypes {
+			data.Add("EventTypes", item)
+		}
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
@@ -2314,7 +2316,9 @@ func (c *DefaultApiService) UpdateWebhook(ServiceSid string, Sid string, params 
 	headers := make(map[string]interface{})
 
 	if params != nil && params.EventTypes != nil {
-		data.Set("EventTypes", strings.Join(*params.EventTypes, ","))
+		for _, item := range *params.EventTypes {
+			data.Add("EventTypes", item)
+		}
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)

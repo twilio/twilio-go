@@ -417,7 +417,9 @@ func (c *DefaultApiService) CreateConversationScopedWebhook(ConversationSid stri
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
-		data.Set("Configuration.Filters", strings.Join(*params.ConfigurationFilters, ","))
+		for _, item := range *params.ConfigurationFilters {
+			data.Add("Configuration.Filters", item)
+		}
 	}
 	if params != nil && params.ConfigurationFlowSid != nil {
 		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
@@ -429,7 +431,9 @@ func (c *DefaultApiService) CreateConversationScopedWebhook(ConversationSid stri
 		data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
-		data.Set("Configuration.Triggers", strings.Join(*params.ConfigurationTriggers, ","))
+		for _, item := range *params.ConfigurationTriggers {
+			data.Add("Configuration.Triggers", item)
+		}
 	}
 	if params != nil && params.ConfigurationUrl != nil {
 		data.Set("Configuration.Url", *params.ConfigurationUrl)
@@ -578,7 +582,9 @@ func (c *DefaultApiService) CreateRole(params *CreateRoleParams) (*Conversations
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Permission != nil {
-		data.Set("Permission", strings.Join(*params.Permission, ","))
+		for _, item := range *params.Permission {
+			data.Add("Permission", item)
+		}
 	}
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
@@ -1019,7 +1025,9 @@ func (c *DefaultApiService) CreateServiceConversationScopedWebhook(ChatServiceSi
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
-		data.Set("Configuration.Filters", strings.Join(*params.ConfigurationFilters, ","))
+		for _, item := range *params.ConfigurationFilters {
+			data.Add("Configuration.Filters", item)
+		}
 	}
 	if params != nil && params.ConfigurationFlowSid != nil {
 		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
@@ -1031,7 +1039,9 @@ func (c *DefaultApiService) CreateServiceConversationScopedWebhook(ChatServiceSi
 		data.Set("Configuration.ReplayAfter", fmt.Sprint(*params.ConfigurationReplayAfter))
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
-		data.Set("Configuration.Triggers", strings.Join(*params.ConfigurationTriggers, ","))
+		for _, item := range *params.ConfigurationTriggers {
+			data.Add("Configuration.Triggers", item)
+		}
 	}
 	if params != nil && params.ConfigurationUrl != nil {
 		data.Set("Configuration.Url", *params.ConfigurationUrl)
@@ -1090,7 +1100,9 @@ func (c *DefaultApiService) CreateServiceRole(ChatServiceSid string, params *Cre
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Permission != nil {
-		data.Set("Permission", strings.Join(*params.Permission, ","))
+		for _, item := range *params.Permission {
+			data.Add("Permission", item)
+		}
 	}
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
@@ -2494,10 +2506,14 @@ func (c *DefaultApiService) ListServiceBinding(ChatServiceSid string, params *Li
 	headers := make(map[string]interface{})
 
 	if params != nil && params.BindingType != nil {
-		data.Set("BindingType", strings.Join(*params.BindingType, ","))
+		for _, item := range *params.BindingType {
+			data.Add("BindingType", item)
+		}
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", strings.Join(*params.Identity, ","))
+		for _, item := range *params.Identity {
+			data.Add("Identity", item)
+		}
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
@@ -2932,7 +2948,9 @@ func (c *DefaultApiService) UpdateConfigurationWebhook(params *UpdateConfigurati
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Filters != nil {
-		data.Set("Filters", strings.Join(*params.Filters, ","))
+		for _, item := range *params.Filters {
+			data.Add("Filters", item)
+		}
 	}
 	if params != nil && params.Method != nil {
 		data.Set("Method", *params.Method)
@@ -3333,7 +3351,9 @@ func (c *DefaultApiService) UpdateConversationScopedWebhook(ConversationSid stri
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
-		data.Set("Configuration.Filters", strings.Join(*params.ConfigurationFilters, ","))
+		for _, item := range *params.ConfigurationFilters {
+			data.Add("Configuration.Filters", item)
+		}
 	}
 	if params != nil && params.ConfigurationFlowSid != nil {
 		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
@@ -3342,7 +3362,9 @@ func (c *DefaultApiService) UpdateConversationScopedWebhook(ConversationSid stri
 		data.Set("Configuration.Method", *params.ConfigurationMethod)
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
-		data.Set("Configuration.Triggers", strings.Join(*params.ConfigurationTriggers, ","))
+		for _, item := range *params.ConfigurationTriggers {
+			data.Add("Configuration.Triggers", item)
+		}
 	}
 	if params != nil && params.ConfigurationUrl != nil {
 		data.Set("Configuration.Url", *params.ConfigurationUrl)
@@ -3475,7 +3497,9 @@ func (c *DefaultApiService) UpdateRole(Sid string, params *UpdateRoleParams) (*C
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Permission != nil {
-		data.Set("Permission", strings.Join(*params.Permission, ","))
+		for _, item := range *params.Permission {
+			data.Add("Permission", item)
+		}
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -3933,7 +3957,9 @@ func (c *DefaultApiService) UpdateServiceConversationScopedWebhook(ChatServiceSi
 	headers := make(map[string]interface{})
 
 	if params != nil && params.ConfigurationFilters != nil {
-		data.Set("Configuration.Filters", strings.Join(*params.ConfigurationFilters, ","))
+		for _, item := range *params.ConfigurationFilters {
+			data.Add("Configuration.Filters", item)
+		}
 	}
 	if params != nil && params.ConfigurationFlowSid != nil {
 		data.Set("Configuration.FlowSid", *params.ConfigurationFlowSid)
@@ -3942,7 +3968,9 @@ func (c *DefaultApiService) UpdateServiceConversationScopedWebhook(ChatServiceSi
 		data.Set("Configuration.Method", *params.ConfigurationMethod)
 	}
 	if params != nil && params.ConfigurationTriggers != nil {
-		data.Set("Configuration.Triggers", strings.Join(*params.ConfigurationTriggers, ","))
+		for _, item := range *params.ConfigurationTriggers {
+			data.Add("Configuration.Triggers", item)
+		}
 	}
 	if params != nil && params.ConfigurationUrl != nil {
 		data.Set("Configuration.Url", *params.ConfigurationUrl)
@@ -4112,7 +4140,9 @@ func (c *DefaultApiService) UpdateServiceRole(ChatServiceSid string, Sid string,
 	headers := make(map[string]interface{})
 
 	if params != nil && params.Permission != nil {
-		data.Set("Permission", strings.Join(*params.Permission, ","))
+		for _, item := range *params.Permission {
+			data.Add("Permission", item)
+		}
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

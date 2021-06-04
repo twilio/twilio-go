@@ -110,7 +110,9 @@ func (c *DefaultApiService) CreateBinding(ServiceSid string, params *CreateBindi
 		data.Set("NotificationProtocolVersion", *params.NotificationProtocolVersion)
 	}
 	if params != nil && params.Tag != nil {
-		data.Set("Tag", strings.Join(*params.Tag, ","))
+		for _, item := range *params.Tag {
+			data.Add("Tag", item)
+		}
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
@@ -402,13 +404,17 @@ func (c *DefaultApiService) CreateNotification(ServiceSid string, params *Create
 		data.Set("Gcm", string(v))
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", strings.Join(*params.Identity, ","))
+		for _, item := range *params.Identity {
+			data.Add("Identity", item)
+		}
 	}
 	if params != nil && params.Priority != nil {
 		data.Set("Priority", *params.Priority)
 	}
 	if params != nil && params.Segment != nil {
-		data.Set("Segment", strings.Join(*params.Segment, ","))
+		for _, item := range *params.Segment {
+			data.Add("Segment", item)
+		}
 	}
 	if params != nil && params.Sms != nil {
 		v, err := json.Marshal(params.Sms)
@@ -423,13 +429,17 @@ func (c *DefaultApiService) CreateNotification(ServiceSid string, params *Create
 		data.Set("Sound", *params.Sound)
 	}
 	if params != nil && params.Tag != nil {
-		data.Set("Tag", strings.Join(*params.Tag, ","))
+		for _, item := range *params.Tag {
+			data.Add("Tag", item)
+		}
 	}
 	if params != nil && params.Title != nil {
 		data.Set("Title", *params.Title)
 	}
 	if params != nil && params.ToBinding != nil {
-		data.Set("ToBinding", strings.Join(*params.ToBinding, ","))
+		for _, item := range *params.ToBinding {
+			data.Add("ToBinding", item)
+		}
 	}
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
@@ -771,10 +781,14 @@ func (c *DefaultApiService) ListBinding(ServiceSid string, params *ListBindingPa
 		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
 	if params != nil && params.Identity != nil {
-		data.Set("Identity", strings.Join(*params.Identity, ","))
+		for _, item := range *params.Identity {
+			data.Add("Identity", item)
+		}
 	}
 	if params != nil && params.Tag != nil {
-		data.Set("Tag", strings.Join(*params.Tag, ","))
+		for _, item := range *params.Tag {
+			data.Add("Tag", item)
+		}
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
