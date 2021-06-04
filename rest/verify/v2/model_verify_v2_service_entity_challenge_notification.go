@@ -27,12 +27,12 @@ type VerifyV2ServiceEntityChallengeNotification struct {
 	EntitySid *string `json:"entity_sid,omitempty"`
 	// Unique external identifier of the Entity
 	Identity *string `json:"identity,omitempty"`
-	// The priority of the Notification.
+	// The priority of the notification.
 	Priority *string `json:"priority,omitempty"`
 	// Service Sid.
 	ServiceSid *string `json:"service_sid,omitempty"`
 	// A string that uniquely identifies this Notification.
 	Sid *string `json:"sid,omitempty"`
-	// How long, in seconds, the Notification is valid.
+	// How long, in seconds, the notification is valid.
 	Ttl *int32 `json:"ttl,omitempty"`
 }

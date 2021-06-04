@@ -135,17 +135,17 @@ func (c *DefaultApiService) CreateBucket(ServiceSid string, RateLimitSid string,
 
 // Optional parameters for the method 'CreateChallenge'
 type CreateChallengeParams struct {
-	// Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified.
+	// Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
 	AuthPayload *string `json:"AuthPayload,omitempty"`
-	// A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field. Used when `factor_type` is `push`.
+	// A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
 	DetailsFields *[]map[string]interface{} `json:"Details.Fields,omitempty"`
-	// Shown to the user when the push notification arrives. Required when `factor_type` is `push`
+	// Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length
 	DetailsMessage *string `json:"Details.Message,omitempty"`
 	// The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
 	ExpirationDate *time.Time `json:"ExpirationDate,omitempty"`
 	// The unique SID identifier of the Factor.
 	FactorSid *string `json:"FactorSid,omitempty"`
-	// Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`
+	// Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
 	HiddenDetails *map[string]interface{} `json:"HiddenDetails,omitempty"`
 }
 
@@ -463,7 +463,7 @@ func (c *DefaultApiService) CreateNewFactor(ServiceSid string, Identity string, 
 
 // Optional parameters for the method 'CreateNotification'
 type CreateNotificationParams struct {
-	// How long, in seconds, the Notification is valid. Delivery will be attempted if the device is offline until the TTL elapses. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. Must be an integer between 0 and 300 seconds, inclusive. Defaults to 300 seconds.
+	// How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
 	Ttl *int32 `json:"Ttl,omitempty"`
 }
 
@@ -1847,7 +1847,7 @@ func (c *DefaultApiService) UpdateBucket(ServiceSid string, RateLimitSid string,
 
 // Optional parameters for the method 'UpdateChallenge'
 type UpdateChallengeParams struct {
-	// The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code.
+	// The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
 	AuthPayload *string `json:"AuthPayload,omitempty"`
 }
 
