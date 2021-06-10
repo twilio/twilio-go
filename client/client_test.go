@@ -2,8 +2,10 @@ package client_test
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"testing"
 	"time"
 
@@ -35,7 +37,7 @@ func TestClient_SendRequestError(t *testing.T) {
 	defer mockServer.Close()
 
 	client := NewClient("user", "pass")
-	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := client.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
 	twilioError := err.(*twilio.TwilioRestError)
 	assert.Nil(t, resp)
 	assert.Equal(t, 400, twilioError.Status)
@@ -63,7 +65,7 @@ func TestClient_SendRequestErrorWithDetails(t *testing.T) {
 	defer mockServer.Close()
 
 	client := NewClient("user", "pass")
-	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := client.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
 	twilioError := err.(*twilio.TwilioRestError)
 	details := make(map[string]interface{})
 	details["foo"] = "bar"
@@ -84,7 +86,7 @@ func TestClient_SendRequestWithRedirect(t *testing.T) {
 	defer mockServer.Close()
 
 	client := NewClient("user", "pass")
-	resp, _ := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, _ := client.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
 	assert.Equal(t, 307, resp.StatusCode)
 }
 
@@ -106,7 +108,7 @@ func TestClient_SetTimeoutTimesOut(t *testing.T) {
 
 	client := NewClient("user", "pass")
 	client.SetTimeout(10 * time.Microsecond)
-	_, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	_, err := client.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
 	assert.Error(t, err)
 }
 
@@ -127,7 +129,7 @@ func TestClient_SetTimeoutSucceeds(t *testing.T) {
 
 	client := NewClient("user", "pass")
 	client.SetTimeout(10 * time.Second)
-	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := client.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
 	assert.NoError(t, err)
 	assert.Equal(t, 200, resp.StatusCode)
 }
@@ -151,7 +153,119 @@ func TestClient_SetTimeoutCreatesClient(t *testing.T) {
 		Credentials: twilio.NewCredentials("user", "pass"),
 	}
 	client.SetTimeout(20 * time.Second)
-	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := client.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
 	assert.NoError(t, err)
 	assert.Equal(t, 200, resp.StatusCode)
+}
+
+func TestClient_RequestBodyShouldContainJson(t *testing.T) {
+	mockServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			bytes, err := ioutil.ReadAll(request.Body)
+			assert.NoError(t, err)
+			assert.Equal(t, `{"account_sid":"ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","chat_service_instance_sid":"ISxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}`, string(bytes))
+
+			writer.WriteHeader(200)
+		}),
+	)
+	defer mockServer.Close()
+
+	client := &twilio.Client{
+		Credentials: twilio.NewCredentials("user", "pass"),
+	}
+
+	headers := map[string]interface{}{
+		"Content-Type": "application/json",
+	}
+	body := map[string]interface{}{
+		"account_sid":               "ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+		"chat_service_instance_sid": "ISxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+	}
+
+	resp, err := client.SendRequest("POST", mockServer.URL, body, headers) //nolint:bodyclose
+	assert.NoError(t, err)
+	assert.Equal(t, 200, resp.StatusCode)
+	// Request body is asserted in the mock server. This can't be asserted here because the body has been consumed and will be nil
+}
+
+func TestClient_RequestBodyShouldContainFormData(t *testing.T) {
+	mockServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			bytes, err := ioutil.ReadAll(request.Body)
+			assert.NoError(t, err)
+			assert.Equal(t, "AccountSid=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&ChatServiceInstanceSid=ISxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", string(bytes))
+
+			writer.WriteHeader(200)
+		}),
+	)
+	defer mockServer.Close()
+
+	client := &twilio.Client{
+		Credentials: twilio.NewCredentials("user", "pass"),
+	}
+
+	headers := map[string]interface{}{
+		"Content-Type": "application/x-www-form-urlencoded",
+	}
+	body := url.Values{
+		"AccountSid":             []string{"ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
+		"ChatServiceInstanceSid": []string{"ISxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
+	}
+
+	resp, err := client.SendRequest("POST", mockServer.URL, body, headers) //nolint:bodyclose
+	assert.NoError(t, err)
+	assert.Equal(t, 200, resp.StatusCode)
+	// Request body is asserted in the mock server. This can't be asserted here because the body has been consumed and will be nil
+}
+
+func TestClient_ShouldThrowErrorWhenNoContentTypeHeaderIsPresentOnAPostRequest(t *testing.T) {
+	mockServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			writer.WriteHeader(400) // This shouldn't be hit as an error should have already been returned
+		}),
+	)
+	defer mockServer.Close()
+
+	client := &twilio.Client{
+		Credentials: twilio.NewCredentials("user", "pass"),
+	}
+
+	headers := map[string]interface{}{}
+	body := url.Values{
+		"account_sid":               []string{"ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
+		"chat_service_instance_sid": []string{"ISxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"},
+	}
+
+	_, err := client.SendRequest("POST", mockServer.URL, body, headers) //nolint:bodyclose
+	assert.EqualError(t, err, "the 'Content-Type' header must be set on a POST request")
+}
+
+func TestClient_ShouldMakeGetRequestWithQueryStringParams(t *testing.T) {
+	mockServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			d := map[string]interface{}{
+				"sid":          "ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+				"status":       "closed",
+				"date_updated": "2021-06-01T12:00:00Z",
+			}
+			encoder := json.NewEncoder(writer)
+			err := encoder.Encode(&d)
+			if err != nil {
+				t.Error(err)
+			}
+		}))
+	defer mockServer.Close()
+
+	client := &twilio.Client{
+		Credentials: twilio.NewCredentials("user", "pass"),
+	}
+
+	queryParams := url.Values{
+		"status": []string{"closed"},
+	}
+
+	resp, err := client.SendRequest("GET", mockServer.URL, queryParams, nil) //nolint:bodyclose
+	assert.NoError(t, err)
+	assert.Equal(t, 200, resp.StatusCode)
+	assert.Equal(t, resp.Request.URL.RawQuery, "status=closed")
 }

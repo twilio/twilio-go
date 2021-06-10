@@ -1,6 +1,10 @@
 package client_test
 
 import (
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -46,4 +50,97 @@ func TestRequestHandler_BuildUrlSetEdgeRegion(t *testing.T) {
 func TestRequestHandler_BuildHostRawHostWithoutPeriods(t *testing.T) {
 	requestHandler := NewRequestHandler("user", "pass")
 	assert.Equal(t, "https://prism_twilio:4010", requestHandler.BuildUrl("https://prism_twilio:4010"))
+}
+
+func TestRequestHandler_Post(t *testing.T) {
+	mockServer := newMockServer(t)
+	defer mockServer.Close()
+
+	body := url.Values{
+		"priority": []string{"1"},
+	}
+	headers := map[string]interface{}{}
+
+	requestHandler := NewRequestHandler("user", "pass")
+	resp, err := requestHandler.Post(mockServer.URL, body, headers)
+
+	assert.Nil(t, err)
+	assert.Equal(t, "POST", resp.Request.Method)
+	assert.Equal(t, "application/x-www-form-urlencoded", resp.Request.Header.Get("Content-Type"))
+}
+
+func TestRequestHandler_PostJson(t *testing.T) {
+	mockServer := newMockServer(t)
+	defer mockServer.Close()
+
+	body := map[string]interface{}{
+		"priority": 1,
+	}
+	headers := map[string]interface{}{}
+
+	requestHandler := NewRequestHandler("user", "pass")
+	resp, err := requestHandler.PostJson(mockServer.URL, body, headers)
+
+	assert.NoError(t, err)
+	assert.Equal(t, "POST", resp.Request.Method)
+	assert.Equal(t, "application/json", resp.Request.Header.Get("Content-Type"))
+}
+
+func TestRequestHandler_Get(t *testing.T) {
+	mockServer := newMockServer(t)
+	defer mockServer.Close()
+
+	headers := map[string]interface{}{}
+
+	requestHandler := NewRequestHandler("user", "pass")
+	resp, err := requestHandler.Get(mockServer.URL, nil, headers)
+
+	assert.NoError(t, err)
+	assert.Equal(t, "GET", resp.Request.Method)
+	assert.Equal(t, "", resp.Request.URL.RawQuery)
+	assert.Equal(t, "", resp.Request.Header.Get("Content-Type"))
+}
+
+func TestRequestHandler_GetWithQueryData(t *testing.T) {
+	mockServer := newMockServer(t)
+	defer mockServer.Close()
+
+	headers := map[string]interface{}{}
+	queryData := url.Values{
+		"status": []string{"closed"},
+	}
+
+	requestHandler := NewRequestHandler("user", "pass")
+	resp, err := requestHandler.Get(mockServer.URL, queryData, headers)
+
+	assert.NoError(t, err)
+	assert.Equal(t, "GET", resp.Request.Method)
+	assert.Equal(t, "status=closed", resp.Request.URL.RawQuery)
+	assert.Equal(t, "", resp.Request.Header.Get("Content-Type"))
+}
+
+func TestRequestHandler_Delete(t *testing.T) {
+	mockServer := newMockServer(t)
+	defer mockServer.Close()
+
+	headers := map[string]interface{}{}
+
+	requestHandler := NewRequestHandler("user", "pass")
+	resp, err := requestHandler.Delete(mockServer.URL, nil, headers)
+
+	assert.NoError(t, err)
+	assert.Equal(t, resp.Request.Method, "DELETE")
+	assert.Equal(t, "", resp.Request.Header.Get("Content-Type"))
+}
+
+func newMockServer(t *testing.T) *httptest.Server {
+	return httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			data := map[string]interface{}{
+				"response": "ok",
+			}
+			if err := json.NewEncoder(writer).Encode(&data); err != nil {
+				t.Error(err)
+			}
+		}))
 }

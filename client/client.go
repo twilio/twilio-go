@@ -2,10 +2,13 @@
 package client
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"regexp"
 	"runtime"
 	"strconv"
@@ -85,15 +88,20 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 	return res, nil
 }
 
+const (
+	contentTypeHeader = "Content-Type"
+	jsonContentType   = "application/json"
+	formContentType   = "application/x-www-form-urlencoded"
+)
+
 // SendRequest verifies, constructs, and authorizes an HTTP request.
-func (c *Client) SendRequest(method string, rawURL string, data url.Values,
+func (c *Client) SendRequest(method string, rawURL string, data interface{},
 	headers map[string]interface{}) (*http.Response, error) {
 	u, err := url.Parse(rawURL)
 	if err != nil {
 		return nil, err
 	}
 
-	valueReader := &strings.Reader{}
 	goVersion := runtime.Version()
 
 	if method == http.MethodGet {
@@ -104,8 +112,17 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 		u.RawQuery = s
 	}
 
+	var valueReader io.Reader
 	if method == http.MethodPost {
-		valueReader = strings.NewReader(data.Encode())
+		if headers == nil || headers[contentTypeHeader] == nil {
+			return nil, fmt.Errorf("the '%s' header must be set on a POST request", contentTypeHeader)
+		}
+
+		requestBody, err := requestBodyToReader(headers[contentTypeHeader].(string), data)
+		if err != nil {
+			return nil, err
+		}
+		valueReader = requestBody
 	}
 
 	req, err := http.NewRequest(method, u.String(), valueReader)
@@ -119,15 +136,35 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	userAgent := fmt.Sprint("twilio-go/", LibraryVersion, " (", goVersion, ")")
 	req.Header.Add("User-Agent", userAgent)
 
-	if method == http.MethodPost {
-		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	}
-
 	for k, v := range headers {
 		req.Header.Add(k, fmt.Sprint(v))
 	}
 
 	return c.doWithErr(req)
+}
+
+func requestBodyToReader(contentTypeHeaderValue string, data interface{}) (io.Reader, error) {
+	kind := reflect.ValueOf(data).Kind()
+
+	if contentTypeHeaderValue == formContentType {
+		if v, ok := data.(url.Values); ok {
+			return strings.NewReader(v.Encode()), nil
+		}
+		return nil, fmt.Errorf("expected data to be of type url.Values for '%s' but got %s", formContentType, kind)
+	}
+
+	if contentTypeHeaderValue == jsonContentType {
+		if kind == reflect.Struct || kind == reflect.Map || kind == reflect.Slice {
+			body, err := json.Marshal(data)
+			if err != nil {
+				return nil, err
+			}
+			return bytes.NewBuffer(body), nil
+		}
+		return nil, fmt.Errorf("expected data to be either a struct, map or slice for '%s' but got %s", jsonContentType, kind)
+	}
+
+	return nil, fmt.Errorf("%s is not a supported media type", contentTypeHeaderValue)
 }
 
 // SetAccountSid sets the Client's accountSid field
