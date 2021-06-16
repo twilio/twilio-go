@@ -15,6 +15,7 @@ import (
 	EventsV1 "github.com/twilio/twilio-go/rest/events/v1"
 	FaxV1 "github.com/twilio/twilio-go/rest/fax/v1"
 	FlexV1 "github.com/twilio/twilio-go/rest/flex/v1"
+	FrontlineV1 "github.com/twilio/twilio-go/rest/frontline/v1"
 	InsightsV1 "github.com/twilio/twilio-go/rest/insights/v1"
 	IpMessagingV1 "github.com/twilio/twilio-go/rest/ip_messaging/v1"
 	IpMessagingV2 "github.com/twilio/twilio-go/rest/ip_messaging/v2"
@@ -53,6 +54,7 @@ type RestClient struct {
 	EventsV1        *EventsV1.DefaultApiService
 	FaxV1           *FaxV1.DefaultApiService
 	FlexV1          *FlexV1.DefaultApiService
+	FrontlineV1     *FrontlineV1.DefaultApiService
 	InsightsV1      *InsightsV1.DefaultApiService
 	IpMessagingV1   *IpMessagingV1.DefaultApiService
 	IpMessagingV2   *IpMessagingV2.DefaultApiService
@@ -126,6 +128,7 @@ func NewRestClientWithParams(username string, password string, params RestClient
 	c.EventsV1 = EventsV1.NewDefaultApiService(c.RequestHandler)
 	c.FaxV1 = FaxV1.NewDefaultApiService(c.RequestHandler)
 	c.FlexV1 = FlexV1.NewDefaultApiService(c.RequestHandler)
+	c.FrontlineV1 = FrontlineV1.NewDefaultApiService(c.RequestHandler)
 	c.InsightsV1 = InsightsV1.NewDefaultApiService(c.RequestHandler)
 	c.IpMessagingV1 = IpMessagingV1.NewDefaultApiService(c.RequestHandler)
 	c.IpMessagingV2 = IpMessagingV2.NewDefaultApiService(c.RequestHandler)

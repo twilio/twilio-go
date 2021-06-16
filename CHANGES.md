@@ -1,5 +1,18 @@
 twilio-go changelog
 ====================
+[2021-06-16] Version 0.10.0
+---------------------------
+**Library - Fix**
+- [PR #82](https://github.com/twilio/twilio-go/pull/82): array type template. Thanks to [@shamigor](https://github.com/shamigor)!
+
+**Api**
+- Update `status` enum for Messages to include 'canceled'
+- Update `update_status` enum for Messages to include 'canceled'
+
+**Trusthub**
+- Corrected the sid for policy sid in customer_profile_evaluation.json and trust_product_evaluation.json **(breaking change)**
+
+
 [2021-06-02] Version 0.9.0
 --------------------------
 **Library - Docs**
