@@ -246,10 +246,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -297,10 +294,7 @@ Create a new application within your account
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -354,10 +348,7 @@ Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client con
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -430,10 +421,7 @@ Create a FeedbackSummary resource for a call
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -526,10 +514,7 @@ Purchase a phone-number for the account.
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -634,10 +619,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -697,10 +679,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -760,10 +739,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -825,10 +801,7 @@ Send a message from the account used to make the request
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -923,10 +896,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -966,10 +936,7 @@ Create a new Signing Key for the account making the request.
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -1147,10 +1114,7 @@ Create a queue
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -1368,10 +1332,7 @@ Create a Credential List
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -1455,10 +1416,7 @@ Create a new Domain
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -1510,10 +1468,7 @@ Create a new IpAccessControlList resource
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -1643,10 +1598,7 @@ Create a new token for ICE servers
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -1686,10 +1638,7 @@ Create a new UsageTrigger
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -1733,10 +1682,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -3373,10 +3319,7 @@ Fetch the balance for an Account based on Account Sid. Balance changes may not b
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -5057,10 +5000,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -5103,10 +5043,7 @@ Retrieve a list of applications representing an application within the requestin
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -5147,10 +5084,7 @@ Retrieve a list of authorized-connect-apps belonging to the account used to make
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -5188,10 +5122,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -5651,10 +5582,7 @@ Retrieves a collection of calls made to and from your account
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -5841,10 +5769,7 @@ Retrieve a list of conferences belonging to the account used to make the request
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -5939,10 +5864,7 @@ Retrieve a list of connect-apps belonging to the account used to make the reques
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -6024,10 +5946,7 @@ Retrieve a list of incoming-phone-numbers belonging to the account used to make 
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -6158,10 +6077,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -6203,10 +6119,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -6248,10 +6161,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -6293,10 +6203,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -6427,10 +6334,7 @@ Retrieve a list of messages belonging to the account used to make the request
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -6475,10 +6379,7 @@ Retrieve a list of notifications belonging to the account used to make the reque
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -6522,10 +6423,7 @@ Retrieve a list of outgoing-caller-ids belonging to the account used to make the
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -6614,10 +6512,7 @@ Retrieve a list of queues belonging to the account used to make the request
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -6657,10 +6552,7 @@ Retrieve a list of recordings belonging to the account used to make the request
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -6836,10 +6728,7 @@ Retrieve a list of short-codes belonging to the account used to make the request
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -6879,10 +6768,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7098,10 +6984,7 @@ Get All Credential Lists
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7185,10 +7068,7 @@ Retrieve a list of domains belonging to the account used to make the request
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7228,10 +7108,7 @@ Retrieve a list of IpAccessControlLists that belong to the account used to make 
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7359,10 +7236,7 @@ Retrieve a list of transcriptions belonging to the account used to make the requ
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7402,10 +7276,7 @@ Retrieve a list of usage-records belonging to the account used to make the reque
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7447,10 +7318,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7492,10 +7360,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7537,10 +7402,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7582,10 +7444,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7627,10 +7486,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7672,10 +7528,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7717,10 +7570,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7762,10 +7612,7 @@ Name | Type | Description
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
@@ -7809,10 +7656,7 @@ Retrieve a list of usage-triggers belonging to the account used to make the requ
 
 ### Path Parameters
 
-
-Name | Type | Description
-------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+This endpoint does not need any path parameter.
 
 ### Other Parameters
 
