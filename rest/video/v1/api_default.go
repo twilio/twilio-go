@@ -450,7 +450,7 @@ type CreateRoomParams struct {
 	// Deprecated, now always considered to be true.
 	EnableTurn *bool `json:"EnableTurn,omitempty"`
 	// The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
-	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
+	MaxParticipants *int `json:"MaxParticipants,omitempty"`
 	// The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
 	MediaRegion *string `json:"MediaRegion,omitempty"`
 	// Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
@@ -473,7 +473,7 @@ func (params *CreateRoomParams) SetEnableTurn(EnableTurn bool) *CreateRoomParams
 	params.EnableTurn = &EnableTurn
 	return params
 }
-func (params *CreateRoomParams) SetMaxParticipants(MaxParticipants int32) *CreateRoomParams {
+func (params *CreateRoomParams) SetMaxParticipants(MaxParticipants int) *CreateRoomParams {
 	params.MaxParticipants = &MaxParticipants
 	return params
 }
@@ -929,7 +929,7 @@ type ListCompositionParams struct {
 	// Read only Composition resources with this Room SID.
 	RoomSid *string `json:"RoomSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListCompositionParams) SetStatus(Status string) *ListCompositionParams {
@@ -948,7 +948,7 @@ func (params *ListCompositionParams) SetRoomSid(RoomSid string) *ListComposition
 	params.RoomSid = &RoomSid
 	return params
 }
-func (params *ListCompositionParams) SetPageSize(PageSize int32) *ListCompositionParams {
+func (params *ListCompositionParams) SetPageSize(PageSize int) *ListCompositionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1002,7 +1002,7 @@ type ListCompositionHookParams struct {
 	// Read only CompositionHook resources with friendly names that match this string. The match is not case sensitive and can include asterisk `*` characters as wildcard match.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListCompositionHookParams) SetEnabled(Enabled bool) *ListCompositionHookParams {
@@ -1021,7 +1021,7 @@ func (params *ListCompositionHookParams) SetFriendlyName(FriendlyName string) *L
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListCompositionHookParams) SetPageSize(PageSize int32) *ListCompositionHookParams {
+func (params *ListCompositionHookParams) SetPageSize(PageSize int) *ListCompositionHookParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1079,7 +1079,7 @@ type ListRecordingParams struct {
 	// Read only recordings that have this media type. Can be either `audio` or `video`.
 	MediaType *string `json:"MediaType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListRecordingParams) SetStatus(Status string) *ListRecordingParams {
@@ -1106,7 +1106,7 @@ func (params *ListRecordingParams) SetMediaType(MediaType string) *ListRecording
 	params.MediaType = &MediaType
 	return params
 }
-func (params *ListRecordingParams) SetPageSize(PageSize int32) *ListRecordingParams {
+func (params *ListRecordingParams) SetPageSize(PageSize int) *ListRecordingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1168,7 +1168,7 @@ type ListRoomParams struct {
 	// Read only rooms that started before this date, given as `YYYY-MM-DD`.
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListRoomParams) SetStatus(Status string) *ListRoomParams {
@@ -1187,7 +1187,7 @@ func (params *ListRoomParams) SetDateCreatedBefore(DateCreatedBefore time.Time) 
 	params.DateCreatedBefore = &DateCreatedBefore
 	return params
 }
-func (params *ListRoomParams) SetPageSize(PageSize int32) *ListRoomParams {
+func (params *ListRoomParams) SetPageSize(PageSize int) *ListRoomParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1240,7 +1240,7 @@ type ListRoomParticipantParams struct {
 	// Read only Participants that started before this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListRoomParticipantParams) SetStatus(Status string) *ListRoomParticipantParams {
@@ -1259,7 +1259,7 @@ func (params *ListRoomParticipantParams) SetDateCreatedBefore(DateCreatedBefore 
 	params.DateCreatedBefore = &DateCreatedBefore
 	return params
 }
-func (params *ListRoomParticipantParams) SetPageSize(PageSize int32) *ListRoomParticipantParams {
+func (params *ListRoomParticipantParams) SetPageSize(PageSize int) *ListRoomParticipantParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1305,10 +1305,10 @@ func (c *DefaultApiService) ListRoomParticipant(RoomSid string, params *ListRoom
 // Optional parameters for the method 'ListRoomParticipantPublishedTrack'
 type ListRoomParticipantPublishedTrackParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListRoomParticipantPublishedTrackParams) SetPageSize(PageSize int32) *ListRoomParticipantPublishedTrackParams {
+func (params *ListRoomParticipantPublishedTrackParams) SetPageSize(PageSize int) *ListRoomParticipantPublishedTrackParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1344,10 +1344,10 @@ func (c *DefaultApiService) ListRoomParticipantPublishedTrack(RoomSid string, Pa
 // Optional parameters for the method 'ListRoomParticipantSubscribedTrack'
 type ListRoomParticipantSubscribedTrackParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListRoomParticipantSubscribedTrackParams) SetPageSize(PageSize int32) *ListRoomParticipantSubscribedTrackParams {
+func (params *ListRoomParticipantSubscribedTrackParams) SetPageSize(PageSize int) *ListRoomParticipantSubscribedTrackParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1391,7 +1391,7 @@ type ListRoomRecordingParams struct {
 	// Read only Recordings that started before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListRoomRecordingParams) SetStatus(Status string) *ListRoomRecordingParams {
@@ -1410,7 +1410,7 @@ func (params *ListRoomRecordingParams) SetDateCreatedBefore(DateCreatedBefore ti
 	params.DateCreatedBefore = &DateCreatedBefore
 	return params
 }
-func (params *ListRoomRecordingParams) SetPageSize(PageSize int32) *ListRoomRecordingParams {
+func (params *ListRoomRecordingParams) SetPageSize(PageSize int) *ListRoomRecordingParams {
 	params.PageSize = &PageSize
 	return params
 }

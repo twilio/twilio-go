@@ -134,7 +134,7 @@ Name | Type | Description
 **ConfigurationFilters** | **[]string** | The events that cause us to call the Channel Webhook. Used when &#x60;type&#x60; is &#x60;webhook&#x60;. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
 **ConfigurationFlowSid** | **string** | The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in &#x60;configuration.filters&#x60; occurs. Used only when &#x60;type&#x60; is &#x60;studio&#x60;.
 **ConfigurationMethod** | **string** | The HTTP method used to call &#x60;configuration.url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;.
-**ConfigurationRetryCount** | **int32** | The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+**ConfigurationRetryCount** | **int** | The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
 **ConfigurationTriggers** | **[]string** | A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when &#x60;type&#x60; &#x3D; &#x60;trigger&#x60;.
 **ConfigurationUrl** | **string** | The URL of the webhook to call using the &#x60;configuration.method&#x60;.
 **Type** | **string** | The type of webhook. Can be: &#x60;webhook&#x60;, &#x60;studio&#x60;, or &#x60;trigger&#x60;.
@@ -270,7 +270,7 @@ Name | Type | Description
 **DateCreated** | **time.Time** | The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this parameter should only be used when a Member is being recreated from a backup/separate source.
 **DateUpdated** | **time.Time** | The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated. The default value is &#x60;null&#x60;. Note that this parameter should only be used when a Member is being recreated from a backup/separate source and where a Member was previously updated.
 **Identity** | **string** | The &#x60;identity&#x60; value that uniquely identifies the new resource&#39;s [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
-**LastConsumedMessageIndex** | **int32** | The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read. This parameter should only be used when recreating a Member from a backup/separate source.
+**LastConsumedMessageIndex** | **int** | The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read. This parameter should only be used when recreating a Member from a backup/separate source.
 **LastConsumptionTimestamp** | **time.Time** | The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 **RoleSid** | **string** | The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/rest/service-resource).
 
@@ -1486,7 +1486,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **BindingType** | **[]string** | The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
 **Identity** | **[]string** | The [User](https://www.twilio.com/docs/chat/rest/user-resource)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1528,7 +1528,7 @@ Other parameters are passed through a pointer to a ListChannelParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Type** | **[]string** | The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1570,7 +1570,7 @@ Other parameters are passed through a pointer to a ListChannelWebhookParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1607,7 +1607,7 @@ Other parameters are passed through a pointer to a ListCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1650,7 +1650,7 @@ Other parameters are passed through a pointer to a ListInviteParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Identity** | **[]string** | The [User](https://www.twilio.com/docs/chat/rest/user-resource)&#39;s &#x60;identity&#x60; value of the resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1693,7 +1693,7 @@ Other parameters are passed through a pointer to a ListMemberParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Identity** | **[]string** | The [User](https://www.twilio.com/docs/chat/rest/user-resource)&#39;s &#x60;identity&#x60; value of the Member resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1736,7 +1736,7 @@ Other parameters are passed through a pointer to a ListMessageParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Order** | **string** | The sort order of the returned messages. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) with &#x60;asc&#x60; as the default.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1777,7 +1777,7 @@ Other parameters are passed through a pointer to a ListRoleParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1814,7 +1814,7 @@ Other parameters are passed through a pointer to a ListServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1855,7 +1855,7 @@ Other parameters are passed through a pointer to a ListUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1898,7 +1898,7 @@ Other parameters are passed through a pointer to a ListUserBindingParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **BindingType** | **[]string** | The push technology used by the User Binding resources to read. Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1942,7 +1942,7 @@ Other parameters are passed through a pointer to a ListUserChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2036,7 +2036,7 @@ Name | Type | Description
 **ConfigurationFilters** | **[]string** | The events that cause us to call the Channel Webhook. Used when &#x60;type&#x60; is &#x60;webhook&#x60;. This parameter takes only one event. To specify more than one event, repeat this parameter for each event. For the list of possible events, see [Webhook Event Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger).
 **ConfigurationFlowSid** | **string** | The SID of the Studio [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an event in &#x60;configuration.filters&#x60; occurs. Used only when &#x60;type&#x60; &#x3D; &#x60;studio&#x60;.
 **ConfigurationMethod** | **string** | The HTTP method used to call &#x60;configuration.url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;.
-**ConfigurationRetryCount** | **int32** | The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
+**ConfigurationRetryCount** | **int** | The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
 **ConfigurationTriggers** | **[]string** | A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when &#x60;type&#x60; &#x3D; &#x60;trigger&#x60;.
 **ConfigurationUrl** | **string** | The URL of the webhook to call using the &#x60;configuration.method&#x60;.
 
@@ -2131,7 +2131,7 @@ Name | Type | Description
 **Attributes** | **string** | A valid JSON string that contains application-specific data.
 **DateCreated** | **time.Time** | The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was created. The default value is the current time set by the Chat service.  Note that this parameter should only be used when a Member is being recreated from a backup/separate source.
 **DateUpdated** | **time.Time** | The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
-**LastConsumedMessageIndex** | **int32** | The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) that the Member has read within the [Channel](https://www.twilio.com/docs/chat/channels).
+**LastConsumedMessageIndex** | **int** | The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) that the Member has read within the [Channel](https://www.twilio.com/docs/chat/channels).
 **LastConsumptionTimestamp** | **time.Time** | The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 **RoleSid** | **string** | The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/rest/service-resource).
 
@@ -2265,13 +2265,13 @@ Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ConsumptionReportInterval** | **int32** | DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
+**ConsumptionReportInterval** | **int** | DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
 **DefaultChannelCreatorRoleSid** | **string** | The channel role assigned to a channel creator when they join a new channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
 **DefaultChannelRoleSid** | **string** | The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
 **DefaultServiceRoleSid** | **string** | The service role assigned to users when they are added to the service. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource.
-**LimitsChannelMembers** | **int32** | The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
-**LimitsUserChannels** | **int32** | The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
+**LimitsChannelMembers** | **int** | The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
+**LimitsUserChannels** | **int** | The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
 **MediaCompatibilityMessage** | **string** | The message to send when a media message has no text. Can be used as placeholder message.
 **NotificationsAddedToChannelEnabled** | **bool** | Whether to send a notification when a member is added to a channel. The default is &#x60;false&#x60;.
 **NotificationsAddedToChannelSound** | **string** | The name of the sound to play when a member is added to a channel and &#x60;notifications.added_to_channel.enabled&#x60; is &#x60;true&#x60;.
@@ -2287,13 +2287,13 @@ Name | Type | Description
 **NotificationsRemovedFromChannelEnabled** | **bool** | Whether to send a notification to a user when they are removed from a channel. The default is &#x60;false&#x60;.
 **NotificationsRemovedFromChannelSound** | **string** | The name of the sound to play to a user when they are removed from a channel and &#x60;notifications.removed_from_channel.enabled&#x60; is &#x60;true&#x60;.
 **NotificationsRemovedFromChannelTemplate** | **string** | The template to use to create the notification text displayed to a user when they are removed from a channel and &#x60;notifications.removed_from_channel.enabled&#x60; is &#x60;true&#x60;.
-**PostWebhookRetryCount** | **int32** | The number of times to retry a call to the &#x60;post_webhook_url&#x60; if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. The default is 0, which means the call won&#39;t be retried.
+**PostWebhookRetryCount** | **int** | The number of times to retry a call to the &#x60;post_webhook_url&#x60; if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. The default is 0, which means the call won&#39;t be retried.
 **PostWebhookUrl** | **string** | The URL for post-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
-**PreWebhookRetryCount** | **int32** | The number of times to retry a call to the &#x60;pre_webhook_url&#x60; if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. Default retry count is 0 times, which means the call won&#39;t be retried.
+**PreWebhookRetryCount** | **int** | The number of times to retry a call to the &#x60;pre_webhook_url&#x60; if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. Default retry count is 0 times, which means the call won&#39;t be retried.
 **PreWebhookUrl** | **string** | The URL for pre-event webhooks, which are called by using the &#x60;webhook_method&#x60;. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
 **ReachabilityEnabled** | **bool** | Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is &#x60;false&#x60;.
 **ReadStatusEnabled** | **bool** | Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is &#x60;true&#x60;.
-**TypingIndicatorTimeout** | **int32** | How long in seconds after a &#x60;started typing&#x60; event until clients should assume that user is no longer typing, even if no &#x60;ended typing&#x60; message was received.  The default is 5 seconds.
+**TypingIndicatorTimeout** | **int** | How long in seconds after a &#x60;started typing&#x60; event until clients should assume that user is no longer typing, even if no &#x60;ended typing&#x60; message was received.  The default is 5 seconds.
 **WebhookFilters** | **[]string** | The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
 **WebhookMethod** | **string** | The HTTP method to use for calls to the &#x60;pre_webhook_url&#x60; and &#x60;post_webhook_url&#x60; webhooks.  Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
 
@@ -2383,7 +2383,7 @@ Other parameters are passed through a pointer to a UpdateUserChannelParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**LastConsumedMessageIndex** | **int32** | The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
+**LastConsumedMessageIndex** | **int** | The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
 **LastConsumptionTimestamp** | **time.Time** | The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 **NotificationLevel** | **string** | The push notification level to assign to the User Channel. Can be: &#x60;default&#x60; or &#x60;muted&#x60;.
 

@@ -22,13 +22,13 @@ type InsightsV1VideoRoomSummary struct {
 	// Codecs used by participants in the room.
 	Codecs *[]string `json:"codecs,omitempty"`
 	// Actual number of concurrent participants.
-	ConcurrentParticipants *int32 `json:"concurrent_participants,omitempty"`
+	ConcurrentParticipants *int `json:"concurrent_participants,omitempty"`
 	// Creation time of the room.
 	CreateTime *time.Time `json:"create_time,omitempty"`
 	// How the room was created.
 	CreatedMethod *string `json:"created_method,omitempty"`
 	// Total room duration from create time to end time.
-	DurationSec *int32 `json:"duration_sec,omitempty"`
+	DurationSec *int `json:"duration_sec,omitempty"`
 	// Edge location of Twilio media servers for the room.
 	EdgeLocation *string `json:"edge_location,omitempty"`
 	// Reason the room ended.
@@ -38,9 +38,9 @@ type InsightsV1VideoRoomSummary struct {
 	// Room subresources.
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// Maximum number of participants allowed in the room at the same time allowed by the application settings.
-	MaxConcurrentParticipants *int32 `json:"max_concurrent_participants,omitempty"`
+	MaxConcurrentParticipants *int `json:"max_concurrent_participants,omitempty"`
 	// Max number of total participants allowed by the application settings.
-	MaxParticipants *int32 `json:"max_participants,omitempty"`
+	MaxParticipants *int `json:"max_participants,omitempty"`
 	// Region of Twilio media servers for the room.
 	MediaRegion *string `json:"media_region,omitempty"`
 	// Video Log Analyzer resource state. Will be either `in-progress` or `complete`.
@@ -60,13 +60,13 @@ type InsightsV1VideoRoomSummary struct {
 	// HTTP method provided for status callback URL.
 	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
 	// Combined amount of participant time in the room.
-	TotalParticipantDurationSec *int32 `json:"total_participant_duration_sec,omitempty"`
+	TotalParticipantDurationSec *int `json:"total_participant_duration_sec,omitempty"`
 	// Combined amount of recorded seconds for participants in the room.
-	TotalRecordingDurationSec *int32 `json:"total_recording_duration_sec,omitempty"`
+	TotalRecordingDurationSec *int `json:"total_recording_duration_sec,omitempty"`
 	// Unique number of participant identities.
-	UniqueParticipantIdentities *int32 `json:"unique_participant_identities,omitempty"`
+	UniqueParticipantIdentities *int `json:"unique_participant_identities,omitempty"`
 	// Number of participants. May include duplicate identities for participants who left and rejoined.
-	UniqueParticipants *int32 `json:"unique_participants,omitempty"`
+	UniqueParticipants *int `json:"unique_participants,omitempty"`
 	// URL for the room resource.
 	Url *string `json:"url,omitempty"`
 }

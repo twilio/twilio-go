@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **SynchronousValidation** | Pointer to **bool** | Reserved |
 **Url** | Pointer to **string** | The absolute URL of the Service resource |
 **UseInboundWebhookOnNumber** | Pointer to **bool** | If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received. |
-**ValidityPeriod** | Pointer to **int32** | How long, in seconds, messages sent from the Service are valid |
+**ValidityPeriod** | Pointer to **int** | How long, in seconds, messages sent from the Service are valid |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

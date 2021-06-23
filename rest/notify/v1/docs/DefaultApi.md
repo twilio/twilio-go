@@ -150,7 +150,7 @@ Name | Type | Description
 **Tag** | **[]string** | A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag &#x60;all&#x60; is available to notify all Bindings in a Service instance. Similarly, the implicit tags &#x60;apn&#x60;, &#x60;fcm&#x60;, &#x60;gcm&#x60;, &#x60;sms&#x60; and &#x60;facebook-messenger&#x60; are available to notify all Bindings in a specific channel.
 **Title** | **string** | The notification title. For FCM and GCM, this translates to the &#x60;data.twi_title&#x60; value. For APNS, this translates to the &#x60;aps.alert.title&#x60; value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
 **ToBinding** | **[]string** | The destination address specified as a JSON string.  Multiple &#x60;to_binding&#x60; parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers.
-**Ttl** | **int32** | How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
+**Ttl** | **int** | How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
 
 ### Return type
 
@@ -487,7 +487,7 @@ Name | Type | Description
 **EndDate** | **string** | Only include usage that occurred on or before this date. Specify the date in GMT and format as &#x60;YYYY-MM-DD&#x60;.
 **Identity** | **[]string** | The [User](https://www.twilio.com/docs/chat/rest/user-resource)&#39;s &#x60;identity&#x60; value of the resources to read.
 **Tag** | **[]string** | Only list Bindings that have all of the specified Tags. The following implicit tags are available: &#x60;all&#x60;, &#x60;apn&#x60;, &#x60;fcm&#x60;, &#x60;gcm&#x60;, &#x60;sms&#x60;, &#x60;facebook-messenger&#x60;. Up to 5 tags are allowed.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -524,7 +524,7 @@ Other parameters are passed through a pointer to a ListCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -562,7 +562,7 @@ Other parameters are passed through a pointer to a ListServiceParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The string that identifies the Service resources to read.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 

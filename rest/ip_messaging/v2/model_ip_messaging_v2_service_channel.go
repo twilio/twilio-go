@@ -24,8 +24,8 @@ type IpMessagingV2ServiceChannel struct {
 	DateUpdated   *time.Time              `json:"date_updated,omitempty"`
 	FriendlyName  *string                 `json:"friendly_name,omitempty"`
 	Links         *map[string]interface{} `json:"links,omitempty"`
-	MembersCount  *int32                  `json:"members_count,omitempty"`
-	MessagesCount *int32                  `json:"messages_count,omitempty"`
+	MembersCount  *int                    `json:"members_count,omitempty"`
+	MessagesCount *int                    `json:"messages_count,omitempty"`
 	ServiceSid    *string                 `json:"service_sid,omitempty"`
 	Sid           *string                 `json:"sid,omitempty"`
 	Type          *string                 `json:"type,omitempty"`

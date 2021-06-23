@@ -271,10 +271,10 @@ func (c *DefaultApiService) FetchCredentialPublicKey(Sid string) (*AccountsV1Cre
 // Optional parameters for the method 'ListCredentialAws'
 type ListCredentialAwsParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListCredentialAwsParams) SetPageSize(PageSize int32) *ListCredentialAwsParams {
+func (params *ListCredentialAwsParams) SetPageSize(PageSize int) *ListCredentialAwsParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -308,10 +308,10 @@ func (c *DefaultApiService) ListCredentialAws(params *ListCredentialAwsParams) (
 // Optional parameters for the method 'ListCredentialPublicKey'
 type ListCredentialPublicKeyParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListCredentialPublicKeyParams) SetPageSize(PageSize int32) *ListCredentialPublicKeyParams {
+func (params *ListCredentialPublicKeyParams) SetPageSize(PageSize int) *ListCredentialPublicKeyParams {
 	params.PageSize = &PageSize
 	return params
 }

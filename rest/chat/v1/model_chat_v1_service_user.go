@@ -34,7 +34,7 @@ type ChatV1ServiceUser struct {
 	// Whether the User is actively connected to the Service instance and online
 	IsOnline *bool `json:"is_online,omitempty"`
 	// The number of Channels this User is a Member of
-	JoinedChannelsCount *int32 `json:"joined_channels_count,omitempty"`
+	JoinedChannelsCount *int `json:"joined_channels_count,omitempty"`
 	// The absolute URLs of the Channel and Binding resources related to the user
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// The SID of the assigned to the user

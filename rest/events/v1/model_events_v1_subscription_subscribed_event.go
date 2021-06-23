@@ -16,7 +16,7 @@ type EventsV1SubscriptionSubscribedEvent struct {
 	// Account SID.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The schema version that the subscription should use.
-	SchemaVersion *int32 `json:"schema_version,omitempty"`
+	SchemaVersion *int `json:"schema_version,omitempty"`
 	// Subscription SID.
 	SubscriptionSid *string `json:"subscription_sid,omitempty"`
 	// Type of event being subscribed to.

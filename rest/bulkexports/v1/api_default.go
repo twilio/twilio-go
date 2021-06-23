@@ -226,10 +226,10 @@ func (c *DefaultApiService) FetchJob(JobSid string) (*BulkexportsV1ExportJob, er
 // Optional parameters for the method 'ListDay'
 type ListDayParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListDayParams) SetPageSize(PageSize int32) *ListDayParams {
+func (params *ListDayParams) SetPageSize(PageSize int) *ListDayParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -264,10 +264,10 @@ func (c *DefaultApiService) ListDay(ResourceType string, params *ListDayParams) 
 // Optional parameters for the method 'ListExportCustomJob'
 type ListExportCustomJobParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListExportCustomJobParams) SetPageSize(PageSize int32) *ListExportCustomJobParams {
+func (params *ListExportCustomJobParams) SetPageSize(PageSize int) *ListExportCustomJobParams {
 	params.PageSize = &PageSize
 	return params
 }

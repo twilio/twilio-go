@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **CallType** | Pointer to **string** |  |
 **CarrierEdge** | Pointer to **map[string]interface{}** |  |
 **ClientEdge** | Pointer to **map[string]interface{}** |  |
-**ConnectDuration** | Pointer to **int32** |  |
+**ConnectDuration** | Pointer to **int** |  |
 **CreatedTime** | Pointer to [**time.Time**](time.Time.md) |  |
-**Duration** | Pointer to **int32** |  |
+**Duration** | Pointer to **int** |  |
 **EndTime** | Pointer to [**time.Time**](time.Time.md) |  |
 **From** | Pointer to **map[string]interface{}** |  |
 **ProcessingState** | Pointer to **string** |  |

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The RFC 2822 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The RFC 2822 date and time in GMT when the resource was last updated |
 **From** | Pointer to **string** | The Identity of the message's author |
-**Index** | Pointer to **int32** | The index of the message within the Channel |
+**Index** | Pointer to **int** | The index of the message within the Channel |
 **LastUpdatedBy** | Pointer to **string** | The Identity of the User who last updated the Message |
 **Media** | Pointer to **map[string]interface{}** | A Media object that describes the Message's media if attached; otherwise, null |
 **ServiceSid** | Pointer to **string** | The SID of the Service that the resource is associated with |

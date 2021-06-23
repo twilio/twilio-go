@@ -28,7 +28,7 @@ type TrunkingV1TrunkOriginationUrl struct {
 	// The string that you assigned to describe the resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The relative importance of the URI
-	Priority *int32 `json:"priority,omitempty"`
+	Priority *int `json:"priority,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// The SIP address you want Twilio to route your Origination calls to
@@ -38,5 +38,5 @@ type TrunkingV1TrunkOriginationUrl struct {
 	// The absolute URL of the resource
 	Url *string `json:"url,omitempty"`
 	// The value that determines the relative load the URI should receive compared to others with the same priority
-	Weight *int32 `json:"weight,omitempty"`
+	Weight *int `json:"weight,omitempty"`
 }

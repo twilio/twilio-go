@@ -20,7 +20,7 @@ type VerifyV2Service struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The length of the verification code
-	CodeLength *int32 `json:"code_length,omitempty"`
+	CodeLength *int `json:"code_length,omitempty"`
 	// Whether to allow sending verifications with a custom code.
 	CustomCodeEnabled *bool `json:"custom_code_enabled,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created

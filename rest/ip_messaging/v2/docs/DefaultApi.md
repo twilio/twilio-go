@@ -134,7 +134,7 @@ Name | Type | Description
 **ConfigurationFilters** | **[]string** | 
 **ConfigurationFlowSid** | **string** | 
 **ConfigurationMethod** | **string** | 
-**ConfigurationRetryCount** | **int32** | 
+**ConfigurationRetryCount** | **int** | 
 **ConfigurationTriggers** | **[]string** | 
 **ConfigurationUrl** | **string** | 
 **Type** | **string** | 
@@ -270,7 +270,7 @@ Name | Type | Description
 **DateCreated** | **time.Time** | 
 **DateUpdated** | **time.Time** | 
 **Identity** | **string** | 
-**LastConsumedMessageIndex** | **int32** | 
+**LastConsumedMessageIndex** | **int** | 
 **LastConsumptionTimestamp** | **time.Time** | 
 **RoleSid** | **string** | 
 
@@ -1484,7 +1484,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **BindingType** | **[]string** | 
 **Identity** | **[]string** | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1526,7 +1526,7 @@ Other parameters are passed through a pointer to a ListChannelParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Type** | **[]string** | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1568,7 +1568,7 @@ Other parameters are passed through a pointer to a ListChannelWebhookParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1605,7 +1605,7 @@ Other parameters are passed through a pointer to a ListCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1648,7 +1648,7 @@ Other parameters are passed through a pointer to a ListInviteParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Identity** | **[]string** | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1691,7 +1691,7 @@ Other parameters are passed through a pointer to a ListMemberParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Identity** | **[]string** | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1734,7 +1734,7 @@ Other parameters are passed through a pointer to a ListMessageParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Order** | **string** | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1775,7 +1775,7 @@ Other parameters are passed through a pointer to a ListRoleParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1812,7 +1812,7 @@ Other parameters are passed through a pointer to a ListServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1853,7 +1853,7 @@ Other parameters are passed through a pointer to a ListUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1896,7 +1896,7 @@ Other parameters are passed through a pointer to a ListUserBindingParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **BindingType** | **[]string** | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1938,7 +1938,7 @@ Other parameters are passed through a pointer to a ListUserChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2032,7 +2032,7 @@ Name | Type | Description
 **ConfigurationFilters** | **[]string** | 
 **ConfigurationFlowSid** | **string** | 
 **ConfigurationMethod** | **string** | 
-**ConfigurationRetryCount** | **int32** | 
+**ConfigurationRetryCount** | **int** | 
 **ConfigurationTriggers** | **[]string** | 
 **ConfigurationUrl** | **string** | 
 
@@ -2127,7 +2127,7 @@ Name | Type | Description
 **Attributes** | **string** | 
 **DateCreated** | **time.Time** | 
 **DateUpdated** | **time.Time** | 
-**LastConsumedMessageIndex** | **int32** | 
+**LastConsumedMessageIndex** | **int** | 
 **LastConsumptionTimestamp** | **time.Time** | 
 **RoleSid** | **string** | 
 
@@ -2261,13 +2261,13 @@ Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ConsumptionReportInterval** | **int32** | 
+**ConsumptionReportInterval** | **int** | 
 **DefaultChannelCreatorRoleSid** | **string** | 
 **DefaultChannelRoleSid** | **string** | 
 **DefaultServiceRoleSid** | **string** | 
 **FriendlyName** | **string** | 
-**LimitsChannelMembers** | **int32** | 
-**LimitsUserChannels** | **int32** | 
+**LimitsChannelMembers** | **int** | 
+**LimitsUserChannels** | **int** | 
 **MediaCompatibilityMessage** | **string** | 
 **NotificationsAddedToChannelEnabled** | **bool** | 
 **NotificationsAddedToChannelSound** | **string** | 
@@ -2283,13 +2283,13 @@ Name | Type | Description
 **NotificationsRemovedFromChannelEnabled** | **bool** | 
 **NotificationsRemovedFromChannelSound** | **string** | 
 **NotificationsRemovedFromChannelTemplate** | **string** | 
-**PostWebhookRetryCount** | **int32** | 
+**PostWebhookRetryCount** | **int** | 
 **PostWebhookUrl** | **string** | 
-**PreWebhookRetryCount** | **int32** | 
+**PreWebhookRetryCount** | **int** | 
 **PreWebhookUrl** | **string** | 
 **ReachabilityEnabled** | **bool** | 
 **ReadStatusEnabled** | **bool** | 
-**TypingIndicatorTimeout** | **int32** | 
+**TypingIndicatorTimeout** | **int** | 
 **WebhookFilters** | **[]string** | 
 **WebhookMethod** | **string** | 
 
@@ -2379,7 +2379,7 @@ Other parameters are passed through a pointer to a UpdateUserChannelParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**LastConsumedMessageIndex** | **int32** | 
+**LastConsumedMessageIndex** | **int** | 
 **LastConsumptionTimestamp** | **time.Time** | 
 **NotificationLevel** | **string** | 
 

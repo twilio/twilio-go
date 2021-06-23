@@ -265,7 +265,7 @@ Name | Type | Description
 **ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
 **ConfigurationFlowSid** | **string** | The studio flow SID, where the webhook should be sent to.
 **ConfigurationMethod** | **string** | The HTTP method to be used when sending a webhook request.
-**ConfigurationReplayAfter** | **int32** | The message index for which and it&#39;s successors the webhook will be replayed. Not set by default
+**ConfigurationReplayAfter** | **int** | The message index for which and it&#39;s successors the webhook will be replayed. Not set by default
 **ConfigurationTriggers** | **[]string** | The list of keywords, firing webhook event for this Conversation.
 **ConfigurationUrl** | **string** | The absolute url the webhook request should be sent to.
 **Target** | **string** | The target of this webhook: &#x60;webhook&#x60;, &#x60;studio&#x60;, &#x60;trigger&#x60;
@@ -594,7 +594,7 @@ Name | Type | Description
 **ConfigurationFilters** | **[]string** | The list of events, firing webhook event for this Conversation.
 **ConfigurationFlowSid** | **string** | The studio flow SID, where the webhook should be sent to.
 **ConfigurationMethod** | **string** | The HTTP method to be used when sending a webhook request.
-**ConfigurationReplayAfter** | **int32** | The message index for which and it&#39;s successors the webhook will be replayed. Not set by default
+**ConfigurationReplayAfter** | **int** | The message index for which and it&#39;s successors the webhook will be replayed. Not set by default
 **ConfigurationTriggers** | **[]string** | The list of keywords, firing webhook event for this Conversation.
 **ConfigurationUrl** | **string** | The absolute url the webhook request should be sent to.
 **Target** | **string** | The target of this webhook: &#x60;webhook&#x60;, &#x60;studio&#x60;, &#x60;trigger&#x60;
@@ -2306,7 +2306,7 @@ Other parameters are passed through a pointer to a ListConversationParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2349,7 +2349,7 @@ Other parameters are passed through a pointer to a ListConversationMessageParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2393,7 +2393,7 @@ Other parameters are passed through a pointer to a ListConversationMessageReceip
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2436,7 +2436,7 @@ Other parameters are passed through a pointer to a ListConversationParticipantPa
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2479,7 +2479,7 @@ Other parameters are passed through a pointer to a ListConversationScopedWebhook
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2518,7 +2518,7 @@ Other parameters are passed through a pointer to a ListCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2557,7 +2557,7 @@ Other parameters are passed through a pointer to a ListRoleParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2596,7 +2596,7 @@ Other parameters are passed through a pointer to a ListServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2641,7 +2641,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **BindingType** | **[]string** | The push technology used by the Binding resources to read.  Can be: &#x60;apn&#x60;, &#x60;gcm&#x60;, or &#x60;fcm&#x60;.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
 **Identity** | **[]string** | The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2684,7 +2684,7 @@ Other parameters are passed through a pointer to a ListServiceConversationParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2728,7 +2728,7 @@ Other parameters are passed through a pointer to a ListServiceConversationMessag
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2773,7 +2773,7 @@ Other parameters are passed through a pointer to a ListServiceConversationMessag
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2817,7 +2817,7 @@ Other parameters are passed through a pointer to a ListServiceConversationPartic
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2861,7 +2861,7 @@ Other parameters are passed through a pointer to a ListServiceConversationScoped
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2904,7 +2904,7 @@ Other parameters are passed through a pointer to a ListServiceRoleParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2947,7 +2947,7 @@ Other parameters are passed through a pointer to a ListServiceUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2986,7 +2986,7 @@ Other parameters are passed through a pointer to a ListUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -3219,7 +3219,7 @@ Name | Type | Description
 **DateCreated** | **time.Time** | The date that this resource was created.
 **DateUpdated** | **time.Time** | The date that this resource was last updated.
 **Identity** | **string** | A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
-**LastReadMessageIndex** | **int32** | Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
+**LastReadMessageIndex** | **int** | Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
 **LastReadTimestamp** | **string** | Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
 **MessagingBindingProjectedAddress** | **string** | The address of the Twilio phone number that is used in Group MMS. &#39;null&#39; value will remove it.
 **MessagingBindingProxyAddress** | **string** | The address of the Twilio phone number that the participant is in contact with. &#39;null&#39; value will remove it.
@@ -3562,7 +3562,7 @@ Name | Type | Description
 **DateCreated** | **time.Time** | The date that this resource was created.
 **DateUpdated** | **time.Time** | The date that this resource was last updated.
 **Identity** | **string** | A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
-**LastReadMessageIndex** | **int32** | Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
+**LastReadMessageIndex** | **int** | Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
 **LastReadTimestamp** | **string** | Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
 **MessagingBindingProjectedAddress** | **string** | The address of the Twilio phone number that is used in Group MMS. &#39;null&#39; value will remove it.
 **MessagingBindingProxyAddress** | **string** | The address of the Twilio phone number that the participant is in contact with. &#39;null&#39; value will remove it.

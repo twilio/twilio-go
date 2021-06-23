@@ -134,7 +134,7 @@ type CreateRatePlanParams struct {
 	// Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
 	DataEnabled *bool `json:"DataEnabled,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`.
-	DataLimit *int32 `json:"DataLimit,omitempty"`
+	DataLimit *int `json:"DataLimit,omitempty"`
 	// The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
 	DataMetering *string `json:"DataMetering,omitempty"`
 	// A descriptive string that you create to describe the resource. It does not have to be unique.
@@ -142,11 +142,11 @@ type CreateRatePlanParams struct {
 	// The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can be: `data`, `voice`, and `messaging`.
 	InternationalRoaming *[]string `json:"InternationalRoaming,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
-	InternationalRoamingDataLimit *int32 `json:"InternationalRoamingDataLimit,omitempty"`
+	InternationalRoamingDataLimit *int `json:"InternationalRoamingDataLimit,omitempty"`
 	// Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/wireless/api/command-resource).
 	MessagingEnabled *bool `json:"MessagingEnabled,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming) for more info.
-	NationalRoamingDataLimit *int32 `json:"NationalRoamingDataLimit,omitempty"`
+	NationalRoamingDataLimit *int `json:"NationalRoamingDataLimit,omitempty"`
 	// Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming).
 	NationalRoamingEnabled *bool `json:"NationalRoamingEnabled,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
@@ -159,7 +159,7 @@ func (params *CreateRatePlanParams) SetDataEnabled(DataEnabled bool) *CreateRate
 	params.DataEnabled = &DataEnabled
 	return params
 }
-func (params *CreateRatePlanParams) SetDataLimit(DataLimit int32) *CreateRatePlanParams {
+func (params *CreateRatePlanParams) SetDataLimit(DataLimit int) *CreateRatePlanParams {
 	params.DataLimit = &DataLimit
 	return params
 }
@@ -175,7 +175,7 @@ func (params *CreateRatePlanParams) SetInternationalRoaming(InternationalRoaming
 	params.InternationalRoaming = &InternationalRoaming
 	return params
 }
-func (params *CreateRatePlanParams) SetInternationalRoamingDataLimit(InternationalRoamingDataLimit int32) *CreateRatePlanParams {
+func (params *CreateRatePlanParams) SetInternationalRoamingDataLimit(InternationalRoamingDataLimit int) *CreateRatePlanParams {
 	params.InternationalRoamingDataLimit = &InternationalRoamingDataLimit
 	return params
 }
@@ -183,7 +183,7 @@ func (params *CreateRatePlanParams) SetMessagingEnabled(MessagingEnabled bool) *
 	params.MessagingEnabled = &MessagingEnabled
 	return params
 }
-func (params *CreateRatePlanParams) SetNationalRoamingDataLimit(NationalRoamingDataLimit int32) *CreateRatePlanParams {
+func (params *CreateRatePlanParams) SetNationalRoamingDataLimit(NationalRoamingDataLimit int) *CreateRatePlanParams {
 	params.NationalRoamingDataLimit = &NationalRoamingDataLimit
 	return params
 }
@@ -387,7 +387,7 @@ type ListAccountUsageRecordParams struct {
 	// How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
 	Granularity *string `json:"Granularity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAccountUsageRecordParams) SetEnd(End time.Time) *ListAccountUsageRecordParams {
@@ -402,7 +402,7 @@ func (params *ListAccountUsageRecordParams) SetGranularity(Granularity string) *
 	params.Granularity = &Granularity
 	return params
 }
-func (params *ListAccountUsageRecordParams) SetPageSize(PageSize int32) *ListAccountUsageRecordParams {
+func (params *ListAccountUsageRecordParams) SetPageSize(PageSize int) *ListAccountUsageRecordParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -452,7 +452,7 @@ type ListCommandParams struct {
 	// Only return Commands with this transport value. Can be: `sms` or `ip`.
 	Transport *string `json:"Transport,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListCommandParams) SetSim(Sim string) *ListCommandParams {
@@ -471,7 +471,7 @@ func (params *ListCommandParams) SetTransport(Transport string) *ListCommandPara
 	params.Transport = &Transport
 	return params
 }
-func (params *ListCommandParams) SetPageSize(PageSize int32) *ListCommandParams {
+func (params *ListCommandParams) SetPageSize(PageSize int) *ListCommandParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -517,10 +517,10 @@ func (c *DefaultApiService) ListCommand(params *ListCommandParams) (*ListCommand
 // Optional parameters for the method 'ListDataSession'
 type ListDataSessionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListDataSessionParams) SetPageSize(PageSize int32) *ListDataSessionParams {
+func (params *ListDataSessionParams) SetPageSize(PageSize int) *ListDataSessionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -554,10 +554,10 @@ func (c *DefaultApiService) ListDataSession(SimSid string, params *ListDataSessi
 // Optional parameters for the method 'ListRatePlan'
 type ListRatePlanParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListRatePlanParams) SetPageSize(PageSize int32) *ListRatePlanParams {
+func (params *ListRatePlanParams) SetPageSize(PageSize int) *ListRatePlanParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -600,7 +600,7 @@ type ListSimParams struct {
 	// Only return Sim resources with this registration code. This will return a list with a maximum size of 1.
 	SimRegistrationCode *string `json:"SimRegistrationCode,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSimParams) SetStatus(Status string) *ListSimParams {
@@ -623,7 +623,7 @@ func (params *ListSimParams) SetSimRegistrationCode(SimRegistrationCode string) 
 	params.SimRegistrationCode = &SimRegistrationCode
 	return params
 }
-func (params *ListSimParams) SetPageSize(PageSize int32) *ListSimParams {
+func (params *ListSimParams) SetPageSize(PageSize int) *ListSimParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -678,7 +678,7 @@ type ListUsageRecordParams struct {
 	// How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
 	Granularity *string `json:"Granularity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordParams) SetEnd(End time.Time) *ListUsageRecordParams {
@@ -693,7 +693,7 @@ func (params *ListUsageRecordParams) SetGranularity(Granularity string) *ListUsa
 	params.Granularity = &Granularity
 	return params
 }
-func (params *ListUsageRecordParams) SetPageSize(PageSize int32) *ListUsageRecordParams {
+func (params *ListUsageRecordParams) SetPageSize(PageSize int) *ListUsageRecordParams {
 	params.PageSize = &PageSize
 	return params
 }

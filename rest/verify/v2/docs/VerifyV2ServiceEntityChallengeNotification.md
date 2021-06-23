@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Priority** | Pointer to **string** | The priority of the notification. |
 **ServiceSid** | Pointer to **string** | Service Sid. |
 **Sid** | Pointer to **string** | A string that uniquely identifies this Notification. |
-**Ttl** | Pointer to **int32** | How long, in seconds, the notification is valid. |
+**Ttl** | Pointer to **int** | How long, in seconds, the notification is valid. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

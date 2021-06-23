@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
 **FriendlyName** | Pointer to **string** |  |
 **Links** | Pointer to **map[string]interface{}** |  |
-**MembersCount** | Pointer to **int32** |  |
-**MessagesCount** | Pointer to **int32** |  |
+**MembersCount** | Pointer to **int** |  |
+**MessagesCount** | Pointer to **int** |  |
 **ServiceSid** | Pointer to **string** |  |
 **Sid** | Pointer to **string** |  |
 **Type** | Pointer to **string** |  |

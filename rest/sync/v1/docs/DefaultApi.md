@@ -77,7 +77,7 @@ Other parameters are passed through a pointer to a CreateDocumentParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Data** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-**Ttl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document&#39;s time-to-live).
+**Ttl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document&#39;s time-to-live).
 **UniqueName** | **string** | An application-defined string that uniquely identifies the Sync Document
 
 ### Return type
@@ -118,7 +118,7 @@ Name | Type | Description
 **AclEnabled** | **bool** | Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
 **FriendlyName** | **string** | A string that you assign to describe the resource.
 **ReachabilityDebouncingEnabled** | **bool** | Whether every &#x60;endpoint_disconnected&#x60; event should occur after a configurable delay. The default is &#x60;false&#x60;, where the &#x60;endpoint_disconnected&#x60; event occurs immediately after disconnection. When &#x60;true&#x60;, intervening reconnections can prevent the &#x60;endpoint_disconnected&#x60; event.
-**ReachabilityDebouncingWindow** | **int32** | The reachability event delay in milliseconds if &#x60;reachability_debouncing_enabled&#x60; &#x3D; &#x60;true&#x60;.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the &#x60;webhook_url&#x60; is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the call to &#x60;webhook_url&#x60;.
+**ReachabilityDebouncingWindow** | **int** | The reachability event delay in milliseconds if &#x60;reachability_debouncing_enabled&#x60; &#x3D; &#x60;true&#x60;.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the &#x60;webhook_url&#x60; is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the call to &#x60;webhook_url&#x60;.
 **ReachabilityWebhooksEnabled** | **bool** | Whether the service instance should call &#x60;webhook_url&#x60; when client endpoints connect to Sync. The default is &#x60;false&#x60;.
 **WebhookUrl** | **string** | The URL we should call when Sync objects are manipulated.
 **WebhooksFromRestEnabled** | **bool** | Whether the Service instance should call &#x60;webhook_url&#x60; when the REST API is used to update Sync objects. The default is &#x60;false&#x60;.
@@ -206,8 +206,8 @@ Other parameters are passed through a pointer to a CreateSyncListParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
-**Ttl** | **int32** | Alias for collection_ttl. If both are provided, this value is ignored.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
+**Ttl** | **int** | Alias for collection_ttl. If both are provided, this value is ignored.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The &#x60;unique_name&#x60; value can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
 
 ### Return type
@@ -250,10 +250,10 @@ Other parameters are passed through a pointer to a CreateSyncListItemParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item&#39;s parent Sync List expires (time-to-live) and is deleted.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item&#39;s parent Sync List expires (time-to-live) and is deleted.
 **Data** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-**ItemTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
-**Ttl** | **int32** | An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored.
+**ItemTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
+**Ttl** | **int** | An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored.
 
 ### Return type
 
@@ -294,8 +294,8 @@ Other parameters are passed through a pointer to a CreateSyncMapParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
-**Ttl** | **int32** | An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
+**Ttl** | **int** | An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
 
 ### Return type
@@ -338,11 +338,11 @@ Other parameters are passed through a pointer to a CreateSyncMapItemParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item&#39;s parent Sync Map expires (time-to-live) and is deleted.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item&#39;s parent Sync Map expires (time-to-live) and is deleted.
 **Data** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-**ItemTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+**ItemTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
 **Key** | **string** | The unique, user-defined key for the Map Item. Can be up to 320 characters long.
-**Ttl** | **int32** | An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored.
+**Ttl** | **int** | An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored.
 
 ### Return type
 
@@ -385,7 +385,7 @@ Other parameters are passed through a pointer to a CreateSyncStreamParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Ttl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+**Ttl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The &#x60;unique_name&#x60; value can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
 
 ### Return type
@@ -586,7 +586,7 @@ Name | Type | Description
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to delete.
 **ListSid** | **string** | The SID of the Sync List with the Sync List Item resource to delete. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
-**Index** | **int32** | The index of the Sync List Item resource to delete.
+**Index** | **int** | The index of the Sync List Item resource to delete.
 
 ### Other Parameters
 
@@ -1010,7 +1010,7 @@ Name | Type | Description
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to fetch.
 **ListSid** | **string** | The SID of the Sync List with the Sync List Item resource to fetch. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
-**Index** | **int32** | The index of the Sync List Item resource to fetch.
+**Index** | **int** | The index of the Sync List Item resource to fetch.
 
 ### Other Parameters
 
@@ -1273,7 +1273,7 @@ Other parameters are passed through a pointer to a ListDocumentParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1317,7 +1317,7 @@ Other parameters are passed through a pointer to a ListDocumentPermissionParams 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1354,7 +1354,7 @@ Other parameters are passed through a pointer to a ListServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1395,7 +1395,7 @@ Other parameters are passed through a pointer to a ListSyncListParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1440,7 +1440,7 @@ Name | Type | Description
 **Order** | **string** | How to order the List Items returned by their &#x60;index&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending.
 **From** | **string** | The &#x60;index&#x60; of the first Sync List Item resource to read. See also &#x60;bounds&#x60;.
 **Bounds** | **string** | Whether to include the List Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the List Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next List Item. The default value is &#x60;inclusive&#x60;.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1484,7 +1484,7 @@ Other parameters are passed through a pointer to a ListSyncListPermissionParams 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1525,7 +1525,7 @@ Other parameters are passed through a pointer to a ListSyncMapParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1570,7 +1570,7 @@ Name | Type | Description
 **Order** | **string** | How to order the Map Items returned by their &#x60;key&#x60; value. Can be: &#x60;asc&#x60; (ascending) or &#x60;desc&#x60; (descending) and the default is ascending. Map Items are [ordered lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by Item key.
 **From** | **string** | The &#x60;key&#x60; of the first Sync Map Item resource to read. See also &#x60;bounds&#x60;.
 **Bounds** | **string** | Whether to include the Map Item referenced by the &#x60;from&#x60; parameter. Can be: &#x60;inclusive&#x60; to include the Map Item referenced by the &#x60;from&#x60; parameter or &#x60;exclusive&#x60; to start with the next Map Item. The default value is &#x60;inclusive&#x60;.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1614,7 +1614,7 @@ Other parameters are passed through a pointer to a ListSyncMapPermissionParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1657,7 +1657,7 @@ Other parameters are passed through a pointer to a ListSyncStreamParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1701,7 +1701,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | The If-Match HTTP request header
 **Data** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
-**Ttl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
+**Ttl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
 
 ### Return type
 
@@ -1792,7 +1792,7 @@ Name | Type | Description
 **AclEnabled** | **bool** | Whether token identities in the Service must be granted access to Sync objects by using the [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions) resource.
 **FriendlyName** | **string** | A string that you assign to describe the resource.
 **ReachabilityDebouncingEnabled** | **bool** | Whether every &#x60;endpoint_disconnected&#x60; event should occur after a configurable delay. The default is &#x60;false&#x60;, where the &#x60;endpoint_disconnected&#x60; event occurs immediately after disconnection. When &#x60;true&#x60;, intervening reconnections can prevent the &#x60;endpoint_disconnected&#x60; event.
-**ReachabilityDebouncingWindow** | **int32** | The reachability event delay in milliseconds if &#x60;reachability_debouncing_enabled&#x60; &#x3D; &#x60;true&#x60;.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the webhook is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the webhook from being called.
+**ReachabilityDebouncingWindow** | **int** | The reachability event delay in milliseconds if &#x60;reachability_debouncing_enabled&#x60; &#x3D; &#x60;true&#x60;.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the webhook is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the webhook from being called.
 **ReachabilityWebhooksEnabled** | **bool** | Whether the service instance should call &#x60;webhook_url&#x60; when client endpoints connect to Sync. The default is &#x60;false&#x60;.
 **WebhookUrl** | **string** | The URL we should call when Sync objects are manipulated.
 **WebhooksFromRestEnabled** | **bool** | Whether the Service instance should call &#x60;webhook_url&#x60; when the REST API is used to update Sync objects. The default is &#x60;false&#x60;.
@@ -1837,8 +1837,8 @@ Other parameters are passed through a pointer to a UpdateSyncListParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
-**Ttl** | **int32** | An alias for &#x60;collection_ttl&#x60;. If both are provided, this value is ignored.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
+**Ttl** | **int** | An alias for &#x60;collection_ttl&#x60;. If both are provided, this value is ignored.
 
 ### Return type
 
@@ -1872,7 +1872,7 @@ Name | Type | Description
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List Item resource to update.
 **ListSid** | **string** | The SID of the Sync List with the Sync List Item resource to update. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
-**Index** | **int32** | The index of the Sync List Item resource to update.
+**Index** | **int** | The index of the Sync List Item resource to update.
 
 ### Other Parameters
 
@@ -1882,10 +1882,10 @@ Other parameters are passed through a pointer to a UpdateSyncListItemParams stru
 Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-**CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item&#39;s parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item&#39;s &#x60;data&#x60; or &#x60;ttl&#x60; is updated in the same request.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item&#39;s parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item&#39;s &#x60;data&#x60; or &#x60;ttl&#x60; is updated in the same request.
 **Data** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-**ItemTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
-**Ttl** | **int32** | An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored.
+**ItemTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
+**Ttl** | **int** | An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored.
 
 ### Return type
 
@@ -1974,8 +1974,8 @@ Other parameters are passed through a pointer to a UpdateSyncMapParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
-**Ttl** | **int32** | An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
+**Ttl** | **int** | An alias for &#x60;collection_ttl&#x60;. If both parameters are provided, this value is ignored.
 
 ### Return type
 
@@ -2019,10 +2019,10 @@ Other parameters are passed through a pointer to a UpdateSyncMapItemParams struc
 Name | Type | Description
 ------------- | ------------- | -------------
 **IfMatch** | **string** | If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-**CollectionTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item&#39;s parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item&#39;s &#x60;data&#x60; or &#x60;ttl&#x60; is updated in the same request.
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item&#39;s parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item&#39;s &#x60;data&#x60; or &#x60;ttl&#x60; is updated in the same request.
 **Data** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-**ItemTtl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-**Ttl** | **int32** | An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored.
+**ItemTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
+**Ttl** | **int** | An alias for &#x60;item_ttl&#x60;. If both parameters are provided, this value is ignored.
 
 ### Return type
 
@@ -2113,7 +2113,7 @@ Other parameters are passed through a pointer to a UpdateSyncStreamParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Ttl** | **int32** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
+**Ttl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
 
 ### Return type
 

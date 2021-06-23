@@ -18,11 +18,11 @@ type TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics struct {
 	// The number of current Workers by Activity
 	ActivityStatistics *[]map[string]interface{} `json:"activity_statistics,omitempty"`
 	// The relative age in the TaskQueue for the longest waiting Task.
-	LongestRelativeTaskAgeInQueue *int32 `json:"longest_relative_task_age_in_queue,omitempty"`
+	LongestRelativeTaskAgeInQueue *int `json:"longest_relative_task_age_in_queue,omitempty"`
 	// The SID of the Task waiting in the TaskQueue the longest.
 	LongestRelativeTaskSidInQueue *string `json:"longest_relative_task_sid_in_queue,omitempty"`
 	// The age of the longest waiting Task
-	LongestTaskWaitingAge *int32 `json:"longest_task_waiting_age,omitempty"`
+	LongestTaskWaitingAge *int `json:"longest_task_waiting_age,omitempty"`
 	// The SID of the longest waiting Task
 	LongestTaskWaitingSid *string `json:"longest_task_waiting_sid,omitempty"`
 	// The SID of the TaskQueue from which these statistics were calculated
@@ -32,11 +32,11 @@ type TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics struct {
 	// The number of Tasks by their current status
 	TasksByStatus *map[string]interface{} `json:"tasks_by_status,omitempty"`
 	// The total number of Workers available for Tasks in the TaskQueue
-	TotalAvailableWorkers *int32 `json:"total_available_workers,omitempty"`
+	TotalAvailableWorkers *int `json:"total_available_workers,omitempty"`
 	// The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state
-	TotalEligibleWorkers *int32 `json:"total_eligible_workers,omitempty"`
+	TotalEligibleWorkers *int `json:"total_eligible_workers,omitempty"`
 	// The total number of Tasks
-	TotalTasks *int32 `json:"total_tasks,omitempty"`
+	TotalTasks *int `json:"total_tasks,omitempty"`
 	// The absolute URL of the TaskQueue statistics resource
 	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace that contains the TaskQueue

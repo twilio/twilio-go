@@ -144,9 +144,9 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Enabled** | **bool** | Whether the Target is enabled. The default is &#x60;true&#x60;.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-**Priority** | **int32** | The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
+**Priority** | **int** | The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
 **Target** | **string** | The SIP address you want Twilio to route your calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported.
-**Weight** | **int32** | The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
+**Weight** | **int** | The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
 
 ### Return type
 
@@ -222,7 +222,7 @@ Other parameters are passed through a pointer to a CreateIpRecordParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CidrPrefixLength** | **int32** | An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
+**CidrPrefixLength** | **int** | An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 **IpAddress** | **string** | An IP address in dotted decimal notation, IPv4 only.
 
@@ -778,7 +778,7 @@ Other parameters are passed through a pointer to a ListByocTrunkParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -815,7 +815,7 @@ Other parameters are passed through a pointer to a ListConnectionPolicyParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -856,7 +856,7 @@ Other parameters are passed through a pointer to a ListConnectionPolicyTargetPar
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -901,7 +901,7 @@ Name | Type | Description
 **LowRiskNumbersEnabled** | **bool** | Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
 **HighRiskSpecialNumbersEnabled** | **bool** | Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: &#x60;true&#x60; or &#x60;false&#x60;
 **HighRiskTollfraudNumbersEnabled** | **bool** | Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: &#x60;true&#x60; or &#x60;false&#x60;.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -944,7 +944,7 @@ Other parameters are passed through a pointer to a ListDialingPermissionsHrsPref
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -981,7 +981,7 @@ Other parameters are passed through a pointer to a ListIpRecordParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1018,7 +1018,7 @@ Other parameters are passed through a pointer to a ListSourceIpMappingParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1153,9 +1153,9 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Enabled** | **bool** | Whether the Target is enabled.
 **FriendlyName** | **string** | A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
-**Priority** | **int32** | The relative importance of the target. Can be an integer from 0 to 65535, inclusive. The lowest number represents the most important target.
+**Priority** | **int** | The relative importance of the target. Can be an integer from 0 to 65535, inclusive. The lowest number represents the most important target.
 **Target** | **string** | The SIP address you want Twilio to route your calls to. This must be a &#x60;sip:&#x60; schema. &#x60;sips&#x60; is NOT supported.
-**Weight** | **int32** | The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority.
+**Weight** | **int** | The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority.
 
 ### Return type
 

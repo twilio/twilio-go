@@ -20,7 +20,7 @@ type ChatV1Service struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// DEPRECATED
-	ConsumptionReportInterval *int32 `json:"consumption_report_interval,omitempty"`
+	ConsumptionReportInterval *int `json:"consumption_report_interval,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was last updated
@@ -50,7 +50,7 @@ type ChatV1Service struct {
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// How long in seconds to wait before assuming the user is no longer typing
-	TypingIndicatorTimeout *int32 `json:"typing_indicator_timeout,omitempty"`
+	TypingIndicatorTimeout *int `json:"typing_indicator_timeout,omitempty"`
 	// The absolute URL of the Service resource
 	Url *string `json:"url,omitempty"`
 	// The list of WebHook events that are enabled for this Service instance

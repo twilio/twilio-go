@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
 **From** | Pointer to **string** |  |
-**Index** | Pointer to **int32** |  |
+**Index** | Pointer to **int** |  |
 **ServiceSid** | Pointer to **string** |  |
 **Sid** | Pointer to **string** |  |
 **To** | Pointer to **string** |  |

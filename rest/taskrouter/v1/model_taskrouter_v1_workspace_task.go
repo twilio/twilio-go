@@ -22,7 +22,7 @@ type TaskrouterV1WorkspaceTask struct {
 	// An object that contains the addon data for all installed addons
 	Addons *string `json:"addons,omitempty"`
 	// The number of seconds since the Task was created
-	Age *int32 `json:"age,omitempty"`
+	Age *int `json:"age,omitempty"`
 	// The current status of the Task's assignment
 	AssignmentStatus *string `json:"assignment_status,omitempty"`
 	// The JSON string with custom attributes of the work
@@ -34,7 +34,7 @@ type TaskrouterV1WorkspaceTask struct {
 	// The URLs of related resources
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// Retrieve the list of all Tasks in the Workspace with the specified priority
-	Priority *int32 `json:"priority,omitempty"`
+	Priority *int `json:"priority,omitempty"`
 	// The reason the Task was canceled or completed
 	Reason *string `json:"reason,omitempty"`
 	// The unique string that identifies the resource
@@ -50,7 +50,7 @@ type TaskrouterV1WorkspaceTask struct {
 	// The SID of the TaskQueue
 	TaskQueueSid *string `json:"task_queue_sid,omitempty"`
 	// The amount of time in seconds that the Task can live before being assigned
-	Timeout *int32 `json:"timeout,omitempty"`
+	Timeout *int `json:"timeout,omitempty"`
 	// The absolute URL of the Task resource
 	Url *string `json:"url,omitempty"`
 	// The friendly name of the Workflow that is controlling the Task

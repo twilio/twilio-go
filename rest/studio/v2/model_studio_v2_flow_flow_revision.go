@@ -32,7 +32,7 @@ type StudioV2FlowFlowRevision struct {
 	// The string that you assigned to describe the Flow
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The latest revision number of the Flow's definition
-	Revision *int32 `json:"revision,omitempty"`
+	Revision *int `json:"revision,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// The status of the Flow

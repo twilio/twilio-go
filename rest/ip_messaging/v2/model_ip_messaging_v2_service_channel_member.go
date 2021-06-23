@@ -23,7 +23,7 @@ type IpMessagingV2ServiceChannelMember struct {
 	DateCreated              *time.Time `json:"date_created,omitempty"`
 	DateUpdated              *time.Time `json:"date_updated,omitempty"`
 	Identity                 *string    `json:"identity,omitempty"`
-	LastConsumedMessageIndex *int32     `json:"last_consumed_message_index,omitempty"`
+	LastConsumedMessageIndex *int       `json:"last_consumed_message_index,omitempty"`
 	LastConsumptionTimestamp *time.Time `json:"last_consumption_timestamp,omitempty"`
 	RoleSid                  *string    `json:"role_sid,omitempty"`
 	ServiceSid               *string    `json:"service_sid,omitempty"`

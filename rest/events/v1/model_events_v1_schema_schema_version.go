@@ -23,7 +23,7 @@ type EventsV1SchemaSchemaVersion struct {
 	Id  *string `json:"id,omitempty"`
 	Raw *string `json:"raw,omitempty"`
 	// The version of this schema.
-	SchemaVersion *int32 `json:"schema_version,omitempty"`
+	SchemaVersion *int `json:"schema_version,omitempty"`
 	// The URL of this resource.
 	Url *string `json:"url,omitempty"`
 }

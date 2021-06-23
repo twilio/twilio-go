@@ -34,5 +34,5 @@ type StudioV1Flow struct {
 	// The absolute URL of the resource
 	Url *string `json:"url,omitempty"`
 	// The latest version number of the Flow's definition
-	Version *int32 `json:"version,omitempty"`
+	Version *int `json:"version,omitempty"`
 }

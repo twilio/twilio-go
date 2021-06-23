@@ -24,17 +24,17 @@ type TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics struct {
 	// The end of the interval during which these statistics were calculated
 	EndTime *time.Time `json:"end_time,omitempty"`
 	// The total number of Reservations that were accepted
-	ReservationsAccepted *int32 `json:"reservations_accepted,omitempty"`
+	ReservationsAccepted *int `json:"reservations_accepted,omitempty"`
 	// The total number of Reservations that were canceled
-	ReservationsCanceled *int32 `json:"reservations_canceled,omitempty"`
+	ReservationsCanceled *int `json:"reservations_canceled,omitempty"`
 	// The total number of Reservations that were created
-	ReservationsCreated *int32 `json:"reservations_created,omitempty"`
+	ReservationsCreated *int `json:"reservations_created,omitempty"`
 	// The total number of Reservations that were rejected
-	ReservationsRejected *int32 `json:"reservations_rejected,omitempty"`
+	ReservationsRejected *int `json:"reservations_rejected,omitempty"`
 	// The total number of Reservations that were rescinded
-	ReservationsRescinded *int32 `json:"reservations_rescinded,omitempty"`
+	ReservationsRescinded *int `json:"reservations_rescinded,omitempty"`
 	// The total number of Reservations that were timed out
-	ReservationsTimedOut *int32 `json:"reservations_timed_out,omitempty"`
+	ReservationsTimedOut *int `json:"reservations_timed_out,omitempty"`
 	// The beginning of the interval during which these statistics were calculated
 	StartTime *time.Time `json:"start_time,omitempty"`
 	// The absolute URL of the Workers statistics resource

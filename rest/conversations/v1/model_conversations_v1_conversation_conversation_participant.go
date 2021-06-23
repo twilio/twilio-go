@@ -30,7 +30,7 @@ type ConversationsV1ConversationConversationParticipant struct {
 	// A unique string identifier for the conversation participant as Conversation User.
 	Identity *string `json:"identity,omitempty"`
 	// Index of last “read” message in the Conversation for the Participant.
-	LastReadMessageIndex *int32 `json:"last_read_message_index,omitempty"`
+	LastReadMessageIndex *int `json:"last_read_message_index,omitempty"`
 	// Timestamp of last “read” message in the Conversation for the Participant.
 	LastReadTimestamp *string `json:"last_read_timestamp,omitempty"`
 	// Information about how this participant exchanges messages with the conversation.

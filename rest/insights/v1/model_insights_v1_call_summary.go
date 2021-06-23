@@ -24,9 +24,9 @@ type InsightsV1CallSummary struct {
 	CallType        *string                 `json:"call_type,omitempty"`
 	CarrierEdge     *map[string]interface{} `json:"carrier_edge,omitempty"`
 	ClientEdge      *map[string]interface{} `json:"client_edge,omitempty"`
-	ConnectDuration *int32                  `json:"connect_duration,omitempty"`
+	ConnectDuration *int                    `json:"connect_duration,omitempty"`
 	CreatedTime     *time.Time              `json:"created_time,omitempty"`
-	Duration        *int32                  `json:"duration,omitempty"`
+	Duration        *int                    `json:"duration,omitempty"`
 	EndTime         *time.Time              `json:"end_time,omitempty"`
 	From            *map[string]interface{} `json:"from,omitempty"`
 	ProcessingState *string                 `json:"processing_state,omitempty"`

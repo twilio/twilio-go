@@ -24,7 +24,7 @@ type IpMessagingV2ServiceChannelMessage struct {
 	DateCreated   *time.Time              `json:"date_created,omitempty"`
 	DateUpdated   *time.Time              `json:"date_updated,omitempty"`
 	From          *string                 `json:"from,omitempty"`
-	Index         *int32                  `json:"index,omitempty"`
+	Index         *int                    `json:"index,omitempty"`
 	LastUpdatedBy *string                 `json:"last_updated_by,omitempty"`
 	Media         *map[string]interface{} `json:"media,omitempty"`
 	ServiceSid    *string                 `json:"service_sid,omitempty"`

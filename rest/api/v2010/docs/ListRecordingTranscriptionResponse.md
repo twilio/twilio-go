@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**End** | **int32** |  |[optional] 
+**End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
-**Page** | **int32** |  |[optional] 
-**PageSize** | **int32** |  |[optional] 
+**Page** | **int** |  |[optional] 
+**PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
-**Start** | **int32** |  |[optional] 
+**Start** | **int** |  |[optional] 
 **Transcriptions** | [**[]ApiV2010AccountRecordingRecordingTranscription**](api.v2010.account.recording.recording_transcription.md) |  |[optional] 
 **Uri** | **string** |  |[optional] 
 

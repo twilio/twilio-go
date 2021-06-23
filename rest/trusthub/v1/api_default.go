@@ -995,7 +995,7 @@ type ListCustomerProfileParams struct {
 	// The unique string of a policy that is associated to the Customer-Profile resource.
 	PolicySid *string `json:"PolicySid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListCustomerProfileParams) SetStatus(Status string) *ListCustomerProfileParams {
@@ -1010,7 +1010,7 @@ func (params *ListCustomerProfileParams) SetPolicySid(PolicySid string) *ListCus
 	params.PolicySid = &PolicySid
 	return params
 }
-func (params *ListCustomerProfileParams) SetPageSize(PageSize int32) *ListCustomerProfileParams {
+func (params *ListCustomerProfileParams) SetPageSize(PageSize int) *ListCustomerProfileParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1057,7 +1057,7 @@ type ListCustomerProfileChannelEndpointAssignmentParams struct {
 	// comma separated list of channel endpoint sids
 	ChannelEndpointSids *string `json:"ChannelEndpointSids,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetChannelEndpointSid(ChannelEndpointSid string) *ListCustomerProfileChannelEndpointAssignmentParams {
@@ -1068,7 +1068,7 @@ func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetChannelEndp
 	params.ChannelEndpointSids = &ChannelEndpointSids
 	return params
 }
-func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetPageSize(PageSize int32) *ListCustomerProfileChannelEndpointAssignmentParams {
+func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetPageSize(PageSize int) *ListCustomerProfileChannelEndpointAssignmentParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1109,10 +1109,10 @@ func (c *DefaultApiService) ListCustomerProfileChannelEndpointAssignment(Custome
 // Optional parameters for the method 'ListCustomerProfileEntityAssignment'
 type ListCustomerProfileEntityAssignmentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListCustomerProfileEntityAssignmentParams) SetPageSize(PageSize int32) *ListCustomerProfileEntityAssignmentParams {
+func (params *ListCustomerProfileEntityAssignmentParams) SetPageSize(PageSize int) *ListCustomerProfileEntityAssignmentParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1147,10 +1147,10 @@ func (c *DefaultApiService) ListCustomerProfileEntityAssignment(CustomerProfileS
 // Optional parameters for the method 'ListCustomerProfileEvaluation'
 type ListCustomerProfileEvaluationParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListCustomerProfileEvaluationParams) SetPageSize(PageSize int32) *ListCustomerProfileEvaluationParams {
+func (params *ListCustomerProfileEvaluationParams) SetPageSize(PageSize int) *ListCustomerProfileEvaluationParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1185,10 +1185,10 @@ func (c *DefaultApiService) ListCustomerProfileEvaluation(CustomerProfileSid str
 // Optional parameters for the method 'ListEndUser'
 type ListEndUserParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListEndUserParams) SetPageSize(PageSize int32) *ListEndUserParams {
+func (params *ListEndUserParams) SetPageSize(PageSize int) *ListEndUserParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1222,10 +1222,10 @@ func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*ListEndUser
 // Optional parameters for the method 'ListEndUserType'
 type ListEndUserTypeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListEndUserTypeParams) SetPageSize(PageSize int32) *ListEndUserTypeParams {
+func (params *ListEndUserTypeParams) SetPageSize(PageSize int) *ListEndUserTypeParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1259,10 +1259,10 @@ func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*Lis
 // Optional parameters for the method 'ListPolicies'
 type ListPoliciesParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListPoliciesParams) SetPageSize(PageSize int32) *ListPoliciesParams {
+func (params *ListPoliciesParams) SetPageSize(PageSize int) *ListPoliciesParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1296,10 +1296,10 @@ func (c *DefaultApiService) ListPolicies(params *ListPoliciesParams) (*ListPolic
 // Optional parameters for the method 'ListSupportingDocument'
 type ListSupportingDocumentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSupportingDocumentParams) SetPageSize(PageSize int32) *ListSupportingDocumentParams {
+func (params *ListSupportingDocumentParams) SetPageSize(PageSize int) *ListSupportingDocumentParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1333,10 +1333,10 @@ func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumen
 // Optional parameters for the method 'ListSupportingDocumentType'
 type ListSupportingDocumentTypeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSupportingDocumentTypeParams) SetPageSize(PageSize int32) *ListSupportingDocumentTypeParams {
+func (params *ListSupportingDocumentTypeParams) SetPageSize(PageSize int) *ListSupportingDocumentTypeParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1376,7 +1376,7 @@ type ListTrustProductParams struct {
 	// The unique string of a policy that is associated to the Customer-Profile resource.
 	PolicySid *string `json:"PolicySid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListTrustProductParams) SetStatus(Status string) *ListTrustProductParams {
@@ -1391,7 +1391,7 @@ func (params *ListTrustProductParams) SetPolicySid(PolicySid string) *ListTrustP
 	params.PolicySid = &PolicySid
 	return params
 }
-func (params *ListTrustProductParams) SetPageSize(PageSize int32) *ListTrustProductParams {
+func (params *ListTrustProductParams) SetPageSize(PageSize int) *ListTrustProductParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1438,7 +1438,7 @@ type ListTrustProductChannelEndpointAssignmentParams struct {
 	// comma separated list of channel endpoint sids
 	ChannelEndpointSids *string `json:"ChannelEndpointSids,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListTrustProductChannelEndpointAssignmentParams) SetChannelEndpointSid(ChannelEndpointSid string) *ListTrustProductChannelEndpointAssignmentParams {
@@ -1449,7 +1449,7 @@ func (params *ListTrustProductChannelEndpointAssignmentParams) SetChannelEndpoin
 	params.ChannelEndpointSids = &ChannelEndpointSids
 	return params
 }
-func (params *ListTrustProductChannelEndpointAssignmentParams) SetPageSize(PageSize int32) *ListTrustProductChannelEndpointAssignmentParams {
+func (params *ListTrustProductChannelEndpointAssignmentParams) SetPageSize(PageSize int) *ListTrustProductChannelEndpointAssignmentParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1490,10 +1490,10 @@ func (c *DefaultApiService) ListTrustProductChannelEndpointAssignment(TrustProdu
 // Optional parameters for the method 'ListTrustProductEntityAssignment'
 type ListTrustProductEntityAssignmentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListTrustProductEntityAssignmentParams) SetPageSize(PageSize int32) *ListTrustProductEntityAssignmentParams {
+func (params *ListTrustProductEntityAssignmentParams) SetPageSize(PageSize int) *ListTrustProductEntityAssignmentParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1528,10 +1528,10 @@ func (c *DefaultApiService) ListTrustProductEntityAssignment(TrustProductSid str
 // Optional parameters for the method 'ListTrustProductEvaluation'
 type ListTrustProductEvaluationParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListTrustProductEvaluationParams) SetPageSize(PageSize int32) *ListTrustProductEvaluationParams {
+func (params *ListTrustProductEvaluationParams) SetPageSize(PageSize int) *ListTrustProductEvaluationParams {
 	params.PageSize = &PageSize
 	return params
 }

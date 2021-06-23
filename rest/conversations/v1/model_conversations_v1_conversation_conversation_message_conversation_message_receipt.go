@@ -28,7 +28,7 @@ type ConversationsV1ConversationConversationMessageConversationMessageReceipt st
 	// The date that this resource was last updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The message [delivery error code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status
-	ErrorCode *int32 `json:"error_code,omitempty"`
+	ErrorCode *int `json:"error_code,omitempty"`
 	// The SID of the message the delivery receipt belongs to
 	MessageSid *string `json:"message_sid,omitempty"`
 	// The unique ID of the participant the delivery receipt belongs to.

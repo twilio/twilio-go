@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The unique sid that identifies this account |
-**CallCount** | Pointer to **int32** | The total number of calls |
-**CallFeedbackCount** | Pointer to **int32** | The total number of calls with a feedback entry |
+**CallCount** | Pointer to **int** | The total number of calls |
+**CallFeedbackCount** | Pointer to **int** | The total number of calls with a feedback entry |
 **DateCreated** | Pointer to **string** | The date this resource was created |
 **DateUpdated** | Pointer to **string** | The date this resource was last updated |
 **EndDate** | Pointer to **string** | The latest feedback entry date in the summary |

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** |  |
-**ConsumptionReportInterval** | Pointer to **int32** |  |
+**ConsumptionReportInterval** | Pointer to **int** |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
 **DefaultChannelCreatorRoleSid** | Pointer to **string** |  |
@@ -16,14 +16,14 @@ Name | Type | Description | Notes
 **Links** | Pointer to **map[string]interface{}** |  |
 **Media** | Pointer to **map[string]interface{}** |  |
 **Notifications** | Pointer to **map[string]interface{}** |  |
-**PostWebhookRetryCount** | Pointer to **int32** |  |
+**PostWebhookRetryCount** | Pointer to **int** |  |
 **PostWebhookUrl** | Pointer to **string** |  |
-**PreWebhookRetryCount** | Pointer to **int32** |  |
+**PreWebhookRetryCount** | Pointer to **int** |  |
 **PreWebhookUrl** | Pointer to **string** |  |
 **ReachabilityEnabled** | Pointer to **bool** |  |
 **ReadStatusEnabled** | Pointer to **bool** |  |
 **Sid** | Pointer to **string** |  |
-**TypingIndicatorTimeout** | Pointer to **int32** |  |
+**TypingIndicatorTimeout** | Pointer to **int** |  |
 **Url** | Pointer to **string** |  |
 **WebhookFilters** | Pointer to **[]string** |  |
 **WebhookMethod** | Pointer to **string** |  |

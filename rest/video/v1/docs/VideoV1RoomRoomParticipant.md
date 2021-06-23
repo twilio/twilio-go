@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
-**Duration** | Pointer to **int32** | Duration of time in seconds the participant was connected |
+**Duration** | Pointer to **int** | Duration of time in seconds the participant was connected |
 **EndTime** | Pointer to [**time.Time**](time.Time.md) | The time when the participant disconnected from the room in ISO 8601 format |
 **Identity** | Pointer to **string** | The string that identifies the resource's User |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources |

@@ -257,7 +257,7 @@ type CreateNotificationParams struct {
 	// The destination address specified as a JSON string.  Multiple `to_binding` parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers.
 	ToBinding *[]string `json:"ToBinding,omitempty"`
 	// How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
 func (params *CreateNotificationParams) SetAction(Action string) *CreateNotificationParams {
@@ -328,7 +328,7 @@ func (params *CreateNotificationParams) SetToBinding(ToBinding []string) *Create
 	params.ToBinding = &ToBinding
 	return params
 }
-func (params *CreateNotificationParams) SetTtl(Ttl int32) *CreateNotificationParams {
+func (params *CreateNotificationParams) SetTtl(Ttl int) *CreateNotificationParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -743,7 +743,7 @@ type ListBindingParams struct {
 	// Only list Bindings that have all of the specified Tags. The following implicit tags are available: `all`, `apn`, `fcm`, `gcm`, `sms`, `facebook-messenger`. Up to 5 tags are allowed.
 	Tag *[]string `json:"Tag,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListBindingParams) SetStartDate(StartDate string) *ListBindingParams {
@@ -762,7 +762,7 @@ func (params *ListBindingParams) SetTag(Tag []string) *ListBindingParams {
 	params.Tag = &Tag
 	return params
 }
-func (params *ListBindingParams) SetPageSize(PageSize int32) *ListBindingParams {
+func (params *ListBindingParams) SetPageSize(PageSize int) *ListBindingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -812,10 +812,10 @@ func (c *DefaultApiService) ListBinding(ServiceSid string, params *ListBindingPa
 // Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListCredentialParams) SetPageSize(PageSize int32) *ListCredentialParams {
+func (params *ListCredentialParams) SetPageSize(PageSize int) *ListCredentialParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -850,14 +850,14 @@ type ListServiceParams struct {
 	// The string that identifies the Service resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListServiceParams) SetFriendlyName(FriendlyName string) *ListServiceParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }

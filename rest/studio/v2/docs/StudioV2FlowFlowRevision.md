@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Definition** | Pointer to **map[string]interface{}** | JSON representation of flow definition |
 **Errors** | Pointer to **[]map[string]interface{}** | List of error in the flow definition |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the Flow |
-**Revision** | Pointer to **int32** | The latest revision number of the Flow's definition |
+**Revision** | Pointer to **int** | The latest revision number of the Flow's definition |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Status** | Pointer to **string** | The status of the Flow |
 **Url** | Pointer to **string** | The absolute URL of the resource |

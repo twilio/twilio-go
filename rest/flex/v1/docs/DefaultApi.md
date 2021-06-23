@@ -94,9 +94,9 @@ Name | Type | Description
 **IntegrationChannel** | **string** | The Task Channel SID (TCXXXX) or unique name (e.g., &#x60;sms&#x60;) to use for the Task that will be created. Applicable and required when &#x60;integrationType&#x60; is &#x60;task&#x60;. The default value is &#x60;default&#x60;.
 **IntegrationCreationOnMessage** | **bool** | In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
 **IntegrationFlowSid** | **string** | The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
-**IntegrationPriority** | **int32** | The Task priority of a new Task. The default priority is 0. Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
-**IntegrationRetryCount** | **int32** | The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (inclusive), default is 3. Optional when &#x60;integrationType&#x60; is &#x60;external&#x60;, not applicable otherwise.
-**IntegrationTimeout** | **int32** | The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
+**IntegrationPriority** | **int** | The Task priority of a new Task. The default priority is 0. Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
+**IntegrationRetryCount** | **int** | The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (inclusive), default is 3. Optional when &#x60;integrationType&#x60; is &#x60;external&#x60;, not applicable otherwise.
+**IntegrationTimeout** | **int** | The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
 **IntegrationUrl** | **string** | The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
 **IntegrationWorkflowSid** | **string** | The Workflow SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
 **IntegrationWorkspaceSid** | **string** | The Workspace SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
@@ -458,7 +458,7 @@ Other parameters are passed through a pointer to a ListChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -496,7 +496,7 @@ Other parameters are passed through a pointer to a ListFlexFlowParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the Flex Flow resources to read.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -533,7 +533,7 @@ Other parameters are passed through a pointer to a ListWebChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -615,9 +615,9 @@ Name | Type | Description
 **IntegrationChannel** | **string** | The Task Channel SID (TCXXXX) or unique name (e.g., &#x60;sms&#x60;) to use for the Task that will be created. Applicable and required when &#x60;integrationType&#x60; is &#x60;task&#x60;. The default value is &#x60;default&#x60;.
 **IntegrationCreationOnMessage** | **bool** | In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
 **IntegrationFlowSid** | **string** | The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
-**IntegrationPriority** | **int32** | The Task priority of a new Task. The default priority is 0. Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
-**IntegrationRetryCount** | **int32** | The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (inclusive), default is 3. Optional when &#x60;integrationType&#x60; is &#x60;external&#x60;, not applicable otherwise.
-**IntegrationTimeout** | **int32** | The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
+**IntegrationPriority** | **int** | The Task priority of a new Task. The default priority is 0. Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
+**IntegrationRetryCount** | **int** | The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (inclusive), default is 3. Optional when &#x60;integrationType&#x60; is &#x60;external&#x60;, not applicable otherwise.
+**IntegrationTimeout** | **int** | The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
 **IntegrationUrl** | **string** | The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
 **IntegrationWorkflowSid** | **string** | The Workflow SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
 **IntegrationWorkspaceSid** | **string** | The Workspace SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
