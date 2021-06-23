@@ -20,13 +20,13 @@ type TaskrouterV1WorkspaceWorkerWorkerChannel struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The total number of Tasks assigned to Worker for the TaskChannel type
-	AssignedTasks *int32 `json:"assigned_tasks,omitempty"`
+	AssignedTasks *int `json:"assigned_tasks,omitempty"`
 	// Whether the Worker should receive Tasks of the TaskChannel type
 	Available *bool `json:"available,omitempty"`
 	// The current available capacity between 0 to 100 for the TaskChannel
-	AvailableCapacityPercentage *int32 `json:"available_capacity_percentage,omitempty"`
+	AvailableCapacityPercentage *int `json:"available_capacity_percentage,omitempty"`
 	// The current configured capacity for the WorkerChannel
-	ConfiguredCapacity *int32 `json:"configured_capacity,omitempty"`
+	ConfiguredCapacity *int `json:"configured_capacity,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was last updated

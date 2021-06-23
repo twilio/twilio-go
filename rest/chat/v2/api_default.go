@@ -148,7 +148,7 @@ type CreateChannelWebhookParams struct {
 	// The HTTP method used to call `configuration.url`. Can be: `GET` or `POST` and the default is `POST`.
 	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
 	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
-	ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
+	ConfigurationRetryCount *int `json:"Configuration.RetryCount,omitempty"`
 	// A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
 	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
 	// The URL of the webhook to call using the `configuration.method`.
@@ -169,7 +169,7 @@ func (params *CreateChannelWebhookParams) SetConfigurationMethod(ConfigurationMe
 	params.ConfigurationMethod = &ConfigurationMethod
 	return params
 }
-func (params *CreateChannelWebhookParams) SetConfigurationRetryCount(ConfigurationRetryCount int32) *CreateChannelWebhookParams {
+func (params *CreateChannelWebhookParams) SetConfigurationRetryCount(ConfigurationRetryCount int) *CreateChannelWebhookParams {
 	params.ConfigurationRetryCount = &ConfigurationRetryCount
 	return params
 }
@@ -385,7 +385,7 @@ type CreateMemberParams struct {
 	// The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/chat/rest/service-resource). See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more info.
 	Identity *string `json:"Identity,omitempty"`
 	// The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read. This parameter should only be used when recreating a Member from a backup/separate source.
-	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
 	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
 	// The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/rest/service-resource).
@@ -412,7 +412,7 @@ func (params *CreateMemberParams) SetIdentity(Identity string) *CreateMemberPara
 	params.Identity = &Identity
 	return params
 }
-func (params *CreateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int32) *CreateMemberParams {
+func (params *CreateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *CreateMemberParams {
 	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
 	return params
 }
@@ -1296,7 +1296,7 @@ type ListBindingParams struct {
 	// The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListBindingParams) SetBindingType(BindingType []string) *ListBindingParams {
@@ -1307,7 +1307,7 @@ func (params *ListBindingParams) SetIdentity(Identity []string) *ListBindingPara
 	params.Identity = &Identity
 	return params
 }
-func (params *ListBindingParams) SetPageSize(PageSize int32) *ListBindingParams {
+func (params *ListBindingParams) SetPageSize(PageSize int) *ListBindingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1353,14 +1353,14 @@ type ListChannelParams struct {
 	// The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
 	Type *[]string `json:"Type,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListChannelParams) SetType(Type []string) *ListChannelParams {
 	params.Type = &Type
 	return params
 }
-func (params *ListChannelParams) SetPageSize(PageSize int32) *ListChannelParams {
+func (params *ListChannelParams) SetPageSize(PageSize int) *ListChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1399,10 +1399,10 @@ func (c *DefaultApiService) ListChannel(ServiceSid string, params *ListChannelPa
 // Optional parameters for the method 'ListChannelWebhook'
 type ListChannelWebhookParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListChannelWebhookParams) SetPageSize(PageSize int32) *ListChannelWebhookParams {
+func (params *ListChannelWebhookParams) SetPageSize(PageSize int) *ListChannelWebhookParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1437,10 +1437,10 @@ func (c *DefaultApiService) ListChannelWebhook(ServiceSid string, ChannelSid str
 // Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListCredentialParams) SetPageSize(PageSize int32) *ListCredentialParams {
+func (params *ListCredentialParams) SetPageSize(PageSize int) *ListCredentialParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1475,14 +1475,14 @@ type ListInviteParams struct {
 	// The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListInviteParams) SetIdentity(Identity []string) *ListInviteParams {
 	params.Identity = &Identity
 	return params
 }
-func (params *ListInviteParams) SetPageSize(PageSize int32) *ListInviteParams {
+func (params *ListInviteParams) SetPageSize(PageSize int) *ListInviteParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1524,14 +1524,14 @@ type ListMemberParams struct {
 	// The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity` value of the Member resources to read. See [access tokens](https://www.twilio.com/docs/chat/create-tokens) for more details.
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListMemberParams) SetIdentity(Identity []string) *ListMemberParams {
 	params.Identity = &Identity
 	return params
 }
-func (params *ListMemberParams) SetPageSize(PageSize int32) *ListMemberParams {
+func (params *ListMemberParams) SetPageSize(PageSize int) *ListMemberParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1573,14 +1573,14 @@ type ListMessageParams struct {
 	// The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default.
 	Order *string `json:"Order,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListMessageParams) SetOrder(Order string) *ListMessageParams {
 	params.Order = &Order
 	return params
 }
-func (params *ListMessageParams) SetPageSize(PageSize int32) *ListMessageParams {
+func (params *ListMessageParams) SetPageSize(PageSize int) *ListMessageParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1618,10 +1618,10 @@ func (c *DefaultApiService) ListMessage(ServiceSid string, ChannelSid string, pa
 // Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListRoleParams) SetPageSize(PageSize int32) *ListRoleParams {
+func (params *ListRoleParams) SetPageSize(PageSize int) *ListRoleParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1655,10 +1655,10 @@ func (c *DefaultApiService) ListRole(ServiceSid string, params *ListRoleParams) 
 // Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1691,10 +1691,10 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // Optional parameters for the method 'ListUser'
 type ListUserParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListUserParams) SetPageSize(PageSize int32) *ListUserParams {
+func (params *ListUserParams) SetPageSize(PageSize int) *ListUserParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1730,14 +1730,14 @@ type ListUserBindingParams struct {
 	// The push technology used by the User Binding resources to read. Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
 	BindingType *[]string `json:"BindingType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUserBindingParams) SetBindingType(BindingType []string) *ListUserBindingParams {
 	params.BindingType = &BindingType
 	return params
 }
-func (params *ListUserBindingParams) SetPageSize(PageSize int32) *ListUserBindingParams {
+func (params *ListUserBindingParams) SetPageSize(PageSize int) *ListUserBindingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1777,10 +1777,10 @@ func (c *DefaultApiService) ListUserBinding(ServiceSid string, UserSid string, p
 // Optional parameters for the method 'ListUserChannel'
 type ListUserChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListUserChannelParams) SetPageSize(PageSize int32) *ListUserChannelParams {
+func (params *ListUserChannelParams) SetPageSize(PageSize int) *ListUserChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1915,7 +1915,7 @@ type UpdateChannelWebhookParams struct {
 	// The HTTP method used to call `configuration.url`. Can be: `GET` or `POST` and the default is `POST`.
 	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
 	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3, inclusive, and the default is 0.
-	ConfigurationRetryCount *int32 `json:"Configuration.RetryCount,omitempty"`
+	ConfigurationRetryCount *int `json:"Configuration.RetryCount,omitempty"`
 	// A string that will cause us to call the webhook when it is present in a message body. This parameter takes only one trigger string. To specify more than one, repeat this parameter for each trigger string up to a total of 5 trigger strings. Used only when `type` = `trigger`.
 	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
 	// The URL of the webhook to call using the `configuration.method`.
@@ -1934,7 +1934,7 @@ func (params *UpdateChannelWebhookParams) SetConfigurationMethod(ConfigurationMe
 	params.ConfigurationMethod = &ConfigurationMethod
 	return params
 }
-func (params *UpdateChannelWebhookParams) SetConfigurationRetryCount(ConfigurationRetryCount int32) *UpdateChannelWebhookParams {
+func (params *UpdateChannelWebhookParams) SetConfigurationRetryCount(ConfigurationRetryCount int) *UpdateChannelWebhookParams {
 	params.ConfigurationRetryCount = &ConfigurationRetryCount
 	return params
 }
@@ -2087,7 +2087,7 @@ type UpdateMemberParams struct {
 	// The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format, to assign to the resource as the date it was last updated.
 	DateUpdated *time.Time `json:"DateUpdated,omitempty"`
 	// The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) that the Member has read within the [Channel](https://www.twilio.com/docs/chat/channels).
-	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
 	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
 	// The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/rest/service-resource).
@@ -2110,7 +2110,7 @@ func (params *UpdateMemberParams) SetDateUpdated(DateUpdated time.Time) *UpdateM
 	params.DateUpdated = &DateUpdated
 	return params
 }
-func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int32) *UpdateMemberParams {
+func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *UpdateMemberParams {
 	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
 	return params
 }
@@ -2307,7 +2307,7 @@ func (c *DefaultApiService) UpdateRole(ServiceSid string, Sid string, params *Up
 // Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
 	// DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-	ConsumptionReportInterval *int32 `json:"ConsumptionReportInterval,omitempty"`
+	ConsumptionReportInterval *int `json:"ConsumptionReportInterval,omitempty"`
 	// The channel role assigned to a channel creator when they join a new channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
 	DefaultChannelCreatorRoleSid *string `json:"DefaultChannelCreatorRoleSid,omitempty"`
 	// The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
@@ -2317,9 +2317,9 @@ type UpdateServiceParams struct {
 	// A descriptive string that you create to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
-	LimitsChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
+	LimitsChannelMembers *int `json:"Limits.ChannelMembers,omitempty"`
 	// The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
-	LimitsUserChannels *int32 `json:"Limits.UserChannels,omitempty"`
+	LimitsUserChannels *int `json:"Limits.UserChannels,omitempty"`
 	// The message to send when a media message has no text. Can be used as placeholder message.
 	MediaCompatibilityMessage *string `json:"Media.CompatibilityMessage,omitempty"`
 	// Whether to send a notification when a member is added to a channel. The default is `false`.
@@ -2351,11 +2351,11 @@ type UpdateServiceParams struct {
 	// The template to use to create the notification text displayed to a user when they are removed from a channel and `notifications.removed_from_channel.enabled` is `true`.
 	NotificationsRemovedFromChannelTemplate *string `json:"Notifications.RemovedFromChannel.Template,omitempty"`
 	// The number of times to retry a call to the `post_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. The default is 0, which means the call won't be retried.
-	PostWebhookRetryCount *int32 `json:"PostWebhookRetryCount,omitempty"`
+	PostWebhookRetryCount *int `json:"PostWebhookRetryCount,omitempty"`
 	// The URL for post-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
 	PostWebhookUrl *string `json:"PostWebhookUrl,omitempty"`
 	// The number of times to retry a call to the `pre_webhook_url` if the request times out (after 5 seconds) or it receives a 429, 503, or 504 HTTP response. Default retry count is 0 times, which means the call won't be retried.
-	PreWebhookRetryCount *int32 `json:"PreWebhookRetryCount,omitempty"`
+	PreWebhookRetryCount *int `json:"PreWebhookRetryCount,omitempty"`
 	// The URL for pre-event webhooks, which are called by using the `webhook_method`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
 	PreWebhookUrl *string `json:"PreWebhookUrl,omitempty"`
 	// Whether to enable the [Reachability Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this Service instance. The default is `false`.
@@ -2363,14 +2363,14 @@ type UpdateServiceParams struct {
 	// Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
 	ReadStatusEnabled *bool `json:"ReadStatusEnabled,omitempty"`
 	// How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
-	TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
+	TypingIndicatorTimeout *int `json:"TypingIndicatorTimeout,omitempty"`
 	// The list of webhook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
 	WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
 	// The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
 	WebhookMethod *string `json:"WebhookMethod,omitempty"`
 }
 
-func (params *UpdateServiceParams) SetConsumptionReportInterval(ConsumptionReportInterval int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetConsumptionReportInterval(ConsumptionReportInterval int) *UpdateServiceParams {
 	params.ConsumptionReportInterval = &ConsumptionReportInterval
 	return params
 }
@@ -2390,11 +2390,11 @@ func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateS
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateServiceParams) SetLimitsChannelMembers(LimitsChannelMembers int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetLimitsChannelMembers(LimitsChannelMembers int) *UpdateServiceParams {
 	params.LimitsChannelMembers = &LimitsChannelMembers
 	return params
 }
-func (params *UpdateServiceParams) SetLimitsUserChannels(LimitsUserChannels int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetLimitsUserChannels(LimitsUserChannels int) *UpdateServiceParams {
 	params.LimitsUserChannels = &LimitsUserChannels
 	return params
 }
@@ -2458,7 +2458,7 @@ func (params *UpdateServiceParams) SetNotificationsRemovedFromChannelTemplate(No
 	params.NotificationsRemovedFromChannelTemplate = &NotificationsRemovedFromChannelTemplate
 	return params
 }
-func (params *UpdateServiceParams) SetPostWebhookRetryCount(PostWebhookRetryCount int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetPostWebhookRetryCount(PostWebhookRetryCount int) *UpdateServiceParams {
 	params.PostWebhookRetryCount = &PostWebhookRetryCount
 	return params
 }
@@ -2466,7 +2466,7 @@ func (params *UpdateServiceParams) SetPostWebhookUrl(PostWebhookUrl string) *Upd
 	params.PostWebhookUrl = &PostWebhookUrl
 	return params
 }
-func (params *UpdateServiceParams) SetPreWebhookRetryCount(PreWebhookRetryCount int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetPreWebhookRetryCount(PreWebhookRetryCount int) *UpdateServiceParams {
 	params.PreWebhookRetryCount = &PreWebhookRetryCount
 	return params
 }
@@ -2482,7 +2482,7 @@ func (params *UpdateServiceParams) SetReadStatusEnabled(ReadStatusEnabled bool) 
 	params.ReadStatusEnabled = &ReadStatusEnabled
 	return params
 }
-func (params *UpdateServiceParams) SetTypingIndicatorTimeout(TypingIndicatorTimeout int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetTypingIndicatorTimeout(TypingIndicatorTimeout int) *UpdateServiceParams {
 	params.TypingIndicatorTimeout = &TypingIndicatorTimeout
 	return params
 }
@@ -2682,14 +2682,14 @@ func (c *DefaultApiService) UpdateUser(ServiceSid string, Sid string, params *Up
 // Optional parameters for the method 'UpdateUserChannel'
 type UpdateUserChannelParams struct {
 	// The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
-	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
 	// The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
 	LastConsumptionTimestamp *time.Time `json:"LastConsumptionTimestamp,omitempty"`
 	// The push notification level to assign to the User Channel. Can be: `default` or `muted`.
 	NotificationLevel *string `json:"NotificationLevel,omitempty"`
 }
 
-func (params *UpdateUserChannelParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int32) *UpdateUserChannelParams {
+func (params *UpdateUserChannelParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *UpdateUserChannelParams {
 	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
 	return params
 }

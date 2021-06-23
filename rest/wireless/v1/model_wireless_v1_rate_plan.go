@@ -22,7 +22,7 @@ type WirelessV1RatePlan struct {
 	// Whether SIMs can use GPRS/3G/4G/LTE data connectivity
 	DataEnabled *bool `json:"data_enabled,omitempty"`
 	// The total data usage in Megabytes that the Network allows during one month on the home network
-	DataLimit *int32 `json:"data_limit,omitempty"`
+	DataLimit *int `json:"data_limit,omitempty"`
 	// The model used to meter data usage
 	DataMetering *string `json:"data_metering,omitempty"`
 	// The date when the resource was created, given as GMT in ISO 8601 format
@@ -34,11 +34,11 @@ type WirelessV1RatePlan struct {
 	// The services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States
 	InternationalRoaming *[]string `json:"international_roaming,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States
-	InternationalRoamingDataLimit *int32 `json:"international_roaming_data_limit,omitempty"`
+	InternationalRoamingDataLimit *int `json:"international_roaming_data_limit,omitempty"`
 	// Whether SIMs can make, send, and receive SMS using Commands
 	MessagingEnabled *bool `json:"messaging_enabled,omitempty"`
 	// The total data usage in Megabytes that the Network allows during one month on non-home networks in the United States
-	NationalRoamingDataLimit *int32 `json:"national_roaming_data_limit,omitempty"`
+	NationalRoamingDataLimit *int `json:"national_roaming_data_limit,omitempty"`
 	// Whether SIMs can roam on networks other than the home network in the United States
 	NationalRoamingEnabled *bool `json:"national_roaming_enabled,omitempty"`
 	// The unique string that identifies the resource

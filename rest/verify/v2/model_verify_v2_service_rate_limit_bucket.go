@@ -24,9 +24,9 @@ type VerifyV2ServiceRateLimitBucket struct {
 	// The RFC 2822 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// Number of seconds that the rate limit will be enforced over.
-	Interval *int32 `json:"interval,omitempty"`
+	Interval *int `json:"interval,omitempty"`
 	// Max number of requests.
-	Max *int32 `json:"max,omitempty"`
+	Max *int `json:"max,omitempty"`
 	// Rate Limit Sid.
 	RateLimitSid *string `json:"rate_limit_sid,omitempty"`
 	// The SID of the Service that the resource is associated with

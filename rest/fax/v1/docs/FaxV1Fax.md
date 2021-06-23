@@ -9,12 +9,12 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 formatted date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 formatted date and time in GMT when the resource was last updated |
 **Direction** | Pointer to **string** | The direction of the fax |
-**Duration** | Pointer to **int32** | The time it took to transmit the fax |
+**Duration** | Pointer to **int** | The time it took to transmit the fax |
 **From** | Pointer to **string** | The number the fax was sent from |
 **Links** | Pointer to **map[string]interface{}** | The URLs of the fax's related resources |
 **MediaSid** | Pointer to **string** | The SID of the FaxMedia resource that is associated with the Fax |
 **MediaUrl** | Pointer to **string** | The Twilio-hosted URL that can be used to download fax media |
-**NumPages** | Pointer to **int32** | The number of pages contained in the fax document |
+**NumPages** | Pointer to **int** | The number of pages contained in the fax document |
 **Price** | Pointer to **float32** | The fax transmission price |
 **PriceUnit** | Pointer to **string** | The ISO 4217 currency used for billing |
 **Quality** | Pointer to **string** | The quality of the fax |

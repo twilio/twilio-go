@@ -128,10 +128,10 @@ func (c *DefaultApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceVoic
 // Optional parameters for the method 'ListMessagingCountry'
 type ListMessagingCountryParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListMessagingCountryParams) SetPageSize(PageSize int32) *ListMessagingCountryParams {
+func (params *ListMessagingCountryParams) SetPageSize(PageSize int) *ListMessagingCountryParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -164,10 +164,10 @@ func (c *DefaultApiService) ListMessagingCountry(params *ListMessagingCountryPar
 // Optional parameters for the method 'ListPhoneNumberCountry'
 type ListPhoneNumberCountryParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListPhoneNumberCountryParams) SetPageSize(PageSize int32) *ListPhoneNumberCountryParams {
+func (params *ListPhoneNumberCountryParams) SetPageSize(PageSize int) *ListPhoneNumberCountryParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -200,10 +200,10 @@ func (c *DefaultApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountr
 // Optional parameters for the method 'ListVoiceCountry'
 type ListVoiceCountryParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListVoiceCountryParams) SetPageSize(PageSize int32) *ListVoiceCountryParams {
+func (params *ListVoiceCountryParams) SetPageSize(PageSize int) *ListVoiceCountryParams {
 	params.PageSize = &PageSize
 	return params
 }

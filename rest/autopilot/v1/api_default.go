@@ -1079,10 +1079,10 @@ func (c *DefaultApiService) FetchWebhook(AssistantSid string, Sid string) (*Auto
 // Optional parameters for the method 'ListAssistant'
 type ListAssistantParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListAssistantParams) SetPageSize(PageSize int32) *ListAssistantParams {
+func (params *ListAssistantParams) SetPageSize(PageSize int) *ListAssistantParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1115,10 +1115,10 @@ func (c *DefaultApiService) ListAssistant(params *ListAssistantParams) (*ListAss
 // Optional parameters for the method 'ListField'
 type ListFieldParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListFieldParams) SetPageSize(PageSize int32) *ListFieldParams {
+func (params *ListFieldParams) SetPageSize(PageSize int) *ListFieldParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1153,10 +1153,10 @@ func (c *DefaultApiService) ListField(AssistantSid string, TaskSid string, param
 // Optional parameters for the method 'ListFieldType'
 type ListFieldTypeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListFieldTypeParams) SetPageSize(PageSize int32) *ListFieldTypeParams {
+func (params *ListFieldTypeParams) SetPageSize(PageSize int) *ListFieldTypeParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1192,14 +1192,14 @@ type ListFieldValueParams struct {
 	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`
 	Language *string `json:"Language,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListFieldValueParams) SetLanguage(Language string) *ListFieldValueParams {
 	params.Language = &Language
 	return params
 }
-func (params *ListFieldValueParams) SetPageSize(PageSize int32) *ListFieldValueParams {
+func (params *ListFieldValueParams) SetPageSize(PageSize int) *ListFieldValueParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1237,10 +1237,10 @@ func (c *DefaultApiService) ListFieldValue(AssistantSid string, FieldTypeSid str
 // Optional parameters for the method 'ListModelBuild'
 type ListModelBuildParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListModelBuildParams) SetPageSize(PageSize int32) *ListModelBuildParams {
+func (params *ListModelBuildParams) SetPageSize(PageSize int) *ListModelBuildParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1282,7 +1282,7 @@ type ListQueryParams struct {
 	// The SID of the [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
 	DialogueSid *string `json:"DialogueSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListQueryParams) SetLanguage(Language string) *ListQueryParams {
@@ -1301,7 +1301,7 @@ func (params *ListQueryParams) SetDialogueSid(DialogueSid string) *ListQueryPara
 	params.DialogueSid = &DialogueSid
 	return params
 }
-func (params *ListQueryParams) SetPageSize(PageSize int32) *ListQueryParams {
+func (params *ListQueryParams) SetPageSize(PageSize int) *ListQueryParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1349,14 +1349,14 @@ type ListSampleParams struct {
 	// The [ISO language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`.
 	Language *string `json:"Language,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSampleParams) SetLanguage(Language string) *ListSampleParams {
 	params.Language = &Language
 	return params
 }
-func (params *ListSampleParams) SetPageSize(PageSize int32) *ListSampleParams {
+func (params *ListSampleParams) SetPageSize(PageSize int) *ListSampleParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1394,10 +1394,10 @@ func (c *DefaultApiService) ListSample(AssistantSid string, TaskSid string, para
 // Optional parameters for the method 'ListTask'
 type ListTaskParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListTaskParams) SetPageSize(PageSize int32) *ListTaskParams {
+func (params *ListTaskParams) SetPageSize(PageSize int) *ListTaskParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1431,10 +1431,10 @@ func (c *DefaultApiService) ListTask(AssistantSid string, params *ListTaskParams
 // Optional parameters for the method 'ListWebhook'
 type ListWebhookParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListWebhookParams) SetPageSize(PageSize int32) *ListWebhookParams {
+func (params *ListWebhookParams) SetPageSize(PageSize int) *ListWebhookParams {
 	params.PageSize = &PageSize
 	return params
 }

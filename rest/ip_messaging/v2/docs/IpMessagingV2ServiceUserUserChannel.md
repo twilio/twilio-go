@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** |  |
 **ChannelSid** | Pointer to **string** |  |
-**LastConsumedMessageIndex** | Pointer to **int32** |  |
+**LastConsumedMessageIndex** | Pointer to **int** |  |
 **Links** | Pointer to **map[string]interface{}** |  |
 **MemberSid** | Pointer to **string** |  |
 **NotificationLevel** | Pointer to **string** |  |
 **ServiceSid** | Pointer to **string** |  |
 **Status** | Pointer to **string** |  |
-**UnreadMessagesCount** | Pointer to **int32** |  |
+**UnreadMessagesCount** | Pointer to **int** |  |
 **Url** | Pointer to **string** |  |
 **UserSid** | Pointer to **string** |  |
 

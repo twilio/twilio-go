@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) |  |
 **Identity** | Pointer to **string** |  |
-**LastConsumedMessageIndex** | Pointer to **int32** |  |
+**LastConsumedMessageIndex** | Pointer to **int** |  |
 **LastConsumptionTimestamp** | Pointer to [**time.Time**](time.Time.md) |  |
 **RoleSid** | Pointer to **string** |  |
 **ServiceSid** | Pointer to **string** |  |

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
 **ReachabilityDebouncingEnabled** | Pointer to **bool** | Whether every endpoint_disconnected event occurs after a configurable delay |
-**ReachabilityDebouncingWindow** | Pointer to **int32** | The reachability event delay in milliseconds |
+**ReachabilityDebouncingWindow** | Pointer to **int** | The reachability event delay in milliseconds |
 **ReachabilityWebhooksEnabled** | Pointer to **bool** | Whether the service instance calls webhook_url when client endpoints connect to Sync |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource |

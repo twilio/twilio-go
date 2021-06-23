@@ -28,7 +28,7 @@ type ProxyV1Service struct {
 	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// Default TTL for a Session, in seconds
-	DefaultTtl *int32 `json:"default_ttl,omitempty"`
+	DefaultTtl *int `json:"default_ttl,omitempty"`
 	// Where a proxy number must be located relative to the participant identifier
 	GeoMatchLevel *string `json:"geo_match_level,omitempty"`
 	// The URL we call on each interaction

@@ -32,7 +32,7 @@ type ChatV2ServiceChannelMessage struct {
 	// The Identity of the message's author
 	From *string `json:"from,omitempty"`
 	// The index of the message within the Channel
-	Index *int32 `json:"index,omitempty"`
+	Index *int `json:"index,omitempty"`
 	// The Identity of the User who last updated the Message
 	LastUpdatedBy *string `json:"last_updated_by,omitempty"`
 	// A Media object that describes the Message's media if attached; otherwise, null

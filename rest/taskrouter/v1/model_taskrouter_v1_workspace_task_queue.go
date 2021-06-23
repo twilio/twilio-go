@@ -32,7 +32,7 @@ type TaskrouterV1WorkspaceTaskQueue struct {
 	// The URLs of related resources
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// The maximum number of Workers to reserve
-	MaxReservedWorkers *int32 `json:"max_reserved_workers,omitempty"`
+	MaxReservedWorkers *int `json:"max_reserved_workers,omitempty"`
 	// The name of the Activity to assign Workers once a task is reserved for them
 	ReservationActivityName *string `json:"reservation_activity_name,omitempty"`
 	// The SID of the Activity to assign Workers once a task is reserved for them

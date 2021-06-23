@@ -1395,7 +1395,7 @@ Name | Type | Description
 **Status** | **string** | The verification status of the Customer-Profile resource.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1440,7 +1440,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ChannelEndpointSid** | **string** | The SID of an channel endpoint
 **ChannelEndpointSids** | **string** | comma separated list of channel endpoint sids
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1483,7 +1483,7 @@ Other parameters are passed through a pointer to a ListCustomerProfileEntityAssi
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1526,7 +1526,7 @@ Other parameters are passed through a pointer to a ListCustomerProfileEvaluation
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1565,7 +1565,7 @@ Other parameters are passed through a pointer to a ListEndUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1604,7 +1604,7 @@ Other parameters are passed through a pointer to a ListEndUserTypeParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1643,7 +1643,7 @@ Other parameters are passed through a pointer to a ListPoliciesParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1682,7 +1682,7 @@ Other parameters are passed through a pointer to a ListSupportingDocumentParams 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1721,7 +1721,7 @@ Other parameters are passed through a pointer to a ListSupportingDocumentTypePar
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1763,7 +1763,7 @@ Name | Type | Description
 **Status** | **string** | The verification status of the Customer-Profile resource.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **PolicySid** | **string** | The unique string of a policy that is associated to the Customer-Profile resource.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1808,7 +1808,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ChannelEndpointSid** | **string** | The SID of an channel endpoint
 **ChannelEndpointSids** | **string** | comma separated list of channel endpoint sids
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1851,7 +1851,7 @@ Other parameters are passed through a pointer to a ListTrustProductEntityAssignm
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1894,7 +1894,7 @@ Other parameters are passed through a pointer to a ListTrustProductEvaluationPar
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 

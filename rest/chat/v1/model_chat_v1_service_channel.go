@@ -32,9 +32,9 @@ type ChatV1ServiceChannel struct {
 	// Absolute URLs to access the Members, Messages , Invites and, if it exists, the last Message for the Channel
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// The number of Members in the Channel
-	MembersCount *int32 `json:"members_count,omitempty"`
+	MembersCount *int `json:"members_count,omitempty"`
 	// The number of Messages in the Channel
-	MessagesCount *int32 `json:"messages_count,omitempty"`
+	MessagesCount *int `json:"messages_count,omitempty"`
 	// The SID of the Service that the resource is associated with
 	ServiceSid *string `json:"service_sid,omitempty"`
 	// The unique string that identifies the resource

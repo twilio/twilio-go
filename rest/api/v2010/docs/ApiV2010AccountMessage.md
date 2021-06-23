@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DateSent** | Pointer to **string** | The RFC 2822 date and time in GMT when the message was sent |
 **DateUpdated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was last updated |
 **Direction** | Pointer to **string** | The direction of the message |
-**ErrorCode** | Pointer to **int32** | The error code associated with the message |
+**ErrorCode** | Pointer to **int** | The error code associated with the message |
 **ErrorMessage** | Pointer to **string** | The description of the error_code |
 **From** | Pointer to **string** | The phone number that initiated the message |
 **MessagingServiceSid** | Pointer to **string** | The SID of the Messaging Service used with the message. |

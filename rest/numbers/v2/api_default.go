@@ -583,7 +583,7 @@ type ListBundleParams struct {
 	// The type of phone number of the Bundle's ownership request.
 	NumberType *string `json:"NumberType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListBundleParams) SetStatus(Status string) *ListBundleParams {
@@ -606,7 +606,7 @@ func (params *ListBundleParams) SetNumberType(NumberType string) *ListBundlePara
 	params.NumberType = &NumberType
 	return params
 }
-func (params *ListBundleParams) SetPageSize(PageSize int32) *ListBundleParams {
+func (params *ListBundleParams) SetPageSize(PageSize int) *ListBundleParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -655,10 +655,10 @@ func (c *DefaultApiService) ListBundle(params *ListBundleParams) (*ListBundleRes
 // Optional parameters for the method 'ListEndUser'
 type ListEndUserParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListEndUserParams) SetPageSize(PageSize int32) *ListEndUserParams {
+func (params *ListEndUserParams) SetPageSize(PageSize int) *ListEndUserParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -692,10 +692,10 @@ func (c *DefaultApiService) ListEndUser(params *ListEndUserParams) (*ListEndUser
 // Optional parameters for the method 'ListEndUserType'
 type ListEndUserTypeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListEndUserTypeParams) SetPageSize(PageSize int32) *ListEndUserTypeParams {
+func (params *ListEndUserTypeParams) SetPageSize(PageSize int) *ListEndUserTypeParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -729,10 +729,10 @@ func (c *DefaultApiService) ListEndUserType(params *ListEndUserTypeParams) (*Lis
 // Optional parameters for the method 'ListEvaluation'
 type ListEvaluationParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListEvaluationParams) SetPageSize(PageSize int32) *ListEvaluationParams {
+func (params *ListEvaluationParams) SetPageSize(PageSize int) *ListEvaluationParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -767,10 +767,10 @@ func (c *DefaultApiService) ListEvaluation(BundleSid string, params *ListEvaluat
 // Optional parameters for the method 'ListItemAssignment'
 type ListItemAssignmentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListItemAssignmentParams) SetPageSize(PageSize int32) *ListItemAssignmentParams {
+func (params *ListItemAssignmentParams) SetPageSize(PageSize int) *ListItemAssignmentParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -811,7 +811,7 @@ type ListRegulationParams struct {
 	// The type of phone number that the regulatory requiremnt is restricting.
 	NumberType *string `json:"NumberType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListRegulationParams) SetEndUserType(EndUserType string) *ListRegulationParams {
@@ -826,7 +826,7 @@ func (params *ListRegulationParams) SetNumberType(NumberType string) *ListRegula
 	params.NumberType = &NumberType
 	return params
 }
-func (params *ListRegulationParams) SetPageSize(PageSize int32) *ListRegulationParams {
+func (params *ListRegulationParams) SetPageSize(PageSize int) *ListRegulationParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -869,10 +869,10 @@ func (c *DefaultApiService) ListRegulation(params *ListRegulationParams) (*ListR
 // Optional parameters for the method 'ListSupportingDocument'
 type ListSupportingDocumentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSupportingDocumentParams) SetPageSize(PageSize int32) *ListSupportingDocumentParams {
+func (params *ListSupportingDocumentParams) SetPageSize(PageSize int) *ListSupportingDocumentParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -906,10 +906,10 @@ func (c *DefaultApiService) ListSupportingDocument(params *ListSupportingDocumen
 // Optional parameters for the method 'ListSupportingDocumentType'
 type ListSupportingDocumentTypeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSupportingDocumentTypeParams) SetPageSize(PageSize int32) *ListSupportingDocumentTypeParams {
+func (params *ListSupportingDocumentTypeParams) SetPageSize(PageSize int) *ListSupportingDocumentTypeParams {
 	params.PageSize = &PageSize
 	return params
 }

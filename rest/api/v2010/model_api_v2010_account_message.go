@@ -28,7 +28,7 @@ type ApiV2010AccountMessage struct {
 	// The direction of the message
 	Direction *string `json:"direction,omitempty"`
 	// The error code associated with the message
-	ErrorCode *int32 `json:"error_code,omitempty"`
+	ErrorCode *int `json:"error_code,omitempty"`
 	// The description of the error_code
 	ErrorMessage *string `json:"error_message,omitempty"`
 	// The phone number that initiated the message

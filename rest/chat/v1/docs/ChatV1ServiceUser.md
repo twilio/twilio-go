@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Identity** | Pointer to **string** | The string that identifies the resource's User |
 **IsNotifiable** | Pointer to **bool** | Whether the User has a potentially valid Push Notification registration for the Service instance |
 **IsOnline** | Pointer to **bool** | Whether the User is actively connected to the Service instance and online |
-**JoinedChannelsCount** | Pointer to **int32** | The number of Channels this User is a Member of |
+**JoinedChannelsCount** | Pointer to **int** | The number of Channels this User is a Member of |
 **Links** | Pointer to **map[string]interface{}** | The absolute URLs of the Channel and Binding resources related to the user |
 **RoleSid** | Pointer to **string** | The SID of the assigned to the user |
 **ServiceSid** | Pointer to **string** | The SID of the Service that the resource is associated with |

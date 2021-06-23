@@ -24,7 +24,7 @@ type VideoV1Composition struct {
 	// The array of track names to exclude from the composition
 	AudioSourcesExcluded *[]string `json:"audio_sources_excluded,omitempty"`
 	// The average bit rate of the composition's media
-	Bitrate *int32 `json:"bitrate,omitempty"`
+	Bitrate *int `json:"bitrate,omitempty"`
 	// Date when the media processing task finished
 	DateCompleted *time.Time `json:"date_completed,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
@@ -32,7 +32,7 @@ type VideoV1Composition struct {
 	// The ISO 8601 date and time in GMT when the composition generated media was deleted
 	DateDeleted *time.Time `json:"date_deleted,omitempty"`
 	// The duration of the composition's media file in seconds
-	Duration *int32 `json:"duration,omitempty"`
+	Duration *int `json:"duration,omitempty"`
 	// The container format of the composition's media files as specified in the POST request that created the Composition resource
 	Format *string `json:"format,omitempty"`
 	// The URL of the media file associated with the composition
@@ -44,7 +44,7 @@ type VideoV1Composition struct {
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// The size of the composed media file in bytes
-	Size *int32 `json:"size,omitempty"`
+	Size *int `json:"size,omitempty"`
 	// The status of the composition
 	Status *string `json:"status,omitempty"`
 	// Whether to remove intervals with no media

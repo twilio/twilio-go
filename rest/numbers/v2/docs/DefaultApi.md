@@ -778,7 +778,7 @@ Name | Type | Description
 **RegulationSid** | **string** | The unique string of a regulation that is associated to the Bundle resource.
 **IsoCountry** | **string** | The ISO country code of the Bundle&#39;s phone number country ownership request.
 **NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -817,7 +817,7 @@ Other parameters are passed through a pointer to a ListEndUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -856,7 +856,7 @@ Other parameters are passed through a pointer to a ListEndUserTypeParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -899,7 +899,7 @@ Other parameters are passed through a pointer to a ListEvaluationParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -942,7 +942,7 @@ Other parameters are passed through a pointer to a ListItemAssignmentParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -984,7 +984,7 @@ Name | Type | Description
 **EndUserType** | **string** | The type of End User the regulation requires - can be &#x60;individual&#x60; or &#x60;business&#x60;.
 **IsoCountry** | **string** | The ISO country code of the phone number&#39;s country.
 **NumberType** | **string** | The type of phone number that the regulatory requiremnt is restricting.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1023,7 +1023,7 @@ Other parameters are passed through a pointer to a ListSupportingDocumentParams 
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1062,7 +1062,7 @@ Other parameters are passed through a pointer to a ListSupportingDocumentTypePar
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 

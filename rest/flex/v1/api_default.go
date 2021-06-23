@@ -173,11 +173,11 @@ type CreateFlexFlowParams struct {
 	// The SID of the Studio Flow. Required when `integrationType` is `studio`.
 	IntegrationFlowSid *string `json:"Integration.FlowSid,omitempty"`
 	// The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-	IntegrationPriority *int32 `json:"Integration.Priority,omitempty"`
+	IntegrationPriority *int `json:"Integration.Priority,omitempty"`
 	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (inclusive), default is 3. Optional when `integrationType` is `external`, not applicable otherwise.
-	IntegrationRetryCount *int32 `json:"Integration.RetryCount,omitempty"`
+	IntegrationRetryCount *int `json:"Integration.RetryCount,omitempty"`
 	// The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-	IntegrationTimeout *int32 `json:"Integration.Timeout,omitempty"`
+	IntegrationTimeout *int `json:"Integration.Timeout,omitempty"`
 	// The URL of the external webhook. Required when `integrationType` is `external`.
 	IntegrationUrl *string `json:"Integration.Url,omitempty"`
 	// The Workflow SID for a new Task. Required when `integrationType` is `task`.
@@ -224,15 +224,15 @@ func (params *CreateFlexFlowParams) SetIntegrationFlowSid(IntegrationFlowSid str
 	params.IntegrationFlowSid = &IntegrationFlowSid
 	return params
 }
-func (params *CreateFlexFlowParams) SetIntegrationPriority(IntegrationPriority int32) *CreateFlexFlowParams {
+func (params *CreateFlexFlowParams) SetIntegrationPriority(IntegrationPriority int) *CreateFlexFlowParams {
 	params.IntegrationPriority = &IntegrationPriority
 	return params
 }
-func (params *CreateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCount int32) *CreateFlexFlowParams {
+func (params *CreateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCount int) *CreateFlexFlowParams {
 	params.IntegrationRetryCount = &IntegrationRetryCount
 	return params
 }
-func (params *CreateFlexFlowParams) SetIntegrationTimeout(IntegrationTimeout int32) *CreateFlexFlowParams {
+func (params *CreateFlexFlowParams) SetIntegrationTimeout(IntegrationTimeout int) *CreateFlexFlowParams {
 	params.IntegrationTimeout = &IntegrationTimeout
 	return params
 }
@@ -571,10 +571,10 @@ func (c *DefaultApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, erro
 // Optional parameters for the method 'ListChannel'
 type ListChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListChannelParams) SetPageSize(PageSize int32) *ListChannelParams {
+func (params *ListChannelParams) SetPageSize(PageSize int) *ListChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -609,14 +609,14 @@ type ListFlexFlowParams struct {
 	// The `friendly_name` of the Flex Flow resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListFlexFlowParams) SetFriendlyName(FriendlyName string) *ListFlexFlowParams {
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListFlexFlowParams) SetPageSize(PageSize int32) *ListFlexFlowParams {
+func (params *ListFlexFlowParams) SetPageSize(PageSize int) *ListFlexFlowParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -652,10 +652,10 @@ func (c *DefaultApiService) ListFlexFlow(params *ListFlexFlowParams) (*ListFlexF
 // Optional parameters for the method 'ListWebChannel'
 type ListWebChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListWebChannelParams) SetPageSize(PageSize int32) *ListWebChannelParams {
+func (params *ListWebChannelParams) SetPageSize(PageSize int) *ListWebChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -725,11 +725,11 @@ type UpdateFlexFlowParams struct {
 	// The SID of the Studio Flow. Required when `integrationType` is `studio`.
 	IntegrationFlowSid *string `json:"Integration.FlowSid,omitempty"`
 	// The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
-	IntegrationPriority *int32 `json:"Integration.Priority,omitempty"`
+	IntegrationPriority *int `json:"Integration.Priority,omitempty"`
 	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (inclusive), default is 3. Optional when `integrationType` is `external`, not applicable otherwise.
-	IntegrationRetryCount *int32 `json:"Integration.RetryCount,omitempty"`
+	IntegrationRetryCount *int `json:"Integration.RetryCount,omitempty"`
 	// The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
-	IntegrationTimeout *int32 `json:"Integration.Timeout,omitempty"`
+	IntegrationTimeout *int `json:"Integration.Timeout,omitempty"`
 	// The URL of the external webhook. Required when `integrationType` is `external`.
 	IntegrationUrl *string `json:"Integration.Url,omitempty"`
 	// The Workflow SID for a new Task. Required when `integrationType` is `task`.
@@ -776,15 +776,15 @@ func (params *UpdateFlexFlowParams) SetIntegrationFlowSid(IntegrationFlowSid str
 	params.IntegrationFlowSid = &IntegrationFlowSid
 	return params
 }
-func (params *UpdateFlexFlowParams) SetIntegrationPriority(IntegrationPriority int32) *UpdateFlexFlowParams {
+func (params *UpdateFlexFlowParams) SetIntegrationPriority(IntegrationPriority int) *UpdateFlexFlowParams {
 	params.IntegrationPriority = &IntegrationPriority
 	return params
 }
-func (params *UpdateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCount int32) *UpdateFlexFlowParams {
+func (params *UpdateFlexFlowParams) SetIntegrationRetryCount(IntegrationRetryCount int) *UpdateFlexFlowParams {
 	params.IntegrationRetryCount = &IntegrationRetryCount
 	return params
 }
-func (params *UpdateFlexFlowParams) SetIntegrationTimeout(IntegrationTimeout int32) *UpdateFlexFlowParams {
+func (params *UpdateFlexFlowParams) SetIntegrationTimeout(IntegrationTimeout int) *UpdateFlexFlowParams {
 	params.IntegrationTimeout = &IntegrationTimeout
 	return params
 }

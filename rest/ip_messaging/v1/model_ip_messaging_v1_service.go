@@ -18,7 +18,7 @@ import (
 // IpMessagingV1Service struct for IpMessagingV1Service
 type IpMessagingV1Service struct {
 	AccountSid                   *string                 `json:"account_sid,omitempty"`
-	ConsumptionReportInterval    *int32                  `json:"consumption_report_interval,omitempty"`
+	ConsumptionReportInterval    *int                    `json:"consumption_report_interval,omitempty"`
 	DateCreated                  *time.Time              `json:"date_created,omitempty"`
 	DateUpdated                  *time.Time              `json:"date_updated,omitempty"`
 	DefaultChannelCreatorRoleSid *string                 `json:"default_channel_creator_role_sid,omitempty"`
@@ -33,7 +33,7 @@ type IpMessagingV1Service struct {
 	ReachabilityEnabled          *bool                   `json:"reachability_enabled,omitempty"`
 	ReadStatusEnabled            *bool                   `json:"read_status_enabled,omitempty"`
 	Sid                          *string                 `json:"sid,omitempty"`
-	TypingIndicatorTimeout       *int32                  `json:"typing_indicator_timeout,omitempty"`
+	TypingIndicatorTimeout       *int                    `json:"typing_indicator_timeout,omitempty"`
 	Url                          *string                 `json:"url,omitempty"`
 	WebhookFilters               *[]string               `json:"webhook_filters,omitempty"`
 	WebhookMethod                *string                 `json:"webhook_method,omitempty"`

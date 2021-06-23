@@ -833,14 +833,14 @@ type ListChannelParams struct {
 	//
 	Type *[]string `json:"Type,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListChannelParams) SetType(Type []string) *ListChannelParams {
 	params.Type = &Type
 	return params
 }
-func (params *ListChannelParams) SetPageSize(PageSize int32) *ListChannelParams {
+func (params *ListChannelParams) SetPageSize(PageSize int) *ListChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -879,10 +879,10 @@ func (c *DefaultApiService) ListChannel(ServiceSid string, params *ListChannelPa
 // Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListCredentialParams) SetPageSize(PageSize int32) *ListCredentialParams {
+func (params *ListCredentialParams) SetPageSize(PageSize int) *ListCredentialParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -917,14 +917,14 @@ type ListInviteParams struct {
 	//
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListInviteParams) SetIdentity(Identity []string) *ListInviteParams {
 	params.Identity = &Identity
 	return params
 }
-func (params *ListInviteParams) SetPageSize(PageSize int32) *ListInviteParams {
+func (params *ListInviteParams) SetPageSize(PageSize int) *ListInviteParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -966,14 +966,14 @@ type ListMemberParams struct {
 	//
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListMemberParams) SetIdentity(Identity []string) *ListMemberParams {
 	params.Identity = &Identity
 	return params
 }
-func (params *ListMemberParams) SetPageSize(PageSize int32) *ListMemberParams {
+func (params *ListMemberParams) SetPageSize(PageSize int) *ListMemberParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1015,14 +1015,14 @@ type ListMessageParams struct {
 	//
 	Order *string `json:"Order,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListMessageParams) SetOrder(Order string) *ListMessageParams {
 	params.Order = &Order
 	return params
 }
-func (params *ListMessageParams) SetPageSize(PageSize int32) *ListMessageParams {
+func (params *ListMessageParams) SetPageSize(PageSize int) *ListMessageParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1060,10 +1060,10 @@ func (c *DefaultApiService) ListMessage(ServiceSid string, ChannelSid string, pa
 // Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListRoleParams) SetPageSize(PageSize int32) *ListRoleParams {
+func (params *ListRoleParams) SetPageSize(PageSize int) *ListRoleParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1097,10 +1097,10 @@ func (c *DefaultApiService) ListRole(ServiceSid string, params *ListRoleParams) 
 // Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1133,10 +1133,10 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // Optional parameters for the method 'ListUser'
 type ListUserParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListUserParams) SetPageSize(PageSize int32) *ListUserParams {
+func (params *ListUserParams) SetPageSize(PageSize int) *ListUserParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1170,10 +1170,10 @@ func (c *DefaultApiService) ListUser(ServiceSid string, params *ListUserParams) 
 // Optional parameters for the method 'ListUserChannel'
 type ListUserChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListUserChannelParams) SetPageSize(PageSize int32) *ListUserChannelParams {
+func (params *ListUserChannelParams) SetPageSize(PageSize int) *ListUserChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1346,12 +1346,12 @@ func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentia
 // Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
 	//
-	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
 	//
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
-func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int32) *UpdateMemberParams {
+func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *UpdateMemberParams {
 	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
 	return params
 }
@@ -1482,7 +1482,7 @@ func (c *DefaultApiService) UpdateRole(ServiceSid string, Sid string, params *Up
 // Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
 	//
-	ConsumptionReportInterval *int32 `json:"ConsumptionReportInterval,omitempty"`
+	ConsumptionReportInterval *int `json:"ConsumptionReportInterval,omitempty"`
 	//
 	DefaultChannelCreatorRoleSid *string `json:"DefaultChannelCreatorRoleSid,omitempty"`
 	//
@@ -1492,9 +1492,9 @@ type UpdateServiceParams struct {
 	//
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	//
-	LimitsChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
+	LimitsChannelMembers *int `json:"Limits.ChannelMembers,omitempty"`
 	//
-	LimitsUserChannels *int32 `json:"Limits.UserChannels,omitempty"`
+	LimitsUserChannels *int `json:"Limits.UserChannels,omitempty"`
 	//
 	NotificationsAddedToChannelEnabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
 	//
@@ -1520,7 +1520,7 @@ type UpdateServiceParams struct {
 	//
 	ReadStatusEnabled *bool `json:"ReadStatusEnabled,omitempty"`
 	//
-	TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
+	TypingIndicatorTimeout *int `json:"TypingIndicatorTimeout,omitempty"`
 	//
 	WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
 	//
@@ -1591,7 +1591,7 @@ type UpdateServiceParams struct {
 	WebhooksOnMessageUpdatedUrl *string `json:"Webhooks.OnMessageUpdated.Url,omitempty"`
 }
 
-func (params *UpdateServiceParams) SetConsumptionReportInterval(ConsumptionReportInterval int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetConsumptionReportInterval(ConsumptionReportInterval int) *UpdateServiceParams {
 	params.ConsumptionReportInterval = &ConsumptionReportInterval
 	return params
 }
@@ -1611,11 +1611,11 @@ func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateS
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateServiceParams) SetLimitsChannelMembers(LimitsChannelMembers int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetLimitsChannelMembers(LimitsChannelMembers int) *UpdateServiceParams {
 	params.LimitsChannelMembers = &LimitsChannelMembers
 	return params
 }
-func (params *UpdateServiceParams) SetLimitsUserChannels(LimitsUserChannels int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetLimitsUserChannels(LimitsUserChannels int) *UpdateServiceParams {
 	params.LimitsUserChannels = &LimitsUserChannels
 	return params
 }
@@ -1667,7 +1667,7 @@ func (params *UpdateServiceParams) SetReadStatusEnabled(ReadStatusEnabled bool) 
 	params.ReadStatusEnabled = &ReadStatusEnabled
 	return params
 }
-func (params *UpdateServiceParams) SetTypingIndicatorTimeout(TypingIndicatorTimeout int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetTypingIndicatorTimeout(TypingIndicatorTimeout int) *UpdateServiceParams {
 	params.TypingIndicatorTimeout = &TypingIndicatorTimeout
 	return params
 }

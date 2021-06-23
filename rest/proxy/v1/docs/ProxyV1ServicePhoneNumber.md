@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
-**InUse** | Pointer to **int32** | The number of open session assigned to the number. |
+**InUse** | Pointer to **int** | The number of open session assigned to the number. |
 **IsReserved** | Pointer to **bool** | Reserve the phone number for manual assignment to participants only |
 **IsoCountry** | Pointer to **string** | The ISO Country Code |
 **PhoneNumber** | Pointer to **string** | The phone number in E.164 format |

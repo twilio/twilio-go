@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the Workflow resource |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
-**TaskReservationTimeout** | Pointer to **int32** | How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker |
+**TaskReservationTimeout** | Pointer to **int** | How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker |
 **Url** | Pointer to **string** | The absolute URL of the Workflow resource |
 **WorkspaceSid** | Pointer to **string** | The SID of the Workspace that contains the Workflow |
 

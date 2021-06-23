@@ -203,7 +203,7 @@ Other parameters are passed through a pointer to a ListEventParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Edge** | **string** | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -246,7 +246,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **Edge** | **string** | 
 **Direction** | **string** | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -289,7 +289,7 @@ Other parameters are passed through a pointer to a ListVideoParticipantSummaryPa
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -333,7 +333,7 @@ Name | Type | Description
 **RoomName** | **string** | Room friendly name.
 **CreatedAfter** | **time.Time** | Only read rooms that started on or after this ISO 8601 timestamp.
 **CreatedBefore** | **time.Time** | Only read rooms that started before this ISO 8601 timestamp.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 

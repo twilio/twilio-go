@@ -833,14 +833,14 @@ type ListChannelParams struct {
 	// The visibility of the Channels to read. Can be: `public` or `private` and defaults to `public`.
 	Type *[]string `json:"Type,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListChannelParams) SetType(Type []string) *ListChannelParams {
 	params.Type = &Type
 	return params
 }
-func (params *ListChannelParams) SetPageSize(PageSize int32) *ListChannelParams {
+func (params *ListChannelParams) SetPageSize(PageSize int) *ListChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -879,10 +879,10 @@ func (c *DefaultApiService) ListChannel(ServiceSid string, params *ListChannelPa
 // Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListCredentialParams) SetPageSize(PageSize int32) *ListCredentialParams {
+func (params *ListCredentialParams) SetPageSize(PageSize int) *ListCredentialParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -917,14 +917,14 @@ type ListInviteParams struct {
 	// The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListInviteParams) SetIdentity(Identity []string) *ListInviteParams {
 	params.Identity = &Identity
 	return params
 }
-func (params *ListInviteParams) SetPageSize(PageSize int32) *ListInviteParams {
+func (params *ListInviteParams) SetPageSize(PageSize int) *ListInviteParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -966,14 +966,14 @@ type ListMemberParams struct {
 	// The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity` value of the resources to read. See [access tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more details.
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListMemberParams) SetIdentity(Identity []string) *ListMemberParams {
 	params.Identity = &Identity
 	return params
 }
-func (params *ListMemberParams) SetPageSize(PageSize int32) *ListMemberParams {
+func (params *ListMemberParams) SetPageSize(PageSize int) *ListMemberParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1015,14 +1015,14 @@ type ListMessageParams struct {
 	// The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending) with `asc` as the default.
 	Order *string `json:"Order,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListMessageParams) SetOrder(Order string) *ListMessageParams {
 	params.Order = &Order
 	return params
 }
-func (params *ListMessageParams) SetPageSize(PageSize int32) *ListMessageParams {
+func (params *ListMessageParams) SetPageSize(PageSize int) *ListMessageParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1060,10 +1060,10 @@ func (c *DefaultApiService) ListMessage(ServiceSid string, ChannelSid string, pa
 // Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListRoleParams) SetPageSize(PageSize int32) *ListRoleParams {
+func (params *ListRoleParams) SetPageSize(PageSize int) *ListRoleParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1097,10 +1097,10 @@ func (c *DefaultApiService) ListRole(ServiceSid string, params *ListRoleParams) 
 // Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1133,10 +1133,10 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // Optional parameters for the method 'ListUser'
 type ListUserParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListUserParams) SetPageSize(PageSize int32) *ListUserParams {
+func (params *ListUserParams) SetPageSize(PageSize int) *ListUserParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1170,10 +1170,10 @@ func (c *DefaultApiService) ListUser(ServiceSid string, params *ListUserParams) 
 // Optional parameters for the method 'ListUserChannel'
 type ListUserChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListUserChannelParams) SetPageSize(PageSize int32) *ListUserChannelParams {
+func (params *ListUserChannelParams) SetPageSize(PageSize int) *ListUserChannelParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1347,12 +1347,12 @@ func (c *DefaultApiService) UpdateCredential(Sid string, params *UpdateCredentia
 // Optional parameters for the method 'UpdateMember'
 type UpdateMemberParams struct {
 	// The index of the last [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member has read within the [Channel](https://www.twilio.com/docs/api/chat/rest/channels).
-	LastConsumedMessageIndex *int32 `json:"LastConsumedMessageIndex,omitempty"`
+	LastConsumedMessageIndex *int `json:"LastConsumedMessageIndex,omitempty"`
 	// The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to assign to the member. The default roles are those specified on the [Service](https://www.twilio.com/docs/chat/api/services).
 	RoleSid *string `json:"RoleSid,omitempty"`
 }
 
-func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int32) *UpdateMemberParams {
+func (params *UpdateMemberParams) SetLastConsumedMessageIndex(LastConsumedMessageIndex int) *UpdateMemberParams {
 	params.LastConsumedMessageIndex = &LastConsumedMessageIndex
 	return params
 }
@@ -1483,7 +1483,7 @@ func (c *DefaultApiService) UpdateRole(ServiceSid string, Sid string, params *Up
 // Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
 	// DEPRECATED. The interval in seconds between consumption reports submission batches from client endpoints.
-	ConsumptionReportInterval *int32 `json:"ConsumptionReportInterval,omitempty"`
+	ConsumptionReportInterval *int `json:"ConsumptionReportInterval,omitempty"`
 	// The channel role assigned to a channel creator when they join a new channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
 	DefaultChannelCreatorRoleSid *string `json:"DefaultChannelCreatorRoleSid,omitempty"`
 	// The channel role assigned to users when they are added to a channel. See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more details.
@@ -1493,9 +1493,9 @@ type UpdateServiceParams struct {
 	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The maximum number of Members that can be added to Channels within this Service. Can be up to 1,000.
-	LimitsChannelMembers *int32 `json:"Limits.ChannelMembers,omitempty"`
+	LimitsChannelMembers *int `json:"Limits.ChannelMembers,omitempty"`
 	// The maximum number of Channels Users can be a Member of within this Service. Can be up to 1,000.
-	LimitsUserChannels *int32 `json:"Limits.UserChannels,omitempty"`
+	LimitsUserChannels *int `json:"Limits.UserChannels,omitempty"`
 	// Whether to send a notification when a member is added to a channel. Can be: `true` or `false` and the default is `false`.
 	NotificationsAddedToChannelEnabled *bool `json:"Notifications.AddedToChannel.Enabled,omitempty"`
 	// The template to use to create the notification text displayed when a member is added to a channel and `notifications.added_to_channel.enabled` is `true`.
@@ -1521,7 +1521,7 @@ type UpdateServiceParams struct {
 	// Whether to enable the [Message Consumption Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The default is `true`.
 	ReadStatusEnabled *bool `json:"ReadStatusEnabled,omitempty"`
 	// How long in seconds after a `started typing` event until clients should assume that user is no longer typing, even if no `ended typing` message was received.  The default is 5 seconds.
-	TypingIndicatorTimeout *int32 `json:"TypingIndicatorTimeout,omitempty"`
+	TypingIndicatorTimeout *int `json:"TypingIndicatorTimeout,omitempty"`
 	// The list of WebHook events that are enabled for this Service instance. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
 	WebhookFilters *[]string `json:"WebhookFilters,omitempty"`
 	// The HTTP method to use for calls to the `pre_webhook_url` and `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more details.
@@ -1592,7 +1592,7 @@ type UpdateServiceParams struct {
 	WebhooksOnMessageUpdatedUrl *string `json:"Webhooks.OnMessageUpdated.Url,omitempty"`
 }
 
-func (params *UpdateServiceParams) SetConsumptionReportInterval(ConsumptionReportInterval int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetConsumptionReportInterval(ConsumptionReportInterval int) *UpdateServiceParams {
 	params.ConsumptionReportInterval = &ConsumptionReportInterval
 	return params
 }
@@ -1612,11 +1612,11 @@ func (params *UpdateServiceParams) SetFriendlyName(FriendlyName string) *UpdateS
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateServiceParams) SetLimitsChannelMembers(LimitsChannelMembers int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetLimitsChannelMembers(LimitsChannelMembers int) *UpdateServiceParams {
 	params.LimitsChannelMembers = &LimitsChannelMembers
 	return params
 }
-func (params *UpdateServiceParams) SetLimitsUserChannels(LimitsUserChannels int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetLimitsUserChannels(LimitsUserChannels int) *UpdateServiceParams {
 	params.LimitsUserChannels = &LimitsUserChannels
 	return params
 }
@@ -1668,7 +1668,7 @@ func (params *UpdateServiceParams) SetReadStatusEnabled(ReadStatusEnabled bool) 
 	params.ReadStatusEnabled = &ReadStatusEnabled
 	return params
 }
-func (params *UpdateServiceParams) SetTypingIndicatorTimeout(TypingIndicatorTimeout int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetTypingIndicatorTimeout(TypingIndicatorTimeout int) *UpdateServiceParams {
 	params.TypingIndicatorTimeout = &TypingIndicatorTimeout
 	return params
 }

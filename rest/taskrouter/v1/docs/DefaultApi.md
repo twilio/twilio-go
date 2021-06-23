@@ -131,9 +131,9 @@ Other parameters are passed through a pointer to a CreateTaskParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Attributes** | **string** | A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow&#39;s &#x60;assignment_callback_url&#x60; when the Task is assigned to a Worker. For example: &#x60;{ \\\&quot;task_type\\\&quot;: \\\&quot;call\\\&quot;, \\\&quot;twilio_call_sid\\\&quot;: \\\&quot;CAxxx\\\&quot;, \\\&quot;customer_ticket_number\\\&quot;: \\\&quot;12345\\\&quot; }&#x60;.
-**Priority** | **int32** | The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
+**Priority** | **int** | The priority to assign the new task and override the default. When supplied, the new Task will have this priority unless it matches a Workflow Target with a Priority set. When not supplied, the new Task will have the priority of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647).
 **TaskChannel** | **string** | When MultiTasking is enabled, specify the TaskChannel by passing either its &#x60;unique_name&#x60; or &#x60;sid&#x60;. Default value is &#x60;default&#x60;.
-**Timeout** | **int32** | The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the &#x60;task.canceled&#x60; event will fire with description &#x60;Task TTL Exceeded&#x60;.
+**Timeout** | **int** | The amount of time in seconds the new task can live before being assigned. Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400 seconds). On timeout, the &#x60;task.canceled&#x60; event will fire with description &#x60;Task TTL Exceeded&#x60;.
 **WorkflowSid** | **string** | The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
 
 ### Return type
@@ -220,7 +220,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **AssignmentActivitySid** | **string** | The SID of the Activity to assign Workers when a task is assigned to them.
 **FriendlyName** | **string** | A descriptive string that you create to describe the TaskQueue. For example &#x60;Support-Tier 1&#x60;, &#x60;Sales&#x60;, or &#x60;Escalation&#x60;.
-**MaxReservedWorkers** | **int32** | The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
+**MaxReservedWorkers** | **int** | The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
 **ReservationActivitySid** | **string** | The SID of the Activity to assign Workers when a task is reserved for them.
 **TargetWorkers** | **string** | A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, &#x60;&#39;\\\&quot;language\\\&quot; &#x3D;&#x3D; \\\&quot;spanish\\\&quot;&#39;&#x60;. The default value is &#x60;1&#x3D;&#x3D;1&#x60;. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
 **TaskOrder** | **string** | How Tasks will be assigned to Workers. Set this parameter to &#x60;LIFO&#x60; to assign most recently created Task first or FIFO to assign the oldest Task first. Default is &#x60;FIFO&#x60;. [Click here](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo) to learn more.
@@ -311,7 +311,7 @@ Name | Type | Description
 **Configuration** | **string** | A JSON string that contains the rules to apply to the Workflow. See [Configuring Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for more information.
 **FallbackAssignmentCallbackUrl** | **string** | The URL that we should call when a call to the &#x60;assignment_callback_url&#x60; fails.
 **FriendlyName** | **string** | A descriptive string that you create to describe the Workflow resource. For example, &#x60;Inbound Call Workflow&#x60; or &#x60;2014 Outbound Campaign&#x60;.
-**TaskReservationTimeout** | **int32** | How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to &#x60;86,400&#x60; (24 hours) and the default is &#x60;120&#x60;.
+**TaskReservationTimeout** | **int** | How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to &#x60;86,400&#x60; (24 hours) and the default is &#x60;120&#x60;.
 
 ### Return type
 
@@ -888,7 +888,7 @@ Other parameters are passed through a pointer to a FetchTaskQueueCumulativeStati
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-**Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+**Minutes** | **int** | Only calculate statistics since this many minutes in the past. The default is 15 minutes.
 **StartDate** | **time.Time** | Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 **TaskChannel** | **string** | Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
 **SplitByWaitTime** | **string** | A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
@@ -976,7 +976,7 @@ Other parameters are passed through a pointer to a FetchTaskQueueStatisticsParam
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-**Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+**Minutes** | **int** | Only calculate statistics since this many minutes in the past. The default is 15 minutes.
 **StartDate** | **time.Time** | Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 **TaskChannel** | **string** | Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
 **SplitByWaitTime** | **string** | A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
@@ -1146,7 +1146,7 @@ Other parameters are passed through a pointer to a FetchWorkerInstanceStatistics
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+**Minutes** | **int** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
 **StartDate** | **time.Time** | Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 **EndDate** | **time.Time** | Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
 **TaskChannel** | **string** | Only calculate statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
@@ -1232,7 +1232,7 @@ Other parameters are passed through a pointer to a FetchWorkerStatisticsParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+**Minutes** | **int** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
 **StartDate** | **time.Time** | Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 **EndDate** | **time.Time** | Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
 **TaskQueueSid** | **string** | The SID of the TaskQueue for which to fetch Worker statistics.
@@ -1280,7 +1280,7 @@ Other parameters are passed through a pointer to a FetchWorkersCumulativeStatist
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only calculate statistics from this date and time and earlier, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-**Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+**Minutes** | **int** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
 **StartDate** | **time.Time** | Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 **TaskChannel** | **string** | Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
 
@@ -1407,7 +1407,7 @@ Other parameters are passed through a pointer to a FetchWorkflowCumulativeStatis
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-**Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+**Minutes** | **int** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
 **StartDate** | **time.Time** | Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 **TaskChannel** | **string** | Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
 **SplitByWaitTime** | **string** | A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, &#x60;5,30&#x60; would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
@@ -1494,7 +1494,7 @@ Other parameters are passed through a pointer to a FetchWorkflowStatisticsParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+**Minutes** | **int** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
 **StartDate** | **time.Time** | Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 **EndDate** | **time.Time** | Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
 **TaskChannel** | **string** | Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
@@ -1580,7 +1580,7 @@ Other parameters are passed through a pointer to a FetchWorkspaceCumulativeStati
 Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
-**Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+**Minutes** | **int** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
 **StartDate** | **time.Time** | Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 **TaskChannel** | **string** | Only calculate cumulative statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
 **SplitByWaitTime** | **string** | A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed. For example, &#x60;5,30&#x60; would show splits of Tasks that were canceled or accepted before and after 5 seconds and before and after 30 seconds. This can be used to show short abandoned Tasks or Tasks that failed to meet an SLA.
@@ -1665,7 +1665,7 @@ Other parameters are passed through a pointer to a FetchWorkspaceStatisticsParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+**Minutes** | **int** | Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
 **StartDate** | **time.Time** | Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 **EndDate** | **time.Time** | Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
 **TaskChannel** | **string** | Only calculate statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
@@ -1712,7 +1712,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the Activity resources to read.
 **Available** | **string** | Whether return only Activity resources that are available or unavailable. A value of &#x60;true&#x60; returns only available activities. Values of &#39;1&#39; or &#x60;yes&#x60; also indicate &#x60;true&#x60;. All other values represent &#x60;false&#x60; and return activities that are unavailable.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1755,7 +1755,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
 **EventType** | **string** | The type of Events to read. Returns only Events of the type specified.
-**Minutes** | **int32** | The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is &#x60;15&#x60; minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
+**Minutes** | **int** | The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is &#x60;15&#x60; minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
 **ReservationSid** | **string** | The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
 **StartDate** | **time.Time** | Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
 **TaskQueueSid** | **string** | The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
@@ -1764,7 +1764,7 @@ Name | Type | Description
 **WorkflowSid** | **string** | The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
 **TaskChannel** | **string** | The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
 **Sid** | **string** | The SID of the Event resource to read.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1805,7 +1805,7 @@ Other parameters are passed through a pointer to a ListTaskParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Priority** | **int32** | The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
+**Priority** | **int** | The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
 **AssignmentStatus** | **[]string** | The &#x60;assignment_status&#x60; of the Tasks you want to read. Can be: &#x60;pending&#x60;, &#x60;reserved&#x60;, &#x60;assigned&#x60;, &#x60;canceled&#x60;, &#x60;wrapping&#x60;, or &#x60;completed&#x60;. Returns all Tasks in the Workspace with the specified &#x60;assignment_status&#x60;.
 **WorkflowSid** | **string** | The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
 **WorkflowName** | **string** | The friendly name of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this friendly name.
@@ -1814,7 +1814,7 @@ Name | Type | Description
 **EvaluateTaskAttributes** | **string** | The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
 **Ordering** | **string** | How to order the returned Task resources. y default, Tasks are sorted by ascending DateCreated. This value is specified as: &#x60;Attribute:Order&#x60;, where &#x60;Attribute&#x60; can be either &#x60;Priority&#x60; or &#x60;DateCreated&#x60; and &#x60;Order&#x60; can be either &#x60;asc&#x60; or &#x60;desc&#x60;. For example, &#x60;Priority:desc&#x60; returns Tasks ordered in descending order of their Priority. Multiple sort orders can be specified in a comma-separated list such as &#x60;Priority:desc,DateCreated:asc&#x60;, which returns the Tasks in descending Priority order and ascending DateCreated Order.
 **HasAddons** | **bool** | Whether to read Tasks with addons. If &#x60;true&#x60;, returns only Tasks with addons. If &#x60;false&#x60;, returns only Tasks without addons.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1855,7 +1855,7 @@ Other parameters are passed through a pointer to a ListTaskChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1899,7 +1899,7 @@ Name | Type | Description
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the TaskQueue resources to read.
 **EvaluateWorkerAttributes** | **string** | The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
 **WorkerSid** | **string** | The SID of the Worker with the TaskQueue resources to read.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1942,11 +1942,11 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **EndDate** | **time.Time** | Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the TaskQueue statistics to read.
-**Minutes** | **int32** | Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+**Minutes** | **int** | Only calculate statistics since this many minutes in the past. The default is 15 minutes.
 **StartDate** | **time.Time** | Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 **TaskChannel** | **string** | Only calculate statistics on this TaskChannel. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
 **SplitByWaitTime** | **string** | A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1989,7 +1989,7 @@ Other parameters are passed through a pointer to a ListTaskReservationParams str
 Name | Type | Description
 ------------- | ------------- | -------------
 **ReservationStatus** | **string** | Returns the list of reservations for a task with a specified ReservationStatus.  Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, or &#x60;timeout&#x60;.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2037,7 +2037,7 @@ Name | Type | Description
 **TargetWorkersExpression** | **string** | Filter by Workers that would match an expression on a TaskQueue. This is helpful for debugging which Workers would match a potential queue.
 **TaskQueueName** | **string** | The &#x60;friendly_name&#x60; of the TaskQueue that the Workers to read are eligible for.
 **TaskQueueSid** | **string** | The SID of the TaskQueue that the Workers to read are eligible for.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2079,7 +2079,7 @@ Other parameters are passed through a pointer to a ListWorkerChannelParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2122,7 +2122,7 @@ Other parameters are passed through a pointer to a ListWorkerReservationParams s
 Name | Type | Description
 ------------- | ------------- | -------------
 **ReservationStatus** | **string** | Returns the list of reservations for a worker with a specified ReservationStatus. Can be: &#x60;pending&#x60;, &#x60;accepted&#x60;, &#x60;rejected&#x60;, &#x60;timeout&#x60;, &#x60;canceled&#x60;, or &#x60;rescinded&#x60;.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2164,7 +2164,7 @@ Other parameters are passed through a pointer to a ListWorkflowParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the Workflow resources to read.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2202,7 +2202,7 @@ Other parameters are passed through a pointer to a ListWorkspaceParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the Workspace resources to read. For example &#x60;Customer Support&#x60; or &#x60;2014 Election Campaign&#x60;.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -2289,7 +2289,7 @@ Name | Type | Description
 **IfMatch** | **string** | If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 **AssignmentStatus** | **string** | The new status of the task. Can be: &#x60;canceled&#x60;, to cancel a Task that is currently &#x60;pending&#x60; or &#x60;reserved&#x60;; &#x60;wrapping&#x60;, to move the Task to wrapup state; or &#x60;completed&#x60;, to move a Task to the completed state.
 **Attributes** | **string** | The JSON string that describes the custom attributes of the task.
-**Priority** | **int32** | The Task&#39;s new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
+**Priority** | **int** | The Task&#39;s new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
 **Reason** | **string** | The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
 **TaskChannel** | **string** | When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel&#39;s SID or its &#x60;unique_name&#x60;, such as &#x60;voice&#x60;, &#x60;sms&#x60;, or &#x60;default&#x60;.
 
@@ -2378,7 +2378,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **AssignmentActivitySid** | **string** | The SID of the Activity to assign Workers when a task is assigned for them.
 **FriendlyName** | **string** | A descriptive string that you create to describe the TaskQueue. For example &#x60;Support-Tier 1&#x60;, &#x60;Sales&#x60;, or &#x60;Escalation&#x60;.
-**MaxReservedWorkers** | **int32** | The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+**MaxReservedWorkers** | **int** | The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
 **ReservationActivitySid** | **string** | The SID of the Activity to assign Workers when a task is reserved for them.
 **TargetWorkers** | **string** | A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example &#39;\\\&quot;language\\\&quot; &#x3D;&#x3D; \\\&quot;spanish\\\&quot;&#39; If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
 **TaskOrder** | **string** | How Tasks will be assigned to Workers. Can be: &#x60;FIFO&#x60; or &#x60;LIFO&#x60; and the default is &#x60;FIFO&#x60;. Use &#x60;FIFO&#x60; to assign the oldest task first and &#x60;LIFO&#x60; to assign the most recent task first. For more information, see [Queue Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo).
@@ -2430,7 +2430,7 @@ Name | Type | Description
 **CallFrom** | **string** | The Caller ID of the outbound call when executing a Call instruction.
 **CallRecord** | **string** | Whether to record both legs of a call when executing a Call instruction or which leg to record.
 **CallStatusCallbackUrl** | **string** | The URL to call  for the completed call event when executing a Call instruction.
-**CallTimeout** | **int32** | Timeout for call when executing a Call instruction.
+**CallTimeout** | **int** | Timeout for call when executing a Call instruction.
 **CallTo** | **string** | The Contact URI of the worker when executing a Call instruction.  Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
 **CallUrl** | **string** | TwiML URI executed on answering the worker&#39;s leg as a result of the Call instruction.
 **ConferenceRecord** | **string** | Whether to record the conference the participant is joining or when to record the conference. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;record-from-start&#x60;, and &#x60;do-not-record&#x60;. The default value is &#x60;false&#x60;.
@@ -2445,14 +2445,14 @@ Name | Type | Description
 **DequeueRecord** | **string** | Whether to record both legs of a call when executing a Dequeue instruction or which leg to record.
 **DequeueStatusCallbackEvent** | **[]string** | The Call progress events sent via webhooks as a result of a Dequeue instruction.
 **DequeueStatusCallbackUrl** | **string** | The Callback URL for completed call event when executing a Dequeue instruction.
-**DequeueTimeout** | **int32** | Timeout for call when executing a Dequeue instruction.
+**DequeueTimeout** | **int** | Timeout for call when executing a Dequeue instruction.
 **DequeueTo** | **string** | The Contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
 **EarlyMedia** | **bool** | Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is &#x60;true&#x60;.
 **EndConferenceOnCustomerExit** | **bool** | Whether to end the conference when the customer leaves.
 **EndConferenceOnExit** | **bool** | Whether to end the conference when the agent leaves.
 **From** | **string** | The Caller ID of the call to the worker when executing a Conference instruction.
 **Instruction** | **string** | The assignment instruction for reservation.
-**MaxParticipants** | **int32** | The maximum number of participants in the conference. Can be a positive integer from &#x60;2&#x60; to &#x60;250&#x60;. The default value is &#x60;250&#x60;.
+**MaxParticipants** | **int** | The maximum number of participants in the conference. Can be a positive integer from &#x60;2&#x60; to &#x60;250&#x60;. The default value is &#x60;250&#x60;.
 **Muted** | **bool** | Whether the agent is muted in the conference. The default is &#x60;false&#x60;.
 **PostWorkActivitySid** | **string** | The new worker activity SID after executing a Conference instruction.
 **Record** | **bool** | Whether to record the participant and their conferences, including the time between conferences. The default is &#x60;false&#x60;.
@@ -2472,7 +2472,7 @@ Name | Type | Description
 **StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
 **Supervisor** | **string** | The Supervisor SID/URI when executing the Supervise instruction.
 **SupervisorMode** | **string** | The Supervisor mode when executing the Supervise instruction.
-**Timeout** | **int32** | Timeout for call when executing a Conference instruction.
+**Timeout** | **int** | Timeout for call when executing a Conference instruction.
 **To** | **string** | The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
 **WaitMethod** | **string** | The HTTP method we should use to call &#x60;wait_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. When using a static audio file, this should be &#x60;GET&#x60; so that we can cache the file.
 **WaitUrl** | **string** | The URL we should call using the &#x60;wait_method&#x60; for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
@@ -2565,7 +2565,7 @@ Other parameters are passed through a pointer to a UpdateWorkerChannelParams str
 Name | Type | Description
 ------------- | ------------- | -------------
 **Available** | **bool** | Whether the WorkerChannel is available. Set to &#x60;false&#x60; to prevent the Worker from receiving any new Tasks of this TaskChannel type.
-**Capacity** | **int32** | The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
+**Capacity** | **int** | The total number of Tasks that the Worker should handle for the TaskChannel type. TaskRouter creates reservations for Tasks of this TaskChannel type up to the specified capacity. If the capacity is 0, no new reservations will be created.
 
 ### Return type
 
@@ -2614,7 +2614,7 @@ Name | Type | Description
 **CallFrom** | **string** | The Caller ID of the outbound call when executing a Call instruction.
 **CallRecord** | **string** | Whether to record both legs of a call when executing a Call instruction.
 **CallStatusCallbackUrl** | **string** | The URL to call for the completed call event when executing a Call instruction.
-**CallTimeout** | **int32** | The timeout for a call when executing a Call instruction.
+**CallTimeout** | **int** | The timeout for a call when executing a Call instruction.
 **CallTo** | **string** | The contact URI of the worker when executing a Call instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
 **CallUrl** | **string** | TwiML URI executed on answering the worker&#39;s leg as a result of the Call instruction.
 **ConferenceRecord** | **string** | Whether to record the conference the participant is joining or when to record the conference. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;record-from-start&#x60;, and &#x60;do-not-record&#x60;. The default value is &#x60;false&#x60;.
@@ -2629,14 +2629,14 @@ Name | Type | Description
 **DequeueRecord** | **string** | Whether to record both legs of a call when executing a Dequeue instruction or which leg to record.
 **DequeueStatusCallbackEvent** | **[]string** | The call progress events sent via webhooks as a result of a Dequeue instruction.
 **DequeueStatusCallbackUrl** | **string** | The callback URL for completed call event when executing a Dequeue instruction.
-**DequeueTimeout** | **int32** | The timeout for call when executing a Dequeue instruction.
+**DequeueTimeout** | **int** | The timeout for call when executing a Dequeue instruction.
 **DequeueTo** | **string** | The contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
 **EarlyMedia** | **bool** | Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is &#x60;true&#x60;.
 **EndConferenceOnCustomerExit** | **bool** | Whether to end the conference when the customer leaves.
 **EndConferenceOnExit** | **bool** | Whether to end the conference when the agent leaves.
 **From** | **string** | The caller ID of the call to the worker when executing a Conference instruction.
 **Instruction** | **string** | The assignment instruction for the reservation.
-**MaxParticipants** | **int32** | The maximum number of participants allowed in the conference. Can be a positive integer from &#x60;2&#x60; to &#x60;250&#x60;. The default value is &#x60;250&#x60;.
+**MaxParticipants** | **int** | The maximum number of participants allowed in the conference. Can be a positive integer from &#x60;2&#x60; to &#x60;250&#x60;. The default value is &#x60;250&#x60;.
 **Muted** | **bool** | Whether the agent is muted in the conference. Defaults to &#x60;false&#x60;.
 **PostWorkActivitySid** | **string** | The new worker activity SID after executing a Conference instruction.
 **Record** | **bool** | Whether to record the participant and their conferences, including the time between conferences. Can be &#x60;true&#x60; or &#x60;false&#x60; and the default is &#x60;false&#x60;.
@@ -2654,7 +2654,7 @@ Name | Type | Description
 **StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application.
 **StatusCallbackEvent** | **[]string** | The call progress events that we will send to &#x60;status_callback&#x60;. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, or &#x60;completed&#x60;.
 **StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;POST&#x60; or &#x60;GET&#x60; and the default is &#x60;POST&#x60;.
-**Timeout** | **int32** | The timeout for a call when executing a Conference instruction.
+**Timeout** | **int** | The timeout for a call when executing a Conference instruction.
 **To** | **string** | The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
 **WaitMethod** | **string** | The HTTP method we should use to call &#x60;wait_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. When using a static audio file, this should be &#x60;GET&#x60; so that we can cache the file.
 **WaitUrl** | **string** | The URL we should call using the &#x60;wait_method&#x60; for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
@@ -2705,7 +2705,7 @@ Name | Type | Description
 **FallbackAssignmentCallbackUrl** | **string** | The URL that we should call when a call to the &#x60;assignment_callback_url&#x60; fails.
 **FriendlyName** | **string** | A descriptive string that you create to describe the Workflow resource. For example, &#x60;Inbound Call Workflow&#x60; or &#x60;2014 Outbound Campaign&#x60;.
 **ReEvaluateTasks** | **string** | Whether or not to re-evaluate Tasks. The default is &#x60;false&#x60;, which means Tasks in the Workflow will not be processed through the assignment loop again.
-**TaskReservationTimeout** | **int32** | How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to &#x60;86,400&#x60; (24 hours) and the default is &#x60;120&#x60;.
+**TaskReservationTimeout** | **int** | How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker. Can be up to &#x60;86,400&#x60; (24 hours) and the default is &#x60;120&#x60;.
 
 ### Return type
 

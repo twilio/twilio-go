@@ -38,7 +38,7 @@ type TaskrouterV1WorkspaceWorkflow struct {
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// How long TaskRouter will wait for a confirmation response from your application after it assigns a Task to a Worker
-	TaskReservationTimeout *int32 `json:"task_reservation_timeout,omitempty"`
+	TaskReservationTimeout *int `json:"task_reservation_timeout,omitempty"`
 	// The absolute URL of the Workflow resource
 	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace that contains the Workflow

@@ -113,7 +113,7 @@ type CreateFleetParams struct {
 	// Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
 	DataEnabled *bool `json:"DataEnabled,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
-	DataLimit *int32 `json:"DataLimit,omitempty"`
+	DataLimit *int `json:"DataLimit,omitempty"`
 	// The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
 	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
 	// Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
@@ -142,7 +142,7 @@ func (params *CreateFleetParams) SetDataEnabled(DataEnabled bool) *CreateFleetPa
 	params.DataEnabled = &DataEnabled
 	return params
 }
-func (params *CreateFleetParams) SetDataLimit(DataLimit int32) *CreateFleetParams {
+func (params *CreateFleetParams) SetDataLimit(DataLimit int) *CreateFleetParams {
 	params.DataLimit = &DataLimit
 	return params
 }
@@ -606,7 +606,7 @@ type ListCommandParams struct {
 	// The direction of the Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
 	Direction *string `json:"Direction,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListCommandParams) SetSim(Sim string) *ListCommandParams {
@@ -621,7 +621,7 @@ func (params *ListCommandParams) SetDirection(Direction string) *ListCommandPara
 	params.Direction = &Direction
 	return params
 }
-func (params *ListCommandParams) SetPageSize(PageSize int32) *ListCommandParams {
+func (params *ListCommandParams) SetPageSize(PageSize int) *ListCommandParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -666,14 +666,14 @@ type ListFleetParams struct {
 	// The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
 	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListFleetParams) SetNetworkAccessProfile(NetworkAccessProfile string) *ListFleetParams {
 	params.NetworkAccessProfile = &NetworkAccessProfile
 	return params
 }
-func (params *ListFleetParams) SetPageSize(PageSize int32) *ListFleetParams {
+func (params *ListFleetParams) SetPageSize(PageSize int) *ListFleetParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -716,7 +716,7 @@ type ListNetworkParams struct {
 	// The 'mobile network code' of a mobile operator network. Network resources with this `mnc` in their `identifiers` will be read.
 	Mnc *string `json:"Mnc,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListNetworkParams) SetIsoCountry(IsoCountry string) *ListNetworkParams {
@@ -731,7 +731,7 @@ func (params *ListNetworkParams) SetMnc(Mnc string) *ListNetworkParams {
 	params.Mnc = &Mnc
 	return params
 }
-func (params *ListNetworkParams) SetPageSize(PageSize int32) *ListNetworkParams {
+func (params *ListNetworkParams) SetPageSize(PageSize int) *ListNetworkParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -774,10 +774,10 @@ func (c *DefaultApiService) ListNetwork(params *ListNetworkParams) (*ListNetwork
 // Optional parameters for the method 'ListNetworkAccessProfile'
 type ListNetworkAccessProfileParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListNetworkAccessProfileParams) SetPageSize(PageSize int32) *ListNetworkAccessProfileParams {
+func (params *ListNetworkAccessProfileParams) SetPageSize(PageSize int) *ListNetworkAccessProfileParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -811,10 +811,10 @@ func (c *DefaultApiService) ListNetworkAccessProfile(params *ListNetworkAccessPr
 // Optional parameters for the method 'ListNetworkAccessProfileNetwork'
 type ListNetworkAccessProfileNetworkParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListNetworkAccessProfileNetworkParams) SetPageSize(PageSize int32) *ListNetworkAccessProfileNetworkParams {
+func (params *ListNetworkAccessProfileNetworkParams) SetPageSize(PageSize int) *ListNetworkAccessProfileNetworkParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -855,7 +855,7 @@ type ListSimParams struct {
 	// The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
 	Iccid *string `json:"Iccid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSimParams) SetStatus(Status string) *ListSimParams {
@@ -870,7 +870,7 @@ func (params *ListSimParams) SetIccid(Iccid string) *ListSimParams {
 	params.Iccid = &Iccid
 	return params
 }
-func (params *ListSimParams) SetPageSize(PageSize int32) *ListSimParams {
+func (params *ListSimParams) SetPageSize(PageSize int) *ListSimParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -919,7 +919,7 @@ type ListSmsCommandParams struct {
 	// The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is synonymous with the term `mobile originated`.
 	Direction *string `json:"Direction,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSmsCommandParams) SetSim(Sim string) *ListSmsCommandParams {
@@ -934,7 +934,7 @@ func (params *ListSmsCommandParams) SetDirection(Direction string) *ListSmsComma
 	params.Direction = &Direction
 	return params
 }
-func (params *ListSmsCommandParams) SetPageSize(PageSize int32) *ListSmsCommandParams {
+func (params *ListSmsCommandParams) SetPageSize(PageSize int) *ListSmsCommandParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -993,7 +993,7 @@ type ListUsageRecordParams struct {
 	// Only include usage that occurred before this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
 	EndTime *time.Time `json:"EndTime,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordParams) SetSim(Sim string) *ListUsageRecordParams {
@@ -1028,7 +1028,7 @@ func (params *ListUsageRecordParams) SetEndTime(EndTime time.Time) *ListUsageRec
 	params.EndTime = &EndTime
 	return params
 }
-func (params *ListUsageRecordParams) SetPageSize(PageSize int32) *ListUsageRecordParams {
+func (params *ListUsageRecordParams) SetPageSize(PageSize int) *ListUsageRecordParams {
 	params.PageSize = &PageSize
 	return params
 }

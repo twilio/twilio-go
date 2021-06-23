@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **FirstPageUrl** | **string** |  |[optional] 
 **Key** | **string** |  |[optional] 
 **NextPageUrl** | **string** |  |[optional] 
-**Page** | **int32** |  |[optional] 
-**PageSize** | **int32** |  |[optional] 
+**Page** | **int** |  |[optional] 
+**PageSize** | **int** |  |[optional] 
 **PreviousPageUrl** | **string** |  |[optional] 
 **Url** | **string** |  |[optional] 
 

@@ -18,9 +18,9 @@ type AutopilotV1AssistantTaskTaskStatistics struct {
 	// The SID of the Assistant that is the parent of the Task associated with the resource
 	AssistantSid *string `json:"assistant_sid,omitempty"`
 	// The total number of Fields associated with the Task
-	FieldsCount *int32 `json:"fields_count,omitempty"`
+	FieldsCount *int `json:"fields_count,omitempty"`
 	// The total number of Samples associated with the Task
-	SamplesCount *int32 `json:"samples_count,omitempty"`
+	SamplesCount *int `json:"samples_count,omitempty"`
 	// The SID of the Task for which the statistics were collected
 	TaskSid *string `json:"task_sid,omitempty"`
 	// The absolute URL of the TaskStatistics resource

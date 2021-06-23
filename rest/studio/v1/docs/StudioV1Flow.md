@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Status** | Pointer to **string** | The status of the Flow |
 **Url** | Pointer to **string** | The absolute URL of the resource |
-**Version** | Pointer to **int32** | The latest version number of the Flow's definition |
+**Version** | Pointer to **int** | The latest version number of the Flow's definition |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

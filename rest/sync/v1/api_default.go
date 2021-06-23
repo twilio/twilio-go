@@ -42,7 +42,7 @@ type CreateDocumentParams struct {
 	// A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
 	Data *map[string]interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (the Sync Document's time-to-live).
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 	// An application-defined string that uniquely identifies the Sync Document
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
@@ -51,7 +51,7 @@ func (params *CreateDocumentParams) SetData(Data map[string]interface{}) *Create
 	params.Data = &Data
 	return params
 }
-func (params *CreateDocumentParams) SetTtl(Ttl int32) *CreateDocumentParams {
+func (params *CreateDocumentParams) SetTtl(Ttl int) *CreateDocumentParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -107,7 +107,7 @@ type CreateServiceParams struct {
 	// Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
 	ReachabilityDebouncingEnabled *bool `json:"ReachabilityDebouncingEnabled,omitempty"`
 	// The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the `webhook_url` is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the call to `webhook_url`.
-	ReachabilityDebouncingWindow *int32 `json:"ReachabilityDebouncingWindow,omitempty"`
+	ReachabilityDebouncingWindow *int `json:"ReachabilityDebouncingWindow,omitempty"`
 	// Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
 	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
 	// The URL we should call when Sync objects are manipulated.
@@ -128,7 +128,7 @@ func (params *CreateServiceParams) SetReachabilityDebouncingEnabled(Reachability
 	params.ReachabilityDebouncingEnabled = &ReachabilityDebouncingEnabled
 	return params
 }
-func (params *CreateServiceParams) SetReachabilityDebouncingWindow(ReachabilityDebouncingWindow int32) *CreateServiceParams {
+func (params *CreateServiceParams) SetReachabilityDebouncingWindow(ReachabilityDebouncingWindow int) *CreateServiceParams {
 	params.ReachabilityDebouncingWindow = &ReachabilityDebouncingWindow
 	return params
 }
@@ -236,18 +236,18 @@ func (c *DefaultApiService) CreateStreamMessage(ServiceSid string, StreamSid str
 // Optional parameters for the method 'CreateSyncList'
 type CreateSyncListParams struct {
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
-	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// Alias for collection_ttl. If both are provided, this value is ignored.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 	// An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
-func (params *CreateSyncListParams) SetCollectionTtl(CollectionTtl int32) *CreateSyncListParams {
+func (params *CreateSyncListParams) SetCollectionTtl(CollectionTtl int) *CreateSyncListParams {
 	params.CollectionTtl = &CollectionTtl
 	return params
 }
-func (params *CreateSyncListParams) SetTtl(Ttl int32) *CreateSyncListParams {
+func (params *CreateSyncListParams) SetTtl(Ttl int) *CreateSyncListParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -291,16 +291,16 @@ func (c *DefaultApiService) CreateSyncList(ServiceSid string, params *CreateSync
 // Optional parameters for the method 'CreateSyncListItem'
 type CreateSyncListItemParams struct {
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted.
-	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
 	Data *map[string]interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
-	ItemTtl *int32 `json:"ItemTtl,omitempty"`
+	ItemTtl *int `json:"ItemTtl,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
-func (params *CreateSyncListItemParams) SetCollectionTtl(CollectionTtl int32) *CreateSyncListItemParams {
+func (params *CreateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *CreateSyncListItemParams {
 	params.CollectionTtl = &CollectionTtl
 	return params
 }
@@ -308,11 +308,11 @@ func (params *CreateSyncListItemParams) SetData(Data map[string]interface{}) *Cr
 	params.Data = &Data
 	return params
 }
-func (params *CreateSyncListItemParams) SetItemTtl(ItemTtl int32) *CreateSyncListItemParams {
+func (params *CreateSyncListItemParams) SetItemTtl(ItemTtl int) *CreateSyncListItemParams {
 	params.ItemTtl = &ItemTtl
 	return params
 }
-func (params *CreateSyncListItemParams) SetTtl(Ttl int32) *CreateSyncListItemParams {
+func (params *CreateSyncListItemParams) SetTtl(Ttl int) *CreateSyncListItemParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -362,18 +362,18 @@ func (c *DefaultApiService) CreateSyncListItem(ServiceSid string, ListSid string
 // Optional parameters for the method 'CreateSyncMap'
 type CreateSyncMapParams struct {
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
-	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
-func (params *CreateSyncMapParams) SetCollectionTtl(CollectionTtl int32) *CreateSyncMapParams {
+func (params *CreateSyncMapParams) SetCollectionTtl(CollectionTtl int) *CreateSyncMapParams {
 	params.CollectionTtl = &CollectionTtl
 	return params
 }
-func (params *CreateSyncMapParams) SetTtl(Ttl int32) *CreateSyncMapParams {
+func (params *CreateSyncMapParams) SetTtl(Ttl int) *CreateSyncMapParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -417,18 +417,18 @@ func (c *DefaultApiService) CreateSyncMap(ServiceSid string, params *CreateSyncM
 // Optional parameters for the method 'CreateSyncMapItem'
 type CreateSyncMapItemParams struct {
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
-	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
 	Data *map[string]interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-	ItemTtl *int32 `json:"ItemTtl,omitempty"`
+	ItemTtl *int `json:"ItemTtl,omitempty"`
 	// The unique, user-defined key for the Map Item. Can be up to 320 characters long.
 	Key *string `json:"Key,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
-func (params *CreateSyncMapItemParams) SetCollectionTtl(CollectionTtl int32) *CreateSyncMapItemParams {
+func (params *CreateSyncMapItemParams) SetCollectionTtl(CollectionTtl int) *CreateSyncMapItemParams {
 	params.CollectionTtl = &CollectionTtl
 	return params
 }
@@ -436,7 +436,7 @@ func (params *CreateSyncMapItemParams) SetData(Data map[string]interface{}) *Cre
 	params.Data = &Data
 	return params
 }
-func (params *CreateSyncMapItemParams) SetItemTtl(ItemTtl int32) *CreateSyncMapItemParams {
+func (params *CreateSyncMapItemParams) SetItemTtl(ItemTtl int) *CreateSyncMapItemParams {
 	params.ItemTtl = &ItemTtl
 	return params
 }
@@ -444,7 +444,7 @@ func (params *CreateSyncMapItemParams) SetKey(Key string) *CreateSyncMapItemPara
 	params.Key = &Key
 	return params
 }
-func (params *CreateSyncMapItemParams) SetTtl(Ttl int32) *CreateSyncMapItemParams {
+func (params *CreateSyncMapItemParams) SetTtl(Ttl int) *CreateSyncMapItemParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -497,12 +497,12 @@ func (c *DefaultApiService) CreateSyncMapItem(ServiceSid string, MapSid string, 
 // Optional parameters for the method 'CreateSyncStream'
 type CreateSyncStreamParams struct {
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 	// An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The `unique_name` value can be used as an alternative to the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
-func (params *CreateSyncStreamParams) SetTtl(Ttl int32) *CreateSyncStreamParams {
+func (params *CreateSyncStreamParams) SetTtl(Ttl int) *CreateSyncStreamParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -625,7 +625,7 @@ func (params *DeleteSyncListItemParams) SetIfMatch(IfMatch string) *DeleteSyncLi
 	return params
 }
 
-func (c *DefaultApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int32, params *DeleteSyncListItemParams) error {
+func (c *DefaultApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index int, params *DeleteSyncListItemParams) error {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -852,7 +852,7 @@ func (c *DefaultApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV
 	return ps, err
 }
 
-func (c *DefaultApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index int32) (*SyncV1ServiceSyncListSyncListItem, error) {
+func (c *DefaultApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index int) (*SyncV1ServiceSyncListSyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -1000,10 +1000,10 @@ func (c *DefaultApiService) FetchSyncStream(ServiceSid string, Sid string) (*Syn
 // Optional parameters for the method 'ListDocument'
 type ListDocumentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListDocumentParams) SetPageSize(PageSize int32) *ListDocumentParams {
+func (params *ListDocumentParams) SetPageSize(PageSize int) *ListDocumentParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1037,10 +1037,10 @@ func (c *DefaultApiService) ListDocument(ServiceSid string, params *ListDocument
 // Optional parameters for the method 'ListDocumentPermission'
 type ListDocumentPermissionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListDocumentPermissionParams) SetPageSize(PageSize int32) *ListDocumentPermissionParams {
+func (params *ListDocumentPermissionParams) SetPageSize(PageSize int) *ListDocumentPermissionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1076,10 +1076,10 @@ func (c *DefaultApiService) ListDocumentPermission(ServiceSid string, DocumentSi
 // Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1112,10 +1112,10 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // Optional parameters for the method 'ListSyncList'
 type ListSyncListParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSyncListParams) SetPageSize(PageSize int32) *ListSyncListParams {
+func (params *ListSyncListParams) SetPageSize(PageSize int) *ListSyncListParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1155,7 +1155,7 @@ type ListSyncListItemParams struct {
 	// Whether to include the List Item referenced by the `from` parameter. Can be: `inclusive` to include the List Item referenced by the `from` parameter or `exclusive` to start with the next List Item. The default value is `inclusive`.
 	Bounds *string `json:"Bounds,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSyncListItemParams) SetOrder(Order string) *ListSyncListItemParams {
@@ -1170,7 +1170,7 @@ func (params *ListSyncListItemParams) SetBounds(Bounds string) *ListSyncListItem
 	params.Bounds = &Bounds
 	return params
 }
-func (params *ListSyncListItemParams) SetPageSize(PageSize int32) *ListSyncListItemParams {
+func (params *ListSyncListItemParams) SetPageSize(PageSize int) *ListSyncListItemParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1214,10 +1214,10 @@ func (c *DefaultApiService) ListSyncListItem(ServiceSid string, ListSid string, 
 // Optional parameters for the method 'ListSyncListPermission'
 type ListSyncListPermissionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSyncListPermissionParams) SetPageSize(PageSize int32) *ListSyncListPermissionParams {
+func (params *ListSyncListPermissionParams) SetPageSize(PageSize int) *ListSyncListPermissionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1253,10 +1253,10 @@ func (c *DefaultApiService) ListSyncListPermission(ServiceSid string, ListSid st
 // Optional parameters for the method 'ListSyncMap'
 type ListSyncMapParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSyncMapParams) SetPageSize(PageSize int32) *ListSyncMapParams {
+func (params *ListSyncMapParams) SetPageSize(PageSize int) *ListSyncMapParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1296,7 +1296,7 @@ type ListSyncMapItemParams struct {
 	// Whether to include the Map Item referenced by the `from` parameter. Can be: `inclusive` to include the Map Item referenced by the `from` parameter or `exclusive` to start with the next Map Item. The default value is `inclusive`.
 	Bounds *string `json:"Bounds,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSyncMapItemParams) SetOrder(Order string) *ListSyncMapItemParams {
@@ -1311,7 +1311,7 @@ func (params *ListSyncMapItemParams) SetBounds(Bounds string) *ListSyncMapItemPa
 	params.Bounds = &Bounds
 	return params
 }
-func (params *ListSyncMapItemParams) SetPageSize(PageSize int32) *ListSyncMapItemParams {
+func (params *ListSyncMapItemParams) SetPageSize(PageSize int) *ListSyncMapItemParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1355,10 +1355,10 @@ func (c *DefaultApiService) ListSyncMapItem(ServiceSid string, MapSid string, pa
 // Optional parameters for the method 'ListSyncMapPermission'
 type ListSyncMapPermissionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSyncMapPermissionParams) SetPageSize(PageSize int32) *ListSyncMapPermissionParams {
+func (params *ListSyncMapPermissionParams) SetPageSize(PageSize int) *ListSyncMapPermissionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1394,10 +1394,10 @@ func (c *DefaultApiService) ListSyncMapPermission(ServiceSid string, MapSid stri
 // Optional parameters for the method 'ListSyncStream'
 type ListSyncStreamParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSyncStreamParams) SetPageSize(PageSize int32) *ListSyncStreamParams {
+func (params *ListSyncStreamParams) SetPageSize(PageSize int) *ListSyncStreamParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1436,7 +1436,7 @@ type UpdateDocumentParams struct {
 	// A JSON string that represents an arbitrary, schema-less object that the Sync Document stores. Can be up to 16 KiB in length.
 	Data *map[string]interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Document expires and is deleted (time-to-live).
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
 func (params *UpdateDocumentParams) SetIfMatch(IfMatch string) *UpdateDocumentParams {
@@ -1447,7 +1447,7 @@ func (params *UpdateDocumentParams) SetData(Data map[string]interface{}) *Update
 	params.Data = &Data
 	return params
 }
-func (params *UpdateDocumentParams) SetTtl(Ttl int32) *UpdateDocumentParams {
+func (params *UpdateDocumentParams) SetTtl(Ttl int) *UpdateDocumentParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -1559,7 +1559,7 @@ type UpdateServiceParams struct {
 	// Whether every `endpoint_disconnected` event should occur after a configurable delay. The default is `false`, where the `endpoint_disconnected` event occurs immediately after disconnection. When `true`, intervening reconnections can prevent the `endpoint_disconnected` event.
 	ReachabilityDebouncingEnabled *bool `json:"ReachabilityDebouncingEnabled,omitempty"`
 	// The reachability event delay in milliseconds if `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000 and defaults to 5,000. This is the number of milliseconds after the last running client disconnects, and a Sync identity is declared offline, before the webhook is called if all endpoints remain offline. A reconnection from the same identity by any endpoint during this interval prevents the webhook from being called.
-	ReachabilityDebouncingWindow *int32 `json:"ReachabilityDebouncingWindow,omitempty"`
+	ReachabilityDebouncingWindow *int `json:"ReachabilityDebouncingWindow,omitempty"`
 	// Whether the service instance should call `webhook_url` when client endpoints connect to Sync. The default is `false`.
 	ReachabilityWebhooksEnabled *bool `json:"ReachabilityWebhooksEnabled,omitempty"`
 	// The URL we should call when Sync objects are manipulated.
@@ -1580,7 +1580,7 @@ func (params *UpdateServiceParams) SetReachabilityDebouncingEnabled(Reachability
 	params.ReachabilityDebouncingEnabled = &ReachabilityDebouncingEnabled
 	return params
 }
-func (params *UpdateServiceParams) SetReachabilityDebouncingWindow(ReachabilityDebouncingWindow int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetReachabilityDebouncingWindow(ReachabilityDebouncingWindow int) *UpdateServiceParams {
 	params.ReachabilityDebouncingWindow = &ReachabilityDebouncingWindow
 	return params
 }
@@ -1644,16 +1644,16 @@ func (c *DefaultApiService) UpdateService(Sid string, params *UpdateServiceParam
 // Optional parameters for the method 'UpdateSyncList'
 type UpdateSyncListParams struct {
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
-	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// An alias for `collection_ttl`. If both are provided, this value is ignored.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
-func (params *UpdateSyncListParams) SetCollectionTtl(CollectionTtl int32) *UpdateSyncListParams {
+func (params *UpdateSyncListParams) SetCollectionTtl(CollectionTtl int) *UpdateSyncListParams {
 	params.CollectionTtl = &CollectionTtl
 	return params
 }
-func (params *UpdateSyncListParams) SetTtl(Ttl int32) *UpdateSyncListParams {
+func (params *UpdateSyncListParams) SetTtl(Ttl int) *UpdateSyncListParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -1693,20 +1693,20 @@ type UpdateSyncListItemParams struct {
 	// If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 	IfMatch *string `json:"If-Match,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item's `data` or `ttl` is updated in the same request.
-	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
 	Data *map[string]interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
-	ItemTtl *int32 `json:"ItemTtl,omitempty"`
+	ItemTtl *int `json:"ItemTtl,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
 func (params *UpdateSyncListItemParams) SetIfMatch(IfMatch string) *UpdateSyncListItemParams {
 	params.IfMatch = &IfMatch
 	return params
 }
-func (params *UpdateSyncListItemParams) SetCollectionTtl(CollectionTtl int32) *UpdateSyncListItemParams {
+func (params *UpdateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *UpdateSyncListItemParams {
 	params.CollectionTtl = &CollectionTtl
 	return params
 }
@@ -1714,16 +1714,16 @@ func (params *UpdateSyncListItemParams) SetData(Data map[string]interface{}) *Up
 	params.Data = &Data
 	return params
 }
-func (params *UpdateSyncListItemParams) SetItemTtl(ItemTtl int32) *UpdateSyncListItemParams {
+func (params *UpdateSyncListItemParams) SetItemTtl(ItemTtl int) *UpdateSyncListItemParams {
 	params.ItemTtl = &ItemTtl
 	return params
 }
-func (params *UpdateSyncListItemParams) SetTtl(Ttl int32) *UpdateSyncListItemParams {
+func (params *UpdateSyncListItemParams) SetTtl(Ttl int) *UpdateSyncListItemParams {
 	params.Ttl = &Ttl
 	return params
 }
 
-func (c *DefaultApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index int32, params *UpdateSyncListItemParams) (*SyncV1ServiceSyncListSyncListItem, error) {
+func (c *DefaultApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index int, params *UpdateSyncListItemParams) (*SyncV1ServiceSyncListSyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -1831,16 +1831,16 @@ func (c *DefaultApiService) UpdateSyncListPermission(ServiceSid string, ListSid 
 // Optional parameters for the method 'UpdateSyncMap'
 type UpdateSyncMapParams struct {
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync Map expires (time-to-live) and is deleted.
-	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// An alias for `collection_ttl`. If both parameters are provided, this value is ignored.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
-func (params *UpdateSyncMapParams) SetCollectionTtl(CollectionTtl int32) *UpdateSyncMapParams {
+func (params *UpdateSyncMapParams) SetCollectionTtl(CollectionTtl int) *UpdateSyncMapParams {
 	params.CollectionTtl = &CollectionTtl
 	return params
 }
-func (params *UpdateSyncMapParams) SetTtl(Ttl int32) *UpdateSyncMapParams {
+func (params *UpdateSyncMapParams) SetTtl(Ttl int) *UpdateSyncMapParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -1880,20 +1880,20 @@ type UpdateSyncMapItemParams struct {
 	// If provided, applies this mutation if (and only if) the “revision” field of this [map item] matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 	IfMatch *string `json:"If-Match,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
-	CollectionTtl *int32 `json:"CollectionTtl,omitempty"`
+	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
 	Data *map[string]interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
-	ItemTtl *int32 `json:"ItemTtl,omitempty"`
+	ItemTtl *int `json:"ItemTtl,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
 func (params *UpdateSyncMapItemParams) SetIfMatch(IfMatch string) *UpdateSyncMapItemParams {
 	params.IfMatch = &IfMatch
 	return params
 }
-func (params *UpdateSyncMapItemParams) SetCollectionTtl(CollectionTtl int32) *UpdateSyncMapItemParams {
+func (params *UpdateSyncMapItemParams) SetCollectionTtl(CollectionTtl int) *UpdateSyncMapItemParams {
 	params.CollectionTtl = &CollectionTtl
 	return params
 }
@@ -1901,11 +1901,11 @@ func (params *UpdateSyncMapItemParams) SetData(Data map[string]interface{}) *Upd
 	params.Data = &Data
 	return params
 }
-func (params *UpdateSyncMapItemParams) SetItemTtl(ItemTtl int32) *UpdateSyncMapItemParams {
+func (params *UpdateSyncMapItemParams) SetItemTtl(ItemTtl int) *UpdateSyncMapItemParams {
 	params.ItemTtl = &ItemTtl
 	return params
 }
-func (params *UpdateSyncMapItemParams) SetTtl(Ttl int32) *UpdateSyncMapItemParams {
+func (params *UpdateSyncMapItemParams) SetTtl(Ttl int) *UpdateSyncMapItemParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -2018,10 +2018,10 @@ func (c *DefaultApiService) UpdateSyncMapPermission(ServiceSid string, MapSid st
 // Optional parameters for the method 'UpdateSyncStream'
 type UpdateSyncStreamParams struct {
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Stream expires and is deleted (time-to-live).
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
-func (params *UpdateSyncStreamParams) SetTtl(Ttl int32) *UpdateSyncStreamParams {
+func (params *UpdateSyncStreamParams) SetTtl(Ttl int) *UpdateSyncStreamParams {
 	params.Ttl = &Ttl
 	return params
 }

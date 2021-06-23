@@ -24,7 +24,7 @@ type VideoV1Room struct {
 	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The duration of the room in seconds
-	Duration *int32 `json:"duration,omitempty"`
+	Duration *int `json:"duration,omitempty"`
 	// Enable Twilio's Network Traversal TURN service
 	EnableTurn *bool `json:"enable_turn,omitempty"`
 	// The UTC end time of the room in UTC ISO 8601 format
@@ -32,9 +32,9 @@ type VideoV1Room struct {
 	// The URLs of related resources
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// The maximum number of published tracks allowed in the room at the same time
-	MaxConcurrentPublishedTracks *int32 `json:"max_concurrent_published_tracks,omitempty"`
+	MaxConcurrentPublishedTracks *int `json:"max_concurrent_published_tracks,omitempty"`
 	// The maximum number of concurrent Participants allowed in the room
-	MaxParticipants *int32 `json:"max_participants,omitempty"`
+	MaxParticipants *int `json:"max_participants,omitempty"`
 	// The region for the media server in Group Rooms
 	MediaRegion *string `json:"media_region,omitempty"`
 	// Whether to start recording when Participants connect

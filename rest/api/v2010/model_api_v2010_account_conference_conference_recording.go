@@ -20,7 +20,7 @@ type ApiV2010AccountConferenceConferenceRecording struct {
 	// The SID of the Call the resource is associated with
 	CallSid *string `json:"call_sid,omitempty"`
 	// The number of channels in the final recording file as an integer
-	Channels *int32 `json:"channels,omitempty"`
+	Channels *int `json:"channels,omitempty"`
 	// The Conference SID that identifies the conference associated with the recording
 	ConferenceSid *string `json:"conference_sid,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was created
@@ -32,7 +32,7 @@ type ApiV2010AccountConferenceConferenceRecording struct {
 	// How to decrypt the recording.
 	EncryptionDetails *map[string]interface{} `json:"encryption_details,omitempty"`
 	// More information about why the recording is missing, if status is `absent`.
-	ErrorCode *int32 `json:"error_code,omitempty"`
+	ErrorCode *int `json:"error_code,omitempty"`
 	// The one-time cost of creating the recording.
 	Price *float32 `json:"price,omitempty"`
 	// The currency used in the price property.

@@ -30,7 +30,7 @@ type ChatV2ServiceChannelMember struct {
 	// The string that identifies the resource's User
 	Identity *string `json:"identity,omitempty"`
 	// The index of the last Message that the Member has read within the Channel
-	LastConsumedMessageIndex *int32 `json:"last_consumed_message_index,omitempty"`
+	LastConsumedMessageIndex *int `json:"last_consumed_message_index,omitempty"`
 	// The ISO 8601 based timestamp string that represents the datetime of the last Message read event for the Member within the Channel
 	LastConsumptionTimestamp *time.Time `json:"last_consumption_timestamp,omitempty"`
 	// The SID of the Role assigned to the member

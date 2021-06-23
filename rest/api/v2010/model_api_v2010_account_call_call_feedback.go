@@ -22,7 +22,7 @@ type ApiV2010AccountCallCallFeedback struct {
 	// Issues experienced during the call
 	Issues *[]string `json:"issues,omitempty"`
 	// 1 to 5 quality score
-	QualityScore *int32 `json:"quality_score,omitempty"`
+	QualityScore *int `json:"quality_score,omitempty"`
 	// A string that uniquely identifies this feedback resource
 	Sid *string `json:"sid,omitempty"`
 }

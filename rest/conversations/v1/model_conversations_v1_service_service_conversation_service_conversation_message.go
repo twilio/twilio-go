@@ -36,7 +36,7 @@ type ConversationsV1ServiceServiceConversationServiceConversationMessage struct 
 	// An object that contains the summary of delivery statuses for the message to non-chat participants.
 	Delivery *map[string]interface{} `json:"delivery,omitempty"`
 	// The index of the message within the Conversation.
-	Index *int32 `json:"index,omitempty"`
+	Index *int `json:"index,omitempty"`
 	// Absolute URL to access the receipts of this message.
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// An array of objects that describe the Message's media if attached, otherwise, null.

@@ -370,7 +370,7 @@ type CreateConversationScopedWebhookParams struct {
 	// The HTTP method to be used when sending a webhook request.
 	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
 	// The message index for which and it's successors the webhook will be replayed. Not set by default
-	ConfigurationReplayAfter *int32 `json:"Configuration.ReplayAfter,omitempty"`
+	ConfigurationReplayAfter *int `json:"Configuration.ReplayAfter,omitempty"`
 	// The list of keywords, firing webhook event for this Conversation.
 	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
 	// The absolute url the webhook request should be sent to.
@@ -391,7 +391,7 @@ func (params *CreateConversationScopedWebhookParams) SetConfigurationMethod(Conf
 	params.ConfigurationMethod = &ConfigurationMethod
 	return params
 }
-func (params *CreateConversationScopedWebhookParams) SetConfigurationReplayAfter(ConfigurationReplayAfter int32) *CreateConversationScopedWebhookParams {
+func (params *CreateConversationScopedWebhookParams) SetConfigurationReplayAfter(ConfigurationReplayAfter int) *CreateConversationScopedWebhookParams {
 	params.ConfigurationReplayAfter = &ConfigurationReplayAfter
 	return params
 }
@@ -977,7 +977,7 @@ type CreateServiceConversationScopedWebhookParams struct {
 	// The HTTP method to be used when sending a webhook request.
 	ConfigurationMethod *string `json:"Configuration.Method,omitempty"`
 	// The message index for which and it's successors the webhook will be replayed. Not set by default
-	ConfigurationReplayAfter *int32 `json:"Configuration.ReplayAfter,omitempty"`
+	ConfigurationReplayAfter *int `json:"Configuration.ReplayAfter,omitempty"`
 	// The list of keywords, firing webhook event for this Conversation.
 	ConfigurationTriggers *[]string `json:"Configuration.Triggers,omitempty"`
 	// The absolute url the webhook request should be sent to.
@@ -998,7 +998,7 @@ func (params *CreateServiceConversationScopedWebhookParams) SetConfigurationMeth
 	params.ConfigurationMethod = &ConfigurationMethod
 	return params
 }
-func (params *CreateServiceConversationScopedWebhookParams) SetConfigurationReplayAfter(ConfigurationReplayAfter int32) *CreateServiceConversationScopedWebhookParams {
+func (params *CreateServiceConversationScopedWebhookParams) SetConfigurationReplayAfter(ConfigurationReplayAfter int) *CreateServiceConversationScopedWebhookParams {
 	params.ConfigurationReplayAfter = &ConfigurationReplayAfter
 	return params
 }
@@ -2176,10 +2176,10 @@ func (c *DefaultApiService) FetchUser(Sid string) (*ConversationsV1User, error) 
 // Optional parameters for the method 'ListConversation'
 type ListConversationParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListConversationParams) SetPageSize(PageSize int32) *ListConversationParams {
+func (params *ListConversationParams) SetPageSize(PageSize int) *ListConversationParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2213,10 +2213,10 @@ func (c *DefaultApiService) ListConversation(params *ListConversationParams) (*L
 // Optional parameters for the method 'ListConversationMessage'
 type ListConversationMessageParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListConversationMessageParams) SetPageSize(PageSize int32) *ListConversationMessageParams {
+func (params *ListConversationMessageParams) SetPageSize(PageSize int) *ListConversationMessageParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2251,10 +2251,10 @@ func (c *DefaultApiService) ListConversationMessage(ConversationSid string, para
 // Optional parameters for the method 'ListConversationMessageReceipt'
 type ListConversationMessageReceiptParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListConversationMessageReceiptParams) SetPageSize(PageSize int32) *ListConversationMessageReceiptParams {
+func (params *ListConversationMessageReceiptParams) SetPageSize(PageSize int) *ListConversationMessageReceiptParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2290,10 +2290,10 @@ func (c *DefaultApiService) ListConversationMessageReceipt(ConversationSid strin
 // Optional parameters for the method 'ListConversationParticipant'
 type ListConversationParticipantParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListConversationParticipantParams) SetPageSize(PageSize int32) *ListConversationParticipantParams {
+func (params *ListConversationParticipantParams) SetPageSize(PageSize int) *ListConversationParticipantParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2328,10 +2328,10 @@ func (c *DefaultApiService) ListConversationParticipant(ConversationSid string, 
 // Optional parameters for the method 'ListConversationScopedWebhook'
 type ListConversationScopedWebhookParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListConversationScopedWebhookParams) SetPageSize(PageSize int32) *ListConversationScopedWebhookParams {
+func (params *ListConversationScopedWebhookParams) SetPageSize(PageSize int) *ListConversationScopedWebhookParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2366,10 +2366,10 @@ func (c *DefaultApiService) ListConversationScopedWebhook(ConversationSid string
 // Optional parameters for the method 'ListCredential'
 type ListCredentialParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListCredentialParams) SetPageSize(PageSize int32) *ListCredentialParams {
+func (params *ListCredentialParams) SetPageSize(PageSize int) *ListCredentialParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2403,10 +2403,10 @@ func (c *DefaultApiService) ListCredential(params *ListCredentialParams) (*ListC
 // Optional parameters for the method 'ListRole'
 type ListRoleParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListRoleParams) SetPageSize(PageSize int32) *ListRoleParams {
+func (params *ListRoleParams) SetPageSize(PageSize int) *ListRoleParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2440,10 +2440,10 @@ func (c *DefaultApiService) ListRole(params *ListRoleParams) (*ListRoleResponse,
 // Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2481,7 +2481,7 @@ type ListServiceBindingParams struct {
 	// The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListServiceBindingParams) SetBindingType(BindingType []string) *ListServiceBindingParams {
@@ -2492,7 +2492,7 @@ func (params *ListServiceBindingParams) SetIdentity(Identity []string) *ListServ
 	params.Identity = &Identity
 	return params
 }
-func (params *ListServiceBindingParams) SetPageSize(PageSize int32) *ListServiceBindingParams {
+func (params *ListServiceBindingParams) SetPageSize(PageSize int) *ListServiceBindingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2537,10 +2537,10 @@ func (c *DefaultApiService) ListServiceBinding(ChatServiceSid string, params *Li
 // Optional parameters for the method 'ListServiceConversation'
 type ListServiceConversationParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceConversationParams) SetPageSize(PageSize int32) *ListServiceConversationParams {
+func (params *ListServiceConversationParams) SetPageSize(PageSize int) *ListServiceConversationParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2575,10 +2575,10 @@ func (c *DefaultApiService) ListServiceConversation(ChatServiceSid string, param
 // Optional parameters for the method 'ListServiceConversationMessage'
 type ListServiceConversationMessageParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceConversationMessageParams) SetPageSize(PageSize int32) *ListServiceConversationMessageParams {
+func (params *ListServiceConversationMessageParams) SetPageSize(PageSize int) *ListServiceConversationMessageParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2614,10 +2614,10 @@ func (c *DefaultApiService) ListServiceConversationMessage(ChatServiceSid string
 // Optional parameters for the method 'ListServiceConversationMessageReceipt'
 type ListServiceConversationMessageReceiptParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceConversationMessageReceiptParams) SetPageSize(PageSize int32) *ListServiceConversationMessageReceiptParams {
+func (params *ListServiceConversationMessageReceiptParams) SetPageSize(PageSize int) *ListServiceConversationMessageReceiptParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2654,10 +2654,10 @@ func (c *DefaultApiService) ListServiceConversationMessageReceipt(ChatServiceSid
 // Optional parameters for the method 'ListServiceConversationParticipant'
 type ListServiceConversationParticipantParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceConversationParticipantParams) SetPageSize(PageSize int32) *ListServiceConversationParticipantParams {
+func (params *ListServiceConversationParticipantParams) SetPageSize(PageSize int) *ListServiceConversationParticipantParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2693,10 +2693,10 @@ func (c *DefaultApiService) ListServiceConversationParticipant(ChatServiceSid st
 // Optional parameters for the method 'ListServiceConversationScopedWebhook'
 type ListServiceConversationScopedWebhookParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceConversationScopedWebhookParams) SetPageSize(PageSize int32) *ListServiceConversationScopedWebhookParams {
+func (params *ListServiceConversationScopedWebhookParams) SetPageSize(PageSize int) *ListServiceConversationScopedWebhookParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2732,10 +2732,10 @@ func (c *DefaultApiService) ListServiceConversationScopedWebhook(ChatServiceSid 
 // Optional parameters for the method 'ListServiceRole'
 type ListServiceRoleParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceRoleParams) SetPageSize(PageSize int32) *ListServiceRoleParams {
+func (params *ListServiceRoleParams) SetPageSize(PageSize int) *ListServiceRoleParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2770,10 +2770,10 @@ func (c *DefaultApiService) ListServiceRole(ChatServiceSid string, params *ListS
 // Optional parameters for the method 'ListServiceUser'
 type ListServiceUserParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceUserParams) SetPageSize(PageSize int32) *ListServiceUserParams {
+func (params *ListServiceUserParams) SetPageSize(PageSize int) *ListServiceUserParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -2808,10 +2808,10 @@ func (c *DefaultApiService) ListServiceUser(ChatServiceSid string, params *ListS
 // Optional parameters for the method 'ListUser'
 type ListUserParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListUserParams) SetPageSize(PageSize int32) *ListUserParams {
+func (params *ListUserParams) SetPageSize(PageSize int) *ListUserParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -3198,7 +3198,7 @@ type UpdateConversationParticipantParams struct {
 	// A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
 	Identity *string `json:"Identity,omitempty"`
 	// Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
-	LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
+	LastReadMessageIndex *int `json:"LastReadMessageIndex,omitempty"`
 	// Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
 	LastReadTimestamp *string `json:"LastReadTimestamp,omitempty"`
 	// The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
@@ -3229,7 +3229,7 @@ func (params *UpdateConversationParticipantParams) SetIdentity(Identity string) 
 	params.Identity = &Identity
 	return params
 }
-func (params *UpdateConversationParticipantParams) SetLastReadMessageIndex(LastReadMessageIndex int32) *UpdateConversationParticipantParams {
+func (params *UpdateConversationParticipantParams) SetLastReadMessageIndex(LastReadMessageIndex int) *UpdateConversationParticipantParams {
 	params.LastReadMessageIndex = &LastReadMessageIndex
 	return params
 }
@@ -3802,7 +3802,7 @@ type UpdateServiceConversationParticipantParams struct {
 	// A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversation SDK to communicate. Limited to 256 characters.
 	Identity *string `json:"Identity,omitempty"`
 	// Index of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
-	LastReadMessageIndex *int32 `json:"LastReadMessageIndex,omitempty"`
+	LastReadMessageIndex *int `json:"LastReadMessageIndex,omitempty"`
 	// Timestamp of last “read” message in the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for the Participant.
 	LastReadTimestamp *string `json:"LastReadTimestamp,omitempty"`
 	// The address of the Twilio phone number that is used in Group MMS. 'null' value will remove it.
@@ -3833,7 +3833,7 @@ func (params *UpdateServiceConversationParticipantParams) SetIdentity(Identity s
 	params.Identity = &Identity
 	return params
 }
-func (params *UpdateServiceConversationParticipantParams) SetLastReadMessageIndex(LastReadMessageIndex int32) *UpdateServiceConversationParticipantParams {
+func (params *UpdateServiceConversationParticipantParams) SetLastReadMessageIndex(LastReadMessageIndex int) *UpdateServiceConversationParticipantParams {
 	params.LastReadMessageIndex = &LastReadMessageIndex
 	return params
 }

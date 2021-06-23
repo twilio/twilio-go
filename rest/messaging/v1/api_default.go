@@ -232,7 +232,7 @@ type CreateServiceParams struct {
 	// A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 	UseInboundWebhookOnNumber *bool `json:"UseInboundWebhookOnNumber,omitempty"`
 	// How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
-	ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
+	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`
 }
 
 func (params *CreateServiceParams) SetAreaCodeGeomatch(AreaCodeGeomatch bool) *CreateServiceParams {
@@ -291,7 +291,7 @@ func (params *CreateServiceParams) SetUseInboundWebhookOnNumber(UseInboundWebhoo
 	params.UseInboundWebhookOnNumber = &UseInboundWebhookOnNumber
 	return params
 }
-func (params *CreateServiceParams) SetValidityPeriod(ValidityPeriod int32) *CreateServiceParams {
+func (params *CreateServiceParams) SetValidityPeriod(ValidityPeriod int) *CreateServiceParams {
 	params.ValidityPeriod = &ValidityPeriod
 	return params
 }
@@ -787,10 +787,10 @@ func (c *DefaultApiService) FetchUsecase() (*MessagingV1Usecase, error) {
 // Optional parameters for the method 'ListAlphaSender'
 type ListAlphaSenderParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListAlphaSenderParams) SetPageSize(PageSize int32) *ListAlphaSenderParams {
+func (params *ListAlphaSenderParams) SetPageSize(PageSize int) *ListAlphaSenderParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -824,10 +824,10 @@ func (c *DefaultApiService) ListAlphaSender(ServiceSid string, params *ListAlpha
 // Optional parameters for the method 'ListBrandRegistrations'
 type ListBrandRegistrationsParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListBrandRegistrationsParams) SetPageSize(PageSize int32) *ListBrandRegistrationsParams {
+func (params *ListBrandRegistrationsParams) SetPageSize(PageSize int) *ListBrandRegistrationsParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -860,10 +860,10 @@ func (c *DefaultApiService) ListBrandRegistrations(params *ListBrandRegistration
 // Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListPhoneNumberParams) SetPageSize(PageSize int32) *ListPhoneNumberParams {
+func (params *ListPhoneNumberParams) SetPageSize(PageSize int) *ListPhoneNumberParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -897,10 +897,10 @@ func (c *DefaultApiService) ListPhoneNumber(ServiceSid string, params *ListPhone
 // Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -933,10 +933,10 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListShortCodeParams) SetPageSize(PageSize int32) *ListShortCodeParams {
+func (params *ListShortCodeParams) SetPageSize(PageSize int) *ListShortCodeParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -970,10 +970,10 @@ func (c *DefaultApiService) ListShortCode(ServiceSid string, params *ListShortCo
 // Optional parameters for the method 'ListUsAppToPerson'
 type ListUsAppToPersonParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListUsAppToPersonParams) SetPageSize(PageSize int32) *ListUsAppToPersonParams {
+func (params *ListUsAppToPersonParams) SetPageSize(PageSize int) *ListUsAppToPersonParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1035,7 +1035,7 @@ type UpdateServiceParams struct {
 	// A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 	UseInboundWebhookOnNumber *bool `json:"UseInboundWebhookOnNumber,omitempty"`
 	// How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
-	ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
+	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`
 }
 
 func (params *UpdateServiceParams) SetAreaCodeGeomatch(AreaCodeGeomatch bool) *UpdateServiceParams {
@@ -1094,7 +1094,7 @@ func (params *UpdateServiceParams) SetUseInboundWebhookOnNumber(UseInboundWebhoo
 	params.UseInboundWebhookOnNumber = &UseInboundWebhookOnNumber
 	return params
 }
-func (params *UpdateServiceParams) SetValidityPeriod(ValidityPeriod int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetValidityPeriod(ValidityPeriod int) *UpdateServiceParams {
 	params.ValidityPeriod = &ValidityPeriod
 	return params
 }

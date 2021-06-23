@@ -18,7 +18,7 @@ type TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics struct {
 	// The number of current Workers by Activity
 	ActivityStatistics *[]map[string]interface{} `json:"activity_statistics,omitempty"`
 	// The total number of Workers
-	TotalWorkers *int32 `json:"total_workers,omitempty"`
+	TotalWorkers *int `json:"total_workers,omitempty"`
 	// The absolute URL of the Workers statistics resource
 	Url *string `json:"url,omitempty"`
 	// The SID of the Workspace that contains the Workers

@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **OperatorMcc** | Pointer to **string** | The 'mobile country code' is the unique ID of the home country where the Data Session took place |
 **OperatorMnc** | Pointer to **string** | The 'mobile network code' is the unique ID specific to the mobile operator network where the Data Session took place |
 **OperatorName** | Pointer to **string** | The friendly name of the mobile operator network that the SIM-connected device is attached to |
-**PacketsDownloaded** | Pointer to **int32** | The number of packets downloaded by the device between the start time and when the Data Session was last updated |
-**PacketsUploaded** | Pointer to **int32** | The number of packets uploaded by the device between the start time and when the Data Session was last updated |
+**PacketsDownloaded** | Pointer to **int** | The number of packets downloaded by the device between the start time and when the Data Session was last updated |
+**PacketsUploaded** | Pointer to **int** | The number of packets uploaded by the device between the start time and when the Data Session was last updated |
 **RadioLink** | Pointer to **string** | The generation of wireless technology that the device was using |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **SimSid** | Pointer to **string** | The SID of the Sim resource that the Data Session is for |
