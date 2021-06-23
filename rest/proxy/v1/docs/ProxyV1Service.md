@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ChatInstanceSid** | Pointer to **string** | The SID of the Chat Service Instance |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
-**DefaultTtl** | Pointer to **int32** | Default TTL for a Session, in seconds |
+**DefaultTtl** | Pointer to **int** | Default TTL for a Session, in seconds |
 **GeoMatchLevel** | Pointer to **string** | Where a proxy number must be located relative to the participant identifier |
 **InterceptCallbackUrl** | Pointer to **string** | The URL we call on each interaction |
 **Links** | Pointer to **map[string]interface{}** | The URLs of resources related to the Service |

@@ -27,7 +27,7 @@ type ProxyV1ServicePhoneNumber struct {
 	// The string that you assigned to describe the resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The number of open session assigned to the number.
-	InUse *int32 `json:"in_use,omitempty"`
+	InUse *int `json:"in_use,omitempty"`
 	// Reserve the phone number for manual assignment to participants only
 	IsReserved *bool `json:"is_reserved,omitempty"`
 	// The ISO Country Code

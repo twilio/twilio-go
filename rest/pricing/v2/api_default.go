@@ -101,10 +101,10 @@ func (c *DefaultApiService) FetchVoiceNumber(DestinationNumber string, params *F
 // Optional parameters for the method 'ListVoiceCountry'
 type ListVoiceCountryParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListVoiceCountryParams) SetPageSize(PageSize int32) *ListVoiceCountryParams {
+func (params *ListVoiceCountryParams) SetPageSize(PageSize int) *ListVoiceCountryParams {
 	params.PageSize = &PageSize
 	return params
 }

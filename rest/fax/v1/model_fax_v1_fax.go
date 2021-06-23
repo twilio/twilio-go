@@ -28,7 +28,7 @@ type FaxV1Fax struct {
 	// The direction of the fax
 	Direction *string `json:"direction,omitempty"`
 	// The time it took to transmit the fax
-	Duration *int32 `json:"duration,omitempty"`
+	Duration *int `json:"duration,omitempty"`
 	// The number the fax was sent from
 	From *string `json:"from,omitempty"`
 	// The URLs of the fax's related resources
@@ -38,7 +38,7 @@ type FaxV1Fax struct {
 	// The Twilio-hosted URL that can be used to download fax media
 	MediaUrl *string `json:"media_url,omitempty"`
 	// The number of pages contained in the fax document
-	NumPages *int32 `json:"num_pages,omitempty"`
+	NumPages *int `json:"num_pages,omitempty"`
 	// The fax transmission price
 	Price *float32 `json:"price,omitempty"`
 	// The ISO 4217 currency used for billing

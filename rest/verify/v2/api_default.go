@@ -88,16 +88,16 @@ func (c *DefaultApiService) CreateAccessToken(ServiceSid string, params *CreateA
 // Optional parameters for the method 'CreateBucket'
 type CreateBucketParams struct {
 	// Number of seconds that the rate limit will be enforced over.
-	Interval *int32 `json:"Interval,omitempty"`
+	Interval *int `json:"Interval,omitempty"`
 	// Maximum number of requests permitted in during the interval.
-	Max *int32 `json:"Max,omitempty"`
+	Max *int `json:"Max,omitempty"`
 }
 
-func (params *CreateBucketParams) SetInterval(Interval int32) *CreateBucketParams {
+func (params *CreateBucketParams) SetInterval(Interval int) *CreateBucketParams {
 	params.Interval = &Interval
 	return params
 }
-func (params *CreateBucketParams) SetMax(Max int32) *CreateBucketParams {
+func (params *CreateBucketParams) SetMax(Max int) *CreateBucketParams {
 	params.Max = &Max
 	return params
 }
@@ -327,7 +327,7 @@ type CreateNewFactorParams struct {
 	// The ID that uniquely identifies your app in the Google or Apple store, such as `com.example.myapp`. It can be up to 100 characters long.  Required when `factor_type` is `push`.
 	ConfigAppId *string `json:"Config.AppId,omitempty"`
 	// Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property `totp.code_length`. If not configured defaults to 6.  Used when `factor_type` is `totp`
-	ConfigCodeLength *int32 `json:"Config.CodeLength,omitempty"`
+	ConfigCodeLength *int `json:"Config.CodeLength,omitempty"`
 	// The transport technology used to generate the Notification Token. Can be `apn` or `fcm`.  Required when `factor_type` is `push`.
 	ConfigNotificationPlatform *string `json:"Config.NotificationPlatform,omitempty"`
 	// For APN, the device token. For FCM the registration token. It used to send the push notifications. Must be between 32 and 255 characters long.  Required when `factor_type` is `push`.
@@ -335,9 +335,9 @@ type CreateNewFactorParams struct {
 	// The Verify Push SDK version used to configure the factor  Required when `factor_type` is `push`
 	ConfigSdkVersion *string `json:"Config.SdkVersion,omitempty"`
 	// The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property `totp.skew`. If not configured defaults to 1.  Used when `factor_type` is `totp`
-	ConfigSkew *int32 `json:"Config.Skew,omitempty"`
+	ConfigSkew *int `json:"Config.Skew,omitempty"`
 	// Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property `totp.time_step`. Defaults to 30 seconds if not configured.  Used when `factor_type` is `totp`
-	ConfigTimeStep *int32 `json:"Config.TimeStep,omitempty"`
+	ConfigTimeStep *int `json:"Config.TimeStep,omitempty"`
 	// The Type of this Factor. Currently `push` and `totp` are supported. For `totp` to work, you need to contact [Twilio sales](https://www.twilio.com/help/sales) first to have the Verify TOTP feature enabled for your Twilio account.
 	FactorType *string `json:"FactorType,omitempty"`
 	// The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For `factor_type` `push`, this could be a device name. For `factor_type` `totp`, this value is used as the “account name” in constructing the `binding.uri` property. At the same time, we recommend avoiding providing PII.
@@ -364,7 +364,7 @@ func (params *CreateNewFactorParams) SetConfigAppId(ConfigAppId string) *CreateN
 	params.ConfigAppId = &ConfigAppId
 	return params
 }
-func (params *CreateNewFactorParams) SetConfigCodeLength(ConfigCodeLength int32) *CreateNewFactorParams {
+func (params *CreateNewFactorParams) SetConfigCodeLength(ConfigCodeLength int) *CreateNewFactorParams {
 	params.ConfigCodeLength = &ConfigCodeLength
 	return params
 }
@@ -380,11 +380,11 @@ func (params *CreateNewFactorParams) SetConfigSdkVersion(ConfigSdkVersion string
 	params.ConfigSdkVersion = &ConfigSdkVersion
 	return params
 }
-func (params *CreateNewFactorParams) SetConfigSkew(ConfigSkew int32) *CreateNewFactorParams {
+func (params *CreateNewFactorParams) SetConfigSkew(ConfigSkew int) *CreateNewFactorParams {
 	params.ConfigSkew = &ConfigSkew
 	return params
 }
-func (params *CreateNewFactorParams) SetConfigTimeStep(ConfigTimeStep int32) *CreateNewFactorParams {
+func (params *CreateNewFactorParams) SetConfigTimeStep(ConfigTimeStep int) *CreateNewFactorParams {
 	params.ConfigTimeStep = &ConfigTimeStep
 	return params
 }
@@ -464,10 +464,10 @@ func (c *DefaultApiService) CreateNewFactor(ServiceSid string, Identity string, 
 // Optional parameters for the method 'CreateNotification'
 type CreateNotificationParams struct {
 	// How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
-func (params *CreateNotificationParams) SetTtl(Ttl int32) *CreateNotificationParams {
+func (params *CreateNotificationParams) SetTtl(Ttl int) *CreateNotificationParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -551,7 +551,7 @@ func (c *DefaultApiService) CreateRateLimit(ServiceSid string, params *CreateRat
 // Optional parameters for the method 'CreateService'
 type CreateServiceParams struct {
 	// The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
-	CodeLength *int32 `json:"CodeLength,omitempty"`
+	CodeLength *int `json:"CodeLength,omitempty"`
 	// Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
 	CustomCodeEnabled *bool `json:"CustomCodeEnabled,omitempty"`
 	// Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
@@ -573,18 +573,18 @@ type CreateServiceParams struct {
 	// Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
 	SkipSmsToLandlines *bool `json:"SkipSmsToLandlines,omitempty"`
 	// Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
-	TotpCodeLength *int32 `json:"Totp.CodeLength,omitempty"`
+	TotpCodeLength *int `json:"Totp.CodeLength,omitempty"`
 	// Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided.
 	TotpIssuer *string `json:"Totp.Issuer,omitempty"`
 	// Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
-	TotpSkew *int32 `json:"Totp.Skew,omitempty"`
+	TotpSkew *int `json:"Totp.Skew,omitempty"`
 	// Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
-	TotpTimeStep *int32 `json:"Totp.TimeStep,omitempty"`
+	TotpTimeStep *int `json:"Totp.TimeStep,omitempty"`
 	// The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
 	TtsName *string `json:"TtsName,omitempty"`
 }
 
-func (params *CreateServiceParams) SetCodeLength(CodeLength int32) *CreateServiceParams {
+func (params *CreateServiceParams) SetCodeLength(CodeLength int) *CreateServiceParams {
 	params.CodeLength = &CodeLength
 	return params
 }
@@ -628,7 +628,7 @@ func (params *CreateServiceParams) SetSkipSmsToLandlines(SkipSmsToLandlines bool
 	params.SkipSmsToLandlines = &SkipSmsToLandlines
 	return params
 }
-func (params *CreateServiceParams) SetTotpCodeLength(TotpCodeLength int32) *CreateServiceParams {
+func (params *CreateServiceParams) SetTotpCodeLength(TotpCodeLength int) *CreateServiceParams {
 	params.TotpCodeLength = &TotpCodeLength
 	return params
 }
@@ -636,11 +636,11 @@ func (params *CreateServiceParams) SetTotpIssuer(TotpIssuer string) *CreateServi
 	params.TotpIssuer = &TotpIssuer
 	return params
 }
-func (params *CreateServiceParams) SetTotpSkew(TotpSkew int32) *CreateServiceParams {
+func (params *CreateServiceParams) SetTotpSkew(TotpSkew int) *CreateServiceParams {
 	params.TotpSkew = &TotpSkew
 	return params
 }
-func (params *CreateServiceParams) SetTotpTimeStep(TotpTimeStep int32) *CreateServiceParams {
+func (params *CreateServiceParams) SetTotpTimeStep(TotpTimeStep int) *CreateServiceParams {
 	params.TotpTimeStep = &TotpTimeStep
 	return params
 }
@@ -1411,10 +1411,10 @@ func (c *DefaultApiService) FetchWebhook(ServiceSid string, Sid string) (*Verify
 // Optional parameters for the method 'ListBucket'
 type ListBucketParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListBucketParams) SetPageSize(PageSize int32) *ListBucketParams {
+func (params *ListBucketParams) SetPageSize(PageSize int) *ListBucketParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1454,7 +1454,7 @@ type ListChallengeParams struct {
 	// The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListChallengeParams) SetFactorSid(FactorSid string) *ListChallengeParams {
@@ -1465,7 +1465,7 @@ func (params *ListChallengeParams) SetStatus(Status string) *ListChallengeParams
 	params.Status = &Status
 	return params
 }
-func (params *ListChallengeParams) SetPageSize(PageSize int32) *ListChallengeParams {
+func (params *ListChallengeParams) SetPageSize(PageSize int) *ListChallengeParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1507,10 +1507,10 @@ func (c *DefaultApiService) ListChallenge(ServiceSid string, Identity string, pa
 // Optional parameters for the method 'ListEntity'
 type ListEntityParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListEntityParams) SetPageSize(PageSize int32) *ListEntityParams {
+func (params *ListEntityParams) SetPageSize(PageSize int) *ListEntityParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1545,10 +1545,10 @@ func (c *DefaultApiService) ListEntity(ServiceSid string, params *ListEntityPara
 // Optional parameters for the method 'ListFactor'
 type ListFactorParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListFactorParams) SetPageSize(PageSize int32) *ListFactorParams {
+func (params *ListFactorParams) SetPageSize(PageSize int) *ListFactorParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1584,10 +1584,10 @@ func (c *DefaultApiService) ListFactor(ServiceSid string, Identity string, param
 // Optional parameters for the method 'ListMessagingConfiguration'
 type ListMessagingConfigurationParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListMessagingConfigurationParams) SetPageSize(PageSize int32) *ListMessagingConfigurationParams {
+func (params *ListMessagingConfigurationParams) SetPageSize(PageSize int) *ListMessagingConfigurationParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1622,10 +1622,10 @@ func (c *DefaultApiService) ListMessagingConfiguration(ServiceSid string, params
 // Optional parameters for the method 'ListRateLimit'
 type ListRateLimitParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListRateLimitParams) SetPageSize(PageSize int32) *ListRateLimitParams {
+func (params *ListRateLimitParams) SetPageSize(PageSize int) *ListRateLimitParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1660,10 +1660,10 @@ func (c *DefaultApiService) ListRateLimit(ServiceSid string, params *ListRateLim
 // Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1703,7 +1703,7 @@ type ListVerificationAttemptParams struct {
 	// Destination of a verification. Depending on the type of channel, it could be a phone number in E.164 format or an email address.
 	ChannelDataTo *string `json:"ChannelData.To,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListVerificationAttemptParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListVerificationAttemptParams {
@@ -1718,7 +1718,7 @@ func (params *ListVerificationAttemptParams) SetChannelDataTo(ChannelDataTo stri
 	params.ChannelDataTo = &ChannelDataTo
 	return params
 }
-func (params *ListVerificationAttemptParams) SetPageSize(PageSize int32) *ListVerificationAttemptParams {
+func (params *ListVerificationAttemptParams) SetPageSize(PageSize int) *ListVerificationAttemptParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1761,10 +1761,10 @@ func (c *DefaultApiService) ListVerificationAttempt(params *ListVerificationAtte
 // Optional parameters for the method 'ListWebhook'
 type ListWebhookParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListWebhookParams) SetPageSize(PageSize int32) *ListWebhookParams {
+func (params *ListWebhookParams) SetPageSize(PageSize int) *ListWebhookParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1799,16 +1799,16 @@ func (c *DefaultApiService) ListWebhook(ServiceSid string, params *ListWebhookPa
 // Optional parameters for the method 'UpdateBucket'
 type UpdateBucketParams struct {
 	// Number of seconds that the rate limit will be enforced over.
-	Interval *int32 `json:"Interval,omitempty"`
+	Interval *int `json:"Interval,omitempty"`
 	// Maximum number of requests permitted in during the interval.
-	Max *int32 `json:"Max,omitempty"`
+	Max *int `json:"Max,omitempty"`
 }
 
-func (params *UpdateBucketParams) SetInterval(Interval int32) *UpdateBucketParams {
+func (params *UpdateBucketParams) SetInterval(Interval int) *UpdateBucketParams {
 	params.Interval = &Interval
 	return params
 }
-func (params *UpdateBucketParams) SetMax(Max int32) *UpdateBucketParams {
+func (params *UpdateBucketParams) SetMax(Max int) *UpdateBucketParams {
 	params.Max = &Max
 	return params
 }
@@ -1892,15 +1892,15 @@ type UpdateFactorParams struct {
 	// The algorithm used to derive the TOTP codes. Can be `sha1`, `sha256` or `sha512`
 	ConfigAlg *string `json:"Config.Alg,omitempty"`
 	// Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
-	ConfigCodeLength *int32 `json:"Config.CodeLength,omitempty"`
+	ConfigCodeLength *int `json:"Config.CodeLength,omitempty"`
 	// For APN, the device token. For FCM the registration token. It used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
 	ConfigNotificationToken *string `json:"Config.NotificationToken,omitempty"`
 	// The Verify Push SDK version used to configure the factor
 	ConfigSdkVersion *string `json:"Config.SdkVersion,omitempty"`
 	// The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
-	ConfigSkew *int32 `json:"Config.Skew,omitempty"`
+	ConfigSkew *int `json:"Config.Skew,omitempty"`
 	// Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
-	ConfigTimeStep *int32 `json:"Config.TimeStep,omitempty"`
+	ConfigTimeStep *int `json:"Config.TimeStep,omitempty"`
 	// The new friendly name of this Factor. It can be up to 64 characters.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
@@ -1913,7 +1913,7 @@ func (params *UpdateFactorParams) SetConfigAlg(ConfigAlg string) *UpdateFactorPa
 	params.ConfigAlg = &ConfigAlg
 	return params
 }
-func (params *UpdateFactorParams) SetConfigCodeLength(ConfigCodeLength int32) *UpdateFactorParams {
+func (params *UpdateFactorParams) SetConfigCodeLength(ConfigCodeLength int) *UpdateFactorParams {
 	params.ConfigCodeLength = &ConfigCodeLength
 	return params
 }
@@ -1925,11 +1925,11 @@ func (params *UpdateFactorParams) SetConfigSdkVersion(ConfigSdkVersion string) *
 	params.ConfigSdkVersion = &ConfigSdkVersion
 	return params
 }
-func (params *UpdateFactorParams) SetConfigSkew(ConfigSkew int32) *UpdateFactorParams {
+func (params *UpdateFactorParams) SetConfigSkew(ConfigSkew int) *UpdateFactorParams {
 	params.ConfigSkew = &ConfigSkew
 	return params
 }
-func (params *UpdateFactorParams) SetConfigTimeStep(ConfigTimeStep int32) *UpdateFactorParams {
+func (params *UpdateFactorParams) SetConfigTimeStep(ConfigTimeStep int) *UpdateFactorParams {
 	params.ConfigTimeStep = &ConfigTimeStep
 	return params
 }
@@ -2069,7 +2069,7 @@ func (c *DefaultApiService) UpdateRateLimit(ServiceSid string, Sid string, param
 // Optional parameters for the method 'UpdateService'
 type UpdateServiceParams struct {
 	// The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
-	CodeLength *int32 `json:"CodeLength,omitempty"`
+	CodeLength *int `json:"CodeLength,omitempty"`
 	// Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
 	CustomCodeEnabled *bool `json:"CustomCodeEnabled,omitempty"`
 	// Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
@@ -2091,18 +2091,18 @@ type UpdateServiceParams struct {
 	// Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
 	SkipSmsToLandlines *bool `json:"SkipSmsToLandlines,omitempty"`
 	// Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
-	TotpCodeLength *int32 `json:"Totp.CodeLength,omitempty"`
+	TotpCodeLength *int `json:"Totp.CodeLength,omitempty"`
 	// Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
 	TotpIssuer *string `json:"Totp.Issuer,omitempty"`
 	// Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
-	TotpSkew *int32 `json:"Totp.Skew,omitempty"`
+	TotpSkew *int `json:"Totp.Skew,omitempty"`
 	// Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
-	TotpTimeStep *int32 `json:"Totp.TimeStep,omitempty"`
+	TotpTimeStep *int `json:"Totp.TimeStep,omitempty"`
 	// The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
 	TtsName *string `json:"TtsName,omitempty"`
 }
 
-func (params *UpdateServiceParams) SetCodeLength(CodeLength int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetCodeLength(CodeLength int) *UpdateServiceParams {
 	params.CodeLength = &CodeLength
 	return params
 }
@@ -2146,7 +2146,7 @@ func (params *UpdateServiceParams) SetSkipSmsToLandlines(SkipSmsToLandlines bool
 	params.SkipSmsToLandlines = &SkipSmsToLandlines
 	return params
 }
-func (params *UpdateServiceParams) SetTotpCodeLength(TotpCodeLength int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetTotpCodeLength(TotpCodeLength int) *UpdateServiceParams {
 	params.TotpCodeLength = &TotpCodeLength
 	return params
 }
@@ -2154,11 +2154,11 @@ func (params *UpdateServiceParams) SetTotpIssuer(TotpIssuer string) *UpdateServi
 	params.TotpIssuer = &TotpIssuer
 	return params
 }
-func (params *UpdateServiceParams) SetTotpSkew(TotpSkew int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetTotpSkew(TotpSkew int) *UpdateServiceParams {
 	params.TotpSkew = &TotpSkew
 	return params
 }
-func (params *UpdateServiceParams) SetTotpTimeStep(TotpTimeStep int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetTotpTimeStep(TotpTimeStep int) *UpdateServiceParams {
 	params.TotpTimeStep = &TotpTimeStep
 	return params
 }

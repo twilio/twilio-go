@@ -119,11 +119,11 @@ type CreateOriginationUrlParams struct {
 	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
-	Priority *int32 `json:"Priority,omitempty"`
+	Priority *int `json:"Priority,omitempty"`
 	// The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
 	SipUrl *string `json:"SipUrl,omitempty"`
 	// The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
-	Weight *int32 `json:"Weight,omitempty"`
+	Weight *int `json:"Weight,omitempty"`
 }
 
 func (params *CreateOriginationUrlParams) SetEnabled(Enabled bool) *CreateOriginationUrlParams {
@@ -134,7 +134,7 @@ func (params *CreateOriginationUrlParams) SetFriendlyName(FriendlyName string) *
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateOriginationUrlParams) SetPriority(Priority int32) *CreateOriginationUrlParams {
+func (params *CreateOriginationUrlParams) SetPriority(Priority int) *CreateOriginationUrlParams {
 	params.Priority = &Priority
 	return params
 }
@@ -142,7 +142,7 @@ func (params *CreateOriginationUrlParams) SetSipUrl(SipUrl string) *CreateOrigin
 	params.SipUrl = &SipUrl
 	return params
 }
-func (params *CreateOriginationUrlParams) SetWeight(Weight int32) *CreateOriginationUrlParams {
+func (params *CreateOriginationUrlParams) SetWeight(Weight int) *CreateOriginationUrlParams {
 	params.Weight = &Weight
 	return params
 }
@@ -541,10 +541,10 @@ func (c *DefaultApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 // Optional parameters for the method 'ListCredentialList'
 type ListCredentialListParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListCredentialListParams) SetPageSize(PageSize int32) *ListCredentialListParams {
+func (params *ListCredentialListParams) SetPageSize(PageSize int) *ListCredentialListParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -578,10 +578,10 @@ func (c *DefaultApiService) ListCredentialList(TrunkSid string, params *ListCred
 // Optional parameters for the method 'ListIpAccessControlList'
 type ListIpAccessControlListParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListIpAccessControlListParams) SetPageSize(PageSize int32) *ListIpAccessControlListParams {
+func (params *ListIpAccessControlListParams) SetPageSize(PageSize int) *ListIpAccessControlListParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -616,10 +616,10 @@ func (c *DefaultApiService) ListIpAccessControlList(TrunkSid string, params *Lis
 // Optional parameters for the method 'ListOriginationUrl'
 type ListOriginationUrlParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListOriginationUrlParams) SetPageSize(PageSize int32) *ListOriginationUrlParams {
+func (params *ListOriginationUrlParams) SetPageSize(PageSize int) *ListOriginationUrlParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -653,10 +653,10 @@ func (c *DefaultApiService) ListOriginationUrl(TrunkSid string, params *ListOrig
 // Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListPhoneNumberParams) SetPageSize(PageSize int32) *ListPhoneNumberParams {
+func (params *ListPhoneNumberParams) SetPageSize(PageSize int) *ListPhoneNumberParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -690,10 +690,10 @@ func (c *DefaultApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNu
 // Optional parameters for the method 'ListTrunk'
 type ListTrunkParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListTrunkParams) SetPageSize(PageSize int32) *ListTrunkParams {
+func (params *ListTrunkParams) SetPageSize(PageSize int) *ListTrunkParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -730,11 +730,11 @@ type UpdateOriginationUrlParams struct {
 	// A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
-	Priority *int32 `json:"Priority,omitempty"`
+	Priority *int `json:"Priority,omitempty"`
 	// The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported.
 	SipUrl *string `json:"SipUrl,omitempty"`
 	// The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
-	Weight *int32 `json:"Weight,omitempty"`
+	Weight *int `json:"Weight,omitempty"`
 }
 
 func (params *UpdateOriginationUrlParams) SetEnabled(Enabled bool) *UpdateOriginationUrlParams {
@@ -745,7 +745,7 @@ func (params *UpdateOriginationUrlParams) SetFriendlyName(FriendlyName string) *
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateOriginationUrlParams) SetPriority(Priority int32) *UpdateOriginationUrlParams {
+func (params *UpdateOriginationUrlParams) SetPriority(Priority int) *UpdateOriginationUrlParams {
 	params.Priority = &Priority
 	return params
 }
@@ -753,7 +753,7 @@ func (params *UpdateOriginationUrlParams) SetSipUrl(SipUrl string) *UpdateOrigin
 	params.SipUrl = &SipUrl
 	return params
 }
-func (params *UpdateOriginationUrlParams) SetWeight(Weight int32) *UpdateOriginationUrlParams {
+func (params *UpdateOriginationUrlParams) SetWeight(Weight int) *UpdateOriginationUrlParams {
 	params.Weight = &Weight
 	return params
 }

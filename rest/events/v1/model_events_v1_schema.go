@@ -20,7 +20,7 @@ type EventsV1Schema struct {
 	// Schema Identifier.
 	Id *string `json:"id,omitempty"`
 	// Latest schema version.
-	LatestVersion *int32 `json:"latest_version,omitempty"`
+	LatestVersion *int `json:"latest_version,omitempty"`
 	// The date that the latest schema version was created.
 	LatestVersionDateCreated *time.Time `json:"latest_version_date_created,omitempty"`
 	// Nested resource URLs.

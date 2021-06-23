@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
 **AssistantSid** | Pointer to **string** | The SID of the Assistant that is the parent of the Task associated with the resource |
-**FieldsCount** | Pointer to **int32** | The total number of Fields associated with the Task |
-**SamplesCount** | Pointer to **int32** | The total number of Samples associated with the Task |
+**FieldsCount** | Pointer to **int** | The total number of Fields associated with the Task |
+**SamplesCount** | Pointer to **int** | The total number of Samples associated with the Task |
 **TaskSid** | Pointer to **string** | The SID of the Task for which the statistics were collected |
 **Url** | Pointer to **string** | The absolute URL of the TaskStatistics resource |
 

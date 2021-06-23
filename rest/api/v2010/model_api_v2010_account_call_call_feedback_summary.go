@@ -16,9 +16,9 @@ type ApiV2010AccountCallCallFeedbackSummary struct {
 	// The unique sid that identifies this account
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The total number of calls
-	CallCount *int32 `json:"call_count,omitempty"`
+	CallCount *int `json:"call_count,omitempty"`
 	// The total number of calls with a feedback entry
-	CallFeedbackCount *int32 `json:"call_feedback_count,omitempty"`
+	CallFeedbackCount *int `json:"call_feedback_count,omitempty"`
 	// The date this resource was created
 	DateCreated *string `json:"date_created,omitempty"`
 	// The date this resource was last updated

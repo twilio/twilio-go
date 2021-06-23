@@ -91,7 +91,7 @@ type ListAlertParams struct {
 	// Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
 	EndDate *time.Time `json:"EndDate,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAlertParams) SetLogLevel(LogLevel string) *ListAlertParams {
@@ -106,7 +106,7 @@ func (params *ListAlertParams) SetEndDate(EndDate time.Time) *ListAlertParams {
 	params.EndDate = &EndDate
 	return params
 }
-func (params *ListAlertParams) SetPageSize(PageSize int32) *ListAlertParams {
+func (params *ListAlertParams) SetPageSize(PageSize int) *ListAlertParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -160,7 +160,7 @@ type ListEventParams struct {
 	// Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	EndDate *time.Time `json:"EndDate,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListEventParams) SetActorSid(ActorSid string) *ListEventParams {
@@ -187,7 +187,7 @@ func (params *ListEventParams) SetEndDate(EndDate time.Time) *ListEventParams {
 	params.EndDate = &EndDate
 	return params
 }
-func (params *ListEventParams) SetPageSize(PageSize int32) *ListEventParams {
+func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
 	params.PageSize = &PageSize
 	return params
 }

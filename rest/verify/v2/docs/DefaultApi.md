@@ -122,8 +122,8 @@ Other parameters are passed through a pointer to a CreateBucketParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Interval** | **int32** | Number of seconds that the rate limit will be enforced over.
-**Max** | **int32** | Maximum number of requests permitted in during the interval.
+**Interval** | **int** | Number of seconds that the rate limit will be enforced over.
+**Max** | **int** | Maximum number of requests permitted in during the interval.
 
 ### Return type
 
@@ -308,12 +308,12 @@ Name | Type | Description
 **BindingSecret** | **string** | The shared secret for TOTP factors encoded in Base32. This can be provided when creating the Factor, otherwise it will be generated.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
 **ConfigAlg** | **string** | The algorithm used to derive the TOTP codes. Can be &#x60;sha1&#x60;, &#x60;sha256&#x60; or &#x60;sha512&#x60;. Defaults to &#x60;sha1&#x60;.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
 **ConfigAppId** | **string** | The ID that uniquely identifies your app in the Google or Apple store, such as &#x60;com.example.myapp&#x60;. It can be up to 100 characters long.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
-**ConfigCodeLength** | **int32** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property &#x60;totp.code_length&#x60;. If not configured defaults to 6.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
+**ConfigCodeLength** | **int** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property &#x60;totp.code_length&#x60;. If not configured defaults to 6.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
 **ConfigNotificationPlatform** | **string** | The transport technology used to generate the Notification Token. Can be &#x60;apn&#x60; or &#x60;fcm&#x60;.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
 **ConfigNotificationToken** | **string** | For APN, the device token. For FCM the registration token. It used to send the push notifications. Must be between 32 and 255 characters long.  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;.
 **ConfigSdkVersion** | **string** | The Verify Push SDK version used to configure the factor  Required when &#x60;factor_type&#x60; is &#x60;push&#x60;
-**ConfigSkew** | **int32** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property &#x60;totp.skew&#x60;. If not configured defaults to 1.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
-**ConfigTimeStep** | **int32** | Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property &#x60;totp.time_step&#x60;. Defaults to 30 seconds if not configured.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
+**ConfigSkew** | **int** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property &#x60;totp.skew&#x60;. If not configured defaults to 1.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
+**ConfigTimeStep** | **int** | Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property &#x60;totp.time_step&#x60;. Defaults to 30 seconds if not configured.  Used when &#x60;factor_type&#x60; is &#x60;totp&#x60;
 **FactorType** | **string** | The Type of this Factor. Currently &#x60;push&#x60; and &#x60;totp&#x60; are supported. For &#x60;totp&#x60; to work, you need to contact [Twilio sales](https://www.twilio.com/help/sales) first to have the Verify TOTP feature enabled for your Twilio account.
 **FriendlyName** | **string** | The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For &#x60;factor_type&#x60; &#x60;push&#x60;, this could be a device name. For &#x60;factor_type&#x60; &#x60;totp&#x60;, this value is used as the “account name” in constructing the &#x60;binding.uri&#x60; property. At the same time, we recommend avoiding providing PII.
 
@@ -360,7 +360,7 @@ Other parameters are passed through a pointer to a CreateNotificationParams stru
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Ttl** | **int32** | How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
+**Ttl** | **int** | How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
 
 ### Return type
 
@@ -443,7 +443,7 @@ Other parameters are passed through a pointer to a CreateServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CodeLength** | **int32** | The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+**CodeLength** | **int** | The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
 **CustomCodeEnabled** | **bool** | Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
 **DoNotShareWarningEnabled** | **bool** | Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: &#x60;Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code&#x60;
 **DtmfInputRequired** | **bool** | Whether to ask the user to press a number before delivering the verify code in a phone call.
@@ -454,10 +454,10 @@ Name | Type | Description
 **PushFcmCredentialSid** | **string** | Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
 **PushIncludeDate** | **bool** | Optional configuration for the Push factors. If true, include the date in the Challenge&#39;s reponse. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: true
 **SkipSmsToLandlines** | **bool** | Whether to skip sending SMS verifications to landlines. Requires &#x60;lookup_enabled&#x60;.
-**TotpCodeLength** | **int32** | Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+**TotpCodeLength** | **int** | Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
 **TotpIssuer** | **string** | Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided.
-**TotpSkew** | **int32** | Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
-**TotpTimeStep** | **int32** | Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+**TotpSkew** | **int** | Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+**TotpTimeStep** | **int** | Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
 **TtsName** | **string** | The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
 
 ### Return type
@@ -1424,7 +1424,7 @@ Other parameters are passed through a pointer to a ListBucketParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1470,7 +1470,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **FactorSid** | **string** | The unique SID identifier of the Factor.
 **Status** | **string** | The Status of the Challenges to fetch. One of &#x60;pending&#x60;, &#x60;expired&#x60;, &#x60;approved&#x60; or &#x60;denied&#x60;.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1513,7 +1513,7 @@ Other parameters are passed through a pointer to a ListEntityParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1557,7 +1557,7 @@ Other parameters are passed through a pointer to a ListFactorParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1600,7 +1600,7 @@ Other parameters are passed through a pointer to a ListMessagingConfigurationPar
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1643,7 +1643,7 @@ Other parameters are passed through a pointer to a ListRateLimitParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1682,7 +1682,7 @@ Other parameters are passed through a pointer to a ListServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1724,7 +1724,7 @@ Name | Type | Description
 **DateCreatedAfter** | **time.Time** | Datetime filter used to query Verification Attempts created after this datetime.
 **DateCreatedBefore** | **time.Time** | Datetime filter used to query Verification Attempts created before this datetime.
 **ChannelDataTo** | **string** | Destination of a verification. Depending on the type of channel, it could be a phone number in E.164 format or an email address.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1767,7 +1767,7 @@ Other parameters are passed through a pointer to a ListWebhookParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1812,8 +1812,8 @@ Other parameters are passed through a pointer to a UpdateBucketParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Interval** | **int32** | Number of seconds that the rate limit will be enforced over.
-**Max** | **int32** | Maximum number of requests permitted in during the interval.
+**Interval** | **int** | Number of seconds that the rate limit will be enforced over.
+**Max** | **int** | Maximum number of requests permitted in during the interval.
 
 ### Return type
 
@@ -1905,11 +1905,11 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **AuthPayload** | **string** | The optional payload needed to verify the Factor for the first time. E.g. for a TOTP, the numeric code.
 **ConfigAlg** | **string** | The algorithm used to derive the TOTP codes. Can be &#x60;sha1&#x60;, &#x60;sha256&#x60; or &#x60;sha512&#x60;
-**ConfigCodeLength** | **int32** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
+**ConfigCodeLength** | **int** | Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
 **ConfigNotificationToken** | **string** | For APN, the device token. For FCM the registration token. It used to send the push notifications. Required when &#x60;factor_type&#x60; is &#x60;push&#x60;. If specified, this value must be between 32 and 255 characters long.
 **ConfigSdkVersion** | **string** | The Verify Push SDK version used to configure the factor
-**ConfigSkew** | **int32** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
-**ConfigTimeStep** | **int32** | Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
+**ConfigSkew** | **int** | The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive
+**ConfigTimeStep** | **int** | Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive
 **FriendlyName** | **string** | The new friendly name of this Factor. It can be up to 64 characters.
 
 ### Return type
@@ -2041,7 +2041,7 @@ Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**CodeLength** | **int32** | The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+**CodeLength** | **int** | The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
 **CustomCodeEnabled** | **bool** | Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
 **DoNotShareWarningEnabled** | **bool** | Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
 **DtmfInputRequired** | **bool** | Whether to ask the user to press a number before delivering the verify code in a phone call.
@@ -2052,10 +2052,10 @@ Name | Type | Description
 **PushFcmCredentialSid** | **string** | Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
 **PushIncludeDate** | **bool** | Optional configuration for the Push factors. If true, include the date in the Challenge&#39;s reponse. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: true
 **SkipSmsToLandlines** | **bool** | Whether to skip sending SMS verifications to landlines. Requires &#x60;lookup_enabled&#x60;.
-**TotpCodeLength** | **int32** | Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+**TotpCodeLength** | **int** | Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
 **TotpIssuer** | **string** | Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
-**TotpSkew** | **int32** | Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
-**TotpTimeStep** | **int32** | Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+**TotpSkew** | **int** | Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+**TotpTimeStep** | **int** | Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
 **TtsName** | **string** | The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
 
 ### Return type

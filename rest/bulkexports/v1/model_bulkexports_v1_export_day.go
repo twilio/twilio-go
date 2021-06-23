@@ -22,5 +22,5 @@ type BulkexportsV1ExportDay struct {
 	// The type of communication – Messages, Calls, Conferences, and Participants
 	ResourceType *string `json:"resource_type,omitempty"`
 	// Size of the file in bytes
-	Size *int32 `json:"size,omitempty"`
+	Size *int `json:"size,omitempty"`
 }

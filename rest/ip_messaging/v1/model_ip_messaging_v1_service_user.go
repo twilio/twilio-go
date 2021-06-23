@@ -25,7 +25,7 @@ type IpMessagingV1ServiceUser struct {
 	Identity            *string                 `json:"identity,omitempty"`
 	IsNotifiable        *bool                   `json:"is_notifiable,omitempty"`
 	IsOnline            *bool                   `json:"is_online,omitempty"`
-	JoinedChannelsCount *int32                  `json:"joined_channels_count,omitempty"`
+	JoinedChannelsCount *int                    `json:"joined_channels_count,omitempty"`
 	Links               *map[string]interface{} `json:"links,omitempty"`
 	RoleSid             *string                 `json:"role_sid,omitempty"`
 	ServiceSid          *string                 `json:"service_sid,omitempty"`

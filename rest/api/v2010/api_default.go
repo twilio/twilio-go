@@ -397,13 +397,13 @@ type CreateCallParams struct {
 	// Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
 	MachineDetection *string `json:"MachineDetection,omitempty"`
 	// The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
-	MachineDetectionSilenceTimeout *int32 `json:"MachineDetectionSilenceTimeout,omitempty"`
+	MachineDetectionSilenceTimeout *int `json:"MachineDetectionSilenceTimeout,omitempty"`
 	// The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
-	MachineDetectionSpeechEndThreshold *int32 `json:"MachineDetectionSpeechEndThreshold,omitempty"`
+	MachineDetectionSpeechEndThreshold *int `json:"MachineDetectionSpeechEndThreshold,omitempty"`
 	// The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
-	MachineDetectionSpeechThreshold *int32 `json:"MachineDetectionSpeechThreshold,omitempty"`
+	MachineDetectionSpeechThreshold *int `json:"MachineDetectionSpeechThreshold,omitempty"`
 	// The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
-	MachineDetectionTimeout *int32 `json:"MachineDetectionTimeout,omitempty"`
+	MachineDetectionTimeout *int `json:"MachineDetectionTimeout,omitempty"`
 	// The HTTP method we should use when calling the `url` parameter's value. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
 	Method *string `json:"Method,omitempty"`
 	// Whether to record the call. Can be `true` to record the phone call, or `false` to not. The default is `false`. The `recording_url` is sent to the `status_callback` URL.
@@ -431,7 +431,7 @@ type CreateCallParams struct {
 	// The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 	// The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail.
-	Timeout *int32 `json:"Timeout,omitempty"`
+	Timeout *int `json:"Timeout,omitempty"`
 	// The phone number, SIP address, or client identifier to call.
 	To *string `json:"To,omitempty"`
 	// Whether to trim any leading and trailing silence from the recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
@@ -494,19 +494,19 @@ func (params *CreateCallParams) SetMachineDetection(MachineDetection string) *Cr
 	params.MachineDetection = &MachineDetection
 	return params
 }
-func (params *CreateCallParams) SetMachineDetectionSilenceTimeout(MachineDetectionSilenceTimeout int32) *CreateCallParams {
+func (params *CreateCallParams) SetMachineDetectionSilenceTimeout(MachineDetectionSilenceTimeout int) *CreateCallParams {
 	params.MachineDetectionSilenceTimeout = &MachineDetectionSilenceTimeout
 	return params
 }
-func (params *CreateCallParams) SetMachineDetectionSpeechEndThreshold(MachineDetectionSpeechEndThreshold int32) *CreateCallParams {
+func (params *CreateCallParams) SetMachineDetectionSpeechEndThreshold(MachineDetectionSpeechEndThreshold int) *CreateCallParams {
 	params.MachineDetectionSpeechEndThreshold = &MachineDetectionSpeechEndThreshold
 	return params
 }
-func (params *CreateCallParams) SetMachineDetectionSpeechThreshold(MachineDetectionSpeechThreshold int32) *CreateCallParams {
+func (params *CreateCallParams) SetMachineDetectionSpeechThreshold(MachineDetectionSpeechThreshold int) *CreateCallParams {
 	params.MachineDetectionSpeechThreshold = &MachineDetectionSpeechThreshold
 	return params
 }
-func (params *CreateCallParams) SetMachineDetectionTimeout(MachineDetectionTimeout int32) *CreateCallParams {
+func (params *CreateCallParams) SetMachineDetectionTimeout(MachineDetectionTimeout int) *CreateCallParams {
 	params.MachineDetectionTimeout = &MachineDetectionTimeout
 	return params
 }
@@ -562,7 +562,7 @@ func (params *CreateCallParams) SetStatusCallbackMethod(StatusCallbackMethod str
 	params.StatusCallbackMethod = &StatusCallbackMethod
 	return params
 }
-func (params *CreateCallParams) SetTimeout(Timeout int32) *CreateCallParams {
+func (params *CreateCallParams) SetTimeout(Timeout int) *CreateCallParams {
 	params.Timeout = &Timeout
 	return params
 }
@@ -1945,7 +1945,7 @@ type CreateMessageParams struct {
 	// The SID of the application that should receive message status. We POST a `message_sid` parameter and a `message_status` parameter with a value of `sent` or `failed` to the [application](https://www.twilio.com/docs/usage/api/applications)'s `message_status_callback`. If a `status_callback` parameter is also passed, it will be ignored and the application's `message_status_callback` parameter will be used.
 	ApplicationSid *string `json:"ApplicationSid,omitempty"`
 	// Total number of attempts made ( including this ) to send out the message regardless of the provider used
-	Attempt *int32 `json:"Attempt,omitempty"`
+	Attempt *int `json:"Attempt,omitempty"`
 	// The text of the message you want to send. Can be up to 1,600 characters in length.
 	Body *string `json:"Body,omitempty"`
 	// Determines if the message content can be stored or redacted based on privacy settings
@@ -1971,7 +1971,7 @@ type CreateMessageParams struct {
 	// The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format for SMS/MMS or [Channel user address](https://www.twilio.com/docs/sms/channels#channel-addresses) for other 3rd-party channels.
 	To *string `json:"To,omitempty"`
 	// How long in seconds the message can remain in our outgoing message queue. After this period elapses, the message fails and we call your status callback. Can be between 1 and the default value of 14,400 seconds. After a message has been accepted by a carrier, however, we cannot guarantee that the message will not be queued after this period. We recommend that this value be at least 5 seconds.
-	ValidityPeriod *int32 `json:"ValidityPeriod,omitempty"`
+	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`
 }
 
 func (params *CreateMessageParams) SetPathAccountSid(PathAccountSid string) *CreateMessageParams {
@@ -1986,7 +1986,7 @@ func (params *CreateMessageParams) SetApplicationSid(ApplicationSid string) *Cre
 	params.ApplicationSid = &ApplicationSid
 	return params
 }
-func (params *CreateMessageParams) SetAttempt(Attempt int32) *CreateMessageParams {
+func (params *CreateMessageParams) SetAttempt(Attempt int) *CreateMessageParams {
 	params.Attempt = &Attempt
 	return params
 }
@@ -2038,7 +2038,7 @@ func (params *CreateMessageParams) SetTo(To string) *CreateMessageParams {
 	params.To = &To
 	return params
 }
-func (params *CreateMessageParams) SetValidityPeriod(ValidityPeriod int32) *CreateMessageParams {
+func (params *CreateMessageParams) SetValidityPeriod(ValidityPeriod int) *CreateMessageParams {
 	params.ValidityPeriod = &ValidityPeriod
 	return params
 }
@@ -2309,7 +2309,7 @@ type CreateParticipantParams struct {
 	// A label for this participant. If one is supplied, it may subsequently be used to fetch, update or delete the participant.
 	Label *string `json:"Label,omitempty"`
 	// The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
-	MaxParticipants *int32 `json:"MaxParticipants,omitempty"`
+	MaxParticipants *int `json:"MaxParticipants,omitempty"`
 	// Whether the agent is muted in the conference. Can be `true` or `false` and the default is `false`.
 	Muted *bool `json:"Muted,omitempty"`
 	// Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
@@ -2339,7 +2339,7 @@ type CreateParticipantParams struct {
 	// The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 	// The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between `5` and `600`, inclusive. The default value is `60`. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds.
-	Timeout *int32 `json:"Timeout,omitempty"`
+	Timeout *int `json:"Timeout,omitempty"`
 	// The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
 	To *string `json:"To,omitempty"`
 	// The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
@@ -2428,7 +2428,7 @@ func (params *CreateParticipantParams) SetLabel(Label string) *CreateParticipant
 	params.Label = &Label
 	return params
 }
-func (params *CreateParticipantParams) SetMaxParticipants(MaxParticipants int32) *CreateParticipantParams {
+func (params *CreateParticipantParams) SetMaxParticipants(MaxParticipants int) *CreateParticipantParams {
 	params.MaxParticipants = &MaxParticipants
 	return params
 }
@@ -2488,7 +2488,7 @@ func (params *CreateParticipantParams) SetStatusCallbackMethod(StatusCallbackMet
 	params.StatusCallbackMethod = &StatusCallbackMethod
 	return params
 }
-func (params *CreateParticipantParams) SetTimeout(Timeout int32) *CreateParticipantParams {
+func (params *CreateParticipantParams) SetTimeout(Timeout int) *CreateParticipantParams {
 	params.Timeout = &Timeout
 	return params
 }
@@ -2672,7 +2672,7 @@ type CreatePaymentsParams struct {
 	// A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs.
 	Input *string `json:"Input,omitempty"`
 	// A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
-	MinPostalCodeLength *int32 `json:"MinPostalCodeLength,omitempty"`
+	MinPostalCodeLength *int `json:"MinPostalCodeLength,omitempty"`
 	// A single level JSON string that is required when accepting certain information specific only to ACH payments. The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
 	Parameter *map[string]interface{} `json:"Parameter,omitempty"`
 	// This is the unique name corresponding to the Payment Gateway Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
@@ -2686,7 +2686,7 @@ type CreatePaymentsParams struct {
 	// Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
-	Timeout *int32 `json:"Timeout,omitempty"`
+	Timeout *int `json:"Timeout,omitempty"`
 	// Indicates whether the payment method should be tokenized as a `one-time` or `reusable` token. The default value is `reusable`. Do not enter a charge amount when tokenizing. If a charge amount is entered, the payment method will be charged and not tokenized.
 	TokenType *string `json:"TokenType,omitempty"`
 	// Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
@@ -2721,7 +2721,7 @@ func (params *CreatePaymentsParams) SetInput(Input string) *CreatePaymentsParams
 	params.Input = &Input
 	return params
 }
-func (params *CreatePaymentsParams) SetMinPostalCodeLength(MinPostalCodeLength int32) *CreatePaymentsParams {
+func (params *CreatePaymentsParams) SetMinPostalCodeLength(MinPostalCodeLength int) *CreatePaymentsParams {
 	params.MinPostalCodeLength = &MinPostalCodeLength
 	return params
 }
@@ -2749,7 +2749,7 @@ func (params *CreatePaymentsParams) SetStatusCallback(StatusCallback string) *Cr
 	params.StatusCallback = &StatusCallback
 	return params
 }
-func (params *CreatePaymentsParams) SetTimeout(Timeout int32) *CreatePaymentsParams {
+func (params *CreatePaymentsParams) SetTimeout(Timeout int) *CreatePaymentsParams {
 	params.Timeout = &Timeout
 	return params
 }
@@ -2852,7 +2852,7 @@ type CreateQueueParams struct {
 	// A descriptive string that you created to describe this resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
-	MaxSize *int32 `json:"MaxSize,omitempty"`
+	MaxSize *int `json:"MaxSize,omitempty"`
 }
 
 func (params *CreateQueueParams) SetPathAccountSid(PathAccountSid string) *CreateQueueParams {
@@ -2863,7 +2863,7 @@ func (params *CreateQueueParams) SetFriendlyName(FriendlyName string) *CreateQue
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateQueueParams) SetMaxSize(MaxSize int32) *CreateQueueParams {
+func (params *CreateQueueParams) SetMaxSize(MaxSize int) *CreateQueueParams {
 	params.MaxSize = &MaxSize
 	return params
 }
@@ -3462,7 +3462,7 @@ type CreateSipIpAddressParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-	CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
+	CidrPrefixLength *int `json:"CidrPrefixLength,omitempty"`
 	// A human readable descriptive text for this resource, up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
@@ -3473,7 +3473,7 @@ func (params *CreateSipIpAddressParams) SetPathAccountSid(PathAccountSid string)
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *CreateSipIpAddressParams) SetCidrPrefixLength(CidrPrefixLength int32) *CreateSipIpAddressParams {
+func (params *CreateSipIpAddressParams) SetCidrPrefixLength(CidrPrefixLength int) *CreateSipIpAddressParams {
 	params.CidrPrefixLength = &CidrPrefixLength
 	return params
 }
@@ -3529,14 +3529,14 @@ type CreateTokenParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
 func (params *CreateTokenParams) SetPathAccountSid(PathAccountSid string) *CreateTokenParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *CreateTokenParams) SetTtl(Ttl int32) *CreateTokenParams {
+func (params *CreateTokenParams) SetTtl(Ttl int) *CreateTokenParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -3679,7 +3679,7 @@ type CreateValidationRequestParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the new caller ID resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
-	CallDelay *int32 `json:"CallDelay,omitempty"`
+	CallDelay *int `json:"CallDelay,omitempty"`
 	// The digits to dial after connecting the verification call.
 	Extension *string `json:"Extension,omitempty"`
 	// A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
@@ -3696,7 +3696,7 @@ func (params *CreateValidationRequestParams) SetPathAccountSid(PathAccountSid st
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *CreateValidationRequestParams) SetCallDelay(CallDelay int32) *CreateValidationRequestParams {
+func (params *CreateValidationRequestParams) SetCallDelay(CallDelay int) *CreateValidationRequestParams {
 	params.CallDelay = &CallDelay
 	return params
 }
@@ -6546,7 +6546,7 @@ type ListAccountParams struct {
 	// Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAccountParams) SetFriendlyName(FriendlyName string) *ListAccountParams {
@@ -6557,7 +6557,7 @@ func (params *ListAccountParams) SetStatus(Status string) *ListAccountParams {
 	params.Status = &Status
 	return params
 }
-func (params *ListAccountParams) SetPageSize(PageSize int32) *ListAccountParams {
+func (params *ListAccountParams) SetPageSize(PageSize int) *ListAccountParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -6605,7 +6605,7 @@ type ListAddressParams struct {
 	// The ISO country code of the Address resources to read.
 	IsoCountry *string `json:"IsoCountry,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAddressParams) SetPathAccountSid(PathAccountSid string) *ListAddressParams {
@@ -6624,7 +6624,7 @@ func (params *ListAddressParams) SetIsoCountry(IsoCountry string) *ListAddressPa
 	params.IsoCountry = &IsoCountry
 	return params
 }
-func (params *ListAddressParams) SetPageSize(PageSize int32) *ListAddressParams {
+func (params *ListAddressParams) SetPageSize(PageSize int) *ListAddressParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -6675,7 +6675,7 @@ type ListApplicationParams struct {
 	// The string that identifies the Application resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListApplicationParams) SetPathAccountSid(PathAccountSid string) *ListApplicationParams {
@@ -6686,7 +6686,7 @@ func (params *ListApplicationParams) SetFriendlyName(FriendlyName string) *ListA
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListApplicationParams) SetPageSize(PageSize int32) *ListApplicationParams {
+func (params *ListApplicationParams) SetPageSize(PageSize int) *ListApplicationParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -6730,14 +6730,14 @@ type ListAuthorizedConnectAppParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AuthorizedConnectApp resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAuthorizedConnectAppParams) SetPathAccountSid(PathAccountSid string) *ListAuthorizedConnectAppParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListAuthorizedConnectAppParams) SetPageSize(PageSize int32) *ListAuthorizedConnectAppParams {
+func (params *ListAuthorizedConnectAppParams) SetPageSize(PageSize int) *ListAuthorizedConnectAppParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -6778,14 +6778,14 @@ type ListAvailablePhoneNumberCountryParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the available phone number Country resources.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberCountryParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListAvailablePhoneNumberCountryParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberCountryParams {
+func (params *ListAvailablePhoneNumberCountryParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberCountryParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -6825,7 +6825,7 @@ type ListAvailablePhoneNumberLocalParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-	AreaCode *int32 `json:"AreaCode,omitempty"`
+	AreaCode *int `json:"AreaCode,omitempty"`
 	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-number-pattern) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-character-pattern). If specified, this value must have at least two characters.
 	Contains *string `json:"Contains,omitempty"`
 	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -6847,7 +6847,7 @@ type ListAvailablePhoneNumberLocalParams struct {
 	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
 	NearLatLong *string `json:"NearLatLong,omitempty"`
 	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-	Distance *int32 `json:"Distance,omitempty"`
+	Distance *int `json:"Distance,omitempty"`
 	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
 	InPostalCode *string `json:"InPostalCode,omitempty"`
 	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
@@ -6861,14 +6861,14 @@ type ListAvailablePhoneNumberLocalParams struct {
 	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberLocalParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberLocalParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListAvailablePhoneNumberLocalParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberLocalParams {
+func (params *ListAvailablePhoneNumberLocalParams) SetAreaCode(AreaCode int) *ListAvailablePhoneNumberLocalParams {
 	params.AreaCode = &AreaCode
 	return params
 }
@@ -6912,7 +6912,7 @@ func (params *ListAvailablePhoneNumberLocalParams) SetNearLatLong(NearLatLong st
 	params.NearLatLong = &NearLatLong
 	return params
 }
-func (params *ListAvailablePhoneNumberLocalParams) SetDistance(Distance int32) *ListAvailablePhoneNumberLocalParams {
+func (params *ListAvailablePhoneNumberLocalParams) SetDistance(Distance int) *ListAvailablePhoneNumberLocalParams {
 	params.Distance = &Distance
 	return params
 }
@@ -6940,7 +6940,7 @@ func (params *ListAvailablePhoneNumberLocalParams) SetFaxEnabled(FaxEnabled bool
 	params.FaxEnabled = &FaxEnabled
 	return params
 }
-func (params *ListAvailablePhoneNumberLocalParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberLocalParams {
+func (params *ListAvailablePhoneNumberLocalParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberLocalParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -7035,7 +7035,7 @@ type ListAvailablePhoneNumberMachineToMachineParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-	AreaCode *int32 `json:"AreaCode,omitempty"`
+	AreaCode *int `json:"AreaCode,omitempty"`
 	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
 	Contains *string `json:"Contains,omitempty"`
 	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -7057,7 +7057,7 @@ type ListAvailablePhoneNumberMachineToMachineParams struct {
 	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
 	NearLatLong *string `json:"NearLatLong,omitempty"`
 	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-	Distance *int32 `json:"Distance,omitempty"`
+	Distance *int `json:"Distance,omitempty"`
 	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
 	InPostalCode *string `json:"InPostalCode,omitempty"`
 	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
@@ -7071,14 +7071,14 @@ type ListAvailablePhoneNumberMachineToMachineParams struct {
 	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberMachineToMachineParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListAvailablePhoneNumberMachineToMachineParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberMachineToMachineParams {
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetAreaCode(AreaCode int) *ListAvailablePhoneNumberMachineToMachineParams {
 	params.AreaCode = &AreaCode
 	return params
 }
@@ -7122,7 +7122,7 @@ func (params *ListAvailablePhoneNumberMachineToMachineParams) SetNearLatLong(Nea
 	params.NearLatLong = &NearLatLong
 	return params
 }
-func (params *ListAvailablePhoneNumberMachineToMachineParams) SetDistance(Distance int32) *ListAvailablePhoneNumberMachineToMachineParams {
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetDistance(Distance int) *ListAvailablePhoneNumberMachineToMachineParams {
 	params.Distance = &Distance
 	return params
 }
@@ -7150,7 +7150,7 @@ func (params *ListAvailablePhoneNumberMachineToMachineParams) SetFaxEnabled(FaxE
 	params.FaxEnabled = &FaxEnabled
 	return params
 }
-func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberMachineToMachineParams {
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberMachineToMachineParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -7245,7 +7245,7 @@ type ListAvailablePhoneNumberMobileParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-	AreaCode *int32 `json:"AreaCode,omitempty"`
+	AreaCode *int `json:"AreaCode,omitempty"`
 	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
 	Contains *string `json:"Contains,omitempty"`
 	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -7267,7 +7267,7 @@ type ListAvailablePhoneNumberMobileParams struct {
 	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
 	NearLatLong *string `json:"NearLatLong,omitempty"`
 	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-	Distance *int32 `json:"Distance,omitempty"`
+	Distance *int `json:"Distance,omitempty"`
 	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
 	InPostalCode *string `json:"InPostalCode,omitempty"`
 	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
@@ -7281,14 +7281,14 @@ type ListAvailablePhoneNumberMobileParams struct {
 	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberMobileParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberMobileParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListAvailablePhoneNumberMobileParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberMobileParams {
+func (params *ListAvailablePhoneNumberMobileParams) SetAreaCode(AreaCode int) *ListAvailablePhoneNumberMobileParams {
 	params.AreaCode = &AreaCode
 	return params
 }
@@ -7332,7 +7332,7 @@ func (params *ListAvailablePhoneNumberMobileParams) SetNearLatLong(NearLatLong s
 	params.NearLatLong = &NearLatLong
 	return params
 }
-func (params *ListAvailablePhoneNumberMobileParams) SetDistance(Distance int32) *ListAvailablePhoneNumberMobileParams {
+func (params *ListAvailablePhoneNumberMobileParams) SetDistance(Distance int) *ListAvailablePhoneNumberMobileParams {
 	params.Distance = &Distance
 	return params
 }
@@ -7360,7 +7360,7 @@ func (params *ListAvailablePhoneNumberMobileParams) SetFaxEnabled(FaxEnabled boo
 	params.FaxEnabled = &FaxEnabled
 	return params
 }
-func (params *ListAvailablePhoneNumberMobileParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberMobileParams {
+func (params *ListAvailablePhoneNumberMobileParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberMobileParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -7455,7 +7455,7 @@ type ListAvailablePhoneNumberNationalParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-	AreaCode *int32 `json:"AreaCode,omitempty"`
+	AreaCode *int `json:"AreaCode,omitempty"`
 	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
 	Contains *string `json:"Contains,omitempty"`
 	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -7477,7 +7477,7 @@ type ListAvailablePhoneNumberNationalParams struct {
 	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
 	NearLatLong *string `json:"NearLatLong,omitempty"`
 	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-	Distance *int32 `json:"Distance,omitempty"`
+	Distance *int `json:"Distance,omitempty"`
 	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
 	InPostalCode *string `json:"InPostalCode,omitempty"`
 	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
@@ -7491,14 +7491,14 @@ type ListAvailablePhoneNumberNationalParams struct {
 	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberNationalParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberNationalParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListAvailablePhoneNumberNationalParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberNationalParams {
+func (params *ListAvailablePhoneNumberNationalParams) SetAreaCode(AreaCode int) *ListAvailablePhoneNumberNationalParams {
 	params.AreaCode = &AreaCode
 	return params
 }
@@ -7542,7 +7542,7 @@ func (params *ListAvailablePhoneNumberNationalParams) SetNearLatLong(NearLatLong
 	params.NearLatLong = &NearLatLong
 	return params
 }
-func (params *ListAvailablePhoneNumberNationalParams) SetDistance(Distance int32) *ListAvailablePhoneNumberNationalParams {
+func (params *ListAvailablePhoneNumberNationalParams) SetDistance(Distance int) *ListAvailablePhoneNumberNationalParams {
 	params.Distance = &Distance
 	return params
 }
@@ -7570,7 +7570,7 @@ func (params *ListAvailablePhoneNumberNationalParams) SetFaxEnabled(FaxEnabled b
 	params.FaxEnabled = &FaxEnabled
 	return params
 }
-func (params *ListAvailablePhoneNumberNationalParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberNationalParams {
+func (params *ListAvailablePhoneNumberNationalParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberNationalParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -7665,7 +7665,7 @@ type ListAvailablePhoneNumberSharedCostParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-	AreaCode *int32 `json:"AreaCode,omitempty"`
+	AreaCode *int `json:"AreaCode,omitempty"`
 	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
 	Contains *string `json:"Contains,omitempty"`
 	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -7687,7 +7687,7 @@ type ListAvailablePhoneNumberSharedCostParams struct {
 	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
 	NearLatLong *string `json:"NearLatLong,omitempty"`
 	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-	Distance *int32 `json:"Distance,omitempty"`
+	Distance *int `json:"Distance,omitempty"`
 	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
 	InPostalCode *string `json:"InPostalCode,omitempty"`
 	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
@@ -7701,14 +7701,14 @@ type ListAvailablePhoneNumberSharedCostParams struct {
 	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberSharedCostParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberSharedCostParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListAvailablePhoneNumberSharedCostParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberSharedCostParams {
+func (params *ListAvailablePhoneNumberSharedCostParams) SetAreaCode(AreaCode int) *ListAvailablePhoneNumberSharedCostParams {
 	params.AreaCode = &AreaCode
 	return params
 }
@@ -7752,7 +7752,7 @@ func (params *ListAvailablePhoneNumberSharedCostParams) SetNearLatLong(NearLatLo
 	params.NearLatLong = &NearLatLong
 	return params
 }
-func (params *ListAvailablePhoneNumberSharedCostParams) SetDistance(Distance int32) *ListAvailablePhoneNumberSharedCostParams {
+func (params *ListAvailablePhoneNumberSharedCostParams) SetDistance(Distance int) *ListAvailablePhoneNumberSharedCostParams {
 	params.Distance = &Distance
 	return params
 }
@@ -7780,7 +7780,7 @@ func (params *ListAvailablePhoneNumberSharedCostParams) SetFaxEnabled(FaxEnabled
 	params.FaxEnabled = &FaxEnabled
 	return params
 }
-func (params *ListAvailablePhoneNumberSharedCostParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberSharedCostParams {
+func (params *ListAvailablePhoneNumberSharedCostParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberSharedCostParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -7875,7 +7875,7 @@ type ListAvailablePhoneNumberTollFreeParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-	AreaCode *int32 `json:"AreaCode,omitempty"`
+	AreaCode *int `json:"AreaCode,omitempty"`
 	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
 	Contains *string `json:"Contains,omitempty"`
 	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -7897,7 +7897,7 @@ type ListAvailablePhoneNumberTollFreeParams struct {
 	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
 	NearLatLong *string `json:"NearLatLong,omitempty"`
 	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-	Distance *int32 `json:"Distance,omitempty"`
+	Distance *int `json:"Distance,omitempty"`
 	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
 	InPostalCode *string `json:"InPostalCode,omitempty"`
 	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
@@ -7911,14 +7911,14 @@ type ListAvailablePhoneNumberTollFreeParams struct {
 	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberTollFreeParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberTollFreeParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListAvailablePhoneNumberTollFreeParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberTollFreeParams {
+func (params *ListAvailablePhoneNumberTollFreeParams) SetAreaCode(AreaCode int) *ListAvailablePhoneNumberTollFreeParams {
 	params.AreaCode = &AreaCode
 	return params
 }
@@ -7962,7 +7962,7 @@ func (params *ListAvailablePhoneNumberTollFreeParams) SetNearLatLong(NearLatLong
 	params.NearLatLong = &NearLatLong
 	return params
 }
-func (params *ListAvailablePhoneNumberTollFreeParams) SetDistance(Distance int32) *ListAvailablePhoneNumberTollFreeParams {
+func (params *ListAvailablePhoneNumberTollFreeParams) SetDistance(Distance int) *ListAvailablePhoneNumberTollFreeParams {
 	params.Distance = &Distance
 	return params
 }
@@ -7990,7 +7990,7 @@ func (params *ListAvailablePhoneNumberTollFreeParams) SetFaxEnabled(FaxEnabled b
 	params.FaxEnabled = &FaxEnabled
 	return params
 }
-func (params *ListAvailablePhoneNumberTollFreeParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberTollFreeParams {
+func (params *ListAvailablePhoneNumberTollFreeParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberTollFreeParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -8085,7 +8085,7 @@ type ListAvailablePhoneNumberVoipParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
-	AreaCode *int32 `json:"AreaCode,omitempty"`
+	AreaCode *int `json:"AreaCode,omitempty"`
 	// The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
 	Contains *string `json:"Contains,omitempty"`
 	// Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -8107,7 +8107,7 @@ type ListAvailablePhoneNumberVoipParams struct {
 	// Given a latitude/longitude pair `lat,long` find geographically close numbers within `distance` miles. Applies to only phone numbers in the US and Canada.
 	NearLatLong *string `json:"NearLatLong,omitempty"`
 	// The search radius, in miles, for a `near_` query.  Can be up to `500` and the default is `25`. Applies to only phone numbers in the US and Canada.
-	Distance *int32 `json:"Distance,omitempty"`
+	Distance *int `json:"Distance,omitempty"`
 	// Limit results to a particular postal code. Given a phone number, search within the same postal code as that number. Applies to only phone numbers in the US and Canada.
 	InPostalCode *string `json:"InPostalCode,omitempty"`
 	// Limit results to a particular region, state, or province. Given a phone number, search within the same region as that number. Applies to only phone numbers in the US and Canada.
@@ -8121,14 +8121,14 @@ type ListAvailablePhoneNumberVoipParams struct {
 	// Whether the phone numbers can receive faxes. Can be: `true` or `false`.
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberVoipParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberVoipParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListAvailablePhoneNumberVoipParams) SetAreaCode(AreaCode int32) *ListAvailablePhoneNumberVoipParams {
+func (params *ListAvailablePhoneNumberVoipParams) SetAreaCode(AreaCode int) *ListAvailablePhoneNumberVoipParams {
 	params.AreaCode = &AreaCode
 	return params
 }
@@ -8172,7 +8172,7 @@ func (params *ListAvailablePhoneNumberVoipParams) SetNearLatLong(NearLatLong str
 	params.NearLatLong = &NearLatLong
 	return params
 }
-func (params *ListAvailablePhoneNumberVoipParams) SetDistance(Distance int32) *ListAvailablePhoneNumberVoipParams {
+func (params *ListAvailablePhoneNumberVoipParams) SetDistance(Distance int) *ListAvailablePhoneNumberVoipParams {
 	params.Distance = &Distance
 	return params
 }
@@ -8200,7 +8200,7 @@ func (params *ListAvailablePhoneNumberVoipParams) SetFaxEnabled(FaxEnabled bool)
 	params.FaxEnabled = &FaxEnabled
 	return params
 }
-func (params *ListAvailablePhoneNumberVoipParams) SetPageSize(PageSize int32) *ListAvailablePhoneNumberVoipParams {
+func (params *ListAvailablePhoneNumberVoipParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberVoipParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -8315,7 +8315,7 @@ type ListCallParams struct {
 	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
 	EndTimeAfter *time.Time `json:"EndTime&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListCallParams) SetPathAccountSid(PathAccountSid string) *ListCallParams {
@@ -8362,7 +8362,7 @@ func (params *ListCallParams) SetEndTimeAfter(EndTimeAfter time.Time) *ListCallP
 	params.EndTimeAfter = &EndTimeAfter
 	return params
 }
-func (params *ListCallParams) SetPageSize(PageSize int32) *ListCallParams {
+func (params *ListCallParams) SetPageSize(PageSize int) *ListCallParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -8433,14 +8433,14 @@ type ListCallEventParams struct {
 	// The unique SID identifier of the Account.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListCallEventParams) SetPathAccountSid(PathAccountSid string) *ListCallEventParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListCallEventParams) SetPageSize(PageSize int32) *ListCallEventParams {
+func (params *ListCallEventParams) SetPageSize(PageSize int) *ListCallEventParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -8482,7 +8482,7 @@ type ListCallNotificationParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call Notification resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
-	Log *int32 `json:"Log,omitempty"`
+	Log *int `json:"Log,omitempty"`
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
 	MessageDate *string `json:"MessageDate,omitempty"`
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
@@ -8490,14 +8490,14 @@ type ListCallNotificationParams struct {
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
 	MessageDateAfter *string `json:"MessageDate&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListCallNotificationParams) SetPathAccountSid(PathAccountSid string) *ListCallNotificationParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListCallNotificationParams) SetLog(Log int32) *ListCallNotificationParams {
+func (params *ListCallNotificationParams) SetLog(Log int) *ListCallNotificationParams {
 	params.Log = &Log
 	return params
 }
@@ -8513,7 +8513,7 @@ func (params *ListCallNotificationParams) SetMessageDateAfter(MessageDateAfter s
 	params.MessageDateAfter = &MessageDateAfter
 	return params
 }
-func (params *ListCallNotificationParams) SetPageSize(PageSize int32) *ListCallNotificationParams {
+func (params *ListCallNotificationParams) SetPageSize(PageSize int) *ListCallNotificationParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -8572,7 +8572,7 @@ type ListCallRecordingParams struct {
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
 	DateCreatedAfter *string `json:"DateCreated&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListCallRecordingParams) SetPathAccountSid(PathAccountSid string) *ListCallRecordingParams {
@@ -8591,7 +8591,7 @@ func (params *ListCallRecordingParams) SetDateCreatedAfter(DateCreatedAfter stri
 	params.DateCreatedAfter = &DateCreatedAfter
 	return params
 }
-func (params *ListCallRecordingParams) SetPageSize(PageSize int32) *ListCallRecordingParams {
+func (params *ListCallRecordingParams) SetPageSize(PageSize int) *ListCallRecordingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -8658,7 +8658,7 @@ type ListConferenceParams struct {
 	// The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListConferenceParams) SetPathAccountSid(PathAccountSid string) *ListConferenceParams {
@@ -8697,7 +8697,7 @@ func (params *ListConferenceParams) SetStatus(Status string) *ListConferencePara
 	params.Status = &Status
 	return params
 }
-func (params *ListConferenceParams) SetPageSize(PageSize int32) *ListConferenceParams {
+func (params *ListConferenceParams) SetPageSize(PageSize int) *ListConferenceParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -8768,7 +8768,7 @@ type ListConferenceRecordingParams struct {
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
 	DateCreatedAfter *string `json:"DateCreated&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListConferenceRecordingParams) SetPathAccountSid(PathAccountSid string) *ListConferenceRecordingParams {
@@ -8787,7 +8787,7 @@ func (params *ListConferenceRecordingParams) SetDateCreatedAfter(DateCreatedAfte
 	params.DateCreatedAfter = &DateCreatedAfter
 	return params
 }
-func (params *ListConferenceRecordingParams) SetPageSize(PageSize int32) *ListConferenceRecordingParams {
+func (params *ListConferenceRecordingParams) SetPageSize(PageSize int) *ListConferenceRecordingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -8838,14 +8838,14 @@ type ListConnectAppParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ConnectApp resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListConnectAppParams) SetPathAccountSid(PathAccountSid string) *ListConnectAppParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListConnectAppParams) SetPageSize(PageSize int32) *ListConnectAppParams {
+func (params *ListConnectAppParams) SetPageSize(PageSize int) *ListConnectAppParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -8886,14 +8886,14 @@ type ListDependentPhoneNumberParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DependentPhoneNumber resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListDependentPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *ListDependentPhoneNumberParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListDependentPhoneNumberParams) SetPageSize(PageSize int32) *ListDependentPhoneNumberParams {
+func (params *ListDependentPhoneNumberParams) SetPageSize(PageSize int) *ListDependentPhoneNumberParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -8942,7 +8942,7 @@ type ListIncomingPhoneNumberParams struct {
 	// Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
 	Origin *string `json:"Origin,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberParams {
@@ -8965,7 +8965,7 @@ func (params *ListIncomingPhoneNumberParams) SetOrigin(Origin string) *ListIncom
 	params.Origin = &Origin
 	return params
 }
-func (params *ListIncomingPhoneNumberParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberParams {
+func (params *ListIncomingPhoneNumberParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9018,14 +9018,14 @@ type ListIncomingPhoneNumberAssignedAddOnParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberAssignedAddOnParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberAssignedAddOnParams {
+func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberAssignedAddOnParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9067,14 +9067,14 @@ type ListIncomingPhoneNumberAssignedAddOnExtensionParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
+func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9125,7 +9125,7 @@ type ListIncomingPhoneNumberLocalParams struct {
 	// Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
 	Origin *string `json:"Origin,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberLocalParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberLocalParams {
@@ -9148,7 +9148,7 @@ func (params *ListIncomingPhoneNumberLocalParams) SetOrigin(Origin string) *List
 	params.Origin = &Origin
 	return params
 }
-func (params *ListIncomingPhoneNumberLocalParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberLocalParams {
+func (params *ListIncomingPhoneNumberLocalParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberLocalParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9208,7 +9208,7 @@ type ListIncomingPhoneNumberMobileParams struct {
 	// Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
 	Origin *string `json:"Origin,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberMobileParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberMobileParams {
@@ -9231,7 +9231,7 @@ func (params *ListIncomingPhoneNumberMobileParams) SetOrigin(Origin string) *Lis
 	params.Origin = &Origin
 	return params
 }
-func (params *ListIncomingPhoneNumberMobileParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberMobileParams {
+func (params *ListIncomingPhoneNumberMobileParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberMobileParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9291,7 +9291,7 @@ type ListIncomingPhoneNumberTollFreeParams struct {
 	// Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
 	Origin *string `json:"Origin,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberTollFreeParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberTollFreeParams {
@@ -9314,7 +9314,7 @@ func (params *ListIncomingPhoneNumberTollFreeParams) SetOrigin(Origin string) *L
 	params.Origin = &Origin
 	return params
 }
-func (params *ListIncomingPhoneNumberTollFreeParams) SetPageSize(PageSize int32) *ListIncomingPhoneNumberTollFreeParams {
+func (params *ListIncomingPhoneNumberTollFreeParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberTollFreeParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9366,14 +9366,14 @@ type ListKeyParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Key resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListKeyParams) SetPathAccountSid(PathAccountSid string) *ListKeyParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListKeyParams) SetPageSize(PageSize int32) *ListKeyParams {
+func (params *ListKeyParams) SetPageSize(PageSize int) *ListKeyParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9419,7 +9419,7 @@ type ListMediaParams struct {
 	// Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
 	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListMediaParams) SetPathAccountSid(PathAccountSid string) *ListMediaParams {
@@ -9438,7 +9438,7 @@ func (params *ListMediaParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *
 	params.DateCreatedAfter = &DateCreatedAfter
 	return params
 }
-func (params *ListMediaParams) SetPageSize(PageSize int32) *ListMediaParams {
+func (params *ListMediaParams) SetPageSize(PageSize int) *ListMediaParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9489,14 +9489,14 @@ type ListMemberParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListMemberParams) SetPathAccountSid(PathAccountSid string) *ListMemberParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListMemberParams) SetPageSize(PageSize int32) *ListMemberParams {
+func (params *ListMemberParams) SetPageSize(PageSize int) *ListMemberParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9548,7 +9548,7 @@ type ListMessageParams struct {
 	// The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
 	DateSentAfter *time.Time `json:"DateSent&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListMessageParams) SetPathAccountSid(PathAccountSid string) *ListMessageParams {
@@ -9575,7 +9575,7 @@ func (params *ListMessageParams) SetDateSentAfter(DateSentAfter time.Time) *List
 	params.DateSentAfter = &DateSentAfter
 	return params
 }
-func (params *ListMessageParams) SetPageSize(PageSize int32) *ListMessageParams {
+func (params *ListMessageParams) SetPageSize(PageSize int) *ListMessageParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9631,7 +9631,7 @@ type ListNotificationParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Notification resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// Only read notifications of the specified log level. Can be:  `0` to read only ERROR notifications or `1` to read only WARNING notifications. By default, all notifications are read.
-	Log *int32 `json:"Log,omitempty"`
+	Log *int `json:"Log,omitempty"`
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
 	MessageDate *string `json:"MessageDate,omitempty"`
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
@@ -9639,14 +9639,14 @@ type ListNotificationParams struct {
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
 	MessageDateAfter *string `json:"MessageDate&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListNotificationParams) SetPathAccountSid(PathAccountSid string) *ListNotificationParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListNotificationParams) SetLog(Log int32) *ListNotificationParams {
+func (params *ListNotificationParams) SetLog(Log int) *ListNotificationParams {
 	params.Log = &Log
 	return params
 }
@@ -9662,7 +9662,7 @@ func (params *ListNotificationParams) SetMessageDateAfter(MessageDateAfter strin
 	params.MessageDateAfter = &MessageDateAfter
 	return params
 }
-func (params *ListNotificationParams) SetPageSize(PageSize int32) *ListNotificationParams {
+func (params *ListNotificationParams) SetPageSize(PageSize int) *ListNotificationParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9719,7 +9719,7 @@ type ListOutgoingCallerIdParams struct {
 	// The string that identifies the OutgoingCallerId resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid string) *ListOutgoingCallerIdParams {
@@ -9734,7 +9734,7 @@ func (params *ListOutgoingCallerIdParams) SetFriendlyName(FriendlyName string) *
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *ListOutgoingCallerIdParams) SetPageSize(PageSize int32) *ListOutgoingCallerIdParams {
+func (params *ListOutgoingCallerIdParams) SetPageSize(PageSize int) *ListOutgoingCallerIdParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9787,7 +9787,7 @@ type ListParticipantParams struct {
 	// Whether to return only participants who are coaching another call. Can be: `true` or `false`.
 	Coaching *bool `json:"Coaching,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListParticipantParams) SetPathAccountSid(PathAccountSid string) *ListParticipantParams {
@@ -9806,7 +9806,7 @@ func (params *ListParticipantParams) SetCoaching(Coaching bool) *ListParticipant
 	params.Coaching = &Coaching
 	return params
 }
-func (params *ListParticipantParams) SetPageSize(PageSize int32) *ListParticipantParams {
+func (params *ListParticipantParams) SetPageSize(PageSize int) *ListParticipantParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9857,14 +9857,14 @@ type ListQueueParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Queue resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListQueueParams) SetPathAccountSid(PathAccountSid string) *ListQueueParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListQueueParams) SetPageSize(PageSize int32) *ListQueueParams {
+func (params *ListQueueParams) SetPageSize(PageSize int) *ListQueueParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9915,7 +9915,7 @@ type ListRecordingParams struct {
 	// The Conference SID that identifies the conference associated with the recording to read.
 	ConferenceSid *string `json:"ConferenceSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListRecordingParams) SetPathAccountSid(PathAccountSid string) *ListRecordingParams {
@@ -9942,7 +9942,7 @@ func (params *ListRecordingParams) SetConferenceSid(ConferenceSid string) *ListR
 	params.ConferenceSid = &ConferenceSid
 	return params
 }
-func (params *ListRecordingParams) SetPageSize(PageSize int32) *ListRecordingParams {
+func (params *ListRecordingParams) SetPageSize(PageSize int) *ListRecordingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -9998,14 +9998,14 @@ type ListRecordingAddOnResultParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListRecordingAddOnResultParams) SetPathAccountSid(PathAccountSid string) *ListRecordingAddOnResultParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListRecordingAddOnResultParams) SetPageSize(PageSize int32) *ListRecordingAddOnResultParams {
+func (params *ListRecordingAddOnResultParams) SetPageSize(PageSize int) *ListRecordingAddOnResultParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10047,14 +10047,14 @@ type ListRecordingAddOnResultPayloadParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListRecordingAddOnResultPayloadParams) SetPathAccountSid(PathAccountSid string) *ListRecordingAddOnResultPayloadParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListRecordingAddOnResultPayloadParams) SetPageSize(PageSize int32) *ListRecordingAddOnResultPayloadParams {
+func (params *ListRecordingAddOnResultPayloadParams) SetPageSize(PageSize int) *ListRecordingAddOnResultPayloadParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10097,14 +10097,14 @@ type ListRecordingTranscriptionParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListRecordingTranscriptionParams) SetPathAccountSid(PathAccountSid string) *ListRecordingTranscriptionParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListRecordingTranscriptionParams) SetPageSize(PageSize int32) *ListRecordingTranscriptionParams {
+func (params *ListRecordingTranscriptionParams) SetPageSize(PageSize int) *ListRecordingTranscriptionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10149,7 +10149,7 @@ type ListShortCodeParams struct {
 	// Only show the ShortCode resources that match this pattern. You can specify partial numbers and use '*' as a wildcard for any digit.
 	ShortCode *string `json:"ShortCode,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListShortCodeParams) SetPathAccountSid(PathAccountSid string) *ListShortCodeParams {
@@ -10164,7 +10164,7 @@ func (params *ListShortCodeParams) SetShortCode(ShortCode string) *ListShortCode
 	params.ShortCode = &ShortCode
 	return params
 }
-func (params *ListShortCodeParams) SetPageSize(PageSize int32) *ListShortCodeParams {
+func (params *ListShortCodeParams) SetPageSize(PageSize int) *ListShortCodeParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10211,14 +10211,14 @@ type ListSigningKeyParams struct {
 	//
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSigningKeyParams) SetPathAccountSid(PathAccountSid string) *ListSigningKeyParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSigningKeyParams) SetPageSize(PageSize int32) *ListSigningKeyParams {
+func (params *ListSigningKeyParams) SetPageSize(PageSize int) *ListSigningKeyParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10258,14 +10258,14 @@ type ListSipAuthCallsCredentialListMappingParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipAuthCallsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipAuthCallsCredentialListMappingParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipAuthCallsCredentialListMappingParams) SetPageSize(PageSize int32) *ListSipAuthCallsCredentialListMappingParams {
+func (params *ListSipAuthCallsCredentialListMappingParams) SetPageSize(PageSize int) *ListSipAuthCallsCredentialListMappingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10307,14 +10307,14 @@ type ListSipAuthCallsIpAccessControlListMappingParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlListMapping resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipAuthCallsIpAccessControlListMappingParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetPageSize(PageSize int32) *ListSipAuthCallsIpAccessControlListMappingParams {
+func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetPageSize(PageSize int) *ListSipAuthCallsIpAccessControlListMappingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10356,14 +10356,14 @@ type ListSipAuthRegistrationsCredentialListMappingParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipAuthRegistrationsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipAuthRegistrationsCredentialListMappingParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipAuthRegistrationsCredentialListMappingParams) SetPageSize(PageSize int32) *ListSipAuthRegistrationsCredentialListMappingParams {
+func (params *ListSipAuthRegistrationsCredentialListMappingParams) SetPageSize(PageSize int) *ListSipAuthRegistrationsCredentialListMappingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10405,14 +10405,14 @@ type ListSipCredentialParams struct {
 	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipCredentialParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipCredentialParams) SetPageSize(PageSize int32) *ListSipCredentialParams {
+func (params *ListSipCredentialParams) SetPageSize(PageSize int) *ListSipCredentialParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10454,14 +10454,14 @@ type ListSipCredentialListParams struct {
 	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipCredentialListParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialListParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipCredentialListParams) SetPageSize(PageSize int32) *ListSipCredentialListParams {
+func (params *ListSipCredentialListParams) SetPageSize(PageSize int) *ListSipCredentialListParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10502,14 +10502,14 @@ type ListSipCredentialListMappingParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialListMappingParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipCredentialListMappingParams) SetPageSize(PageSize int32) *ListSipCredentialListMappingParams {
+func (params *ListSipCredentialListMappingParams) SetPageSize(PageSize int) *ListSipCredentialListMappingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10551,14 +10551,14 @@ type ListSipDomainParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipDomainParams) SetPathAccountSid(PathAccountSid string) *ListSipDomainParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipDomainParams) SetPageSize(PageSize int32) *ListSipDomainParams {
+func (params *ListSipDomainParams) SetPageSize(PageSize int) *ListSipDomainParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10599,14 +10599,14 @@ type ListSipIpAccessControlListParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipIpAccessControlListParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAccessControlListParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipIpAccessControlListParams) SetPageSize(PageSize int32) *ListSipIpAccessControlListParams {
+func (params *ListSipIpAccessControlListParams) SetPageSize(PageSize int) *ListSipIpAccessControlListParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10647,14 +10647,14 @@ type ListSipIpAccessControlListMappingParams struct {
 	// The unique id of the Account that is responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAccessControlListMappingParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipIpAccessControlListMappingParams) SetPageSize(PageSize int32) *ListSipIpAccessControlListMappingParams {
+func (params *ListSipIpAccessControlListMappingParams) SetPageSize(PageSize int) *ListSipIpAccessControlListMappingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10696,14 +10696,14 @@ type ListSipIpAddressParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAddressParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListSipIpAddressParams) SetPageSize(PageSize int32) *ListSipIpAddressParams {
+func (params *ListSipIpAddressParams) SetPageSize(PageSize int) *ListSipIpAddressParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10745,14 +10745,14 @@ type ListTranscriptionParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListTranscriptionParams) SetPathAccountSid(PathAccountSid string) *ListTranscriptionParams {
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *ListTranscriptionParams) SetPageSize(PageSize int32) *ListTranscriptionParams {
+func (params *ListTranscriptionParams) SetPageSize(PageSize int) *ListTranscriptionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10801,7 +10801,7 @@ type ListUsageRecordParams struct {
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordParams {
@@ -10824,7 +10824,7 @@ func (params *ListUsageRecordParams) SetIncludeSubaccounts(IncludeSubaccounts bo
 	params.IncludeSubaccounts = &IncludeSubaccounts
 	return params
 }
-func (params *ListUsageRecordParams) SetPageSize(PageSize int32) *ListUsageRecordParams {
+func (params *ListUsageRecordParams) SetPageSize(PageSize int) *ListUsageRecordParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10885,7 +10885,7 @@ type ListUsageRecordAllTimeParams struct {
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordAllTimeParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordAllTimeParams {
@@ -10908,7 +10908,7 @@ func (params *ListUsageRecordAllTimeParams) SetIncludeSubaccounts(IncludeSubacco
 	params.IncludeSubaccounts = &IncludeSubaccounts
 	return params
 }
-func (params *ListUsageRecordAllTimeParams) SetPageSize(PageSize int32) *ListUsageRecordAllTimeParams {
+func (params *ListUsageRecordAllTimeParams) SetPageSize(PageSize int) *ListUsageRecordAllTimeParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -10968,7 +10968,7 @@ type ListUsageRecordDailyParams struct {
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordDailyParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordDailyParams {
@@ -10991,7 +10991,7 @@ func (params *ListUsageRecordDailyParams) SetIncludeSubaccounts(IncludeSubaccoun
 	params.IncludeSubaccounts = &IncludeSubaccounts
 	return params
 }
-func (params *ListUsageRecordDailyParams) SetPageSize(PageSize int32) *ListUsageRecordDailyParams {
+func (params *ListUsageRecordDailyParams) SetPageSize(PageSize int) *ListUsageRecordDailyParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -11051,7 +11051,7 @@ type ListUsageRecordLastMonthParams struct {
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordLastMonthParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordLastMonthParams {
@@ -11074,7 +11074,7 @@ func (params *ListUsageRecordLastMonthParams) SetIncludeSubaccounts(IncludeSubac
 	params.IncludeSubaccounts = &IncludeSubaccounts
 	return params
 }
-func (params *ListUsageRecordLastMonthParams) SetPageSize(PageSize int32) *ListUsageRecordLastMonthParams {
+func (params *ListUsageRecordLastMonthParams) SetPageSize(PageSize int) *ListUsageRecordLastMonthParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -11134,7 +11134,7 @@ type ListUsageRecordMonthlyParams struct {
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordMonthlyParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordMonthlyParams {
@@ -11157,7 +11157,7 @@ func (params *ListUsageRecordMonthlyParams) SetIncludeSubaccounts(IncludeSubacco
 	params.IncludeSubaccounts = &IncludeSubaccounts
 	return params
 }
-func (params *ListUsageRecordMonthlyParams) SetPageSize(PageSize int32) *ListUsageRecordMonthlyParams {
+func (params *ListUsageRecordMonthlyParams) SetPageSize(PageSize int) *ListUsageRecordMonthlyParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -11217,7 +11217,7 @@ type ListUsageRecordThisMonthParams struct {
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordThisMonthParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordThisMonthParams {
@@ -11240,7 +11240,7 @@ func (params *ListUsageRecordThisMonthParams) SetIncludeSubaccounts(IncludeSubac
 	params.IncludeSubaccounts = &IncludeSubaccounts
 	return params
 }
-func (params *ListUsageRecordThisMonthParams) SetPageSize(PageSize int32) *ListUsageRecordThisMonthParams {
+func (params *ListUsageRecordThisMonthParams) SetPageSize(PageSize int) *ListUsageRecordThisMonthParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -11300,7 +11300,7 @@ type ListUsageRecordTodayParams struct {
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordTodayParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordTodayParams {
@@ -11323,7 +11323,7 @@ func (params *ListUsageRecordTodayParams) SetIncludeSubaccounts(IncludeSubaccoun
 	params.IncludeSubaccounts = &IncludeSubaccounts
 	return params
 }
-func (params *ListUsageRecordTodayParams) SetPageSize(PageSize int32) *ListUsageRecordTodayParams {
+func (params *ListUsageRecordTodayParams) SetPageSize(PageSize int) *ListUsageRecordTodayParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -11383,7 +11383,7 @@ type ListUsageRecordYearlyParams struct {
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordYearlyParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordYearlyParams {
@@ -11406,7 +11406,7 @@ func (params *ListUsageRecordYearlyParams) SetIncludeSubaccounts(IncludeSubaccou
 	params.IncludeSubaccounts = &IncludeSubaccounts
 	return params
 }
-func (params *ListUsageRecordYearlyParams) SetPageSize(PageSize int32) *ListUsageRecordYearlyParams {
+func (params *ListUsageRecordYearlyParams) SetPageSize(PageSize int) *ListUsageRecordYearlyParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -11466,7 +11466,7 @@ type ListUsageRecordYesterdayParams struct {
 	// Whether to include usage from the master account and all its subaccounts. Can be: `true` (the default) to include usage from the master account and all subaccounts or `false` to retrieve usage from only the specified account.
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageRecordYesterdayParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordYesterdayParams {
@@ -11489,7 +11489,7 @@ func (params *ListUsageRecordYesterdayParams) SetIncludeSubaccounts(IncludeSubac
 	params.IncludeSubaccounts = &IncludeSubaccounts
 	return params
 }
-func (params *ListUsageRecordYesterdayParams) SetPageSize(PageSize int32) *ListUsageRecordYesterdayParams {
+func (params *ListUsageRecordYesterdayParams) SetPageSize(PageSize int) *ListUsageRecordYesterdayParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -11547,7 +11547,7 @@ type ListUsageTriggerParams struct {
 	// The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
 	UsageCategory *string `json:"UsageCategory,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListUsageTriggerParams) SetPathAccountSid(PathAccountSid string) *ListUsageTriggerParams {
@@ -11566,7 +11566,7 @@ func (params *ListUsageTriggerParams) SetUsageCategory(UsageCategory string) *Li
 	params.UsageCategory = &UsageCategory
 	return params
 }
-func (params *ListUsageTriggerParams) SetPageSize(PageSize int32) *ListUsageTriggerParams {
+func (params *ListUsageTriggerParams) SetPageSize(PageSize int) *ListUsageTriggerParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -12063,7 +12063,7 @@ type UpdateCallFeedbackParams struct {
 	// One or more issues experienced during the call. The issues can be: `imperfect-audio`, `dropped-call`, `incorrect-caller-id`, `post-dial-delay`, `digits-not-captured`, `audio-latency`, `unsolicited-call`, or `one-way-audio`.
 	Issue *[]string `json:"Issue,omitempty"`
 	// The call quality expressed as an integer from `1` to `5` where `1` represents very poor call quality and `5` represents a perfect call.
-	QualityScore *int32 `json:"QualityScore,omitempty"`
+	QualityScore *int `json:"QualityScore,omitempty"`
 }
 
 func (params *UpdateCallFeedbackParams) SetPathAccountSid(PathAccountSid string) *UpdateCallFeedbackParams {
@@ -12074,7 +12074,7 @@ func (params *UpdateCallFeedbackParams) SetIssue(Issue []string) *UpdateCallFeed
 	params.Issue = &Issue
 	return params
 }
-func (params *UpdateCallFeedbackParams) SetQualityScore(QualityScore int32) *UpdateCallFeedbackParams {
+func (params *UpdateCallFeedbackParams) SetQualityScore(QualityScore int) *UpdateCallFeedbackParams {
 	params.QualityScore = &QualityScore
 	return params
 }
@@ -13099,7 +13099,7 @@ type UpdateQueueParams struct {
 	// A descriptive string that you created to describe this resource. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The maximum number of calls allowed to be in the queue. The default is 100. The maximum is 5000.
-	MaxSize *int32 `json:"MaxSize,omitempty"`
+	MaxSize *int `json:"MaxSize,omitempty"`
 }
 
 func (params *UpdateQueueParams) SetPathAccountSid(PathAccountSid string) *UpdateQueueParams {
@@ -13110,7 +13110,7 @@ func (params *UpdateQueueParams) SetFriendlyName(FriendlyName string) *UpdateQue
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateQueueParams) SetMaxSize(MaxSize int32) *UpdateQueueParams {
+func (params *UpdateQueueParams) SetMaxSize(MaxSize int) *UpdateQueueParams {
 	params.MaxSize = &MaxSize
 	return params
 }
@@ -13602,7 +13602,7 @@ type UpdateSipIpAddressParams struct {
 	// The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-	CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
+	CidrPrefixLength *int `json:"CidrPrefixLength,omitempty"`
 	// A human readable descriptive text for this resource, up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// An IP address in dotted decimal notation from which you want to accept traffic. Any SIP requests from this IP address will be allowed by Twilio. IPv4 only supported today.
@@ -13613,7 +13613,7 @@ func (params *UpdateSipIpAddressParams) SetPathAccountSid(PathAccountSid string)
 	params.PathAccountSid = &PathAccountSid
 	return params
 }
-func (params *UpdateSipIpAddressParams) SetCidrPrefixLength(CidrPrefixLength int32) *UpdateSipIpAddressParams {
+func (params *UpdateSipIpAddressParams) SetCidrPrefixLength(CidrPrefixLength int) *UpdateSipIpAddressParams {
 	params.CidrPrefixLength = &CidrPrefixLength
 	return params
 }

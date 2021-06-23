@@ -227,7 +227,7 @@ type CreateServiceParams struct {
 	// The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
 	ChatInstanceSid *string `json:"ChatInstanceSid,omitempty"`
 	// The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
-	DefaultTtl *int32 `json:"DefaultTtl,omitempty"`
+	DefaultTtl *int `json:"DefaultTtl,omitempty"`
 	// Where a proxy number must be located relative to the participant identifier. Can be: `country`, `area-code`, or `extended-area-code`. The default value is `country` and more specific areas than `country` are only available in North America.
 	GeoMatchLevel *string `json:"GeoMatchLevel,omitempty"`
 	// The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
@@ -248,7 +248,7 @@ func (params *CreateServiceParams) SetChatInstanceSid(ChatInstanceSid string) *C
 	params.ChatInstanceSid = &ChatInstanceSid
 	return params
 }
-func (params *CreateServiceParams) SetDefaultTtl(DefaultTtl int32) *CreateServiceParams {
+func (params *CreateServiceParams) SetDefaultTtl(DefaultTtl int) *CreateServiceParams {
 	params.DefaultTtl = &DefaultTtl
 	return params
 }
@@ -333,7 +333,7 @@ type CreateSessionParams struct {
 	// The initial status of the Session. Can be: `open`, `in-progress`, `closed`, `failed`, or `unknown`. The default is `open` on create.
 	Status *string `json:"Status,omitempty"`
 	// The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 	// An application-defined string that uniquely identifies the resource. This value must be 191 characters or fewer in length and be unique. **This value should not have PII.**
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
@@ -358,7 +358,7 @@ func (params *CreateSessionParams) SetStatus(Status string) *CreateSessionParams
 	params.Status = &Status
 	return params
 }
-func (params *CreateSessionParams) SetTtl(Ttl int32) *CreateSessionParams {
+func (params *CreateSessionParams) SetTtl(Ttl int) *CreateSessionParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -744,10 +744,10 @@ func (c *DefaultApiService) FetchShortCode(ServiceSid string, Sid string) (*Prox
 // Optional parameters for the method 'ListInteraction'
 type ListInteractionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListInteractionParams) SetPageSize(PageSize int32) *ListInteractionParams {
+func (params *ListInteractionParams) SetPageSize(PageSize int) *ListInteractionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -783,10 +783,10 @@ func (c *DefaultApiService) ListInteraction(ServiceSid string, SessionSid string
 // Optional parameters for the method 'ListMessageInteraction'
 type ListMessageInteractionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListMessageInteractionParams) SetPageSize(PageSize int32) *ListMessageInteractionParams {
+func (params *ListMessageInteractionParams) SetPageSize(PageSize int) *ListMessageInteractionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -822,10 +822,10 @@ func (c *DefaultApiService) ListMessageInteraction(ServiceSid string, SessionSid
 // Optional parameters for the method 'ListParticipant'
 type ListParticipantParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListParticipantParams) SetPageSize(PageSize int32) *ListParticipantParams {
+func (params *ListParticipantParams) SetPageSize(PageSize int) *ListParticipantParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -861,10 +861,10 @@ func (c *DefaultApiService) ListParticipant(ServiceSid string, SessionSid string
 // Optional parameters for the method 'ListPhoneNumber'
 type ListPhoneNumberParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListPhoneNumberParams) SetPageSize(PageSize int32) *ListPhoneNumberParams {
+func (params *ListPhoneNumberParams) SetPageSize(PageSize int) *ListPhoneNumberParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -899,10 +899,10 @@ func (c *DefaultApiService) ListPhoneNumber(ServiceSid string, params *ListPhone
 // Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -936,10 +936,10 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // Optional parameters for the method 'ListSession'
 type ListSessionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSessionParams) SetPageSize(PageSize int32) *ListSessionParams {
+func (params *ListSessionParams) SetPageSize(PageSize int) *ListSessionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -974,10 +974,10 @@ func (c *DefaultApiService) ListSession(ServiceSid string, params *ListSessionPa
 // Optional parameters for the method 'ListShortCode'
 type ListShortCodeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListShortCodeParams) SetPageSize(PageSize int32) *ListShortCodeParams {
+func (params *ListShortCodeParams) SetPageSize(PageSize int) *ListShortCodeParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1055,7 +1055,7 @@ type UpdateServiceParams struct {
 	// The SID of the Chat Service Instance managed by Proxy Service. The Chat Service enables Proxy to forward SMS and channel messages to this chat instance. This is a one-to-one relationship.
 	ChatInstanceSid *string `json:"ChatInstanceSid,omitempty"`
 	// The default `ttl` value to set for Sessions created in the Service. The TTL (time to live) is measured in seconds after the Session's last create or last Interaction. The default value of `0` indicates an unlimited Session length. You can override a Session's default TTL value by setting its `ttl` value.
-	DefaultTtl *int32 `json:"DefaultTtl,omitempty"`
+	DefaultTtl *int `json:"DefaultTtl,omitempty"`
 	// Where a proxy number must be located relative to the participant identifier. Can be: `country`, `area-code`, or `extended-area-code`. The default value is `country` and more specific areas than `country` are only available in North America.
 	GeoMatchLevel *string `json:"GeoMatchLevel,omitempty"`
 	// The URL we call on each interaction. If we receive a 403 status, we block the interaction; otherwise the interaction continues.
@@ -1076,7 +1076,7 @@ func (params *UpdateServiceParams) SetChatInstanceSid(ChatInstanceSid string) *U
 	params.ChatInstanceSid = &ChatInstanceSid
 	return params
 }
-func (params *UpdateServiceParams) SetDefaultTtl(DefaultTtl int32) *UpdateServiceParams {
+func (params *UpdateServiceParams) SetDefaultTtl(DefaultTtl int) *UpdateServiceParams {
 	params.DefaultTtl = &DefaultTtl
 	return params
 }
@@ -1158,7 +1158,7 @@ type UpdateSessionParams struct {
 	// The new status of the resource. Can be: `in-progress` to re-open a session or `closed` to close a session.
 	Status *string `json:"Status,omitempty"`
 	// The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
 func (params *UpdateSessionParams) SetDateExpiry(DateExpiry time.Time) *UpdateSessionParams {
@@ -1173,7 +1173,7 @@ func (params *UpdateSessionParams) SetStatus(Status string) *UpdateSessionParams
 	params.Status = &Status
 	return params
 }
-func (params *UpdateSessionParams) SetTtl(Ttl int32) *UpdateSessionParams {
+func (params *UpdateSessionParams) SetTtl(Ttl int) *UpdateSessionParams {
 	params.Ttl = &Ttl
 	return params
 }

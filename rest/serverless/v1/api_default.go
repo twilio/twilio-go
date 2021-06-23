@@ -791,10 +791,10 @@ func (c *DefaultApiService) FetchVariable(ServiceSid string, EnvironmentSid stri
 // Optional parameters for the method 'ListAsset'
 type ListAssetParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListAssetParams) SetPageSize(PageSize int32) *ListAssetParams {
+func (params *ListAssetParams) SetPageSize(PageSize int) *ListAssetParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -829,10 +829,10 @@ func (c *DefaultApiService) ListAsset(ServiceSid string, params *ListAssetParams
 // Optional parameters for the method 'ListAssetVersion'
 type ListAssetVersionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListAssetVersionParams) SetPageSize(PageSize int32) *ListAssetVersionParams {
+func (params *ListAssetVersionParams) SetPageSize(PageSize int) *ListAssetVersionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -868,10 +868,10 @@ func (c *DefaultApiService) ListAssetVersion(ServiceSid string, AssetSid string,
 // Optional parameters for the method 'ListBuild'
 type ListBuildParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListBuildParams) SetPageSize(PageSize int32) *ListBuildParams {
+func (params *ListBuildParams) SetPageSize(PageSize int) *ListBuildParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -906,10 +906,10 @@ func (c *DefaultApiService) ListBuild(ServiceSid string, params *ListBuildParams
 // Optional parameters for the method 'ListDeployment'
 type ListDeploymentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListDeploymentParams) SetPageSize(PageSize int32) *ListDeploymentParams {
+func (params *ListDeploymentParams) SetPageSize(PageSize int) *ListDeploymentParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -945,10 +945,10 @@ func (c *DefaultApiService) ListDeployment(ServiceSid string, EnvironmentSid str
 // Optional parameters for the method 'ListEnvironment'
 type ListEnvironmentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListEnvironmentParams) SetPageSize(PageSize int32) *ListEnvironmentParams {
+func (params *ListEnvironmentParams) SetPageSize(PageSize int) *ListEnvironmentParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -983,10 +983,10 @@ func (c *DefaultApiService) ListEnvironment(ServiceSid string, params *ListEnvir
 // Optional parameters for the method 'ListFunction'
 type ListFunctionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListFunctionParams) SetPageSize(PageSize int32) *ListFunctionParams {
+func (params *ListFunctionParams) SetPageSize(PageSize int) *ListFunctionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1021,10 +1021,10 @@ func (c *DefaultApiService) ListFunction(ServiceSid string, params *ListFunction
 // Optional parameters for the method 'ListFunctionVersion'
 type ListFunctionVersionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListFunctionVersionParams) SetPageSize(PageSize int32) *ListFunctionVersionParams {
+func (params *ListFunctionVersionParams) SetPageSize(PageSize int) *ListFunctionVersionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1066,7 +1066,7 @@ type ListLogParams struct {
 	// The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
 	EndDate *time.Time `json:"EndDate,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListLogParams) SetFunctionSid(FunctionSid string) *ListLogParams {
@@ -1081,7 +1081,7 @@ func (params *ListLogParams) SetEndDate(EndDate time.Time) *ListLogParams {
 	params.EndDate = &EndDate
 	return params
 }
-func (params *ListLogParams) SetPageSize(PageSize int32) *ListLogParams {
+func (params *ListLogParams) SetPageSize(PageSize int) *ListLogParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1126,10 +1126,10 @@ func (c *DefaultApiService) ListLog(ServiceSid string, EnvironmentSid string, pa
 // Optional parameters for the method 'ListService'
 type ListServiceParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListServiceParams) SetPageSize(PageSize int32) *ListServiceParams {
+func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1163,10 +1163,10 @@ func (c *DefaultApiService) ListService(params *ListServiceParams) (*ListService
 // Optional parameters for the method 'ListVariable'
 type ListVariableParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListVariableParams) SetPageSize(PageSize int32) *ListVariableParams {
+func (params *ListVariableParams) SetPageSize(PageSize int) *ListVariableParams {
 	params.PageSize = &PageSize
 	return params
 }

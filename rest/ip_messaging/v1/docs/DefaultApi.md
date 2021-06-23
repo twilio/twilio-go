@@ -1068,7 +1068,7 @@ Other parameters are passed through a pointer to a ListChannelParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Type** | **[]string** | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1105,7 +1105,7 @@ Other parameters are passed through a pointer to a ListCredentialParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1148,7 +1148,7 @@ Other parameters are passed through a pointer to a ListInviteParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Identity** | **[]string** | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1191,7 +1191,7 @@ Other parameters are passed through a pointer to a ListMemberParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Identity** | **[]string** | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1234,7 +1234,7 @@ Other parameters are passed through a pointer to a ListMessageParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Order** | **string** | 
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1275,7 +1275,7 @@ Other parameters are passed through a pointer to a ListRoleParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1312,7 +1312,7 @@ Other parameters are passed through a pointer to a ListServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1353,7 +1353,7 @@ Other parameters are passed through a pointer to a ListUserParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1395,7 +1395,7 @@ Other parameters are passed through a pointer to a ListUserChannelParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -1528,7 +1528,7 @@ Other parameters are passed through a pointer to a UpdateMemberParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**LastConsumedMessageIndex** | **int32** | 
+**LastConsumedMessageIndex** | **int** | 
 **RoleSid** | **string** | 
 
 ### Return type
@@ -1656,13 +1656,13 @@ Other parameters are passed through a pointer to a UpdateServiceParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ConsumptionReportInterval** | **int32** | 
+**ConsumptionReportInterval** | **int** | 
 **DefaultChannelCreatorRoleSid** | **string** | 
 **DefaultChannelRoleSid** | **string** | 
 **DefaultServiceRoleSid** | **string** | 
 **FriendlyName** | **string** | 
-**LimitsChannelMembers** | **int32** | 
-**LimitsUserChannels** | **int32** | 
+**LimitsChannelMembers** | **int** | 
+**LimitsUserChannels** | **int** | 
 **NotificationsAddedToChannelEnabled** | **bool** | 
 **NotificationsAddedToChannelTemplate** | **string** | 
 **NotificationsInvitedToChannelEnabled** | **bool** | 
@@ -1675,7 +1675,7 @@ Name | Type | Description
 **PreWebhookUrl** | **string** | 
 **ReachabilityEnabled** | **bool** | 
 **ReadStatusEnabled** | **bool** | 
-**TypingIndicatorTimeout** | **int32** | 
+**TypingIndicatorTimeout** | **int** | 
 **WebhookFilters** | **[]string** | 
 **WebhookMethod** | **string** | 
 **WebhooksOnChannelAddMethod** | **string** | 

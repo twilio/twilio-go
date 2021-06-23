@@ -15,10 +15,10 @@ package openapi
 type IpMessagingV1ServiceUserUserChannel struct {
 	AccountSid               *string                 `json:"account_sid,omitempty"`
 	ChannelSid               *string                 `json:"channel_sid,omitempty"`
-	LastConsumedMessageIndex *int32                  `json:"last_consumed_message_index,omitempty"`
+	LastConsumedMessageIndex *int                    `json:"last_consumed_message_index,omitempty"`
 	Links                    *map[string]interface{} `json:"links,omitempty"`
 	MemberSid                *string                 `json:"member_sid,omitempty"`
 	ServiceSid               *string                 `json:"service_sid,omitempty"`
 	Status                   *string                 `json:"status,omitempty"`
-	UnreadMessagesCount      *int32                  `json:"unread_messages_count,omitempty"`
+	UnreadMessagesCount      *int                    `json:"unread_messages_count,omitempty"`
 }

@@ -197,11 +197,11 @@ type CreateConnectionPolicyTargetParams struct {
 	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The relative importance of the target. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important target.
-	Priority *int32 `json:"Priority,omitempty"`
+	Priority *int `json:"Priority,omitempty"`
 	// The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
 	Target *string `json:"Target,omitempty"`
 	// The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. Targets with higher values receive more load than those with lower ones with the same priority.
-	Weight *int32 `json:"Weight,omitempty"`
+	Weight *int `json:"Weight,omitempty"`
 }
 
 func (params *CreateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *CreateConnectionPolicyTargetParams {
@@ -212,7 +212,7 @@ func (params *CreateConnectionPolicyTargetParams) SetFriendlyName(FriendlyName s
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *CreateConnectionPolicyTargetParams) SetPriority(Priority int32) *CreateConnectionPolicyTargetParams {
+func (params *CreateConnectionPolicyTargetParams) SetPriority(Priority int) *CreateConnectionPolicyTargetParams {
 	params.Priority = &Priority
 	return params
 }
@@ -220,7 +220,7 @@ func (params *CreateConnectionPolicyTargetParams) SetTarget(Target string) *Crea
 	params.Target = &Target
 	return params
 }
-func (params *CreateConnectionPolicyTargetParams) SetWeight(Weight int32) *CreateConnectionPolicyTargetParams {
+func (params *CreateConnectionPolicyTargetParams) SetWeight(Weight int) *CreateConnectionPolicyTargetParams {
 	params.Weight = &Weight
 	return params
 }
@@ -303,14 +303,14 @@ func (c *DefaultApiService) CreateDialingPermissionsCountryBulkUpdate(params *Cr
 // Optional parameters for the method 'CreateIpRecord'
 type CreateIpRecordParams struct {
 	// An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
-	CidrPrefixLength *int32 `json:"CidrPrefixLength,omitempty"`
+	CidrPrefixLength *int `json:"CidrPrefixLength,omitempty"`
 	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// An IP address in dotted decimal notation, IPv4 only.
 	IpAddress *string `json:"IpAddress,omitempty"`
 }
 
-func (params *CreateIpRecordParams) SetCidrPrefixLength(CidrPrefixLength int32) *CreateIpRecordParams {
+func (params *CreateIpRecordParams) SetCidrPrefixLength(CidrPrefixLength int) *CreateIpRecordParams {
 	params.CidrPrefixLength = &CidrPrefixLength
 	return params
 }
@@ -644,10 +644,10 @@ func (c *DefaultApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMa
 // Optional parameters for the method 'ListByocTrunk'
 type ListByocTrunkParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListByocTrunkParams) SetPageSize(PageSize int32) *ListByocTrunkParams {
+func (params *ListByocTrunkParams) SetPageSize(PageSize int) *ListByocTrunkParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -680,10 +680,10 @@ func (c *DefaultApiService) ListByocTrunk(params *ListByocTrunkParams) (*ListByo
 // Optional parameters for the method 'ListConnectionPolicy'
 type ListConnectionPolicyParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListConnectionPolicyParams) SetPageSize(PageSize int32) *ListConnectionPolicyParams {
+func (params *ListConnectionPolicyParams) SetPageSize(PageSize int) *ListConnectionPolicyParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -716,10 +716,10 @@ func (c *DefaultApiService) ListConnectionPolicy(params *ListConnectionPolicyPar
 // Optional parameters for the method 'ListConnectionPolicyTarget'
 type ListConnectionPolicyTargetParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListConnectionPolicyTargetParams) SetPageSize(PageSize int32) *ListConnectionPolicyTargetParams {
+func (params *ListConnectionPolicyTargetParams) SetPageSize(PageSize int) *ListConnectionPolicyTargetParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -765,7 +765,7 @@ type ListDialingPermissionsCountryParams struct {
 	// Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers enabled. Can be: `true` or `false`.
 	HighRiskTollfraudNumbersEnabled *bool `json:"HighRiskTollfraudNumbersEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListDialingPermissionsCountryParams) SetIsoCode(IsoCode string) *ListDialingPermissionsCountryParams {
@@ -792,7 +792,7 @@ func (params *ListDialingPermissionsCountryParams) SetHighRiskTollfraudNumbersEn
 	params.HighRiskTollfraudNumbersEnabled = &HighRiskTollfraudNumbersEnabled
 	return params
 }
-func (params *ListDialingPermissionsCountryParams) SetPageSize(PageSize int32) *ListDialingPermissionsCountryParams {
+func (params *ListDialingPermissionsCountryParams) SetPageSize(PageSize int) *ListDialingPermissionsCountryParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -844,10 +844,10 @@ func (c *DefaultApiService) ListDialingPermissionsCountry(params *ListDialingPer
 // Optional parameters for the method 'ListDialingPermissionsHrsPrefixes'
 type ListDialingPermissionsHrsPrefixesParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListDialingPermissionsHrsPrefixesParams) SetPageSize(PageSize int32) *ListDialingPermissionsHrsPrefixesParams {
+func (params *ListDialingPermissionsHrsPrefixesParams) SetPageSize(PageSize int) *ListDialingPermissionsHrsPrefixesParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -882,10 +882,10 @@ func (c *DefaultApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, pa
 // Optional parameters for the method 'ListIpRecord'
 type ListIpRecordParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListIpRecordParams) SetPageSize(PageSize int32) *ListIpRecordParams {
+func (params *ListIpRecordParams) SetPageSize(PageSize int) *ListIpRecordParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -918,10 +918,10 @@ func (c *DefaultApiService) ListIpRecord(params *ListIpRecordParams) (*ListIpRec
 // Optional parameters for the method 'ListSourceIpMapping'
 type ListSourceIpMappingParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSourceIpMappingParams) SetPageSize(PageSize int32) *ListSourceIpMappingParams {
+func (params *ListSourceIpMappingParams) SetPageSize(PageSize int) *ListSourceIpMappingParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -1113,11 +1113,11 @@ type UpdateConnectionPolicyTargetParams struct {
 	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The relative importance of the target. Can be an integer from 0 to 65535, inclusive. The lowest number represents the most important target.
-	Priority *int32 `json:"Priority,omitempty"`
+	Priority *int `json:"Priority,omitempty"`
 	// The SIP address you want Twilio to route your calls to. This must be a `sip:` schema. `sips` is NOT supported.
 	Target *string `json:"Target,omitempty"`
 	// The value that determines the relative share of the load the Target should receive compared to other Targets with the same priority. Can be an integer from 1 to 65535, inclusive. Targets with higher values receive more load than those with lower ones with the same priority.
-	Weight *int32 `json:"Weight,omitempty"`
+	Weight *int `json:"Weight,omitempty"`
 }
 
 func (params *UpdateConnectionPolicyTargetParams) SetEnabled(Enabled bool) *UpdateConnectionPolicyTargetParams {
@@ -1128,7 +1128,7 @@ func (params *UpdateConnectionPolicyTargetParams) SetFriendlyName(FriendlyName s
 	params.FriendlyName = &FriendlyName
 	return params
 }
-func (params *UpdateConnectionPolicyTargetParams) SetPriority(Priority int32) *UpdateConnectionPolicyTargetParams {
+func (params *UpdateConnectionPolicyTargetParams) SetPriority(Priority int) *UpdateConnectionPolicyTargetParams {
 	params.Priority = &Priority
 	return params
 }
@@ -1136,7 +1136,7 @@ func (params *UpdateConnectionPolicyTargetParams) SetTarget(Target string) *Upda
 	params.Target = &Target
 	return params
 }
-func (params *UpdateConnectionPolicyTargetParams) SetWeight(Weight int32) *UpdateConnectionPolicyTargetParams {
+func (params *UpdateConnectionPolicyTargetParams) SetWeight(Weight int) *UpdateConnectionPolicyTargetParams {
 	params.Weight = &Weight
 	return params
 }

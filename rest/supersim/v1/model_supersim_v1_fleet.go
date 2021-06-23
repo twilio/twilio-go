@@ -28,7 +28,7 @@ type SupersimV1Fleet struct {
 	// Defines whether SIMs in the Fleet are capable of using data connectivity
 	DataEnabled *bool `json:"data_enabled,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume
-	DataLimit *int32 `json:"data_limit,omitempty"`
+	DataLimit *int `json:"data_limit,omitempty"`
 	// The model by which a SIM is metered and billed
 	DataMetering *string `json:"data_metering,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created

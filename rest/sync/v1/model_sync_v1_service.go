@@ -32,7 +32,7 @@ type SyncV1Service struct {
 	// Whether every endpoint_disconnected event occurs after a configurable delay
 	ReachabilityDebouncingEnabled *bool `json:"reachability_debouncing_enabled,omitempty"`
 	// The reachability event delay in milliseconds
-	ReachabilityDebouncingWindow *int32 `json:"reachability_debouncing_window,omitempty"`
+	ReachabilityDebouncingWindow *int `json:"reachability_debouncing_window,omitempty"`
 	// Whether the service instance calls webhook_url when client endpoints connect to Sync
 	ReachabilityWebhooksEnabled *bool `json:"reachability_webhooks_enabled,omitempty"`
 	// The unique string that identifies the resource

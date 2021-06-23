@@ -8,13 +8,13 @@ Name | Type | Description | Notes
 **Codec** | Pointer to **string** | The codec used for the recording |
 **ContainerFormat** | Pointer to **string** | The file format for the recording |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
-**Duration** | Pointer to **int32** | The duration of the recording in seconds |
+**Duration** | Pointer to **int** | The duration of the recording in seconds |
 **GroupingSids** | Pointer to **map[string]interface{}** | A list of SIDs related to the Recording |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
-**Offset** | Pointer to **int32** | The number of milliseconds between a point in time that is common to all rooms in a group and when the source room of the recording started |
+**Offset** | Pointer to **int** | The number of milliseconds between a point in time that is common to all rooms in a group and when the source room of the recording started |
 **RoomSid** | Pointer to **string** | The SID of the Room resource the recording is associated with |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
-**Size** | Pointer to **int32** | The size of the recorded track in bytes |
+**Size** | Pointer to **int** | The size of the recorded track in bytes |
 **SourceSid** | Pointer to **string** | The SID of the recording source |
 **Status** | Pointer to **string** | The status of the recording |
 **TrackName** | Pointer to **string** | The name that was given to the source track of the recording |

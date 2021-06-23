@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**AssignedTasks** | Pointer to **int32** | The total number of Tasks assigned to Worker for the TaskChannel type |
+**AssignedTasks** | Pointer to **int** | The total number of Tasks assigned to Worker for the TaskChannel type |
 **Available** | Pointer to **bool** | Whether the Worker should receive Tasks of the TaskChannel type |
-**AvailableCapacityPercentage** | Pointer to **int32** | The current available capacity between 0 to 100 for the TaskChannel |
-**ConfiguredCapacity** | Pointer to **int32** | The current configured capacity for the WorkerChannel |
+**AvailableCapacityPercentage** | Pointer to **int** | The current available capacity between 0 to 100 for the TaskChannel |
+**ConfiguredCapacity** | Pointer to **int** | The current configured capacity for the WorkerChannel |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The RFC 2822 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The RFC 2822 date and time in GMT when the resource was last updated |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |

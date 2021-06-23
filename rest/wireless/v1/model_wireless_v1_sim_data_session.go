@@ -38,9 +38,9 @@ type WirelessV1SimDataSession struct {
 	// The friendly name of the mobile operator network that the SIM-connected device is attached to
 	OperatorName *string `json:"operator_name,omitempty"`
 	// The number of packets downloaded by the device between the start time and when the Data Session was last updated
-	PacketsDownloaded *int32 `json:"packets_downloaded,omitempty"`
+	PacketsDownloaded *int `json:"packets_downloaded,omitempty"`
 	// The number of packets uploaded by the device between the start time and when the Data Session was last updated
-	PacketsUploaded *int32 `json:"packets_uploaded,omitempty"`
+	PacketsUploaded *int `json:"packets_uploaded,omitempty"`
 	// The generation of wireless technology that the device was using
 	RadioLink *string `json:"radio_link,omitempty"`
 	// The unique string that identifies the resource

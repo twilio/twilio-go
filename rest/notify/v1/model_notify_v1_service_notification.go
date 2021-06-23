@@ -56,5 +56,5 @@ type NotifyV1ServiceNotification struct {
 	// The notification title
 	Title *string `json:"title,omitempty"`
 	// How long, in seconds, the notification is valid
-	Ttl *int32 `json:"ttl,omitempty"`
+	Ttl *int `json:"ttl,omitempty"`
 }

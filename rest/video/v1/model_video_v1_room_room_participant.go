@@ -24,7 +24,7 @@ type VideoV1RoomRoomParticipant struct {
 	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// Duration of time in seconds the participant was connected
-	Duration *int32 `json:"duration,omitempty"`
+	Duration *int `json:"duration,omitempty"`
 	// The time when the participant disconnected from the room in ISO 8601 format
 	EndTime *time.Time `json:"end_time,omitempty"`
 	// The string that identifies the resource's User

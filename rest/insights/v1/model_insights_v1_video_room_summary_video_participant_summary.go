@@ -22,13 +22,13 @@ type InsightsV1VideoRoomSummaryVideoParticipantSummary struct {
 	// Codecs detected from the participant.
 	Codecs *[]string `json:"codecs,omitempty"`
 	// Amount of time in seconds the participant was in the room.
-	DurationSec *int32 `json:"duration_sec,omitempty"`
+	DurationSec *int `json:"duration_sec,omitempty"`
 	// Name of the edge location the participant connected to.
 	EdgeLocation *string `json:"edge_location,omitempty"`
 	// Reason the participant left the room.
 	EndReason *string `json:"end_reason,omitempty"`
 	// Errors encountered by the participant.
-	ErrorCode *int32 `json:"error_code,omitempty"`
+	ErrorCode *int `json:"error_code,omitempty"`
 	// Twilio error code dictionary link.
 	ErrorCodeUrl *string `json:"error_code_url,omitempty"`
 	// When the participant joined the room.

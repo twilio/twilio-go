@@ -44,7 +44,7 @@ type ProxyV1ServiceSession struct {
 	// The status of the Session
 	Status *string `json:"status,omitempty"`
 	// When the session will expire
-	Ttl *int32 `json:"ttl,omitempty"`
+	Ttl *int `json:"ttl,omitempty"`
 	// An application-defined string that uniquely identifies the resource
 	UniqueName *string `json:"unique_name,omitempty"`
 	// The absolute URL of the Session resource

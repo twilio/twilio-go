@@ -382,7 +382,7 @@ type ListExecutionParams struct {
 	// Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
 	DateCreatedTo *time.Time `json:"DateCreatedTo,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListExecutionParams) SetDateCreatedFrom(DateCreatedFrom time.Time) *ListExecutionParams {
@@ -393,7 +393,7 @@ func (params *ListExecutionParams) SetDateCreatedTo(DateCreatedTo time.Time) *Li
 	params.DateCreatedTo = &DateCreatedTo
 	return params
 }
-func (params *ListExecutionParams) SetPageSize(PageSize int32) *ListExecutionParams {
+func (params *ListExecutionParams) SetPageSize(PageSize int) *ListExecutionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -434,10 +434,10 @@ func (c *DefaultApiService) ListExecution(FlowSid string, params *ListExecutionP
 // Optional parameters for the method 'ListExecutionStep'
 type ListExecutionStepParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListExecutionStepParams) SetPageSize(PageSize int32) *ListExecutionStepParams {
+func (params *ListExecutionStepParams) SetPageSize(PageSize int) *ListExecutionStepParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -473,10 +473,10 @@ func (c *DefaultApiService) ListExecutionStep(FlowSid string, ExecutionSid strin
 // Optional parameters for the method 'ListFlow'
 type ListFlowParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListFlowParams) SetPageSize(PageSize int32) *ListFlowParams {
+func (params *ListFlowParams) SetPageSize(PageSize int) *ListFlowParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -510,10 +510,10 @@ func (c *DefaultApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse,
 // Optional parameters for the method 'ListFlowRevision'
 type ListFlowRevisionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListFlowRevisionParams) SetPageSize(PageSize int32) *ListFlowRevisionParams {
+func (params *ListFlowRevisionParams) SetPageSize(PageSize int) *ListFlowRevisionParams {
 	params.PageSize = &PageSize
 	return params
 }

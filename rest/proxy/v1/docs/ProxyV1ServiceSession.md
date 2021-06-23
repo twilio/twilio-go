@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **ServiceSid** | Pointer to **string** | The SID of the resource's parent Service |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Status** | Pointer to **string** | The status of the Session |
-**Ttl** | Pointer to **int32** | When the session will expire |
+**Ttl** | Pointer to **int** | When the session will expire |
 **UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource |
 **Url** | Pointer to **string** | The absolute URL of the Session resource |
 

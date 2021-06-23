@@ -149,14 +149,14 @@ type ListEventParams struct {
 	//
 	Edge *string `json:"Edge,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListEventParams) SetEdge(Edge string) *ListEventParams {
 	params.Edge = &Edge
 	return params
 }
-func (params *ListEventParams) SetPageSize(PageSize int32) *ListEventParams {
+func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -197,7 +197,7 @@ type ListMetricParams struct {
 	//
 	Direction *string `json:"Direction,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListMetricParams) SetEdge(Edge string) *ListMetricParams {
@@ -208,7 +208,7 @@ func (params *ListMetricParams) SetDirection(Direction string) *ListMetricParams
 	params.Direction = &Direction
 	return params
 }
-func (params *ListMetricParams) SetPageSize(PageSize int32) *ListMetricParams {
+func (params *ListMetricParams) SetPageSize(PageSize int) *ListMetricParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -248,10 +248,10 @@ func (c *DefaultApiService) ListMetric(CallSid string, params *ListMetricParams)
 // Optional parameters for the method 'ListVideoParticipantSummary'
 type ListVideoParticipantSummaryParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListVideoParticipantSummaryParams) SetPageSize(PageSize int32) *ListVideoParticipantSummaryParams {
+func (params *ListVideoParticipantSummaryParams) SetPageSize(PageSize int) *ListVideoParticipantSummaryParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -296,7 +296,7 @@ type ListVideoRoomSummaryParams struct {
 	// Only read rooms that started before this ISO 8601 timestamp.
 	CreatedBefore *time.Time `json:"CreatedBefore,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListVideoRoomSummaryParams) SetRoomType(RoomType []string) *ListVideoRoomSummaryParams {
@@ -319,7 +319,7 @@ func (params *ListVideoRoomSummaryParams) SetCreatedBefore(CreatedBefore time.Ti
 	params.CreatedBefore = &CreatedBefore
 	return params
 }
-func (params *ListVideoRoomSummaryParams) SetPageSize(PageSize int32) *ListVideoRoomSummaryParams {
+func (params *ListVideoRoomSummaryParams) SetPageSize(PageSize int) *ListVideoRoomSummaryParams {
 	params.PageSize = &PageSize
 	return params
 }

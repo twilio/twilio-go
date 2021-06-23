@@ -20,37 +20,37 @@ type TaskrouterV1WorkspaceWorkflowWorkflowCumulativeStatistics struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The average time in seconds between Task creation and acceptance
-	AvgTaskAcceptanceTime *int32 `json:"avg_task_acceptance_time,omitempty"`
+	AvgTaskAcceptanceTime *int `json:"avg_task_acceptance_time,omitempty"`
 	// The end of the interval during which these statistics were calculated
 	EndTime *time.Time `json:"end_time,omitempty"`
 	// The total number of Reservations accepted by Workers
-	ReservationsAccepted *int32 `json:"reservations_accepted,omitempty"`
+	ReservationsAccepted *int `json:"reservations_accepted,omitempty"`
 	// The total number of Reservations that were canceled
-	ReservationsCanceled *int32 `json:"reservations_canceled,omitempty"`
+	ReservationsCanceled *int `json:"reservations_canceled,omitempty"`
 	// The total number of Reservations that were created for Workers
-	ReservationsCreated *int32 `json:"reservations_created,omitempty"`
+	ReservationsCreated *int `json:"reservations_created,omitempty"`
 	// The total number of Reservations that were rejected
-	ReservationsRejected *int32 `json:"reservations_rejected,omitempty"`
+	ReservationsRejected *int `json:"reservations_rejected,omitempty"`
 	// The total number of Reservations that were rescinded
-	ReservationsRescinded *int32 `json:"reservations_rescinded,omitempty"`
+	ReservationsRescinded *int `json:"reservations_rescinded,omitempty"`
 	// The total number of Reservations that were timed out
-	ReservationsTimedOut *int32 `json:"reservations_timed_out,omitempty"`
+	ReservationsTimedOut *int `json:"reservations_timed_out,omitempty"`
 	// A list of objects that describe the Tasks canceled and reservations accepted above and below the specified thresholds
 	SplitByWaitTime *map[string]interface{} `json:"split_by_wait_time,omitempty"`
 	// The beginning of the interval during which these statistics were calculated
 	StartTime *time.Time `json:"start_time,omitempty"`
 	// The total number of Tasks that were canceled
-	TasksCanceled *int32 `json:"tasks_canceled,omitempty"`
+	TasksCanceled *int `json:"tasks_canceled,omitempty"`
 	// The total number of Tasks that were completed
-	TasksCompleted *int32 `json:"tasks_completed,omitempty"`
+	TasksCompleted *int `json:"tasks_completed,omitempty"`
 	// The total number of Tasks that were deleted
-	TasksDeleted *int32 `json:"tasks_deleted,omitempty"`
+	TasksDeleted *int `json:"tasks_deleted,omitempty"`
 	// The total number of Tasks that entered the Workflow
-	TasksEntered *int32 `json:"tasks_entered,omitempty"`
+	TasksEntered *int `json:"tasks_entered,omitempty"`
 	// The total number of Tasks that were moved from one queue to another
-	TasksMoved *int32 `json:"tasks_moved,omitempty"`
+	TasksMoved *int `json:"tasks_moved,omitempty"`
 	// The total number of Tasks that were timed out of their Workflows
-	TasksTimedOutInWorkflow *int32 `json:"tasks_timed_out_in_workflow,omitempty"`
+	TasksTimedOutInWorkflow *int `json:"tasks_timed_out_in_workflow,omitempty"`
 	// The absolute URL of the Workflow statistics resource
 	Url *string `json:"url,omitempty"`
 	// The wait duration statistics for Tasks that were accepted

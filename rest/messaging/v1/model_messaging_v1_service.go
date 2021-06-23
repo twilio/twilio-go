@@ -58,5 +58,5 @@ type MessagingV1Service struct {
 	// If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
 	UseInboundWebhookOnNumber *bool `json:"use_inbound_webhook_on_number,omitempty"`
 	// How long, in seconds, messages sent from the Service are valid
-	ValidityPeriod *int32 `json:"validity_period,omitempty"`
+	ValidityPeriod *int `json:"validity_period,omitempty"`
 }

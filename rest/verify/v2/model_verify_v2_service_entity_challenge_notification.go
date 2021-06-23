@@ -34,5 +34,5 @@ type VerifyV2ServiceEntityChallengeNotification struct {
 	// A string that uniquely identifies this Notification.
 	Sid *string `json:"sid,omitempty"`
 	// How long, in seconds, the notification is valid.
-	Ttl *int32 `json:"ttl,omitempty"`
+	Ttl *int `json:"ttl,omitempty"`
 }

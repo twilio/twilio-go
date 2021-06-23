@@ -178,7 +178,7 @@ Other parameters are passed through a pointer to a CreateSubscribedEventParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**SchemaVersion** | **int32** | The schema version that the subscription should use.
+**SchemaVersion** | **int** | The schema version that the subscription should use.
 **Type** | **string** | Type of event being subscribed to.
 
 ### Return type
@@ -466,7 +466,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **Id** | **string** | The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
-**SchemaVersion** | **int32** | The version of the schema
+**SchemaVersion** | **int** | The version of the schema
 
 ### Other Parameters
 
@@ -641,7 +641,7 @@ Other parameters are passed through a pointer to a ListEventTypeParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **SchemaId** | **string** | A string parameter filtering the results to return only the Event Types using a given schema.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -684,7 +684,7 @@ Other parameters are passed through a pointer to a ListSchemaVersionParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -725,7 +725,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **InUse** | **bool** | A boolean query parameter filtering the results to return sinks used/not used by a subscription.
 **Status** | **string** | A String query parameter filtering the results by status &#x60;initialized&#x60;, &#x60;validating&#x60;, &#x60;active&#x60; or &#x60;failed&#x60;.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -768,7 +768,7 @@ Other parameters are passed through a pointer to a ListSubscribedEventParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -808,7 +808,7 @@ Other parameters are passed through a pointer to a ListSubscriptionParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **SinkSid** | **string** | The SID of the sink that the list of Subscriptions should be filtered by.
-**PageSize** | **int32** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 
 ### Return type
 
@@ -895,7 +895,7 @@ Other parameters are passed through a pointer to a UpdateSubscribedEventParams s
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**SchemaVersion** | **int32** | The schema version that the subscription should use.
+**SchemaVersion** | **int** | The schema version that the subscription should use.
 
 ### Return type
 

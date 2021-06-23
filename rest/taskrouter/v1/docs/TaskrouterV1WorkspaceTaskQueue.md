@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The RFC 2822 date and time in GMT when the resource was last updated |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
-**MaxReservedWorkers** | Pointer to **int32** | The maximum number of Workers to reserve |
+**MaxReservedWorkers** | Pointer to **int** | The maximum number of Workers to reserve |
 **ReservationActivityName** | Pointer to **string** | The name of the Activity to assign Workers once a task is reserved for them |
 **ReservationActivitySid** | Pointer to **string** | The SID of the Activity to assign Workers once a task is reserved for them |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |

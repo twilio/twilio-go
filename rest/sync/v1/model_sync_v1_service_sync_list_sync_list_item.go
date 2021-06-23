@@ -30,7 +30,7 @@ type SyncV1ServiceSyncListSyncListItem struct {
 	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The automatically generated index of the List Item
-	Index *int32 `json:"index,omitempty"`
+	Index *int `json:"index,omitempty"`
 	// The SID of the Sync List that contains the List Item
 	ListSid *string `json:"list_sid,omitempty"`
 	// The current revision of the item, represented as a string

@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **Sound** | Pointer to **string** | The name of the sound to be played for the notification |
 **Tags** | Pointer to **[]string** | The tags that select the Bindings to notify |
 **Title** | Pointer to **string** | The notification title |
-**Ttl** | Pointer to **int32** | How long, in seconds, the notification is valid |
+**Ttl** | Pointer to **int** | How long, in seconds, the notification is valid |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

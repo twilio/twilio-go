@@ -18,7 +18,7 @@ import (
 // IpMessagingV2Service struct for IpMessagingV2Service
 type IpMessagingV2Service struct {
 	AccountSid                   *string                 `json:"account_sid,omitempty"`
-	ConsumptionReportInterval    *int32                  `json:"consumption_report_interval,omitempty"`
+	ConsumptionReportInterval    *int                    `json:"consumption_report_interval,omitempty"`
 	DateCreated                  *time.Time              `json:"date_created,omitempty"`
 	DateUpdated                  *time.Time              `json:"date_updated,omitempty"`
 	DefaultChannelCreatorRoleSid *string                 `json:"default_channel_creator_role_sid,omitempty"`
@@ -29,14 +29,14 @@ type IpMessagingV2Service struct {
 	Links                        *map[string]interface{} `json:"links,omitempty"`
 	Media                        *map[string]interface{} `json:"media,omitempty"`
 	Notifications                *map[string]interface{} `json:"notifications,omitempty"`
-	PostWebhookRetryCount        *int32                  `json:"post_webhook_retry_count,omitempty"`
+	PostWebhookRetryCount        *int                    `json:"post_webhook_retry_count,omitempty"`
 	PostWebhookUrl               *string                 `json:"post_webhook_url,omitempty"`
-	PreWebhookRetryCount         *int32                  `json:"pre_webhook_retry_count,omitempty"`
+	PreWebhookRetryCount         *int                    `json:"pre_webhook_retry_count,omitempty"`
 	PreWebhookUrl                *string                 `json:"pre_webhook_url,omitempty"`
 	ReachabilityEnabled          *bool                   `json:"reachability_enabled,omitempty"`
 	ReadStatusEnabled            *bool                   `json:"read_status_enabled,omitempty"`
 	Sid                          *string                 `json:"sid,omitempty"`
-	TypingIndicatorTimeout       *int32                  `json:"typing_indicator_timeout,omitempty"`
+	TypingIndicatorTimeout       *int                    `json:"typing_indicator_timeout,omitempty"`
 	Url                          *string                 `json:"url,omitempty"`
 	WebhookFilters               *[]string               `json:"webhook_filters,omitempty"`
 	WebhookMethod                *string                 `json:"webhook_method,omitempty"`

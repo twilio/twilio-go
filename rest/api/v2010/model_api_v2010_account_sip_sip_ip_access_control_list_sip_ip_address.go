@@ -16,7 +16,7 @@ type ApiV2010AccountSipSipIpAccessControlListSipIpAddress struct {
 	// The unique id of the Account that is responsible for this resource.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// An integer representing the length of the CIDR prefix to use with this IP address when accepting traffic. By default the entire IP address is used.
-	CidrPrefixLength *int32 `json:"cidr_prefix_length,omitempty"`
+	CidrPrefixLength *int `json:"cidr_prefix_length,omitempty"`
 	// The date that this resource was created, given as GMT in RFC 2822 format.
 	DateCreated *string `json:"date_created,omitempty"`
 	// The date that this resource was last updated, given as GMT in RFC 2822 format.

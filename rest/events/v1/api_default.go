@@ -162,12 +162,12 @@ func (c *DefaultApiService) CreateSinkValidate(Sid string, params *CreateSinkVal
 // Optional parameters for the method 'CreateSubscribedEvent'
 type CreateSubscribedEventParams struct {
 	// The schema version that the subscription should use.
-	SchemaVersion *int32 `json:"SchemaVersion,omitempty"`
+	SchemaVersion *int `json:"SchemaVersion,omitempty"`
 	// Type of event being subscribed to.
 	Type *string `json:"Type,omitempty"`
 }
 
-func (params *CreateSubscribedEventParams) SetSchemaVersion(SchemaVersion int32) *CreateSubscribedEventParams {
+func (params *CreateSubscribedEventParams) SetSchemaVersion(SchemaVersion int) *CreateSubscribedEventParams {
 	params.SchemaVersion = &SchemaVersion
 	return params
 }
@@ -369,7 +369,7 @@ func (c *DefaultApiService) FetchSchema(Id string) (*EventsV1Schema, error) {
 }
 
 // Fetch a specific schema and version.
-func (c *DefaultApiService) FetchSchemaVersion(Id string, SchemaVersion int32) (*EventsV1SchemaSchemaVersion, error) {
+func (c *DefaultApiService) FetchSchemaVersion(Id string, SchemaVersion int) (*EventsV1SchemaSchemaVersion, error) {
 	path := "/v1/Schemas/{Id}/Versions/{SchemaVersion}"
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 	path = strings.Replace(path, "{"+"SchemaVersion"+"}", fmt.Sprint(SchemaVersion), -1)
@@ -467,14 +467,14 @@ type ListEventTypeParams struct {
 	// A string parameter filtering the results to return only the Event Types using a given schema.
 	SchemaId *string `json:"SchemaId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListEventTypeParams) SetSchemaId(SchemaId string) *ListEventTypeParams {
 	params.SchemaId = &SchemaId
 	return params
 }
-func (params *ListEventTypeParams) SetPageSize(PageSize int32) *ListEventTypeParams {
+func (params *ListEventTypeParams) SetPageSize(PageSize int) *ListEventTypeParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -511,10 +511,10 @@ func (c *DefaultApiService) ListEventType(params *ListEventTypeParams) (*ListEve
 // Optional parameters for the method 'ListSchemaVersion'
 type ListSchemaVersionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSchemaVersionParams) SetPageSize(PageSize int32) *ListSchemaVersionParams {
+func (params *ListSchemaVersionParams) SetPageSize(PageSize int) *ListSchemaVersionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -553,7 +553,7 @@ type ListSinkParams struct {
 	// A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSinkParams) SetInUse(InUse bool) *ListSinkParams {
@@ -564,7 +564,7 @@ func (params *ListSinkParams) SetStatus(Status string) *ListSinkParams {
 	params.Status = &Status
 	return params
 }
-func (params *ListSinkParams) SetPageSize(PageSize int32) *ListSinkParams {
+func (params *ListSinkParams) SetPageSize(PageSize int) *ListSinkParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -604,10 +604,10 @@ func (c *DefaultApiService) ListSink(params *ListSinkParams) (*ListSinkResponse,
 // Optional parameters for the method 'ListSubscribedEvent'
 type ListSubscribedEventParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListSubscribedEventParams) SetPageSize(PageSize int32) *ListSubscribedEventParams {
+func (params *ListSubscribedEventParams) SetPageSize(PageSize int) *ListSubscribedEventParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -644,14 +644,14 @@ type ListSubscriptionParams struct {
 	// The SID of the sink that the list of Subscriptions should be filtered by.
 	SinkSid *string `json:"SinkSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListSubscriptionParams) SetSinkSid(SinkSid string) *ListSubscriptionParams {
 	params.SinkSid = &SinkSid
 	return params
 }
-func (params *ListSubscriptionParams) SetPageSize(PageSize int32) *ListSubscriptionParams {
+func (params *ListSubscriptionParams) SetPageSize(PageSize int) *ListSubscriptionParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -726,10 +726,10 @@ func (c *DefaultApiService) UpdateSink(Sid string, params *UpdateSinkParams) (*E
 // Optional parameters for the method 'UpdateSubscribedEvent'
 type UpdateSubscribedEventParams struct {
 	// The schema version that the subscription should use.
-	SchemaVersion *int32 `json:"SchemaVersion,omitempty"`
+	SchemaVersion *int `json:"SchemaVersion,omitempty"`
 }
 
-func (params *UpdateSubscribedEventParams) SetSchemaVersion(SchemaVersion int32) *UpdateSubscribedEventParams {
+func (params *UpdateSubscribedEventParams) SetSchemaVersion(SchemaVersion int) *UpdateSubscribedEventParams {
 	params.SchemaVersion = &SchemaVersion
 	return params
 }

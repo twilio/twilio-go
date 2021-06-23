@@ -57,7 +57,7 @@ type CreateFaxParams struct {
 	// The phone number to receive the fax in [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the recipient's SIP URI.
 	To *string `json:"To,omitempty"`
 	// How long in minutes from when the fax is initiated that we should try to send the fax.
-	Ttl *int32 `json:"Ttl,omitempty"`
+	Ttl *int `json:"Ttl,omitempty"`
 }
 
 func (params *CreateFaxParams) SetFrom(From string) *CreateFaxParams {
@@ -92,7 +92,7 @@ func (params *CreateFaxParams) SetTo(To string) *CreateFaxParams {
 	params.To = &To
 	return params
 }
-func (params *CreateFaxParams) SetTtl(Ttl int32) *CreateFaxParams {
+func (params *CreateFaxParams) SetTtl(Ttl int) *CreateFaxParams {
 	params.Ttl = &Ttl
 	return params
 }
@@ -242,7 +242,7 @@ type ListFaxParams struct {
 	// Retrieve only those faxes with a `date_created` that is later than this value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
 func (params *ListFaxParams) SetFrom(From string) *ListFaxParams {
@@ -261,7 +261,7 @@ func (params *ListFaxParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *Li
 	params.DateCreatedAfter = &DateCreatedAfter
 	return params
 }
-func (params *ListFaxParams) SetPageSize(PageSize int32) *ListFaxParams {
+func (params *ListFaxParams) SetPageSize(PageSize int) *ListFaxParams {
 	params.PageSize = &PageSize
 	return params
 }
@@ -307,10 +307,10 @@ func (c *DefaultApiService) ListFax(params *ListFaxParams) (*ListFaxResponse, er
 // Optional parameters for the method 'ListFaxMedia'
 type ListFaxMediaParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
-	PageSize *int32 `json:"PageSize,omitempty"`
+	PageSize *int `json:"PageSize,omitempty"`
 }
 
-func (params *ListFaxMediaParams) SetPageSize(PageSize int32) *ListFaxMediaParams {
+func (params *ListFaxMediaParams) SetPageSize(PageSize int) *ListFaxMediaParams {
 	params.PageSize = &PageSize
 	return params
 }

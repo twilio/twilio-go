@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**End** | **int32** |  |[optional] 
+**End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
-**Page** | **int32** |  |[optional] 
-**PageSize** | **int32** |  |[optional] 
+**Page** | **int** |  |[optional] 
+**PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
-**Start** | **int32** |  |[optional] 
+**Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
 **UsageTriggers** | [**[]ApiV2010AccountUsageUsageTrigger**](api.v2010.account.usage.usage_trigger.md) |  |[optional] 
 

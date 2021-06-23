@@ -16,7 +16,7 @@ type TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The age of the longest waiting Task
-	LongestTaskWaitingAge *int32 `json:"longest_task_waiting_age,omitempty"`
+	LongestTaskWaitingAge *int `json:"longest_task_waiting_age,omitempty"`
 	// The SID of the longest waiting Task
 	LongestTaskWaitingSid *string `json:"longest_task_waiting_sid,omitempty"`
 	// The number of Tasks by priority
@@ -24,7 +24,7 @@ type TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics struct {
 	// The number of Tasks by their current status
 	TasksByStatus *map[string]interface{} `json:"tasks_by_status,omitempty"`
 	// The total number of Tasks
-	TotalTasks *int32 `json:"total_tasks,omitempty"`
+	TotalTasks *int `json:"total_tasks,omitempty"`
 	// The absolute URL of the Workflow statistics resource
 	Url *string `json:"url,omitempty"`
 	// Returns the list of Tasks that are being controlled by the Workflow with the specified SID value

@@ -32,7 +32,7 @@ type ChatV1ServiceChannelMessage struct {
 	// The identity of the message's author
 	From *string `json:"from,omitempty"`
 	// The index of the message within the Channel
-	Index *int32 `json:"index,omitempty"`
+	Index *int `json:"index,omitempty"`
 	// The SID of the Service that the resource is associated with
 	ServiceSid *string `json:"service_sid,omitempty"`
 	// The unique string that identifies the resource

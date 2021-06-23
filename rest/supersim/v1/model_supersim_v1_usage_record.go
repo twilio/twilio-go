@@ -16,11 +16,11 @@ type SupersimV1UsageRecord struct {
 	// The SID of the Account that incurred the usage.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// Total data downloaded in bytes, aggregated by the query parameters.
-	DataDownload *int32 `json:"data_download,omitempty"`
+	DataDownload *int `json:"data_download,omitempty"`
 	// Total of data_upload and data_download.
-	DataTotal *int32 `json:"data_total,omitempty"`
+	DataTotal *int `json:"data_total,omitempty"`
 	// Total data uploaded in bytes, aggregated by the query parameters.
-	DataUpload *int32 `json:"data_upload,omitempty"`
+	DataUpload *int `json:"data_upload,omitempty"`
 	// SID of the Fleet resource on which the usage occurred.
 	FleetSid *string `json:"fleet_sid,omitempty"`
 	// Alpha-2 ISO Country Code of the country the usage occurred in.
