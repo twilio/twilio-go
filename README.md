@@ -366,8 +366,8 @@ func main() {
     }
     defaultClient.SetAccountSid(accountSid)
 
-    coreApiService := apiv2010.NewDefaultApiServiceWithClient(defaultClient)
-    serverlessApiService := serverless.NewDefaultApiServiceWithClient(defaultClient)
+    coreApiService := apiv2010.NewApiServiceWithClient(defaultClient)
+    serverlessApiService := serverless.NewApiServiceWithClient(defaultClient)
 }
 ```
 
@@ -412,7 +412,7 @@ func main() {
     twilioClient := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{Client: customClient})
 
     // You may also use custom clients with standalone product services
-    twilioApiV2010 := openapi.NewDefaultApiServiceWithClient(customClient)
+    twilioApiV2010 := openapi.NewApiServiceWithClient(customClient)
 }
 ```
 
