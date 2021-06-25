@@ -1,0 +1,225 @@
+# ServicesChannelsApi
+
+All URIs are relative to *https://chat.twilio.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**CreateChannel**](ServicesChannelsApi.md#CreateChannel) | **Post** /v1/Services/{ServiceSid}/Channels | 
+[**DeleteChannel**](ServicesChannelsApi.md#DeleteChannel) | **Delete** /v1/Services/{ServiceSid}/Channels/{Sid} | 
+[**FetchChannel**](ServicesChannelsApi.md#FetchChannel) | **Get** /v1/Services/{ServiceSid}/Channels/{Sid} | 
+[**ListChannel**](ServicesChannelsApi.md#ListChannel) | **Get** /v1/Services/{ServiceSid}/Channels | 
+[**UpdateChannel**](ServicesChannelsApi.md#UpdateChannel) | **Post** /v1/Services/{ServiceSid}/Channels/{Sid} | 
+
+
+
+## CreateChannel
+
+> ChatV1ServiceChannel CreateChannel(ctx, ServiceSidoptional)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to create the resource under.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateChannelParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Attributes** | **string** | A valid JSON string that contains application-specific data.
+**FriendlyName** | **string** | A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+**Type** | **string** | The visibility of the channel. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service.
+
+### Return type
+
+[**ChatV1ServiceChannel**](ChatV1ServiceChannel.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteChannel
+
+> DeleteChannel(ctx, ServiceSidSid)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to delete the resource from.
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Channel resource to delete.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteChannelParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FetchChannel
+
+> ChatV1ServiceChannel FetchChannel(ctx, ServiceSidSid)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to fetch the resource from.
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Channel resource to fetch.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchChannelParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+
+### Return type
+
+[**ChatV1ServiceChannel**](ChatV1ServiceChannel.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListChannel
+
+> ListChannelResponse ListChannel(ctx, ServiceSidoptional)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to read the resources from.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListChannelParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Type** | **[]string** | The visibility of the Channels to read. Can be: &#x60;public&#x60; or &#x60;private&#x60; and defaults to &#x60;public&#x60;.
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+### Return type
+
+[**ListChannelResponse**](ListChannelResponse.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateChannel
+
+> ChatV1ServiceChannel UpdateChannel(ctx, ServiceSidSidoptional)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The SID of the [Service](https://www.twilio.com/docs/api/chat/rest/services) to update the resource from.
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the Channel resource to update.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateChannelParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Attributes** | **string** | A valid JSON string that contains application-specific data.
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource&#39;s &#x60;sid&#x60; in the URL. This value must be 64 characters or less in length and be unique within the Service.
+
+### Return type
+
+[**ChatV1ServiceChannel**](ChatV1ServiceChannel.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+

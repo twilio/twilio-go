@@ -31,54 +31,54 @@ All URIs are relative to *https://sync.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateDocument**](docs/DefaultApi.md#createdocument) | **Post** /v1/Services/{ServiceSid}/Documents | 
-*DefaultApi* | [**CreateService**](docs/DefaultApi.md#createservice) | **Post** /v1/Services | 
-*DefaultApi* | [**CreateStreamMessage**](docs/DefaultApi.md#createstreammessage) | **Post** /v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages | 
-*DefaultApi* | [**CreateSyncList**](docs/DefaultApi.md#createsynclist) | **Post** /v1/Services/{ServiceSid}/Lists | 
-*DefaultApi* | [**CreateSyncListItem**](docs/DefaultApi.md#createsynclistitem) | **Post** /v1/Services/{ServiceSid}/Lists/{ListSid}/Items | 
-*DefaultApi* | [**CreateSyncMap**](docs/DefaultApi.md#createsyncmap) | **Post** /v1/Services/{ServiceSid}/Maps | 
-*DefaultApi* | [**CreateSyncMapItem**](docs/DefaultApi.md#createsyncmapitem) | **Post** /v1/Services/{ServiceSid}/Maps/{MapSid}/Items | 
-*DefaultApi* | [**CreateSyncStream**](docs/DefaultApi.md#createsyncstream) | **Post** /v1/Services/{ServiceSid}/Streams | 
-*DefaultApi* | [**DeleteDocument**](docs/DefaultApi.md#deletedocument) | **Delete** /v1/Services/{ServiceSid}/Documents/{Sid} | 
-*DefaultApi* | [**DeleteDocumentPermission**](docs/DefaultApi.md#deletedocumentpermission) | **Delete** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity} | 
-*DefaultApi* | [**DeleteService**](docs/DefaultApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | 
-*DefaultApi* | [**DeleteSyncList**](docs/DefaultApi.md#deletesynclist) | **Delete** /v1/Services/{ServiceSid}/Lists/{Sid} | 
-*DefaultApi* | [**DeleteSyncListItem**](docs/DefaultApi.md#deletesynclistitem) | **Delete** /v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index} | 
-*DefaultApi* | [**DeleteSyncListPermission**](docs/DefaultApi.md#deletesynclistpermission) | **Delete** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity} | 
-*DefaultApi* | [**DeleteSyncMap**](docs/DefaultApi.md#deletesyncmap) | **Delete** /v1/Services/{ServiceSid}/Maps/{Sid} | 
-*DefaultApi* | [**DeleteSyncMapItem**](docs/DefaultApi.md#deletesyncmapitem) | **Delete** /v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key} | 
-*DefaultApi* | [**DeleteSyncMapPermission**](docs/DefaultApi.md#deletesyncmappermission) | **Delete** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity} | 
-*DefaultApi* | [**DeleteSyncStream**](docs/DefaultApi.md#deletesyncstream) | **Delete** /v1/Services/{ServiceSid}/Streams/{Sid} | 
-*DefaultApi* | [**FetchDocument**](docs/DefaultApi.md#fetchdocument) | **Get** /v1/Services/{ServiceSid}/Documents/{Sid} | 
-*DefaultApi* | [**FetchDocumentPermission**](docs/DefaultApi.md#fetchdocumentpermission) | **Get** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity} | 
-*DefaultApi* | [**FetchService**](docs/DefaultApi.md#fetchservice) | **Get** /v1/Services/{Sid} | 
-*DefaultApi* | [**FetchSyncList**](docs/DefaultApi.md#fetchsynclist) | **Get** /v1/Services/{ServiceSid}/Lists/{Sid} | 
-*DefaultApi* | [**FetchSyncListItem**](docs/DefaultApi.md#fetchsynclistitem) | **Get** /v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index} | 
-*DefaultApi* | [**FetchSyncListPermission**](docs/DefaultApi.md#fetchsynclistpermission) | **Get** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity} | 
-*DefaultApi* | [**FetchSyncMap**](docs/DefaultApi.md#fetchsyncmap) | **Get** /v1/Services/{ServiceSid}/Maps/{Sid} | 
-*DefaultApi* | [**FetchSyncMapItem**](docs/DefaultApi.md#fetchsyncmapitem) | **Get** /v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key} | 
-*DefaultApi* | [**FetchSyncMapPermission**](docs/DefaultApi.md#fetchsyncmappermission) | **Get** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity} | 
-*DefaultApi* | [**FetchSyncStream**](docs/DefaultApi.md#fetchsyncstream) | **Get** /v1/Services/{ServiceSid}/Streams/{Sid} | 
-*DefaultApi* | [**ListDocument**](docs/DefaultApi.md#listdocument) | **Get** /v1/Services/{ServiceSid}/Documents | 
-*DefaultApi* | [**ListDocumentPermission**](docs/DefaultApi.md#listdocumentpermission) | **Get** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions | 
-*DefaultApi* | [**ListService**](docs/DefaultApi.md#listservice) | **Get** /v1/Services | 
-*DefaultApi* | [**ListSyncList**](docs/DefaultApi.md#listsynclist) | **Get** /v1/Services/{ServiceSid}/Lists | 
-*DefaultApi* | [**ListSyncListItem**](docs/DefaultApi.md#listsynclistitem) | **Get** /v1/Services/{ServiceSid}/Lists/{ListSid}/Items | 
-*DefaultApi* | [**ListSyncListPermission**](docs/DefaultApi.md#listsynclistpermission) | **Get** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions | 
-*DefaultApi* | [**ListSyncMap**](docs/DefaultApi.md#listsyncmap) | **Get** /v1/Services/{ServiceSid}/Maps | 
-*DefaultApi* | [**ListSyncMapItem**](docs/DefaultApi.md#listsyncmapitem) | **Get** /v1/Services/{ServiceSid}/Maps/{MapSid}/Items | 
-*DefaultApi* | [**ListSyncMapPermission**](docs/DefaultApi.md#listsyncmappermission) | **Get** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions | 
-*DefaultApi* | [**ListSyncStream**](docs/DefaultApi.md#listsyncstream) | **Get** /v1/Services/{ServiceSid}/Streams | 
-*DefaultApi* | [**UpdateDocument**](docs/DefaultApi.md#updatedocument) | **Post** /v1/Services/{ServiceSid}/Documents/{Sid} | 
-*DefaultApi* | [**UpdateDocumentPermission**](docs/DefaultApi.md#updatedocumentpermission) | **Post** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity} | 
-*DefaultApi* | [**UpdateService**](docs/DefaultApi.md#updateservice) | **Post** /v1/Services/{Sid} | 
-*DefaultApi* | [**UpdateSyncList**](docs/DefaultApi.md#updatesynclist) | **Post** /v1/Services/{ServiceSid}/Lists/{Sid} | 
-*DefaultApi* | [**UpdateSyncListItem**](docs/DefaultApi.md#updatesynclistitem) | **Post** /v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index} | 
-*DefaultApi* | [**UpdateSyncListPermission**](docs/DefaultApi.md#updatesynclistpermission) | **Post** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity} | 
-*DefaultApi* | [**UpdateSyncMap**](docs/DefaultApi.md#updatesyncmap) | **Post** /v1/Services/{ServiceSid}/Maps/{Sid} | 
-*DefaultApi* | [**UpdateSyncMapItem**](docs/DefaultApi.md#updatesyncmapitem) | **Post** /v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key} | 
-*DefaultApi* | [**UpdateSyncMapPermission**](docs/DefaultApi.md#updatesyncmappermission) | **Post** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity} | 
-*DefaultApi* | [**UpdateSyncStream**](docs/DefaultApi.md#updatesyncstream) | **Post** /v1/Services/{ServiceSid}/Streams/{Sid} | 
+*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v1/Services | 
+*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | 
+*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v1/Services/{Sid} | 
+*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v1/Services | 
+*ServicesApi* | [**UpdateService**](docs/ServicesApi.md#updateservice) | **Post** /v1/Services/{Sid} | 
+*ServicesDocumentsApi* | [**CreateDocument**](docs/ServicesDocumentsApi.md#createdocument) | **Post** /v1/Services/{ServiceSid}/Documents | 
+*ServicesDocumentsApi* | [**DeleteDocument**](docs/ServicesDocumentsApi.md#deletedocument) | **Delete** /v1/Services/{ServiceSid}/Documents/{Sid} | 
+*ServicesDocumentsApi* | [**FetchDocument**](docs/ServicesDocumentsApi.md#fetchdocument) | **Get** /v1/Services/{ServiceSid}/Documents/{Sid} | 
+*ServicesDocumentsApi* | [**ListDocument**](docs/ServicesDocumentsApi.md#listdocument) | **Get** /v1/Services/{ServiceSid}/Documents | 
+*ServicesDocumentsApi* | [**UpdateDocument**](docs/ServicesDocumentsApi.md#updatedocument) | **Post** /v1/Services/{ServiceSid}/Documents/{Sid} | 
+*ServicesDocumentsPermissionsApi* | [**DeleteDocumentPermission**](docs/ServicesDocumentsPermissionsApi.md#deletedocumentpermission) | **Delete** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity} | 
+*ServicesDocumentsPermissionsApi* | [**FetchDocumentPermission**](docs/ServicesDocumentsPermissionsApi.md#fetchdocumentpermission) | **Get** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity} | 
+*ServicesDocumentsPermissionsApi* | [**ListDocumentPermission**](docs/ServicesDocumentsPermissionsApi.md#listdocumentpermission) | **Get** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions | 
+*ServicesDocumentsPermissionsApi* | [**UpdateDocumentPermission**](docs/ServicesDocumentsPermissionsApi.md#updatedocumentpermission) | **Post** /v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity} | 
+*ServicesListsApi* | [**CreateSyncList**](docs/ServicesListsApi.md#createsynclist) | **Post** /v1/Services/{ServiceSid}/Lists | 
+*ServicesListsApi* | [**DeleteSyncList**](docs/ServicesListsApi.md#deletesynclist) | **Delete** /v1/Services/{ServiceSid}/Lists/{Sid} | 
+*ServicesListsApi* | [**FetchSyncList**](docs/ServicesListsApi.md#fetchsynclist) | **Get** /v1/Services/{ServiceSid}/Lists/{Sid} | 
+*ServicesListsApi* | [**ListSyncList**](docs/ServicesListsApi.md#listsynclist) | **Get** /v1/Services/{ServiceSid}/Lists | 
+*ServicesListsApi* | [**UpdateSyncList**](docs/ServicesListsApi.md#updatesynclist) | **Post** /v1/Services/{ServiceSid}/Lists/{Sid} | 
+*ServicesListsItemsApi* | [**CreateSyncListItem**](docs/ServicesListsItemsApi.md#createsynclistitem) | **Post** /v1/Services/{ServiceSid}/Lists/{ListSid}/Items | 
+*ServicesListsItemsApi* | [**DeleteSyncListItem**](docs/ServicesListsItemsApi.md#deletesynclistitem) | **Delete** /v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index} | 
+*ServicesListsItemsApi* | [**FetchSyncListItem**](docs/ServicesListsItemsApi.md#fetchsynclistitem) | **Get** /v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index} | 
+*ServicesListsItemsApi* | [**ListSyncListItem**](docs/ServicesListsItemsApi.md#listsynclistitem) | **Get** /v1/Services/{ServiceSid}/Lists/{ListSid}/Items | 
+*ServicesListsItemsApi* | [**UpdateSyncListItem**](docs/ServicesListsItemsApi.md#updatesynclistitem) | **Post** /v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index} | 
+*ServicesListsPermissionsApi* | [**DeleteSyncListPermission**](docs/ServicesListsPermissionsApi.md#deletesynclistpermission) | **Delete** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity} | 
+*ServicesListsPermissionsApi* | [**FetchSyncListPermission**](docs/ServicesListsPermissionsApi.md#fetchsynclistpermission) | **Get** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity} | 
+*ServicesListsPermissionsApi* | [**ListSyncListPermission**](docs/ServicesListsPermissionsApi.md#listsynclistpermission) | **Get** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions | 
+*ServicesListsPermissionsApi* | [**UpdateSyncListPermission**](docs/ServicesListsPermissionsApi.md#updatesynclistpermission) | **Post** /v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity} | 
+*ServicesMapsApi* | [**CreateSyncMap**](docs/ServicesMapsApi.md#createsyncmap) | **Post** /v1/Services/{ServiceSid}/Maps | 
+*ServicesMapsApi* | [**DeleteSyncMap**](docs/ServicesMapsApi.md#deletesyncmap) | **Delete** /v1/Services/{ServiceSid}/Maps/{Sid} | 
+*ServicesMapsApi* | [**FetchSyncMap**](docs/ServicesMapsApi.md#fetchsyncmap) | **Get** /v1/Services/{ServiceSid}/Maps/{Sid} | 
+*ServicesMapsApi* | [**ListSyncMap**](docs/ServicesMapsApi.md#listsyncmap) | **Get** /v1/Services/{ServiceSid}/Maps | 
+*ServicesMapsApi* | [**UpdateSyncMap**](docs/ServicesMapsApi.md#updatesyncmap) | **Post** /v1/Services/{ServiceSid}/Maps/{Sid} | 
+*ServicesMapsItemsApi* | [**CreateSyncMapItem**](docs/ServicesMapsItemsApi.md#createsyncmapitem) | **Post** /v1/Services/{ServiceSid}/Maps/{MapSid}/Items | 
+*ServicesMapsItemsApi* | [**DeleteSyncMapItem**](docs/ServicesMapsItemsApi.md#deletesyncmapitem) | **Delete** /v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key} | 
+*ServicesMapsItemsApi* | [**FetchSyncMapItem**](docs/ServicesMapsItemsApi.md#fetchsyncmapitem) | **Get** /v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key} | 
+*ServicesMapsItemsApi* | [**ListSyncMapItem**](docs/ServicesMapsItemsApi.md#listsyncmapitem) | **Get** /v1/Services/{ServiceSid}/Maps/{MapSid}/Items | 
+*ServicesMapsItemsApi* | [**UpdateSyncMapItem**](docs/ServicesMapsItemsApi.md#updatesyncmapitem) | **Post** /v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key} | 
+*ServicesMapsPermissionsApi* | [**DeleteSyncMapPermission**](docs/ServicesMapsPermissionsApi.md#deletesyncmappermission) | **Delete** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity} | 
+*ServicesMapsPermissionsApi* | [**FetchSyncMapPermission**](docs/ServicesMapsPermissionsApi.md#fetchsyncmappermission) | **Get** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity} | 
+*ServicesMapsPermissionsApi* | [**ListSyncMapPermission**](docs/ServicesMapsPermissionsApi.md#listsyncmappermission) | **Get** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions | 
+*ServicesMapsPermissionsApi* | [**UpdateSyncMapPermission**](docs/ServicesMapsPermissionsApi.md#updatesyncmappermission) | **Post** /v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity} | 
+*ServicesStreamsApi* | [**CreateSyncStream**](docs/ServicesStreamsApi.md#createsyncstream) | **Post** /v1/Services/{ServiceSid}/Streams | 
+*ServicesStreamsApi* | [**DeleteSyncStream**](docs/ServicesStreamsApi.md#deletesyncstream) | **Delete** /v1/Services/{ServiceSid}/Streams/{Sid} | 
+*ServicesStreamsApi* | [**FetchSyncStream**](docs/ServicesStreamsApi.md#fetchsyncstream) | **Get** /v1/Services/{ServiceSid}/Streams/{Sid} | 
+*ServicesStreamsApi* | [**ListSyncStream**](docs/ServicesStreamsApi.md#listsyncstream) | **Get** /v1/Services/{ServiceSid}/Streams | 
+*ServicesStreamsApi* | [**UpdateSyncStream**](docs/ServicesStreamsApi.md#updatesyncstream) | **Post** /v1/Services/{ServiceSid}/Streams/{Sid} | 
+*ServicesStreamsMessagesApi* | [**CreateStreamMessage**](docs/ServicesStreamsMessagesApi.md#createstreammessage) | **Post** /v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages | 
 
 
 ## Documentation For Models
@@ -124,9 +124,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

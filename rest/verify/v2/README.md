@@ -31,53 +31,53 @@ All URIs are relative to *https://verify.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateAccessToken**](docs/DefaultApi.md#createaccesstoken) | **Post** /v2/Services/{ServiceSid}/AccessTokens | 
-*DefaultApi* | [**CreateBucket**](docs/DefaultApi.md#createbucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | 
-*DefaultApi* | [**CreateChallenge**](docs/DefaultApi.md#createchallenge) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges | 
-*DefaultApi* | [**CreateEntity**](docs/DefaultApi.md#createentity) | **Post** /v2/Services/{ServiceSid}/Entities | 
-*DefaultApi* | [**CreateMessagingConfiguration**](docs/DefaultApi.md#createmessagingconfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations | 
-*DefaultApi* | [**CreateNewFactor**](docs/DefaultApi.md#createnewfactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | 
-*DefaultApi* | [**CreateNotification**](docs/DefaultApi.md#createnotification) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications | 
-*DefaultApi* | [**CreateRateLimit**](docs/DefaultApi.md#createratelimit) | **Post** /v2/Services/{ServiceSid}/RateLimits | 
-*DefaultApi* | [**CreateService**](docs/DefaultApi.md#createservice) | **Post** /v2/Services | 
-*DefaultApi* | [**CreateVerification**](docs/DefaultApi.md#createverification) | **Post** /v2/Services/{ServiceSid}/Verifications | 
-*DefaultApi* | [**CreateVerificationCheck**](docs/DefaultApi.md#createverificationcheck) | **Post** /v2/Services/{ServiceSid}/VerificationCheck | 
-*DefaultApi* | [**CreateWebhook**](docs/DefaultApi.md#createwebhook) | **Post** /v2/Services/{ServiceSid}/Webhooks | 
-*DefaultApi* | [**DeleteBucket**](docs/DefaultApi.md#deletebucket) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
-*DefaultApi* | [**DeleteEntity**](docs/DefaultApi.md#deleteentity) | **Delete** /v2/Services/{ServiceSid}/Entities/{Identity} | 
-*DefaultApi* | [**DeleteFactor**](docs/DefaultApi.md#deletefactor) | **Delete** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | 
-*DefaultApi* | [**DeleteMessagingConfiguration**](docs/DefaultApi.md#deletemessagingconfiguration) | **Delete** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | 
-*DefaultApi* | [**DeleteRateLimit**](docs/DefaultApi.md#deleteratelimit) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
-*DefaultApi* | [**DeleteService**](docs/DefaultApi.md#deleteservice) | **Delete** /v2/Services/{Sid} | 
-*DefaultApi* | [**DeleteWebhook**](docs/DefaultApi.md#deletewebhook) | **Delete** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
-*DefaultApi* | [**FetchBucket**](docs/DefaultApi.md#fetchbucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
-*DefaultApi* | [**FetchChallenge**](docs/DefaultApi.md#fetchchallenge) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid} | 
-*DefaultApi* | [**FetchEntity**](docs/DefaultApi.md#fetchentity) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity} | 
-*DefaultApi* | [**FetchFactor**](docs/DefaultApi.md#fetchfactor) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | 
-*DefaultApi* | [**FetchForm**](docs/DefaultApi.md#fetchform) | **Get** /v2/Forms/{FormType} | 
-*DefaultApi* | [**FetchMessagingConfiguration**](docs/DefaultApi.md#fetchmessagingconfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | 
-*DefaultApi* | [**FetchRateLimit**](docs/DefaultApi.md#fetchratelimit) | **Get** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
-*DefaultApi* | [**FetchService**](docs/DefaultApi.md#fetchservice) | **Get** /v2/Services/{Sid} | 
-*DefaultApi* | [**FetchVerification**](docs/DefaultApi.md#fetchverification) | **Get** /v2/Services/{ServiceSid}/Verifications/{Sid} | 
-*DefaultApi* | [**FetchVerificationAttempt**](docs/DefaultApi.md#fetchverificationattempt) | **Get** /v2/Attempts/{Sid} | 
-*DefaultApi* | [**FetchWebhook**](docs/DefaultApi.md#fetchwebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
-*DefaultApi* | [**ListBucket**](docs/DefaultApi.md#listbucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | 
-*DefaultApi* | [**ListChallenge**](docs/DefaultApi.md#listchallenge) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges | 
-*DefaultApi* | [**ListEntity**](docs/DefaultApi.md#listentity) | **Get** /v2/Services/{ServiceSid}/Entities | 
-*DefaultApi* | [**ListFactor**](docs/DefaultApi.md#listfactor) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | 
-*DefaultApi* | [**ListMessagingConfiguration**](docs/DefaultApi.md#listmessagingconfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations | 
-*DefaultApi* | [**ListRateLimit**](docs/DefaultApi.md#listratelimit) | **Get** /v2/Services/{ServiceSid}/RateLimits | 
-*DefaultApi* | [**ListService**](docs/DefaultApi.md#listservice) | **Get** /v2/Services | 
-*DefaultApi* | [**ListVerificationAttempt**](docs/DefaultApi.md#listverificationattempt) | **Get** /v2/Attempts | 
-*DefaultApi* | [**ListWebhook**](docs/DefaultApi.md#listwebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks | 
-*DefaultApi* | [**UpdateBucket**](docs/DefaultApi.md#updatebucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
-*DefaultApi* | [**UpdateChallenge**](docs/DefaultApi.md#updatechallenge) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid} | 
-*DefaultApi* | [**UpdateFactor**](docs/DefaultApi.md#updatefactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | 
-*DefaultApi* | [**UpdateMessagingConfiguration**](docs/DefaultApi.md#updatemessagingconfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | 
-*DefaultApi* | [**UpdateRateLimit**](docs/DefaultApi.md#updateratelimit) | **Post** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
-*DefaultApi* | [**UpdateService**](docs/DefaultApi.md#updateservice) | **Post** /v2/Services/{Sid} | 
-*DefaultApi* | [**UpdateVerification**](docs/DefaultApi.md#updateverification) | **Post** /v2/Services/{ServiceSid}/Verifications/{Sid} | 
-*DefaultApi* | [**UpdateWebhook**](docs/DefaultApi.md#updatewebhook) | **Post** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
+*AttemptsApi* | [**FetchVerificationAttempt**](docs/AttemptsApi.md#fetchverificationattempt) | **Get** /v2/Attempts/{Sid} | 
+*AttemptsApi* | [**ListVerificationAttempt**](docs/AttemptsApi.md#listverificationattempt) | **Get** /v2/Attempts | 
+*FormsApi* | [**FetchForm**](docs/FormsApi.md#fetchform) | **Get** /v2/Forms/{FormType} | 
+*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v2/Services | 
+*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v2/Services/{Sid} | 
+*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v2/Services/{Sid} | 
+*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v2/Services | 
+*ServicesApi* | [**UpdateService**](docs/ServicesApi.md#updateservice) | **Post** /v2/Services/{Sid} | 
+*ServicesAccessTokensApi* | [**CreateAccessToken**](docs/ServicesAccessTokensApi.md#createaccesstoken) | **Post** /v2/Services/{ServiceSid}/AccessTokens | 
+*ServicesEntitiesApi* | [**CreateEntity**](docs/ServicesEntitiesApi.md#createentity) | **Post** /v2/Services/{ServiceSid}/Entities | 
+*ServicesEntitiesApi* | [**DeleteEntity**](docs/ServicesEntitiesApi.md#deleteentity) | **Delete** /v2/Services/{ServiceSid}/Entities/{Identity} | 
+*ServicesEntitiesApi* | [**FetchEntity**](docs/ServicesEntitiesApi.md#fetchentity) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity} | 
+*ServicesEntitiesApi* | [**ListEntity**](docs/ServicesEntitiesApi.md#listentity) | **Get** /v2/Services/{ServiceSid}/Entities | 
+*ServicesEntitiesChallengesApi* | [**CreateChallenge**](docs/ServicesEntitiesChallengesApi.md#createchallenge) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges | 
+*ServicesEntitiesChallengesApi* | [**FetchChallenge**](docs/ServicesEntitiesChallengesApi.md#fetchchallenge) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid} | 
+*ServicesEntitiesChallengesApi* | [**ListChallenge**](docs/ServicesEntitiesChallengesApi.md#listchallenge) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges | 
+*ServicesEntitiesChallengesApi* | [**UpdateChallenge**](docs/ServicesEntitiesChallengesApi.md#updatechallenge) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid} | 
+*ServicesEntitiesChallengesNotificationsApi* | [**CreateNotification**](docs/ServicesEntitiesChallengesNotificationsApi.md#createnotification) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications | 
+*ServicesEntitiesFactorsApi* | [**CreateNewFactor**](docs/ServicesEntitiesFactorsApi.md#createnewfactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | 
+*ServicesEntitiesFactorsApi* | [**DeleteFactor**](docs/ServicesEntitiesFactorsApi.md#deletefactor) | **Delete** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | 
+*ServicesEntitiesFactorsApi* | [**FetchFactor**](docs/ServicesEntitiesFactorsApi.md#fetchfactor) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | 
+*ServicesEntitiesFactorsApi* | [**ListFactor**](docs/ServicesEntitiesFactorsApi.md#listfactor) | **Get** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors | 
+*ServicesEntitiesFactorsApi* | [**UpdateFactor**](docs/ServicesEntitiesFactorsApi.md#updatefactor) | **Post** /v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid} | 
+*ServicesMessagingConfigurationsApi* | [**CreateMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#createmessagingconfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations | 
+*ServicesMessagingConfigurationsApi* | [**DeleteMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#deletemessagingconfiguration) | **Delete** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | 
+*ServicesMessagingConfigurationsApi* | [**FetchMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#fetchmessagingconfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | 
+*ServicesMessagingConfigurationsApi* | [**ListMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#listmessagingconfiguration) | **Get** /v2/Services/{ServiceSid}/MessagingConfigurations | 
+*ServicesMessagingConfigurationsApi* | [**UpdateMessagingConfiguration**](docs/ServicesMessagingConfigurationsApi.md#updatemessagingconfiguration) | **Post** /v2/Services/{ServiceSid}/MessagingConfigurations/{Country} | 
+*ServicesRateLimitsApi* | [**CreateRateLimit**](docs/ServicesRateLimitsApi.md#createratelimit) | **Post** /v2/Services/{ServiceSid}/RateLimits | 
+*ServicesRateLimitsApi* | [**DeleteRateLimit**](docs/ServicesRateLimitsApi.md#deleteratelimit) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
+*ServicesRateLimitsApi* | [**FetchRateLimit**](docs/ServicesRateLimitsApi.md#fetchratelimit) | **Get** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
+*ServicesRateLimitsApi* | [**ListRateLimit**](docs/ServicesRateLimitsApi.md#listratelimit) | **Get** /v2/Services/{ServiceSid}/RateLimits | 
+*ServicesRateLimitsApi* | [**UpdateRateLimit**](docs/ServicesRateLimitsApi.md#updateratelimit) | **Post** /v2/Services/{ServiceSid}/RateLimits/{Sid} | 
+*ServicesRateLimitsBucketsApi* | [**CreateBucket**](docs/ServicesRateLimitsBucketsApi.md#createbucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | 
+*ServicesRateLimitsBucketsApi* | [**DeleteBucket**](docs/ServicesRateLimitsBucketsApi.md#deletebucket) | **Delete** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
+*ServicesRateLimitsBucketsApi* | [**FetchBucket**](docs/ServicesRateLimitsBucketsApi.md#fetchbucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
+*ServicesRateLimitsBucketsApi* | [**ListBucket**](docs/ServicesRateLimitsBucketsApi.md#listbucket) | **Get** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets | 
+*ServicesRateLimitsBucketsApi* | [**UpdateBucket**](docs/ServicesRateLimitsBucketsApi.md#updatebucket) | **Post** /v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid} | 
+*ServicesVerificationCheckApi* | [**CreateVerificationCheck**](docs/ServicesVerificationCheckApi.md#createverificationcheck) | **Post** /v2/Services/{ServiceSid}/VerificationCheck | 
+*ServicesVerificationsApi* | [**CreateVerification**](docs/ServicesVerificationsApi.md#createverification) | **Post** /v2/Services/{ServiceSid}/Verifications | 
+*ServicesVerificationsApi* | [**FetchVerification**](docs/ServicesVerificationsApi.md#fetchverification) | **Get** /v2/Services/{ServiceSid}/Verifications/{Sid} | 
+*ServicesVerificationsApi* | [**UpdateVerification**](docs/ServicesVerificationsApi.md#updateverification) | **Post** /v2/Services/{ServiceSid}/Verifications/{Sid} | 
+*ServicesWebhooksApi* | [**CreateWebhook**](docs/ServicesWebhooksApi.md#createwebhook) | **Post** /v2/Services/{ServiceSid}/Webhooks | 
+*ServicesWebhooksApi* | [**DeleteWebhook**](docs/ServicesWebhooksApi.md#deletewebhook) | **Delete** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
+*ServicesWebhooksApi* | [**FetchWebhook**](docs/ServicesWebhooksApi.md#fetchwebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
+*ServicesWebhooksApi* | [**ListWebhook**](docs/ServicesWebhooksApi.md#listwebhook) | **Get** /v2/Services/{ServiceSid}/Webhooks | 
+*ServicesWebhooksApi* | [**UpdateWebhook**](docs/ServicesWebhooksApi.md#updatewebhook) | **Post** /v2/Services/{ServiceSid}/Webhooks/{Sid} | 
 
 
 ## Documentation For Models
@@ -126,9 +126,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

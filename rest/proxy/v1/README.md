@@ -31,36 +31,36 @@ All URIs are relative to *https://proxy.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateMessageInteraction**](docs/DefaultApi.md#createmessageinteraction) | **Post** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions | 
-*DefaultApi* | [**CreateParticipant**](docs/DefaultApi.md#createparticipant) | **Post** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants | 
-*DefaultApi* | [**CreatePhoneNumber**](docs/DefaultApi.md#createphonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | 
-*DefaultApi* | [**CreateService**](docs/DefaultApi.md#createservice) | **Post** /v1/Services | 
-*DefaultApi* | [**CreateSession**](docs/DefaultApi.md#createsession) | **Post** /v1/Services/{ServiceSid}/Sessions | 
-*DefaultApi* | [**CreateShortCode**](docs/DefaultApi.md#createshortcode) | **Post** /v1/Services/{ServiceSid}/ShortCodes | 
-*DefaultApi* | [**DeleteInteraction**](docs/DefaultApi.md#deleteinteraction) | **Delete** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid} | 
-*DefaultApi* | [**DeleteParticipant**](docs/DefaultApi.md#deleteparticipant) | **Delete** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid} | 
-*DefaultApi* | [**DeletePhoneNumber**](docs/DefaultApi.md#deletephonenumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
-*DefaultApi* | [**DeleteService**](docs/DefaultApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | 
-*DefaultApi* | [**DeleteSession**](docs/DefaultApi.md#deletesession) | **Delete** /v1/Services/{ServiceSid}/Sessions/{Sid} | 
-*DefaultApi* | [**DeleteShortCode**](docs/DefaultApi.md#deleteshortcode) | **Delete** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
-*DefaultApi* | [**FetchInteraction**](docs/DefaultApi.md#fetchinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid} | 
-*DefaultApi* | [**FetchMessageInteraction**](docs/DefaultApi.md#fetchmessageinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid} | 
-*DefaultApi* | [**FetchParticipant**](docs/DefaultApi.md#fetchparticipant) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid} | 
-*DefaultApi* | [**FetchPhoneNumber**](docs/DefaultApi.md#fetchphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
-*DefaultApi* | [**FetchService**](docs/DefaultApi.md#fetchservice) | **Get** /v1/Services/{Sid} | 
-*DefaultApi* | [**FetchSession**](docs/DefaultApi.md#fetchsession) | **Get** /v1/Services/{ServiceSid}/Sessions/{Sid} | 
-*DefaultApi* | [**FetchShortCode**](docs/DefaultApi.md#fetchshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
-*DefaultApi* | [**ListInteraction**](docs/DefaultApi.md#listinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions | 
-*DefaultApi* | [**ListMessageInteraction**](docs/DefaultApi.md#listmessageinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions | 
-*DefaultApi* | [**ListParticipant**](docs/DefaultApi.md#listparticipant) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants | 
-*DefaultApi* | [**ListPhoneNumber**](docs/DefaultApi.md#listphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers | 
-*DefaultApi* | [**ListService**](docs/DefaultApi.md#listservice) | **Get** /v1/Services | 
-*DefaultApi* | [**ListSession**](docs/DefaultApi.md#listsession) | **Get** /v1/Services/{ServiceSid}/Sessions | 
-*DefaultApi* | [**ListShortCode**](docs/DefaultApi.md#listshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes | 
-*DefaultApi* | [**UpdatePhoneNumber**](docs/DefaultApi.md#updatephonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
-*DefaultApi* | [**UpdateService**](docs/DefaultApi.md#updateservice) | **Post** /v1/Services/{Sid} | 
-*DefaultApi* | [**UpdateSession**](docs/DefaultApi.md#updatesession) | **Post** /v1/Services/{ServiceSid}/Sessions/{Sid} | 
-*DefaultApi* | [**UpdateShortCode**](docs/DefaultApi.md#updateshortcode) | **Post** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
+*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v1/Services | 
+*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | 
+*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v1/Services/{Sid} | 
+*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v1/Services | 
+*ServicesApi* | [**UpdateService**](docs/ServicesApi.md#updateservice) | **Post** /v1/Services/{Sid} | 
+*ServicesPhoneNumbersApi* | [**CreatePhoneNumber**](docs/ServicesPhoneNumbersApi.md#createphonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | 
+*ServicesPhoneNumbersApi* | [**DeletePhoneNumber**](docs/ServicesPhoneNumbersApi.md#deletephonenumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
+*ServicesPhoneNumbersApi* | [**FetchPhoneNumber**](docs/ServicesPhoneNumbersApi.md#fetchphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
+*ServicesPhoneNumbersApi* | [**ListPhoneNumber**](docs/ServicesPhoneNumbersApi.md#listphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers | 
+*ServicesPhoneNumbersApi* | [**UpdatePhoneNumber**](docs/ServicesPhoneNumbersApi.md#updatephonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
+*ServicesSessionsApi* | [**CreateSession**](docs/ServicesSessionsApi.md#createsession) | **Post** /v1/Services/{ServiceSid}/Sessions | 
+*ServicesSessionsApi* | [**DeleteSession**](docs/ServicesSessionsApi.md#deletesession) | **Delete** /v1/Services/{ServiceSid}/Sessions/{Sid} | 
+*ServicesSessionsApi* | [**FetchSession**](docs/ServicesSessionsApi.md#fetchsession) | **Get** /v1/Services/{ServiceSid}/Sessions/{Sid} | 
+*ServicesSessionsApi* | [**ListSession**](docs/ServicesSessionsApi.md#listsession) | **Get** /v1/Services/{ServiceSid}/Sessions | 
+*ServicesSessionsApi* | [**UpdateSession**](docs/ServicesSessionsApi.md#updatesession) | **Post** /v1/Services/{ServiceSid}/Sessions/{Sid} | 
+*ServicesSessionsInteractionsApi* | [**DeleteInteraction**](docs/ServicesSessionsInteractionsApi.md#deleteinteraction) | **Delete** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid} | 
+*ServicesSessionsInteractionsApi* | [**FetchInteraction**](docs/ServicesSessionsInteractionsApi.md#fetchinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid} | 
+*ServicesSessionsInteractionsApi* | [**ListInteraction**](docs/ServicesSessionsInteractionsApi.md#listinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions | 
+*ServicesSessionsParticipantsApi* | [**CreateParticipant**](docs/ServicesSessionsParticipantsApi.md#createparticipant) | **Post** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants | 
+*ServicesSessionsParticipantsApi* | [**DeleteParticipant**](docs/ServicesSessionsParticipantsApi.md#deleteparticipant) | **Delete** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid} | 
+*ServicesSessionsParticipantsApi* | [**FetchParticipant**](docs/ServicesSessionsParticipantsApi.md#fetchparticipant) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{Sid} | 
+*ServicesSessionsParticipantsApi* | [**ListParticipant**](docs/ServicesSessionsParticipantsApi.md#listparticipant) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants | 
+*ServicesSessionsParticipantsMessageInteractionsApi* | [**CreateMessageInteraction**](docs/ServicesSessionsParticipantsMessageInteractionsApi.md#createmessageinteraction) | **Post** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions | 
+*ServicesSessionsParticipantsMessageInteractionsApi* | [**FetchMessageInteraction**](docs/ServicesSessionsParticipantsMessageInteractionsApi.md#fetchmessageinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid} | 
+*ServicesSessionsParticipantsMessageInteractionsApi* | [**ListMessageInteraction**](docs/ServicesSessionsParticipantsMessageInteractionsApi.md#listmessageinteraction) | **Get** /v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions | 
+*ServicesShortCodesApi* | [**CreateShortCode**](docs/ServicesShortCodesApi.md#createshortcode) | **Post** /v1/Services/{ServiceSid}/ShortCodes | 
+*ServicesShortCodesApi* | [**DeleteShortCode**](docs/ServicesShortCodesApi.md#deleteshortcode) | **Delete** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
+*ServicesShortCodesApi* | [**FetchShortCode**](docs/ServicesShortCodesApi.md#fetchshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
+*ServicesShortCodesApi* | [**ListShortCode**](docs/ServicesShortCodesApi.md#listshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes | 
+*ServicesShortCodesApi* | [**UpdateShortCode**](docs/ServicesShortCodesApi.md#updateshortcode) | **Post** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
 
 
 ## Documentation For Models
@@ -101,9 +101,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

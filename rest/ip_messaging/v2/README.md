@@ -31,60 +31,60 @@ All URIs are relative to *https://ip-messaging.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateChannel**](docs/DefaultApi.md#createchannel) | **Post** /v2/Services/{ServiceSid}/Channels | 
-*DefaultApi* | [**CreateChannelWebhook**](docs/DefaultApi.md#createchannelwebhook) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks | 
-*DefaultApi* | [**CreateCredential**](docs/DefaultApi.md#createcredential) | **Post** /v2/Credentials | 
-*DefaultApi* | [**CreateInvite**](docs/DefaultApi.md#createinvite) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites | 
-*DefaultApi* | [**CreateMember**](docs/DefaultApi.md#createmember) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members | 
-*DefaultApi* | [**CreateMessage**](docs/DefaultApi.md#createmessage) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages | 
-*DefaultApi* | [**CreateRole**](docs/DefaultApi.md#createrole) | **Post** /v2/Services/{ServiceSid}/Roles | 
-*DefaultApi* | [**CreateService**](docs/DefaultApi.md#createservice) | **Post** /v2/Services | 
-*DefaultApi* | [**CreateUser**](docs/DefaultApi.md#createuser) | **Post** /v2/Services/{ServiceSid}/Users | 
-*DefaultApi* | [**DeleteBinding**](docs/DefaultApi.md#deletebinding) | **Delete** /v2/Services/{ServiceSid}/Bindings/{Sid} | 
-*DefaultApi* | [**DeleteChannel**](docs/DefaultApi.md#deletechannel) | **Delete** /v2/Services/{ServiceSid}/Channels/{Sid} | 
-*DefaultApi* | [**DeleteChannelWebhook**](docs/DefaultApi.md#deletechannelwebhook) | **Delete** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid} | 
-*DefaultApi* | [**DeleteCredential**](docs/DefaultApi.md#deletecredential) | **Delete** /v2/Credentials/{Sid} | 
-*DefaultApi* | [**DeleteInvite**](docs/DefaultApi.md#deleteinvite) | **Delete** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid} | 
-*DefaultApi* | [**DeleteMember**](docs/DefaultApi.md#deletemember) | **Delete** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid} | 
-*DefaultApi* | [**DeleteMessage**](docs/DefaultApi.md#deletemessage) | **Delete** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid} | 
-*DefaultApi* | [**DeleteRole**](docs/DefaultApi.md#deleterole) | **Delete** /v2/Services/{ServiceSid}/Roles/{Sid} | 
-*DefaultApi* | [**DeleteService**](docs/DefaultApi.md#deleteservice) | **Delete** /v2/Services/{Sid} | 
-*DefaultApi* | [**DeleteUser**](docs/DefaultApi.md#deleteuser) | **Delete** /v2/Services/{ServiceSid}/Users/{Sid} | 
-*DefaultApi* | [**DeleteUserBinding**](docs/DefaultApi.md#deleteuserbinding) | **Delete** /v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid} | 
-*DefaultApi* | [**DeleteUserChannel**](docs/DefaultApi.md#deleteuserchannel) | **Delete** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | 
-*DefaultApi* | [**FetchBinding**](docs/DefaultApi.md#fetchbinding) | **Get** /v2/Services/{ServiceSid}/Bindings/{Sid} | 
-*DefaultApi* | [**FetchChannel**](docs/DefaultApi.md#fetchchannel) | **Get** /v2/Services/{ServiceSid}/Channels/{Sid} | 
-*DefaultApi* | [**FetchChannelWebhook**](docs/DefaultApi.md#fetchchannelwebhook) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid} | 
-*DefaultApi* | [**FetchCredential**](docs/DefaultApi.md#fetchcredential) | **Get** /v2/Credentials/{Sid} | 
-*DefaultApi* | [**FetchInvite**](docs/DefaultApi.md#fetchinvite) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid} | 
-*DefaultApi* | [**FetchMember**](docs/DefaultApi.md#fetchmember) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid} | 
-*DefaultApi* | [**FetchMessage**](docs/DefaultApi.md#fetchmessage) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid} | 
-*DefaultApi* | [**FetchRole**](docs/DefaultApi.md#fetchrole) | **Get** /v2/Services/{ServiceSid}/Roles/{Sid} | 
-*DefaultApi* | [**FetchService**](docs/DefaultApi.md#fetchservice) | **Get** /v2/Services/{Sid} | 
-*DefaultApi* | [**FetchUser**](docs/DefaultApi.md#fetchuser) | **Get** /v2/Services/{ServiceSid}/Users/{Sid} | 
-*DefaultApi* | [**FetchUserBinding**](docs/DefaultApi.md#fetchuserbinding) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid} | 
-*DefaultApi* | [**FetchUserChannel**](docs/DefaultApi.md#fetchuserchannel) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | 
-*DefaultApi* | [**ListBinding**](docs/DefaultApi.md#listbinding) | **Get** /v2/Services/{ServiceSid}/Bindings | 
-*DefaultApi* | [**ListChannel**](docs/DefaultApi.md#listchannel) | **Get** /v2/Services/{ServiceSid}/Channels | 
-*DefaultApi* | [**ListChannelWebhook**](docs/DefaultApi.md#listchannelwebhook) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks | 
-*DefaultApi* | [**ListCredential**](docs/DefaultApi.md#listcredential) | **Get** /v2/Credentials | 
-*DefaultApi* | [**ListInvite**](docs/DefaultApi.md#listinvite) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites | 
-*DefaultApi* | [**ListMember**](docs/DefaultApi.md#listmember) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members | 
-*DefaultApi* | [**ListMessage**](docs/DefaultApi.md#listmessage) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages | 
-*DefaultApi* | [**ListRole**](docs/DefaultApi.md#listrole) | **Get** /v2/Services/{ServiceSid}/Roles | 
-*DefaultApi* | [**ListService**](docs/DefaultApi.md#listservice) | **Get** /v2/Services | 
-*DefaultApi* | [**ListUser**](docs/DefaultApi.md#listuser) | **Get** /v2/Services/{ServiceSid}/Users | 
-*DefaultApi* | [**ListUserBinding**](docs/DefaultApi.md#listuserbinding) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Bindings | 
-*DefaultApi* | [**ListUserChannel**](docs/DefaultApi.md#listuserchannel) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels | 
-*DefaultApi* | [**UpdateChannel**](docs/DefaultApi.md#updatechannel) | **Post** /v2/Services/{ServiceSid}/Channels/{Sid} | 
-*DefaultApi* | [**UpdateChannelWebhook**](docs/DefaultApi.md#updatechannelwebhook) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid} | 
-*DefaultApi* | [**UpdateCredential**](docs/DefaultApi.md#updatecredential) | **Post** /v2/Credentials/{Sid} | 
-*DefaultApi* | [**UpdateMember**](docs/DefaultApi.md#updatemember) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid} | 
-*DefaultApi* | [**UpdateMessage**](docs/DefaultApi.md#updatemessage) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid} | 
-*DefaultApi* | [**UpdateRole**](docs/DefaultApi.md#updaterole) | **Post** /v2/Services/{ServiceSid}/Roles/{Sid} | 
-*DefaultApi* | [**UpdateService**](docs/DefaultApi.md#updateservice) | **Post** /v2/Services/{Sid} | 
-*DefaultApi* | [**UpdateUser**](docs/DefaultApi.md#updateuser) | **Post** /v2/Services/{ServiceSid}/Users/{Sid} | 
-*DefaultApi* | [**UpdateUserChannel**](docs/DefaultApi.md#updateuserchannel) | **Post** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | 
+*CredentialsApi* | [**CreateCredential**](docs/CredentialsApi.md#createcredential) | **Post** /v2/Credentials | 
+*CredentialsApi* | [**DeleteCredential**](docs/CredentialsApi.md#deletecredential) | **Delete** /v2/Credentials/{Sid} | 
+*CredentialsApi* | [**FetchCredential**](docs/CredentialsApi.md#fetchcredential) | **Get** /v2/Credentials/{Sid} | 
+*CredentialsApi* | [**ListCredential**](docs/CredentialsApi.md#listcredential) | **Get** /v2/Credentials | 
+*CredentialsApi* | [**UpdateCredential**](docs/CredentialsApi.md#updatecredential) | **Post** /v2/Credentials/{Sid} | 
+*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v2/Services | 
+*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v2/Services/{Sid} | 
+*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v2/Services/{Sid} | 
+*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v2/Services | 
+*ServicesApi* | [**UpdateService**](docs/ServicesApi.md#updateservice) | **Post** /v2/Services/{Sid} | 
+*ServicesBindingsApi* | [**DeleteBinding**](docs/ServicesBindingsApi.md#deletebinding) | **Delete** /v2/Services/{ServiceSid}/Bindings/{Sid} | 
+*ServicesBindingsApi* | [**FetchBinding**](docs/ServicesBindingsApi.md#fetchbinding) | **Get** /v2/Services/{ServiceSid}/Bindings/{Sid} | 
+*ServicesBindingsApi* | [**ListBinding**](docs/ServicesBindingsApi.md#listbinding) | **Get** /v2/Services/{ServiceSid}/Bindings | 
+*ServicesChannelsApi* | [**CreateChannel**](docs/ServicesChannelsApi.md#createchannel) | **Post** /v2/Services/{ServiceSid}/Channels | 
+*ServicesChannelsApi* | [**DeleteChannel**](docs/ServicesChannelsApi.md#deletechannel) | **Delete** /v2/Services/{ServiceSid}/Channels/{Sid} | 
+*ServicesChannelsApi* | [**FetchChannel**](docs/ServicesChannelsApi.md#fetchchannel) | **Get** /v2/Services/{ServiceSid}/Channels/{Sid} | 
+*ServicesChannelsApi* | [**ListChannel**](docs/ServicesChannelsApi.md#listchannel) | **Get** /v2/Services/{ServiceSid}/Channels | 
+*ServicesChannelsApi* | [**UpdateChannel**](docs/ServicesChannelsApi.md#updatechannel) | **Post** /v2/Services/{ServiceSid}/Channels/{Sid} | 
+*ServicesChannelsInvitesApi* | [**CreateInvite**](docs/ServicesChannelsInvitesApi.md#createinvite) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites | 
+*ServicesChannelsInvitesApi* | [**DeleteInvite**](docs/ServicesChannelsInvitesApi.md#deleteinvite) | **Delete** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid} | 
+*ServicesChannelsInvitesApi* | [**FetchInvite**](docs/ServicesChannelsInvitesApi.md#fetchinvite) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid} | 
+*ServicesChannelsInvitesApi* | [**ListInvite**](docs/ServicesChannelsInvitesApi.md#listinvite) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites | 
+*ServicesChannelsMembersApi* | [**CreateMember**](docs/ServicesChannelsMembersApi.md#createmember) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members | 
+*ServicesChannelsMembersApi* | [**DeleteMember**](docs/ServicesChannelsMembersApi.md#deletemember) | **Delete** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid} | 
+*ServicesChannelsMembersApi* | [**FetchMember**](docs/ServicesChannelsMembersApi.md#fetchmember) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid} | 
+*ServicesChannelsMembersApi* | [**ListMember**](docs/ServicesChannelsMembersApi.md#listmember) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members | 
+*ServicesChannelsMembersApi* | [**UpdateMember**](docs/ServicesChannelsMembersApi.md#updatemember) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid} | 
+*ServicesChannelsMessagesApi* | [**CreateMessage**](docs/ServicesChannelsMessagesApi.md#createmessage) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages | 
+*ServicesChannelsMessagesApi* | [**DeleteMessage**](docs/ServicesChannelsMessagesApi.md#deletemessage) | **Delete** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid} | 
+*ServicesChannelsMessagesApi* | [**FetchMessage**](docs/ServicesChannelsMessagesApi.md#fetchmessage) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid} | 
+*ServicesChannelsMessagesApi* | [**ListMessage**](docs/ServicesChannelsMessagesApi.md#listmessage) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages | 
+*ServicesChannelsMessagesApi* | [**UpdateMessage**](docs/ServicesChannelsMessagesApi.md#updatemessage) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid} | 
+*ServicesChannelsWebhooksApi* | [**CreateChannelWebhook**](docs/ServicesChannelsWebhooksApi.md#createchannelwebhook) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks | 
+*ServicesChannelsWebhooksApi* | [**DeleteChannelWebhook**](docs/ServicesChannelsWebhooksApi.md#deletechannelwebhook) | **Delete** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid} | 
+*ServicesChannelsWebhooksApi* | [**FetchChannelWebhook**](docs/ServicesChannelsWebhooksApi.md#fetchchannelwebhook) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid} | 
+*ServicesChannelsWebhooksApi* | [**ListChannelWebhook**](docs/ServicesChannelsWebhooksApi.md#listchannelwebhook) | **Get** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks | 
+*ServicesChannelsWebhooksApi* | [**UpdateChannelWebhook**](docs/ServicesChannelsWebhooksApi.md#updatechannelwebhook) | **Post** /v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid} | 
+*ServicesRolesApi* | [**CreateRole**](docs/ServicesRolesApi.md#createrole) | **Post** /v2/Services/{ServiceSid}/Roles | 
+*ServicesRolesApi* | [**DeleteRole**](docs/ServicesRolesApi.md#deleterole) | **Delete** /v2/Services/{ServiceSid}/Roles/{Sid} | 
+*ServicesRolesApi* | [**FetchRole**](docs/ServicesRolesApi.md#fetchrole) | **Get** /v2/Services/{ServiceSid}/Roles/{Sid} | 
+*ServicesRolesApi* | [**ListRole**](docs/ServicesRolesApi.md#listrole) | **Get** /v2/Services/{ServiceSid}/Roles | 
+*ServicesRolesApi* | [**UpdateRole**](docs/ServicesRolesApi.md#updaterole) | **Post** /v2/Services/{ServiceSid}/Roles/{Sid} | 
+*ServicesUsersApi* | [**CreateUser**](docs/ServicesUsersApi.md#createuser) | **Post** /v2/Services/{ServiceSid}/Users | 
+*ServicesUsersApi* | [**DeleteUser**](docs/ServicesUsersApi.md#deleteuser) | **Delete** /v2/Services/{ServiceSid}/Users/{Sid} | 
+*ServicesUsersApi* | [**FetchUser**](docs/ServicesUsersApi.md#fetchuser) | **Get** /v2/Services/{ServiceSid}/Users/{Sid} | 
+*ServicesUsersApi* | [**ListUser**](docs/ServicesUsersApi.md#listuser) | **Get** /v2/Services/{ServiceSid}/Users | 
+*ServicesUsersApi* | [**UpdateUser**](docs/ServicesUsersApi.md#updateuser) | **Post** /v2/Services/{ServiceSid}/Users/{Sid} | 
+*ServicesUsersBindingsApi* | [**DeleteUserBinding**](docs/ServicesUsersBindingsApi.md#deleteuserbinding) | **Delete** /v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid} | 
+*ServicesUsersBindingsApi* | [**FetchUserBinding**](docs/ServicesUsersBindingsApi.md#fetchuserbinding) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid} | 
+*ServicesUsersBindingsApi* | [**ListUserBinding**](docs/ServicesUsersBindingsApi.md#listuserbinding) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Bindings | 
+*ServicesUsersChannelsApi* | [**DeleteUserChannel**](docs/ServicesUsersChannelsApi.md#deleteuserchannel) | **Delete** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | 
+*ServicesUsersChannelsApi* | [**FetchUserChannel**](docs/ServicesUsersChannelsApi.md#fetchuserchannel) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | 
+*ServicesUsersChannelsApi* | [**ListUserChannel**](docs/ServicesUsersChannelsApi.md#listuserchannel) | **Get** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels | 
+*ServicesUsersChannelsApi* | [**UpdateUserChannel**](docs/ServicesUsersChannelsApi.md#updateuserchannel) | **Post** /v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid} | 
 
 
 ## Documentation For Models
@@ -133,9 +133,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

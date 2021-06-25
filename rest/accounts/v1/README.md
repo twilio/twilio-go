@@ -31,19 +31,19 @@ All URIs are relative to *https://accounts.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateCredentialAws**](docs/DefaultApi.md#createcredentialaws) | **Post** /v1/Credentials/AWS | 
-*DefaultApi* | [**CreateCredentialPublicKey**](docs/DefaultApi.md#createcredentialpublickey) | **Post** /v1/Credentials/PublicKeys | 
-*DefaultApi* | [**CreateSecondaryAuthToken**](docs/DefaultApi.md#createsecondaryauthtoken) | **Post** /v1/AuthTokens/Secondary | 
-*DefaultApi* | [**DeleteCredentialAws**](docs/DefaultApi.md#deletecredentialaws) | **Delete** /v1/Credentials/AWS/{Sid} | 
-*DefaultApi* | [**DeleteCredentialPublicKey**](docs/DefaultApi.md#deletecredentialpublickey) | **Delete** /v1/Credentials/PublicKeys/{Sid} | 
-*DefaultApi* | [**DeleteSecondaryAuthToken**](docs/DefaultApi.md#deletesecondaryauthtoken) | **Delete** /v1/AuthTokens/Secondary | 
-*DefaultApi* | [**FetchCredentialAws**](docs/DefaultApi.md#fetchcredentialaws) | **Get** /v1/Credentials/AWS/{Sid} | 
-*DefaultApi* | [**FetchCredentialPublicKey**](docs/DefaultApi.md#fetchcredentialpublickey) | **Get** /v1/Credentials/PublicKeys/{Sid} | 
-*DefaultApi* | [**ListCredentialAws**](docs/DefaultApi.md#listcredentialaws) | **Get** /v1/Credentials/AWS | 
-*DefaultApi* | [**ListCredentialPublicKey**](docs/DefaultApi.md#listcredentialpublickey) | **Get** /v1/Credentials/PublicKeys | 
-*DefaultApi* | [**UpdateAuthTokenPromotion**](docs/DefaultApi.md#updateauthtokenpromotion) | **Post** /v1/AuthTokens/Promote | 
-*DefaultApi* | [**UpdateCredentialAws**](docs/DefaultApi.md#updatecredentialaws) | **Post** /v1/Credentials/AWS/{Sid} | 
-*DefaultApi* | [**UpdateCredentialPublicKey**](docs/DefaultApi.md#updatecredentialpublickey) | **Post** /v1/Credentials/PublicKeys/{Sid} | 
+*AuthTokensPromoteApi* | [**UpdateAuthTokenPromotion**](docs/AuthTokensPromoteApi.md#updateauthtokenpromotion) | **Post** /v1/AuthTokens/Promote | 
+*AuthTokensSecondaryApi* | [**CreateSecondaryAuthToken**](docs/AuthTokensSecondaryApi.md#createsecondaryauthtoken) | **Post** /v1/AuthTokens/Secondary | 
+*AuthTokensSecondaryApi* | [**DeleteSecondaryAuthToken**](docs/AuthTokensSecondaryApi.md#deletesecondaryauthtoken) | **Delete** /v1/AuthTokens/Secondary | 
+*CredentialsAWSApi* | [**CreateCredentialAws**](docs/CredentialsAWSApi.md#createcredentialaws) | **Post** /v1/Credentials/AWS | 
+*CredentialsAWSApi* | [**DeleteCredentialAws**](docs/CredentialsAWSApi.md#deletecredentialaws) | **Delete** /v1/Credentials/AWS/{Sid} | 
+*CredentialsAWSApi* | [**FetchCredentialAws**](docs/CredentialsAWSApi.md#fetchcredentialaws) | **Get** /v1/Credentials/AWS/{Sid} | 
+*CredentialsAWSApi* | [**ListCredentialAws**](docs/CredentialsAWSApi.md#listcredentialaws) | **Get** /v1/Credentials/AWS | 
+*CredentialsAWSApi* | [**UpdateCredentialAws**](docs/CredentialsAWSApi.md#updatecredentialaws) | **Post** /v1/Credentials/AWS/{Sid} | 
+*CredentialsPublicKeysApi* | [**CreateCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#createcredentialpublickey) | **Post** /v1/Credentials/PublicKeys | 
+*CredentialsPublicKeysApi* | [**DeleteCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#deletecredentialpublickey) | **Delete** /v1/Credentials/PublicKeys/{Sid} | 
+*CredentialsPublicKeysApi* | [**FetchCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#fetchcredentialpublickey) | **Get** /v1/Credentials/PublicKeys/{Sid} | 
+*CredentialsPublicKeysApi* | [**ListCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#listcredentialpublickey) | **Get** /v1/Credentials/PublicKeys | 
+*CredentialsPublicKeysApi* | [**UpdateCredentialPublicKey**](docs/CredentialsPublicKeysApi.md#updatecredentialpublickey) | **Post** /v1/Credentials/PublicKeys/{Sid} | 
 
 
 ## Documentation For Models
@@ -74,9 +74,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

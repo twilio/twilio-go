@@ -31,13 +31,13 @@ All URIs are relative to *https://pricing.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**FetchMessagingCountry**](docs/DefaultApi.md#fetchmessagingcountry) | **Get** /v1/Messaging/Countries/{IsoCountry} | 
-*DefaultApi* | [**FetchPhoneNumberCountry**](docs/DefaultApi.md#fetchphonenumbercountry) | **Get** /v1/PhoneNumbers/Countries/{IsoCountry} | 
-*DefaultApi* | [**FetchVoiceCountry**](docs/DefaultApi.md#fetchvoicecountry) | **Get** /v1/Voice/Countries/{IsoCountry} | 
-*DefaultApi* | [**FetchVoiceNumber**](docs/DefaultApi.md#fetchvoicenumber) | **Get** /v1/Voice/Numbers/{Number} | 
-*DefaultApi* | [**ListMessagingCountry**](docs/DefaultApi.md#listmessagingcountry) | **Get** /v1/Messaging/Countries | 
-*DefaultApi* | [**ListPhoneNumberCountry**](docs/DefaultApi.md#listphonenumbercountry) | **Get** /v1/PhoneNumbers/Countries | 
-*DefaultApi* | [**ListVoiceCountry**](docs/DefaultApi.md#listvoicecountry) | **Get** /v1/Voice/Countries | 
+*MessagingCountriesApi* | [**FetchMessagingCountry**](docs/MessagingCountriesApi.md#fetchmessagingcountry) | **Get** /v1/Messaging/Countries/{IsoCountry} | 
+*MessagingCountriesApi* | [**ListMessagingCountry**](docs/MessagingCountriesApi.md#listmessagingcountry) | **Get** /v1/Messaging/Countries | 
+*PhoneNumbersCountriesApi* | [**FetchPhoneNumberCountry**](docs/PhoneNumbersCountriesApi.md#fetchphonenumbercountry) | **Get** /v1/PhoneNumbers/Countries/{IsoCountry} | 
+*PhoneNumbersCountriesApi* | [**ListPhoneNumberCountry**](docs/PhoneNumbersCountriesApi.md#listphonenumbercountry) | **Get** /v1/PhoneNumbers/Countries | 
+*VoiceCountriesApi* | [**FetchVoiceCountry**](docs/VoiceCountriesApi.md#fetchvoicecountry) | **Get** /v1/Voice/Countries/{IsoCountry} | 
+*VoiceCountriesApi* | [**ListVoiceCountry**](docs/VoiceCountriesApi.md#listvoicecountry) | **Get** /v1/Voice/Countries | 
+*VoiceNumbersApi* | [**FetchVoiceNumber**](docs/VoiceNumbersApi.md#fetchvoicenumber) | **Get** /v1/Voice/Numbers/{Number} | 
 
 
 ## Documentation For Models
@@ -80,9 +80,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

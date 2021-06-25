@@ -31,40 +31,40 @@ All URIs are relative to *https://video.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateComposition**](docs/DefaultApi.md#createcomposition) | **Post** /v1/Compositions | 
-*DefaultApi* | [**CreateCompositionHook**](docs/DefaultApi.md#createcompositionhook) | **Post** /v1/CompositionHooks | 
-*DefaultApi* | [**CreateCompositionSettings**](docs/DefaultApi.md#createcompositionsettings) | **Post** /v1/CompositionSettings/Default | 
-*DefaultApi* | [**CreateRecordingSettings**](docs/DefaultApi.md#createrecordingsettings) | **Post** /v1/RecordingSettings/Default | 
-*DefaultApi* | [**CreateRoom**](docs/DefaultApi.md#createroom) | **Post** /v1/Rooms | 
-*DefaultApi* | [**DeleteComposition**](docs/DefaultApi.md#deletecomposition) | **Delete** /v1/Compositions/{Sid} | 
-*DefaultApi* | [**DeleteCompositionHook**](docs/DefaultApi.md#deletecompositionhook) | **Delete** /v1/CompositionHooks/{Sid} | 
-*DefaultApi* | [**DeleteRecording**](docs/DefaultApi.md#deleterecording) | **Delete** /v1/Recordings/{Sid} | 
-*DefaultApi* | [**DeleteRoomRecording**](docs/DefaultApi.md#deleteroomrecording) | **Delete** /v1/Rooms/{RoomSid}/Recordings/{Sid} | 
-*DefaultApi* | [**FetchComposition**](docs/DefaultApi.md#fetchcomposition) | **Get** /v1/Compositions/{Sid} | 
-*DefaultApi* | [**FetchCompositionHook**](docs/DefaultApi.md#fetchcompositionhook) | **Get** /v1/CompositionHooks/{Sid} | 
-*DefaultApi* | [**FetchCompositionSettings**](docs/DefaultApi.md#fetchcompositionsettings) | **Get** /v1/CompositionSettings/Default | 
-*DefaultApi* | [**FetchRecording**](docs/DefaultApi.md#fetchrecording) | **Get** /v1/Recordings/{Sid} | 
-*DefaultApi* | [**FetchRecordingSettings**](docs/DefaultApi.md#fetchrecordingsettings) | **Get** /v1/RecordingSettings/Default | 
-*DefaultApi* | [**FetchRoom**](docs/DefaultApi.md#fetchroom) | **Get** /v1/Rooms/{Sid} | 
-*DefaultApi* | [**FetchRoomParticipant**](docs/DefaultApi.md#fetchroomparticipant) | **Get** /v1/Rooms/{RoomSid}/Participants/{Sid} | 
-*DefaultApi* | [**FetchRoomParticipantPublishedTrack**](docs/DefaultApi.md#fetchroomparticipantpublishedtrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid} | 
-*DefaultApi* | [**FetchRoomParticipantSubscribeRule**](docs/DefaultApi.md#fetchroomparticipantsubscriberule) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules | 
-*DefaultApi* | [**FetchRoomParticipantSubscribedTrack**](docs/DefaultApi.md#fetchroomparticipantsubscribedtrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid} | 
-*DefaultApi* | [**FetchRoomRecording**](docs/DefaultApi.md#fetchroomrecording) | **Get** /v1/Rooms/{RoomSid}/Recordings/{Sid} | 
-*DefaultApi* | [**FetchRoomRecordingRule**](docs/DefaultApi.md#fetchroomrecordingrule) | **Get** /v1/Rooms/{RoomSid}/RecordingRules | 
-*DefaultApi* | [**ListComposition**](docs/DefaultApi.md#listcomposition) | **Get** /v1/Compositions | 
-*DefaultApi* | [**ListCompositionHook**](docs/DefaultApi.md#listcompositionhook) | **Get** /v1/CompositionHooks | 
-*DefaultApi* | [**ListRecording**](docs/DefaultApi.md#listrecording) | **Get** /v1/Recordings | 
-*DefaultApi* | [**ListRoom**](docs/DefaultApi.md#listroom) | **Get** /v1/Rooms | 
-*DefaultApi* | [**ListRoomParticipant**](docs/DefaultApi.md#listroomparticipant) | **Get** /v1/Rooms/{RoomSid}/Participants | 
-*DefaultApi* | [**ListRoomParticipantPublishedTrack**](docs/DefaultApi.md#listroomparticipantpublishedtrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks | 
-*DefaultApi* | [**ListRoomParticipantSubscribedTrack**](docs/DefaultApi.md#listroomparticipantsubscribedtrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks | 
-*DefaultApi* | [**ListRoomRecording**](docs/DefaultApi.md#listroomrecording) | **Get** /v1/Rooms/{RoomSid}/Recordings | 
-*DefaultApi* | [**UpdateCompositionHook**](docs/DefaultApi.md#updatecompositionhook) | **Post** /v1/CompositionHooks/{Sid} | 
-*DefaultApi* | [**UpdateRoom**](docs/DefaultApi.md#updateroom) | **Post** /v1/Rooms/{Sid} | 
-*DefaultApi* | [**UpdateRoomParticipant**](docs/DefaultApi.md#updateroomparticipant) | **Post** /v1/Rooms/{RoomSid}/Participants/{Sid} | 
-*DefaultApi* | [**UpdateRoomParticipantSubscribeRule**](docs/DefaultApi.md#updateroomparticipantsubscriberule) | **Post** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules | 
-*DefaultApi* | [**UpdateRoomRecordingRule**](docs/DefaultApi.md#updateroomrecordingrule) | **Post** /v1/Rooms/{RoomSid}/RecordingRules | 
+*CompositionHooksApi* | [**CreateCompositionHook**](docs/CompositionHooksApi.md#createcompositionhook) | **Post** /v1/CompositionHooks | 
+*CompositionHooksApi* | [**DeleteCompositionHook**](docs/CompositionHooksApi.md#deletecompositionhook) | **Delete** /v1/CompositionHooks/{Sid} | 
+*CompositionHooksApi* | [**FetchCompositionHook**](docs/CompositionHooksApi.md#fetchcompositionhook) | **Get** /v1/CompositionHooks/{Sid} | 
+*CompositionHooksApi* | [**ListCompositionHook**](docs/CompositionHooksApi.md#listcompositionhook) | **Get** /v1/CompositionHooks | 
+*CompositionHooksApi* | [**UpdateCompositionHook**](docs/CompositionHooksApi.md#updatecompositionhook) | **Post** /v1/CompositionHooks/{Sid} | 
+*CompositionSettingsDefaultApi* | [**CreateCompositionSettings**](docs/CompositionSettingsDefaultApi.md#createcompositionsettings) | **Post** /v1/CompositionSettings/Default | 
+*CompositionSettingsDefaultApi* | [**FetchCompositionSettings**](docs/CompositionSettingsDefaultApi.md#fetchcompositionsettings) | **Get** /v1/CompositionSettings/Default | 
+*CompositionsApi* | [**CreateComposition**](docs/CompositionsApi.md#createcomposition) | **Post** /v1/Compositions | 
+*CompositionsApi* | [**DeleteComposition**](docs/CompositionsApi.md#deletecomposition) | **Delete** /v1/Compositions/{Sid} | 
+*CompositionsApi* | [**FetchComposition**](docs/CompositionsApi.md#fetchcomposition) | **Get** /v1/Compositions/{Sid} | 
+*CompositionsApi* | [**ListComposition**](docs/CompositionsApi.md#listcomposition) | **Get** /v1/Compositions | 
+*RecordingSettingsDefaultApi* | [**CreateRecordingSettings**](docs/RecordingSettingsDefaultApi.md#createrecordingsettings) | **Post** /v1/RecordingSettings/Default | 
+*RecordingSettingsDefaultApi* | [**FetchRecordingSettings**](docs/RecordingSettingsDefaultApi.md#fetchrecordingsettings) | **Get** /v1/RecordingSettings/Default | 
+*RecordingsApi* | [**DeleteRecording**](docs/RecordingsApi.md#deleterecording) | **Delete** /v1/Recordings/{Sid} | 
+*RecordingsApi* | [**FetchRecording**](docs/RecordingsApi.md#fetchrecording) | **Get** /v1/Recordings/{Sid} | 
+*RecordingsApi* | [**ListRecording**](docs/RecordingsApi.md#listrecording) | **Get** /v1/Recordings | 
+*RoomsApi* | [**CreateRoom**](docs/RoomsApi.md#createroom) | **Post** /v1/Rooms | 
+*RoomsApi* | [**FetchRoom**](docs/RoomsApi.md#fetchroom) | **Get** /v1/Rooms/{Sid} | 
+*RoomsApi* | [**ListRoom**](docs/RoomsApi.md#listroom) | **Get** /v1/Rooms | 
+*RoomsApi* | [**UpdateRoom**](docs/RoomsApi.md#updateroom) | **Post** /v1/Rooms/{Sid} | 
+*RoomsParticipantsApi* | [**FetchRoomParticipant**](docs/RoomsParticipantsApi.md#fetchroomparticipant) | **Get** /v1/Rooms/{RoomSid}/Participants/{Sid} | 
+*RoomsParticipantsApi* | [**ListRoomParticipant**](docs/RoomsParticipantsApi.md#listroomparticipant) | **Get** /v1/Rooms/{RoomSid}/Participants | 
+*RoomsParticipantsApi* | [**UpdateRoomParticipant**](docs/RoomsParticipantsApi.md#updateroomparticipant) | **Post** /v1/Rooms/{RoomSid}/Participants/{Sid} | 
+*RoomsParticipantsPublishedTracksApi* | [**FetchRoomParticipantPublishedTrack**](docs/RoomsParticipantsPublishedTracksApi.md#fetchroomparticipantpublishedtrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid} | 
+*RoomsParticipantsPublishedTracksApi* | [**ListRoomParticipantPublishedTrack**](docs/RoomsParticipantsPublishedTracksApi.md#listroomparticipantpublishedtrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks | 
+*RoomsParticipantsSubscribeRulesApi* | [**FetchRoomParticipantSubscribeRule**](docs/RoomsParticipantsSubscribeRulesApi.md#fetchroomparticipantsubscriberule) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules | 
+*RoomsParticipantsSubscribeRulesApi* | [**UpdateRoomParticipantSubscribeRule**](docs/RoomsParticipantsSubscribeRulesApi.md#updateroomparticipantsubscriberule) | **Post** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules | 
+*RoomsParticipantsSubscribedTracksApi* | [**FetchRoomParticipantSubscribedTrack**](docs/RoomsParticipantsSubscribedTracksApi.md#fetchroomparticipantsubscribedtrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid} | 
+*RoomsParticipantsSubscribedTracksApi* | [**ListRoomParticipantSubscribedTrack**](docs/RoomsParticipantsSubscribedTracksApi.md#listroomparticipantsubscribedtrack) | **Get** /v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks | 
+*RoomsRecordingRulesApi* | [**FetchRoomRecordingRule**](docs/RoomsRecordingRulesApi.md#fetchroomrecordingrule) | **Get** /v1/Rooms/{RoomSid}/RecordingRules | 
+*RoomsRecordingRulesApi* | [**UpdateRoomRecordingRule**](docs/RoomsRecordingRulesApi.md#updateroomrecordingrule) | **Post** /v1/Rooms/{RoomSid}/RecordingRules | 
+*RoomsRecordingsApi* | [**DeleteRoomRecording**](docs/RoomsRecordingsApi.md#deleteroomrecording) | **Delete** /v1/Rooms/{RoomSid}/Recordings/{Sid} | 
+*RoomsRecordingsApi* | [**FetchRoomRecording**](docs/RoomsRecordingsApi.md#fetchroomrecording) | **Get** /v1/Rooms/{RoomSid}/Recordings/{Sid} | 
+*RoomsRecordingsApi* | [**ListRoomRecording**](docs/RoomsRecordingsApi.md#listroomrecording) | **Get** /v1/Rooms/{RoomSid}/Recordings | 
 
 
 ## Documentation For Models
@@ -110,9 +110,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

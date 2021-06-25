@@ -1,0 +1,84 @@
+# ConfigurationWebhooksApi
+
+All URIs are relative to *https://conversations.twilio.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**FetchConfigurationWebhook**](ConfigurationWebhooksApi.md#FetchConfigurationWebhook) | **Get** /v1/Configuration/Webhooks | 
+[**UpdateConfigurationWebhook**](ConfigurationWebhooksApi.md#UpdateConfigurationWebhook) | **Post** /v1/Configuration/Webhooks | 
+
+
+
+## FetchConfigurationWebhook
+
+> ConversationsV1ConfigurationConfigurationWebhook FetchConfigurationWebhook(ctx, )
+
+
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchConfigurationWebhookParams struct
+
+
+### Return type
+
+[**ConversationsV1ConfigurationConfigurationWebhook**](ConversationsV1ConfigurationConfigurationWebhook.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateConfigurationWebhook
+
+> ConversationsV1ConfigurationConfigurationWebhook UpdateConfigurationWebhook(ctx, optional)
+
+
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateConfigurationWebhookParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Filters** | **[]string** | The list of webhook event triggers that are enabled for this Service: &#x60;onMessageAdded&#x60;, &#x60;onMessageUpdated&#x60;, &#x60;onMessageRemoved&#x60;, &#x60;onConversationUpdated&#x60;, &#x60;onConversationRemoved&#x60;, &#x60;onParticipantAdded&#x60;, &#x60;onParticipantUpdated&#x60;, &#x60;onParticipantRemoved&#x60;
+**Method** | **string** | The HTTP method to be used when sending a webhook request.
+**PostWebhookUrl** | **string** | The absolute url the post-event webhook request should be sent to.
+**PreWebhookUrl** | **string** | The absolute url the pre-event webhook request should be sent to.
+**Target** | **string** | The routing target of the webhook.
+
+### Return type
+
+[**ConversationsV1ConfigurationConfigurationWebhook**](ConversationsV1ConfigurationConfigurationWebhook.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+

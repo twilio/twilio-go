@@ -31,28 +31,28 @@ All URIs are relative to *https://events.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateSink**](docs/DefaultApi.md#createsink) | **Post** /v1/Sinks | 
-*DefaultApi* | [**CreateSinkTest**](docs/DefaultApi.md#createsinktest) | **Post** /v1/Sinks/{Sid}/Test | 
-*DefaultApi* | [**CreateSinkValidate**](docs/DefaultApi.md#createsinkvalidate) | **Post** /v1/Sinks/{Sid}/Validate | 
-*DefaultApi* | [**CreateSubscribedEvent**](docs/DefaultApi.md#createsubscribedevent) | **Post** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents | 
-*DefaultApi* | [**CreateSubscription**](docs/DefaultApi.md#createsubscription) | **Post** /v1/Subscriptions | 
-*DefaultApi* | [**DeleteSink**](docs/DefaultApi.md#deletesink) | **Delete** /v1/Sinks/{Sid} | 
-*DefaultApi* | [**DeleteSubscribedEvent**](docs/DefaultApi.md#deletesubscribedevent) | **Delete** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
-*DefaultApi* | [**DeleteSubscription**](docs/DefaultApi.md#deletesubscription) | **Delete** /v1/Subscriptions/{Sid} | 
-*DefaultApi* | [**FetchEventType**](docs/DefaultApi.md#fetcheventtype) | **Get** /v1/Types/{Type} | 
-*DefaultApi* | [**FetchSchema**](docs/DefaultApi.md#fetchschema) | **Get** /v1/Schemas/{Id} | 
-*DefaultApi* | [**FetchSchemaVersion**](docs/DefaultApi.md#fetchschemaversion) | **Get** /v1/Schemas/{Id}/Versions/{SchemaVersion} | 
-*DefaultApi* | [**FetchSink**](docs/DefaultApi.md#fetchsink) | **Get** /v1/Sinks/{Sid} | 
-*DefaultApi* | [**FetchSubscribedEvent**](docs/DefaultApi.md#fetchsubscribedevent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
-*DefaultApi* | [**FetchSubscription**](docs/DefaultApi.md#fetchsubscription) | **Get** /v1/Subscriptions/{Sid} | 
-*DefaultApi* | [**ListEventType**](docs/DefaultApi.md#listeventtype) | **Get** /v1/Types | 
-*DefaultApi* | [**ListSchemaVersion**](docs/DefaultApi.md#listschemaversion) | **Get** /v1/Schemas/{Id}/Versions | 
-*DefaultApi* | [**ListSink**](docs/DefaultApi.md#listsink) | **Get** /v1/Sinks | 
-*DefaultApi* | [**ListSubscribedEvent**](docs/DefaultApi.md#listsubscribedevent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents | 
-*DefaultApi* | [**ListSubscription**](docs/DefaultApi.md#listsubscription) | **Get** /v1/Subscriptions | 
-*DefaultApi* | [**UpdateSink**](docs/DefaultApi.md#updatesink) | **Post** /v1/Sinks/{Sid} | 
-*DefaultApi* | [**UpdateSubscribedEvent**](docs/DefaultApi.md#updatesubscribedevent) | **Post** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
-*DefaultApi* | [**UpdateSubscription**](docs/DefaultApi.md#updatesubscription) | **Post** /v1/Subscriptions/{Sid} | 
+*SchemasApi* | [**FetchSchema**](docs/SchemasApi.md#fetchschema) | **Get** /v1/Schemas/{Id} | 
+*SchemasVersionsApi* | [**FetchSchemaVersion**](docs/SchemasVersionsApi.md#fetchschemaversion) | **Get** /v1/Schemas/{Id}/Versions/{SchemaVersion} | 
+*SchemasVersionsApi* | [**ListSchemaVersion**](docs/SchemasVersionsApi.md#listschemaversion) | **Get** /v1/Schemas/{Id}/Versions | 
+*SinksApi* | [**CreateSink**](docs/SinksApi.md#createsink) | **Post** /v1/Sinks | 
+*SinksApi* | [**DeleteSink**](docs/SinksApi.md#deletesink) | **Delete** /v1/Sinks/{Sid} | 
+*SinksApi* | [**FetchSink**](docs/SinksApi.md#fetchsink) | **Get** /v1/Sinks/{Sid} | 
+*SinksApi* | [**ListSink**](docs/SinksApi.md#listsink) | **Get** /v1/Sinks | 
+*SinksApi* | [**UpdateSink**](docs/SinksApi.md#updatesink) | **Post** /v1/Sinks/{Sid} | 
+*SinksTestApi* | [**CreateSinkTest**](docs/SinksTestApi.md#createsinktest) | **Post** /v1/Sinks/{Sid}/Test | 
+*SinksValidateApi* | [**CreateSinkValidate**](docs/SinksValidateApi.md#createsinkvalidate) | **Post** /v1/Sinks/{Sid}/Validate | 
+*SubscriptionsApi* | [**CreateSubscription**](docs/SubscriptionsApi.md#createsubscription) | **Post** /v1/Subscriptions | 
+*SubscriptionsApi* | [**DeleteSubscription**](docs/SubscriptionsApi.md#deletesubscription) | **Delete** /v1/Subscriptions/{Sid} | 
+*SubscriptionsApi* | [**FetchSubscription**](docs/SubscriptionsApi.md#fetchsubscription) | **Get** /v1/Subscriptions/{Sid} | 
+*SubscriptionsApi* | [**ListSubscription**](docs/SubscriptionsApi.md#listsubscription) | **Get** /v1/Subscriptions | 
+*SubscriptionsApi* | [**UpdateSubscription**](docs/SubscriptionsApi.md#updatesubscription) | **Post** /v1/Subscriptions/{Sid} | 
+*SubscriptionsSubscribedEventsApi* | [**CreateSubscribedEvent**](docs/SubscriptionsSubscribedEventsApi.md#createsubscribedevent) | **Post** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents | 
+*SubscriptionsSubscribedEventsApi* | [**DeleteSubscribedEvent**](docs/SubscriptionsSubscribedEventsApi.md#deletesubscribedevent) | **Delete** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
+*SubscriptionsSubscribedEventsApi* | [**FetchSubscribedEvent**](docs/SubscriptionsSubscribedEventsApi.md#fetchsubscribedevent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
+*SubscriptionsSubscribedEventsApi* | [**ListSubscribedEvent**](docs/SubscriptionsSubscribedEventsApi.md#listsubscribedevent) | **Get** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents | 
+*SubscriptionsSubscribedEventsApi* | [**UpdateSubscribedEvent**](docs/SubscriptionsSubscribedEventsApi.md#updatesubscribedevent) | **Post** /v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type} | 
+*TypesApi* | [**FetchEventType**](docs/TypesApi.md#fetcheventtype) | **Get** /v1/Types/{Type} | 
+*TypesApi* | [**ListEventType**](docs/TypesApi.md#listeventtype) | **Get** /v1/Types | 
 
 
 ## Documentation For Models
@@ -90,9 +90,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

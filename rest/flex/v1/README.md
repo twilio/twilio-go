@@ -31,22 +31,22 @@ All URIs are relative to *https://flex-api.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateChannel**](docs/DefaultApi.md#createchannel) | **Post** /v1/Channels | 
-*DefaultApi* | [**CreateFlexFlow**](docs/DefaultApi.md#createflexflow) | **Post** /v1/FlexFlows | 
-*DefaultApi* | [**CreateWebChannel**](docs/DefaultApi.md#createwebchannel) | **Post** /v1/WebChannels | 
-*DefaultApi* | [**DeleteChannel**](docs/DefaultApi.md#deletechannel) | **Delete** /v1/Channels/{Sid} | 
-*DefaultApi* | [**DeleteFlexFlow**](docs/DefaultApi.md#deleteflexflow) | **Delete** /v1/FlexFlows/{Sid} | 
-*DefaultApi* | [**DeleteWebChannel**](docs/DefaultApi.md#deletewebchannel) | **Delete** /v1/WebChannels/{Sid} | 
-*DefaultApi* | [**FetchChannel**](docs/DefaultApi.md#fetchchannel) | **Get** /v1/Channels/{Sid} | 
-*DefaultApi* | [**FetchConfiguration**](docs/DefaultApi.md#fetchconfiguration) | **Get** /v1/Configuration | 
-*DefaultApi* | [**FetchFlexFlow**](docs/DefaultApi.md#fetchflexflow) | **Get** /v1/FlexFlows/{Sid} | 
-*DefaultApi* | [**FetchWebChannel**](docs/DefaultApi.md#fetchwebchannel) | **Get** /v1/WebChannels/{Sid} | 
-*DefaultApi* | [**ListChannel**](docs/DefaultApi.md#listchannel) | **Get** /v1/Channels | 
-*DefaultApi* | [**ListFlexFlow**](docs/DefaultApi.md#listflexflow) | **Get** /v1/FlexFlows | 
-*DefaultApi* | [**ListWebChannel**](docs/DefaultApi.md#listwebchannel) | **Get** /v1/WebChannels | 
-*DefaultApi* | [**UpdateConfiguration**](docs/DefaultApi.md#updateconfiguration) | **Post** /v1/Configuration | 
-*DefaultApi* | [**UpdateFlexFlow**](docs/DefaultApi.md#updateflexflow) | **Post** /v1/FlexFlows/{Sid} | 
-*DefaultApi* | [**UpdateWebChannel**](docs/DefaultApi.md#updatewebchannel) | **Post** /v1/WebChannels/{Sid} | 
+*ChannelsApi* | [**CreateChannel**](docs/ChannelsApi.md#createchannel) | **Post** /v1/Channels | 
+*ChannelsApi* | [**DeleteChannel**](docs/ChannelsApi.md#deletechannel) | **Delete** /v1/Channels/{Sid} | 
+*ChannelsApi* | [**FetchChannel**](docs/ChannelsApi.md#fetchchannel) | **Get** /v1/Channels/{Sid} | 
+*ChannelsApi* | [**ListChannel**](docs/ChannelsApi.md#listchannel) | **Get** /v1/Channels | 
+*ConfigurationApi* | [**FetchConfiguration**](docs/ConfigurationApi.md#fetchconfiguration) | **Get** /v1/Configuration | 
+*ConfigurationApi* | [**UpdateConfiguration**](docs/ConfigurationApi.md#updateconfiguration) | **Post** /v1/Configuration | 
+*FlexFlowsApi* | [**CreateFlexFlow**](docs/FlexFlowsApi.md#createflexflow) | **Post** /v1/FlexFlows | 
+*FlexFlowsApi* | [**DeleteFlexFlow**](docs/FlexFlowsApi.md#deleteflexflow) | **Delete** /v1/FlexFlows/{Sid} | 
+*FlexFlowsApi* | [**FetchFlexFlow**](docs/FlexFlowsApi.md#fetchflexflow) | **Get** /v1/FlexFlows/{Sid} | 
+*FlexFlowsApi* | [**ListFlexFlow**](docs/FlexFlowsApi.md#listflexflow) | **Get** /v1/FlexFlows | 
+*FlexFlowsApi* | [**UpdateFlexFlow**](docs/FlexFlowsApi.md#updateflexflow) | **Post** /v1/FlexFlows/{Sid} | 
+*WebChannelsApi* | [**CreateWebChannel**](docs/WebChannelsApi.md#createwebchannel) | **Post** /v1/WebChannels | 
+*WebChannelsApi* | [**DeleteWebChannel**](docs/WebChannelsApi.md#deletewebchannel) | **Delete** /v1/WebChannels/{Sid} | 
+*WebChannelsApi* | [**FetchWebChannel**](docs/WebChannelsApi.md#fetchwebchannel) | **Get** /v1/WebChannels/{Sid} | 
+*WebChannelsApi* | [**ListWebChannel**](docs/WebChannelsApi.md#listwebchannel) | **Get** /v1/WebChannels | 
+*WebChannelsApi* | [**UpdateWebChannel**](docs/WebChannelsApi.md#updatewebchannel) | **Post** /v1/WebChannels/{Sid} | 
 
 
 ## Documentation For Models
@@ -78,9 +78,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

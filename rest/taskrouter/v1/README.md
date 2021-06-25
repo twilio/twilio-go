@@ -31,66 +31,66 @@ All URIs are relative to *https://taskrouter.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateActivity**](docs/DefaultApi.md#createactivity) | **Post** /v1/Workspaces/{WorkspaceSid}/Activities | 
-*DefaultApi* | [**CreateTask**](docs/DefaultApi.md#createtask) | **Post** /v1/Workspaces/{WorkspaceSid}/Tasks | 
-*DefaultApi* | [**CreateTaskChannel**](docs/DefaultApi.md#createtaskchannel) | **Post** /v1/Workspaces/{WorkspaceSid}/TaskChannels | 
-*DefaultApi* | [**CreateTaskQueue**](docs/DefaultApi.md#createtaskqueue) | **Post** /v1/Workspaces/{WorkspaceSid}/TaskQueues | 
-*DefaultApi* | [**CreateWorker**](docs/DefaultApi.md#createworker) | **Post** /v1/Workspaces/{WorkspaceSid}/Workers | 
-*DefaultApi* | [**CreateWorkflow**](docs/DefaultApi.md#createworkflow) | **Post** /v1/Workspaces/{WorkspaceSid}/Workflows | 
-*DefaultApi* | [**CreateWorkspace**](docs/DefaultApi.md#createworkspace) | **Post** /v1/Workspaces | 
-*DefaultApi* | [**DeleteActivity**](docs/DefaultApi.md#deleteactivity) | **Delete** /v1/Workspaces/{WorkspaceSid}/Activities/{Sid} | 
-*DefaultApi* | [**DeleteTask**](docs/DefaultApi.md#deletetask) | **Delete** /v1/Workspaces/{WorkspaceSid}/Tasks/{Sid} | 
-*DefaultApi* | [**DeleteTaskChannel**](docs/DefaultApi.md#deletetaskchannel) | **Delete** /v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid} | 
-*DefaultApi* | [**DeleteTaskQueue**](docs/DefaultApi.md#deletetaskqueue) | **Delete** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid} | 
-*DefaultApi* | [**DeleteWorker**](docs/DefaultApi.md#deleteworker) | **Delete** /v1/Workspaces/{WorkspaceSid}/Workers/{Sid} | 
-*DefaultApi* | [**DeleteWorkflow**](docs/DefaultApi.md#deleteworkflow) | **Delete** /v1/Workspaces/{WorkspaceSid}/Workflows/{Sid} | 
-*DefaultApi* | [**DeleteWorkspace**](docs/DefaultApi.md#deleteworkspace) | **Delete** /v1/Workspaces/{Sid} | 
-*DefaultApi* | [**FetchActivity**](docs/DefaultApi.md#fetchactivity) | **Get** /v1/Workspaces/{WorkspaceSid}/Activities/{Sid} | 
-*DefaultApi* | [**FetchEvent**](docs/DefaultApi.md#fetchevent) | **Get** /v1/Workspaces/{WorkspaceSid}/Events/{Sid} | 
-*DefaultApi* | [**FetchTask**](docs/DefaultApi.md#fetchtask) | **Get** /v1/Workspaces/{WorkspaceSid}/Tasks/{Sid} | 
-*DefaultApi* | [**FetchTaskChannel**](docs/DefaultApi.md#fetchtaskchannel) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid} | 
-*DefaultApi* | [**FetchTaskQueue**](docs/DefaultApi.md#fetchtaskqueue) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid} | 
-*DefaultApi* | [**FetchTaskQueueCumulativeStatistics**](docs/DefaultApi.md#fetchtaskqueuecumulativestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/CumulativeStatistics | 
-*DefaultApi* | [**FetchTaskQueueRealTimeStatistics**](docs/DefaultApi.md#fetchtaskqueuerealtimestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics | 
-*DefaultApi* | [**FetchTaskQueueStatistics**](docs/DefaultApi.md#fetchtaskqueuestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics | 
-*DefaultApi* | [**FetchTaskReservation**](docs/DefaultApi.md#fetchtaskreservation) | **Get** /v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid} | 
-*DefaultApi* | [**FetchWorker**](docs/DefaultApi.md#fetchworker) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/{Sid} | 
-*DefaultApi* | [**FetchWorkerChannel**](docs/DefaultApi.md#fetchworkerchannel) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid} | 
-*DefaultApi* | [**FetchWorkerInstanceStatistics**](docs/DefaultApi.md#fetchworkerinstancestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Statistics | 
-*DefaultApi* | [**FetchWorkerReservation**](docs/DefaultApi.md#fetchworkerreservation) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid} | 
-*DefaultApi* | [**FetchWorkerStatistics**](docs/DefaultApi.md#fetchworkerstatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/Statistics | 
-*DefaultApi* | [**FetchWorkersCumulativeStatistics**](docs/DefaultApi.md#fetchworkerscumulativestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics | 
-*DefaultApi* | [**FetchWorkersRealTimeStatistics**](docs/DefaultApi.md#fetchworkersrealtimestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics | 
-*DefaultApi* | [**FetchWorkflow**](docs/DefaultApi.md#fetchworkflow) | **Get** /v1/Workspaces/{WorkspaceSid}/Workflows/{Sid} | 
-*DefaultApi* | [**FetchWorkflowCumulativeStatistics**](docs/DefaultApi.md#fetchworkflowcumulativestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/CumulativeStatistics | 
-*DefaultApi* | [**FetchWorkflowRealTimeStatistics**](docs/DefaultApi.md#fetchworkflowrealtimestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/RealTimeStatistics | 
-*DefaultApi* | [**FetchWorkflowStatistics**](docs/DefaultApi.md#fetchworkflowstatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/Statistics | 
-*DefaultApi* | [**FetchWorkspace**](docs/DefaultApi.md#fetchworkspace) | **Get** /v1/Workspaces/{Sid} | 
-*DefaultApi* | [**FetchWorkspaceCumulativeStatistics**](docs/DefaultApi.md#fetchworkspacecumulativestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/CumulativeStatistics | 
-*DefaultApi* | [**FetchWorkspaceRealTimeStatistics**](docs/DefaultApi.md#fetchworkspacerealtimestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/RealTimeStatistics | 
-*DefaultApi* | [**FetchWorkspaceStatistics**](docs/DefaultApi.md#fetchworkspacestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Statistics | 
-*DefaultApi* | [**ListActivity**](docs/DefaultApi.md#listactivity) | **Get** /v1/Workspaces/{WorkspaceSid}/Activities | 
-*DefaultApi* | [**ListEvent**](docs/DefaultApi.md#listevent) | **Get** /v1/Workspaces/{WorkspaceSid}/Events | 
-*DefaultApi* | [**ListTask**](docs/DefaultApi.md#listtask) | **Get** /v1/Workspaces/{WorkspaceSid}/Tasks | 
-*DefaultApi* | [**ListTaskChannel**](docs/DefaultApi.md#listtaskchannel) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskChannels | 
-*DefaultApi* | [**ListTaskQueue**](docs/DefaultApi.md#listtaskqueue) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues | 
-*DefaultApi* | [**ListTaskQueuesStatistics**](docs/DefaultApi.md#listtaskqueuesstatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics | 
-*DefaultApi* | [**ListTaskReservation**](docs/DefaultApi.md#listtaskreservation) | **Get** /v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations | 
-*DefaultApi* | [**ListWorker**](docs/DefaultApi.md#listworker) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers | 
-*DefaultApi* | [**ListWorkerChannel**](docs/DefaultApi.md#listworkerchannel) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels | 
-*DefaultApi* | [**ListWorkerReservation**](docs/DefaultApi.md#listworkerreservation) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations | 
-*DefaultApi* | [**ListWorkflow**](docs/DefaultApi.md#listworkflow) | **Get** /v1/Workspaces/{WorkspaceSid}/Workflows | 
-*DefaultApi* | [**ListWorkspace**](docs/DefaultApi.md#listworkspace) | **Get** /v1/Workspaces | 
-*DefaultApi* | [**UpdateActivity**](docs/DefaultApi.md#updateactivity) | **Post** /v1/Workspaces/{WorkspaceSid}/Activities/{Sid} | 
-*DefaultApi* | [**UpdateTask**](docs/DefaultApi.md#updatetask) | **Post** /v1/Workspaces/{WorkspaceSid}/Tasks/{Sid} | 
-*DefaultApi* | [**UpdateTaskChannel**](docs/DefaultApi.md#updatetaskchannel) | **Post** /v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid} | 
-*DefaultApi* | [**UpdateTaskQueue**](docs/DefaultApi.md#updatetaskqueue) | **Post** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid} | 
-*DefaultApi* | [**UpdateTaskReservation**](docs/DefaultApi.md#updatetaskreservation) | **Post** /v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid} | 
-*DefaultApi* | [**UpdateWorker**](docs/DefaultApi.md#updateworker) | **Post** /v1/Workspaces/{WorkspaceSid}/Workers/{Sid} | 
-*DefaultApi* | [**UpdateWorkerChannel**](docs/DefaultApi.md#updateworkerchannel) | **Post** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid} | 
-*DefaultApi* | [**UpdateWorkerReservation**](docs/DefaultApi.md#updateworkerreservation) | **Post** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid} | 
-*DefaultApi* | [**UpdateWorkflow**](docs/DefaultApi.md#updateworkflow) | **Post** /v1/Workspaces/{WorkspaceSid}/Workflows/{Sid} | 
-*DefaultApi* | [**UpdateWorkspace**](docs/DefaultApi.md#updateworkspace) | **Post** /v1/Workspaces/{Sid} | 
+*WorkspacesApi* | [**CreateWorkspace**](docs/WorkspacesApi.md#createworkspace) | **Post** /v1/Workspaces | 
+*WorkspacesApi* | [**DeleteWorkspace**](docs/WorkspacesApi.md#deleteworkspace) | **Delete** /v1/Workspaces/{Sid} | 
+*WorkspacesApi* | [**FetchWorkspace**](docs/WorkspacesApi.md#fetchworkspace) | **Get** /v1/Workspaces/{Sid} | 
+*WorkspacesApi* | [**ListWorkspace**](docs/WorkspacesApi.md#listworkspace) | **Get** /v1/Workspaces | 
+*WorkspacesApi* | [**UpdateWorkspace**](docs/WorkspacesApi.md#updateworkspace) | **Post** /v1/Workspaces/{Sid} | 
+*WorkspacesActivitiesApi* | [**CreateActivity**](docs/WorkspacesActivitiesApi.md#createactivity) | **Post** /v1/Workspaces/{WorkspaceSid}/Activities | 
+*WorkspacesActivitiesApi* | [**DeleteActivity**](docs/WorkspacesActivitiesApi.md#deleteactivity) | **Delete** /v1/Workspaces/{WorkspaceSid}/Activities/{Sid} | 
+*WorkspacesActivitiesApi* | [**FetchActivity**](docs/WorkspacesActivitiesApi.md#fetchactivity) | **Get** /v1/Workspaces/{WorkspaceSid}/Activities/{Sid} | 
+*WorkspacesActivitiesApi* | [**ListActivity**](docs/WorkspacesActivitiesApi.md#listactivity) | **Get** /v1/Workspaces/{WorkspaceSid}/Activities | 
+*WorkspacesActivitiesApi* | [**UpdateActivity**](docs/WorkspacesActivitiesApi.md#updateactivity) | **Post** /v1/Workspaces/{WorkspaceSid}/Activities/{Sid} | 
+*WorkspacesCumulativeStatisticsApi* | [**FetchWorkspaceCumulativeStatistics**](docs/WorkspacesCumulativeStatisticsApi.md#fetchworkspacecumulativestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/CumulativeStatistics | 
+*WorkspacesEventsApi* | [**FetchEvent**](docs/WorkspacesEventsApi.md#fetchevent) | **Get** /v1/Workspaces/{WorkspaceSid}/Events/{Sid} | 
+*WorkspacesEventsApi* | [**ListEvent**](docs/WorkspacesEventsApi.md#listevent) | **Get** /v1/Workspaces/{WorkspaceSid}/Events | 
+*WorkspacesRealTimeStatisticsApi* | [**FetchWorkspaceRealTimeStatistics**](docs/WorkspacesRealTimeStatisticsApi.md#fetchworkspacerealtimestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/RealTimeStatistics | 
+*WorkspacesStatisticsApi* | [**FetchWorkspaceStatistics**](docs/WorkspacesStatisticsApi.md#fetchworkspacestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Statistics | 
+*WorkspacesTaskChannelsApi* | [**CreateTaskChannel**](docs/WorkspacesTaskChannelsApi.md#createtaskchannel) | **Post** /v1/Workspaces/{WorkspaceSid}/TaskChannels | 
+*WorkspacesTaskChannelsApi* | [**DeleteTaskChannel**](docs/WorkspacesTaskChannelsApi.md#deletetaskchannel) | **Delete** /v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid} | 
+*WorkspacesTaskChannelsApi* | [**FetchTaskChannel**](docs/WorkspacesTaskChannelsApi.md#fetchtaskchannel) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid} | 
+*WorkspacesTaskChannelsApi* | [**ListTaskChannel**](docs/WorkspacesTaskChannelsApi.md#listtaskchannel) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskChannels | 
+*WorkspacesTaskChannelsApi* | [**UpdateTaskChannel**](docs/WorkspacesTaskChannelsApi.md#updatetaskchannel) | **Post** /v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid} | 
+*WorkspacesTaskQueuesApi* | [**CreateTaskQueue**](docs/WorkspacesTaskQueuesApi.md#createtaskqueue) | **Post** /v1/Workspaces/{WorkspaceSid}/TaskQueues | 
+*WorkspacesTaskQueuesApi* | [**DeleteTaskQueue**](docs/WorkspacesTaskQueuesApi.md#deletetaskqueue) | **Delete** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid} | 
+*WorkspacesTaskQueuesApi* | [**FetchTaskQueue**](docs/WorkspacesTaskQueuesApi.md#fetchtaskqueue) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid} | 
+*WorkspacesTaskQueuesApi* | [**ListTaskQueue**](docs/WorkspacesTaskQueuesApi.md#listtaskqueue) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues | 
+*WorkspacesTaskQueuesApi* | [**UpdateTaskQueue**](docs/WorkspacesTaskQueuesApi.md#updatetaskqueue) | **Post** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid} | 
+*WorkspacesTaskQueuesCumulativeStatisticsApi* | [**FetchTaskQueueCumulativeStatistics**](docs/WorkspacesTaskQueuesCumulativeStatisticsApi.md#fetchtaskqueuecumulativestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/CumulativeStatistics | 
+*WorkspacesTaskQueuesRealTimeStatisticsApi* | [**FetchTaskQueueRealTimeStatistics**](docs/WorkspacesTaskQueuesRealTimeStatisticsApi.md#fetchtaskqueuerealtimestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics | 
+*WorkspacesTaskQueuesStatisticsApi* | [**FetchTaskQueueStatistics**](docs/WorkspacesTaskQueuesStatisticsApi.md#fetchtaskqueuestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics | 
+*WorkspacesTaskQueuesStatisticsApi* | [**ListTaskQueuesStatistics**](docs/WorkspacesTaskQueuesStatisticsApi.md#listtaskqueuesstatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics | 
+*WorkspacesTasksApi* | [**CreateTask**](docs/WorkspacesTasksApi.md#createtask) | **Post** /v1/Workspaces/{WorkspaceSid}/Tasks | 
+*WorkspacesTasksApi* | [**DeleteTask**](docs/WorkspacesTasksApi.md#deletetask) | **Delete** /v1/Workspaces/{WorkspaceSid}/Tasks/{Sid} | 
+*WorkspacesTasksApi* | [**FetchTask**](docs/WorkspacesTasksApi.md#fetchtask) | **Get** /v1/Workspaces/{WorkspaceSid}/Tasks/{Sid} | 
+*WorkspacesTasksApi* | [**ListTask**](docs/WorkspacesTasksApi.md#listtask) | **Get** /v1/Workspaces/{WorkspaceSid}/Tasks | 
+*WorkspacesTasksApi* | [**UpdateTask**](docs/WorkspacesTasksApi.md#updatetask) | **Post** /v1/Workspaces/{WorkspaceSid}/Tasks/{Sid} | 
+*WorkspacesTasksReservationsApi* | [**FetchTaskReservation**](docs/WorkspacesTasksReservationsApi.md#fetchtaskreservation) | **Get** /v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid} | 
+*WorkspacesTasksReservationsApi* | [**ListTaskReservation**](docs/WorkspacesTasksReservationsApi.md#listtaskreservation) | **Get** /v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations | 
+*WorkspacesTasksReservationsApi* | [**UpdateTaskReservation**](docs/WorkspacesTasksReservationsApi.md#updatetaskreservation) | **Post** /v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations/{Sid} | 
+*WorkspacesWorkersApi* | [**CreateWorker**](docs/WorkspacesWorkersApi.md#createworker) | **Post** /v1/Workspaces/{WorkspaceSid}/Workers | 
+*WorkspacesWorkersApi* | [**DeleteWorker**](docs/WorkspacesWorkersApi.md#deleteworker) | **Delete** /v1/Workspaces/{WorkspaceSid}/Workers/{Sid} | 
+*WorkspacesWorkersApi* | [**FetchWorker**](docs/WorkspacesWorkersApi.md#fetchworker) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/{Sid} | 
+*WorkspacesWorkersApi* | [**ListWorker**](docs/WorkspacesWorkersApi.md#listworker) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers | 
+*WorkspacesWorkersApi* | [**UpdateWorker**](docs/WorkspacesWorkersApi.md#updateworker) | **Post** /v1/Workspaces/{WorkspaceSid}/Workers/{Sid} | 
+*WorkspacesWorkersChannelsApi* | [**FetchWorkerChannel**](docs/WorkspacesWorkersChannelsApi.md#fetchworkerchannel) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid} | 
+*WorkspacesWorkersChannelsApi* | [**ListWorkerChannel**](docs/WorkspacesWorkersChannelsApi.md#listworkerchannel) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels | 
+*WorkspacesWorkersChannelsApi* | [**UpdateWorkerChannel**](docs/WorkspacesWorkersChannelsApi.md#updateworkerchannel) | **Post** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid} | 
+*WorkspacesWorkersCumulativeStatisticsApi* | [**FetchWorkersCumulativeStatistics**](docs/WorkspacesWorkersCumulativeStatisticsApi.md#fetchworkerscumulativestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics | 
+*WorkspacesWorkersRealTimeStatisticsApi* | [**FetchWorkersRealTimeStatistics**](docs/WorkspacesWorkersRealTimeStatisticsApi.md#fetchworkersrealtimestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/RealTimeStatistics | 
+*WorkspacesWorkersReservationsApi* | [**FetchWorkerReservation**](docs/WorkspacesWorkersReservationsApi.md#fetchworkerreservation) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid} | 
+*WorkspacesWorkersReservationsApi* | [**ListWorkerReservation**](docs/WorkspacesWorkersReservationsApi.md#listworkerreservation) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations | 
+*WorkspacesWorkersReservationsApi* | [**UpdateWorkerReservation**](docs/WorkspacesWorkersReservationsApi.md#updateworkerreservation) | **Post** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid} | 
+*WorkspacesWorkersStatisticsApi* | [**FetchWorkerInstanceStatistics**](docs/WorkspacesWorkersStatisticsApi.md#fetchworkerinstancestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Statistics | 
+*WorkspacesWorkersStatisticsApi* | [**FetchWorkerStatistics**](docs/WorkspacesWorkersStatisticsApi.md#fetchworkerstatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workers/Statistics | 
+*WorkspacesWorkflowsApi* | [**CreateWorkflow**](docs/WorkspacesWorkflowsApi.md#createworkflow) | **Post** /v1/Workspaces/{WorkspaceSid}/Workflows | 
+*WorkspacesWorkflowsApi* | [**DeleteWorkflow**](docs/WorkspacesWorkflowsApi.md#deleteworkflow) | **Delete** /v1/Workspaces/{WorkspaceSid}/Workflows/{Sid} | 
+*WorkspacesWorkflowsApi* | [**FetchWorkflow**](docs/WorkspacesWorkflowsApi.md#fetchworkflow) | **Get** /v1/Workspaces/{WorkspaceSid}/Workflows/{Sid} | 
+*WorkspacesWorkflowsApi* | [**ListWorkflow**](docs/WorkspacesWorkflowsApi.md#listworkflow) | **Get** /v1/Workspaces/{WorkspaceSid}/Workflows | 
+*WorkspacesWorkflowsApi* | [**UpdateWorkflow**](docs/WorkspacesWorkflowsApi.md#updateworkflow) | **Post** /v1/Workspaces/{WorkspaceSid}/Workflows/{Sid} | 
+*WorkspacesWorkflowsCumulativeStatisticsApi* | [**FetchWorkflowCumulativeStatistics**](docs/WorkspacesWorkflowsCumulativeStatisticsApi.md#fetchworkflowcumulativestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/CumulativeStatistics | 
+*WorkspacesWorkflowsRealTimeStatisticsApi* | [**FetchWorkflowRealTimeStatistics**](docs/WorkspacesWorkflowsRealTimeStatisticsApi.md#fetchworkflowrealtimestatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/RealTimeStatistics | 
+*WorkspacesWorkflowsStatisticsApi* | [**FetchWorkflowStatistics**](docs/WorkspacesWorkflowsStatisticsApi.md#fetchworkflowstatistics) | **Get** /v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/Statistics | 
 
 
 ## Documentation For Models
@@ -152,9 +152,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

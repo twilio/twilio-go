@@ -31,34 +31,34 @@ All URIs are relative to *https://messaging.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateAlphaSender**](docs/DefaultApi.md#createalphasender) | **Post** /v1/Services/{ServiceSid}/AlphaSenders | 
-*DefaultApi* | [**CreateBrandRegistrations**](docs/DefaultApi.md#createbrandregistrations) | **Post** /v1/a2p/BrandRegistrations | 
-*DefaultApi* | [**CreateExternalCampaign**](docs/DefaultApi.md#createexternalcampaign) | **Post** /v1/Services/PreregisteredUsa2p | 
-*DefaultApi* | [**CreatePhoneNumber**](docs/DefaultApi.md#createphonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | 
-*DefaultApi* | [**CreateService**](docs/DefaultApi.md#createservice) | **Post** /v1/Services | 
-*DefaultApi* | [**CreateShortCode**](docs/DefaultApi.md#createshortcode) | **Post** /v1/Services/{ServiceSid}/ShortCodes | 
-*DefaultApi* | [**CreateUsAppToPerson**](docs/DefaultApi.md#createusapptoperson) | **Post** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
-*DefaultApi* | [**DeleteAlphaSender**](docs/DefaultApi.md#deletealphasender) | **Delete** /v1/Services/{ServiceSid}/AlphaSenders/{Sid} | 
-*DefaultApi* | [**DeletePhoneNumber**](docs/DefaultApi.md#deletephonenumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
-*DefaultApi* | [**DeleteService**](docs/DefaultApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | 
-*DefaultApi* | [**DeleteShortCode**](docs/DefaultApi.md#deleteshortcode) | **Delete** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
-*DefaultApi* | [**DeleteUsAppToPerson**](docs/DefaultApi.md#deleteusapptoperson) | **Delete** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
-*DefaultApi* | [**FetchAlphaSender**](docs/DefaultApi.md#fetchalphasender) | **Get** /v1/Services/{ServiceSid}/AlphaSenders/{Sid} | 
-*DefaultApi* | [**FetchBrandRegistrations**](docs/DefaultApi.md#fetchbrandregistrations) | **Get** /v1/a2p/BrandRegistrations/{Sid} | 
-*DefaultApi* | [**FetchDeactivation**](docs/DefaultApi.md#fetchdeactivation) | **Get** /v1/Deactivations | 
-*DefaultApi* | [**FetchPhoneNumber**](docs/DefaultApi.md#fetchphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
-*DefaultApi* | [**FetchService**](docs/DefaultApi.md#fetchservice) | **Get** /v1/Services/{Sid} | 
-*DefaultApi* | [**FetchShortCode**](docs/DefaultApi.md#fetchshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
-*DefaultApi* | [**FetchUsAppToPerson**](docs/DefaultApi.md#fetchusapptoperson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
-*DefaultApi* | [**FetchUsAppToPersonUsecase**](docs/DefaultApi.md#fetchusapptopersonusecase) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases | 
-*DefaultApi* | [**FetchUsecase**](docs/DefaultApi.md#fetchusecase) | **Get** /v1/Services/Usecases | 
-*DefaultApi* | [**ListAlphaSender**](docs/DefaultApi.md#listalphasender) | **Get** /v1/Services/{ServiceSid}/AlphaSenders | 
-*DefaultApi* | [**ListBrandRegistrations**](docs/DefaultApi.md#listbrandregistrations) | **Get** /v1/a2p/BrandRegistrations | 
-*DefaultApi* | [**ListPhoneNumber**](docs/DefaultApi.md#listphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers | 
-*DefaultApi* | [**ListService**](docs/DefaultApi.md#listservice) | **Get** /v1/Services | 
-*DefaultApi* | [**ListShortCode**](docs/DefaultApi.md#listshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes | 
-*DefaultApi* | [**ListUsAppToPerson**](docs/DefaultApi.md#listusapptoperson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
-*DefaultApi* | [**UpdateService**](docs/DefaultApi.md#updateservice) | **Post** /v1/Services/{Sid} | 
+*A2pBrandRegistrationsApi* | [**CreateBrandRegistrations**](docs/A2pBrandRegistrationsApi.md#createbrandregistrations) | **Post** /v1/a2p/BrandRegistrations | 
+*A2pBrandRegistrationsApi* | [**FetchBrandRegistrations**](docs/A2pBrandRegistrationsApi.md#fetchbrandregistrations) | **Get** /v1/a2p/BrandRegistrations/{Sid} | 
+*A2pBrandRegistrationsApi* | [**ListBrandRegistrations**](docs/A2pBrandRegistrationsApi.md#listbrandregistrations) | **Get** /v1/a2p/BrandRegistrations | 
+*DeactivationsApi* | [**FetchDeactivation**](docs/DeactivationsApi.md#fetchdeactivation) | **Get** /v1/Deactivations | 
+*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v1/Services | 
+*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | 
+*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v1/Services/{Sid} | 
+*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v1/Services | 
+*ServicesApi* | [**UpdateService**](docs/ServicesApi.md#updateservice) | **Post** /v1/Services/{Sid} | 
+*ServicesAlphaSendersApi* | [**CreateAlphaSender**](docs/ServicesAlphaSendersApi.md#createalphasender) | **Post** /v1/Services/{ServiceSid}/AlphaSenders | 
+*ServicesAlphaSendersApi* | [**DeleteAlphaSender**](docs/ServicesAlphaSendersApi.md#deletealphasender) | **Delete** /v1/Services/{ServiceSid}/AlphaSenders/{Sid} | 
+*ServicesAlphaSendersApi* | [**FetchAlphaSender**](docs/ServicesAlphaSendersApi.md#fetchalphasender) | **Get** /v1/Services/{ServiceSid}/AlphaSenders/{Sid} | 
+*ServicesAlphaSendersApi* | [**ListAlphaSender**](docs/ServicesAlphaSendersApi.md#listalphasender) | **Get** /v1/Services/{ServiceSid}/AlphaSenders | 
+*ServicesComplianceUsa2pApi* | [**CreateUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#createusapptoperson) | **Post** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
+*ServicesComplianceUsa2pApi* | [**DeleteUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#deleteusapptoperson) | **Delete** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
+*ServicesComplianceUsa2pApi* | [**FetchUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#fetchusapptoperson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid} | 
+*ServicesComplianceUsa2pApi* | [**ListUsAppToPerson**](docs/ServicesComplianceUsa2pApi.md#listusapptoperson) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p | 
+*ServicesComplianceUsa2pUsecasesApi* | [**FetchUsAppToPersonUsecase**](docs/ServicesComplianceUsa2pUsecasesApi.md#fetchusapptopersonusecase) | **Get** /v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases | 
+*ServicesPhoneNumbersApi* | [**CreatePhoneNumber**](docs/ServicesPhoneNumbersApi.md#createphonenumber) | **Post** /v1/Services/{ServiceSid}/PhoneNumbers | 
+*ServicesPhoneNumbersApi* | [**DeletePhoneNumber**](docs/ServicesPhoneNumbersApi.md#deletephonenumber) | **Delete** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
+*ServicesPhoneNumbersApi* | [**FetchPhoneNumber**](docs/ServicesPhoneNumbersApi.md#fetchphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers/{Sid} | 
+*ServicesPhoneNumbersApi* | [**ListPhoneNumber**](docs/ServicesPhoneNumbersApi.md#listphonenumber) | **Get** /v1/Services/{ServiceSid}/PhoneNumbers | 
+*ServicesPreregisteredUsa2pApi* | [**CreateExternalCampaign**](docs/ServicesPreregisteredUsa2pApi.md#createexternalcampaign) | **Post** /v1/Services/PreregisteredUsa2p | 
+*ServicesShortCodesApi* | [**CreateShortCode**](docs/ServicesShortCodesApi.md#createshortcode) | **Post** /v1/Services/{ServiceSid}/ShortCodes | 
+*ServicesShortCodesApi* | [**DeleteShortCode**](docs/ServicesShortCodesApi.md#deleteshortcode) | **Delete** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
+*ServicesShortCodesApi* | [**FetchShortCode**](docs/ServicesShortCodesApi.md#fetchshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes/{Sid} | 
+*ServicesShortCodesApi* | [**ListShortCode**](docs/ServicesShortCodesApi.md#listshortcode) | **Get** /v1/Services/{ServiceSid}/ShortCodes | 
+*ServicesUsecasesApi* | [**FetchUsecase**](docs/ServicesUsecasesApi.md#fetchusecase) | **Get** /v1/Services/Usecases | 
 
 
 ## Documentation For Models
@@ -99,9 +99,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

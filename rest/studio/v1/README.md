@@ -31,26 +31,26 @@ All URIs are relative to *https://studio.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateEngagement**](docs/DefaultApi.md#createengagement) | **Post** /v1/Flows/{FlowSid}/Engagements | 
-*DefaultApi* | [**CreateExecution**](docs/DefaultApi.md#createexecution) | **Post** /v1/Flows/{FlowSid}/Executions | 
-*DefaultApi* | [**DeleteEngagement**](docs/DefaultApi.md#deleteengagement) | **Delete** /v1/Flows/{FlowSid}/Engagements/{Sid} | 
-*DefaultApi* | [**DeleteExecution**](docs/DefaultApi.md#deleteexecution) | **Delete** /v1/Flows/{FlowSid}/Executions/{Sid} | 
-*DefaultApi* | [**DeleteFlow**](docs/DefaultApi.md#deleteflow) | **Delete** /v1/Flows/{Sid} | 
-*DefaultApi* | [**FetchEngagement**](docs/DefaultApi.md#fetchengagement) | **Get** /v1/Flows/{FlowSid}/Engagements/{Sid} | 
-*DefaultApi* | [**FetchEngagementContext**](docs/DefaultApi.md#fetchengagementcontext) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Context | 
-*DefaultApi* | [**FetchExecution**](docs/DefaultApi.md#fetchexecution) | **Get** /v1/Flows/{FlowSid}/Executions/{Sid} | 
-*DefaultApi* | [**FetchExecutionContext**](docs/DefaultApi.md#fetchexecutioncontext) | **Get** /v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Context | 
-*DefaultApi* | [**FetchExecutionStep**](docs/DefaultApi.md#fetchexecutionstep) | **Get** /v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid} | 
-*DefaultApi* | [**FetchExecutionStepContext**](docs/DefaultApi.md#fetchexecutionstepcontext) | **Get** /v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context | 
-*DefaultApi* | [**FetchFlow**](docs/DefaultApi.md#fetchflow) | **Get** /v1/Flows/{Sid} | 
-*DefaultApi* | [**FetchStep**](docs/DefaultApi.md#fetchstep) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{Sid} | 
-*DefaultApi* | [**FetchStepContext**](docs/DefaultApi.md#fetchstepcontext) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{StepSid}/Context | 
-*DefaultApi* | [**ListEngagement**](docs/DefaultApi.md#listengagement) | **Get** /v1/Flows/{FlowSid}/Engagements | 
-*DefaultApi* | [**ListExecution**](docs/DefaultApi.md#listexecution) | **Get** /v1/Flows/{FlowSid}/Executions | 
-*DefaultApi* | [**ListExecutionStep**](docs/DefaultApi.md#listexecutionstep) | **Get** /v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps | 
-*DefaultApi* | [**ListFlow**](docs/DefaultApi.md#listflow) | **Get** /v1/Flows | 
-*DefaultApi* | [**ListStep**](docs/DefaultApi.md#liststep) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps | 
-*DefaultApi* | [**UpdateExecution**](docs/DefaultApi.md#updateexecution) | **Post** /v1/Flows/{FlowSid}/Executions/{Sid} | 
+*FlowsApi* | [**DeleteFlow**](docs/FlowsApi.md#deleteflow) | **Delete** /v1/Flows/{Sid} | 
+*FlowsApi* | [**FetchFlow**](docs/FlowsApi.md#fetchflow) | **Get** /v1/Flows/{Sid} | 
+*FlowsApi* | [**ListFlow**](docs/FlowsApi.md#listflow) | **Get** /v1/Flows | 
+*FlowsEngagementsApi* | [**CreateEngagement**](docs/FlowsEngagementsApi.md#createengagement) | **Post** /v1/Flows/{FlowSid}/Engagements | 
+*FlowsEngagementsApi* | [**DeleteEngagement**](docs/FlowsEngagementsApi.md#deleteengagement) | **Delete** /v1/Flows/{FlowSid}/Engagements/{Sid} | 
+*FlowsEngagementsApi* | [**FetchEngagement**](docs/FlowsEngagementsApi.md#fetchengagement) | **Get** /v1/Flows/{FlowSid}/Engagements/{Sid} | 
+*FlowsEngagementsApi* | [**ListEngagement**](docs/FlowsEngagementsApi.md#listengagement) | **Get** /v1/Flows/{FlowSid}/Engagements | 
+*FlowsEngagementsContextApi* | [**FetchEngagementContext**](docs/FlowsEngagementsContextApi.md#fetchengagementcontext) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Context | 
+*FlowsEngagementsStepsApi* | [**FetchStep**](docs/FlowsEngagementsStepsApi.md#fetchstep) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{Sid} | 
+*FlowsEngagementsStepsApi* | [**ListStep**](docs/FlowsEngagementsStepsApi.md#liststep) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps | 
+*FlowsEngagementsStepsContextApi* | [**FetchStepContext**](docs/FlowsEngagementsStepsContextApi.md#fetchstepcontext) | **Get** /v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{StepSid}/Context | 
+*FlowsExecutionsApi* | [**CreateExecution**](docs/FlowsExecutionsApi.md#createexecution) | **Post** /v1/Flows/{FlowSid}/Executions | 
+*FlowsExecutionsApi* | [**DeleteExecution**](docs/FlowsExecutionsApi.md#deleteexecution) | **Delete** /v1/Flows/{FlowSid}/Executions/{Sid} | 
+*FlowsExecutionsApi* | [**FetchExecution**](docs/FlowsExecutionsApi.md#fetchexecution) | **Get** /v1/Flows/{FlowSid}/Executions/{Sid} | 
+*FlowsExecutionsApi* | [**ListExecution**](docs/FlowsExecutionsApi.md#listexecution) | **Get** /v1/Flows/{FlowSid}/Executions | 
+*FlowsExecutionsApi* | [**UpdateExecution**](docs/FlowsExecutionsApi.md#updateexecution) | **Post** /v1/Flows/{FlowSid}/Executions/{Sid} | 
+*FlowsExecutionsContextApi* | [**FetchExecutionContext**](docs/FlowsExecutionsContextApi.md#fetchexecutioncontext) | **Get** /v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Context | 
+*FlowsExecutionsStepsApi* | [**FetchExecutionStep**](docs/FlowsExecutionsStepsApi.md#fetchexecutionstep) | **Get** /v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid} | 
+*FlowsExecutionsStepsApi* | [**ListExecutionStep**](docs/FlowsExecutionsStepsApi.md#listexecutionstep) | **Get** /v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps | 
+*FlowsExecutionsStepsContextApi* | [**FetchExecutionStepContext**](docs/FlowsExecutionsStepsContextApi.md#fetchexecutionstepcontext) | **Get** /v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context | 
 
 
 ## Documentation For Models
@@ -89,9 +89,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

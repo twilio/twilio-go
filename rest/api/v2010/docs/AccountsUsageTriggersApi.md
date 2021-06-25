@@ -1,0 +1,232 @@
+# AccountsUsageTriggersApi
+
+All URIs are relative to *https://api.twilio.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**CreateUsageTrigger**](AccountsUsageTriggersApi.md#CreateUsageTrigger) | **Post** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json | 
+[**DeleteUsageTrigger**](AccountsUsageTriggersApi.md#DeleteUsageTrigger) | **Delete** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | 
+[**FetchUsageTrigger**](AccountsUsageTriggersApi.md#FetchUsageTrigger) | **Get** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | 
+[**ListUsageTrigger**](AccountsUsageTriggersApi.md#ListUsageTrigger) | **Get** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json | 
+[**UpdateUsageTrigger**](AccountsUsageTriggersApi.md#UpdateUsageTrigger) | **Post** /2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json | 
+
+
+
+## CreateUsageTrigger
+
+> ApiV2010AccountUsageUsageTrigger CreateUsageTrigger(ctx, optional)
+
+
+
+Create a new UsageTrigger
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateUsageTriggerParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
+**CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;.
+**CallbackUrl** | **string** | The URL we should call using &#x60;callback_method&#x60; when the trigger fires.
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+**Recurring** | **string** | The frequency of a recurring UsageTrigger.  Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; for recurring triggers or empty for non-recurring triggers. A trigger will only fire once during each period. Recurring times are in GMT.
+**TriggerBy** | **string** | The field in the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource that should fire the trigger.  Can be: &#x60;count&#x60;, &#x60;usage&#x60;, or &#x60;price&#x60; as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).  The default is &#x60;usage&#x60;.
+**TriggerValue** | **string** | The usage value at which the trigger should fire.  For convenience, you can use an offset value such as &#x60;+30&#x60; to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a &#x60;+&#x60; as &#x60;%2B&#x60;.
+**UsageCategory** | **string** | The usage category that the trigger should watch.  Use one of the supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) for this value.
+
+### Return type
+
+[**ApiV2010AccountUsageUsageTrigger**](ApiV2010AccountUsageUsageTrigger.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteUsageTrigger
+
+> DeleteUsageTrigger(ctx, Sidoptional)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the UsageTrigger resource to delete.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteUsageTriggerParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to delete.
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FetchUsageTrigger
+
+> ApiV2010AccountUsageUsageTrigger FetchUsageTrigger(ctx, Sidoptional)
+
+
+
+Fetch and instance of a usage-trigger
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the UsageTrigger resource to fetch.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchUsageTriggerParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resource to fetch.
+
+### Return type
+
+[**ApiV2010AccountUsageUsageTrigger**](ApiV2010AccountUsageUsageTrigger.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListUsageTrigger
+
+> ListUsageTriggerResponse ListUsageTrigger(ctx, optional)
+
+
+
+Retrieve a list of usage-triggers belonging to the account used to make the request
+
+### Path Parameters
+
+This endpoint does not need any path parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListUsageTriggerParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to read.
+**Recurring** | **string** | The frequency of recurring UsageTriggers to read. Can be: &#x60;daily&#x60;, &#x60;monthly&#x60;, or &#x60;yearly&#x60; to read recurring UsageTriggers. An empty value or a value of &#x60;alltime&#x60; reads non-recurring UsageTriggers.
+**TriggerBy** | **string** | The trigger field of the UsageTriggers to read.  Can be: &#x60;count&#x60;, &#x60;usage&#x60;, or &#x60;price&#x60; as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
+**UsageCategory** | **string** | The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+### Return type
+
+[**ListUsageTriggerResponse**](ListUsageTriggerResponse.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateUsageTrigger
+
+> ApiV2010AccountUsageUsageTrigger UpdateUsageTrigger(ctx, Sidoptional)
+
+
+
+Update an instance of a usage trigger
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Sid** | **string** | The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateUsageTriggerParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to update.
+**CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;.
+**CallbackUrl** | **string** | The URL we should call using &#x60;callback_method&#x60; when the trigger fires.
+**FriendlyName** | **string** | A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+
+### Return type
+
+[**ApiV2010AccountUsageUsageTrigger**](ApiV2010AccountUsageUsageTrigger.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+

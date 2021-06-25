@@ -31,54 +31,54 @@ All URIs are relative to *https://trusthub.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateCustomerProfile**](docs/DefaultApi.md#createcustomerprofile) | **Post** /v1/CustomerProfiles | 
-*DefaultApi* | [**CreateCustomerProfileChannelEndpointAssignment**](docs/DefaultApi.md#createcustomerprofilechannelendpointassignment) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments | 
-*DefaultApi* | [**CreateCustomerProfileEntityAssignment**](docs/DefaultApi.md#createcustomerprofileentityassignment) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments | 
-*DefaultApi* | [**CreateCustomerProfileEvaluation**](docs/DefaultApi.md#createcustomerprofileevaluation) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations | 
-*DefaultApi* | [**CreateEndUser**](docs/DefaultApi.md#createenduser) | **Post** /v1/EndUsers | 
-*DefaultApi* | [**CreateSupportingDocument**](docs/DefaultApi.md#createsupportingdocument) | **Post** /v1/SupportingDocuments | 
-*DefaultApi* | [**CreateTrustProduct**](docs/DefaultApi.md#createtrustproduct) | **Post** /v1/TrustProducts | 
-*DefaultApi* | [**CreateTrustProductChannelEndpointAssignment**](docs/DefaultApi.md#createtrustproductchannelendpointassignment) | **Post** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments | 
-*DefaultApi* | [**CreateTrustProductEntityAssignment**](docs/DefaultApi.md#createtrustproductentityassignment) | **Post** /v1/TrustProducts/{TrustProductSid}/EntityAssignments | 
-*DefaultApi* | [**CreateTrustProductEvaluation**](docs/DefaultApi.md#createtrustproductevaluation) | **Post** /v1/TrustProducts/{TrustProductSid}/Evaluations | 
-*DefaultApi* | [**DeleteCustomerProfile**](docs/DefaultApi.md#deletecustomerprofile) | **Delete** /v1/CustomerProfiles/{Sid} | 
-*DefaultApi* | [**DeleteCustomerProfileChannelEndpointAssignment**](docs/DefaultApi.md#deletecustomerprofilechannelendpointassignment) | **Delete** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid} | 
-*DefaultApi* | [**DeleteCustomerProfileEntityAssignment**](docs/DefaultApi.md#deletecustomerprofileentityassignment) | **Delete** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid} | 
-*DefaultApi* | [**DeleteEndUser**](docs/DefaultApi.md#deleteenduser) | **Delete** /v1/EndUsers/{Sid} | 
-*DefaultApi* | [**DeleteSupportingDocument**](docs/DefaultApi.md#deletesupportingdocument) | **Delete** /v1/SupportingDocuments/{Sid} | 
-*DefaultApi* | [**DeleteTrustProduct**](docs/DefaultApi.md#deletetrustproduct) | **Delete** /v1/TrustProducts/{Sid} | 
-*DefaultApi* | [**DeleteTrustProductChannelEndpointAssignment**](docs/DefaultApi.md#deletetrustproductchannelendpointassignment) | **Delete** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid} | 
-*DefaultApi* | [**DeleteTrustProductEntityAssignment**](docs/DefaultApi.md#deletetrustproductentityassignment) | **Delete** /v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid} | 
-*DefaultApi* | [**FetchCustomerProfile**](docs/DefaultApi.md#fetchcustomerprofile) | **Get** /v1/CustomerProfiles/{Sid} | 
-*DefaultApi* | [**FetchCustomerProfileChannelEndpointAssignment**](docs/DefaultApi.md#fetchcustomerprofilechannelendpointassignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid} | 
-*DefaultApi* | [**FetchCustomerProfileEntityAssignment**](docs/DefaultApi.md#fetchcustomerprofileentityassignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid} | 
-*DefaultApi* | [**FetchCustomerProfileEvaluation**](docs/DefaultApi.md#fetchcustomerprofileevaluation) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid} | 
-*DefaultApi* | [**FetchEndUser**](docs/DefaultApi.md#fetchenduser) | **Get** /v1/EndUsers/{Sid} | 
-*DefaultApi* | [**FetchEndUserType**](docs/DefaultApi.md#fetchendusertype) | **Get** /v1/EndUserTypes/{Sid} | 
-*DefaultApi* | [**FetchPolicies**](docs/DefaultApi.md#fetchpolicies) | **Get** /v1/Policies/{Sid} | 
-*DefaultApi* | [**FetchSupportingDocument**](docs/DefaultApi.md#fetchsupportingdocument) | **Get** /v1/SupportingDocuments/{Sid} | 
-*DefaultApi* | [**FetchSupportingDocumentType**](docs/DefaultApi.md#fetchsupportingdocumenttype) | **Get** /v1/SupportingDocumentTypes/{Sid} | 
-*DefaultApi* | [**FetchTrustProduct**](docs/DefaultApi.md#fetchtrustproduct) | **Get** /v1/TrustProducts/{Sid} | 
-*DefaultApi* | [**FetchTrustProductChannelEndpointAssignment**](docs/DefaultApi.md#fetchtrustproductchannelendpointassignment) | **Get** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid} | 
-*DefaultApi* | [**FetchTrustProductEntityAssignment**](docs/DefaultApi.md#fetchtrustproductentityassignment) | **Get** /v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid} | 
-*DefaultApi* | [**FetchTrustProductEvaluation**](docs/DefaultApi.md#fetchtrustproductevaluation) | **Get** /v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid} | 
-*DefaultApi* | [**ListCustomerProfile**](docs/DefaultApi.md#listcustomerprofile) | **Get** /v1/CustomerProfiles | 
-*DefaultApi* | [**ListCustomerProfileChannelEndpointAssignment**](docs/DefaultApi.md#listcustomerprofilechannelendpointassignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments | 
-*DefaultApi* | [**ListCustomerProfileEntityAssignment**](docs/DefaultApi.md#listcustomerprofileentityassignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments | 
-*DefaultApi* | [**ListCustomerProfileEvaluation**](docs/DefaultApi.md#listcustomerprofileevaluation) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations | 
-*DefaultApi* | [**ListEndUser**](docs/DefaultApi.md#listenduser) | **Get** /v1/EndUsers | 
-*DefaultApi* | [**ListEndUserType**](docs/DefaultApi.md#listendusertype) | **Get** /v1/EndUserTypes | 
-*DefaultApi* | [**ListPolicies**](docs/DefaultApi.md#listpolicies) | **Get** /v1/Policies | 
-*DefaultApi* | [**ListSupportingDocument**](docs/DefaultApi.md#listsupportingdocument) | **Get** /v1/SupportingDocuments | 
-*DefaultApi* | [**ListSupportingDocumentType**](docs/DefaultApi.md#listsupportingdocumenttype) | **Get** /v1/SupportingDocumentTypes | 
-*DefaultApi* | [**ListTrustProduct**](docs/DefaultApi.md#listtrustproduct) | **Get** /v1/TrustProducts | 
-*DefaultApi* | [**ListTrustProductChannelEndpointAssignment**](docs/DefaultApi.md#listtrustproductchannelendpointassignment) | **Get** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments | 
-*DefaultApi* | [**ListTrustProductEntityAssignment**](docs/DefaultApi.md#listtrustproductentityassignment) | **Get** /v1/TrustProducts/{TrustProductSid}/EntityAssignments | 
-*DefaultApi* | [**ListTrustProductEvaluation**](docs/DefaultApi.md#listtrustproductevaluation) | **Get** /v1/TrustProducts/{TrustProductSid}/Evaluations | 
-*DefaultApi* | [**UpdateCustomerProfile**](docs/DefaultApi.md#updatecustomerprofile) | **Post** /v1/CustomerProfiles/{Sid} | 
-*DefaultApi* | [**UpdateEndUser**](docs/DefaultApi.md#updateenduser) | **Post** /v1/EndUsers/{Sid} | 
-*DefaultApi* | [**UpdateSupportingDocument**](docs/DefaultApi.md#updatesupportingdocument) | **Post** /v1/SupportingDocuments/{Sid} | 
-*DefaultApi* | [**UpdateTrustProduct**](docs/DefaultApi.md#updatetrustproduct) | **Post** /v1/TrustProducts/{Sid} | 
+*CustomerProfilesApi* | [**CreateCustomerProfile**](docs/CustomerProfilesApi.md#createcustomerprofile) | **Post** /v1/CustomerProfiles | 
+*CustomerProfilesApi* | [**DeleteCustomerProfile**](docs/CustomerProfilesApi.md#deletecustomerprofile) | **Delete** /v1/CustomerProfiles/{Sid} | 
+*CustomerProfilesApi* | [**FetchCustomerProfile**](docs/CustomerProfilesApi.md#fetchcustomerprofile) | **Get** /v1/CustomerProfiles/{Sid} | 
+*CustomerProfilesApi* | [**ListCustomerProfile**](docs/CustomerProfilesApi.md#listcustomerprofile) | **Get** /v1/CustomerProfiles | 
+*CustomerProfilesApi* | [**UpdateCustomerProfile**](docs/CustomerProfilesApi.md#updatecustomerprofile) | **Post** /v1/CustomerProfiles/{Sid} | 
+*CustomerProfilesChannelEndpointAssignmentsApi* | [**CreateCustomerProfileChannelEndpointAssignment**](docs/CustomerProfilesChannelEndpointAssignmentsApi.md#createcustomerprofilechannelendpointassignment) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments | 
+*CustomerProfilesChannelEndpointAssignmentsApi* | [**DeleteCustomerProfileChannelEndpointAssignment**](docs/CustomerProfilesChannelEndpointAssignmentsApi.md#deletecustomerprofilechannelendpointassignment) | **Delete** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid} | 
+*CustomerProfilesChannelEndpointAssignmentsApi* | [**FetchCustomerProfileChannelEndpointAssignment**](docs/CustomerProfilesChannelEndpointAssignmentsApi.md#fetchcustomerprofilechannelendpointassignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments/{Sid} | 
+*CustomerProfilesChannelEndpointAssignmentsApi* | [**ListCustomerProfileChannelEndpointAssignment**](docs/CustomerProfilesChannelEndpointAssignmentsApi.md#listcustomerprofilechannelendpointassignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments | 
+*CustomerProfilesEntityAssignmentsApi* | [**CreateCustomerProfileEntityAssignment**](docs/CustomerProfilesEntityAssignmentsApi.md#createcustomerprofileentityassignment) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments | 
+*CustomerProfilesEntityAssignmentsApi* | [**DeleteCustomerProfileEntityAssignment**](docs/CustomerProfilesEntityAssignmentsApi.md#deletecustomerprofileentityassignment) | **Delete** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid} | 
+*CustomerProfilesEntityAssignmentsApi* | [**FetchCustomerProfileEntityAssignment**](docs/CustomerProfilesEntityAssignmentsApi.md#fetchcustomerprofileentityassignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid} | 
+*CustomerProfilesEntityAssignmentsApi* | [**ListCustomerProfileEntityAssignment**](docs/CustomerProfilesEntityAssignmentsApi.md#listcustomerprofileentityassignment) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments | 
+*CustomerProfilesEvaluationsApi* | [**CreateCustomerProfileEvaluation**](docs/CustomerProfilesEvaluationsApi.md#createcustomerprofileevaluation) | **Post** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations | 
+*CustomerProfilesEvaluationsApi* | [**FetchCustomerProfileEvaluation**](docs/CustomerProfilesEvaluationsApi.md#fetchcustomerprofileevaluation) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid} | 
+*CustomerProfilesEvaluationsApi* | [**ListCustomerProfileEvaluation**](docs/CustomerProfilesEvaluationsApi.md#listcustomerprofileevaluation) | **Get** /v1/CustomerProfiles/{CustomerProfileSid}/Evaluations | 
+*EndUserTypesApi* | [**FetchEndUserType**](docs/EndUserTypesApi.md#fetchendusertype) | **Get** /v1/EndUserTypes/{Sid} | 
+*EndUserTypesApi* | [**ListEndUserType**](docs/EndUserTypesApi.md#listendusertype) | **Get** /v1/EndUserTypes | 
+*EndUsersApi* | [**CreateEndUser**](docs/EndUsersApi.md#createenduser) | **Post** /v1/EndUsers | 
+*EndUsersApi* | [**DeleteEndUser**](docs/EndUsersApi.md#deleteenduser) | **Delete** /v1/EndUsers/{Sid} | 
+*EndUsersApi* | [**FetchEndUser**](docs/EndUsersApi.md#fetchenduser) | **Get** /v1/EndUsers/{Sid} | 
+*EndUsersApi* | [**ListEndUser**](docs/EndUsersApi.md#listenduser) | **Get** /v1/EndUsers | 
+*EndUsersApi* | [**UpdateEndUser**](docs/EndUsersApi.md#updateenduser) | **Post** /v1/EndUsers/{Sid} | 
+*PoliciesApi* | [**FetchPolicies**](docs/PoliciesApi.md#fetchpolicies) | **Get** /v1/Policies/{Sid} | 
+*PoliciesApi* | [**ListPolicies**](docs/PoliciesApi.md#listpolicies) | **Get** /v1/Policies | 
+*SupportingDocumentTypesApi* | [**FetchSupportingDocumentType**](docs/SupportingDocumentTypesApi.md#fetchsupportingdocumenttype) | **Get** /v1/SupportingDocumentTypes/{Sid} | 
+*SupportingDocumentTypesApi* | [**ListSupportingDocumentType**](docs/SupportingDocumentTypesApi.md#listsupportingdocumenttype) | **Get** /v1/SupportingDocumentTypes | 
+*SupportingDocumentsApi* | [**CreateSupportingDocument**](docs/SupportingDocumentsApi.md#createsupportingdocument) | **Post** /v1/SupportingDocuments | 
+*SupportingDocumentsApi* | [**DeleteSupportingDocument**](docs/SupportingDocumentsApi.md#deletesupportingdocument) | **Delete** /v1/SupportingDocuments/{Sid} | 
+*SupportingDocumentsApi* | [**FetchSupportingDocument**](docs/SupportingDocumentsApi.md#fetchsupportingdocument) | **Get** /v1/SupportingDocuments/{Sid} | 
+*SupportingDocumentsApi* | [**ListSupportingDocument**](docs/SupportingDocumentsApi.md#listsupportingdocument) | **Get** /v1/SupportingDocuments | 
+*SupportingDocumentsApi* | [**UpdateSupportingDocument**](docs/SupportingDocumentsApi.md#updatesupportingdocument) | **Post** /v1/SupportingDocuments/{Sid} | 
+*TrustProductsApi* | [**CreateTrustProduct**](docs/TrustProductsApi.md#createtrustproduct) | **Post** /v1/TrustProducts | 
+*TrustProductsApi* | [**DeleteTrustProduct**](docs/TrustProductsApi.md#deletetrustproduct) | **Delete** /v1/TrustProducts/{Sid} | 
+*TrustProductsApi* | [**FetchTrustProduct**](docs/TrustProductsApi.md#fetchtrustproduct) | **Get** /v1/TrustProducts/{Sid} | 
+*TrustProductsApi* | [**ListTrustProduct**](docs/TrustProductsApi.md#listtrustproduct) | **Get** /v1/TrustProducts | 
+*TrustProductsApi* | [**UpdateTrustProduct**](docs/TrustProductsApi.md#updatetrustproduct) | **Post** /v1/TrustProducts/{Sid} | 
+*TrustProductsChannelEndpointAssignmentsApi* | [**CreateTrustProductChannelEndpointAssignment**](docs/TrustProductsChannelEndpointAssignmentsApi.md#createtrustproductchannelendpointassignment) | **Post** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments | 
+*TrustProductsChannelEndpointAssignmentsApi* | [**DeleteTrustProductChannelEndpointAssignment**](docs/TrustProductsChannelEndpointAssignmentsApi.md#deletetrustproductchannelendpointassignment) | **Delete** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid} | 
+*TrustProductsChannelEndpointAssignmentsApi* | [**FetchTrustProductChannelEndpointAssignment**](docs/TrustProductsChannelEndpointAssignmentsApi.md#fetchtrustproductchannelendpointassignment) | **Get** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid} | 
+*TrustProductsChannelEndpointAssignmentsApi* | [**ListTrustProductChannelEndpointAssignment**](docs/TrustProductsChannelEndpointAssignmentsApi.md#listtrustproductchannelendpointassignment) | **Get** /v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments | 
+*TrustProductsEntityAssignmentsApi* | [**CreateTrustProductEntityAssignment**](docs/TrustProductsEntityAssignmentsApi.md#createtrustproductentityassignment) | **Post** /v1/TrustProducts/{TrustProductSid}/EntityAssignments | 
+*TrustProductsEntityAssignmentsApi* | [**DeleteTrustProductEntityAssignment**](docs/TrustProductsEntityAssignmentsApi.md#deletetrustproductentityassignment) | **Delete** /v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid} | 
+*TrustProductsEntityAssignmentsApi* | [**FetchTrustProductEntityAssignment**](docs/TrustProductsEntityAssignmentsApi.md#fetchtrustproductentityassignment) | **Get** /v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid} | 
+*TrustProductsEntityAssignmentsApi* | [**ListTrustProductEntityAssignment**](docs/TrustProductsEntityAssignmentsApi.md#listtrustproductentityassignment) | **Get** /v1/TrustProducts/{TrustProductSid}/EntityAssignments | 
+*TrustProductsEvaluationsApi* | [**CreateTrustProductEvaluation**](docs/TrustProductsEvaluationsApi.md#createtrustproductevaluation) | **Post** /v1/TrustProducts/{TrustProductSid}/Evaluations | 
+*TrustProductsEvaluationsApi* | [**FetchTrustProductEvaluation**](docs/TrustProductsEvaluationsApi.md#fetchtrustproductevaluation) | **Get** /v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid} | 
+*TrustProductsEvaluationsApi* | [**ListTrustProductEvaluation**](docs/TrustProductsEvaluationsApi.md#listtrustproductevaluation) | **Get** /v1/TrustProducts/{TrustProductSid}/Evaluations | 
 
 
 ## Documentation For Models
@@ -129,9 +129,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

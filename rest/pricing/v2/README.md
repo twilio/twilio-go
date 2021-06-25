@@ -31,9 +31,9 @@ All URIs are relative to *https://pricing.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**FetchVoiceCountry**](docs/DefaultApi.md#fetchvoicecountry) | **Get** /v2/Voice/Countries/{IsoCountry} | 
-*DefaultApi* | [**FetchVoiceNumber**](docs/DefaultApi.md#fetchvoicenumber) | **Get** /v2/Voice/Numbers/{DestinationNumber} | 
-*DefaultApi* | [**ListVoiceCountry**](docs/DefaultApi.md#listvoicecountry) | **Get** /v2/Voice/Countries | 
+*VoiceCountriesApi* | [**FetchVoiceCountry**](docs/VoiceCountriesApi.md#fetchvoicecountry) | **Get** /v2/Voice/Countries/{IsoCountry} | 
+*VoiceCountriesApi* | [**ListVoiceCountry**](docs/VoiceCountriesApi.md#listvoicecountry) | **Get** /v2/Voice/Countries | 
+*VoiceNumbersApi* | [**FetchVoiceNumber**](docs/VoiceNumbersApi.md#fetchvoicenumber) | **Get** /v2/Voice/Numbers/{DestinationNumber} | 
 
 
 ## Documentation For Models
@@ -67,9 +67,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

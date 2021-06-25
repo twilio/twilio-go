@@ -31,14 +31,14 @@ All URIs are relative to *https://insights.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**FetchCall**](docs/DefaultApi.md#fetchcall) | **Get** /v1/Voice/{Sid} | 
-*DefaultApi* | [**FetchSummary**](docs/DefaultApi.md#fetchsummary) | **Get** /v1/Voice/{CallSid}/Summary | 
-*DefaultApi* | [**FetchVideoParticipantSummary**](docs/DefaultApi.md#fetchvideoparticipantsummary) | **Get** /v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid} | 
-*DefaultApi* | [**FetchVideoRoomSummary**](docs/DefaultApi.md#fetchvideoroomsummary) | **Get** /v1/Video/Rooms/{RoomSid} | 
-*DefaultApi* | [**ListEvent**](docs/DefaultApi.md#listevent) | **Get** /v1/Voice/{CallSid}/Events | 
-*DefaultApi* | [**ListMetric**](docs/DefaultApi.md#listmetric) | **Get** /v1/Voice/{CallSid}/Metrics | 
-*DefaultApi* | [**ListVideoParticipantSummary**](docs/DefaultApi.md#listvideoparticipantsummary) | **Get** /v1/Video/Rooms/{RoomSid}/Participants | 
-*DefaultApi* | [**ListVideoRoomSummary**](docs/DefaultApi.md#listvideoroomsummary) | **Get** /v1/Video/Rooms | 
+*VideoRoomsApi* | [**FetchVideoRoomSummary**](docs/VideoRoomsApi.md#fetchvideoroomsummary) | **Get** /v1/Video/Rooms/{RoomSid} | 
+*VideoRoomsApi* | [**ListVideoRoomSummary**](docs/VideoRoomsApi.md#listvideoroomsummary) | **Get** /v1/Video/Rooms | 
+*VideoRoomsParticipantsApi* | [**FetchVideoParticipantSummary**](docs/VideoRoomsParticipantsApi.md#fetchvideoparticipantsummary) | **Get** /v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid} | 
+*VideoRoomsParticipantsApi* | [**ListVideoParticipantSummary**](docs/VideoRoomsParticipantsApi.md#listvideoparticipantsummary) | **Get** /v1/Video/Rooms/{RoomSid}/Participants | 
+*VoiceApi* | [**FetchCall**](docs/VoiceApi.md#fetchcall) | **Get** /v1/Voice/{Sid} | 
+*VoiceEventsApi* | [**ListEvent**](docs/VoiceEventsApi.md#listevent) | **Get** /v1/Voice/{CallSid}/Events | 
+*VoiceMetricsApi* | [**ListMetric**](docs/VoiceMetricsApi.md#listmetric) | **Get** /v1/Voice/{CallSid}/Metrics | 
+*VoiceSummaryApi* | [**FetchSummary**](docs/VoiceSummaryApi.md#fetchsummary) | **Get** /v1/Voice/{CallSid}/Summary | 
 
 
 ## Documentation For Models
@@ -73,9 +73,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 
