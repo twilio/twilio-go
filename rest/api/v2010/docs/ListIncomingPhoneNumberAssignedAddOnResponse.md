@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AssignedAddOns** | [**[]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn**](api.v2010.account.incoming_phone_number.incoming_phone_number_assigned_add_on.md) |  |[optional] 
+**AssignedAddOns** | [**[]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn**](ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

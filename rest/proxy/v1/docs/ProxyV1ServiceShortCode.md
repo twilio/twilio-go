@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**Capabilities** | Pointer to [**ProxyV1ServiceShortCodeCapabilities**](proxy_v1_service_short_code_capabilities.md) |  |
+**Capabilities** | Pointer to [**ProxyV1ServiceShortCodeCapabilities**](ProxyV1ServiceShortCodeCapabilities.md) |  |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **IsReserved** | Pointer to **bool** | Whether the short code should be reserved for manual assignment to participants only |

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
-**IncomingPhoneNumbers** | [**[]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile**](api.v2010.account.incoming_phone_number.incoming_phone_number_mobile.md) |  |[optional] 
+**IncomingPhoneNumbers** | [**[]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile**](ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile.md) |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 

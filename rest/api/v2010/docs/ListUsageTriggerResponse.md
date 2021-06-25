@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **PreviousPageUri** | **string** |  |[optional] 
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
-**UsageTriggers** | [**[]ApiV2010AccountUsageUsageTrigger**](api.v2010.account.usage.usage_trigger.md) |  |[optional] 
+**UsageTriggers** | [**[]ApiV2010AccountUsageUsageTrigger**](ApiV2010AccountUsageUsageTrigger.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

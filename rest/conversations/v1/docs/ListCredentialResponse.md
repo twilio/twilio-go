@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Credentials** | [**[]ConversationsV1Credential**](conversations.v1.credential.md) |  |[optional] 
-**Meta** | [**ListConversationResponseMeta**](ListConversationResponse_meta.md) |  |[optional] 
+**Credentials** | [**[]ConversationsV1Credential**](ConversationsV1Credential.md) |  |[optional] 
+**Meta** | [**ListConversationResponseMeta**](ListConversationResponseMeta.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

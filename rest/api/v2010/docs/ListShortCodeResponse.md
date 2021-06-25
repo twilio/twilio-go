@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
-**ShortCodes** | [**[]ApiV2010AccountShortCode**](api.v2010.account.short_code.md) |  |[optional] 
+**ShortCodes** | [**[]ApiV2010AccountShortCode**](ApiV2010AccountShortCode.md) |  |[optional] 
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
 

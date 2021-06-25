@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvailablePhoneNumbers** | [**[]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine**](api.v2010.account.available_phone_number_country.available_phone_number_machine_to_machine.md) |  |[optional] 
+**AvailablePhoneNumbers** | [**[]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine**](ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

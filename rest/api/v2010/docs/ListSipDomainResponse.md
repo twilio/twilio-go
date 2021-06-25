@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Domains** | [**[]ApiV2010AccountSipSipDomain**](api.v2010.account.sip.sip_domain.md) |  |[optional] 
+**Domains** | [**[]ApiV2010AccountSipSipDomain**](ApiV2010AccountSipSipDomain.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

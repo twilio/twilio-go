@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AddressRequirements** | Pointer to **string** | The type of Address resource the phone number requires |
 **Beta** | Pointer to **bool** | Whether the phone number is new to the Twilio platform |
-**Capabilities** | Pointer to [**ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities**](api_v2010_account_available_phone_number_country_available_phone_number_local_capabilities.md) |  |
+**Capabilities** | Pointer to [**ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities**](ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocalCapabilities.md) |  |
 **FriendlyName** | Pointer to **string** | A formatted version of the phone number |
 **IsoCountry** | Pointer to **string** | The ISO country code of this phone number |
 **Lata** | Pointer to **string** | The LATA of this phone number |

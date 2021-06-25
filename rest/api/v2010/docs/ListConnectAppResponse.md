@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConnectApps** | [**[]ApiV2010AccountConnectApp**](api.v2010.account.connect_app.md) |  |[optional] 
+**ConnectApps** | [**[]ApiV2010AccountConnectApp**](ApiV2010AccountConnectApp.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

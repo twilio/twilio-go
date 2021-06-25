@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DependentPhoneNumbers** | [**[]ApiV2010AccountAddressDependentPhoneNumber**](api.v2010.account.address.dependent_phone_number.md) |  |[optional] 
+**DependentPhoneNumbers** | [**[]ApiV2010AccountAddressDependentPhoneNumber**](ApiV2010AccountAddressDependentPhoneNumber.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

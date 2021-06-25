@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AddOnResults** | [**[]ApiV2010AccountRecordingRecordingAddOnResult**](api.v2010.account.recording.recording_add_on_result.md) |  |[optional] 
+**AddOnResults** | [**[]ApiV2010AccountRecordingRecordingAddOnResult**](ApiV2010AccountRecordingRecordingAddOnResult.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

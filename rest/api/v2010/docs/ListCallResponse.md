@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Calls** | [**[]ApiV2010AccountCall**](api.v2010.account.call.md) |  |[optional] 
+**Calls** | [**[]ApiV2010AccountCall**](ApiV2010AccountCall.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
