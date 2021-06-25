@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Credentials** | [**[]ChatV1Credential**](chat.v1.credential.md) |  |[optional] 
-**Meta** | [**ListCredentialResponseMeta**](ListCredentialResponse_meta.md) |  |[optional] 
+**Credentials** | [**[]ChatV1Credential**](ChatV1Credential.md) |  |[optional] 
+**Meta** | [**ListCredentialResponseMeta**](ListCredentialResponseMeta.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

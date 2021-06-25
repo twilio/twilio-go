@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Meta** | [**ListAssistantResponseMeta**](ListAssistantResponse_meta.md) |  |[optional] 
-**Webhooks** | [**[]AutopilotV1AssistantWebhook**](autopilot.v1.assistant.webhook.md) |  |[optional] 
+**Meta** | [**ListAssistantResponseMeta**](ListAssistantResponseMeta.md) |  |[optional] 
+**Webhooks** | [**[]AutopilotV1AssistantWebhook**](AutopilotV1AssistantWebhook.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

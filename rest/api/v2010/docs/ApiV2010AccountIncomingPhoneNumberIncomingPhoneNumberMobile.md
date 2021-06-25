@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **ApiVersion** | Pointer to **string** | The API version used to start a new TwiML session |
 **Beta** | Pointer to **bool** | Whether the phone number is new to the Twilio platform |
 **BundleSid** | Pointer to **string** | The SID of the Bundle resource associated with number |
-**Capabilities** | Pointer to [**ApiV2010AccountIncomingPhoneNumberCapabilities**](api_v2010_account_incoming_phone_number_capabilities.md) |  |
+**Capabilities** | Pointer to [**ApiV2010AccountIncomingPhoneNumberCapabilities**](ApiV2010AccountIncomingPhoneNumberCapabilities.md) |  |
 **DateCreated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was created |
 **DateUpdated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was last updated |
 **EmergencyAddressSid** | Pointer to **string** | The emergency address configuration to use for emergency calling |

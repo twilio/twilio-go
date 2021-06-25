@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Conferences** | [**[]ApiV2010AccountConference**](api.v2010.account.conference.md) |  |[optional] 
+**Conferences** | [**[]ApiV2010AccountConference**](ApiV2010AccountConference.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

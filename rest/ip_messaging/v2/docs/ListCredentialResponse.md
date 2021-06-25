@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Credentials** | [**[]IpMessagingV2Credential**](ip_messaging.v2.credential.md) |  |[optional] 
-**Meta** | [**ListCredentialResponseMeta**](ListCredentialResponse_meta.md) |  |[optional] 
+**Credentials** | [**[]IpMessagingV2Credential**](IpMessagingV2Credential.md) |  |[optional] 
+**Meta** | [**ListCredentialResponseMeta**](ListCredentialResponseMeta.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

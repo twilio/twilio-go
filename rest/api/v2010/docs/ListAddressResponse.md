@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Addresses** | [**[]ApiV2010AccountAddress**](api.v2010.account.address.md) |  |[optional] 
+**Addresses** | [**[]ApiV2010AccountAddress**](ApiV2010AccountAddress.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

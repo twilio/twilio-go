@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
-**OutgoingCallerIds** | [**[]ApiV2010AccountOutgoingCallerId**](api.v2010.account.outgoing_caller_id.md) |  |[optional] 
+**OutgoingCallerIds** | [**[]ApiV2010AccountOutgoingCallerId**](ApiV2010AccountOutgoingCallerId.md) |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 

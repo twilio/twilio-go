@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuthorizedConnectApps** | [**[]ApiV2010AccountAuthorizedConnectApp**](api.v2010.account.authorized_connect_app.md) |  |[optional] 
+**AuthorizedConnectApps** | [**[]ApiV2010AccountAuthorizedConnectApp**](ApiV2010AccountAuthorizedConnectApp.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

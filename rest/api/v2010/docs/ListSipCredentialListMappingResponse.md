@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CredentialListMappings** | [**[]ApiV2010AccountSipSipDomainSipCredentialListMapping**](api.v2010.account.sip.sip_domain.sip_credential_list_mapping.md) |  |[optional] 
+**CredentialListMappings** | [**[]ApiV2010AccountSipSipDomainSipCredentialListMapping**](ApiV2010AccountSipSipDomainSipCredentialListMapping.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

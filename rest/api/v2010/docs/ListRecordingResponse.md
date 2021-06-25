@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
-**Recordings** | [**[]ApiV2010AccountRecording**](api.v2010.account.recording.md) |  |[optional] 
+**Recordings** | [**[]ApiV2010AccountRecording**](ApiV2010AccountRecording.md) |  |[optional] 
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
 

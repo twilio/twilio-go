@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attempts** | [**[]VerifyV2VerificationAttempt**](verify.v2.verification_attempt.md) |  |[optional] 
-**Meta** | [**ListVerificationAttemptResponseMeta**](ListVerificationAttemptResponse_meta.md) |  |[optional] 
+**Attempts** | [**[]VerifyV2VerificationAttempt**](VerifyV2VerificationAttempt.md) |  |[optional] 
+**Meta** | [**ListVerificationAttemptResponseMeta**](ListVerificationAttemptResponseMeta.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CredentialLists** | [**[]ApiV2010AccountSipSipCredentialList**](api.v2010.account.sip.sip_credential_list.md) |  |[optional] 
+**CredentialLists** | [**[]ApiV2010AccountSipSipCredentialList**](ApiV2010AccountSipSipCredentialList.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

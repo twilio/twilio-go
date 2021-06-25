@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Bindings** | [**[]IpMessagingV2ServiceBinding**](ip_messaging.v2.service.binding.md) |  |[optional] 
-**Meta** | [**ListCredentialResponseMeta**](ListCredentialResponse_meta.md) |  |[optional] 
+**Bindings** | [**[]IpMessagingV2ServiceBinding**](IpMessagingV2ServiceBinding.md) |  |[optional] 
+**Meta** | [**ListCredentialResponseMeta**](ListCredentialResponseMeta.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

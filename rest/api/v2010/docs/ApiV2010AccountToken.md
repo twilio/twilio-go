@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
 **DateCreated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was created |
 **DateUpdated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was last updated |
-**IceServers** | Pointer to [**[]ApiV2010AccountTokenIceServers**](api_v2010_account_token_ice_servers.md) | An array representing the ephemeral credentials |
+**IceServers** | Pointer to [**[]ApiV2010AccountTokenIceServers**](ApiV2010AccountTokenIceServers.md) | An array representing the ephemeral credentials |
 **Password** | Pointer to **string** | The temporary password used for authenticating |
 **Ttl** | Pointer to **string** | The duration in seconds the credentials are valid |
 **Username** | Pointer to **string** | The temporary username that uniquely identifies a Token |

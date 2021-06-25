@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
-**Notifications** | [**[]ApiV2010AccountNotification**](api.v2010.account.notification.md) |  |[optional] 
+**Notifications** | [**[]ApiV2010AccountNotification**](ApiV2010AccountNotification.md) |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
