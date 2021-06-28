@@ -31,14 +31,14 @@ All URIs are relative to *https://fax.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateFax**](docs/DefaultApi.md#createfax) | **Post** /v1/Faxes | 
-*DefaultApi* | [**DeleteFax**](docs/DefaultApi.md#deletefax) | **Delete** /v1/Faxes/{Sid} | 
-*DefaultApi* | [**DeleteFaxMedia**](docs/DefaultApi.md#deletefaxmedia) | **Delete** /v1/Faxes/{FaxSid}/Media/{Sid} | 
-*DefaultApi* | [**FetchFax**](docs/DefaultApi.md#fetchfax) | **Get** /v1/Faxes/{Sid} | 
-*DefaultApi* | [**FetchFaxMedia**](docs/DefaultApi.md#fetchfaxmedia) | **Get** /v1/Faxes/{FaxSid}/Media/{Sid} | 
-*DefaultApi* | [**ListFax**](docs/DefaultApi.md#listfax) | **Get** /v1/Faxes | 
-*DefaultApi* | [**ListFaxMedia**](docs/DefaultApi.md#listfaxmedia) | **Get** /v1/Faxes/{FaxSid}/Media | 
-*DefaultApi* | [**UpdateFax**](docs/DefaultApi.md#updatefax) | **Post** /v1/Faxes/{Sid} | 
+*FaxesApi* | [**CreateFax**](docs/FaxesApi.md#createfax) | **Post** /v1/Faxes | 
+*FaxesApi* | [**DeleteFax**](docs/FaxesApi.md#deletefax) | **Delete** /v1/Faxes/{Sid} | 
+*FaxesApi* | [**FetchFax**](docs/FaxesApi.md#fetchfax) | **Get** /v1/Faxes/{Sid} | 
+*FaxesApi* | [**ListFax**](docs/FaxesApi.md#listfax) | **Get** /v1/Faxes | 
+*FaxesApi* | [**UpdateFax**](docs/FaxesApi.md#updatefax) | **Post** /v1/Faxes/{Sid} | 
+*FaxesMediaApi* | [**DeleteFaxMedia**](docs/FaxesMediaApi.md#deletefaxmedia) | **Delete** /v1/Faxes/{FaxSid}/Media/{Sid} | 
+*FaxesMediaApi* | [**FetchFaxMedia**](docs/FaxesMediaApi.md#fetchfaxmedia) | **Get** /v1/Faxes/{FaxSid}/Media/{Sid} | 
+*FaxesMediaApi* | [**ListFaxMedia**](docs/FaxesMediaApi.md#listfaxmedia) | **Get** /v1/Faxes/{FaxSid}/Media | 
 
 
 ## Documentation For Models
@@ -67,9 +67,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

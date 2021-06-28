@@ -31,15 +31,15 @@ All URIs are relative to *https://bulkexports.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateExportCustomJob**](docs/DefaultApi.md#createexportcustomjob) | **Post** /v1/Exports/{ResourceType}/Jobs | 
-*DefaultApi* | [**DeleteJob**](docs/DefaultApi.md#deletejob) | **Delete** /v1/Exports/Jobs/{JobSid} | 
-*DefaultApi* | [**FetchDay**](docs/DefaultApi.md#fetchday) | **Get** /v1/Exports/{ResourceType}/Days/{Day} | 
-*DefaultApi* | [**FetchExport**](docs/DefaultApi.md#fetchexport) | **Get** /v1/Exports/{ResourceType} | 
-*DefaultApi* | [**FetchExportConfiguration**](docs/DefaultApi.md#fetchexportconfiguration) | **Get** /v1/Exports/{ResourceType}/Configuration | 
-*DefaultApi* | [**FetchJob**](docs/DefaultApi.md#fetchjob) | **Get** /v1/Exports/Jobs/{JobSid} | 
-*DefaultApi* | [**ListDay**](docs/DefaultApi.md#listday) | **Get** /v1/Exports/{ResourceType}/Days | 
-*DefaultApi* | [**ListExportCustomJob**](docs/DefaultApi.md#listexportcustomjob) | **Get** /v1/Exports/{ResourceType}/Jobs | 
-*DefaultApi* | [**UpdateExportConfiguration**](docs/DefaultApi.md#updateexportconfiguration) | **Post** /v1/Exports/{ResourceType}/Configuration | 
+*ExportsApi* | [**FetchExport**](docs/ExportsApi.md#fetchexport) | **Get** /v1/Exports/{ResourceType} | 
+*ExportsConfigurationApi* | [**FetchExportConfiguration**](docs/ExportsConfigurationApi.md#fetchexportconfiguration) | **Get** /v1/Exports/{ResourceType}/Configuration | 
+*ExportsConfigurationApi* | [**UpdateExportConfiguration**](docs/ExportsConfigurationApi.md#updateexportconfiguration) | **Post** /v1/Exports/{ResourceType}/Configuration | 
+*ExportsDaysApi* | [**FetchDay**](docs/ExportsDaysApi.md#fetchday) | **Get** /v1/Exports/{ResourceType}/Days/{Day} | 
+*ExportsDaysApi* | [**ListDay**](docs/ExportsDaysApi.md#listday) | **Get** /v1/Exports/{ResourceType}/Days | 
+*ExportsJobsApi* | [**CreateExportCustomJob**](docs/ExportsJobsApi.md#createexportcustomjob) | **Post** /v1/Exports/{ResourceType}/Jobs | 
+*ExportsJobsApi* | [**DeleteJob**](docs/ExportsJobsApi.md#deletejob) | **Delete** /v1/Exports/Jobs/{JobSid} | 
+*ExportsJobsApi* | [**FetchJob**](docs/ExportsJobsApi.md#fetchjob) | **Get** /v1/Exports/Jobs/{JobSid} | 
+*ExportsJobsApi* | [**ListExportCustomJob**](docs/ExportsJobsApi.md#listexportcustomjob) | **Get** /v1/Exports/{ResourceType}/Jobs | 
 
 
 ## Documentation For Models
@@ -72,9 +72,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

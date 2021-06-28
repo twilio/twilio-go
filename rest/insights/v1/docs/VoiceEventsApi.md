@@ -1,0 +1,51 @@
+# VoiceEventsApi
+
+All URIs are relative to *https://insights.twilio.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**ListEvent**](VoiceEventsApi.md#ListEvent) | **Get** /v1/Voice/{CallSid}/Events | 
+
+
+
+## ListEvent
+
+> ListEventResponse ListEvent(ctx, CallSidoptional)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**CallSid** | **string** | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListEventParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**Edge** | **string** | 
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+### Return type
+
+[**ListEventResponse**](ListEventResponse.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+

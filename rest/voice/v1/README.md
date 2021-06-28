@@ -31,37 +31,37 @@ All URIs are relative to *https://voice.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateByocTrunk**](docs/DefaultApi.md#createbyoctrunk) | **Post** /v1/ByocTrunks | 
-*DefaultApi* | [**CreateConnectionPolicy**](docs/DefaultApi.md#createconnectionpolicy) | **Post** /v1/ConnectionPolicies | 
-*DefaultApi* | [**CreateConnectionPolicyTarget**](docs/DefaultApi.md#createconnectionpolicytarget) | **Post** /v1/ConnectionPolicies/{ConnectionPolicySid}/Targets | 
-*DefaultApi* | [**CreateDialingPermissionsCountryBulkUpdate**](docs/DefaultApi.md#createdialingpermissionscountrybulkupdate) | **Post** /v1/DialingPermissions/BulkCountryUpdates | 
-*DefaultApi* | [**CreateIpRecord**](docs/DefaultApi.md#createiprecord) | **Post** /v1/IpRecords | 
-*DefaultApi* | [**CreateSourceIpMapping**](docs/DefaultApi.md#createsourceipmapping) | **Post** /v1/SourceIpMappings | 
-*DefaultApi* | [**DeleteByocTrunk**](docs/DefaultApi.md#deletebyoctrunk) | **Delete** /v1/ByocTrunks/{Sid} | 
-*DefaultApi* | [**DeleteConnectionPolicy**](docs/DefaultApi.md#deleteconnectionpolicy) | **Delete** /v1/ConnectionPolicies/{Sid} | 
-*DefaultApi* | [**DeleteConnectionPolicyTarget**](docs/DefaultApi.md#deleteconnectionpolicytarget) | **Delete** /v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid} | 
-*DefaultApi* | [**DeleteIpRecord**](docs/DefaultApi.md#deleteiprecord) | **Delete** /v1/IpRecords/{Sid} | 
-*DefaultApi* | [**DeleteSourceIpMapping**](docs/DefaultApi.md#deletesourceipmapping) | **Delete** /v1/SourceIpMappings/{Sid} | 
-*DefaultApi* | [**FetchByocTrunk**](docs/DefaultApi.md#fetchbyoctrunk) | **Get** /v1/ByocTrunks/{Sid} | 
-*DefaultApi* | [**FetchConnectionPolicy**](docs/DefaultApi.md#fetchconnectionpolicy) | **Get** /v1/ConnectionPolicies/{Sid} | 
-*DefaultApi* | [**FetchConnectionPolicyTarget**](docs/DefaultApi.md#fetchconnectionpolicytarget) | **Get** /v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid} | 
-*DefaultApi* | [**FetchDialingPermissionsCountry**](docs/DefaultApi.md#fetchdialingpermissionscountry) | **Get** /v1/DialingPermissions/Countries/{IsoCode} | 
-*DefaultApi* | [**FetchDialingPermissionsSettings**](docs/DefaultApi.md#fetchdialingpermissionssettings) | **Get** /v1/Settings | 
-*DefaultApi* | [**FetchIpRecord**](docs/DefaultApi.md#fetchiprecord) | **Get** /v1/IpRecords/{Sid} | 
-*DefaultApi* | [**FetchSourceIpMapping**](docs/DefaultApi.md#fetchsourceipmapping) | **Get** /v1/SourceIpMappings/{Sid} | 
-*DefaultApi* | [**ListByocTrunk**](docs/DefaultApi.md#listbyoctrunk) | **Get** /v1/ByocTrunks | 
-*DefaultApi* | [**ListConnectionPolicy**](docs/DefaultApi.md#listconnectionpolicy) | **Get** /v1/ConnectionPolicies | 
-*DefaultApi* | [**ListConnectionPolicyTarget**](docs/DefaultApi.md#listconnectionpolicytarget) | **Get** /v1/ConnectionPolicies/{ConnectionPolicySid}/Targets | 
-*DefaultApi* | [**ListDialingPermissionsCountry**](docs/DefaultApi.md#listdialingpermissionscountry) | **Get** /v1/DialingPermissions/Countries | 
-*DefaultApi* | [**ListDialingPermissionsHrsPrefixes**](docs/DefaultApi.md#listdialingpermissionshrsprefixes) | **Get** /v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes | 
-*DefaultApi* | [**ListIpRecord**](docs/DefaultApi.md#listiprecord) | **Get** /v1/IpRecords | 
-*DefaultApi* | [**ListSourceIpMapping**](docs/DefaultApi.md#listsourceipmapping) | **Get** /v1/SourceIpMappings | 
-*DefaultApi* | [**UpdateByocTrunk**](docs/DefaultApi.md#updatebyoctrunk) | **Post** /v1/ByocTrunks/{Sid} | 
-*DefaultApi* | [**UpdateConnectionPolicy**](docs/DefaultApi.md#updateconnectionpolicy) | **Post** /v1/ConnectionPolicies/{Sid} | 
-*DefaultApi* | [**UpdateConnectionPolicyTarget**](docs/DefaultApi.md#updateconnectionpolicytarget) | **Post** /v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid} | 
-*DefaultApi* | [**UpdateDialingPermissionsSettings**](docs/DefaultApi.md#updatedialingpermissionssettings) | **Post** /v1/Settings | 
-*DefaultApi* | [**UpdateIpRecord**](docs/DefaultApi.md#updateiprecord) | **Post** /v1/IpRecords/{Sid} | 
-*DefaultApi* | [**UpdateSourceIpMapping**](docs/DefaultApi.md#updatesourceipmapping) | **Post** /v1/SourceIpMappings/{Sid} | 
+*ByocTrunksApi* | [**CreateByocTrunk**](docs/ByocTrunksApi.md#createbyoctrunk) | **Post** /v1/ByocTrunks | 
+*ByocTrunksApi* | [**DeleteByocTrunk**](docs/ByocTrunksApi.md#deletebyoctrunk) | **Delete** /v1/ByocTrunks/{Sid} | 
+*ByocTrunksApi* | [**FetchByocTrunk**](docs/ByocTrunksApi.md#fetchbyoctrunk) | **Get** /v1/ByocTrunks/{Sid} | 
+*ByocTrunksApi* | [**ListByocTrunk**](docs/ByocTrunksApi.md#listbyoctrunk) | **Get** /v1/ByocTrunks | 
+*ByocTrunksApi* | [**UpdateByocTrunk**](docs/ByocTrunksApi.md#updatebyoctrunk) | **Post** /v1/ByocTrunks/{Sid} | 
+*ConnectionPoliciesApi* | [**CreateConnectionPolicy**](docs/ConnectionPoliciesApi.md#createconnectionpolicy) | **Post** /v1/ConnectionPolicies | 
+*ConnectionPoliciesApi* | [**DeleteConnectionPolicy**](docs/ConnectionPoliciesApi.md#deleteconnectionpolicy) | **Delete** /v1/ConnectionPolicies/{Sid} | 
+*ConnectionPoliciesApi* | [**FetchConnectionPolicy**](docs/ConnectionPoliciesApi.md#fetchconnectionpolicy) | **Get** /v1/ConnectionPolicies/{Sid} | 
+*ConnectionPoliciesApi* | [**ListConnectionPolicy**](docs/ConnectionPoliciesApi.md#listconnectionpolicy) | **Get** /v1/ConnectionPolicies | 
+*ConnectionPoliciesApi* | [**UpdateConnectionPolicy**](docs/ConnectionPoliciesApi.md#updateconnectionpolicy) | **Post** /v1/ConnectionPolicies/{Sid} | 
+*ConnectionPoliciesTargetsApi* | [**CreateConnectionPolicyTarget**](docs/ConnectionPoliciesTargetsApi.md#createconnectionpolicytarget) | **Post** /v1/ConnectionPolicies/{ConnectionPolicySid}/Targets | 
+*ConnectionPoliciesTargetsApi* | [**DeleteConnectionPolicyTarget**](docs/ConnectionPoliciesTargetsApi.md#deleteconnectionpolicytarget) | **Delete** /v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid} | 
+*ConnectionPoliciesTargetsApi* | [**FetchConnectionPolicyTarget**](docs/ConnectionPoliciesTargetsApi.md#fetchconnectionpolicytarget) | **Get** /v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid} | 
+*ConnectionPoliciesTargetsApi* | [**ListConnectionPolicyTarget**](docs/ConnectionPoliciesTargetsApi.md#listconnectionpolicytarget) | **Get** /v1/ConnectionPolicies/{ConnectionPolicySid}/Targets | 
+*ConnectionPoliciesTargetsApi* | [**UpdateConnectionPolicyTarget**](docs/ConnectionPoliciesTargetsApi.md#updateconnectionpolicytarget) | **Post** /v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid} | 
+*DialingPermissionsBulkCountryUpdatesApi* | [**CreateDialingPermissionsCountryBulkUpdate**](docs/DialingPermissionsBulkCountryUpdatesApi.md#createdialingpermissionscountrybulkupdate) | **Post** /v1/DialingPermissions/BulkCountryUpdates | 
+*DialingPermissionsCountriesApi* | [**FetchDialingPermissionsCountry**](docs/DialingPermissionsCountriesApi.md#fetchdialingpermissionscountry) | **Get** /v1/DialingPermissions/Countries/{IsoCode} | 
+*DialingPermissionsCountriesApi* | [**ListDialingPermissionsCountry**](docs/DialingPermissionsCountriesApi.md#listdialingpermissionscountry) | **Get** /v1/DialingPermissions/Countries | 
+*DialingPermissionsCountriesHighRiskSpecialPrefixesApi* | [**ListDialingPermissionsHrsPrefixes**](docs/DialingPermissionsCountriesHighRiskSpecialPrefixesApi.md#listdialingpermissionshrsprefixes) | **Get** /v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes | 
+*IpRecordsApi* | [**CreateIpRecord**](docs/IpRecordsApi.md#createiprecord) | **Post** /v1/IpRecords | 
+*IpRecordsApi* | [**DeleteIpRecord**](docs/IpRecordsApi.md#deleteiprecord) | **Delete** /v1/IpRecords/{Sid} | 
+*IpRecordsApi* | [**FetchIpRecord**](docs/IpRecordsApi.md#fetchiprecord) | **Get** /v1/IpRecords/{Sid} | 
+*IpRecordsApi* | [**ListIpRecord**](docs/IpRecordsApi.md#listiprecord) | **Get** /v1/IpRecords | 
+*IpRecordsApi* | [**UpdateIpRecord**](docs/IpRecordsApi.md#updateiprecord) | **Post** /v1/IpRecords/{Sid} | 
+*SettingsApi* | [**FetchDialingPermissionsSettings**](docs/SettingsApi.md#fetchdialingpermissionssettings) | **Get** /v1/Settings | 
+*SettingsApi* | [**UpdateDialingPermissionsSettings**](docs/SettingsApi.md#updatedialingpermissionssettings) | **Post** /v1/Settings | 
+*SourceIpMappingsApi* | [**CreateSourceIpMapping**](docs/SourceIpMappingsApi.md#createsourceipmapping) | **Post** /v1/SourceIpMappings | 
+*SourceIpMappingsApi* | [**DeleteSourceIpMapping**](docs/SourceIpMappingsApi.md#deletesourceipmapping) | **Delete** /v1/SourceIpMappings/{Sid} | 
+*SourceIpMappingsApi* | [**FetchSourceIpMapping**](docs/SourceIpMappingsApi.md#fetchsourceipmapping) | **Get** /v1/SourceIpMappings/{Sid} | 
+*SourceIpMappingsApi* | [**ListSourceIpMapping**](docs/SourceIpMappingsApi.md#listsourceipmapping) | **Get** /v1/SourceIpMappings | 
+*SourceIpMappingsApi* | [**UpdateSourceIpMapping**](docs/SourceIpMappingsApi.md#updatesourceipmapping) | **Post** /v1/SourceIpMappings/{Sid} | 
 
 
 ## Documentation For Models
@@ -103,9 +103,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

@@ -31,31 +31,31 @@ All URIs are relative to *https://supersim.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateCommand**](docs/DefaultApi.md#createcommand) | **Post** /v1/Commands | 
-*DefaultApi* | [**CreateFleet**](docs/DefaultApi.md#createfleet) | **Post** /v1/Fleets | 
-*DefaultApi* | [**CreateNetworkAccessProfile**](docs/DefaultApi.md#createnetworkaccessprofile) | **Post** /v1/NetworkAccessProfiles | 
-*DefaultApi* | [**CreateNetworkAccessProfileNetwork**](docs/DefaultApi.md#createnetworkaccessprofilenetwork) | **Post** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks | 
-*DefaultApi* | [**CreateSim**](docs/DefaultApi.md#createsim) | **Post** /v1/Sims | 
-*DefaultApi* | [**CreateSmsCommand**](docs/DefaultApi.md#createsmscommand) | **Post** /v1/SmsCommands | 
-*DefaultApi* | [**DeleteNetworkAccessProfileNetwork**](docs/DefaultApi.md#deletenetworkaccessprofilenetwork) | **Delete** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid} | 
-*DefaultApi* | [**FetchCommand**](docs/DefaultApi.md#fetchcommand) | **Get** /v1/Commands/{Sid} | 
-*DefaultApi* | [**FetchFleet**](docs/DefaultApi.md#fetchfleet) | **Get** /v1/Fleets/{Sid} | 
-*DefaultApi* | [**FetchNetwork**](docs/DefaultApi.md#fetchnetwork) | **Get** /v1/Networks/{Sid} | 
-*DefaultApi* | [**FetchNetworkAccessProfile**](docs/DefaultApi.md#fetchnetworkaccessprofile) | **Get** /v1/NetworkAccessProfiles/{Sid} | 
-*DefaultApi* | [**FetchNetworkAccessProfileNetwork**](docs/DefaultApi.md#fetchnetworkaccessprofilenetwork) | **Get** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid} | 
-*DefaultApi* | [**FetchSim**](docs/DefaultApi.md#fetchsim) | **Get** /v1/Sims/{Sid} | 
-*DefaultApi* | [**FetchSmsCommand**](docs/DefaultApi.md#fetchsmscommand) | **Get** /v1/SmsCommands/{Sid} | 
-*DefaultApi* | [**ListCommand**](docs/DefaultApi.md#listcommand) | **Get** /v1/Commands | 
-*DefaultApi* | [**ListFleet**](docs/DefaultApi.md#listfleet) | **Get** /v1/Fleets | 
-*DefaultApi* | [**ListNetwork**](docs/DefaultApi.md#listnetwork) | **Get** /v1/Networks | 
-*DefaultApi* | [**ListNetworkAccessProfile**](docs/DefaultApi.md#listnetworkaccessprofile) | **Get** /v1/NetworkAccessProfiles | 
-*DefaultApi* | [**ListNetworkAccessProfileNetwork**](docs/DefaultApi.md#listnetworkaccessprofilenetwork) | **Get** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks | 
-*DefaultApi* | [**ListSim**](docs/DefaultApi.md#listsim) | **Get** /v1/Sims | 
-*DefaultApi* | [**ListSmsCommand**](docs/DefaultApi.md#listsmscommand) | **Get** /v1/SmsCommands | 
-*DefaultApi* | [**ListUsageRecord**](docs/DefaultApi.md#listusagerecord) | **Get** /v1/UsageRecords | 
-*DefaultApi* | [**UpdateFleet**](docs/DefaultApi.md#updatefleet) | **Post** /v1/Fleets/{Sid} | 
-*DefaultApi* | [**UpdateNetworkAccessProfile**](docs/DefaultApi.md#updatenetworkaccessprofile) | **Post** /v1/NetworkAccessProfiles/{Sid} | 
-*DefaultApi* | [**UpdateSim**](docs/DefaultApi.md#updatesim) | **Post** /v1/Sims/{Sid} | 
+*CommandsApi* | [**CreateCommand**](docs/CommandsApi.md#createcommand) | **Post** /v1/Commands | 
+*CommandsApi* | [**FetchCommand**](docs/CommandsApi.md#fetchcommand) | **Get** /v1/Commands/{Sid} | 
+*CommandsApi* | [**ListCommand**](docs/CommandsApi.md#listcommand) | **Get** /v1/Commands | 
+*FleetsApi* | [**CreateFleet**](docs/FleetsApi.md#createfleet) | **Post** /v1/Fleets | 
+*FleetsApi* | [**FetchFleet**](docs/FleetsApi.md#fetchfleet) | **Get** /v1/Fleets/{Sid} | 
+*FleetsApi* | [**ListFleet**](docs/FleetsApi.md#listfleet) | **Get** /v1/Fleets | 
+*FleetsApi* | [**UpdateFleet**](docs/FleetsApi.md#updatefleet) | **Post** /v1/Fleets/{Sid} | 
+*NetworkAccessProfilesApi* | [**CreateNetworkAccessProfile**](docs/NetworkAccessProfilesApi.md#createnetworkaccessprofile) | **Post** /v1/NetworkAccessProfiles | 
+*NetworkAccessProfilesApi* | [**FetchNetworkAccessProfile**](docs/NetworkAccessProfilesApi.md#fetchnetworkaccessprofile) | **Get** /v1/NetworkAccessProfiles/{Sid} | 
+*NetworkAccessProfilesApi* | [**ListNetworkAccessProfile**](docs/NetworkAccessProfilesApi.md#listnetworkaccessprofile) | **Get** /v1/NetworkAccessProfiles | 
+*NetworkAccessProfilesApi* | [**UpdateNetworkAccessProfile**](docs/NetworkAccessProfilesApi.md#updatenetworkaccessprofile) | **Post** /v1/NetworkAccessProfiles/{Sid} | 
+*NetworkAccessProfilesNetworksApi* | [**CreateNetworkAccessProfileNetwork**](docs/NetworkAccessProfilesNetworksApi.md#createnetworkaccessprofilenetwork) | **Post** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks | 
+*NetworkAccessProfilesNetworksApi* | [**DeleteNetworkAccessProfileNetwork**](docs/NetworkAccessProfilesNetworksApi.md#deletenetworkaccessprofilenetwork) | **Delete** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid} | 
+*NetworkAccessProfilesNetworksApi* | [**FetchNetworkAccessProfileNetwork**](docs/NetworkAccessProfilesNetworksApi.md#fetchnetworkaccessprofilenetwork) | **Get** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid} | 
+*NetworkAccessProfilesNetworksApi* | [**ListNetworkAccessProfileNetwork**](docs/NetworkAccessProfilesNetworksApi.md#listnetworkaccessprofilenetwork) | **Get** /v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks | 
+*NetworksApi* | [**FetchNetwork**](docs/NetworksApi.md#fetchnetwork) | **Get** /v1/Networks/{Sid} | 
+*NetworksApi* | [**ListNetwork**](docs/NetworksApi.md#listnetwork) | **Get** /v1/Networks | 
+*SimsApi* | [**CreateSim**](docs/SimsApi.md#createsim) | **Post** /v1/Sims | 
+*SimsApi* | [**FetchSim**](docs/SimsApi.md#fetchsim) | **Get** /v1/Sims/{Sid} | 
+*SimsApi* | [**ListSim**](docs/SimsApi.md#listsim) | **Get** /v1/Sims | 
+*SimsApi* | [**UpdateSim**](docs/SimsApi.md#updatesim) | **Post** /v1/Sims/{Sid} | 
+*SmsCommandsApi* | [**CreateSmsCommand**](docs/SmsCommandsApi.md#createsmscommand) | **Post** /v1/SmsCommands | 
+*SmsCommandsApi* | [**FetchSmsCommand**](docs/SmsCommandsApi.md#fetchsmscommand) | **Get** /v1/SmsCommands/{Sid} | 
+*SmsCommandsApi* | [**ListSmsCommand**](docs/SmsCommandsApi.md#listsmscommand) | **Get** /v1/SmsCommands | 
+*UsageRecordsApi* | [**ListUsageRecord**](docs/UsageRecordsApi.md#listusagerecord) | **Get** /v1/UsageRecords | 
 
 
 ## Documentation For Models
@@ -96,9 +96,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

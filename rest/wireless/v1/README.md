@@ -31,22 +31,22 @@ All URIs are relative to *https://wireless.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateCommand**](docs/DefaultApi.md#createcommand) | **Post** /v1/Commands | 
-*DefaultApi* | [**CreateRatePlan**](docs/DefaultApi.md#createrateplan) | **Post** /v1/RatePlans | 
-*DefaultApi* | [**DeleteCommand**](docs/DefaultApi.md#deletecommand) | **Delete** /v1/Commands/{Sid} | 
-*DefaultApi* | [**DeleteRatePlan**](docs/DefaultApi.md#deleterateplan) | **Delete** /v1/RatePlans/{Sid} | 
-*DefaultApi* | [**DeleteSim**](docs/DefaultApi.md#deletesim) | **Delete** /v1/Sims/{Sid} | 
-*DefaultApi* | [**FetchCommand**](docs/DefaultApi.md#fetchcommand) | **Get** /v1/Commands/{Sid} | 
-*DefaultApi* | [**FetchRatePlan**](docs/DefaultApi.md#fetchrateplan) | **Get** /v1/RatePlans/{Sid} | 
-*DefaultApi* | [**FetchSim**](docs/DefaultApi.md#fetchsim) | **Get** /v1/Sims/{Sid} | 
-*DefaultApi* | [**ListAccountUsageRecord**](docs/DefaultApi.md#listaccountusagerecord) | **Get** /v1/UsageRecords | 
-*DefaultApi* | [**ListCommand**](docs/DefaultApi.md#listcommand) | **Get** /v1/Commands | 
-*DefaultApi* | [**ListDataSession**](docs/DefaultApi.md#listdatasession) | **Get** /v1/Sims/{SimSid}/DataSessions | 
-*DefaultApi* | [**ListRatePlan**](docs/DefaultApi.md#listrateplan) | **Get** /v1/RatePlans | 
-*DefaultApi* | [**ListSim**](docs/DefaultApi.md#listsim) | **Get** /v1/Sims | 
-*DefaultApi* | [**ListUsageRecord**](docs/DefaultApi.md#listusagerecord) | **Get** /v1/Sims/{SimSid}/UsageRecords | 
-*DefaultApi* | [**UpdateRatePlan**](docs/DefaultApi.md#updaterateplan) | **Post** /v1/RatePlans/{Sid} | 
-*DefaultApi* | [**UpdateSim**](docs/DefaultApi.md#updatesim) | **Post** /v1/Sims/{Sid} | 
+*CommandsApi* | [**CreateCommand**](docs/CommandsApi.md#createcommand) | **Post** /v1/Commands | 
+*CommandsApi* | [**DeleteCommand**](docs/CommandsApi.md#deletecommand) | **Delete** /v1/Commands/{Sid} | 
+*CommandsApi* | [**FetchCommand**](docs/CommandsApi.md#fetchcommand) | **Get** /v1/Commands/{Sid} | 
+*CommandsApi* | [**ListCommand**](docs/CommandsApi.md#listcommand) | **Get** /v1/Commands | 
+*RatePlansApi* | [**CreateRatePlan**](docs/RatePlansApi.md#createrateplan) | **Post** /v1/RatePlans | 
+*RatePlansApi* | [**DeleteRatePlan**](docs/RatePlansApi.md#deleterateplan) | **Delete** /v1/RatePlans/{Sid} | 
+*RatePlansApi* | [**FetchRatePlan**](docs/RatePlansApi.md#fetchrateplan) | **Get** /v1/RatePlans/{Sid} | 
+*RatePlansApi* | [**ListRatePlan**](docs/RatePlansApi.md#listrateplan) | **Get** /v1/RatePlans | 
+*RatePlansApi* | [**UpdateRatePlan**](docs/RatePlansApi.md#updaterateplan) | **Post** /v1/RatePlans/{Sid} | 
+*SimsApi* | [**DeleteSim**](docs/SimsApi.md#deletesim) | **Delete** /v1/Sims/{Sid} | 
+*SimsApi* | [**FetchSim**](docs/SimsApi.md#fetchsim) | **Get** /v1/Sims/{Sid} | 
+*SimsApi* | [**ListSim**](docs/SimsApi.md#listsim) | **Get** /v1/Sims | 
+*SimsApi* | [**UpdateSim**](docs/SimsApi.md#updatesim) | **Post** /v1/Sims/{Sid} | 
+*SimsDataSessionsApi* | [**ListDataSession**](docs/SimsDataSessionsApi.md#listdatasession) | **Get** /v1/Sims/{SimSid}/DataSessions | 
+*SimsUsageRecordsApi* | [**ListUsageRecord**](docs/SimsUsageRecordsApi.md#listusagerecord) | **Get** /v1/Sims/{SimSid}/UsageRecords | 
+*UsageRecordsApi* | [**ListAccountUsageRecord**](docs/UsageRecordsApi.md#listaccountusagerecord) | **Get** /v1/UsageRecords | 
 
 
 ## Documentation For Models
@@ -83,9 +83,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

@@ -31,10 +31,10 @@ All URIs are relative to *https://monitor.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**FetchAlert**](docs/DefaultApi.md#fetchalert) | **Get** /v1/Alerts/{Sid} | 
-*DefaultApi* | [**FetchEvent**](docs/DefaultApi.md#fetchevent) | **Get** /v1/Events/{Sid} | 
-*DefaultApi* | [**ListAlert**](docs/DefaultApi.md#listalert) | **Get** /v1/Alerts | 
-*DefaultApi* | [**ListEvent**](docs/DefaultApi.md#listevent) | **Get** /v1/Events | 
+*AlertsApi* | [**FetchAlert**](docs/AlertsApi.md#fetchalert) | **Get** /v1/Alerts/{Sid} | 
+*AlertsApi* | [**ListAlert**](docs/AlertsApi.md#listalert) | **Get** /v1/Alerts | 
+*EventsApi* | [**FetchEvent**](docs/EventsApi.md#fetchevent) | **Get** /v1/Events/{Sid} | 
+*EventsApi* | [**ListEvent**](docs/EventsApi.md#listevent) | **Get** /v1/Events | 
 
 
 ## Documentation For Models
@@ -64,9 +64,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

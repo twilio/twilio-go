@@ -31,7 +31,7 @@ All URIs are relative to *https://lookups.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**FetchPhoneNumber**](docs/DefaultApi.md#fetchphonenumber) | **Get** /v1/PhoneNumbers/{PhoneNumber} | 
+*PhoneNumbersApi* | [**FetchPhoneNumber**](docs/PhoneNumbersApi.md#fetchphonenumber) | **Get** /v1/PhoneNumbers/{PhoneNumber} | 
 
 
 ## Documentation For Models
@@ -56,9 +56,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

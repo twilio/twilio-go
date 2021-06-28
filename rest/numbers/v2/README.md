@@ -31,34 +31,34 @@ All URIs are relative to *https://numbers.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateBundle**](docs/DefaultApi.md#createbundle) | **Post** /v2/RegulatoryCompliance/Bundles | 
-*DefaultApi* | [**CreateEndUser**](docs/DefaultApi.md#createenduser) | **Post** /v2/RegulatoryCompliance/EndUsers | 
-*DefaultApi* | [**CreateEvaluation**](docs/DefaultApi.md#createevaluation) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations | 
-*DefaultApi* | [**CreateItemAssignment**](docs/DefaultApi.md#createitemassignment) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments | 
-*DefaultApi* | [**CreateSupportingDocument**](docs/DefaultApi.md#createsupportingdocument) | **Post** /v2/RegulatoryCompliance/SupportingDocuments | 
-*DefaultApi* | [**DeleteBundle**](docs/DefaultApi.md#deletebundle) | **Delete** /v2/RegulatoryCompliance/Bundles/{Sid} | 
-*DefaultApi* | [**DeleteEndUser**](docs/DefaultApi.md#deleteenduser) | **Delete** /v2/RegulatoryCompliance/EndUsers/{Sid} | 
-*DefaultApi* | [**DeleteItemAssignment**](docs/DefaultApi.md#deleteitemassignment) | **Delete** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid} | 
-*DefaultApi* | [**DeleteSupportingDocument**](docs/DefaultApi.md#deletesupportingdocument) | **Delete** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | 
-*DefaultApi* | [**FetchBundle**](docs/DefaultApi.md#fetchbundle) | **Get** /v2/RegulatoryCompliance/Bundles/{Sid} | 
-*DefaultApi* | [**FetchEndUser**](docs/DefaultApi.md#fetchenduser) | **Get** /v2/RegulatoryCompliance/EndUsers/{Sid} | 
-*DefaultApi* | [**FetchEndUserType**](docs/DefaultApi.md#fetchendusertype) | **Get** /v2/RegulatoryCompliance/EndUserTypes/{Sid} | 
-*DefaultApi* | [**FetchEvaluation**](docs/DefaultApi.md#fetchevaluation) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid} | 
-*DefaultApi* | [**FetchItemAssignment**](docs/DefaultApi.md#fetchitemassignment) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid} | 
-*DefaultApi* | [**FetchRegulation**](docs/DefaultApi.md#fetchregulation) | **Get** /v2/RegulatoryCompliance/Regulations/{Sid} | 
-*DefaultApi* | [**FetchSupportingDocument**](docs/DefaultApi.md#fetchsupportingdocument) | **Get** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | 
-*DefaultApi* | [**FetchSupportingDocumentType**](docs/DefaultApi.md#fetchsupportingdocumenttype) | **Get** /v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid} | 
-*DefaultApi* | [**ListBundle**](docs/DefaultApi.md#listbundle) | **Get** /v2/RegulatoryCompliance/Bundles | 
-*DefaultApi* | [**ListEndUser**](docs/DefaultApi.md#listenduser) | **Get** /v2/RegulatoryCompliance/EndUsers | 
-*DefaultApi* | [**ListEndUserType**](docs/DefaultApi.md#listendusertype) | **Get** /v2/RegulatoryCompliance/EndUserTypes | 
-*DefaultApi* | [**ListEvaluation**](docs/DefaultApi.md#listevaluation) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations | 
-*DefaultApi* | [**ListItemAssignment**](docs/DefaultApi.md#listitemassignment) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments | 
-*DefaultApi* | [**ListRegulation**](docs/DefaultApi.md#listregulation) | **Get** /v2/RegulatoryCompliance/Regulations | 
-*DefaultApi* | [**ListSupportingDocument**](docs/DefaultApi.md#listsupportingdocument) | **Get** /v2/RegulatoryCompliance/SupportingDocuments | 
-*DefaultApi* | [**ListSupportingDocumentType**](docs/DefaultApi.md#listsupportingdocumenttype) | **Get** /v2/RegulatoryCompliance/SupportingDocumentTypes | 
-*DefaultApi* | [**UpdateBundle**](docs/DefaultApi.md#updatebundle) | **Post** /v2/RegulatoryCompliance/Bundles/{Sid} | 
-*DefaultApi* | [**UpdateEndUser**](docs/DefaultApi.md#updateenduser) | **Post** /v2/RegulatoryCompliance/EndUsers/{Sid} | 
-*DefaultApi* | [**UpdateSupportingDocument**](docs/DefaultApi.md#updatesupportingdocument) | **Post** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | 
+*RegulatoryComplianceBundlesApi* | [**CreateBundle**](docs/RegulatoryComplianceBundlesApi.md#createbundle) | **Post** /v2/RegulatoryCompliance/Bundles | 
+*RegulatoryComplianceBundlesApi* | [**DeleteBundle**](docs/RegulatoryComplianceBundlesApi.md#deletebundle) | **Delete** /v2/RegulatoryCompliance/Bundles/{Sid} | 
+*RegulatoryComplianceBundlesApi* | [**FetchBundle**](docs/RegulatoryComplianceBundlesApi.md#fetchbundle) | **Get** /v2/RegulatoryCompliance/Bundles/{Sid} | 
+*RegulatoryComplianceBundlesApi* | [**ListBundle**](docs/RegulatoryComplianceBundlesApi.md#listbundle) | **Get** /v2/RegulatoryCompliance/Bundles | 
+*RegulatoryComplianceBundlesApi* | [**UpdateBundle**](docs/RegulatoryComplianceBundlesApi.md#updatebundle) | **Post** /v2/RegulatoryCompliance/Bundles/{Sid} | 
+*RegulatoryComplianceBundlesEvaluationsApi* | [**CreateEvaluation**](docs/RegulatoryComplianceBundlesEvaluationsApi.md#createevaluation) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations | 
+*RegulatoryComplianceBundlesEvaluationsApi* | [**FetchEvaluation**](docs/RegulatoryComplianceBundlesEvaluationsApi.md#fetchevaluation) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid} | 
+*RegulatoryComplianceBundlesEvaluationsApi* | [**ListEvaluation**](docs/RegulatoryComplianceBundlesEvaluationsApi.md#listevaluation) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations | 
+*RegulatoryComplianceBundlesItemAssignmentsApi* | [**CreateItemAssignment**](docs/RegulatoryComplianceBundlesItemAssignmentsApi.md#createitemassignment) | **Post** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments | 
+*RegulatoryComplianceBundlesItemAssignmentsApi* | [**DeleteItemAssignment**](docs/RegulatoryComplianceBundlesItemAssignmentsApi.md#deleteitemassignment) | **Delete** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid} | 
+*RegulatoryComplianceBundlesItemAssignmentsApi* | [**FetchItemAssignment**](docs/RegulatoryComplianceBundlesItemAssignmentsApi.md#fetchitemassignment) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid} | 
+*RegulatoryComplianceBundlesItemAssignmentsApi* | [**ListItemAssignment**](docs/RegulatoryComplianceBundlesItemAssignmentsApi.md#listitemassignment) | **Get** /v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments | 
+*RegulatoryComplianceEndUserTypesApi* | [**FetchEndUserType**](docs/RegulatoryComplianceEndUserTypesApi.md#fetchendusertype) | **Get** /v2/RegulatoryCompliance/EndUserTypes/{Sid} | 
+*RegulatoryComplianceEndUserTypesApi* | [**ListEndUserType**](docs/RegulatoryComplianceEndUserTypesApi.md#listendusertype) | **Get** /v2/RegulatoryCompliance/EndUserTypes | 
+*RegulatoryComplianceEndUsersApi* | [**CreateEndUser**](docs/RegulatoryComplianceEndUsersApi.md#createenduser) | **Post** /v2/RegulatoryCompliance/EndUsers | 
+*RegulatoryComplianceEndUsersApi* | [**DeleteEndUser**](docs/RegulatoryComplianceEndUsersApi.md#deleteenduser) | **Delete** /v2/RegulatoryCompliance/EndUsers/{Sid} | 
+*RegulatoryComplianceEndUsersApi* | [**FetchEndUser**](docs/RegulatoryComplianceEndUsersApi.md#fetchenduser) | **Get** /v2/RegulatoryCompliance/EndUsers/{Sid} | 
+*RegulatoryComplianceEndUsersApi* | [**ListEndUser**](docs/RegulatoryComplianceEndUsersApi.md#listenduser) | **Get** /v2/RegulatoryCompliance/EndUsers | 
+*RegulatoryComplianceEndUsersApi* | [**UpdateEndUser**](docs/RegulatoryComplianceEndUsersApi.md#updateenduser) | **Post** /v2/RegulatoryCompliance/EndUsers/{Sid} | 
+*RegulatoryComplianceRegulationsApi* | [**FetchRegulation**](docs/RegulatoryComplianceRegulationsApi.md#fetchregulation) | **Get** /v2/RegulatoryCompliance/Regulations/{Sid} | 
+*RegulatoryComplianceRegulationsApi* | [**ListRegulation**](docs/RegulatoryComplianceRegulationsApi.md#listregulation) | **Get** /v2/RegulatoryCompliance/Regulations | 
+*RegulatoryComplianceSupportingDocumentTypesApi* | [**FetchSupportingDocumentType**](docs/RegulatoryComplianceSupportingDocumentTypesApi.md#fetchsupportingdocumenttype) | **Get** /v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid} | 
+*RegulatoryComplianceSupportingDocumentTypesApi* | [**ListSupportingDocumentType**](docs/RegulatoryComplianceSupportingDocumentTypesApi.md#listsupportingdocumenttype) | **Get** /v2/RegulatoryCompliance/SupportingDocumentTypes | 
+*RegulatoryComplianceSupportingDocumentsApi* | [**CreateSupportingDocument**](docs/RegulatoryComplianceSupportingDocumentsApi.md#createsupportingdocument) | **Post** /v2/RegulatoryCompliance/SupportingDocuments | 
+*RegulatoryComplianceSupportingDocumentsApi* | [**DeleteSupportingDocument**](docs/RegulatoryComplianceSupportingDocumentsApi.md#deletesupportingdocument) | **Delete** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | 
+*RegulatoryComplianceSupportingDocumentsApi* | [**FetchSupportingDocument**](docs/RegulatoryComplianceSupportingDocumentsApi.md#fetchsupportingdocument) | **Get** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | 
+*RegulatoryComplianceSupportingDocumentsApi* | [**ListSupportingDocument**](docs/RegulatoryComplianceSupportingDocumentsApi.md#listsupportingdocument) | **Get** /v2/RegulatoryCompliance/SupportingDocuments | 
+*RegulatoryComplianceSupportingDocumentsApi* | [**UpdateSupportingDocument**](docs/RegulatoryComplianceSupportingDocumentsApi.md#updatesupportingdocument) | **Post** /v2/RegulatoryCompliance/SupportingDocuments/{Sid} | 
 
 
 ## Documentation For Models
@@ -99,9 +99,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

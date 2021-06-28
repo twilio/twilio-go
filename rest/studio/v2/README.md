@@ -31,25 +31,25 @@ All URIs are relative to *https://studio.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateExecution**](docs/DefaultApi.md#createexecution) | **Post** /v2/Flows/{FlowSid}/Executions | 
-*DefaultApi* | [**CreateFlow**](docs/DefaultApi.md#createflow) | **Post** /v2/Flows | 
-*DefaultApi* | [**DeleteExecution**](docs/DefaultApi.md#deleteexecution) | **Delete** /v2/Flows/{FlowSid}/Executions/{Sid} | 
-*DefaultApi* | [**DeleteFlow**](docs/DefaultApi.md#deleteflow) | **Delete** /v2/Flows/{Sid} | 
-*DefaultApi* | [**FetchExecution**](docs/DefaultApi.md#fetchexecution) | **Get** /v2/Flows/{FlowSid}/Executions/{Sid} | 
-*DefaultApi* | [**FetchExecutionContext**](docs/DefaultApi.md#fetchexecutioncontext) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Context | 
-*DefaultApi* | [**FetchExecutionStep**](docs/DefaultApi.md#fetchexecutionstep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid} | 
-*DefaultApi* | [**FetchExecutionStepContext**](docs/DefaultApi.md#fetchexecutionstepcontext) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context | 
-*DefaultApi* | [**FetchFlow**](docs/DefaultApi.md#fetchflow) | **Get** /v2/Flows/{Sid} | 
-*DefaultApi* | [**FetchFlowRevision**](docs/DefaultApi.md#fetchflowrevision) | **Get** /v2/Flows/{Sid}/Revisions/{Revision} | 
-*DefaultApi* | [**FetchTestUser**](docs/DefaultApi.md#fetchtestuser) | **Get** /v2/Flows/{Sid}/TestUsers | 
-*DefaultApi* | [**ListExecution**](docs/DefaultApi.md#listexecution) | **Get** /v2/Flows/{FlowSid}/Executions | 
-*DefaultApi* | [**ListExecutionStep**](docs/DefaultApi.md#listexecutionstep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps | 
-*DefaultApi* | [**ListFlow**](docs/DefaultApi.md#listflow) | **Get** /v2/Flows | 
-*DefaultApi* | [**ListFlowRevision**](docs/DefaultApi.md#listflowrevision) | **Get** /v2/Flows/{Sid}/Revisions | 
-*DefaultApi* | [**UpdateExecution**](docs/DefaultApi.md#updateexecution) | **Post** /v2/Flows/{FlowSid}/Executions/{Sid} | 
-*DefaultApi* | [**UpdateFlow**](docs/DefaultApi.md#updateflow) | **Post** /v2/Flows/{Sid} | 
-*DefaultApi* | [**UpdateFlowValidate**](docs/DefaultApi.md#updateflowvalidate) | **Post** /v2/Flows/Validate | 
-*DefaultApi* | [**UpdateTestUser**](docs/DefaultApi.md#updatetestuser) | **Post** /v2/Flows/{Sid}/TestUsers | 
+*FlowsApi* | [**CreateFlow**](docs/FlowsApi.md#createflow) | **Post** /v2/Flows | 
+*FlowsApi* | [**DeleteFlow**](docs/FlowsApi.md#deleteflow) | **Delete** /v2/Flows/{Sid} | 
+*FlowsApi* | [**FetchFlow**](docs/FlowsApi.md#fetchflow) | **Get** /v2/Flows/{Sid} | 
+*FlowsApi* | [**ListFlow**](docs/FlowsApi.md#listflow) | **Get** /v2/Flows | 
+*FlowsApi* | [**UpdateFlow**](docs/FlowsApi.md#updateflow) | **Post** /v2/Flows/{Sid} | 
+*FlowsExecutionsApi* | [**CreateExecution**](docs/FlowsExecutionsApi.md#createexecution) | **Post** /v2/Flows/{FlowSid}/Executions | 
+*FlowsExecutionsApi* | [**DeleteExecution**](docs/FlowsExecutionsApi.md#deleteexecution) | **Delete** /v2/Flows/{FlowSid}/Executions/{Sid} | 
+*FlowsExecutionsApi* | [**FetchExecution**](docs/FlowsExecutionsApi.md#fetchexecution) | **Get** /v2/Flows/{FlowSid}/Executions/{Sid} | 
+*FlowsExecutionsApi* | [**ListExecution**](docs/FlowsExecutionsApi.md#listexecution) | **Get** /v2/Flows/{FlowSid}/Executions | 
+*FlowsExecutionsApi* | [**UpdateExecution**](docs/FlowsExecutionsApi.md#updateexecution) | **Post** /v2/Flows/{FlowSid}/Executions/{Sid} | 
+*FlowsExecutionsContextApi* | [**FetchExecutionContext**](docs/FlowsExecutionsContextApi.md#fetchexecutioncontext) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Context | 
+*FlowsExecutionsStepsApi* | [**FetchExecutionStep**](docs/FlowsExecutionsStepsApi.md#fetchexecutionstep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid} | 
+*FlowsExecutionsStepsApi* | [**ListExecutionStep**](docs/FlowsExecutionsStepsApi.md#listexecutionstep) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps | 
+*FlowsExecutionsStepsContextApi* | [**FetchExecutionStepContext**](docs/FlowsExecutionsStepsContextApi.md#fetchexecutionstepcontext) | **Get** /v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context | 
+*FlowsRevisionsApi* | [**FetchFlowRevision**](docs/FlowsRevisionsApi.md#fetchflowrevision) | **Get** /v2/Flows/{Sid}/Revisions/{Revision} | 
+*FlowsRevisionsApi* | [**ListFlowRevision**](docs/FlowsRevisionsApi.md#listflowrevision) | **Get** /v2/Flows/{Sid}/Revisions | 
+*FlowsTestUsersApi* | [**FetchTestUser**](docs/FlowsTestUsersApi.md#fetchtestuser) | **Get** /v2/Flows/{Sid}/TestUsers | 
+*FlowsTestUsersApi* | [**UpdateTestUser**](docs/FlowsTestUsersApi.md#updatetestuser) | **Post** /v2/Flows/{Sid}/TestUsers | 
+*FlowsValidateApi* | [**UpdateFlowValidate**](docs/FlowsValidateApi.md#updateflowvalidate) | **Post** /v2/Flows/Validate | 
 
 
 ## Documentation For Models
@@ -86,9 +86,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

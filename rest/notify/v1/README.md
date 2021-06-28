@@ -31,21 +31,21 @@ All URIs are relative to *https://notify.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateBinding**](docs/DefaultApi.md#createbinding) | **Post** /v1/Services/{ServiceSid}/Bindings | 
-*DefaultApi* | [**CreateCredential**](docs/DefaultApi.md#createcredential) | **Post** /v1/Credentials | 
-*DefaultApi* | [**CreateNotification**](docs/DefaultApi.md#createnotification) | **Post** /v1/Services/{ServiceSid}/Notifications | 
-*DefaultApi* | [**CreateService**](docs/DefaultApi.md#createservice) | **Post** /v1/Services | 
-*DefaultApi* | [**DeleteBinding**](docs/DefaultApi.md#deletebinding) | **Delete** /v1/Services/{ServiceSid}/Bindings/{Sid} | 
-*DefaultApi* | [**DeleteCredential**](docs/DefaultApi.md#deletecredential) | **Delete** /v1/Credentials/{Sid} | 
-*DefaultApi* | [**DeleteService**](docs/DefaultApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | 
-*DefaultApi* | [**FetchBinding**](docs/DefaultApi.md#fetchbinding) | **Get** /v1/Services/{ServiceSid}/Bindings/{Sid} | 
-*DefaultApi* | [**FetchCredential**](docs/DefaultApi.md#fetchcredential) | **Get** /v1/Credentials/{Sid} | 
-*DefaultApi* | [**FetchService**](docs/DefaultApi.md#fetchservice) | **Get** /v1/Services/{Sid} | 
-*DefaultApi* | [**ListBinding**](docs/DefaultApi.md#listbinding) | **Get** /v1/Services/{ServiceSid}/Bindings | 
-*DefaultApi* | [**ListCredential**](docs/DefaultApi.md#listcredential) | **Get** /v1/Credentials | 
-*DefaultApi* | [**ListService**](docs/DefaultApi.md#listservice) | **Get** /v1/Services | 
-*DefaultApi* | [**UpdateCredential**](docs/DefaultApi.md#updatecredential) | **Post** /v1/Credentials/{Sid} | 
-*DefaultApi* | [**UpdateService**](docs/DefaultApi.md#updateservice) | **Post** /v1/Services/{Sid} | 
+*CredentialsApi* | [**CreateCredential**](docs/CredentialsApi.md#createcredential) | **Post** /v1/Credentials | 
+*CredentialsApi* | [**DeleteCredential**](docs/CredentialsApi.md#deletecredential) | **Delete** /v1/Credentials/{Sid} | 
+*CredentialsApi* | [**FetchCredential**](docs/CredentialsApi.md#fetchcredential) | **Get** /v1/Credentials/{Sid} | 
+*CredentialsApi* | [**ListCredential**](docs/CredentialsApi.md#listcredential) | **Get** /v1/Credentials | 
+*CredentialsApi* | [**UpdateCredential**](docs/CredentialsApi.md#updatecredential) | **Post** /v1/Credentials/{Sid} | 
+*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v1/Services | 
+*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | 
+*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v1/Services/{Sid} | 
+*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v1/Services | 
+*ServicesApi* | [**UpdateService**](docs/ServicesApi.md#updateservice) | **Post** /v1/Services/{Sid} | 
+*ServicesBindingsApi* | [**CreateBinding**](docs/ServicesBindingsApi.md#createbinding) | **Post** /v1/Services/{ServiceSid}/Bindings | 
+*ServicesBindingsApi* | [**DeleteBinding**](docs/ServicesBindingsApi.md#deletebinding) | **Delete** /v1/Services/{ServiceSid}/Bindings/{Sid} | 
+*ServicesBindingsApi* | [**FetchBinding**](docs/ServicesBindingsApi.md#fetchbinding) | **Get** /v1/Services/{ServiceSid}/Bindings/{Sid} | 
+*ServicesBindingsApi* | [**ListBinding**](docs/ServicesBindingsApi.md#listbinding) | **Get** /v1/Services/{ServiceSid}/Bindings | 
+*ServicesNotificationsApi* | [**CreateNotification**](docs/ServicesNotificationsApi.md#createnotification) | **Post** /v1/Services/{ServiceSid}/Notifications | 
 
 
 ## Documentation For Models
@@ -77,9 +77,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

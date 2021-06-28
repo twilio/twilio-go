@@ -31,30 +31,30 @@ All URIs are relative to *https://trunking.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateCredentialList**](docs/DefaultApi.md#createcredentiallist) | **Post** /v1/Trunks/{TrunkSid}/CredentialLists | 
-*DefaultApi* | [**CreateIpAccessControlList**](docs/DefaultApi.md#createipaccesscontrollist) | **Post** /v1/Trunks/{TrunkSid}/IpAccessControlLists | 
-*DefaultApi* | [**CreateOriginationUrl**](docs/DefaultApi.md#createoriginationurl) | **Post** /v1/Trunks/{TrunkSid}/OriginationUrls | 
-*DefaultApi* | [**CreatePhoneNumber**](docs/DefaultApi.md#createphonenumber) | **Post** /v1/Trunks/{TrunkSid}/PhoneNumbers | 
-*DefaultApi* | [**CreateTrunk**](docs/DefaultApi.md#createtrunk) | **Post** /v1/Trunks | 
-*DefaultApi* | [**DeleteCredentialList**](docs/DefaultApi.md#deletecredentiallist) | **Delete** /v1/Trunks/{TrunkSid}/CredentialLists/{Sid} | 
-*DefaultApi* | [**DeleteIpAccessControlList**](docs/DefaultApi.md#deleteipaccesscontrollist) | **Delete** /v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid} | 
-*DefaultApi* | [**DeleteOriginationUrl**](docs/DefaultApi.md#deleteoriginationurl) | **Delete** /v1/Trunks/{TrunkSid}/OriginationUrls/{Sid} | 
-*DefaultApi* | [**DeletePhoneNumber**](docs/DefaultApi.md#deletephonenumber) | **Delete** /v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid} | 
-*DefaultApi* | [**DeleteTrunk**](docs/DefaultApi.md#deletetrunk) | **Delete** /v1/Trunks/{Sid} | 
-*DefaultApi* | [**FetchCredentialList**](docs/DefaultApi.md#fetchcredentiallist) | **Get** /v1/Trunks/{TrunkSid}/CredentialLists/{Sid} | 
-*DefaultApi* | [**FetchIpAccessControlList**](docs/DefaultApi.md#fetchipaccesscontrollist) | **Get** /v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid} | 
-*DefaultApi* | [**FetchOriginationUrl**](docs/DefaultApi.md#fetchoriginationurl) | **Get** /v1/Trunks/{TrunkSid}/OriginationUrls/{Sid} | 
-*DefaultApi* | [**FetchPhoneNumber**](docs/DefaultApi.md#fetchphonenumber) | **Get** /v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid} | 
-*DefaultApi* | [**FetchRecording**](docs/DefaultApi.md#fetchrecording) | **Get** /v1/Trunks/{TrunkSid}/Recording | 
-*DefaultApi* | [**FetchTrunk**](docs/DefaultApi.md#fetchtrunk) | **Get** /v1/Trunks/{Sid} | 
-*DefaultApi* | [**ListCredentialList**](docs/DefaultApi.md#listcredentiallist) | **Get** /v1/Trunks/{TrunkSid}/CredentialLists | 
-*DefaultApi* | [**ListIpAccessControlList**](docs/DefaultApi.md#listipaccesscontrollist) | **Get** /v1/Trunks/{TrunkSid}/IpAccessControlLists | 
-*DefaultApi* | [**ListOriginationUrl**](docs/DefaultApi.md#listoriginationurl) | **Get** /v1/Trunks/{TrunkSid}/OriginationUrls | 
-*DefaultApi* | [**ListPhoneNumber**](docs/DefaultApi.md#listphonenumber) | **Get** /v1/Trunks/{TrunkSid}/PhoneNumbers | 
-*DefaultApi* | [**ListTrunk**](docs/DefaultApi.md#listtrunk) | **Get** /v1/Trunks | 
-*DefaultApi* | [**UpdateOriginationUrl**](docs/DefaultApi.md#updateoriginationurl) | **Post** /v1/Trunks/{TrunkSid}/OriginationUrls/{Sid} | 
-*DefaultApi* | [**UpdateRecording**](docs/DefaultApi.md#updaterecording) | **Post** /v1/Trunks/{TrunkSid}/Recording | 
-*DefaultApi* | [**UpdateTrunk**](docs/DefaultApi.md#updatetrunk) | **Post** /v1/Trunks/{Sid} | 
+*TrunksApi* | [**CreateTrunk**](docs/TrunksApi.md#createtrunk) | **Post** /v1/Trunks | 
+*TrunksApi* | [**DeleteTrunk**](docs/TrunksApi.md#deletetrunk) | **Delete** /v1/Trunks/{Sid} | 
+*TrunksApi* | [**FetchTrunk**](docs/TrunksApi.md#fetchtrunk) | **Get** /v1/Trunks/{Sid} | 
+*TrunksApi* | [**ListTrunk**](docs/TrunksApi.md#listtrunk) | **Get** /v1/Trunks | 
+*TrunksApi* | [**UpdateTrunk**](docs/TrunksApi.md#updatetrunk) | **Post** /v1/Trunks/{Sid} | 
+*TrunksCredentialListsApi* | [**CreateCredentialList**](docs/TrunksCredentialListsApi.md#createcredentiallist) | **Post** /v1/Trunks/{TrunkSid}/CredentialLists | 
+*TrunksCredentialListsApi* | [**DeleteCredentialList**](docs/TrunksCredentialListsApi.md#deletecredentiallist) | **Delete** /v1/Trunks/{TrunkSid}/CredentialLists/{Sid} | 
+*TrunksCredentialListsApi* | [**FetchCredentialList**](docs/TrunksCredentialListsApi.md#fetchcredentiallist) | **Get** /v1/Trunks/{TrunkSid}/CredentialLists/{Sid} | 
+*TrunksCredentialListsApi* | [**ListCredentialList**](docs/TrunksCredentialListsApi.md#listcredentiallist) | **Get** /v1/Trunks/{TrunkSid}/CredentialLists | 
+*TrunksIpAccessControlListsApi* | [**CreateIpAccessControlList**](docs/TrunksIpAccessControlListsApi.md#createipaccesscontrollist) | **Post** /v1/Trunks/{TrunkSid}/IpAccessControlLists | 
+*TrunksIpAccessControlListsApi* | [**DeleteIpAccessControlList**](docs/TrunksIpAccessControlListsApi.md#deleteipaccesscontrollist) | **Delete** /v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid} | 
+*TrunksIpAccessControlListsApi* | [**FetchIpAccessControlList**](docs/TrunksIpAccessControlListsApi.md#fetchipaccesscontrollist) | **Get** /v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid} | 
+*TrunksIpAccessControlListsApi* | [**ListIpAccessControlList**](docs/TrunksIpAccessControlListsApi.md#listipaccesscontrollist) | **Get** /v1/Trunks/{TrunkSid}/IpAccessControlLists | 
+*TrunksOriginationUrlsApi* | [**CreateOriginationUrl**](docs/TrunksOriginationUrlsApi.md#createoriginationurl) | **Post** /v1/Trunks/{TrunkSid}/OriginationUrls | 
+*TrunksOriginationUrlsApi* | [**DeleteOriginationUrl**](docs/TrunksOriginationUrlsApi.md#deleteoriginationurl) | **Delete** /v1/Trunks/{TrunkSid}/OriginationUrls/{Sid} | 
+*TrunksOriginationUrlsApi* | [**FetchOriginationUrl**](docs/TrunksOriginationUrlsApi.md#fetchoriginationurl) | **Get** /v1/Trunks/{TrunkSid}/OriginationUrls/{Sid} | 
+*TrunksOriginationUrlsApi* | [**ListOriginationUrl**](docs/TrunksOriginationUrlsApi.md#listoriginationurl) | **Get** /v1/Trunks/{TrunkSid}/OriginationUrls | 
+*TrunksOriginationUrlsApi* | [**UpdateOriginationUrl**](docs/TrunksOriginationUrlsApi.md#updateoriginationurl) | **Post** /v1/Trunks/{TrunkSid}/OriginationUrls/{Sid} | 
+*TrunksPhoneNumbersApi* | [**CreatePhoneNumber**](docs/TrunksPhoneNumbersApi.md#createphonenumber) | **Post** /v1/Trunks/{TrunkSid}/PhoneNumbers | 
+*TrunksPhoneNumbersApi* | [**DeletePhoneNumber**](docs/TrunksPhoneNumbersApi.md#deletephonenumber) | **Delete** /v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid} | 
+*TrunksPhoneNumbersApi* | [**FetchPhoneNumber**](docs/TrunksPhoneNumbersApi.md#fetchphonenumber) | **Get** /v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid} | 
+*TrunksPhoneNumbersApi* | [**ListPhoneNumber**](docs/TrunksPhoneNumbersApi.md#listphonenumber) | **Get** /v1/Trunks/{TrunkSid}/PhoneNumbers | 
+*TrunksRecordingApi* | [**FetchRecording**](docs/TrunksRecordingApi.md#fetchrecording) | **Get** /v1/Trunks/{TrunkSid}/Recording | 
+*TrunksRecordingApi* | [**UpdateRecording**](docs/TrunksRecordingApi.md#updaterecording) | **Post** /v1/Trunks/{TrunkSid}/Recording | 
 
 
 ## Documentation For Models
@@ -90,9 +90,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

@@ -31,58 +31,58 @@ All URIs are relative to *https://autopilot.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateAssistant**](docs/DefaultApi.md#createassistant) | **Post** /v1/Assistants | 
-*DefaultApi* | [**CreateField**](docs/DefaultApi.md#createfield) | **Post** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields | 
-*DefaultApi* | [**CreateFieldType**](docs/DefaultApi.md#createfieldtype) | **Post** /v1/Assistants/{AssistantSid}/FieldTypes | 
-*DefaultApi* | [**CreateFieldValue**](docs/DefaultApi.md#createfieldvalue) | **Post** /v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues | 
-*DefaultApi* | [**CreateModelBuild**](docs/DefaultApi.md#createmodelbuild) | **Post** /v1/Assistants/{AssistantSid}/ModelBuilds | 
-*DefaultApi* | [**CreateQuery**](docs/DefaultApi.md#createquery) | **Post** /v1/Assistants/{AssistantSid}/Queries | 
-*DefaultApi* | [**CreateSample**](docs/DefaultApi.md#createsample) | **Post** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples | 
-*DefaultApi* | [**CreateTask**](docs/DefaultApi.md#createtask) | **Post** /v1/Assistants/{AssistantSid}/Tasks | 
-*DefaultApi* | [**CreateWebhook**](docs/DefaultApi.md#createwebhook) | **Post** /v1/Assistants/{AssistantSid}/Webhooks | 
-*DefaultApi* | [**DeleteAssistant**](docs/DefaultApi.md#deleteassistant) | **Delete** /v1/Assistants/{Sid} | 
-*DefaultApi* | [**DeleteField**](docs/DefaultApi.md#deletefield) | **Delete** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid} | 
-*DefaultApi* | [**DeleteFieldType**](docs/DefaultApi.md#deletefieldtype) | **Delete** /v1/Assistants/{AssistantSid}/FieldTypes/{Sid} | 
-*DefaultApi* | [**DeleteFieldValue**](docs/DefaultApi.md#deletefieldvalue) | **Delete** /v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid} | 
-*DefaultApi* | [**DeleteModelBuild**](docs/DefaultApi.md#deletemodelbuild) | **Delete** /v1/Assistants/{AssistantSid}/ModelBuilds/{Sid} | 
-*DefaultApi* | [**DeleteQuery**](docs/DefaultApi.md#deletequery) | **Delete** /v1/Assistants/{AssistantSid}/Queries/{Sid} | 
-*DefaultApi* | [**DeleteSample**](docs/DefaultApi.md#deletesample) | **Delete** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid} | 
-*DefaultApi* | [**DeleteTask**](docs/DefaultApi.md#deletetask) | **Delete** /v1/Assistants/{AssistantSid}/Tasks/{Sid} | 
-*DefaultApi* | [**DeleteWebhook**](docs/DefaultApi.md#deletewebhook) | **Delete** /v1/Assistants/{AssistantSid}/Webhooks/{Sid} | 
-*DefaultApi* | [**FetchAssistant**](docs/DefaultApi.md#fetchassistant) | **Get** /v1/Assistants/{Sid} | 
-*DefaultApi* | [**FetchDefaults**](docs/DefaultApi.md#fetchdefaults) | **Get** /v1/Assistants/{AssistantSid}/Defaults | 
-*DefaultApi* | [**FetchDialogue**](docs/DefaultApi.md#fetchdialogue) | **Get** /v1/Assistants/{AssistantSid}/Dialogues/{Sid} | 
-*DefaultApi* | [**FetchField**](docs/DefaultApi.md#fetchfield) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid} | 
-*DefaultApi* | [**FetchFieldType**](docs/DefaultApi.md#fetchfieldtype) | **Get** /v1/Assistants/{AssistantSid}/FieldTypes/{Sid} | 
-*DefaultApi* | [**FetchFieldValue**](docs/DefaultApi.md#fetchfieldvalue) | **Get** /v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid} | 
-*DefaultApi* | [**FetchModelBuild**](docs/DefaultApi.md#fetchmodelbuild) | **Get** /v1/Assistants/{AssistantSid}/ModelBuilds/{Sid} | 
-*DefaultApi* | [**FetchQuery**](docs/DefaultApi.md#fetchquery) | **Get** /v1/Assistants/{AssistantSid}/Queries/{Sid} | 
-*DefaultApi* | [**FetchSample**](docs/DefaultApi.md#fetchsample) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid} | 
-*DefaultApi* | [**FetchStyleSheet**](docs/DefaultApi.md#fetchstylesheet) | **Get** /v1/Assistants/{AssistantSid}/StyleSheet | 
-*DefaultApi* | [**FetchTask**](docs/DefaultApi.md#fetchtask) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{Sid} | 
-*DefaultApi* | [**FetchTaskActions**](docs/DefaultApi.md#fetchtaskactions) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions | 
-*DefaultApi* | [**FetchTaskStatistics**](docs/DefaultApi.md#fetchtaskstatistics) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics | 
-*DefaultApi* | [**FetchWebhook**](docs/DefaultApi.md#fetchwebhook) | **Get** /v1/Assistants/{AssistantSid}/Webhooks/{Sid} | 
-*DefaultApi* | [**ListAssistant**](docs/DefaultApi.md#listassistant) | **Get** /v1/Assistants | 
-*DefaultApi* | [**ListField**](docs/DefaultApi.md#listfield) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields | 
-*DefaultApi* | [**ListFieldType**](docs/DefaultApi.md#listfieldtype) | **Get** /v1/Assistants/{AssistantSid}/FieldTypes | 
-*DefaultApi* | [**ListFieldValue**](docs/DefaultApi.md#listfieldvalue) | **Get** /v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues | 
-*DefaultApi* | [**ListModelBuild**](docs/DefaultApi.md#listmodelbuild) | **Get** /v1/Assistants/{AssistantSid}/ModelBuilds | 
-*DefaultApi* | [**ListQuery**](docs/DefaultApi.md#listquery) | **Get** /v1/Assistants/{AssistantSid}/Queries | 
-*DefaultApi* | [**ListSample**](docs/DefaultApi.md#listsample) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples | 
-*DefaultApi* | [**ListTask**](docs/DefaultApi.md#listtask) | **Get** /v1/Assistants/{AssistantSid}/Tasks | 
-*DefaultApi* | [**ListWebhook**](docs/DefaultApi.md#listwebhook) | **Get** /v1/Assistants/{AssistantSid}/Webhooks | 
-*DefaultApi* | [**UpdateAssistant**](docs/DefaultApi.md#updateassistant) | **Post** /v1/Assistants/{Sid} | 
-*DefaultApi* | [**UpdateDefaults**](docs/DefaultApi.md#updatedefaults) | **Post** /v1/Assistants/{AssistantSid}/Defaults | 
-*DefaultApi* | [**UpdateFieldType**](docs/DefaultApi.md#updatefieldtype) | **Post** /v1/Assistants/{AssistantSid}/FieldTypes/{Sid} | 
-*DefaultApi* | [**UpdateModelBuild**](docs/DefaultApi.md#updatemodelbuild) | **Post** /v1/Assistants/{AssistantSid}/ModelBuilds/{Sid} | 
-*DefaultApi* | [**UpdateQuery**](docs/DefaultApi.md#updatequery) | **Post** /v1/Assistants/{AssistantSid}/Queries/{Sid} | 
-*DefaultApi* | [**UpdateRestoreAssistant**](docs/DefaultApi.md#updaterestoreassistant) | **Post** /v1/Assistants/Restore | 
-*DefaultApi* | [**UpdateSample**](docs/DefaultApi.md#updatesample) | **Post** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid} | 
-*DefaultApi* | [**UpdateStyleSheet**](docs/DefaultApi.md#updatestylesheet) | **Post** /v1/Assistants/{AssistantSid}/StyleSheet | 
-*DefaultApi* | [**UpdateTask**](docs/DefaultApi.md#updatetask) | **Post** /v1/Assistants/{AssistantSid}/Tasks/{Sid} | 
-*DefaultApi* | [**UpdateTaskActions**](docs/DefaultApi.md#updatetaskactions) | **Post** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions | 
-*DefaultApi* | [**UpdateWebhook**](docs/DefaultApi.md#updatewebhook) | **Post** /v1/Assistants/{AssistantSid}/Webhooks/{Sid} | 
+*AssistantsApi* | [**CreateAssistant**](docs/AssistantsApi.md#createassistant) | **Post** /v1/Assistants | 
+*AssistantsApi* | [**DeleteAssistant**](docs/AssistantsApi.md#deleteassistant) | **Delete** /v1/Assistants/{Sid} | 
+*AssistantsApi* | [**FetchAssistant**](docs/AssistantsApi.md#fetchassistant) | **Get** /v1/Assistants/{Sid} | 
+*AssistantsApi* | [**ListAssistant**](docs/AssistantsApi.md#listassistant) | **Get** /v1/Assistants | 
+*AssistantsApi* | [**UpdateAssistant**](docs/AssistantsApi.md#updateassistant) | **Post** /v1/Assistants/{Sid} | 
+*AssistantsDefaultsApi* | [**FetchDefaults**](docs/AssistantsDefaultsApi.md#fetchdefaults) | **Get** /v1/Assistants/{AssistantSid}/Defaults | 
+*AssistantsDefaultsApi* | [**UpdateDefaults**](docs/AssistantsDefaultsApi.md#updatedefaults) | **Post** /v1/Assistants/{AssistantSid}/Defaults | 
+*AssistantsDialoguesApi* | [**FetchDialogue**](docs/AssistantsDialoguesApi.md#fetchdialogue) | **Get** /v1/Assistants/{AssistantSid}/Dialogues/{Sid} | 
+*AssistantsFieldTypesApi* | [**CreateFieldType**](docs/AssistantsFieldTypesApi.md#createfieldtype) | **Post** /v1/Assistants/{AssistantSid}/FieldTypes | 
+*AssistantsFieldTypesApi* | [**DeleteFieldType**](docs/AssistantsFieldTypesApi.md#deletefieldtype) | **Delete** /v1/Assistants/{AssistantSid}/FieldTypes/{Sid} | 
+*AssistantsFieldTypesApi* | [**FetchFieldType**](docs/AssistantsFieldTypesApi.md#fetchfieldtype) | **Get** /v1/Assistants/{AssistantSid}/FieldTypes/{Sid} | 
+*AssistantsFieldTypesApi* | [**ListFieldType**](docs/AssistantsFieldTypesApi.md#listfieldtype) | **Get** /v1/Assistants/{AssistantSid}/FieldTypes | 
+*AssistantsFieldTypesApi* | [**UpdateFieldType**](docs/AssistantsFieldTypesApi.md#updatefieldtype) | **Post** /v1/Assistants/{AssistantSid}/FieldTypes/{Sid} | 
+*AssistantsFieldTypesFieldValuesApi* | [**CreateFieldValue**](docs/AssistantsFieldTypesFieldValuesApi.md#createfieldvalue) | **Post** /v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues | 
+*AssistantsFieldTypesFieldValuesApi* | [**DeleteFieldValue**](docs/AssistantsFieldTypesFieldValuesApi.md#deletefieldvalue) | **Delete** /v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid} | 
+*AssistantsFieldTypesFieldValuesApi* | [**FetchFieldValue**](docs/AssistantsFieldTypesFieldValuesApi.md#fetchfieldvalue) | **Get** /v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid} | 
+*AssistantsFieldTypesFieldValuesApi* | [**ListFieldValue**](docs/AssistantsFieldTypesFieldValuesApi.md#listfieldvalue) | **Get** /v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues | 
+*AssistantsModelBuildsApi* | [**CreateModelBuild**](docs/AssistantsModelBuildsApi.md#createmodelbuild) | **Post** /v1/Assistants/{AssistantSid}/ModelBuilds | 
+*AssistantsModelBuildsApi* | [**DeleteModelBuild**](docs/AssistantsModelBuildsApi.md#deletemodelbuild) | **Delete** /v1/Assistants/{AssistantSid}/ModelBuilds/{Sid} | 
+*AssistantsModelBuildsApi* | [**FetchModelBuild**](docs/AssistantsModelBuildsApi.md#fetchmodelbuild) | **Get** /v1/Assistants/{AssistantSid}/ModelBuilds/{Sid} | 
+*AssistantsModelBuildsApi* | [**ListModelBuild**](docs/AssistantsModelBuildsApi.md#listmodelbuild) | **Get** /v1/Assistants/{AssistantSid}/ModelBuilds | 
+*AssistantsModelBuildsApi* | [**UpdateModelBuild**](docs/AssistantsModelBuildsApi.md#updatemodelbuild) | **Post** /v1/Assistants/{AssistantSid}/ModelBuilds/{Sid} | 
+*AssistantsQueriesApi* | [**CreateQuery**](docs/AssistantsQueriesApi.md#createquery) | **Post** /v1/Assistants/{AssistantSid}/Queries | 
+*AssistantsQueriesApi* | [**DeleteQuery**](docs/AssistantsQueriesApi.md#deletequery) | **Delete** /v1/Assistants/{AssistantSid}/Queries/{Sid} | 
+*AssistantsQueriesApi* | [**FetchQuery**](docs/AssistantsQueriesApi.md#fetchquery) | **Get** /v1/Assistants/{AssistantSid}/Queries/{Sid} | 
+*AssistantsQueriesApi* | [**ListQuery**](docs/AssistantsQueriesApi.md#listquery) | **Get** /v1/Assistants/{AssistantSid}/Queries | 
+*AssistantsQueriesApi* | [**UpdateQuery**](docs/AssistantsQueriesApi.md#updatequery) | **Post** /v1/Assistants/{AssistantSid}/Queries/{Sid} | 
+*AssistantsRestoreApi* | [**UpdateRestoreAssistant**](docs/AssistantsRestoreApi.md#updaterestoreassistant) | **Post** /v1/Assistants/Restore | 
+*AssistantsStyleSheetApi* | [**FetchStyleSheet**](docs/AssistantsStyleSheetApi.md#fetchstylesheet) | **Get** /v1/Assistants/{AssistantSid}/StyleSheet | 
+*AssistantsStyleSheetApi* | [**UpdateStyleSheet**](docs/AssistantsStyleSheetApi.md#updatestylesheet) | **Post** /v1/Assistants/{AssistantSid}/StyleSheet | 
+*AssistantsTasksApi* | [**CreateTask**](docs/AssistantsTasksApi.md#createtask) | **Post** /v1/Assistants/{AssistantSid}/Tasks | 
+*AssistantsTasksApi* | [**DeleteTask**](docs/AssistantsTasksApi.md#deletetask) | **Delete** /v1/Assistants/{AssistantSid}/Tasks/{Sid} | 
+*AssistantsTasksApi* | [**FetchTask**](docs/AssistantsTasksApi.md#fetchtask) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{Sid} | 
+*AssistantsTasksApi* | [**ListTask**](docs/AssistantsTasksApi.md#listtask) | **Get** /v1/Assistants/{AssistantSid}/Tasks | 
+*AssistantsTasksApi* | [**UpdateTask**](docs/AssistantsTasksApi.md#updatetask) | **Post** /v1/Assistants/{AssistantSid}/Tasks/{Sid} | 
+*AssistantsTasksActionsApi* | [**FetchTaskActions**](docs/AssistantsTasksActionsApi.md#fetchtaskactions) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions | 
+*AssistantsTasksActionsApi* | [**UpdateTaskActions**](docs/AssistantsTasksActionsApi.md#updatetaskactions) | **Post** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions | 
+*AssistantsTasksFieldsApi* | [**CreateField**](docs/AssistantsTasksFieldsApi.md#createfield) | **Post** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields | 
+*AssistantsTasksFieldsApi* | [**DeleteField**](docs/AssistantsTasksFieldsApi.md#deletefield) | **Delete** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid} | 
+*AssistantsTasksFieldsApi* | [**FetchField**](docs/AssistantsTasksFieldsApi.md#fetchfield) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid} | 
+*AssistantsTasksFieldsApi* | [**ListField**](docs/AssistantsTasksFieldsApi.md#listfield) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields | 
+*AssistantsTasksSamplesApi* | [**CreateSample**](docs/AssistantsTasksSamplesApi.md#createsample) | **Post** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples | 
+*AssistantsTasksSamplesApi* | [**DeleteSample**](docs/AssistantsTasksSamplesApi.md#deletesample) | **Delete** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid} | 
+*AssistantsTasksSamplesApi* | [**FetchSample**](docs/AssistantsTasksSamplesApi.md#fetchsample) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid} | 
+*AssistantsTasksSamplesApi* | [**ListSample**](docs/AssistantsTasksSamplesApi.md#listsample) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples | 
+*AssistantsTasksSamplesApi* | [**UpdateSample**](docs/AssistantsTasksSamplesApi.md#updatesample) | **Post** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid} | 
+*AssistantsTasksStatisticsApi* | [**FetchTaskStatistics**](docs/AssistantsTasksStatisticsApi.md#fetchtaskstatistics) | **Get** /v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics | 
+*AssistantsWebhooksApi* | [**CreateWebhook**](docs/AssistantsWebhooksApi.md#createwebhook) | **Post** /v1/Assistants/{AssistantSid}/Webhooks | 
+*AssistantsWebhooksApi* | [**DeleteWebhook**](docs/AssistantsWebhooksApi.md#deletewebhook) | **Delete** /v1/Assistants/{AssistantSid}/Webhooks/{Sid} | 
+*AssistantsWebhooksApi* | [**FetchWebhook**](docs/AssistantsWebhooksApi.md#fetchwebhook) | **Get** /v1/Assistants/{AssistantSid}/Webhooks/{Sid} | 
+*AssistantsWebhooksApi* | [**ListWebhook**](docs/AssistantsWebhooksApi.md#listwebhook) | **Get** /v1/Assistants/{AssistantSid}/Webhooks | 
+*AssistantsWebhooksApi* | [**UpdateWebhook**](docs/AssistantsWebhooksApi.md#updatewebhook) | **Post** /v1/Assistants/{AssistantSid}/Webhooks/{Sid} | 
 
 
 ## Documentation For Models
@@ -131,9 +131,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

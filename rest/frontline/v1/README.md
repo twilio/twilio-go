@@ -31,8 +31,8 @@ All URIs are relative to *https://frontline-api.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**FetchUser**](docs/DefaultApi.md#fetchuser) | **Get** /v1/Users/{Sid} | 
-*DefaultApi* | [**UpdateUser**](docs/DefaultApi.md#updateuser) | **Post** /v1/Users/{Sid} | 
+*UsersApi* | [**FetchUser**](docs/UsersApi.md#fetchuser) | **Get** /v1/Users/{Sid} | 
+*UsersApi* | [**UpdateUser**](docs/UsersApi.md#updateuser) | **Post** /v1/Users/{Sid} | 
 
 
 ## Documentation For Models
@@ -57,9 +57,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

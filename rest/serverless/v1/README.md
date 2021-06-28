@@ -31,45 +31,45 @@ All URIs are relative to *https://serverless.twilio.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**CreateAsset**](docs/DefaultApi.md#createasset) | **Post** /v1/Services/{ServiceSid}/Assets | 
-*DefaultApi* | [**CreateBuild**](docs/DefaultApi.md#createbuild) | **Post** /v1/Services/{ServiceSid}/Builds | 
-*DefaultApi* | [**CreateDeployment**](docs/DefaultApi.md#createdeployment) | **Post** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments | 
-*DefaultApi* | [**CreateEnvironment**](docs/DefaultApi.md#createenvironment) | **Post** /v1/Services/{ServiceSid}/Environments | 
-*DefaultApi* | [**CreateFunction**](docs/DefaultApi.md#createfunction) | **Post** /v1/Services/{ServiceSid}/Functions | 
-*DefaultApi* | [**CreateService**](docs/DefaultApi.md#createservice) | **Post** /v1/Services | 
-*DefaultApi* | [**CreateVariable**](docs/DefaultApi.md#createvariable) | **Post** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables | 
-*DefaultApi* | [**DeleteAsset**](docs/DefaultApi.md#deleteasset) | **Delete** /v1/Services/{ServiceSid}/Assets/{Sid} | 
-*DefaultApi* | [**DeleteBuild**](docs/DefaultApi.md#deletebuild) | **Delete** /v1/Services/{ServiceSid}/Builds/{Sid} | 
-*DefaultApi* | [**DeleteEnvironment**](docs/DefaultApi.md#deleteenvironment) | **Delete** /v1/Services/{ServiceSid}/Environments/{Sid} | 
-*DefaultApi* | [**DeleteFunction**](docs/DefaultApi.md#deletefunction) | **Delete** /v1/Services/{ServiceSid}/Functions/{Sid} | 
-*DefaultApi* | [**DeleteService**](docs/DefaultApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | 
-*DefaultApi* | [**DeleteVariable**](docs/DefaultApi.md#deletevariable) | **Delete** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid} | 
-*DefaultApi* | [**FetchAsset**](docs/DefaultApi.md#fetchasset) | **Get** /v1/Services/{ServiceSid}/Assets/{Sid} | 
-*DefaultApi* | [**FetchAssetVersion**](docs/DefaultApi.md#fetchassetversion) | **Get** /v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid} | 
-*DefaultApi* | [**FetchBuild**](docs/DefaultApi.md#fetchbuild) | **Get** /v1/Services/{ServiceSid}/Builds/{Sid} | 
-*DefaultApi* | [**FetchBuildStatus**](docs/DefaultApi.md#fetchbuildstatus) | **Get** /v1/Services/{ServiceSid}/Builds/{Sid}/Status | 
-*DefaultApi* | [**FetchDeployment**](docs/DefaultApi.md#fetchdeployment) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid} | 
-*DefaultApi* | [**FetchEnvironment**](docs/DefaultApi.md#fetchenvironment) | **Get** /v1/Services/{ServiceSid}/Environments/{Sid} | 
-*DefaultApi* | [**FetchFunction**](docs/DefaultApi.md#fetchfunction) | **Get** /v1/Services/{ServiceSid}/Functions/{Sid} | 
-*DefaultApi* | [**FetchFunctionVersion**](docs/DefaultApi.md#fetchfunctionversion) | **Get** /v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid} | 
-*DefaultApi* | [**FetchFunctionVersionContent**](docs/DefaultApi.md#fetchfunctionversioncontent) | **Get** /v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}/Content | 
-*DefaultApi* | [**FetchLog**](docs/DefaultApi.md#fetchlog) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs/{Sid} | 
-*DefaultApi* | [**FetchService**](docs/DefaultApi.md#fetchservice) | **Get** /v1/Services/{Sid} | 
-*DefaultApi* | [**FetchVariable**](docs/DefaultApi.md#fetchvariable) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid} | 
-*DefaultApi* | [**ListAsset**](docs/DefaultApi.md#listasset) | **Get** /v1/Services/{ServiceSid}/Assets | 
-*DefaultApi* | [**ListAssetVersion**](docs/DefaultApi.md#listassetversion) | **Get** /v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions | 
-*DefaultApi* | [**ListBuild**](docs/DefaultApi.md#listbuild) | **Get** /v1/Services/{ServiceSid}/Builds | 
-*DefaultApi* | [**ListDeployment**](docs/DefaultApi.md#listdeployment) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments | 
-*DefaultApi* | [**ListEnvironment**](docs/DefaultApi.md#listenvironment) | **Get** /v1/Services/{ServiceSid}/Environments | 
-*DefaultApi* | [**ListFunction**](docs/DefaultApi.md#listfunction) | **Get** /v1/Services/{ServiceSid}/Functions | 
-*DefaultApi* | [**ListFunctionVersion**](docs/DefaultApi.md#listfunctionversion) | **Get** /v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions | 
-*DefaultApi* | [**ListLog**](docs/DefaultApi.md#listlog) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs | 
-*DefaultApi* | [**ListService**](docs/DefaultApi.md#listservice) | **Get** /v1/Services | 
-*DefaultApi* | [**ListVariable**](docs/DefaultApi.md#listvariable) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables | 
-*DefaultApi* | [**UpdateAsset**](docs/DefaultApi.md#updateasset) | **Post** /v1/Services/{ServiceSid}/Assets/{Sid} | 
-*DefaultApi* | [**UpdateFunction**](docs/DefaultApi.md#updatefunction) | **Post** /v1/Services/{ServiceSid}/Functions/{Sid} | 
-*DefaultApi* | [**UpdateService**](docs/DefaultApi.md#updateservice) | **Post** /v1/Services/{Sid} | 
-*DefaultApi* | [**UpdateVariable**](docs/DefaultApi.md#updatevariable) | **Post** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid} | 
+*ServicesApi* | [**CreateService**](docs/ServicesApi.md#createservice) | **Post** /v1/Services | 
+*ServicesApi* | [**DeleteService**](docs/ServicesApi.md#deleteservice) | **Delete** /v1/Services/{Sid} | 
+*ServicesApi* | [**FetchService**](docs/ServicesApi.md#fetchservice) | **Get** /v1/Services/{Sid} | 
+*ServicesApi* | [**ListService**](docs/ServicesApi.md#listservice) | **Get** /v1/Services | 
+*ServicesApi* | [**UpdateService**](docs/ServicesApi.md#updateservice) | **Post** /v1/Services/{Sid} | 
+*ServicesAssetsApi* | [**CreateAsset**](docs/ServicesAssetsApi.md#createasset) | **Post** /v1/Services/{ServiceSid}/Assets | 
+*ServicesAssetsApi* | [**DeleteAsset**](docs/ServicesAssetsApi.md#deleteasset) | **Delete** /v1/Services/{ServiceSid}/Assets/{Sid} | 
+*ServicesAssetsApi* | [**FetchAsset**](docs/ServicesAssetsApi.md#fetchasset) | **Get** /v1/Services/{ServiceSid}/Assets/{Sid} | 
+*ServicesAssetsApi* | [**ListAsset**](docs/ServicesAssetsApi.md#listasset) | **Get** /v1/Services/{ServiceSid}/Assets | 
+*ServicesAssetsApi* | [**UpdateAsset**](docs/ServicesAssetsApi.md#updateasset) | **Post** /v1/Services/{ServiceSid}/Assets/{Sid} | 
+*ServicesAssetsVersionsApi* | [**FetchAssetVersion**](docs/ServicesAssetsVersionsApi.md#fetchassetversion) | **Get** /v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid} | 
+*ServicesAssetsVersionsApi* | [**ListAssetVersion**](docs/ServicesAssetsVersionsApi.md#listassetversion) | **Get** /v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions | 
+*ServicesBuildsApi* | [**CreateBuild**](docs/ServicesBuildsApi.md#createbuild) | **Post** /v1/Services/{ServiceSid}/Builds | 
+*ServicesBuildsApi* | [**DeleteBuild**](docs/ServicesBuildsApi.md#deletebuild) | **Delete** /v1/Services/{ServiceSid}/Builds/{Sid} | 
+*ServicesBuildsApi* | [**FetchBuild**](docs/ServicesBuildsApi.md#fetchbuild) | **Get** /v1/Services/{ServiceSid}/Builds/{Sid} | 
+*ServicesBuildsApi* | [**ListBuild**](docs/ServicesBuildsApi.md#listbuild) | **Get** /v1/Services/{ServiceSid}/Builds | 
+*ServicesBuildsStatusApi* | [**FetchBuildStatus**](docs/ServicesBuildsStatusApi.md#fetchbuildstatus) | **Get** /v1/Services/{ServiceSid}/Builds/{Sid}/Status | 
+*ServicesEnvironmentsApi* | [**CreateEnvironment**](docs/ServicesEnvironmentsApi.md#createenvironment) | **Post** /v1/Services/{ServiceSid}/Environments | 
+*ServicesEnvironmentsApi* | [**DeleteEnvironment**](docs/ServicesEnvironmentsApi.md#deleteenvironment) | **Delete** /v1/Services/{ServiceSid}/Environments/{Sid} | 
+*ServicesEnvironmentsApi* | [**FetchEnvironment**](docs/ServicesEnvironmentsApi.md#fetchenvironment) | **Get** /v1/Services/{ServiceSid}/Environments/{Sid} | 
+*ServicesEnvironmentsApi* | [**ListEnvironment**](docs/ServicesEnvironmentsApi.md#listenvironment) | **Get** /v1/Services/{ServiceSid}/Environments | 
+*ServicesEnvironmentsDeploymentsApi* | [**CreateDeployment**](docs/ServicesEnvironmentsDeploymentsApi.md#createdeployment) | **Post** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments | 
+*ServicesEnvironmentsDeploymentsApi* | [**FetchDeployment**](docs/ServicesEnvironmentsDeploymentsApi.md#fetchdeployment) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid} | 
+*ServicesEnvironmentsDeploymentsApi* | [**ListDeployment**](docs/ServicesEnvironmentsDeploymentsApi.md#listdeployment) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments | 
+*ServicesEnvironmentsLogsApi* | [**FetchLog**](docs/ServicesEnvironmentsLogsApi.md#fetchlog) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs/{Sid} | 
+*ServicesEnvironmentsLogsApi* | [**ListLog**](docs/ServicesEnvironmentsLogsApi.md#listlog) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs | 
+*ServicesEnvironmentsVariablesApi* | [**CreateVariable**](docs/ServicesEnvironmentsVariablesApi.md#createvariable) | **Post** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables | 
+*ServicesEnvironmentsVariablesApi* | [**DeleteVariable**](docs/ServicesEnvironmentsVariablesApi.md#deletevariable) | **Delete** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid} | 
+*ServicesEnvironmentsVariablesApi* | [**FetchVariable**](docs/ServicesEnvironmentsVariablesApi.md#fetchvariable) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid} | 
+*ServicesEnvironmentsVariablesApi* | [**ListVariable**](docs/ServicesEnvironmentsVariablesApi.md#listvariable) | **Get** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables | 
+*ServicesEnvironmentsVariablesApi* | [**UpdateVariable**](docs/ServicesEnvironmentsVariablesApi.md#updatevariable) | **Post** /v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid} | 
+*ServicesFunctionsApi* | [**CreateFunction**](docs/ServicesFunctionsApi.md#createfunction) | **Post** /v1/Services/{ServiceSid}/Functions | 
+*ServicesFunctionsApi* | [**DeleteFunction**](docs/ServicesFunctionsApi.md#deletefunction) | **Delete** /v1/Services/{ServiceSid}/Functions/{Sid} | 
+*ServicesFunctionsApi* | [**FetchFunction**](docs/ServicesFunctionsApi.md#fetchfunction) | **Get** /v1/Services/{ServiceSid}/Functions/{Sid} | 
+*ServicesFunctionsApi* | [**ListFunction**](docs/ServicesFunctionsApi.md#listfunction) | **Get** /v1/Services/{ServiceSid}/Functions | 
+*ServicesFunctionsApi* | [**UpdateFunction**](docs/ServicesFunctionsApi.md#updatefunction) | **Post** /v1/Services/{ServiceSid}/Functions/{Sid} | 
+*ServicesFunctionsVersionsApi* | [**FetchFunctionVersion**](docs/ServicesFunctionsVersionsApi.md#fetchfunctionversion) | **Get** /v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid} | 
+*ServicesFunctionsVersionsApi* | [**ListFunctionVersion**](docs/ServicesFunctionsVersionsApi.md#listfunctionversion) | **Get** /v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions | 
+*ServicesFunctionsVersionsContentApi* | [**FetchFunctionVersionContent**](docs/ServicesFunctionsVersionsContentApi.md#fetchfunctionversioncontent) | **Get** /v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}/Content | 
 
 
 ## Documentation For Models
@@ -116,9 +116,4 @@ auth := context.WithValue(context.Background(), sw.ContextBasicAuth, sw.BasicAut
 })
 r, err := client.Service.Operation(auth, args)
 ```
-
-
-## Author
-
-support@twilio.com
 

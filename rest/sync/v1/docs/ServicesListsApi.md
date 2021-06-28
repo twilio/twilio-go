@@ -1,0 +1,222 @@
+# ServicesListsApi
+
+All URIs are relative to *https://sync.twilio.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**CreateSyncList**](ServicesListsApi.md#CreateSyncList) | **Post** /v1/Services/{ServiceSid}/Lists | 
+[**DeleteSyncList**](ServicesListsApi.md#DeleteSyncList) | **Delete** /v1/Services/{ServiceSid}/Lists/{Sid} | 
+[**FetchSyncList**](ServicesListsApi.md#FetchSyncList) | **Get** /v1/Services/{ServiceSid}/Lists/{Sid} | 
+[**ListSyncList**](ServicesListsApi.md#ListSyncList) | **Get** /v1/Services/{ServiceSid}/Lists | 
+[**UpdateSyncList**](ServicesListsApi.md#UpdateSyncList) | **Post** /v1/Services/{ServiceSid}/Lists/{Sid} | 
+
+
+
+## CreateSyncList
+
+> SyncV1ServiceSyncList CreateSyncList(ctx, ServiceSidoptional)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) to create the new Sync List in.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a CreateSyncListParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
+**Ttl** | **int** | Alias for collection_ttl. If both are provided, this value is ignored.
+**UniqueName** | **string** | An application-defined string that uniquely identifies the resource. This value must be unique within its Service and it can be up to 320 characters long. The &#x60;unique_name&#x60; value can be used as an alternative to the &#x60;sid&#x60; in the URL path to address the resource.
+
+### Return type
+
+[**SyncV1ServiceSyncList**](SyncV1ServiceSyncList.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteSyncList
+
+> DeleteSyncList(ctx, ServiceSidSid)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to delete.
+**Sid** | **string** | The SID of the Sync List resource to delete. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteSyncListParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FetchSyncList
+
+> SyncV1ServiceSyncList FetchSyncList(ctx, ServiceSidSid)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to fetch.
+**Sid** | **string** | The SID of the Sync List resource to fetch. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchSyncListParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+
+### Return type
+
+[**SyncV1ServiceSyncList**](SyncV1ServiceSyncList.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListSyncList
+
+> ListSyncListResponse ListSyncList(ctx, ServiceSidoptional)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resources to read.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListSyncListParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+### Return type
+
+[**ListSyncListResponse**](ListSyncListResponse.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateSyncList
+
+> SyncV1ServiceSyncList UpdateSyncList(ctx, ServiceSidSidoptional)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The SID of the [Sync Service](https://www.twilio.com/docs/sync/api/service) with the Sync List resource to update.
+**Sid** | **string** | The SID of the Sync List resource to update. Can be the Sync List resource&#39;s &#x60;sid&#x60; or its &#x60;unique_name&#x60;.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateSyncListParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**CollectionTtl** | **int** | How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Sync List expires (time-to-live) and is deleted.
+**Ttl** | **int** | An alias for &#x60;collection_ttl&#x60;. If both are provided, this value is ignored.
+
+### Return type
+
+[**SyncV1ServiceSyncList**](SyncV1ServiceSyncList.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
