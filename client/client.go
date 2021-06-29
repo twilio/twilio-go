@@ -13,8 +13,6 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	"github.com/twilio/twilio-go/config"
-	twilioError "github.com/twilio/twilio-go/framework/error"
 )
 
 // Credentials store user authentication credentials.
@@ -76,7 +74,7 @@ func (c *Client) doWithErr(req *http.Request) (*http.Response, error) {
 
 	// Note that 3XX response codes are allowed for fetches
 	if res.StatusCode < 200 || res.StatusCode >= 400 {
-		err = &twilioError.TwilioRestError{}
+		err = &TwilioRestError{}
 		if decodeErr := json.NewDecoder(res.Body).Decode(err); decodeErr != nil {
 			err = errors.Wrap(decodeErr, "error decoding the response for an HTTP error code: "+strconv.Itoa(res.StatusCode))
 			return nil, err
@@ -118,7 +116,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 	req.SetBasicAuth(c.basicAuth())
 
 	// E.g. "User-Agent": "twilio-go/1.0.0 (go1.16)"
-	userAgent := fmt.Sprint("twilio-go/", config.LibraryVersion, " (", goVersion, ")")
+	userAgent := fmt.Sprint("twilio-go/", LibraryVersion, " (", goVersion, ")")
 	req.Header.Add("User-Agent", userAgent)
 
 	if method == http.MethodPost {

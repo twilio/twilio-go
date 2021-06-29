@@ -1,5 +1,5 @@
 // Package config for config files.
-package config
+package client
 
 // LibraryVersion specifies the current version of twilio-go.
 const LibraryVersion = "0.10.0"
