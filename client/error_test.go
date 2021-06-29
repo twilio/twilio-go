@@ -1,4 +1,4 @@
-package error_test
+package client_test
 
 import (
 	"encoding/json"

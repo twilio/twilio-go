@@ -1,5 +1,5 @@
 // Package error provides the interface for Twilio specific errors.
-package error
+package client
 
 import (
 	"encoding/json"
