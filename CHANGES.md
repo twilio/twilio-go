@@ -1,5 +1,35 @@
 twilio-go changelog
 ====================
+[2021-06-30] Version 0.11.0
+---------------------------
+**Library - Fix**
+- [PR #91](https://github.com/twilio/twilio-go/pull/91): revert client submodule creation. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Feature**
+- [PR #90](https://github.com/twilio/twilio-go/pull/90): moving client to submodule. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Chore**
+- [PR #88](https://github.com/twilio/twilio-go/pull/88): split resources into separate files. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #87](https://github.com/twilio/twilio-go/pull/87): upgrade openapi-generator to version 5.1.1. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #86](https://github.com/twilio/twilio-go/pull/86): use 'int' for integer types. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Library - Docs**
+- [PR #89](https://github.com/twilio/twilio-go/pull/89): particulate -> participate, and minor formatting. Thanks to [@stern-shawn](https://github.com/stern-shawn)!
+- [PR #85](https://github.com/twilio/twilio-go/pull/85): remove path params docs for operations without them. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Conversations**
+- Read-only Conversation Email Binding property `binding`
+
+**Supersim**
+- Add Billing Period resource for the Super Sim Pilot
+- Add List endpoint to Billing Period resource for Super Sim Pilot
+- Add Fetch endpoint to Billing Period resource for Super Sim Pilot
+
+**Taskrouter**
+- Update `transcribe` & `transcription_configuration` form params in Reservation update endpoint to have private visibility **(breaking change)**
+- Add `transcribe` & `transcription_configuration` form params to Reservation update endpoint
+
+
 [2021-06-16] Version 0.10.0
 ---------------------------
 **Library - Fix**

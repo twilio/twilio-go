@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.17.0
+ * API version: 1.18.0
  * Contact: support@twilio.com
  */
 
@@ -20,7 +20,8 @@ type ConversationsV1Conversation struct {
 	// The unique ID of the Account responsible for this conversation.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// An optional string metadata field you can use to store any data you wish.
-	Attributes *string `json:"attributes,omitempty"`
+	Attributes *string                 `json:"attributes,omitempty"`
+	Bindings   *map[string]interface{} `json:"bindings,omitempty"`
 	// The unique ID of the Conversation Service this conversation belongs to.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
 	// The date that this resource was created.

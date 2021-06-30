@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The unique ID of the Account responsible for this conversation. |
 **Attributes** | Pointer to **string** | An optional string metadata field you can use to store any data you wish. |
+**Bindings** | Pointer to **map[string]interface{}** |  |
 **ChatServiceSid** | Pointer to **string** | The unique ID of the Conversation Service this conversation belongs to. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was created. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was last updated. |

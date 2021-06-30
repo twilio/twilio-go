@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.17.0
+ * API version: 1.18.0
  * Contact: support@twilio.com
  */
 
@@ -26,7 +26,8 @@ type SupersimV1Sim struct {
 	// The unique ID of the Fleet configured for this SIM
 	FleetSid *string `json:"fleet_sid,omitempty"`
 	// The ICCID associated with the SIM
-	Iccid *string `json:"iccid,omitempty"`
+	Iccid *string                 `json:"iccid,omitempty"`
+	Links *map[string]interface{} `json:"links,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// The status of the Super SIM
