@@ -9,7 +9,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	twilio "github.com/twilio/twilio-go/client"
-	"github.com/twilio/twilio-go/framework/error"
 )
 
 func NewClient(accountSid string, authToken string) *twilio.Client {
@@ -37,7 +36,7 @@ func TestClient_SendRequestError(t *testing.T) {
 
 	client := NewClient("user", "pass")
 	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
-	twilioError := err.(*error.TwilioRestError)
+	twilioError := err.(*twilio.TwilioRestError)
 	assert.Nil(t, resp)
 	assert.Equal(t, 400, twilioError.Status)
 	assert.Equal(t, 20001, twilioError.Code)
@@ -65,7 +64,7 @@ func TestClient_SendRequestErrorWithDetails(t *testing.T) {
 
 	client := NewClient("user", "pass")
 	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
-	twilioError := err.(*error.TwilioRestError)
+	twilioError := err.(*twilio.TwilioRestError)
 	details := make(map[string]interface{})
 	details["foo"] = "bar"
 	assert.Nil(t, resp)

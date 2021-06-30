@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	assert "github.com/stretchr/testify/require"
-	"github.com/twilio/twilio-go/framework/error"
+	"github.com/twilio/twilio-go/client"
 )
 
 const (
@@ -19,7 +19,7 @@ const (
 func TestTwilioRestError_Error(t *testing.T) {
 	details := make(map[string]interface{})
 	details["foo"] = "bar"
-	err := &error.TwilioRestError{
+	err := &client.TwilioRestError{
 		Code:     errorCode,
 		Details:  details,
 		Message:  errorMessage,
@@ -31,7 +31,7 @@ func TestTwilioRestError_Error(t *testing.T) {
 }
 
 func TestTwilioRestError_NoDetails(t *testing.T) {
-	err := &error.TwilioRestError{}
+	err := &client.TwilioRestError{}
 	response := `{"code":20001,"message":"Bad request","more_info":"https://www.twilio.com/docs/errors/20001","status":400}`
 	responseReader := strings.NewReader(response)
 	decodeErr := json.NewDecoder(responseReader).Decode(err)
