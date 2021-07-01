@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateTask'
@@ -266,6 +268,73 @@ func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams) (*Lis
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Task records from the API. Request is executed immediately.
+func (c *ApiService) TaskPage(WorkspaceSid string, params *ListTaskParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.Priority != nil {
+		data.Set("Priority", fmt.Sprint(*params.Priority))
+	}
+	if params != nil && params.AssignmentStatus != nil {
+		for _, item := range *params.AssignmentStatus {
+			data.Add("AssignmentStatus", item)
+		}
+	}
+	if params != nil && params.WorkflowSid != nil {
+		data.Set("WorkflowSid", *params.WorkflowSid)
+	}
+	if params != nil && params.WorkflowName != nil {
+		data.Set("WorkflowName", *params.WorkflowName)
+	}
+	if params != nil && params.TaskQueueSid != nil {
+		data.Set("TaskQueueSid", *params.TaskQueueSid)
+	}
+	if params != nil && params.TaskQueueName != nil {
+		data.Set("TaskQueueName", *params.TaskQueueName)
+	}
+	if params != nil && params.EvaluateTaskAttributes != nil {
+		data.Set("EvaluateTaskAttributes", *params.EvaluateTaskAttributes)
+	}
+	if params != nil && params.Ordering != nil {
+		data.Set("Ordering", *params.Ordering)
+	}
+	if params != nil && params.HasAddons != nil {
+		data.Set("HasAddons", fmt.Sprint(*params.HasAddons))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Task records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) TaskStream(WorkspaceSid string, params *ListTaskParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.TaskPage(WorkspaceSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Task records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) TaskList(WorkspaceSid string, params *ListTaskParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.TaskPage(WorkspaceSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }
 
 // Optional parameters for the method 'UpdateTask'

@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Retrieve a specific log.
@@ -109,4 +111,52 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Log records from the API. Request is executed immediately.
+func (c *ApiService) LogPage(ServiceSid string, EnvironmentSid string, params *ListLogParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.FunctionSid != nil {
+		data.Set("FunctionSid", *params.FunctionSid)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Log records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) LogStream(ServiceSid string, EnvironmentSid string, params *ListLogParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.LogPage(ServiceSid, EnvironmentSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Log records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) LogList(ServiceSid string, EnvironmentSid string, params *ListLogParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.LogPage(ServiceSid, EnvironmentSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateMessage'
@@ -163,6 +165,48 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Message records from the API. Request is executed immediately.
+func (c *ApiService) MessagePage(ServiceSid string, ChannelSid string, params *ListMessageParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.Order != nil {
+		data.Set("Order", *params.Order)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) MessageStream(ServiceSid string, ChannelSid string, params *ListMessageParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.MessagePage(ServiceSid, ChannelSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Message records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) MessageList(ServiceSid string, ChannelSid string, params *ListMessageParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.MessagePage(ServiceSid, ChannelSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }
 
 // Optional parameters for the method 'UpdateMessage'

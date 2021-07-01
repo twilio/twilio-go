@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateBrandRegistrations'
@@ -120,4 +122,41 @@ func (c *ApiService) ListBrandRegistrations(params *ListBrandRegistrationsParams
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of BrandRegistrations records from the API. Request is executed immediately.
+func (c *ApiService) BrandRegistrationsPage(params *ListBrandRegistrationsParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/a2p/BrandRegistrations"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams BrandRegistrations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) BrandRegistrationsStream(params *ListBrandRegistrationsParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.BrandRegistrationsPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists BrandRegistrations records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) BrandRegistrationsList(params *ListBrandRegistrationsParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.BrandRegistrationsPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

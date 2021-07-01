@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Returns a single Track resource represented by TrackName or SID.
@@ -81,4 +83,43 @@ func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, Participa
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of RoomParticipantPublishedTrack records from the API. Request is executed immediately.
+func (c *ApiService) RoomParticipantPublishedTrackPage(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams RoomParticipantPublishedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) RoomParticipantPublishedTrackStream(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.RoomParticipantPublishedTrackPage(RoomSid, ParticipantSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists RoomParticipantPublishedTrack records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) RoomParticipantPublishedTrackList(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.RoomParticipantPublishedTrackPage(RoomSid, ParticipantSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

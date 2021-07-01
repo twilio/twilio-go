@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1MessagingMessagingCountryInstance, error) {
@@ -75,4 +77,41 @@ func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) (*
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of MessagingCountry records from the API. Request is executed immediately.
+func (c *ApiService) MessagingCountryPage(params *ListMessagingCountryParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Messaging/Countries"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams MessagingCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) MessagingCountryStream(params *ListMessagingCountryParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.MessagingCountryPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists MessagingCountry records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) MessagingCountryList(params *ListMessagingCountryParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.MessagingCountryPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

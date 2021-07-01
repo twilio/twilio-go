@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'FetchConference'
@@ -176,6 +178,72 @@ func (c *ApiService) ListConference(params *ListConferenceParams) (*ListConferen
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Conference records from the API. Request is executed immediately.
+func (c *ApiService) ConferencePage(params *ListConferenceParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/2010-04-01/Accounts/{AccountSid}/Conferences.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.DateCreated != nil {
+		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
+	}
+	if params != nil && params.DateCreatedBefore != nil {
+		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
+	}
+	if params != nil && params.DateUpdated != nil {
+		data.Set("DateUpdated", fmt.Sprint(*params.DateUpdated))
+	}
+	if params != nil && params.DateUpdatedBefore != nil {
+		data.Set("DateUpdated<", fmt.Sprint(*params.DateUpdatedBefore))
+	}
+	if params != nil && params.DateUpdatedAfter != nil {
+		data.Set("DateUpdated>", fmt.Sprint(*params.DateUpdatedAfter))
+	}
+	if params != nil && params.FriendlyName != nil {
+		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Conference records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ConferenceStream(params *ListConferenceParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.ConferencePage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Conference records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ConferenceList(params *ListConferenceParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.ConferencePage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }
 
 // Optional parameters for the method 'UpdateConference'

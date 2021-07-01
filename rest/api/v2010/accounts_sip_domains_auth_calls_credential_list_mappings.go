@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSipAuthCallsCredentialListMapping'
@@ -190,4 +192,47 @@ func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, par
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of SipAuthCallsCredentialListMapping records from the API. Request is executed immediately.
+func (c *ApiService) SipAuthCallsCredentialListMappingPage(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams SipAuthCallsCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) SipAuthCallsCredentialListMappingStream(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.SipAuthCallsCredentialListMappingPage(DomainSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists SipAuthCallsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) SipAuthCallsCredentialListMappingList(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.SipAuthCallsCredentialListMappingPage(DomainSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

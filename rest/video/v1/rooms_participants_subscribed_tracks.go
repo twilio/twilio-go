@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Returns a single Track resource represented by &#x60;track_sid&#x60;.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique.
@@ -81,4 +83,43 @@ func (c *ApiService) ListRoomParticipantSubscribedTrack(RoomSid string, Particip
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of RoomParticipantSubscribedTrack records from the API. Request is executed immediately.
+func (c *ApiService) RoomParticipantSubscribedTrackPage(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks"
+	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
+	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams RoomParticipantSubscribedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) RoomParticipantSubscribedTrackStream(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.RoomParticipantSubscribedTrackPage(RoomSid, ParticipantSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists RoomParticipantSubscribedTrack records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) RoomParticipantSubscribedTrackList(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.RoomParticipantSubscribedTrackPage(RoomSid, ParticipantSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

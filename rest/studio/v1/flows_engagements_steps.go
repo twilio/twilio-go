@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Retrieve a Step.
@@ -81,4 +83,43 @@ func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *List
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Step records from the API. Request is executed immediately.
+func (c *ApiService) StepPage(FlowSid string, EngagementSid string, params *ListStepParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps"
+	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Step records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StepStream(FlowSid string, EngagementSid string, params *ListStepParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.StepPage(FlowSid, EngagementSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Step records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) StepList(FlowSid string, EngagementSid string, params *ListStepParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.StepPage(FlowSid, EngagementSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateConversationParticipant'
@@ -225,6 +227,44 @@ func (c *ApiService) ListConversationParticipant(ConversationSid string, params 
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of ConversationParticipant records from the API. Request is executed immediately.
+func (c *ApiService) ConversationParticipantPage(ConversationSid string, params *ListConversationParticipantParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Conversations/{ConversationSid}/Participants"
+	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams ConversationParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ConversationParticipantStream(ConversationSid string, params *ListConversationParticipantParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.ConversationParticipantPage(ConversationSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists ConversationParticipant records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ConversationParticipantList(ConversationSid string, params *ListConversationParticipantParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.ConversationParticipantPage(ConversationSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }
 
 // Optional parameters for the method 'UpdateConversationParticipant'

@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateFax'
@@ -241,6 +243,55 @@ func (c *ApiService) ListFax(params *ListFaxParams) (*ListFaxResponse, error) {
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Fax records from the API. Request is executed immediately.
+func (c *ApiService) FaxPage(params *ListFaxParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Faxes"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.DateCreatedOnOrBefore != nil {
+		data.Set("DateCreatedOnOrBefore", fmt.Sprint((*params.DateCreatedOnOrBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.DateCreatedAfter != nil {
+		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Fax records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) FaxStream(params *ListFaxParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.FaxPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Fax records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) FaxList(params *ListFaxParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.FaxPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }
 
 // Optional parameters for the method 'UpdateFax'

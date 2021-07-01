@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCredentialList'
@@ -132,4 +134,42 @@ func (c *ApiService) ListCredentialList(TrunkSid string, params *ListCredentialL
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of CredentialList records from the API. Request is executed immediately.
+func (c *ApiService) CredentialListPage(TrunkSid string, params *ListCredentialListParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Trunks/{TrunkSid}/CredentialLists"
+	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams CredentialList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) CredentialListStream(TrunkSid string, params *ListCredentialListParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.CredentialListPage(TrunkSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists CredentialList records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) CredentialListList(TrunkSid string, params *ListCredentialListParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.CredentialListPage(TrunkSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateChallenge'
@@ -196,6 +198,51 @@ func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *L
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Challenge records from the API. Request is executed immediately.
+func (c *ApiService) ChallengePage(ServiceSid string, Identity string, params *ListChallengeParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.FactorSid != nil {
+		data.Set("FactorSid", *params.FactorSid)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Challenge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ChallengeStream(ServiceSid string, Identity string, params *ListChallengeParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.ChallengePage(ServiceSid, Identity, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Challenge records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ChallengeList(ServiceSid string, Identity string, params *ListChallengeParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.ChallengePage(ServiceSid, Identity, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }
 
 // Optional parameters for the method 'UpdateChallenge'

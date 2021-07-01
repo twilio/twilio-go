@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 func (c *ApiService) FetchEvent(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceEvent, error) {
@@ -177,4 +179,75 @@ func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams) (*L
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Event records from the API. Request is executed immediately.
+func (c *ApiService) EventPage(WorkspaceSid string, params *ListEventParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Workspaces/{WorkspaceSid}/Events"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.EventType != nil {
+		data.Set("EventType", *params.EventType)
+	}
+	if params != nil && params.Minutes != nil {
+		data.Set("Minutes", fmt.Sprint(*params.Minutes))
+	}
+	if params != nil && params.ReservationSid != nil {
+		data.Set("ReservationSid", *params.ReservationSid)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.TaskQueueSid != nil {
+		data.Set("TaskQueueSid", *params.TaskQueueSid)
+	}
+	if params != nil && params.TaskSid != nil {
+		data.Set("TaskSid", *params.TaskSid)
+	}
+	if params != nil && params.WorkerSid != nil {
+		data.Set("WorkerSid", *params.WorkerSid)
+	}
+	if params != nil && params.WorkflowSid != nil {
+		data.Set("WorkflowSid", *params.WorkflowSid)
+	}
+	if params != nil && params.TaskChannel != nil {
+		data.Set("TaskChannel", *params.TaskChannel)
+	}
+	if params != nil && params.Sid != nil {
+		data.Set("Sid", *params.Sid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) EventStream(WorkspaceSid string, params *ListEventParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.EventPage(WorkspaceSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Event records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) EventList(WorkspaceSid string, params *ListEventParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.EventPage(WorkspaceSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

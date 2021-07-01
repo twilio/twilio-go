@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListUsageRecord'
@@ -82,4 +84,51 @@ func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParam
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of UsageRecord records from the API. Request is executed immediately.
+func (c *ApiService) UsageRecordPage(SimSid string, params *ListUsageRecordParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Sims/{SimSid}/UsageRecords"
+	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.End != nil {
+		data.Set("End", fmt.Sprint((*params.End).Format(time.RFC3339)))
+	}
+	if params != nil && params.Start != nil {
+		data.Set("Start", fmt.Sprint((*params.Start).Format(time.RFC3339)))
+	}
+	if params != nil && params.Granularity != nil {
+		data.Set("Granularity", *params.Granularity)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) UsageRecordStream(SimSid string, params *ListUsageRecordParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.UsageRecordPage(SimSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) UsageRecordList(SimSid string, params *ListUsageRecordParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.UsageRecordPage(SimSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateEngagement'
@@ -160,4 +162,42 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Engagement records from the API. Request is executed immediately.
+func (c *ApiService) EngagementPage(FlowSid string, params *ListEngagementParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Flows/{FlowSid}/Engagements"
+	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Engagement records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) EngagementStream(FlowSid string, params *ListEngagementParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.EngagementPage(FlowSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Engagement records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) EngagementList(FlowSid string, params *ListEngagementParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.EngagementPage(FlowSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

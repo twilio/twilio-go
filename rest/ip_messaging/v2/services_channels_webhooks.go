@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateChannelWebhook'
@@ -194,6 +196,45 @@ func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, pa
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of ChannelWebhook records from the API. Request is executed immediately.
+func (c *ApiService) ChannelWebhookPage(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
+	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams ChannelWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ChannelWebhookStream(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.ChannelWebhookPage(ServiceSid, ChannelSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists ChannelWebhook records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ChannelWebhookList(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.ChannelWebhookPage(ServiceSid, ChannelSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }
 
 // Optional parameters for the method 'UpdateChannelWebhook'

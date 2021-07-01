@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSmsCommand'
@@ -168,4 +170,50 @@ func (c *ApiService) ListSmsCommand(params *ListSmsCommandParams) (*ListSmsComma
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of SmsCommand records from the API. Request is executed immediately.
+func (c *ApiService) SmsCommandPage(params *ListSmsCommandParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/SmsCommands"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Direction != nil {
+		data.Set("Direction", *params.Direction)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams SmsCommand records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) SmsCommandStream(params *ListSmsCommandParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.SmsCommandPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists SmsCommand records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) SmsCommandList(params *ListSmsCommandParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.SmsCommandPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

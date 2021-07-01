@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 func (c *ApiService) FetchAlert(Sid string) (*MonitorV1AlertInstance, error) {
@@ -103,4 +105,50 @@ func (c *ApiService) ListAlert(params *ListAlertParams) (*ListAlertResponse, err
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Alert records from the API. Request is executed immediately.
+func (c *ApiService) AlertPage(params *ListAlertParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Alerts"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.LogLevel != nil {
+		data.Set("LogLevel", *params.LogLevel)
+	}
+	if params != nil && params.StartDate != nil {
+		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.EndDate != nil {
+		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Alert records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AlertStream(params *ListAlertParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.AlertPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Alert records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AlertList(params *ListAlertParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.AlertPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

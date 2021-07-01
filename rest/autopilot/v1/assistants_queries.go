@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateQuery'
@@ -195,6 +197,56 @@ func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams) (*L
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Query records from the API. Request is executed immediately.
+func (c *ApiService) QueryPage(AssistantSid string, params *ListQueryParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Assistants/{AssistantSid}/Queries"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.Language != nil {
+		data.Set("Language", *params.Language)
+	}
+	if params != nil && params.ModelBuild != nil {
+		data.Set("ModelBuild", *params.ModelBuild)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.DialogueSid != nil {
+		data.Set("DialogueSid", *params.DialogueSid)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Query records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) QueryStream(AssistantSid string, params *ListQueryParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.QueryPage(AssistantSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Query records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) QueryList(AssistantSid string, params *ListQueryParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.QueryPage(AssistantSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }
 
 // Optional parameters for the method 'UpdateQuery'

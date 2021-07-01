@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListUsageRecord'
@@ -126,4 +128,65 @@ func (c *ApiService) ListUsageRecord(params *ListUsageRecordParams) (*ListUsageR
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of UsageRecord records from the API. Request is executed immediately.
+func (c *ApiService) UsageRecordPage(params *ListUsageRecordParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/UsageRecords"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.Sim != nil {
+		data.Set("Sim", *params.Sim)
+	}
+	if params != nil && params.Fleet != nil {
+		data.Set("Fleet", *params.Fleet)
+	}
+	if params != nil && params.Network != nil {
+		data.Set("Network", *params.Network)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.Group != nil {
+		data.Set("Group", *params.Group)
+	}
+	if params != nil && params.Granularity != nil {
+		data.Set("Granularity", *params.Granularity)
+	}
+	if params != nil && params.StartTime != nil {
+		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
+	}
+	if params != nil && params.EndTime != nil {
+		data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) UsageRecordStream(params *ListUsageRecordParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.UsageRecordPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) UsageRecordList(params *ListUsageRecordParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.UsageRecordPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

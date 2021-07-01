@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListMetric'
@@ -72,4 +74,48 @@ func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams) (*List
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Metric records from the API. Request is executed immediately.
+func (c *ApiService) MetricPage(CallSid string, params *ListMetricParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Voice/{CallSid}/Metrics"
+	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.Edge != nil {
+		data.Set("Edge", *params.Edge)
+	}
+	if params != nil && params.Direction != nil {
+		data.Set("Direction", *params.Direction)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Metric records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) MetricStream(CallSid string, params *ListMetricParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.MetricPage(CallSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Metric records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) MetricList(CallSid string, params *ListMetricParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.MetricPage(CallSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

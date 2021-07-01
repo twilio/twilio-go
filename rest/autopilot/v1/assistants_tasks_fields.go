@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateField'
@@ -145,4 +147,43 @@ func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *List
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Field records from the API. Request is executed immediately.
+func (c *ApiService) FieldPage(AssistantSid string, TaskSid string, params *ListFieldParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Field records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) FieldStream(AssistantSid string, TaskSid string, params *ListFieldParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.FieldPage(AssistantSid, TaskSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Field records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) FieldList(AssistantSid string, TaskSid string, params *ListFieldParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.FieldPage(AssistantSid, TaskSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

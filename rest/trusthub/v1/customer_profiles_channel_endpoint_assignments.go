@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCustomerProfileChannelEndpointAssignment'
@@ -163,4 +165,48 @@ func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfil
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of CustomerProfileChannelEndpointAssignment records from the API. Request is executed immediately.
+func (c *ApiService) CustomerProfileChannelEndpointAssignmentPage(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments"
+	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.ChannelEndpointSid != nil {
+		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
+	}
+	if params != nil && params.ChannelEndpointSids != nil {
+		data.Set("ChannelEndpointSids", *params.ChannelEndpointSids)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams CustomerProfileChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) CustomerProfileChannelEndpointAssignmentStream(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.CustomerProfileChannelEndpointAssignmentPage(CustomerProfileSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists CustomerProfileChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) CustomerProfileChannelEndpointAssignmentList(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.CustomerProfileChannelEndpointAssignmentPage(CustomerProfileSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

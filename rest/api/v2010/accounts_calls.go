@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCall'
@@ -578,6 +580,78 @@ func (c *ApiService) ListCall(params *ListCallParams) (*ListCallResponse, error)
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Call records from the API. Request is executed immediately.
+func (c *ApiService) CallPage(params *ListCallParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
+	if params != nil && params.PathAccountSid != nil {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
+	} else {
+		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
+	}
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.To != nil {
+		data.Set("To", *params.To)
+	}
+	if params != nil && params.From != nil {
+		data.Set("From", *params.From)
+	}
+	if params != nil && params.ParentCallSid != nil {
+		data.Set("ParentCallSid", *params.ParentCallSid)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.StartTime != nil {
+		data.Set("StartTime", fmt.Sprint((*params.StartTime).Format(time.RFC3339)))
+	}
+	if params != nil && params.StartTimeBefore != nil {
+		data.Set("StartTime<", fmt.Sprint((*params.StartTimeBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.StartTimeAfter != nil {
+		data.Set("StartTime>", fmt.Sprint((*params.StartTimeAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.EndTime != nil {
+		data.Set("EndTime", fmt.Sprint((*params.EndTime).Format(time.RFC3339)))
+	}
+	if params != nil && params.EndTimeBefore != nil {
+		data.Set("EndTime<", fmt.Sprint((*params.EndTimeBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.EndTimeAfter != nil {
+		data.Set("EndTime>", fmt.Sprint((*params.EndTimeAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Call records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) CallStream(params *ListCallParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.CallPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Call records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) CallList(params *ListCallParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.CallPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }
 
 // Optional parameters for the method 'UpdateCall'

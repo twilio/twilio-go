@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Get Video Log Analyzer data for a Room.
@@ -127,4 +129,60 @@ func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) (*
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of VideoRoomSummary records from the API. Request is executed immediately.
+func (c *ApiService) VideoRoomSummaryPage(params *ListVideoRoomSummaryParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Video/Rooms"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.RoomType != nil {
+		for _, item := range *params.RoomType {
+			data.Add("RoomType", item)
+		}
+	}
+	if params != nil && params.Codec != nil {
+		for _, item := range *params.Codec {
+			data.Add("Codec", item)
+		}
+	}
+	if params != nil && params.RoomName != nil {
+		data.Set("RoomName", *params.RoomName)
+	}
+	if params != nil && params.CreatedAfter != nil {
+		data.Set("CreatedAfter", fmt.Sprint((*params.CreatedAfter).Format(time.RFC3339)))
+	}
+	if params != nil && params.CreatedBefore != nil {
+		data.Set("CreatedBefore", fmt.Sprint((*params.CreatedBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams VideoRoomSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) VideoRoomSummaryStream(params *ListVideoRoomSummaryParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.VideoRoomSummaryPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists VideoRoomSummary records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) VideoRoomSummaryList(params *ListVideoRoomSummaryParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.VideoRoomSummaryPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 func (c *ApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
@@ -88,6 +90,48 @@ func (c *ApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid string
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of WorkerReservation records from the API. Request is executed immediately.
+func (c *ApiService) WorkerReservationPage(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.ReservationStatus != nil {
+		data.Set("ReservationStatus", *params.ReservationStatus)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams WorkerReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) WorkerReservationStream(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.WorkerReservationPage(WorkspaceSid, WorkerSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists WorkerReservation records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) WorkerReservationList(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.WorkerReservationPage(WorkspaceSid, WorkerSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }
 
 // Optional parameters for the method 'UpdateWorkerReservation'

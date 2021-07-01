@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Fetch specific Regulation Instance.
@@ -104,4 +106,50 @@ func (c *ApiService) ListRegulation(params *ListRegulationParams) (*ListRegulati
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of Regulation records from the API. Request is executed immediately.
+func (c *ApiService) RegulationPage(params *ListRegulationParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v2/RegulatoryCompliance/Regulations"
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.EndUserType != nil {
+		data.Set("EndUserType", *params.EndUserType)
+	}
+	if params != nil && params.IsoCountry != nil {
+		data.Set("IsoCountry", *params.IsoCountry)
+	}
+	if params != nil && params.NumberType != nil {
+		data.Set("NumberType", *params.NumberType)
+	}
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams Regulation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) RegulationStream(params *ListRegulationParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.RegulationPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists Regulation records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) RegulationList(params *ListRegulationParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.RegulationPage(params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }

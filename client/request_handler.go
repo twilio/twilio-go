@@ -86,3 +86,84 @@ func (c *RequestHandler) Get(path string, queryData url.Values, headers map[stri
 func (c *RequestHandler) Delete(path string, nothing url.Values, headers map[string]interface{}) (*http.Response, error) {
 	return c.sendRequest(http.MethodDelete, path, nil, headers)
 }
+
+type PaginationData struct {
+	PageLimit int
+	PageSize  int
+	Limit     int
+}
+
+func min(a int, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+//Takes a limit on the max number of records to read, max pages to read and a max pageSize and calculates the max number of pages to read.
+func (c *RequestHandler) ReadLimits(meta PaginationData) PaginationData {
+	if meta.PageSize == 0 && meta.Limit > 0 {
+		meta.PageSize = min(meta.Limit, 1000)
+	}
+
+	return meta
+}
+
+//Channels records one a time from a page to be consumed by the caller, stopping at prescribed limits
+func (c *RequestHandler) Stream(page *Page, limit int, pageLimit int) chan map[string]interface{} {
+	currentRecord := 1
+	currentPage := 1
+	channel := make(chan map[string]interface{})
+
+	go func() {
+		for page != nil {
+			for record := range page.Records {
+				val := page.Records[record].(map[string]interface{})
+				channel <- val
+				currentRecord += 1
+
+				if limit != 0 && limit < currentRecord {
+					close(channel)
+					return
+				}
+			}
+
+			currentPage += 1
+			if pageLimit != 0 && pageLimit < currentPage {
+				close(channel)
+				return
+			}
+			page = page.getNextPage(c)
+		}
+		close(channel)
+	}()
+
+	return channel
+}
+
+//List, unlike Stream greedily loads all the records into memory and returns the result
+func (c *RequestHandler) List(page *Page, limit int, pageLimit int) []interface{} {
+	currentRecord := 1
+	currentPage := 1
+
+	var records []interface{}
+	for page != nil {
+		for record := range page.Records {
+			records = append(records, page.Records[record])
+			currentRecord += 1
+
+			if limit != 0 && limit < currentRecord {
+				return records
+			}
+		}
+
+		currentPage += 1
+		if pageLimit != 0 && pageLimit < currentPage {
+			return records
+		}
+
+		page = page.getNextPage(c)
+	}
+
+	return records
+}

@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateTaskChannel'
@@ -150,6 +152,44 @@ func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChanne
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of TaskChannel records from the API. Request is executed immediately.
+func (c *ApiService) TaskChannelPage(WorkspaceSid string, params *ListTaskChannelParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
+	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams TaskChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) TaskChannelStream(WorkspaceSid string, params *ListTaskChannelParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.TaskChannelPage(WorkspaceSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists TaskChannel records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) TaskChannelList(WorkspaceSid string, params *ListTaskChannelParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.TaskChannelPage(WorkspaceSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }
 
 // Optional parameters for the method 'UpdateTaskChannel'

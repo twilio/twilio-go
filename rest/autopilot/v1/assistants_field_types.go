@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateFieldType'
@@ -141,6 +143,44 @@ func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypePar
 	}
 
 	return ps, err
+}
+
+//Retrieve a single page of FieldType records from the API. Request is executed immediately.
+func (c *ApiService) FieldTypePage(AssistantSid string, params *ListFieldTypeParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
+	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	data.Set("PageToken", pageToken)
+	data.Set("PageNumber", pageNumber)
+	data.Set("PageSize", pageSize)
+
+	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil
+	}
+
+	return client.NewPage(c.baseURL, response)
+}
+
+//Streams FieldType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) FieldTypeStream(AssistantSid string, params *ListFieldTypeParams, meta client.PaginationData) chan map[string]interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.FieldTypePage(AssistantSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+}
+
+//Lists FieldType records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) FieldTypeList(AssistantSid string, params *ListFieldTypeParams, meta client.PaginationData) []interface{} {
+	limits := c.requestHandler.ReadLimits(meta)
+	page := c.FieldTypePage(AssistantSid, params, "", "", fmt.Sprint(limits.PageSize))
+	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
 }
 
 // Optional parameters for the method 'UpdateFieldType'
