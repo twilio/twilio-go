@@ -3,6 +3,7 @@ package client
 import (
 	"encoding/json"
 	"net/http"
+	"reflect"
 )
 
 //Represents a page of records in a collection
@@ -11,38 +12,20 @@ type Page struct {
 	NextPageUrl     string
 	PreviousPageUrl string
 	Records         []interface{}
-	MetaKeys        map[string]bool
 	BaseUrl         string
 }
 
 func NewPage(baseUrl string, response *http.Response) *Page {
 	respBody := processResponse(response)
 	var page = Page{
-		Payload:  respBody,
-		MetaKeys: loadMetaKeys(),
-		BaseUrl:  baseUrl,
+		Payload: respBody,
+		BaseUrl: baseUrl,
 	}
 
 	page.Records = page.loadPage()
 	page.NextPageUrl = page.getNextPageUrl()
 	page.PreviousPageUrl = page.getPreviousPageUrl()
 	return &page
-}
-
-func loadMetaKeys() map[string]bool {
-	return map[string]bool{
-		"end":               true,
-		"first_page_uri":    true,
-		"last_page_uri":     true,
-		"next_page_uri":     true,
-		"page":              true,
-		"page_size":         true,
-		"previous_page_uri": true,
-		"total":             true,
-		"num_pages":         true,
-		"start":             true,
-		"uri":               true,
-	}
 }
 
 func processResponse(response *http.Response) map[string]interface{} {
@@ -60,24 +43,25 @@ func processResponse(response *http.Response) map[string]interface{} {
 
 //Parses the collection of records out of a map payload and returns the records
 func (p *Page) loadPage() []interface{} {
-	if p.Payload["meta"] != nil && p.Payload["meta"].(map[string]interface{})["key"] != nil {
-		key := p.Payload["meta"].(map[string]interface{})["key"].(string)
-		return p.Payload[key].([]interface{})
-	} else {
-		var difference []string
-		for pk := range p.Payload {
-			if _, found := p.MetaKeys[pk]; found {
-				continue
+	var data [][]interface{}
+	for _, v := range p.Payload {
+		if v != nil {
+			kind := reflect.TypeOf(v).Kind()
+			switch kind {
+			//look for non metadata info
+			case reflect.Slice:
+				if len(data) > 0 {
+					//we expect this to be exactly 1
+					return nil
+				}
+				data = append(data, v.([]interface{}))
 			}
-
-			difference = append(difference, pk)
-		}
-
-		if len(difference) == 1 {
-			return p.Payload[difference[0]].([]interface{})
 		}
 	}
 
+	if len(data) == 1 {
+		return data[0]
+	}
 	return nil
 }
 

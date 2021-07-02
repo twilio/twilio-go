@@ -159,10 +159,7 @@ func (c *ApiService) ServiceBindingPage(ChatServiceSid string, params *ListServi
 
 //Streams ServiceBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) ServiceBindingStream(ChatServiceSid string, params *ListServiceBindingParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.ServiceBindingPage(ChatServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -172,10 +169,7 @@ func (c *ApiService) ServiceBindingStream(ChatServiceSid string, params *ListSer
 
 //Lists ServiceBinding records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) ServiceBindingList(ChatServiceSid string, params *ListServiceBindingParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.ServiceBindingPage(ChatServiceSid, params, "", "")
 	if err != nil {
 		return nil, err

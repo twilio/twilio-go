@@ -153,10 +153,7 @@ func (c *ApiService) NetworkAccessProfilePage(params *ListNetworkAccessProfilePa
 
 //Streams NetworkAccessProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) NetworkAccessProfileStream(params *ListNetworkAccessProfileParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.NetworkAccessProfilePage(params, "", "")
 	if err != nil {
 		return nil, err
@@ -166,10 +163,7 @@ func (c *ApiService) NetworkAccessProfileStream(params *ListNetworkAccessProfile
 
 //Lists NetworkAccessProfile records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) NetworkAccessProfileList(params *ListNetworkAccessProfileParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.NetworkAccessProfilePage(params, "", "")
 	if err != nil {
 		return nil, err

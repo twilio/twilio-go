@@ -174,10 +174,7 @@ func (c *ApiService) SyncStreamPage(ServiceSid string, params *ListSyncStreamPar
 
 //Streams SyncStream records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) SyncStreamStream(ServiceSid string, params *ListSyncStreamParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.SyncStreamPage(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -187,10 +184,7 @@ func (c *ApiService) SyncStreamStream(ServiceSid string, params *ListSyncStreamP
 
 //Lists SyncStream records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) SyncStreamList(ServiceSid string, params *ListSyncStreamParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.SyncStreamPage(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err

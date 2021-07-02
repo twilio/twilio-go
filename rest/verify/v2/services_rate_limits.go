@@ -174,10 +174,7 @@ func (c *ApiService) RateLimitPage(ServiceSid string, params *ListRateLimitParam
 
 //Streams RateLimit records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) RateLimitStream(ServiceSid string, params *ListRateLimitParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.RateLimitPage(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -187,10 +184,7 @@ func (c *ApiService) RateLimitStream(ServiceSid string, params *ListRateLimitPar
 
 //Lists RateLimit records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) RateLimitList(ServiceSid string, params *ListRateLimitParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.RateLimitPage(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err

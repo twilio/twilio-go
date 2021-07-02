@@ -295,10 +295,7 @@ func (c *ApiService) ServicePage(params *ListServiceParams, pageToken string, pa
 
 //Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) ServiceStream(params *ListServiceParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.ServicePage(params, "", "")
 	if err != nil {
 		return nil, err
@@ -308,10 +305,7 @@ func (c *ApiService) ServiceStream(params *ListServiceParams, limit int) (chan m
 
 //Lists Service records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) ServiceList(params *ListServiceParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.ServicePage(params, "", "")
 	if err != nil {
 		return nil, err

@@ -212,10 +212,7 @@ func (c *ApiService) UserPage(params *ListUserParams, pageToken string, pageNumb
 
 //Streams User records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) UserStream(params *ListUserParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.UserPage(params, "", "")
 	if err != nil {
 		return nil, err
@@ -225,10 +222,7 @@ func (c *ApiService) UserStream(params *ListUserParams, limit int) (chan map[str
 
 //Lists User records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) UserList(params *ListUserParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.UserPage(params, "", "")
 	if err != nil {
 		return nil, err

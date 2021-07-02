@@ -171,10 +171,7 @@ func (c *ApiService) TranscriptionPage(params *ListTranscriptionParams, pageToke
 
 //Streams Transcription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) TranscriptionStream(params *ListTranscriptionParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.TranscriptionPage(params, "", "")
 	if err != nil {
 		return nil, err
@@ -184,10 +181,7 @@ func (c *ApiService) TranscriptionStream(params *ListTranscriptionParams, limit 
 
 //Lists Transcription records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) TranscriptionList(params *ListTranscriptionParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.TranscriptionPage(params, "", "")
 	if err != nil {
 		return nil, err

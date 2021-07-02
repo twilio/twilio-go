@@ -239,10 +239,7 @@ func (c *ApiService) EventPage(WorkspaceSid string, params *ListEventParams, pag
 
 //Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) EventStream(WorkspaceSid string, params *ListEventParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.EventPage(WorkspaceSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -252,10 +249,7 @@ func (c *ApiService) EventStream(WorkspaceSid string, params *ListEventParams, l
 
 //Lists Event records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) EventList(WorkspaceSid string, params *ListEventParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.EventPage(WorkspaceSid, params, "", "")
 	if err != nil {
 		return nil, err

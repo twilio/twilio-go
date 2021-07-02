@@ -210,10 +210,7 @@ func (c *ApiService) TrunkPage(params *ListTrunkParams, pageToken string, pageNu
 
 //Streams Trunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) TrunkStream(params *ListTrunkParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.TrunkPage(params, "", "")
 	if err != nil {
 		return nil, err
@@ -223,10 +220,7 @@ func (c *ApiService) TrunkStream(params *ListTrunkParams, limit int) (chan map[s
 
 //Lists Trunk records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) TrunkList(params *ListTrunkParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.TrunkPage(params, "", "")
 	if err != nil {
 		return nil, err

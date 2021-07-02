@@ -146,10 +146,7 @@ func (c *ApiService) CustomerProfileEvaluationPage(CustomerProfileSid string, pa
 
 //Streams CustomerProfileEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) CustomerProfileEvaluationStream(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.CustomerProfileEvaluationPage(CustomerProfileSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -159,10 +156,7 @@ func (c *ApiService) CustomerProfileEvaluationStream(CustomerProfileSid string, 
 
 //Lists CustomerProfileEvaluation records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) CustomerProfileEvaluationList(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.CustomerProfileEvaluationPage(CustomerProfileSid, params, "", "")
 	if err != nil {
 		return nil, err

@@ -121,10 +121,7 @@ func (c *ApiService) WorkerReservationPage(WorkspaceSid string, WorkerSid string
 
 //Streams WorkerReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) WorkerReservationStream(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.WorkerReservationPage(WorkspaceSid, WorkerSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -134,10 +131,7 @@ func (c *ApiService) WorkerReservationStream(WorkspaceSid string, WorkerSid stri
 
 //Lists WorkerReservation records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) WorkerReservationList(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.WorkerReservationPage(WorkspaceSid, WorkerSid, params, "", "")
 	if err != nil {
 		return nil, err

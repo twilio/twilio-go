@@ -127,10 +127,7 @@ func (c *ApiService) FaxMediaPage(FaxSid string, params *ListFaxMediaParams, pag
 
 //Streams FaxMedia records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) FaxMediaStream(FaxSid string, params *ListFaxMediaParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.FaxMediaPage(FaxSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -140,10 +137,7 @@ func (c *ApiService) FaxMediaStream(FaxSid string, params *ListFaxMediaParams, l
 
 //Lists FaxMedia records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) FaxMediaList(FaxSid string, params *ListFaxMediaParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.FaxMediaPage(FaxSid, params, "", "")
 	if err != nil {
 		return nil, err

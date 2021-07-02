@@ -258,10 +258,7 @@ func (c *ApiService) MessagePage(ServiceSid string, ChannelSid string, params *L
 
 //Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) MessageStream(ServiceSid string, ChannelSid string, params *ListMessageParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.MessagePage(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -271,10 +268,7 @@ func (c *ApiService) MessageStream(ServiceSid string, ChannelSid string, params 
 
 //Lists Message records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) MessageList(ServiceSid string, ChannelSid string, params *ListMessageParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.MessagePage(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
 		return nil, err

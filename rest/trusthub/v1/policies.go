@@ -105,10 +105,7 @@ func (c *ApiService) PoliciesPage(params *ListPoliciesParams, pageToken string, 
 
 //Streams Policies records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) PoliciesStream(params *ListPoliciesParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.PoliciesPage(params, "", "")
 	if err != nil {
 		return nil, err
@@ -118,10 +115,7 @@ func (c *ApiService) PoliciesStream(params *ListPoliciesParams, limit int) (chan
 
 //Lists Policies records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) PoliciesList(params *ListPoliciesParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.PoliciesPage(params, "", "")
 	if err != nil {
 		return nil, err

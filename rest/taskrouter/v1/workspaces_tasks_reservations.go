@@ -121,10 +121,7 @@ func (c *ApiService) TaskReservationPage(WorkspaceSid string, TaskSid string, pa
 
 //Streams TaskReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) TaskReservationStream(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.TaskReservationPage(WorkspaceSid, TaskSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -134,10 +131,7 @@ func (c *ApiService) TaskReservationStream(WorkspaceSid string, TaskSid string, 
 
 //Lists TaskReservation records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) TaskReservationList(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.TaskReservationPage(WorkspaceSid, TaskSid, params, "", "")
 	if err != nil {
 		return nil, err

@@ -215,10 +215,7 @@ func (c *ApiService) KeyPage(params *ListKeyParams, pageToken string, pageNumber
 
 //Streams Key records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) KeyStream(params *ListKeyParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.KeyPage(params, "", "")
 	if err != nil {
 		return nil, err
@@ -228,10 +225,7 @@ func (c *ApiService) KeyStream(params *ListKeyParams, limit int) (chan map[strin
 
 //Lists Key records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) KeyList(params *ListKeyParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.KeyPage(params, "", "")
 	if err != nil {
 		return nil, err

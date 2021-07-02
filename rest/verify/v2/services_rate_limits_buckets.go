@@ -179,10 +179,7 @@ func (c *ApiService) BucketPage(ServiceSid string, RateLimitSid string, params *
 
 //Streams Bucket records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) BucketStream(ServiceSid string, RateLimitSid string, params *ListBucketParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.BucketPage(ServiceSid, RateLimitSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -192,10 +189,7 @@ func (c *ApiService) BucketStream(ServiceSid string, RateLimitSid string, params
 
 //Lists Bucket records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) BucketList(ServiceSid string, RateLimitSid string, params *ListBucketParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.BucketPage(ServiceSid, RateLimitSid, params, "", "")
 	if err != nil {
 		return nil, err

@@ -217,10 +217,7 @@ func (c *ApiService) ServiceUserPage(ChatServiceSid string, params *ListServiceU
 
 //Streams ServiceUser records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) ServiceUserStream(ChatServiceSid string, params *ListServiceUserParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.ServiceUserPage(ChatServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -230,10 +227,7 @@ func (c *ApiService) ServiceUserStream(ChatServiceSid string, params *ListServic
 
 //Lists ServiceUser records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) ServiceUserList(ChatServiceSid string, params *ListServiceUserParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.ServiceUserPage(ChatServiceSid, params, "", "")
 	if err != nil {
 		return nil, err

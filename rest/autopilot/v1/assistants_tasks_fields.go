@@ -175,10 +175,7 @@ func (c *ApiService) FieldPage(AssistantSid string, TaskSid string, params *List
 
 //Streams Field records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) FieldStream(AssistantSid string, TaskSid string, params *ListFieldParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.FieldPage(AssistantSid, TaskSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -188,10 +185,7 @@ func (c *ApiService) FieldStream(AssistantSid string, TaskSid string, params *Li
 
 //Lists Field records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) FieldList(AssistantSid string, TaskSid string, params *ListFieldParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.FieldPage(AssistantSid, TaskSid, params, "", "")
 	if err != nil {
 		return nil, err

@@ -191,10 +191,7 @@ func (c *ApiService) MemberPage(ServiceSid string, ChannelSid string, params *Li
 
 //Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) MemberStream(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.MemberPage(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -204,10 +201,7 @@ func (c *ApiService) MemberStream(ServiceSid string, ChannelSid string, params *
 
 //Lists Member records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) MemberList(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.MemberPage(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
 		return nil, err

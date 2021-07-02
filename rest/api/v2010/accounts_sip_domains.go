@@ -327,10 +327,7 @@ func (c *ApiService) SipDomainPage(params *ListSipDomainParams, pageToken string
 
 //Streams SipDomain records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) SipDomainStream(params *ListSipDomainParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.SipDomainPage(params, "", "")
 	if err != nil {
 		return nil, err
@@ -340,10 +337,7 @@ func (c *ApiService) SipDomainStream(params *ListSipDomainParams, limit int) (ch
 
 //Lists SipDomain records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) SipDomainList(params *ListSipDomainParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.SipDomainPage(params, "", "")
 	if err != nil {
 		return nil, err

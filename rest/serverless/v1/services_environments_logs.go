@@ -148,10 +148,7 @@ func (c *ApiService) LogPage(ServiceSid string, EnvironmentSid string, params *L
 
 //Streams Log records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) LogStream(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.LogPage(ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -161,10 +158,7 @@ func (c *ApiService) LogStream(ServiceSid string, EnvironmentSid string, params 
 
 //Lists Log records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) LogList(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.LogPage(ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
 		return nil, err

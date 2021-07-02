@@ -120,10 +120,7 @@ func (c *ApiService) UsageRecordPage(SimSid string, params *ListUsageRecordParam
 
 //Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) UsageRecordStream(SimSid string, params *ListUsageRecordParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.UsageRecordPage(SimSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -133,10 +130,7 @@ func (c *ApiService) UsageRecordStream(SimSid string, params *ListUsageRecordPar
 
 //Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) UsageRecordList(SimSid string, params *ListUsageRecordParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.UsageRecordPage(SimSid, params, "", "")
 	if err != nil {
 		return nil, err

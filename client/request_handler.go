@@ -95,17 +95,19 @@ func min(a int, b int) int {
 }
 
 //Takes a limit on the max number of records to read and a max pageSize and calculates the max number of pages to read.
-func (c *RequestHandler) ReadLimits(pageSize int, limit int) int {
-	if pageSize == 0 && limit > 0 {
-		return min(limit, 1000)
+func (c *RequestHandler) ReadLimits(pageSize *int, limit int) int {
+	// don't care about pageSize
+	if pageSize == nil {
+		if limit > 0 {
+			return min(limit, 1000)
+		} else {
+			// don't care about limit either
+			return 50 // default
+		}
+
 	}
 
-	if pageSize == 0 && limit == 0 {
-		//if no page size or limit defined, use the default page size
-		pageSize = 50
-	}
-
-	return pageSize
+	return *pageSize
 }
 
 //Channels records one a time from a page to be consumed by the caller, stopping at prescribed limits

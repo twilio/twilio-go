@@ -191,10 +191,7 @@ func (c *ApiService) InvitePage(ServiceSid string, ChannelSid string, params *Li
 
 //Streams Invite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) InviteStream(ServiceSid string, ChannelSid string, params *ListInviteParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.InvitePage(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -204,10 +201,7 @@ func (c *ApiService) InviteStream(ServiceSid string, ChannelSid string, params *
 
 //Lists Invite records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) InviteList(ServiceSid string, ChannelSid string, params *ListInviteParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.InvitePage(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
 		return nil, err

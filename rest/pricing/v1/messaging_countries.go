@@ -103,10 +103,7 @@ func (c *ApiService) MessagingCountryPage(params *ListMessagingCountryParams, pa
 
 //Streams MessagingCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) MessagingCountryStream(params *ListMessagingCountryParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.MessagingCountryPage(params, "", "")
 	if err != nil {
 		return nil, err
@@ -116,10 +113,7 @@ func (c *ApiService) MessagingCountryStream(params *ListMessagingCountryParams, 
 
 //Lists MessagingCountry records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) MessagingCountryList(params *ListMessagingCountryParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.MessagingCountryPage(params, "", "")
 	if err != nil {
 		return nil, err

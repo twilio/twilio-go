@@ -189,10 +189,7 @@ func (c *ApiService) EngagementPage(FlowSid string, params *ListEngagementParams
 
 //Streams Engagement records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) EngagementStream(FlowSid string, params *ListEngagementParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.EngagementPage(FlowSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -202,10 +199,7 @@ func (c *ApiService) EngagementStream(FlowSid string, params *ListEngagementPara
 
 //Lists Engagement records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) EngagementList(FlowSid string, params *ListEngagementParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.EngagementPage(FlowSid, params, "", "")
 	if err != nil {
 		return nil, err

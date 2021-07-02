@@ -242,10 +242,7 @@ func (c *ApiService) TaskQueuePage(WorkspaceSid string, params *ListTaskQueuePar
 
 //Streams TaskQueue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) TaskQueueStream(WorkspaceSid string, params *ListTaskQueueParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.TaskQueuePage(WorkspaceSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -255,10 +252,7 @@ func (c *ApiService) TaskQueueStream(WorkspaceSid string, params *ListTaskQueueP
 
 //Lists TaskQueue records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) TaskQueueList(WorkspaceSid string, params *ListTaskQueueParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.TaskQueuePage(WorkspaceSid, params, "", "")
 	if err != nil {
 		return nil, err

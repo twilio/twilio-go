@@ -200,10 +200,7 @@ func (c *ApiService) RecordingPage(params *ListRecordingParams, pageToken string
 
 //Streams Recording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) RecordingStream(params *ListRecordingParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.RecordingPage(params, "", "")
 	if err != nil {
 		return nil, err
@@ -213,10 +210,7 @@ func (c *ApiService) RecordingStream(params *ListRecordingParams, limit int) (ch
 
 //Lists Recording records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) RecordingList(params *ListRecordingParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.RecordingPage(params, "", "")
 	if err != nil {
 		return nil, err

@@ -61,12 +61,17 @@ func TestRequestHandler_BuildHostRawHostWithoutPeriods(t *testing.T) {
 
 func TestRequestHandler_ReadLimits(t *testing.T) {
 	requestHandler := NewRequestHandler("user", "pass")
-	assert.Equal(t, 5, requestHandler.ReadLimits(0, 5))
-	assert.Equal(t, 10, requestHandler.ReadLimits(10, 5))
-	assert.Equal(t, 1000, requestHandler.ReadLimits(0, 5000))
-	assert.Equal(t, 10, requestHandler.ReadLimits(10, 0))
-	assert.Equal(t, 50, requestHandler.ReadLimits(0, 0))
+	assert.Equal(t, 5, requestHandler.ReadLimits(nil, 5))
+	assert.Equal(t, 10, requestHandler.ReadLimits(setPageSize(10), 5))
+	assert.Equal(t, 1000, requestHandler.ReadLimits(nil, 5000))
+	assert.Equal(t, 10, requestHandler.ReadLimits(setPageSize(10), 0))
+	assert.Equal(t, 50, requestHandler.ReadLimits(nil, 0))
 
+}
+
+func setPageSize(pageSize int) *int {
+	PageSize := &pageSize
+	return PageSize
 }
 
 func TestRequestHandler_List(t *testing.T) {

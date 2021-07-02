@@ -111,10 +111,7 @@ func (c *ApiService) StepPage(FlowSid string, EngagementSid string, params *List
 
 //Streams Step records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StepStream(FlowSid string, EngagementSid string, params *ListStepParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.StepPage(FlowSid, EngagementSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -124,10 +121,7 @@ func (c *ApiService) StepStream(FlowSid string, EngagementSid string, params *Li
 
 //Lists Step records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) StepList(FlowSid string, EngagementSid string, params *ListStepParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.StepPage(FlowSid, EngagementSid, params, "", "")
 	if err != nil {
 		return nil, err

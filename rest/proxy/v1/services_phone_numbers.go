@@ -183,10 +183,7 @@ func (c *ApiService) PhoneNumberPage(ServiceSid string, params *ListPhoneNumberP
 
 //Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) PhoneNumberStream(ServiceSid string, params *ListPhoneNumberParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.PhoneNumberPage(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -196,10 +193,7 @@ func (c *ApiService) PhoneNumberStream(ServiceSid string, params *ListPhoneNumbe
 
 //Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) PhoneNumberList(ServiceSid string, params *ListPhoneNumberParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.PhoneNumberPage(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err

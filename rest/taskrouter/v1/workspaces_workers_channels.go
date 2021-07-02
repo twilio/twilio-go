@@ -109,10 +109,7 @@ func (c *ApiService) WorkerChannelPage(WorkspaceSid string, WorkerSid string, pa
 
 //Streams WorkerChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) WorkerChannelStream(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.WorkerChannelPage(WorkspaceSid, WorkerSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -122,10 +119,7 @@ func (c *ApiService) WorkerChannelStream(WorkspaceSid string, WorkerSid string, 
 
 //Lists WorkerChannel records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) WorkerChannelList(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.WorkerChannelPage(WorkspaceSid, WorkerSid, params, "", "")
 	if err != nil {
 		return nil, err

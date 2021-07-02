@@ -165,10 +165,7 @@ func (c *ApiService) FunctionPage(ServiceSid string, params *ListFunctionParams,
 
 //Streams Function records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) FunctionStream(ServiceSid string, params *ListFunctionParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.FunctionPage(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -178,10 +175,7 @@ func (c *ApiService) FunctionStream(ServiceSid string, params *ListFunctionParam
 
 //Lists Function records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) FunctionList(ServiceSid string, params *ListFunctionParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.FunctionPage(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err

@@ -170,10 +170,7 @@ func (c *ApiService) ModelBuildPage(AssistantSid string, params *ListModelBuildP
 
 //Streams ModelBuild records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) ModelBuildStream(AssistantSid string, params *ListModelBuildParams, limit int) (chan map[string]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.ModelBuildPage(AssistantSid, params, "", "")
 	if err != nil {
 		return nil, err
@@ -183,10 +180,7 @@ func (c *ApiService) ModelBuildStream(AssistantSid string, params *ListModelBuil
 
 //Lists ModelBuild records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
 func (c *ApiService) ModelBuildList(AssistantSid string, params *ListModelBuildParams, limit int) ([]interface{}, error) {
-	if params.PageSize == nil {
-		params.SetPageSize(0)
-	}
-	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
 	page, err := c.ModelBuildPage(AssistantSid, params, "", "")
 	if err != nil {
 		return nil, err
