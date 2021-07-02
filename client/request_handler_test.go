@@ -8,6 +8,8 @@ import (
 	"net/url"
 	"testing"
 
+	"github.com/pkg/errors"
+
 	"github.com/golang/mock/gomock"
 
 	"github.com/stretchr/testify/assert"
@@ -59,21 +61,12 @@ func TestRequestHandler_BuildHostRawHostWithoutPeriods(t *testing.T) {
 
 func TestRequestHandler_ReadLimits(t *testing.T) {
 	requestHandler := NewRequestHandler("user", "pass")
-	metaData := client.PaginationData{
-		PageSize: 0,
-		Limit:    5,
-	}
-	assert.Equal(t, 5, requestHandler.ReadLimits(metaData).PageSize)
-	assert.Equal(t, 5, requestHandler.ReadLimits(metaData).Limit)
+	assert.Equal(t, 5, requestHandler.ReadLimits(0, 5))
+	assert.Equal(t, 10, requestHandler.ReadLimits(10, 5))
+	assert.Equal(t, 1000, requestHandler.ReadLimits(0, 5000))
+	assert.Equal(t, 10, requestHandler.ReadLimits(10, 0))
+	assert.Equal(t, 50, requestHandler.ReadLimits(0, 0))
 
-	metaData.PageSize = 10
-	assert.Equal(t, 10, requestHandler.ReadLimits(metaData).PageSize)
-	assert.Equal(t, 5, requestHandler.ReadLimits(metaData).Limit)
-
-	metaData = client.PaginationData{
-		Limit: 5000,
-	}
-	assert.Equal(t, 1000, requestHandler.ReadLimits(metaData).PageSize)
 }
 
 func TestRequestHandler_List(t *testing.T) {
@@ -149,34 +142,27 @@ func TestRequestHandler_List(t *testing.T) {
 	twilio := apiV2010.NewApiServiceWithClient(testClient)
 
 	params := apiV2010.ListMessageParams{}
-	params.SetFrom("from")
-	params.SetTo("to")
+	params.SetFrom("4444444444")
+	params.SetTo("9999999999")
+	params.SetPageSize(5)
 
-	data := client.PaginationData{
-		PageSize: 5,
-		Limit:    5,
-	}
+	resp, err := twilio.MessageList(&params, 5)
+	assert.Equal(t, "outbound-api", resp[0].(map[string]interface{})["direction"])
+	assert.Equal(t, "4444444444", resp[0].(map[string]interface{})["from"])
+	assert.Len(t, resp, 5)
+	assert.Nil(t, err)
 
-	resp := twilio.MessageList(&params, data)
+	params.SetPageSize(2)
+	resp, _ = twilio.MessageList(&params, 5)
 	assert.Len(t, resp, 5)
 
-	data.PageSize = 2
-	resp = twilio.MessageList(&params, data)
-	assert.Len(t, resp, 5)
-
-	data.Limit = 2
-	resp = twilio.MessageList(&params, data)
+	resp, _ = twilio.MessageList(&params, 2)
 	assert.Len(t, resp, 2)
 
-	data.PageSize = 5
-	resp = twilio.MessageList(&params, data)
+	params.SetPageSize(5)
+	resp, err = twilio.MessageList(&params, 2)
 	assert.Len(t, resp, 2)
-
-	data.PageLimit = 1
-	data.PageSize = 5
-	data.Limit = 10
-	resp = twilio.MessageList(&params, data)
-	assert.Len(t, resp, 5)
+	assert.Nil(t, err)
 }
 
 func TestRequestHandler_List_Paging(t *testing.T) {
@@ -327,14 +313,121 @@ func TestRequestHandler_List_Paging(t *testing.T) {
 	params := apiV2010.ListMessageParams{}
 	params.SetFrom("from")
 	params.SetTo("to")
+	params.SetPageSize(5)
 
-	data := client.PaginationData{
-		PageSize: 5,
-		Limit:    10,
-	}
-
-	resp := twilio.MessageList(&params, data)
+	resp, err := twilio.MessageList(&params, 10)
 	assert.Len(t, resp, 9)
+	assert.Nil(t, err)
+}
+
+func TestRequestHandler_ListError(t *testing.T) {
+	mockCtrl := gomock.NewController(t)
+	testClient := client.NewMockBaseClient(mockCtrl)
+
+	testClient.EXPECT().AccountSid().DoAndReturn(func() string {
+		return "AC222222222222222222222222222222"
+	}).AnyTimes()
+
+	testClient.EXPECT().SendRequest(
+		gomock.Any(),
+		gomock.Any(),
+		gomock.Any(),
+		gomock.Any()).
+		DoAndReturn(func(method string, rawURL string, data url.Values,
+			headers map[string]interface{}) (*http.Response, error) {
+			response := map[string]interface{}{
+				"end":            4,
+				"first_page_uri": "/2010-04-01/Accounts/AC12345678123456781234567812345678/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=5&Page=0",
+				"messages": []map[string]interface{}{
+					{
+						"direction": "outbound-api",
+						"from":      "4444444444",
+						"to":        "9999999999",
+						"body":      "Hi",
+						"status":    "delivered",
+					},
+				},
+				"uri":           "“/2010-04-01/Accounts/AC12345678123456781234567812345678/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=5&Page=0&PageToken=",
+				"page_size":     5,
+				"start":         0,
+				"next_page_uri": "/2010-04-01/Accounts/AC12345678123456781234567812345678/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=5&Page=1&PageToken=PASMc49f620580b24424bcfa885b1f741130",
+				"page":          0,
+			}
+
+			resp, _ := json.Marshal(response)
+
+			return &http.Response{
+				Body: ioutil.NopCloser(bytes.NewReader(resp)),
+			}, errors.New("Listing error")
+		},
+		).AnyTimes()
+
+	twilio := apiV2010.NewApiServiceWithClient(testClient)
+
+	params := apiV2010.ListMessageParams{}
+	params.SetFrom("from")
+	params.SetTo("to")
+	params.SetPageSize(5)
+
+	resp, err := twilio.MessageList(&params, 5)
+	assert.Len(t, resp, 0)
+	assert.NotNil(t, err)
+	assert.Equal(t, "Listing error", err.Error())
+}
+
+func TestRequestHandler_StreamError(t *testing.T) {
+	mockCtrl := gomock.NewController(t)
+	testClient := client.NewMockBaseClient(mockCtrl)
+
+	testClient.EXPECT().AccountSid().DoAndReturn(func() string {
+		return "AC222222222222222222222222222222"
+	}).AnyTimes()
+
+	testClient.EXPECT().SendRequest(
+		gomock.Any(),
+		gomock.Any(),
+		gomock.Any(),
+		gomock.Any()).
+		DoAndReturn(func(method string, rawURL string, data url.Values,
+			headers map[string]interface{}) (*http.Response, error) {
+			response := map[string]interface{}{
+				"end":            4,
+				"first_page_uri": "/2010-04-01/Accounts/AC12345678123456781234567812345678/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=5&Page=0",
+				"messages": []map[string]interface{}{
+					{
+						"direction": "outbound-api",
+						"from":      "4444444444",
+						"to":        "9999999999",
+						"body":      "Hi",
+						"status":    "delivered",
+					},
+				},
+				"uri":           "“/2010-04-01/Accounts/AC12345678123456781234567812345678/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=5&Page=0&PageToken=",
+				"page_size":     5,
+				"start":         0,
+				"next_page_uri": "/2010-04-01/Accounts/AC12345678123456781234567812345678/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=5&Page=1&PageToken=PASMc49f620580b24424bcfa885b1f741130",
+				"page":          0,
+			}
+
+			resp, _ := json.Marshal(response)
+
+			return &http.Response{
+				Body: ioutil.NopCloser(bytes.NewReader(resp)),
+			}, errors.New("Streaming error")
+		},
+		).AnyTimes()
+
+	twilio := apiV2010.NewApiServiceWithClient(testClient)
+
+	params := apiV2010.ListMessageParams{}
+	params.SetFrom("from")
+	params.SetTo("to")
+	params.SetPageSize(5)
+
+	resp, err := twilio.MessageStream(&params, 5)
+	assert.Len(t, resp, 0)
+	assert.NotNil(t, err)
+	assert.Equal(t, "Streaming error", err.Error())
 }
 
 func TestRequestHandler_Stream(t *testing.T) {
@@ -411,25 +504,14 @@ func TestRequestHandler_Stream(t *testing.T) {
 	params := apiV2010.ListMessageParams{}
 	params.SetFrom("from")
 	params.SetTo("to")
+	params.SetPageSize(2)
 
-	data := client.PaginationData{
-		PageSize: 2,
-		Limit:    5,
-	}
+	count := getStreamCount(twilio, params, 0)
+	assert.Equal(t, 10, count)
 
-	count := 0
-	for range twilio.MessageStream(&params, data) {
-		count += 1
-	}
-	assert.Equal(t, 5, count)
+	count = getStreamCount(twilio, params, 0)
 
-	data.PageLimit = 1
-	data.Limit = 10
-	count = 0
-	for range twilio.MessageStream(&params, data) {
-		count += 1
-	}
-	assert.Equal(t, 5, count)
+	assert.Equal(t, 10, count)
 }
 
 func TestRequestHandler_StreamPaging(t *testing.T) {
@@ -573,15 +655,22 @@ func TestRequestHandler_StreamPaging(t *testing.T) {
 	params := apiV2010.ListMessageParams{}
 	params.SetFrom("4444444444")
 	params.SetTo("9999999999")
+	params.SetPageSize(5)
 
-	data := client.PaginationData{
-		PageSize: 5,
-		Limit:    10,
-	}
-
-	count := 0
-	for range twilio.MessageStream(&params, data) {
-		count += 1
-	}
+	count := getStreamCount(twilio, params, 0)
 	assert.Equal(t, 8, count)
+}
+
+func getStreamCount(twilio *apiV2010.ApiService, params apiV2010.ListMessageParams, count int) int {
+	for {
+		channel, _ := twilio.MessageStream(&params, 10)
+		for range channel {
+			count += 1
+		}
+
+		if len(channel) == 0 {
+			break
+		}
+	}
+	return count
 }

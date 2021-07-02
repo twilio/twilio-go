@@ -195,7 +195,7 @@ func (c *ApiService) ListSipIpAccessControlListMapping(DomainSid string, params 
 }
 
 //Retrieve a single page of SipIpAccessControlListMapping records from the API. Request is executed immediately.
-func (c *ApiService) SipIpAccessControlListMappingPage(DomainSid string, params *ListSipIpAccessControlListMappingParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) SipIpAccessControlListMappingPage(DomainSid string, params *ListSipIpAccessControlListMappingParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -213,26 +213,37 @@ func (c *ApiService) SipIpAccessControlListMappingPage(DomainSid string, params 
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams SipIpAccessControlListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SipIpAccessControlListMappingStream(DomainSid string, params *ListSipIpAccessControlListMappingParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.SipIpAccessControlListMappingPage(DomainSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) SipIpAccessControlListMappingStream(DomainSid string, params *ListSipIpAccessControlListMappingParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.SipIpAccessControlListMappingPage(DomainSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists SipIpAccessControlListMapping records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SipIpAccessControlListMappingList(DomainSid string, params *ListSipIpAccessControlListMappingParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.SipIpAccessControlListMappingPage(DomainSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) SipIpAccessControlListMappingList(DomainSid string, params *ListSipIpAccessControlListMappingParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.SipIpAccessControlListMappingPage(DomainSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }

@@ -242,7 +242,7 @@ func (c *ApiService) ListRoom(params *ListRoomParams) (*ListRoomResponse, error)
 }
 
 //Retrieve a single page of Room records from the API. Request is executed immediately.
-func (c *ApiService) RoomPage(params *ListRoomParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) RoomPage(params *ListRoomParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Rooms"
 
 	data := url.Values{}
@@ -266,28 +266,39 @@ func (c *ApiService) RoomPage(params *ListRoomParams, pageToken string, pageNumb
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams Room records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) RoomStream(params *ListRoomParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.RoomPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) RoomStream(params *ListRoomParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.RoomPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists Room records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) RoomList(params *ListRoomParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.RoomPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) RoomList(params *ListRoomParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.RoomPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateRoom'

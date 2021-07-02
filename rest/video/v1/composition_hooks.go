@@ -264,7 +264,7 @@ func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) (*Li
 }
 
 //Retrieve a single page of CompositionHook records from the API. Request is executed immediately.
-func (c *ApiService) CompositionHookPage(params *ListCompositionHookParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) CompositionHookPage(params *ListCompositionHookParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
@@ -288,28 +288,39 @@ func (c *ApiService) CompositionHookPage(params *ListCompositionHookParams, page
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams CompositionHook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) CompositionHookStream(params *ListCompositionHookParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.CompositionHookPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) CompositionHookStream(params *ListCompositionHookParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.CompositionHookPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists CompositionHook records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) CompositionHookList(params *ListCompositionHookParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.CompositionHookPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) CompositionHookList(params *ListCompositionHookParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.CompositionHookPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateCompositionHook'

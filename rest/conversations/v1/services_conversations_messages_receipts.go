@@ -88,7 +88,7 @@ func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string
 }
 
 //Retrieve a single page of ServiceConversationMessageReceipt records from the API. Request is executed immediately.
-func (c *ApiService) ServiceConversationMessageReceiptPage(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) ServiceConversationMessageReceiptPage(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -103,26 +103,37 @@ func (c *ApiService) ServiceConversationMessageReceiptPage(ChatServiceSid string
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams ServiceConversationMessageReceipt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServiceConversationMessageReceiptStream(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.ServiceConversationMessageReceiptPage(ChatServiceSid, ConversationSid, MessageSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) ServiceConversationMessageReceiptStream(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.ServiceConversationMessageReceiptPage(ChatServiceSid, ConversationSid, MessageSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists ServiceConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServiceConversationMessageReceiptList(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.ServiceConversationMessageReceiptPage(ChatServiceSid, ConversationSid, MessageSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) ServiceConversationMessageReceiptList(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.ServiceConversationMessageReceiptPage(ChatServiceSid, ConversationSid, MessageSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }

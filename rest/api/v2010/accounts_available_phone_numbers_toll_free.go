@@ -232,7 +232,7 @@ func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params
 }
 
 //Retrieve a single page of AvailablePhoneNumberTollFree records from the API. Request is executed immediately.
-func (c *ApiService) AvailablePhoneNumberTollFreePage(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) AvailablePhoneNumberTollFreePage(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -304,26 +304,37 @@ func (c *ApiService) AvailablePhoneNumberTollFreePage(CountryCode string, params
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams AvailablePhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AvailablePhoneNumberTollFreeStream(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.AvailablePhoneNumberTollFreePage(CountryCode, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) AvailablePhoneNumberTollFreeStream(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.AvailablePhoneNumberTollFreePage(CountryCode, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists AvailablePhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AvailablePhoneNumberTollFreeList(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.AvailablePhoneNumberTollFreePage(CountryCode, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) AvailablePhoneNumberTollFreeList(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.AvailablePhoneNumberTollFreePage(CountryCode, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }

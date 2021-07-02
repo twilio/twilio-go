@@ -82,7 +82,7 @@ func (c *ApiService) ListPolicies(params *ListPoliciesParams) (*ListPoliciesResp
 }
 
 //Retrieve a single page of Policies records from the API. Request is executed immediately.
-func (c *ApiService) PoliciesPage(params *ListPoliciesParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) PoliciesPage(params *ListPoliciesParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Policies"
 
 	data := url.Values{}
@@ -94,26 +94,37 @@ func (c *ApiService) PoliciesPage(params *ListPoliciesParams, pageToken string, 
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams Policies records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) PoliciesStream(params *ListPoliciesParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.PoliciesPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) PoliciesStream(params *ListPoliciesParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.PoliciesPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists Policies records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) PoliciesList(params *ListPoliciesParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.PoliciesPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) PoliciesList(params *ListPoliciesParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.PoliciesPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }

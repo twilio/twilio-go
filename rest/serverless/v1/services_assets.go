@@ -141,7 +141,7 @@ func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams) (*Lis
 }
 
 //Retrieve a single page of Asset records from the API. Request is executed immediately.
-func (c *ApiService) AssetPage(ServiceSid string, params *ListAssetParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) AssetPage(ServiceSid string, params *ListAssetParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Services/{ServiceSid}/Assets"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -154,28 +154,39 @@ func (c *ApiService) AssetPage(ServiceSid string, params *ListAssetParams, pageT
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams Asset records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AssetStream(ServiceSid string, params *ListAssetParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.AssetPage(ServiceSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) AssetStream(ServiceSid string, params *ListAssetParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.AssetPage(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists Asset records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AssetList(ServiceSid string, params *ListAssetParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.AssetPage(ServiceSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) AssetList(ServiceSid string, params *ListAssetParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.AssetPage(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateAsset'

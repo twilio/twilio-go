@@ -191,7 +191,7 @@ func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams) (*Li
 }
 
 //Retrieve a single page of CustomerProfile records from the API. Request is executed immediately.
-func (c *ApiService) CustomerProfilePage(params *ListCustomerProfileParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) CustomerProfilePage(params *ListCustomerProfileParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/CustomerProfiles"
 
 	data := url.Values{}
@@ -212,28 +212,39 @@ func (c *ApiService) CustomerProfilePage(params *ListCustomerProfileParams, page
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams CustomerProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) CustomerProfileStream(params *ListCustomerProfileParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.CustomerProfilePage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) CustomerProfileStream(params *ListCustomerProfileParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.CustomerProfilePage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists CustomerProfile records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) CustomerProfileList(params *ListCustomerProfileParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.CustomerProfilePage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) CustomerProfileList(params *ListCustomerProfileParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.CustomerProfilePage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateCustomerProfile'

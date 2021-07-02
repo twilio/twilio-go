@@ -155,7 +155,7 @@ func (c *ApiService) ListSyncMap(ServiceSid string, params *ListSyncMapParams) (
 }
 
 //Retrieve a single page of SyncMap records from the API. Request is executed immediately.
-func (c *ApiService) SyncMapPage(ServiceSid string, params *ListSyncMapParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) SyncMapPage(ServiceSid string, params *ListSyncMapParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Services/{ServiceSid}/Maps"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -168,28 +168,39 @@ func (c *ApiService) SyncMapPage(ServiceSid string, params *ListSyncMapParams, p
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams SyncMap records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SyncMapStream(ServiceSid string, params *ListSyncMapParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.SyncMapPage(ServiceSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) SyncMapStream(ServiceSid string, params *ListSyncMapParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.SyncMapPage(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists SyncMap records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SyncMapList(ServiceSid string, params *ListSyncMapParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.SyncMapPage(ServiceSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) SyncMapList(ServiceSid string, params *ListSyncMapParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.SyncMapPage(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateSyncMap'

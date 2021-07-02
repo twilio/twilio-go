@@ -93,7 +93,7 @@ func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, pa
 }
 
 //Retrieve a single page of TaskReservation records from the API. Request is executed immediately.
-func (c *ApiService) TaskReservationPage(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) TaskReservationPage(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -110,28 +110,39 @@ func (c *ApiService) TaskReservationPage(WorkspaceSid string, TaskSid string, pa
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams TaskReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) TaskReservationStream(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.TaskReservationPage(WorkspaceSid, TaskSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) TaskReservationStream(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.TaskReservationPage(WorkspaceSid, TaskSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists TaskReservation records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) TaskReservationList(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.TaskReservationPage(WorkspaceSid, TaskSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) TaskReservationList(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.TaskReservationPage(WorkspaceSid, TaskSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateTaskReservation'

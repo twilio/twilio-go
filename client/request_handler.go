@@ -87,12 +87,6 @@ func (c *RequestHandler) Delete(path string, nothing url.Values, headers map[str
 	return c.sendRequest(http.MethodDelete, path, nil, headers)
 }
 
-type PaginationData struct {
-	PageLimit int
-	PageSize  int
-	Limit     int
-}
-
 func min(a int, b int) int {
 	if a < b {
 		return a
@@ -100,13 +94,18 @@ func min(a int, b int) int {
 	return b
 }
 
-//Takes a limit on the max number of records to read, max pages to read and a max pageSize and calculates the max number of pages to read.
-func (c *RequestHandler) ReadLimits(meta PaginationData) PaginationData {
-	if meta.PageSize == 0 && meta.Limit > 0 {
-		meta.PageSize = min(meta.Limit, 1000)
+//Takes a limit on the max number of records to read and a max pageSize and calculates the max number of pages to read.
+func (c *RequestHandler) ReadLimits(pageSize int, limit int) int {
+	if pageSize == 0 && limit > 0 {
+		return min(limit, 1000)
 	}
 
-	return meta
+	if pageSize == 0 && limit == 0 {
+		//if no page size or limit defined, use the default page size
+		pageSize = 50
+	}
+
+	return pageSize
 }
 
 //Channels records one a time from a page to be consumed by the caller, stopping at prescribed limits

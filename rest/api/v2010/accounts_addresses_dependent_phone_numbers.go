@@ -70,7 +70,7 @@ func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDep
 }
 
 //Retrieve a single page of DependentPhoneNumber records from the API. Request is executed immediately.
-func (c *ApiService) DependentPhoneNumberPage(AddressSid string, params *ListDependentPhoneNumberParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) DependentPhoneNumberPage(AddressSid string, params *ListDependentPhoneNumberParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -88,26 +88,37 @@ func (c *ApiService) DependentPhoneNumberPage(AddressSid string, params *ListDep
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams DependentPhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) DependentPhoneNumberStream(AddressSid string, params *ListDependentPhoneNumberParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.DependentPhoneNumberPage(AddressSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) DependentPhoneNumberStream(AddressSid string, params *ListDependentPhoneNumberParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.DependentPhoneNumberPage(AddressSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists DependentPhoneNumber records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) DependentPhoneNumberList(AddressSid string, params *ListDependentPhoneNumberParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.DependentPhoneNumberPage(AddressSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) DependentPhoneNumberList(AddressSid string, params *ListDependentPhoneNumberParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.DependentPhoneNumberPage(AddressSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }

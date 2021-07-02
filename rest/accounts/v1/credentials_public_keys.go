@@ -155,7 +155,7 @@ func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyPara
 }
 
 //Retrieve a single page of CredentialPublicKey records from the API. Request is executed immediately.
-func (c *ApiService) CredentialPublicKeyPage(params *ListCredentialPublicKeyParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) CredentialPublicKeyPage(params *ListCredentialPublicKeyParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Credentials/PublicKeys"
 
 	data := url.Values{}
@@ -167,28 +167,39 @@ func (c *ApiService) CredentialPublicKeyPage(params *ListCredentialPublicKeyPara
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams CredentialPublicKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) CredentialPublicKeyStream(params *ListCredentialPublicKeyParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.CredentialPublicKeyPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) CredentialPublicKeyStream(params *ListCredentialPublicKeyParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.CredentialPublicKeyPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists CredentialPublicKey records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) CredentialPublicKeyList(params *ListCredentialPublicKeyParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.CredentialPublicKeyPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) CredentialPublicKeyList(params *ListCredentialPublicKeyParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.CredentialPublicKeyPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateCredentialPublicKey'

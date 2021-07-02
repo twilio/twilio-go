@@ -191,7 +191,7 @@ func (c *ApiService) ListTrustProduct(params *ListTrustProductParams) (*ListTrus
 }
 
 //Retrieve a single page of TrustProduct records from the API. Request is executed immediately.
-func (c *ApiService) TrustProductPage(params *ListTrustProductParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) TrustProductPage(params *ListTrustProductParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/TrustProducts"
 
 	data := url.Values{}
@@ -212,28 +212,39 @@ func (c *ApiService) TrustProductPage(params *ListTrustProductParams, pageToken 
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams TrustProduct records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) TrustProductStream(params *ListTrustProductParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.TrustProductPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) TrustProductStream(params *ListTrustProductParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.TrustProductPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists TrustProduct records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) TrustProductList(params *ListTrustProductParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.TrustProductPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) TrustProductList(params *ListTrustProductParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.TrustProductPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateTrustProduct'

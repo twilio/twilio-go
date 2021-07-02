@@ -225,7 +225,7 @@ func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *L
 }
 
 //Retrieve a single page of SyncMapItem records from the API. Request is executed immediately.
-func (c *ApiService) SyncMapItemPage(ServiceSid string, MapSid string, params *ListSyncMapItemParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) SyncMapItemPage(ServiceSid string, MapSid string, params *ListSyncMapItemParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
@@ -248,28 +248,39 @@ func (c *ApiService) SyncMapItemPage(ServiceSid string, MapSid string, params *L
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams SyncMapItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SyncMapItemStream(ServiceSid string, MapSid string, params *ListSyncMapItemParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.SyncMapItemPage(ServiceSid, MapSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) SyncMapItemStream(ServiceSid string, MapSid string, params *ListSyncMapItemParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.SyncMapItemPage(ServiceSid, MapSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists SyncMapItem records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SyncMapItemList(ServiceSid string, MapSid string, params *ListSyncMapItemParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.SyncMapItemPage(ServiceSid, MapSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) SyncMapItemList(ServiceSid string, MapSid string, params *ListSyncMapItemParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.SyncMapItemPage(ServiceSid, MapSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateSyncMapItem'

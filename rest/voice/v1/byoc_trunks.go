@@ -214,7 +214,7 @@ func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams) (*ListByocTrunkR
 }
 
 //Retrieve a single page of ByocTrunk records from the API. Request is executed immediately.
-func (c *ApiService) ByocTrunkPage(params *ListByocTrunkParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) ByocTrunkPage(params *ListByocTrunkParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/ByocTrunks"
 
 	data := url.Values{}
@@ -226,28 +226,39 @@ func (c *ApiService) ByocTrunkPage(params *ListByocTrunkParams, pageToken string
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams ByocTrunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ByocTrunkStream(params *ListByocTrunkParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.ByocTrunkPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) ByocTrunkStream(params *ListByocTrunkParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.ByocTrunkPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists ByocTrunk records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ByocTrunkList(params *ListByocTrunkParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.ByocTrunkPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) ByocTrunkList(params *ListByocTrunkParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.ByocTrunkPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateByocTrunk'

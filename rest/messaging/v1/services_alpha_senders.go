@@ -137,7 +137,7 @@ func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderP
 }
 
 //Retrieve a single page of AlphaSender records from the API. Request is executed immediately.
-func (c *ApiService) AlphaSenderPage(ServiceSid string, params *ListAlphaSenderParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) AlphaSenderPage(ServiceSid string, params *ListAlphaSenderParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -150,26 +150,37 @@ func (c *ApiService) AlphaSenderPage(ServiceSid string, params *ListAlphaSenderP
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams AlphaSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AlphaSenderStream(ServiceSid string, params *ListAlphaSenderParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.AlphaSenderPage(ServiceSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) AlphaSenderStream(ServiceSid string, params *ListAlphaSenderParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.AlphaSenderPage(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists AlphaSender records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AlphaSenderList(ServiceSid string, params *ListAlphaSenderParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.AlphaSenderPage(ServiceSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) AlphaSenderList(ServiceSid string, params *ListAlphaSenderParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.AlphaSenderPage(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }

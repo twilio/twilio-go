@@ -234,7 +234,7 @@ func (c *ApiService) ListServiceConversationParticipant(ChatServiceSid string, C
 }
 
 //Retrieve a single page of ServiceConversationParticipant records from the API. Request is executed immediately.
-func (c *ApiService) ServiceConversationParticipantPage(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) ServiceConversationParticipantPage(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -248,28 +248,39 @@ func (c *ApiService) ServiceConversationParticipantPage(ChatServiceSid string, C
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams ServiceConversationParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServiceConversationParticipantStream(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.ServiceConversationParticipantPage(ChatServiceSid, ConversationSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) ServiceConversationParticipantStream(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.ServiceConversationParticipantPage(ChatServiceSid, ConversationSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists ServiceConversationParticipant records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServiceConversationParticipantList(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.ServiceConversationParticipantPage(ChatServiceSid, ConversationSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) ServiceConversationParticipantList(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.ServiceConversationParticipantPage(ChatServiceSid, ConversationSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateServiceConversationParticipant'

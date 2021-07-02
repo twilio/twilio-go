@@ -253,7 +253,7 @@ func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) (*
 }
 
 //Retrieve a single page of OutgoingCallerId records from the API. Request is executed immediately.
-func (c *ApiService) OutgoingCallerIdPage(params *ListOutgoingCallerIdParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) OutgoingCallerIdPage(params *ListOutgoingCallerIdParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -276,28 +276,39 @@ func (c *ApiService) OutgoingCallerIdPage(params *ListOutgoingCallerIdParams, pa
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams OutgoingCallerId records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) OutgoingCallerIdStream(params *ListOutgoingCallerIdParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.OutgoingCallerIdPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) OutgoingCallerIdStream(params *ListOutgoingCallerIdParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.OutgoingCallerIdPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists OutgoingCallerId records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) OutgoingCallerIdList(params *ListOutgoingCallerIdParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.OutgoingCallerIdPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) OutgoingCallerIdList(params *ListOutgoingCallerIdParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.OutgoingCallerIdPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateOutgoingCallerId'

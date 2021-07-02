@@ -161,7 +161,7 @@ func (c *ApiService) ListEndUser(params *ListEndUserParams) (*ListEndUserRespons
 }
 
 //Retrieve a single page of EndUser records from the API. Request is executed immediately.
-func (c *ApiService) EndUserPage(params *ListEndUserParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) EndUserPage(params *ListEndUserParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
 	data := url.Values{}
@@ -173,28 +173,39 @@ func (c *ApiService) EndUserPage(params *ListEndUserParams, pageToken string, pa
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams EndUser records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) EndUserStream(params *ListEndUserParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.EndUserPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) EndUserStream(params *ListEndUserParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.EndUserPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists EndUser records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) EndUserList(params *ListEndUserParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.EndUserPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) EndUserList(params *ListEndUserParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.EndUserPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateEndUser'

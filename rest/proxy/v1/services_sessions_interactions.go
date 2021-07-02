@@ -106,7 +106,7 @@ func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, param
 }
 
 //Retrieve a single page of Interaction records from the API. Request is executed immediately.
-func (c *ApiService) InteractionPage(ServiceSid string, SessionSid string, params *ListInteractionParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) InteractionPage(ServiceSid string, SessionSid string, params *ListInteractionParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
@@ -120,26 +120,37 @@ func (c *ApiService) InteractionPage(ServiceSid string, SessionSid string, param
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams Interaction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) InteractionStream(ServiceSid string, SessionSid string, params *ListInteractionParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.InteractionPage(ServiceSid, SessionSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) InteractionStream(ServiceSid string, SessionSid string, params *ListInteractionParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.InteractionPage(ServiceSid, SessionSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists Interaction records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) InteractionList(ServiceSid string, SessionSid string, params *ListInteractionParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.InteractionPage(ServiceSid, SessionSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) InteractionList(ServiceSid string, SessionSid string, params *ListInteractionParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.InteractionPage(ServiceSid, SessionSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }

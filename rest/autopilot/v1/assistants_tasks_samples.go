@@ -168,7 +168,7 @@ func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *Lis
 }
 
 //Retrieve a single page of Sample records from the API. Request is executed immediately.
-func (c *ApiService) SamplePage(AssistantSid string, TaskSid string, params *ListSampleParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) SamplePage(AssistantSid string, TaskSid string, params *ListSampleParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -185,28 +185,39 @@ func (c *ApiService) SamplePage(AssistantSid string, TaskSid string, params *Lis
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams Sample records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SampleStream(AssistantSid string, TaskSid string, params *ListSampleParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.SamplePage(AssistantSid, TaskSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) SampleStream(AssistantSid string, TaskSid string, params *ListSampleParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.SamplePage(AssistantSid, TaskSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists Sample records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SampleList(AssistantSid string, TaskSid string, params *ListSampleParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.SamplePage(AssistantSid, TaskSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) SampleList(AssistantSid string, TaskSid string, params *ListSampleParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.SamplePage(AssistantSid, TaskSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateSample'

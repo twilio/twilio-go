@@ -168,7 +168,7 @@ func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, pa
 }
 
 //Retrieve a single page of FieldValue records from the API. Request is executed immediately.
-func (c *ApiService) FieldValuePage(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) FieldValuePage(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
@@ -185,26 +185,37 @@ func (c *ApiService) FieldValuePage(AssistantSid string, FieldTypeSid string, pa
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams FieldValue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) FieldValueStream(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.FieldValuePage(AssistantSid, FieldTypeSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) FieldValueStream(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.FieldValuePage(AssistantSid, FieldTypeSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists FieldValue records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) FieldValueList(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.FieldValuePage(AssistantSid, FieldTypeSid, params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) FieldValueList(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.FieldValuePage(AssistantSid, FieldTypeSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }

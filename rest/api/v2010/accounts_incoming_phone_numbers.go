@@ -434,7 +434,7 @@ func (c *ApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 }
 
 //Retrieve a single page of IncomingPhoneNumber records from the API. Request is executed immediately.
-func (c *ApiService) IncomingPhoneNumberPage(params *ListIncomingPhoneNumberParams, pageToken string, pageNumber string, pageSize string) *client.Page {
+func (c *ApiService) IncomingPhoneNumberPage(params *ListIncomingPhoneNumberParams, pageToken string, pageNumber string) (*client.Page, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -463,28 +463,39 @@ func (c *ApiService) IncomingPhoneNumberPage(params *ListIncomingPhoneNumberPara
 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
-	data.Set("PageSize", pageSize)
 
 	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response)
+	return client.NewPage(c.baseURL, response), nil
 }
 
 //Streams IncomingPhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) IncomingPhoneNumberStream(params *ListIncomingPhoneNumberParams, meta client.PaginationData) chan map[string]interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.IncomingPhoneNumberPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.Stream(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) IncomingPhoneNumberStream(params *ListIncomingPhoneNumberParams, limit int) (chan map[string]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.IncomingPhoneNumberPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.Stream(page, limit, 0), nil
 }
 
 //Lists IncomingPhoneNumber records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) IncomingPhoneNumberList(params *ListIncomingPhoneNumberParams, meta client.PaginationData) []interface{} {
-	limits := c.requestHandler.ReadLimits(meta)
-	page := c.IncomingPhoneNumberPage(params, "", "", fmt.Sprint(limits.PageSize))
-	return c.requestHandler.List(page, limits.Limit, limits.PageLimit)
+func (c *ApiService) IncomingPhoneNumberList(params *ListIncomingPhoneNumberParams, limit int) ([]interface{}, error) {
+	if params.PageSize == nil {
+		params.SetPageSize(0)
+	}
+	params.SetPageSize(c.requestHandler.ReadLimits(*params.PageSize, limit))
+	page, err := c.IncomingPhoneNumberPage(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+	return c.requestHandler.List(page, limit, 0), nil
 }
 
 // Optional parameters for the method 'UpdateIncomingPhoneNumber'
