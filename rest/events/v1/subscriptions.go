@@ -56,13 +56,15 @@ func (c *ApiService) CreateSubscription(params *CreateSubscriptionParams) (*Even
 		data.Set("SinkSid", *params.SinkSid)
 	}
 	if params != nil && params.Types != nil {
-		v, err := json.Marshal(params.Types)
+		for _, item := range *params.Types {
+			v, err := json.Marshal(item)
 
-		if err != nil {
-			return nil, err
+			if err != nil {
+				return nil, err
+			}
+
+			data.Add("Types", string(v))
 		}
-
-		data.Set("Types", string(v))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
