@@ -76,13 +76,15 @@ func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params 
 		data.Set("AuthPayload", *params.AuthPayload)
 	}
 	if params != nil && params.DetailsFields != nil {
-		v, err := json.Marshal(params.DetailsFields)
+		for _, item := range *params.DetailsFields {
+			v, err := json.Marshal(item)
 
-		if err != nil {
-			return nil, err
+			if err != nil {
+				return nil, err
+			}
+
+			data.Add("Details.Fields", string(v))
 		}
-
-		data.Set("Details.Fields", string(v))
 	}
 	if params != nil && params.DetailsMessage != nil {
 		data.Set("Details.Message", *params.DetailsMessage)
