@@ -76,8 +76,8 @@ func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams) (*List
 	return ps, err
 }
 
-//Retrieve a single page of Metric records from the API. Request is executed immediately.
-func (c *ApiService) MetricPage(CallSid string, params *ListMetricParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) VoiceMetricsPage(CallSid string, params *ListMetricParams, pageToken string, pageNumber string) (*ListMetricResponse, error) {
 	path := "/v1/Voice/{CallSid}/Metrics"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
@@ -97,30 +97,57 @@ func (c *ApiService) MetricPage(CallSid string, params *ListMetricParams, pageTo
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListMetricResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Metric records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) MetricStream(CallSid string, params *ListMetricParams, limit int) (chan map[string]interface{}, error) {
+//Lists VoiceMetrics records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) VoiceMetricsList(CallSid string, params *ListMetricParams, limit int) ([]ListMetricResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.MetricPage(CallSid, params, "", "")
+	response, err := c.ListMetric(CallSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListMetricResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListMetricResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Metric records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) MetricList(CallSid string, params *ListMetricParams, limit int) ([]interface{}, error) {
+//Streams VoiceMetrics records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) VoiceMetricsStream(CallSid string, params *ListMetricParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.MetricPage(CallSid, params, "", "")
+	response, err := c.ListMetric(CallSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListMetricResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

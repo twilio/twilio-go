@@ -194,8 +194,8 @@ func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string
 	return ps, err
 }
 
-//Retrieve a single page of SipAuthCallsIpAccessControlListMapping records from the API. Request is executed immediately.
-func (c *ApiService) SipAuthCallsIpAccessControlListMappingPage(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsSIPDomainsAuthCallsIpAccessControlListMappingsPage(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, pageToken string, pageNumber string) (*ListSipAuthCallsIpAccessControlListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -214,30 +214,57 @@ func (c *ApiService) SipAuthCallsIpAccessControlListMappingPage(DomainSid string
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListSipAuthCallsIpAccessControlListMappingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams SipAuthCallsIpAccessControlListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SipAuthCallsIpAccessControlListMappingStream(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsSIPDomainsAuthCallsIpAccessControlListMappings records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsSIPDomainsAuthCallsIpAccessControlListMappingsList(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, limit int) ([]ListSipAuthCallsIpAccessControlListMappingResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.SipAuthCallsIpAccessControlListMappingPage(DomainSid, params, "", "")
+	response, err := c.ListSipAuthCallsIpAccessControlListMapping(DomainSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListSipAuthCallsIpAccessControlListMappingResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListSipAuthCallsIpAccessControlListMappingResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists SipAuthCallsIpAccessControlListMapping records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SipAuthCallsIpAccessControlListMappingList(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, limit int) ([]interface{}, error) {
+//Streams AccountsSIPDomainsAuthCallsIpAccessControlListMappings records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsSIPDomainsAuthCallsIpAccessControlListMappingsStream(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.SipAuthCallsIpAccessControlListMappingPage(DomainSid, params, "", "")
+	response, err := c.ListSipAuthCallsIpAccessControlListMapping(DomainSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListSipAuthCallsIpAccessControlListMappingResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

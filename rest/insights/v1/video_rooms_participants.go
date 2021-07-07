@@ -83,8 +83,8 @@ func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVid
 	return ps, err
 }
 
-//Retrieve a single page of VideoParticipantSummary records from the API. Request is executed immediately.
-func (c *ApiService) VideoParticipantSummaryPage(RoomSid string, params *ListVideoParticipantSummaryParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) VideoRoomsParticipantsPage(RoomSid string, params *ListVideoParticipantSummaryParams, pageToken string, pageNumber string) (*ListVideoParticipantSummaryResponse, error) {
 	path := "/v1/Video/Rooms/{RoomSid}/Participants"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
@@ -98,30 +98,57 @@ func (c *ApiService) VideoParticipantSummaryPage(RoomSid string, params *ListVid
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListVideoParticipantSummaryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams VideoParticipantSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) VideoParticipantSummaryStream(RoomSid string, params *ListVideoParticipantSummaryParams, limit int) (chan map[string]interface{}, error) {
+//Lists VideoRoomsParticipants records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) VideoRoomsParticipantsList(RoomSid string, params *ListVideoParticipantSummaryParams, limit int) ([]ListVideoParticipantSummaryResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.VideoParticipantSummaryPage(RoomSid, params, "", "")
+	response, err := c.ListVideoParticipantSummary(RoomSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListVideoParticipantSummaryResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListVideoParticipantSummaryResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists VideoParticipantSummary records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) VideoParticipantSummaryList(RoomSid string, params *ListVideoParticipantSummaryParams, limit int) ([]interface{}, error) {
+//Streams VideoRoomsParticipants records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) VideoRoomsParticipantsStream(RoomSid string, params *ListVideoParticipantSummaryParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.VideoParticipantSummaryPage(RoomSid, params, "", "")
+	response, err := c.ListVideoParticipantSummary(RoomSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListVideoParticipantSummaryResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

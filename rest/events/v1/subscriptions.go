@@ -169,8 +169,8 @@ func (c *ApiService) ListSubscription(params *ListSubscriptionParams) (*ListSubs
 	return ps, err
 }
 
-//Retrieve a single page of Subscription records from the API. Request is executed immediately.
-func (c *ApiService) SubscriptionPage(params *ListSubscriptionParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) SubscriptionsPage(params *ListSubscriptionParams, pageToken string, pageNumber string) (*ListSubscriptionResponse, error) {
 	path := "/v1/Subscriptions"
 
 	data := url.Values{}
@@ -186,32 +186,59 @@ func (c *ApiService) SubscriptionPage(params *ListSubscriptionParams, pageToken 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListSubscriptionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Subscription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SubscriptionStream(params *ListSubscriptionParams, limit int) (chan map[string]interface{}, error) {
+//Lists Subscriptions records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) SubscriptionsList(params *ListSubscriptionParams, limit int) ([]ListSubscriptionResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.SubscriptionPage(params, "", "")
+	response, err := c.ListSubscription(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListSubscriptionResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListSubscriptionResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Subscription records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SubscriptionList(params *ListSubscriptionParams, limit int) ([]interface{}, error) {
+//Streams Subscriptions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) SubscriptionsStream(params *ListSubscriptionParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.SubscriptionPage(params, "", "")
+	response, err := c.ListSubscription(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListSubscriptionResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateSubscription'

@@ -241,8 +241,8 @@ func (c *ApiService) ListRoom(params *ListRoomParams) (*ListRoomResponse, error)
 	return ps, err
 }
 
-//Retrieve a single page of Room records from the API. Request is executed immediately.
-func (c *ApiService) RoomPage(params *ListRoomParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) RoomsPage(params *ListRoomParams, pageToken string, pageNumber string) (*ListRoomResponse, error) {
 	path := "/v1/Rooms"
 
 	data := url.Values{}
@@ -267,32 +267,59 @@ func (c *ApiService) RoomPage(params *ListRoomParams, pageToken string, pageNumb
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListRoomResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Room records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) RoomStream(params *ListRoomParams, limit int) (chan map[string]interface{}, error) {
+//Lists Rooms records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) RoomsList(params *ListRoomParams, limit int) ([]ListRoomResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.RoomPage(params, "", "")
+	response, err := c.ListRoom(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListRoomResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListRoomResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Room records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) RoomList(params *ListRoomParams, limit int) ([]interface{}, error) {
+//Streams Rooms records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) RoomsStream(params *ListRoomParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.RoomPage(params, "", "")
+	response, err := c.ListRoom(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListRoomResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateRoom'

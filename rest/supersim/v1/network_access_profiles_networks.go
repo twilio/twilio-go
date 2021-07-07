@@ -140,8 +140,8 @@ func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 	return ps, err
 }
 
-//Retrieve a single page of NetworkAccessProfileNetwork records from the API. Request is executed immediately.
-func (c *ApiService) NetworkAccessProfileNetworkPage(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) NetworkAccessProfilesNetworksPage(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, pageToken string, pageNumber string) (*ListNetworkAccessProfileNetworkResponse, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
 
@@ -155,30 +155,57 @@ func (c *ApiService) NetworkAccessProfileNetworkPage(NetworkAccessProfileSid str
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListNetworkAccessProfileNetworkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams NetworkAccessProfileNetwork records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) NetworkAccessProfileNetworkStream(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, limit int) (chan map[string]interface{}, error) {
+//Lists NetworkAccessProfilesNetworks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) NetworkAccessProfilesNetworksList(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, limit int) ([]ListNetworkAccessProfileNetworkResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.NetworkAccessProfileNetworkPage(NetworkAccessProfileSid, params, "", "")
+	response, err := c.ListNetworkAccessProfileNetwork(NetworkAccessProfileSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListNetworkAccessProfileNetworkResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListNetworkAccessProfileNetworkResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists NetworkAccessProfileNetwork records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) NetworkAccessProfileNetworkList(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, limit int) ([]interface{}, error) {
+//Streams NetworkAccessProfilesNetworks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) NetworkAccessProfilesNetworksStream(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.NetworkAccessProfileNetworkPage(NetworkAccessProfileSid, params, "", "")
+	response, err := c.ListNetworkAccessProfileNetwork(NetworkAccessProfileSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListNetworkAccessProfileNetworkResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

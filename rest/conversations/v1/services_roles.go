@@ -160,8 +160,8 @@ func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceR
 	return ps, err
 }
 
-//Retrieve a single page of ServiceRole records from the API. Request is executed immediately.
-func (c *ApiService) ServiceRolePage(ChatServiceSid string, params *ListServiceRoleParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ServicesRolesPage(ChatServiceSid string, params *ListServiceRoleParams, pageToken string, pageNumber string) (*ListServiceRoleResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -175,32 +175,59 @@ func (c *ApiService) ServiceRolePage(ChatServiceSid string, params *ListServiceR
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListServiceRoleResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams ServiceRole records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServiceRoleStream(ChatServiceSid string, params *ListServiceRoleParams, limit int) (chan map[string]interface{}, error) {
+//Lists ServicesRoles records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ServicesRolesList(ChatServiceSid string, params *ListServiceRoleParams, limit int) ([]ListServiceRoleResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ServiceRolePage(ChatServiceSid, params, "", "")
+	response, err := c.ListServiceRole(ChatServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListServiceRoleResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListServiceRoleResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists ServiceRole records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServiceRoleList(ChatServiceSid string, params *ListServiceRoleParams, limit int) ([]interface{}, error) {
+//Streams ServicesRoles records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ServicesRolesStream(ChatServiceSid string, params *ListServiceRoleParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ServiceRolePage(ChatServiceSid, params, "", "")
+	response, err := c.ListServiceRole(ChatServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListServiceRoleResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateServiceRole'

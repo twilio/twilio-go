@@ -129,8 +129,8 @@ func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfilePa
 	return ps, err
 }
 
-//Retrieve a single page of NetworkAccessProfile records from the API. Request is executed immediately.
-func (c *ApiService) NetworkAccessProfilePage(params *ListNetworkAccessProfileParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) NetworkAccessProfilesPage(params *ListNetworkAccessProfileParams, pageToken string, pageNumber string) (*ListNetworkAccessProfileResponse, error) {
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
@@ -143,32 +143,59 @@ func (c *ApiService) NetworkAccessProfilePage(params *ListNetworkAccessProfilePa
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListNetworkAccessProfileResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams NetworkAccessProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) NetworkAccessProfileStream(params *ListNetworkAccessProfileParams, limit int) (chan map[string]interface{}, error) {
+//Lists NetworkAccessProfiles records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) NetworkAccessProfilesList(params *ListNetworkAccessProfileParams, limit int) ([]ListNetworkAccessProfileResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.NetworkAccessProfilePage(params, "", "")
+	response, err := c.ListNetworkAccessProfile(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListNetworkAccessProfileResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListNetworkAccessProfileResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists NetworkAccessProfile records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) NetworkAccessProfileList(params *ListNetworkAccessProfileParams, limit int) ([]interface{}, error) {
+//Streams NetworkAccessProfiles records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) NetworkAccessProfilesStream(params *ListNetworkAccessProfileParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.NetworkAccessProfilePage(params, "", "")
+	response, err := c.ListNetworkAccessProfile(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListNetworkAccessProfileResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateNetworkAccessProfile'

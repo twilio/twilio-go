@@ -67,8 +67,8 @@ func (c *ApiService) ListEvent(CallSid string, params *ListEventParams) (*ListEv
 	return ps, err
 }
 
-//Retrieve a single page of Event records from the API. Request is executed immediately.
-func (c *ApiService) EventPage(CallSid string, params *ListEventParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) VoiceEventsPage(CallSid string, params *ListEventParams, pageToken string, pageNumber string) (*ListEventResponse, error) {
 	path := "/v1/Voice/{CallSid}/Events"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
@@ -85,30 +85,57 @@ func (c *ApiService) EventPage(CallSid string, params *ListEventParams, pageToke
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListEventResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) EventStream(CallSid string, params *ListEventParams, limit int) (chan map[string]interface{}, error) {
+//Lists VoiceEvents records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) VoiceEventsList(CallSid string, params *ListEventParams, limit int) ([]ListEventResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.EventPage(CallSid, params, "", "")
+	response, err := c.ListEvent(CallSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListEventResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListEventResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Event records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) EventList(CallSid string, params *ListEventParams, limit int) ([]interface{}, error) {
+//Streams VoiceEvents records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) VoiceEventsStream(CallSid string, params *ListEventParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.EventPage(CallSid, params, "", "")
+	response, err := c.ListEvent(CallSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListEventResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

@@ -181,8 +181,8 @@ func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParam
 	return ps, err
 }
 
-//Retrieve a single page of Workflow records from the API. Request is executed immediately.
-func (c *ApiService) WorkflowPage(WorkspaceSid string, params *ListWorkflowParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) WorkspacesWorkflowsPage(WorkspaceSid string, params *ListWorkflowParams, pageToken string, pageNumber string) (*ListWorkflowResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -199,32 +199,59 @@ func (c *ApiService) WorkflowPage(WorkspaceSid string, params *ListWorkflowParam
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListWorkflowResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Workflow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) WorkflowStream(WorkspaceSid string, params *ListWorkflowParams, limit int) (chan map[string]interface{}, error) {
+//Lists WorkspacesWorkflows records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) WorkspacesWorkflowsList(WorkspaceSid string, params *ListWorkflowParams, limit int) ([]ListWorkflowResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.WorkflowPage(WorkspaceSid, params, "", "")
+	response, err := c.ListWorkflow(WorkspaceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListWorkflowResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListWorkflowResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Workflow records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) WorkflowList(WorkspaceSid string, params *ListWorkflowParams, limit int) ([]interface{}, error) {
+//Streams WorkspacesWorkflows records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) WorkspacesWorkflowsStream(WorkspaceSid string, params *ListWorkflowParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.WorkflowPage(WorkspaceSid, params, "", "")
+	response, err := c.ListWorkflow(WorkspaceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListWorkflowResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateWorkflow'

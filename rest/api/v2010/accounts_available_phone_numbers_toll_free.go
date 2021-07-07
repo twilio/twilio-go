@@ -231,8 +231,8 @@ func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params
 	return ps, err
 }
 
-//Retrieve a single page of AvailablePhoneNumberTollFree records from the API. Request is executed immediately.
-func (c *ApiService) AvailablePhoneNumberTollFreePage(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsAvailablePhoneNumbersTollFreePage(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -305,30 +305,57 @@ func (c *ApiService) AvailablePhoneNumberTollFreePage(CountryCode string, params
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListAvailablePhoneNumberTollFreeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams AvailablePhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AvailablePhoneNumberTollFreeStream(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsAvailablePhoneNumbersTollFree records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsAvailablePhoneNumbersTollFreeList(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, limit int) ([]ListAvailablePhoneNumberTollFreeResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.AvailablePhoneNumberTollFreePage(CountryCode, params, "", "")
+	response, err := c.ListAvailablePhoneNumberTollFree(CountryCode, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListAvailablePhoneNumberTollFreeResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListAvailablePhoneNumberTollFreeResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists AvailablePhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AvailablePhoneNumberTollFreeList(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, limit int) ([]interface{}, error) {
+//Streams AccountsAvailablePhoneNumbersTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsAvailablePhoneNumbersTollFreeStream(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.AvailablePhoneNumberTollFreePage(CountryCode, params, "", "")
+	response, err := c.ListAvailablePhoneNumberTollFree(CountryCode, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListAvailablePhoneNumberTollFreeResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

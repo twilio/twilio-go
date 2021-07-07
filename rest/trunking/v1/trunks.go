@@ -186,8 +186,8 @@ func (c *ApiService) ListTrunk(params *ListTrunkParams) (*ListTrunkResponse, err
 	return ps, err
 }
 
-//Retrieve a single page of Trunk records from the API. Request is executed immediately.
-func (c *ApiService) TrunkPage(params *ListTrunkParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) TrunksPage(params *ListTrunkParams, pageToken string, pageNumber string) (*ListTrunkResponse, error) {
 	path := "/v1/Trunks"
 
 	data := url.Values{}
@@ -200,32 +200,59 @@ func (c *ApiService) TrunkPage(params *ListTrunkParams, pageToken string, pageNu
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListTrunkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Trunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) TrunkStream(params *ListTrunkParams, limit int) (chan map[string]interface{}, error) {
+//Lists Trunks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) TrunksList(params *ListTrunkParams, limit int) ([]ListTrunkResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.TrunkPage(params, "", "")
+	response, err := c.ListTrunk(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListTrunkResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListTrunkResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Trunk records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) TrunkList(params *ListTrunkParams, limit int) ([]interface{}, error) {
+//Streams Trunks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) TrunksStream(params *ListTrunkParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.TrunkPage(params, "", "")
+	response, err := c.ListTrunk(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListTrunkResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateTrunk'

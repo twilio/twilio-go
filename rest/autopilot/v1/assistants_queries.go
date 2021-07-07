@@ -199,8 +199,8 @@ func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams) (*L
 	return ps, err
 }
 
-//Retrieve a single page of Query records from the API. Request is executed immediately.
-func (c *ApiService) QueryPage(AssistantSid string, params *ListQueryParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AssistantsQueriesPage(AssistantSid string, params *ListQueryParams, pageToken string, pageNumber string) (*ListQueryResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -226,32 +226,59 @@ func (c *ApiService) QueryPage(AssistantSid string, params *ListQueryParams, pag
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListQueryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Query records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) QueryStream(AssistantSid string, params *ListQueryParams, limit int) (chan map[string]interface{}, error) {
+//Lists AssistantsQueries records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AssistantsQueriesList(AssistantSid string, params *ListQueryParams, limit int) ([]ListQueryResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.QueryPage(AssistantSid, params, "", "")
+	response, err := c.ListQuery(AssistantSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListQueryResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListQueryResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Query records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) QueryList(AssistantSid string, params *ListQueryParams, limit int) ([]interface{}, error) {
+//Streams AssistantsQueries records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AssistantsQueriesStream(AssistantSid string, params *ListQueryParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.QueryPage(AssistantSid, params, "", "")
+	response, err := c.ListQuery(AssistantSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListQueryResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateQuery'

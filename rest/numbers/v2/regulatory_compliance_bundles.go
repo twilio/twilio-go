@@ -235,8 +235,8 @@ func (c *ApiService) ListBundle(params *ListBundleParams) (*ListBundleResponse, 
 	return ps, err
 }
 
-//Retrieve a single page of Bundle records from the API. Request is executed immediately.
-func (c *ApiService) BundlePage(params *ListBundleParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) RegulatoryComplianceBundlesPage(params *ListBundleParams, pageToken string, pageNumber string) (*ListBundleResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles"
 
 	data := url.Values{}
@@ -264,32 +264,59 @@ func (c *ApiService) BundlePage(params *ListBundleParams, pageToken string, page
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListBundleResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Bundle records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) BundleStream(params *ListBundleParams, limit int) (chan map[string]interface{}, error) {
+//Lists RegulatoryComplianceBundles records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) RegulatoryComplianceBundlesList(params *ListBundleParams, limit int) ([]ListBundleResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.BundlePage(params, "", "")
+	response, err := c.ListBundle(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListBundleResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListBundleResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Bundle records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) BundleList(params *ListBundleParams, limit int) ([]interface{}, error) {
+//Streams RegulatoryComplianceBundles records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) RegulatoryComplianceBundlesStream(params *ListBundleParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.BundlePage(params, "", "")
+	response, err := c.ListBundle(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListBundleResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateBundle'

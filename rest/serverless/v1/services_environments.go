@@ -149,8 +149,8 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 	return ps, err
 }
 
-//Retrieve a single page of Environment records from the API. Request is executed immediately.
-func (c *ApiService) EnvironmentPage(ServiceSid string, params *ListEnvironmentParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ServicesEnvironmentsPage(ServiceSid string, params *ListEnvironmentParams, pageToken string, pageNumber string) (*ListEnvironmentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -164,30 +164,57 @@ func (c *ApiService) EnvironmentPage(ServiceSid string, params *ListEnvironmentP
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListEnvironmentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Environment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) EnvironmentStream(ServiceSid string, params *ListEnvironmentParams, limit int) (chan map[string]interface{}, error) {
+//Lists ServicesEnvironments records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ServicesEnvironmentsList(ServiceSid string, params *ListEnvironmentParams, limit int) ([]ListEnvironmentResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.EnvironmentPage(ServiceSid, params, "", "")
+	response, err := c.ListEnvironment(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListEnvironmentResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListEnvironmentResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Environment records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) EnvironmentList(ServiceSid string, params *ListEnvironmentParams, limit int) ([]interface{}, error) {
+//Streams ServicesEnvironments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ServicesEnvironmentsStream(ServiceSid string, params *ListEnvironmentParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.EnvironmentPage(ServiceSid, params, "", "")
+	response, err := c.ListEnvironment(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListEnvironmentResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

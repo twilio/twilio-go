@@ -171,8 +171,8 @@ func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) (*Lis
 	return ps, err
 }
 
-//Retrieve a single page of Build records from the API. Request is executed immediately.
-func (c *ApiService) BuildPage(ServiceSid string, params *ListBuildParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ServicesBuildsPage(ServiceSid string, params *ListBuildParams, pageToken string, pageNumber string) (*ListBuildResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Builds"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -186,30 +186,57 @@ func (c *ApiService) BuildPage(ServiceSid string, params *ListBuildParams, pageT
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListBuildResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Build records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) BuildStream(ServiceSid string, params *ListBuildParams, limit int) (chan map[string]interface{}, error) {
+//Lists ServicesBuilds records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ServicesBuildsList(ServiceSid string, params *ListBuildParams, limit int) ([]ListBuildResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.BuildPage(ServiceSid, params, "", "")
+	response, err := c.ListBuild(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListBuildResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListBuildResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Build records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) BuildList(ServiceSid string, params *ListBuildParams, limit int) ([]interface{}, error) {
+//Streams ServicesBuilds records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ServicesBuildsStream(ServiceSid string, params *ListBuildParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.BuildPage(ServiceSid, params, "", "")
+	response, err := c.ListBuild(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListBuildResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

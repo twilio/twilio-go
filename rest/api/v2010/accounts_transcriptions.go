@@ -142,8 +142,8 @@ func (c *ApiService) ListTranscription(params *ListTranscriptionParams) (*ListTr
 	return ps, err
 }
 
-//Retrieve a single page of Transcription records from the API. Request is executed immediately.
-func (c *ApiService) TranscriptionPage(params *ListTranscriptionParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsTranscriptionsPage(params *ListTranscriptionParams, pageToken string, pageNumber string) (*ListTranscriptionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -161,30 +161,57 @@ func (c *ApiService) TranscriptionPage(params *ListTranscriptionParams, pageToke
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListTranscriptionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Transcription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) TranscriptionStream(params *ListTranscriptionParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsTranscriptions records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsTranscriptionsList(params *ListTranscriptionParams, limit int) ([]ListTranscriptionResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.TranscriptionPage(params, "", "")
+	response, err := c.ListTranscription(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListTranscriptionResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListTranscriptionResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Transcription records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) TranscriptionList(params *ListTranscriptionParams, limit int) ([]interface{}, error) {
+//Streams AccountsTranscriptions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsTranscriptionsStream(params *ListTranscriptionParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.TranscriptionPage(params, "", "")
+	response, err := c.ListTranscription(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListTranscriptionResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

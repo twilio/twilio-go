@@ -160,8 +160,8 @@ func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams
 	return ps, err
 }
 
-//Retrieve a single page of SupportingDocument records from the API. Request is executed immediately.
-func (c *ApiService) SupportingDocumentPage(params *ListSupportingDocumentParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) SupportingDocumentsPage(params *ListSupportingDocumentParams, pageToken string, pageNumber string) (*ListSupportingDocumentResponse, error) {
 	path := "/v1/SupportingDocuments"
 
 	data := url.Values{}
@@ -174,32 +174,59 @@ func (c *ApiService) SupportingDocumentPage(params *ListSupportingDocumentParams
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListSupportingDocumentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams SupportingDocument records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SupportingDocumentStream(params *ListSupportingDocumentParams, limit int) (chan map[string]interface{}, error) {
+//Lists SupportingDocuments records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) SupportingDocumentsList(params *ListSupportingDocumentParams, limit int) ([]ListSupportingDocumentResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.SupportingDocumentPage(params, "", "")
+	response, err := c.ListSupportingDocument(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListSupportingDocumentResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListSupportingDocumentResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists SupportingDocument records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SupportingDocumentList(params *ListSupportingDocumentParams, limit int) ([]interface{}, error) {
+//Streams SupportingDocuments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) SupportingDocumentsStream(params *ListSupportingDocumentParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.SupportingDocumentPage(params, "", "")
+	response, err := c.ListSupportingDocument(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListSupportingDocumentResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateSupportingDocument'

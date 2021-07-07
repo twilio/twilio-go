@@ -149,8 +149,8 @@ func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *List
 	return ps, err
 }
 
-//Retrieve a single page of Field records from the API. Request is executed immediately.
-func (c *ApiService) FieldPage(AssistantSid string, TaskSid string, params *ListFieldParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AssistantsTasksFieldsPage(AssistantSid string, TaskSid string, params *ListFieldParams, pageToken string, pageNumber string) (*ListFieldResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -165,30 +165,57 @@ func (c *ApiService) FieldPage(AssistantSid string, TaskSid string, params *List
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListFieldResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Field records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) FieldStream(AssistantSid string, TaskSid string, params *ListFieldParams, limit int) (chan map[string]interface{}, error) {
+//Lists AssistantsTasksFields records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AssistantsTasksFieldsList(AssistantSid string, TaskSid string, params *ListFieldParams, limit int) ([]ListFieldResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.FieldPage(AssistantSid, TaskSid, params, "", "")
+	response, err := c.ListField(AssistantSid, TaskSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListFieldResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListFieldResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Field records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) FieldList(AssistantSid string, TaskSid string, params *ListFieldParams, limit int) ([]interface{}, error) {
+//Streams AssistantsTasksFields records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AssistantsTasksFieldsStream(AssistantSid string, TaskSid string, params *ListFieldParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.FieldPage(AssistantSid, TaskSid, params, "", "")
+	response, err := c.ListField(AssistantSid, TaskSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListFieldResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

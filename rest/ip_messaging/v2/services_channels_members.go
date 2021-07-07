@@ -231,8 +231,8 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 	return ps, err
 }
 
-//Retrieve a single page of Member records from the API. Request is executed immediately.
-func (c *ApiService) MemberPage(ServiceSid string, ChannelSid string, params *ListMemberParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ServicesChannelsMembersPage(ServiceSid string, ChannelSid string, params *ListMemberParams, pageToken string, pageNumber string) (*ListMemberResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -252,32 +252,59 @@ func (c *ApiService) MemberPage(ServiceSid string, ChannelSid string, params *Li
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListMemberResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) MemberStream(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) (chan map[string]interface{}, error) {
+//Lists ServicesChannelsMembers records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ServicesChannelsMembersList(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) ([]ListMemberResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.MemberPage(ServiceSid, ChannelSid, params, "", "")
+	response, err := c.ListMember(ServiceSid, ChannelSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListMemberResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListMemberResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Member records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) MemberList(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) ([]interface{}, error) {
+//Streams ServicesChannelsMembers records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ServicesChannelsMembersStream(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.MemberPage(ServiceSid, ChannelSid, params, "", "")
+	response, err := c.ListMember(ServiceSid, ChannelSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListMemberResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateMember'

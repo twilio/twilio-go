@@ -140,8 +140,8 @@ func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssign
 	return ps, err
 }
 
-//Retrieve a single page of ItemAssignment records from the API. Request is executed immediately.
-func (c *ApiService) ItemAssignmentPage(BundleSid string, params *ListItemAssignmentParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) RegulatoryComplianceBundlesItemAssignmentsPage(BundleSid string, params *ListItemAssignmentParams, pageToken string, pageNumber string) (*ListItemAssignmentResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
@@ -155,30 +155,57 @@ func (c *ApiService) ItemAssignmentPage(BundleSid string, params *ListItemAssign
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListItemAssignmentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams ItemAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ItemAssignmentStream(BundleSid string, params *ListItemAssignmentParams, limit int) (chan map[string]interface{}, error) {
+//Lists RegulatoryComplianceBundlesItemAssignments records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) RegulatoryComplianceBundlesItemAssignmentsList(BundleSid string, params *ListItemAssignmentParams, limit int) ([]ListItemAssignmentResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ItemAssignmentPage(BundleSid, params, "", "")
+	response, err := c.ListItemAssignment(BundleSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListItemAssignmentResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListItemAssignmentResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists ItemAssignment records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ItemAssignmentList(BundleSid string, params *ListItemAssignmentParams, limit int) ([]interface{}, error) {
+//Streams RegulatoryComplianceBundlesItemAssignments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) RegulatoryComplianceBundlesItemAssignmentsStream(BundleSid string, params *ListItemAssignmentParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ItemAssignmentPage(BundleSid, params, "", "")
+	response, err := c.ListItemAssignment(BundleSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListItemAssignmentResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

@@ -103,8 +103,8 @@ func (c *ApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyParams) 
 	return ps, err
 }
 
-//Retrieve a single page of UsageRecordYearly records from the API. Request is executed immediately.
-func (c *ApiService) UsageRecordYearlyPage(params *ListUsageRecordYearlyParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsUsageRecordsYearlyPage(params *ListUsageRecordYearlyParams, pageToken string, pageNumber string) (*ListUsageRecordYearlyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -134,30 +134,57 @@ func (c *ApiService) UsageRecordYearlyPage(params *ListUsageRecordYearlyParams, 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListUsageRecordYearlyResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams UsageRecordYearly records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) UsageRecordYearlyStream(params *ListUsageRecordYearlyParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsUsageRecordsYearly records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsUsageRecordsYearlyList(params *ListUsageRecordYearlyParams, limit int) ([]ListUsageRecordYearlyResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.UsageRecordYearlyPage(params, "", "")
+	response, err := c.ListUsageRecordYearly(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListUsageRecordYearlyResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListUsageRecordYearlyResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists UsageRecordYearly records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) UsageRecordYearlyList(params *ListUsageRecordYearlyParams, limit int) ([]interface{}, error) {
+//Streams AccountsUsageRecordsYearly records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsUsageRecordsYearlyStream(params *ListUsageRecordYearlyParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.UsageRecordYearlyPage(params, "", "")
+	response, err := c.ListUsageRecordYearly(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListUsageRecordYearlyResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

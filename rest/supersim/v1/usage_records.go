@@ -130,8 +130,8 @@ func (c *ApiService) ListUsageRecord(params *ListUsageRecordParams) (*ListUsageR
 	return ps, err
 }
 
-//Retrieve a single page of UsageRecord records from the API. Request is executed immediately.
-func (c *ApiService) UsageRecordPage(params *ListUsageRecordParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) UsageRecordsPage(params *ListUsageRecordParams, pageToken string, pageNumber string) (*ListUsageRecordResponse, error) {
 	path := "/v1/UsageRecords"
 
 	data := url.Values{}
@@ -168,30 +168,57 @@ func (c *ApiService) UsageRecordPage(params *ListUsageRecordParams, pageToken st
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListUsageRecordResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) UsageRecordStream(params *ListUsageRecordParams, limit int) (chan map[string]interface{}, error) {
+//Lists UsageRecords records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) UsageRecordsList(params *ListUsageRecordParams, limit int) ([]ListUsageRecordResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.UsageRecordPage(params, "", "")
+	response, err := c.ListUsageRecord(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListUsageRecordResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListUsageRecordResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) UsageRecordList(params *ListUsageRecordParams, limit int) ([]interface{}, error) {
+//Streams UsageRecords records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) UsageRecordsStream(params *ListUsageRecordParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.UsageRecordPage(params, "", "")
+	response, err := c.ListUsageRecord(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListUsageRecordResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

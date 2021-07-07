@@ -124,8 +124,8 @@ func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServi
 	return ps, err
 }
 
-//Retrieve a single page of ServiceBinding records from the API. Request is executed immediately.
-func (c *ApiService) ServiceBindingPage(ChatServiceSid string, params *ListServiceBindingParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ServicesBindingsPage(ChatServiceSid string, params *ListServiceBindingParams, pageToken string, pageNumber string) (*ListServiceBindingResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -149,30 +149,57 @@ func (c *ApiService) ServiceBindingPage(ChatServiceSid string, params *ListServi
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListServiceBindingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams ServiceBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServiceBindingStream(ChatServiceSid string, params *ListServiceBindingParams, limit int) (chan map[string]interface{}, error) {
+//Lists ServicesBindings records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ServicesBindingsList(ChatServiceSid string, params *ListServiceBindingParams, limit int) ([]ListServiceBindingResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ServiceBindingPage(ChatServiceSid, params, "", "")
+	response, err := c.ListServiceBinding(ChatServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListServiceBindingResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListServiceBindingResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists ServiceBinding records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServiceBindingList(ChatServiceSid string, params *ListServiceBindingParams, limit int) ([]interface{}, error) {
+//Streams ServicesBindings records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ServicesBindingsStream(ChatServiceSid string, params *ListServiceBindingParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ServiceBindingPage(ChatServiceSid, params, "", "")
+	response, err := c.ListServiceBinding(ChatServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListServiceBindingResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

@@ -190,8 +190,8 @@ func (c *ApiService) ListSipIpAccessControlList(params *ListSipIpAccessControlLi
 	return ps, err
 }
 
-//Retrieve a single page of SipIpAccessControlList records from the API. Request is executed immediately.
-func (c *ApiService) SipIpAccessControlListPage(params *ListSipIpAccessControlListParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsSIPIpAccessControlListsPage(params *ListSipIpAccessControlListParams, pageToken string, pageNumber string) (*ListSipIpAccessControlListResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -209,32 +209,59 @@ func (c *ApiService) SipIpAccessControlListPage(params *ListSipIpAccessControlLi
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListSipIpAccessControlListResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams SipIpAccessControlList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SipIpAccessControlListStream(params *ListSipIpAccessControlListParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsSIPIpAccessControlLists records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsSIPIpAccessControlListsList(params *ListSipIpAccessControlListParams, limit int) ([]ListSipIpAccessControlListResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.SipIpAccessControlListPage(params, "", "")
+	response, err := c.ListSipIpAccessControlList(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListSipIpAccessControlListResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListSipIpAccessControlListResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists SipIpAccessControlList records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SipIpAccessControlListList(params *ListSipIpAccessControlListParams, limit int) ([]interface{}, error) {
+//Streams AccountsSIPIpAccessControlLists records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsSIPIpAccessControlListsStream(params *ListSipIpAccessControlListParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.SipIpAccessControlListPage(params, "", "")
+	response, err := c.ListSipIpAccessControlList(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListSipIpAccessControlListResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateSipIpAccessControlList'

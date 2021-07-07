@@ -102,8 +102,8 @@ func (c *ApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaParams) (*L
 	return ps, err
 }
 
-//Retrieve a single page of FaxMedia records from the API. Request is executed immediately.
-func (c *ApiService) FaxMediaPage(FaxSid string, params *ListFaxMediaParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) FaxesMediaPage(FaxSid string, params *ListFaxMediaParams, pageToken string, pageNumber string) (*ListFaxMediaResponse, error) {
 	path := "/v1/Faxes/{FaxSid}/Media"
 	path = strings.Replace(path, "{"+"FaxSid"+"}", FaxSid, -1)
 
@@ -117,30 +117,57 @@ func (c *ApiService) FaxMediaPage(FaxSid string, params *ListFaxMediaParams, pag
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListFaxMediaResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams FaxMedia records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) FaxMediaStream(FaxSid string, params *ListFaxMediaParams, limit int) (chan map[string]interface{}, error) {
+//Lists FaxesMedia records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) FaxesMediaList(FaxSid string, params *ListFaxMediaParams, limit int) ([]ListFaxMediaResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.FaxMediaPage(FaxSid, params, "", "")
+	response, err := c.ListFaxMedia(FaxSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListFaxMediaResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListFaxMediaResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists FaxMedia records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) FaxMediaList(FaxSid string, params *ListFaxMediaParams, limit int) ([]interface{}, error) {
+//Streams FaxesMedia records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) FaxesMediaStream(FaxSid string, params *ListFaxMediaParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.FaxMediaPage(FaxSid, params, "", "")
+	response, err := c.ListFaxMedia(FaxSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListFaxMediaResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

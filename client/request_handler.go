@@ -2,9 +2,12 @@
 package client
 
 import (
+	"encoding/json"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
+	"reflect"
 	"strings"
 )
 
@@ -96,74 +99,93 @@ func min(a int, b int) int {
 
 //Takes a limit on the max number of records to read and a max pageSize and calculates the max number of pages to read.
 func (c *RequestHandler) ReadLimits(pageSize *int, limit int) int {
-	// don't care about pageSize
+	//don't care about pageSize
 	if pageSize == nil {
-		if limit > 0 {
-			return min(limit, 1000)
-		} else {
-			// don't care about limit either
-			return 50 // default
+		if limit == 0 {
+			//don't care about the limit either
+			return 50 //default
 		}
-
+		//return the most efficient pageSize
+		return min(limit, 1000)
+	} else {
+		if limit == 0 {
+			//we care about the pageSize but not the limit
+			return *pageSize
+		}
+		return min(*pageSize, limit)
 	}
-
-	return *pageSize
 }
 
 //Channels records one a time from a page to be consumed by the caller, stopping at prescribed limits
-func (c *RequestHandler) Stream(page *Page, limit int, pageLimit int) chan map[string]interface{} {
-	currentRecord := 1
-	currentPage := 1
-	channel := make(chan map[string]interface{})
+func (c *RequestHandler) Stream(page *Page, limit int, pageLimit int, returnType interface{}) chan interface{} {
+	currentRecord := 0
+	currentPage := 0
+	channel := make(chan interface{})
 
 	go func() {
 		for page != nil {
-			for record := range page.Records {
-				val := page.Records[record].(map[string]interface{})
-				channel <- val
-				currentRecord += 1
-
-				if limit != 0 && limit < currentRecord {
-					close(channel)
-					return
-				}
+			jsonStr, _ := json.Marshal(page.Payload)
+			actual := reflect.New(reflect.TypeOf(returnType))
+			if err := json.Unmarshal(jsonStr, actual.Interface()); err != nil {
+				log.Print("Error marshaling ", string(jsonStr), "; Error: ", err)
+				channel <- nil
+			} else {
+				channel <- actual.Interface()
 			}
 
-			currentPage += 1
-			if pageLimit != 0 && pageLimit < currentPage {
+			currentRecord += len(page.Records)
+
+			if limit != 0 && limit <= currentRecord {
 				close(channel)
 				return
 			}
-			page = page.getNextPage(c)
+
+			currentPage += 1
+			if pageLimit != 0 && pageLimit <= currentPage {
+				close(channel)
+				return
+			}
+
+			//set the pageSize to the remaining number of records
+			pageSize := len(page.Records)
+			if limit > 0 {
+				pageSize = min(len(page.Records), limit-currentRecord)
+			}
+
+			page = page.getNextPage(c, &pageSize)
 		}
+
 		close(channel)
 	}()
 
 	return channel
 }
 
-//List, unlike Stream greedily loads all the records into memory and returns the result
+//List, unlike Stream greedily loads all the records into memory and returns the result as a list
 func (c *RequestHandler) List(page *Page, limit int, pageLimit int) []interface{} {
-	currentRecord := 1
-	currentPage := 1
+	currentRecord := 0
+	currentPage := 0
 
 	var records []interface{}
 	for page != nil {
-		for record := range page.Records {
-			records = append(records, page.Records[record])
-			currentRecord += 1
-
-			if limit != 0 && limit < currentRecord {
-				return records
-			}
-		}
-
-		currentPage += 1
-		if pageLimit != 0 && pageLimit < currentPage {
+		records = append(records, page.Payload)
+		currentRecord += len(page.Records)
+		if limit != 0 && limit <= currentRecord {
 			return records
 		}
 
-		page = page.getNextPage(c)
+		currentPage += 1
+		if pageLimit != 0 && pageLimit <= currentPage {
+			return records
+		}
+
+		//make sure the number of records do not exceed the limit
+		pageSize := len(page.Records)
+		if limit > 0 {
+			pageSize = min(len(page.Records), limit-currentRecord)
+		}
+
+		page = page.getNextPage(c, &pageSize)
 	}
 
 	return records

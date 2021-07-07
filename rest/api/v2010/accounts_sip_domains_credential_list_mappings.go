@@ -194,8 +194,8 @@ func (c *ApiService) ListSipCredentialListMapping(DomainSid string, params *List
 	return ps, err
 }
 
-//Retrieve a single page of SipCredentialListMapping records from the API. Request is executed immediately.
-func (c *ApiService) SipCredentialListMappingPage(DomainSid string, params *ListSipCredentialListMappingParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsSIPDomainsCredentialListMappingsPage(DomainSid string, params *ListSipCredentialListMappingParams, pageToken string, pageNumber string) (*ListSipCredentialListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/CredentialListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -214,30 +214,57 @@ func (c *ApiService) SipCredentialListMappingPage(DomainSid string, params *List
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListSipCredentialListMappingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams SipCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SipCredentialListMappingStream(DomainSid string, params *ListSipCredentialListMappingParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsSIPDomainsCredentialListMappings records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsSIPDomainsCredentialListMappingsList(DomainSid string, params *ListSipCredentialListMappingParams, limit int) ([]ListSipCredentialListMappingResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.SipCredentialListMappingPage(DomainSid, params, "", "")
+	response, err := c.ListSipCredentialListMapping(DomainSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListSipCredentialListMappingResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListSipCredentialListMappingResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists SipCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SipCredentialListMappingList(DomainSid string, params *ListSipCredentialListMappingParams, limit int) ([]interface{}, error) {
+//Streams AccountsSIPDomainsCredentialListMappings records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsSIPDomainsCredentialListMappingsStream(DomainSid string, params *ListSipCredentialListMappingParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.SipCredentialListMappingPage(DomainSid, params, "", "")
+	response, err := c.ListSipCredentialListMapping(DomainSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListSipCredentialListMappingResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

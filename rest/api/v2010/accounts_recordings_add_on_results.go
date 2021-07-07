@@ -145,8 +145,8 @@ func (c *ApiService) ListRecordingAddOnResult(ReferenceSid string, params *ListR
 	return ps, err
 }
 
-//Retrieve a single page of RecordingAddOnResult records from the API. Request is executed immediately.
-func (c *ApiService) RecordingAddOnResultPage(ReferenceSid string, params *ListRecordingAddOnResultParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsRecordingsAddOnResultsPage(ReferenceSid string, params *ListRecordingAddOnResultParams, pageToken string, pageNumber string) (*ListRecordingAddOnResultResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -165,30 +165,57 @@ func (c *ApiService) RecordingAddOnResultPage(ReferenceSid string, params *ListR
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListRecordingAddOnResultResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams RecordingAddOnResult records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) RecordingAddOnResultStream(ReferenceSid string, params *ListRecordingAddOnResultParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsRecordingsAddOnResults records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsRecordingsAddOnResultsList(ReferenceSid string, params *ListRecordingAddOnResultParams, limit int) ([]ListRecordingAddOnResultResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.RecordingAddOnResultPage(ReferenceSid, params, "", "")
+	response, err := c.ListRecordingAddOnResult(ReferenceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListRecordingAddOnResultResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListRecordingAddOnResultResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists RecordingAddOnResult records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) RecordingAddOnResultList(ReferenceSid string, params *ListRecordingAddOnResultParams, limit int) ([]interface{}, error) {
+//Streams AccountsRecordingsAddOnResults records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsRecordingsAddOnResultsStream(ReferenceSid string, params *ListRecordingAddOnResultParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.RecordingAddOnResultPage(ReferenceSid, params, "", "")
+	response, err := c.ListRecordingAddOnResult(ReferenceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListRecordingAddOnResultResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

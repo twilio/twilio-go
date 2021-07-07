@@ -107,8 +107,8 @@ func (c *ApiService) ListAlert(params *ListAlertParams) (*ListAlertResponse, err
 	return ps, err
 }
 
-//Retrieve a single page of Alert records from the API. Request is executed immediately.
-func (c *ApiService) AlertPage(params *ListAlertParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AlertsPage(params *ListAlertParams, pageToken string, pageNumber string) (*ListAlertResponse, error) {
 	path := "/v1/Alerts"
 
 	data := url.Values{}
@@ -130,30 +130,57 @@ func (c *ApiService) AlertPage(params *ListAlertParams, pageToken string, pageNu
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListAlertResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Alert records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AlertStream(params *ListAlertParams, limit int) (chan map[string]interface{}, error) {
+//Lists Alerts records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AlertsList(params *ListAlertParams, limit int) ([]ListAlertResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.AlertPage(params, "", "")
+	response, err := c.ListAlert(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListAlertResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListAlertResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Alert records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AlertList(params *ListAlertParams, limit int) ([]interface{}, error) {
+//Streams Alerts records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AlertsStream(params *ListAlertParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.AlertPage(params, "", "")
+	response, err := c.ListAlert(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListAlertResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

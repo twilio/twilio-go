@@ -163,8 +163,8 @@ func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParam
 	return ps, err
 }
 
-//Retrieve a single page of Activity records from the API. Request is executed immediately.
-func (c *ApiService) ActivityPage(WorkspaceSid string, params *ListActivityParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) WorkspacesActivitiesPage(WorkspaceSid string, params *ListActivityParams, pageToken string, pageNumber string) (*ListActivityResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -184,32 +184,59 @@ func (c *ApiService) ActivityPage(WorkspaceSid string, params *ListActivityParam
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListActivityResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Activity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ActivityStream(WorkspaceSid string, params *ListActivityParams, limit int) (chan map[string]interface{}, error) {
+//Lists WorkspacesActivities records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) WorkspacesActivitiesList(WorkspaceSid string, params *ListActivityParams, limit int) ([]ListActivityResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ActivityPage(WorkspaceSid, params, "", "")
+	response, err := c.ListActivity(WorkspaceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListActivityResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListActivityResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Activity records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ActivityList(WorkspaceSid string, params *ListActivityParams, limit int) ([]interface{}, error) {
+//Streams WorkspacesActivities records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) WorkspacesActivitiesStream(WorkspaceSid string, params *ListActivityParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ActivityPage(WorkspaceSid, params, "", "")
+	response, err := c.ListActivity(WorkspaceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListActivityResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateActivity'

@@ -99,8 +99,8 @@ func (c *ApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse, error)
 	return ps, err
 }
 
-//Retrieve a single page of Flow records from the API. Request is executed immediately.
-func (c *ApiService) FlowPage(params *ListFlowParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) FlowsPage(params *ListFlowParams, pageToken string, pageNumber string) (*ListFlowResponse, error) {
 	path := "/v1/Flows"
 
 	data := url.Values{}
@@ -113,30 +113,57 @@ func (c *ApiService) FlowPage(params *ListFlowParams, pageToken string, pageNumb
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListFlowResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Flow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) FlowStream(params *ListFlowParams, limit int) (chan map[string]interface{}, error) {
+//Lists Flows records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) FlowsList(params *ListFlowParams, limit int) ([]ListFlowResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.FlowPage(params, "", "")
+	response, err := c.ListFlow(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListFlowResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListFlowResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Flow records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) FlowList(params *ListFlowParams, limit int) ([]interface{}, error) {
+//Streams Flows records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) FlowsStream(params *ListFlowParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.FlowPage(params, "", "")
+	response, err := c.ListFlow(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListFlowResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

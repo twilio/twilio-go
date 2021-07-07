@@ -85,8 +85,8 @@ func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, 
 	return ps, err
 }
 
-//Retrieve a single page of FunctionVersion records from the API. Request is executed immediately.
-func (c *ApiService) FunctionVersionPage(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ServicesFunctionsVersionsPage(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, pageToken string, pageNumber string) (*ListFunctionVersionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
@@ -101,30 +101,57 @@ func (c *ApiService) FunctionVersionPage(ServiceSid string, FunctionSid string, 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListFunctionVersionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams FunctionVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) FunctionVersionStream(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, limit int) (chan map[string]interface{}, error) {
+//Lists ServicesFunctionsVersions records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ServicesFunctionsVersionsList(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, limit int) ([]ListFunctionVersionResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.FunctionVersionPage(ServiceSid, FunctionSid, params, "", "")
+	response, err := c.ListFunctionVersion(ServiceSid, FunctionSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListFunctionVersionResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListFunctionVersionResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists FunctionVersion records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) FunctionVersionList(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, limit int) ([]interface{}, error) {
+//Streams ServicesFunctionsVersions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ServicesFunctionsVersionsStream(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.FunctionVersionPage(ServiceSid, FunctionSid, params, "", "")
+	response, err := c.ListFunctionVersion(ServiceSid, FunctionSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListFunctionVersionResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

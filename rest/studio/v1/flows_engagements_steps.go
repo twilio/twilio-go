@@ -85,8 +85,8 @@ func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *List
 	return ps, err
 }
 
-//Retrieve a single page of Step records from the API. Request is executed immediately.
-func (c *ApiService) StepPage(FlowSid string, EngagementSid string, params *ListStepParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) FlowsEngagementsStepsPage(FlowSid string, EngagementSid string, params *ListStepParams, pageToken string, pageNumber string) (*ListStepResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
@@ -101,30 +101,57 @@ func (c *ApiService) StepPage(FlowSid string, EngagementSid string, params *List
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListStepResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Step records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StepStream(FlowSid string, EngagementSid string, params *ListStepParams, limit int) (chan map[string]interface{}, error) {
+//Lists FlowsEngagementsSteps records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) FlowsEngagementsStepsList(FlowSid string, EngagementSid string, params *ListStepParams, limit int) ([]ListStepResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.StepPage(FlowSid, EngagementSid, params, "", "")
+	response, err := c.ListStep(FlowSid, EngagementSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListStepResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListStepResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Step records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) StepList(FlowSid string, EngagementSid string, params *ListStepParams, limit int) ([]interface{}, error) {
+//Streams FlowsEngagementsSteps records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) FlowsEngagementsStepsStream(FlowSid string, EngagementSid string, params *ListStepParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.StepPage(FlowSid, EngagementSid, params, "", "")
+	response, err := c.ListStep(FlowSid, EngagementSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListStepResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

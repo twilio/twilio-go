@@ -59,8 +59,8 @@ func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *L
 	return ps, err
 }
 
-//Retrieve a single page of DialingPermissionsHrsPrefixes records from the API. Request is executed immediately.
-func (c *ApiService) DialingPermissionsHrsPrefixesPage(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) DialingPermissionsCountriesHighRiskSpecialPrefixesPage(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, pageToken string, pageNumber string) (*ListDialingPermissionsHrsPrefixesResponse, error) {
 	path := "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes"
 	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
 
@@ -74,30 +74,57 @@ func (c *ApiService) DialingPermissionsHrsPrefixesPage(IsoCode string, params *L
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListDialingPermissionsHrsPrefixesResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams DialingPermissionsHrsPrefixes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) DialingPermissionsHrsPrefixesStream(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, limit int) (chan map[string]interface{}, error) {
+//Lists DialingPermissionsCountriesHighRiskSpecialPrefixes records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) DialingPermissionsCountriesHighRiskSpecialPrefixesList(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, limit int) ([]ListDialingPermissionsHrsPrefixesResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.DialingPermissionsHrsPrefixesPage(IsoCode, params, "", "")
+	response, err := c.ListDialingPermissionsHrsPrefixes(IsoCode, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListDialingPermissionsHrsPrefixesResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListDialingPermissionsHrsPrefixesResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists DialingPermissionsHrsPrefixes records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) DialingPermissionsHrsPrefixesList(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, limit int) ([]interface{}, error) {
+//Streams DialingPermissionsCountriesHighRiskSpecialPrefixes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) DialingPermissionsCountriesHighRiskSpecialPrefixesStream(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.DialingPermissionsHrsPrefixesPage(IsoCode, params, "", "")
+	response, err := c.ListDialingPermissionsHrsPrefixes(IsoCode, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListDialingPermissionsHrsPrefixesResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

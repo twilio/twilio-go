@@ -140,8 +140,8 @@ func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid stri
 	return ps, err
 }
 
-//Retrieve a single page of CustomerProfileEntityAssignment records from the API. Request is executed immediately.
-func (c *ApiService) CustomerProfileEntityAssignmentPage(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) CustomerProfilesEntityAssignmentsPage(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, pageToken string, pageNumber string) (*ListCustomerProfileEntityAssignmentResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
@@ -155,30 +155,57 @@ func (c *ApiService) CustomerProfileEntityAssignmentPage(CustomerProfileSid stri
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListCustomerProfileEntityAssignmentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams CustomerProfileEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) CustomerProfileEntityAssignmentStream(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit int) (chan map[string]interface{}, error) {
+//Lists CustomerProfilesEntityAssignments records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) CustomerProfilesEntityAssignmentsList(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit int) ([]ListCustomerProfileEntityAssignmentResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.CustomerProfileEntityAssignmentPage(CustomerProfileSid, params, "", "")
+	response, err := c.ListCustomerProfileEntityAssignment(CustomerProfileSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListCustomerProfileEntityAssignmentResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListCustomerProfileEntityAssignmentResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists CustomerProfileEntityAssignment records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) CustomerProfileEntityAssignmentList(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit int) ([]interface{}, error) {
+//Streams CustomerProfilesEntityAssignments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) CustomerProfilesEntityAssignmentsStream(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.CustomerProfileEntityAssignmentPage(CustomerProfileSid, params, "", "")
+	response, err := c.ListCustomerProfileEntityAssignment(CustomerProfileSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListCustomerProfileEntityAssignmentResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

@@ -103,8 +103,8 @@ func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 	return ps, err
 }
 
-//Retrieve a single page of UsageRecordAllTime records from the API. Request is executed immediately.
-func (c *ApiService) UsageRecordAllTimePage(params *ListUsageRecordAllTimeParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsUsageRecordsAllTimePage(params *ListUsageRecordAllTimeParams, pageToken string, pageNumber string) (*ListUsageRecordAllTimeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -134,30 +134,57 @@ func (c *ApiService) UsageRecordAllTimePage(params *ListUsageRecordAllTimeParams
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListUsageRecordAllTimeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams UsageRecordAllTime records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) UsageRecordAllTimeStream(params *ListUsageRecordAllTimeParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsUsageRecordsAllTime records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsUsageRecordsAllTimeList(params *ListUsageRecordAllTimeParams, limit int) ([]ListUsageRecordAllTimeResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.UsageRecordAllTimePage(params, "", "")
+	response, err := c.ListUsageRecordAllTime(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListUsageRecordAllTimeResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListUsageRecordAllTimeResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists UsageRecordAllTime records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) UsageRecordAllTimeList(params *ListUsageRecordAllTimeParams, limit int) ([]interface{}, error) {
+//Streams AccountsUsageRecordsAllTime records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsUsageRecordsAllTimeStream(params *ListUsageRecordAllTimeParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.UsageRecordAllTimePage(params, "", "")
+	response, err := c.ListUsageRecordAllTime(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListUsageRecordAllTimeResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

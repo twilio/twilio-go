@@ -187,8 +187,8 @@ func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListT
 	return ps, err
 }
 
-//Retrieve a single page of TaskQueuesStatistics records from the API. Request is executed immediately.
-func (c *ApiService) TaskQueuesStatisticsPage(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) WorkspacesTaskQueuesStatisticsPage(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, pageToken string, pageNumber string) (*ListTaskQueuesStatisticsResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -220,30 +220,57 @@ func (c *ApiService) TaskQueuesStatisticsPage(WorkspaceSid string, params *ListT
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListTaskQueuesStatisticsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams TaskQueuesStatistics records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) TaskQueuesStatisticsStream(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, limit int) (chan map[string]interface{}, error) {
+//Lists WorkspacesTaskQueuesStatistics records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) WorkspacesTaskQueuesStatisticsList(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, limit int) ([]ListTaskQueuesStatisticsResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.TaskQueuesStatisticsPage(WorkspaceSid, params, "", "")
+	response, err := c.ListTaskQueuesStatistics(WorkspaceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListTaskQueuesStatisticsResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListTaskQueuesStatisticsResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists TaskQueuesStatistics records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) TaskQueuesStatisticsList(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, limit int) ([]interface{}, error) {
+//Streams WorkspacesTaskQueuesStatistics records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) WorkspacesTaskQueuesStatisticsStream(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.TaskQueuesStatisticsPage(WorkspaceSid, params, "", "")
+	response, err := c.ListTaskQueuesStatistics(WorkspaceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListTaskQueuesStatisticsResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

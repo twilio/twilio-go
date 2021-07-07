@@ -85,8 +85,8 @@ func (c *ApiService) ListConversationMessageReceipt(ConversationSid string, Mess
 	return ps, err
 }
 
-//Retrieve a single page of ConversationMessageReceipt records from the API. Request is executed immediately.
-func (c *ApiService) ConversationMessageReceiptPage(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ConversationsMessagesReceiptsPage(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, pageToken string, pageNumber string) (*ListConversationMessageReceiptResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
@@ -101,30 +101,57 @@ func (c *ApiService) ConversationMessageReceiptPage(ConversationSid string, Mess
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListConversationMessageReceiptResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams ConversationMessageReceipt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ConversationMessageReceiptStream(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, limit int) (chan map[string]interface{}, error) {
+//Lists ConversationsMessagesReceipts records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ConversationsMessagesReceiptsList(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, limit int) ([]ListConversationMessageReceiptResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ConversationMessageReceiptPage(ConversationSid, MessageSid, params, "", "")
+	response, err := c.ListConversationMessageReceipt(ConversationSid, MessageSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListConversationMessageReceiptResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListConversationMessageReceiptResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists ConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ConversationMessageReceiptList(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, limit int) ([]interface{}, error) {
+//Streams ConversationsMessagesReceipts records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ConversationsMessagesReceiptsStream(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ConversationMessageReceiptPage(ConversationSid, MessageSid, params, "", "")
+	response, err := c.ListConversationMessageReceipt(ConversationSid, MessageSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListConversationMessageReceiptResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

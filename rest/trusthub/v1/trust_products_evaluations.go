@@ -121,8 +121,8 @@ func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *
 	return ps, err
 }
 
-//Retrieve a single page of TrustProductEvaluation records from the API. Request is executed immediately.
-func (c *ApiService) TrustProductEvaluationPage(TrustProductSid string, params *ListTrustProductEvaluationParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) TrustProductsEvaluationsPage(TrustProductSid string, params *ListTrustProductEvaluationParams, pageToken string, pageNumber string) (*ListTrustProductEvaluationResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
@@ -136,30 +136,57 @@ func (c *ApiService) TrustProductEvaluationPage(TrustProductSid string, params *
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListTrustProductEvaluationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams TrustProductEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) TrustProductEvaluationStream(TrustProductSid string, params *ListTrustProductEvaluationParams, limit int) (chan map[string]interface{}, error) {
+//Lists TrustProductsEvaluations records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) TrustProductsEvaluationsList(TrustProductSid string, params *ListTrustProductEvaluationParams, limit int) ([]ListTrustProductEvaluationResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.TrustProductEvaluationPage(TrustProductSid, params, "", "")
+	response, err := c.ListTrustProductEvaluation(TrustProductSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListTrustProductEvaluationResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListTrustProductEvaluationResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists TrustProductEvaluation records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) TrustProductEvaluationList(TrustProductSid string, params *ListTrustProductEvaluationParams, limit int) ([]interface{}, error) {
+//Streams TrustProductsEvaluations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) TrustProductsEvaluationsStream(TrustProductSid string, params *ListTrustProductEvaluationParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.TrustProductEvaluationPage(TrustProductSid, params, "", "")
+	response, err := c.ListTrustProductEvaluation(TrustProductSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListTrustProductEvaluationResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

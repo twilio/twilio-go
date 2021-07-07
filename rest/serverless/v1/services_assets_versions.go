@@ -85,8 +85,8 @@ func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params
 	return ps, err
 }
 
-//Retrieve a single page of AssetVersion records from the API. Request is executed immediately.
-func (c *ApiService) AssetVersionPage(ServiceSid string, AssetSid string, params *ListAssetVersionParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ServicesAssetsVersionsPage(ServiceSid string, AssetSid string, params *ListAssetVersionParams, pageToken string, pageNumber string) (*ListAssetVersionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"AssetSid"+"}", AssetSid, -1)
@@ -101,30 +101,57 @@ func (c *ApiService) AssetVersionPage(ServiceSid string, AssetSid string, params
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListAssetVersionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams AssetVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AssetVersionStream(ServiceSid string, AssetSid string, params *ListAssetVersionParams, limit int) (chan map[string]interface{}, error) {
+//Lists ServicesAssetsVersions records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ServicesAssetsVersionsList(ServiceSid string, AssetSid string, params *ListAssetVersionParams, limit int) ([]ListAssetVersionResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.AssetVersionPage(ServiceSid, AssetSid, params, "", "")
+	response, err := c.ListAssetVersion(ServiceSid, AssetSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListAssetVersionResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListAssetVersionResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists AssetVersion records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AssetVersionList(ServiceSid string, AssetSid string, params *ListAssetVersionParams, limit int) ([]interface{}, error) {
+//Streams ServicesAssetsVersions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ServicesAssetsVersionsStream(ServiceSid string, AssetSid string, params *ListAssetVersionParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.AssetVersionPage(ServiceSid, AssetSid, params, "", "")
+	response, err := c.ListAssetVersion(ServiceSid, AssetSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListAssetVersionResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

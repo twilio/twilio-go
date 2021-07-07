@@ -136,8 +136,8 @@ func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderP
 	return ps, err
 }
 
-//Retrieve a single page of AlphaSender records from the API. Request is executed immediately.
-func (c *ApiService) AlphaSenderPage(ServiceSid string, params *ListAlphaSenderParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ServicesAlphaSendersPage(ServiceSid string, params *ListAlphaSenderParams, pageToken string, pageNumber string) (*ListAlphaSenderResponse, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -151,30 +151,57 @@ func (c *ApiService) AlphaSenderPage(ServiceSid string, params *ListAlphaSenderP
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListAlphaSenderResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams AlphaSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AlphaSenderStream(ServiceSid string, params *ListAlphaSenderParams, limit int) (chan map[string]interface{}, error) {
+//Lists ServicesAlphaSenders records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ServicesAlphaSendersList(ServiceSid string, params *ListAlphaSenderParams, limit int) ([]ListAlphaSenderResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.AlphaSenderPage(ServiceSid, params, "", "")
+	response, err := c.ListAlphaSender(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListAlphaSenderResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListAlphaSenderResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists AlphaSender records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AlphaSenderList(ServiceSid string, params *ListAlphaSenderParams, limit int) ([]interface{}, error) {
+//Streams ServicesAlphaSenders records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ServicesAlphaSendersStream(ServiceSid string, params *ListAlphaSenderParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.AlphaSenderPage(ServiceSid, params, "", "")
+	response, err := c.ListAlphaSender(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListAlphaSenderResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

@@ -172,8 +172,8 @@ func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListC
 	return ps, err
 }
 
-//Retrieve a single page of ConferenceRecording records from the API. Request is executed immediately.
-func (c *ApiService) ConferenceRecordingPage(ConferenceSid string, params *ListConferenceRecordingParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsConferencesRecordingsPage(ConferenceSid string, params *ListConferenceRecordingParams, pageToken string, pageNumber string) (*ListConferenceRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -201,32 +201,59 @@ func (c *ApiService) ConferenceRecordingPage(ConferenceSid string, params *ListC
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListConferenceRecordingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams ConferenceRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ConferenceRecordingStream(ConferenceSid string, params *ListConferenceRecordingParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsConferencesRecordings records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsConferencesRecordingsList(ConferenceSid string, params *ListConferenceRecordingParams, limit int) ([]ListConferenceRecordingResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ConferenceRecordingPage(ConferenceSid, params, "", "")
+	response, err := c.ListConferenceRecording(ConferenceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListConferenceRecordingResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListConferenceRecordingResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists ConferenceRecording records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ConferenceRecordingList(ConferenceSid string, params *ListConferenceRecordingParams, limit int) ([]interface{}, error) {
+//Streams AccountsConferencesRecordings records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsConferencesRecordingsStream(ConferenceSid string, params *ListConferenceRecordingParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ConferenceRecordingPage(ConferenceSid, params, "", "")
+	response, err := c.ListConferenceRecording(ConferenceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListConferenceRecordingResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateConferenceRecording'

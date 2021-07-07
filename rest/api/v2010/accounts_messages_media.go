@@ -173,8 +173,8 @@ func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams) (*Lis
 	return ps, err
 }
 
-//Retrieve a single page of Media records from the API. Request is executed immediately.
-func (c *ApiService) MediaPage(MessageSid string, params *ListMediaParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsMessagesMediaPage(MessageSid string, params *ListMediaParams, pageToken string, pageNumber string) (*ListMediaResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -202,30 +202,57 @@ func (c *ApiService) MediaPage(MessageSid string, params *ListMediaParams, pageT
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListMediaResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Media records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) MediaStream(MessageSid string, params *ListMediaParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsMessagesMedia records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsMessagesMediaList(MessageSid string, params *ListMediaParams, limit int) ([]ListMediaResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.MediaPage(MessageSid, params, "", "")
+	response, err := c.ListMedia(MessageSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListMediaResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListMediaResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Media records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) MediaList(MessageSid string, params *ListMediaParams, limit int) ([]interface{}, error) {
+//Streams AccountsMessagesMedia records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsMessagesMediaStream(MessageSid string, params *ListMediaParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.MediaPage(MessageSid, params, "", "")
+	response, err := c.ListMedia(MessageSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListMediaResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

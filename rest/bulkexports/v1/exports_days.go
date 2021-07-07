@@ -78,8 +78,8 @@ func (c *ApiService) ListDay(ResourceType string, params *ListDayParams) (*ListD
 	return ps, err
 }
 
-//Retrieve a single page of Day records from the API. Request is executed immediately.
-func (c *ApiService) DayPage(ResourceType string, params *ListDayParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ExportsDaysPage(ResourceType string, params *ListDayParams, pageToken string, pageNumber string) (*ListDayResponse, error) {
 	path := "/v1/Exports/{ResourceType}/Days"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
@@ -93,30 +93,57 @@ func (c *ApiService) DayPage(ResourceType string, params *ListDayParams, pageTok
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListDayResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Day records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) DayStream(ResourceType string, params *ListDayParams, limit int) (chan map[string]interface{}, error) {
+//Lists ExportsDays records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ExportsDaysList(ResourceType string, params *ListDayParams, limit int) ([]ListDayResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.DayPage(ResourceType, params, "", "")
+	response, err := c.ListDay(ResourceType, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListDayResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListDayResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Day records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) DayList(ResourceType string, params *ListDayParams, limit int) ([]interface{}, error) {
+//Streams ExportsDays records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ExportsDaysStream(ResourceType string, params *ListDayParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.DayPage(ResourceType, params, "", "")
+	response, err := c.ListDay(ResourceType, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListDayResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

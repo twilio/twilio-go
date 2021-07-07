@@ -169,8 +169,8 @@ func (c *ApiService) ListTask(AssistantSid string, params *ListTaskParams) (*Lis
 	return ps, err
 }
 
-//Retrieve a single page of Task records from the API. Request is executed immediately.
-func (c *ApiService) TaskPage(AssistantSid string, params *ListTaskParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AssistantsTasksPage(AssistantSid string, params *ListTaskParams, pageToken string, pageNumber string) (*ListTaskResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -184,32 +184,59 @@ func (c *ApiService) TaskPage(AssistantSid string, params *ListTaskParams, pageT
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListTaskResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Task records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) TaskStream(AssistantSid string, params *ListTaskParams, limit int) (chan map[string]interface{}, error) {
+//Lists AssistantsTasks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AssistantsTasksList(AssistantSid string, params *ListTaskParams, limit int) ([]ListTaskResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.TaskPage(AssistantSid, params, "", "")
+	response, err := c.ListTask(AssistantSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListTaskResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListTaskResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Task records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) TaskList(AssistantSid string, params *ListTaskParams, limit int) ([]interface{}, error) {
+//Streams AssistantsTasks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AssistantsTasksStream(AssistantSid string, params *ListTaskParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.TaskPage(AssistantSid, params, "", "")
+	response, err := c.ListTask(AssistantSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListTaskResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateTask'

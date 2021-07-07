@@ -252,8 +252,8 @@ func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) (*
 	return ps, err
 }
 
-//Retrieve a single page of OutgoingCallerId records from the API. Request is executed immediately.
-func (c *ApiService) OutgoingCallerIdPage(params *ListOutgoingCallerIdParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsOutgoingCallerIdsPage(params *ListOutgoingCallerIdParams, pageToken string, pageNumber string) (*ListOutgoingCallerIdResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -277,32 +277,59 @@ func (c *ApiService) OutgoingCallerIdPage(params *ListOutgoingCallerIdParams, pa
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListOutgoingCallerIdResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams OutgoingCallerId records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) OutgoingCallerIdStream(params *ListOutgoingCallerIdParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsOutgoingCallerIds records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsOutgoingCallerIdsList(params *ListOutgoingCallerIdParams, limit int) ([]ListOutgoingCallerIdResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.OutgoingCallerIdPage(params, "", "")
+	response, err := c.ListOutgoingCallerId(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListOutgoingCallerIdResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListOutgoingCallerIdResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists OutgoingCallerId records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) OutgoingCallerIdList(params *ListOutgoingCallerIdParams, limit int) ([]interface{}, error) {
+//Streams AccountsOutgoingCallerIds records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsOutgoingCallerIdsStream(params *ListOutgoingCallerIdParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.OutgoingCallerIdPage(params, "", "")
+	response, err := c.ListOutgoingCallerId(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListOutgoingCallerIdResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateOutgoingCallerId'

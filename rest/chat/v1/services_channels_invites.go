@@ -160,8 +160,8 @@ func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *Li
 	return ps, err
 }
 
-//Retrieve a single page of Invite records from the API. Request is executed immediately.
-func (c *ApiService) InvitePage(ServiceSid string, ChannelSid string, params *ListInviteParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ServicesChannelsInvitesPage(ServiceSid string, ChannelSid string, params *ListInviteParams, pageToken string, pageNumber string) (*ListInviteResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -181,30 +181,57 @@ func (c *ApiService) InvitePage(ServiceSid string, ChannelSid string, params *Li
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListInviteResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Invite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) InviteStream(ServiceSid string, ChannelSid string, params *ListInviteParams, limit int) (chan map[string]interface{}, error) {
+//Lists ServicesChannelsInvites records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ServicesChannelsInvitesList(ServiceSid string, ChannelSid string, params *ListInviteParams, limit int) ([]ListInviteResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.InvitePage(ServiceSid, ChannelSid, params, "", "")
+	response, err := c.ListInvite(ServiceSid, ChannelSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListInviteResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListInviteResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Invite records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) InviteList(ServiceSid string, ChannelSid string, params *ListInviteParams, limit int) ([]interface{}, error) {
+//Streams ServicesChannelsInvites records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ServicesChannelsInvitesStream(ServiceSid string, ChannelSid string, params *ListInviteParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.InvitePage(ServiceSid, ChannelSid, params, "", "")
+	response, err := c.ListInvite(ServiceSid, ChannelSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListInviteResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

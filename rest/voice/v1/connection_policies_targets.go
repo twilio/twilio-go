@@ -172,8 +172,8 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 	return ps, err
 }
 
-//Retrieve a single page of ConnectionPolicyTarget records from the API. Request is executed immediately.
-func (c *ApiService) ConnectionPolicyTargetPage(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ConnectionPoliciesTargetsPage(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, pageToken string, pageNumber string) (*ListConnectionPolicyTargetResponse, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 
@@ -187,32 +187,59 @@ func (c *ApiService) ConnectionPolicyTargetPage(ConnectionPolicySid string, para
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListConnectionPolicyTargetResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams ConnectionPolicyTarget records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ConnectionPolicyTargetStream(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit int) (chan map[string]interface{}, error) {
+//Lists ConnectionPoliciesTargets records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ConnectionPoliciesTargetsList(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit int) ([]ListConnectionPolicyTargetResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ConnectionPolicyTargetPage(ConnectionPolicySid, params, "", "")
+	response, err := c.ListConnectionPolicyTarget(ConnectionPolicySid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListConnectionPolicyTargetResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListConnectionPolicyTargetResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists ConnectionPolicyTarget records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ConnectionPolicyTargetList(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit int) ([]interface{}, error) {
+//Streams ConnectionPoliciesTargets records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ConnectionPoliciesTargetsStream(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ConnectionPolicyTargetPage(ConnectionPolicySid, params, "", "")
+	response, err := c.ListConnectionPolicyTarget(ConnectionPolicySid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListConnectionPolicyTargetResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateConnectionPolicyTarget'

@@ -145,8 +145,8 @@ func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypePar
 	return ps, err
 }
 
-//Retrieve a single page of FieldType records from the API. Request is executed immediately.
-func (c *ApiService) FieldTypePage(AssistantSid string, params *ListFieldTypeParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AssistantsFieldTypesPage(AssistantSid string, params *ListFieldTypeParams, pageToken string, pageNumber string) (*ListFieldTypeResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -160,32 +160,59 @@ func (c *ApiService) FieldTypePage(AssistantSid string, params *ListFieldTypePar
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListFieldTypeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams FieldType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) FieldTypeStream(AssistantSid string, params *ListFieldTypeParams, limit int) (chan map[string]interface{}, error) {
+//Lists AssistantsFieldTypes records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AssistantsFieldTypesList(AssistantSid string, params *ListFieldTypeParams, limit int) ([]ListFieldTypeResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.FieldTypePage(AssistantSid, params, "", "")
+	response, err := c.ListFieldType(AssistantSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListFieldTypeResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListFieldTypeResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists FieldType records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) FieldTypeList(AssistantSid string, params *ListFieldTypeParams, limit int) ([]interface{}, error) {
+//Streams AssistantsFieldTypes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AssistantsFieldTypesStream(AssistantSid string, params *ListFieldTypeParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.FieldTypePage(AssistantSid, params, "", "")
+	response, err := c.ListFieldType(AssistantSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListFieldTypeResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateFieldType'

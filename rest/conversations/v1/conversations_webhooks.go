@@ -198,8 +198,8 @@ func (c *ApiService) ListConversationScopedWebhook(ConversationSid string, param
 	return ps, err
 }
 
-//Retrieve a single page of ConversationScopedWebhook records from the API. Request is executed immediately.
-func (c *ApiService) ConversationScopedWebhookPage(ConversationSid string, params *ListConversationScopedWebhookParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ConversationsWebhooksPage(ConversationSid string, params *ListConversationScopedWebhookParams, pageToken string, pageNumber string) (*ListConversationScopedWebhookResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
@@ -213,32 +213,59 @@ func (c *ApiService) ConversationScopedWebhookPage(ConversationSid string, param
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListConversationScopedWebhookResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams ConversationScopedWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ConversationScopedWebhookStream(ConversationSid string, params *ListConversationScopedWebhookParams, limit int) (chan map[string]interface{}, error) {
+//Lists ConversationsWebhooks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ConversationsWebhooksList(ConversationSid string, params *ListConversationScopedWebhookParams, limit int) ([]ListConversationScopedWebhookResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ConversationScopedWebhookPage(ConversationSid, params, "", "")
+	response, err := c.ListConversationScopedWebhook(ConversationSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListConversationScopedWebhookResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListConversationScopedWebhookResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists ConversationScopedWebhook records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ConversationScopedWebhookList(ConversationSid string, params *ListConversationScopedWebhookParams, limit int) ([]interface{}, error) {
+//Streams ConversationsWebhooks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ConversationsWebhooksStream(ConversationSid string, params *ListConversationScopedWebhookParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ConversationScopedWebhookPage(ConversationSid, params, "", "")
+	response, err := c.ListConversationScopedWebhook(ConversationSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListConversationScopedWebhookResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateConversationScopedWebhook'

@@ -285,8 +285,8 @@ func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams) (*ListFlexFlowResp
 	return ps, err
 }
 
-//Retrieve a single page of FlexFlow records from the API. Request is executed immediately.
-func (c *ApiService) FlexFlowPage(params *ListFlexFlowParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) FlexFlowsPage(params *ListFlexFlowParams, pageToken string, pageNumber string) (*ListFlexFlowResponse, error) {
 	path := "/v1/FlexFlows"
 
 	data := url.Values{}
@@ -302,32 +302,59 @@ func (c *ApiService) FlexFlowPage(params *ListFlexFlowParams, pageToken string, 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListFlexFlowResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams FlexFlow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) FlexFlowStream(params *ListFlexFlowParams, limit int) (chan map[string]interface{}, error) {
+//Lists FlexFlows records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) FlexFlowsList(params *ListFlexFlowParams, limit int) ([]ListFlexFlowResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.FlexFlowPage(params, "", "")
+	response, err := c.ListFlexFlow(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListFlexFlowResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListFlexFlowResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists FlexFlow records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) FlexFlowList(params *ListFlexFlowParams, limit int) ([]interface{}, error) {
+//Streams FlexFlows records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) FlexFlowsStream(params *ListFlexFlowParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.FlexFlowPage(params, "", "")
+	response, err := c.ListFlexFlow(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListFlexFlowResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateFlexFlow'

@@ -149,8 +149,8 @@ func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParam
 	return ps, err
 }
 
-//Retrieve a single page of RateLimit records from the API. Request is executed immediately.
-func (c *ApiService) RateLimitPage(ServiceSid string, params *ListRateLimitParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ServicesRateLimitsPage(ServiceSid string, params *ListRateLimitParams, pageToken string, pageNumber string) (*ListRateLimitResponse, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -164,32 +164,59 @@ func (c *ApiService) RateLimitPage(ServiceSid string, params *ListRateLimitParam
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListRateLimitResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams RateLimit records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) RateLimitStream(ServiceSid string, params *ListRateLimitParams, limit int) (chan map[string]interface{}, error) {
+//Lists ServicesRateLimits records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ServicesRateLimitsList(ServiceSid string, params *ListRateLimitParams, limit int) ([]ListRateLimitResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.RateLimitPage(ServiceSid, params, "", "")
+	response, err := c.ListRateLimit(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListRateLimitResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListRateLimitResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists RateLimit records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) RateLimitList(ServiceSid string, params *ListRateLimitParams, limit int) ([]interface{}, error) {
+//Streams ServicesRateLimits records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ServicesRateLimitsStream(ServiceSid string, params *ListRateLimitParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.RateLimitPage(ServiceSid, params, "", "")
+	response, err := c.ListRateLimit(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListRateLimitResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateRateLimit'

@@ -81,8 +81,8 @@ func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams) (*ListEndUse
 	return ps, err
 }
 
-//Retrieve a single page of EndUserType records from the API. Request is executed immediately.
-func (c *ApiService) EndUserTypePage(params *ListEndUserTypeParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) EndUserTypesPage(params *ListEndUserTypeParams, pageToken string, pageNumber string) (*ListEndUserTypeResponse, error) {
 	path := "/v1/EndUserTypes"
 
 	data := url.Values{}
@@ -95,30 +95,57 @@ func (c *ApiService) EndUserTypePage(params *ListEndUserTypeParams, pageToken st
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListEndUserTypeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams EndUserType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) EndUserTypeStream(params *ListEndUserTypeParams, limit int) (chan map[string]interface{}, error) {
+//Lists EndUserTypes records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) EndUserTypesList(params *ListEndUserTypeParams, limit int) ([]ListEndUserTypeResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.EndUserTypePage(params, "", "")
+	response, err := c.ListEndUserType(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListEndUserTypeResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListEndUserTypeResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists EndUserType records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) EndUserTypeList(params *ListEndUserTypeParams, limit int) ([]interface{}, error) {
+//Streams EndUserTypes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) EndUserTypesStream(params *ListEndUserTypeParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.EndUserTypePage(params, "", "")
+	response, err := c.ListEndUserType(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListEndUserTypeResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

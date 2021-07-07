@@ -200,8 +200,8 @@ func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *L
 	return ps, err
 }
 
-//Retrieve a single page of Challenge records from the API. Request is executed immediately.
-func (c *ApiService) ChallengePage(ServiceSid string, Identity string, params *ListChallengeParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ServicesEntitiesChallengesPage(ServiceSid string, Identity string, params *ListChallengeParams, pageToken string, pageNumber string) (*ListChallengeResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -222,32 +222,59 @@ func (c *ApiService) ChallengePage(ServiceSid string, Identity string, params *L
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListChallengeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Challenge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ChallengeStream(ServiceSid string, Identity string, params *ListChallengeParams, limit int) (chan map[string]interface{}, error) {
+//Lists ServicesEntitiesChallenges records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ServicesEntitiesChallengesList(ServiceSid string, Identity string, params *ListChallengeParams, limit int) ([]ListChallengeResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ChallengePage(ServiceSid, Identity, params, "", "")
+	response, err := c.ListChallenge(ServiceSid, Identity, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListChallengeResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListChallengeResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Challenge records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ChallengeList(ServiceSid string, Identity string, params *ListChallengeParams, limit int) ([]interface{}, error) {
+//Streams ServicesEntitiesChallenges records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ServicesEntitiesChallengesStream(ServiceSid string, Identity string, params *ListChallengeParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ChallengePage(ServiceSid, Identity, params, "", "")
+	response, err := c.ListChallenge(ServiceSid, Identity, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListChallengeResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateChallenge'

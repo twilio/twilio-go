@@ -179,8 +179,8 @@ func (c *ApiService) ListExportCustomJob(ResourceType string, params *ListExport
 	return ps, err
 }
 
-//Retrieve a single page of ExportCustomJob records from the API. Request is executed immediately.
-func (c *ApiService) ExportCustomJobPage(ResourceType string, params *ListExportCustomJobParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ExportsJobsPage(ResourceType string, params *ListExportCustomJobParams, pageToken string, pageNumber string) (*ListExportCustomJobResponse, error) {
 	path := "/v1/Exports/{ResourceType}/Jobs"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
@@ -194,30 +194,57 @@ func (c *ApiService) ExportCustomJobPage(ResourceType string, params *ListExport
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListExportCustomJobResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams ExportCustomJob records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ExportCustomJobStream(ResourceType string, params *ListExportCustomJobParams, limit int) (chan map[string]interface{}, error) {
+//Lists ExportsJobs records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ExportsJobsList(ResourceType string, params *ListExportCustomJobParams, limit int) ([]ListExportCustomJobResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ExportCustomJobPage(ResourceType, params, "", "")
+	response, err := c.ListExportCustomJob(ResourceType, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListExportCustomJobResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListExportCustomJobResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists ExportCustomJob records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ExportCustomJobList(ResourceType string, params *ListExportCustomJobParams, limit int) ([]interface{}, error) {
+//Streams ExportsJobs records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ExportsJobsStream(ResourceType string, params *ListExportCustomJobParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ExportCustomJobPage(ResourceType, params, "", "")
+	response, err := c.ListExportCustomJob(ResourceType, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListExportCustomJobResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

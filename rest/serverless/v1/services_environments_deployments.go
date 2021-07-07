@@ -124,8 +124,8 @@ func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, pa
 	return ps, err
 }
 
-//Retrieve a single page of Deployment records from the API. Request is executed immediately.
-func (c *ApiService) DeploymentPage(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ServicesEnvironmentsDeploymentsPage(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, pageToken string, pageNumber string) (*ListDeploymentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -140,30 +140,57 @@ func (c *ApiService) DeploymentPage(ServiceSid string, EnvironmentSid string, pa
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListDeploymentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Deployment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) DeploymentStream(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit int) (chan map[string]interface{}, error) {
+//Lists ServicesEnvironmentsDeployments records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ServicesEnvironmentsDeploymentsList(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit int) ([]ListDeploymentResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.DeploymentPage(ServiceSid, EnvironmentSid, params, "", "")
+	response, err := c.ListDeployment(ServiceSid, EnvironmentSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListDeploymentResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListDeploymentResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Deployment records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) DeploymentList(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit int) ([]interface{}, error) {
+//Streams ServicesEnvironmentsDeployments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ServicesEnvironmentsDeploymentsStream(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.DeploymentPage(ServiceSid, EnvironmentSid, params, "", "")
+	response, err := c.ListDeployment(ServiceSid, EnvironmentSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListDeploymentResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

@@ -108,8 +108,8 @@ func (c *ApiService) ListNetwork(params *ListNetworkParams) (*ListNetworkRespons
 	return ps, err
 }
 
-//Retrieve a single page of Network records from the API. Request is executed immediately.
-func (c *ApiService) NetworkPage(params *ListNetworkParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) NetworksPage(params *ListNetworkParams, pageToken string, pageNumber string) (*ListNetworkResponse, error) {
 	path := "/v1/Networks"
 
 	data := url.Values{}
@@ -131,30 +131,57 @@ func (c *ApiService) NetworkPage(params *ListNetworkParams, pageToken string, pa
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListNetworkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Network records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) NetworkStream(params *ListNetworkParams, limit int) (chan map[string]interface{}, error) {
+//Lists Networks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) NetworksList(params *ListNetworkParams, limit int) ([]ListNetworkResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.NetworkPage(params, "", "")
+	response, err := c.ListNetwork(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListNetworkResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListNetworkResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Network records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) NetworkList(params *ListNetworkParams, limit int) ([]interface{}, error) {
+//Streams Networks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) NetworksStream(params *ListNetworkParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.NetworkPage(params, "", "")
+	response, err := c.ListNetwork(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListNetworkResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

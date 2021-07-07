@@ -177,8 +177,8 @@ func (c *ApiService) ListWebChannel(params *ListWebChannelParams) (*ListWebChann
 	return ps, err
 }
 
-//Retrieve a single page of WebChannel records from the API. Request is executed immediately.
-func (c *ApiService) WebChannelPage(params *ListWebChannelParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) WebChannelsPage(params *ListWebChannelParams, pageToken string, pageNumber string) (*ListWebChannelResponse, error) {
 	path := "/v1/WebChannels"
 
 	data := url.Values{}
@@ -191,32 +191,59 @@ func (c *ApiService) WebChannelPage(params *ListWebChannelParams, pageToken stri
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListWebChannelResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams WebChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) WebChannelStream(params *ListWebChannelParams, limit int) (chan map[string]interface{}, error) {
+//Lists WebChannels records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) WebChannelsList(params *ListWebChannelParams, limit int) ([]ListWebChannelResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.WebChannelPage(params, "", "")
+	response, err := c.ListWebChannel(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListWebChannelResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListWebChannelResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists WebChannel records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) WebChannelList(params *ListWebChannelParams, limit int) ([]interface{}, error) {
+//Streams WebChannels records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) WebChannelsStream(params *ListWebChannelParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.WebChannelPage(params, "", "")
+	response, err := c.ListWebChannel(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListWebChannelResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateWebChannel'

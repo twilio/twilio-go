@@ -208,8 +208,8 @@ func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 	return ps, err
 }
 
-//Retrieve a single page of TaskQueue records from the API. Request is executed immediately.
-func (c *ApiService) TaskQueuePage(WorkspaceSid string, params *ListTaskQueueParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) WorkspacesTaskQueuesPage(WorkspaceSid string, params *ListTaskQueueParams, pageToken string, pageNumber string) (*ListTaskQueueResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -232,32 +232,59 @@ func (c *ApiService) TaskQueuePage(WorkspaceSid string, params *ListTaskQueuePar
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListTaskQueueResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams TaskQueue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) TaskQueueStream(WorkspaceSid string, params *ListTaskQueueParams, limit int) (chan map[string]interface{}, error) {
+//Lists WorkspacesTaskQueues records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) WorkspacesTaskQueuesList(WorkspaceSid string, params *ListTaskQueueParams, limit int) ([]ListTaskQueueResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.TaskQueuePage(WorkspaceSid, params, "", "")
+	response, err := c.ListTaskQueue(WorkspaceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListTaskQueueResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListTaskQueueResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists TaskQueue records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) TaskQueueList(WorkspaceSid string, params *ListTaskQueueParams, limit int) ([]interface{}, error) {
+//Streams WorkspacesTaskQueues records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) WorkspacesTaskQueuesStream(WorkspaceSid string, params *ListTaskQueueParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.TaskQueuePage(WorkspaceSid, params, "", "")
+	response, err := c.ListTaskQueue(WorkspaceSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListTaskQueueResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateTaskQueue'

@@ -136,8 +136,8 @@ func (c *ApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNumberPar
 	return ps, err
 }
 
-//Retrieve a single page of PhoneNumber records from the API. Request is executed immediately.
-func (c *ApiService) PhoneNumberPage(TrunkSid string, params *ListPhoneNumberParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) TrunksPhoneNumbersPage(TrunkSid string, params *ListPhoneNumberParams, pageToken string, pageNumber string) (*ListPhoneNumberResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
@@ -151,30 +151,57 @@ func (c *ApiService) PhoneNumberPage(TrunkSid string, params *ListPhoneNumberPar
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListPhoneNumberResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) PhoneNumberStream(TrunkSid string, params *ListPhoneNumberParams, limit int) (chan map[string]interface{}, error) {
+//Lists TrunksPhoneNumbers records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) TrunksPhoneNumbersList(TrunkSid string, params *ListPhoneNumberParams, limit int) ([]ListPhoneNumberResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.PhoneNumberPage(TrunkSid, params, "", "")
+	response, err := c.ListPhoneNumber(TrunkSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListPhoneNumberResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListPhoneNumberResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) PhoneNumberList(TrunkSid string, params *ListPhoneNumberParams, limit int) ([]interface{}, error) {
+//Streams TrunksPhoneNumbers records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) TrunksPhoneNumbersStream(TrunkSid string, params *ListPhoneNumberParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.PhoneNumberPage(TrunkSid, params, "", "")
+	response, err := c.ListPhoneNumber(TrunkSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListPhoneNumberResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

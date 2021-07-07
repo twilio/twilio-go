@@ -254,8 +254,8 @@ func (c *ApiService) ListComposition(params *ListCompositionParams) (*ListCompos
 	return ps, err
 }
 
-//Retrieve a single page of Composition records from the API. Request is executed immediately.
-func (c *ApiService) CompositionPage(params *ListCompositionParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) CompositionsPage(params *ListCompositionParams, pageToken string, pageNumber string) (*ListCompositionResponse, error) {
 	path := "/v1/Compositions"
 
 	data := url.Values{}
@@ -280,30 +280,57 @@ func (c *ApiService) CompositionPage(params *ListCompositionParams, pageToken st
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListCompositionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams Composition records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) CompositionStream(params *ListCompositionParams, limit int) (chan map[string]interface{}, error) {
+//Lists Compositions records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) CompositionsList(params *ListCompositionParams, limit int) ([]ListCompositionResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.CompositionPage(params, "", "")
+	response, err := c.ListComposition(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListCompositionResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListCompositionResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists Composition records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) CompositionList(params *ListCompositionParams, limit int) ([]interface{}, error) {
+//Streams Compositions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) CompositionsStream(params *ListCompositionParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.CompositionPage(params, "", "")
+	response, err := c.ListComposition(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListCompositionResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

@@ -231,8 +231,8 @@ func (c *ApiService) ListAvailablePhoneNumberVoip(CountryCode string, params *Li
 	return ps, err
 }
 
-//Retrieve a single page of AvailablePhoneNumberVoip records from the API. Request is executed immediately.
-func (c *ApiService) AvailablePhoneNumberVoipPage(CountryCode string, params *ListAvailablePhoneNumberVoipParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsAvailablePhoneNumbersVoipPage(CountryCode string, params *ListAvailablePhoneNumberVoipParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberVoipResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -305,30 +305,57 @@ func (c *ApiService) AvailablePhoneNumberVoipPage(CountryCode string, params *Li
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListAvailablePhoneNumberVoipResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams AvailablePhoneNumberVoip records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AvailablePhoneNumberVoipStream(CountryCode string, params *ListAvailablePhoneNumberVoipParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsAvailablePhoneNumbersVoip records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsAvailablePhoneNumbersVoipList(CountryCode string, params *ListAvailablePhoneNumberVoipParams, limit int) ([]ListAvailablePhoneNumberVoipResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.AvailablePhoneNumberVoipPage(CountryCode, params, "", "")
+	response, err := c.ListAvailablePhoneNumberVoip(CountryCode, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListAvailablePhoneNumberVoipResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListAvailablePhoneNumberVoipResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists AvailablePhoneNumberVoip records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AvailablePhoneNumberVoipList(CountryCode string, params *ListAvailablePhoneNumberVoipParams, limit int) ([]interface{}, error) {
+//Streams AccountsAvailablePhoneNumbersVoip records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsAvailablePhoneNumbersVoipStream(CountryCode string, params *ListAvailablePhoneNumberVoipParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.AvailablePhoneNumberVoipPage(CountryCode, params, "", "")
+	response, err := c.ListAvailablePhoneNumberVoip(CountryCode, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListAvailablePhoneNumberVoipResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

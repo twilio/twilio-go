@@ -85,8 +85,8 @@ func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, Participa
 	return ps, err
 }
 
-//Retrieve a single page of RoomParticipantPublishedTrack records from the API. Request is executed immediately.
-func (c *ApiService) RoomParticipantPublishedTrackPage(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) RoomsParticipantsPublishedTracksPage(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, pageToken string, pageNumber string) (*ListRoomParticipantPublishedTrackResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
@@ -101,30 +101,57 @@ func (c *ApiService) RoomParticipantPublishedTrackPage(RoomSid string, Participa
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListRoomParticipantPublishedTrackResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams RoomParticipantPublishedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) RoomParticipantPublishedTrackStream(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, limit int) (chan map[string]interface{}, error) {
+//Lists RoomsParticipantsPublishedTracks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) RoomsParticipantsPublishedTracksList(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, limit int) ([]ListRoomParticipantPublishedTrackResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.RoomParticipantPublishedTrackPage(RoomSid, ParticipantSid, params, "", "")
+	response, err := c.ListRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListRoomParticipantPublishedTrackResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListRoomParticipantPublishedTrackResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists RoomParticipantPublishedTrack records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) RoomParticipantPublishedTrackList(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, limit int) ([]interface{}, error) {
+//Streams RoomsParticipantsPublishedTracks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) RoomsParticipantsPublishedTracksStream(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.RoomParticipantPublishedTrackPage(RoomSid, ParticipantSid, params, "", "")
+	response, err := c.ListRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListRoomParticipantPublishedTrackResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

@@ -213,8 +213,8 @@ func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams) (*ListByocTrunkR
 	return ps, err
 }
 
-//Retrieve a single page of ByocTrunk records from the API. Request is executed immediately.
-func (c *ApiService) ByocTrunkPage(params *ListByocTrunkParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) ByocTrunksPage(params *ListByocTrunkParams, pageToken string, pageNumber string) (*ListByocTrunkResponse, error) {
 	path := "/v1/ByocTrunks"
 
 	data := url.Values{}
@@ -227,32 +227,59 @@ func (c *ApiService) ByocTrunkPage(params *ListByocTrunkParams, pageToken string
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListByocTrunkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams ByocTrunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ByocTrunkStream(params *ListByocTrunkParams, limit int) (chan map[string]interface{}, error) {
+//Lists ByocTrunks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) ByocTrunksList(params *ListByocTrunkParams, limit int) ([]ListByocTrunkResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ByocTrunkPage(params, "", "")
+	response, err := c.ListByocTrunk(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListByocTrunkResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListByocTrunkResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists ByocTrunk records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ByocTrunkList(params *ListByocTrunkParams, limit int) ([]interface{}, error) {
+//Streams ByocTrunks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) ByocTrunksStream(params *ListByocTrunkParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.ByocTrunkPage(params, "", "")
+	response, err := c.ListByocTrunk(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListByocTrunkResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateByocTrunk'

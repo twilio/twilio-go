@@ -103,8 +103,8 @@ func (c *ApiService) ListUsageRecordDaily(params *ListUsageRecordDailyParams) (*
 	return ps, err
 }
 
-//Retrieve a single page of UsageRecordDaily records from the API. Request is executed immediately.
-func (c *ApiService) UsageRecordDailyPage(params *ListUsageRecordDailyParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsUsageRecordsDailyPage(params *ListUsageRecordDailyParams, pageToken string, pageNumber string) (*ListUsageRecordDailyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -134,30 +134,57 @@ func (c *ApiService) UsageRecordDailyPage(params *ListUsageRecordDailyParams, pa
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListUsageRecordDailyResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams UsageRecordDaily records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) UsageRecordDailyStream(params *ListUsageRecordDailyParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsUsageRecordsDaily records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsUsageRecordsDailyList(params *ListUsageRecordDailyParams, limit int) ([]ListUsageRecordDailyResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.UsageRecordDailyPage(params, "", "")
+	response, err := c.ListUsageRecordDaily(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListUsageRecordDailyResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListUsageRecordDailyResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists UsageRecordDaily records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) UsageRecordDailyList(params *ListUsageRecordDailyParams, limit int) ([]interface{}, error) {
+//Streams AccountsUsageRecordsDaily records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsUsageRecordsDailyStream(params *ListUsageRecordDailyParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.UsageRecordDailyPage(params, "", "")
+	response, err := c.ListUsageRecordDaily(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListUsageRecordDailyResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

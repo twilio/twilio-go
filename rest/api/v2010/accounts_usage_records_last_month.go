@@ -103,8 +103,8 @@ func (c *ApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthPa
 	return ps, err
 }
 
-//Retrieve a single page of UsageRecordLastMonth records from the API. Request is executed immediately.
-func (c *ApiService) UsageRecordLastMonthPage(params *ListUsageRecordLastMonthParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsUsageRecordsLastMonthPage(params *ListUsageRecordLastMonthParams, pageToken string, pageNumber string) (*ListUsageRecordLastMonthResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -134,30 +134,57 @@ func (c *ApiService) UsageRecordLastMonthPage(params *ListUsageRecordLastMonthPa
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListUsageRecordLastMonthResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams UsageRecordLastMonth records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) UsageRecordLastMonthStream(params *ListUsageRecordLastMonthParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsUsageRecordsLastMonth records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsUsageRecordsLastMonthList(params *ListUsageRecordLastMonthParams, limit int) ([]ListUsageRecordLastMonthResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.UsageRecordLastMonthPage(params, "", "")
+	response, err := c.ListUsageRecordLastMonth(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListUsageRecordLastMonthResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListUsageRecordLastMonthResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists UsageRecordLastMonth records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) UsageRecordLastMonthList(params *ListUsageRecordLastMonthParams, limit int) ([]interface{}, error) {
+//Streams AccountsUsageRecordsLastMonth records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsUsageRecordsLastMonthStream(params *ListUsageRecordLastMonthParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.UsageRecordLastMonthPage(params, "", "")
+	response, err := c.ListUsageRecordLastMonth(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListUsageRecordLastMonthResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

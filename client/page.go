@@ -2,8 +2,11 @@ package client
 
 import (
 	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
 	"reflect"
+	"regexp"
 )
 
 //Represents a page of records in a collection
@@ -15,10 +18,21 @@ type Page struct {
 	BaseUrl         string
 }
 
-func NewPage(baseUrl string, response *http.Response) *Page {
-	respBody := processResponse(response)
+func NewPage(baseUrl string, response interface{}) *Page {
+	var payload map[string]interface{}
+	if reflect.TypeOf(response).Kind() != reflect.Map {
+		test, err := json.Marshal(response)
+		if err != nil {
+			log.Print("Page creation error: ", err)
+			return nil
+		}
+		_ = json.Unmarshal(test, &payload)
+	} else {
+		payload = response.(map[string]interface{})
+	}
+
 	var page = Page{
-		Payload: respBody,
+		Payload: payload,
 		BaseUrl: baseUrl,
 	}
 
@@ -66,11 +80,11 @@ func (p *Page) loadPage() []interface{} {
 }
 
 func (p *Page) getNextPageUrl() string {
-	if p.Payload["meta"] != nil && p.Payload["meta"].(map[string]interface{})["next_page_url"] != nil {
+	if p.Payload != nil && p.Payload["meta"] != nil && p.Payload["meta"].(map[string]interface{})["next_page_url"] != nil {
 		return p.Payload["meta"].(map[string]interface{})["next_page_url"].(string)
 	}
 
-	if p.Payload["next_page_uri"] != nil {
+	if p.Payload != nil && p.Payload["next_page_uri"] != nil {
 		return p.BaseUrl + p.Payload["next_page_uri"].(string)
 	}
 
@@ -78,21 +92,29 @@ func (p *Page) getNextPageUrl() string {
 }
 
 func (p *Page) getPreviousPageUrl() string {
-	if p.Payload["meta"] != nil && p.Payload["meta"].(map[string]interface{})["previous_page_url"] != nil {
+	if p.Payload != nil && p.Payload["meta"] != nil && p.Payload["meta"].(map[string]interface{})["previous_page_url"] != nil {
 		return p.Payload["meta"].(map[string]interface{})["previous_page_url"].(string)
 	}
 
-	if p.Payload["previous_page_uri"] != nil {
+	if p.Payload != nil && p.Payload["previous_page_uri"] != nil {
 		return p.BaseUrl + p.Payload["previous_page_uri"].(string)
 	}
 
 	return ""
 }
 
-func (p *Page) getNextPage(c *RequestHandler) *Page {
+func (p *Page) getNextPage(c *RequestHandler, pageSize *int) *Page {
 	if p.NextPageUrl != "" {
+		//limit has been reached
+		if *pageSize != len(p.Records) {
+			//set the PageSize to the expected number of records
+			re := regexp.MustCompile(`PageSize=\d+`)
+			p.NextPageUrl = re.ReplaceAllString(p.NextPageUrl, fmt.Sprintf("PageSize=%d", *pageSize))
+
+		}
 		resp, _ := c.Get(p.NextPageUrl, nil, nil)
-		nextPage := NewPage(p.BaseUrl, resp)
+		respBody := processResponse(resp)
+		nextPage := NewPage(p.BaseUrl, respBody)
 		return nextPage
 	}
 
@@ -102,7 +124,8 @@ func (p *Page) getNextPage(c *RequestHandler) *Page {
 func (p *Page) getPreviousPage(c *RequestHandler) *Page { //nolint
 	if p.PreviousPageUrl != "" {
 		resp, _ := c.Get(p.PreviousPageUrl, nil, nil)
-		prevPage := NewPage(p.BaseUrl, resp)
+		respBody := processResponse(resp)
+		prevPage := NewPage(p.BaseUrl, respBody)
 		return prevPage
 	}
 

@@ -150,8 +150,8 @@ func (c *ApiService) ListIpRecord(params *ListIpRecordParams) (*ListIpRecordResp
 	return ps, err
 }
 
-//Retrieve a single page of IpRecord records from the API. Request is executed immediately.
-func (c *ApiService) IpRecordPage(params *ListIpRecordParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) IpRecordsPage(params *ListIpRecordParams, pageToken string, pageNumber string) (*ListIpRecordResponse, error) {
 	path := "/v1/IpRecords"
 
 	data := url.Values{}
@@ -164,32 +164,59 @@ func (c *ApiService) IpRecordPage(params *ListIpRecordParams, pageToken string, 
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListIpRecordResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams IpRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) IpRecordStream(params *ListIpRecordParams, limit int) (chan map[string]interface{}, error) {
+//Lists IpRecords records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) IpRecordsList(params *ListIpRecordParams, limit int) ([]ListIpRecordResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.IpRecordPage(params, "", "")
+	response, err := c.ListIpRecord(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListIpRecordResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListIpRecordResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists IpRecord records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) IpRecordList(params *ListIpRecordParams, limit int) ([]interface{}, error) {
+//Streams IpRecords records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) IpRecordsStream(params *ListIpRecordParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.IpRecordPage(params, "", "")
+	response, err := c.ListIpRecord(params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListIpRecordResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
 
 // Optional parameters for the method 'UpdateIpRecord'

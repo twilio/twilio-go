@@ -136,8 +136,8 @@ func (c *ApiService) ListCredentialList(TrunkSid string, params *ListCredentialL
 	return ps, err
 }
 
-//Retrieve a single page of CredentialList records from the API. Request is executed immediately.
-func (c *ApiService) CredentialListPage(TrunkSid string, params *ListCredentialListParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) TrunksCredentialListsPage(TrunkSid string, params *ListCredentialListParams, pageToken string, pageNumber string) (*ListCredentialListResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
@@ -151,30 +151,57 @@ func (c *ApiService) CredentialListPage(TrunkSid string, params *ListCredentialL
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListCredentialListResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams CredentialList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) CredentialListStream(TrunkSid string, params *ListCredentialListParams, limit int) (chan map[string]interface{}, error) {
+//Lists TrunksCredentialLists records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) TrunksCredentialListsList(TrunkSid string, params *ListCredentialListParams, limit int) ([]ListCredentialListResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.CredentialListPage(TrunkSid, params, "", "")
+	response, err := c.ListCredentialList(TrunkSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListCredentialListResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListCredentialListResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists CredentialList records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) CredentialListList(TrunkSid string, params *ListCredentialListParams, limit int) ([]interface{}, error) {
+//Streams TrunksCredentialLists records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) TrunksCredentialListsStream(TrunkSid string, params *ListCredentialListParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.CredentialListPage(TrunkSid, params, "", "")
+	response, err := c.ListCredentialList(TrunkSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListCredentialListResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }

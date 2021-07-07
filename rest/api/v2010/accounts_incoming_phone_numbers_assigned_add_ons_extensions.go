@@ -112,8 +112,8 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOnExtension(ResourceSid s
 	return ps, err
 }
 
-//Retrieve a single page of IncomingPhoneNumberAssignedAddOnExtension records from the API. Request is executed immediately.
-func (c *ApiService) IncomingPhoneNumberAssignedAddOnExtensionPage(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, pageToken string, pageNumber string) (*client.Page, error) {
+//Retrieve a single page of  records from the API. Request is executed immediately.
+func (c *ApiService) AccountsIncomingPhoneNumbersAssignedAddOnsExtensionsPage(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberAssignedAddOnExtensionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -133,30 +133,57 @@ func (c *ApiService) IncomingPhoneNumberAssignedAddOnExtensionPage(ResourceSid s
 	data.Set("PageToken", pageToken)
 	data.Set("PageNumber", pageNumber)
 
-	response, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}
 
-	return client.NewPage(c.baseURL, response), nil
+	defer resp.Body.Close()
+
+	ps := &ListIncomingPhoneNumberAssignedAddOnExtensionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
-//Streams IncomingPhoneNumberAssignedAddOnExtension records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) IncomingPhoneNumberAssignedAddOnExtensionStream(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, limit int) (chan map[string]interface{}, error) {
+//Lists AccountsIncomingPhoneNumbersAssignedAddOnsExtensions records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
+func (c *ApiService) AccountsIncomingPhoneNumbersAssignedAddOnsExtensionsList(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, limit int) ([]ListIncomingPhoneNumberAssignedAddOnExtensionResponse, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.IncomingPhoneNumberAssignedAddOnExtensionPage(ResourceSid, AssignedAddOnSid, params, "", "")
+	response, err := c.ListIncomingPhoneNumberAssignedAddOnExtension(ResourceSid, AssignedAddOnSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.Stream(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	resp := c.requestHandler.List(page, limit, 0)
+	ret := make([]ListIncomingPhoneNumberAssignedAddOnExtensionResponse, len(resp))
+
+	for i := range resp {
+		jsonStr, _ := json.Marshal(resp[i])
+		ps := ListIncomingPhoneNumberAssignedAddOnExtensionResponse{}
+		if err := json.Unmarshal(jsonStr, &ps); err != nil {
+			return ret, err
+		}
+
+		ret[i] = ps
+	}
+
+	return ret, nil
 }
 
-//Lists IncomingPhoneNumberAssignedAddOnExtension records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) IncomingPhoneNumberAssignedAddOnExtensionList(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, limit int) ([]interface{}, error) {
+//Streams AccountsIncomingPhoneNumbersAssignedAddOnsExtensions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) AccountsIncomingPhoneNumbersAssignedAddOnsExtensionsStream(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, limit int) (chan interface{}, error) {
 	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	page, err := c.IncomingPhoneNumberAssignedAddOnExtensionPage(ResourceSid, AssignedAddOnSid, params, "", "")
+	response, err := c.ListIncomingPhoneNumberAssignedAddOnExtension(ResourceSid, AssignedAddOnSid, params)
 	if err != nil {
 		return nil, err
 	}
-	return c.requestHandler.List(page, limit, 0), nil
+
+	page := client.NewPage(c.baseURL, response)
+
+	ps := ListIncomingPhoneNumberAssignedAddOnExtensionResponse{}
+	return c.requestHandler.Stream(page, limit, 0, ps), nil
 }
