@@ -32,11 +32,10 @@ func (c *ApiService) FetchDeactivation(params *FetchDeactivationParams) error {
 	path := "/v1/Deactivations"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Date != nil {
 		data.Set("Date", fmt.Sprint(*params.Date))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

@@ -41,14 +41,13 @@ func (c *ApiService) CreateModelBuild(AssistantSid string, params *CreateModelBu
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -122,11 +121,10 @@ func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildP
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -160,11 +158,10 @@ func (c *ApiService) UpdateModelBuild(AssistantSid string, Sid string, params *U
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

@@ -119,11 +119,10 @@ func (c *ApiService) ListConnectApp(params *ListConnectAppParams) (*ListConnectA
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -210,8 +209,6 @@ func (c *ApiService) UpdateConnectApp(Sid string, params *UpdateConnectAppParams
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AuthorizeRedirectUrl != nil {
 		data.Set("AuthorizeRedirectUrl", *params.AuthorizeRedirectUrl)
 	}
@@ -238,6 +235,7 @@ func (c *ApiService) UpdateConnectApp(Sid string, params *UpdateConnectAppParams
 			data.Add("Permissions", item)
 		}
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

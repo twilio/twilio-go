@@ -79,8 +79,6 @@ func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params 
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
@@ -102,7 +100,7 @@ func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params 
 	if params != nil && params.MediaSid != nil {
 		data.Set("MediaSid", *params.MediaSid)
 	}
-
+	headers := make(map[string]interface{})
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -141,7 +139,6 @@ func (c *ApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid str
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
-
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -203,14 +200,13 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Order != nil {
 		data.Set("Order", *params.Order)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -281,8 +277,6 @@ func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
@@ -301,7 +295,7 @@ func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid str
 	if params != nil && params.LastUpdatedBy != nil {
 		data.Set("LastUpdatedBy", *params.LastUpdatedBy)
 	}
-
+	headers := make(map[string]interface{})
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}

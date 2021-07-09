@@ -91,8 +91,6 @@ func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServi
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.BindingType != nil {
 		for _, item := range *params.BindingType {
 			data.Add("BindingType", item)
@@ -106,6 +104,7 @@ func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServi
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

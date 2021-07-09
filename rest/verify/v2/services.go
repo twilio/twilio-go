@@ -125,8 +125,6 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
 	path := "/v2/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CodeLength != nil {
 		data.Set("CodeLength", fmt.Sprint(*params.CodeLength))
 	}
@@ -175,6 +173,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
 	if params != nil && params.TtsName != nil {
 		data.Set("TtsName", *params.TtsName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -248,11 +247,10 @@ func (c *ApiService) ListService(params *ListServiceParams) (*ListServiceRespons
 	path := "/v2/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -376,8 +374,6 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CodeLength != nil {
 		data.Set("CodeLength", fmt.Sprint(*params.CodeLength))
 	}
@@ -426,6 +422,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 	if params != nil && params.TtsName != nil {
 		data.Set("TtsName", *params.TtsName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

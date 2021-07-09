@@ -54,8 +54,6 @@ func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, param
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CollectionTtl != nil {
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
@@ -74,6 +72,7 @@ func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, param
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -109,7 +108,6 @@ func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
-
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
@@ -183,8 +181,6 @@ func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params 
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Order != nil {
 		data.Set("Order", *params.Order)
 	}
@@ -197,6 +193,7 @@ func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -255,8 +252,6 @@ func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index
 	path = strings.Replace(path, "{"+"Index"+"}", fmt.Sprint(Index), -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CollectionTtl != nil {
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
@@ -275,7 +270,7 @@ func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
-
+	headers := make(map[string]interface{})
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}

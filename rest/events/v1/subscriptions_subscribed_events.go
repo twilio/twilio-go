@@ -42,14 +42,13 @@ func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *Creat
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.SchemaVersion != nil {
 		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
 	}
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -126,11 +125,10 @@ func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSub
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -165,11 +163,10 @@ func (c *ApiService) UpdateSubscribedEvent(SubscriptionSid string, Type string, 
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.SchemaVersion != nil {
 		data.Set("SchemaVersion", fmt.Sprint(*params.SchemaVersion))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

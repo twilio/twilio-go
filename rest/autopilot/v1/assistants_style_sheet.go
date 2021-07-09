@@ -58,8 +58,6 @@ func (c *ApiService) UpdateStyleSheet(AssistantSid string, params *UpdateStyleSh
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.StyleSheet != nil {
 		v, err := json.Marshal(params.StyleSheet)
 
@@ -69,6 +67,7 @@ func (c *ApiService) UpdateStyleSheet(AssistantSid string, params *UpdateStyleSh
 
 		data.Set("StyleSheet", string(v))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

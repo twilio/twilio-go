@@ -47,8 +47,6 @@ func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskCh
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ChannelOptimizedRouting != nil {
 		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
 	}
@@ -58,6 +56,7 @@ func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskCh
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -131,11 +130,10 @@ func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChanne
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -175,14 +173,13 @@ func (c *ApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, params *
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ChannelOptimizedRouting != nil {
 		data.Set("ChannelOptimizedRouting", fmt.Sprint(*params.ChannelOptimizedRouting))
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

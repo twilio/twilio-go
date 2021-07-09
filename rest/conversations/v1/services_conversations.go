@@ -91,8 +91,6 @@ func (c *ApiService) CreateServiceConversation(ChatServiceSid string, params *Cr
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
@@ -120,7 +118,7 @@ func (c *ApiService) CreateServiceConversation(ChatServiceSid string, params *Cr
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
-
+	headers := make(map[string]interface{})
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -159,7 +157,6 @@ func (c *ApiService) DeleteServiceConversation(ChatServiceSid string, Sid string
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
-
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -215,11 +212,10 @@ func (c *ApiService) ListServiceConversation(ChatServiceSid string, params *List
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -308,8 +304,6 @@ func (c *ApiService) UpdateServiceConversation(ChatServiceSid string, Sid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
@@ -337,7 +331,7 @@ func (c *ApiService) UpdateServiceConversation(ChatServiceSid string, Sid string
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
-
+	headers := make(map[string]interface{})
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}

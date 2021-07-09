@@ -82,8 +82,6 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
 	}
@@ -105,6 +103,7 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 	if params != nil && params.UsageCategory != nil {
 		data.Set("UsageCategory", *params.UsageCategory)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -238,8 +237,6 @@ func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams) (*ListUsag
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Recurring != nil {
 		data.Set("Recurring", *params.Recurring)
 	}
@@ -252,6 +249,7 @@ func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams) (*ListUsag
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -308,8 +306,6 @@ func (c *ApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerPa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
 	}
@@ -319,6 +315,7 @@ func (c *ApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerPa
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

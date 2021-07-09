@@ -245,8 +245,6 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010AccountCall,
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ApplicationSid != nil {
 		data.Set("ApplicationSid", *params.ApplicationSid)
 	}
@@ -353,6 +351,7 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010AccountCall,
 	if params != nil && params.Url != nil {
 		data.Set("Url", *params.Url)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -457,15 +456,15 @@ type ListCallParams struct {
 	// Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
 	StartTime *time.Time `json:"StartTime,omitempty"`
 	// Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-	StartTimeBefore *time.Time `json:"StartTime&lt;,omitempty"`
+	StartTimeBefore *time.Time `json:"StartTime<,omitempty"`
 	// Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-	StartTimeAfter *time.Time `json:"StartTime&gt;,omitempty"`
+	StartTimeAfter *time.Time `json:"StartTime>,omitempty"`
 	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
 	EndTime *time.Time `json:"EndTime,omitempty"`
 	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-	EndTimeBefore *time.Time `json:"EndTime&lt;,omitempty"`
+	EndTimeBefore *time.Time `json:"EndTime<,omitempty"`
 	// Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-	EndTimeAfter *time.Time `json:"EndTime&gt;,omitempty"`
+	EndTimeAfter *time.Time `json:"EndTime>,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 }
@@ -529,8 +528,6 @@ func (c *ApiService) ListCall(params *ListCallParams) (*ListCallResponse, error)
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
 	}
@@ -564,6 +561,7 @@ func (c *ApiService) ListCall(params *ListCallParams) (*ListCallResponse, error)
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -650,8 +648,6 @@ func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FallbackMethod != nil {
 		data.Set("FallbackMethod", *params.FallbackMethod)
 	}
@@ -676,6 +672,7 @@ func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010
 	if params != nil && params.Url != nil {
 		data.Set("Url", *params.Url)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

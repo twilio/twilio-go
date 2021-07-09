@@ -47,11 +47,10 @@ func (c *ApiService) CreateSipAuthRegistrationsCredentialListMapping(DomainSid s
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CredentialListSid != nil {
 		data.Set("CredentialListSid", *params.CredentialListSid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -171,11 +170,10 @@ func (c *ApiService) ListSipAuthRegistrationsCredentialListMapping(DomainSid str
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

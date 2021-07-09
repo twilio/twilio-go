@@ -70,8 +70,6 @@ func (c *ApiService) CreateCallFeedbackSummary(params *CreateCallFeedbackSummary
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.EndDate != nil {
 		data.Set("EndDate", fmt.Sprint(*params.EndDate))
 	}
@@ -87,6 +85,7 @@ func (c *ApiService) CreateCallFeedbackSummary(params *CreateCallFeedbackSummary
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

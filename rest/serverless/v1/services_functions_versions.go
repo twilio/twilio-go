@@ -62,11 +62,10 @@ func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, 
 	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

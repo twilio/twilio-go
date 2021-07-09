@@ -89,8 +89,6 @@ func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) (*
 	path := "/v1/Video/Rooms"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.RoomType != nil {
 		for _, item := range *params.RoomType {
 			data.Add("RoomType", item)
@@ -113,6 +111,7 @@ func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) (*
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

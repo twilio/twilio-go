@@ -130,8 +130,6 @@ func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFl
 	path := "/v1/FlexFlows"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ChannelType != nil {
 		data.Set("ChannelType", *params.ChannelType)
 	}
@@ -183,6 +181,7 @@ func (c *ApiService) CreateFlexFlow(params *CreateFlexFlowParams) (*FlexV1FlexFl
 	if params != nil && params.LongLived != nil {
 		data.Set("LongLived", fmt.Sprint(*params.LongLived))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -259,14 +258,13 @@ func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams) (*ListFlexFlowResp
 	path := "/v1/FlexFlows"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -395,8 +393,6 @@ func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ChannelType != nil {
 		data.Set("ChannelType", *params.ChannelType)
 	}
@@ -448,6 +444,7 @@ func (c *ApiService) UpdateFlexFlow(Sid string, params *UpdateFlexFlowParams) (*
 	if params != nil && params.LongLived != nil {
 		data.Set("LongLived", fmt.Sprint(*params.LongLived))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

@@ -137,8 +137,6 @@ func (c *ApiService) CreateNotification(ServiceSid string, params *CreateNotific
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Action != nil {
 		data.Set("Action", *params.Action)
 	}
@@ -243,6 +241,7 @@ func (c *ApiService) CreateNotification(ServiceSid string, params *CreateNotific
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

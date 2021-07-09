@@ -48,8 +48,6 @@ func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNum
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.IsReserved != nil {
 		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
 	}
@@ -59,6 +57,7 @@ func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNum
 	if params != nil && params.Sid != nil {
 		data.Set("Sid", *params.Sid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -135,11 +134,10 @@ func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberP
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -174,11 +172,10 @@ func (c *ApiService) UpdatePhoneNumber(ServiceSid string, Sid string, params *Up
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.IsReserved != nil {
 		data.Set("IsReserved", fmt.Sprint(*params.IsReserved))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

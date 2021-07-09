@@ -77,8 +77,6 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ProxyV1Service
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CallbackUrl != nil {
 		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
@@ -103,6 +101,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ProxyV1Service
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -176,11 +175,10 @@ func (c *ApiService) ListService(params *ListServiceParams) (*ListServiceRespons
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -256,8 +254,6 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Pr
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CallbackUrl != nil {
 		data.Set("CallbackUrl", *params.CallbackUrl)
 	}
@@ -282,6 +278,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Pr
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

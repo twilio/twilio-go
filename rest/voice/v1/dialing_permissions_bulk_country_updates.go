@@ -32,11 +32,10 @@ func (c *ApiService) CreateDialingPermissionsCountryBulkUpdate(params *CreateDia
 	path := "/v1/DialingPermissions/BulkCountryUpdates"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.UpdateRequest != nil {
 		data.Set("UpdateRequest", *params.UpdateRequest)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

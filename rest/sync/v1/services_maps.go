@@ -47,8 +47,6 @@ func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParam
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CollectionTtl != nil {
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
@@ -58,6 +56,7 @@ func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParam
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -131,11 +130,10 @@ func (c *ApiService) ListSyncMap(ServiceSid string, params *ListSyncMapParams) (
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -175,14 +173,13 @@ func (c *ApiService) UpdateSyncMap(ServiceSid string, Sid string, params *Update
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CollectionTtl != nil {
 		data.Set("CollectionTtl", fmt.Sprint(*params.CollectionTtl))
 	}
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

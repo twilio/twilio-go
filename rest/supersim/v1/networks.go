@@ -76,8 +76,6 @@ func (c *ApiService) ListNetwork(params *ListNetworkParams) (*ListNetworkRespons
 	path := "/v1/Networks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.IsoCountry != nil {
 		data.Set("IsoCountry", *params.IsoCountry)
 	}
@@ -90,6 +88,7 @@ func (c *ApiService) ListNetwork(params *ListNetworkParams) (*ListNetworkRespons
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

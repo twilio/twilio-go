@@ -82,11 +82,10 @@ func (c *ApiService) ListSyncListPermission(ServiceSid string, ListSid string, p
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -134,8 +133,6 @@ func (c *ApiService) UpdateSyncListPermission(ServiceSid string, ListSid string,
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Manage != nil {
 		data.Set("Manage", fmt.Sprint(*params.Manage))
 	}
@@ -145,6 +142,7 @@ func (c *ApiService) UpdateSyncListPermission(ServiceSid string, ListSid string,
 	if params != nil && params.Write != nil {
 		data.Set("Write", fmt.Sprint(*params.Write))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

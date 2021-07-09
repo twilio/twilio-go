@@ -79,8 +79,6 @@ func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
@@ -102,7 +100,7 @@ func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
 	}
-
+	headers := make(map[string]interface{})
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -141,7 +139,6 @@ func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid stri
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
-
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -203,8 +200,6 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Identity != nil {
 		for _, item := range *params.Identity {
 			data.Add("Identity", item)
@@ -213,6 +208,7 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -283,8 +279,6 @@ func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid stri
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
@@ -303,7 +297,7 @@ func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid stri
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
 	}
-
+	headers := make(map[string]interface{})
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}

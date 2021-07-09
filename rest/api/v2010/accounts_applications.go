@@ -130,8 +130,6 @@ func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV20
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ApiVersion != nil {
 		data.Set("ApiVersion", *params.ApiVersion)
 	}
@@ -177,6 +175,7 @@ func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV20
 	if params != nil && params.VoiceUrl != nil {
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -299,14 +298,13 @@ func (c *ApiService) ListApplication(params *ListApplicationParams) (*ListApplic
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -435,8 +433,6 @@ func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationPara
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ApiVersion != nil {
 		data.Set("ApiVersion", *params.ApiVersion)
 	}
@@ -482,6 +478,7 @@ func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationPara
 	if params != nil && params.VoiceUrl != nil {
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

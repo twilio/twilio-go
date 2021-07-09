@@ -70,8 +70,6 @@ func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, e
 	path := "/v1/Trunks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CnamLookupEnabled != nil {
 		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
 	}
@@ -93,6 +91,7 @@ func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, e
 	if params != nil && params.TransferMode != nil {
 		data.Set("TransferMode", *params.TransferMode)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -163,11 +162,10 @@ func (c *ApiService) ListTrunk(params *ListTrunkParams) (*ListTrunkResponse, err
 	path := "/v1/Trunks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -236,8 +234,6 @@ func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*Trunki
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CnamLookupEnabled != nil {
 		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
 	}
@@ -259,6 +255,7 @@ func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*Trunki
 	if params != nil && params.TransferMode != nil {
 		data.Set("TransferMode", *params.TransferMode)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

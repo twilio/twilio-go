@@ -83,8 +83,6 @@ func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV
 	path := "/v1/Compositions"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AudioSources != nil {
 		for _, item := range *params.AudioSources {
 			data.Add("AudioSources", item)
@@ -122,6 +120,7 @@ func (c *ApiService) CreateComposition(params *CreateCompositionParams) (*VideoV
 
 		data.Set("VideoLayout", string(v))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -219,8 +218,6 @@ func (c *ApiService) ListComposition(params *ListCompositionParams) (*ListCompos
 	path := "/v1/Compositions"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
@@ -236,6 +233,7 @@ func (c *ApiService) ListComposition(params *ListCompositionParams) (*ListCompos
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

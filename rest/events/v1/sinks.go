@@ -47,8 +47,6 @@ func (c *ApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error)
 	path := "/v1/Sinks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
 	}
@@ -64,6 +62,7 @@ func (c *ApiService) CreateSink(params *CreateSinkParams) (*EventsV1Sink, error)
 	if params != nil && params.SinkType != nil {
 		data.Set("SinkType", *params.SinkType)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -149,8 +148,6 @@ func (c *ApiService) ListSink(params *ListSinkParams) (*ListSinkResponse, error)
 	path := "/v1/Sinks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.InUse != nil {
 		data.Set("InUse", fmt.Sprint(*params.InUse))
 	}
@@ -160,6 +157,7 @@ func (c *ApiService) ListSink(params *ListSinkParams) (*ListSinkResponse, error)
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -193,11 +191,10 @@ func (c *ApiService) UpdateSink(Sid string, params *UpdateSinkParams) (*EventsV1
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

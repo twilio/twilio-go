@@ -71,8 +71,6 @@ func (c *ApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Comm
 	path := "/v1/Commands"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CallbackMethod != nil {
 		data.Set("CallbackMethod", *params.CallbackMethod)
 	}
@@ -94,6 +92,7 @@ func (c *ApiService) CreateCommand(params *CreateCommandParams) (*WirelessV1Comm
 	if params != nil && params.Sim != nil {
 		data.Set("Sim", *params.Sim)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -191,8 +190,6 @@ func (c *ApiService) ListCommand(params *ListCommandParams) (*ListCommandRespons
 	path := "/v1/Commands"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Sim != nil {
 		data.Set("Sim", *params.Sim)
 	}
@@ -208,6 +205,7 @@ func (c *ApiService) ListCommand(params *ListCommandParams) (*ListCommandRespons
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

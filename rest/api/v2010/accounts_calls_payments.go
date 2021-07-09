@@ -137,8 +137,6 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.BankAccountType != nil {
 		data.Set("BankAccountType", *params.BankAccountType)
 	}
@@ -193,6 +191,7 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 	if params != nil && params.ValidCardTypes != nil {
 		data.Set("ValidCardTypes", *params.ValidCardTypes)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -256,8 +255,6 @@ func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Capture != nil {
 		data.Set("Capture", *params.Capture)
 	}
@@ -270,6 +267,7 @@ func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePa
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

@@ -59,8 +59,6 @@ func (c *ApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
@@ -76,6 +74,7 @@ func (c *ApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (
 	if params != nil && params.WorkflowSid != nil {
 		data.Set("WorkflowSid", *params.WorkflowSid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -110,7 +109,6 @@ func (c *ApiService) DeleteTask(WorkspaceSid string, Sid string, params *DeleteT
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
-
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}
@@ -218,8 +216,6 @@ func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams) (*Lis
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Priority != nil {
 		data.Set("Priority", fmt.Sprint(*params.Priority))
 	}
@@ -252,6 +248,7 @@ func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams) (*Lis
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -315,8 +312,6 @@ func (c *ApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateT
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AssignmentStatus != nil {
 		data.Set("AssignmentStatus", *params.AssignmentStatus)
 	}
@@ -332,7 +327,7 @@ func (c *ApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateT
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
-
+	headers := make(map[string]interface{})
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}

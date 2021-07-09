@@ -62,14 +62,13 @@ func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingPar
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Mode != nil {
 		data.Set("Mode", *params.Mode)
 	}
 	if params != nil && params.Trim != nil {
 		data.Set("Trim", *params.Trim)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

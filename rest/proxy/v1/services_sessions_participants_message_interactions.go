@@ -44,8 +44,6 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Body != nil {
 		data.Set("Body", *params.Body)
 	}
@@ -54,6 +52,7 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 			data.Add("MediaUrl", item)
 		}
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -113,11 +112,10 @@ func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

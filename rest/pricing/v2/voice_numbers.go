@@ -35,11 +35,10 @@ func (c *ApiService) FetchVoiceNumber(DestinationNumber string, params *FetchVoi
 	path = strings.Replace(path, "{"+"DestinationNumber"+"}", DestinationNumber, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.OriginationNumber != nil {
 		data.Set("OriginationNumber", *params.OriginationNumber)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

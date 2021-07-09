@@ -48,8 +48,6 @@ func (c *ApiService) CreateEngagement(FlowSid string, params *CreateEngagementPa
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
 	}
@@ -65,6 +63,7 @@ func (c *ApiService) CreateEngagement(FlowSid string, params *CreateEngagementPa
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -141,11 +140,10 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

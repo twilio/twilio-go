@@ -64,8 +64,6 @@ func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Taskrouter
 	path := "/v1/Workspaces"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.EventCallbackUrl != nil {
 		data.Set("EventCallbackUrl", *params.EventCallbackUrl)
 	}
@@ -84,6 +82,7 @@ func (c *ApiService) CreateWorkspace(params *CreateWorkspaceParams) (*Taskrouter
 	if params != nil && params.Template != nil {
 		data.Set("Template", *params.Template)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -160,14 +159,13 @@ func (c *ApiService) ListWorkspace(params *ListWorkspaceParams) (*ListWorkspaceR
 	path := "/v1/Workspaces"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -236,8 +234,6 @@ func (c *ApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.DefaultActivitySid != nil {
 		data.Set("DefaultActivitySid", *params.DefaultActivitySid)
 	}
@@ -259,6 +255,7 @@ func (c *ApiService) UpdateWorkspace(Sid string, params *UpdateWorkspaceParams) 
 	if params != nil && params.TimeoutActivitySid != nil {
 		data.Set("TimeoutActivitySid", *params.TimeoutActivitySid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

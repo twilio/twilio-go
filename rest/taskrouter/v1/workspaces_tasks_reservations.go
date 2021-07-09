@@ -66,14 +66,13 @@ func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, pa
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ReservationStatus != nil {
 		data.Set("ReservationStatus", *params.ReservationStatus)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -420,8 +419,6 @@ func (c *ApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid string, 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Beep != nil {
 		data.Set("Beep", *params.Beep)
 	}
@@ -587,6 +584,7 @@ func (c *ApiService) UpdateTaskReservation(WorkspaceSid string, TaskSid string, 
 	if params != nil && params.WorkerActivitySid != nil {
 		data.Set("WorkerActivitySid", *params.WorkerActivitySid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

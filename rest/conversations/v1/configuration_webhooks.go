@@ -76,8 +76,6 @@ func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebho
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Filters != nil {
 		for _, item := range *params.Filters {
 			data.Add("Filters", item)
@@ -95,6 +93,7 @@ func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebho
 	if params != nil && params.Target != nil {
 		data.Set("Target", *params.Target)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

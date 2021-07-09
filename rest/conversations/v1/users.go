@@ -59,8 +59,6 @@ func (c *ApiService) CreateUser(params *CreateUserParams) (*ConversationsV1User,
 	path := "/v1/Users"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
@@ -73,7 +71,7 @@ func (c *ApiService) CreateUser(params *CreateUserParams) (*ConversationsV1User,
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
 	}
-
+	headers := make(map[string]interface{})
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -111,7 +109,6 @@ func (c *ApiService) DeleteUser(Sid string, params *DeleteUserParams) error {
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
-
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}
@@ -165,11 +162,10 @@ func (c *ApiService) ListUser(params *ListUserParams) (*ListUserResponse, error)
 	path := "/v1/Users"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -221,8 +217,6 @@ func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*Conversa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
@@ -232,7 +226,7 @@ func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*Conversa
 	if params != nil && params.RoleSid != nil {
 		data.Set("RoleSid", *params.RoleSid)
 	}
-
+	headers := make(map[string]interface{})
 	if params != nil && params.XTwilioWebhookEnabled != nil {
 		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
 	}

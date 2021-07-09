@@ -59,8 +59,6 @@ func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOrigina
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
@@ -76,6 +74,7 @@ func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOrigina
 	if params != nil && params.Weight != nil {
 		data.Set("Weight", fmt.Sprint(*params.Weight))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -149,11 +148,10 @@ func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOrigination
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -211,8 +209,6 @@ func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *U
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
@@ -228,6 +224,7 @@ func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *U
 	if params != nil && params.Weight != nil {
 		data.Set("Weight", fmt.Sprint(*params.Weight))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

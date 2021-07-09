@@ -34,11 +34,10 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*IpMessagingV2S
 	path := "/v2/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -109,11 +108,10 @@ func (c *ApiService) ListService(params *ListServiceParams) (*ListServiceRespons
 	path := "/v2/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -326,8 +324,6 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ip
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ConsumptionReportInterval != nil {
 		data.Set("ConsumptionReportInterval", fmt.Sprint(*params.ConsumptionReportInterval))
 	}
@@ -423,6 +419,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ip
 	if params != nil && params.WebhookMethod != nil {
 		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

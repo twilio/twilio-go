@@ -113,8 +113,6 @@ func (c *ApiService) ListRecording(params *ListRecordingParams) (*ListRecordingR
 	path := "/v1/Recordings"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
@@ -138,6 +136,7 @@ func (c *ApiService) ListRecording(params *ListRecordingParams) (*ListRecordingR
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

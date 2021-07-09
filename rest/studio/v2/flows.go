@@ -53,8 +53,6 @@ func (c *ApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow, error)
 	path := "/v2/Flows"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CommitMessage != nil {
 		data.Set("CommitMessage", *params.CommitMessage)
 	}
@@ -73,6 +71,7 @@ func (c *ApiService) CreateFlow(params *CreateFlowParams) (*StudioV2Flow, error)
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -146,11 +145,10 @@ func (c *ApiService) ListFlow(params *ListFlowParams) (*ListFlowResponse, error)
 	path := "/v2/Flows"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -202,8 +200,6 @@ func (c *ApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*StudioV2
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CommitMessage != nil {
 		data.Set("CommitMessage", *params.CommitMessage)
 	}
@@ -222,6 +218,7 @@ func (c *ApiService) UpdateFlow(Sid string, params *UpdateFlowParams) (*StudioV2
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

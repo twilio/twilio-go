@@ -48,8 +48,6 @@ func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params 
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
@@ -59,6 +57,7 @@ func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params 
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -141,14 +140,13 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Order != nil {
 		data.Set("Order", *params.Order)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -189,14 +187,13 @@ func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		data.Set("Attributes", *params.Attributes)
 	}
 	if params != nil && params.Body != nil {
 		data.Set("Body", *params.Body)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

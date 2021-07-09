@@ -47,11 +47,10 @@ func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.InstalledAddOnSid != nil {
 		data.Set("InstalledAddOnSid", *params.InstalledAddOnSid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -171,11 +170,10 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

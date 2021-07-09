@@ -88,8 +88,6 @@ func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1Byo
 	path := "/v1/ByocTrunks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CnamLookupEnabled != nil {
 		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
 	}
@@ -120,6 +118,7 @@ func (c *ApiService) CreateByocTrunk(params *CreateByocTrunkParams) (*VoiceV1Byo
 	if params != nil && params.VoiceUrl != nil {
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -190,11 +189,10 @@ func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams) (*ListByocTrunkR
 	path := "/v1/ByocTrunks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -281,8 +279,6 @@ func (c *ApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CnamLookupEnabled != nil {
 		data.Set("CnamLookupEnabled", fmt.Sprint(*params.CnamLookupEnabled))
 	}
@@ -313,6 +309,7 @@ func (c *ApiService) UpdateByocTrunk(Sid string, params *UpdateByocTrunkParams) 
 	if params != nil && params.VoiceUrl != nil {
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

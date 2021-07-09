@@ -118,8 +118,6 @@ func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010Ac
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ByocTrunkSid != nil {
 		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
 	}
@@ -159,6 +157,7 @@ func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010Ac
 	if params != nil && params.VoiceUrl != nil {
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -275,11 +274,10 @@ func (c *ApiService) ListSipDomain(params *ListSipDomainParams) (*ListSipDomainR
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -396,8 +394,6 @@ func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ByocTrunkSid != nil {
 		data.Set("ByocTrunkSid", *params.ByocTrunkSid)
 	}
@@ -437,6 +433,7 @@ func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) 
 	if params != nil && params.VoiceUrl != nil {
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

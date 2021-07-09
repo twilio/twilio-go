@@ -94,8 +94,6 @@ func (c *ApiService) ListEvent(params *ListEventParams) (*ListEventResponse, err
 	path := "/v1/Events"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ActorSid != nil {
 		data.Set("ActorSid", *params.ActorSid)
 	}
@@ -117,6 +115,7 @@ func (c *ApiService) ListEvent(params *ListEventParams) (*ListEventResponse, err
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

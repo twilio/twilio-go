@@ -75,8 +75,6 @@ func (c *ApiService) ListAlert(params *ListAlertParams) (*ListAlertResponse, err
 	path := "/v1/Alerts"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.LogLevel != nil {
 		data.Set("LogLevel", *params.LogLevel)
 	}
@@ -89,6 +87,7 @@ func (c *ApiService) ListAlert(params *ListAlertParams) (*ListAlertResponse, err
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

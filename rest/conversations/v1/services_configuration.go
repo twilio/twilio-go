@@ -77,8 +77,6 @@ func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *U
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.DefaultChatServiceRoleSid != nil {
 		data.Set("DefaultChatServiceRoleSid", *params.DefaultChatServiceRoleSid)
 	}
@@ -91,6 +89,7 @@ func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *U
 	if params != nil && params.ReachabilityEnabled != nil {
 		data.Set("ReachabilityEnabled", fmt.Sprint(*params.ReachabilityEnabled))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

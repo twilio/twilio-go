@@ -101,8 +101,6 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Amount != nil {
 		data.Set("Amount", *params.Amount)
 	}
@@ -151,6 +149,7 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -209,11 +208,10 @@ func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *U
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

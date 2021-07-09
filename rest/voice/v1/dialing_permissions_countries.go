@@ -94,8 +94,6 @@ func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermission
 	path := "/v1/DialingPermissions/Countries"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.IsoCode != nil {
 		data.Set("IsoCode", *params.IsoCode)
 	}
@@ -117,6 +115,7 @@ func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermission
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

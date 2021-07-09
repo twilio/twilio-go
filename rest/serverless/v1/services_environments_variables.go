@@ -43,14 +43,13 @@ func (c *ApiService) CreateVariable(ServiceSid string, EnvironmentSid string, pa
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Key != nil {
 		data.Set("Key", *params.Key)
 	}
 	if params != nil && params.Value != nil {
 		data.Set("Value", *params.Value)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -130,11 +129,10 @@ func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, para
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -176,14 +174,13 @@ func (c *ApiService) UpdateVariable(ServiceSid string, EnvironmentSid string, Si
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Key != nil {
 		data.Set("Key", *params.Key)
 	}
 	if params != nil && params.Value != nil {
 		data.Set("Value", *params.Value)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

@@ -71,8 +71,6 @@ func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Regulat
 	path := "/v2/RegulatoryCompliance/Bundles"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Email != nil {
 		data.Set("Email", *params.Email)
 	}
@@ -94,6 +92,7 @@ func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Regulat
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -197,8 +196,6 @@ func (c *ApiService) ListBundle(params *ListBundleParams) (*ListBundleResponse, 
 	path := "/v2/RegulatoryCompliance/Bundles"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
@@ -217,6 +214,7 @@ func (c *ApiService) ListBundle(params *ListBundleParams) (*ListBundleResponse, 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -268,8 +266,6 @@ func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*Numb
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Email != nil {
 		data.Set("Email", *params.Email)
 	}
@@ -282,6 +278,7 @@ func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*Numb
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

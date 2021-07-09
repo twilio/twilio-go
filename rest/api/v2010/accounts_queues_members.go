@@ -87,11 +87,10 @@ func (c *ApiService) ListMember(QueueSid string, params *ListMemberParams) (*Lis
 	path = strings.Replace(path, "{"+"QueueSid"+"}", QueueSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -143,14 +142,13 @@ func (c *ApiService) UpdateMember(QueueSid string, CallSid string, params *Updat
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Method != nil {
 		data.Set("Method", *params.Method)
 	}
 	if params != nil && params.Url != nil {
 		data.Set("Url", *params.Url)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

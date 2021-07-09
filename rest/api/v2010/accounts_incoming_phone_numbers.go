@@ -184,8 +184,6 @@ func (c *ApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumber
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AddressSid != nil {
 		data.Set("AddressSid", *params.AddressSid)
 	}
@@ -258,6 +256,7 @@ func (c *ApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumber
 	if params != nil && params.VoiceUrl != nil {
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -398,8 +397,6 @@ func (c *ApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Beta != nil {
 		data.Set("Beta", fmt.Sprint(*params.Beta))
 	}
@@ -415,6 +412,7 @@ func (c *ApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -591,8 +589,6 @@ func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AccountSid != nil {
 		data.Set("AccountSid", *params.AccountSid)
 	}
@@ -662,6 +658,7 @@ func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomin
 	if params != nil && params.VoiceUrl != nil {
 		data.Set("VoiceUrl", *params.VoiceUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

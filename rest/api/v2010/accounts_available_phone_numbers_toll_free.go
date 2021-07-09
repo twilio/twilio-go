@@ -154,8 +154,6 @@ func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params
 	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AreaCode != nil {
 		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
 	}
@@ -213,6 +211,7 @@ func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

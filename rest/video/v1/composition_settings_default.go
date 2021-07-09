@@ -62,8 +62,6 @@ func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettings
 	path := "/v1/CompositionSettings/Default"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AwsCredentialsSid != nil {
 		data.Set("AwsCredentialsSid", *params.AwsCredentialsSid)
 	}
@@ -82,6 +80,7 @@ func (c *ApiService) CreateCompositionSettings(params *CreateCompositionSettings
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

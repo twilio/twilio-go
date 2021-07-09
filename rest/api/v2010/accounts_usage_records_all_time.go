@@ -68,8 +68,6 @@ func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Category != nil {
 		data.Set("Category", *params.Category)
 	}
@@ -85,6 +83,7 @@ func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

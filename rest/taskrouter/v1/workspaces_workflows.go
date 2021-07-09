@@ -59,8 +59,6 @@ func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowP
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AssignmentCallbackUrl != nil {
 		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
 	}
@@ -76,6 +74,7 @@ func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowP
 	if params != nil && params.TaskReservationTimeout != nil {
 		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -155,14 +154,13 @@ func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParam
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -226,8 +224,6 @@ func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *Upd
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AssignmentCallbackUrl != nil {
 		data.Set("AssignmentCallbackUrl", *params.AssignmentCallbackUrl)
 	}
@@ -246,6 +242,7 @@ func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *Upd
 	if params != nil && params.TaskReservationTimeout != nil {
 		data.Set("TaskReservationTimeout", fmt.Sprint(*params.TaskReservationTimeout))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

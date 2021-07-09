@@ -61,8 +61,6 @@ func (c *ApiService) CreateParticipant(ServiceSid string, SessionSid string, par
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FailOnParticipantConflict != nil {
 		data.Set("FailOnParticipantConflict", fmt.Sprint(*params.FailOnParticipantConflict))
 	}
@@ -78,6 +76,7 @@ func (c *ApiService) CreateParticipant(ServiceSid string, SessionSid string, par
 	if params != nil && params.ProxyIdentifierSid != nil {
 		data.Set("ProxyIdentifierSid", *params.ProxyIdentifierSid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -157,11 +156,10 @@ func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, param
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

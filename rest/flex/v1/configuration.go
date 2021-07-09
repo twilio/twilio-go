@@ -31,11 +31,10 @@ func (c *ApiService) FetchConfiguration(params *FetchConfigurationParams) (*Flex
 	path := "/v1/Configuration"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.UiVersion != nil {
 		data.Set("UiVersion", *params.UiVersion)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

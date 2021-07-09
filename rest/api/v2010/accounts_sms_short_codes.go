@@ -97,8 +97,6 @@ func (c *ApiService) ListShortCode(params *ListShortCodeParams) (*ListShortCodeR
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -108,6 +106,7 @@ func (c *ApiService) ListShortCode(params *ListShortCodeParams) (*ListShortCodeR
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -182,8 +181,6 @@ func (c *ApiService) UpdateShortCode(Sid string, params *UpdateShortCodeParams) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ApiVersion != nil {
 		data.Set("ApiVersion", *params.ApiVersion)
 	}
@@ -202,6 +199,7 @@ func (c *ApiService) UpdateShortCode(Sid string, params *UpdateShortCodeParams) 
 	if params != nil && params.SmsUrl != nil {
 		data.Set("SmsUrl", *params.SmsUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

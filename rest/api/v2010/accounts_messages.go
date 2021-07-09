@@ -137,8 +137,6 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Accoun
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AddressRetention != nil {
 		data.Set("AddressRetention", *params.AddressRetention)
 	}
@@ -191,6 +189,7 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Accoun
 	if params != nil && params.ValidityPeriod != nil {
 		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -291,9 +290,9 @@ type ListMessageParams struct {
 	// The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
 	DateSent *time.Time `json:"DateSent,omitempty"`
 	// The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
-	DateSentBefore *time.Time `json:"DateSent&lt;,omitempty"`
+	DateSentBefore *time.Time `json:"DateSent<,omitempty"`
 	// The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to read only messages sent on this date. For example: `2009-07-06`. You can also specify an inequality, such as `DateSent<=YYYY-MM-DD`, to read messages sent on or before midnight on a date, and `DateSent>=YYYY-MM-DD` to read messages sent on or after midnight on a date.
-	DateSentAfter *time.Time `json:"DateSent&gt;,omitempty"`
+	DateSentAfter *time.Time `json:"DateSent>,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 }
@@ -337,8 +336,6 @@ func (c *ApiService) ListMessage(params *ListMessageParams) (*ListMessageRespons
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
 	}
@@ -357,6 +354,7 @@ func (c *ApiService) ListMessage(params *ListMessageParams) (*ListMessageRespons
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -401,11 +399,10 @@ func (c *ApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*Ap
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Body != nil {
 		data.Set("Body", *params.Body)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

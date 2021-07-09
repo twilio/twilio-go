@@ -118,8 +118,6 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*MessagingV1Ser
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AreaCodeGeomatch != nil {
 		data.Set("AreaCodeGeomatch", fmt.Sprint(*params.AreaCodeGeomatch))
 	}
@@ -165,6 +163,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*MessagingV1Ser
 	if params != nil && params.ValidityPeriod != nil {
 		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -235,11 +234,10 @@ func (c *ApiService) ListService(params *ListServiceParams) (*ListServiceRespons
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -356,8 +354,6 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Me
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AreaCodeGeomatch != nil {
 		data.Set("AreaCodeGeomatch", fmt.Sprint(*params.AreaCodeGeomatch))
 	}
@@ -403,6 +399,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Me
 	if params != nil && params.ValidityPeriod != nil {
 		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

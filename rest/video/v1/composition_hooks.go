@@ -89,8 +89,6 @@ func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) 
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AudioSources != nil {
 		for _, item := range *params.AudioSources {
 			data.Add("AudioSources", item)
@@ -131,6 +129,7 @@ func (c *ApiService) CreateCompositionHook(params *CreateCompositionHookParams) 
 
 		data.Set("VideoLayout", string(v))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -228,8 +227,6 @@ func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) (*Li
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
@@ -245,6 +242,7 @@ func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) (*Li
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -331,8 +329,6 @@ func (c *ApiService) UpdateCompositionHook(Sid string, params *UpdateComposition
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AudioSources != nil {
 		for _, item := range *params.AudioSources {
 			data.Add("AudioSources", item)
@@ -373,6 +369,7 @@ func (c *ApiService) UpdateCompositionHook(Sid string, params *UpdateComposition
 
 		data.Set("VideoLayout", string(v))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

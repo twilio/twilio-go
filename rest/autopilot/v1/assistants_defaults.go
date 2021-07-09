@@ -56,8 +56,6 @@ func (c *ApiService) UpdateDefaults(AssistantSid string, params *UpdateDefaultsP
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Defaults != nil {
 		v, err := json.Marshal(params.Defaults)
 
@@ -67,6 +65,7 @@ func (c *ApiService) UpdateDefaults(AssistantSid string, params *UpdateDefaultsP
 
 		data.Set("Defaults", string(v))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

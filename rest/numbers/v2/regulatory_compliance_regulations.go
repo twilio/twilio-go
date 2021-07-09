@@ -76,8 +76,6 @@ func (c *ApiService) ListRegulation(params *ListRegulationParams) (*ListRegulati
 	path := "/v2/RegulatoryCompliance/Regulations"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.EndUserType != nil {
 		data.Set("EndUserType", *params.EndUserType)
 	}
@@ -90,6 +88,7 @@ func (c *ApiService) ListRegulation(params *ListRegulationParams) (*ListRegulati
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

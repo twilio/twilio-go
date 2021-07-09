@@ -72,8 +72,6 @@ func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*Co
 	path := "/v1/Configuration"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.DefaultChatServiceSid != nil {
 		data.Set("DefaultChatServiceSid", *params.DefaultChatServiceSid)
 	}
@@ -86,6 +84,7 @@ func (c *ApiService) UpdateConfiguration(params *UpdateConfigurationParams) (*Co
 	if params != nil && params.DefaultMessagingServiceSid != nil {
 		data.Set("DefaultMessagingServiceSid", *params.DefaultMessagingServiceSid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

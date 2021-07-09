@@ -61,8 +61,6 @@ func (c *ApiService) FetchWorkflowStatistics(WorkspaceSid string, WorkflowSid st
 	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Minutes != nil {
 		data.Set("Minutes", fmt.Sprint(*params.Minutes))
 	}
@@ -78,6 +76,7 @@ func (c *ApiService) FetchWorkflowStatistics(WorkspaceSid string, WorkflowSid st
 	if params != nil && params.SplitByWaitTime != nil {
 		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

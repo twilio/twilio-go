@@ -41,8 +41,6 @@ func (c *ApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfi
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Networks != nil {
 		for _, item := range *params.Networks {
 			data.Add("Networks", item)
@@ -51,6 +49,7 @@ func (c *ApiService) CreateNetworkAccessProfile(params *CreateNetworkAccessProfi
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -106,11 +105,10 @@ func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfilePa
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -144,11 +142,10 @@ func (c *ApiService) UpdateNetworkAccessProfile(Sid string, params *UpdateNetwor
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

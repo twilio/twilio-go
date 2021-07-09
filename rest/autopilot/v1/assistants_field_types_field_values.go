@@ -48,8 +48,6 @@ func (c *ApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, 
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
 	}
@@ -59,6 +57,7 @@ func (c *ApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, 
 	if params != nil && params.Value != nil {
 		data.Set("Value", *params.Value)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -141,14 +140,13 @@ func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, pa
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

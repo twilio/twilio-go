@@ -60,8 +60,6 @@ func (c *ApiService) UpdateTaskActions(AssistantSid string, TaskSid string, para
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Actions != nil {
 		v, err := json.Marshal(params.Actions)
 
@@ -71,6 +69,7 @@ func (c *ApiService) UpdateTaskActions(AssistantSid string, TaskSid string, para
 
 		data.Set("Actions", string(v))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

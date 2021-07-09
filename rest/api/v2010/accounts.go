@@ -35,11 +35,10 @@ func (c *ApiService) CreateAccount(params *CreateAccountParams) (*ApiV2010Accoun
 	path := "/2010-04-01/Accounts.json"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -107,8 +106,6 @@ func (c *ApiService) ListAccount(params *ListAccountParams) (*ListAccountRespons
 	path := "/2010-04-01/Accounts.json"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -118,6 +115,7 @@ func (c *ApiService) ListAccount(params *ListAccountParams) (*ListAccountRespons
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -157,14 +155,13 @@ func (c *ApiService) UpdateAccount(Sid string, params *UpdateAccountParams) (*Ap
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

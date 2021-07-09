@@ -47,11 +47,10 @@ func (c *ApiService) CreateSipIpAccessControlListMapping(DomainSid string, param
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.IpAccessControlListSid != nil {
 		data.Set("IpAccessControlListSid", *params.IpAccessControlListSid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -171,11 +170,10 @@ func (c *ApiService) ListSipIpAccessControlListMapping(DomainSid string, params 
 	path = strings.Replace(path, "{"+"DomainSid"+"}", DomainSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

@@ -46,8 +46,6 @@ func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRec
 	path := "/v1/IpRecords"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CidrPrefixLength != nil {
 		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
 	}
@@ -57,6 +55,7 @@ func (c *ApiService) CreateIpRecord(params *CreateIpRecordParams) (*VoiceV1IpRec
 	if params != nil && params.IpAddress != nil {
 		data.Set("IpAddress", *params.IpAddress)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -127,11 +126,10 @@ func (c *ApiService) ListIpRecord(params *ListIpRecordParams) (*ListIpRecordResp
 	path := "/v1/IpRecords"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -164,11 +162,10 @@ func (c *ApiService) UpdateIpRecord(Sid string, params *UpdateIpRecordParams) (*
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

@@ -109,8 +109,6 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.BindingAlg != nil {
 		data.Set("Binding.Alg", *params.BindingAlg)
 	}
@@ -150,6 +148,7 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -229,11 +228,10 @@ func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *List
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -311,8 +309,6 @@ func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AuthPayload != nil {
 		data.Set("AuthPayload", *params.AuthPayload)
 	}
@@ -337,6 +333,7 @@ func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

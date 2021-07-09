@@ -47,8 +47,6 @@ func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*NumbersV2Regul
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
 
@@ -64,6 +62,7 @@ func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*NumbersV2Regul
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -137,11 +136,10 @@ func (c *ApiService) ListEndUser(params *ListEndUserParams) (*ListEndUserRespons
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -181,8 +179,6 @@ func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*Nu
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Attributes != nil {
 		v, err := json.Marshal(params.Attributes)
 
@@ -195,6 +191,7 @@ func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*Nu
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
