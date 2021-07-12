@@ -146,8 +146,10 @@ func (params *ListAvailablePhoneNumberTollFreeParams) SetPageSize(PageSize int) 
 	return params
 }
 
-func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams) (*ListAvailablePhoneNumberTollFreeResponse, error) {
+//Retrieve a single page of AvailablePhoneNumberTollFree records from the API. Request is executed immediately.
+func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -216,94 +218,12 @@ func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListAvailablePhoneNumberTollFreeResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsAvailablePhoneNumbersTollFreePage(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberTollFreeResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"CountryCode"+"}", CountryCode, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.AreaCode != nil {
-		data.Set("AreaCode", fmt.Sprint(*params.AreaCode))
-	}
-	if params != nil && params.Contains != nil {
-		data.Set("Contains", *params.Contains)
-	}
-	if params != nil && params.SmsEnabled != nil {
-		data.Set("SmsEnabled", fmt.Sprint(*params.SmsEnabled))
-	}
-	if params != nil && params.MmsEnabled != nil {
-		data.Set("MmsEnabled", fmt.Sprint(*params.MmsEnabled))
-	}
-	if params != nil && params.VoiceEnabled != nil {
-		data.Set("VoiceEnabled", fmt.Sprint(*params.VoiceEnabled))
-	}
-	if params != nil && params.ExcludeAllAddressRequired != nil {
-		data.Set("ExcludeAllAddressRequired", fmt.Sprint(*params.ExcludeAllAddressRequired))
-	}
-	if params != nil && params.ExcludeLocalAddressRequired != nil {
-		data.Set("ExcludeLocalAddressRequired", fmt.Sprint(*params.ExcludeLocalAddressRequired))
-	}
-	if params != nil && params.ExcludeForeignAddressRequired != nil {
-		data.Set("ExcludeForeignAddressRequired", fmt.Sprint(*params.ExcludeForeignAddressRequired))
-	}
-	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
-	}
-	if params != nil && params.NearNumber != nil {
-		data.Set("NearNumber", *params.NearNumber)
-	}
-	if params != nil && params.NearLatLong != nil {
-		data.Set("NearLatLong", *params.NearLatLong)
-	}
-	if params != nil && params.Distance != nil {
-		data.Set("Distance", fmt.Sprint(*params.Distance))
-	}
-	if params != nil && params.InPostalCode != nil {
-		data.Set("InPostalCode", *params.InPostalCode)
-	}
-	if params != nil && params.InRegion != nil {
-		data.Set("InRegion", *params.InRegion)
-	}
-	if params != nil && params.InRateCenter != nil {
-		data.Set("InRateCenter", *params.InRateCenter)
-	}
-	if params != nil && params.InLata != nil {
-		data.Set("InLata", *params.InLata)
-	}
-	if params != nil && params.InLocality != nil {
-		data.Set("InLocality", *params.InLocality)
-	}
-	if params != nil && params.FaxEnabled != nil {
-		data.Set("FaxEnabled", fmt.Sprint(*params.FaxEnabled))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -320,42 +240,77 @@ func (c *ApiService) AccountsAvailablePhoneNumbersTollFreePage(CountryCode strin
 	return ps, err
 }
 
-//Lists AccountsAvailablePhoneNumbersTollFree records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsAvailablePhoneNumbersTollFreeList(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, limit int) ([]ListAvailablePhoneNumberTollFreeResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListAvailablePhoneNumberTollFree(CountryCode, params)
+//Lists AvailablePhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, limit *int) ([]*ListAvailablePhoneNumberTollFreeResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageAvailablePhoneNumberTollFree(CountryCode, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListAvailablePhoneNumberTollFreeResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListAvailablePhoneNumberTollFreeResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListAvailablePhoneNumberTollFreeResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAvailablePhoneNumberTollFreeResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListAvailablePhoneNumberTollFreeResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsAvailablePhoneNumbersTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsAvailablePhoneNumbersTollFreeStream(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListAvailablePhoneNumberTollFree(CountryCode, params)
+//Streams AvailablePhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, limit *int) (chan *ListAvailablePhoneNumberTollFreeResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageAvailablePhoneNumberTollFree(CountryCode, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListAvailablePhoneNumberTollFreeResponse, 1)
 
-	ps := ListAvailablePhoneNumberTollFreeResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAvailablePhoneNumberTollFreeResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListAvailablePhoneNumberTollFreeResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListAvailablePhoneNumberTollFreeResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAvailablePhoneNumberTollFreeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

@@ -76,15 +76,13 @@ func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params 
 		data.Set("AuthPayload", *params.AuthPayload)
 	}
 	if params != nil && params.DetailsFields != nil {
-		for _, item := range *params.DetailsFields {
-			v, err := json.Marshal(item)
+		v, err := json.Marshal(params.DetailsFields)
 
-			if err != nil {
-				return nil, err
-			}
-
-			data.Add("Details.Fields", string(v))
+		if err != nil {
+			return nil, err
 		}
+
+		data.Set("Details.Fields", string(v))
 	}
 	if params != nil && params.DetailsMessage != nil {
 		data.Set("Details.Message", *params.DetailsMessage)
@@ -168,9 +166,10 @@ func (params *ListChallengeParams) SetPageSize(PageSize int) *ListChallengeParam
 	return params
 }
 
-// Retrieve a list of all Challenges for a Factor.
-func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *ListChallengeParams) (*ListChallengeResponse, error) {
+//Retrieve a single page of Challenge records from the API. Request is executed immediately.
+func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *ListChallengeParams, pageToken string, pageNumber string) (*ListChallengeResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
@@ -185,6 +184,13 @@ func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *L
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -202,81 +208,79 @@ func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *L
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesEntitiesChallengesPage(ServiceSid string, Identity string, params *ListChallengeParams, pageToken string, pageNumber string) (*ListChallengeResponse, error) {
-	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
+//Lists Challenge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *ListChallengeParams, limit *int) ([]*ListChallengeResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.FactorSid != nil {
-		data.Set("FactorSid", *params.FactorSid)
-	}
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageChallenge(ServiceSid, Identity, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListChallengeResponse
 
-	ps := &ListChallengeResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ServicesEntitiesChallenges records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesEntitiesChallengesList(ServiceSid string, Identity string, params *ListChallengeParams, limit int) ([]ListChallengeResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListChallenge(ServiceSid, Identity, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListChallengeResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListChallengeResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChallengeResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListChallengeResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesEntitiesChallenges records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesEntitiesChallengesStream(ServiceSid string, Identity string, params *ListChallengeParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListChallenge(ServiceSid, Identity, params)
+//Streams Challenge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params *ListChallengeParams, limit *int) (chan *ListChallengeResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageChallenge(ServiceSid, Identity, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListChallengeResponse, 1)
 
-	ps := ListChallengeResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChallengeResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListChallengeResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListChallengeResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListChallengeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateChallenge'

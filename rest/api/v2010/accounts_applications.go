@@ -291,9 +291,10 @@ func (params *ListApplicationParams) SetPageSize(PageSize int) *ListApplicationP
 	return params
 }
 
-// Retrieve a list of applications representing an application within the requesting account
-func (c *ApiService) ListApplication(params *ListApplicationParams) (*ListApplicationResponse, error) {
+//Retrieve a single page of Application records from the API. Request is executed immediately.
+func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken string, pageNumber string) (*ListApplicationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -308,6 +309,13 @@ func (c *ApiService) ListApplication(params *ListApplicationParams) (*ListApplic
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -325,81 +333,79 @@ func (c *ApiService) ListApplication(params *ListApplicationParams) (*ListApplic
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsApplicationsPage(params *ListApplicationParams, pageToken string, pageNumber string) (*ListApplicationResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
+//Lists Application records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListApplication(params *ListApplicationParams, limit *int) ([]*ListApplicationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageApplication(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListApplicationResponse
 
-	ps := &ListApplicationResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists AccountsApplications records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsApplicationsList(params *ListApplicationParams, limit int) ([]ListApplicationResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListApplication(params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListApplicationResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListApplicationResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListApplicationResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListApplicationResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsApplications records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsApplicationsStream(params *ListApplicationParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListApplication(params)
+//Streams Application records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamApplication(params *ListApplicationParams, limit *int) (chan *ListApplicationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageApplication(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListApplicationResponse, 1)
 
-	ps := ListApplicationResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListApplicationResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListApplicationResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListApplicationResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListApplicationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateApplication'

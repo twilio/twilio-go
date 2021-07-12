@@ -61,8 +61,10 @@ func (params *ListUsageRecordYesterdayParams) SetPageSize(PageSize int) *ListUsa
 	return params
 }
 
-func (c *ApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayParams) (*ListUsageRecordYesterdayResponse, error) {
+//Retrieve a single page of UsageRecordYesterday records from the API. Request is executed immediately.
+func (c *ApiService) PageUsageRecordYesterday(params *ListUsageRecordYesterdayParams, pageToken string, pageNumber string) (*ListUsageRecordYesterdayResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -88,51 +90,12 @@ func (c *ApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayPa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListUsageRecordYesterdayResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsUsageRecordsYesterdayPage(params *ListUsageRecordYesterdayParams, pageToken string, pageNumber string) (*ListUsageRecordYesterdayResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
-	}
-	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
-	}
-	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
-	}
-	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -149,42 +112,77 @@ func (c *ApiService) AccountsUsageRecordsYesterdayPage(params *ListUsageRecordYe
 	return ps, err
 }
 
-//Lists AccountsUsageRecordsYesterday records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsUsageRecordsYesterdayList(params *ListUsageRecordYesterdayParams, limit int) ([]ListUsageRecordYesterdayResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListUsageRecordYesterday(params)
+//Lists UsageRecordYesterday records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayParams, limit *int) ([]*ListUsageRecordYesterdayResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageUsageRecordYesterday(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListUsageRecordYesterdayResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListUsageRecordYesterdayResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListUsageRecordYesterdayResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordYesterdayResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListUsageRecordYesterdayResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsUsageRecordsYesterday records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsUsageRecordsYesterdayStream(params *ListUsageRecordYesterdayParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListUsageRecordYesterday(params)
+//Streams UsageRecordYesterday records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordYesterday(params *ListUsageRecordYesterdayParams, limit *int) (chan *ListUsageRecordYesterdayResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageUsageRecordYesterday(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListUsageRecordYesterdayResponse, 1)
 
-	ps := ListUsageRecordYesterdayResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordYesterdayResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListUsageRecordYesterdayResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListUsageRecordYesterdayResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUsageRecordYesterdayResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

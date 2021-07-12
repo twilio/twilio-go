@@ -57,9 +57,10 @@ func (params *ListRoomParticipantPublishedTrackParams) SetPageSize(PageSize int)
 	return params
 }
 
-// Returns a list of tracks associated with a given Participant. Only &#x60;currently&#x60; Published Tracks are in the list resource.
-func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) (*ListRoomParticipantPublishedTrackResponse, error) {
+//Retrieve a single page of RoomParticipantPublishedTrack records from the API. Request is executed immediately.
+func (c *ApiService) PageRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, pageToken string, pageNumber string) (*ListRoomParticipantPublishedTrackResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
+
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
@@ -68,6 +69,13 @@ func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, Participa
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -85,73 +93,77 @@ func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, Participa
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) RoomsParticipantsPublishedTracksPage(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, pageToken string, pageNumber string) (*ListRoomParticipantPublishedTrackResponse, error) {
-	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
-	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
-	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
+//Lists RoomParticipantPublishedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, limit *int) ([]*ListRoomParticipantPublishedTrackResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListRoomParticipantPublishedTrackResponse
 
-	ps := &ListRoomParticipantPublishedTrackResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists RoomsParticipantsPublishedTracks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) RoomsParticipantsPublishedTracksList(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, limit int) ([]ListRoomParticipantPublishedTrackResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListRoomParticipantPublishedTrackResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListRoomParticipantPublishedTrackResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListRoomParticipantPublishedTrackResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams RoomsParticipantsPublishedTracks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) RoomsParticipantsPublishedTracksStream(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params)
+//Streams RoomParticipantPublishedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, limit *int) (chan *ListRoomParticipantPublishedTrackResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListRoomParticipantPublishedTrackResponse, 1)
 
-	ps := ListRoomParticipantPublishedTrackResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListRoomParticipantPublishedTrackResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListRoomParticipantPublishedTrackResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRoomParticipantPublishedTrackResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

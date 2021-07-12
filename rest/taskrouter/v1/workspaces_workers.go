@@ -170,8 +170,10 @@ func (params *ListWorkerParams) SetPageSize(PageSize int) *ListWorkerParams {
 	return params
 }
 
-func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams) (*ListWorkerResponse, error) {
+//Retrieve a single page of Worker records from the API. Request is executed immediately.
+func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, pageToken string, pageNumber string) (*ListWorkerResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
+
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
@@ -202,56 +204,12 @@ func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams) (
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListWorkerResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) WorkspacesWorkersPage(WorkspaceSid string, params *ListWorkerParams, pageToken string, pageNumber string) (*ListWorkerResponse, error) {
-	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.ActivityName != nil {
-		data.Set("ActivityName", *params.ActivityName)
-	}
-	if params != nil && params.ActivitySid != nil {
-		data.Set("ActivitySid", *params.ActivitySid)
-	}
-	if params != nil && params.Available != nil {
-		data.Set("Available", *params.Available)
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.TargetWorkersExpression != nil {
-		data.Set("TargetWorkersExpression", *params.TargetWorkersExpression)
-	}
-	if params != nil && params.TaskQueueName != nil {
-		data.Set("TaskQueueName", *params.TaskQueueName)
-	}
-	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -268,44 +226,79 @@ func (c *ApiService) WorkspacesWorkersPage(WorkspaceSid string, params *ListWork
 	return ps, err
 }
 
-//Lists WorkspacesWorkers records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) WorkspacesWorkersList(WorkspaceSid string, params *ListWorkerParams, limit int) ([]ListWorkerResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListWorker(WorkspaceSid, params)
+//Lists Worker records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams, limit *int) ([]*ListWorkerResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageWorker(WorkspaceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListWorkerResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListWorkerResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListWorkerResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWorkerResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListWorkerResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams WorkspacesWorkers records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) WorkspacesWorkersStream(WorkspaceSid string, params *ListWorkerParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListWorker(WorkspaceSid, params)
+//Streams Worker records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamWorker(WorkspaceSid string, params *ListWorkerParams, limit *int) (chan *ListWorkerResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageWorker(WorkspaceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListWorkerResponse, 1)
 
-	ps := ListWorkerResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWorkerResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListWorkerResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListWorkerResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListWorkerResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateWorker'

@@ -62,8 +62,10 @@ func (params *ListTaskReservationParams) SetPageSize(PageSize int) *ListTaskRese
 	return params
 }
 
-func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) (*ListTaskReservationResponse, error) {
+//Retrieve a single page of TaskReservation records from the API. Request is executed immediately.
+func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, pageToken string, pageNumber string) (*ListTaskReservationResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations"
+
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
@@ -75,6 +77,13 @@ func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, pa
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -92,78 +101,79 @@ func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, pa
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) WorkspacesTasksReservationsPage(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, pageToken string, pageNumber string) (*ListTaskReservationResponse, error) {
-	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
-	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
+//Lists TaskReservation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, limit *int) ([]*ListTaskReservationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.ReservationStatus != nil {
-		data.Set("ReservationStatus", *params.ReservationStatus)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageTaskReservation(WorkspaceSid, TaskSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListTaskReservationResponse
 
-	ps := &ListTaskReservationResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists WorkspacesTasksReservations records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) WorkspacesTasksReservationsList(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, limit int) ([]ListTaskReservationResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListTaskReservation(WorkspaceSid, TaskSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListTaskReservationResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListTaskReservationResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskReservationResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListTaskReservationResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams WorkspacesTasksReservations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) WorkspacesTasksReservationsStream(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListTaskReservation(WorkspaceSid, TaskSid, params)
+//Streams TaskReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, limit *int) (chan *ListTaskReservationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTaskReservation(WorkspaceSid, TaskSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListTaskReservationResponse, 1)
 
-	ps := ListTaskReservationResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskReservationResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListTaskReservationResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListTaskReservationResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTaskReservationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateTaskReservation'

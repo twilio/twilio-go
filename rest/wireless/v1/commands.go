@@ -188,8 +188,8 @@ func (params *ListCommandParams) SetPageSize(PageSize int) *ListCommandParams {
 	return params
 }
 
-// Retrieve a list of Commands from your account.
-func (c *ApiService) ListCommand(params *ListCommandParams) (*ListCommandResponse, error) {
+//Retrieve a single page of Command records from the API. Request is executed immediately.
+func (c *ApiService) PageCommand(params *ListCommandParams, pageToken string, pageNumber string) (*ListCommandResponse, error) {
 	path := "/v1/Commands"
 
 	data := url.Values{}
@@ -211,46 +211,12 @@ func (c *ApiService) ListCommand(params *ListCommandParams) (*ListCommandRespons
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListCommandResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) CommandsPage(params *ListCommandParams, pageToken string, pageNumber string) (*ListCommandResponse, error) {
-	path := "/v1/Commands"
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Sim != nil {
-		data.Set("Sim", *params.Sim)
-	}
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
-	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction)
-	}
-	if params != nil && params.Transport != nil {
-		data.Set("Transport", *params.Transport)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -267,42 +233,77 @@ func (c *ApiService) CommandsPage(params *ListCommandParams, pageToken string, p
 	return ps, err
 }
 
-//Lists Commands records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) CommandsList(params *ListCommandParams, limit int) ([]ListCommandResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListCommand(params)
+//Lists Command records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCommand(params *ListCommandParams, limit *int) ([]*ListCommandResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCommand(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListCommandResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListCommandResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListCommandResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCommandResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListCommandResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams Commands records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) CommandsStream(params *ListCommandParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListCommand(params)
+//Streams Command records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCommand(params *ListCommandParams, limit *int) (chan *ListCommandResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCommand(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListCommandResponse, 1)
 
-	ps := ListCommandResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCommandResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListCommandResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListCommandResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCommandResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

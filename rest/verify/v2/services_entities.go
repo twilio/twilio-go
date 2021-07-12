@@ -113,9 +113,10 @@ func (params *ListEntityParams) SetPageSize(PageSize int) *ListEntityParams {
 	return params
 }
 
-// Retrieve a list of all Entities for a Service.
-func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams) (*ListEntityResponse, error) {
+//Retrieve a single page of Entity records from the API. Request is executed immediately.
+func (c *ApiService) PageEntity(ServiceSid string, params *ListEntityParams, pageToken string, pageNumber string) (*ListEntityResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Entities"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
@@ -123,6 +124,13 @@ func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams) (*L
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -140,72 +148,77 @@ func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams) (*L
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesEntitiesPage(ServiceSid string, params *ListEntityParams, pageToken string, pageNumber string) (*ListEntityResponse, error) {
-	path := "/v2/Services/{ServiceSid}/Entities"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+//Lists Entity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams, limit *int) ([]*ListEntityResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageEntity(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListEntityResponse
 
-	ps := &ListEntityResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ServicesEntities records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesEntitiesList(ServiceSid string, params *ListEntityParams, limit int) ([]ListEntityResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListEntity(ServiceSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListEntityResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListEntityResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEntityResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListEntityResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesEntities records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesEntitiesStream(ServiceSid string, params *ListEntityParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListEntity(ServiceSid, params)
+//Streams Entity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams, limit *int) (chan *ListEntityResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageEntity(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListEntityResponse, 1)
 
-	ps := ListEntityResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEntityResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListEntityResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListEntityResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEntityResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

@@ -113,9 +113,10 @@ func (params *ListNetworkAccessProfileNetworkParams) SetPageSize(PageSize int) *
 	return params
 }
 
-// Retrieve a list of Network Access Profile resource&#39;s Network resource.
-func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) (*ListNetworkAccessProfileNetworkResponse, error) {
+//Retrieve a single page of NetworkAccessProfileNetwork records from the API. Request is executed immediately.
+func (c *ApiService) PageNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, pageToken string, pageNumber string) (*ListNetworkAccessProfileNetworkResponse, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
+
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
 
 	data := url.Values{}
@@ -123,6 +124,13 @@ func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -140,72 +148,77 @@ func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) NetworkAccessProfilesNetworksPage(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, pageToken string, pageNumber string) (*ListNetworkAccessProfileNetworkResponse, error) {
-	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
-	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
+//Lists NetworkAccessProfileNetwork records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, limit *int) ([]*ListNetworkAccessProfileNetworkResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageNetworkAccessProfileNetwork(NetworkAccessProfileSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListNetworkAccessProfileNetworkResponse
 
-	ps := &ListNetworkAccessProfileNetworkResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists NetworkAccessProfilesNetworks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) NetworkAccessProfilesNetworksList(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, limit int) ([]ListNetworkAccessProfileNetworkResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListNetworkAccessProfileNetwork(NetworkAccessProfileSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListNetworkAccessProfileNetworkResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListNetworkAccessProfileNetworkResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNetworkAccessProfileNetworkResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListNetworkAccessProfileNetworkResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams NetworkAccessProfilesNetworks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) NetworkAccessProfilesNetworksStream(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListNetworkAccessProfileNetwork(NetworkAccessProfileSid, params)
+//Streams NetworkAccessProfileNetwork records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, limit *int) (chan *ListNetworkAccessProfileNetworkResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageNetworkAccessProfileNetwork(NetworkAccessProfileSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListNetworkAccessProfileNetworkResponse, 1)
 
-	ps := ListNetworkAccessProfileNetworkResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNetworkAccessProfileNetworkResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListNetworkAccessProfileNetworkResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListNetworkAccessProfileNetworkResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListNetworkAccessProfileNetworkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

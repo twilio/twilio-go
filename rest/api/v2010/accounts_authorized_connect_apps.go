@@ -77,9 +77,10 @@ func (params *ListAuthorizedConnectAppParams) SetPageSize(PageSize int) *ListAut
 	return params
 }
 
-// Retrieve a list of authorized-connect-apps belonging to the account used to make the request
-func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) (*ListAuthorizedConnectAppResponse, error) {
+//Retrieve a single page of AuthorizedConnectApp records from the API. Request is executed immediately.
+func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, pageToken string, pageNumber string) (*ListAuthorizedConnectAppResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -91,6 +92,13 @@ func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -108,76 +116,77 @@ func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsAuthorizedConnectAppsPage(params *ListAuthorizedConnectAppParams, pageToken string, pageNumber string) (*ListAuthorizedConnectAppResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
+//Lists AuthorizedConnectApp records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, limit *int) ([]*ListAuthorizedConnectAppResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageAuthorizedConnectApp(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListAuthorizedConnectAppResponse
 
-	ps := &ListAuthorizedConnectAppResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists AccountsAuthorizedConnectApps records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsAuthorizedConnectAppsList(params *ListAuthorizedConnectAppParams, limit int) ([]ListAuthorizedConnectAppResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListAuthorizedConnectApp(params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListAuthorizedConnectAppResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListAuthorizedConnectAppResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListAuthorizedConnectAppResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsAuthorizedConnectApps records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsAuthorizedConnectAppsStream(params *ListAuthorizedConnectAppParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListAuthorizedConnectApp(params)
+//Streams AuthorizedConnectApp records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, limit *int) (chan *ListAuthorizedConnectAppResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageAuthorizedConnectApp(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListAuthorizedConnectAppResponse, 1)
 
-	ps := ListAuthorizedConnectAppResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListAuthorizedConnectAppResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListAuthorizedConnectAppResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAuthorizedConnectAppResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

@@ -16,10 +16,10 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/twilio/twilio-go/client"
-
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateMessage'
@@ -329,9 +329,10 @@ func (params *ListMessageParams) SetPageSize(PageSize int) *ListMessageParams {
 	return params
 }
 
-// Retrieve a list of messages belonging to the account used to make the request
-func (c *ApiService) ListMessage(params *ListMessageParams) (*ListMessageResponse, error) {
+//Retrieve a single page of Message records from the API. Request is executed immediately.
+func (c *ApiService) PageMessage(params *ListMessageParams, pageToken string, pageNumber string) (*ListMessageResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -360,54 +361,12 @@ func (c *ApiService) ListMessage(params *ListMessageParams) (*ListMessageRespons
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListMessageResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsMessagesPage(params *ListMessageParams, pageToken string, pageNumber string) (*ListMessageResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
-	}
-	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
-	}
-	if params != nil && params.DateSent != nil {
-		data.Set("DateSent", fmt.Sprint((*params.DateSent).Format(time.RFC3339)))
-	}
-	if params != nil && params.DateSentBefore != nil {
-		data.Set("DateSent<", fmt.Sprint((*params.DateSentBefore).Format(time.RFC3339)))
-	}
-	if params != nil && params.DateSentAfter != nil {
-		data.Set("DateSent>", fmt.Sprint((*params.DateSentAfter).Format(time.RFC3339)))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -424,44 +383,79 @@ func (c *ApiService) AccountsMessagesPage(params *ListMessageParams, pageToken s
 	return ps, err
 }
 
-//Lists AccountsMessages records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsMessagesList(params *ListMessageParams, limit int) ([]ListMessageResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListMessage(params)
+//Lists Message records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMessage(params *ListMessageParams, limit *int) ([]*ListMessageResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageMessage(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListMessageResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListMessageResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListMessageResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessageResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListMessageResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsMessages records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsMessagesStream(params *ListMessageParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListMessage(params)
+//Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMessage(params *ListMessageParams, limit *int) (chan *ListMessageResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageMessage(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListMessageResponse, 1)
 
-	ps := ListMessageResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessageResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListMessageResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListMessageResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListMessageResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateMessage'

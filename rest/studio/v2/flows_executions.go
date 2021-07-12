@@ -150,9 +150,10 @@ func (params *ListExecutionParams) SetPageSize(PageSize int) *ListExecutionParam
 	return params
 }
 
-// Retrieve a list of all Executions for the Flow.
-func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) (*ListExecutionResponse, error) {
+//Retrieve a single page of Execution records from the API. Request is executed immediately.
+func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, pageToken string, pageNumber string) (*ListExecutionResponse, error) {
 	path := "/v2/Flows/{FlowSid}/Executions"
+
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
 	data := url.Values{}
@@ -166,6 +167,13 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) 
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -183,80 +191,79 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) 
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) FlowsExecutionsPage(FlowSid string, params *ListExecutionParams, pageToken string, pageNumber string) (*ListExecutionResponse, error) {
-	path := "/v2/Flows/{FlowSid}/Executions"
-	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+//Lists Execution records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams, limit *int) ([]*ListExecutionResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.DateCreatedFrom != nil {
-		data.Set("DateCreatedFrom", fmt.Sprint((*params.DateCreatedFrom).Format(time.RFC3339)))
-	}
-	if params != nil && params.DateCreatedTo != nil {
-		data.Set("DateCreatedTo", fmt.Sprint((*params.DateCreatedTo).Format(time.RFC3339)))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageExecution(FlowSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListExecutionResponse
 
-	ps := &ListExecutionResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists FlowsExecutions records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) FlowsExecutionsList(FlowSid string, params *ListExecutionParams, limit int) ([]ListExecutionResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListExecution(FlowSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListExecutionResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListExecutionResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListExecutionResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListExecutionResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams FlowsExecutions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) FlowsExecutionsStream(FlowSid string, params *ListExecutionParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListExecution(FlowSid, params)
+//Streams Execution records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams, limit *int) (chan *ListExecutionResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageExecution(FlowSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListExecutionResponse, 1)
 
-	ps := ListExecutionResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListExecutionResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListExecutionResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListExecutionResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListExecutionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateExecution'

@@ -113,9 +113,10 @@ func (params *ListTrustProductEntityAssignmentParams) SetPageSize(PageSize int) 
 	return params
 }
 
-// Retrieve a list of all Assigned Items for an account.
-func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) (*ListTrustProductEntityAssignmentResponse, error) {
+//Retrieve a single page of TrustProductEntityAssignment records from the API. Request is executed immediately.
+func (c *ApiService) PageTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams, pageToken string, pageNumber string) (*ListTrustProductEntityAssignmentResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments"
+
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
 	data := url.Values{}
@@ -123,6 +124,13 @@ func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, pa
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -140,72 +148,77 @@ func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, pa
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) TrustProductsEntityAssignmentsPage(TrustProductSid string, params *ListTrustProductEntityAssignmentParams, pageToken string, pageNumber string) (*ListTrustProductEntityAssignmentResponse, error) {
-	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments"
-	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
+//Lists TrustProductEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams, limit *int) ([]*ListTrustProductEntityAssignmentResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageTrustProductEntityAssignment(TrustProductSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListTrustProductEntityAssignmentResponse
 
-	ps := &ListTrustProductEntityAssignmentResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists TrustProductsEntityAssignments records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) TrustProductsEntityAssignmentsList(TrustProductSid string, params *ListTrustProductEntityAssignmentParams, limit int) ([]ListTrustProductEntityAssignmentResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListTrustProductEntityAssignment(TrustProductSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListTrustProductEntityAssignmentResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListTrustProductEntityAssignmentResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductEntityAssignmentResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListTrustProductEntityAssignmentResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams TrustProductsEntityAssignments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) TrustProductsEntityAssignmentsStream(TrustProductSid string, params *ListTrustProductEntityAssignmentParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListTrustProductEntityAssignment(TrustProductSid, params)
+//Streams TrustProductEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams, limit *int) (chan *ListTrustProductEntityAssignmentResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTrustProductEntityAssignment(TrustProductSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListTrustProductEntityAssignmentResponse, 1)
 
-	ps := ListTrustProductEntityAssignmentResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductEntityAssignmentResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListTrustProductEntityAssignmentResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListTrustProductEntityAssignmentResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTrustProductEntityAssignmentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

@@ -87,15 +87,13 @@ func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParam
 		data.Set("Mode", *params.Mode)
 	}
 	if params != nil && params.Participants != nil {
-		for _, item := range *params.Participants {
-			v, err := json.Marshal(item)
+		v, err := json.Marshal(params.Participants)
 
-			if err != nil {
-				return nil, err
-			}
-
-			data.Add("Participants", string(v))
+		if err != nil {
+			return nil, err
 		}
+
+		data.Set("Participants", string(v))
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
@@ -176,9 +174,10 @@ func (params *ListSessionParams) SetPageSize(PageSize int) *ListSessionParams {
 	return params
 }
 
-// Retrieve a list of all Sessions for the Service. A maximum of 100 records will be returned per page.
-func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) (*ListSessionResponse, error) {
+//Retrieve a single page of Session records from the API. Request is executed immediately.
+func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, pageToken string, pageNumber string) (*ListSessionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
@@ -186,6 +185,13 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) (
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -203,74 +209,79 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) (
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesSessionsPage(ServiceSid string, params *ListSessionParams, pageToken string, pageNumber string) (*ListSessionResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Sessions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+//Lists Session records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams, limit *int) ([]*ListSessionResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageSession(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListSessionResponse
 
-	ps := &ListSessionResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ServicesSessions records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesSessionsList(ServiceSid string, params *ListSessionParams, limit int) ([]ListSessionResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListSession(ServiceSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListSessionResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListSessionResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSessionResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListSessionResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesSessions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesSessionsStream(ServiceSid string, params *ListSessionParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListSession(ServiceSid, params)
+//Streams Session records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams, limit *int) (chan *ListSessionResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageSession(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListSessionResponse, 1)
 
-	ps := ListSessionResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSessionResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSessionResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSessionResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSessionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSession'

@@ -54,7 +54,8 @@ func (params *ListMessagingCountryParams) SetPageSize(PageSize int) *ListMessagi
 	return params
 }
 
-func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) (*ListMessagingCountryResponse, error) {
+//Retrieve a single page of MessagingCountry records from the API. Request is executed immediately.
+func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pageToken string, pageNumber string) (*ListMessagingCountryResponse, error) {
 	path := "/v1/Messaging/Countries"
 
 	data := url.Values{}
@@ -62,6 +63,13 @@ func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) (*
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -79,71 +87,77 @@ func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) (*
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) MessagingCountriesPage(params *ListMessagingCountryParams, pageToken string, pageNumber string) (*ListMessagingCountryResponse, error) {
-	path := "/v1/Messaging/Countries"
+//Lists MessagingCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams, limit *int) ([]*ListMessagingCountryResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageMessagingCountry(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListMessagingCountryResponse
 
-	ps := &ListMessagingCountryResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists MessagingCountries records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) MessagingCountriesList(params *ListMessagingCountryParams, limit int) ([]ListMessagingCountryResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListMessagingCountry(params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListMessagingCountryResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListMessagingCountryResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListMessagingCountryResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams MessagingCountries records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) MessagingCountriesStream(params *ListMessagingCountryParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListMessagingCountry(params)
+//Streams MessagingCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams, limit *int) (chan *ListMessagingCountryResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageMessagingCountry(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListMessagingCountryResponse, 1)
 
-	ps := ListMessagingCountryResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListMessagingCountryResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListMessagingCountryResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListMessagingCountryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

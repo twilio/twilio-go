@@ -162,9 +162,10 @@ func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPageSize(PageSize i
 	return params
 }
 
-// Retrieve a list of Add-on installations currently assigned to this Number.
-func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
+//Retrieve a single page of IncomingPhoneNumberAssignedAddOn records from the API. Request is executed immediately.
+func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -177,6 +178,13 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -194,77 +202,77 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsIncomingPhoneNumbersAssignedAddOnsPage(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"ResourceSid"+"}", ResourceSid, -1)
+//Lists IncomingPhoneNumberAssignedAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, limit *int) ([]*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageIncomingPhoneNumberAssignedAddOn(ResourceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListIncomingPhoneNumberAssignedAddOnResponse
 
-	ps := &ListIncomingPhoneNumberAssignedAddOnResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists AccountsIncomingPhoneNumbersAssignedAddOns records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsIncomingPhoneNumbersAssignedAddOnsList(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, limit int) ([]ListIncomingPhoneNumberAssignedAddOnResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListIncomingPhoneNumberAssignedAddOn(ResourceSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListIncomingPhoneNumberAssignedAddOnResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListIncomingPhoneNumberAssignedAddOnResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListIncomingPhoneNumberAssignedAddOnResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsIncomingPhoneNumbersAssignedAddOns records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsIncomingPhoneNumbersAssignedAddOnsStream(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListIncomingPhoneNumberAssignedAddOn(ResourceSid, params)
+//Streams IncomingPhoneNumberAssignedAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, limit *int) (chan *ListIncomingPhoneNumberAssignedAddOnResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageIncomingPhoneNumberAssignedAddOn(ResourceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListIncomingPhoneNumberAssignedAddOnResponse, 1)
 
-	ps := ListIncomingPhoneNumberAssignedAddOnResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListIncomingPhoneNumberAssignedAddOnResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListIncomingPhoneNumberAssignedAddOnResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListIncomingPhoneNumberAssignedAddOnResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

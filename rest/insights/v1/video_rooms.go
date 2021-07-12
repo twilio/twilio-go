@@ -86,8 +86,8 @@ func (params *ListVideoRoomSummaryParams) SetPageSize(PageSize int) *ListVideoRo
 	return params
 }
 
-// Get a list of Programmable Video Rooms.
-func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) (*ListVideoRoomSummaryResponse, error) {
+//Retrieve a single page of VideoRoomSummary records from the API. Request is executed immediately.
+func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pageToken string, pageNumber string) (*ListVideoRoomSummaryResponse, error) {
 	path := "/v1/Video/Rooms"
 
 	data := url.Values{}
@@ -116,53 +116,12 @@ func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) (*
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListVideoRoomSummaryResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) VideoRoomsPage(params *ListVideoRoomSummaryParams, pageToken string, pageNumber string) (*ListVideoRoomSummaryResponse, error) {
-	path := "/v1/Video/Rooms"
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.RoomType != nil {
-		for _, item := range *params.RoomType {
-			data.Add("RoomType", item)
-		}
-	}
-	if params != nil && params.Codec != nil {
-		for _, item := range *params.Codec {
-			data.Add("Codec", item)
-		}
-	}
-	if params != nil && params.RoomName != nil {
-		data.Set("RoomName", *params.RoomName)
-	}
-	if params != nil && params.CreatedAfter != nil {
-		data.Set("CreatedAfter", fmt.Sprint((*params.CreatedAfter).Format(time.RFC3339)))
-	}
-	if params != nil && params.CreatedBefore != nil {
-		data.Set("CreatedBefore", fmt.Sprint((*params.CreatedBefore).Format(time.RFC3339)))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -179,42 +138,77 @@ func (c *ApiService) VideoRoomsPage(params *ListVideoRoomSummaryParams, pageToke
 	return ps, err
 }
 
-//Lists VideoRooms records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) VideoRoomsList(params *ListVideoRoomSummaryParams, limit int) ([]ListVideoRoomSummaryResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListVideoRoomSummary(params)
+//Lists VideoRoomSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams, limit *int) ([]*ListVideoRoomSummaryResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageVideoRoomSummary(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListVideoRoomSummaryResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListVideoRoomSummaryResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListVideoRoomSummaryResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVideoRoomSummaryResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListVideoRoomSummaryResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams VideoRooms records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) VideoRoomsStream(params *ListVideoRoomSummaryParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListVideoRoomSummary(params)
+//Streams VideoRoomSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamVideoRoomSummary(params *ListVideoRoomSummaryParams, limit *int) (chan *ListVideoRoomSummaryResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageVideoRoomSummary(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListVideoRoomSummaryResponse, 1)
 
-	ps := ListVideoRoomSummaryResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVideoRoomSummaryResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListVideoRoomSummaryResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListVideoRoomSummaryResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListVideoRoomSummaryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

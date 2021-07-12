@@ -116,7 +116,8 @@ func (params *ListSourceIpMappingParams) SetPageSize(PageSize int) *ListSourceIp
 	return params
 }
 
-func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) (*ListSourceIpMappingResponse, error) {
+//Retrieve a single page of SourceIpMapping records from the API. Request is executed immediately.
+func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, pageToken string, pageNumber string) (*ListSourceIpMappingResponse, error) {
 	path := "/v1/SourceIpMappings"
 
 	data := url.Values{}
@@ -124,6 +125,13 @@ func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) (*Li
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -141,73 +149,79 @@ func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) (*Li
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) SourceIpMappingsPage(params *ListSourceIpMappingParams, pageToken string, pageNumber string) (*ListSourceIpMappingResponse, error) {
-	path := "/v1/SourceIpMappings"
+//Lists SourceIpMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams, limit *int) ([]*ListSourceIpMappingResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageSourceIpMapping(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListSourceIpMappingResponse
 
-	ps := &ListSourceIpMappingResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists SourceIpMappings records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SourceIpMappingsList(params *ListSourceIpMappingParams, limit int) ([]ListSourceIpMappingResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListSourceIpMapping(params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListSourceIpMappingResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListSourceIpMappingResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSourceIpMappingResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListSourceIpMappingResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams SourceIpMappings records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SourceIpMappingsStream(params *ListSourceIpMappingParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListSourceIpMapping(params)
+//Streams SourceIpMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams, limit *int) (chan *ListSourceIpMappingResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageSourceIpMapping(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListSourceIpMappingResponse, 1)
 
-	ps := ListSourceIpMappingResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSourceIpMappingResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSourceIpMappingResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSourceIpMappingResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSourceIpMappingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSourceIpMapping'

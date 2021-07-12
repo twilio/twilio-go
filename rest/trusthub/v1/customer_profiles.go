@@ -155,8 +155,8 @@ func (params *ListCustomerProfileParams) SetPageSize(PageSize int) *ListCustomer
 	return params
 }
 
-// Retrieve a list of all Customer-Profiles for an account.
-func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams) (*ListCustomerProfileResponse, error) {
+//Retrieve a single page of CustomerProfile records from the API. Request is executed immediately.
+func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, pageToken string, pageNumber string) (*ListCustomerProfileResponse, error) {
 	path := "/v1/CustomerProfiles"
 
 	data := url.Values{}
@@ -175,43 +175,12 @@ func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams) (*Li
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListCustomerProfileResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) CustomerProfilesPage(params *ListCustomerProfileParams, pageToken string, pageNumber string) (*ListCustomerProfileResponse, error) {
-	path := "/v1/CustomerProfiles"
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.PolicySid != nil {
-		data.Set("PolicySid", *params.PolicySid)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -228,44 +197,79 @@ func (c *ApiService) CustomerProfilesPage(params *ListCustomerProfileParams, pag
 	return ps, err
 }
 
-//Lists CustomerProfiles records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) CustomerProfilesList(params *ListCustomerProfileParams, limit int) ([]ListCustomerProfileResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListCustomerProfile(params)
+//Lists CustomerProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams, limit *int) ([]*ListCustomerProfileResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCustomerProfile(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListCustomerProfileResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListCustomerProfileResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListCustomerProfileResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListCustomerProfileResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams CustomerProfiles records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) CustomerProfilesStream(params *ListCustomerProfileParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListCustomerProfile(params)
+//Streams CustomerProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams, limit *int) (chan *ListCustomerProfileResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCustomerProfile(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListCustomerProfileResponse, 1)
 
-	ps := ListCustomerProfileResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListCustomerProfileResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListCustomerProfileResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCustomerProfileResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateCustomerProfile'

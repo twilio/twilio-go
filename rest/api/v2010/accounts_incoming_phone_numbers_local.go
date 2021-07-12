@@ -306,8 +306,10 @@ func (params *ListIncomingPhoneNumberLocalParams) SetPageSize(PageSize int) *Lis
 	return params
 }
 
-func (c *ApiService) ListIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams) (*ListIncomingPhoneNumberLocalResponse, error) {
+//Retrieve a single page of IncomingPhoneNumberLocal records from the API. Request is executed immediately.
+func (c *ApiService) PageIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberLocalResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -333,51 +335,12 @@ func (c *ApiService) ListIncomingPhoneNumberLocal(params *ListIncomingPhoneNumbe
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListIncomingPhoneNumberLocalResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsIncomingPhoneNumbersLocalPage(params *ListIncomingPhoneNumberLocalParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberLocalResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Beta != nil {
-		data.Set("Beta", fmt.Sprint(*params.Beta))
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.PhoneNumber != nil {
-		data.Set("PhoneNumber", *params.PhoneNumber)
-	}
-	if params != nil && params.Origin != nil {
-		data.Set("Origin", *params.Origin)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -394,42 +357,77 @@ func (c *ApiService) AccountsIncomingPhoneNumbersLocalPage(params *ListIncomingP
 	return ps, err
 }
 
-//Lists AccountsIncomingPhoneNumbersLocal records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsIncomingPhoneNumbersLocalList(params *ListIncomingPhoneNumberLocalParams, limit int) ([]ListIncomingPhoneNumberLocalResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListIncomingPhoneNumberLocal(params)
+//Lists IncomingPhoneNumberLocal records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams, limit *int) ([]*ListIncomingPhoneNumberLocalResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageIncomingPhoneNumberLocal(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListIncomingPhoneNumberLocalResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListIncomingPhoneNumberLocalResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListIncomingPhoneNumberLocalResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberLocalResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListIncomingPhoneNumberLocalResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsIncomingPhoneNumbersLocal records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsIncomingPhoneNumbersLocalStream(params *ListIncomingPhoneNumberLocalParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListIncomingPhoneNumberLocal(params)
+//Streams IncomingPhoneNumberLocal records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIncomingPhoneNumberLocal(params *ListIncomingPhoneNumberLocalParams, limit *int) (chan *ListIncomingPhoneNumberLocalResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageIncomingPhoneNumberLocal(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListIncomingPhoneNumberLocalResponse, 1)
 
-	ps := ListIncomingPhoneNumberLocalResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberLocalResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListIncomingPhoneNumberLocalResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListIncomingPhoneNumberLocalResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListIncomingPhoneNumberLocalResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

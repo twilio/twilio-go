@@ -91,8 +91,8 @@ func (params *ListDialingPermissionsCountryParams) SetPageSize(PageSize int) *Li
 	return params
 }
 
-// Retrieve all voice dialing country permissions for this account
-func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams) (*ListDialingPermissionsCountryResponse, error) {
+//Retrieve a single page of DialingPermissionsCountry records from the API. Request is executed immediately.
+func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, pageToken string, pageNumber string) (*ListDialingPermissionsCountryResponse, error) {
 	path := "/v1/DialingPermissions/Countries"
 
 	data := url.Values{}
@@ -120,52 +120,12 @@ func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermission
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListDialingPermissionsCountryResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) DialingPermissionsCountriesPage(params *ListDialingPermissionsCountryParams, pageToken string, pageNumber string) (*ListDialingPermissionsCountryResponse, error) {
-	path := "/v1/DialingPermissions/Countries"
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.IsoCode != nil {
-		data.Set("IsoCode", *params.IsoCode)
-	}
-	if params != nil && params.Continent != nil {
-		data.Set("Continent", *params.Continent)
-	}
-	if params != nil && params.CountryCode != nil {
-		data.Set("CountryCode", *params.CountryCode)
-	}
-	if params != nil && params.LowRiskNumbersEnabled != nil {
-		data.Set("LowRiskNumbersEnabled", fmt.Sprint(*params.LowRiskNumbersEnabled))
-	}
-	if params != nil && params.HighRiskSpecialNumbersEnabled != nil {
-		data.Set("HighRiskSpecialNumbersEnabled", fmt.Sprint(*params.HighRiskSpecialNumbersEnabled))
-	}
-	if params != nil && params.HighRiskTollfraudNumbersEnabled != nil {
-		data.Set("HighRiskTollfraudNumbersEnabled", fmt.Sprint(*params.HighRiskTollfraudNumbersEnabled))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -182,42 +142,77 @@ func (c *ApiService) DialingPermissionsCountriesPage(params *ListDialingPermissi
 	return ps, err
 }
 
-//Lists DialingPermissionsCountries records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) DialingPermissionsCountriesList(params *ListDialingPermissionsCountryParams, limit int) ([]ListDialingPermissionsCountryResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListDialingPermissionsCountry(params)
+//Lists DialingPermissionsCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, limit *int) ([]*ListDialingPermissionsCountryResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageDialingPermissionsCountry(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListDialingPermissionsCountryResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListDialingPermissionsCountryResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListDialingPermissionsCountryResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDialingPermissionsCountryResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListDialingPermissionsCountryResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams DialingPermissionsCountries records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) DialingPermissionsCountriesStream(params *ListDialingPermissionsCountryParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListDialingPermissionsCountry(params)
+//Streams DialingPermissionsCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, limit *int) (chan *ListDialingPermissionsCountryResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageDialingPermissionsCountry(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListDialingPermissionsCountryResponse, 1)
 
-	ps := ListDialingPermissionsCountryResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDialingPermissionsCountryResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListDialingPermissionsCountryResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListDialingPermissionsCountryResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListDialingPermissionsCountryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

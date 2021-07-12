@@ -309,17 +309,80 @@ func main() {
 }
 ```
 
-### Handling Exceptions
+### Using Paging
+
+This library also offers paging functionality. Collections such as calls and messages have `Listxxx` and `Streamxxx`
+functions page under the hood. With both list and stream, you can specify the number of records you want to receive (
+limit) and the maximum size you want each page fetch to be (pageSize). The library will then handle the task for you.
+
+`List` eagerly fetches all records and returns them as a list, whereas `Stream` streams the records and lazily retrieves
+the pages as you iterate over the collection. You can also page manually using the `Pagexxx` function in each of the
+apis.
+
 ```go
 package main
 
 import (
-    "fmt"
-    "os"
+	"encoding/json"
+	"fmt"
+	"github.com/twilio/twilio-go"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	"os"
+)
 
-    "github.com/twilio/twilio-go"
-    "github.com/twilio/twilio-go/framework/error"
-    openapi "github.com/twilio/twilio-go/rest/api/v2010"
+func main() {
+	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
+	
+	client := twilio.NewRestClient(accountSid, authToken)
+
+	params := &openapi.ListMessageParams{}
+	params.SetFrom(from)
+	params.SetPageSize(20)
+	limit := 100
+	
+	resp, err := client.ApiV2010ListMessage(params, &limit)
+	for record := range resp {
+		for i := range resp[record].Messages {
+			fmt.Println("From: ", *resp[record].Messages[i].Body)
+		}
+	}
+
+	resp, err = client.ApiV2010.PageMessage(listParams, "pagetoken", "1")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(resp.Messages[0].Body)
+	}
+
+	for {
+		channel, _ := client.ApiV2010.StreamMessage(params, &limit)
+		for record := range channel {
+			for message := range record.Messages {
+				fmt.Println(*messages[message].Body)
+			}
+		}
+
+		if len(channel) == 0 {
+			break
+		}
+	}
+}
+```
+
+### Handling Exceptions
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/twilio/twilio-go"
+	"github.com/twilio/twilio-go/framework/error"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 func main() {
@@ -349,11 +412,10 @@ Don't want to import the top-level Twilio RestClient with access to the full sui
 package main
 
 import (
-    "os"
-
-    "github.com/twilio/twilio-go/client"
-    apiv2010 "github.com/twilio/twilio-go/rest/api/v2010"
-    serverless "github.com/twilio/twilio-go/rest/serverless/v1"
+	"os"
+	"github.com/twilio/twilio-go/client"
+	apiv2010 "github.com/twilio/twilio-go/rest/api/v2010"
+	serverless "github.com/twilio/twilio-go/rest/serverless/v1"
 )
 
 func main() {

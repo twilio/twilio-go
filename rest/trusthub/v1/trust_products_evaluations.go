@@ -94,9 +94,10 @@ func (params *ListTrustProductEvaluationParams) SetPageSize(PageSize int) *ListT
 	return params
 }
 
-// Retrieve a list of Evaluations associated to the trust_product resource.
-func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) (*ListTrustProductEvaluationResponse, error) {
+//Retrieve a single page of TrustProductEvaluation records from the API. Request is executed immediately.
+func (c *ApiService) PageTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams, pageToken string, pageNumber string) (*ListTrustProductEvaluationResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
+
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
 	data := url.Values{}
@@ -104,6 +105,13 @@ func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -121,72 +129,77 @@ func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) TrustProductsEvaluationsPage(TrustProductSid string, params *ListTrustProductEvaluationParams, pageToken string, pageNumber string) (*ListTrustProductEvaluationResponse, error) {
-	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
-	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
+//Lists TrustProductEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams, limit *int) ([]*ListTrustProductEvaluationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageTrustProductEvaluation(TrustProductSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListTrustProductEvaluationResponse
 
-	ps := &ListTrustProductEvaluationResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists TrustProductsEvaluations records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) TrustProductsEvaluationsList(TrustProductSid string, params *ListTrustProductEvaluationParams, limit int) ([]ListTrustProductEvaluationResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListTrustProductEvaluation(TrustProductSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListTrustProductEvaluationResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListTrustProductEvaluationResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductEvaluationResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListTrustProductEvaluationResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams TrustProductsEvaluations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) TrustProductsEvaluationsStream(TrustProductSid string, params *ListTrustProductEvaluationParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListTrustProductEvaluation(TrustProductSid, params)
+//Streams TrustProductEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams, limit *int) (chan *ListTrustProductEvaluationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTrustProductEvaluation(TrustProductSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListTrustProductEvaluationResponse, 1)
 
-	ps := ListTrustProductEvaluationResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductEvaluationResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListTrustProductEvaluationResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListTrustProductEvaluationResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTrustProductEvaluationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

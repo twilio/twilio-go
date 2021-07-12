@@ -87,9 +87,10 @@ func (params *ListServiceBindingParams) SetPageSize(PageSize int) *ListServiceBi
 	return params
 }
 
-// Retrieve a list of all push notification bindings in the conversation service
-func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) (*ListServiceBindingResponse, error) {
+//Retrieve a single page of ServiceBinding records from the API. Request is executed immediately.
+func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, pageToken string, pageNumber string) (*ListServiceBindingResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings"
+
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
@@ -109,45 +110,12 @@ func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServi
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListServiceBindingResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesBindingsPage(ChatServiceSid string, params *ListServiceBindingParams, pageToken string, pageNumber string) (*ListServiceBindingResponse, error) {
-	path := "/v1/Services/{ChatServiceSid}/Bindings"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.BindingType != nil {
-		for _, item := range *params.BindingType {
-			data.Add("BindingType", item)
-		}
-	}
-	if params != nil && params.Identity != nil {
-		for _, item := range *params.Identity {
-			data.Add("Identity", item)
-		}
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -164,42 +132,77 @@ func (c *ApiService) ServicesBindingsPage(ChatServiceSid string, params *ListSer
 	return ps, err
 }
 
-//Lists ServicesBindings records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesBindingsList(ChatServiceSid string, params *ListServiceBindingParams, limit int) ([]ListServiceBindingResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListServiceBinding(ChatServiceSid, params)
+//Lists ServiceBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, limit *int) ([]*ListServiceBindingResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageServiceBinding(ChatServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListServiceBindingResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListServiceBindingResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListServiceBindingResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceBindingResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListServiceBindingResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesBindings records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesBindingsStream(ChatServiceSid string, params *ListServiceBindingParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListServiceBinding(ChatServiceSid, params)
+//Streams ServiceBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, limit *int) (chan *ListServiceBindingResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageServiceBinding(ChatServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListServiceBindingResponse, 1)
 
-	ps := ListServiceBindingResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceBindingResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListServiceBindingResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListServiceBindingResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListServiceBindingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

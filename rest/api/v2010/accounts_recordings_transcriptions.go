@@ -111,8 +111,10 @@ func (params *ListRecordingTranscriptionParams) SetPageSize(PageSize int) *ListR
 	return params
 }
 
-func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams) (*ListRecordingTranscriptionResponse, error) {
+//Retrieve a single page of RecordingTranscription records from the API. Request is executed immediately.
+func (c *ApiService) PageRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams, pageToken string, pageNumber string) (*ListRecordingTranscriptionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -125,6 +127,13 @@ func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *Lis
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -142,77 +151,77 @@ func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *Lis
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsRecordingsTranscriptionsPage(RecordingSid string, params *ListRecordingTranscriptionParams, pageToken string, pageNumber string) (*ListRecordingTranscriptionResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"RecordingSid"+"}", RecordingSid, -1)
+//Lists RecordingTranscription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams, limit *int) ([]*ListRecordingTranscriptionResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageRecordingTranscription(RecordingSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListRecordingTranscriptionResponse
 
-	ps := &ListRecordingTranscriptionResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists AccountsRecordingsTranscriptions records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsRecordingsTranscriptionsList(RecordingSid string, params *ListRecordingTranscriptionParams, limit int) ([]ListRecordingTranscriptionResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListRecordingTranscription(RecordingSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListRecordingTranscriptionResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListRecordingTranscriptionResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRecordingTranscriptionResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListRecordingTranscriptionResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsRecordingsTranscriptions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsRecordingsTranscriptionsStream(RecordingSid string, params *ListRecordingTranscriptionParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListRecordingTranscription(RecordingSid, params)
+//Streams RecordingTranscription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams, limit *int) (chan *ListRecordingTranscriptionResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRecordingTranscription(RecordingSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListRecordingTranscriptionResponse, 1)
 
-	ps := ListRecordingTranscriptionResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRecordingTranscriptionResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListRecordingTranscriptionResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListRecordingTranscriptionResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRecordingTranscriptionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

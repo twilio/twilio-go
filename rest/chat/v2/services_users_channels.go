@@ -77,9 +77,10 @@ func (params *ListUserChannelParams) SetPageSize(PageSize int) *ListUserChannelP
 	return params
 }
 
-// List all Channels for a given User.
-func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) (*ListUserChannelResponse, error) {
+//Retrieve a single page of UserChannel records from the API. Request is executed immediately.
+func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, pageToken string, pageNumber string) (*ListUserChannelResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 
@@ -88,6 +89,13 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -105,75 +113,79 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesUsersChannelsPage(ServiceSid string, UserSid string, params *ListUserChannelParams, pageToken string, pageNumber string) (*ListUserChannelResponse, error) {
-	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
+//Lists UserChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, limit *int) ([]*ListUserChannelResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageUserChannel(ServiceSid, UserSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListUserChannelResponse
 
-	ps := &ListUserChannelResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ServicesUsersChannels records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesUsersChannelsList(ServiceSid string, UserSid string, params *ListUserChannelParams, limit int) ([]ListUserChannelResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListUserChannel(ServiceSid, UserSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListUserChannelResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListUserChannelResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUserChannelResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListUserChannelResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesUsersChannels records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesUsersChannelsStream(ServiceSid string, UserSid string, params *ListUserChannelParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListUserChannel(ServiceSid, UserSid, params)
+//Streams UserChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, limit *int) (chan *ListUserChannelResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageUserChannel(ServiceSid, UserSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListUserChannelResponse, 1)
 
-	ps := ListUserChannelResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUserChannelResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListUserChannelResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListUserChannelResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUserChannelResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateUserChannel'

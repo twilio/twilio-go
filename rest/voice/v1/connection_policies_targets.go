@@ -146,8 +146,10 @@ func (params *ListConnectionPolicyTargetParams) SetPageSize(PageSize int) *ListC
 	return params
 }
 
-func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) (*ListConnectionPolicyTargetResponse, error) {
+//Retrieve a single page of ConnectionPolicyTarget records from the API. Request is executed immediately.
+func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, pageToken string, pageNumber string) (*ListConnectionPolicyTargetResponse, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
+
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 
 	data := url.Values{}
@@ -155,6 +157,13 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -172,74 +181,79 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ConnectionPoliciesTargetsPage(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, pageToken string, pageNumber string) (*ListConnectionPolicyTargetResponse, error) {
-	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
-	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
+//Lists ConnectionPolicyTarget records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit *int) ([]*ListConnectionPolicyTargetResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageConnectionPolicyTarget(ConnectionPolicySid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListConnectionPolicyTargetResponse
 
-	ps := &ListConnectionPolicyTargetResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ConnectionPoliciesTargets records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ConnectionPoliciesTargetsList(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit int) ([]ListConnectionPolicyTargetResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListConnectionPolicyTarget(ConnectionPolicySid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListConnectionPolicyTargetResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListConnectionPolicyTargetResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConnectionPolicyTargetResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListConnectionPolicyTargetResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ConnectionPoliciesTargets records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ConnectionPoliciesTargetsStream(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListConnectionPolicyTarget(ConnectionPolicySid, params)
+//Streams ConnectionPolicyTarget records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit *int) (chan *ListConnectionPolicyTargetResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageConnectionPolicyTarget(ConnectionPolicySid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListConnectionPolicyTargetResponse, 1)
 
-	ps := ListConnectionPolicyTargetResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConnectionPolicyTargetResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListConnectionPolicyTargetResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListConnectionPolicyTargetResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListConnectionPolicyTargetResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateConnectionPolicyTarget'

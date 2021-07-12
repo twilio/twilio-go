@@ -113,9 +113,10 @@ func (params *ListShortCodeParams) SetPageSize(PageSize int) *ListShortCodeParam
 	return params
 }
 
-// Retrieve a list of all Short Codes in the Proxy Number Pool for the Service. A maximum of 100 records will be returned per page.
-func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) (*ListShortCodeResponse, error) {
+//Retrieve a single page of ShortCode records from the API. Request is executed immediately.
+func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParams, pageToken string, pageNumber string) (*ListShortCodeResponse, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
@@ -123,6 +124,13 @@ func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParam
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -140,74 +148,79 @@ func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParam
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesShortCodesPage(ServiceSid string, params *ListShortCodeParams, pageToken string, pageNumber string) (*ListShortCodeResponse, error) {
-	path := "/v1/Services/{ServiceSid}/ShortCodes"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+//Lists ShortCode records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams, limit *int) ([]*ListShortCodeResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageShortCode(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListShortCodeResponse
 
-	ps := &ListShortCodeResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ServicesShortCodes records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesShortCodesList(ServiceSid string, params *ListShortCodeParams, limit int) ([]ListShortCodeResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListShortCode(ServiceSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListShortCodeResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListShortCodeResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListShortCodeResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListShortCodeResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesShortCodes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesShortCodesStream(ServiceSid string, params *ListShortCodeParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListShortCode(ServiceSid, params)
+//Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodeParams, limit *int) (chan *ListShortCodeResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageShortCode(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListShortCodeResponse, 1)
 
-	ps := ListShortCodeResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListShortCodeResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListShortCodeResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListShortCodeResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListShortCodeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateShortCode'

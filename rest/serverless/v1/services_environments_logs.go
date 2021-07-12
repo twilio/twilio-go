@@ -76,9 +76,10 @@ func (params *ListLogParams) SetPageSize(PageSize int) *ListLogParams {
 	return params
 }
 
-// Retrieve a list of all logs.
-func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) (*ListLogResponse, error) {
+//Retrieve a single page of Log records from the API. Request is executed immediately.
+func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, pageToken string, pageNumber string) (*ListLogResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
@@ -98,45 +99,12 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListLogResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesEnvironmentsLogsPage(ServiceSid string, EnvironmentSid string, params *ListLogParams, pageToken string, pageNumber string) (*ListLogResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.FunctionSid != nil {
-		data.Set("FunctionSid", *params.FunctionSid)
-	}
-	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -153,42 +121,77 @@ func (c *ApiService) ServicesEnvironmentsLogsPage(ServiceSid string, Environment
 	return ps, err
 }
 
-//Lists ServicesEnvironmentsLogs records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesEnvironmentsLogsList(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit int) ([]ListLogResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListLog(ServiceSid, EnvironmentSid, params)
+//Lists Log records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit *int) ([]*ListLogResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageLog(ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListLogResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListLogResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListLogResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListLogResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListLogResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesEnvironmentsLogs records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesEnvironmentsLogsStream(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListLog(ServiceSid, EnvironmentSid, params)
+//Streams Log records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit *int) (chan *ListLogResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageLog(ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListLogResponse, 1)
 
-	ps := ListLogResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListLogResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListLogResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListLogResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListLogResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

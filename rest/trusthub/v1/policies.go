@@ -55,8 +55,8 @@ func (params *ListPoliciesParams) SetPageSize(PageSize int) *ListPoliciesParams 
 	return params
 }
 
-// Retrieve a list of all Policys.
-func (c *ApiService) ListPolicies(params *ListPoliciesParams) (*ListPoliciesResponse, error) {
+//Retrieve a single page of Policies records from the API. Request is executed immediately.
+func (c *ApiService) PagePolicies(params *ListPoliciesParams, pageToken string, pageNumber string) (*ListPoliciesResponse, error) {
 	path := "/v1/Policies"
 
 	data := url.Values{}
@@ -64,6 +64,13 @@ func (c *ApiService) ListPolicies(params *ListPoliciesParams) (*ListPoliciesResp
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -81,71 +88,77 @@ func (c *ApiService) ListPolicies(params *ListPoliciesParams) (*ListPoliciesResp
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) PoliciesPage(params *ListPoliciesParams, pageToken string, pageNumber string) (*ListPoliciesResponse, error) {
-	path := "/v1/Policies"
+//Lists Policies records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListPolicies(params *ListPoliciesParams, limit *int) ([]*ListPoliciesResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PagePolicies(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListPoliciesResponse
 
-	ps := &ListPoliciesResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists Policies records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) PoliciesList(params *ListPoliciesParams, limit int) ([]ListPoliciesResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListPolicies(params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListPoliciesResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListPoliciesResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListPoliciesResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListPoliciesResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
 //Streams Policies records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) PoliciesStream(params *ListPoliciesParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListPolicies(params)
+func (c *ApiService) StreamPolicies(params *ListPoliciesParams, limit *int) (chan *ListPoliciesResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PagePolicies(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListPoliciesResponse, 1)
 
-	ps := ListPoliciesResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListPoliciesResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListPoliciesResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListPoliciesResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListPoliciesResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

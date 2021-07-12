@@ -96,9 +96,10 @@ func (params *ListDeploymentParams) SetPageSize(PageSize int) *ListDeploymentPar
 	return params
 }
 
-// Retrieve a list of all Deployments.
-func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams) (*ListDeploymentResponse, error) {
+//Retrieve a single page of Deployment records from the API. Request is executed immediately.
+func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, pageToken string, pageNumber string) (*ListDeploymentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
@@ -107,6 +108,13 @@ func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, pa
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -124,73 +132,77 @@ func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, pa
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesEnvironmentsDeploymentsPage(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, pageToken string, pageNumber string) (*ListDeploymentResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
+//Lists Deployment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit *int) ([]*ListDeploymentResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageDeployment(ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListDeploymentResponse
 
-	ps := &ListDeploymentResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ServicesEnvironmentsDeployments records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesEnvironmentsDeploymentsList(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit int) ([]ListDeploymentResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListDeployment(ServiceSid, EnvironmentSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListDeploymentResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListDeploymentResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDeploymentResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListDeploymentResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesEnvironmentsDeployments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesEnvironmentsDeploymentsStream(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListDeployment(ServiceSid, EnvironmentSid, params)
+//Streams Deployment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit *int) (chan *ListDeploymentResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageDeployment(ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListDeploymentResponse, 1)
 
-	ps := ListDeploymentResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDeploymentResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListDeploymentResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListDeploymentResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListDeploymentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

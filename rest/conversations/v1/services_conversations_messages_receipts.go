@@ -58,9 +58,10 @@ func (params *ListServiceConversationMessageReceiptParams) SetPageSize(PageSize 
 	return params
 }
 
-// Retrieve a list of all delivery and read receipts of the conversation message
-func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams) (*ListServiceConversationMessageReceiptResponse, error) {
+//Retrieve a single page of ServiceConversationMessageReceipt records from the API. Request is executed immediately.
+func (c *ApiService) PageServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, pageToken string, pageNumber string) (*ListServiceConversationMessageReceiptResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
+
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
@@ -70,6 +71,13 @@ func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -87,74 +95,77 @@ func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesConversationsMessagesReceiptsPage(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, pageToken string, pageNumber string) (*ListServiceConversationMessageReceiptResponse, error) {
-	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
-	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
+//Lists ServiceConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, limit *int) ([]*ListServiceConversationMessageReceiptResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageServiceConversationMessageReceipt(ChatServiceSid, ConversationSid, MessageSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListServiceConversationMessageReceiptResponse
 
-	ps := &ListServiceConversationMessageReceiptResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ServicesConversationsMessagesReceipts records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesConversationsMessagesReceiptsList(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, limit int) ([]ListServiceConversationMessageReceiptResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListServiceConversationMessageReceipt(ChatServiceSid, ConversationSid, MessageSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListServiceConversationMessageReceiptResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListServiceConversationMessageReceiptResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationMessageReceiptResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListServiceConversationMessageReceiptResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesConversationsMessagesReceipts records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesConversationsMessagesReceiptsStream(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListServiceConversationMessageReceipt(ChatServiceSid, ConversationSid, MessageSid, params)
+//Streams ServiceConversationMessageReceipt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, limit *int) (chan *ListServiceConversationMessageReceiptResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageServiceConversationMessageReceipt(ChatServiceSid, ConversationSid, MessageSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListServiceConversationMessageReceiptResponse, 1)
 
-	ps := ListServiceConversationMessageReceiptResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationMessageReceiptResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListServiceConversationMessageReceiptResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListServiceConversationMessageReceiptResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListServiceConversationMessageReceiptResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

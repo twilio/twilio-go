@@ -230,9 +230,10 @@ func (params *ListUsageTriggerParams) SetPageSize(PageSize int) *ListUsageTrigge
 	return params
 }
 
-// Retrieve a list of usage-triggers belonging to the account used to make the request
-func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams) (*ListUsageTriggerResponse, error) {
+//Retrieve a single page of UsageTrigger records from the API. Request is executed immediately.
+func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken string, pageNumber string) (*ListUsageTriggerResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -255,48 +256,12 @@ func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams) (*ListUsag
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListUsageTriggerResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsUsageTriggersPage(params *ListUsageTriggerParams, pageToken string, pageNumber string) (*ListUsageTriggerResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Recurring != nil {
-		data.Set("Recurring", *params.Recurring)
-	}
-	if params != nil && params.TriggerBy != nil {
-		data.Set("TriggerBy", *params.TriggerBy)
-	}
-	if params != nil && params.UsageCategory != nil {
-		data.Set("UsageCategory", *params.UsageCategory)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -313,44 +278,79 @@ func (c *ApiService) AccountsUsageTriggersPage(params *ListUsageTriggerParams, p
 	return ps, err
 }
 
-//Lists AccountsUsageTriggers records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsUsageTriggersList(params *ListUsageTriggerParams, limit int) ([]ListUsageTriggerResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListUsageTrigger(params)
+//Lists UsageTrigger records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams, limit *int) ([]*ListUsageTriggerResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageUsageTrigger(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListUsageTriggerResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListUsageTriggerResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListUsageTriggerResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageTriggerResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListUsageTriggerResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsUsageTriggers records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsUsageTriggersStream(params *ListUsageTriggerParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListUsageTrigger(params)
+//Streams UsageTrigger records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams, limit *int) (chan *ListUsageTriggerResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageUsageTrigger(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListUsageTriggerResponse, 1)
 
-	ps := ListUsageTriggerResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageTriggerResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListUsageTriggerResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListUsageTriggerResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUsageTriggerResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateUsageTrigger'

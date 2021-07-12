@@ -101,9 +101,10 @@ func (params *ListNotificationParams) SetPageSize(PageSize int) *ListNotificatio
 	return params
 }
 
-// Retrieve a list of notifications belonging to the account used to make the request
-func (c *ApiService) ListNotification(params *ListNotificationParams) (*ListNotificationResponse, error) {
+//Retrieve a single page of Notification records from the API. Request is executed immediately.
+func (c *ApiService) PageNotification(params *ListNotificationParams, pageToken string, pageNumber string) (*ListNotificationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Notifications.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -129,51 +130,12 @@ func (c *ApiService) ListNotification(params *ListNotificationParams) (*ListNoti
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListNotificationResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsNotificationsPage(params *ListNotificationParams, pageToken string, pageNumber string) (*ListNotificationResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/Notifications.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Log != nil {
-		data.Set("Log", fmt.Sprint(*params.Log))
-	}
-	if params != nil && params.MessageDate != nil {
-		data.Set("MessageDate", fmt.Sprint(*params.MessageDate))
-	}
-	if params != nil && params.MessageDateBefore != nil {
-		data.Set("MessageDate<", fmt.Sprint(*params.MessageDateBefore))
-	}
-	if params != nil && params.MessageDateAfter != nil {
-		data.Set("MessageDate>", fmt.Sprint(*params.MessageDateAfter))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -190,42 +152,77 @@ func (c *ApiService) AccountsNotificationsPage(params *ListNotificationParams, p
 	return ps, err
 }
 
-//Lists AccountsNotifications records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsNotificationsList(params *ListNotificationParams, limit int) ([]ListNotificationResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListNotification(params)
+//Lists Notification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListNotification(params *ListNotificationParams, limit *int) ([]*ListNotificationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageNotification(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListNotificationResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListNotificationResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListNotificationResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNotificationResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListNotificationResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsNotifications records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsNotificationsStream(params *ListNotificationParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListNotification(params)
+//Streams Notification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamNotification(params *ListNotificationParams, limit *int) (chan *ListNotificationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageNotification(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListNotificationResponse, 1)
 
-	ps := ListNotificationResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNotificationResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListNotificationResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListNotificationResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListNotificationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

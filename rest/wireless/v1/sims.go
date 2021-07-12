@@ -103,8 +103,8 @@ func (params *ListSimParams) SetPageSize(PageSize int) *ListSimParams {
 	return params
 }
 
-// Retrieve a list of Sim resources on your Account.
-func (c *ApiService) ListSim(params *ListSimParams) (*ListSimResponse, error) {
+//Retrieve a single page of Sim records from the API. Request is executed immediately.
+func (c *ApiService) PageSim(params *ListSimParams, pageToken string, pageNumber string) (*ListSimResponse, error) {
 	path := "/v1/Sims"
 
 	data := url.Values{}
@@ -129,49 +129,12 @@ func (c *ApiService) ListSim(params *ListSimParams) (*ListSimResponse, error) {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListSimResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) SimsPage(params *ListSimParams, pageToken string, pageNumber string) (*ListSimResponse, error) {
-	path := "/v1/Sims"
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
-	if params != nil && params.Iccid != nil {
-		data.Set("Iccid", *params.Iccid)
-	}
-	if params != nil && params.RatePlan != nil {
-		data.Set("RatePlan", *params.RatePlan)
-	}
-	if params != nil && params.EId != nil {
-		data.Set("EId", *params.EId)
-	}
-	if params != nil && params.SimRegistrationCode != nil {
-		data.Set("SimRegistrationCode", *params.SimRegistrationCode)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -188,44 +151,79 @@ func (c *ApiService) SimsPage(params *ListSimParams, pageToken string, pageNumbe
 	return ps, err
 }
 
-//Lists Sims records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SimsList(params *ListSimParams, limit int) ([]ListSimResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListSim(params)
+//Lists Sim records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSim(params *ListSimParams, limit *int) ([]*ListSimResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageSim(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListSimResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListSimResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListSimResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSimResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListSimResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams Sims records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SimsStream(params *ListSimParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListSim(params)
+//Streams Sim records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSim(params *ListSimParams, limit *int) (chan *ListSimResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageSim(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListSimResponse, 1)
 
-	ps := ListSimResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSimResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSimResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSimResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSimResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSim'

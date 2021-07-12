@@ -79,9 +79,10 @@ func (params *ListEvaluationParams) SetPageSize(PageSize int) *ListEvaluationPar
 	return params
 }
 
-// Retrieve a list of Evaluations associated to the Bundle resource.
-func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationParams) (*ListEvaluationResponse, error) {
+//Retrieve a single page of Evaluation records from the API. Request is executed immediately.
+func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationParams, pageToken string, pageNumber string) (*ListEvaluationResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
+
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
 	data := url.Values{}
@@ -89,6 +90,13 @@ func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationPara
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -106,72 +114,77 @@ func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationPara
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) RegulatoryComplianceBundlesEvaluationsPage(BundleSid string, params *ListEvaluationParams, pageToken string, pageNumber string) (*ListEvaluationResponse, error) {
-	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
-	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+//Lists Evaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationParams, limit *int) ([]*ListEvaluationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageEvaluation(BundleSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListEvaluationResponse
 
-	ps := &ListEvaluationResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists RegulatoryComplianceBundlesEvaluations records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) RegulatoryComplianceBundlesEvaluationsList(BundleSid string, params *ListEvaluationParams, limit int) ([]ListEvaluationResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListEvaluation(BundleSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListEvaluationResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListEvaluationResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEvaluationResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListEvaluationResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams RegulatoryComplianceBundlesEvaluations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) RegulatoryComplianceBundlesEvaluationsStream(BundleSid string, params *ListEvaluationParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListEvaluation(BundleSid, params)
+//Streams Evaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationParams, limit *int) (chan *ListEvaluationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageEvaluation(BundleSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListEvaluationResponse, 1)
 
-	ps := ListEvaluationResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEvaluationResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListEvaluationResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListEvaluationResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEvaluationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

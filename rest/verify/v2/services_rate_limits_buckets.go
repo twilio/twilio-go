@@ -125,9 +125,10 @@ func (params *ListBucketParams) SetPageSize(PageSize int) *ListBucketParams {
 	return params
 }
 
-// Retrieve a list of all Buckets for a Rate Limit.
-func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams) (*ListBucketResponse, error) {
+//Retrieve a single page of Bucket records from the API. Request is executed immediately.
+func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams, pageToken string, pageNumber string) (*ListBucketResponse, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
 
@@ -136,6 +137,13 @@ func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -153,75 +161,79 @@ func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesRateLimitsBucketsPage(ServiceSid string, RateLimitSid string, params *ListBucketParams, pageToken string, pageNumber string) (*ListBucketResponse, error) {
-	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
+//Lists Bucket records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams, limit *int) ([]*ListBucketResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageBucket(ServiceSid, RateLimitSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListBucketResponse
 
-	ps := &ListBucketResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ServicesRateLimitsBuckets records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesRateLimitsBucketsList(ServiceSid string, RateLimitSid string, params *ListBucketParams, limit int) ([]ListBucketResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListBucket(ServiceSid, RateLimitSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListBucketResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListBucketResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBucketResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListBucketResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesRateLimitsBuckets records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesRateLimitsBucketsStream(ServiceSid string, RateLimitSid string, params *ListBucketParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListBucket(ServiceSid, RateLimitSid, params)
+//Streams Bucket records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams, limit *int) (chan *ListBucketResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageBucket(ServiceSid, RateLimitSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListBucketResponse, 1)
 
-	ps := ListBucketResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBucketResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListBucketResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListBucketResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBucketResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateBucket'

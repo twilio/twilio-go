@@ -73,8 +73,8 @@ func (params *ListRegulationParams) SetPageSize(PageSize int) *ListRegulationPar
 	return params
 }
 
-// Retrieve a list of all Regulations.
-func (c *ApiService) ListRegulation(params *ListRegulationParams) (*ListRegulationResponse, error) {
+//Retrieve a single page of Regulation records from the API. Request is executed immediately.
+func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken string, pageNumber string) (*ListRegulationResponse, error) {
 	path := "/v2/RegulatoryCompliance/Regulations"
 
 	data := url.Values{}
@@ -93,43 +93,12 @@ func (c *ApiService) ListRegulation(params *ListRegulationParams) (*ListRegulati
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListRegulationResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) RegulatoryComplianceRegulationsPage(params *ListRegulationParams, pageToken string, pageNumber string) (*ListRegulationResponse, error) {
-	path := "/v2/RegulatoryCompliance/Regulations"
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.EndUserType != nil {
-		data.Set("EndUserType", *params.EndUserType)
-	}
-	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
-	}
-	if params != nil && params.NumberType != nil {
-		data.Set("NumberType", *params.NumberType)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -146,42 +115,77 @@ func (c *ApiService) RegulatoryComplianceRegulationsPage(params *ListRegulationP
 	return ps, err
 }
 
-//Lists RegulatoryComplianceRegulations records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) RegulatoryComplianceRegulationsList(params *ListRegulationParams, limit int) ([]ListRegulationResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListRegulation(params)
+//Lists Regulation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRegulation(params *ListRegulationParams, limit *int) ([]*ListRegulationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRegulation(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListRegulationResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListRegulationResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListRegulationResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRegulationResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListRegulationResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams RegulatoryComplianceRegulations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) RegulatoryComplianceRegulationsStream(params *ListRegulationParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListRegulation(params)
+//Streams Regulation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRegulation(params *ListRegulationParams, limit *int) (chan *ListRegulationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRegulation(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListRegulationResponse, 1)
 
-	ps := ListRegulationResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRegulationResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListRegulationResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListRegulationResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRegulationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

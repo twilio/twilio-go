@@ -32,9 +32,10 @@ func (params *ListBillingPeriodParams) SetPageSize(PageSize int) *ListBillingPer
 	return params
 }
 
-// Retrieve a list of Billing Periods for a Super SIM.
-func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams) (*ListBillingPeriodResponse, error) {
+//Retrieve a single page of BillingPeriod records from the API. Request is executed immediately.
+func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodParams, pageToken string, pageNumber string) (*ListBillingPeriodResponse, error) {
 	path := "/v1/Sims/{SimSid}/BillingPeriods"
+
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
 
 	data := url.Values{}
@@ -42,6 +43,13 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -59,72 +67,77 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) SimsBillingPeriodsPage(SimSid string, params *ListBillingPeriodParams, pageToken string, pageNumber string) (*ListBillingPeriodResponse, error) {
-	path := "/v1/Sims/{SimSid}/BillingPeriods"
-	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
+//Lists BillingPeriod records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams, limit *int) ([]*ListBillingPeriodResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageBillingPeriod(SimSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListBillingPeriodResponse
 
-	ps := &ListBillingPeriodResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists SimsBillingPeriods records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SimsBillingPeriodsList(SimSid string, params *ListBillingPeriodParams, limit int) ([]ListBillingPeriodResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListBillingPeriod(SimSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListBillingPeriodResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListBillingPeriodResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListBillingPeriodResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams SimsBillingPeriods records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SimsBillingPeriodsStream(SimSid string, params *ListBillingPeriodParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListBillingPeriod(SimSid, params)
+//Streams BillingPeriod records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPeriodParams, limit *int) (chan *ListBillingPeriodResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageBillingPeriod(SimSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListBillingPeriodResponse, 1)
 
-	ps := ListBillingPeriodResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListBillingPeriodResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListBillingPeriodResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBillingPeriodResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

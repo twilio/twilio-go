@@ -142,9 +142,10 @@ func (params *ListWebhookParams) SetPageSize(PageSize int) *ListWebhookParams {
 	return params
 }
 
-// Retrieve a list of all Webhooks for a Service.
-func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) (*ListWebhookResponse, error) {
+//Retrieve a single page of Webhook records from the API. Request is executed immediately.
+func (c *ApiService) PageWebhook(ServiceSid string, params *ListWebhookParams, pageToken string, pageNumber string) (*ListWebhookResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Webhooks"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
@@ -152,6 +153,13 @@ func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) (
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -169,74 +177,79 @@ func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) (
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesWebhooksPage(ServiceSid string, params *ListWebhookParams, pageToken string, pageNumber string) (*ListWebhookResponse, error) {
-	path := "/v2/Services/{ServiceSid}/Webhooks"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+//Lists Webhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams, limit *int) ([]*ListWebhookResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageWebhook(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListWebhookResponse
 
-	ps := &ListWebhookResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ServicesWebhooks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesWebhooksList(ServiceSid string, params *ListWebhookParams, limit int) ([]ListWebhookResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListWebhook(ServiceSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListWebhookResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListWebhookResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWebhookResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListWebhookResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesWebhooks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesWebhooksStream(ServiceSid string, params *ListWebhookParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListWebhook(ServiceSid, params)
+//Streams Webhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams, limit *int) (chan *ListWebhookResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageWebhook(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListWebhookResponse, 1)
 
-	ps := ListWebhookResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWebhookResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListWebhookResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListWebhookResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListWebhookResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateWebhook'

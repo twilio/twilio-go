@@ -115,9 +115,10 @@ func (params *ListRecordingAddOnResultPayloadParams) SetPageSize(PageSize int) *
 	return params
 }
 
-// Retrieve a list of payloads belonging to the AddOnResult
-func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams) (*ListRecordingAddOnResultPayloadResponse, error) {
+//Retrieve a single page of RecordingAddOnResultPayload records from the API. Request is executed immediately.
+func (c *ApiService) PageRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams, pageToken string, pageNumber string) (*ListRecordingAddOnResultPayloadResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -131,6 +132,13 @@ func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -148,78 +156,77 @@ func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsRecordingsAddOnResultsPayloadsPage(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams, pageToken string, pageNumber string) (*ListRecordingAddOnResultPayloadResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"ReferenceSid"+"}", ReferenceSid, -1)
-	path = strings.Replace(path, "{"+"AddOnResultSid"+"}", AddOnResultSid, -1)
+//Lists RecordingAddOnResultPayload records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams, limit *int) ([]*ListRecordingAddOnResultPayloadResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageRecordingAddOnResultPayload(ReferenceSid, AddOnResultSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListRecordingAddOnResultPayloadResponse
 
-	ps := &ListRecordingAddOnResultPayloadResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists AccountsRecordingsAddOnResultsPayloads records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsRecordingsAddOnResultsPayloadsList(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams, limit int) ([]ListRecordingAddOnResultPayloadResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListRecordingAddOnResultPayload(ReferenceSid, AddOnResultSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListRecordingAddOnResultPayloadResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListRecordingAddOnResultPayloadResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListRecordingAddOnResultPayloadResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsRecordingsAddOnResultsPayloads records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsRecordingsAddOnResultsPayloadsStream(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListRecordingAddOnResultPayload(ReferenceSid, AddOnResultSid, params)
+//Streams RecordingAddOnResultPayload records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams, limit *int) (chan *ListRecordingAddOnResultPayloadResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRecordingAddOnResultPayload(ReferenceSid, AddOnResultSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListRecordingAddOnResultPayloadResponse, 1)
 
-	ps := ListRecordingAddOnResultPayloadResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListRecordingAddOnResultPayloadResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListRecordingAddOnResultPayloadResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRecordingAddOnResultPayloadResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

@@ -215,8 +215,10 @@ func (params *ListTaskParams) SetPageSize(PageSize int) *ListTaskParams {
 	return params
 }
 
-func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams) (*ListTaskResponse, error) {
+//Retrieve a single page of Task records from the API. Request is executed immediately.
+func (c *ApiService) PageTask(WorkspaceSid string, params *ListTaskParams, pageToken string, pageNumber string) (*ListTaskResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
+
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
@@ -255,64 +257,12 @@ func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams) (*Lis
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListTaskResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) WorkspacesTasksPage(WorkspaceSid string, params *ListTaskParams, pageToken string, pageNumber string) (*ListTaskResponse, error) {
-	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Priority != nil {
-		data.Set("Priority", fmt.Sprint(*params.Priority))
-	}
-	if params != nil && params.AssignmentStatus != nil {
-		for _, item := range *params.AssignmentStatus {
-			data.Add("AssignmentStatus", item)
-		}
-	}
-	if params != nil && params.WorkflowSid != nil {
-		data.Set("WorkflowSid", *params.WorkflowSid)
-	}
-	if params != nil && params.WorkflowName != nil {
-		data.Set("WorkflowName", *params.WorkflowName)
-	}
-	if params != nil && params.TaskQueueSid != nil {
-		data.Set("TaskQueueSid", *params.TaskQueueSid)
-	}
-	if params != nil && params.TaskQueueName != nil {
-		data.Set("TaskQueueName", *params.TaskQueueName)
-	}
-	if params != nil && params.EvaluateTaskAttributes != nil {
-		data.Set("EvaluateTaskAttributes", *params.EvaluateTaskAttributes)
-	}
-	if params != nil && params.Ordering != nil {
-		data.Set("Ordering", *params.Ordering)
-	}
-	if params != nil && params.HasAddons != nil {
-		data.Set("HasAddons", fmt.Sprint(*params.HasAddons))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -329,44 +279,79 @@ func (c *ApiService) WorkspacesTasksPage(WorkspaceSid string, params *ListTaskPa
 	return ps, err
 }
 
-//Lists WorkspacesTasks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) WorkspacesTasksList(WorkspaceSid string, params *ListTaskParams, limit int) ([]ListTaskResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListTask(WorkspaceSid, params)
+//Lists Task records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams, limit *int) ([]*ListTaskResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTask(WorkspaceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListTaskResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListTaskResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListTaskResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListTaskResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams WorkspacesTasks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) WorkspacesTasksStream(WorkspaceSid string, params *ListTaskParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListTask(WorkspaceSid, params)
+//Streams Task records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTask(WorkspaceSid string, params *ListTaskParams, limit *int) (chan *ListTaskResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTask(WorkspaceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListTaskResponse, 1)
 
-	ps := ListTaskResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListTaskResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListTaskResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTaskResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateTask'

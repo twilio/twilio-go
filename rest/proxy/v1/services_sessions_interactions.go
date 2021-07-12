@@ -77,9 +77,10 @@ func (params *ListInteractionParams) SetPageSize(PageSize int) *ListInteractionP
 	return params
 }
 
-// Retrieve a list of all Interactions for a Session. A maximum of 100 records will be returned per page.
-func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams) (*ListInteractionResponse, error) {
+//Retrieve a single page of Interaction records from the API. Request is executed immediately.
+func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, pageToken string, pageNumber string) (*ListInteractionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 
@@ -88,6 +89,13 @@ func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, param
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -105,73 +113,77 @@ func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, param
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesSessionsInteractionsPage(ServiceSid string, SessionSid string, params *ListInteractionParams, pageToken string, pageNumber string) (*ListInteractionResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
+//Lists Interaction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, limit *int) ([]*ListInteractionResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageInteraction(ServiceSid, SessionSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListInteractionResponse
 
-	ps := &ListInteractionResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ServicesSessionsInteractions records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesSessionsInteractionsList(ServiceSid string, SessionSid string, params *ListInteractionParams, limit int) ([]ListInteractionResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListInteraction(ServiceSid, SessionSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListInteractionResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListInteractionResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListInteractionResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListInteractionResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesSessionsInteractions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesSessionsInteractionsStream(ServiceSid string, SessionSid string, params *ListInteractionParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListInteraction(ServiceSid, SessionSid, params)
+//Streams Interaction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, limit *int) (chan *ListInteractionResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageInteraction(ServiceSid, SessionSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListInteractionResponse, 1)
 
-	ps := ListInteractionResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListInteractionResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListInteractionResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListInteractionResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListInteractionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

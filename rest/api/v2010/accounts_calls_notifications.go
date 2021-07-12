@@ -101,8 +101,10 @@ func (params *ListCallNotificationParams) SetPageSize(PageSize int) *ListCallNot
 	return params
 }
 
-func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotificationParams) (*ListCallNotificationResponse, error) {
+//Retrieve a single page of CallNotification records from the API. Request is executed immediately.
+func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotificationParams, pageToken string, pageNumber string) (*ListCallNotificationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -129,52 +131,12 @@ func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotifi
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListCallNotificationResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsCallsNotificationsPage(CallSid string, params *ListCallNotificationParams, pageToken string, pageNumber string) (*ListCallNotificationResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Log != nil {
-		data.Set("Log", fmt.Sprint(*params.Log))
-	}
-	if params != nil && params.MessageDate != nil {
-		data.Set("MessageDate", fmt.Sprint(*params.MessageDate))
-	}
-	if params != nil && params.MessageDateBefore != nil {
-		data.Set("MessageDate<", fmt.Sprint(*params.MessageDateBefore))
-	}
-	if params != nil && params.MessageDateAfter != nil {
-		data.Set("MessageDate>", fmt.Sprint(*params.MessageDateAfter))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -191,42 +153,77 @@ func (c *ApiService) AccountsCallsNotificationsPage(CallSid string, params *List
 	return ps, err
 }
 
-//Lists AccountsCallsNotifications records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsCallsNotificationsList(CallSid string, params *ListCallNotificationParams, limit int) ([]ListCallNotificationResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListCallNotification(CallSid, params)
+//Lists CallNotification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotificationParams, limit *int) ([]*ListCallNotificationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCallNotification(CallSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListCallNotificationResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListCallNotificationResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListCallNotificationResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCallNotificationResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListCallNotificationResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsCallsNotifications records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsCallsNotificationsStream(CallSid string, params *ListCallNotificationParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListCallNotification(CallSid, params)
+//Streams CallNotification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNotificationParams, limit *int) (chan *ListCallNotificationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCallNotification(CallSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListCallNotificationResponse, 1)
 
-	ps := ListCallNotificationResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCallNotificationResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListCallNotificationResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListCallNotificationResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCallNotificationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

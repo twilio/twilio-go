@@ -73,8 +73,8 @@ func (params *ListNetworkParams) SetPageSize(PageSize int) *ListNetworkParams {
 	return params
 }
 
-// Retrieve a list of Network resources.
-func (c *ApiService) ListNetwork(params *ListNetworkParams) (*ListNetworkResponse, error) {
+//Retrieve a single page of Network records from the API. Request is executed immediately.
+func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken string, pageNumber string) (*ListNetworkResponse, error) {
 	path := "/v1/Networks"
 
 	data := url.Values{}
@@ -93,43 +93,12 @@ func (c *ApiService) ListNetwork(params *ListNetworkParams) (*ListNetworkRespons
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListNetworkResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) NetworksPage(params *ListNetworkParams, pageToken string, pageNumber string) (*ListNetworkResponse, error) {
-	path := "/v1/Networks"
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.IsoCountry != nil {
-		data.Set("IsoCountry", *params.IsoCountry)
-	}
-	if params != nil && params.Mcc != nil {
-		data.Set("Mcc", *params.Mcc)
-	}
-	if params != nil && params.Mnc != nil {
-		data.Set("Mnc", *params.Mnc)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -146,42 +115,77 @@ func (c *ApiService) NetworksPage(params *ListNetworkParams, pageToken string, p
 	return ps, err
 }
 
-//Lists Networks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) NetworksList(params *ListNetworkParams, limit int) ([]ListNetworkResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListNetwork(params)
+//Lists Network records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListNetwork(params *ListNetworkParams, limit *int) ([]*ListNetworkResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageNetwork(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListNetworkResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListNetworkResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListNetworkResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNetworkResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListNetworkResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams Networks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) NetworksStream(params *ListNetworkParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListNetwork(params)
+//Streams Network records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamNetwork(params *ListNetworkParams, limit *int) (chan *ListNetworkResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageNetwork(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListNetworkResponse, 1)
 
-	ps := ListNetworkResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNetworkResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListNetworkResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListNetworkResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListNetworkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

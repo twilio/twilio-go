@@ -32,9 +32,10 @@ func (params *ListDialingPermissionsHrsPrefixesParams) SetPageSize(PageSize int)
 	return params
 }
 
-// Fetch the high-risk special services prefixes from the country resource corresponding to the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) (*ListDialingPermissionsHrsPrefixesResponse, error) {
+//Retrieve a single page of DialingPermissionsHrsPrefixes records from the API. Request is executed immediately.
+func (c *ApiService) PageDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, pageToken string, pageNumber string) (*ListDialingPermissionsHrsPrefixesResponse, error) {
 	path := "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes"
+
 	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
 
 	data := url.Values{}
@@ -42,6 +43,13 @@ func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *L
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -59,72 +67,77 @@ func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *L
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) DialingPermissionsCountriesHighRiskSpecialPrefixesPage(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, pageToken string, pageNumber string) (*ListDialingPermissionsHrsPrefixesResponse, error) {
-	path := "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes"
-	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
+//Lists DialingPermissionsHrsPrefixes records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, limit *int) ([]*ListDialingPermissionsHrsPrefixesResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageDialingPermissionsHrsPrefixes(IsoCode, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListDialingPermissionsHrsPrefixesResponse
 
-	ps := &ListDialingPermissionsHrsPrefixesResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists DialingPermissionsCountriesHighRiskSpecialPrefixes records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) DialingPermissionsCountriesHighRiskSpecialPrefixesList(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, limit int) ([]ListDialingPermissionsHrsPrefixesResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListDialingPermissionsHrsPrefixes(IsoCode, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListDialingPermissionsHrsPrefixesResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListDialingPermissionsHrsPrefixesResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDialingPermissionsHrsPrefixesResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListDialingPermissionsHrsPrefixesResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams DialingPermissionsCountriesHighRiskSpecialPrefixes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) DialingPermissionsCountriesHighRiskSpecialPrefixesStream(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListDialingPermissionsHrsPrefixes(IsoCode, params)
+//Streams DialingPermissionsHrsPrefixes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, limit *int) (chan *ListDialingPermissionsHrsPrefixesResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageDialingPermissionsHrsPrefixes(IsoCode, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListDialingPermissionsHrsPrefixesResponse, 1)
 
-	ps := ListDialingPermissionsHrsPrefixesResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDialingPermissionsHrsPrefixesResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListDialingPermissionsHrsPrefixesResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListDialingPermissionsHrsPrefixesResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListDialingPermissionsHrsPrefixesResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

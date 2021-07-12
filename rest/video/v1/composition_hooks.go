@@ -225,8 +225,8 @@ func (params *ListCompositionHookParams) SetPageSize(PageSize int) *ListComposit
 	return params
 }
 
-// List of all Recording CompositionHook resources.
-func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) (*ListCompositionHookResponse, error) {
+//Retrieve a single page of CompositionHook records from the API. Request is executed immediately.
+func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, pageToken string, pageNumber string) (*ListCompositionHookResponse, error) {
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
@@ -248,46 +248,12 @@ func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) (*Li
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListCompositionHookResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) CompositionHooksPage(params *ListCompositionHookParams, pageToken string, pageNumber string) (*ListCompositionHookResponse, error) {
-	path := "/v1/CompositionHooks"
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Enabled != nil {
-		data.Set("Enabled", fmt.Sprint(*params.Enabled))
-	}
-	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
-	}
-	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreatedBefore", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -304,44 +270,79 @@ func (c *ApiService) CompositionHooksPage(params *ListCompositionHookParams, pag
 	return ps, err
 }
 
-//Lists CompositionHooks records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) CompositionHooksList(params *ListCompositionHookParams, limit int) ([]ListCompositionHookResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListCompositionHook(params)
+//Lists CompositionHook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams, limit *int) ([]*ListCompositionHookResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCompositionHook(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListCompositionHookResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListCompositionHookResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListCompositionHookResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCompositionHookResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListCompositionHookResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams CompositionHooks records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) CompositionHooksStream(params *ListCompositionHookParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListCompositionHook(params)
+//Streams CompositionHook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCompositionHook(params *ListCompositionHookParams, limit *int) (chan *ListCompositionHookResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCompositionHook(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListCompositionHookResponse, 1)
 
-	ps := ListCompositionHookResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCompositionHookResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListCompositionHookResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListCompositionHookResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCompositionHookResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateCompositionHook'

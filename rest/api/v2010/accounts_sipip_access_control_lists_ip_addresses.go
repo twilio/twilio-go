@@ -180,9 +180,10 @@ func (params *ListSipIpAddressParams) SetPageSize(PageSize int) *ListSipIpAddres
 	return params
 }
 
-// Read multiple IpAddress resources.
-func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams) (*ListSipIpAddressResponse, error) {
+//Retrieve a single page of SipIpAddress records from the API. Request is executed immediately.
+func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, pageToken string, pageNumber string) (*ListSipIpAddressResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -195,6 +196,13 @@ func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *Lis
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -212,79 +220,79 @@ func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *Lis
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsSIPIpAccessControlListsIpAddressesPage(IpAccessControlListSid string, params *ListSipIpAddressParams, pageToken string, pageNumber string) (*ListSipIpAddressResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
+//Lists SipIpAddress records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, limit *int) ([]*ListSipIpAddressResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageSipIpAddress(IpAccessControlListSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListSipIpAddressResponse
 
-	ps := &ListSipIpAddressResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists AccountsSIPIpAccessControlListsIpAddresses records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsSIPIpAccessControlListsIpAddressesList(IpAccessControlListSid string, params *ListSipIpAddressParams, limit int) ([]ListSipIpAddressResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListSipIpAddress(IpAccessControlListSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListSipIpAddressResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListSipIpAddressResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipIpAddressResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListSipIpAddressResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsSIPIpAccessControlListsIpAddresses records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsSIPIpAccessControlListsIpAddressesStream(IpAccessControlListSid string, params *ListSipIpAddressParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListSipIpAddress(IpAccessControlListSid, params)
+//Streams SipIpAddress records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, limit *int) (chan *ListSipIpAddressResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageSipIpAddress(IpAccessControlListSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListSipIpAddressResponse, 1)
 
-	ps := ListSipIpAddressResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipIpAddressResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSipIpAddressResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSipIpAddressResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSipIpAddressResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSipIpAddress'

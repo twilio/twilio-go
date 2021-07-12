@@ -179,8 +179,10 @@ func (params *ListSyncListItemParams) SetPageSize(PageSize int) *ListSyncListIte
 	return params
 }
 
-func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) (*ListSyncListItemResponse, error) {
+//Retrieve a single page of SyncListItem records from the API. Request is executed immediately.
+func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams, pageToken string, pageNumber string) (*ListSyncListItemResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
 
@@ -200,45 +202,12 @@ func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params 
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListSyncListItemResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesListsItemsPage(ServiceSid string, ListSid string, params *ListSyncListItemParams, pageToken string, pageNumber string) (*ListSyncListItemResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Order != nil {
-		data.Set("Order", *params.Order)
-	}
-	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
-	}
-	if params != nil && params.Bounds != nil {
-		data.Set("Bounds", *params.Bounds)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -255,44 +224,79 @@ func (c *ApiService) ServicesListsItemsPage(ServiceSid string, ListSid string, p
 	return ps, err
 }
 
-//Lists ServicesListsItems records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesListsItemsList(ServiceSid string, ListSid string, params *ListSyncListItemParams, limit int) ([]ListSyncListItemResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListSyncListItem(ServiceSid, ListSid, params)
+//Lists SyncListItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams, limit *int) ([]*ListSyncListItemResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageSyncListItem(ServiceSid, ListSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListSyncListItemResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListSyncListItemResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListSyncListItemResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncListItemResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListSyncListItemResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesListsItems records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesListsItemsStream(ServiceSid string, ListSid string, params *ListSyncListItemParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListSyncListItem(ServiceSid, ListSid, params)
+//Streams SyncListItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams, limit *int) (chan *ListSyncListItemResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageSyncListItem(ServiceSid, ListSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListSyncListItemResponse, 1)
 
-	ps := ListSyncListItemResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncListItemResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSyncListItemResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSyncListItemResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSyncListItemResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSyncListItem'

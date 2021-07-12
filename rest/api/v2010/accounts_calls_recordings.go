@@ -227,9 +227,10 @@ func (params *ListCallRecordingParams) SetPageSize(PageSize int) *ListCallRecord
 	return params
 }
 
-// Retrieve a list of recordings belonging to the call used to make the request
-func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecordingParams) (*ListCallRecordingResponse, error) {
+//Retrieve a single page of CallRecording records from the API. Request is executed immediately.
+func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecordingParams, pageToken string, pageNumber string) (*ListCallRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -253,49 +254,12 @@ func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecording
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListCallRecordingResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsCallsRecordingsPage(CallSid string, params *ListCallRecordingParams, pageToken string, pageNumber string) (*ListCallRecordingResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
-	}
-	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreated<", fmt.Sprint(*params.DateCreatedBefore))
-	}
-	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreated>", fmt.Sprint(*params.DateCreatedAfter))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -312,44 +276,79 @@ func (c *ApiService) AccountsCallsRecordingsPage(CallSid string, params *ListCal
 	return ps, err
 }
 
-//Lists AccountsCallsRecordings records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsCallsRecordingsList(CallSid string, params *ListCallRecordingParams, limit int) ([]ListCallRecordingResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListCallRecording(CallSid, params)
+//Lists CallRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecordingParams, limit *int) ([]*ListCallRecordingResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCallRecording(CallSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListCallRecordingResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListCallRecordingResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListCallRecordingResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCallRecordingResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListCallRecordingResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsCallsRecordings records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsCallsRecordingsStream(CallSid string, params *ListCallRecordingParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListCallRecording(CallSid, params)
+//Streams CallRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCallRecording(CallSid string, params *ListCallRecordingParams, limit *int) (chan *ListCallRecordingResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCallRecording(CallSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListCallRecordingResponse, 1)
 
-	ps := ListCallRecordingResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCallRecordingResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListCallRecordingResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListCallRecordingResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCallRecordingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateCallRecording'

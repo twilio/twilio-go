@@ -61,8 +61,10 @@ func (params *ListUsageRecordThisMonthParams) SetPageSize(PageSize int) *ListUsa
 	return params
 }
 
-func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthParams) (*ListUsageRecordThisMonthResponse, error) {
+//Retrieve a single page of UsageRecordThisMonth records from the API. Request is executed immediately.
+func (c *ApiService) PageUsageRecordThisMonth(params *ListUsageRecordThisMonthParams, pageToken string, pageNumber string) (*ListUsageRecordThisMonthResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -88,51 +90,12 @@ func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthPa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListUsageRecordThisMonthResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsUsageRecordsThisMonthPage(params *ListUsageRecordThisMonthParams, pageToken string, pageNumber string) (*ListUsageRecordThisMonthResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Category != nil {
-		data.Set("Category", *params.Category)
-	}
-	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint(*params.StartDate))
-	}
-	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint(*params.EndDate))
-	}
-	if params != nil && params.IncludeSubaccounts != nil {
-		data.Set("IncludeSubaccounts", fmt.Sprint(*params.IncludeSubaccounts))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -149,42 +112,77 @@ func (c *ApiService) AccountsUsageRecordsThisMonthPage(params *ListUsageRecordTh
 	return ps, err
 }
 
-//Lists AccountsUsageRecordsThisMonth records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsUsageRecordsThisMonthList(params *ListUsageRecordThisMonthParams, limit int) ([]ListUsageRecordThisMonthResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListUsageRecordThisMonth(params)
+//Lists UsageRecordThisMonth records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthParams, limit *int) ([]*ListUsageRecordThisMonthResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageUsageRecordThisMonth(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListUsageRecordThisMonthResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListUsageRecordThisMonthResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListUsageRecordThisMonthResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordThisMonthResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListUsageRecordThisMonthResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsUsageRecordsThisMonth records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsUsageRecordsThisMonthStream(params *ListUsageRecordThisMonthParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListUsageRecordThisMonth(params)
+//Streams UsageRecordThisMonth records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordThisMonth(params *ListUsageRecordThisMonthParams, limit *int) (chan *ListUsageRecordThisMonthResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageUsageRecordThisMonth(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListUsageRecordThisMonthResponse, 1)
 
-	ps := ListUsageRecordThisMonthResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordThisMonthResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListUsageRecordThisMonthResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListUsageRecordThisMonthResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUsageRecordThisMonthResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

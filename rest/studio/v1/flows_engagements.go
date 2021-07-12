@@ -137,9 +137,10 @@ func (params *ListEngagementParams) SetPageSize(PageSize int) *ListEngagementPar
 	return params
 }
 
-// Retrieve a list of all Engagements for the Flow.
-func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams) (*ListEngagementResponse, error) {
+//Retrieve a single page of Engagement records from the API. Request is executed immediately.
+func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams, pageToken string, pageNumber string) (*ListEngagementResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements"
+
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
 	data := url.Values{}
@@ -147,6 +148,13 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -164,72 +172,77 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) FlowsEngagementsPage(FlowSid string, params *ListEngagementParams, pageToken string, pageNumber string) (*ListEngagementResponse, error) {
-	path := "/v1/Flows/{FlowSid}/Engagements"
-	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
+//Lists Engagement records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams, limit *int) ([]*ListEngagementResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageEngagement(FlowSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListEngagementResponse
 
-	ps := &ListEngagementResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists FlowsEngagements records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) FlowsEngagementsList(FlowSid string, params *ListEngagementParams, limit int) ([]ListEngagementResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListEngagement(FlowSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListEngagementResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListEngagementResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEngagementResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListEngagementResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams FlowsEngagements records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) FlowsEngagementsStream(FlowSid string, params *ListEngagementParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListEngagement(FlowSid, params)
+//Streams Engagement records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementParams, limit *int) (chan *ListEngagementResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageEngagement(FlowSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListEngagementResponse, 1)
 
-	ps := ListEngagementResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEngagementResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListEngagementResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListEngagementResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEngagementResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

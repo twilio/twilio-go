@@ -91,8 +91,8 @@ func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
 	return params
 }
 
-// Returns a list of events in the account, sorted by event-date.
-func (c *ApiService) ListEvent(params *ListEventParams) (*ListEventResponse, error) {
+//Retrieve a single page of Event records from the API. Request is executed immediately.
+func (c *ApiService) PageEvent(params *ListEventParams, pageToken string, pageNumber string) (*ListEventResponse, error) {
 	path := "/v1/Events"
 
 	data := url.Values{}
@@ -120,52 +120,12 @@ func (c *ApiService) ListEvent(params *ListEventParams) (*ListEventResponse, err
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListEventResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) EventsPage(params *ListEventParams, pageToken string, pageNumber string) (*ListEventResponse, error) {
-	path := "/v1/Events"
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.ActorSid != nil {
-		data.Set("ActorSid", *params.ActorSid)
-	}
-	if params != nil && params.EventType != nil {
-		data.Set("EventType", *params.EventType)
-	}
-	if params != nil && params.ResourceSid != nil {
-		data.Set("ResourceSid", *params.ResourceSid)
-	}
-	if params != nil && params.SourceIpAddress != nil {
-		data.Set("SourceIpAddress", *params.SourceIpAddress)
-	}
-	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -182,42 +142,77 @@ func (c *ApiService) EventsPage(params *ListEventParams, pageToken string, pageN
 	return ps, err
 }
 
-//Lists Events records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) EventsList(params *ListEventParams, limit int) ([]ListEventResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListEvent(params)
+//Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEvent(params *ListEventParams, limit *int) ([]*ListEventResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageEvent(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListEventResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListEventResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListEventResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListEventResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams Events records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) EventsStream(params *ListEventParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListEvent(params)
+//Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEvent(params *ListEventParams, limit *int) (chan *ListEventResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageEvent(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListEventResponse, 1)
 
-	ps := ListEventResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListEventResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListEventResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEventResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

@@ -113,9 +113,10 @@ func (params *ListCustomerProfileEntityAssignmentParams) SetPageSize(PageSize in
 	return params
 }
 
-// Retrieve a list of all Assigned Items for an account.
-func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) (*ListCustomerProfileEntityAssignmentResponse, error) {
+//Retrieve a single page of CustomerProfileEntityAssignment records from the API. Request is executed immediately.
+func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, pageToken string, pageNumber string) (*ListCustomerProfileEntityAssignmentResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
+
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
 	data := url.Values{}
@@ -123,6 +124,13 @@ func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid stri
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -140,72 +148,77 @@ func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid stri
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) CustomerProfilesEntityAssignmentsPage(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, pageToken string, pageNumber string) (*ListCustomerProfileEntityAssignmentResponse, error) {
-	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
-	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
+//Lists CustomerProfileEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit *int) ([]*ListCustomerProfileEntityAssignmentResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageCustomerProfileEntityAssignment(CustomerProfileSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListCustomerProfileEntityAssignmentResponse
 
-	ps := &ListCustomerProfileEntityAssignmentResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists CustomerProfilesEntityAssignments records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) CustomerProfilesEntityAssignmentsList(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit int) ([]ListCustomerProfileEntityAssignmentResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListCustomerProfileEntityAssignment(CustomerProfileSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListCustomerProfileEntityAssignmentResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListCustomerProfileEntityAssignmentResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileEntityAssignmentResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListCustomerProfileEntityAssignmentResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams CustomerProfilesEntityAssignments records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) CustomerProfilesEntityAssignmentsStream(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListCustomerProfileEntityAssignment(CustomerProfileSid, params)
+//Streams CustomerProfileEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit *int) (chan *ListCustomerProfileEntityAssignmentResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCustomerProfileEntityAssignment(CustomerProfileSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListCustomerProfileEntityAssignmentResponse, 1)
 
-	ps := ListCustomerProfileEntityAssignmentResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileEntityAssignmentResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListCustomerProfileEntityAssignmentResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListCustomerProfileEntityAssignmentResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCustomerProfileEntityAssignmentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

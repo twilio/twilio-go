@@ -56,8 +56,10 @@ func (params *ListWorkerChannelParams) SetPageSize(PageSize int) *ListWorkerChan
 	return params
 }
 
-func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (*ListWorkerChannelResponse, error) {
+//Retrieve a single page of WorkerChannel records from the API. Request is executed immediately.
+func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, pageToken string, pageNumber string) (*ListWorkerChannelResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels"
+
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
 
@@ -66,6 +68,13 @@ func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -83,75 +92,79 @@ func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) WorkspacesWorkersChannelsPage(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, pageToken string, pageNumber string) (*ListWorkerChannelResponse, error) {
-	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
-	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
+//Lists WorkerChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, limit *int) ([]*ListWorkerChannelResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageWorkerChannel(WorkspaceSid, WorkerSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListWorkerChannelResponse
 
-	ps := &ListWorkerChannelResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists WorkspacesWorkersChannels records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) WorkspacesWorkersChannelsList(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, limit int) ([]ListWorkerChannelResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListWorkerChannel(WorkspaceSid, WorkerSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListWorkerChannelResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListWorkerChannelResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWorkerChannelResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListWorkerChannelResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams WorkspacesWorkersChannels records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) WorkspacesWorkersChannelsStream(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListWorkerChannel(WorkspaceSid, WorkerSid, params)
+//Streams WorkerChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, limit *int) (chan *ListWorkerChannelResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageWorkerChannel(WorkspaceSid, WorkerSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListWorkerChannelResponse, 1)
 
-	ps := ListWorkerChannelResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWorkerChannelResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListWorkerChannelResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListWorkerChannelResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListWorkerChannelResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateWorkerChannel'

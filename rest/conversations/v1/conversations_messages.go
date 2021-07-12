@@ -184,9 +184,10 @@ func (params *ListConversationMessageParams) SetPageSize(PageSize int) *ListConv
 	return params
 }
 
-// Retrieve a list of all messages in the conversation
-func (c *ApiService) ListConversationMessage(ConversationSid string, params *ListConversationMessageParams) (*ListConversationMessageResponse, error) {
+//Retrieve a single page of ConversationMessage records from the API. Request is executed immediately.
+func (c *ApiService) PageConversationMessage(ConversationSid string, params *ListConversationMessageParams, pageToken string, pageNumber string) (*ListConversationMessageResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages"
+
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
@@ -194,6 +195,13 @@ func (c *ApiService) ListConversationMessage(ConversationSid string, params *Lis
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -211,74 +219,79 @@ func (c *ApiService) ListConversationMessage(ConversationSid string, params *Lis
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ConversationsMessagesPage(ConversationSid string, params *ListConversationMessageParams, pageToken string, pageNumber string) (*ListConversationMessageResponse, error) {
-	path := "/v1/Conversations/{ConversationSid}/Messages"
-	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
+//Lists ConversationMessage records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConversationMessage(ConversationSid string, params *ListConversationMessageParams, limit *int) ([]*ListConversationMessageResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageConversationMessage(ConversationSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListConversationMessageResponse
 
-	ps := &ListConversationMessageResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ConversationsMessages records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ConversationsMessagesList(ConversationSid string, params *ListConversationMessageParams, limit int) ([]ListConversationMessageResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListConversationMessage(ConversationSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListConversationMessageResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListConversationMessageResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConversationMessageResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListConversationMessageResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ConversationsMessages records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ConversationsMessagesStream(ConversationSid string, params *ListConversationMessageParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListConversationMessage(ConversationSid, params)
+//Streams ConversationMessage records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConversationMessage(ConversationSid string, params *ListConversationMessageParams, limit *int) (chan *ListConversationMessageResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageConversationMessage(ConversationSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListConversationMessageResponse, 1)
 
-	ps := ListConversationMessageResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConversationMessageResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListConversationMessageResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListConversationMessageResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListConversationMessageResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateConversationMessage'

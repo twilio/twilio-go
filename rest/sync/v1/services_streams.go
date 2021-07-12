@@ -122,9 +122,10 @@ func (params *ListSyncStreamParams) SetPageSize(PageSize int) *ListSyncStreamPar
 	return params
 }
 
-// Retrieve a list of all Streams in a Service Instance.
-func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamParams) (*ListSyncStreamResponse, error) {
+//Retrieve a single page of SyncStream records from the API. Request is executed immediately.
+func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamParams, pageToken string, pageNumber string) (*ListSyncStreamResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Streams"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
@@ -132,6 +133,13 @@ func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamPar
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -149,74 +157,79 @@ func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamPar
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesStreamsPage(ServiceSid string, params *ListSyncStreamParams, pageToken string, pageNumber string) (*ListSyncStreamResponse, error) {
-	path := "/v1/Services/{ServiceSid}/Streams"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
+//Lists SyncStream records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamParams, limit *int) ([]*ListSyncStreamResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageSyncStream(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListSyncStreamResponse
 
-	ps := &ListSyncStreamResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ServicesStreams records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesStreamsList(ServiceSid string, params *ListSyncStreamParams, limit int) ([]ListSyncStreamResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListSyncStream(ServiceSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListSyncStreamResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListSyncStreamResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListSyncStreamResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesStreams records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesStreamsStream(ServiceSid string, params *ListSyncStreamParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListSyncStream(ServiceSid, params)
+//Streams SyncStream records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamParams, limit *int) (chan *ListSyncStreamResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageSyncStream(ServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListSyncStreamResponse, 1)
 
-	ps := ListSyncStreamResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSyncStreamResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSyncStreamResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSyncStreamResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSyncStream'

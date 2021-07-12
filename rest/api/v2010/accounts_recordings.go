@@ -142,9 +142,10 @@ func (params *ListRecordingParams) SetPageSize(PageSize int) *ListRecordingParam
 	return params
 }
 
-// Retrieve a list of recordings belonging to the account used to make the request
-func (c *ApiService) ListRecording(params *ListRecordingParams) (*ListRecordingResponse, error) {
+//Retrieve a single page of Recording records from the API. Request is executed immediately.
+func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken string, pageNumber string) (*ListRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -173,54 +174,12 @@ func (c *ApiService) ListRecording(params *ListRecordingParams) (*ListRecordingR
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListRecordingResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AccountsRecordingsPage(params *ListRecordingParams, pageToken string, pageNumber string) (*ListRecordingResponse, error) {
-	path := "/2010-04-01/Accounts/{AccountSid}/Recordings.json"
-	if params != nil && params.PathAccountSid != nil {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
-	} else {
-		path = strings.Replace(path, "{"+"AccountSid"+"}", c.requestHandler.Client.AccountSid(), -1)
-	}
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.DateCreated != nil {
-		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
-	}
-	if params != nil && params.DateCreatedBefore != nil {
-		data.Set("DateCreated<", fmt.Sprint((*params.DateCreatedBefore).Format(time.RFC3339)))
-	}
-	if params != nil && params.DateCreatedAfter != nil {
-		data.Set("DateCreated>", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
-	}
-	if params != nil && params.CallSid != nil {
-		data.Set("CallSid", *params.CallSid)
-	}
-	if params != nil && params.ConferenceSid != nil {
-		data.Set("ConferenceSid", *params.ConferenceSid)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -237,42 +196,77 @@ func (c *ApiService) AccountsRecordingsPage(params *ListRecordingParams, pageTok
 	return ps, err
 }
 
-//Lists AccountsRecordings records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AccountsRecordingsList(params *ListRecordingParams, limit int) ([]ListRecordingResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListRecording(params)
+//Lists Recording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRecording(params *ListRecordingParams, limit *int) ([]*ListRecordingResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRecording(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListRecordingResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListRecordingResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListRecordingResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRecordingResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListRecordingResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams AccountsRecordings records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AccountsRecordingsStream(params *ListRecordingParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListRecording(params)
+//Streams Recording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRecording(params *ListRecordingParams, limit *int) (chan *ListRecordingResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRecording(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListRecordingResponse, 1)
 
-	ps := ListRecordingResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRecordingResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListRecordingResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListRecordingResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRecordingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

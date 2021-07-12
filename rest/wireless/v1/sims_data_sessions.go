@@ -32,8 +32,10 @@ func (params *ListDataSessionParams) SetPageSize(PageSize int) *ListDataSessionP
 	return params
 }
 
-func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParams) (*ListDataSessionResponse, error) {
+//Retrieve a single page of DataSession records from the API. Request is executed immediately.
+func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParams, pageToken string, pageNumber string) (*ListDataSessionResponse, error) {
 	path := "/v1/Sims/{SimSid}/DataSessions"
+
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
 
 	data := url.Values{}
@@ -41,6 +43,13 @@ func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParam
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -58,72 +67,77 @@ func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParam
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) SimsDataSessionsPage(SimSid string, params *ListDataSessionParams, pageToken string, pageNumber string) (*ListDataSessionResponse, error) {
-	path := "/v1/Sims/{SimSid}/DataSessions"
-	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
+//Lists DataSession records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParams, limit *int) ([]*ListDataSessionResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageDataSession(SimSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListDataSessionResponse
 
-	ps := &ListDataSessionResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists SimsDataSessions records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SimsDataSessionsList(SimSid string, params *ListDataSessionParams, limit int) ([]ListDataSessionResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListDataSession(SimSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListDataSessionResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListDataSessionResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDataSessionResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListDataSessionResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams SimsDataSessions records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SimsDataSessionsStream(SimSid string, params *ListDataSessionParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListDataSession(SimSid, params)
+//Streams DataSession records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionParams, limit *int) (chan *ListDataSessionResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageDataSession(SimSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListDataSessionResponse, 1)
 
-	ps := ListDataSessionResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDataSessionResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListDataSessionResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListDataSessionResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListDataSessionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

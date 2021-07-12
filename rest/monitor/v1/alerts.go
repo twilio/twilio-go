@@ -73,7 +73,8 @@ func (params *ListAlertParams) SetPageSize(PageSize int) *ListAlertParams {
 	return params
 }
 
-func (c *ApiService) ListAlert(params *ListAlertParams) (*ListAlertResponse, error) {
+//Retrieve a single page of Alert records from the API. Request is executed immediately.
+func (c *ApiService) PageAlert(params *ListAlertParams, pageToken string, pageNumber string) (*ListAlertResponse, error) {
 	path := "/v1/Alerts"
 
 	data := url.Values{}
@@ -92,43 +93,12 @@ func (c *ApiService) ListAlert(params *ListAlertParams) (*ListAlertResponse, err
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListAlertResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) AlertsPage(params *ListAlertParams, pageToken string, pageNumber string) (*ListAlertResponse, error) {
-	path := "/v1/Alerts"
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.LogLevel != nil {
-		data.Set("LogLevel", *params.LogLevel)
-	}
-	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -145,42 +115,77 @@ func (c *ApiService) AlertsPage(params *ListAlertParams, pageToken string, pageN
 	return ps, err
 }
 
-//Lists Alerts records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) AlertsList(params *ListAlertParams, limit int) ([]ListAlertResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListAlert(params)
+//Lists Alert records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAlert(params *ListAlertParams, limit *int) ([]*ListAlertResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageAlert(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListAlertResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListAlertResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListAlertResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAlertResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListAlertResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams Alerts records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) AlertsStream(params *ListAlertParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListAlert(params)
+//Streams Alert records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAlert(params *ListAlertParams, limit *int) (chan *ListAlertResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageAlert(params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListAlertResponse, 1)
 
-	ps := ListAlertResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAlertResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListAlertResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListAlertResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAlertResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

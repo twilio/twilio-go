@@ -81,8 +81,10 @@ func (params *ListUserBindingParams) SetPageSize(PageSize int) *ListUserBindingP
 	return params
 }
 
-func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams) (*ListUserBindingResponse, error) {
+//Retrieve a single page of UserBinding records from the API. Request is executed immediately.
+func (c *ApiService) PageUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams, pageToken string, pageNumber string) (*ListUserBindingResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 
@@ -96,6 +98,13 @@ func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -113,28 +122,68 @@ func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesUsersBindingsPage(ServiceSid string, UserSid string, params *ListUserBindingParams, pageToken string, pageNumber string) (*ListUserBindingResponse, error) {
-	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings"
-	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
-	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
+//Lists UserBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams, limit *int) ([]*ListUserBindingResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
+	response, err := c.PageUserBinding(ServiceSid, UserSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
 
-	if params != nil && params.BindingType != nil {
-		for _, item := range *params.BindingType {
-			data.Add("BindingType", item)
+	curRecord := 0
+	var records []*ListUserBindingResponse
+
+	for response != nil {
+		records = append(records, response)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUserBindingResponse); record == nil || err != nil {
+			return records, err
 		}
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+
+		response = record.(*ListUserBindingResponse)
 	}
 
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
+	return records, err
+}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+//Streams UserBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams, limit *int) (chan *ListUserBindingResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageUserBinding(ServiceSid, UserSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListUserBindingResponse, 1)
+
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUserBindingResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListUserBindingResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListUserBindingResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -145,46 +194,5 @@ func (c *ApiService) ServicesUsersBindingsPage(ServiceSid string, UserSid string
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
-
-	return ps, err
-}
-
-//Lists ServicesUsersBindings records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesUsersBindingsList(ServiceSid string, UserSid string, params *ListUserBindingParams, limit int) ([]ListUserBindingResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListUserBinding(ServiceSid, UserSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListUserBindingResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListUserBindingResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
-		}
-
-		ret[i] = ps
-	}
-
-	return ret, nil
-}
-
-//Streams ServicesUsersBindings records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesUsersBindingsStream(ServiceSid string, UserSid string, params *ListUserBindingParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListUserBinding(ServiceSid, UserSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	ps := ListUserBindingResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	return ps, nil
 }

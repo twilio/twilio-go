@@ -211,9 +211,10 @@ func (params *ListServiceConversationParams) SetPageSize(PageSize int) *ListServ
 	return params
 }
 
-// Retrieve a list of conversations in your service
-func (c *ApiService) ListServiceConversation(ChatServiceSid string, params *ListServiceConversationParams) (*ListServiceConversationResponse, error) {
+//Retrieve a single page of ServiceConversation records from the API. Request is executed immediately.
+func (c *ApiService) PageServiceConversation(ChatServiceSid string, params *ListServiceConversationParams, pageToken string, pageNumber string) (*ListServiceConversationResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations"
+
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
@@ -221,6 +222,13 @@ func (c *ApiService) ListServiceConversation(ChatServiceSid string, params *List
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -238,74 +246,79 @@ func (c *ApiService) ListServiceConversation(ChatServiceSid string, params *List
 	return ps, err
 }
 
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) ServicesConversationsPage(ChatServiceSid string, params *ListServiceConversationParams, pageToken string, pageNumber string) (*ListServiceConversationResponse, error) {
-	path := "/v1/Services/{ChatServiceSid}/Conversations"
-	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
+//Lists ServiceConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceConversation(ChatServiceSid string, params *ListServiceConversationParams, limit *int) ([]*ListServiceConversationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
-
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	response, err := c.PageServiceConversation(ChatServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	curRecord := 0
+	var records []*ListServiceConversationResponse
 
-	ps := &ListServiceConversationResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
+	for response != nil {
+		records = append(records, response)
 
-	return ps, err
-}
-
-//Lists ServicesConversations records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) ServicesConversationsList(ChatServiceSid string, params *ListServiceConversationParams, limit int) ([]ListServiceConversationResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListServiceConversation(ChatServiceSid, params)
-	if err != nil {
-		return nil, err
-	}
-
-	page := client.NewPage(c.baseURL, response)
-
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListServiceConversationResponse, len(resp))
-
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListServiceConversationResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListServiceConversationResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams ServicesConversations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) ServicesConversationsStream(ChatServiceSid string, params *ListServiceConversationParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListServiceConversation(ChatServiceSid, params)
+//Streams ServiceConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceConversation(ChatServiceSid string, params *ListServiceConversationParams, limit *int) (chan *ListServiceConversationResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageServiceConversation(ChatServiceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListServiceConversationResponse, 1)
 
-	ps := ListServiceConversationResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListServiceConversationResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListServiceConversationResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListServiceConversationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateServiceConversation'

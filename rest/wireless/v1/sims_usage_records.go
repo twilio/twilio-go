@@ -51,8 +51,10 @@ func (params *ListUsageRecordParams) SetPageSize(PageSize int) *ListUsageRecordP
 	return params
 }
 
-func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParams) (*ListUsageRecordResponse, error) {
+//Retrieve a single page of UsageRecord records from the API. Request is executed immediately.
+func (c *ApiService) PageUsageRecord(SimSid string, params *ListUsageRecordParams, pageToken string, pageNumber string) (*ListUsageRecordResponse, error) {
 	path := "/v1/Sims/{SimSid}/UsageRecords"
+
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
 
 	data := url.Values{}
@@ -71,44 +73,12 @@ func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParam
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListUsageRecordResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) SimsUsageRecordsPage(SimSid string, params *ListUsageRecordParams, pageToken string, pageNumber string) (*ListUsageRecordResponse, error) {
-	path := "/v1/Sims/{SimSid}/UsageRecords"
-	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.End != nil {
-		data.Set("End", fmt.Sprint((*params.End).Format(time.RFC3339)))
-	}
-	if params != nil && params.Start != nil {
-		data.Set("Start", fmt.Sprint((*params.Start).Format(time.RFC3339)))
-	}
-	if params != nil && params.Granularity != nil {
-		data.Set("Granularity", *params.Granularity)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -125,42 +95,77 @@ func (c *ApiService) SimsUsageRecordsPage(SimSid string, params *ListUsageRecord
 	return ps, err
 }
 
-//Lists SimsUsageRecords records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) SimsUsageRecordsList(SimSid string, params *ListUsageRecordParams, limit int) ([]ListUsageRecordResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListUsageRecord(SimSid, params)
+//Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParams, limit *int) ([]*ListUsageRecordResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageUsageRecord(SimSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListUsageRecordResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListUsageRecordResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListUsageRecordResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListUsageRecordResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams SimsUsageRecords records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) SimsUsageRecordsStream(SimSid string, params *ListUsageRecordParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListUsageRecord(SimSid, params)
+//Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecord(SimSid string, params *ListUsageRecordParams, limit *int) (chan *ListUsageRecordResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageUsageRecord(SimSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListUsageRecordResponse, 1)
 
-	ps := ListUsageRecordResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListUsageRecordResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListUsageRecordResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUsageRecordResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

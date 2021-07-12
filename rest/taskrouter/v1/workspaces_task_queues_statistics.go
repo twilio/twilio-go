@@ -143,8 +143,10 @@ func (params *ListTaskQueuesStatisticsParams) SetPageSize(PageSize int) *ListTas
 	return params
 }
 
-func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) (*ListTaskQueuesStatisticsResponse, error) {
+//Retrieve a single page of TaskQueuesStatistics records from the API. Request is executed immediately.
+func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, pageToken string, pageNumber string) (*ListTaskQueuesStatisticsResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics"
+
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
@@ -172,53 +174,12 @@ func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListT
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
-	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
 	}
-
-	defer resp.Body.Close()
-
-	ps := &ListTaskQueuesStatisticsResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
-
-	return ps, err
-}
-
-//Retrieve a single page of  records from the API. Request is executed immediately.
-func (c *ApiService) WorkspacesTaskQueuesStatisticsPage(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, pageToken string, pageNumber string) (*ListTaskQueuesStatisticsResponse, error) {
-	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics"
-	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.EndDate != nil {
-		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.FriendlyName != nil {
-		data.Set("FriendlyName", *params.FriendlyName)
-	}
-	if params != nil && params.Minutes != nil {
-		data.Set("Minutes", fmt.Sprint(*params.Minutes))
-	}
-	if params != nil && params.StartDate != nil {
-		data.Set("StartDate", fmt.Sprint((*params.StartDate).Format(time.RFC3339)))
-	}
-	if params != nil && params.TaskChannel != nil {
-		data.Set("TaskChannel", *params.TaskChannel)
-	}
-	if params != nil && params.SplitByWaitTime != nil {
-		data.Set("SplitByWaitTime", *params.SplitByWaitTime)
-	}
-	if params != nil && params.PageSize != nil {
-		data.Set("PageSize", fmt.Sprint(*params.PageSize))
-	}
-
-	data.Set("PageToken", pageToken)
-	data.Set("PageNumber", pageNumber)
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -235,42 +196,77 @@ func (c *ApiService) WorkspacesTaskQueuesStatisticsPage(WorkspaceSid string, par
 	return ps, err
 }
 
-//Lists WorkspacesTaskQueuesStatistics records from the API as a list. Unlike stream, this operation is eager and will loads 'limit' records into memory before returning.
-func (c *ApiService) WorkspacesTaskQueuesStatisticsList(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, limit int) ([]ListTaskQueuesStatisticsResponse, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListTaskQueuesStatistics(WorkspaceSid, params)
+//Lists TaskQueuesStatistics records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, limit *int) ([]*ListTaskQueuesStatisticsResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTaskQueuesStatistics(WorkspaceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	var records []*ListTaskQueuesStatisticsResponse
 
-	resp := c.requestHandler.List(page, limit, 0)
-	ret := make([]ListTaskQueuesStatisticsResponse, len(resp))
+	for response != nil {
+		records = append(records, response)
 
-	for i := range resp {
-		jsonStr, _ := json.Marshal(resp[i])
-		ps := ListTaskQueuesStatisticsResponse{}
-		if err := json.Unmarshal(jsonStr, &ps); err != nil {
-			return ret, err
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskQueuesStatisticsResponse); record == nil || err != nil {
+			return records, err
 		}
 
-		ret[i] = ps
+		response = record.(*ListTaskQueuesStatisticsResponse)
 	}
 
-	return ret, nil
+	return records, err
 }
 
-//Streams WorkspacesTaskQueuesStatistics records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) WorkspacesTaskQueuesStatisticsStream(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, limit int) (chan interface{}, error) {
-	params.SetPageSize(c.requestHandler.ReadLimits(params.PageSize, limit))
-	response, err := c.ListTaskQueuesStatistics(WorkspaceSid, params)
+//Streams TaskQueuesStatistics records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, limit *int) (chan *ListTaskQueuesStatisticsResponse, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTaskQueuesStatistics(WorkspaceSid, params, "", "")
 	if err != nil {
 		return nil, err
 	}
 
-	page := client.NewPage(c.baseURL, response)
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan *ListTaskQueuesStatisticsResponse, 1)
 
-	ps := ListTaskQueuesStatisticsResponse{}
-	return c.requestHandler.Stream(page, limit, 0, ps), nil
+	go func() {
+		for response != nil {
+			channel <- response
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskQueuesStatisticsResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListTaskQueuesStatisticsResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListTaskQueuesStatisticsResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTaskQueuesStatisticsResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
