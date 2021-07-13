@@ -311,13 +311,11 @@ func main() {
 
 ### Using Paging
 
-This library also offers paging functionality. Collections such as calls and messages have `Listxxx` and `Streamxxx`
-functions page under the hood. With both list and stream, you can specify the number of records you want to receive (
-limit) and the maximum size you want each page fetch to be (pageSize). The library will then handle the task for you.
+This library also offers paging functionality. Collections such as calls and messages have `ListXxx` and `StreamXxx`
+functions that page under the hood. With both list and stream, you can specify the number of records you want to receive (limit) and the maximum size you want each page fetch to be (pageSize). The library will then handle the task for you.
 
 `List` eagerly fetches all records and returns them as a list, whereas `Stream` streams the records and lazily retrieves
-the pages as you iterate over the collection. You can also page manually using the `Pagexxx` function in each of the
-apis.
+the pages as you iterate over the collection. You can also page manually using the `PageXxx` function in each of the apis.
 
 ```go
 package main
@@ -342,14 +340,14 @@ func main() {
 	params.SetPageSize(20)
 	limit := 100
 	
-	resp, err := client.ApiV2010ListMessage(params, &limit)
+	resp, err := client.ApiV2010.ListMessage(params, &limit)
 	for record := range resp {
 		for i := range resp[record].Messages {
 			fmt.Println("From: ", *resp[record].Messages[i].Body)
 		}
 	}
 
-	resp, err = client.ApiV2010.PageMessage(listParams, "pagetoken", "1")
+	resp, err = client.ApiV2010.PageMessage(params, "pagetoken", "1")
 	if err != nil {
 		fmt.Println(err)
 	} else {
