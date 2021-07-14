@@ -7,7 +7,9 @@ import (
 )
 
 func TestClient_WithParams(t *testing.T) {
-	client := NewRestClientWithParams("parentSid", "authToken", RestClientParams{
+	client := NewRestClientWithParams(RestClientParams{
+		Username:   "parentSid",
+		Password:   "authToken",
 		AccountSid: "subAccountSid",
 	})
 
@@ -15,6 +17,9 @@ func TestClient_WithParams(t *testing.T) {
 }
 
 func TestClient_WithNoAccountSid(t *testing.T) {
-	client := NewRestClient("parentSid", "authToken")
+	client := NewRestClientWithParams(RestClientParams{
+		Username: "parentSid",
+		Password: "authToken",
+	})
 	assert.Equal(t, client.RequestHandler.Client.AccountSid(), "parentSid")
 }

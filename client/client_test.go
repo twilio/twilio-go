@@ -2,6 +2,7 @@ package client_test
 
 import (
 	"encoding/json"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -154,4 +155,25 @@ func TestClient_SetTimeoutCreatesClient(t *testing.T) {
 	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
 	assert.NoError(t, err)
 	assert.Equal(t, 200, resp.StatusCode)
+}
+
+func TestClient_UnicodeResponse(t *testing.T) {
+	mockServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			d := map[string]interface{}{
+				"testing-unicode": "Ω≈ç√, 💩",
+			}
+			encoder := json.NewEncoder(writer)
+			err := encoder.Encode(&d)
+			if err != nil {
+				t.Error(err)
+			}
+		}))
+	defer mockServer.Close()
+
+	client := NewClient("user", "pass")
+	resp, _ := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	assert.Equal(t, 200, resp.StatusCode)
+	body, _ := io.ReadAll(resp.Body)
+	assert.Equal(t, "{\"testing-unicode\":\"Ω≈ç√, 💩\"}\n", string(body))
 }

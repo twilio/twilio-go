@@ -39,8 +39,7 @@ Getting started with the Twilio API couldn't be easier. Create a
 
 ### API Credentials
 
-The Twilio `RestClient` needs your Twilio credentials. You should pass these
-directly to the constructor (see the code below).
+The Twilio `RestClient` needs your Twilio credentials. You can either pass these directly to the constructor (see the code below), or use environment variables.
 
 ```go
 package main
@@ -50,42 +49,37 @@ import "github.com/twilio/twilio-go"
 func main() {
     accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-    client := twilio.NewRestClient(accountSid, authToken)
+    client := twilio.NewRestClientWithParams(twilio.RestClientParams{
+    	Username: accountSid,
+    	Password: authToken,
+    })
 }
-
 ```
+Alternatively, a `RestClient` constructor without these parameters will look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` variables inside the current environment.
 
+We suggest storing your credentials as environment variables. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
 ```go
 package main
 
 import "github.com/twilio/twilio-go"
 
 func main() {
-    accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+    client := twilio.NewRestClient()
+}
+```
+Make API calls with a SubAccount by setting the `AccountSid` field in the `twilio.RestClientParams`:
+```go
+package main
+
+import "github.com/twilio/twilio-go"
+
+func main() {
     subaccountSid := "ACYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-    client := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{
-        AccountSid: subaccountSid,
+    client := twilio.NewRestClientWithParams(twilio.RestClientParams{
+    	AccountSid: subaccountSid,
     })
 }
 
-```
-
-We suggest storing your credentials as environment variables and then use it in your code. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
-
-```go
-package main
-
-import (
-    "github.com/twilio/twilio-go"
-    "os"
-)
-
-func main() {
-    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-    authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-    client := twilio.NewRestClient(accountSid, authToken)
-}
 ```
 
 ### Specify a Region and/or Edge
@@ -99,9 +93,7 @@ import (
 )
 
 func main() {
-    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-    authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-    client := twilio.NewRestClient(accountSid, authToken)
+    client := twilio.NewRestClient()
     client.SetRegion("au1")
     client.SetEdge("sydney")
 }
@@ -123,12 +115,10 @@ import (
 )
 
 func main() {
-    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-    authToken := os.Getenv("TWILIO_AUTH_TOKEN")
     phoneNumber := "AVAILABLE_TWILIO_PHONE_NUMBER"
     subaccountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
 
-    client := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{
+    client := twilio.NewRestClientWithParams(twilio.RestClientParams{
         AccountSid: subaccountSid,
     })
 
@@ -159,13 +149,11 @@ import (
 )
 
 func main() {
-    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-    authToken := os.Getenv("TWILIO_AUTH_TOKEN")
     from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
     to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
     subaccountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
 
-    client := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{
+    client := twilio.NewRestClientWithParams(twilio.RestClientParams{
         AccountSid: subaccountSid,
     })
 
@@ -197,12 +185,10 @@ import (
 )
 
 func main() {
-    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-    authToken := os.Getenv("TWILIO_AUTH_TOKEN")
     from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
     to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
 
-    client := twilio.NewRestClient(accountSid, authToken)
+    client := twilio.NewRestClient()
 
     params := &openapi.CreateCallParams{}
     params.SetTo(to)
@@ -232,11 +218,9 @@ import (
 )
 
 func main() {
-    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-    authToken := os.Getenv("TWILIO_AUTH_SID")
     serviceSid := "ZSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
-    client := twilio.NewRestClient(accountSid, authToken)
+    client := twilio.NewRestClient()
 
     params := &openapi.CreateFunctionParams{}
     params.SetFriendlyName("My Serverless func")
@@ -266,9 +250,6 @@ import (
 )
 
 func main() {
-    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-    authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-
     var jsonStr = `{
    "description":"Twilio Studio flow service",
    "initial_state":"Trigger",
@@ -292,7 +273,7 @@ func main() {
     definition := make(map[string]interface{})
     _ = json.Unmarshal([]byte(jsonStr), &definition)
 
-    client := twilio.NewRestClient(accountSid, authToken)
+    client := twilio.NewRestClient()
     params := &openapi.CreateFlowParams{
         Definition: &definition,
     }
@@ -323,11 +304,9 @@ import (
 )
 
 func main() {
-    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-    authToken := os.Getenv("TWILIO_AUTH_TOKEN")
     phoneNumber := os.Getenv("TWILIO_PHONE_NUMBER")
 
-    client := twilio.NewRestClient(accountSid, authToken)
+    client := twilio.NewRestClient()
 
     params := &openapi.CreateIncomingPhoneNumberParams{}
     params.SetPhoneNumber(phoneNumber)
@@ -361,6 +340,7 @@ func main() {
     authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 
     // Create an instance of our default BaseClient implementation
+    // You will need to provide your API credentials to the Client manually
     defaultClient := &client.Client{
         Credentials: client.NewCredentials(accountSid, authToken),
     }
@@ -409,7 +389,7 @@ func main() {
     }
     customClient.SetAccountSid(accountSid)
 
-    twilioClient := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{Client: customClient})
+    twilioClient := twilio.NewRestClientWithParams(twilio.RestClientParams{Client: customClient})
 
     // You may also use custom clients with standalone product services
     twilioApiV2010 := openapi.NewApiServiceWithClient(customClient)
