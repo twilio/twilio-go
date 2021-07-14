@@ -1,0 +1,187 @@
+# UsersConversationsApi
+
+All URIs are relative to *https://conversations.twilio.com*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**DeleteUserConversation**](UsersConversationsApi.md#DeleteUserConversation) | **Delete** /v1/Users/{UserSid}/Conversations/{ConversationSid} | 
+[**FetchUserConversation**](UsersConversationsApi.md#FetchUserConversation) | **Get** /v1/Users/{UserSid}/Conversations/{ConversationSid} | 
+[**ListUserConversation**](UsersConversationsApi.md#ListUserConversation) | **Get** /v1/Users/{UserSid}/Conversations | 
+[**UpdateUserConversation**](UsersConversationsApi.md#UpdateUserConversation) | **Post** /v1/Users/{UserSid}/Conversations/{ConversationSid} | 
+
+
+
+## DeleteUserConversation
+
+> DeleteUserConversation(ctx, UserSidConversationSid)
+
+
+
+Delete a specific User Conversation.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**UserSid** | **string** | The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource.
+**ConversationSid** | **string** | The unique SID identifier of the Conversation. This value can be either the &#x60;sid&#x60; or the &#x60;unique_name&#x60; of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a DeleteUserConversationParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FetchUserConversation
+
+> ConversationsV1UserUserConversation FetchUserConversation(ctx, UserSidConversationSid)
+
+
+
+Fetch a specific User Conversation.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**UserSid** | **string** | The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource.
+**ConversationSid** | **string** | The unique SID identifier of the Conversation. This value can be either the &#x60;sid&#x60; or the &#x60;unique_name&#x60; of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchUserConversationParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+
+### Return type
+
+[**ConversationsV1UserUserConversation**](ConversationsV1UserUserConversation.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListUserConversation
+
+> ListUserConversationResponse ListUserConversation(ctx, UserSidoptional)
+
+
+
+Retrieve a list of all User Conversations for the User.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**UserSid** | **string** | The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a ListUserConversationParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+
+### Return type
+
+[**ListUserConversationResponse**](ListUserConversationResponse.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateUserConversation
+
+> ConversationsV1UserUserConversation UpdateUserConversation(ctx, UserSidConversationSidoptional)
+
+
+
+Update a specific User Conversation.
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**UserSid** | **string** | The unique SID identifier of the [User resource](https://www.twilio.com/docs/conversations/api/user-resource). This value can be either the &#x60;sid&#x60; or the &#x60;identity&#x60; of the User resource.
+**ConversationSid** | **string** | The unique SID identifier of the Conversation. This value can be either the &#x60;sid&#x60; or the &#x60;unique_name&#x60; of the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource).
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateUserConversationParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**LastReadMessageIndex** | **int** | The index of the last Message in the Conversation that the Participant has read.
+**LastReadTimestamp** | **time.Time** | The date of the last message read in conversation by the user, given in ISO 8601 format.
+**NotificationLevel** | **string** | The Notification Level of this User Conversation. One of &#x60;default&#x60; or &#x60;muted&#x60;.
+
+### Return type
+
+[**ConversationsV1UserUserConversation**](ConversationsV1UserUserConversation.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
