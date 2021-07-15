@@ -7,7 +7,7 @@ import (
 	"crypto/subtle"
 	"encoding/base64"
 	"fmt"
-	url2 "net/url"
+	urllib "net/url"
 	"sort"
 	"strings"
 )
@@ -42,7 +42,7 @@ func (rv *RequestValidator) Validate(url string, params map[string]string, expec
 }
 
 func (rv *RequestValidator) ValidateBody(url string, body []byte, expectedSignature string) bool {
-	parsed, err := url2.Parse(url)
+	parsed, err := urllib.Parse(url)
 	if err != nil {
 		return false
 	}
@@ -89,7 +89,7 @@ func (rv *RequestValidator) getValidationSignature(url string, sortedConcatenate
 }
 
 func addPort(url string) string {
-	parsed, err := url2.Parse(url)
+	parsed, err := urllib.Parse(url)
 	if err != nil {
 		return url
 	}
@@ -106,7 +106,7 @@ func addPort(url string) string {
 }
 
 func updatePort(url string, newPort int) string {
-	parsed, err := url2.Parse(url)
+	parsed, err := urllib.Parse(url)
 	if err != nil {
 		return url
 	}
@@ -126,7 +126,7 @@ func updatePort(url string, newPort int) string {
 }
 
 func removePort(url string) string {
-	parsed, err := url2.Parse(url)
+	parsed, err := urllib.Parse(url)
 	if err != nil {
 		return url
 	}
