@@ -18,12 +18,17 @@ type RequestValidator struct {
 	signingKey []byte
 }
 
+// NewRequestValidator returns a new RequestValidator which uses the specified auth token when verifying
+// Twilio signatures.
 func NewRequestValidator(authToken string) RequestValidator {
 	return RequestValidator{
 		signingKey: []byte(authToken),
 	}
 }
 
+// Validate can be used for Twilio Signatures sent with webhooks configured for GET calls. It returns true
+// if the computed signature matches the expectedSignature. Params are a map of string to string containing
+// all the query params Twilio added to the configured webhook URL.
 func (rv *RequestValidator) Validate(url string, params map[string]string, expectedSignature string) bool {
 	// turn the keys and values of the query params into a concatenated string which we will then sort
 	var (
@@ -41,6 +46,9 @@ func (rv *RequestValidator) Validate(url string, params map[string]string, expec
 		compare(signatureWithoutPort, expectedSignature)
 }
 
+// ValidateBody can be used for Twilio Signatures sent with webhooks configured for POST calls. It returns true
+// if the computed signature matches the expectedSignature. Body is the HTTP request body from the webhook call
+// as a slice of bytes.
 func (rv *RequestValidator) ValidateBody(url string, body []byte, expectedSignature string) bool {
 	parsed, err := urllib.Parse(url)
 	if err != nil {
