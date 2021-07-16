@@ -43,8 +43,7 @@ Getting started with the Twilio API couldn't be easier. Create a
 
 ### API Credentials
 
-The Twilio `RestClient` needs your Twilio credentials. You should pass these directly to the constructor (see the code
-below).
+The Twilio `RestClient` needs your Twilio credentials. You can either pass these directly to the constructor (see the code below), or use environment variables.
 
 ```go
 package main
@@ -52,45 +51,39 @@ package main
 import "github.com/twilio/twilio-go"
 
 func main() {
-	accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-	authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-	client := twilio.NewRestClient(accountSid, authToken)
+    accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+    client := twilio.NewRestClientWithParams(twilio.RestClientParams{
+    	Username: accountSid,
+    	Password: authToken,
+    })
 }
-
 ```
+Alternatively, a `RestClient` constructor without these parameters will look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` variables inside the current environment.
 
+We suggest storing your credentials as environment variables. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
 ```go
 package main
 
 import "github.com/twilio/twilio-go"
 
 func main() {
-	accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-	authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-	subaccountSid := "ACYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
-	client := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{
-		AccountSid: subaccountSid,
-	})
+    client := twilio.NewRestClient()
 }
-
 ```
-
-We suggest storing your credentials as environment variables and then use it in your code. Why? You'll never have to
-worry about committing your credentials and accidentally posting them somewhere public.
-
+Make API calls with a SubAccount by setting the `AccountSid` field in the `twilio.RestClientParams`:
 ```go
 package main
 
-import (
-	"github.com/twilio/twilio-go"
-	"os"
-)
+import "github.com/twilio/twilio-go"
 
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	client := twilio.NewRestClient(accountSid, authToken)
+    subaccountSid := "ACYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+    client := twilio.NewRestClientWithParams(twilio.RestClientParams{
+    	AccountSid: subaccountSid,
+    })
 }
+
 ```
 
 ### Specify a Region and/or Edge
@@ -104,11 +97,9 @@ import (
 )
 
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	client := twilio.NewRestClient(accountSid, authToken)
-	client.SetRegion("au1")
-	client.SetEdge("sydney")
+    client := twilio.NewRestClient()
+    client.SetRegion("au1")
+    client.SetEdge("sydney")
 }
 ```
 
@@ -130,25 +121,23 @@ import (
 )
 
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	phoneNumber := "AVAILABLE_TWILIO_PHONE_NUMBER"
-	subaccountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
+    phoneNumber := "AVAILABLE_TWILIO_PHONE_NUMBER"
+    subaccountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
 
-	client := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{
-		AccountSid: subaccountSid,
-	})
+    client := twilio.NewRestClientWithParams(twilio.RestClientParams{
+        AccountSid: subaccountSid,
+    })
 
-	params := &openapi.CreateIncomingPhoneNumberParams{}
-	params.SetPhoneNumber(phoneNumber)
+    params := &openapi.CreateIncomingPhoneNumberParams{}
+    params.SetPhoneNumber(phoneNumber)
 
-	resp, err := client.ApiV2010.CreateIncomingPhoneNumber(params)
-	if err != nil {
-		fmt.Println(err.Error())
-		err = nil
-	} else {
-		fmt.Println("Phone Number Status: " + *resp.Status)
-	}
+    resp, err := client.ApiV2010.CreateIncomingPhoneNumber(params)
+    if err != nil {
+        fmt.Println(err.Error())
+        err = nil
+    } else {
+        fmt.Println("Phone Number Status: " + *resp.Status)
+    }
 }
 ```
 
@@ -166,29 +155,27 @@ import (
 )
 
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
-	to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
-	subaccountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
+    from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
+    to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
+    subaccountSid := os.Getenv("TWILIO_SUBACCOUNT_SID")
 
-	client := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{
-		AccountSid: subaccountSid,
-	})
+    client := twilio.NewRestClientWithParams(twilio.RestClientParams{
+        AccountSid: subaccountSid,
+    })
 
-	params := &openapi.CreateMessageParams{}
-	params.SetTo(to)
-	params.SetFrom(from)
-	params.SetBody("Hello there")
+    params := &openapi.CreateMessageParams{}
+    params.SetTo(to)
+    params.SetFrom(from)
+    params.SetBody("Hello there")
 
-	resp, err := client.ApiV2010.CreateMessage(params)
-	if err != nil {
-		fmt.Println(err.Error())
-		err = nil
-	} else {
-		response, _ := json.Marshal(*resp)
-		fmt.Println("Response: " + string(response))
-	}
+    resp, err := client.ApiV2010.CreateMessage(params)
+    if err != nil {
+        fmt.Println(err.Error())
+        err = nil
+    } else {
+        response, _ := json.Marshal(*resp)
+        fmt.Println("Response: " + string(response))
+    }
 }
 ```
 
@@ -205,27 +192,25 @@ import (
 )
 
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
-	to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
+    from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
+    to := os.Getenv("TWILIO_TO_PHONE_NUMBER")
 
-	client := twilio.NewRestClient(accountSid, authToken)
+    client := twilio.NewRestClient()
 
-	params := &openapi.CreateCallParams{}
-	params.SetTo(to)
-	params.SetFrom(from)
-	params.SetUrl("http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
+    params := &openapi.CreateCallParams{}
+    params.SetTo(to)
+    params.SetFrom(from)
+    params.SetUrl("http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
 
-	resp, err := client.ApiV2010.CreateCall(params)
-	if err != nil {
-		fmt.Println(err.Error())
-		err = nil
-	} else {
-		fmt.Println("Call Status: " + *resp.Status)
-		fmt.Println("Call Sid: " + *resp.Sid)
-		fmt.Println("Call Direction: " + *resp.Direction)
-	}
+    resp, err := client.ApiV2010.CreateCall(params)
+    if err != nil {
+        fmt.Println(err.Error())
+        err = nil
+    } else {
+        fmt.Println("Call Status: " + *resp.Status)
+        fmt.Println("Call Sid: " + *resp.Sid)
+        fmt.Println("Call Direction: " + *resp.Direction)
+    }
 }
 ```
 
@@ -241,22 +226,20 @@ import (
 )
 
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_SID")
-	serviceSid := "ZSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    serviceSid := "ZSxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
-	client := twilio.NewRestClient(accountSid, authToken)
+    client := twilio.NewRestClient()
 
-	params := &openapi.CreateFunctionParams{}
-	params.SetFriendlyName("My Serverless func")
+    params := &openapi.CreateFunctionParams{}
+    params.SetFriendlyName("My Serverless func")
 
-	resp, err := client.ServerlessV1.CreateFunction(serviceSid, params)
-	if err != nil {
-		fmt.Println(err.Error())
-		err = nil
-	} else {
-		fmt.Println(*resp.Sid)
-	}
+    resp, err := client.ServerlessV1.CreateFunction(serviceSid, params)
+    if err != nil {
+        fmt.Println(err.Error())
+        err = nil
+    } else {
+        fmt.Println(*resp.Sid)
+    }
 }
 
 ```
@@ -276,10 +259,7 @@ import (
 )
 
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-
-	var jsonStr = `{
+    var jsonStr = `{
    "description":"Twilio Studio flow service",
    "initial_state":"Trigger",
    "states":[
@@ -299,115 +279,23 @@ func main() {
    ]
 }`
 
-	definition := make(map[string]interface{})
-	_ = json.Unmarshal([]byte(jsonStr), &definition)
+    definition := make(map[string]interface{})
+    _ = json.Unmarshal([]byte(jsonStr), &definition)
 
-	client := twilio.NewRestClient(accountSid, authToken)
-	params := &openapi.CreateFlowParams{
-		Definition: &definition,
-	}
-	params.SetCommitMessage("commit")
-	params.SetFriendlyName("Studio flow from Go")
-	params.SetStatus("draft")
+    client := twilio.NewRestClient()
+    params := &openapi.CreateFlowParams{
+        Definition: &definition,
+    }
+    params.SetCommitMessage("commit")
+    params.SetFriendlyName("Studio flow from Go")
+    params.SetStatus("draft")
 
-	resp, err := client.StudioV2.CreateFlow(params)
-	if err != nil {
-		fmt.Println(err.Error())
-	} else {
-		fmt.Println(*resp.Sid)
-	}
-}
-```
-
-### Using Paging
-
-This library also offers paging functionality. Collections such as calls and messages have `ListXxx` and `StreamXxx`
-functions that page under the hood. With both list and stream, you can specify the number of records you want to
-receive (limit) and the maximum size you want each page fetch to be (pageSize). The library will then handle the task
-for you.
-
-`List` eagerly fetches all records and returns them as a list, whereas `Stream` streams the records and lazily retrieves
-the pages as you iterate over the collection. You can also page manually using the `PageXxx` function in each of the
-apis.
-
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
-	"os"
-)
-
-func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
-
-	client := twilio.NewRestClient(accountSid, authToken)
-
-	params := &openapi.ListMessageParams{}
-	params.SetFrom(from)
-	params.SetPageSize(20)
-	limit := 100
-
-	resp, _ := client.ApiV2010.ListMessage(params, limit)
-	for record := range resp {
-		fmt.Println("Body: ", *resp[record].Body)
-	}
-
-	channel, _ := client.ApiV2010.StreamMessage(params, limit)
-	for record := range channel {
-		fmt.Println("Body: ", *record.Body)
-	}
-}
-```
-
-```go
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
-	"net/url"
-	"os"
-)
-
-func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
-
-	client := twilio.NewRestClient(accountSid, authToken)
-
-	params := &openapi.ListMessageParams{}
-	params.SetFrom(from)
-	params.SetPageSize(20)
-
-	var pageToken string
-	var pageNumber string
-	resp, err = client.ApiV2010.PageMessage(params, "", "")
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(resp.NextPageUri)
-		u, _ := url.Parse(resp.NextPageUri)
-		q := u.Query()
-		pageToken = q.Get("PageToken")
-		pageNumber = q.Get("Page")
-	}
-
-	resp, err = client.ApiV2010.PageMessage(params, pageToken, pageNumber)
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		if resp != nil {
-			fmt.Println(*resp.Messages[0].Body)
-		}
-	}
+    resp, err := client.StudioV2.CreateFlow(params)
+    if err != nil {
+        fmt.Println(err.Error())
+    } else {
+        fmt.Println(*resp.Sid)
+    }
 }
 ```
 
@@ -426,11 +314,9 @@ import (
 )
 
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
-	phoneNumber := os.Getenv("TWILIO_PHONE_NUMBER")
+    phoneNumber := os.Getenv("TWILIO_PHONE_NUMBER")
 
-	client := twilio.NewRestClient(accountSid, authToken)
+    client := twilio.NewRestClient()
 
 	params := &openapi.CreateIncomingPhoneNumberParams{}
 	params.SetPhoneNumber(phoneNumber)
@@ -467,11 +353,12 @@ func main() {
 	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
 	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 
-	// Create an instance of our default BaseClient implementation
-	defaultClient := &client.Client{
-		Credentials: client.NewCredentials(accountSid, authToken),
-	}
-	defaultClient.SetAccountSid(accountSid)
+    // Create an instance of our default BaseClient implementation
+    // You will need to provide your API credentials to the Client manually
+    defaultClient := &client.Client{
+        Credentials: client.NewCredentials(accountSid, authToken),
+    }
+    defaultClient.SetAccountSid(accountSid)
 
 	coreApiService := apiv2010.NewApiServiceWithClient(defaultClient)
 	serverlessApiService := serverless.NewApiServiceWithClient(defaultClient)
@@ -517,7 +404,7 @@ func main() {
 	}
 	customClient.SetAccountSid(accountSid)
 
-	twilioClient := twilio.NewRestClientWithParams(accountSid, authToken, twilio.RestClientParams{Client: customClient})
+    twilioClient := twilio.NewRestClientWithParams(twilio.RestClientParams{Client: customClient})
 
 	// You may also use custom clients with standalone product services
 	twilioApiV2010 := openapi.NewApiServiceWithClient(customClient)
