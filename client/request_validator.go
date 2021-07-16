@@ -102,7 +102,7 @@ func addPort(url string) string {
 
 	port := parsed.Port()
 	if len(port) != 0 {
-		return url // testURL already has port
+		return url // url already has port
 	}
 
 	if parsed.Scheme == "https" {
@@ -119,10 +119,10 @@ func updatePort(url string, newPort int) string {
 
 	var newHost string
 	if len(parsed.Port()) == 0 {
-		// testURL didn't already have port, add it
+		// url didn't already have port, add it
 		newHost = fmt.Sprintf("%s:%d", parsed.Host, newPort)
 	} else {
-		// testURL already had port, grab just the host and add new port
+		// url already had port, grab just the host and add new port
 		oldHost := strings.Split(parsed.Host, ":")[0]
 		newHost = fmt.Sprintf("%s:%d", oldHost, newPort)
 	}

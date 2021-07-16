@@ -42,7 +42,7 @@ func TestRequestValidator_Validate(t *testing.T) {
 	})
 
 	t.Run("returns true when https and port is specified and signature is generated with it", func(t *testing.T) {
-		expectedSignature := "kvajT1Ptam85bY51eRf/AJRuM3w=" // hash of https testURL without port
+		expectedSignature := "kvajT1Ptam85bY51eRf/AJRuM3w=" // hash of https uri without port
 		assert.True(t, validator.Validate(testURL, params, expectedSignature))
 	})
 
