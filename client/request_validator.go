@@ -31,9 +31,7 @@ func NewRequestValidator(authToken string) RequestValidator {
 // all the query params Twilio added to the configured webhook URL.
 func (rv *RequestValidator) Validate(url string, params map[string]string, expectedSignature string) bool {
 	// turn the keys and values of the query params into a concatenated string which we will then sort
-	var (
-		paramSlc []string
-	)
+	var paramSlc []string
 	for k, v := range params {
 		paramSlc = append(paramSlc, fmt.Sprintf("%s%s", k, v))
 	}
