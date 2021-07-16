@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateTaskQueue'
@@ -171,8 +173,10 @@ func (params *ListTaskQueueParams) SetPageSize(PageSize int) *ListTaskQueueParam
 	return params
 }
 
-func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueueParams) (*ListTaskQueueResponse, error) {
+// Retrieve a single page of TaskQueue records from the API. Request is executed immediately.
+func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueueParams, pageToken string, pageNumber string) (*ListTaskQueueResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
+
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
@@ -191,6 +195,13 @@ func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -204,6 +215,83 @@ func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 	}
 
 	return ps, err
+}
+
+// Lists TaskQueue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueueParams, limit int) ([]TaskrouterV1WorkspaceTaskQueue, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTaskQueue(WorkspaceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []TaskrouterV1WorkspaceTaskQueue
+
+	for response != nil {
+		records = append(records, response.TaskQueues...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskQueueResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListTaskQueueResponse)
+	}
+
+	return records, err
+}
+
+// Streams TaskQueue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueParams, limit int) (chan TaskrouterV1WorkspaceTaskQueue, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTaskQueue(WorkspaceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan TaskrouterV1WorkspaceTaskQueue, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.TaskQueues {
+				channel <- response.TaskQueues[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskQueueResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListTaskQueueResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListTaskQueueResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTaskQueueResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateTaskQueue'

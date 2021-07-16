@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateBundle'
@@ -192,8 +194,8 @@ func (params *ListBundleParams) SetPageSize(PageSize int) *ListBundleParams {
 	return params
 }
 
-// Retrieve a list of all Bundles for an account.
-func (c *ApiService) ListBundle(params *ListBundleParams) (*ListBundleResponse, error) {
+// Retrieve a single page of Bundle records from the API. Request is executed immediately.
+func (c *ApiService) PageBundle(params *ListBundleParams, pageToken string, pageNumber string) (*ListBundleResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles"
 
 	data := url.Values{}
@@ -218,6 +220,13 @@ func (c *ApiService) ListBundle(params *ListBundleParams) (*ListBundleResponse, 
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -231,6 +240,83 @@ func (c *ApiService) ListBundle(params *ListBundleParams) (*ListBundleResponse, 
 	}
 
 	return ps, err
+}
+
+// Lists Bundle records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBundle(params *ListBundleParams, limit int) ([]NumbersV2RegulatoryComplianceBundle, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageBundle(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []NumbersV2RegulatoryComplianceBundle
+
+	for response != nil {
+		records = append(records, response.Results...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBundleResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListBundleResponse)
+	}
+
+	return records, err
+}
+
+// Streams Bundle records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBundle(params *ListBundleParams, limit int) (chan NumbersV2RegulatoryComplianceBundle, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageBundle(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan NumbersV2RegulatoryComplianceBundle, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBundleResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListBundleResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListBundleResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBundleResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateBundle'

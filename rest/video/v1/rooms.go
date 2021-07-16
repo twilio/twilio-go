@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateRoom'
@@ -202,7 +204,8 @@ func (params *ListRoomParams) SetPageSize(PageSize int) *ListRoomParams {
 	return params
 }
 
-func (c *ApiService) ListRoom(params *ListRoomParams) (*ListRoomResponse, error) {
+// Retrieve a single page of Room records from the API. Request is executed immediately.
+func (c *ApiService) PageRoom(params *ListRoomParams, pageToken string, pageNumber string) (*ListRoomResponse, error) {
 	path := "/v1/Rooms"
 
 	data := url.Values{}
@@ -224,6 +227,13 @@ func (c *ApiService) ListRoom(params *ListRoomParams) (*ListRoomResponse, error)
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -237,6 +247,83 @@ func (c *ApiService) ListRoom(params *ListRoomParams) (*ListRoomResponse, error)
 	}
 
 	return ps, err
+}
+
+// Lists Room records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoom(params *ListRoomParams, limit int) ([]VideoV1Room, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRoom(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []VideoV1Room
+
+	for response != nil {
+		records = append(records, response.Rooms...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListRoomResponse)
+	}
+
+	return records, err
+}
+
+// Streams Room records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoom(params *ListRoomParams, limit int) (chan VideoV1Room, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRoom(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan VideoV1Room, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Rooms {
+				channel <- response.Rooms[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListRoomResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListRoomResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRoomResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateRoom'

@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateQueue'
@@ -166,9 +168,10 @@ func (params *ListQueueParams) SetPageSize(PageSize int) *ListQueueParams {
 	return params
 }
 
-// Retrieve a list of queues belonging to the account used to make the request
-func (c *ApiService) ListQueue(params *ListQueueParams) (*ListQueueResponse, error) {
+// Retrieve a single page of Queue records from the API. Request is executed immediately.
+func (c *ApiService) PageQueue(params *ListQueueParams, pageToken string, pageNumber string) (*ListQueueResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -180,6 +183,13 @@ func (c *ApiService) ListQueue(params *ListQueueParams) (*ListQueueResponse, err
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -195,6 +205,83 @@ func (c *ApiService) ListQueue(params *ListQueueParams) (*ListQueueResponse, err
 	}
 
 	return ps, err
+}
+
+// Lists Queue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListQueue(params *ListQueueParams, limit int) ([]ApiV2010AccountQueue, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageQueue(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountQueue
+
+	for response != nil {
+		records = append(records, response.Queues...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListQueueResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListQueueResponse)
+	}
+
+	return records, err
+}
+
+// Streams Queue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamQueue(params *ListQueueParams, limit int) (chan ApiV2010AccountQueue, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageQueue(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountQueue, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Queues {
+				channel <- response.Queues[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListQueueResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListQueueResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListQueueResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListQueueResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateQueue'

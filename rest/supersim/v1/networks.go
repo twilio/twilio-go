@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Fetch a Network resource.
@@ -71,8 +73,8 @@ func (params *ListNetworkParams) SetPageSize(PageSize int) *ListNetworkParams {
 	return params
 }
 
-// Retrieve a list of Network resources.
-func (c *ApiService) ListNetwork(params *ListNetworkParams) (*ListNetworkResponse, error) {
+// Retrieve a single page of Network records from the API. Request is executed immediately.
+func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken string, pageNumber string) (*ListNetworkResponse, error) {
 	path := "/v1/Networks"
 
 	data := url.Values{}
@@ -91,6 +93,13 @@ func (c *ApiService) ListNetwork(params *ListNetworkParams) (*ListNetworkRespons
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -104,4 +113,81 @@ func (c *ApiService) ListNetwork(params *ListNetworkParams) (*ListNetworkRespons
 	}
 
 	return ps, err
+}
+
+// Lists Network records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListNetwork(params *ListNetworkParams, limit int) ([]SupersimV1Network, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageNetwork(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []SupersimV1Network
+
+	for response != nil {
+		records = append(records, response.Networks...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNetworkResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListNetworkResponse)
+	}
+
+	return records, err
+}
+
+// Streams Network records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamNetwork(params *ListNetworkParams, limit int) (chan SupersimV1Network, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageNetwork(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan SupersimV1Network, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Networks {
+				channel <- response.Networks[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNetworkResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListNetworkResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListNetworkResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListNetworkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

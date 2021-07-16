@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateServiceConversationScopedWebhook'
@@ -172,9 +174,10 @@ func (params *ListServiceConversationScopedWebhookParams) SetPageSize(PageSize i
 	return params
 }
 
-// Retrieve a list of all webhooks scoped to the conversation
-func (c *ApiService) ListServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams) (*ListServiceConversationScopedWebhookResponse, error) {
+// Retrieve a single page of ServiceConversationScopedWebhook records from the API. Request is executed immediately.
+func (c *ApiService) PageServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams, pageToken string, pageNumber string) (*ListServiceConversationScopedWebhookResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Webhooks"
+
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
@@ -183,6 +186,13 @@ func (c *ApiService) ListServiceConversationScopedWebhook(ChatServiceSid string,
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -198,6 +208,83 @@ func (c *ApiService) ListServiceConversationScopedWebhook(ChatServiceSid string,
 	}
 
 	return ps, err
+}
+
+// Lists ServiceConversationScopedWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams, limit int) ([]ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageServiceConversationScopedWebhook(ChatServiceSid, ConversationSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook
+
+	for response != nil {
+		records = append(records, response.Webhooks...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationScopedWebhookResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListServiceConversationScopedWebhookResponse)
+	}
+
+	return records, err
+}
+
+// Streams ServiceConversationScopedWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams, limit int) (chan ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageServiceConversationScopedWebhook(ChatServiceSid, ConversationSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Webhooks {
+				channel <- response.Webhooks[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationScopedWebhookResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListServiceConversationScopedWebhookResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListServiceConversationScopedWebhookResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListServiceConversationScopedWebhookResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateServiceConversationScopedWebhook'

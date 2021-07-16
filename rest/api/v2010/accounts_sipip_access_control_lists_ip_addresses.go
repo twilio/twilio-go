@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSipIpAddress'
@@ -178,9 +180,10 @@ func (params *ListSipIpAddressParams) SetPageSize(PageSize int) *ListSipIpAddres
 	return params
 }
 
-// Read multiple IpAddress resources.
-func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams) (*ListSipIpAddressResponse, error) {
+// Retrieve a single page of SipIpAddress records from the API. Request is executed immediately.
+func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, pageToken string, pageNumber string) (*ListSipIpAddressResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -193,6 +196,13 @@ func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *Lis
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -208,6 +218,83 @@ func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *Lis
 	}
 
 	return ps, err
+}
+
+// Lists SipIpAddress records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, limit int) ([]ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageSipIpAddress(IpAccessControlListSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountSipSipIpAccessControlListSipIpAddress
+
+	for response != nil {
+		records = append(records, response.IpAddresses...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipIpAddressResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListSipIpAddressResponse)
+	}
+
+	return records, err
+}
+
+// Streams SipIpAddress records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, limit int) (chan ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageSipIpAddress(IpAccessControlListSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountSipSipIpAccessControlListSipIpAddress, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.IpAddresses {
+				channel <- response.IpAddresses[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipIpAddressResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSipIpAddressResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSipIpAddressResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSipIpAddressResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSipIpAddress'

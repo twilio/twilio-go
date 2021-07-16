@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 func (c *ApiService) FetchEvent(Sid string) (*MonitorV1Event, error) {
@@ -89,8 +91,8 @@ func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
 	return params
 }
 
-// Returns a list of events in the account, sorted by event-date.
-func (c *ApiService) ListEvent(params *ListEventParams) (*ListEventResponse, error) {
+// Retrieve a single page of Event records from the API. Request is executed immediately.
+func (c *ApiService) PageEvent(params *ListEventParams, pageToken string, pageNumber string) (*ListEventResponse, error) {
 	path := "/v1/Events"
 
 	data := url.Values{}
@@ -118,6 +120,13 @@ func (c *ApiService) ListEvent(params *ListEventParams) (*ListEventResponse, err
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -131,4 +140,81 @@ func (c *ApiService) ListEvent(params *ListEventParams) (*ListEventResponse, err
 	}
 
 	return ps, err
+}
+
+// Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEvent(params *ListEventParams, limit int) ([]MonitorV1Event, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageEvent(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []MonitorV1Event
+
+	for response != nil {
+		records = append(records, response.Events...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListEventResponse)
+	}
+
+	return records, err
+}
+
+// Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEvent(params *ListEventParams, limit int) (chan MonitorV1Event, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageEvent(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan MonitorV1Event, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Events {
+				channel <- response.Events[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListEventResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListEventResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEventResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
