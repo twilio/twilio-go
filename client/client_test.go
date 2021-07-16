@@ -2,7 +2,7 @@ package client_test
 
 import (
 	"encoding/json"
-	"ioutil"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
