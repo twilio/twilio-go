@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -101,7 +101,7 @@ func (params *ListNotificationParams) SetPageSize(PageSize int) *ListNotificatio
 	return params
 }
 
-//Retrieve a single page of Notification records from the API. Request is executed immediately.
+// Retrieve a single page of Notification records from the API. Request is executed immediately.
 func (c *ApiService) PageNotification(params *ListNotificationParams, pageToken string, pageNumber string) (*ListNotificationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Notifications.json"
 
@@ -152,8 +152,8 @@ func (c *ApiService) PageNotification(params *ListNotificationParams, pageToken 
 	return ps, err
 }
 
-//Lists Notification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListNotification(params *ListNotificationParams, limit *int) ([]*ListNotificationResponse, error) {
+// Lists Notification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListNotification(params *ListNotificationParams, limit int) ([]ApiV2010AccountNotification, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageNotification(params, "", "")
@@ -162,10 +162,10 @@ func (c *ApiService) ListNotification(params *ListNotificationParams, limit *int
 	}
 
 	curRecord := 0
-	var records []*ListNotificationResponse
+	var records []ApiV2010AccountNotification
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Notifications...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNotificationResponse); record == nil || err != nil {
@@ -178,8 +178,8 @@ func (c *ApiService) ListNotification(params *ListNotificationParams, limit *int
 	return records, err
 }
 
-//Streams Notification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamNotification(params *ListNotificationParams, limit *int) (chan *ListNotificationResponse, error) {
+// Streams Notification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamNotification(params *ListNotificationParams, limit int) (chan ApiV2010AccountNotification, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageNotification(params, "", "")
@@ -189,11 +189,13 @@ func (c *ApiService) StreamNotification(params *ListNotificationParams, limit *i
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListNotificationResponse, 1)
+	channel := make(chan ApiV2010AccountNotification, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Notifications {
+				channel <- response.Notifications[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNotificationResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -166,7 +166,7 @@ func (params *ListChallengeParams) SetPageSize(PageSize int) *ListChallengeParam
 	return params
 }
 
-//Retrieve a single page of Challenge records from the API. Request is executed immediately.
+// Retrieve a single page of Challenge records from the API. Request is executed immediately.
 func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *ListChallengeParams, pageToken string, pageNumber string) (*ListChallengeResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
 
@@ -208,8 +208,8 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 	return ps, err
 }
 
-//Lists Challenge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *ListChallengeParams, limit *int) ([]*ListChallengeResponse, error) {
+// Lists Challenge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *ListChallengeParams, limit int) ([]VerifyV2ServiceEntityChallenge, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageChallenge(ServiceSid, Identity, params, "", "")
@@ -218,10 +218,10 @@ func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *L
 	}
 
 	curRecord := 0
-	var records []*ListChallengeResponse
+	var records []VerifyV2ServiceEntityChallenge
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Challenges...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChallengeResponse); record == nil || err != nil {
@@ -234,8 +234,8 @@ func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *L
 	return records, err
 }
 
-//Streams Challenge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params *ListChallengeParams, limit *int) (chan *ListChallengeResponse, error) {
+// Streams Challenge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params *ListChallengeParams, limit int) (chan VerifyV2ServiceEntityChallenge, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageChallenge(ServiceSid, Identity, params, "", "")
@@ -245,11 +245,13 @@ func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListChallengeResponse, 1)
+	channel := make(chan VerifyV2ServiceEntityChallenge, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Challenges {
+				channel <- response.Challenges[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChallengeResponse); record == nil || err != nil {

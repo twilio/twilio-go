@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -128,7 +128,7 @@ func (params *ListTaskChannelParams) SetPageSize(PageSize int) *ListTaskChannelP
 	return params
 }
 
-//Retrieve a single page of TaskChannel records from the API. Request is executed immediately.
+// Retrieve a single page of TaskChannel records from the API. Request is executed immediately.
 func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, pageToken string, pageNumber string) (*ListTaskChannelResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
 
@@ -163,8 +163,8 @@ func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChanne
 	return ps, err
 }
 
-//Lists TaskChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, limit *int) ([]*ListTaskChannelResponse, error) {
+// Lists TaskChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, limit int) ([]TaskrouterV1WorkspaceTaskChannel, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTaskChannel(WorkspaceSid, params, "", "")
@@ -173,10 +173,10 @@ func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChanne
 	}
 
 	curRecord := 0
-	var records []*ListTaskChannelResponse
+	var records []TaskrouterV1WorkspaceTaskChannel
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Channels...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
@@ -189,8 +189,8 @@ func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChanne
 	return records, err
 }
 
-//Streams TaskChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, limit *int) (chan *ListTaskChannelResponse, error) {
+// Streams TaskChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, limit int) (chan TaskrouterV1WorkspaceTaskChannel, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTaskChannel(WorkspaceSid, params, "", "")
@@ -200,11 +200,13 @@ func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChan
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListTaskChannelResponse, 1)
+	channel := make(chan TaskrouterV1WorkspaceTaskChannel, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Channels {
+				channel <- response.Channels[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskChannelResponse); record == nil || err != nil {

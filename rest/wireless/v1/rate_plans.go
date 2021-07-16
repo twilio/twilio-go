@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -199,7 +199,7 @@ func (params *ListRatePlanParams) SetPageSize(PageSize int) *ListRatePlanParams 
 	return params
 }
 
-//Retrieve a single page of RatePlan records from the API. Request is executed immediately.
+// Retrieve a single page of RatePlan records from the API. Request is executed immediately.
 func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken string, pageNumber string) (*ListRatePlanResponse, error) {
 	path := "/v1/RatePlans"
 
@@ -232,8 +232,8 @@ func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken string, 
 	return ps, err
 }
 
-//Lists RatePlan records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRatePlan(params *ListRatePlanParams, limit *int) ([]*ListRatePlanResponse, error) {
+// Lists RatePlan records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRatePlan(params *ListRatePlanParams, limit int) ([]WirelessV1RatePlan, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRatePlan(params, "", "")
@@ -242,10 +242,10 @@ func (c *ApiService) ListRatePlan(params *ListRatePlanParams, limit *int) ([]*Li
 	}
 
 	curRecord := 0
-	var records []*ListRatePlanResponse
+	var records []WirelessV1RatePlan
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.RatePlans...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRatePlanResponse); record == nil || err != nil {
@@ -258,8 +258,8 @@ func (c *ApiService) ListRatePlan(params *ListRatePlanParams, limit *int) ([]*Li
 	return records, err
 }
 
-//Streams RatePlan records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRatePlan(params *ListRatePlanParams, limit *int) (chan *ListRatePlanResponse, error) {
+// Streams RatePlan records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRatePlan(params *ListRatePlanParams, limit int) (chan WirelessV1RatePlan, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRatePlan(params, "", "")
@@ -269,11 +269,13 @@ func (c *ApiService) StreamRatePlan(params *ListRatePlanParams, limit *int) (cha
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListRatePlanResponse, 1)
+	channel := make(chan WirelessV1RatePlan, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.RatePlans {
+				channel <- response.RatePlans[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRatePlanResponse); record == nil || err != nil {

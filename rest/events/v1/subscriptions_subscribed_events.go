@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -122,7 +122,7 @@ func (params *ListSubscribedEventParams) SetPageSize(PageSize int) *ListSubscrib
 	return params
 }
 
-//Retrieve a single page of SubscribedEvent records from the API. Request is executed immediately.
+// Retrieve a single page of SubscribedEvent records from the API. Request is executed immediately.
 func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, pageToken string, pageNumber string) (*ListSubscribedEventResponse, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
 
@@ -157,8 +157,8 @@ func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSub
 	return ps, err
 }
 
-//Lists SubscribedEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, limit *int) ([]*ListSubscribedEventResponse, error) {
+// Lists SubscribedEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, limit int) ([]EventsV1SubscriptionSubscribedEvent, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSubscribedEvent(SubscriptionSid, params, "", "")
@@ -167,10 +167,10 @@ func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSub
 	}
 
 	curRecord := 0
-	var records []*ListSubscribedEventResponse
+	var records []EventsV1SubscriptionSubscribedEvent
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Types...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSubscribedEventResponse); record == nil || err != nil {
@@ -183,8 +183,8 @@ func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSub
 	return records, err
 }
 
-//Streams SubscribedEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, limit *int) (chan *ListSubscribedEventResponse, error) {
+// Streams SubscribedEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, limit int) (chan EventsV1SubscriptionSubscribedEvent, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSubscribedEvent(SubscriptionSid, params, "", "")
@@ -194,11 +194,13 @@ func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListS
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSubscribedEventResponse, 1)
+	channel := make(chan EventsV1SubscriptionSubscribedEvent, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Types {
+				channel <- response.Types[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSubscribedEventResponse); record == nil || err != nil {

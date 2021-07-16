@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -179,7 +179,7 @@ func (params *ListFleetParams) SetPageSize(PageSize int) *ListFleetParams {
 	return params
 }
 
-//Retrieve a single page of Fleet records from the API. Request is executed immediately.
+// Retrieve a single page of Fleet records from the API. Request is executed immediately.
 func (c *ApiService) PageFleet(params *ListFleetParams, pageToken string, pageNumber string) (*ListFleetResponse, error) {
 	path := "/v1/Fleets"
 
@@ -215,8 +215,8 @@ func (c *ApiService) PageFleet(params *ListFleetParams, pageToken string, pageNu
 	return ps, err
 }
 
-//Lists Fleet records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFleet(params *ListFleetParams, limit *int) ([]*ListFleetResponse, error) {
+// Lists Fleet records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFleet(params *ListFleetParams, limit int) ([]SupersimV1Fleet, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFleet(params, "", "")
@@ -225,10 +225,10 @@ func (c *ApiService) ListFleet(params *ListFleetParams, limit *int) ([]*ListFlee
 	}
 
 	curRecord := 0
-	var records []*ListFleetResponse
+	var records []SupersimV1Fleet
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Fleets...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFleetResponse); record == nil || err != nil {
@@ -241,8 +241,8 @@ func (c *ApiService) ListFleet(params *ListFleetParams, limit *int) ([]*ListFlee
 	return records, err
 }
 
-//Streams Fleet records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFleet(params *ListFleetParams, limit *int) (chan *ListFleetResponse, error) {
+// Streams Fleet records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFleet(params *ListFleetParams, limit int) (chan SupersimV1Fleet, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFleet(params, "", "")
@@ -252,11 +252,13 @@ func (c *ApiService) StreamFleet(params *ListFleetParams, limit *int) (chan *Lis
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListFleetResponse, 1)
+	channel := make(chan SupersimV1Fleet, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Fleets {
+				channel <- response.Fleets[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFleetResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -133,7 +133,7 @@ func (params *ListServiceRoleParams) SetPageSize(PageSize int) *ListServiceRoleP
 	return params
 }
 
-//Retrieve a single page of ServiceRole records from the API. Request is executed immediately.
+// Retrieve a single page of ServiceRole records from the API. Request is executed immediately.
 func (c *ApiService) PageServiceRole(ChatServiceSid string, params *ListServiceRoleParams, pageToken string, pageNumber string) (*ListServiceRoleResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles"
 
@@ -168,8 +168,8 @@ func (c *ApiService) PageServiceRole(ChatServiceSid string, params *ListServiceR
 	return ps, err
 }
 
-//Lists ServiceRole records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceRoleParams, limit *int) ([]*ListServiceRoleResponse, error) {
+// Lists ServiceRole records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceRoleParams, limit int) ([]ConversationsV1ServiceServiceRole, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageServiceRole(ChatServiceSid, params, "", "")
@@ -178,10 +178,10 @@ func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceR
 	}
 
 	curRecord := 0
-	var records []*ListServiceRoleResponse
+	var records []ConversationsV1ServiceServiceRole
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Roles...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
@@ -194,8 +194,8 @@ func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceR
 	return records, err
 }
 
-//Streams ServiceRole records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServiceRoleParams, limit *int) (chan *ListServiceRoleResponse, error) {
+// Streams ServiceRole records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServiceRoleParams, limit int) (chan ConversationsV1ServiceServiceRole, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageServiceRole(ChatServiceSid, params, "", "")
@@ -205,11 +205,13 @@ func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServic
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListServiceRoleResponse, 1)
+	channel := make(chan ConversationsV1ServiceServiceRole, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Roles {
+				channel <- response.Roles[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceRoleResponse); record == nil || err != nil {

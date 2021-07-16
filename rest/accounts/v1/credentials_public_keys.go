@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -128,7 +128,7 @@ func (params *ListCredentialPublicKeyParams) SetPageSize(PageSize int) *ListCred
 	return params
 }
 
-//Retrieve a single page of CredentialPublicKey records from the API. Request is executed immediately.
+// Retrieve a single page of CredentialPublicKey records from the API. Request is executed immediately.
 func (c *ApiService) PageCredentialPublicKey(params *ListCredentialPublicKeyParams, pageToken string, pageNumber string) (*ListCredentialPublicKeyResponse, error) {
 	path := "/v1/Credentials/PublicKeys"
 
@@ -161,8 +161,8 @@ func (c *ApiService) PageCredentialPublicKey(params *ListCredentialPublicKeyPara
 	return ps, err
 }
 
-//Lists CredentialPublicKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyParams, limit *int) ([]*ListCredentialPublicKeyResponse, error) {
+// Lists CredentialPublicKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyParams, limit int) ([]AccountsV1CredentialCredentialPublicKey, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCredentialPublicKey(params, "", "")
@@ -171,10 +171,10 @@ func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyPara
 	}
 
 	curRecord := 0
-	var records []*ListCredentialPublicKeyResponse
+	var records []AccountsV1CredentialCredentialPublicKey
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Credentials...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialPublicKeyResponse); record == nil || err != nil {
@@ -187,8 +187,8 @@ func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyPara
 	return records, err
 }
 
-//Streams CredentialPublicKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyParams, limit *int) (chan *ListCredentialPublicKeyResponse, error) {
+// Streams CredentialPublicKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyParams, limit int) (chan AccountsV1CredentialCredentialPublicKey, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCredentialPublicKey(params, "", "")
@@ -198,11 +198,13 @@ func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyPa
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListCredentialPublicKeyResponse, 1)
+	channel := make(chan AccountsV1CredentialCredentialPublicKey, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Credentials {
+				channel <- response.Credentials[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialPublicKeyResponse); record == nil || err != nil {

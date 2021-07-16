@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -146,7 +146,7 @@ func (params *ListAvailablePhoneNumberSharedCostParams) SetPageSize(PageSize int
 	return params
 }
 
-//Retrieve a single page of AvailablePhoneNumberSharedCost records from the API. Request is executed immediately.
+// Retrieve a single page of AvailablePhoneNumberSharedCost records from the API. Request is executed immediately.
 func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberSharedCostResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json"
 
@@ -240,8 +240,8 @@ func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, para
 	return ps, err
 }
 
-//Lists AvailablePhoneNumberSharedCost records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams, limit *int) ([]*ListAvailablePhoneNumberSharedCostResponse, error) {
+// Lists AvailablePhoneNumberSharedCost records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams, limit int) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAvailablePhoneNumberSharedCost(CountryCode, params, "", "")
@@ -250,10 +250,10 @@ func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, para
 	}
 
 	curRecord := 0
-	var records []*ListAvailablePhoneNumberSharedCostResponse
+	var records []ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.AvailablePhoneNumbers...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAvailablePhoneNumberSharedCostResponse); record == nil || err != nil {
@@ -266,8 +266,8 @@ func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, para
 	return records, err
 }
 
-//Streams AvailablePhoneNumberSharedCost records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams, limit *int) (chan *ListAvailablePhoneNumberSharedCostResponse, error) {
+// Streams AvailablePhoneNumberSharedCost records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams, limit int) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAvailablePhoneNumberSharedCost(CountryCode, params, "", "")
@@ -277,11 +277,13 @@ func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, pa
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListAvailablePhoneNumberSharedCostResponse, 1)
+	channel := make(chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.AvailablePhoneNumbers {
+				channel <- response.AvailablePhoneNumbers[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAvailablePhoneNumberSharedCostResponse); record == nil || err != nil {

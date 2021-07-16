@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -162,7 +162,7 @@ func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetPageSize(Page
 	return params
 }
 
-//Retrieve a single page of SipAuthCallsIpAccessControlListMapping records from the API. Request is executed immediately.
+// Retrieve a single page of SipAuthCallsIpAccessControlListMapping records from the API. Request is executed immediately.
 func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, pageToken string, pageNumber string) (*ListSipAuthCallsIpAccessControlListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
 
@@ -202,8 +202,8 @@ func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(DomainSid string
 	return ps, err
 }
 
-//Lists SipAuthCallsIpAccessControlListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, limit *int) ([]*ListSipAuthCallsIpAccessControlListMappingResponse, error) {
+// Lists SipAuthCallsIpAccessControlListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, limit int) ([]ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipAuthCallsIpAccessControlListMapping(DomainSid, params, "", "")
@@ -212,10 +212,10 @@ func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string
 	}
 
 	curRecord := 0
-	var records []*ListSipAuthCallsIpAccessControlListMappingResponse
+	var records []ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Contents...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipAuthCallsIpAccessControlListMappingResponse); record == nil || err != nil {
@@ -228,8 +228,8 @@ func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string
 	return records, err
 }
 
-//Streams SipAuthCallsIpAccessControlListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, limit *int) (chan *ListSipAuthCallsIpAccessControlListMappingResponse, error) {
+// Streams SipAuthCallsIpAccessControlListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, limit int) (chan ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipAuthCallsIpAccessControlListMapping(DomainSid, params, "", "")
@@ -239,11 +239,13 @@ func (c *ApiService) StreamSipAuthCallsIpAccessControlListMapping(DomainSid stri
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSipAuthCallsIpAccessControlListMappingResponse, 1)
+	channel := make(chan ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Contents {
+				channel <- response.Contents[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipAuthCallsIpAccessControlListMappingResponse); record == nil || err != nil {

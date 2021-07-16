@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -520,7 +520,7 @@ func (params *ListParticipantParams) SetPageSize(PageSize int) *ListParticipantP
 	return params
 }
 
-//Retrieve a single page of Participant records from the API. Request is executed immediately.
+// Retrieve a single page of Participant records from the API. Request is executed immediately.
 func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipantParams, pageToken string, pageNumber string) (*ListParticipantResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 
@@ -569,8 +569,8 @@ func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipa
 	return ps, err
 }
 
-//Lists Participant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipantParams, limit *int) ([]*ListParticipantResponse, error) {
+// Lists Participant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipantParams, limit int) ([]ApiV2010AccountConferenceParticipant, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageParticipant(ConferenceSid, params, "", "")
@@ -579,10 +579,10 @@ func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipa
 	}
 
 	curRecord := 0
-	var records []*ListParticipantResponse
+	var records []ApiV2010AccountConferenceParticipant
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Participants...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListParticipantResponse); record == nil || err != nil {
@@ -595,8 +595,8 @@ func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipa
 	return records, err
 }
 
-//Streams Participant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListParticipantParams, limit *int) (chan *ListParticipantResponse, error) {
+// Streams Participant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListParticipantParams, limit int) (chan ApiV2010AccountConferenceParticipant, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageParticipant(ConferenceSid, params, "", "")
@@ -606,11 +606,13 @@ func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListPartici
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListParticipantResponse, 1)
+	channel := make(chan ApiV2010AccountConferenceParticipant, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Participants {
+				channel <- response.Participants[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListParticipantResponse); record == nil || err != nil {

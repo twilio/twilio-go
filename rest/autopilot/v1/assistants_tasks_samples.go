@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -137,7 +137,7 @@ func (params *ListSampleParams) SetPageSize(PageSize int) *ListSampleParams {
 	return params
 }
 
-//Retrieve a single page of Sample records from the API. Request is executed immediately.
+// Retrieve a single page of Sample records from the API. Request is executed immediately.
 func (c *ApiService) PageSample(AssistantSid string, TaskSid string, params *ListSampleParams, pageToken string, pageNumber string) (*ListSampleResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
 
@@ -176,8 +176,8 @@ func (c *ApiService) PageSample(AssistantSid string, TaskSid string, params *Lis
 	return ps, err
 }
 
-//Lists Sample records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *ListSampleParams, limit *int) ([]*ListSampleResponse, error) {
+// Lists Sample records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *ListSampleParams, limit int) ([]AutopilotV1AssistantTaskSample, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSample(AssistantSid, TaskSid, params, "", "")
@@ -186,10 +186,10 @@ func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *Lis
 	}
 
 	curRecord := 0
-	var records []*ListSampleResponse
+	var records []AutopilotV1AssistantTaskSample
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Samples...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSampleResponse); record == nil || err != nil {
@@ -202,8 +202,8 @@ func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *Lis
 	return records, err
 }
 
-//Streams Sample records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSample(AssistantSid string, TaskSid string, params *ListSampleParams, limit *int) (chan *ListSampleResponse, error) {
+// Streams Sample records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSample(AssistantSid string, TaskSid string, params *ListSampleParams, limit int) (chan AutopilotV1AssistantTaskSample, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSample(AssistantSid, TaskSid, params, "", "")
@@ -213,11 +213,13 @@ func (c *ApiService) StreamSample(AssistantSid string, TaskSid string, params *L
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSampleResponse, 1)
+	channel := make(chan AutopilotV1AssistantTaskSample, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Samples {
+				channel <- response.Samples[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSampleResponse); record == nil || err != nil {

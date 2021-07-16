@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -170,7 +170,7 @@ func (params *ListWorkerParams) SetPageSize(PageSize int) *ListWorkerParams {
 	return params
 }
 
-//Retrieve a single page of Worker records from the API. Request is executed immediately.
+// Retrieve a single page of Worker records from the API. Request is executed immediately.
 func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, pageToken string, pageNumber string) (*ListWorkerResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
 
@@ -226,8 +226,8 @@ func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, p
 	return ps, err
 }
 
-//Lists Worker records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams, limit *int) ([]*ListWorkerResponse, error) {
+// Lists Worker records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams, limit int) ([]TaskrouterV1WorkspaceWorker, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWorker(WorkspaceSid, params, "", "")
@@ -236,10 +236,10 @@ func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams, l
 	}
 
 	curRecord := 0
-	var records []*ListWorkerResponse
+	var records []TaskrouterV1WorkspaceWorker
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Workers...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWorkerResponse); record == nil || err != nil {
@@ -252,8 +252,8 @@ func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams, l
 	return records, err
 }
 
-//Streams Worker records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWorker(WorkspaceSid string, params *ListWorkerParams, limit *int) (chan *ListWorkerResponse, error) {
+// Streams Worker records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamWorker(WorkspaceSid string, params *ListWorkerParams, limit int) (chan TaskrouterV1WorkspaceWorker, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWorker(WorkspaceSid, params, "", "")
@@ -263,11 +263,13 @@ func (c *ApiService) StreamWorker(WorkspaceSid string, params *ListWorkerParams,
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListWorkerResponse, 1)
+	channel := make(chan TaskrouterV1WorkspaceWorker, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Workers {
+				channel <- response.Workers[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWorkerResponse); record == nil || err != nil {

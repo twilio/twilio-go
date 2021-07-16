@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -162,7 +162,7 @@ func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPageSize(PageSize i
 	return params
 }
 
-//Retrieve a single page of IncomingPhoneNumberAssignedAddOn records from the API. Request is executed immediately.
+// Retrieve a single page of IncomingPhoneNumberAssignedAddOn records from the API. Request is executed immediately.
 func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
 
@@ -202,8 +202,8 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 	return ps, err
 }
 
-//Lists IncomingPhoneNumberAssignedAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, limit *int) ([]*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
+// Lists IncomingPhoneNumberAssignedAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, limit int) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIncomingPhoneNumberAssignedAddOn(ResourceSid, params, "", "")
@@ -212,10 +212,10 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 	}
 
 	curRecord := 0
-	var records []*ListIncomingPhoneNumberAssignedAddOnResponse
+	var records []ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.AssignedAddOns...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
@@ -228,8 +228,8 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 	return records, err
 }
 
-//Streams IncomingPhoneNumberAssignedAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, limit *int) (chan *ListIncomingPhoneNumberAssignedAddOnResponse, error) {
+// Streams IncomingPhoneNumberAssignedAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, limit int) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIncomingPhoneNumberAssignedAddOn(ResourceSid, params, "", "")
@@ -239,11 +239,13 @@ func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListIncomingPhoneNumberAssignedAddOnResponse, 1)
+	channel := make(chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.AssignedAddOns {
+				channel <- response.AssignedAddOns[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -146,7 +146,7 @@ func (params *ListAvailablePhoneNumberNationalParams) SetPageSize(PageSize int) 
 	return params
 }
 
-//Retrieve a single page of AvailablePhoneNumberNational records from the API. Request is executed immediately.
+// Retrieve a single page of AvailablePhoneNumberNational records from the API. Request is executed immediately.
 func (c *ApiService) PageAvailablePhoneNumberNational(CountryCode string, params *ListAvailablePhoneNumberNationalParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberNationalResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json"
 
@@ -240,8 +240,8 @@ func (c *ApiService) PageAvailablePhoneNumberNational(CountryCode string, params
 	return ps, err
 }
 
-//Lists AvailablePhoneNumberNational records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberNational(CountryCode string, params *ListAvailablePhoneNumberNationalParams, limit *int) ([]*ListAvailablePhoneNumberNationalResponse, error) {
+// Lists AvailablePhoneNumberNational records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAvailablePhoneNumberNational(CountryCode string, params *ListAvailablePhoneNumberNationalParams, limit int) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAvailablePhoneNumberNational(CountryCode, params, "", "")
@@ -250,10 +250,10 @@ func (c *ApiService) ListAvailablePhoneNumberNational(CountryCode string, params
 	}
 
 	curRecord := 0
-	var records []*ListAvailablePhoneNumberNationalResponse
+	var records []ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.AvailablePhoneNumbers...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAvailablePhoneNumberNationalResponse); record == nil || err != nil {
@@ -266,8 +266,8 @@ func (c *ApiService) ListAvailablePhoneNumberNational(CountryCode string, params
 	return records, err
 }
 
-//Streams AvailablePhoneNumberNational records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberNational(CountryCode string, params *ListAvailablePhoneNumberNationalParams, limit *int) (chan *ListAvailablePhoneNumberNationalResponse, error) {
+// Streams AvailablePhoneNumberNational records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAvailablePhoneNumberNational(CountryCode string, params *ListAvailablePhoneNumberNationalParams, limit int) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAvailablePhoneNumberNational(CountryCode, params, "", "")
@@ -277,11 +277,13 @@ func (c *ApiService) StreamAvailablePhoneNumberNational(CountryCode string, para
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListAvailablePhoneNumberNationalResponse, 1)
+	channel := make(chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.AvailablePhoneNumbers {
+				channel <- response.AvailablePhoneNumbers[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAvailablePhoneNumberNationalResponse); record == nil || err != nil {

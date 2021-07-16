@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -171,7 +171,7 @@ func (params *ListChannelWebhookParams) SetPageSize(PageSize int) *ListChannelWe
 	return params
 }
 
-//Retrieve a single page of ChannelWebhook records from the API. Request is executed immediately.
+// Retrieve a single page of ChannelWebhook records from the API. Request is executed immediately.
 func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, pageToken string, pageNumber string) (*ListChannelWebhookResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
 
@@ -207,8 +207,8 @@ func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, pa
 	return ps, err
 }
 
-//Lists ChannelWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, limit *int) ([]*ListChannelWebhookResponse, error) {
+// Lists ChannelWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, limit int) ([]ChatV2ServiceChannelChannelWebhook, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageChannelWebhook(ServiceSid, ChannelSid, params, "", "")
@@ -217,10 +217,10 @@ func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, pa
 	}
 
 	curRecord := 0
-	var records []*ListChannelWebhookResponse
+	var records []ChatV2ServiceChannelChannelWebhook
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Webhooks...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChannelWebhookResponse); record == nil || err != nil {
@@ -233,8 +233,8 @@ func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, pa
 	return records, err
 }
 
-//Streams ChannelWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, limit *int) (chan *ListChannelWebhookResponse, error) {
+// Streams ChannelWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, limit int) (chan ChatV2ServiceChannelChannelWebhook, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageChannelWebhook(ServiceSid, ChannelSid, params, "", "")
@@ -244,11 +244,13 @@ func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListChannelWebhookResponse, 1)
+	channel := make(chan ChatV2ServiceChannelChannelWebhook, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Webhooks {
+				channel <- response.Webhooks[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChannelWebhookResponse); record == nil || err != nil {

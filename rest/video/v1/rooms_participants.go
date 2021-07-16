@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -80,7 +80,7 @@ func (params *ListRoomParticipantParams) SetPageSize(PageSize int) *ListRoomPart
 	return params
 }
 
-//Retrieve a single page of RoomParticipant records from the API. Request is executed immediately.
+// Retrieve a single page of RoomParticipant records from the API. Request is executed immediately.
 func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomParticipantParams, pageToken string, pageNumber string) (*ListRoomParticipantResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants"
 
@@ -127,8 +127,8 @@ func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomPartici
 	return ps, err
 }
 
-//Lists RoomParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomParticipantParams, limit *int) ([]*ListRoomParticipantResponse, error) {
+// Lists RoomParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomParticipantParams, limit int) ([]VideoV1RoomRoomParticipant, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRoomParticipant(RoomSid, params, "", "")
@@ -137,10 +137,10 @@ func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomPartici
 	}
 
 	curRecord := 0
-	var records []*ListRoomParticipantResponse
+	var records []VideoV1RoomRoomParticipant
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Participants...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomParticipantResponse); record == nil || err != nil {
@@ -153,8 +153,8 @@ func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomPartici
 	return records, err
 }
 
-//Streams RoomParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParticipantParams, limit *int) (chan *ListRoomParticipantResponse, error) {
+// Streams RoomParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParticipantParams, limit int) (chan VideoV1RoomRoomParticipant, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRoomParticipant(RoomSid, params, "", "")
@@ -164,11 +164,13 @@ func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParti
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListRoomParticipantResponse, 1)
+	channel := make(chan VideoV1RoomRoomParticipant, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Participants {
+				channel <- response.Participants[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomParticipantResponse); record == nil || err != nil {

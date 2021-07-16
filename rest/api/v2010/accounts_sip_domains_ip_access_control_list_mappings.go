@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -162,7 +162,7 @@ func (params *ListSipIpAccessControlListMappingParams) SetPageSize(PageSize int)
 	return params
 }
 
-//Retrieve a single page of SipIpAccessControlListMapping records from the API. Request is executed immediately.
+// Retrieve a single page of SipIpAccessControlListMapping records from the API. Request is executed immediately.
 func (c *ApiService) PageSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams, pageToken string, pageNumber string) (*ListSipIpAccessControlListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json"
 
@@ -202,8 +202,8 @@ func (c *ApiService) PageSipIpAccessControlListMapping(DomainSid string, params 
 	return ps, err
 }
 
-//Lists SipIpAccessControlListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams, limit *int) ([]*ListSipIpAccessControlListMappingResponse, error) {
+// Lists SipIpAccessControlListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams, limit int) ([]ApiV2010AccountSipSipDomainSipIpAccessControlListMapping, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipIpAccessControlListMapping(DomainSid, params, "", "")
@@ -212,10 +212,10 @@ func (c *ApiService) ListSipIpAccessControlListMapping(DomainSid string, params 
 	}
 
 	curRecord := 0
-	var records []*ListSipIpAccessControlListMappingResponse
+	var records []ApiV2010AccountSipSipDomainSipIpAccessControlListMapping
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.IpAccessControlListMappings...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipIpAccessControlListMappingResponse); record == nil || err != nil {
@@ -228,8 +228,8 @@ func (c *ApiService) ListSipIpAccessControlListMapping(DomainSid string, params 
 	return records, err
 }
 
-//Streams SipIpAccessControlListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams, limit *int) (chan *ListSipIpAccessControlListMappingResponse, error) {
+// Streams SipIpAccessControlListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams, limit int) (chan ApiV2010AccountSipSipDomainSipIpAccessControlListMapping, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipIpAccessControlListMapping(DomainSid, params, "", "")
@@ -239,11 +239,13 @@ func (c *ApiService) StreamSipIpAccessControlListMapping(DomainSid string, param
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSipIpAccessControlListMappingResponse, 1)
+	channel := make(chan ApiV2010AccountSipSipDomainSipIpAccessControlListMapping, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.IpAccessControlListMappings {
+				channel <- response.IpAccessControlListMappings[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipIpAccessControlListMappingResponse); record == nil || err != nil {

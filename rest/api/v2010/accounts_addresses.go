@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -246,7 +246,7 @@ func (params *ListAddressParams) SetPageSize(PageSize int) *ListAddressParams {
 	return params
 }
 
-//Retrieve a single page of Address records from the API. Request is executed immediately.
+// Retrieve a single page of Address records from the API. Request is executed immediately.
 func (c *ApiService) PageAddress(params *ListAddressParams, pageToken string, pageNumber string) (*ListAddressResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 
@@ -294,8 +294,8 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken string, pa
 	return ps, err
 }
 
-//Lists Address records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAddress(params *ListAddressParams, limit *int) ([]*ListAddressResponse, error) {
+// Lists Address records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAddress(params *ListAddressParams, limit int) ([]ApiV2010AccountAddress, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAddress(params, "", "")
@@ -304,10 +304,10 @@ func (c *ApiService) ListAddress(params *ListAddressParams, limit *int) ([]*List
 	}
 
 	curRecord := 0
-	var records []*ListAddressResponse
+	var records []ApiV2010AccountAddress
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Addresses...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAddressResponse); record == nil || err != nil {
@@ -320,8 +320,8 @@ func (c *ApiService) ListAddress(params *ListAddressParams, limit *int) ([]*List
 	return records, err
 }
 
-//Streams Address records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAddress(params *ListAddressParams, limit *int) (chan *ListAddressResponse, error) {
+// Streams Address records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAddress(params *ListAddressParams, limit int) (chan ApiV2010AccountAddress, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAddress(params, "", "")
@@ -331,11 +331,13 @@ func (c *ApiService) StreamAddress(params *ListAddressParams, limit *int) (chan 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListAddressResponse, 1)
+	channel := make(chan ApiV2010AccountAddress, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Addresses {
+				channel <- response.Addresses[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAddressResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -98,7 +98,7 @@ func (params *ListRoomRecordingParams) SetPageSize(PageSize int) *ListRoomRecord
 	return params
 }
 
-//Retrieve a single page of RoomRecording records from the API. Request is executed immediately.
+// Retrieve a single page of RoomRecording records from the API. Request is executed immediately.
 func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecordingParams, pageToken string, pageNumber string) (*ListRoomRecordingResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings"
 
@@ -145,8 +145,8 @@ func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecording
 	return ps, err
 }
 
-//Lists RoomRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecordingParams, limit *int) ([]*ListRoomRecordingResponse, error) {
+// Lists RoomRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecordingParams, limit int) ([]VideoV1RoomRoomRecording, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRoomRecording(RoomSid, params, "", "")
@@ -155,10 +155,10 @@ func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecording
 	}
 
 	curRecord := 0
-	var records []*ListRoomRecordingResponse
+	var records []VideoV1RoomRoomRecording
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Recordings...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomRecordingResponse); record == nil || err != nil {
@@ -171,8 +171,8 @@ func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecording
 	return records, err
 }
 
-//Streams RoomRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordingParams, limit *int) (chan *ListRoomRecordingResponse, error) {
+// Streams RoomRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordingParams, limit int) (chan VideoV1RoomRoomRecording, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRoomRecording(RoomSid, params, "", "")
@@ -182,11 +182,13 @@ func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordi
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListRoomRecordingResponse, 1)
+	channel := make(chan VideoV1RoomRoomRecording, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Recordings {
+				channel <- response.Recordings[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomRecordingResponse); record == nil || err != nil {

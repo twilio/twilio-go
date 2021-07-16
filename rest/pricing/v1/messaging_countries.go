@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -54,7 +54,7 @@ func (params *ListMessagingCountryParams) SetPageSize(PageSize int) *ListMessagi
 	return params
 }
 
-//Retrieve a single page of MessagingCountry records from the API. Request is executed immediately.
+// Retrieve a single page of MessagingCountry records from the API. Request is executed immediately.
 func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pageToken string, pageNumber string) (*ListMessagingCountryResponse, error) {
 	path := "/v1/Messaging/Countries"
 
@@ -87,8 +87,8 @@ func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pa
 	return ps, err
 }
 
-//Lists MessagingCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams, limit *int) ([]*ListMessagingCountryResponse, error) {
+// Lists MessagingCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams, limit int) ([]PricingV1MessagingMessagingCountry, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMessagingCountry(params, "", "")
@@ -97,10 +97,10 @@ func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams, li
 	}
 
 	curRecord := 0
-	var records []*ListMessagingCountryResponse
+	var records []PricingV1MessagingMessagingCountry
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Countries...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
@@ -113,8 +113,8 @@ func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams, li
 	return records, err
 }
 
-//Streams MessagingCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams, limit *int) (chan *ListMessagingCountryResponse, error) {
+// Streams MessagingCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams, limit int) (chan PricingV1MessagingMessagingCountry, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMessagingCountry(params, "", "")
@@ -124,11 +124,13 @@ func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListMessagingCountryResponse, 1)
+	channel := make(chan PricingV1MessagingMessagingCountry, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Countries {
+				channel <- response.Countries[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {

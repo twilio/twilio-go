@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -171,7 +171,7 @@ func (params *ListConversationScopedWebhookParams) SetPageSize(PageSize int) *Li
 	return params
 }
 
-//Retrieve a single page of ConversationScopedWebhook records from the API. Request is executed immediately.
+// Retrieve a single page of ConversationScopedWebhook records from the API. Request is executed immediately.
 func (c *ApiService) PageConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams, pageToken string, pageNumber string) (*ListConversationScopedWebhookResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks"
 
@@ -206,8 +206,8 @@ func (c *ApiService) PageConversationScopedWebhook(ConversationSid string, param
 	return ps, err
 }
 
-//Lists ConversationScopedWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams, limit *int) ([]*ListConversationScopedWebhookResponse, error) {
+// Lists ConversationScopedWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams, limit int) ([]ConversationsV1ConversationConversationScopedWebhook, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConversationScopedWebhook(ConversationSid, params, "", "")
@@ -216,10 +216,10 @@ func (c *ApiService) ListConversationScopedWebhook(ConversationSid string, param
 	}
 
 	curRecord := 0
-	var records []*ListConversationScopedWebhookResponse
+	var records []ConversationsV1ConversationConversationScopedWebhook
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Webhooks...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConversationScopedWebhookResponse); record == nil || err != nil {
@@ -232,8 +232,8 @@ func (c *ApiService) ListConversationScopedWebhook(ConversationSid string, param
 	return records, err
 }
 
-//Streams ConversationScopedWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams, limit *int) (chan *ListConversationScopedWebhookResponse, error) {
+// Streams ConversationScopedWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams, limit int) (chan ConversationsV1ConversationConversationScopedWebhook, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConversationScopedWebhook(ConversationSid, params, "", "")
@@ -243,11 +243,13 @@ func (c *ApiService) StreamConversationScopedWebhook(ConversationSid string, par
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListConversationScopedWebhookResponse, 1)
+	channel := make(chan ConversationsV1ConversationConversationScopedWebhook, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Webhooks {
+				channel <- response.Webhooks[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConversationScopedWebhookResponse); record == nil || err != nil {

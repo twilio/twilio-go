@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -215,7 +215,7 @@ func (params *ListOutgoingCallerIdParams) SetPageSize(PageSize int) *ListOutgoin
 	return params
 }
 
-//Retrieve a single page of OutgoingCallerId records from the API. Request is executed immediately.
+// Retrieve a single page of OutgoingCallerId records from the API. Request is executed immediately.
 func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pageToken string, pageNumber string) (*ListOutgoingCallerIdResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 
@@ -260,8 +260,8 @@ func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pa
 	return ps, err
 }
 
-//Lists OutgoingCallerId records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams, limit *int) ([]*ListOutgoingCallerIdResponse, error) {
+// Lists OutgoingCallerId records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams, limit int) ([]ApiV2010AccountOutgoingCallerId, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageOutgoingCallerId(params, "", "")
@@ -270,10 +270,10 @@ func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams, li
 	}
 
 	curRecord := 0
-	var records []*ListOutgoingCallerIdResponse
+	var records []ApiV2010AccountOutgoingCallerId
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.OutgoingCallerIds...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {
@@ -286,8 +286,8 @@ func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams, li
 	return records, err
 }
 
-//Streams OutgoingCallerId records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams, limit *int) (chan *ListOutgoingCallerIdResponse, error) {
+// Streams OutgoingCallerId records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams, limit int) (chan ApiV2010AccountOutgoingCallerId, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageOutgoingCallerId(params, "", "")
@@ -297,11 +297,13 @@ func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListOutgoingCallerIdResponse, 1)
+	channel := make(chan ApiV2010AccountOutgoingCallerId, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.OutgoingCallerIds {
+				channel <- response.OutgoingCallerIds[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {

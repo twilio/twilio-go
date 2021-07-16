@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -157,7 +157,7 @@ func (params *ListSigningKeyParams) SetPageSize(PageSize int) *ListSigningKeyPar
 	return params
 }
 
-//Retrieve a single page of SigningKey records from the API. Request is executed immediately.
+// Retrieve a single page of SigningKey records from the API. Request is executed immediately.
 func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken string, pageNumber string) (*ListSigningKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
 
@@ -196,8 +196,8 @@ func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken stri
 	return ps, err
 }
 
-//Lists SigningKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSigningKey(params *ListSigningKeyParams, limit *int) ([]*ListSigningKeyResponse, error) {
+// Lists SigningKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSigningKey(params *ListSigningKeyParams, limit int) ([]ApiV2010AccountSigningKey, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSigningKey(params, "", "")
@@ -206,10 +206,10 @@ func (c *ApiService) ListSigningKey(params *ListSigningKeyParams, limit *int) ([
 	}
 
 	curRecord := 0
-	var records []*ListSigningKeyResponse
+	var records []ApiV2010AccountSigningKey
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.SigningKeys...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSigningKeyResponse); record == nil || err != nil {
@@ -222,8 +222,8 @@ func (c *ApiService) ListSigningKey(params *ListSigningKeyParams, limit *int) ([
 	return records, err
 }
 
-//Streams SigningKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams, limit *int) (chan *ListSigningKeyResponse, error) {
+// Streams SigningKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams, limit int) (chan ApiV2010AccountSigningKey, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSigningKey(params, "", "")
@@ -233,11 +233,13 @@ func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams, limit *int) 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSigningKeyResponse, 1)
+	channel := make(chan ApiV2010AccountSigningKey, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.SigningKeys {
+				channel <- response.SigningKeys[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSigningKeyResponse); record == nil || err != nil {

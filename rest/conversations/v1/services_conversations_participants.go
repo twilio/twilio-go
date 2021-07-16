@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -205,7 +205,7 @@ func (params *ListServiceConversationParticipantParams) SetPageSize(PageSize int
 	return params
 }
 
-//Retrieve a single page of ServiceConversationParticipant records from the API. Request is executed immediately.
+// Retrieve a single page of ServiceConversationParticipant records from the API. Request is executed immediately.
 func (c *ApiService) PageServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams, pageToken string, pageNumber string) (*ListServiceConversationParticipantResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants"
 
@@ -241,8 +241,8 @@ func (c *ApiService) PageServiceConversationParticipant(ChatServiceSid string, C
 	return ps, err
 }
 
-//Lists ServiceConversationParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams, limit *int) ([]*ListServiceConversationParticipantResponse, error) {
+// Lists ServiceConversationParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams, limit int) ([]ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageServiceConversationParticipant(ChatServiceSid, ConversationSid, params, "", "")
@@ -251,10 +251,10 @@ func (c *ApiService) ListServiceConversationParticipant(ChatServiceSid string, C
 	}
 
 	curRecord := 0
-	var records []*ListServiceConversationParticipantResponse
+	var records []ConversationsV1ServiceServiceConversationServiceConversationParticipant
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Participants...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationParticipantResponse); record == nil || err != nil {
@@ -267,8 +267,8 @@ func (c *ApiService) ListServiceConversationParticipant(ChatServiceSid string, C
 	return records, err
 }
 
-//Streams ServiceConversationParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams, limit *int) (chan *ListServiceConversationParticipantResponse, error) {
+// Streams ServiceConversationParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams, limit int) (chan ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageServiceConversationParticipant(ChatServiceSid, ConversationSid, params, "", "")
@@ -278,11 +278,13 @@ func (c *ApiService) StreamServiceConversationParticipant(ChatServiceSid string,
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListServiceConversationParticipantResponse, 1)
+	channel := make(chan ConversationsV1ServiceServiceConversationServiceConversationParticipant, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Participants {
+				channel <- response.Participants[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationParticipantResponse); record == nil || err != nil {

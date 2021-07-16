@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -125,7 +125,7 @@ func (params *ListIpRecordParams) SetPageSize(PageSize int) *ListIpRecordParams 
 	return params
 }
 
-//Retrieve a single page of IpRecord records from the API. Request is executed immediately.
+// Retrieve a single page of IpRecord records from the API. Request is executed immediately.
 func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken string, pageNumber string) (*ListIpRecordResponse, error) {
 	path := "/v1/IpRecords"
 
@@ -158,8 +158,8 @@ func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken string, 
 	return ps, err
 }
 
-//Lists IpRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIpRecord(params *ListIpRecordParams, limit *int) ([]*ListIpRecordResponse, error) {
+// Lists IpRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIpRecord(params *ListIpRecordParams, limit int) ([]VoiceV1IpRecord, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIpRecord(params, "", "")
@@ -168,10 +168,10 @@ func (c *ApiService) ListIpRecord(params *ListIpRecordParams, limit *int) ([]*Li
 	}
 
 	curRecord := 0
-	var records []*ListIpRecordResponse
+	var records []VoiceV1IpRecord
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.IpRecords...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIpRecordResponse); record == nil || err != nil {
@@ -184,8 +184,8 @@ func (c *ApiService) ListIpRecord(params *ListIpRecordParams, limit *int) ([]*Li
 	return records, err
 }
 
-//Streams IpRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIpRecord(params *ListIpRecordParams, limit *int) (chan *ListIpRecordResponse, error) {
+// Streams IpRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIpRecord(params *ListIpRecordParams, limit int) (chan VoiceV1IpRecord, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIpRecord(params, "", "")
@@ -195,11 +195,13 @@ func (c *ApiService) StreamIpRecord(params *ListIpRecordParams, limit *int) (cha
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListIpRecordResponse, 1)
+	channel := make(chan VoiceV1IpRecord, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.IpRecords {
+				channel <- response.IpRecords[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIpRecordResponse); record == nil || err != nil {

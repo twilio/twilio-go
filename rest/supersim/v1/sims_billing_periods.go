@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -32,7 +32,7 @@ func (params *ListBillingPeriodParams) SetPageSize(PageSize int) *ListBillingPer
 	return params
 }
 
-//Retrieve a single page of BillingPeriod records from the API. Request is executed immediately.
+// Retrieve a single page of BillingPeriod records from the API. Request is executed immediately.
 func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodParams, pageToken string, pageNumber string) (*ListBillingPeriodResponse, error) {
 	path := "/v1/Sims/{SimSid}/BillingPeriods"
 
@@ -67,8 +67,8 @@ func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodP
 	return ps, err
 }
 
-//Lists BillingPeriod records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams, limit *int) ([]*ListBillingPeriodResponse, error) {
+// Lists BillingPeriod records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams, limit int) ([]SupersimV1SimBillingPeriod, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageBillingPeriod(SimSid, params, "", "")
@@ -77,10 +77,10 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 	}
 
 	curRecord := 0
-	var records []*ListBillingPeriodResponse
+	var records []SupersimV1SimBillingPeriod
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.BillingPeriods...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
@@ -93,8 +93,8 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 	return records, err
 }
 
-//Streams BillingPeriod records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPeriodParams, limit *int) (chan *ListBillingPeriodResponse, error) {
+// Streams BillingPeriod records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPeriodParams, limit int) (chan SupersimV1SimBillingPeriod, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageBillingPeriod(SimSid, params, "", "")
@@ -104,11 +104,13 @@ func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPerio
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListBillingPeriodResponse, 1)
+	channel := make(chan SupersimV1SimBillingPeriod, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.BillingPeriods {
+				channel <- response.BillingPeriods[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {

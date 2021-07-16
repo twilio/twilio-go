@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -291,7 +291,7 @@ func (params *ListApplicationParams) SetPageSize(PageSize int) *ListApplicationP
 	return params
 }
 
-//Retrieve a single page of Application records from the API. Request is executed immediately.
+// Retrieve a single page of Application records from the API. Request is executed immediately.
 func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken string, pageNumber string) (*ListApplicationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
 
@@ -333,8 +333,8 @@ func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken st
 	return ps, err
 }
 
-//Lists Application records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListApplication(params *ListApplicationParams, limit *int) ([]*ListApplicationResponse, error) {
+// Lists Application records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListApplication(params *ListApplicationParams, limit int) ([]ApiV2010AccountApplication, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageApplication(params, "", "")
@@ -343,10 +343,10 @@ func (c *ApiService) ListApplication(params *ListApplicationParams, limit *int) 
 	}
 
 	curRecord := 0
-	var records []*ListApplicationResponse
+	var records []ApiV2010AccountApplication
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Applications...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListApplicationResponse); record == nil || err != nil {
@@ -359,8 +359,8 @@ func (c *ApiService) ListApplication(params *ListApplicationParams, limit *int) 
 	return records, err
 }
 
-//Streams Application records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamApplication(params *ListApplicationParams, limit *int) (chan *ListApplicationResponse, error) {
+// Streams Application records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamApplication(params *ListApplicationParams, limit int) (chan ApiV2010AccountApplication, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageApplication(params, "", "")
@@ -370,11 +370,13 @@ func (c *ApiService) StreamApplication(params *ListApplicationParams, limit *int
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListApplicationResponse, 1)
+	channel := make(chan ApiV2010AccountApplication, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Applications {
+				channel <- response.Applications[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListApplicationResponse); record == nil || err != nil {

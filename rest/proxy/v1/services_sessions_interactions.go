@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -77,7 +77,7 @@ func (params *ListInteractionParams) SetPageSize(PageSize int) *ListInteractionP
 	return params
 }
 
-//Retrieve a single page of Interaction records from the API. Request is executed immediately.
+// Retrieve a single page of Interaction records from the API. Request is executed immediately.
 func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, pageToken string, pageNumber string) (*ListInteractionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions"
 
@@ -113,8 +113,8 @@ func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, param
 	return ps, err
 }
 
-//Lists Interaction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, limit *int) ([]*ListInteractionResponse, error) {
+// Lists Interaction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, limit int) ([]ProxyV1ServiceSessionInteraction, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageInteraction(ServiceSid, SessionSid, params, "", "")
@@ -123,10 +123,10 @@ func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, param
 	}
 
 	curRecord := 0
-	var records []*ListInteractionResponse
+	var records []ProxyV1ServiceSessionInteraction
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Interactions...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListInteractionResponse); record == nil || err != nil {
@@ -139,8 +139,8 @@ func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, param
 	return records, err
 }
 
-//Streams Interaction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, limit *int) (chan *ListInteractionResponse, error) {
+// Streams Interaction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, limit int) (chan ProxyV1ServiceSessionInteraction, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageInteraction(ServiceSid, SessionSid, params, "", "")
@@ -150,11 +150,13 @@ func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, par
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListInteractionResponse, 1)
+	channel := make(chan ProxyV1ServiceSessionInteraction, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Interactions {
+				channel <- response.Interactions[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListInteractionResponse); record == nil || err != nil {

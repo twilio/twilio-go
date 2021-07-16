@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -225,7 +225,7 @@ func (params *ListCompositionHookParams) SetPageSize(PageSize int) *ListComposit
 	return params
 }
 
-//Retrieve a single page of CompositionHook records from the API. Request is executed immediately.
+// Retrieve a single page of CompositionHook records from the API. Request is executed immediately.
 func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, pageToken string, pageNumber string) (*ListCompositionHookResponse, error) {
 	path := "/v1/CompositionHooks"
 
@@ -270,8 +270,8 @@ func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, page
 	return ps, err
 }
 
-//Lists CompositionHook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams, limit *int) ([]*ListCompositionHookResponse, error) {
+// Lists CompositionHook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams, limit int) ([]VideoV1CompositionHook, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCompositionHook(params, "", "")
@@ -280,10 +280,10 @@ func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams, limi
 	}
 
 	curRecord := 0
-	var records []*ListCompositionHookResponse
+	var records []VideoV1CompositionHook
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.CompositionHooks...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCompositionHookResponse); record == nil || err != nil {
@@ -296,8 +296,8 @@ func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams, limi
 	return records, err
 }
 
-//Streams CompositionHook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCompositionHook(params *ListCompositionHookParams, limit *int) (chan *ListCompositionHookResponse, error) {
+// Streams CompositionHook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCompositionHook(params *ListCompositionHookParams, limit int) (chan VideoV1CompositionHook, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCompositionHook(params, "", "")
@@ -307,11 +307,13 @@ func (c *ApiService) StreamCompositionHook(params *ListCompositionHookParams, li
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListCompositionHookResponse, 1)
+	channel := make(chan VideoV1CompositionHook, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.CompositionHooks {
+				channel <- response.CompositionHooks[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCompositionHookResponse); record == nil || err != nil {

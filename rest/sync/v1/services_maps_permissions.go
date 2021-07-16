@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -77,7 +77,7 @@ func (params *ListSyncMapPermissionParams) SetPageSize(PageSize int) *ListSyncMa
 	return params
 }
 
-//Retrieve a single page of SyncMapPermission records from the API. Request is executed immediately.
+// Retrieve a single page of SyncMapPermission records from the API. Request is executed immediately.
 func (c *ApiService) PageSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams, pageToken string, pageNumber string) (*ListSyncMapPermissionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions"
 
@@ -113,8 +113,8 @@ func (c *ApiService) PageSyncMapPermission(ServiceSid string, MapSid string, par
 	return ps, err
 }
 
-//Lists SyncMapPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams, limit *int) ([]*ListSyncMapPermissionResponse, error) {
+// Lists SyncMapPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams, limit int) ([]SyncV1ServiceSyncMapSyncMapPermission, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncMapPermission(ServiceSid, MapSid, params, "", "")
@@ -123,10 +123,10 @@ func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, par
 	}
 
 	curRecord := 0
-	var records []*ListSyncMapPermissionResponse
+	var records []SyncV1ServiceSyncMapSyncMapPermission
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Permissions...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncMapPermissionResponse); record == nil || err != nil {
@@ -139,8 +139,8 @@ func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, par
 	return records, err
 }
 
-//Streams SyncMapPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams, limit *int) (chan *ListSyncMapPermissionResponse, error) {
+// Streams SyncMapPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams, limit int) (chan SyncV1ServiceSyncMapSyncMapPermission, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncMapPermission(ServiceSid, MapSid, params, "", "")
@@ -150,11 +150,13 @@ func (c *ApiService) StreamSyncMapPermission(ServiceSid string, MapSid string, p
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSyncMapPermissionResponse, 1)
+	channel := make(chan SyncV1ServiceSyncMapSyncMapPermission, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Permissions {
+				channel <- response.Permissions[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncMapPermissionResponse); record == nil || err != nil {

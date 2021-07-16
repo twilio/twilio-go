@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -57,7 +57,7 @@ func (params *ListRoomParticipantPublishedTrackParams) SetPageSize(PageSize int)
 	return params
 }
 
-//Retrieve a single page of RoomParticipantPublishedTrack records from the API. Request is executed immediately.
+// Retrieve a single page of RoomParticipantPublishedTrack records from the API. Request is executed immediately.
 func (c *ApiService) PageRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, pageToken string, pageNumber string) (*ListRoomParticipantPublishedTrackResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
 
@@ -93,8 +93,8 @@ func (c *ApiService) PageRoomParticipantPublishedTrack(RoomSid string, Participa
 	return ps, err
 }
 
-//Lists RoomParticipantPublishedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, limit *int) ([]*ListRoomParticipantPublishedTrackResponse, error) {
+// Lists RoomParticipantPublishedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, limit int) ([]VideoV1RoomRoomParticipantRoomParticipantPublishedTrack, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params, "", "")
@@ -103,10 +103,10 @@ func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, Participa
 	}
 
 	curRecord := 0
-	var records []*ListRoomParticipantPublishedTrackResponse
+	var records []VideoV1RoomRoomParticipantRoomParticipantPublishedTrack
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.PublishedTracks...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {
@@ -119,8 +119,8 @@ func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, Participa
 	return records, err
 }
 
-//Streams RoomParticipantPublishedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, limit *int) (chan *ListRoomParticipantPublishedTrackResponse, error) {
+// Streams RoomParticipantPublishedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, limit int) (chan VideoV1RoomRoomParticipantRoomParticipantPublishedTrack, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRoomParticipantPublishedTrack(RoomSid, ParticipantSid, params, "", "")
@@ -130,11 +130,13 @@ func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, Partici
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListRoomParticipantPublishedTrackResponse, 1)
+	channel := make(chan VideoV1RoomRoomParticipantRoomParticipantPublishedTrack, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.PublishedTracks {
+				channel <- response.PublishedTracks[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {

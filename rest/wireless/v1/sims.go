@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -103,7 +103,7 @@ func (params *ListSimParams) SetPageSize(PageSize int) *ListSimParams {
 	return params
 }
 
-//Retrieve a single page of Sim records from the API. Request is executed immediately.
+// Retrieve a single page of Sim records from the API. Request is executed immediately.
 func (c *ApiService) PageSim(params *ListSimParams, pageToken string, pageNumber string) (*ListSimResponse, error) {
 	path := "/v1/Sims"
 
@@ -151,8 +151,8 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken string, pageNumber
 	return ps, err
 }
 
-//Lists Sim records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSim(params *ListSimParams, limit *int) ([]*ListSimResponse, error) {
+// Lists Sim records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSim(params *ListSimParams, limit int) ([]WirelessV1Sim, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSim(params, "", "")
@@ -161,10 +161,10 @@ func (c *ApiService) ListSim(params *ListSimParams, limit *int) ([]*ListSimRespo
 	}
 
 	curRecord := 0
-	var records []*ListSimResponse
+	var records []WirelessV1Sim
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Sims...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSimResponse); record == nil || err != nil {
@@ -177,8 +177,8 @@ func (c *ApiService) ListSim(params *ListSimParams, limit *int) ([]*ListSimRespo
 	return records, err
 }
 
-//Streams Sim records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSim(params *ListSimParams, limit *int) (chan *ListSimResponse, error) {
+// Streams Sim records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSim(params *ListSimParams, limit int) (chan WirelessV1Sim, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSim(params, "", "")
@@ -188,11 +188,13 @@ func (c *ApiService) StreamSim(params *ListSimParams, limit *int) (chan *ListSim
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSimResponse, 1)
+	channel := make(chan WirelessV1Sim, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Sims {
+				channel <- response.Sims[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSimResponse); record == nil || err != nil {

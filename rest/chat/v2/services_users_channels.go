@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -77,7 +77,7 @@ func (params *ListUserChannelParams) SetPageSize(PageSize int) *ListUserChannelP
 	return params
 }
 
-//Retrieve a single page of UserChannel records from the API. Request is executed immediately.
+// Retrieve a single page of UserChannel records from the API. Request is executed immediately.
 func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, pageToken string, pageNumber string) (*ListUserChannelResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels"
 
@@ -113,8 +113,8 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 	return ps, err
 }
 
-//Lists UserChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, limit *int) ([]*ListUserChannelResponse, error) {
+// Lists UserChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, limit int) ([]ChatV2ServiceUserUserChannel, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUserChannel(ServiceSid, UserSid, params, "", "")
@@ -123,10 +123,10 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 	}
 
 	curRecord := 0
-	var records []*ListUserChannelResponse
+	var records []ChatV2ServiceUserUserChannel
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Channels...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUserChannelResponse); record == nil || err != nil {
@@ -139,8 +139,8 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 	return records, err
 }
 
-//Streams UserChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, limit *int) (chan *ListUserChannelResponse, error) {
+// Streams UserChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, limit int) (chan ChatV2ServiceUserUserChannel, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUserChannel(ServiceSid, UserSid, params, "", "")
@@ -150,11 +150,13 @@ func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListUserChannelResponse, 1)
+	channel := make(chan ChatV2ServiceUserUserChannel, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Channels {
+				channel <- response.Channels[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUserChannelResponse); record == nil || err != nil {

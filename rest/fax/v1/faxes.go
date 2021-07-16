@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -207,7 +207,7 @@ func (params *ListFaxParams) SetPageSize(PageSize int) *ListFaxParams {
 	return params
 }
 
-//Retrieve a single page of Fax records from the API. Request is executed immediately.
+// Retrieve a single page of Fax records from the API. Request is executed immediately.
 func (c *ApiService) PageFax(params *ListFaxParams, pageToken string, pageNumber string) (*ListFaxResponse, error) {
 	path := "/v1/Faxes"
 
@@ -252,8 +252,8 @@ func (c *ApiService) PageFax(params *ListFaxParams, pageToken string, pageNumber
 	return ps, err
 }
 
-//Lists Fax records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFax(params *ListFaxParams, limit *int) ([]*ListFaxResponse, error) {
+// Lists Fax records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFax(params *ListFaxParams, limit int) ([]FaxV1Fax, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFax(params, "", "")
@@ -262,10 +262,10 @@ func (c *ApiService) ListFax(params *ListFaxParams, limit *int) ([]*ListFaxRespo
 	}
 
 	curRecord := 0
-	var records []*ListFaxResponse
+	var records []FaxV1Fax
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Faxes...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFaxResponse); record == nil || err != nil {
@@ -278,8 +278,8 @@ func (c *ApiService) ListFax(params *ListFaxParams, limit *int) ([]*ListFaxRespo
 	return records, err
 }
 
-//Streams Fax records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFax(params *ListFaxParams, limit *int) (chan *ListFaxResponse, error) {
+// Streams Fax records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFax(params *ListFaxParams, limit int) (chan FaxV1Fax, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFax(params, "", "")
@@ -289,11 +289,13 @@ func (c *ApiService) StreamFax(params *ListFaxParams, limit *int) (chan *ListFax
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListFaxResponse, 1)
+	channel := make(chan FaxV1Fax, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Faxes {
+				channel <- response.Faxes[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFaxResponse); record == nil || err != nil {

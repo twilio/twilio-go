@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -146,7 +146,7 @@ func (params *ListConnectionPolicyTargetParams) SetPageSize(PageSize int) *ListC
 	return params
 }
 
-//Retrieve a single page of ConnectionPolicyTarget records from the API. Request is executed immediately.
+// Retrieve a single page of ConnectionPolicyTarget records from the API. Request is executed immediately.
 func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, pageToken string, pageNumber string) (*ListConnectionPolicyTargetResponse, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
 
@@ -181,8 +181,8 @@ func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, para
 	return ps, err
 }
 
-//Lists ConnectionPolicyTarget records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit *int) ([]*ListConnectionPolicyTargetResponse, error) {
+// Lists ConnectionPolicyTarget records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit int) ([]VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConnectionPolicyTarget(ConnectionPolicySid, params, "", "")
@@ -191,10 +191,10 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 	}
 
 	curRecord := 0
-	var records []*ListConnectionPolicyTargetResponse
+	var records []VoiceV1ConnectionPolicyConnectionPolicyTarget
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Targets...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConnectionPolicyTargetResponse); record == nil || err != nil {
@@ -207,8 +207,8 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 	return records, err
 }
 
-//Streams ConnectionPolicyTarget records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit *int) (chan *ListConnectionPolicyTargetResponse, error) {
+// Streams ConnectionPolicyTarget records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit int) (chan VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConnectionPolicyTarget(ConnectionPolicySid, params, "", "")
@@ -218,11 +218,13 @@ func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, pa
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListConnectionPolicyTargetResponse, 1)
+	channel := make(chan VoiceV1ConnectionPolicyConnectionPolicyTarget, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Targets {
+				channel <- response.Targets[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConnectionPolicyTargetResponse); record == nil || err != nil {

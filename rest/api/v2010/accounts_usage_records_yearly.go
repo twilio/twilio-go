@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -61,7 +61,7 @@ func (params *ListUsageRecordYearlyParams) SetPageSize(PageSize int) *ListUsageR
 	return params
 }
 
-//Retrieve a single page of UsageRecordYearly records from the API. Request is executed immediately.
+// Retrieve a single page of UsageRecordYearly records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageRecordYearly(params *ListUsageRecordYearlyParams, pageToken string, pageNumber string) (*ListUsageRecordYearlyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json"
 
@@ -112,8 +112,8 @@ func (c *ApiService) PageUsageRecordYearly(params *ListUsageRecordYearlyParams, 
 	return ps, err
 }
 
-//Lists UsageRecordYearly records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyParams, limit *int) ([]*ListUsageRecordYearlyResponse, error) {
+// Lists UsageRecordYearly records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyParams, limit int) ([]ApiV2010AccountUsageUsageRecordUsageRecordYearly, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordYearly(params, "", "")
@@ -122,10 +122,10 @@ func (c *ApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyParams, 
 	}
 
 	curRecord := 0
-	var records []*ListUsageRecordYearlyResponse
+	var records []ApiV2010AccountUsageUsageRecordUsageRecordYearly
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.UsageRecords...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordYearlyResponse); record == nil || err != nil {
@@ -138,8 +138,8 @@ func (c *ApiService) ListUsageRecordYearly(params *ListUsageRecordYearlyParams, 
 	return records, err
 }
 
-//Streams UsageRecordYearly records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageRecordYearly(params *ListUsageRecordYearlyParams, limit *int) (chan *ListUsageRecordYearlyResponse, error) {
+// Streams UsageRecordYearly records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordYearly(params *ListUsageRecordYearlyParams, limit int) (chan ApiV2010AccountUsageUsageRecordUsageRecordYearly, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordYearly(params, "", "")
@@ -149,11 +149,13 @@ func (c *ApiService) StreamUsageRecordYearly(params *ListUsageRecordYearlyParams
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListUsageRecordYearlyResponse, 1)
+	channel := make(chan ApiV2010AccountUsageUsageRecordUsageRecordYearly, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.UsageRecords {
+				channel <- response.UsageRecords[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordYearlyResponse); record == nil || err != nil {

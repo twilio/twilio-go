@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -159,7 +159,7 @@ func (params *ListSipIpAccessControlListParams) SetPageSize(PageSize int) *ListS
 	return params
 }
 
-//Retrieve a single page of SipIpAccessControlList records from the API. Request is executed immediately.
+// Retrieve a single page of SipIpAccessControlList records from the API. Request is executed immediately.
 func (c *ApiService) PageSipIpAccessControlList(params *ListSipIpAccessControlListParams, pageToken string, pageNumber string) (*ListSipIpAccessControlListResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json"
 
@@ -198,8 +198,8 @@ func (c *ApiService) PageSipIpAccessControlList(params *ListSipIpAccessControlLi
 	return ps, err
 }
 
-//Lists SipIpAccessControlList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipIpAccessControlList(params *ListSipIpAccessControlListParams, limit *int) ([]*ListSipIpAccessControlListResponse, error) {
+// Lists SipIpAccessControlList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSipIpAccessControlList(params *ListSipIpAccessControlListParams, limit int) ([]ApiV2010AccountSipSipIpAccessControlList, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipIpAccessControlList(params, "", "")
@@ -208,10 +208,10 @@ func (c *ApiService) ListSipIpAccessControlList(params *ListSipIpAccessControlLi
 	}
 
 	curRecord := 0
-	var records []*ListSipIpAccessControlListResponse
+	var records []ApiV2010AccountSipSipIpAccessControlList
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.IpAccessControlLists...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipIpAccessControlListResponse); record == nil || err != nil {
@@ -224,8 +224,8 @@ func (c *ApiService) ListSipIpAccessControlList(params *ListSipIpAccessControlLi
 	return records, err
 }
 
-//Streams SipIpAccessControlList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipIpAccessControlList(params *ListSipIpAccessControlListParams, limit *int) (chan *ListSipIpAccessControlListResponse, error) {
+// Streams SipIpAccessControlList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSipIpAccessControlList(params *ListSipIpAccessControlListParams, limit int) (chan ApiV2010AccountSipSipIpAccessControlList, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipIpAccessControlList(params, "", "")
@@ -235,11 +235,13 @@ func (c *ApiService) StreamSipIpAccessControlList(params *ListSipIpAccessControl
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSipIpAccessControlListResponse, 1)
+	channel := make(chan ApiV2010AccountSipSipIpAccessControlList, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.IpAccessControlLists {
+				channel <- response.IpAccessControlLists[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipIpAccessControlListResponse); record == nil || err != nil {

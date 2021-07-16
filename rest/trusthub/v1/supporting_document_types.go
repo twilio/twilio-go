@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -55,7 +55,7 @@ func (params *ListSupportingDocumentTypeParams) SetPageSize(PageSize int) *ListS
 	return params
 }
 
-//Retrieve a single page of SupportingDocumentType records from the API. Request is executed immediately.
+// Retrieve a single page of SupportingDocumentType records from the API. Request is executed immediately.
 func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTypeParams, pageToken string, pageNumber string) (*ListSupportingDocumentTypeResponse, error) {
 	path := "/v1/SupportingDocumentTypes"
 
@@ -88,8 +88,8 @@ func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTy
 	return ps, err
 }
 
-//Lists SupportingDocumentType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams, limit *int) ([]*ListSupportingDocumentTypeResponse, error) {
+// Lists SupportingDocumentType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams, limit int) ([]TrusthubV1SupportingDocumentType, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSupportingDocumentType(params, "", "")
@@ -98,10 +98,10 @@ func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTy
 	}
 
 	curRecord := 0
-	var records []*ListSupportingDocumentTypeResponse
+	var records []TrusthubV1SupportingDocumentType
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.SupportingDocumentTypes...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSupportingDocumentTypeResponse); record == nil || err != nil {
@@ -114,8 +114,8 @@ func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTy
 	return records, err
 }
 
-//Streams SupportingDocumentType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocumentTypeParams, limit *int) (chan *ListSupportingDocumentTypeResponse, error) {
+// Streams SupportingDocumentType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocumentTypeParams, limit int) (chan TrusthubV1SupportingDocumentType, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSupportingDocumentType(params, "", "")
@@ -125,11 +125,13 @@ func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocument
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSupportingDocumentTypeResponse, 1)
+	channel := make(chan TrusthubV1SupportingDocumentType, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.SupportingDocumentTypes {
+				channel <- response.SupportingDocumentTypes[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSupportingDocumentTypeResponse); record == nil || err != nil {

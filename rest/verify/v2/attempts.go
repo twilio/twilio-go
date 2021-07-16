@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -74,7 +74,7 @@ func (params *ListVerificationAttemptParams) SetPageSize(PageSize int) *ListVeri
 	return params
 }
 
-//Retrieve a single page of VerificationAttempt records from the API. Request is executed immediately.
+// Retrieve a single page of VerificationAttempt records from the API. Request is executed immediately.
 func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptParams, pageToken string, pageNumber string) (*ListVerificationAttemptResponse, error) {
 	path := "/v2/Attempts"
 
@@ -116,8 +116,8 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 	return ps, err
 }
 
-//Lists VerificationAttempt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptParams, limit *int) ([]*ListVerificationAttemptResponse, error) {
+// Lists VerificationAttempt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptParams, limit int) ([]VerifyV2VerificationAttempt, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVerificationAttempt(params, "", "")
@@ -126,10 +126,10 @@ func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptPara
 	}
 
 	curRecord := 0
-	var records []*ListVerificationAttemptResponse
+	var records []VerifyV2VerificationAttempt
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Attempts...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVerificationAttemptResponse); record == nil || err != nil {
@@ -142,8 +142,8 @@ func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptPara
 	return records, err
 }
 
-//Streams VerificationAttempt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptParams, limit *int) (chan *ListVerificationAttemptResponse, error) {
+// Streams VerificationAttempt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptParams, limit int) (chan VerifyV2VerificationAttempt, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVerificationAttempt(params, "", "")
@@ -153,11 +153,13 @@ func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptPa
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListVerificationAttemptResponse, 1)
+	channel := make(chan VerifyV2VerificationAttempt, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Attempts {
+				channel <- response.Attempts[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVerificationAttemptResponse); record == nil || err != nil {

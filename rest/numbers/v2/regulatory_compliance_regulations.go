@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -73,7 +73,7 @@ func (params *ListRegulationParams) SetPageSize(PageSize int) *ListRegulationPar
 	return params
 }
 
-//Retrieve a single page of Regulation records from the API. Request is executed immediately.
+// Retrieve a single page of Regulation records from the API. Request is executed immediately.
 func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken string, pageNumber string) (*ListRegulationResponse, error) {
 	path := "/v2/RegulatoryCompliance/Regulations"
 
@@ -115,8 +115,8 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken stri
 	return ps, err
 }
 
-//Lists Regulation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRegulation(params *ListRegulationParams, limit *int) ([]*ListRegulationResponse, error) {
+// Lists Regulation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRegulation(params *ListRegulationParams, limit int) ([]NumbersV2RegulatoryComplianceRegulation, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRegulation(params, "", "")
@@ -125,10 +125,10 @@ func (c *ApiService) ListRegulation(params *ListRegulationParams, limit *int) ([
 	}
 
 	curRecord := 0
-	var records []*ListRegulationResponse
+	var records []NumbersV2RegulatoryComplianceRegulation
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Results...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRegulationResponse); record == nil || err != nil {
@@ -141,8 +141,8 @@ func (c *ApiService) ListRegulation(params *ListRegulationParams, limit *int) ([
 	return records, err
 }
 
-//Streams Regulation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRegulation(params *ListRegulationParams, limit *int) (chan *ListRegulationResponse, error) {
+// Streams Regulation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRegulation(params *ListRegulationParams, limit int) (chan NumbersV2RegulatoryComplianceRegulation, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRegulation(params, "", "")
@@ -152,11 +152,13 @@ func (c *ApiService) StreamRegulation(params *ListRegulationParams, limit *int) 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListRegulationResponse, 1)
+	channel := make(chan NumbersV2RegulatoryComplianceRegulation, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRegulationResponse); record == nil || err != nil {

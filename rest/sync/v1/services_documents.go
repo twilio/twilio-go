@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -134,7 +134,7 @@ func (params *ListDocumentParams) SetPageSize(PageSize int) *ListDocumentParams 
 	return params
 }
 
-//Retrieve a single page of Document records from the API. Request is executed immediately.
+// Retrieve a single page of Document records from the API. Request is executed immediately.
 func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams, pageToken string, pageNumber string) (*ListDocumentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 
@@ -169,8 +169,8 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 	return ps, err
 }
 
-//Lists Document records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams, limit *int) ([]*ListDocumentResponse, error) {
+// Lists Document records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams, limit int) ([]SyncV1ServiceDocument, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDocument(ServiceSid, params, "", "")
@@ -179,10 +179,10 @@ func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams,
 	}
 
 	curRecord := 0
-	var records []*ListDocumentResponse
+	var records []SyncV1ServiceDocument
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Documents...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDocumentResponse); record == nil || err != nil {
@@ -195,8 +195,8 @@ func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams,
 	return records, err
 }
 
-//Streams Document records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParams, limit *int) (chan *ListDocumentResponse, error) {
+// Streams Document records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParams, limit int) (chan SyncV1ServiceDocument, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDocument(ServiceSid, params, "", "")
@@ -206,11 +206,13 @@ func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParam
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListDocumentResponse, 1)
+	channel := make(chan SyncV1ServiceDocument, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Documents {
+				channel <- response.Documents[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDocumentResponse); record == nil || err != nil {

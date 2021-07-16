@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -94,7 +94,7 @@ func (params *ListCustomerProfileEvaluationParams) SetPageSize(PageSize int) *Li
 	return params
 }
 
-//Retrieve a single page of CustomerProfileEvaluation records from the API. Request is executed immediately.
+// Retrieve a single page of CustomerProfileEvaluation records from the API. Request is executed immediately.
 func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, pageToken string, pageNumber string) (*ListCustomerProfileEvaluationResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations"
 
@@ -129,8 +129,8 @@ func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, pa
 	return ps, err
 }
 
-//Lists CustomerProfileEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, limit *int) ([]*ListCustomerProfileEvaluationResponse, error) {
+// Lists CustomerProfileEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, limit int) ([]TrusthubV1CustomerProfileCustomerProfileEvaluation, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfileEvaluation(CustomerProfileSid, params, "", "")
@@ -139,10 +139,10 @@ func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, pa
 	}
 
 	curRecord := 0
-	var records []*ListCustomerProfileEvaluationResponse
+	var records []TrusthubV1CustomerProfileCustomerProfileEvaluation
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Results...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileEvaluationResponse); record == nil || err != nil {
@@ -155,8 +155,8 @@ func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, pa
 	return records, err
 }
 
-//Streams CustomerProfileEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, limit *int) (chan *ListCustomerProfileEvaluationResponse, error) {
+// Streams CustomerProfileEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, limit int) (chan TrusthubV1CustomerProfileCustomerProfileEvaluation, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfileEvaluation(CustomerProfileSid, params, "", "")
@@ -166,11 +166,13 @@ func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListCustomerProfileEvaluationResponse, 1)
+	channel := make(chan TrusthubV1CustomerProfileCustomerProfileEvaluation, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileEvaluationResponse); record == nil || err != nil {

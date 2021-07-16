@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -55,7 +55,7 @@ func (params *ListEndUserTypeParams) SetPageSize(PageSize int) *ListEndUserTypeP
 	return params
 }
 
-//Retrieve a single page of EndUserType records from the API. Request is executed immediately.
+// Retrieve a single page of EndUserType records from the API. Request is executed immediately.
 func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken string, pageNumber string) (*ListEndUserTypeResponse, error) {
 	path := "/v1/EndUserTypes"
 
@@ -88,8 +88,8 @@ func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken st
 	return ps, err
 }
 
-//Lists EndUserType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams, limit *int) ([]*ListEndUserTypeResponse, error) {
+// Lists EndUserType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams, limit int) ([]TrusthubV1EndUserType, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEndUserType(params, "", "")
@@ -98,10 +98,10 @@ func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams, limit *int) 
 	}
 
 	curRecord := 0
-	var records []*ListEndUserTypeResponse
+	var records []TrusthubV1EndUserType
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.EndUserTypes...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEndUserTypeResponse); record == nil || err != nil {
@@ -114,8 +114,8 @@ func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams, limit *int) 
 	return records, err
 }
 
-//Streams EndUserType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams, limit *int) (chan *ListEndUserTypeResponse, error) {
+// Streams EndUserType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams, limit int) (chan TrusthubV1EndUserType, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEndUserType(params, "", "")
@@ -125,11 +125,13 @@ func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams, limit *int
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListEndUserTypeResponse, 1)
+	channel := make(chan TrusthubV1EndUserType, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.EndUserTypes {
+				channel <- response.EndUserTypes[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEndUserTypeResponse); record == nil || err != nil {

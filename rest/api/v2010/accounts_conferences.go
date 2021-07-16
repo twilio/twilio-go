@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -125,7 +125,7 @@ func (params *ListConferenceParams) SetPageSize(PageSize int) *ListConferencePar
 	return params
 }
 
-//Retrieve a single page of Conference records from the API. Request is executed immediately.
+// Retrieve a single page of Conference records from the API. Request is executed immediately.
 func (c *ApiService) PageConference(params *ListConferenceParams, pageToken string, pageNumber string) (*ListConferenceResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences.json"
 
@@ -188,8 +188,8 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken stri
 	return ps, err
 }
 
-//Lists Conference records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConference(params *ListConferenceParams, limit *int) ([]*ListConferenceResponse, error) {
+// Lists Conference records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConference(params *ListConferenceParams, limit int) ([]ApiV2010AccountConference, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConference(params, "", "")
@@ -198,10 +198,10 @@ func (c *ApiService) ListConference(params *ListConferenceParams, limit *int) ([
 	}
 
 	curRecord := 0
-	var records []*ListConferenceResponse
+	var records []ApiV2010AccountConference
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Conferences...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConferenceResponse); record == nil || err != nil {
@@ -214,8 +214,8 @@ func (c *ApiService) ListConference(params *ListConferenceParams, limit *int) ([
 	return records, err
 }
 
-//Streams Conference records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConference(params *ListConferenceParams, limit *int) (chan *ListConferenceResponse, error) {
+// Streams Conference records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConference(params *ListConferenceParams, limit int) (chan ApiV2010AccountConference, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConference(params, "", "")
@@ -225,11 +225,13 @@ func (c *ApiService) StreamConference(params *ListConferenceParams, limit *int) 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListConferenceResponse, 1)
+	channel := make(chan ApiV2010AccountConference, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Conferences {
+				channel <- response.Conferences[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConferenceResponse); record == nil || err != nil {

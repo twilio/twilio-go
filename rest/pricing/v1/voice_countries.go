@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -54,7 +54,7 @@ func (params *ListVoiceCountryParams) SetPageSize(PageSize int) *ListVoiceCountr
 	return params
 }
 
-//Retrieve a single page of VoiceCountry records from the API. Request is executed immediately.
+// Retrieve a single page of VoiceCountry records from the API. Request is executed immediately.
 func (c *ApiService) PageVoiceCountry(params *ListVoiceCountryParams, pageToken string, pageNumber string) (*ListVoiceCountryResponse, error) {
 	path := "/v1/Voice/Countries"
 
@@ -87,8 +87,8 @@ func (c *ApiService) PageVoiceCountry(params *ListVoiceCountryParams, pageToken 
 	return ps, err
 }
 
-//Lists VoiceCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams, limit *int) ([]*ListVoiceCountryResponse, error) {
+// Lists VoiceCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams, limit int) ([]PricingV1VoiceVoiceCountry, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVoiceCountry(params, "", "")
@@ -97,10 +97,10 @@ func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams, limit *int
 	}
 
 	curRecord := 0
-	var records []*ListVoiceCountryResponse
+	var records []PricingV1VoiceVoiceCountry
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Countries...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVoiceCountryResponse); record == nil || err != nil {
@@ -113,8 +113,8 @@ func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams, limit *int
 	return records, err
 }
 
-//Streams VoiceCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVoiceCountry(params *ListVoiceCountryParams, limit *int) (chan *ListVoiceCountryResponse, error) {
+// Streams VoiceCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamVoiceCountry(params *ListVoiceCountryParams, limit int) (chan PricingV1VoiceVoiceCountry, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVoiceCountry(params, "", "")
@@ -124,11 +124,13 @@ func (c *ApiService) StreamVoiceCountry(params *ListVoiceCountryParams, limit *i
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListVoiceCountryResponse, 1)
+	channel := make(chan PricingV1VoiceVoiceCountry, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Countries {
+				channel <- response.Countries[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVoiceCountryResponse); record == nil || err != nil {

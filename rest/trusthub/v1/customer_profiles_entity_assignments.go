@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -113,7 +113,7 @@ func (params *ListCustomerProfileEntityAssignmentParams) SetPageSize(PageSize in
 	return params
 }
 
-//Retrieve a single page of CustomerProfileEntityAssignment records from the API. Request is executed immediately.
+// Retrieve a single page of CustomerProfileEntityAssignment records from the API. Request is executed immediately.
 func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, pageToken string, pageNumber string) (*ListCustomerProfileEntityAssignmentResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 
@@ -148,8 +148,8 @@ func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid stri
 	return ps, err
 }
 
-//Lists CustomerProfileEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit *int) ([]*ListCustomerProfileEntityAssignmentResponse, error) {
+// Lists CustomerProfileEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit int) ([]TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfileEntityAssignment(CustomerProfileSid, params, "", "")
@@ -158,10 +158,10 @@ func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid stri
 	}
 
 	curRecord := 0
-	var records []*ListCustomerProfileEntityAssignmentResponse
+	var records []TrusthubV1CustomerProfileCustomerProfileEntityAssignment
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Results...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileEntityAssignmentResponse); record == nil || err != nil {
@@ -174,8 +174,8 @@ func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid stri
 	return records, err
 }
 
-//Streams CustomerProfileEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit *int) (chan *ListCustomerProfileEntityAssignmentResponse, error) {
+// Streams CustomerProfileEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit int) (chan TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfileEntityAssignment(CustomerProfileSid, params, "", "")
@@ -185,11 +185,13 @@ func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid st
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListCustomerProfileEntityAssignmentResponse, 1)
+	channel := make(chan TrusthubV1CustomerProfileCustomerProfileEntityAssignment, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileEntityAssignmentResponse); record == nil || err != nil {

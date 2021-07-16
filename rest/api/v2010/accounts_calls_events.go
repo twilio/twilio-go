@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -38,7 +38,7 @@ func (params *ListCallEventParams) SetPageSize(PageSize int) *ListCallEventParam
 	return params
 }
 
-//Retrieve a single page of CallEvent records from the API. Request is executed immediately.
+// Retrieve a single page of CallEvent records from the API. Request is executed immediately.
 func (c *ApiService) PageCallEvent(CallSid string, params *ListCallEventParams, pageToken string, pageNumber string) (*ListCallEventResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json"
 
@@ -78,8 +78,8 @@ func (c *ApiService) PageCallEvent(CallSid string, params *ListCallEventParams, 
 	return ps, err
 }
 
-//Lists CallEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCallEvent(CallSid string, params *ListCallEventParams, limit *int) ([]*ListCallEventResponse, error) {
+// Lists CallEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCallEvent(CallSid string, params *ListCallEventParams, limit int) ([]ApiV2010AccountCallCallEvent, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCallEvent(CallSid, params, "", "")
@@ -88,10 +88,10 @@ func (c *ApiService) ListCallEvent(CallSid string, params *ListCallEventParams, 
 	}
 
 	curRecord := 0
-	var records []*ListCallEventResponse
+	var records []ApiV2010AccountCallCallEvent
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Events...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCallEventResponse); record == nil || err != nil {
@@ -104,8 +104,8 @@ func (c *ApiService) ListCallEvent(CallSid string, params *ListCallEventParams, 
 	return records, err
 }
 
-//Streams CallEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCallEvent(CallSid string, params *ListCallEventParams, limit *int) (chan *ListCallEventResponse, error) {
+// Streams CallEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCallEvent(CallSid string, params *ListCallEventParams, limit int) (chan ApiV2010AccountCallCallEvent, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCallEvent(CallSid, params, "", "")
@@ -115,11 +115,13 @@ func (c *ApiService) StreamCallEvent(CallSid string, params *ListCallEventParams
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListCallEventResponse, 1)
+	channel := make(chan ApiV2010AccountCallCallEvent, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Events {
+				channel <- response.Events[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCallEventResponse); record == nil || err != nil {

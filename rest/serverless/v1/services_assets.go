@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -113,7 +113,7 @@ func (params *ListAssetParams) SetPageSize(PageSize int) *ListAssetParams {
 	return params
 }
 
-//Retrieve a single page of Asset records from the API. Request is executed immediately.
+// Retrieve a single page of Asset records from the API. Request is executed immediately.
 func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageToken string, pageNumber string) (*ListAssetResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Assets"
 
@@ -148,8 +148,8 @@ func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageT
 	return ps, err
 }
 
-//Lists Asset records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams, limit *int) ([]*ListAssetResponse, error) {
+// Lists Asset records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams, limit int) ([]ServerlessV1ServiceAsset, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAsset(ServiceSid, params, "", "")
@@ -158,10 +158,10 @@ func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams, limit
 	}
 
 	curRecord := 0
-	var records []*ListAssetResponse
+	var records []ServerlessV1ServiceAsset
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Assets...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAssetResponse); record == nil || err != nil {
@@ -174,8 +174,8 @@ func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams, limit
 	return records, err
 }
 
-//Streams Asset records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams, limit *int) (chan *ListAssetResponse, error) {
+// Streams Asset records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams, limit int) (chan ServerlessV1ServiceAsset, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAsset(ServiceSid, params, "", "")
@@ -185,11 +185,13 @@ func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams, lim
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListAssetResponse, 1)
+	channel := make(chan ServerlessV1ServiceAsset, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Assets {
+				channel <- response.Assets[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAssetResponse); record == nil || err != nil {

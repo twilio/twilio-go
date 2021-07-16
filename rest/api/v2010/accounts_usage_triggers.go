@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -230,7 +230,7 @@ func (params *ListUsageTriggerParams) SetPageSize(PageSize int) *ListUsageTrigge
 	return params
 }
 
-//Retrieve a single page of UsageTrigger records from the API. Request is executed immediately.
+// Retrieve a single page of UsageTrigger records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken string, pageNumber string) (*ListUsageTriggerResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
 
@@ -278,8 +278,8 @@ func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken 
 	return ps, err
 }
 
-//Lists UsageTrigger records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams, limit *int) ([]*ListUsageTriggerResponse, error) {
+// Lists UsageTrigger records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams, limit int) ([]ApiV2010AccountUsageUsageTrigger, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageTrigger(params, "", "")
@@ -288,10 +288,10 @@ func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams, limit *int
 	}
 
 	curRecord := 0
-	var records []*ListUsageTriggerResponse
+	var records []ApiV2010AccountUsageUsageTrigger
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.UsageTriggers...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageTriggerResponse); record == nil || err != nil {
@@ -304,8 +304,8 @@ func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams, limit *int
 	return records, err
 }
 
-//Streams UsageTrigger records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams, limit *int) (chan *ListUsageTriggerResponse, error) {
+// Streams UsageTrigger records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams, limit int) (chan ApiV2010AccountUsageUsageTrigger, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageTrigger(params, "", "")
@@ -315,11 +315,13 @@ func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams, limit *i
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListUsageTriggerResponse, 1)
+	channel := make(chan ApiV2010AccountUsageUsageTrigger, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.UsageTriggers {
+				channel <- response.UsageTriggers[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageTriggerResponse); record == nil || err != nil {

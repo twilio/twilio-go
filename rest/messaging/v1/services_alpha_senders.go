@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -110,7 +110,7 @@ func (params *ListAlphaSenderParams) SetPageSize(PageSize int) *ListAlphaSenderP
 	return params
 }
 
-//Retrieve a single page of AlphaSender records from the API. Request is executed immediately.
+// Retrieve a single page of AlphaSender records from the API. Request is executed immediately.
 func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderParams, pageToken string, pageNumber string) (*ListAlphaSenderResponse, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 
@@ -145,8 +145,8 @@ func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderP
 	return ps, err
 }
 
-//Lists AlphaSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderParams, limit *int) ([]*ListAlphaSenderResponse, error) {
+// Lists AlphaSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderParams, limit int) ([]MessagingV1ServiceAlphaSender, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAlphaSender(ServiceSid, params, "", "")
@@ -155,10 +155,10 @@ func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderP
 	}
 
 	curRecord := 0
-	var records []*ListAlphaSenderResponse
+	var records []MessagingV1ServiceAlphaSender
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.AlphaSenders...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAlphaSenderResponse); record == nil || err != nil {
@@ -171,8 +171,8 @@ func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderP
 	return records, err
 }
 
-//Streams AlphaSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSenderParams, limit *int) (chan *ListAlphaSenderResponse, error) {
+// Streams AlphaSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSenderParams, limit int) (chan MessagingV1ServiceAlphaSender, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAlphaSender(ServiceSid, params, "", "")
@@ -182,11 +182,13 @@ func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSende
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListAlphaSenderResponse, 1)
+	channel := make(chan MessagingV1ServiceAlphaSender, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.AlphaSenders {
+				channel <- response.AlphaSenders[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAlphaSenderResponse); record == nil || err != nil {

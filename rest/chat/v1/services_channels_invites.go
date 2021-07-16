@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -128,7 +128,7 @@ func (params *ListInviteParams) SetPageSize(PageSize int) *ListInviteParams {
 	return params
 }
 
-//Retrieve a single page of Invite records from the API. Request is executed immediately.
+// Retrieve a single page of Invite records from the API. Request is executed immediately.
 func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *ListInviteParams, pageToken string, pageNumber string) (*ListInviteResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 
@@ -169,8 +169,8 @@ func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *Li
 	return ps, err
 }
 
-//Lists Invite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams, limit *int) ([]*ListInviteResponse, error) {
+// Lists Invite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams, limit int) ([]ChatV1ServiceChannelInvite, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageInvite(ServiceSid, ChannelSid, params, "", "")
@@ -179,10 +179,10 @@ func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *Li
 	}
 
 	curRecord := 0
-	var records []*ListInviteResponse
+	var records []ChatV1ServiceChannelInvite
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Invites...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListInviteResponse); record == nil || err != nil {
@@ -195,8 +195,8 @@ func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *Li
 	return records, err
 }
 
-//Streams Invite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *ListInviteParams, limit *int) (chan *ListInviteResponse, error) {
+// Streams Invite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *ListInviteParams, limit int) (chan ChatV1ServiceChannelInvite, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageInvite(ServiceSid, ChannelSid, params, "", "")
@@ -206,11 +206,13 @@ func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListInviteResponse, 1)
+	channel := make(chan ChatV1ServiceChannelInvite, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Invites {
+				channel <- response.Invites[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListInviteResponse); record == nil || err != nil {

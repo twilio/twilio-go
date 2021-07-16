@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -119,7 +119,7 @@ func (params *ListModelBuildParams) SetPageSize(PageSize int) *ListModelBuildPar
 	return params
 }
 
-//Retrieve a single page of ModelBuild records from the API. Request is executed immediately.
+// Retrieve a single page of ModelBuild records from the API. Request is executed immediately.
 func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildParams, pageToken string, pageNumber string) (*ListModelBuildResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
 
@@ -154,8 +154,8 @@ func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildP
 	return ps, err
 }
 
-//Lists ModelBuild records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildParams, limit *int) ([]*ListModelBuildResponse, error) {
+// Lists ModelBuild records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildParams, limit int) ([]AutopilotV1AssistantModelBuild, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageModelBuild(AssistantSid, params, "", "")
@@ -164,10 +164,10 @@ func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildP
 	}
 
 	curRecord := 0
-	var records []*ListModelBuildResponse
+	var records []AutopilotV1AssistantModelBuild
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.ModelBuilds...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListModelBuildResponse); record == nil || err != nil {
@@ -180,8 +180,8 @@ func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildP
 	return records, err
 }
 
-//Streams ModelBuild records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuildParams, limit *int) (chan *ListModelBuildResponse, error) {
+// Streams ModelBuild records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuildParams, limit int) (chan AutopilotV1AssistantModelBuild, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageModelBuild(AssistantSid, params, "", "")
@@ -191,11 +191,13 @@ func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuil
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListModelBuildResponse, 1)
+	channel := make(chan AutopilotV1AssistantModelBuild, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.ModelBuilds {
+				channel <- response.ModelBuilds[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListModelBuildResponse); record == nil || err != nil {

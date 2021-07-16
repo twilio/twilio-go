@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -155,7 +155,7 @@ func (params *ListCustomerProfileParams) SetPageSize(PageSize int) *ListCustomer
 	return params
 }
 
-//Retrieve a single page of CustomerProfile records from the API. Request is executed immediately.
+// Retrieve a single page of CustomerProfile records from the API. Request is executed immediately.
 func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, pageToken string, pageNumber string) (*ListCustomerProfileResponse, error) {
 	path := "/v1/CustomerProfiles"
 
@@ -197,8 +197,8 @@ func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, page
 	return ps, err
 }
 
-//Lists CustomerProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams, limit *int) ([]*ListCustomerProfileResponse, error) {
+// Lists CustomerProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams, limit int) ([]TrusthubV1CustomerProfile, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfile(params, "", "")
@@ -207,10 +207,10 @@ func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams, limi
 	}
 
 	curRecord := 0
-	var records []*ListCustomerProfileResponse
+	var records []TrusthubV1CustomerProfile
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Results...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileResponse); record == nil || err != nil {
@@ -223,8 +223,8 @@ func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams, limi
 	return records, err
 }
 
-//Streams CustomerProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams, limit *int) (chan *ListCustomerProfileResponse, error) {
+// Streams CustomerProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams, limit int) (chan TrusthubV1CustomerProfile, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfile(params, "", "")
@@ -234,11 +234,13 @@ func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams, li
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListCustomerProfileResponse, 1)
+	channel := make(chan TrusthubV1CustomerProfile, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileResponse); record == nil || err != nil {

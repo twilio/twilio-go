@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -162,7 +162,7 @@ func (params *ListSipAuthCallsCredentialListMappingParams) SetPageSize(PageSize 
 	return params
 }
 
-//Retrieve a single page of SipAuthCallsCredentialListMapping records from the API. Request is executed immediately.
+// Retrieve a single page of SipAuthCallsCredentialListMapping records from the API. Request is executed immediately.
 func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, pageToken string, pageNumber string) (*ListSipAuthCallsCredentialListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
 
@@ -202,8 +202,8 @@ func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, par
 	return ps, err
 }
 
-//Lists SipAuthCallsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, limit *int) ([]*ListSipAuthCallsCredentialListMappingResponse, error) {
+// Lists SipAuthCallsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, limit int) ([]ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipAuthCallsCredentialListMapping(DomainSid, params, "", "")
@@ -212,10 +212,10 @@ func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, par
 	}
 
 	curRecord := 0
-	var records []*ListSipAuthCallsCredentialListMappingResponse
+	var records []ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Contents...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipAuthCallsCredentialListMappingResponse); record == nil || err != nil {
@@ -228,8 +228,8 @@ func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, par
 	return records, err
 }
 
-//Streams SipAuthCallsCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, limit *int) (chan *ListSipAuthCallsCredentialListMappingResponse, error) {
+// Streams SipAuthCallsCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, limit int) (chan ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipAuthCallsCredentialListMapping(DomainSid, params, "", "")
@@ -239,11 +239,13 @@ func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, p
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSipAuthCallsCredentialListMappingResponse, 1)
+	channel := make(chan ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Contents {
+				channel <- response.Contents[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipAuthCallsCredentialListMappingResponse); record == nil || err != nil {

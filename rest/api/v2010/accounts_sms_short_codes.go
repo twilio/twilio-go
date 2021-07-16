@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -89,7 +89,7 @@ func (params *ListShortCodeParams) SetPageSize(PageSize int) *ListShortCodeParam
 	return params
 }
 
-//Retrieve a single page of ShortCode records from the API. Request is executed immediately.
+// Retrieve a single page of ShortCode records from the API. Request is executed immediately.
 func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken string, pageNumber string) (*ListShortCodeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json"
 
@@ -134,8 +134,8 @@ func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken string
 	return ps, err
 }
 
-//Lists ShortCode records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListShortCode(params *ListShortCodeParams, limit *int) ([]*ListShortCodeResponse, error) {
+// Lists ShortCode records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListShortCode(params *ListShortCodeParams, limit int) ([]ApiV2010AccountShortCode, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageShortCode(params, "", "")
@@ -144,10 +144,10 @@ func (c *ApiService) ListShortCode(params *ListShortCodeParams, limit *int) ([]*
 	}
 
 	curRecord := 0
-	var records []*ListShortCodeResponse
+	var records []ApiV2010AccountShortCode
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.ShortCodes...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListShortCodeResponse); record == nil || err != nil {
@@ -160,8 +160,8 @@ func (c *ApiService) ListShortCode(params *ListShortCodeParams, limit *int) ([]*
 	return records, err
 }
 
-//Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamShortCode(params *ListShortCodeParams, limit *int) (chan *ListShortCodeResponse, error) {
+// Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamShortCode(params *ListShortCodeParams, limit int) (chan ApiV2010AccountShortCode, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageShortCode(params, "", "")
@@ -171,11 +171,13 @@ func (c *ApiService) StreamShortCode(params *ListShortCodeParams, limit *int) (c
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListShortCodeResponse, 1)
+	channel := make(chan ApiV2010AccountShortCode, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.ShortCodes {
+				channel <- response.ShortCodes[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListShortCodeResponse); record == nil || err != nil {

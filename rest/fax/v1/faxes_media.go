@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -75,7 +75,7 @@ func (params *ListFaxMediaParams) SetPageSize(PageSize int) *ListFaxMediaParams 
 	return params
 }
 
-//Retrieve a single page of FaxMedia records from the API. Request is executed immediately.
+// Retrieve a single page of FaxMedia records from the API. Request is executed immediately.
 func (c *ApiService) PageFaxMedia(FaxSid string, params *ListFaxMediaParams, pageToken string, pageNumber string) (*ListFaxMediaResponse, error) {
 	path := "/v1/Faxes/{FaxSid}/Media"
 
@@ -110,8 +110,8 @@ func (c *ApiService) PageFaxMedia(FaxSid string, params *ListFaxMediaParams, pag
 	return ps, err
 }
 
-//Lists FaxMedia records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaParams, limit *int) ([]*ListFaxMediaResponse, error) {
+// Lists FaxMedia records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaParams, limit int) ([]FaxV1FaxFaxMedia, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFaxMedia(FaxSid, params, "", "")
@@ -120,10 +120,10 @@ func (c *ApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaParams, lim
 	}
 
 	curRecord := 0
-	var records []*ListFaxMediaResponse
+	var records []FaxV1FaxFaxMedia
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Media...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFaxMediaResponse); record == nil || err != nil {
@@ -136,8 +136,8 @@ func (c *ApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaParams, lim
 	return records, err
 }
 
-//Streams FaxMedia records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFaxMedia(FaxSid string, params *ListFaxMediaParams, limit *int) (chan *ListFaxMediaResponse, error) {
+// Streams FaxMedia records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFaxMedia(FaxSid string, params *ListFaxMediaParams, limit int) (chan FaxV1FaxFaxMedia, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFaxMedia(FaxSid, params, "", "")
@@ -147,11 +147,13 @@ func (c *ApiService) StreamFaxMedia(FaxSid string, params *ListFaxMediaParams, l
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListFaxMediaResponse, 1)
+	channel := make(chan FaxV1FaxFaxMedia, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Media {
+				channel <- response.Media[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFaxMediaResponse); record == nil || err != nil {

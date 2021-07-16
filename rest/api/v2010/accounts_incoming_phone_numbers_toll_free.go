@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -306,7 +306,7 @@ func (params *ListIncomingPhoneNumberTollFreeParams) SetPageSize(PageSize int) *
 	return params
 }
 
-//Retrieve a single page of IncomingPhoneNumberTollFree records from the API. Request is executed immediately.
+// Retrieve a single page of IncomingPhoneNumberTollFree records from the API. Request is executed immediately.
 func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
 
@@ -357,8 +357,8 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 	return ps, err
 }
 
-//Lists IncomingPhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, limit *int) ([]*ListIncomingPhoneNumberTollFreeResponse, error) {
+// Lists IncomingPhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, limit int) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIncomingPhoneNumberTollFree(params, "", "")
@@ -367,10 +367,10 @@ func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 	}
 
 	curRecord := 0
-	var records []*ListIncomingPhoneNumberTollFreeResponse
+	var records []ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.IncomingPhoneNumbers...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberTollFreeResponse); record == nil || err != nil {
@@ -383,8 +383,8 @@ func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 	return records, err
 }
 
-//Streams IncomingPhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, limit *int) (chan *ListIncomingPhoneNumberTollFreeResponse, error) {
+// Streams IncomingPhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, limit int) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIncomingPhoneNumberTollFree(params, "", "")
@@ -394,11 +394,13 @@ func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhone
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListIncomingPhoneNumberTollFreeResponse, 1)
+	channel := make(chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.IncomingPhoneNumbers {
+				channel <- response.IncomingPhoneNumbers[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberTollFreeResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -188,7 +188,7 @@ func (params *ListByocTrunkParams) SetPageSize(PageSize int) *ListByocTrunkParam
 	return params
 }
 
-//Retrieve a single page of ByocTrunk records from the API. Request is executed immediately.
+// Retrieve a single page of ByocTrunk records from the API. Request is executed immediately.
 func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken string, pageNumber string) (*ListByocTrunkResponse, error) {
 	path := "/v1/ByocTrunks"
 
@@ -221,8 +221,8 @@ func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken string
 	return ps, err
 }
 
-//Lists ByocTrunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams, limit *int) ([]*ListByocTrunkResponse, error) {
+// Lists ByocTrunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams, limit int) ([]VoiceV1ByocTrunk, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageByocTrunk(params, "", "")
@@ -231,10 +231,10 @@ func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams, limit *int) ([]*
 	}
 
 	curRecord := 0
-	var records []*ListByocTrunkResponse
+	var records []VoiceV1ByocTrunk
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.ByocTrunks...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListByocTrunkResponse); record == nil || err != nil {
@@ -247,8 +247,8 @@ func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams, limit *int) ([]*
 	return records, err
 }
 
-//Streams ByocTrunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams, limit *int) (chan *ListByocTrunkResponse, error) {
+// Streams ByocTrunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams, limit int) (chan VoiceV1ByocTrunk, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageByocTrunk(params, "", "")
@@ -258,11 +258,13 @@ func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams, limit *int) (c
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListByocTrunkResponse, 1)
+	channel := make(chan VoiceV1ByocTrunk, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.ByocTrunks {
+				channel <- response.ByocTrunks[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListByocTrunkResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -128,7 +128,7 @@ func (params *ListCredentialAwsParams) SetPageSize(PageSize int) *ListCredential
 	return params
 }
 
-//Retrieve a single page of CredentialAws records from the API. Request is executed immediately.
+// Retrieve a single page of CredentialAws records from the API. Request is executed immediately.
 func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToken string, pageNumber string) (*ListCredentialAwsResponse, error) {
 	path := "/v1/Credentials/AWS"
 
@@ -161,8 +161,8 @@ func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToke
 	return ps, err
 }
 
-//Lists CredentialAws records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams, limit *int) ([]*ListCredentialAwsResponse, error) {
+// Lists CredentialAws records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams, limit int) ([]AccountsV1CredentialCredentialAws, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCredentialAws(params, "", "")
@@ -171,10 +171,10 @@ func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams, limit *i
 	}
 
 	curRecord := 0
-	var records []*ListCredentialAwsResponse
+	var records []AccountsV1CredentialCredentialAws
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Credentials...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialAwsResponse); record == nil || err != nil {
@@ -187,8 +187,8 @@ func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams, limit *i
 	return records, err
 }
 
-//Streams CredentialAws records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams, limit *int) (chan *ListCredentialAwsResponse, error) {
+// Streams CredentialAws records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams, limit int) (chan AccountsV1CredentialCredentialAws, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCredentialAws(params, "", "")
@@ -198,11 +198,13 @@ func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams, limit 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListCredentialAwsResponse, 1)
+	channel := make(chan AccountsV1CredentialCredentialAws, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Credentials {
+				channel <- response.Credentials[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialAwsResponse); record == nil || err != nil {

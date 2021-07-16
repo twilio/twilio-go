@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -257,7 +257,7 @@ func (params *ListFlexFlowParams) SetPageSize(PageSize int) *ListFlexFlowParams 
 	return params
 }
 
-//Retrieve a single page of FlexFlow records from the API. Request is executed immediately.
+// Retrieve a single page of FlexFlow records from the API. Request is executed immediately.
 func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken string, pageNumber string) (*ListFlexFlowResponse, error) {
 	path := "/v1/FlexFlows"
 
@@ -293,8 +293,8 @@ func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken string, 
 	return ps, err
 }
 
-//Lists FlexFlow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams, limit *int) ([]*ListFlexFlowResponse, error) {
+// Lists FlexFlow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams, limit int) ([]FlexV1FlexFlow, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFlexFlow(params, "", "")
@@ -303,10 +303,10 @@ func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams, limit *int) ([]*Li
 	}
 
 	curRecord := 0
-	var records []*ListFlexFlowResponse
+	var records []FlexV1FlexFlow
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.FlexFlows...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFlexFlowResponse); record == nil || err != nil {
@@ -319,8 +319,8 @@ func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams, limit *int) ([]*Li
 	return records, err
 }
 
-//Streams FlexFlow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFlexFlow(params *ListFlexFlowParams, limit *int) (chan *ListFlexFlowResponse, error) {
+// Streams FlexFlow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFlexFlow(params *ListFlexFlowParams, limit int) (chan FlexV1FlexFlow, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFlexFlow(params, "", "")
@@ -330,11 +330,13 @@ func (c *ApiService) StreamFlexFlow(params *ListFlexFlowParams, limit *int) (cha
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListFlexFlowResponse, 1)
+	channel := make(chan FlexV1FlexFlow, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.FlexFlows {
+				channel <- response.FlexFlows[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFlexFlowResponse); record == nil || err != nil {

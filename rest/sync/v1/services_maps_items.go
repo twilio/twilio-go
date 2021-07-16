@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -188,7 +188,7 @@ func (params *ListSyncMapItemParams) SetPageSize(PageSize int) *ListSyncMapItemP
 	return params
 }
 
-//Retrieve a single page of SyncMapItem records from the API. Request is executed immediately.
+// Retrieve a single page of SyncMapItem records from the API. Request is executed immediately.
 func (c *ApiService) PageSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams, pageToken string, pageNumber string) (*ListSyncMapItemResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items"
 
@@ -233,8 +233,8 @@ func (c *ApiService) PageSyncMapItem(ServiceSid string, MapSid string, params *L
 	return ps, err
 }
 
-//Lists SyncMapItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams, limit *int) ([]*ListSyncMapItemResponse, error) {
+// Lists SyncMapItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams, limit int) ([]SyncV1ServiceSyncMapSyncMapItem, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncMapItem(ServiceSid, MapSid, params, "", "")
@@ -243,10 +243,10 @@ func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *L
 	}
 
 	curRecord := 0
-	var records []*ListSyncMapItemResponse
+	var records []SyncV1ServiceSyncMapSyncMapItem
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Items...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncMapItemResponse); record == nil || err != nil {
@@ -259,8 +259,8 @@ func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *L
 	return records, err
 }
 
-//Streams SyncMapItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams, limit *int) (chan *ListSyncMapItemResponse, error) {
+// Streams SyncMapItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams, limit int) (chan SyncV1ServiceSyncMapSyncMapItem, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncMapItem(ServiceSid, MapSid, params, "", "")
@@ -270,11 +270,13 @@ func (c *ApiService) StreamSyncMapItem(ServiceSid string, MapSid string, params 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSyncMapItemResponse, 1)
+	channel := make(chan SyncV1ServiceSyncMapSyncMapItem, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Items {
+				channel <- response.Items[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncMapItemResponse); record == nil || err != nil {

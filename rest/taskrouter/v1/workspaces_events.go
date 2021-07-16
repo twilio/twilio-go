@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -122,7 +122,7 @@ func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
 	return params
 }
 
-//Retrieve a single page of Event records from the API. Request is executed immediately.
+// Retrieve a single page of Event records from the API. Request is executed immediately.
 func (c *ApiService) PageEvent(WorkspaceSid string, params *ListEventParams, pageToken string, pageNumber string) (*ListEventResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Events"
 
@@ -190,8 +190,8 @@ func (c *ApiService) PageEvent(WorkspaceSid string, params *ListEventParams, pag
 	return ps, err
 }
 
-//Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams, limit *int) ([]*ListEventResponse, error) {
+// Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams, limit int) ([]TaskrouterV1WorkspaceEvent, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEvent(WorkspaceSid, params, "", "")
@@ -200,10 +200,10 @@ func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams, lim
 	}
 
 	curRecord := 0
-	var records []*ListEventResponse
+	var records []TaskrouterV1WorkspaceEvent
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Events...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventResponse); record == nil || err != nil {
@@ -216,8 +216,8 @@ func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams, lim
 	return records, err
 }
 
-//Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEvent(WorkspaceSid string, params *ListEventParams, limit *int) (chan *ListEventResponse, error) {
+// Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEvent(WorkspaceSid string, params *ListEventParams, limit int) (chan TaskrouterV1WorkspaceEvent, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEvent(WorkspaceSid, params, "", "")
@@ -227,11 +227,13 @@ func (c *ApiService) StreamEvent(WorkspaceSid string, params *ListEventParams, l
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListEventResponse, 1)
+	channel := make(chan TaskrouterV1WorkspaceEvent, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Events {
+				channel <- response.Events[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventResponse); record == nil || err != nil {

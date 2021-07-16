@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -87,7 +87,7 @@ func (params *ListServiceBindingParams) SetPageSize(PageSize int) *ListServiceBi
 	return params
 }
 
-//Retrieve a single page of ServiceBinding records from the API. Request is executed immediately.
+// Retrieve a single page of ServiceBinding records from the API. Request is executed immediately.
 func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, pageToken string, pageNumber string) (*ListServiceBindingResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings"
 
@@ -132,8 +132,8 @@ func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServi
 	return ps, err
 }
 
-//Lists ServiceBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, limit *int) ([]*ListServiceBindingResponse, error) {
+// Lists ServiceBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, limit int) ([]ConversationsV1ServiceServiceBinding, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageServiceBinding(ChatServiceSid, params, "", "")
@@ -142,10 +142,10 @@ func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServi
 	}
 
 	curRecord := 0
-	var records []*ListServiceBindingResponse
+	var records []ConversationsV1ServiceServiceBinding
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Bindings...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceBindingResponse); record == nil || err != nil {
@@ -158,8 +158,8 @@ func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServi
 	return records, err
 }
 
-//Streams ServiceBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, limit *int) (chan *ListServiceBindingResponse, error) {
+// Streams ServiceBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, limit int) (chan ConversationsV1ServiceServiceBinding, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageServiceBinding(ChatServiceSid, params, "", "")
@@ -169,11 +169,13 @@ func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListSer
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListServiceBindingResponse, 1)
+	channel := make(chan ConversationsV1ServiceServiceBinding, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Bindings {
+				channel <- response.Bindings[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceBindingResponse); record == nil || err != nil {

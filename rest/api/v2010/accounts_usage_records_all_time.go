@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -61,7 +61,7 @@ func (params *ListUsageRecordAllTimeParams) SetPageSize(PageSize int) *ListUsage
 	return params
 }
 
-//Retrieve a single page of UsageRecordAllTime records from the API. Request is executed immediately.
+// Retrieve a single page of UsageRecordAllTime records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams, pageToken string, pageNumber string) (*ListUsageRecordAllTimeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json"
 
@@ -112,8 +112,8 @@ func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 	return ps, err
 }
 
-//Lists UsageRecordAllTime records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams, limit *int) ([]*ListUsageRecordAllTimeResponse, error) {
+// Lists UsageRecordAllTime records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams, limit int) ([]ApiV2010AccountUsageUsageRecordUsageRecordAllTime, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordAllTime(params, "", "")
@@ -122,10 +122,10 @@ func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 	}
 
 	curRecord := 0
-	var records []*ListUsageRecordAllTimeResponse
+	var records []ApiV2010AccountUsageUsageRecordUsageRecordAllTime
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.UsageRecords...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordAllTimeResponse); record == nil || err != nil {
@@ -138,8 +138,8 @@ func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 	return records, err
 }
 
-//Streams UsageRecordAllTime records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimeParams, limit *int) (chan *ListUsageRecordAllTimeResponse, error) {
+// Streams UsageRecordAllTime records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimeParams, limit int) (chan ApiV2010AccountUsageUsageRecordUsageRecordAllTime, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordAllTime(params, "", "")
@@ -149,11 +149,13 @@ func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimePara
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListUsageRecordAllTimeResponse, 1)
+	channel := make(chan ApiV2010AccountUsageUsageRecordUsageRecordAllTime, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.UsageRecords {
+				channel <- response.UsageRecords[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordAllTimeResponse); record == nil || err != nil {

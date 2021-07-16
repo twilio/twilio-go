@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -199,7 +199,7 @@ func (params *ListMessageParams) SetPageSize(PageSize int) *ListMessageParams {
 	return params
 }
 
-//Retrieve a single page of Message records from the API. Request is executed immediately.
+// Retrieve a single page of Message records from the API. Request is executed immediately.
 func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, pageToken string, pageNumber string) (*ListMessageResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 
@@ -238,8 +238,8 @@ func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *L
 	return ps, err
 }
 
-//Lists Message records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, limit *int) ([]*ListMessageResponse, error) {
+// Lists Message records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, limit int) ([]ChatV2ServiceChannelMessage, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMessage(ServiceSid, ChannelSid, params, "", "")
@@ -248,10 +248,10 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 	}
 
 	curRecord := 0
-	var records []*ListMessageResponse
+	var records []ChatV2ServiceChannelMessage
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Messages...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessageResponse); record == nil || err != nil {
@@ -264,8 +264,8 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 	return records, err
 }
 
-//Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, limit *int) (chan *ListMessageResponse, error) {
+// Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, limit int) (chan ChatV2ServiceChannelMessage, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMessage(ServiceSid, ChannelSid, params, "", "")
@@ -275,11 +275,13 @@ func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListMessageResponse, 1)
+	channel := make(chan ChatV2ServiceChannelMessage, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Messages {
+				channel <- response.Messages[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessageResponse); record == nil || err != nil {

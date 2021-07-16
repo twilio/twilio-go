@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -91,7 +91,7 @@ func (params *ListDialingPermissionsCountryParams) SetPageSize(PageSize int) *Li
 	return params
 }
 
-//Retrieve a single page of DialingPermissionsCountry records from the API. Request is executed immediately.
+// Retrieve a single page of DialingPermissionsCountry records from the API. Request is executed immediately.
 func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, pageToken string, pageNumber string) (*ListDialingPermissionsCountryResponse, error) {
 	path := "/v1/DialingPermissions/Countries"
 
@@ -142,8 +142,8 @@ func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermission
 	return ps, err
 }
 
-//Lists DialingPermissionsCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, limit *int) ([]*ListDialingPermissionsCountryResponse, error) {
+// Lists DialingPermissionsCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, limit int) ([]VoiceV1DialingPermissionsDialingPermissionsCountry, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDialingPermissionsCountry(params, "", "")
@@ -152,10 +152,10 @@ func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermission
 	}
 
 	curRecord := 0
-	var records []*ListDialingPermissionsCountryResponse
+	var records []VoiceV1DialingPermissionsDialingPermissionsCountry
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Content...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDialingPermissionsCountryResponse); record == nil || err != nil {
@@ -168,8 +168,8 @@ func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermission
 	return records, err
 }
 
-//Streams DialingPermissionsCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, limit *int) (chan *ListDialingPermissionsCountryResponse, error) {
+// Streams DialingPermissionsCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, limit int) (chan VoiceV1DialingPermissionsDialingPermissionsCountry, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDialingPermissionsCountry(params, "", "")
@@ -179,11 +179,13 @@ func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissi
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListDialingPermissionsCountryResponse, 1)
+	channel := make(chan VoiceV1DialingPermissionsDialingPermissionsCountry, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Content {
+				channel <- response.Content[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDialingPermissionsCountryResponse); record == nil || err != nil {

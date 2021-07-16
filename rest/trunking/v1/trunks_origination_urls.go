@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -146,7 +146,7 @@ func (params *ListOriginationUrlParams) SetPageSize(PageSize int) *ListOriginati
 	return params
 }
 
-//Retrieve a single page of OriginationUrl records from the API. Request is executed immediately.
+// Retrieve a single page of OriginationUrl records from the API. Request is executed immediately.
 func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, pageToken string, pageNumber string) (*ListOriginationUrlResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
 
@@ -181,8 +181,8 @@ func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOrigination
 	return ps, err
 }
 
-//Lists OriginationUrl records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, limit *int) ([]*ListOriginationUrlResponse, error) {
+// Lists OriginationUrl records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, limit int) ([]TrunkingV1TrunkOriginationUrl, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageOriginationUrl(TrunkSid, params, "", "")
@@ -191,10 +191,10 @@ func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOrigination
 	}
 
 	curRecord := 0
-	var records []*ListOriginationUrlResponse
+	var records []TrunkingV1TrunkOriginationUrl
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.OriginationUrls...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListOriginationUrlResponse); record == nil || err != nil {
@@ -207,8 +207,8 @@ func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOrigination
 	return records, err
 }
 
-//Streams OriginationUrl records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, limit *int) (chan *ListOriginationUrlResponse, error) {
+// Streams OriginationUrl records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, limit int) (chan TrunkingV1TrunkOriginationUrl, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageOriginationUrl(TrunkSid, params, "", "")
@@ -218,11 +218,13 @@ func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginati
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListOriginationUrlResponse, 1)
+	channel := make(chan TrunkingV1TrunkOriginationUrl, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.OriginationUrls {
+				channel <- response.OriginationUrls[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListOriginationUrlResponse); record == nil || err != nil {

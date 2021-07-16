@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -56,7 +56,7 @@ func (params *ListFlowRevisionParams) SetPageSize(PageSize int) *ListFlowRevisio
 	return params
 }
 
-//Retrieve a single page of FlowRevision records from the API. Request is executed immediately.
+// Retrieve a single page of FlowRevision records from the API. Request is executed immediately.
 func (c *ApiService) PageFlowRevision(Sid string, params *ListFlowRevisionParams, pageToken string, pageNumber string) (*ListFlowRevisionResponse, error) {
 	path := "/v2/Flows/{Sid}/Revisions"
 
@@ -91,8 +91,8 @@ func (c *ApiService) PageFlowRevision(Sid string, params *ListFlowRevisionParams
 	return ps, err
 }
 
-//Lists FlowRevision records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams, limit *int) ([]*ListFlowRevisionResponse, error) {
+// Lists FlowRevision records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams, limit int) ([]StudioV2FlowFlowRevision, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFlowRevision(Sid, params, "", "")
@@ -101,10 +101,10 @@ func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams
 	}
 
 	curRecord := 0
-	var records []*ListFlowRevisionResponse
+	var records []StudioV2FlowFlowRevision
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Revisions...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFlowRevisionResponse); record == nil || err != nil {
@@ -117,8 +117,8 @@ func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams
 	return records, err
 }
 
-//Streams FlowRevision records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionParams, limit *int) (chan *ListFlowRevisionResponse, error) {
+// Streams FlowRevision records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionParams, limit int) (chan StudioV2FlowFlowRevision, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFlowRevision(Sid, params, "", "")
@@ -128,11 +128,13 @@ func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionPara
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListFlowRevisionResponse, 1)
+	channel := make(chan StudioV2FlowFlowRevision, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Revisions {
+				channel <- response.Revisions[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFlowRevisionResponse); record == nil || err != nil {

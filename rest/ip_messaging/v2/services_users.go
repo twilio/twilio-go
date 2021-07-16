@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -147,7 +147,7 @@ func (params *ListUserParams) SetPageSize(PageSize int) *ListUserParams {
 	return params
 }
 
-//Retrieve a single page of User records from the API. Request is executed immediately.
+// Retrieve a single page of User records from the API. Request is executed immediately.
 func (c *ApiService) PageUser(ServiceSid string, params *ListUserParams, pageToken string, pageNumber string) (*ListUserResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Users"
 
@@ -182,8 +182,8 @@ func (c *ApiService) PageUser(ServiceSid string, params *ListUserParams, pageTok
 	return ps, err
 }
 
-//Lists User records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams, limit *int) ([]*ListUserResponse, error) {
+// Lists User records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams, limit int) ([]IpMessagingV2ServiceUser, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUser(ServiceSid, params, "", "")
@@ -192,10 +192,10 @@ func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams, limit *
 	}
 
 	curRecord := 0
-	var records []*ListUserResponse
+	var records []IpMessagingV2ServiceUser
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Users...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUserResponse); record == nil || err != nil {
@@ -208,8 +208,8 @@ func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams, limit *
 	return records, err
 }
 
-//Streams User records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams, limit *int) (chan *ListUserResponse, error) {
+// Streams User records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams, limit int) (chan IpMessagingV2ServiceUser, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUser(ServiceSid, params, "", "")
@@ -219,11 +219,13 @@ func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams, limit
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListUserResponse, 1)
+	channel := make(chan IpMessagingV2ServiceUser, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Users {
+				channel <- response.Users[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUserResponse); record == nil || err != nil {

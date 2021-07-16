@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -174,7 +174,7 @@ func (params *ListSessionParams) SetPageSize(PageSize int) *ListSessionParams {
 	return params
 }
 
-//Retrieve a single page of Session records from the API. Request is executed immediately.
+// Retrieve a single page of Session records from the API. Request is executed immediately.
 func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, pageToken string, pageNumber string) (*ListSessionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions"
 
@@ -209,8 +209,8 @@ func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, p
 	return ps, err
 }
 
-//Lists Session records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams, limit *int) ([]*ListSessionResponse, error) {
+// Lists Session records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams, limit int) ([]ProxyV1ServiceSession, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSession(ServiceSid, params, "", "")
@@ -219,10 +219,10 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams, l
 	}
 
 	curRecord := 0
-	var records []*ListSessionResponse
+	var records []ProxyV1ServiceSession
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Sessions...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSessionResponse); record == nil || err != nil {
@@ -235,8 +235,8 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams, l
 	return records, err
 }
 
-//Streams Session records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams, limit *int) (chan *ListSessionResponse, error) {
+// Streams Session records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams, limit int) (chan ProxyV1ServiceSession, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSession(ServiceSid, params, "", "")
@@ -246,11 +246,13 @@ func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams,
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSessionResponse, 1)
+	channel := make(chan ProxyV1ServiceSession, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Sessions {
+				channel <- response.Sessions[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSessionResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -57,7 +57,7 @@ func (params *ListAssetVersionParams) SetPageSize(PageSize int) *ListAssetVersio
 	return params
 }
 
-//Retrieve a single page of AssetVersion records from the API. Request is executed immediately.
+// Retrieve a single page of AssetVersion records from the API. Request is executed immediately.
 func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, pageToken string, pageNumber string) (*ListAssetVersionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions"
 
@@ -93,8 +93,8 @@ func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params
 	return ps, err
 }
 
-//Lists AssetVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, limit *int) ([]*ListAssetVersionResponse, error) {
+// Lists AssetVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, limit int) ([]ServerlessV1ServiceAssetAssetVersion, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAssetVersion(ServiceSid, AssetSid, params, "", "")
@@ -103,10 +103,10 @@ func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params
 	}
 
 	curRecord := 0
-	var records []*ListAssetVersionResponse
+	var records []ServerlessV1ServiceAssetAssetVersion
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.AssetVersions...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAssetVersionResponse); record == nil || err != nil {
@@ -119,8 +119,8 @@ func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params
 	return records, err
 }
 
-//Streams AssetVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, limit *int) (chan *ListAssetVersionResponse, error) {
+// Streams AssetVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, limit int) (chan ServerlessV1ServiceAssetAssetVersion, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAssetVersion(ServiceSid, AssetSid, params, "", "")
@@ -130,11 +130,13 @@ func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, para
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListAssetVersionResponse, 1)
+	channel := make(chan ServerlessV1ServiceAssetAssetVersion, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.AssetVersions {
+				channel <- response.AssetVersions[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAssetVersionResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -173,7 +173,7 @@ func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
 	return params
 }
 
-//Retrieve a single page of Service records from the API. Request is executed immediately.
+// Retrieve a single page of Service records from the API. Request is executed immediately.
 func (c *ApiService) PageService(params *ListServiceParams, pageToken string, pageNumber string) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
@@ -206,8 +206,8 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken string, pa
 	return ps, err
 }
 
-//Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListService(params *ListServiceParams, limit *int) ([]*ListServiceResponse, error) {
+// Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListService(params *ListServiceParams, limit int) ([]ProxyV1Service, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageService(params, "", "")
@@ -216,10 +216,10 @@ func (c *ApiService) ListService(params *ListServiceParams, limit *int) ([]*List
 	}
 
 	curRecord := 0
-	var records []*ListServiceResponse
+	var records []ProxyV1Service
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Services...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceResponse); record == nil || err != nil {
@@ -232,8 +232,8 @@ func (c *ApiService) ListService(params *ListServiceParams, limit *int) ([]*List
 	return records, err
 }
 
-//Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamService(params *ListServiceParams, limit *int) (chan *ListServiceResponse, error) {
+// Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamService(params *ListServiceParams, limit int) (chan ProxyV1Service, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageService(params, "", "")
@@ -243,11 +243,13 @@ func (c *ApiService) StreamService(params *ListServiceParams, limit *int) (chan 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListServiceResponse, 1)
+	channel := make(chan ProxyV1Service, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Services {
+				channel <- response.Services[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceResponse); record == nil || err != nil {

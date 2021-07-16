@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -112,7 +112,7 @@ func (params *ListIpAccessControlListParams) SetPageSize(PageSize int) *ListIpAc
 	return params
 }
 
-//Retrieve a single page of IpAccessControlList records from the API. Request is executed immediately.
+// Retrieve a single page of IpAccessControlList records from the API. Request is executed immediately.
 func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams, pageToken string, pageNumber string) (*ListIpAccessControlListResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
 
@@ -147,8 +147,8 @@ func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAcce
 	return ps, err
 }
 
-//Lists IpAccessControlList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams, limit *int) ([]*ListIpAccessControlListResponse, error) {
+// Lists IpAccessControlList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams, limit int) ([]TrunkingV1TrunkIpAccessControlList, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIpAccessControlList(TrunkSid, params, "", "")
@@ -157,10 +157,10 @@ func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAcce
 	}
 
 	curRecord := 0
-	var records []*ListIpAccessControlListResponse
+	var records []TrunkingV1TrunkIpAccessControlList
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.IpAccessControlLists...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIpAccessControlListResponse); record == nil || err != nil {
@@ -173,8 +173,8 @@ func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAcce
 	return records, err
 }
 
-//Streams IpAccessControlList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams, limit *int) (chan *ListIpAccessControlListResponse, error) {
+// Streams IpAccessControlList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams, limit int) (chan TrunkingV1TrunkIpAccessControlList, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIpAccessControlList(TrunkSid, params, "", "")
@@ -184,11 +184,13 @@ func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAc
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListIpAccessControlListResponse, 1)
+	channel := make(chan TrunkingV1TrunkIpAccessControlList, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.IpAccessControlLists {
+				channel <- response.IpAccessControlLists[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIpAccessControlListResponse); record == nil || err != nil {

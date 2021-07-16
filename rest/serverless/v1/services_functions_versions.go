@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -57,7 +57,7 @@ func (params *ListFunctionVersionParams) SetPageSize(PageSize int) *ListFunction
 	return params
 }
 
-//Retrieve a single page of FunctionVersion records from the API. Request is executed immediately.
+// Retrieve a single page of FunctionVersion records from the API. Request is executed immediately.
 func (c *ApiService) PageFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, pageToken string, pageNumber string) (*ListFunctionVersionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions"
 
@@ -93,8 +93,8 @@ func (c *ApiService) PageFunctionVersion(ServiceSid string, FunctionSid string, 
 	return ps, err
 }
 
-//Lists FunctionVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, limit *int) ([]*ListFunctionVersionResponse, error) {
+// Lists FunctionVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, limit int) ([]ServerlessV1ServiceFunctionFunctionVersion, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFunctionVersion(ServiceSid, FunctionSid, params, "", "")
@@ -103,10 +103,10 @@ func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, 
 	}
 
 	curRecord := 0
-	var records []*ListFunctionVersionResponse
+	var records []ServerlessV1ServiceFunctionFunctionVersion
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.FunctionVersions...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFunctionVersionResponse); record == nil || err != nil {
@@ -119,8 +119,8 @@ func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, 
 	return records, err
 }
 
-//Streams FunctionVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, limit *int) (chan *ListFunctionVersionResponse, error) {
+// Streams FunctionVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, limit int) (chan ServerlessV1ServiceFunctionFunctionVersion, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFunctionVersion(ServiceSid, FunctionSid, params, "", "")
@@ -130,11 +130,13 @@ func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListFunctionVersionResponse, 1)
+	channel := make(chan ServerlessV1ServiceFunctionFunctionVersion, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.FunctionVersions {
+				channel <- response.FunctionVersions[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFunctionVersionResponse); record == nil || err != nil {

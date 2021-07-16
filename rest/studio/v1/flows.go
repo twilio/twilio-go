@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -73,7 +73,7 @@ func (params *ListFlowParams) SetPageSize(PageSize int) *ListFlowParams {
 	return params
 }
 
-//Retrieve a single page of Flow records from the API. Request is executed immediately.
+// Retrieve a single page of Flow records from the API. Request is executed immediately.
 func (c *ApiService) PageFlow(params *ListFlowParams, pageToken string, pageNumber string) (*ListFlowResponse, error) {
 	path := "/v1/Flows"
 
@@ -106,8 +106,8 @@ func (c *ApiService) PageFlow(params *ListFlowParams, pageToken string, pageNumb
 	return ps, err
 }
 
-//Lists Flow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFlow(params *ListFlowParams, limit *int) ([]*ListFlowResponse, error) {
+// Lists Flow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFlow(params *ListFlowParams, limit int) ([]StudioV1Flow, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFlow(params, "", "")
@@ -116,10 +116,10 @@ func (c *ApiService) ListFlow(params *ListFlowParams, limit *int) ([]*ListFlowRe
 	}
 
 	curRecord := 0
-	var records []*ListFlowResponse
+	var records []StudioV1Flow
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Flows...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFlowResponse); record == nil || err != nil {
@@ -132,8 +132,8 @@ func (c *ApiService) ListFlow(params *ListFlowParams, limit *int) ([]*ListFlowRe
 	return records, err
 }
 
-//Streams Flow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFlow(params *ListFlowParams, limit *int) (chan *ListFlowResponse, error) {
+// Streams Flow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFlow(params *ListFlowParams, limit int) (chan StudioV1Flow, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFlow(params, "", "")
@@ -143,11 +143,13 @@ func (c *ApiService) StreamFlow(params *ListFlowParams, limit *int) (chan *ListF
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListFlowResponse, 1)
+	channel := make(chan StudioV1Flow, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Flows {
+				channel <- response.Flows[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFlowResponse); record == nil || err != nil {

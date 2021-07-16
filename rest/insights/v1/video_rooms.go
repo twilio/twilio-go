@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -86,7 +86,7 @@ func (params *ListVideoRoomSummaryParams) SetPageSize(PageSize int) *ListVideoRo
 	return params
 }
 
-//Retrieve a single page of VideoRoomSummary records from the API. Request is executed immediately.
+// Retrieve a single page of VideoRoomSummary records from the API. Request is executed immediately.
 func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pageToken string, pageNumber string) (*ListVideoRoomSummaryResponse, error) {
 	path := "/v1/Video/Rooms"
 
@@ -138,8 +138,8 @@ func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pa
 	return ps, err
 }
 
-//Lists VideoRoomSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams, limit *int) ([]*ListVideoRoomSummaryResponse, error) {
+// Lists VideoRoomSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams, limit int) ([]InsightsV1VideoRoomSummary, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVideoRoomSummary(params, "", "")
@@ -148,10 +148,10 @@ func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams, li
 	}
 
 	curRecord := 0
-	var records []*ListVideoRoomSummaryResponse
+	var records []InsightsV1VideoRoomSummary
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Rooms...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVideoRoomSummaryResponse); record == nil || err != nil {
@@ -164,8 +164,8 @@ func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams, li
 	return records, err
 }
 
-//Streams VideoRoomSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVideoRoomSummary(params *ListVideoRoomSummaryParams, limit *int) (chan *ListVideoRoomSummaryResponse, error) {
+// Streams VideoRoomSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamVideoRoomSummary(params *ListVideoRoomSummaryParams, limit int) (chan InsightsV1VideoRoomSummary, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVideoRoomSummary(params, "", "")
@@ -175,11 +175,13 @@ func (c *ApiService) StreamVideoRoomSummary(params *ListVideoRoomSummaryParams, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListVideoRoomSummaryResponse, 1)
+	channel := make(chan InsightsV1VideoRoomSummary, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Rooms {
+				channel <- response.Rooms[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVideoRoomSummaryResponse); record == nil || err != nil {

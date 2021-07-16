@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -76,7 +76,7 @@ func (params *ListLogParams) SetPageSize(PageSize int) *ListLogParams {
 	return params
 }
 
-//Retrieve a single page of Log records from the API. Request is executed immediately.
+// Retrieve a single page of Log records from the API. Request is executed immediately.
 func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, pageToken string, pageNumber string) (*ListLogResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs"
 
@@ -121,8 +121,8 @@ func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *L
 	return ps, err
 }
 
-//Lists Log records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit *int) ([]*ListLogResponse, error) {
+// Lists Log records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit int) ([]ServerlessV1ServiceEnvironmentLog, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageLog(ServiceSid, EnvironmentSid, params, "", "")
@@ -131,10 +131,10 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 	}
 
 	curRecord := 0
-	var records []*ListLogResponse
+	var records []ServerlessV1ServiceEnvironmentLog
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Logs...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListLogResponse); record == nil || err != nil {
@@ -147,8 +147,8 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 	return records, err
 }
 
-//Streams Log records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit *int) (chan *ListLogResponse, error) {
+// Streams Log records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit int) (chan ServerlessV1ServiceEnvironmentLog, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageLog(ServiceSid, EnvironmentSid, params, "", "")
@@ -158,11 +158,13 @@ func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListLogResponse, 1)
+	channel := make(chan ServerlessV1ServiceEnvironmentLog, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Logs {
+				channel <- response.Logs[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListLogResponse); record == nil || err != nil {

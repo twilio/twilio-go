@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -173,7 +173,7 @@ func (params *ListAssistantParams) SetPageSize(PageSize int) *ListAssistantParam
 	return params
 }
 
-//Retrieve a single page of Assistant records from the API. Request is executed immediately.
+// Retrieve a single page of Assistant records from the API. Request is executed immediately.
 func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken string, pageNumber string) (*ListAssistantResponse, error) {
 	path := "/v1/Assistants"
 
@@ -206,8 +206,8 @@ func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken string
 	return ps, err
 }
 
-//Lists Assistant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAssistant(params *ListAssistantParams, limit *int) ([]*ListAssistantResponse, error) {
+// Lists Assistant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAssistant(params *ListAssistantParams, limit int) ([]AutopilotV1Assistant, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAssistant(params, "", "")
@@ -216,10 +216,10 @@ func (c *ApiService) ListAssistant(params *ListAssistantParams, limit *int) ([]*
 	}
 
 	curRecord := 0
-	var records []*ListAssistantResponse
+	var records []AutopilotV1Assistant
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Assistants...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAssistantResponse); record == nil || err != nil {
@@ -232,8 +232,8 @@ func (c *ApiService) ListAssistant(params *ListAssistantParams, limit *int) ([]*
 	return records, err
 }
 
-//Streams Assistant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAssistant(params *ListAssistantParams, limit *int) (chan *ListAssistantResponse, error) {
+// Streams Assistant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAssistant(params *ListAssistantParams, limit int) (chan AutopilotV1Assistant, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAssistant(params, "", "")
@@ -243,11 +243,13 @@ func (c *ApiService) StreamAssistant(params *ListAssistantParams, limit *int) (c
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListAssistantResponse, 1)
+	channel := make(chan AutopilotV1Assistant, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Assistants {
+				channel <- response.Assistants[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAssistantResponse); record == nil || err != nil {

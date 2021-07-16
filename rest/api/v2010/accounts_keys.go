@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -156,7 +156,7 @@ func (params *ListKeyParams) SetPageSize(PageSize int) *ListKeyParams {
 	return params
 }
 
-//Retrieve a single page of Key records from the API. Request is executed immediately.
+// Retrieve a single page of Key records from the API. Request is executed immediately.
 func (c *ApiService) PageKey(params *ListKeyParams, pageToken string, pageNumber string) (*ListKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
 
@@ -195,8 +195,8 @@ func (c *ApiService) PageKey(params *ListKeyParams, pageToken string, pageNumber
 	return ps, err
 }
 
-//Lists Key records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListKey(params *ListKeyParams, limit *int) ([]*ListKeyResponse, error) {
+// Lists Key records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListKey(params *ListKeyParams, limit int) ([]ApiV2010AccountKey, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageKey(params, "", "")
@@ -205,10 +205,10 @@ func (c *ApiService) ListKey(params *ListKeyParams, limit *int) ([]*ListKeyRespo
 	}
 
 	curRecord := 0
-	var records []*ListKeyResponse
+	var records []ApiV2010AccountKey
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Keys...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListKeyResponse); record == nil || err != nil {
@@ -221,8 +221,8 @@ func (c *ApiService) ListKey(params *ListKeyParams, limit *int) ([]*ListKeyRespo
 	return records, err
 }
 
-//Streams Key records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamKey(params *ListKeyParams, limit *int) (chan *ListKeyResponse, error) {
+// Streams Key records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamKey(params *ListKeyParams, limit int) (chan ApiV2010AccountKey, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageKey(params, "", "")
@@ -232,11 +232,13 @@ func (c *ApiService) StreamKey(params *ListKeyParams, limit *int) (chan *ListKey
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListKeyResponse, 1)
+	channel := make(chan ApiV2010AccountKey, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Keys {
+				channel <- response.Keys[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListKeyResponse); record == nil || err != nil {

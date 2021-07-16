@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -152,7 +152,7 @@ func (params *ListWebChannelParams) SetPageSize(PageSize int) *ListWebChannelPar
 	return params
 }
 
-//Retrieve a single page of WebChannel records from the API. Request is executed immediately.
+// Retrieve a single page of WebChannel records from the API. Request is executed immediately.
 func (c *ApiService) PageWebChannel(params *ListWebChannelParams, pageToken string, pageNumber string) (*ListWebChannelResponse, error) {
 	path := "/v1/WebChannels"
 
@@ -185,8 +185,8 @@ func (c *ApiService) PageWebChannel(params *ListWebChannelParams, pageToken stri
 	return ps, err
 }
 
-//Lists WebChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWebChannel(params *ListWebChannelParams, limit *int) ([]*ListWebChannelResponse, error) {
+// Lists WebChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListWebChannel(params *ListWebChannelParams, limit int) ([]FlexV1WebChannel, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWebChannel(params, "", "")
@@ -195,10 +195,10 @@ func (c *ApiService) ListWebChannel(params *ListWebChannelParams, limit *int) ([
 	}
 
 	curRecord := 0
-	var records []*ListWebChannelResponse
+	var records []FlexV1WebChannel
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.FlexChatChannels...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWebChannelResponse); record == nil || err != nil {
@@ -211,8 +211,8 @@ func (c *ApiService) ListWebChannel(params *ListWebChannelParams, limit *int) ([
 	return records, err
 }
 
-//Streams WebChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWebChannel(params *ListWebChannelParams, limit *int) (chan *ListWebChannelResponse, error) {
+// Streams WebChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamWebChannel(params *ListWebChannelParams, limit int) (chan FlexV1WebChannel, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWebChannel(params, "", "")
@@ -222,11 +222,13 @@ func (c *ApiService) StreamWebChannel(params *ListWebChannelParams, limit *int) 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListWebChannelResponse, 1)
+	channel := make(chan FlexV1WebChannel, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.FlexChatChannels {
+				channel <- response.FlexChatChannels[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWebChannelResponse); record == nil || err != nil {

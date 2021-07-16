@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -50,7 +50,7 @@ func (params *ListAccountUsageRecordParams) SetPageSize(PageSize int) *ListAccou
 	return params
 }
 
-//Retrieve a single page of AccountUsageRecord records from the API. Request is executed immediately.
+// Retrieve a single page of AccountUsageRecord records from the API. Request is executed immediately.
 func (c *ApiService) PageAccountUsageRecord(params *ListAccountUsageRecordParams, pageToken string, pageNumber string) (*ListAccountUsageRecordResponse, error) {
 	path := "/v1/UsageRecords"
 
@@ -92,8 +92,8 @@ func (c *ApiService) PageAccountUsageRecord(params *ListAccountUsageRecordParams
 	return ps, err
 }
 
-//Lists AccountUsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams, limit *int) ([]*ListAccountUsageRecordResponse, error) {
+// Lists AccountUsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams, limit int) ([]WirelessV1AccountUsageRecord, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAccountUsageRecord(params, "", "")
@@ -102,10 +102,10 @@ func (c *ApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams
 	}
 
 	curRecord := 0
-	var records []*ListAccountUsageRecordResponse
+	var records []WirelessV1AccountUsageRecord
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.UsageRecords...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAccountUsageRecordResponse); record == nil || err != nil {
@@ -118,8 +118,8 @@ func (c *ApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams
 	return records, err
 }
 
-//Streams AccountUsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAccountUsageRecord(params *ListAccountUsageRecordParams, limit *int) (chan *ListAccountUsageRecordResponse, error) {
+// Streams AccountUsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAccountUsageRecord(params *ListAccountUsageRecordParams, limit int) (chan WirelessV1AccountUsageRecord, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAccountUsageRecord(params, "", "")
@@ -129,11 +129,13 @@ func (c *ApiService) StreamAccountUsageRecord(params *ListAccountUsageRecordPara
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListAccountUsageRecordResponse, 1)
+	channel := make(chan WirelessV1AccountUsageRecord, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.UsageRecords {
+				channel <- response.UsageRecords[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAccountUsageRecordResponse); record == nil || err != nil {

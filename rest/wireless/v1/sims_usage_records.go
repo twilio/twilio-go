@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -51,7 +51,7 @@ func (params *ListUsageRecordParams) SetPageSize(PageSize int) *ListUsageRecordP
 	return params
 }
 
-//Retrieve a single page of UsageRecord records from the API. Request is executed immediately.
+// Retrieve a single page of UsageRecord records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageRecord(SimSid string, params *ListUsageRecordParams, pageToken string, pageNumber string) (*ListUsageRecordResponse, error) {
 	path := "/v1/Sims/{SimSid}/UsageRecords"
 
@@ -95,8 +95,8 @@ func (c *ApiService) PageUsageRecord(SimSid string, params *ListUsageRecordParam
 	return ps, err
 }
 
-//Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParams, limit *int) ([]*ListUsageRecordResponse, error) {
+// Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParams, limit int) ([]WirelessV1SimUsageRecord, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecord(SimSid, params, "", "")
@@ -105,10 +105,10 @@ func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParam
 	}
 
 	curRecord := 0
-	var records []*ListUsageRecordResponse
+	var records []WirelessV1SimUsageRecord
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.UsageRecords...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordResponse); record == nil || err != nil {
@@ -121,8 +121,8 @@ func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParam
 	return records, err
 }
 
-//Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageRecord(SimSid string, params *ListUsageRecordParams, limit *int) (chan *ListUsageRecordResponse, error) {
+// Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecord(SimSid string, params *ListUsageRecordParams, limit int) (chan WirelessV1SimUsageRecord, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecord(SimSid, params, "", "")
@@ -132,11 +132,13 @@ func (c *ApiService) StreamUsageRecord(SimSid string, params *ListUsageRecordPar
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListUsageRecordResponse, 1)
+	channel := make(chan WirelessV1SimUsageRecord, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.UsageRecords {
+				channel <- response.UsageRecords[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordResponse); record == nil || err != nil {

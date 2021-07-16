@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -161,7 +161,7 @@ func (params *ListQueryParams) SetPageSize(PageSize int) *ListQueryParams {
 	return params
 }
 
-//Retrieve a single page of Query records from the API. Request is executed immediately.
+// Retrieve a single page of Query records from the API. Request is executed immediately.
 func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pageToken string, pageNumber string) (*ListQueryResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries"
 
@@ -208,8 +208,8 @@ func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pag
 	return ps, err
 }
 
-//Lists Query records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams, limit *int) ([]*ListQueryResponse, error) {
+// Lists Query records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams, limit int) ([]AutopilotV1AssistantQuery, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageQuery(AssistantSid, params, "", "")
@@ -218,10 +218,10 @@ func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams, lim
 	}
 
 	curRecord := 0
-	var records []*ListQueryResponse
+	var records []AutopilotV1AssistantQuery
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Queries...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListQueryResponse); record == nil || err != nil {
@@ -234,8 +234,8 @@ func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams, lim
 	return records, err
 }
 
-//Streams Query records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamQuery(AssistantSid string, params *ListQueryParams, limit *int) (chan *ListQueryResponse, error) {
+// Streams Query records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamQuery(AssistantSid string, params *ListQueryParams, limit int) (chan AutopilotV1AssistantQuery, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageQuery(AssistantSid, params, "", "")
@@ -245,11 +245,13 @@ func (c *ApiService) StreamQuery(AssistantSid string, params *ListQueryParams, l
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListQueryResponse, 1)
+	channel := make(chan AutopilotV1AssistantQuery, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Queries {
+				channel <- response.Queries[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListQueryResponse); record == nil || err != nil {

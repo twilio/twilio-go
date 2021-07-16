@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -161,7 +161,7 @@ func (params *ListTrunkParams) SetPageSize(PageSize int) *ListTrunkParams {
 	return params
 }
 
-//Retrieve a single page of Trunk records from the API. Request is executed immediately.
+// Retrieve a single page of Trunk records from the API. Request is executed immediately.
 func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken string, pageNumber string) (*ListTrunkResponse, error) {
 	path := "/v1/Trunks"
 
@@ -194,8 +194,8 @@ func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken string, pageNu
 	return ps, err
 }
 
-//Lists Trunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrunk(params *ListTrunkParams, limit *int) ([]*ListTrunkResponse, error) {
+// Lists Trunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTrunk(params *ListTrunkParams, limit int) ([]TrunkingV1Trunk, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTrunk(params, "", "")
@@ -204,10 +204,10 @@ func (c *ApiService) ListTrunk(params *ListTrunkParams, limit *int) ([]*ListTrun
 	}
 
 	curRecord := 0
-	var records []*ListTrunkResponse
+	var records []TrunkingV1Trunk
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Trunks...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrunkResponse); record == nil || err != nil {
@@ -220,8 +220,8 @@ func (c *ApiService) ListTrunk(params *ListTrunkParams, limit *int) ([]*ListTrun
 	return records, err
 }
 
-//Streams Trunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrunk(params *ListTrunkParams, limit *int) (chan *ListTrunkResponse, error) {
+// Streams Trunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTrunk(params *ListTrunkParams, limit int) (chan TrunkingV1Trunk, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTrunk(params, "", "")
@@ -231,11 +231,13 @@ func (c *ApiService) StreamTrunk(params *ListTrunkParams, limit *int) (chan *Lis
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListTrunkResponse, 1)
+	channel := make(chan TrunkingV1Trunk, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Trunks {
+				channel <- response.Trunks[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrunkResponse); record == nil || err != nil {

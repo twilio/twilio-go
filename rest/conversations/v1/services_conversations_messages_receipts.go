@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -58,7 +58,7 @@ func (params *ListServiceConversationMessageReceiptParams) SetPageSize(PageSize 
 	return params
 }
 
-//Retrieve a single page of ServiceConversationMessageReceipt records from the API. Request is executed immediately.
+// Retrieve a single page of ServiceConversationMessageReceipt records from the API. Request is executed immediately.
 func (c *ApiService) PageServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, pageToken string, pageNumber string) (*ListServiceConversationMessageReceiptResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
 
@@ -95,8 +95,8 @@ func (c *ApiService) PageServiceConversationMessageReceipt(ChatServiceSid string
 	return ps, err
 }
 
-//Lists ServiceConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, limit *int) ([]*ListServiceConversationMessageReceiptResponse, error) {
+// Lists ServiceConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, limit int) ([]ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageServiceConversationMessageReceipt(ChatServiceSid, ConversationSid, MessageSid, params, "", "")
@@ -105,10 +105,10 @@ func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string
 	}
 
 	curRecord := 0
-	var records []*ListServiceConversationMessageReceiptResponse
+	var records []ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.DeliveryReceipts...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationMessageReceiptResponse); record == nil || err != nil {
@@ -121,8 +121,8 @@ func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string
 	return records, err
 }
 
-//Streams ServiceConversationMessageReceipt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, limit *int) (chan *ListServiceConversationMessageReceiptResponse, error) {
+// Streams ServiceConversationMessageReceipt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, limit int) (chan ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageServiceConversationMessageReceipt(ChatServiceSid, ConversationSid, MessageSid, params, "", "")
@@ -132,11 +132,13 @@ func (c *ApiService) StreamServiceConversationMessageReceipt(ChatServiceSid stri
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListServiceConversationMessageReceiptResponse, 1)
+	channel := make(chan ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.DeliveryReceipts {
+				channel <- response.DeliveryReceipts[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationMessageReceiptResponse); record == nil || err != nil {

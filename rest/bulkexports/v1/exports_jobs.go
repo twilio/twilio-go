@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -153,7 +153,7 @@ func (params *ListExportCustomJobParams) SetPageSize(PageSize int) *ListExportCu
 	return params
 }
 
-//Retrieve a single page of ExportCustomJob records from the API. Request is executed immediately.
+// Retrieve a single page of ExportCustomJob records from the API. Request is executed immediately.
 func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExportCustomJobParams, pageToken string, pageNumber string) (*ListExportCustomJobResponse, error) {
 	path := "/v1/Exports/{ResourceType}/Jobs"
 
@@ -188,8 +188,8 @@ func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExport
 	return ps, err
 }
 
-//Lists ExportCustomJob records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListExportCustomJob(ResourceType string, params *ListExportCustomJobParams, limit *int) ([]*ListExportCustomJobResponse, error) {
+// Lists ExportCustomJob records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListExportCustomJob(ResourceType string, params *ListExportCustomJobParams, limit int) ([]BulkexportsV1ExportExportCustomJob, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageExportCustomJob(ResourceType, params, "", "")
@@ -198,10 +198,10 @@ func (c *ApiService) ListExportCustomJob(ResourceType string, params *ListExport
 	}
 
 	curRecord := 0
-	var records []*ListExportCustomJobResponse
+	var records []BulkexportsV1ExportExportCustomJob
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Jobs...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListExportCustomJobResponse); record == nil || err != nil {
@@ -214,8 +214,8 @@ func (c *ApiService) ListExportCustomJob(ResourceType string, params *ListExport
 	return records, err
 }
 
-//Streams ExportCustomJob records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamExportCustomJob(ResourceType string, params *ListExportCustomJobParams, limit *int) (chan *ListExportCustomJobResponse, error) {
+// Streams ExportCustomJob records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamExportCustomJob(ResourceType string, params *ListExportCustomJobParams, limit int) (chan BulkexportsV1ExportExportCustomJob, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageExportCustomJob(ResourceType, params, "", "")
@@ -225,11 +225,13 @@ func (c *ApiService) StreamExportCustomJob(ResourceType string, params *ListExpo
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListExportCustomJobResponse, 1)
+	channel := make(chan BulkexportsV1ExportExportCustomJob, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Jobs {
+				channel <- response.Jobs[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListExportCustomJobResponse); record == nil || err != nil {

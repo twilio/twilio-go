@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -188,7 +188,7 @@ func (params *ListCommandParams) SetPageSize(PageSize int) *ListCommandParams {
 	return params
 }
 
-//Retrieve a single page of Command records from the API. Request is executed immediately.
+// Retrieve a single page of Command records from the API. Request is executed immediately.
 func (c *ApiService) PageCommand(params *ListCommandParams, pageToken string, pageNumber string) (*ListCommandResponse, error) {
 	path := "/v1/Commands"
 
@@ -233,8 +233,8 @@ func (c *ApiService) PageCommand(params *ListCommandParams, pageToken string, pa
 	return ps, err
 }
 
-//Lists Command records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCommand(params *ListCommandParams, limit *int) ([]*ListCommandResponse, error) {
+// Lists Command records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCommand(params *ListCommandParams, limit int) ([]WirelessV1Command, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCommand(params, "", "")
@@ -243,10 +243,10 @@ func (c *ApiService) ListCommand(params *ListCommandParams, limit *int) ([]*List
 	}
 
 	curRecord := 0
-	var records []*ListCommandResponse
+	var records []WirelessV1Command
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Commands...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCommandResponse); record == nil || err != nil {
@@ -259,8 +259,8 @@ func (c *ApiService) ListCommand(params *ListCommandParams, limit *int) ([]*List
 	return records, err
 }
 
-//Streams Command records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCommand(params *ListCommandParams, limit *int) (chan *ListCommandResponse, error) {
+// Streams Command records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCommand(params *ListCommandParams, limit int) (chan WirelessV1Command, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCommand(params, "", "")
@@ -270,11 +270,13 @@ func (c *ApiService) StreamCommand(params *ListCommandParams, limit *int) (chan 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListCommandResponse, 1)
+	channel := make(chan WirelessV1Command, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Commands {
+				channel <- response.Commands[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCommandResponse); record == nil || err != nil {

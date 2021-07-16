@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -96,7 +96,7 @@ func (params *ListDeploymentParams) SetPageSize(PageSize int) *ListDeploymentPar
 	return params
 }
 
-//Retrieve a single page of Deployment records from the API. Request is executed immediately.
+// Retrieve a single page of Deployment records from the API. Request is executed immediately.
 func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, pageToken string, pageNumber string) (*ListDeploymentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
 
@@ -132,8 +132,8 @@ func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, pa
 	return ps, err
 }
 
-//Lists Deployment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit *int) ([]*ListDeploymentResponse, error) {
+// Lists Deployment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit int) ([]ServerlessV1ServiceEnvironmentDeployment, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDeployment(ServiceSid, EnvironmentSid, params, "", "")
@@ -142,10 +142,10 @@ func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, pa
 	}
 
 	curRecord := 0
-	var records []*ListDeploymentResponse
+	var records []ServerlessV1ServiceEnvironmentDeployment
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Deployments...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDeploymentResponse); record == nil || err != nil {
@@ -158,8 +158,8 @@ func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, pa
 	return records, err
 }
 
-//Streams Deployment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit *int) (chan *ListDeploymentResponse, error) {
+// Streams Deployment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit int) (chan ServerlessV1ServiceEnvironmentDeployment, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDeployment(ServiceSid, EnvironmentSid, params, "", "")
@@ -169,11 +169,13 @@ func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListDeploymentResponse, 1)
+	channel := make(chan ServerlessV1ServiceEnvironmentDeployment, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Deployments {
+				channel <- response.Deployments[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDeploymentResponse); record == nil || err != nil {

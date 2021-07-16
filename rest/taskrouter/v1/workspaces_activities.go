@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -131,7 +131,7 @@ func (params *ListActivityParams) SetPageSize(PageSize int) *ListActivityParams 
 	return params
 }
 
-//Retrieve a single page of Activity records from the API. Request is executed immediately.
+// Retrieve a single page of Activity records from the API. Request is executed immediately.
 func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParams, pageToken string, pageNumber string) (*ListActivityResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 
@@ -172,8 +172,8 @@ func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParam
 	return ps, err
 }
 
-//Lists Activity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParams, limit *int) ([]*ListActivityResponse, error) {
+// Lists Activity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParams, limit int) ([]TaskrouterV1WorkspaceActivity, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageActivity(WorkspaceSid, params, "", "")
@@ -182,10 +182,10 @@ func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParam
 	}
 
 	curRecord := 0
-	var records []*ListActivityResponse
+	var records []TaskrouterV1WorkspaceActivity
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Activities...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListActivityResponse); record == nil || err != nil {
@@ -198,8 +198,8 @@ func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParam
 	return records, err
 }
 
-//Streams Activity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityParams, limit *int) (chan *ListActivityResponse, error) {
+// Streams Activity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityParams, limit int) (chan TaskrouterV1WorkspaceActivity, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageActivity(WorkspaceSid, params, "", "")
@@ -209,11 +209,13 @@ func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityPar
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListActivityResponse, 1)
+	channel := make(chan TaskrouterV1WorkspaceActivity, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Activities {
+				channel <- response.Activities[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListActivityResponse); record == nil || err != nil {

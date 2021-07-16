@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -162,7 +162,7 @@ func (params *ListSipAuthRegistrationsCredentialListMappingParams) SetPageSize(P
 	return params
 }
 
-//Retrieve a single page of SipAuthRegistrationsCredentialListMapping records from the API. Request is executed immediately.
+// Retrieve a single page of SipAuthRegistrationsCredentialListMapping records from the API. Request is executed immediately.
 func (c *ApiService) PageSipAuthRegistrationsCredentialListMapping(DomainSid string, params *ListSipAuthRegistrationsCredentialListMappingParams, pageToken string, pageNumber string) (*ListSipAuthRegistrationsCredentialListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json"
 
@@ -202,8 +202,8 @@ func (c *ApiService) PageSipAuthRegistrationsCredentialListMapping(DomainSid str
 	return ps, err
 }
 
-//Lists SipAuthRegistrationsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipAuthRegistrationsCredentialListMapping(DomainSid string, params *ListSipAuthRegistrationsCredentialListMappingParams, limit *int) ([]*ListSipAuthRegistrationsCredentialListMappingResponse, error) {
+// Lists SipAuthRegistrationsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSipAuthRegistrationsCredentialListMapping(DomainSid string, params *ListSipAuthRegistrationsCredentialListMappingParams, limit int) ([]ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipAuthRegistrationsCredentialListMapping(DomainSid, params, "", "")
@@ -212,10 +212,10 @@ func (c *ApiService) ListSipAuthRegistrationsCredentialListMapping(DomainSid str
 	}
 
 	curRecord := 0
-	var records []*ListSipAuthRegistrationsCredentialListMappingResponse
+	var records []ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Contents...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipAuthRegistrationsCredentialListMappingResponse); record == nil || err != nil {
@@ -228,8 +228,8 @@ func (c *ApiService) ListSipAuthRegistrationsCredentialListMapping(DomainSid str
 	return records, err
 }
 
-//Streams SipAuthRegistrationsCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipAuthRegistrationsCredentialListMapping(DomainSid string, params *ListSipAuthRegistrationsCredentialListMappingParams, limit *int) (chan *ListSipAuthRegistrationsCredentialListMappingResponse, error) {
+// Streams SipAuthRegistrationsCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSipAuthRegistrationsCredentialListMapping(DomainSid string, params *ListSipAuthRegistrationsCredentialListMappingParams, limit int) (chan ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipAuthRegistrationsCredentialListMapping(DomainSid, params, "", "")
@@ -239,11 +239,13 @@ func (c *ApiService) StreamSipAuthRegistrationsCredentialListMapping(DomainSid s
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSipAuthRegistrationsCredentialListMappingResponse, 1)
+	channel := make(chan ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Contents {
+				channel <- response.Contents[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipAuthRegistrationsCredentialListMappingResponse); record == nil || err != nil {

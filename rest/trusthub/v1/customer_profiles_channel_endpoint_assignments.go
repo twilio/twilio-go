@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -134,7 +134,7 @@ func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetPageSize(Pa
 	return params
 }
 
-//Retrieve a single page of CustomerProfileChannelEndpointAssignment records from the API. Request is executed immediately.
+// Retrieve a single page of CustomerProfileChannelEndpointAssignment records from the API. Request is executed immediately.
 func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, pageToken string, pageNumber string) (*ListCustomerProfileChannelEndpointAssignmentResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments"
 
@@ -175,8 +175,8 @@ func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfil
 	return ps, err
 }
 
-//Lists CustomerProfileChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, limit *int) ([]*ListCustomerProfileChannelEndpointAssignmentResponse, error) {
+// Lists CustomerProfileChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, limit int) ([]TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfileChannelEndpointAssignment(CustomerProfileSid, params, "", "")
@@ -185,10 +185,10 @@ func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfil
 	}
 
 	curRecord := 0
-	var records []*ListCustomerProfileChannelEndpointAssignmentResponse
+	var records []TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Results...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileChannelEndpointAssignmentResponse); record == nil || err != nil {
@@ -201,8 +201,8 @@ func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfil
 	return records, err
 }
 
-//Streams CustomerProfileChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, limit *int) (chan *ListCustomerProfileChannelEndpointAssignmentResponse, error) {
+// Streams CustomerProfileChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, limit int) (chan TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfileChannelEndpointAssignment(CustomerProfileSid, params, "", "")
@@ -212,11 +212,13 @@ func (c *ApiService) StreamCustomerProfileChannelEndpointAssignment(CustomerProf
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListCustomerProfileChannelEndpointAssignmentResponse, 1)
+	channel := make(chan TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileChannelEndpointAssignmentResponse); record == nil || err != nil {

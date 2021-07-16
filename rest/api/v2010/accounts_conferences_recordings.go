@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -131,7 +131,7 @@ func (params *ListConferenceRecordingParams) SetPageSize(PageSize int) *ListConf
 	return params
 }
 
-//Retrieve a single page of ConferenceRecording records from the API. Request is executed immediately.
+// Retrieve a single page of ConferenceRecording records from the API. Request is executed immediately.
 func (c *ApiService) PageConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams, pageToken string, pageNumber string) (*ListConferenceRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings.json"
 
@@ -180,8 +180,8 @@ func (c *ApiService) PageConferenceRecording(ConferenceSid string, params *ListC
 	return ps, err
 }
 
-//Lists ConferenceRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams, limit *int) ([]*ListConferenceRecordingResponse, error) {
+// Lists ConferenceRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams, limit int) ([]ApiV2010AccountConferenceConferenceRecording, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConferenceRecording(ConferenceSid, params, "", "")
@@ -190,10 +190,10 @@ func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListC
 	}
 
 	curRecord := 0
-	var records []*ListConferenceRecordingResponse
+	var records []ApiV2010AccountConferenceConferenceRecording
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Recordings...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConferenceRecordingResponse); record == nil || err != nil {
@@ -206,8 +206,8 @@ func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListC
 	return records, err
 }
 
-//Streams ConferenceRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams, limit *int) (chan *ListConferenceRecordingResponse, error) {
+// Streams ConferenceRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams, limit int) (chan ApiV2010AccountConferenceConferenceRecording, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConferenceRecording(ConferenceSid, params, "", "")
@@ -217,11 +217,13 @@ func (c *ApiService) StreamConferenceRecording(ConferenceSid string, params *Lis
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListConferenceRecordingResponse, 1)
+	channel := make(chan ApiV2010AccountConferenceConferenceRecording, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Recordings {
+				channel <- response.Recordings[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConferenceRecordingResponse); record == nil || err != nil {

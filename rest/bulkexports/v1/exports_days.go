@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -51,7 +51,7 @@ func (params *ListDayParams) SetPageSize(PageSize int) *ListDayParams {
 	return params
 }
 
-//Retrieve a single page of Day records from the API. Request is executed immediately.
+// Retrieve a single page of Day records from the API. Request is executed immediately.
 func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageToken string, pageNumber string) (*ListDayResponse, error) {
 	path := "/v1/Exports/{ResourceType}/Days"
 
@@ -86,8 +86,8 @@ func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageTok
 	return ps, err
 }
 
-//Lists Day records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDay(ResourceType string, params *ListDayParams, limit *int) ([]*ListDayResponse, error) {
+// Lists Day records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDay(ResourceType string, params *ListDayParams, limit int) ([]BulkexportsV1ExportDay, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDay(ResourceType, params, "", "")
@@ -96,10 +96,10 @@ func (c *ApiService) ListDay(ResourceType string, params *ListDayParams, limit *
 	}
 
 	curRecord := 0
-	var records []*ListDayResponse
+	var records []BulkexportsV1ExportDay
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Days...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDayResponse); record == nil || err != nil {
@@ -112,8 +112,8 @@ func (c *ApiService) ListDay(ResourceType string, params *ListDayParams, limit *
 	return records, err
 }
 
-//Streams Day records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams, limit *int) (chan *ListDayResponse, error) {
+// Streams Day records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams, limit int) (chan BulkexportsV1ExportDay, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDay(ResourceType, params, "", "")
@@ -123,11 +123,13 @@ func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams, limit
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListDayResponse, 1)
+	channel := make(chan BulkexportsV1ExportDay, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Days {
+				channel <- response.Days[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDayResponse); record == nil || err != nil {

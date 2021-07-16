@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -132,7 +132,7 @@ func (params *ListMediaParams) SetPageSize(PageSize int) *ListMediaParams {
 	return params
 }
 
-//Retrieve a single page of Media records from the API. Request is executed immediately.
+// Retrieve a single page of Media records from the API. Request is executed immediately.
 func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageToken string, pageNumber string) (*ListMediaResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json"
 
@@ -181,8 +181,8 @@ func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageT
 	return ps, err
 }
 
-//Lists Media records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams, limit *int) ([]*ListMediaResponse, error) {
+// Lists Media records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams, limit int) ([]ApiV2010AccountMessageMedia, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMedia(MessageSid, params, "", "")
@@ -191,10 +191,10 @@ func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams, limit
 	}
 
 	curRecord := 0
-	var records []*ListMediaResponse
+	var records []ApiV2010AccountMessageMedia
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.MediaList...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMediaResponse); record == nil || err != nil {
@@ -207,8 +207,8 @@ func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams, limit
 	return records, err
 }
 
-//Streams Media records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams, limit *int) (chan *ListMediaResponse, error) {
+// Streams Media records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams, limit int) (chan ApiV2010AccountMessageMedia, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMedia(MessageSid, params, "", "")
@@ -218,11 +218,13 @@ func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams, lim
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListMediaResponse, 1)
+	channel := make(chan ApiV2010AccountMessageMedia, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.MediaList {
+				channel <- response.MediaList[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMediaResponse); record == nil || err != nil {

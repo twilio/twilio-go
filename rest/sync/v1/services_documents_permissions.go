@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -77,7 +77,7 @@ func (params *ListDocumentPermissionParams) SetPageSize(PageSize int) *ListDocum
 	return params
 }
 
-//Retrieve a single page of DocumentPermission records from the API. Request is executed immediately.
+// Retrieve a single page of DocumentPermission records from the API. Request is executed immediately.
 func (c *ApiService) PageDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, pageToken string, pageNumber string) (*ListDocumentPermissionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
 
@@ -113,8 +113,8 @@ func (c *ApiService) PageDocumentPermission(ServiceSid string, DocumentSid strin
 	return ps, err
 }
 
-//Lists DocumentPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, limit *int) ([]*ListDocumentPermissionResponse, error) {
+// Lists DocumentPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, limit int) ([]SyncV1ServiceDocumentDocumentPermission, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDocumentPermission(ServiceSid, DocumentSid, params, "", "")
@@ -123,10 +123,10 @@ func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid strin
 	}
 
 	curRecord := 0
-	var records []*ListDocumentPermissionResponse
+	var records []SyncV1ServiceDocumentDocumentPermission
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Permissions...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDocumentPermissionResponse); record == nil || err != nil {
@@ -139,8 +139,8 @@ func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid strin
 	return records, err
 }
 
-//Streams DocumentPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, limit *int) (chan *ListDocumentPermissionResponse, error) {
+// Streams DocumentPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, limit int) (chan SyncV1ServiceDocumentDocumentPermission, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDocumentPermission(ServiceSid, DocumentSid, params, "", "")
@@ -150,11 +150,13 @@ func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid str
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListDocumentPermissionResponse, 1)
+	channel := make(chan SyncV1ServiceDocumentDocumentPermission, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Permissions {
+				channel <- response.Permissions[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDocumentPermissionResponse); record == nil || err != nil {

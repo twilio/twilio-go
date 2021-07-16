@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -61,7 +61,7 @@ func (params *ListUsageRecordThisMonthParams) SetPageSize(PageSize int) *ListUsa
 	return params
 }
 
-//Retrieve a single page of UsageRecordThisMonth records from the API. Request is executed immediately.
+// Retrieve a single page of UsageRecordThisMonth records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageRecordThisMonth(params *ListUsageRecordThisMonthParams, pageToken string, pageNumber string) (*ListUsageRecordThisMonthResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/ThisMonth.json"
 
@@ -112,8 +112,8 @@ func (c *ApiService) PageUsageRecordThisMonth(params *ListUsageRecordThisMonthPa
 	return ps, err
 }
 
-//Lists UsageRecordThisMonth records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthParams, limit *int) ([]*ListUsageRecordThisMonthResponse, error) {
+// Lists UsageRecordThisMonth records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthParams, limit int) ([]ApiV2010AccountUsageUsageRecordUsageRecordThisMonth, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordThisMonth(params, "", "")
@@ -122,10 +122,10 @@ func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthPa
 	}
 
 	curRecord := 0
-	var records []*ListUsageRecordThisMonthResponse
+	var records []ApiV2010AccountUsageUsageRecordUsageRecordThisMonth
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.UsageRecords...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordThisMonthResponse); record == nil || err != nil {
@@ -138,8 +138,8 @@ func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthPa
 	return records, err
 }
 
-//Streams UsageRecordThisMonth records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageRecordThisMonth(params *ListUsageRecordThisMonthParams, limit *int) (chan *ListUsageRecordThisMonthResponse, error) {
+// Streams UsageRecordThisMonth records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordThisMonth(params *ListUsageRecordThisMonthParams, limit int) (chan ApiV2010AccountUsageUsageRecordUsageRecordThisMonth, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordThisMonth(params, "", "")
@@ -149,11 +149,13 @@ func (c *ApiService) StreamUsageRecordThisMonth(params *ListUsageRecordThisMonth
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListUsageRecordThisMonthResponse, 1)
+	channel := make(chan ApiV2010AccountUsageUsageRecordUsageRecordThisMonth, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.UsageRecords {
+				channel <- response.UsageRecords[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordThisMonthResponse); record == nil || err != nil {

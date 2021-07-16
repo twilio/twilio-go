@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -128,7 +128,7 @@ func (params *ListSyncListParams) SetPageSize(PageSize int) *ListSyncListParams 
 	return params
 }
 
-//Retrieve a single page of SyncList records from the API. Request is executed immediately.
+// Retrieve a single page of SyncList records from the API. Request is executed immediately.
 func (c *ApiService) PageSyncList(ServiceSid string, params *ListSyncListParams, pageToken string, pageNumber string) (*ListSyncListResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Lists"
 
@@ -163,8 +163,8 @@ func (c *ApiService) PageSyncList(ServiceSid string, params *ListSyncListParams,
 	return ps, err
 }
 
-//Lists SyncList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams, limit *int) ([]*ListSyncListResponse, error) {
+// Lists SyncList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams, limit int) ([]SyncV1ServiceSyncList, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncList(ServiceSid, params, "", "")
@@ -173,10 +173,10 @@ func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams,
 	}
 
 	curRecord := 0
-	var records []*ListSyncListResponse
+	var records []SyncV1ServiceSyncList
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Lists...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncListResponse); record == nil || err != nil {
@@ -189,8 +189,8 @@ func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams,
 	return records, err
 }
 
-//Streams SyncList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncList(ServiceSid string, params *ListSyncListParams, limit *int) (chan *ListSyncListResponse, error) {
+// Streams SyncList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSyncList(ServiceSid string, params *ListSyncListParams, limit int) (chan SyncV1ServiceSyncList, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncList(ServiceSid, params, "", "")
@@ -200,11 +200,13 @@ func (c *ApiService) StreamSyncList(ServiceSid string, params *ListSyncListParam
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSyncListResponse, 1)
+	channel := make(chan SyncV1ServiceSyncList, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Lists {
+				channel <- response.Lists[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncListResponse); record == nil || err != nil {

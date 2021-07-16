@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -224,7 +224,7 @@ func (params *ListFactorParams) SetPageSize(PageSize int) *ListFactorParams {
 	return params
 }
 
-//Retrieve a single page of Factor records from the API. Request is executed immediately.
+// Retrieve a single page of Factor records from the API. Request is executed immediately.
 func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *ListFactorParams, pageToken string, pageNumber string) (*ListFactorResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors"
 
@@ -260,8 +260,8 @@ func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *List
 	return ps, err
 }
 
-//Lists Factor records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *ListFactorParams, limit *int) ([]*ListFactorResponse, error) {
+// Lists Factor records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *ListFactorParams, limit int) ([]VerifyV2ServiceEntityFactor, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFactor(ServiceSid, Identity, params, "", "")
@@ -270,10 +270,10 @@ func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *List
 	}
 
 	curRecord := 0
-	var records []*ListFactorResponse
+	var records []VerifyV2ServiceEntityFactor
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Factors...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFactorResponse); record == nil || err != nil {
@@ -286,8 +286,8 @@ func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *List
 	return records, err
 }
 
-//Streams Factor records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *ListFactorParams, limit *int) (chan *ListFactorResponse, error) {
+// Streams Factor records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *ListFactorParams, limit int) (chan VerifyV2ServiceEntityFactor, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFactor(ServiceSid, Identity, params, "", "")
@@ -297,11 +297,13 @@ func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *Li
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListFactorResponse, 1)
+	channel := make(chan VerifyV2ServiceEntityFactor, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Factors {
+				channel <- response.Factors[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFactorResponse); record == nil || err != nil {

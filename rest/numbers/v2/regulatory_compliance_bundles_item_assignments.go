@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -113,7 +113,7 @@ func (params *ListItemAssignmentParams) SetPageSize(PageSize int) *ListItemAssig
 	return params
 }
 
-//Retrieve a single page of ItemAssignment records from the API. Request is executed immediately.
+// Retrieve a single page of ItemAssignment records from the API. Request is executed immediately.
 func (c *ApiService) PageItemAssignment(BundleSid string, params *ListItemAssignmentParams, pageToken string, pageNumber string) (*ListItemAssignmentResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
 
@@ -148,8 +148,8 @@ func (c *ApiService) PageItemAssignment(BundleSid string, params *ListItemAssign
 	return ps, err
 }
 
-//Lists ItemAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssignmentParams, limit *int) ([]*ListItemAssignmentResponse, error) {
+// Lists ItemAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssignmentParams, limit int) ([]NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageItemAssignment(BundleSid, params, "", "")
@@ -158,10 +158,10 @@ func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssign
 	}
 
 	curRecord := 0
-	var records []*ListItemAssignmentResponse
+	var records []NumbersV2RegulatoryComplianceBundleItemAssignment
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Results...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListItemAssignmentResponse); record == nil || err != nil {
@@ -174,8 +174,8 @@ func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssign
 	return records, err
 }
 
-//Streams ItemAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssignmentParams, limit *int) (chan *ListItemAssignmentResponse, error) {
+// Streams ItemAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssignmentParams, limit int) (chan NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageItemAssignment(BundleSid, params, "", "")
@@ -185,11 +185,13 @@ func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssi
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListItemAssignmentResponse, 1)
+	channel := make(chan NumbersV2RegulatoryComplianceBundleItemAssignment, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListItemAssignmentResponse); record == nil || err != nil {

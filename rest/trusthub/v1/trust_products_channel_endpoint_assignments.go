@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -134,7 +134,7 @@ func (params *ListTrustProductChannelEndpointAssignmentParams) SetPageSize(PageS
 	return params
 }
 
-//Retrieve a single page of TrustProductChannelEndpointAssignment records from the API. Request is executed immediately.
+// Retrieve a single page of TrustProductChannelEndpointAssignment records from the API. Request is executed immediately.
 func (c *ApiService) PageTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams, pageToken string, pageNumber string) (*ListTrustProductChannelEndpointAssignmentResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments"
 
@@ -175,8 +175,8 @@ func (c *ApiService) PageTrustProductChannelEndpointAssignment(TrustProductSid s
 	return ps, err
 }
 
-//Lists TrustProductChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams, limit *int) ([]*ListTrustProductChannelEndpointAssignmentResponse, error) {
+// Lists TrustProductChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams, limit int) ([]TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTrustProductChannelEndpointAssignment(TrustProductSid, params, "", "")
@@ -185,10 +185,10 @@ func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid s
 	}
 
 	curRecord := 0
-	var records []*ListTrustProductChannelEndpointAssignmentResponse
+	var records []TrusthubV1TrustProductTrustProductChannelEndpointAssignment
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Results...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductChannelEndpointAssignmentResponse); record == nil || err != nil {
@@ -201,8 +201,8 @@ func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid s
 	return records, err
 }
 
-//Streams TrustProductChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams, limit *int) (chan *ListTrustProductChannelEndpointAssignmentResponse, error) {
+// Streams TrustProductChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams, limit int) (chan TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTrustProductChannelEndpointAssignment(TrustProductSid, params, "", "")
@@ -212,11 +212,13 @@ func (c *ApiService) StreamTrustProductChannelEndpointAssignment(TrustProductSid
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListTrustProductChannelEndpointAssignmentResponse, 1)
+	channel := make(chan TrusthubV1TrustProductTrustProductChannelEndpointAssignment, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductChannelEndpointAssignmentResponse); record == nil || err != nil {

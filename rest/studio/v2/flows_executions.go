@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -150,7 +150,7 @@ func (params *ListExecutionParams) SetPageSize(PageSize int) *ListExecutionParam
 	return params
 }
 
-//Retrieve a single page of Execution records from the API. Request is executed immediately.
+// Retrieve a single page of Execution records from the API. Request is executed immediately.
 func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, pageToken string, pageNumber string) (*ListExecutionResponse, error) {
 	path := "/v2/Flows/{FlowSid}/Executions"
 
@@ -191,8 +191,8 @@ func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, 
 	return ps, err
 }
 
-//Lists Execution records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams, limit *int) ([]*ListExecutionResponse, error) {
+// Lists Execution records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams, limit int) ([]StudioV2FlowExecution, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageExecution(FlowSid, params, "", "")
@@ -201,10 +201,10 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams, 
 	}
 
 	curRecord := 0
-	var records []*ListExecutionResponse
+	var records []StudioV2FlowExecution
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Executions...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListExecutionResponse); record == nil || err != nil {
@@ -217,8 +217,8 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams, 
 	return records, err
 }
 
-//Streams Execution records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams, limit *int) (chan *ListExecutionResponse, error) {
+// Streams Execution records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams, limit int) (chan StudioV2FlowExecution, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageExecution(FlowSid, params, "", "")
@@ -228,11 +228,13 @@ func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListExecutionResponse, 1)
+	channel := make(chan StudioV2FlowExecution, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Executions {
+				channel <- response.Executions[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListExecutionResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -137,7 +137,7 @@ func (params *ListEngagementParams) SetPageSize(PageSize int) *ListEngagementPar
 	return params
 }
 
-//Retrieve a single page of Engagement records from the API. Request is executed immediately.
+// Retrieve a single page of Engagement records from the API. Request is executed immediately.
 func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams, pageToken string, pageNumber string) (*ListEngagementResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements"
 
@@ -172,8 +172,8 @@ func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams
 	return ps, err
 }
 
-//Lists Engagement records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams, limit *int) ([]*ListEngagementResponse, error) {
+// Lists Engagement records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams, limit int) ([]StudioV1FlowEngagement, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEngagement(FlowSid, params, "", "")
@@ -182,10 +182,10 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 	}
 
 	curRecord := 0
-	var records []*ListEngagementResponse
+	var records []StudioV1FlowEngagement
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Engagements...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEngagementResponse); record == nil || err != nil {
@@ -198,8 +198,8 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 	return records, err
 }
 
-//Streams Engagement records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementParams, limit *int) (chan *ListEngagementResponse, error) {
+// Streams Engagement records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementParams, limit int) (chan StudioV1FlowEngagement, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEngagement(FlowSid, params, "", "")
@@ -209,11 +209,13 @@ func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementPara
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListEngagementResponse, 1)
+	channel := make(chan StudioV1FlowEngagement, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Engagements {
+				channel <- response.Engagements[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEngagementResponse); record == nil || err != nil {

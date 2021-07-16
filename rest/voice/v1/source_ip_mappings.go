@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -116,7 +116,7 @@ func (params *ListSourceIpMappingParams) SetPageSize(PageSize int) *ListSourceIp
 	return params
 }
 
-//Retrieve a single page of SourceIpMapping records from the API. Request is executed immediately.
+// Retrieve a single page of SourceIpMapping records from the API. Request is executed immediately.
 func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, pageToken string, pageNumber string) (*ListSourceIpMappingResponse, error) {
 	path := "/v1/SourceIpMappings"
 
@@ -149,8 +149,8 @@ func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, page
 	return ps, err
 }
 
-//Lists SourceIpMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams, limit *int) ([]*ListSourceIpMappingResponse, error) {
+// Lists SourceIpMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams, limit int) ([]VoiceV1SourceIpMapping, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSourceIpMapping(params, "", "")
@@ -159,10 +159,10 @@ func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams, limi
 	}
 
 	curRecord := 0
-	var records []*ListSourceIpMappingResponse
+	var records []VoiceV1SourceIpMapping
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.SourceIpMappings...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSourceIpMappingResponse); record == nil || err != nil {
@@ -175,8 +175,8 @@ func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams, limi
 	return records, err
 }
 
-//Streams SourceIpMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams, limit *int) (chan *ListSourceIpMappingResponse, error) {
+// Streams SourceIpMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams, limit int) (chan VoiceV1SourceIpMapping, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSourceIpMapping(params, "", "")
@@ -186,11 +186,13 @@ func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams, li
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSourceIpMappingResponse, 1)
+	channel := make(chan VoiceV1SourceIpMapping, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.SourceIpMappings {
+				channel <- response.SourceIpMappings[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSourceIpMappingResponse); record == nil || err != nil {

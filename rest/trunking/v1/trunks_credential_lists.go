@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -110,7 +110,7 @@ func (params *ListCredentialListParams) SetPageSize(PageSize int) *ListCredentia
 	return params
 }
 
-//Retrieve a single page of CredentialList records from the API. Request is executed immediately.
+// Retrieve a single page of CredentialList records from the API. Request is executed immediately.
 func (c *ApiService) PageCredentialList(TrunkSid string, params *ListCredentialListParams, pageToken string, pageNumber string) (*ListCredentialListResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists"
 
@@ -145,8 +145,8 @@ func (c *ApiService) PageCredentialList(TrunkSid string, params *ListCredentialL
 	return ps, err
 }
 
-//Lists CredentialList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCredentialList(TrunkSid string, params *ListCredentialListParams, limit *int) ([]*ListCredentialListResponse, error) {
+// Lists CredentialList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCredentialList(TrunkSid string, params *ListCredentialListParams, limit int) ([]TrunkingV1TrunkCredentialList, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCredentialList(TrunkSid, params, "", "")
@@ -155,10 +155,10 @@ func (c *ApiService) ListCredentialList(TrunkSid string, params *ListCredentialL
 	}
 
 	curRecord := 0
-	var records []*ListCredentialListResponse
+	var records []TrunkingV1TrunkCredentialList
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.CredentialLists...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialListResponse); record == nil || err != nil {
@@ -171,8 +171,8 @@ func (c *ApiService) ListCredentialList(TrunkSid string, params *ListCredentialL
 	return records, err
 }
 
-//Streams CredentialList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCredentialList(TrunkSid string, params *ListCredentialListParams, limit *int) (chan *ListCredentialListResponse, error) {
+// Streams CredentialList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCredentialList(TrunkSid string, params *ListCredentialListParams, limit int) (chan TrunkingV1TrunkCredentialList, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCredentialList(TrunkSid, params, "", "")
@@ -182,11 +182,13 @@ func (c *ApiService) StreamCredentialList(TrunkSid string, params *ListCredentia
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListCredentialListResponse, 1)
+	channel := make(chan TrunkingV1TrunkCredentialList, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.CredentialLists {
+				channel <- response.CredentialLists[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialListResponse); record == nil || err != nil {

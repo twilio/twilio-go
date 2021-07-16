@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -61,7 +61,7 @@ func (params *ListUsageRecordYesterdayParams) SetPageSize(PageSize int) *ListUsa
 	return params
 }
 
-//Retrieve a single page of UsageRecordYesterday records from the API. Request is executed immediately.
+// Retrieve a single page of UsageRecordYesterday records from the API. Request is executed immediately.
 func (c *ApiService) PageUsageRecordYesterday(params *ListUsageRecordYesterdayParams, pageToken string, pageNumber string) (*ListUsageRecordYesterdayResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yesterday.json"
 
@@ -112,8 +112,8 @@ func (c *ApiService) PageUsageRecordYesterday(params *ListUsageRecordYesterdayPa
 	return ps, err
 }
 
-//Lists UsageRecordYesterday records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayParams, limit *int) ([]*ListUsageRecordYesterdayResponse, error) {
+// Lists UsageRecordYesterday records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayParams, limit int) ([]ApiV2010AccountUsageUsageRecordUsageRecordYesterday, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordYesterday(params, "", "")
@@ -122,10 +122,10 @@ func (c *ApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayPa
 	}
 
 	curRecord := 0
-	var records []*ListUsageRecordYesterdayResponse
+	var records []ApiV2010AccountUsageUsageRecordUsageRecordYesterday
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.UsageRecords...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordYesterdayResponse); record == nil || err != nil {
@@ -138,8 +138,8 @@ func (c *ApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayPa
 	return records, err
 }
 
-//Streams UsageRecordYesterday records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageRecordYesterday(params *ListUsageRecordYesterdayParams, limit *int) (chan *ListUsageRecordYesterdayResponse, error) {
+// Streams UsageRecordYesterday records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordYesterday(params *ListUsageRecordYesterdayParams, limit int) (chan ApiV2010AccountUsageUsageRecordUsageRecordYesterday, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordYesterday(params, "", "")
@@ -149,11 +149,13 @@ func (c *ApiService) StreamUsageRecordYesterday(params *ListUsageRecordYesterday
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListUsageRecordYesterdayResponse, 1)
+	channel := make(chan ApiV2010AccountUsageUsageRecordUsageRecordYesterday, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.UsageRecords {
+				channel <- response.UsageRecords[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordYesterdayResponse); record == nil || err != nil {

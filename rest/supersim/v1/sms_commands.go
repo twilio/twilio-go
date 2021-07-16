@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -137,7 +137,7 @@ func (params *ListSmsCommandParams) SetPageSize(PageSize int) *ListSmsCommandPar
 	return params
 }
 
-//Retrieve a single page of SmsCommand records from the API. Request is executed immediately.
+// Retrieve a single page of SmsCommand records from the API. Request is executed immediately.
 func (c *ApiService) PageSmsCommand(params *ListSmsCommandParams, pageToken string, pageNumber string) (*ListSmsCommandResponse, error) {
 	path := "/v1/SmsCommands"
 
@@ -179,8 +179,8 @@ func (c *ApiService) PageSmsCommand(params *ListSmsCommandParams, pageToken stri
 	return ps, err
 }
 
-//Lists SmsCommand records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSmsCommand(params *ListSmsCommandParams, limit *int) ([]*ListSmsCommandResponse, error) {
+// Lists SmsCommand records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSmsCommand(params *ListSmsCommandParams, limit int) ([]SupersimV1SmsCommand, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSmsCommand(params, "", "")
@@ -189,10 +189,10 @@ func (c *ApiService) ListSmsCommand(params *ListSmsCommandParams, limit *int) ([
 	}
 
 	curRecord := 0
-	var records []*ListSmsCommandResponse
+	var records []SupersimV1SmsCommand
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.SmsCommands...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSmsCommandResponse); record == nil || err != nil {
@@ -205,8 +205,8 @@ func (c *ApiService) ListSmsCommand(params *ListSmsCommandParams, limit *int) ([
 	return records, err
 }
 
-//Streams SmsCommand records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSmsCommand(params *ListSmsCommandParams, limit *int) (chan *ListSmsCommandResponse, error) {
+// Streams SmsCommand records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSmsCommand(params *ListSmsCommandParams, limit int) (chan SupersimV1SmsCommand, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSmsCommand(params, "", "")
@@ -216,11 +216,13 @@ func (c *ApiService) StreamSmsCommand(params *ListSmsCommandParams, limit *int) 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSmsCommandResponse, 1)
+	channel := make(chan SupersimV1SmsCommand, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.SmsCommands {
+				channel <- response.SmsCommands[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSmsCommandResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -44,7 +44,7 @@ func (params *ListMetricParams) SetPageSize(PageSize int) *ListMetricParams {
 	return params
 }
 
-//Retrieve a single page of Metric records from the API. Request is executed immediately.
+// Retrieve a single page of Metric records from the API. Request is executed immediately.
 func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageToken string, pageNumber string) (*ListMetricResponse, error) {
 	path := "/v1/Voice/{CallSid}/Metrics"
 
@@ -85,8 +85,8 @@ func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageTo
 	return ps, err
 }
 
-//Lists Metric records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams, limit *int) ([]*ListMetricResponse, error) {
+// Lists Metric records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams, limit int) ([]InsightsV1CallMetric, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMetric(CallSid, params, "", "")
@@ -95,10 +95,10 @@ func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams, limit 
 	}
 
 	curRecord := 0
-	var records []*ListMetricResponse
+	var records []InsightsV1CallMetric
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Metrics...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMetricResponse); record == nil || err != nil {
@@ -111,8 +111,8 @@ func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams, limit 
 	return records, err
 }
 
-//Streams Metric records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams, limit *int) (chan *ListMetricResponse, error) {
+// Streams Metric records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams, limit int) (chan InsightsV1CallMetric, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMetric(CallSid, params, "", "")
@@ -122,11 +122,13 @@ func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams, limi
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListMetricResponse, 1)
+	channel := make(chan InsightsV1CallMetric, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Metrics {
+				channel <- response.Metrics[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMetricResponse); record == nil || err != nil {

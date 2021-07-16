@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -131,7 +131,7 @@ func (params *ListPhoneNumberParams) SetPageSize(PageSize int) *ListPhoneNumberP
 	return params
 }
 
-//Retrieve a single page of PhoneNumber records from the API. Request is executed immediately.
+// Retrieve a single page of PhoneNumber records from the API. Request is executed immediately.
 func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberParams, pageToken string, pageNumber string) (*ListPhoneNumberResponse, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 
@@ -166,8 +166,8 @@ func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberP
 	return ps, err
 }
 
-//Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams, limit *int) ([]*ListPhoneNumberResponse, error) {
+// Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams, limit int) ([]ProxyV1ServicePhoneNumber, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PagePhoneNumber(ServiceSid, params, "", "")
@@ -176,10 +176,10 @@ func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberP
 	}
 
 	curRecord := 0
-	var records []*ListPhoneNumberResponse
+	var records []ProxyV1ServicePhoneNumber
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.PhoneNumbers...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListPhoneNumberResponse); record == nil || err != nil {
@@ -192,8 +192,8 @@ func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberP
 	return records, err
 }
 
-//Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumberParams, limit *int) (chan *ListPhoneNumberResponse, error) {
+// Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumberParams, limit int) (chan ProxyV1ServicePhoneNumber, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PagePhoneNumber(ServiceSid, params, "", "")
@@ -203,11 +203,13 @@ func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumbe
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListPhoneNumberResponse, 1)
+	channel := make(chan ProxyV1ServicePhoneNumber, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.PhoneNumbers {
+				channel <- response.PhoneNumbers[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListPhoneNumberResponse); record == nil || err != nil {

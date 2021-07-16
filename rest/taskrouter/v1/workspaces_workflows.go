@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -152,7 +152,7 @@ func (params *ListWorkflowParams) SetPageSize(PageSize int) *ListWorkflowParams 
 	return params
 }
 
-//Retrieve a single page of Workflow records from the API. Request is executed immediately.
+// Retrieve a single page of Workflow records from the API. Request is executed immediately.
 func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParams, pageToken string, pageNumber string) (*ListWorkflowResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 
@@ -190,8 +190,8 @@ func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParam
 	return ps, err
 }
 
-//Lists Workflow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParams, limit *int) ([]*ListWorkflowResponse, error) {
+// Lists Workflow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParams, limit int) ([]TaskrouterV1WorkspaceWorkflow, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWorkflow(WorkspaceSid, params, "", "")
@@ -200,10 +200,10 @@ func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParam
 	}
 
 	curRecord := 0
-	var records []*ListWorkflowResponse
+	var records []TaskrouterV1WorkspaceWorkflow
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Workflows...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWorkflowResponse); record == nil || err != nil {
@@ -216,8 +216,8 @@ func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParam
 	return records, err
 }
 
-//Streams Workflow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowParams, limit *int) (chan *ListWorkflowResponse, error) {
+// Streams Workflow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowParams, limit int) (chan TaskrouterV1WorkspaceWorkflow, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWorkflow(WorkspaceSid, params, "", "")
@@ -227,11 +227,13 @@ func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowPar
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListWorkflowResponse, 1)
+	channel := make(chan TaskrouterV1WorkspaceWorkflow, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Workflows {
+				channel <- response.Workflows[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWorkflowResponse); record == nil || err != nil {

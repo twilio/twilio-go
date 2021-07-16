@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -122,7 +122,7 @@ func (params *ListEnvironmentParams) SetPageSize(PageSize int) *ListEnvironmentP
 	return params
 }
 
-//Retrieve a single page of Environment records from the API. Request is executed immediately.
+// Retrieve a single page of Environment records from the API. Request is executed immediately.
 func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentParams, pageToken string, pageNumber string) (*ListEnvironmentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments"
 
@@ -157,8 +157,8 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 	return ps, err
 }
 
-//Lists Environment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams, limit *int) ([]*ListEnvironmentResponse, error) {
+// Lists Environment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams, limit int) ([]ServerlessV1ServiceEnvironment, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEnvironment(ServiceSid, params, "", "")
@@ -167,10 +167,10 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 	}
 
 	curRecord := 0
-	var records []*ListEnvironmentResponse
+	var records []ServerlessV1ServiceEnvironment
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Environments...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEnvironmentResponse); record == nil || err != nil {
@@ -183,8 +183,8 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 	return records, err
 }
 
-//Streams Environment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmentParams, limit *int) (chan *ListEnvironmentResponse, error) {
+// Streams Environment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmentParams, limit int) (chan ServerlessV1ServiceEnvironment, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEnvironment(ServiceSid, params, "", "")
@@ -194,11 +194,13 @@ func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmen
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListEnvironmentResponse, 1)
+	channel := make(chan ServerlessV1ServiceEnvironment, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Environments {
+				channel <- response.Environments[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEnvironmentResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -137,7 +137,7 @@ func (params *ListFieldValueParams) SetPageSize(PageSize int) *ListFieldValuePar
 	return params
 }
 
-//Retrieve a single page of FieldValue records from the API. Request is executed immediately.
+// Retrieve a single page of FieldValue records from the API. Request is executed immediately.
 func (c *ApiService) PageFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, pageToken string, pageNumber string) (*ListFieldValueResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
 
@@ -176,8 +176,8 @@ func (c *ApiService) PageFieldValue(AssistantSid string, FieldTypeSid string, pa
 	return ps, err
 }
 
-//Lists FieldValue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, limit *int) ([]*ListFieldValueResponse, error) {
+// Lists FieldValue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, limit int) ([]AutopilotV1AssistantFieldTypeFieldValue, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFieldValue(AssistantSid, FieldTypeSid, params, "", "")
@@ -186,10 +186,10 @@ func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, pa
 	}
 
 	curRecord := 0
-	var records []*ListFieldValueResponse
+	var records []AutopilotV1AssistantFieldTypeFieldValue
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.FieldValues...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFieldValueResponse); record == nil || err != nil {
@@ -202,8 +202,8 @@ func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, pa
 	return records, err
 }
 
-//Streams FieldValue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, limit *int) (chan *ListFieldValueResponse, error) {
+// Streams FieldValue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, limit int) (chan AutopilotV1AssistantFieldTypeFieldValue, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFieldValue(AssistantSid, FieldTypeSid, params, "", "")
@@ -213,11 +213,13 @@ func (c *ApiService) StreamFieldValue(AssistantSid string, FieldTypeSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListFieldValueResponse, 1)
+	channel := make(chan AutopilotV1AssistantFieldTypeFieldValue, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.FieldValues {
+				channel <- response.FieldValues[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFieldValueResponse); record == nil || err != nil {

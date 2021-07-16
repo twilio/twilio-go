@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -57,7 +57,7 @@ func (params *ListConversationMessageReceiptParams) SetPageSize(PageSize int) *L
 	return params
 }
 
-//Retrieve a single page of ConversationMessageReceipt records from the API. Request is executed immediately.
+// Retrieve a single page of ConversationMessageReceipt records from the API. Request is executed immediately.
 func (c *ApiService) PageConversationMessageReceipt(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, pageToken string, pageNumber string) (*ListConversationMessageReceiptResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
 
@@ -93,8 +93,8 @@ func (c *ApiService) PageConversationMessageReceipt(ConversationSid string, Mess
 	return ps, err
 }
 
-//Lists ConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConversationMessageReceipt(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, limit *int) ([]*ListConversationMessageReceiptResponse, error) {
+// Lists ConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConversationMessageReceipt(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, limit int) ([]ConversationsV1ConversationConversationMessageConversationMessageReceipt, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConversationMessageReceipt(ConversationSid, MessageSid, params, "", "")
@@ -103,10 +103,10 @@ func (c *ApiService) ListConversationMessageReceipt(ConversationSid string, Mess
 	}
 
 	curRecord := 0
-	var records []*ListConversationMessageReceiptResponse
+	var records []ConversationsV1ConversationConversationMessageConversationMessageReceipt
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.DeliveryReceipts...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConversationMessageReceiptResponse); record == nil || err != nil {
@@ -119,8 +119,8 @@ func (c *ApiService) ListConversationMessageReceipt(ConversationSid string, Mess
 	return records, err
 }
 
-//Streams ConversationMessageReceipt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConversationMessageReceipt(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, limit *int) (chan *ListConversationMessageReceiptResponse, error) {
+// Streams ConversationMessageReceipt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConversationMessageReceipt(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams, limit int) (chan ConversationsV1ConversationConversationMessageConversationMessageReceipt, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConversationMessageReceipt(ConversationSid, MessageSid, params, "", "")
@@ -130,11 +130,13 @@ func (c *ApiService) StreamConversationMessageReceipt(ConversationSid string, Me
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListConversationMessageReceiptResponse, 1)
+	channel := make(chan ConversationsV1ConversationConversationMessageConversationMessageReceipt, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.DeliveryReceipts {
+				channel <- response.DeliveryReceipts[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConversationMessageReceiptResponse); record == nil || err != nil {

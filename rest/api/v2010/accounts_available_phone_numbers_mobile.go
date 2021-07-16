@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -146,7 +146,7 @@ func (params *ListAvailablePhoneNumberMobileParams) SetPageSize(PageSize int) *L
 	return params
 }
 
-//Retrieve a single page of AvailablePhoneNumberMobile records from the API. Request is executed immediately.
+// Retrieve a single page of AvailablePhoneNumberMobile records from the API. Request is executed immediately.
 func (c *ApiService) PageAvailablePhoneNumberMobile(CountryCode string, params *ListAvailablePhoneNumberMobileParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberMobileResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Mobile.json"
 
@@ -240,8 +240,8 @@ func (c *ApiService) PageAvailablePhoneNumberMobile(CountryCode string, params *
 	return ps, err
 }
 
-//Lists AvailablePhoneNumberMobile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberMobile(CountryCode string, params *ListAvailablePhoneNumberMobileParams, limit *int) ([]*ListAvailablePhoneNumberMobileResponse, error) {
+// Lists AvailablePhoneNumberMobile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAvailablePhoneNumberMobile(CountryCode string, params *ListAvailablePhoneNumberMobileParams, limit int) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMobile, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAvailablePhoneNumberMobile(CountryCode, params, "", "")
@@ -250,10 +250,10 @@ func (c *ApiService) ListAvailablePhoneNumberMobile(CountryCode string, params *
 	}
 
 	curRecord := 0
-	var records []*ListAvailablePhoneNumberMobileResponse
+	var records []ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMobile
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.AvailablePhoneNumbers...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAvailablePhoneNumberMobileResponse); record == nil || err != nil {
@@ -266,8 +266,8 @@ func (c *ApiService) ListAvailablePhoneNumberMobile(CountryCode string, params *
 	return records, err
 }
 
-//Streams AvailablePhoneNumberMobile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberMobile(CountryCode string, params *ListAvailablePhoneNumberMobileParams, limit *int) (chan *ListAvailablePhoneNumberMobileResponse, error) {
+// Streams AvailablePhoneNumberMobile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAvailablePhoneNumberMobile(CountryCode string, params *ListAvailablePhoneNumberMobileParams, limit int) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMobile, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAvailablePhoneNumberMobile(CountryCode, params, "", "")
@@ -277,11 +277,13 @@ func (c *ApiService) StreamAvailablePhoneNumberMobile(CountryCode string, params
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListAvailablePhoneNumberMobileResponse, 1)
+	channel := make(chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMobile, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.AvailablePhoneNumbers {
+				channel <- response.AvailablePhoneNumbers[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAvailablePhoneNumberMobileResponse); record == nil || err != nil {

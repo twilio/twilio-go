@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -194,7 +194,7 @@ func (params *ListBundleParams) SetPageSize(PageSize int) *ListBundleParams {
 	return params
 }
 
-//Retrieve a single page of Bundle records from the API. Request is executed immediately.
+// Retrieve a single page of Bundle records from the API. Request is executed immediately.
 func (c *ApiService) PageBundle(params *ListBundleParams, pageToken string, pageNumber string) (*ListBundleResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles"
 
@@ -242,8 +242,8 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken string, page
 	return ps, err
 }
 
-//Lists Bundle records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBundle(params *ListBundleParams, limit *int) ([]*ListBundleResponse, error) {
+// Lists Bundle records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBundle(params *ListBundleParams, limit int) ([]NumbersV2RegulatoryComplianceBundle, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageBundle(params, "", "")
@@ -252,10 +252,10 @@ func (c *ApiService) ListBundle(params *ListBundleParams, limit *int) ([]*ListBu
 	}
 
 	curRecord := 0
-	var records []*ListBundleResponse
+	var records []NumbersV2RegulatoryComplianceBundle
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Results...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBundleResponse); record == nil || err != nil {
@@ -268,8 +268,8 @@ func (c *ApiService) ListBundle(params *ListBundleParams, limit *int) ([]*ListBu
 	return records, err
 }
 
-//Streams Bundle records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBundle(params *ListBundleParams, limit *int) (chan *ListBundleResponse, error) {
+// Streams Bundle records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBundle(params *ListBundleParams, limit int) (chan NumbersV2RegulatoryComplianceBundle, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageBundle(params, "", "")
@@ -279,11 +279,13 @@ func (c *ApiService) StreamBundle(params *ListBundleParams, limit *int) (chan *L
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListBundleResponse, 1)
+	channel := make(chan NumbersV2RegulatoryComplianceBundle, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBundleResponse); record == nil || err != nil {

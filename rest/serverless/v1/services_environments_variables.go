@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -125,7 +125,7 @@ func (params *ListVariableParams) SetPageSize(PageSize int) *ListVariableParams 
 	return params
 }
 
-//Retrieve a single page of Variable records from the API. Request is executed immediately.
+// Retrieve a single page of Variable records from the API. Request is executed immediately.
 func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams, pageToken string, pageNumber string) (*ListVariableResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables"
 
@@ -161,8 +161,8 @@ func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, para
 	return ps, err
 }
 
-//Lists Variable records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams, limit *int) ([]*ListVariableResponse, error) {
+// Lists Variable records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams, limit int) ([]ServerlessV1ServiceEnvironmentVariable, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVariable(ServiceSid, EnvironmentSid, params, "", "")
@@ -171,10 +171,10 @@ func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, para
 	}
 
 	curRecord := 0
-	var records []*ListVariableResponse
+	var records []ServerlessV1ServiceEnvironmentVariable
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Variables...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVariableResponse); record == nil || err != nil {
@@ -187,8 +187,8 @@ func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, para
 	return records, err
 }
 
-//Streams Variable records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams, limit *int) (chan *ListVariableResponse, error) {
+// Streams Variable records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams, limit int) (chan ServerlessV1ServiceEnvironmentVariable, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVariable(ServiceSid, EnvironmentSid, params, "", "")
@@ -198,11 +198,13 @@ func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, pa
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListVariableResponse, 1)
+	channel := make(chan ServerlessV1ServiceEnvironmentVariable, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Variables {
+				channel <- response.Variables[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVariableResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -204,7 +204,7 @@ func (params *ListRoomParams) SetPageSize(PageSize int) *ListRoomParams {
 	return params
 }
 
-//Retrieve a single page of Room records from the API. Request is executed immediately.
+// Retrieve a single page of Room records from the API. Request is executed immediately.
 func (c *ApiService) PageRoom(params *ListRoomParams, pageToken string, pageNumber string) (*ListRoomResponse, error) {
 	path := "/v1/Rooms"
 
@@ -249,8 +249,8 @@ func (c *ApiService) PageRoom(params *ListRoomParams, pageToken string, pageNumb
 	return ps, err
 }
 
-//Lists Room records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoom(params *ListRoomParams, limit *int) ([]*ListRoomResponse, error) {
+// Lists Room records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoom(params *ListRoomParams, limit int) ([]VideoV1Room, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRoom(params, "", "")
@@ -259,10 +259,10 @@ func (c *ApiService) ListRoom(params *ListRoomParams, limit *int) ([]*ListRoomRe
 	}
 
 	curRecord := 0
-	var records []*ListRoomResponse
+	var records []VideoV1Room
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Rooms...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomResponse); record == nil || err != nil {
@@ -275,8 +275,8 @@ func (c *ApiService) ListRoom(params *ListRoomParams, limit *int) ([]*ListRoomRe
 	return records, err
 }
 
-//Streams Room records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoom(params *ListRoomParams, limit *int) (chan *ListRoomResponse, error) {
+// Streams Room records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoom(params *ListRoomParams, limit int) (chan VideoV1Room, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRoom(params, "", "")
@@ -286,11 +286,13 @@ func (c *ApiService) StreamRoom(params *ListRoomParams, limit *int) (chan *ListR
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListRoomResponse, 1)
+	channel := make(chan VideoV1Room, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Rooms {
+				channel <- response.Rooms[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomResponse); record == nil || err != nil {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -122,7 +122,7 @@ func (params *ListSyncStreamParams) SetPageSize(PageSize int) *ListSyncStreamPar
 	return params
 }
 
-//Retrieve a single page of SyncStream records from the API. Request is executed immediately.
+// Retrieve a single page of SyncStream records from the API. Request is executed immediately.
 func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamParams, pageToken string, pageNumber string) (*ListSyncStreamResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Streams"
 
@@ -157,8 +157,8 @@ func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamPar
 	return ps, err
 }
 
-//Lists SyncStream records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamParams, limit *int) ([]*ListSyncStreamResponse, error) {
+// Lists SyncStream records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamParams, limit int) ([]SyncV1ServiceSyncStream, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncStream(ServiceSid, params, "", "")
@@ -167,10 +167,10 @@ func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamPar
 	}
 
 	curRecord := 0
-	var records []*ListSyncStreamResponse
+	var records []SyncV1ServiceSyncStream
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Streams...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
@@ -183,8 +183,8 @@ func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamPar
 	return records, err
 }
 
-//Streams SyncStream records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamParams, limit *int) (chan *ListSyncStreamResponse, error) {
+// Streams SyncStream records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamParams, limit int) (chan SyncV1ServiceSyncStream, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncStream(ServiceSid, params, "", "")
@@ -194,11 +194,13 @@ func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamP
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSyncStreamResponse, 1)
+	channel := make(chan SyncV1ServiceSyncStream, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Streams {
+				channel <- response.Streams[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncStreamResponse); record == nil || err != nil {

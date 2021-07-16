@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -111,7 +111,7 @@ func (params *ListConnectAppParams) SetPageSize(PageSize int) *ListConnectAppPar
 	return params
 }
 
-//Retrieve a single page of ConnectApp records from the API. Request is executed immediately.
+// Retrieve a single page of ConnectApp records from the API. Request is executed immediately.
 func (c *ApiService) PageConnectApp(params *ListConnectAppParams, pageToken string, pageNumber string) (*ListConnectAppResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json"
 
@@ -150,8 +150,8 @@ func (c *ApiService) PageConnectApp(params *ListConnectAppParams, pageToken stri
 	return ps, err
 }
 
-//Lists ConnectApp records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConnectApp(params *ListConnectAppParams, limit *int) ([]*ListConnectAppResponse, error) {
+// Lists ConnectApp records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConnectApp(params *ListConnectAppParams, limit int) ([]ApiV2010AccountConnectApp, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConnectApp(params, "", "")
@@ -160,10 +160,10 @@ func (c *ApiService) ListConnectApp(params *ListConnectAppParams, limit *int) ([
 	}
 
 	curRecord := 0
-	var records []*ListConnectAppResponse
+	var records []ApiV2010AccountConnectApp
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.ConnectApps...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConnectAppResponse); record == nil || err != nil {
@@ -176,8 +176,8 @@ func (c *ApiService) ListConnectApp(params *ListConnectAppParams, limit *int) ([
 	return records, err
 }
 
-//Streams ConnectApp records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConnectApp(params *ListConnectAppParams, limit *int) (chan *ListConnectAppResponse, error) {
+// Streams ConnectApp records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConnectApp(params *ListConnectAppParams, limit int) (chan ApiV2010AccountConnectApp, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConnectApp(params, "", "")
@@ -187,11 +187,13 @@ func (c *ApiService) StreamConnectApp(params *ListConnectAppParams, limit *int) 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListConnectAppResponse, 1)
+	channel := make(chan ApiV2010AccountConnectApp, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.ConnectApps {
+				channel <- response.ConnectApps[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConnectAppResponse); record == nil || err != nil {

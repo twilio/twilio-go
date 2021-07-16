@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -157,7 +157,7 @@ func (params *ListUsAppToPersonParams) SetPageSize(PageSize int) *ListUsAppToPer
 	return params
 }
 
-//Retrieve a single page of UsAppToPerson records from the API. Request is executed immediately.
+// Retrieve a single page of UsAppToPerson records from the API. Request is executed immediately.
 func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams, pageToken string, pageNumber string) (*ListUsAppToPersonResponse, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 
@@ -192,8 +192,8 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 	return ps, err
 }
 
-//Lists UsAppToPerson records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams, limit *int) ([]*ListUsAppToPersonResponse, error) {
+// Lists UsAppToPerson records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams, limit int) ([]MessagingV1ServiceUsAppToPerson, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsAppToPerson(MessagingServiceSid, params, "", "")
@@ -202,10 +202,10 @@ func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListU
 	}
 
 	curRecord := 0
-	var records []*ListUsAppToPersonResponse
+	var records []MessagingV1ServiceUsAppToPerson
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Compliance...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsAppToPersonResponse); record == nil || err != nil {
@@ -218,8 +218,8 @@ func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListU
 	return records, err
 }
 
-//Streams UsAppToPerson records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams, limit *int) (chan *ListUsAppToPersonResponse, error) {
+// Streams UsAppToPerson records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams, limit int) (chan MessagingV1ServiceUsAppToPerson, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsAppToPerson(MessagingServiceSid, params, "", "")
@@ -229,11 +229,13 @@ func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *Lis
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListUsAppToPersonResponse, 1)
+	channel := make(chan MessagingV1ServiceUsAppToPerson, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Compliance {
+				channel <- response.Compliance[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsAppToPersonResponse); record == nil || err != nil {

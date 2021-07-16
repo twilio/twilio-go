@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -521,7 +521,7 @@ func (params *ListCallParams) SetPageSize(PageSize int) *ListCallParams {
 	return params
 }
 
-//Retrieve a single page of Call records from the API. Request is executed immediately.
+// Retrieve a single page of Call records from the API. Request is executed immediately.
 func (c *ApiService) PageCall(params *ListCallParams, pageToken string, pageNumber string) (*ListCallResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
 
@@ -590,8 +590,8 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken string, pageNumb
 	return ps, err
 }
 
-//Lists Call records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCall(params *ListCallParams, limit *int) ([]*ListCallResponse, error) {
+// Lists Call records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCall(params *ListCallParams, limit int) ([]ApiV2010AccountCall, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCall(params, "", "")
@@ -600,10 +600,10 @@ func (c *ApiService) ListCall(params *ListCallParams, limit *int) ([]*ListCallRe
 	}
 
 	curRecord := 0
-	var records []*ListCallResponse
+	var records []ApiV2010AccountCall
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Calls...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCallResponse); record == nil || err != nil {
@@ -616,8 +616,8 @@ func (c *ApiService) ListCall(params *ListCallParams, limit *int) ([]*ListCallRe
 	return records, err
 }
 
-//Streams Call records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCall(params *ListCallParams, limit *int) (chan *ListCallResponse, error) {
+// Streams Call records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCall(params *ListCallParams, limit int) (chan ApiV2010AccountCall, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCall(params, "", "")
@@ -627,11 +627,13 @@ func (c *ApiService) StreamCall(params *ListCallParams, limit *int) (chan *ListC
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListCallResponse, 1)
+	channel := make(chan ApiV2010AccountCall, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Calls {
+				channel <- response.Calls[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCallResponse); record == nil || err != nil {

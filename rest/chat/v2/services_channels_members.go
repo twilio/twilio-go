@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -199,7 +199,7 @@ func (params *ListMemberParams) SetPageSize(PageSize int) *ListMemberParams {
 	return params
 }
 
-//Retrieve a single page of Member records from the API. Request is executed immediately.
+// Retrieve a single page of Member records from the API. Request is executed immediately.
 func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *ListMemberParams, pageToken string, pageNumber string) (*ListMemberResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 
@@ -240,8 +240,8 @@ func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *Li
 	return ps, err
 }
 
-//Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams, limit *int) ([]*ListMemberResponse, error) {
+// Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) ([]ChatV2ServiceChannelMember, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMember(ServiceSid, ChannelSid, params, "", "")
@@ -250,10 +250,10 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 	}
 
 	curRecord := 0
-	var records []*ListMemberResponse
+	var records []ChatV2ServiceChannelMember
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Members...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMemberResponse); record == nil || err != nil {
@@ -266,8 +266,8 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 	return records, err
 }
 
-//Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *ListMemberParams, limit *int) (chan *ListMemberResponse, error) {
+// Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) (chan ChatV2ServiceChannelMember, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMember(ServiceSid, ChannelSid, params, "", "")
@@ -277,11 +277,13 @@ func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListMemberResponse, 1)
+	channel := make(chan ChatV2ServiceChannelMember, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Members {
+				channel <- response.Members[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMemberResponse); record == nil || err != nil {

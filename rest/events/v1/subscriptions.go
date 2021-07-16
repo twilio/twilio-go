@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -140,7 +140,7 @@ func (params *ListSubscriptionParams) SetPageSize(PageSize int) *ListSubscriptio
 	return params
 }
 
-//Retrieve a single page of Subscription records from the API. Request is executed immediately.
+// Retrieve a single page of Subscription records from the API. Request is executed immediately.
 func (c *ApiService) PageSubscription(params *ListSubscriptionParams, pageToken string, pageNumber string) (*ListSubscriptionResponse, error) {
 	path := "/v1/Subscriptions"
 
@@ -176,8 +176,8 @@ func (c *ApiService) PageSubscription(params *ListSubscriptionParams, pageToken 
 	return ps, err
 }
 
-//Lists Subscription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSubscription(params *ListSubscriptionParams, limit *int) ([]*ListSubscriptionResponse, error) {
+// Lists Subscription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSubscription(params *ListSubscriptionParams, limit int) ([]EventsV1Subscription, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSubscription(params, "", "")
@@ -186,10 +186,10 @@ func (c *ApiService) ListSubscription(params *ListSubscriptionParams, limit *int
 	}
 
 	curRecord := 0
-	var records []*ListSubscriptionResponse
+	var records []EventsV1Subscription
 
 	for response != nil {
-		records = append(records, response)
+		records = append(records, response.Subscriptions...)
 
 		var record interface{}
 		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSubscriptionResponse); record == nil || err != nil {
@@ -202,8 +202,8 @@ func (c *ApiService) ListSubscription(params *ListSubscriptionParams, limit *int
 	return records, err
 }
 
-//Streams Subscription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSubscription(params *ListSubscriptionParams, limit *int) (chan *ListSubscriptionResponse, error) {
+// Streams Subscription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSubscription(params *ListSubscriptionParams, limit int) (chan EventsV1Subscription, error) {
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSubscription(params, "", "")
@@ -213,11 +213,13 @@ func (c *ApiService) StreamSubscription(params *ListSubscriptionParams, limit *i
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan *ListSubscriptionResponse, 1)
+	channel := make(chan EventsV1Subscription, 1)
 
 	go func() {
 		for response != nil {
-			channel <- response
+			for item := range response.Subscriptions {
+				channel <- response.Subscriptions[item]
+			}
 
 			var record interface{}
 			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSubscriptionResponse); record == nil || err != nil {
