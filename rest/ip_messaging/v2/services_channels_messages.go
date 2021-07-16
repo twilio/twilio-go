@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateMessage'
@@ -197,8 +199,10 @@ func (params *ListMessageParams) SetPageSize(PageSize int) *ListMessageParams {
 	return params
 }
 
-func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) (*ListMessageResponse, error) {
+// Retrieve a single page of Message records from the API. Request is executed immediately.
+func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, pageToken string, pageNumber string) (*ListMessageResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
@@ -210,6 +214,13 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -225,6 +236,83 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 	}
 
 	return ps, err
+}
+
+// Lists Message records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, limit int) ([]IpMessagingV2ServiceChannelMessage, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageMessage(ServiceSid, ChannelSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []IpMessagingV2ServiceChannelMessage
+
+	for response != nil {
+		records = append(records, response.Messages...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessageResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListMessageResponse)
+	}
+
+	return records, err
+}
+
+// Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, limit int) (chan IpMessagingV2ServiceChannelMessage, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageMessage(ServiceSid, ChannelSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan IpMessagingV2ServiceChannelMessage, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Messages {
+				channel <- response.Messages[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessageResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListMessageResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListMessageResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListMessageResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateMessage'

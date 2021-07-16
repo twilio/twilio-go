@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateTrustProductEvaluation'
@@ -92,9 +94,10 @@ func (params *ListTrustProductEvaluationParams) SetPageSize(PageSize int) *ListT
 	return params
 }
 
-// Retrieve a list of Evaluations associated to the trust_product resource.
-func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) (*ListTrustProductEvaluationResponse, error) {
+// Retrieve a single page of TrustProductEvaluation records from the API. Request is executed immediately.
+func (c *ApiService) PageTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams, pageToken string, pageNumber string) (*ListTrustProductEvaluationResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
+
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
 	data := url.Values{}
@@ -102,6 +105,13 @@ func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -117,4 +127,81 @@ func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *
 	}
 
 	return ps, err
+}
+
+// Lists TrustProductEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams, limit int) ([]TrusthubV1TrustProductTrustProductEvaluation, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTrustProductEvaluation(TrustProductSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []TrusthubV1TrustProductTrustProductEvaluation
+
+	for response != nil {
+		records = append(records, response.Results...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductEvaluationResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListTrustProductEvaluationResponse)
+	}
+
+	return records, err
+}
+
+// Streams TrustProductEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams, limit int) (chan TrusthubV1TrustProductTrustProductEvaluation, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTrustProductEvaluation(TrustProductSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan TrusthubV1TrustProductTrustProductEvaluation, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductEvaluationResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListTrustProductEvaluationResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListTrustProductEvaluationResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTrustProductEvaluationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

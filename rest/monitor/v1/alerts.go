@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 func (c *ApiService) FetchAlert(Sid string) (*MonitorV1AlertInstance, error) {
@@ -71,7 +73,8 @@ func (params *ListAlertParams) SetPageSize(PageSize int) *ListAlertParams {
 	return params
 }
 
-func (c *ApiService) ListAlert(params *ListAlertParams) (*ListAlertResponse, error) {
+// Retrieve a single page of Alert records from the API. Request is executed immediately.
+func (c *ApiService) PageAlert(params *ListAlertParams, pageToken string, pageNumber string) (*ListAlertResponse, error) {
 	path := "/v1/Alerts"
 
 	data := url.Values{}
@@ -90,6 +93,13 @@ func (c *ApiService) ListAlert(params *ListAlertParams) (*ListAlertResponse, err
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -103,4 +113,81 @@ func (c *ApiService) ListAlert(params *ListAlertParams) (*ListAlertResponse, err
 	}
 
 	return ps, err
+}
+
+// Lists Alert records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAlert(params *ListAlertParams, limit int) ([]MonitorV1Alert, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageAlert(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []MonitorV1Alert
+
+	for response != nil {
+		records = append(records, response.Alerts...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAlertResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListAlertResponse)
+	}
+
+	return records, err
+}
+
+// Streams Alert records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAlert(params *ListAlertParams, limit int) (chan MonitorV1Alert, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageAlert(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan MonitorV1Alert, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Alerts {
+				channel <- response.Alerts[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAlertResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListAlertResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListAlertResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAlertResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

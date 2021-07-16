@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateFieldValue'
@@ -135,8 +137,10 @@ func (params *ListFieldValueParams) SetPageSize(PageSize int) *ListFieldValuePar
 	return params
 }
 
-func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) (*ListFieldValueResponse, error) {
+// Retrieve a single page of FieldValue records from the API. Request is executed immediately.
+func (c *ApiService) PageFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, pageToken string, pageNumber string) (*ListFieldValueResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
+
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
 
@@ -148,6 +152,13 @@ func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, pa
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -163,4 +174,81 @@ func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, pa
 	}
 
 	return ps, err
+}
+
+// Lists FieldValue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, limit int) ([]AutopilotV1AssistantFieldTypeFieldValue, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageFieldValue(AssistantSid, FieldTypeSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []AutopilotV1AssistantFieldTypeFieldValue
+
+	for response != nil {
+		records = append(records, response.FieldValues...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFieldValueResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListFieldValueResponse)
+	}
+
+	return records, err
+}
+
+// Streams FieldValue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, limit int) (chan AutopilotV1AssistantFieldTypeFieldValue, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageFieldValue(AssistantSid, FieldTypeSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan AutopilotV1AssistantFieldTypeFieldValue, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.FieldValues {
+				channel <- response.FieldValues[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFieldValueResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListFieldValueResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListFieldValueResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListFieldValueResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

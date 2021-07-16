@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateRole'
@@ -128,8 +130,8 @@ func (params *ListRoleParams) SetPageSize(PageSize int) *ListRoleParams {
 	return params
 }
 
-// Retrieve a list of all user roles in your account&#39;s default service
-func (c *ApiService) ListRole(params *ListRoleParams) (*ListRoleResponse, error) {
+// Retrieve a single page of Role records from the API. Request is executed immediately.
+func (c *ApiService) PageRole(params *ListRoleParams, pageToken string, pageNumber string) (*ListRoleResponse, error) {
 	path := "/v1/Roles"
 
 	data := url.Values{}
@@ -137,6 +139,13 @@ func (c *ApiService) ListRole(params *ListRoleParams) (*ListRoleResponse, error)
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -152,6 +161,83 @@ func (c *ApiService) ListRole(params *ListRoleParams) (*ListRoleResponse, error)
 	}
 
 	return ps, err
+}
+
+// Lists Role records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRole(params *ListRoleParams, limit int) ([]ConversationsV1Role, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRole(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ConversationsV1Role
+
+	for response != nil {
+		records = append(records, response.Roles...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoleResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListRoleResponse)
+	}
+
+	return records, err
+}
+
+// Streams Role records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRole(params *ListRoleParams, limit int) (chan ConversationsV1Role, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRole(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ConversationsV1Role, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Roles {
+				channel <- response.Roles[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoleResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListRoleResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListRoleResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRoleResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateRole'

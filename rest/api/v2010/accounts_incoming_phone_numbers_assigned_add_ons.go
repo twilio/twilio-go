@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateIncomingPhoneNumberAssignedAddOn'
@@ -160,9 +162,10 @@ func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPageSize(PageSize i
 	return params
 }
 
-// Retrieve a list of Add-on installations currently assigned to this Number.
-func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
+// Retrieve a single page of IncomingPhoneNumberAssignedAddOn records from the API. Request is executed immediately.
+func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -175,6 +178,13 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -190,4 +200,81 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 	}
 
 	return ps, err
+}
+
+// Lists IncomingPhoneNumberAssignedAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, limit int) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageIncomingPhoneNumberAssignedAddOn(ResourceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn
+
+	for response != nil {
+		records = append(records, response.AssignedAddOns...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListIncomingPhoneNumberAssignedAddOnResponse)
+	}
+
+	return records, err
+}
+
+// Streams IncomingPhoneNumberAssignedAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, limit int) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageIncomingPhoneNumberAssignedAddOn(ResourceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.AssignedAddOns {
+				channel <- response.AssignedAddOns[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListIncomingPhoneNumberAssignedAddOnResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListIncomingPhoneNumberAssignedAddOnResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListIncomingPhoneNumberAssignedAddOnResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

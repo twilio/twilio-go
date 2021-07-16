@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateBuild'
@@ -142,9 +144,10 @@ func (params *ListBuildParams) SetPageSize(PageSize int) *ListBuildParams {
 	return params
 }
 
-// Retrieve a list of all Builds.
-func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) (*ListBuildResponse, error) {
+// Retrieve a single page of Build records from the API. Request is executed immediately.
+func (c *ApiService) PageBuild(ServiceSid string, params *ListBuildParams, pageToken string, pageNumber string) (*ListBuildResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Builds"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
@@ -152,6 +155,13 @@ func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) (*Lis
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -167,4 +177,81 @@ func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) (*Lis
 	}
 
 	return ps, err
+}
+
+// Lists Build records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams, limit int) ([]ServerlessV1ServiceBuild, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageBuild(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ServerlessV1ServiceBuild
+
+	for response != nil {
+		records = append(records, response.Builds...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBuildResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListBuildResponse)
+	}
+
+	return records, err
+}
+
+// Streams Build records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBuild(ServiceSid string, params *ListBuildParams, limit int) (chan ServerlessV1ServiceBuild, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageBuild(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ServerlessV1ServiceBuild, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Builds {
+				channel <- response.Builds[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBuildResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListBuildResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListBuildResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBuildResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

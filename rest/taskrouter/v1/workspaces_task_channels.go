@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateTaskChannel'
@@ -126,8 +128,10 @@ func (params *ListTaskChannelParams) SetPageSize(PageSize int) *ListTaskChannelP
 	return params
 }
 
-func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChannelParams) (*ListTaskChannelResponse, error) {
+// Retrieve a single page of TaskChannel records from the API. Request is executed immediately.
+func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, pageToken string, pageNumber string) (*ListTaskChannelResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
+
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
@@ -135,6 +139,13 @@ func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChanne
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -150,6 +161,83 @@ func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChanne
 	}
 
 	return ps, err
+}
+
+// Lists TaskChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, limit int) ([]TaskrouterV1WorkspaceTaskChannel, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTaskChannel(WorkspaceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []TaskrouterV1WorkspaceTaskChannel
+
+	for response != nil {
+		records = append(records, response.Channels...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListTaskChannelResponse)
+	}
+
+	return records, err
+}
+
+// Streams TaskChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, limit int) (chan TaskrouterV1WorkspaceTaskChannel, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageTaskChannel(WorkspaceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan TaskrouterV1WorkspaceTaskChannel, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Channels {
+				channel <- response.Channels[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListTaskChannelResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListTaskChannelResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTaskChannelResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateTaskChannel'

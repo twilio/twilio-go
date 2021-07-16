@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateAccount'
@@ -102,8 +104,8 @@ func (params *ListAccountParams) SetPageSize(PageSize int) *ListAccountParams {
 	return params
 }
 
-// Retrieves a collection of Accounts belonging to the account used to make the request
-func (c *ApiService) ListAccount(params *ListAccountParams) (*ListAccountResponse, error) {
+// Retrieve a single page of Account records from the API. Request is executed immediately.
+func (c *ApiService) PageAccount(params *ListAccountParams, pageToken string, pageNumber string) (*ListAccountResponse, error) {
 	path := "/2010-04-01/Accounts.json"
 
 	data := url.Values{}
@@ -119,6 +121,13 @@ func (c *ApiService) ListAccount(params *ListAccountParams) (*ListAccountRespons
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -132,6 +141,83 @@ func (c *ApiService) ListAccount(params *ListAccountParams) (*ListAccountRespons
 	}
 
 	return ps, err
+}
+
+// Lists Account records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAccount(params *ListAccountParams, limit int) ([]ApiV2010Account, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageAccount(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010Account
+
+	for response != nil {
+		records = append(records, response.Accounts...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAccountResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListAccountResponse)
+	}
+
+	return records, err
+}
+
+// Streams Account records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAccount(params *ListAccountParams, limit int) (chan ApiV2010Account, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageAccount(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010Account, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Accounts {
+				channel <- response.Accounts[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAccountResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListAccountResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListAccountResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAccountResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateAccount'

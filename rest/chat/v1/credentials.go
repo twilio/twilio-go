@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCredential'
@@ -159,7 +161,8 @@ func (params *ListCredentialParams) SetPageSize(PageSize int) *ListCredentialPar
 	return params
 }
 
-func (c *ApiService) ListCredential(params *ListCredentialParams) (*ListCredentialResponse, error) {
+// Retrieve a single page of Credential records from the API. Request is executed immediately.
+func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken string, pageNumber string) (*ListCredentialResponse, error) {
 	path := "/v1/Credentials"
 
 	data := url.Values{}
@@ -167,6 +170,13 @@ func (c *ApiService) ListCredential(params *ListCredentialParams) (*ListCredenti
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -182,6 +192,83 @@ func (c *ApiService) ListCredential(params *ListCredentialParams) (*ListCredenti
 	}
 
 	return ps, err
+}
+
+// Lists Credential records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCredential(params *ListCredentialParams, limit int) ([]ChatV1Credential, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCredential(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ChatV1Credential
+
+	for response != nil {
+		records = append(records, response.Credentials...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListCredentialResponse)
+	}
+
+	return records, err
+}
+
+// Streams Credential records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCredential(params *ListCredentialParams, limit int) (chan ChatV1Credential, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCredential(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ChatV1Credential, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Credentials {
+				channel <- response.Credentials[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListCredentialResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListCredentialResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCredentialResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateCredential'

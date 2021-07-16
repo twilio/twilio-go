@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Delete a specific Sync Document Permission.
@@ -75,9 +77,10 @@ func (params *ListDocumentPermissionParams) SetPageSize(PageSize int) *ListDocum
 	return params
 }
 
-// Retrieve a list of all Permissions applying to a Sync Document.
-func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams) (*ListDocumentPermissionResponse, error) {
+// Retrieve a single page of DocumentPermission records from the API. Request is executed immediately.
+func (c *ApiService) PageDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, pageToken string, pageNumber string) (*ListDocumentPermissionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"DocumentSid"+"}", DocumentSid, -1)
 
@@ -86,6 +89,13 @@ func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid strin
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -101,6 +111,83 @@ func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid strin
 	}
 
 	return ps, err
+}
+
+// Lists DocumentPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, limit int) ([]SyncV1ServiceDocumentDocumentPermission, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageDocumentPermission(ServiceSid, DocumentSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []SyncV1ServiceDocumentDocumentPermission
+
+	for response != nil {
+		records = append(records, response.Permissions...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDocumentPermissionResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListDocumentPermissionResponse)
+	}
+
+	return records, err
+}
+
+// Streams DocumentPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, limit int) (chan SyncV1ServiceDocumentDocumentPermission, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageDocumentPermission(ServiceSid, DocumentSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan SyncV1ServiceDocumentDocumentPermission, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Permissions {
+				channel <- response.Permissions[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDocumentPermissionResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListDocumentPermissionResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListDocumentPermissionResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListDocumentPermissionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateDocumentPermission'

@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateNetworkAccessProfile'
@@ -101,8 +103,8 @@ func (params *ListNetworkAccessProfileParams) SetPageSize(PageSize int) *ListNet
 	return params
 }
 
-// Retrieve a list of Network Access Profiles from your account.
-func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfileParams) (*ListNetworkAccessProfileResponse, error) {
+// Retrieve a single page of NetworkAccessProfile records from the API. Request is executed immediately.
+func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfileParams, pageToken string, pageNumber string) (*ListNetworkAccessProfileResponse, error) {
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
@@ -110,6 +112,13 @@ func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfilePa
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -125,6 +134,83 @@ func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfilePa
 	}
 
 	return ps, err
+}
+
+// Lists NetworkAccessProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfileParams, limit int) ([]SupersimV1NetworkAccessProfile, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageNetworkAccessProfile(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []SupersimV1NetworkAccessProfile
+
+	for response != nil {
+		records = append(records, response.NetworkAccessProfiles...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNetworkAccessProfileResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListNetworkAccessProfileResponse)
+	}
+
+	return records, err
+}
+
+// Streams NetworkAccessProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamNetworkAccessProfile(params *ListNetworkAccessProfileParams, limit int) (chan SupersimV1NetworkAccessProfile, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageNetworkAccessProfile(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan SupersimV1NetworkAccessProfile, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.NetworkAccessProfiles {
+				channel <- response.NetworkAccessProfiles[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNetworkAccessProfileResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListNetworkAccessProfileResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListNetworkAccessProfileResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListNetworkAccessProfileResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateNetworkAccessProfile'

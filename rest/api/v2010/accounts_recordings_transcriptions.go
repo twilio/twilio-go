@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'DeleteRecordingTranscription'
@@ -109,8 +111,10 @@ func (params *ListRecordingTranscriptionParams) SetPageSize(PageSize int) *ListR
 	return params
 }
 
-func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams) (*ListRecordingTranscriptionResponse, error) {
+// Retrieve a single page of RecordingTranscription records from the API. Request is executed immediately.
+func (c *ApiService) PageRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams, pageToken string, pageNumber string) (*ListRecordingTranscriptionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -123,6 +127,13 @@ func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *Lis
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -138,4 +149,81 @@ func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *Lis
 	}
 
 	return ps, err
+}
+
+// Lists RecordingTranscription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams, limit int) ([]ApiV2010AccountRecordingRecordingTranscription, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRecordingTranscription(RecordingSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountRecordingRecordingTranscription
+
+	for response != nil {
+		records = append(records, response.Transcriptions...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRecordingTranscriptionResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListRecordingTranscriptionResponse)
+	}
+
+	return records, err
+}
+
+// Streams RecordingTranscription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams, limit int) (chan ApiV2010AccountRecordingRecordingTranscription, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageRecordingTranscription(RecordingSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountRecordingRecordingTranscription, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Transcriptions {
+				channel <- response.Transcriptions[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRecordingTranscriptionResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListRecordingTranscriptionResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListRecordingTranscriptionResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRecordingTranscriptionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
