@@ -358,15 +358,9 @@ func main() {
 		fmt.Println("Body: ", *resp[record].Body)
 	}
 
-	for {
-		channel, _ := client.ApiV2010.StreamMessage(params, limit)
-		for record := range channel {
-			fmt.Println("Body: ", *record.Body)
-		}
-
-		if len(channel) == 0 {
-			break
-		}
+	channel, _ := client.ApiV2010.StreamMessage(params, limit)
+	for record := range channel {
+		fmt.Println("Body: ", *record.Body)
 	}
 }
 ```
