@@ -299,6 +299,94 @@ func main() {
 }
 ```
 
+### Using Paging
+
+This library also offers paging functionality. Collections such as calls and messages have `ListXxx` and `StreamXxx`
+functions that page under the hood. With both list and stream, you can specify the number of records you want to
+receive (limit) and the maximum size you want each page fetch to be (pageSize). The library will then handle the task
+for you.
+
+`List` eagerly fetches all records and returns them as a list, whereas `Stream` streams the records and lazily retrieves
+the pages as you iterate over the collection. You can also page manually using the `PageXxx` function in each of the
+apis.
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/twilio/twilio-go"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	"os"
+)
+
+func main() {
+	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
+
+	client := twilio.NewRestClient()
+
+	params := &openapi.ListMessageParams{}
+	params.SetFrom(from)
+	params.SetPageSize(20)
+	limit := 100
+
+	resp, _ := client.ApiV2010.ListMessage(params, limit)
+	for record := range resp {
+		fmt.Println("Body: ", *resp[record].Body)
+	}
+
+	channel, _ := client.ApiV2010.StreamMessage(params, limit)
+	for record := range channel {
+		fmt.Println("Body: ", *record.Body)
+	}
+}
+```
+
+```go
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/twilio/twilio-go"
+	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+	"net/url"
+	"os"
+)
+
+func main() {
+	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
+
+	client := twilio.NewRestClient()
+
+	params := &openapi.ListMessageParams{}
+	params.SetFrom(from)
+	params.SetPageSize(20)
+
+	var pageToken string
+	var pageNumber string
+	resp, err = client.ApiV2010.PageMessage(params, "", "")
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(resp.NextPageUri)
+		u, _ := url.Parse(resp.NextPageUri)
+		q := u.Query()
+		pageToken = q.Get("PageToken")
+		pageNumber = q.Get("Page")
+	}
+
+	resp, err = client.ApiV2010.PageMessage(params, pageToken, pageNumber)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		if resp != nil {
+			fmt.Println(*resp.Messages[0].Body)
+		}
+	}
+}
+```
+
 ### Handling Exceptions
 
 ```go
