@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateEnvironment'
@@ -120,9 +122,10 @@ func (params *ListEnvironmentParams) SetPageSize(PageSize int) *ListEnvironmentP
 	return params
 }
 
-// Retrieve a list of all environments.
-func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams) (*ListEnvironmentResponse, error) {
+// Retrieve a single page of Environment records from the API. Request is executed immediately.
+func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentParams, pageToken string, pageNumber string) (*ListEnvironmentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
@@ -130,6 +133,13 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -145,4 +155,81 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 	}
 
 	return ps, err
+}
+
+// Lists Environment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams, limit int) ([]ServerlessV1ServiceEnvironment, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageEnvironment(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ServerlessV1ServiceEnvironment
+
+	for response != nil {
+		records = append(records, response.Environments...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEnvironmentResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListEnvironmentResponse)
+	}
+
+	return records, err
+}
+
+// Streams Environment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmentParams, limit int) (chan ServerlessV1ServiceEnvironment, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageEnvironment(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ServerlessV1ServiceEnvironment, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Environments {
+				channel <- response.Environments[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEnvironmentResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListEnvironmentResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListEnvironmentResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEnvironmentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

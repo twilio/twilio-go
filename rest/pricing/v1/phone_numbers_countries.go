@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1PhoneNumberPhoneNumberCountryInstance, error) {
@@ -52,7 +54,8 @@ func (params *ListPhoneNumberCountryParams) SetPageSize(PageSize int) *ListPhone
 	return params
 }
 
-func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams) (*ListPhoneNumberCountryResponse, error) {
+// Retrieve a single page of PhoneNumberCountry records from the API. Request is executed immediately.
+func (c *ApiService) PagePhoneNumberCountry(params *ListPhoneNumberCountryParams, pageToken string, pageNumber string) (*ListPhoneNumberCountryResponse, error) {
 	path := "/v1/PhoneNumbers/Countries"
 
 	data := url.Values{}
@@ -60,6 +63,13 @@ func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -75,4 +85,81 @@ func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams
 	}
 
 	return ps, err
+}
+
+// Lists PhoneNumberCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams, limit int) ([]PricingV1PhoneNumberPhoneNumberCountry, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PagePhoneNumberCountry(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []PricingV1PhoneNumberPhoneNumberCountry
+
+	for response != nil {
+		records = append(records, response.Countries...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListPhoneNumberCountryResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListPhoneNumberCountryResponse)
+	}
+
+	return records, err
+}
+
+// Streams PhoneNumberCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryParams, limit int) (chan PricingV1PhoneNumberPhoneNumberCountry, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PagePhoneNumberCountry(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan PricingV1PhoneNumberPhoneNumberCountry, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Countries {
+				channel <- response.Countries[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListPhoneNumberCountryResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListPhoneNumberCountryResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListPhoneNumberCountryResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListPhoneNumberCountryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

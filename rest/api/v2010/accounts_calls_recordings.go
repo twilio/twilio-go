@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCallRecording'
@@ -225,9 +227,10 @@ func (params *ListCallRecordingParams) SetPageSize(PageSize int) *ListCallRecord
 	return params
 }
 
-// Retrieve a list of recordings belonging to the call used to make the request
-func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecordingParams) (*ListCallRecordingResponse, error) {
+// Retrieve a single page of CallRecording records from the API. Request is executed immediately.
+func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecordingParams, pageToken string, pageNumber string) (*ListCallRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -251,6 +254,13 @@ func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecording
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -264,6 +274,83 @@ func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecording
 	}
 
 	return ps, err
+}
+
+// Lists CallRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecordingParams, limit int) ([]ApiV2010AccountCallCallRecording, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCallRecording(CallSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountCallCallRecording
+
+	for response != nil {
+		records = append(records, response.Recordings...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCallRecordingResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListCallRecordingResponse)
+	}
+
+	return records, err
+}
+
+// Streams CallRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCallRecording(CallSid string, params *ListCallRecordingParams, limit int) (chan ApiV2010AccountCallCallRecording, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageCallRecording(CallSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountCallCallRecording, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Recordings {
+				channel <- response.Recordings[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCallRecordingResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListCallRecordingResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListCallRecordingResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCallRecordingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateCallRecording'

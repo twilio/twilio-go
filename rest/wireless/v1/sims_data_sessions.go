@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListDataSession'
@@ -30,8 +32,10 @@ func (params *ListDataSessionParams) SetPageSize(PageSize int) *ListDataSessionP
 	return params
 }
 
-func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParams) (*ListDataSessionResponse, error) {
+// Retrieve a single page of DataSession records from the API. Request is executed immediately.
+func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParams, pageToken string, pageNumber string) (*ListDataSessionResponse, error) {
 	path := "/v1/Sims/{SimSid}/DataSessions"
+
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
 
 	data := url.Values{}
@@ -39,6 +43,13 @@ func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParam
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -54,4 +65,81 @@ func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParam
 	}
 
 	return ps, err
+}
+
+// Lists DataSession records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParams, limit int) ([]WirelessV1SimDataSession, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageDataSession(SimSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []WirelessV1SimDataSession
+
+	for response != nil {
+		records = append(records, response.DataSessions...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDataSessionResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListDataSessionResponse)
+	}
+
+	return records, err
+}
+
+// Streams DataSession records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionParams, limit int) (chan WirelessV1SimDataSession, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageDataSession(SimSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan WirelessV1SimDataSession, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.DataSessions {
+				channel <- response.DataSessions[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDataSessionResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListDataSessionResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListDataSessionResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListDataSessionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateExecution'
@@ -148,9 +150,10 @@ func (params *ListExecutionParams) SetPageSize(PageSize int) *ListExecutionParam
 	return params
 }
 
-// Retrieve a list of all Executions for the Flow.
-func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) (*ListExecutionResponse, error) {
+// Retrieve a single page of Execution records from the API. Request is executed immediately.
+func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, pageToken string, pageNumber string) (*ListExecutionResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Executions"
+
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
 	data := url.Values{}
@@ -166,6 +169,13 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) 
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -179,6 +189,83 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) 
 	}
 
 	return ps, err
+}
+
+// Lists Execution records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams, limit int) ([]StudioV1FlowExecution, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageExecution(FlowSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []StudioV1FlowExecution
+
+	for response != nil {
+		records = append(records, response.Executions...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListExecutionResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListExecutionResponse)
+	}
+
+	return records, err
+}
+
+// Streams Execution records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams, limit int) (chan StudioV1FlowExecution, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageExecution(FlowSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan StudioV1FlowExecution, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Executions {
+				channel <- response.Executions[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListExecutionResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListExecutionResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListExecutionResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListExecutionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateExecution'

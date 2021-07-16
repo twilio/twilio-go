@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateMember'
@@ -126,8 +128,10 @@ func (params *ListMemberParams) SetPageSize(PageSize int) *ListMemberParams {
 	return params
 }
 
-func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams) (*ListMemberResponse, error) {
+// Retrieve a single page of Member records from the API. Request is executed immediately.
+func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *ListMemberParams, pageToken string, pageNumber string) (*ListMemberResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
@@ -143,6 +147,13 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -156,6 +167,83 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 	}
 
 	return ps, err
+}
+
+// Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) ([]ChatV1ServiceChannelMember, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageMember(ServiceSid, ChannelSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ChatV1ServiceChannelMember
+
+	for response != nil {
+		records = append(records, response.Members...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMemberResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListMemberResponse)
+	}
+
+	return records, err
+}
+
+// Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) (chan ChatV1ServiceChannelMember, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageMember(ServiceSid, ChannelSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ChatV1ServiceChannelMember, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Members {
+				channel <- response.Members[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMemberResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListMemberResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListMemberResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListMemberResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateMember'

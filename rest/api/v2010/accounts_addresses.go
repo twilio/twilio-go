@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateAddress'
@@ -244,8 +246,10 @@ func (params *ListAddressParams) SetPageSize(PageSize int) *ListAddressParams {
 	return params
 }
 
-func (c *ApiService) ListAddress(params *ListAddressParams) (*ListAddressResponse, error) {
+// Retrieve a single page of Address records from the API. Request is executed immediately.
+func (c *ApiService) PageAddress(params *ListAddressParams, pageToken string, pageNumber string) (*ListAddressResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -268,6 +272,13 @@ func (c *ApiService) ListAddress(params *ListAddressParams) (*ListAddressRespons
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -281,6 +292,83 @@ func (c *ApiService) ListAddress(params *ListAddressParams) (*ListAddressRespons
 	}
 
 	return ps, err
+}
+
+// Lists Address records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAddress(params *ListAddressParams, limit int) ([]ApiV2010AccountAddress, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageAddress(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountAddress
+
+	for response != nil {
+		records = append(records, response.Addresses...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAddressResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListAddressResponse)
+	}
+
+	return records, err
+}
+
+// Streams Address records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAddress(params *ListAddressParams, limit int) (chan ApiV2010AccountAddress, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageAddress(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountAddress, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Addresses {
+				channel <- response.Addresses[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAddressResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListAddressResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListAddressResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAddressResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateAddress'

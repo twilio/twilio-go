@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Delete a specific Sync Map Permission.
@@ -75,9 +77,10 @@ func (params *ListSyncMapPermissionParams) SetPageSize(PageSize int) *ListSyncMa
 	return params
 }
 
-// Retrieve a list of all Permissions applying to a Sync Map.
-func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams) (*ListSyncMapPermissionResponse, error) {
+// Retrieve a single page of SyncMapPermission records from the API. Request is executed immediately.
+func (c *ApiService) PageSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams, pageToken string, pageNumber string) (*ListSyncMapPermissionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 
@@ -86,6 +89,13 @@ func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, par
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -101,6 +111,83 @@ func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, par
 	}
 
 	return ps, err
+}
+
+// Lists SyncMapPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams, limit int) ([]SyncV1ServiceSyncMapSyncMapPermission, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageSyncMapPermission(ServiceSid, MapSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []SyncV1ServiceSyncMapSyncMapPermission
+
+	for response != nil {
+		records = append(records, response.Permissions...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncMapPermissionResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListSyncMapPermissionResponse)
+	}
+
+	return records, err
+}
+
+// Streams SyncMapPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams, limit int) (chan SyncV1ServiceSyncMapSyncMapPermission, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageSyncMapPermission(ServiceSid, MapSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan SyncV1ServiceSyncMapSyncMapPermission, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Permissions {
+				channel <- response.Permissions[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncMapPermissionResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSyncMapPermissionResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSyncMapPermissionResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSyncMapPermissionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSyncMapPermission'

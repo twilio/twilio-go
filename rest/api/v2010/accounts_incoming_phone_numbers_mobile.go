@@ -16,6 +16,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateIncomingPhoneNumberMobile'
@@ -304,8 +306,10 @@ func (params *ListIncomingPhoneNumberMobileParams) SetPageSize(PageSize int) *Li
 	return params
 }
 
-func (c *ApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams) (*ListIncomingPhoneNumberMobileResponse, error) {
+// Retrieve a single page of IncomingPhoneNumberMobile records from the API. Request is executed immediately.
+func (c *ApiService) PageIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberMobileResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -331,6 +335,13 @@ func (c *ApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumb
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -344,4 +355,81 @@ func (c *ApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumb
 	}
 
 	return ps, err
+}
+
+// Lists IncomingPhoneNumberMobile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams, limit int) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageIncomingPhoneNumberMobile(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile
+
+	for response != nil {
+		records = append(records, response.IncomingPhoneNumbers...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberMobileResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListIncomingPhoneNumberMobileResponse)
+	}
+
+	return records, err
+}
+
+// Streams IncomingPhoneNumberMobile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams, limit int) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageIncomingPhoneNumberMobile(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.IncomingPhoneNumbers {
+				channel <- response.IncomingPhoneNumbers[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberMobileResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListIncomingPhoneNumberMobileResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListIncomingPhoneNumberMobileResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListIncomingPhoneNumberMobileResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

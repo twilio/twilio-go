@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateNewKey'
@@ -154,8 +156,10 @@ func (params *ListKeyParams) SetPageSize(PageSize int) *ListKeyParams {
 	return params
 }
 
-func (c *ApiService) ListKey(params *ListKeyParams) (*ListKeyResponse, error) {
+// Retrieve a single page of Key records from the API. Request is executed immediately.
+func (c *ApiService) PageKey(params *ListKeyParams, pageToken string, pageNumber string) (*ListKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -167,6 +171,13 @@ func (c *ApiService) ListKey(params *ListKeyParams) (*ListKeyResponse, error) {
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -182,6 +193,83 @@ func (c *ApiService) ListKey(params *ListKeyParams) (*ListKeyResponse, error) {
 	}
 
 	return ps, err
+}
+
+// Lists Key records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListKey(params *ListKeyParams, limit int) ([]ApiV2010AccountKey, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageKey(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountKey
+
+	for response != nil {
+		records = append(records, response.Keys...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListKeyResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListKeyResponse)
+	}
+
+	return records, err
+}
+
+// Streams Key records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamKey(params *ListKeyParams, limit int) (chan ApiV2010AccountKey, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageKey(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountKey, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Keys {
+				channel <- response.Keys[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListKeyResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListKeyResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListKeyResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListKeyResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateKey'

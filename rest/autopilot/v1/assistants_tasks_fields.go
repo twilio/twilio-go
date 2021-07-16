@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateField'
@@ -120,8 +122,10 @@ func (params *ListFieldParams) SetPageSize(PageSize int) *ListFieldParams {
 	return params
 }
 
-func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *ListFieldParams) (*ListFieldResponse, error) {
+// Retrieve a single page of Field records from the API. Request is executed immediately.
+func (c *ApiService) PageField(AssistantSid string, TaskSid string, params *ListFieldParams, pageToken string, pageNumber string) (*ListFieldResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
+
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
@@ -130,6 +134,13 @@ func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *List
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -145,4 +156,81 @@ func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *List
 	}
 
 	return ps, err
+}
+
+// Lists Field records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *ListFieldParams, limit int) ([]AutopilotV1AssistantTaskField, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageField(AssistantSid, TaskSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []AutopilotV1AssistantTaskField
+
+	for response != nil {
+		records = append(records, response.Fields...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFieldResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListFieldResponse)
+	}
+
+	return records, err
+}
+
+// Streams Field records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamField(AssistantSid string, TaskSid string, params *ListFieldParams, limit int) (chan AutopilotV1AssistantTaskField, error) {
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageField(AssistantSid, TaskSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan AutopilotV1AssistantTaskField, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Fields {
+				channel <- response.Fields[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFieldResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListFieldResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListFieldResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListFieldResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
