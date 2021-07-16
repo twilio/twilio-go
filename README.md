@@ -334,7 +334,6 @@ apis.
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/twilio/twilio-go"
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
@@ -353,7 +352,7 @@ func main() {
 	params.SetPageSize(20)
 	limit := 100
 
-	resp, err := client.ApiV2010.ListMessage(params, limit)
+	resp, _ := client.ApiV2010.ListMessage(params, limit)
 	for record := range resp {
 		fmt.Println("Body: ", *resp[record].Body)
 	}
