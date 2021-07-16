@@ -2,7 +2,7 @@ package client_test
 
 import (
 	"encoding/json"
-	"io"
+	"ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -174,6 +174,6 @@ func TestClient_UnicodeResponse(t *testing.T) {
 	client := NewClient("user", "pass")
 	resp, _ := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
 	assert.Equal(t, 200, resp.StatusCode)
-	body, _ := io.ReadAll(resp.Body)
+	body, _ := ioutil.ReadAll(resp.Body)
 	assert.Equal(t, "{\"testing-unicode\":\"Ω≈ç√, 💩\"}\n", string(body))
 }
