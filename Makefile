@@ -7,7 +7,10 @@ install: githooks
 	go build -v ./...
 
 test:
-	go test -v ./...
+	go test `go list ./... | grep -v rest`
+
+cluster-test:
+	go test -v ./rest
 
 goimports:
 	go get golang.org/x/tools/cmd/goimports
