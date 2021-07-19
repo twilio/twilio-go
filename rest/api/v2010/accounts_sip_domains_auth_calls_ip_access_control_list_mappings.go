@@ -204,6 +204,9 @@ func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(DomainSid string
 
 // Lists SipAuthCallsIpAccessControlListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, limit int) ([]ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
+	if params == nil {
+		params = &ListSipAuthCallsIpAccessControlListMappingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipAuthCallsIpAccessControlListMapping(DomainSid, params, "", "")
@@ -230,6 +233,9 @@ func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string
 
 // Streams SipAuthCallsIpAccessControlListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, limit int) (chan ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
+	if params == nil {
+		params = &ListSipAuthCallsIpAccessControlListMappingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipAuthCallsIpAccessControlListMapping(DomainSid, params, "", "")

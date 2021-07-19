@@ -142,6 +142,9 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken string, pa
 
 // Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListService(params *ListServiceParams, limit int) ([]ChatV2Service, error) {
+	if params == nil {
+		params = &ListServiceParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageService(params, "", "")
@@ -168,6 +171,9 @@ func (c *ApiService) ListService(params *ListServiceParams, limit int) ([]ChatV2
 
 // Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamService(params *ListServiceParams, limit int) (chan ChatV2Service, error) {
+	if params == nil {
+		params = &ListServiceParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageService(params, "", "")

@@ -171,6 +171,9 @@ func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *Li
 
 // Lists Invite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams, limit int) ([]ChatV2ServiceChannelInvite, error) {
+	if params == nil {
+		params = &ListInviteParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageInvite(ServiceSid, ChannelSid, params, "", "")
@@ -197,6 +200,9 @@ func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *Li
 
 // Streams Invite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *ListInviteParams, limit int) (chan ChatV2ServiceChannelInvite, error) {
+	if params == nil {
+		params = &ListInviteParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageInvite(ServiceSid, ChannelSid, params, "", "")

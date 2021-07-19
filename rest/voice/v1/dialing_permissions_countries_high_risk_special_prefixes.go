@@ -69,6 +69,9 @@ func (c *ApiService) PageDialingPermissionsHrsPrefixes(IsoCode string, params *L
 
 // Lists DialingPermissionsHrsPrefixes records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, limit int) ([]VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes, error) {
+	if params == nil {
+		params = &ListDialingPermissionsHrsPrefixesParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDialingPermissionsHrsPrefixes(IsoCode, params, "", "")
@@ -95,6 +98,9 @@ func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *L
 
 // Streams DialingPermissionsHrsPrefixes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, limit int) (chan VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes, error) {
+	if params == nil {
+		params = &ListDialingPermissionsHrsPrefixesParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDialingPermissionsHrsPrefixes(IsoCode, params, "", "")

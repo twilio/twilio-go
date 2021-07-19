@@ -94,6 +94,9 @@ func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 
 // Lists WorkerChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, limit int) ([]TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
+	if params == nil {
+		params = &ListWorkerChannelParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWorkerChannel(WorkspaceSid, WorkerSid, params, "", "")
@@ -120,6 +123,9 @@ func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 
 // Streams WorkerChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, limit int) (chan TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
+	if params == nil {
+		params = &ListWorkerChannelParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWorkerChannel(WorkspaceSid, WorkerSid, params, "", "")

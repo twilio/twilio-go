@@ -242,6 +242,9 @@ func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *Li
 
 // Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) ([]ChatV2ServiceChannelMember, error) {
+	if params == nil {
+		params = &ListMemberParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMember(ServiceSid, ChannelSid, params, "", "")
@@ -268,6 +271,9 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 
 // Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) (chan ChatV2ServiceChannelMember, error) {
+	if params == nil {
+		params = &ListMemberParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMember(ServiceSid, ChannelSid, params, "", "")

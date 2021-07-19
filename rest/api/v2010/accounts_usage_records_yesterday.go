@@ -114,6 +114,9 @@ func (c *ApiService) PageUsageRecordYesterday(params *ListUsageRecordYesterdayPa
 
 // Lists UsageRecordYesterday records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayParams, limit int) ([]ApiV2010AccountUsageUsageRecordUsageRecordYesterday, error) {
+	if params == nil {
+		params = &ListUsageRecordYesterdayParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordYesterday(params, "", "")
@@ -140,6 +143,9 @@ func (c *ApiService) ListUsageRecordYesterday(params *ListUsageRecordYesterdayPa
 
 // Streams UsageRecordYesterday records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageRecordYesterday(params *ListUsageRecordYesterdayParams, limit int) (chan ApiV2010AccountUsageUsageRecordUsageRecordYesterday, error) {
+	if params == nil {
+		params = &ListUsageRecordYesterdayParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordYesterday(params, "", "")

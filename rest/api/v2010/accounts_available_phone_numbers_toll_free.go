@@ -242,6 +242,9 @@ func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params
 
 // Lists AvailablePhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, limit int) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFree, error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberTollFreeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAvailablePhoneNumberTollFree(CountryCode, params, "", "")
@@ -268,6 +271,9 @@ func (c *ApiService) ListAvailablePhoneNumberTollFree(CountryCode string, params
 
 // Streams AvailablePhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, limit int) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFree, error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberTollFreeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAvailablePhoneNumberTollFree(CountryCode, params, "", "")

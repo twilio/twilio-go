@@ -211,6 +211,9 @@ func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, p
 
 // Lists Session records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams, limit int) ([]ProxyV1ServiceSession, error) {
+	if params == nil {
+		params = &ListSessionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSession(ServiceSid, params, "", "")
@@ -237,6 +240,9 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams, l
 
 // Streams Session records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams, limit int) (chan ProxyV1ServiceSession, error) {
+	if params == nil {
+		params = &ListSessionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSession(ServiceSid, params, "", "")

@@ -94,6 +94,9 @@ func (c *ApiService) PageAccountUsageRecord(params *ListAccountUsageRecordParams
 
 // Lists AccountUsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams, limit int) ([]WirelessV1AccountUsageRecord, error) {
+	if params == nil {
+		params = &ListAccountUsageRecordParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAccountUsageRecord(params, "", "")
@@ -120,6 +123,9 @@ func (c *ApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams
 
 // Streams AccountUsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAccountUsageRecord(params *ListAccountUsageRecordParams, limit int) (chan WirelessV1AccountUsageRecord, error) {
+	if params == nil {
+		params = &ListAccountUsageRecordParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAccountUsageRecord(params, "", "")

@@ -151,6 +151,9 @@ func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, page
 
 // Lists SourceIpMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams, limit int) ([]VoiceV1SourceIpMapping, error) {
+	if params == nil {
+		params = &ListSourceIpMappingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSourceIpMapping(params, "", "")
@@ -177,6 +180,9 @@ func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams, limi
 
 // Streams SourceIpMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams, limit int) (chan VoiceV1SourceIpMapping, error) {
+	if params == nil {
+		params = &ListSourceIpMappingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSourceIpMapping(params, "", "")

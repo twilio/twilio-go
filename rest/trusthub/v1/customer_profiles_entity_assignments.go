@@ -150,6 +150,9 @@ func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid stri
 
 // Lists CustomerProfileEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit int) ([]TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
+	if params == nil {
+		params = &ListCustomerProfileEntityAssignmentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfileEntityAssignment(CustomerProfileSid, params, "", "")
@@ -176,6 +179,9 @@ func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid stri
 
 // Streams CustomerProfileEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit int) (chan TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
+	if params == nil {
+		params = &ListCustomerProfileEntityAssignmentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfileEntityAssignment(CustomerProfileSid, params, "", "")

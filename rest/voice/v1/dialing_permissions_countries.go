@@ -144,6 +144,9 @@ func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermission
 
 // Lists DialingPermissionsCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, limit int) ([]VoiceV1DialingPermissionsDialingPermissionsCountry, error) {
+	if params == nil {
+		params = &ListDialingPermissionsCountryParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDialingPermissionsCountry(params, "", "")
@@ -170,6 +173,9 @@ func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermission
 
 // Streams DialingPermissionsCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, limit int) (chan VoiceV1DialingPermissionsDialingPermissionsCountry, error) {
+	if params == nil {
+		params = &ListDialingPermissionsCountryParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDialingPermissionsCountry(params, "", "")

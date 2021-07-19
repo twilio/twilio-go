@@ -160,6 +160,9 @@ func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken string, 
 
 // Lists IpRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIpRecord(params *ListIpRecordParams, limit int) ([]VoiceV1IpRecord, error) {
+	if params == nil {
+		params = &ListIpRecordParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIpRecord(params, "", "")
@@ -186,6 +189,9 @@ func (c *ApiService) ListIpRecord(params *ListIpRecordParams, limit int) ([]Voic
 
 // Streams IpRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamIpRecord(params *ListIpRecordParams, limit int) (chan VoiceV1IpRecord, error) {
+	if params == nil {
+		params = &ListIpRecordParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIpRecord(params, "", "")

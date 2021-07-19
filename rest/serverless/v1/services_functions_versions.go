@@ -95,6 +95,9 @@ func (c *ApiService) PageFunctionVersion(ServiceSid string, FunctionSid string, 
 
 // Lists FunctionVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, limit int) ([]ServerlessV1ServiceFunctionFunctionVersion, error) {
+	if params == nil {
+		params = &ListFunctionVersionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFunctionVersion(ServiceSid, FunctionSid, params, "", "")
@@ -121,6 +124,9 @@ func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, 
 
 // Streams FunctionVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, limit int) (chan ServerlessV1ServiceFunctionFunctionVersion, error) {
+	if params == nil {
+		params = &ListFunctionVersionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFunctionVersion(ServiceSid, FunctionSid, params, "", "")

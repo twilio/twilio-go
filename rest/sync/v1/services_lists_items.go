@@ -226,6 +226,9 @@ func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params 
 
 // Lists SyncListItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams, limit int) ([]SyncV1ServiceSyncListSyncListItem, error) {
+	if params == nil {
+		params = &ListSyncListItemParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncListItem(ServiceSid, ListSid, params, "", "")
@@ -252,6 +255,9 @@ func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params 
 
 // Streams SyncListItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams, limit int) (chan SyncV1ServiceSyncListSyncListItem, error) {
+	if params == nil {
+		params = &ListSyncListItemParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncListItem(ServiceSid, ListSid, params, "", "")

@@ -443,6 +443,9 @@ func (c *ApiService) PageIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 
 // Lists IncomingPhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberParams, limit int) ([]ApiV2010AccountIncomingPhoneNumber, error) {
+	if params == nil {
+		params = &ListIncomingPhoneNumberParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIncomingPhoneNumber(params, "", "")
@@ -469,6 +472,9 @@ func (c *ApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 
 // Streams IncomingPhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamIncomingPhoneNumber(params *ListIncomingPhoneNumberParams, limit int) (chan ApiV2010AccountIncomingPhoneNumber, error) {
+	if params == nil {
+		params = &ListIncomingPhoneNumberParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIncomingPhoneNumber(params, "", "")

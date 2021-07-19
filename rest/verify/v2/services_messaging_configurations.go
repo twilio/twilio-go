@@ -159,6 +159,9 @@ func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListM
 
 // Lists MessagingConfiguration records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams, limit int) ([]VerifyV2ServiceMessagingConfiguration, error) {
+	if params == nil {
+		params = &ListMessagingConfigurationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMessagingConfiguration(ServiceSid, params, "", "")
@@ -185,6 +188,9 @@ func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListM
 
 // Streams MessagingConfiguration records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams, limit int) (chan VerifyV2ServiceMessagingConfiguration, error) {
+	if params == nil {
+		params = &ListMessagingConfigurationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMessagingConfiguration(ServiceSid, params, "", "")

@@ -204,6 +204,9 @@ func (c *ApiService) PageSipAuthRegistrationsCredentialListMapping(DomainSid str
 
 // Lists SipAuthRegistrationsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipAuthRegistrationsCredentialListMapping(DomainSid string, params *ListSipAuthRegistrationsCredentialListMappingParams, limit int) ([]ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping, error) {
+	if params == nil {
+		params = &ListSipAuthRegistrationsCredentialListMappingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipAuthRegistrationsCredentialListMapping(DomainSid, params, "", "")
@@ -230,6 +233,9 @@ func (c *ApiService) ListSipAuthRegistrationsCredentialListMapping(DomainSid str
 
 // Streams SipAuthRegistrationsCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSipAuthRegistrationsCredentialListMapping(DomainSid string, params *ListSipAuthRegistrationsCredentialListMappingParams, limit int) (chan ApiV2010AccountSipSipDomainSipAuthSipAuthRegistrationsSipAuthRegistrationsCredentialListMapping, error) {
+	if params == nil {
+		params = &ListSipAuthRegistrationsCredentialListMappingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipAuthRegistrationsCredentialListMapping(DomainSid, params, "", "")

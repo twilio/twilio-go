@@ -69,6 +69,9 @@ func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodP
 
 // Lists BillingPeriod records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams, limit int) ([]SupersimV1SimBillingPeriod, error) {
+	if params == nil {
+		params = &ListBillingPeriodParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageBillingPeriod(SimSid, params, "", "")
@@ -95,6 +98,9 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 
 // Streams BillingPeriod records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPeriodParams, limit int) (chan SupersimV1SimBillingPeriod, error) {
+	if params == nil {
+		params = &ListBillingPeriodParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageBillingPeriod(SimSid, params, "", "")

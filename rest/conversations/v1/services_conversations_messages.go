@@ -225,6 +225,9 @@ func (c *ApiService) PageServiceConversationMessage(ChatServiceSid string, Conve
 
 // Lists ServiceConversationMessage records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListServiceConversationMessage(ChatServiceSid string, ConversationSid string, params *ListServiceConversationMessageParams, limit int) ([]ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
+	if params == nil {
+		params = &ListServiceConversationMessageParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageServiceConversationMessage(ChatServiceSid, ConversationSid, params, "", "")
@@ -251,6 +254,9 @@ func (c *ApiService) ListServiceConversationMessage(ChatServiceSid string, Conve
 
 // Streams ServiceConversationMessage records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamServiceConversationMessage(ChatServiceSid string, ConversationSid string, params *ListServiceConversationMessageParams, limit int) (chan ConversationsV1ServiceServiceConversationServiceConversationMessage, error) {
+	if params == nil {
+		params = &ListServiceConversationMessageParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageServiceConversationMessage(ChatServiceSid, ConversationSid, params, "", "")

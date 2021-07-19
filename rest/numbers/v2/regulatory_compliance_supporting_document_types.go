@@ -90,6 +90,9 @@ func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTy
 
 // Lists SupportingDocumentType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams, limit int) ([]NumbersV2RegulatoryComplianceSupportingDocumentType, error) {
+	if params == nil {
+		params = &ListSupportingDocumentTypeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSupportingDocumentType(params, "", "")
@@ -116,6 +119,9 @@ func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTy
 
 // Streams SupportingDocumentType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocumentTypeParams, limit int) (chan NumbersV2RegulatoryComplianceSupportingDocumentType, error) {
+	if params == nil {
+		params = &ListSupportingDocumentTypeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSupportingDocumentType(params, "", "")

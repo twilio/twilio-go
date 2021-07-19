@@ -184,6 +184,9 @@ func (c *ApiService) PageUser(ServiceSid string, params *ListUserParams, pageTok
 
 // Lists User records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams, limit int) ([]IpMessagingV2ServiceUser, error) {
+	if params == nil {
+		params = &ListUserParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUser(ServiceSid, params, "", "")
@@ -210,6 +213,9 @@ func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams, limit i
 
 // Streams User records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams, limit int) (chan IpMessagingV2ServiceUser, error) {
+	if params == nil {
+		params = &ListUserParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUser(ServiceSid, params, "", "")

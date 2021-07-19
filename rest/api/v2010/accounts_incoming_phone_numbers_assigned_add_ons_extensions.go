@@ -122,6 +122,9 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOnExtension(ResourceSid s
 
 // Lists IncomingPhoneNumberAssignedAddOnExtension records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, limit int) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension, error) {
+	if params == nil {
+		params = &ListIncomingPhoneNumberAssignedAddOnExtensionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIncomingPhoneNumberAssignedAddOnExtension(ResourceSid, AssignedAddOnSid, params, "", "")
@@ -148,6 +151,9 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOnExtension(ResourceSid s
 
 // Streams IncomingPhoneNumberAssignedAddOnExtension records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, limit int) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension, error) {
+	if params == nil {
+		params = &ListIncomingPhoneNumberAssignedAddOnExtensionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIncomingPhoneNumberAssignedAddOnExtension(ResourceSid, AssignedAddOnSid, params, "", "")

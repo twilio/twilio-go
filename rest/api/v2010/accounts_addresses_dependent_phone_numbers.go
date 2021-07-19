@@ -80,6 +80,9 @@ func (c *ApiService) PageDependentPhoneNumber(AddressSid string, params *ListDep
 
 // Lists DependentPhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams, limit int) ([]ApiV2010AccountAddressDependentPhoneNumber, error) {
+	if params == nil {
+		params = &ListDependentPhoneNumberParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDependentPhoneNumber(AddressSid, params, "", "")
@@ -106,6 +109,9 @@ func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDep
 
 // Streams DependentPhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams, limit int) (chan ApiV2010AccountAddressDependentPhoneNumber, error) {
+	if params == nil {
+		params = &ListDependentPhoneNumberParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDependentPhoneNumber(AddressSid, params, "", "")

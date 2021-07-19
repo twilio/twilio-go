@@ -150,6 +150,9 @@ func (c *ApiService) PageNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 
 // Lists NetworkAccessProfileNetwork records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, limit int) ([]SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
+	if params == nil {
+		params = &ListNetworkAccessProfileNetworkParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageNetworkAccessProfileNetwork(NetworkAccessProfileSid, params, "", "")
@@ -176,6 +179,9 @@ func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 
 // Streams NetworkAccessProfileNetwork records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, limit int) (chan SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
+	if params == nil {
+		params = &ListNetworkAccessProfileNetworkParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageNetworkAccessProfileNetwork(NetworkAccessProfileSid, params, "", "")

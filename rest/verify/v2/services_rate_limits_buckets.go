@@ -163,6 +163,9 @@ func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *
 
 // Lists Bucket records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams, limit int) ([]VerifyV2ServiceRateLimitBucket, error) {
+	if params == nil {
+		params = &ListBucketParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageBucket(ServiceSid, RateLimitSid, params, "", "")
@@ -189,6 +192,9 @@ func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *
 
 // Streams Bucket records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams, limit int) (chan VerifyV2ServiceRateLimitBucket, error) {
+	if params == nil {
+		params = &ListBucketParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageBucket(ServiceSid, RateLimitSid, params, "", "")

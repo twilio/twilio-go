@@ -199,6 +199,9 @@ func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, page
 
 // Lists CustomerProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams, limit int) ([]TrusthubV1CustomerProfile, error) {
+	if params == nil {
+		params = &ListCustomerProfileParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfile(params, "", "")
@@ -225,6 +228,9 @@ func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams, limi
 
 // Streams CustomerProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams, limit int) (chan TrusthubV1CustomerProfile, error) {
+	if params == nil {
+		params = &ListCustomerProfileParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfile(params, "", "")

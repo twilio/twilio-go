@@ -117,6 +117,9 @@ func (c *ApiService) PageAlert(params *ListAlertParams, pageToken string, pageNu
 
 // Lists Alert records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAlert(params *ListAlertParams, limit int) ([]MonitorV1Alert, error) {
+	if params == nil {
+		params = &ListAlertParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAlert(params, "", "")
@@ -143,6 +146,9 @@ func (c *ApiService) ListAlert(params *ListAlertParams, limit int) ([]MonitorV1A
 
 // Streams Alert records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAlert(params *ListAlertParams, limit int) (chan MonitorV1Alert, error) {
+	if params == nil {
+		params = &ListAlertParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAlert(params, "", "")

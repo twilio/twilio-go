@@ -150,6 +150,9 @@ func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams,
 
 // Lists Function records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams, limit int) ([]ServerlessV1ServiceFunction, error) {
+	if params == nil {
+		params = &ListFunctionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFunction(ServiceSid, params, "", "")
@@ -176,6 +179,9 @@ func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams,
 
 // Streams Function records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParams, limit int) (chan ServerlessV1ServiceFunction, error) {
+	if params == nil {
+		params = &ListFunctionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFunction(ServiceSid, params, "", "")

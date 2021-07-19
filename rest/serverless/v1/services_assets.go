@@ -150,6 +150,9 @@ func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageT
 
 // Lists Asset records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams, limit int) ([]ServerlessV1ServiceAsset, error) {
+	if params == nil {
+		params = &ListAssetParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAsset(ServiceSid, params, "", "")
@@ -176,6 +179,9 @@ func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams, limit
 
 // Streams Asset records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams, limit int) (chan ServerlessV1ServiceAsset, error) {
+	if params == nil {
+		params = &ListAssetParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAsset(ServiceSid, params, "", "")

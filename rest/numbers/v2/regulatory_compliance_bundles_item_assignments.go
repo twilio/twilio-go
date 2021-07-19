@@ -150,6 +150,9 @@ func (c *ApiService) PageItemAssignment(BundleSid string, params *ListItemAssign
 
 // Lists ItemAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssignmentParams, limit int) ([]NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
+	if params == nil {
+		params = &ListItemAssignmentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageItemAssignment(BundleSid, params, "", "")
@@ -176,6 +179,9 @@ func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssign
 
 // Streams ItemAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssignmentParams, limit int) (chan NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
+	if params == nil {
+		params = &ListItemAssignmentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageItemAssignment(BundleSid, params, "", "")

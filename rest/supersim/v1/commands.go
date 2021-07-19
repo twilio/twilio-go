@@ -181,6 +181,9 @@ func (c *ApiService) PageCommand(params *ListCommandParams, pageToken string, pa
 
 // Lists Command records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCommand(params *ListCommandParams, limit int) ([]SupersimV1Command, error) {
+	if params == nil {
+		params = &ListCommandParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCommand(params, "", "")
@@ -207,6 +210,9 @@ func (c *ApiService) ListCommand(params *ListCommandParams, limit int) ([]Supers
 
 // Streams Command records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCommand(params *ListCommandParams, limit int) (chan SupersimV1Command, error) {
+	if params == nil {
+		params = &ListCommandParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCommand(params, "", "")

@@ -117,6 +117,9 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken stri
 
 // Lists Regulation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRegulation(params *ListRegulationParams, limit int) ([]NumbersV2RegulatoryComplianceRegulation, error) {
+	if params == nil {
+		params = &ListRegulationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRegulation(params, "", "")
@@ -143,6 +146,9 @@ func (c *ApiService) ListRegulation(params *ListRegulationParams, limit int) ([]
 
 // Streams Regulation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRegulation(params *ListRegulationParams, limit int) (chan NumbersV2RegulatoryComplianceRegulation, error) {
+	if params == nil {
+		params = &ListRegulationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRegulation(params, "", "")

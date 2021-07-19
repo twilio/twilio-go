@@ -183,6 +183,9 @@ func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageT
 
 // Lists Media records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams, limit int) ([]ApiV2010AccountMessageMedia, error) {
+	if params == nil {
+		params = &ListMediaParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMedia(MessageSid, params, "", "")
@@ -209,6 +212,9 @@ func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams, limit
 
 // Streams Media records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams, limit int) (chan ApiV2010AccountMessageMedia, error) {
+	if params == nil {
+		params = &ListMediaParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMedia(MessageSid, params, "", "")

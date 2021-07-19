@@ -142,6 +142,9 @@ func (c *ApiService) PageConnectionPolicy(params *ListConnectionPolicyParams, pa
 
 // Lists ConnectionPolicy records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConnectionPolicy(params *ListConnectionPolicyParams, limit int) ([]VoiceV1ConnectionPolicy, error) {
+	if params == nil {
+		params = &ListConnectionPolicyParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConnectionPolicy(params, "", "")
@@ -168,6 +171,9 @@ func (c *ApiService) ListConnectionPolicy(params *ListConnectionPolicyParams, li
 
 // Streams ConnectionPolicy records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConnectionPolicy(params *ListConnectionPolicyParams, limit int) (chan VoiceV1ConnectionPolicy, error) {
+	if params == nil {
+		params = &ListConnectionPolicyParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConnectionPolicy(params, "", "")

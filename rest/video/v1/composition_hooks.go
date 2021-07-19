@@ -272,6 +272,9 @@ func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, page
 
 // Lists CompositionHook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams, limit int) ([]VideoV1CompositionHook, error) {
+	if params == nil {
+		params = &ListCompositionHookParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCompositionHook(params, "", "")
@@ -298,6 +301,9 @@ func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams, limi
 
 // Streams CompositionHook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCompositionHook(params *ListCompositionHookParams, limit int) (chan VideoV1CompositionHook, error) {
+	if params == nil {
+		params = &ListCompositionHookParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCompositionHook(params, "", "")

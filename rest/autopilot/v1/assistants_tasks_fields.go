@@ -160,6 +160,9 @@ func (c *ApiService) PageField(AssistantSid string, TaskSid string, params *List
 
 // Lists Field records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *ListFieldParams, limit int) ([]AutopilotV1AssistantTaskField, error) {
+	if params == nil {
+		params = &ListFieldParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageField(AssistantSid, TaskSid, params, "", "")
@@ -186,6 +189,9 @@ func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *List
 
 // Streams Field records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamField(AssistantSid string, TaskSid string, params *ListFieldParams, limit int) (chan AutopilotV1AssistantTaskField, error) {
+	if params == nil {
+		params = &ListFieldParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageField(AssistantSid, TaskSid, params, "", "")

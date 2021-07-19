@@ -152,6 +152,9 @@ func (c *ApiService) PageConnectApp(params *ListConnectAppParams, pageToken stri
 
 // Lists ConnectApp records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConnectApp(params *ListConnectAppParams, limit int) ([]ApiV2010AccountConnectApp, error) {
+	if params == nil {
+		params = &ListConnectAppParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConnectApp(params, "", "")
@@ -178,6 +181,9 @@ func (c *ApiService) ListConnectApp(params *ListConnectAppParams, limit int) ([]
 
 // Streams ConnectApp records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConnectApp(params *ListConnectAppParams, limit int) (chan ApiV2010AccountConnectApp, error) {
+	if params == nil {
+		params = &ListConnectAppParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConnectApp(params, "", "")

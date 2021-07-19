@@ -187,6 +187,9 @@ func (c *ApiService) PageWebChannel(params *ListWebChannelParams, pageToken stri
 
 // Lists WebChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWebChannel(params *ListWebChannelParams, limit int) ([]FlexV1WebChannel, error) {
+	if params == nil {
+		params = &ListWebChannelParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWebChannel(params, "", "")
@@ -213,6 +216,9 @@ func (c *ApiService) ListWebChannel(params *ListWebChannelParams, limit int) ([]
 
 // Streams WebChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamWebChannel(params *ListWebChannelParams, limit int) (chan FlexV1WebChannel, error) {
+	if params == nil {
+		params = &ListWebChannelParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWebChannel(params, "", "")

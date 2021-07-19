@@ -154,6 +154,9 @@ func (c *ApiService) PageNotification(params *ListNotificationParams, pageToken 
 
 // Lists Notification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListNotification(params *ListNotificationParams, limit int) ([]ApiV2010AccountNotification, error) {
+	if params == nil {
+		params = &ListNotificationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageNotification(params, "", "")
@@ -180,6 +183,9 @@ func (c *ApiService) ListNotification(params *ListNotificationParams, limit int)
 
 // Streams Notification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamNotification(params *ListNotificationParams, limit int) (chan ApiV2010AccountNotification, error) {
+	if params == nil {
+		params = &ListNotificationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageNotification(params, "", "")

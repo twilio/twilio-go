@@ -296,6 +296,9 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken string, pa
 
 // Lists Address records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAddress(params *ListAddressParams, limit int) ([]ApiV2010AccountAddress, error) {
+	if params == nil {
+		params = &ListAddressParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAddress(params, "", "")
@@ -322,6 +325,9 @@ func (c *ApiService) ListAddress(params *ListAddressParams, limit int) ([]ApiV20
 
 // Streams Address records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAddress(params *ListAddressParams, limit int) (chan ApiV2010AccountAddress, error) {
+	if params == nil {
+		params = &ListAddressParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAddress(params, "", "")

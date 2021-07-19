@@ -80,6 +80,9 @@ func (c *ApiService) PageCallEvent(CallSid string, params *ListCallEventParams, 
 
 // Lists CallEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCallEvent(CallSid string, params *ListCallEventParams, limit int) ([]ApiV2010AccountCallCallEvent, error) {
+	if params == nil {
+		params = &ListCallEventParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCallEvent(CallSid, params, "", "")
@@ -106,6 +109,9 @@ func (c *ApiService) ListCallEvent(CallSid string, params *ListCallEventParams, 
 
 // Streams CallEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCallEvent(CallSid string, params *ListCallEventParams, limit int) (chan ApiV2010AccountCallCallEvent, error) {
+	if params == nil {
+		params = &ListCallEventParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCallEvent(CallSid, params, "", "")

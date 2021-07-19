@@ -385,6 +385,9 @@ func (c *ApiService) PageMessage(params *ListMessageParams, pageToken string, pa
 
 // Lists Message records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessage(params *ListMessageParams, limit int) ([]ApiV2010AccountMessage, error) {
+	if params == nil {
+		params = &ListMessageParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMessage(params, "", "")
@@ -411,6 +414,9 @@ func (c *ApiService) ListMessage(params *ListMessageParams, limit int) ([]ApiV20
 
 // Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMessage(params *ListMessageParams, limit int) (chan ApiV2010AccountMessage, error) {
+	if params == nil {
+		params = &ListMessageParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMessage(params, "", "")

@@ -155,6 +155,9 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 
 // Lists CallNotification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotificationParams, limit int) ([]ApiV2010AccountCallCallNotification, error) {
+	if params == nil {
+		params = &ListCallNotificationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCallNotification(CallSid, params, "", "")
@@ -181,6 +184,9 @@ func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotifi
 
 // Streams CallNotification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNotificationParams, limit int) (chan ApiV2010AccountCallCallNotification, error) {
+	if params == nil {
+		params = &ListCallNotificationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCallNotification(CallSid, params, "", "")

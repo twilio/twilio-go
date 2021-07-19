@@ -136,6 +136,9 @@ func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken string
 
 // Lists ShortCode records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListShortCode(params *ListShortCodeParams, limit int) ([]ApiV2010AccountShortCode, error) {
+	if params == nil {
+		params = &ListShortCodeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageShortCode(params, "", "")
@@ -162,6 +165,9 @@ func (c *ApiService) ListShortCode(params *ListShortCodeParams, limit int) ([]Ap
 
 // Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamShortCode(params *ListShortCodeParams, limit int) (chan ApiV2010AccountShortCode, error) {
+	if params == nil {
+		params = &ListShortCodeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageShortCode(params, "", "")

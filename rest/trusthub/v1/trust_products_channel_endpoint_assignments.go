@@ -177,6 +177,9 @@ func (c *ApiService) PageTrustProductChannelEndpointAssignment(TrustProductSid s
 
 // Lists TrustProductChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams, limit int) ([]TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
+	if params == nil {
+		params = &ListTrustProductChannelEndpointAssignmentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTrustProductChannelEndpointAssignment(TrustProductSid, params, "", "")
@@ -203,6 +206,9 @@ func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid s
 
 // Streams TrustProductChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams, limit int) (chan TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
+	if params == nil {
+		params = &ListTrustProductChannelEndpointAssignmentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTrustProductChannelEndpointAssignment(TrustProductSid, params, "", "")

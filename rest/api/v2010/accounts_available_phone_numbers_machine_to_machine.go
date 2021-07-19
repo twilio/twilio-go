@@ -242,6 +242,9 @@ func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string
 
 // Lists AvailablePhoneNumberMachineToMachine records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, limit int) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine, error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberMachineToMachineParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAvailablePhoneNumberMachineToMachine(CountryCode, params, "", "")
@@ -268,6 +271,9 @@ func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string
 
 // Streams AvailablePhoneNumberMachineToMachine records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, limit int) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine, error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberMachineToMachineParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAvailablePhoneNumberMachineToMachine(CountryCode, params, "", "")

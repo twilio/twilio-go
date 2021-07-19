@@ -263,6 +263,9 @@ func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken st
 
 // Lists Composition records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListComposition(params *ListCompositionParams, limit int) ([]VideoV1Composition, error) {
+	if params == nil {
+		params = &ListCompositionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageComposition(params, "", "")
@@ -289,6 +292,9 @@ func (c *ApiService) ListComposition(params *ListCompositionParams, limit int) (
 
 // Streams Composition records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamComposition(params *ListCompositionParams, limit int) (chan VideoV1Composition, error) {
+	if params == nil {
+		params = &ListCompositionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageComposition(params, "", "")

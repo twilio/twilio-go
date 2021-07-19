@@ -69,6 +69,9 @@ func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParam
 
 // Lists DataSession records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParams, limit int) ([]WirelessV1SimDataSession, error) {
+	if params == nil {
+		params = &ListDataSessionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDataSession(SimSid, params, "", "")
@@ -95,6 +98,9 @@ func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParam
 
 // Streams DataSession records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionParams, limit int) (chan WirelessV1SimDataSession, error) {
+	if params == nil {
+		params = &ListDataSessionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDataSession(SimSid, params, "", "")

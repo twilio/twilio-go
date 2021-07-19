@@ -89,6 +89,9 @@ func (c *ApiService) PageVoiceCountry(params *ListVoiceCountryParams, pageToken 
 
 // Lists VoiceCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams, limit int) ([]PricingV1VoiceVoiceCountry, error) {
+	if params == nil {
+		params = &ListVoiceCountryParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVoiceCountry(params, "", "")
@@ -115,6 +118,9 @@ func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams, limit int)
 
 // Streams VoiceCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamVoiceCountry(params *ListVoiceCountryParams, limit int) (chan PricingV1VoiceVoiceCountry, error) {
+	if params == nil {
+		params = &ListVoiceCountryParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVoiceCountry(params, "", "")

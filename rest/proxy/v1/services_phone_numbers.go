@@ -168,6 +168,9 @@ func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberP
 
 // Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams, limit int) ([]ProxyV1ServicePhoneNumber, error) {
+	if params == nil {
+		params = &ListPhoneNumberParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PagePhoneNumber(ServiceSid, params, "", "")
@@ -194,6 +197,9 @@ func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberP
 
 // Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumberParams, limit int) (chan ProxyV1ServicePhoneNumber, error) {
+	if params == nil {
+		params = &ListPhoneNumberParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PagePhoneNumber(ServiceSid, params, "", "")

@@ -147,6 +147,9 @@ func (c *ApiService) PageCredentialList(TrunkSid string, params *ListCredentialL
 
 // Lists CredentialList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCredentialList(TrunkSid string, params *ListCredentialListParams, limit int) ([]TrunkingV1TrunkCredentialList, error) {
+	if params == nil {
+		params = &ListCredentialListParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCredentialList(TrunkSid, params, "", "")
@@ -173,6 +176,9 @@ func (c *ApiService) ListCredentialList(TrunkSid string, params *ListCredentialL
 
 // Streams CredentialList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCredentialList(TrunkSid string, params *ListCredentialListParams, limit int) (chan TrunkingV1TrunkCredentialList, error) {
+	if params == nil {
+		params = &ListCredentialListParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCredentialList(TrunkSid, params, "", "")

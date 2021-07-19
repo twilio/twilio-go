@@ -156,6 +156,9 @@ func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildP
 
 // Lists ModelBuild records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildParams, limit int) ([]AutopilotV1AssistantModelBuild, error) {
+	if params == nil {
+		params = &ListModelBuildParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageModelBuild(AssistantSid, params, "", "")
@@ -182,6 +185,9 @@ func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildP
 
 // Streams ModelBuild records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuildParams, limit int) (chan AutopilotV1AssistantModelBuild, error) {
+	if params == nil {
+		params = &ListModelBuildParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageModelBuild(AssistantSid, params, "", "")

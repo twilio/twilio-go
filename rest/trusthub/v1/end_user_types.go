@@ -90,6 +90,9 @@ func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken st
 
 // Lists EndUserType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams, limit int) ([]TrusthubV1EndUserType, error) {
+	if params == nil {
+		params = &ListEndUserTypeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEndUserType(params, "", "")
@@ -116,6 +119,9 @@ func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams, limit int) (
 
 // Streams EndUserType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams, limit int) (chan TrusthubV1EndUserType, error) {
+	if params == nil {
+		params = &ListEndUserTypeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEndUserType(params, "", "")

@@ -159,6 +159,9 @@ func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSub
 
 // Lists SubscribedEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, limit int) ([]EventsV1SubscriptionSubscribedEvent, error) {
+	if params == nil {
+		params = &ListSubscribedEventParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSubscribedEvent(SubscriptionSid, params, "", "")
@@ -185,6 +188,9 @@ func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSub
 
 // Streams SubscribedEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, limit int) (chan EventsV1SubscriptionSubscribedEvent, error) {
+	if params == nil {
+		params = &ListSubscribedEventParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSubscribedEvent(SubscriptionSid, params, "", "")

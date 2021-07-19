@@ -115,6 +115,9 @@ func (c *ApiService) PageSyncMapPermission(ServiceSid string, MapSid string, par
 
 // Lists SyncMapPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams, limit int) ([]SyncV1ServiceSyncMapSyncMapPermission, error) {
+	if params == nil {
+		params = &ListSyncMapPermissionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncMapPermission(ServiceSid, MapSid, params, "", "")
@@ -141,6 +144,9 @@ func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, par
 
 // Streams SyncMapPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams, limit int) (chan SyncV1ServiceSyncMapSyncMapPermission, error) {
+	if params == nil {
+		params = &ListSyncMapPermissionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncMapPermission(ServiceSid, MapSid, params, "", "")

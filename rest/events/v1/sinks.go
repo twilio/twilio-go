@@ -187,6 +187,9 @@ func (c *ApiService) PageSink(params *ListSinkParams, pageToken string, pageNumb
 
 // Lists Sink records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSink(params *ListSinkParams, limit int) ([]EventsV1Sink, error) {
+	if params == nil {
+		params = &ListSinkParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSink(params, "", "")
@@ -213,6 +216,9 @@ func (c *ApiService) ListSink(params *ListSinkParams, limit int) ([]EventsV1Sink
 
 // Streams Sink records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSink(params *ListSinkParams, limit int) (chan EventsV1Sink, error) {
+	if params == nil {
+		params = &ListSinkParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSink(params, "", "")

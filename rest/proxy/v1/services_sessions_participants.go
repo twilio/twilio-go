@@ -190,6 +190,9 @@ func (c *ApiService) PageParticipant(ServiceSid string, SessionSid string, param
 
 // Lists Participant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams, limit int) ([]ProxyV1ServiceSessionParticipant, error) {
+	if params == nil {
+		params = &ListParticipantParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageParticipant(ServiceSid, SessionSid, params, "", "")
@@ -216,6 +219,9 @@ func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, param
 
 // Streams Participant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams, limit int) (chan ProxyV1ServiceSessionParticipant, error) {
+	if params == nil {
+		params = &ListParticipantParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageParticipant(ServiceSid, SessionSid, params, "", "")

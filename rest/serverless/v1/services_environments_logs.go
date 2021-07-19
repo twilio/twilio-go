@@ -123,6 +123,9 @@ func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *L
 
 // Lists Log records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit int) ([]ServerlessV1ServiceEnvironmentLog, error) {
+	if params == nil {
+		params = &ListLogParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageLog(ServiceSid, EnvironmentSid, params, "", "")
@@ -149,6 +152,9 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 
 // Streams Log records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit int) (chan ServerlessV1ServiceEnvironmentLog, error) {
+	if params == nil {
+		params = &ListLogParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageLog(ServiceSid, EnvironmentSid, params, "", "")

@@ -99,6 +99,9 @@ func (c *ApiService) PageEventType(params *ListEventTypeParams, pageToken string
 
 // Lists EventType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEventType(params *ListEventTypeParams, limit int) ([]EventsV1EventType, error) {
+	if params == nil {
+		params = &ListEventTypeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEventType(params, "", "")
@@ -125,6 +128,9 @@ func (c *ApiService) ListEventType(params *ListEventTypeParams, limit int) ([]Ev
 
 // Streams EventType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEventType(params *ListEventTypeParams, limit int) (chan EventsV1EventType, error) {
+	if params == nil {
+		params = &ListEventTypeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEventType(params, "", "")

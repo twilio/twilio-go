@@ -145,6 +145,9 @@ func (c *ApiService) PageAccount(params *ListAccountParams, pageToken string, pa
 
 // Lists Account records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAccount(params *ListAccountParams, limit int) ([]ApiV2010Account, error) {
+	if params == nil {
+		params = &ListAccountParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAccount(params, "", "")
@@ -171,6 +174,9 @@ func (c *ApiService) ListAccount(params *ListAccountParams, limit int) ([]ApiV20
 
 // Streams Account records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAccount(params *ListAccountParams, limit int) (chan ApiV2010Account, error) {
+	if params == nil {
+		params = &ListAccountParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAccount(params, "", "")

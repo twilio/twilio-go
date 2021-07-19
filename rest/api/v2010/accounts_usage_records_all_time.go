@@ -114,6 +114,9 @@ func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 
 // Lists UsageRecordAllTime records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams, limit int) ([]ApiV2010AccountUsageUsageRecordUsageRecordAllTime, error) {
+	if params == nil {
+		params = &ListUsageRecordAllTimeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordAllTime(params, "", "")
@@ -140,6 +143,9 @@ func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 
 // Streams UsageRecordAllTime records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimeParams, limit int) (chan ApiV2010AccountUsageUsageRecordUsageRecordAllTime, error) {
+	if params == nil {
+		params = &ListUsageRecordAllTimeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordAllTime(params, "", "")

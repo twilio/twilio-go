@@ -163,6 +163,9 @@ func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, para
 
 // Lists Variable records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams, limit int) ([]ServerlessV1ServiceEnvironmentVariable, error) {
+	if params == nil {
+		params = &ListVariableParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVariable(ServiceSid, EnvironmentSid, params, "", "")
@@ -189,6 +192,9 @@ func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, para
 
 // Streams Variable records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams, limit int) (chan ServerlessV1ServiceEnvironmentVariable, error) {
+	if params == nil {
+		params = &ListVariableParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVariable(ServiceSid, EnvironmentSid, params, "", "")

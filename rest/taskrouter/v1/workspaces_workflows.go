@@ -192,6 +192,9 @@ func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParam
 
 // Lists Workflow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParams, limit int) ([]TaskrouterV1WorkspaceWorkflow, error) {
+	if params == nil {
+		params = &ListWorkflowParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWorkflow(WorkspaceSid, params, "", "")
@@ -218,6 +221,9 @@ func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParam
 
 // Streams Workflow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowParams, limit int) (chan TaskrouterV1WorkspaceWorkflow, error) {
+	if params == nil {
+		params = &ListWorkflowParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWorkflow(WorkspaceSid, params, "", "")

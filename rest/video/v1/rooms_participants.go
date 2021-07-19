@@ -129,6 +129,9 @@ func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomPartici
 
 // Lists RoomParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomParticipantParams, limit int) ([]VideoV1RoomRoomParticipant, error) {
+	if params == nil {
+		params = &ListRoomParticipantParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRoomParticipant(RoomSid, params, "", "")
@@ -155,6 +158,9 @@ func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomPartici
 
 // Streams RoomParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParticipantParams, limit int) (chan VideoV1RoomRoomParticipant, error) {
+	if params == nil {
+		params = &ListRoomParticipantParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRoomParticipant(RoomSid, params, "", "")

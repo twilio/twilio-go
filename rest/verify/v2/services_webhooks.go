@@ -179,6 +179,9 @@ func (c *ApiService) PageWebhook(ServiceSid string, params *ListWebhookParams, p
 
 // Lists Webhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams, limit int) ([]VerifyV2ServiceWebhook, error) {
+	if params == nil {
+		params = &ListWebhookParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWebhook(ServiceSid, params, "", "")
@@ -205,6 +208,9 @@ func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams, l
 
 // Streams Webhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams, limit int) (chan VerifyV2ServiceWebhook, error) {
+	if params == nil {
+		params = &ListWebhookParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWebhook(ServiceSid, params, "", "")

@@ -165,6 +165,9 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken string
 
 // Lists Recording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRecording(params *ListRecordingParams, limit int) ([]VideoV1Recording, error) {
+	if params == nil {
+		params = &ListRecordingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRecording(params, "", "")
@@ -191,6 +194,9 @@ func (c *ApiService) ListRecording(params *ListRecordingParams, limit int) ([]Vi
 
 // Streams Recording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRecording(params *ListRecordingParams, limit int) (chan VideoV1Recording, error) {
+	if params == nil {
+		params = &ListRecordingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRecording(params, "", "")

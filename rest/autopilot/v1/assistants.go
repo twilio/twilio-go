@@ -208,6 +208,9 @@ func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken string
 
 // Lists Assistant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAssistant(params *ListAssistantParams, limit int) ([]AutopilotV1Assistant, error) {
+	if params == nil {
+		params = &ListAssistantParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAssistant(params, "", "")
@@ -234,6 +237,9 @@ func (c *ApiService) ListAssistant(params *ListAssistantParams, limit int) ([]Au
 
 // Streams Assistant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAssistant(params *ListAssistantParams, limit int) (chan AutopilotV1Assistant, error) {
+	if params == nil {
+		params = &ListAssistantParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAssistant(params, "", "")

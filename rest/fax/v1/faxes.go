@@ -254,6 +254,9 @@ func (c *ApiService) PageFax(params *ListFaxParams, pageToken string, pageNumber
 
 // Lists Fax records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFax(params *ListFaxParams, limit int) ([]FaxV1Fax, error) {
+	if params == nil {
+		params = &ListFaxParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFax(params, "", "")
@@ -280,6 +283,9 @@ func (c *ApiService) ListFax(params *ListFaxParams, limit int) ([]FaxV1Fax, erro
 
 // Streams Fax records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFax(params *ListFaxParams, limit int) (chan FaxV1Fax, error) {
+	if params == nil {
+		params = &ListFaxParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFax(params, "", "")

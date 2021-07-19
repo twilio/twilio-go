@@ -108,6 +108,9 @@ func (c *ApiService) PageFlow(params *ListFlowParams, pageToken string, pageNumb
 
 // Lists Flow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFlow(params *ListFlowParams, limit int) ([]StudioV1Flow, error) {
+	if params == nil {
+		params = &ListFlowParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFlow(params, "", "")
@@ -134,6 +137,9 @@ func (c *ApiService) ListFlow(params *ListFlowParams, limit int) ([]StudioV1Flow
 
 // Streams Flow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFlow(params *ListFlowParams, limit int) (chan StudioV1Flow, error) {
+	if params == nil {
+		params = &ListFlowParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFlow(params, "", "")

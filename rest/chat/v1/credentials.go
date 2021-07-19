@@ -196,6 +196,9 @@ func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken stri
 
 // Lists Credential records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCredential(params *ListCredentialParams, limit int) ([]ChatV1Credential, error) {
+	if params == nil {
+		params = &ListCredentialParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCredential(params, "", "")
@@ -222,6 +225,9 @@ func (c *ApiService) ListCredential(params *ListCredentialParams, limit int) ([]
 
 // Streams Credential records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCredential(params *ListCredentialParams, limit int) (chan ChatV1Credential, error) {
+	if params == nil {
+		params = &ListCredentialParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCredential(params, "", "")

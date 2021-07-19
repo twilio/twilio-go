@@ -192,6 +192,9 @@ func (c *ApiService) PageEvent(WorkspaceSid string, params *ListEventParams, pag
 
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams, limit int) ([]TaskrouterV1WorkspaceEvent, error) {
+	if params == nil {
+		params = &ListEventParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEvent(WorkspaceSid, params, "", "")
@@ -218,6 +221,9 @@ func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams, lim
 
 // Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEvent(WorkspaceSid string, params *ListEventParams, limit int) (chan TaskrouterV1WorkspaceEvent, error) {
+	if params == nil {
+		params = &ListEventParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEvent(WorkspaceSid, params, "", "")
