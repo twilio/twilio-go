@@ -41,6 +41,7 @@ func TestListingNumbers(t *testing.T) {
 	resp, err := testClient.ApiV2010.ListIncomingPhoneNumber(nil, 0)
 	assert.Nil(t, err)
 	assert.NotNil(t, resp)
+	// from, to numbers plus any other numbers that's configured for the account.
 	assert.GreaterOrEqual(t, len(resp), 2)
 }
 
