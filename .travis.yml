@@ -1,11 +1,14 @@
 language: go
 go:
-- '1.15'
-- '1.16'
+  - '1.15'
+  - '1.16'
 install:
-- make install
+  - make install
 script:
-- make test
+  - make test
+  - if [[ "$TRAVIS_BRANCH" == "main"  ||  "$TRAVIS_BRANCH" == "travis" ]] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    make cluster-test;
+    fi
 notifications:
   slack:
     if: branch = main

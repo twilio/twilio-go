@@ -7,7 +7,10 @@ install: githooks
 	go build -v ./...
 
 test:
-	go test -v ./...
+	go test ./...
+
+cluster-test:
+	go test --tags=cluster
 
 goimports:
 	go get golang.org/x/tools/cmd/goimports
