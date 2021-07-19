@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Delete a specific User Conversation.
@@ -74,9 +76,10 @@ func (params *ListUserConversationParams) SetPageSize(PageSize int) *ListUserCon
 	return params
 }
 
-// Retrieve a list of all User Conversations for the User.
-func (c *ApiService) ListUserConversation(UserSid string, params *ListUserConversationParams) (*ListUserConversationResponse, error) {
+// Retrieve a single page of UserConversation records from the API. Request is executed immediately.
+func (c *ApiService) PageUserConversation(UserSid string, params *ListUserConversationParams, pageToken string, pageNumber string) (*ListUserConversationResponse, error) {
 	path := "/v1/Users/{UserSid}/Conversations"
+
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 
 	data := url.Values{}
@@ -84,6 +87,13 @@ func (c *ApiService) ListUserConversation(UserSid string, params *ListUserConver
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -99,6 +109,89 @@ func (c *ApiService) ListUserConversation(UserSid string, params *ListUserConver
 	}
 
 	return ps, err
+}
+
+// Lists UserConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUserConversation(UserSid string, params *ListUserConversationParams, limit int) ([]ConversationsV1UserUserConversation, error) {
+	if params == nil {
+		params = &ListUserConversationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageUserConversation(UserSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ConversationsV1UserUserConversation
+
+	for response != nil {
+		records = append(records, response.Conversations...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUserConversationResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListUserConversationResponse)
+	}
+
+	return records, err
+}
+
+// Streams UserConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUserConversation(UserSid string, params *ListUserConversationParams, limit int) (chan ConversationsV1UserUserConversation, error) {
+	if params == nil {
+		params = &ListUserConversationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+
+	response, err := c.PageUserConversation(UserSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ConversationsV1UserUserConversation, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Conversations {
+				channel <- response.Conversations[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUserConversationResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListUserConversationResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListUserConversationResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUserConversationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateUserConversation'

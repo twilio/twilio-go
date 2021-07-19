@@ -178,6 +178,9 @@ func (c *ApiService) PageSample(AssistantSid string, TaskSid string, params *Lis
 
 // Lists Sample records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *ListSampleParams, limit int) ([]AutopilotV1AssistantTaskSample, error) {
+	if params == nil {
+		params = &ListSampleParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSample(AssistantSid, TaskSid, params, "", "")
@@ -204,6 +207,9 @@ func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *Lis
 
 // Streams Sample records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSample(AssistantSid string, TaskSid string, params *ListSampleParams, limit int) (chan AutopilotV1AssistantTaskSample, error) {
+	if params == nil {
+		params = &ListSampleParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSample(AssistantSid, TaskSid, params, "", "")

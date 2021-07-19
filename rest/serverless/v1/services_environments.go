@@ -159,6 +159,9 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 
 // Lists Environment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams, limit int) ([]ServerlessV1ServiceEnvironment, error) {
+	if params == nil {
+		params = &ListEnvironmentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEnvironment(ServiceSid, params, "", "")
@@ -185,6 +188,9 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 
 // Streams Environment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmentParams, limit int) (chan ServerlessV1ServiceEnvironment, error) {
+	if params == nil {
+		params = &ListEnvironmentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEnvironment(ServiceSid, params, "", "")

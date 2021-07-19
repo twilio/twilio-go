@@ -153,6 +153,9 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken string, pageNumber
 
 // Lists Sim records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSim(params *ListSimParams, limit int) ([]WirelessV1Sim, error) {
+	if params == nil {
+		params = &ListSimParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSim(params, "", "")
@@ -179,6 +182,9 @@ func (c *ApiService) ListSim(params *ListSimParams, limit int) ([]WirelessV1Sim,
 
 // Streams Sim records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSim(params *ListSimParams, limit int) (chan WirelessV1Sim, error) {
+	if params == nil {
+		params = &ListSimParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSim(params, "", "")

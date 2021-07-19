@@ -147,6 +147,9 @@ func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderP
 
 // Lists AlphaSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderParams, limit int) ([]MessagingV1ServiceAlphaSender, error) {
+	if params == nil {
+		params = &ListAlphaSenderParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAlphaSender(ServiceSid, params, "", "")
@@ -173,6 +176,9 @@ func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderP
 
 // Streams AlphaSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSenderParams, limit int) (chan MessagingV1ServiceAlphaSender, error) {
+	if params == nil {
+		params = &ListAlphaSenderParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAlphaSender(ServiceSid, params, "", "")

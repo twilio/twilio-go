@@ -167,6 +167,9 @@ func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageTok
 
 // Lists Role records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams, limit int) ([]IpMessagingV2ServiceRole, error) {
+	if params == nil {
+		params = &ListRoleParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRole(ServiceSid, params, "", "")
@@ -193,6 +196,9 @@ func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams, limit i
 
 // Streams Role records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams, limit int) (chan IpMessagingV2ServiceRole, error) {
+	if params == nil {
+		params = &ListRoleParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRole(ServiceSid, params, "", "")

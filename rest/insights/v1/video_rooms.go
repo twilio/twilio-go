@@ -140,6 +140,9 @@ func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pa
 
 // Lists VideoRoomSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams, limit int) ([]InsightsV1VideoRoomSummary, error) {
+	if params == nil {
+		params = &ListVideoRoomSummaryParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVideoRoomSummary(params, "", "")
@@ -166,6 +169,9 @@ func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams, li
 
 // Streams VideoRoomSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamVideoRoomSummary(params *ListVideoRoomSummaryParams, limit int) (chan InsightsV1VideoRoomSummary, error) {
+	if params == nil {
+		params = &ListVideoRoomSummaryParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVideoRoomSummary(params, "", "")

@@ -165,6 +165,9 @@ func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChanne
 
 // Lists TaskChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, limit int) ([]TaskrouterV1WorkspaceTaskChannel, error) {
+	if params == nil {
+		params = &ListTaskChannelParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTaskChannel(WorkspaceSid, params, "", "")
@@ -191,6 +194,9 @@ func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChanne
 
 // Streams TaskChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, limit int) (chan TaskrouterV1WorkspaceTaskChannel, error) {
+	if params == nil {
+		params = &ListTaskChannelParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTaskChannel(WorkspaceSid, params, "", "")

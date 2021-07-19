@@ -163,6 +163,9 @@ func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToke
 
 // Lists CredentialAws records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams, limit int) ([]AccountsV1CredentialCredentialAws, error) {
+	if params == nil {
+		params = &ListCredentialAwsParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCredentialAws(params, "", "")
@@ -189,6 +192,9 @@ func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams, limit in
 
 // Streams CredentialAws records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams, limit int) (chan AccountsV1CredentialCredentialAws, error) {
+	if params == nil {
+		params = &ListCredentialAwsParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCredentialAws(params, "", "")

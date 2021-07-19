@@ -177,6 +177,9 @@ func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfil
 
 // Lists CustomerProfileChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, limit int) ([]TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment, error) {
+	if params == nil {
+		params = &ListCustomerProfileChannelEndpointAssignmentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfileChannelEndpointAssignment(CustomerProfileSid, params, "", "")
@@ -203,6 +206,9 @@ func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfil
 
 // Streams CustomerProfileChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, limit int) (chan TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment, error) {
+	if params == nil {
+		params = &ListCustomerProfileChannelEndpointAssignmentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCustomerProfileChannelEndpointAssignment(CustomerProfileSid, params, "", "")

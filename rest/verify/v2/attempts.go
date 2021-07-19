@@ -118,6 +118,9 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 
 // Lists VerificationAttempt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptParams, limit int) ([]VerifyV2VerificationAttempt, error) {
+	if params == nil {
+		params = &ListVerificationAttemptParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVerificationAttempt(params, "", "")
@@ -144,6 +147,9 @@ func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptPara
 
 // Streams VerificationAttempt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptParams, limit int) (chan VerifyV2VerificationAttempt, error) {
+	if params == nil {
+		params = &ListVerificationAttemptParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageVerificationAttempt(params, "", "")

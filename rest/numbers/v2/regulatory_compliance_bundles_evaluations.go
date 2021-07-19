@@ -116,6 +116,9 @@ func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationPara
 
 // Lists Evaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationParams, limit int) ([]NumbersV2RegulatoryComplianceBundleEvaluation, error) {
+	if params == nil {
+		params = &ListEvaluationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEvaluation(BundleSid, params, "", "")
@@ -142,6 +145,9 @@ func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationPara
 
 // Streams Evaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationParams, limit int) (chan NumbersV2RegulatoryComplianceBundleEvaluation, error) {
+	if params == nil {
+		params = &ListEvaluationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEvaluation(BundleSid, params, "", "")

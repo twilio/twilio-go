@@ -115,6 +115,9 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 
 // Lists UserChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, limit int) ([]ChatV2ServiceUserUserChannel, error) {
+	if params == nil {
+		params = &ListUserChannelParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUserChannel(ServiceSid, UserSid, params, "", "")
@@ -141,6 +144,9 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 
 // Streams UserChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, limit int) (chan ChatV2ServiceUserUserChannel, error) {
+	if params == nil {
+		params = &ListUserChannelParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUserChannel(ServiceSid, UserSid, params, "", "")

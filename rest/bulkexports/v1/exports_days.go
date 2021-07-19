@@ -88,6 +88,9 @@ func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageTok
 
 // Lists Day records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDay(ResourceType string, params *ListDayParams, limit int) ([]BulkexportsV1ExportDay, error) {
+	if params == nil {
+		params = &ListDayParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDay(ResourceType, params, "", "")
@@ -114,6 +117,9 @@ func (c *ApiService) ListDay(ResourceType string, params *ListDayParams, limit i
 
 // Streams Day records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams, limit int) (chan BulkexportsV1ExportDay, error) {
+	if params == nil {
+		params = &ListDayParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDay(ResourceType, params, "", "")

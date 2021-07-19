@@ -169,6 +169,9 @@ func (c *ApiService) PageSupportingDocument(params *ListSupportingDocumentParams
 
 // Lists SupportingDocument records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams, limit int) ([]NumbersV2RegulatoryComplianceSupportingDocument, error) {
+	if params == nil {
+		params = &ListSupportingDocumentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSupportingDocument(params, "", "")
@@ -195,6 +198,9 @@ func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams
 
 // Streams SupportingDocument records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSupportingDocument(params *ListSupportingDocumentParams, limit int) (chan NumbersV2RegulatoryComplianceSupportingDocument, error) {
+	if params == nil {
+		params = &ListSupportingDocumentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSupportingDocument(params, "", "")

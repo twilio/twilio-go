@@ -222,6 +222,9 @@ func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *Lis
 
 // Lists SipIpAddress records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, limit int) ([]ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
+	if params == nil {
+		params = &ListSipIpAddressParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipIpAddress(IpAccessControlListSid, params, "", "")
@@ -248,6 +251,9 @@ func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *Lis
 
 // Streams SipIpAddress records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, limit int) (chan ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
+	if params == nil {
+		params = &ListSipIpAddressParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipIpAddress(IpAccessControlListSid, params, "", "")

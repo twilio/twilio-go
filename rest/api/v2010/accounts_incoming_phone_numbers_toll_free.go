@@ -359,6 +359,9 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 
 // Lists IncomingPhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, limit int) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, error) {
+	if params == nil {
+		params = &ListIncomingPhoneNumberTollFreeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIncomingPhoneNumberTollFree(params, "", "")
@@ -385,6 +388,9 @@ func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 
 // Streams IncomingPhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, limit int) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, error) {
+	if params == nil {
+		params = &ListIncomingPhoneNumberTollFreeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageIncomingPhoneNumberTollFree(params, "", "")

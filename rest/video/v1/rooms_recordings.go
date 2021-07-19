@@ -147,6 +147,9 @@ func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecording
 
 // Lists RoomRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecordingParams, limit int) ([]VideoV1RoomRoomRecording, error) {
+	if params == nil {
+		params = &ListRoomRecordingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRoomRecording(RoomSid, params, "", "")
@@ -173,6 +176,9 @@ func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecording
 
 // Streams RoomRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordingParams, limit int) (chan VideoV1RoomRoomRecording, error) {
+	if params == nil {
+		params = &ListRoomRecordingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRoomRecording(RoomSid, params, "", "")

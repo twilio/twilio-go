@@ -262,6 +262,9 @@ func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pa
 
 // Lists OutgoingCallerId records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams, limit int) ([]ApiV2010AccountOutgoingCallerId, error) {
+	if params == nil {
+		params = &ListOutgoingCallerIdParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageOutgoingCallerId(params, "", "")
@@ -288,6 +291,9 @@ func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams, li
 
 // Streams OutgoingCallerId records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams, limit int) (chan ApiV2010AccountOutgoingCallerId, error) {
+	if params == nil {
+		params = &ListOutgoingCallerIdParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageOutgoingCallerId(params, "", "")

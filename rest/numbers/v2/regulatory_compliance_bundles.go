@@ -244,6 +244,9 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken string, page
 
 // Lists Bundle records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBundle(params *ListBundleParams, limit int) ([]NumbersV2RegulatoryComplianceBundle, error) {
+	if params == nil {
+		params = &ListBundleParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageBundle(params, "", "")
@@ -270,6 +273,9 @@ func (c *ApiService) ListBundle(params *ListBundleParams, limit int) ([]NumbersV
 
 // Streams Bundle records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamBundle(params *ListBundleParams, limit int) (chan NumbersV2RegulatoryComplianceBundle, error) {
+	if params == nil {
+		params = &ListBundleParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageBundle(params, "", "")

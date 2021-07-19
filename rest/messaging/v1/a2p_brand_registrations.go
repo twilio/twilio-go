@@ -134,6 +134,9 @@ func (c *ApiService) PageBrandRegistrations(params *ListBrandRegistrationsParams
 
 // Lists BrandRegistrations records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBrandRegistrations(params *ListBrandRegistrationsParams, limit int) ([]MessagingV1BrandRegistrations, error) {
+	if params == nil {
+		params = &ListBrandRegistrationsParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageBrandRegistrations(params, "", "")
@@ -160,6 +163,9 @@ func (c *ApiService) ListBrandRegistrations(params *ListBrandRegistrationsParams
 
 // Streams BrandRegistrations records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamBrandRegistrations(params *ListBrandRegistrationsParams, limit int) (chan MessagingV1BrandRegistrations, error) {
+	if params == nil {
+		params = &ListBrandRegistrationsParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageBrandRegistrations(params, "", "")

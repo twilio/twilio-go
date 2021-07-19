@@ -87,6 +87,9 @@ func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageTo
 
 // Lists Metric records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams, limit int) ([]InsightsV1CallMetric, error) {
+	if params == nil {
+		params = &ListMetricParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMetric(CallSid, params, "", "")
@@ -113,6 +116,9 @@ func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams, limit 
 
 // Streams Metric records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams, limit int) (chan InsightsV1CallMetric, error) {
+	if params == nil {
+		params = &ListMetricParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMetric(CallSid, params, "", "")

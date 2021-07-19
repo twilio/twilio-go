@@ -242,6 +242,9 @@ func (c *ApiService) PageAvailablePhoneNumberLocal(CountryCode string, params *L
 
 // Lists AvailablePhoneNumberLocal records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberLocal(CountryCode string, params *ListAvailablePhoneNumberLocalParams, limit int) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal, error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberLocalParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAvailablePhoneNumberLocal(CountryCode, params, "", "")
@@ -268,6 +271,9 @@ func (c *ApiService) ListAvailablePhoneNumberLocal(CountryCode string, params *L
 
 // Streams AvailablePhoneNumberLocal records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAvailablePhoneNumberLocal(CountryCode string, params *ListAvailablePhoneNumberLocalParams, limit int) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal, error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberLocalParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAvailablePhoneNumberLocal(CountryCode, params, "", "")

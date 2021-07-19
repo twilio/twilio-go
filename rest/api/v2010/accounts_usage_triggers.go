@@ -280,6 +280,9 @@ func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken 
 
 // Lists UsageTrigger records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams, limit int) ([]ApiV2010AccountUsageUsageTrigger, error) {
+	if params == nil {
+		params = &ListUsageTriggerParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageTrigger(params, "", "")
@@ -306,6 +309,9 @@ func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams, limit int)
 
 // Streams UsageTrigger records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams, limit int) (chan ApiV2010AccountUsageUsageTrigger, error) {
+	if params == nil {
+		params = &ListUsageTriggerParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageTrigger(params, "", "")

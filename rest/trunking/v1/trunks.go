@@ -196,6 +196,9 @@ func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken string, pageNu
 
 // Lists Trunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrunk(params *ListTrunkParams, limit int) ([]TrunkingV1Trunk, error) {
+	if params == nil {
+		params = &ListTrunkParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTrunk(params, "", "")
@@ -222,6 +225,9 @@ func (c *ApiService) ListTrunk(params *ListTrunkParams, limit int) ([]TrunkingV1
 
 // Streams Trunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTrunk(params *ListTrunkParams, limit int) (chan TrunkingV1Trunk, error) {
+	if params == nil {
+		params = &ListTrunkParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTrunk(params, "", "")

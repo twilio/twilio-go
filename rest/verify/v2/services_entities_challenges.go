@@ -210,6 +210,9 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 
 // Lists Challenge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *ListChallengeParams, limit int) ([]VerifyV2ServiceEntityChallenge, error) {
+	if params == nil {
+		params = &ListChallengeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageChallenge(ServiceSid, Identity, params, "", "")
@@ -236,6 +239,9 @@ func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *L
 
 // Streams Challenge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params *ListChallengeParams, limit int) (chan VerifyV2ServiceEntityChallenge, error) {
+	if params == nil {
+		params = &ListChallengeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageChallenge(ServiceSid, Identity, params, "", "")

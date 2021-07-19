@@ -199,6 +199,9 @@ func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken 
 
 // Lists TrustProduct records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrustProduct(params *ListTrustProductParams, limit int) ([]TrusthubV1TrustProduct, error) {
+	if params == nil {
+		params = &ListTrustProductParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTrustProduct(params, "", "")
@@ -225,6 +228,9 @@ func (c *ApiService) ListTrustProduct(params *ListTrustProductParams, limit int)
 
 // Streams TrustProduct records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTrustProduct(params *ListTrustProductParams, limit int) (chan TrusthubV1TrustProduct, error) {
+	if params == nil {
+		params = &ListTrustProductParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTrustProduct(params, "", "")

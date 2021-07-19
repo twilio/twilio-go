@@ -150,6 +150,9 @@ func (c *ApiService) PageEntity(ServiceSid string, params *ListEntityParams, pag
 
 // Lists Entity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams, limit int) ([]VerifyV2ServiceEntity, error) {
+	if params == nil {
+		params = &ListEntityParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEntity(ServiceSid, params, "", "")
@@ -176,6 +179,9 @@ func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams, lim
 
 // Streams Entity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams, limit int) (chan VerifyV2ServiceEntity, error) {
+	if params == nil {
+		params = &ListEntityParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEntity(ServiceSid, params, "", "")

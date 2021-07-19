@@ -170,6 +170,9 @@ func (c *ApiService) PageServiceRole(ChatServiceSid string, params *ListServiceR
 
 // Lists ServiceRole records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceRoleParams, limit int) ([]ConversationsV1ServiceServiceRole, error) {
+	if params == nil {
+		params = &ListServiceRoleParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageServiceRole(ChatServiceSid, params, "", "")
@@ -196,6 +199,9 @@ func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceR
 
 // Streams ServiceRole records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServiceRoleParams, limit int) (chan ConversationsV1ServiceServiceRole, error) {
+	if params == nil {
+		params = &ListServiceRoleParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageServiceRole(ChatServiceSid, params, "", "")

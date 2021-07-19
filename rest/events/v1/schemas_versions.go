@@ -93,6 +93,9 @@ func (c *ApiService) PageSchemaVersion(Id string, params *ListSchemaVersionParam
 
 // Lists SchemaVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParams, limit int) ([]EventsV1SchemaSchemaVersion, error) {
+	if params == nil {
+		params = &ListSchemaVersionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSchemaVersion(Id, params, "", "")
@@ -119,6 +122,9 @@ func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParam
 
 // Streams SchemaVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionParams, limit int) (chan EventsV1SchemaSchemaVersion, error) {
+	if params == nil {
+		params = &ListSchemaVersionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSchemaVersion(Id, params, "", "")

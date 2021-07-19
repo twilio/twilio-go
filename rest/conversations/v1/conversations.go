@@ -243,6 +243,9 @@ func (c *ApiService) PageConversation(params *ListConversationParams, pageToken 
 
 // Lists Conversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConversation(params *ListConversationParams, limit int) ([]ConversationsV1Conversation, error) {
+	if params == nil {
+		params = &ListConversationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConversation(params, "", "")
@@ -269,6 +272,9 @@ func (c *ApiService) ListConversation(params *ListConversationParams, limit int)
 
 // Streams Conversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConversation(params *ListConversationParams, limit int) (chan ConversationsV1Conversation, error) {
+	if params == nil {
+		params = &ListConversationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConversation(params, "", "")

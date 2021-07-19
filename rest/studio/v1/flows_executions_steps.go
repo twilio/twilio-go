@@ -95,6 +95,9 @@ func (c *ApiService) PageExecutionStep(FlowSid string, ExecutionSid string, para
 
 // Lists ExecutionStep records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams, limit int) ([]StudioV1FlowExecutionExecutionStep, error) {
+	if params == nil {
+		params = &ListExecutionStepParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageExecutionStep(FlowSid, ExecutionSid, params, "", "")
@@ -121,6 +124,9 @@ func (c *ApiService) ListExecutionStep(FlowSid string, ExecutionSid string, para
 
 // Streams ExecutionStep records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams, limit int) (chan StudioV1FlowExecutionExecutionStep, error) {
+	if params == nil {
+		params = &ListExecutionStepParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageExecutionStep(FlowSid, ExecutionSid, params, "", "")

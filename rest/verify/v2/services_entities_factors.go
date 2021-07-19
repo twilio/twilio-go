@@ -262,6 +262,9 @@ func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *List
 
 // Lists Factor records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *ListFactorParams, limit int) ([]VerifyV2ServiceEntityFactor, error) {
+	if params == nil {
+		params = &ListFactorParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFactor(ServiceSid, Identity, params, "", "")
@@ -288,6 +291,9 @@ func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *List
 
 // Streams Factor records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *ListFactorParams, limit int) (chan VerifyV2ServiceEntityFactor, error) {
+	if params == nil {
+		params = &ListFactorParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFactor(ServiceSid, Identity, params, "", "")

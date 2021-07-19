@@ -90,6 +90,9 @@ func (c *ApiService) PagePolicies(params *ListPoliciesParams, pageToken string, 
 
 // Lists Policies records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPolicies(params *ListPoliciesParams, limit int) ([]TrusthubV1Policies, error) {
+	if params == nil {
+		params = &ListPoliciesParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PagePolicies(params, "", "")
@@ -116,6 +119,9 @@ func (c *ApiService) ListPolicies(params *ListPoliciesParams, limit int) ([]Trus
 
 // Streams Policies records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamPolicies(params *ListPoliciesParams, limit int) (chan TrusthubV1Policies, error) {
+	if params == nil {
+		params = &ListPoliciesParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PagePolicies(params, "", "")

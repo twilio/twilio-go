@@ -234,6 +234,9 @@ func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken string, 
 
 // Lists RatePlan records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRatePlan(params *ListRatePlanParams, limit int) ([]WirelessV1RatePlan, error) {
+	if params == nil {
+		params = &ListRatePlanParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRatePlan(params, "", "")
@@ -260,6 +263,9 @@ func (c *ApiService) ListRatePlan(params *ListRatePlanParams, limit int) ([]Wire
 
 // Streams RatePlan records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRatePlan(params *ListRatePlanParams, limit int) (chan WirelessV1RatePlan, error) {
+	if params == nil {
+		params = &ListRatePlanParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRatePlan(params, "", "")

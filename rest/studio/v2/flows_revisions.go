@@ -93,6 +93,9 @@ func (c *ApiService) PageFlowRevision(Sid string, params *ListFlowRevisionParams
 
 // Lists FlowRevision records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams, limit int) ([]StudioV2FlowFlowRevision, error) {
+	if params == nil {
+		params = &ListFlowRevisionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFlowRevision(Sid, params, "", "")
@@ -119,6 +122,9 @@ func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams
 
 // Streams FlowRevision records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionParams, limit int) (chan StudioV2FlowFlowRevision, error) {
+	if params == nil {
+		params = &ListFlowRevisionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFlowRevision(Sid, params, "", "")

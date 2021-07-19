@@ -190,6 +190,9 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken stri
 
 // Lists Conference records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConference(params *ListConferenceParams, limit int) ([]ApiV2010AccountConference, error) {
+	if params == nil {
+		params = &ListConferenceParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConference(params, "", "")
@@ -216,6 +219,9 @@ func (c *ApiService) ListConference(params *ListConferenceParams, limit int) ([]
 
 // Streams Conference records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConference(params *ListConferenceParams, limit int) (chan ApiV2010AccountConference, error) {
+	if params == nil {
+		params = &ListConferenceParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConference(params, "", "")

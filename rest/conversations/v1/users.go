@@ -197,6 +197,9 @@ func (c *ApiService) PageUser(params *ListUserParams, pageToken string, pageNumb
 
 // Lists User records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUser(params *ListUserParams, limit int) ([]ConversationsV1User, error) {
+	if params == nil {
+		params = &ListUserParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUser(params, "", "")
@@ -223,6 +226,9 @@ func (c *ApiService) ListUser(params *ListUserParams, limit int) ([]Conversation
 
 // Streams User records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUser(params *ListUserParams, limit int) (chan ConversationsV1User, error) {
+	if params == nil {
+		params = &ListUserParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUser(params, "", "")

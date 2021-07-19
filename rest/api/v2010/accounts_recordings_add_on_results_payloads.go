@@ -158,6 +158,9 @@ func (c *ApiService) PageRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 
 // Lists RecordingAddOnResultPayload records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams, limit int) ([]ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, error) {
+	if params == nil {
+		params = &ListRecordingAddOnResultPayloadParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRecordingAddOnResultPayload(ReferenceSid, AddOnResultSid, params, "", "")
@@ -184,6 +187,9 @@ func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 
 // Streams RecordingAddOnResultPayload records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams, limit int) (chan ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, error) {
+	if params == nil {
+		params = &ListRecordingAddOnResultPayloadParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRecordingAddOnResultPayload(ReferenceSid, AddOnResultSid, params, "", "")

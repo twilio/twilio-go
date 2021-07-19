@@ -204,6 +204,9 @@ func (c *ApiService) PageSipIpAccessControlListMapping(DomainSid string, params 
 
 // Lists SipIpAccessControlListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams, limit int) ([]ApiV2010AccountSipSipDomainSipIpAccessControlListMapping, error) {
+	if params == nil {
+		params = &ListSipIpAccessControlListMappingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipIpAccessControlListMapping(DomainSid, params, "", "")
@@ -230,6 +233,9 @@ func (c *ApiService) ListSipIpAccessControlListMapping(DomainSid string, params 
 
 // Streams SipIpAccessControlListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSipIpAccessControlListMapping(DomainSid string, params *ListSipIpAccessControlListMappingParams, limit int) (chan ApiV2010AccountSipSipDomainSipIpAccessControlListMapping, error) {
+	if params == nil {
+		params = &ListSipIpAccessControlListMappingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSipIpAccessControlListMapping(DomainSid, params, "", "")

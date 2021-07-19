@@ -115,6 +115,9 @@ func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, param
 
 // Lists Interaction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, limit int) ([]ProxyV1ServiceSessionInteraction, error) {
+	if params == nil {
+		params = &ListInteractionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageInteraction(ServiceSid, SessionSid, params, "", "")
@@ -141,6 +144,9 @@ func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, param
 
 // Streams Interaction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, limit int) (chan ProxyV1ServiceSessionInteraction, error) {
+	if params == nil {
+		params = &ListInteractionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageInteraction(ServiceSid, SessionSid, params, "", "")

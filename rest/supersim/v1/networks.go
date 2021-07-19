@@ -117,6 +117,9 @@ func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken string, pa
 
 // Lists Network records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListNetwork(params *ListNetworkParams, limit int) ([]SupersimV1Network, error) {
+	if params == nil {
+		params = &ListNetworkParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageNetwork(params, "", "")
@@ -143,6 +146,9 @@ func (c *ApiService) ListNetwork(params *ListNetworkParams, limit int) ([]Supers
 
 // Streams Network records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamNetwork(params *ListNetworkParams, limit int) (chan SupersimV1Network, error) {
+	if params == nil {
+		params = &ListNetworkParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageNetwork(params, "", "")

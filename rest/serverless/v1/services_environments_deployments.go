@@ -134,6 +134,9 @@ func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, pa
 
 // Lists Deployment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit int) ([]ServerlessV1ServiceEnvironmentDeployment, error) {
+	if params == nil {
+		params = &ListDeploymentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDeployment(ServiceSid, EnvironmentSid, params, "", "")
@@ -160,6 +163,9 @@ func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, pa
 
 // Streams Deployment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit int) (chan ServerlessV1ServiceEnvironmentDeployment, error) {
+	if params == nil {
+		params = &ListDeploymentParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDeployment(ServiceSid, EnvironmentSid, params, "", "")

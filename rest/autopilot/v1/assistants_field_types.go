@@ -156,6 +156,9 @@ func (c *ApiService) PageFieldType(AssistantSid string, params *ListFieldTypePar
 
 // Lists FieldType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypeParams, limit int) ([]AutopilotV1AssistantFieldType, error) {
+	if params == nil {
+		params = &ListFieldTypeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFieldType(AssistantSid, params, "", "")
@@ -182,6 +185,9 @@ func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypePar
 
 // Streams FieldType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeParams, limit int) (chan AutopilotV1AssistantFieldType, error) {
+	if params == nil {
+		params = &ListFieldTypeParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFieldType(AssistantSid, params, "", "")

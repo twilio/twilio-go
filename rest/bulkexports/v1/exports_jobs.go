@@ -190,6 +190,9 @@ func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExport
 
 // Lists ExportCustomJob records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListExportCustomJob(ResourceType string, params *ListExportCustomJobParams, limit int) ([]BulkexportsV1ExportExportCustomJob, error) {
+	if params == nil {
+		params = &ListExportCustomJobParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageExportCustomJob(ResourceType, params, "", "")
@@ -216,6 +219,9 @@ func (c *ApiService) ListExportCustomJob(ResourceType string, params *ListExport
 
 // Streams ExportCustomJob records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamExportCustomJob(ResourceType string, params *ListExportCustomJobParams, limit int) (chan BulkexportsV1ExportExportCustomJob, error) {
+	if params == nil {
+		params = &ListExportCustomJobParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageExportCustomJob(ResourceType, params, "", "")

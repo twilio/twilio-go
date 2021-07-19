@@ -114,6 +114,9 @@ func (c *ApiService) PageUsageRecordMonthly(params *ListUsageRecordMonthlyParams
 
 // Lists UsageRecordMonthly records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthlyParams, limit int) ([]ApiV2010AccountUsageUsageRecordUsageRecordMonthly, error) {
+	if params == nil {
+		params = &ListUsageRecordMonthlyParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordMonthly(params, "", "")
@@ -140,6 +143,9 @@ func (c *ApiService) ListUsageRecordMonthly(params *ListUsageRecordMonthlyParams
 
 // Streams UsageRecordMonthly records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageRecordMonthly(params *ListUsageRecordMonthlyParams, limit int) (chan ApiV2010AccountUsageUsageRecordUsageRecordMonthly, error) {
+	if params == nil {
+		params = &ListUsageRecordMonthlyParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordMonthly(params, "", "")

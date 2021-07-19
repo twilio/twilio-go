@@ -144,6 +144,9 @@ func (c *ApiService) PageEvent(params *ListEventParams, pageToken string, pageNu
 
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEvent(params *ListEventParams, limit int) ([]MonitorV1Event, error) {
+	if params == nil {
+		params = &ListEventParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEvent(params, "", "")
@@ -170,6 +173,9 @@ func (c *ApiService) ListEvent(params *ListEventParams, limit int) ([]MonitorV1E
 
 // Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEvent(params *ListEventParams, limit int) (chan MonitorV1Event, error) {
+	if params == nil {
+		params = &ListEventParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEvent(params, "", "")

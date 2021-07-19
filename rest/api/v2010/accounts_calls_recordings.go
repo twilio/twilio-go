@@ -278,6 +278,9 @@ func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecording
 
 // Lists CallRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecordingParams, limit int) ([]ApiV2010AccountCallCallRecording, error) {
+	if params == nil {
+		params = &ListCallRecordingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCallRecording(CallSid, params, "", "")
@@ -304,6 +307,9 @@ func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecording
 
 // Streams CallRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCallRecording(CallSid string, params *ListCallRecordingParams, limit int) (chan ApiV2010AccountCallCallRecording, error) {
+	if params == nil {
+		params = &ListCallRecordingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCallRecording(CallSid, params, "", "")

@@ -103,6 +103,9 @@ func (c *ApiService) PageWorkerReservation(WorkspaceSid string, WorkerSid string
 
 // Lists WorkerReservation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams, limit int) ([]TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
+	if params == nil {
+		params = &ListWorkerReservationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWorkerReservation(WorkspaceSid, WorkerSid, params, "", "")
@@ -129,6 +132,9 @@ func (c *ApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid string
 
 // Streams WorkerReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams, limit int) (chan TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
+	if params == nil {
+		params = &ListWorkerReservationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageWorkerReservation(WorkspaceSid, WorkerSid, params, "", "")

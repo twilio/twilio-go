@@ -95,6 +95,9 @@ func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params
 
 // Lists AssetVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, limit int) ([]ServerlessV1ServiceAssetAssetVersion, error) {
+	if params == nil {
+		params = &ListAssetVersionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAssetVersion(ServiceSid, AssetSid, params, "", "")
@@ -121,6 +124,9 @@ func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params
 
 // Streams AssetVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, limit int) (chan ServerlessV1ServiceAssetAssetVersion, error) {
+	if params == nil {
+		params = &ListAssetVersionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAssetVersion(ServiceSid, AssetSid, params, "", "")

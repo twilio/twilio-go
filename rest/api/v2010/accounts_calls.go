@@ -592,6 +592,9 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken string, pageNumb
 
 // Lists Call records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCall(params *ListCallParams, limit int) ([]ApiV2010AccountCall, error) {
+	if params == nil {
+		params = &ListCallParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCall(params, "", "")
@@ -618,6 +621,9 @@ func (c *ApiService) ListCall(params *ListCallParams, limit int) ([]ApiV2010Acco
 
 // Streams Call records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamCall(params *ListCallParams, limit int) (chan ApiV2010AccountCall, error) {
+	if params == nil {
+		params = &ListCallParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageCall(params, "", "")

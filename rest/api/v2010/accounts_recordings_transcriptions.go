@@ -153,6 +153,9 @@ func (c *ApiService) PageRecordingTranscription(RecordingSid string, params *Lis
 
 // Lists RecordingTranscription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams, limit int) ([]ApiV2010AccountRecordingRecordingTranscription, error) {
+	if params == nil {
+		params = &ListRecordingTranscriptionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRecordingTranscription(RecordingSid, params, "", "")
@@ -179,6 +182,9 @@ func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *Lis
 
 // Streams RecordingTranscription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams, limit int) (chan ApiV2010AccountRecordingRecordingTranscription, error) {
+	if params == nil {
+		params = &ListRecordingTranscriptionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageRecordingTranscription(RecordingSid, params, "", "")

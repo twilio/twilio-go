@@ -124,6 +124,9 @@ func (c *ApiService) PageUserBinding(ServiceSid string, UserSid string, params *
 
 // Lists UserBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams, limit int) ([]ChatV2ServiceUserUserBinding, error) {
+	if params == nil {
+		params = &ListUserBindingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUserBinding(ServiceSid, UserSid, params, "", "")
@@ -150,6 +153,9 @@ func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *
 
 // Streams UserBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams, limit int) (chan ChatV2ServiceUserUserBinding, error) {
+	if params == nil {
+		params = &ListUserBindingParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUserBinding(ServiceSid, UserSid, params, "", "")

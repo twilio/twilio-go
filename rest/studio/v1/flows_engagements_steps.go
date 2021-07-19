@@ -95,6 +95,9 @@ func (c *ApiService) PageStep(FlowSid string, EngagementSid string, params *List
 
 // Lists Step records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *ListStepParams, limit int) ([]StudioV1FlowEngagementStep, error) {
+	if params == nil {
+		params = &ListStepParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageStep(FlowSid, EngagementSid, params, "", "")
@@ -121,6 +124,9 @@ func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *List
 
 // Streams Step records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *ListStepParams, limit int) (chan StudioV1FlowEngagementStep, error) {
+	if params == nil {
+		params = &ListStepParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageStep(FlowSid, EngagementSid, params, "", "")

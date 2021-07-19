@@ -183,6 +183,9 @@ func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOrigination
 
 // Lists OriginationUrl records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, limit int) ([]TrunkingV1TrunkOriginationUrl, error) {
+	if params == nil {
+		params = &ListOriginationUrlParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageOriginationUrl(TrunkSid, params, "", "")
@@ -209,6 +212,9 @@ func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOrigination
 
 // Streams OriginationUrl records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, limit int) (chan TrunkingV1TrunkOriginationUrl, error) {
+	if params == nil {
+		params = &ListOriginationUrlParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageOriginationUrl(TrunkSid, params, "", "")

@@ -174,6 +174,9 @@ func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams
 
 // Lists Engagement records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams, limit int) ([]StudioV1FlowEngagement, error) {
+	if params == nil {
+		params = &ListEngagementParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEngagement(FlowSid, params, "", "")
@@ -200,6 +203,9 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 
 // Streams Engagement records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementParams, limit int) (chan StudioV1FlowEngagement, error) {
+	if params == nil {
+		params = &ListEngagementParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageEngagement(FlowSid, params, "", "")

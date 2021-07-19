@@ -197,6 +197,9 @@ func (c *ApiService) PageKey(params *ListKeyParams, pageToken string, pageNumber
 
 // Lists Key records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListKey(params *ListKeyParams, limit int) ([]ApiV2010AccountKey, error) {
+	if params == nil {
+		params = &ListKeyParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageKey(params, "", "")
@@ -223,6 +226,9 @@ func (c *ApiService) ListKey(params *ListKeyParams, limit int) ([]ApiV2010Accoun
 
 // Streams Key records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamKey(params *ListKeyParams, limit int) (chan ApiV2010AccountKey, error) {
+	if params == nil {
+		params = &ListKeyParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageKey(params, "", "")

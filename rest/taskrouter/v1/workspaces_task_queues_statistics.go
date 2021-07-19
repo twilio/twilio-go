@@ -198,6 +198,9 @@ func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListT
 
 // Lists TaskQueuesStatistics records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, limit int) ([]TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics, error) {
+	if params == nil {
+		params = &ListTaskQueuesStatisticsParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTaskQueuesStatistics(WorkspaceSid, params, "", "")
@@ -224,6 +227,9 @@ func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListT
 
 // Streams TaskQueuesStatistics records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, limit int) (chan TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics, error) {
+	if params == nil {
+		params = &ListTaskQueuesStatisticsParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageTaskQueuesStatistics(WorkspaceSid, params, "", "")

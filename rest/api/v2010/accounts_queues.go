@@ -209,6 +209,9 @@ func (c *ApiService) PageQueue(params *ListQueueParams, pageToken string, pageNu
 
 // Lists Queue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListQueue(params *ListQueueParams, limit int) ([]ApiV2010AccountQueue, error) {
+	if params == nil {
+		params = &ListQueueParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageQueue(params, "", "")
@@ -235,6 +238,9 @@ func (c *ApiService) ListQueue(params *ListQueueParams, limit int) ([]ApiV2010Ac
 
 // Streams Queue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamQueue(params *ListQueueParams, limit int) (chan ApiV2010AccountQueue, error) {
+	if params == nil {
+		params = &ListQueueParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageQueue(params, "", "")

@@ -223,6 +223,9 @@ func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken string
 
 // Lists ByocTrunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams, limit int) ([]VoiceV1ByocTrunk, error) {
+	if params == nil {
+		params = &ListByocTrunkParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageByocTrunk(params, "", "")
@@ -249,6 +252,9 @@ func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams, limit int) ([]Vo
 
 // Streams ByocTrunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams, limit int) (chan VoiceV1ByocTrunk, error) {
+	if params == nil {
+		params = &ListByocTrunkParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageByocTrunk(params, "", "")

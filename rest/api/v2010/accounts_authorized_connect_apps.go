@@ -118,6 +118,9 @@ func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 
 // Lists AuthorizedConnectApp records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, limit int) ([]ApiV2010AccountAuthorizedConnectApp, error) {
+	if params == nil {
+		params = &ListAuthorizedConnectAppParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAuthorizedConnectApp(params, "", "")
@@ -144,6 +147,9 @@ func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 
 // Streams AuthorizedConnectApp records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, limit int) (chan ApiV2010AccountAuthorizedConnectApp, error) {
+	if params == nil {
+		params = &ListAuthorizedConnectAppParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageAuthorizedConnectApp(params, "", "")

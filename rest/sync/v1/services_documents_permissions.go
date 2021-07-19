@@ -115,6 +115,9 @@ func (c *ApiService) PageDocumentPermission(ServiceSid string, DocumentSid strin
 
 // Lists DocumentPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, limit int) ([]SyncV1ServiceDocumentDocumentPermission, error) {
+	if params == nil {
+		params = &ListDocumentPermissionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDocumentPermission(ServiceSid, DocumentSid, params, "", "")
@@ -141,6 +144,9 @@ func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid strin
 
 // Streams DocumentPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, limit int) (chan SyncV1ServiceDocumentDocumentPermission, error) {
+	if params == nil {
+		params = &ListDocumentPermissionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageDocumentPermission(ServiceSid, DocumentSid, params, "", "")

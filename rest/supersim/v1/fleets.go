@@ -217,6 +217,9 @@ func (c *ApiService) PageFleet(params *ListFleetParams, pageToken string, pageNu
 
 // Lists Fleet records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFleet(params *ListFleetParams, limit int) ([]SupersimV1Fleet, error) {
+	if params == nil {
+		params = &ListFleetParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFleet(params, "", "")
@@ -243,6 +246,9 @@ func (c *ApiService) ListFleet(params *ListFleetParams, limit int) ([]SupersimV1
 
 // Streams Fleet records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamFleet(params *ListFleetParams, limit int) (chan SupersimV1Fleet, error) {
+	if params == nil {
+		params = &ListFleetParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageFleet(params, "", "")

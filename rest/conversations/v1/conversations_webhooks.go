@@ -208,6 +208,9 @@ func (c *ApiService) PageConversationScopedWebhook(ConversationSid string, param
 
 // Lists ConversationScopedWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams, limit int) ([]ConversationsV1ConversationConversationScopedWebhook, error) {
+	if params == nil {
+		params = &ListConversationScopedWebhookParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConversationScopedWebhook(ConversationSid, params, "", "")
@@ -234,6 +237,9 @@ func (c *ApiService) ListConversationScopedWebhook(ConversationSid string, param
 
 // Streams ConversationScopedWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams, limit int) (chan ConversationsV1ConversationConversationScopedWebhook, error) {
+	if params == nil {
+		params = &ListConversationScopedWebhookParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageConversationScopedWebhook(ConversationSid, params, "", "")

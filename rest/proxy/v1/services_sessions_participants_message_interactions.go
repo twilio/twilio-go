@@ -147,6 +147,9 @@ func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string
 
 // Lists MessageInteraction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams, limit int) ([]ProxyV1ServiceSessionParticipantMessageInteraction, error) {
+	if params == nil {
+		params = &ListMessageInteractionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMessageInteraction(ServiceSid, SessionSid, ParticipantSid, params, "", "")
@@ -173,6 +176,9 @@ func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string
 
 // Streams MessageInteraction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams, limit int) (chan ProxyV1ServiceSessionParticipantMessageInteraction, error) {
+	if params == nil {
+		params = &ListMessageInteractionParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageMessageInteraction(ServiceSid, SessionSid, ParticipantSid, params, "", "")

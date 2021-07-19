@@ -335,6 +335,9 @@ func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken st
 
 // Lists Application records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListApplication(params *ListApplicationParams, limit int) ([]ApiV2010AccountApplication, error) {
+	if params == nil {
+		params = &ListApplicationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageApplication(params, "", "")
@@ -361,6 +364,9 @@ func (c *ApiService) ListApplication(params *ListApplicationParams, limit int) (
 
 // Streams Application records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamApplication(params *ListApplicationParams, limit int) (chan ApiV2010AccountApplication, error) {
+	if params == nil {
+		params = &ListApplicationParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageApplication(params, "", "")

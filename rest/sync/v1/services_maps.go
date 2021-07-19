@@ -165,6 +165,9 @@ func (c *ApiService) PageSyncMap(ServiceSid string, params *ListSyncMapParams, p
 
 // Lists SyncMap records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncMap(ServiceSid string, params *ListSyncMapParams, limit int) ([]SyncV1ServiceSyncMap, error) {
+	if params == nil {
+		params = &ListSyncMapParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncMap(ServiceSid, params, "", "")
@@ -191,6 +194,9 @@ func (c *ApiService) ListSyncMap(ServiceSid string, params *ListSyncMapParams, l
 
 // Streams SyncMap records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamSyncMap(ServiceSid string, params *ListSyncMapParams, limit int) (chan SyncV1ServiceSyncMap, error) {
+	if params == nil {
+		params = &ListSyncMapParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageSyncMap(ServiceSid, params, "", "")

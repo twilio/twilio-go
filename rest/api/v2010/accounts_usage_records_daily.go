@@ -114,6 +114,9 @@ func (c *ApiService) PageUsageRecordDaily(params *ListUsageRecordDailyParams, pa
 
 // Lists UsageRecordDaily records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecordDaily(params *ListUsageRecordDailyParams, limit int) ([]ApiV2010AccountUsageUsageRecordUsageRecordDaily, error) {
+	if params == nil {
+		params = &ListUsageRecordDailyParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordDaily(params, "", "")
@@ -140,6 +143,9 @@ func (c *ApiService) ListUsageRecordDaily(params *ListUsageRecordDailyParams, li
 
 // Streams UsageRecordDaily records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageRecordDaily(params *ListUsageRecordDailyParams, limit int) (chan ApiV2010AccountUsageUsageRecordUsageRecordDaily, error) {
+	if params == nil {
+		params = &ListUsageRecordDailyParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecordDaily(params, "", "")

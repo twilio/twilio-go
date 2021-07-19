@@ -139,6 +139,9 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken st
 
 // Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecord(params *ListUsageRecordParams, limit int) ([]SupersimV1UsageRecord, error) {
+	if params == nil {
+		params = &ListUsageRecordParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecord(params, "", "")
@@ -165,6 +168,9 @@ func (c *ApiService) ListUsageRecord(params *ListUsageRecordParams, limit int) (
 
 // Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
 func (c *ApiService) StreamUsageRecord(params *ListUsageRecordParams, limit int) (chan SupersimV1UsageRecord, error) {
+	if params == nil {
+		params = &ListUsageRecordParams{}
+	}
 	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
 
 	response, err := c.PageUsageRecord(params, "", "")
