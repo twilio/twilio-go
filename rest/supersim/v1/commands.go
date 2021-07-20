@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCommand'
@@ -115,6 +117,8 @@ type ListCommandParams struct {
 	Direction *string `json:"Direction,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCommandParams) SetSim(Sim string) *ListCommandParams {
@@ -133,9 +137,13 @@ func (params *ListCommandParams) SetPageSize(PageSize int) *ListCommandParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListCommandParams) SetLimit(Limit int) *ListCommandParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of Commands from your account.
-func (c *ApiService) ListCommand(params *ListCommandParams) (*ListCommandResponse, error) {
+// Retrieve a single page of Command records from the API. Request is executed immediately.
+func (c *ApiService) PageCommand(params *ListCommandParams, pageToken string, pageNumber string) (*ListCommandResponse, error) {
 	path := "/v1/Commands"
 
 	data := url.Values{}
@@ -153,6 +161,13 @@ func (c *ApiService) ListCommand(params *ListCommandParams) (*ListCommandRespons
 	}
 	headers := make(map[string]interface{})
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -166,4 +181,87 @@ func (c *ApiService) ListCommand(params *ListCommandParams) (*ListCommandRespons
 	}
 
 	return ps, err
+}
+
+// Lists Command records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCommand(params *ListCommandParams) ([]SupersimV1Command, error) {
+	if params == nil {
+		params = &ListCommandParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageCommand(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []SupersimV1Command
+
+	for response != nil {
+		records = append(records, response.Commands...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCommandResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListCommandResponse)
+	}
+
+	return records, err
+}
+
+// Streams Command records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCommand(params *ListCommandParams) (chan SupersimV1Command, error) {
+	if params == nil {
+		params = &ListCommandParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageCommand(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan SupersimV1Command, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Commands {
+				channel <- response.Commands[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCommandResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListCommandResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListCommandResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCommandResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

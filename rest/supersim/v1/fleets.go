@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateFleet'
@@ -165,6 +167,8 @@ type ListFleetParams struct {
 	NetworkAccessProfile *string `json:"NetworkAccessProfile,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListFleetParams) SetNetworkAccessProfile(NetworkAccessProfile string) *ListFleetParams {
@@ -175,9 +179,13 @@ func (params *ListFleetParams) SetPageSize(PageSize int) *ListFleetParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListFleetParams) SetLimit(Limit int) *ListFleetParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of Fleets from your account.
-func (c *ApiService) ListFleet(params *ListFleetParams) (*ListFleetResponse, error) {
+// Retrieve a single page of Fleet records from the API. Request is executed immediately.
+func (c *ApiService) PageFleet(params *ListFleetParams, pageToken string, pageNumber string) (*ListFleetResponse, error) {
 	path := "/v1/Fleets"
 
 	data := url.Values{}
@@ -188,6 +196,13 @@ func (c *ApiService) ListFleet(params *ListFleetParams) (*ListFleetResponse, err
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 	headers := make(map[string]interface{})
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -202,6 +217,89 @@ func (c *ApiService) ListFleet(params *ListFleetParams) (*ListFleetResponse, err
 	}
 
 	return ps, err
+}
+
+// Lists Fleet records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFleet(params *ListFleetParams) ([]SupersimV1Fleet, error) {
+	if params == nil {
+		params = &ListFleetParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageFleet(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []SupersimV1Fleet
+
+	for response != nil {
+		records = append(records, response.Fleets...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFleetResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListFleetResponse)
+	}
+
+	return records, err
+}
+
+// Streams Fleet records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFleet(params *ListFleetParams) (chan SupersimV1Fleet, error) {
+	if params == nil {
+		params = &ListFleetParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageFleet(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan SupersimV1Fleet, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Fleets {
+				channel <- response.Fleets[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFleetResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListFleetResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListFleetResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListFleetResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateFleet'

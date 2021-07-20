@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCall'
@@ -467,6 +469,8 @@ type ListCallParams struct {
 	EndTimeAfter *time.Time `json:"EndTime>,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCallParams) SetPathAccountSid(PathAccountSid string) *ListCallParams {
@@ -517,10 +521,15 @@ func (params *ListCallParams) SetPageSize(PageSize int) *ListCallParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListCallParams) SetLimit(Limit int) *ListCallParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieves a collection of calls made to and from your account
-func (c *ApiService) ListCall(params *ListCallParams) (*ListCallResponse, error) {
+// Retrieve a single page of Call records from the API. Request is executed immediately.
+func (c *ApiService) PageCall(params *ListCallParams, pageToken string, pageNumber string) (*ListCallResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -563,6 +572,13 @@ func (c *ApiService) ListCall(params *ListCallParams) (*ListCallResponse, error)
 	}
 	headers := make(map[string]interface{})
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -576,6 +592,89 @@ func (c *ApiService) ListCall(params *ListCallParams) (*ListCallResponse, error)
 	}
 
 	return ps, err
+}
+
+// Lists Call records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010AccountCall, error) {
+	if params == nil {
+		params = &ListCallParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageCall(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountCall
+
+	for response != nil {
+		records = append(records, response.Calls...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCallResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListCallResponse)
+	}
+
+	return records, err
+}
+
+// Streams Call records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010AccountCall, error) {
+	if params == nil {
+		params = &ListCallParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageCall(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountCall, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Calls {
+				channel <- response.Calls[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCallResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListCallResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListCallResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCallResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateCall'

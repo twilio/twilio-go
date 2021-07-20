@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -34,7 +34,8 @@ type ConversationsV1ServiceServiceUser struct {
 	// Whether the User has a potentially valid Push Notification registration for this Conversations Service
 	IsNotifiable *bool `json:"is_notifiable,omitempty"`
 	// Whether the User is actively connected to this Conversations Service and online
-	IsOnline *bool `json:"is_online,omitempty"`
+	IsOnline *bool                   `json:"is_online,omitempty"`
+	Links    *map[string]interface{} `json:"links,omitempty"`
 	// The SID of a service-level Role assigned to the user
 	RoleSid *string `json:"role_sid,omitempty"`
 	// The unique string that identifies the resource

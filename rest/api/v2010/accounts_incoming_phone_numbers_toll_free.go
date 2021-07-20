@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -16,6 +16,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateIncomingPhoneNumberTollFree'
@@ -276,6 +278,8 @@ type ListIncomingPhoneNumberTollFreeParams struct {
 	Origin *string `json:"Origin,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberTollFreeParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberTollFreeParams {
@@ -302,9 +306,15 @@ func (params *ListIncomingPhoneNumberTollFreeParams) SetPageSize(PageSize int) *
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListIncomingPhoneNumberTollFreeParams) SetLimit(Limit int) *ListIncomingPhoneNumberTollFreeParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) (*ListIncomingPhoneNumberTollFreeResponse, error) {
+// Retrieve a single page of IncomingPhoneNumberTollFree records from the API. Request is executed immediately.
+func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -329,6 +339,13 @@ func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 	}
 	headers := make(map[string]interface{})
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -342,4 +359,87 @@ func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 	}
 
 	return ps, err
+}
+
+// Lists IncomingPhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, error) {
+	if params == nil {
+		params = &ListIncomingPhoneNumberTollFreeParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageIncomingPhoneNumberTollFree(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree
+
+	for response != nil {
+		records = append(records, response.IncomingPhoneNumbers...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberTollFreeResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListIncomingPhoneNumberTollFreeResponse)
+	}
+
+	return records, err
+}
+
+// Streams IncomingPhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, error) {
+	if params == nil {
+		params = &ListIncomingPhoneNumberTollFreeParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageIncomingPhoneNumberTollFree(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.IncomingPhoneNumbers {
+				channel <- response.IncomingPhoneNumbers[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberTollFreeResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListIncomingPhoneNumberTollFreeResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListIncomingPhoneNumberTollFreeResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListIncomingPhoneNumberTollFreeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

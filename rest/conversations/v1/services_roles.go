@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateServiceRole'
@@ -123,16 +125,23 @@ func (c *ApiService) FetchServiceRole(ChatServiceSid string, Sid string) (*Conve
 type ListServiceRoleParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListServiceRoleParams) SetPageSize(PageSize int) *ListServiceRoleParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListServiceRoleParams) SetLimit(Limit int) *ListServiceRoleParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of all user roles in your service
-func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceRoleParams) (*ListServiceRoleResponse, error) {
+// Retrieve a single page of ServiceRole records from the API. Request is executed immediately.
+func (c *ApiService) PageServiceRole(ChatServiceSid string, params *ListServiceRoleParams, pageToken string, pageNumber string) (*ListServiceRoleResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles"
+
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
@@ -140,6 +149,13 @@ func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceR
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 	headers := make(map[string]interface{})
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -154,6 +170,89 @@ func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceR
 	}
 
 	return ps, err
+}
+
+// Lists ServiceRole records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceRoleParams) ([]ConversationsV1ServiceServiceRole, error) {
+	if params == nil {
+		params = &ListServiceRoleParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageServiceRole(ChatServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ConversationsV1ServiceServiceRole
+
+	for response != nil {
+		records = append(records, response.Roles...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListServiceRoleResponse)
+	}
+
+	return records, err
+}
+
+// Streams ServiceRole records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServiceRoleParams) (chan ConversationsV1ServiceServiceRole, error) {
+	if params == nil {
+		params = &ListServiceRoleParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageServiceRole(ChatServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ConversationsV1ServiceServiceRole, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Roles {
+				channel <- response.Roles[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListServiceRoleResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListServiceRoleResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListServiceRoleResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateServiceRole'

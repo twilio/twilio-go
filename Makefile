@@ -7,7 +7,10 @@ install: githooks
 	go build -v ./...
 
 test:
-	go test -v ./...
+	go test ./...
+
+cluster-test:
+	go test --tags=cluster
 
 goimports:
 	go get golang.org/x/tools/cmd/goimports
@@ -19,3 +22,4 @@ govet: goimports
 golint: govet
 	go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.39.0
 	golangci-lint run
+	go mod tidy

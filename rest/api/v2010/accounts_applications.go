@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateApplication'
@@ -273,6 +275,8 @@ type ListApplicationParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListApplicationParams) SetPathAccountSid(PathAccountSid string) *ListApplicationParams {
@@ -287,10 +291,15 @@ func (params *ListApplicationParams) SetPageSize(PageSize int) *ListApplicationP
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListApplicationParams) SetLimit(Limit int) *ListApplicationParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of applications representing an application within the requesting account
-func (c *ApiService) ListApplication(params *ListApplicationParams) (*ListApplicationResponse, error) {
+// Retrieve a single page of Application records from the API. Request is executed immediately.
+func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken string, pageNumber string) (*ListApplicationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -306,6 +315,13 @@ func (c *ApiService) ListApplication(params *ListApplicationParams) (*ListApplic
 	}
 	headers := make(map[string]interface{})
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -319,6 +335,89 @@ func (c *ApiService) ListApplication(params *ListApplicationParams) (*ListApplic
 	}
 
 	return ps, err
+}
+
+// Lists Application records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListApplication(params *ListApplicationParams) ([]ApiV2010AccountApplication, error) {
+	if params == nil {
+		params = &ListApplicationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageApplication(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountApplication
+
+	for response != nil {
+		records = append(records, response.Applications...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListApplicationResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListApplicationResponse)
+	}
+
+	return records, err
+}
+
+// Streams Application records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamApplication(params *ListApplicationParams) (chan ApiV2010AccountApplication, error) {
+	if params == nil {
+		params = &ListApplicationParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageApplication(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountApplication, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Applications {
+				channel <- response.Applications[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListApplicationResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListApplicationResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListApplicationResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListApplicationResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateApplication'

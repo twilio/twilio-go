@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Fetch specific Policy Instance.
@@ -46,15 +48,21 @@ func (c *ApiService) FetchPolicies(Sid string) (*TrusthubV1Policies, error) {
 type ListPoliciesParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListPoliciesParams) SetPageSize(PageSize int) *ListPoliciesParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListPoliciesParams) SetLimit(Limit int) *ListPoliciesParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of all Policys.
-func (c *ApiService) ListPolicies(params *ListPoliciesParams) (*ListPoliciesResponse, error) {
+// Retrieve a single page of Policies records from the API. Request is executed immediately.
+func (c *ApiService) PagePolicies(params *ListPoliciesParams, pageToken string, pageNumber string) (*ListPoliciesResponse, error) {
 	path := "/v1/Policies"
 
 	data := url.Values{}
@@ -62,6 +70,13 @@ func (c *ApiService) ListPolicies(params *ListPoliciesParams) (*ListPoliciesResp
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 	headers := make(map[string]interface{})
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -76,4 +91,87 @@ func (c *ApiService) ListPolicies(params *ListPoliciesParams) (*ListPoliciesResp
 	}
 
 	return ps, err
+}
+
+// Lists Policies records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListPolicies(params *ListPoliciesParams) ([]TrusthubV1Policies, error) {
+	if params == nil {
+		params = &ListPoliciesParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PagePolicies(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []TrusthubV1Policies
+
+	for response != nil {
+		records = append(records, response.Results...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPoliciesResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListPoliciesResponse)
+	}
+
+	return records, err
+}
+
+// Streams Policies records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamPolicies(params *ListPoliciesParams) (chan TrusthubV1Policies, error) {
+	if params == nil {
+		params = &ListPoliciesParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PagePolicies(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan TrusthubV1Policies, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPoliciesResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListPoliciesResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListPoliciesResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListPoliciesResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateConnectionPolicyTarget'
@@ -136,15 +138,23 @@ func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid
 type ListConnectionPolicyTargetParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListConnectionPolicyTargetParams) SetPageSize(PageSize int) *ListConnectionPolicyTargetParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListConnectionPolicyTargetParams) SetLimit(Limit int) *ListConnectionPolicyTargetParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) (*ListConnectionPolicyTargetResponse, error) {
+// Retrieve a single page of ConnectionPolicyTarget records from the API. Request is executed immediately.
+func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, pageToken string, pageNumber string) (*ListConnectionPolicyTargetResponse, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
+
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 
 	data := url.Values{}
@@ -152,6 +162,13 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 	headers := make(map[string]interface{})
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -166,6 +183,89 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 	}
 
 	return ps, err
+}
+
+// Lists ConnectionPolicyTarget records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) ([]VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
+	if params == nil {
+		params = &ListConnectionPolicyTargetParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageConnectionPolicyTarget(ConnectionPolicySid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []VoiceV1ConnectionPolicyConnectionPolicyTarget
+
+	for response != nil {
+		records = append(records, response.Targets...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConnectionPolicyTargetResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListConnectionPolicyTargetResponse)
+	}
+
+	return records, err
+}
+
+// Streams ConnectionPolicyTarget records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) (chan VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
+	if params == nil {
+		params = &ListConnectionPolicyTargetParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageConnectionPolicyTarget(ConnectionPolicySid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan VoiceV1ConnectionPolicyConnectionPolicyTarget, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Targets {
+				channel <- response.Targets[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConnectionPolicyTargetResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListConnectionPolicyTargetResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListConnectionPolicyTargetResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListConnectionPolicyTargetResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateConnectionPolicyTarget'

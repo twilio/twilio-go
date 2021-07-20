@@ -1,5 +1,18 @@
 twilio-go changelog
 ====================
+[2021-07-14] Version 0.12.0
+---------------------------
+**Library - Fix**
+- [PR #93](https://github.com/twilio/twilio-go/pull/93): list of stringified json marshaling. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Conversations**
+- Changed `last_read_message_index` and `unread_messages_count` type in User Conversation's resource **(breaking change)**
+- Expose UserConversations resource
+
+**Messaging**
+- Add brand_score field to brand registration responses
+
+
 [2021-06-30] Version 0.11.0
 ---------------------------
 **Library - Fix**

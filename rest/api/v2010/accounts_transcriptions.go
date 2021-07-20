@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'DeleteTranscription'
@@ -98,6 +100,8 @@ type ListTranscriptionParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListTranscriptionParams) SetPathAccountSid(PathAccountSid string) *ListTranscriptionParams {
@@ -108,10 +112,15 @@ func (params *ListTranscriptionParams) SetPageSize(PageSize int) *ListTranscript
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListTranscriptionParams) SetLimit(Limit int) *ListTranscriptionParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of transcriptions belonging to the account used to make the request
-func (c *ApiService) ListTranscription(params *ListTranscriptionParams) (*ListTranscriptionResponse, error) {
+// Retrieve a single page of Transcription records from the API. Request is executed immediately.
+func (c *ApiService) PageTranscription(params *ListTranscriptionParams, pageToken string, pageNumber string) (*ListTranscriptionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -123,6 +132,13 @@ func (c *ApiService) ListTranscription(params *ListTranscriptionParams) (*ListTr
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 	headers := make(map[string]interface{})
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -137,4 +153,87 @@ func (c *ApiService) ListTranscription(params *ListTranscriptionParams) (*ListTr
 	}
 
 	return ps, err
+}
+
+// Lists Transcription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTranscription(params *ListTranscriptionParams) ([]ApiV2010AccountTranscription, error) {
+	if params == nil {
+		params = &ListTranscriptionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageTranscription(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountTranscription
+
+	for response != nil {
+		records = append(records, response.Transcriptions...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTranscriptionResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListTranscriptionResponse)
+	}
+
+	return records, err
+}
+
+// Streams Transcription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTranscription(params *ListTranscriptionParams) (chan ApiV2010AccountTranscription, error) {
+	if params == nil {
+		params = &ListTranscriptionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageTranscription(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountTranscription, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Transcriptions {
+				channel <- response.Transcriptions[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTranscriptionResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListTranscriptionResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListTranscriptionResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTranscriptionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

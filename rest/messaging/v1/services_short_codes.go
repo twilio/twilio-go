@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateShortCode'
@@ -100,15 +102,23 @@ func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1
 type ListShortCodeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListShortCodeParams) SetPageSize(PageSize int) *ListShortCodeParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListShortCodeParams) SetLimit(Limit int) *ListShortCodeParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) (*ListShortCodeResponse, error) {
+// Retrieve a single page of ShortCode records from the API. Request is executed immediately.
+func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParams, pageToken string, pageNumber string) (*ListShortCodeResponse, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
@@ -116,6 +126,13 @@ func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParam
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 	headers := make(map[string]interface{})
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -130,4 +147,87 @@ func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParam
 	}
 
 	return ps, err
+}
+
+// Lists ShortCode records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) ([]MessagingV1ServiceShortCode, error) {
+	if params == nil {
+		params = &ListShortCodeParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageShortCode(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []MessagingV1ServiceShortCode
+
+	for response != nil {
+		records = append(records, response.ShortCodes...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListShortCodeResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListShortCodeResponse)
+	}
+
+	return records, err
+}
+
+// Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodeParams) (chan MessagingV1ServiceShortCode, error) {
+	if params == nil {
+		params = &ListShortCodeParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageShortCode(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan MessagingV1ServiceShortCode, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.ShortCodes {
+				channel <- response.ShortCodes[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListShortCodeResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListShortCodeResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListShortCodeResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListShortCodeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

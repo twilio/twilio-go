@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateAccount'
@@ -86,6 +88,8 @@ type ListAccountParams struct {
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAccountParams) SetFriendlyName(FriendlyName string) *ListAccountParams {
@@ -100,9 +104,13 @@ func (params *ListAccountParams) SetPageSize(PageSize int) *ListAccountParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListAccountParams) SetLimit(Limit int) *ListAccountParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieves a collection of Accounts belonging to the account used to make the request
-func (c *ApiService) ListAccount(params *ListAccountParams) (*ListAccountResponse, error) {
+// Retrieve a single page of Account records from the API. Request is executed immediately.
+func (c *ApiService) PageAccount(params *ListAccountParams, pageToken string, pageNumber string) (*ListAccountResponse, error) {
 	path := "/2010-04-01/Accounts.json"
 
 	data := url.Values{}
@@ -117,6 +125,13 @@ func (c *ApiService) ListAccount(params *ListAccountParams) (*ListAccountRespons
 	}
 	headers := make(map[string]interface{})
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -130,6 +145,89 @@ func (c *ApiService) ListAccount(params *ListAccountParams) (*ListAccountRespons
 	}
 
 	return ps, err
+}
+
+// Lists Account records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAccount(params *ListAccountParams) ([]ApiV2010Account, error) {
+	if params == nil {
+		params = &ListAccountParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageAccount(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010Account
+
+	for response != nil {
+		records = append(records, response.Accounts...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAccountResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListAccountResponse)
+	}
+
+	return records, err
+}
+
+// Streams Account records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAccount(params *ListAccountParams) (chan ApiV2010Account, error) {
+	if params == nil {
+		params = &ListAccountParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageAccount(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010Account, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Accounts {
+				channel <- response.Accounts[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAccountResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListAccountResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListAccountResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAccountResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateAccount'

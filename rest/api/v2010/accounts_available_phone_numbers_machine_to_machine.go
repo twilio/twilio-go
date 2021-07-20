@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListAvailablePhoneNumberMachineToMachine'
@@ -61,6 +63,8 @@ type ListAvailablePhoneNumberMachineToMachineParams struct {
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberMachineToMachineParams {
@@ -143,9 +147,15 @@ func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPageSize(PageSi
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetLimit(Limit int) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (*ListAvailablePhoneNumberMachineToMachineResponse, error) {
+// Retrieve a single page of AvailablePhoneNumberMachineToMachine records from the API. Request is executed immediately.
+func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberMachineToMachineResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -213,6 +223,13 @@ func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string
 	}
 	headers := make(map[string]interface{})
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -226,4 +243,87 @@ func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string
 	}
 
 	return ps, err
+}
+
+// Lists AvailablePhoneNumberMachineToMachine records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine, error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberMachineToMachineParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageAvailablePhoneNumberMachineToMachine(CountryCode, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine
+
+	for response != nil {
+		records = append(records, response.AvailablePhoneNumbers...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberMachineToMachineResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListAvailablePhoneNumberMachineToMachineResponse)
+	}
+
+	return records, err
+}
+
+// Streams AvailablePhoneNumberMachineToMachine records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine, error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberMachineToMachineParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageAvailablePhoneNumberMachineToMachine(CountryCode, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.AvailablePhoneNumbers {
+				channel <- response.AvailablePhoneNumbers[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberMachineToMachineResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListAvailablePhoneNumberMachineToMachineResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListAvailablePhoneNumberMachineToMachineResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAvailablePhoneNumberMachineToMachineResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateService'
@@ -97,14 +99,21 @@ func (c *ApiService) FetchService(Sid string) (*ChatV1Service, error) {
 type ListServiceParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListServiceParams) SetPageSize(PageSize int) *ListServiceParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListServiceParams) SetLimit(Limit int) *ListServiceParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListService(params *ListServiceParams) (*ListServiceResponse, error) {
+// Retrieve a single page of Service records from the API. Request is executed immediately.
+func (c *ApiService) PageService(params *ListServiceParams, pageToken string, pageNumber string) (*ListServiceResponse, error) {
 	path := "/v1/Services"
 
 	data := url.Values{}
@@ -112,6 +121,13 @@ func (c *ApiService) ListService(params *ListServiceParams) (*ListServiceRespons
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 	headers := make(map[string]interface{})
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -126,6 +142,89 @@ func (c *ApiService) ListService(params *ListServiceParams) (*ListServiceRespons
 	}
 
 	return ps, err
+}
+
+// Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListService(params *ListServiceParams) ([]ChatV1Service, error) {
+	if params == nil {
+		params = &ListServiceParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageService(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ChatV1Service
+
+	for response != nil {
+		records = append(records, response.Services...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListServiceResponse)
+	}
+
+	return records, err
+}
+
+// Streams Service records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamService(params *ListServiceParams) (chan ChatV1Service, error) {
+	if params == nil {
+		params = &ListServiceParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageService(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ChatV1Service, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Services {
+				channel <- response.Services[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListServiceResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListServiceResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListServiceResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateService'

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Retrieve a Step.
@@ -48,16 +50,23 @@ func (c *ApiService) FetchStep(FlowSid string, EngagementSid string, Sid string)
 type ListStepParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListStepParams) SetPageSize(PageSize int) *ListStepParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListStepParams) SetLimit(Limit int) *ListStepParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of all Steps for an Engagement.
-func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *ListStepParams) (*ListStepResponse, error) {
+// Retrieve a single page of Step records from the API. Request is executed immediately.
+func (c *ApiService) PageStep(FlowSid string, EngagementSid string, params *ListStepParams, pageToken string, pageNumber string) (*ListStepResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps"
+
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
 
@@ -66,6 +75,13 @@ func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *List
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 	headers := make(map[string]interface{})
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -80,4 +96,87 @@ func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *List
 	}
 
 	return ps, err
+}
+
+// Lists Step records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *ListStepParams) ([]StudioV1FlowEngagementStep, error) {
+	if params == nil {
+		params = &ListStepParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageStep(FlowSid, EngagementSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []StudioV1FlowEngagementStep
+
+	for response != nil {
+		records = append(records, response.Steps...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListStepResponse)
+	}
+
+	return records, err
+}
+
+// Streams Step records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *ListStepParams) (chan StudioV1FlowEngagementStep, error) {
+	if params == nil {
+		params = &ListStepParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageStep(FlowSid, EngagementSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan StudioV1FlowEngagementStep, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Steps {
+				channel <- response.Steps[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListStepResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListStepResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListStepResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateFieldType'
@@ -109,15 +111,23 @@ func (c *ApiService) FetchFieldType(AssistantSid string, Sid string) (*Autopilot
 type ListFieldTypeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListFieldTypeParams) SetPageSize(PageSize int) *ListFieldTypeParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListFieldTypeParams) SetLimit(Limit int) *ListFieldTypeParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypeParams) (*ListFieldTypeResponse, error) {
+// Retrieve a single page of FieldType records from the API. Request is executed immediately.
+func (c *ApiService) PageFieldType(AssistantSid string, params *ListFieldTypeParams, pageToken string, pageNumber string) (*ListFieldTypeResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
+
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
@@ -125,6 +135,13 @@ func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypePar
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 	headers := make(map[string]interface{})
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -139,6 +156,89 @@ func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypePar
 	}
 
 	return ps, err
+}
+
+// Lists FieldType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypeParams) ([]AutopilotV1AssistantFieldType, error) {
+	if params == nil {
+		params = &ListFieldTypeParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageFieldType(AssistantSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []AutopilotV1AssistantFieldType
+
+	for response != nil {
+		records = append(records, response.FieldTypes...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFieldTypeResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListFieldTypeResponse)
+	}
+
+	return records, err
+}
+
+// Streams FieldType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeParams) (chan AutopilotV1AssistantFieldType, error) {
+	if params == nil {
+		params = &ListFieldTypeParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageFieldType(AssistantSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan AutopilotV1AssistantFieldType, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.FieldTypes {
+				channel <- response.FieldTypes[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFieldTypeResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListFieldTypeResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListFieldTypeResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListFieldTypeResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateFieldType'

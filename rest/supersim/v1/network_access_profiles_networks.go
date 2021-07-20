@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateNetworkAccessProfileNetwork'
@@ -103,16 +105,23 @@ func (c *ApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfileSid st
 type ListNetworkAccessProfileNetworkParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListNetworkAccessProfileNetworkParams) SetPageSize(PageSize int) *ListNetworkAccessProfileNetworkParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListNetworkAccessProfileNetworkParams) SetLimit(Limit int) *ListNetworkAccessProfileNetworkParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of Network Access Profile resource&#39;s Network resource.
-func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) (*ListNetworkAccessProfileNetworkResponse, error) {
+// Retrieve a single page of NetworkAccessProfileNetwork records from the API. Request is executed immediately.
+func (c *ApiService) PageNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams, pageToken string, pageNumber string) (*ListNetworkAccessProfileNetworkResponse, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
+
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
 
 	data := url.Values{}
@@ -120,6 +129,13 @@ func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 	headers := make(map[string]interface{})
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -134,4 +150,87 @@ func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 	}
 
 	return ps, err
+}
+
+// Lists NetworkAccessProfileNetwork records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) ([]SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
+	if params == nil {
+		params = &ListNetworkAccessProfileNetworkParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageNetworkAccessProfileNetwork(NetworkAccessProfileSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork
+
+	for response != nil {
+		records = append(records, response.Networks...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListNetworkAccessProfileNetworkResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListNetworkAccessProfileNetworkResponse)
+	}
+
+	return records, err
+}
+
+// Streams NetworkAccessProfileNetwork records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) (chan SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
+	if params == nil {
+		params = &ListNetworkAccessProfileNetworkParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageNetworkAccessProfileNetwork(NetworkAccessProfileSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Networks {
+				channel <- response.Networks[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListNetworkAccessProfileNetworkResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListNetworkAccessProfileNetworkResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListNetworkAccessProfileNetworkResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListNetworkAccessProfileNetworkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

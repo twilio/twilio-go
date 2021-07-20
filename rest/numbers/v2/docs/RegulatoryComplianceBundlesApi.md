@@ -166,6 +166,7 @@ Name | Type | Description
 **IsoCountry** | **string** | The ISO country code of the Bundle&#39;s phone number country ownership request.
 **NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
 
 ### Return type
 

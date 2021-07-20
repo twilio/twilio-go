@@ -74,6 +74,7 @@ Name | Type | Description
 **DateCreatedBefore** | **time.Time** | Datetime filter used to query Verification Attempts created before this datetime.
 **ChannelDataTo** | **string** | Destination of a verification. Depending on the type of channel, it could be a phone number in E.164 format or an email address.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
 
 ### Return type
 

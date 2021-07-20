@@ -2,6 +2,7 @@
 package twilio
 
 import (
+	"os"
 	"time"
 
 	"github.com/twilio/twilio-go/client"
@@ -93,15 +94,27 @@ type Meta struct {
 }
 
 type RestClientParams struct {
+	Username   string
+	Password   string
 	AccountSid string
 	Client     client.BaseClient
 }
 
 // NewRestClientWithParams provides an initialized Twilio RestClient with params.
-func NewRestClientWithParams(username string, password string, params RestClientParams) *RestClient {
+func NewRestClientWithParams(params RestClientParams) *RestClient {
 	requestHandler := client.NewRequestHandler(params.Client)
 
 	if params.Client == nil {
+		username := params.Username
+		if username == "" {
+			username = os.Getenv("TWILIO_ACCOUNT_SID")
+		}
+
+		password := params.Password
+		if password == "" {
+			password = os.Getenv("TWILIO_AUTH_TOKEN")
+		}
+
 		defaultClient := &client.Client{
 			Credentials: client.NewCredentials(username, password),
 		}
@@ -157,10 +170,8 @@ func NewRestClientWithParams(username string, password string, params RestClient
 }
 
 // NewRestClient provides an initialized Twilio RestClient.
-func NewRestClient(username string, password string) *RestClient {
-	return NewRestClientWithParams(username, password, RestClientParams{
-		AccountSid: username,
-	})
+func NewRestClient() *RestClient {
+	return NewRestClientWithParams(RestClientParams{})
 }
 
 // SetTimeout sets the Timeout for Twilio HTTP requests.
