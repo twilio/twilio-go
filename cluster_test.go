@@ -38,7 +38,7 @@ func TestSendingAText(t *testing.T) {
 }
 
 func TestListingNumbers(t *testing.T) {
-	resp, err := testClient.ApiV2010.ListIncomingPhoneNumber(nil, 0)
+	resp, err := testClient.ApiV2010.ListIncomingPhoneNumber(nil)
 	assert.Nil(t, err)
 	assert.NotNil(t, resp)
 	// from, to numbers plus any other numbers that's configured for the account.
@@ -49,7 +49,7 @@ func TestListingANumber(t *testing.T) {
 	params := &openapi.ListIncomingPhoneNumberParams{}
 	params.SetPhoneNumber(from)
 
-	resp, err := testClient.ApiV2010.ListIncomingPhoneNumber(params, 0)
+	resp, err := testClient.ApiV2010.ListIncomingPhoneNumber(params)
 	assert.Nil(t, err)
 	assert.NotNil(t, resp)
 	assert.Equal(t, 1, len(resp))
