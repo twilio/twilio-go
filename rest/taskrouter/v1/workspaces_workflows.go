@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateWorkflow'
@@ -139,6 +141,8 @@ type ListWorkflowParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListWorkflowParams) SetFriendlyName(FriendlyName string) *ListWorkflowParams {
@@ -149,9 +153,15 @@ func (params *ListWorkflowParams) SetPageSize(PageSize int) *ListWorkflowParams 
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListWorkflowParams) SetLimit(Limit int) *ListWorkflowParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParams) (*ListWorkflowResponse, error) {
+// Retrieve a single page of Workflow records from the API. Request is executed immediately.
+func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParams, pageToken string, pageNumber string) (*ListWorkflowResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
+
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
@@ -162,6 +172,13 @@ func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParam
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -177,6 +194,89 @@ func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParam
 	}
 
 	return ps, err
+}
+
+// Lists Workflow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParams) ([]TaskrouterV1WorkspaceWorkflow, error) {
+	if params == nil {
+		params = &ListWorkflowParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageWorkflow(WorkspaceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []TaskrouterV1WorkspaceWorkflow
+
+	for response != nil {
+		records = append(records, response.Workflows...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWorkflowResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListWorkflowResponse)
+	}
+
+	return records, err
+}
+
+// Streams Workflow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowParams) (chan TaskrouterV1WorkspaceWorkflow, error) {
+	if params == nil {
+		params = &ListWorkflowParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageWorkflow(WorkspaceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan TaskrouterV1WorkspaceWorkflow, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Workflows {
+				channel <- response.Workflows[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWorkflowResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListWorkflowResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListWorkflowResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListWorkflowResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateWorkflow'

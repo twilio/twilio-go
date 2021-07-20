@@ -105,11 +105,13 @@ func (c *Client) SendRequest(method string, rawURL string, data interface{},
 	goVersion := runtime.Version()
 
 	if method == http.MethodGet {
-		v, _ := EncodeToStringWith(data, delimiter, escapee, keepZeros)
-		regex := regexp.MustCompile(`\.\d+`)
-		s := regex.ReplaceAllString(v, "")
+		if data != nil {
+			v, _ := EncodeToStringWith(data, delimiter, escapee, keepZeros)
+			regex := regexp.MustCompile(`\.\d+`)
+			s := regex.ReplaceAllString(v, "")
 
-		u.RawQuery = s
+			u.RawQuery = s
+		}
 	}
 
 	var valueReader io.Reader

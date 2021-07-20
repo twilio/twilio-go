@@ -116,6 +116,7 @@ Name | Type | Description
 **Fleet** | **string** | The SID or unique name of the Fleet to which a list of Sims are assigned.
 **Iccid** | **string** | The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with a Super SIM to filter the list by. Passing this parameter will always return a list containing zero or one SIMs.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
 
 ### Return type
 

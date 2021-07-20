@@ -82,6 +82,7 @@ Name | Type | Description
 **FriendlyName** | **string** | The string that identifies the Conference resources to read.
 **Status** | **string** | The status of the resources to read. Can be: &#x60;init&#x60;, &#x60;in-progress&#x60;, or &#x60;completed&#x60;.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
 
 ### Return type
 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Retrieve a specific log.
@@ -55,6 +57,8 @@ type ListLogParams struct {
 	EndDate *time.Time `json:"EndDate,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListLogParams) SetFunctionSid(FunctionSid string) *ListLogParams {
@@ -73,10 +77,15 @@ func (params *ListLogParams) SetPageSize(PageSize int) *ListLogParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListLogParams) SetLimit(Limit int) *ListLogParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of all logs.
-func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) (*ListLogResponse, error) {
+// Retrieve a single page of Log records from the API. Request is executed immediately.
+func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, pageToken string, pageNumber string) (*ListLogResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
@@ -96,6 +105,13 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -109,4 +125,87 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 	}
 
 	return ps, err
+}
+
+// Lists Log records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) ([]ServerlessV1ServiceEnvironmentLog, error) {
+	if params == nil {
+		params = &ListLogParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageLog(ServiceSid, EnvironmentSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ServerlessV1ServiceEnvironmentLog
+
+	for response != nil {
+		records = append(records, response.Logs...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListLogResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListLogResponse)
+	}
+
+	return records, err
+}
+
+// Streams Log records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) (chan ServerlessV1ServiceEnvironmentLog, error) {
+	if params == nil {
+		params = &ListLogParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageLog(ServiceSid, EnvironmentSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ServerlessV1ServiceEnvironmentLog, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Logs {
+				channel <- response.Logs[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListLogResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListLogResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListLogResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListLogResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

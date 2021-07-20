@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateNewSigningKey'
@@ -144,6 +146,8 @@ type ListSigningKeyParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSigningKeyParams) SetPathAccountSid(PathAccountSid string) *ListSigningKeyParams {
@@ -154,9 +158,15 @@ func (params *ListSigningKeyParams) SetPageSize(PageSize int) *ListSigningKeyPar
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListSigningKeyParams) SetLimit(Limit int) *ListSigningKeyParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) (*ListSigningKeyResponse, error) {
+// Retrieve a single page of SigningKey records from the API. Request is executed immediately.
+func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken string, pageNumber string) (*ListSigningKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -168,6 +178,13 @@ func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) (*ListSigningK
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -183,6 +200,89 @@ func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) (*ListSigningK
 	}
 
 	return ps, err
+}
+
+// Lists SigningKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) ([]ApiV2010AccountSigningKey, error) {
+	if params == nil {
+		params = &ListSigningKeyParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageSigningKey(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountSigningKey
+
+	for response != nil {
+		records = append(records, response.SigningKeys...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSigningKeyResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListSigningKeyResponse)
+	}
+
+	return records, err
+}
+
+// Streams SigningKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ApiV2010AccountSigningKey, error) {
+	if params == nil {
+		params = &ListSigningKeyParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageSigningKey(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountSigningKey, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.SigningKeys {
+				channel <- response.SigningKeys[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSigningKeyResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSigningKeyResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSigningKeyResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSigningKeyResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSigningKey'

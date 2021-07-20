@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateTrunk'
@@ -152,14 +154,21 @@ func (c *ApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 type ListTrunkParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListTrunkParams) SetPageSize(PageSize int) *ListTrunkParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListTrunkParams) SetLimit(Limit int) *ListTrunkParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListTrunk(params *ListTrunkParams) (*ListTrunkResponse, error) {
+// Retrieve a single page of Trunk records from the API. Request is executed immediately.
+func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken string, pageNumber string) (*ListTrunkResponse, error) {
 	path := "/v1/Trunks"
 
 	data := url.Values{}
@@ -167,6 +176,13 @@ func (c *ApiService) ListTrunk(params *ListTrunkParams) (*ListTrunkResponse, err
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -182,6 +198,89 @@ func (c *ApiService) ListTrunk(params *ListTrunkParams) (*ListTrunkResponse, err
 	}
 
 	return ps, err
+}
+
+// Lists Trunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTrunk(params *ListTrunkParams) ([]TrunkingV1Trunk, error) {
+	if params == nil {
+		params = &ListTrunkParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageTrunk(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []TrunkingV1Trunk
+
+	for response != nil {
+		records = append(records, response.Trunks...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrunkResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListTrunkResponse)
+	}
+
+	return records, err
+}
+
+// Streams Trunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTrunk(params *ListTrunkParams) (chan TrunkingV1Trunk, error) {
+	if params == nil {
+		params = &ListTrunkParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageTrunk(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan TrunkingV1Trunk, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Trunks {
+				channel <- response.Trunks[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrunkResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListTrunkResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListTrunkResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTrunkResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateTrunk'

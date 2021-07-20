@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"net/url"
 	"testing"
 	"time"
 
@@ -37,7 +36,7 @@ func TestClient_SendRequestError(t *testing.T) {
 	defer mockServer.Close()
 
 	client := NewClient("user", "pass")
-	resp, err := client.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
 	twilioError := err.(*twilio.TwilioRestError)
 	assert.Nil(t, resp)
 	assert.Equal(t, 400, twilioError.Status)
@@ -65,7 +64,7 @@ func TestClient_SendRequestErrorWithDetails(t *testing.T) {
 	defer mockServer.Close()
 
 	client := NewClient("user", "pass")
-	resp, err := client.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
 	twilioError := err.(*twilio.TwilioRestError)
 	details := make(map[string]interface{})
 	details["foo"] = "bar"
@@ -86,7 +85,7 @@ func TestClient_SendRequestWithRedirect(t *testing.T) {
 	defer mockServer.Close()
 
 	client := NewClient("user", "pass")
-	resp, _ := client.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, _ := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
 	assert.Equal(t, 307, resp.StatusCode)
 }
 
@@ -108,7 +107,7 @@ func TestClient_SetTimeoutTimesOut(t *testing.T) {
 
 	client := NewClient("user", "pass")
 	client.SetTimeout(10 * time.Microsecond)
-	_, err := client.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
+	_, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
 	assert.Error(t, err)
 }
 
@@ -129,7 +128,7 @@ func TestClient_SetTimeoutSucceeds(t *testing.T) {
 
 	client := NewClient("user", "pass")
 	client.SetTimeout(10 * time.Second)
-	resp, err := client.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
 	assert.NoError(t, err)
 	assert.Equal(t, 200, resp.StatusCode)
 }
@@ -153,9 +152,30 @@ func TestClient_SetTimeoutCreatesClient(t *testing.T) {
 		Credentials: twilio.NewCredentials("user", "pass"),
 	}
 	client.SetTimeout(20 * time.Second)
-	resp, err := client.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
 	assert.NoError(t, err)
 	assert.Equal(t, 200, resp.StatusCode)
+}
+
+func TestClient_UnicodeResponse(t *testing.T) {
+	mockServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			d := map[string]interface{}{
+				"testing-unicode": "Ω≈ç√, 💩",
+			}
+			encoder := json.NewEncoder(writer)
+			err := encoder.Encode(&d)
+			if err != nil {
+				t.Error(err)
+			}
+		}))
+	defer mockServer.Close()
+
+	client := NewClient("user", "pass")
+	resp, _ := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	assert.Equal(t, 200, resp.StatusCode)
+	body, _ := ioutil.ReadAll(resp.Body)
+	assert.Equal(t, "{\"testing-unicode\":\"Ω≈ç√, 💩\"}\n", string(body))
 }
 
 func TestClient_RequestBodyShouldContainJson(t *testing.T) {

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateQuery'
@@ -136,6 +138,8 @@ type ListQueryParams struct {
 	DialogueSid *string `json:"DialogueSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListQueryParams) SetLanguage(Language string) *ListQueryParams {
@@ -158,9 +162,15 @@ func (params *ListQueryParams) SetPageSize(PageSize int) *ListQueryParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListQueryParams) SetLimit(Limit int) *ListQueryParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams) (*ListQueryResponse, error) {
+// Retrieve a single page of Query records from the API. Request is executed immediately.
+func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pageToken string, pageNumber string) (*ListQueryResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries"
+
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
@@ -182,6 +192,13 @@ func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams) (*L
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -195,6 +212,89 @@ func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams) (*L
 	}
 
 	return ps, err
+}
+
+// Lists Query records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams) ([]AutopilotV1AssistantQuery, error) {
+	if params == nil {
+		params = &ListQueryParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageQuery(AssistantSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []AutopilotV1AssistantQuery
+
+	for response != nil {
+		records = append(records, response.Queries...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListQueryResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListQueryResponse)
+	}
+
+	return records, err
+}
+
+// Streams Query records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamQuery(AssistantSid string, params *ListQueryParams) (chan AutopilotV1AssistantQuery, error) {
+	if params == nil {
+		params = &ListQueryParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageQuery(AssistantSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan AutopilotV1AssistantQuery, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Queries {
+				channel <- response.Queries[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListQueryResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListQueryResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListQueryResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListQueryResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateQuery'

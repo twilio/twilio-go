@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'DeleteRecording'
@@ -109,6 +111,8 @@ type ListRecordingParams struct {
 	ConferenceSid *string `json:"ConferenceSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListRecordingParams) SetPathAccountSid(PathAccountSid string) *ListRecordingParams {
@@ -139,10 +143,15 @@ func (params *ListRecordingParams) SetPageSize(PageSize int) *ListRecordingParam
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListRecordingParams) SetLimit(Limit int) *ListRecordingParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of recordings belonging to the account used to make the request
-func (c *ApiService) ListRecording(params *ListRecordingParams) (*ListRecordingResponse, error) {
+// Retrieve a single page of Recording records from the API. Request is executed immediately.
+func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken string, pageNumber string) (*ListRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -171,6 +180,13 @@ func (c *ApiService) ListRecording(params *ListRecordingParams) (*ListRecordingR
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -184,4 +200,87 @@ func (c *ApiService) ListRecording(params *ListRecordingParams) (*ListRecordingR
 	}
 
 	return ps, err
+}
+
+// Lists Recording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRecording(params *ListRecordingParams) ([]ApiV2010AccountRecording, error) {
+	if params == nil {
+		params = &ListRecordingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageRecording(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountRecording
+
+	for response != nil {
+		records = append(records, response.Recordings...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRecordingResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListRecordingResponse)
+	}
+
+	return records, err
+}
+
+// Streams Recording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan ApiV2010AccountRecording, error) {
+	if params == nil {
+		params = &ListRecordingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageRecording(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountRecording, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Recordings {
+				channel <- response.Recordings[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRecordingResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListRecordingResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListRecordingResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRecordingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSubscribedEvent'
@@ -113,16 +115,23 @@ func (c *ApiService) FetchSubscribedEvent(SubscriptionSid string, Type string) (
 type ListSubscribedEventParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSubscribedEventParams) SetPageSize(PageSize int) *ListSubscribedEventParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListSubscribedEventParams) SetLimit(Limit int) *ListSubscribedEventParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of all Subscribed Event types for a Subscription.
-func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) (*ListSubscribedEventResponse, error) {
+// Retrieve a single page of SubscribedEvent records from the API. Request is executed immediately.
+func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, pageToken string, pageNumber string) (*ListSubscribedEventResponse, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
+
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 
 	data := url.Values{}
@@ -130,6 +139,13 @@ func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSub
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -145,6 +161,89 @@ func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSub
 	}
 
 	return ps, err
+}
+
+// Lists SubscribedEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) ([]EventsV1SubscriptionSubscribedEvent, error) {
+	if params == nil {
+		params = &ListSubscribedEventParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageSubscribedEvent(SubscriptionSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []EventsV1SubscriptionSubscribedEvent
+
+	for response != nil {
+		records = append(records, response.Types...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSubscribedEventResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListSubscribedEventResponse)
+	}
+
+	return records, err
+}
+
+// Streams SubscribedEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) (chan EventsV1SubscriptionSubscribedEvent, error) {
+	if params == nil {
+		params = &ListSubscribedEventParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageSubscribedEvent(SubscriptionSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan EventsV1SubscriptionSubscribedEvent, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Types {
+				channel <- response.Types[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSubscribedEventResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSubscribedEventResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSubscribedEventResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSubscribedEventResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSubscribedEvent'

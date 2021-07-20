@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateCompositionHook'
@@ -200,6 +202,8 @@ type ListCompositionHookParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCompositionHookParams) SetEnabled(Enabled bool) *ListCompositionHookParams {
@@ -222,9 +226,13 @@ func (params *ListCompositionHookParams) SetPageSize(PageSize int) *ListComposit
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListCompositionHookParams) SetLimit(Limit int) *ListCompositionHookParams {
+	params.Limit = &Limit
+	return params
+}
 
-// List of all Recording CompositionHook resources.
-func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) (*ListCompositionHookResponse, error) {
+// Retrieve a single page of CompositionHook records from the API. Request is executed immediately.
+func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, pageToken string, pageNumber string) (*ListCompositionHookResponse, error) {
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
@@ -246,6 +254,13 @@ func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) (*Li
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -259,6 +274,89 @@ func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) (*Li
 	}
 
 	return ps, err
+}
+
+// Lists CompositionHook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListCompositionHook(params *ListCompositionHookParams) ([]VideoV1CompositionHook, error) {
+	if params == nil {
+		params = &ListCompositionHookParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageCompositionHook(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []VideoV1CompositionHook
+
+	for response != nil {
+		records = append(records, response.CompositionHooks...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCompositionHookResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListCompositionHookResponse)
+	}
+
+	return records, err
+}
+
+// Streams CompositionHook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamCompositionHook(params *ListCompositionHookParams) (chan VideoV1CompositionHook, error) {
+	if params == nil {
+		params = &ListCompositionHookParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageCompositionHook(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan VideoV1CompositionHook, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.CompositionHooks {
+				channel <- response.CompositionHooks[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCompositionHookResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListCompositionHookResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListCompositionHookResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListCompositionHookResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateCompositionHook'

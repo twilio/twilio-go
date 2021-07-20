@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListAvailablePhoneNumberNational'
@@ -61,6 +63,8 @@ type ListAvailablePhoneNumberNationalParams struct {
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberNationalParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberNationalParams {
@@ -143,9 +147,15 @@ func (params *ListAvailablePhoneNumberNationalParams) SetPageSize(PageSize int) 
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListAvailablePhoneNumberNationalParams) SetLimit(Limit int) *ListAvailablePhoneNumberNationalParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListAvailablePhoneNumberNational(CountryCode string, params *ListAvailablePhoneNumberNationalParams) (*ListAvailablePhoneNumberNationalResponse, error) {
+// Retrieve a single page of AvailablePhoneNumberNational records from the API. Request is executed immediately.
+func (c *ApiService) PageAvailablePhoneNumberNational(CountryCode string, params *ListAvailablePhoneNumberNationalParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberNationalResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -214,6 +224,13 @@ func (c *ApiService) ListAvailablePhoneNumberNational(CountryCode string, params
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -227,4 +244,87 @@ func (c *ApiService) ListAvailablePhoneNumberNational(CountryCode string, params
 	}
 
 	return ps, err
+}
+
+// Lists AvailablePhoneNumberNational records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListAvailablePhoneNumberNational(CountryCode string, params *ListAvailablePhoneNumberNationalParams) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational, error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberNationalParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageAvailablePhoneNumberNational(CountryCode, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational
+
+	for response != nil {
+		records = append(records, response.AvailablePhoneNumbers...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberNationalResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListAvailablePhoneNumberNationalResponse)
+	}
+
+	return records, err
+}
+
+// Streams AvailablePhoneNumberNational records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamAvailablePhoneNumberNational(CountryCode string, params *ListAvailablePhoneNumberNationalParams) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational, error) {
+	if params == nil {
+		params = &ListAvailablePhoneNumberNationalParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageAvailablePhoneNumberNational(CountryCode, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.AvailablePhoneNumbers {
+				channel <- response.AvailablePhoneNumbers[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberNationalResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListAvailablePhoneNumberNationalResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListAvailablePhoneNumberNationalResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListAvailablePhoneNumberNationalResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

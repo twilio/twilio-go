@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSourceIpMapping'
@@ -107,14 +109,21 @@ func (c *ApiService) FetchSourceIpMapping(Sid string) (*VoiceV1SourceIpMapping, 
 type ListSourceIpMappingParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSourceIpMappingParams) SetPageSize(PageSize int) *ListSourceIpMappingParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListSourceIpMappingParams) SetLimit(Limit int) *ListSourceIpMappingParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) (*ListSourceIpMappingResponse, error) {
+// Retrieve a single page of SourceIpMapping records from the API. Request is executed immediately.
+func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, pageToken string, pageNumber string) (*ListSourceIpMappingResponse, error) {
 	path := "/v1/SourceIpMappings"
 
 	data := url.Values{}
@@ -122,6 +131,13 @@ func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) (*Li
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -137,6 +153,89 @@ func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) (*Li
 	}
 
 	return ps, err
+}
+
+// Lists SourceIpMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) ([]VoiceV1SourceIpMapping, error) {
+	if params == nil {
+		params = &ListSourceIpMappingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageSourceIpMapping(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []VoiceV1SourceIpMapping
+
+	for response != nil {
+		records = append(records, response.SourceIpMappings...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSourceIpMappingResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListSourceIpMappingResponse)
+	}
+
+	return records, err
+}
+
+// Streams SourceIpMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams) (chan VoiceV1SourceIpMapping, error) {
+	if params == nil {
+		params = &ListSourceIpMappingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageSourceIpMapping(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan VoiceV1SourceIpMapping, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.SourceIpMappings {
+				channel <- response.SourceIpMappings[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSourceIpMappingResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSourceIpMappingResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSourceIpMappingResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSourceIpMappingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSourceIpMapping'

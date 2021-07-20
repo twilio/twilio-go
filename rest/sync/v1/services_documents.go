@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateDocument'
@@ -125,15 +127,23 @@ func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Servic
 type ListDocumentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListDocumentParams) SetPageSize(PageSize int) *ListDocumentParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListDocumentParams) SetLimit(Limit int) *ListDocumentParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams) (*ListDocumentResponse, error) {
+// Retrieve a single page of Document records from the API. Request is executed immediately.
+func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams, pageToken string, pageNumber string) (*ListDocumentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
@@ -141,6 +151,13 @@ func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams)
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -156,6 +173,89 @@ func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams)
 	}
 
 	return ps, err
+}
+
+// Lists Document records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams) ([]SyncV1ServiceDocument, error) {
+	if params == nil {
+		params = &ListDocumentParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageDocument(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []SyncV1ServiceDocument
+
+	for response != nil {
+		records = append(records, response.Documents...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListDocumentResponse)
+	}
+
+	return records, err
+}
+
+// Streams Document records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParams) (chan SyncV1ServiceDocument, error) {
+	if params == nil {
+		params = &ListDocumentParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageDocument(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan SyncV1ServiceDocument, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Documents {
+				channel <- response.Documents[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListDocumentResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListDocumentResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListDocumentResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateDocument'

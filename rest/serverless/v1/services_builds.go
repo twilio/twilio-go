@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateBuild'
@@ -135,16 +137,23 @@ func (c *ApiService) FetchBuild(ServiceSid string, Sid string) (*ServerlessV1Ser
 type ListBuildParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListBuildParams) SetPageSize(PageSize int) *ListBuildParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListBuildParams) SetLimit(Limit int) *ListBuildParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of all Builds.
-func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) (*ListBuildResponse, error) {
+// Retrieve a single page of Build records from the API. Request is executed immediately.
+func (c *ApiService) PageBuild(ServiceSid string, params *ListBuildParams, pageToken string, pageNumber string) (*ListBuildResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Builds"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
@@ -152,6 +161,13 @@ func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) (*Lis
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -167,4 +183,87 @@ func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) (*Lis
 	}
 
 	return ps, err
+}
+
+// Lists Build records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) ([]ServerlessV1ServiceBuild, error) {
+	if params == nil {
+		params = &ListBuildParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageBuild(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ServerlessV1ServiceBuild
+
+	for response != nil {
+		records = append(records, response.Builds...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBuildResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListBuildResponse)
+	}
+
+	return records, err
+}
+
+// Streams Build records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBuild(ServiceSid string, params *ListBuildParams) (chan ServerlessV1ServiceBuild, error) {
+	if params == nil {
+		params = &ListBuildParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageBuild(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ServerlessV1ServiceBuild, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Builds {
+				channel <- response.Builds[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBuildResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListBuildResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListBuildResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBuildResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

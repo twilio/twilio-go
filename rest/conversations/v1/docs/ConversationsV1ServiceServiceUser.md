@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Identity** | Pointer to **string** | The string that identifies the resource's User |
 **IsNotifiable** | Pointer to **bool** | Whether the User has a potentially valid Push Notification registration for this Conversations Service |
 **IsOnline** | Pointer to **bool** | Whether the User is actively connected to this Conversations Service and online |
+**Links** | Pointer to **map[string]interface{}** |  |
 **RoleSid** | Pointer to **string** | The SID of a service-level Role assigned to the user |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Url** | Pointer to **string** | An absolute URL for this user. |

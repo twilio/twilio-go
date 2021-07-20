@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateEngagement'
@@ -128,16 +130,23 @@ func (c *ApiService) FetchEngagement(FlowSid string, Sid string) (*StudioV1FlowE
 type ListEngagementParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListEngagementParams) SetPageSize(PageSize int) *ListEngagementParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListEngagementParams) SetLimit(Limit int) *ListEngagementParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of all Engagements for the Flow.
-func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams) (*ListEngagementResponse, error) {
+// Retrieve a single page of Engagement records from the API. Request is executed immediately.
+func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams, pageToken string, pageNumber string) (*ListEngagementResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements"
+
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
 	data := url.Values{}
@@ -145,6 +154,13 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -160,4 +176,87 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 	}
 
 	return ps, err
+}
+
+// Lists Engagement records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams) ([]StudioV1FlowEngagement, error) {
+	if params == nil {
+		params = &ListEngagementParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageEngagement(FlowSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []StudioV1FlowEngagement
+
+	for response != nil {
+		records = append(records, response.Engagements...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEngagementResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListEngagementResponse)
+	}
+
+	return records, err
+}
+
+// Streams Engagement records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementParams) (chan StudioV1FlowEngagement, error) {
+	if params == nil {
+		params = &ListEngagementParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageEngagement(FlowSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan StudioV1FlowEngagement, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Engagements {
+				channel <- response.Engagements[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEngagementResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListEngagementResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListEngagementResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListEngagementResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

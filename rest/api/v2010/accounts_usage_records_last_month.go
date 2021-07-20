@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -16,6 +16,8 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'ListUsageRecordLastMonth'
@@ -32,6 +34,8 @@ type ListUsageRecordLastMonthParams struct {
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListUsageRecordLastMonthParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordLastMonthParams {
@@ -58,9 +62,15 @@ func (params *ListUsageRecordLastMonthParams) SetPageSize(PageSize int) *ListUsa
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListUsageRecordLastMonthParams) SetLimit(Limit int) *ListUsageRecordLastMonthParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthParams) (*ListUsageRecordLastMonthResponse, error) {
+// Retrieve a single page of UsageRecordLastMonth records from the API. Request is executed immediately.
+func (c *ApiService) PageUsageRecordLastMonth(params *ListUsageRecordLastMonthParams, pageToken string, pageNumber string) (*ListUsageRecordLastMonthResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json"
+
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
 	} else {
@@ -86,6 +96,13 @@ func (c *ApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthPa
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -99,4 +116,87 @@ func (c *ApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthPa
 	}
 
 	return ps, err
+}
+
+// Lists UsageRecordLastMonth records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthParams) ([]ApiV2010AccountUsageUsageRecordUsageRecordLastMonth, error) {
+	if params == nil {
+		params = &ListUsageRecordLastMonthParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageUsageRecordLastMonth(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ApiV2010AccountUsageUsageRecordUsageRecordLastMonth
+
+	for response != nil {
+		records = append(records, response.UsageRecords...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordLastMonthResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListUsageRecordLastMonthResponse)
+	}
+
+	return records, err
+}
+
+// Streams UsageRecordLastMonth records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamUsageRecordLastMonth(params *ListUsageRecordLastMonthParams) (chan ApiV2010AccountUsageUsageRecordUsageRecordLastMonth, error) {
+	if params == nil {
+		params = &ListUsageRecordLastMonthParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageUsageRecordLastMonth(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ApiV2010AccountUsageUsageRecordUsageRecordLastMonth, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.UsageRecords {
+				channel <- response.UsageRecords[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordLastMonthResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListUsageRecordLastMonthResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListUsageRecordLastMonthResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListUsageRecordLastMonthResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

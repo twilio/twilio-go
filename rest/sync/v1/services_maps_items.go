@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSyncMapItem'
@@ -167,6 +169,8 @@ type ListSyncMapItemParams struct {
 	Bounds *string `json:"Bounds,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSyncMapItemParams) SetOrder(Order string) *ListSyncMapItemParams {
@@ -185,9 +189,15 @@ func (params *ListSyncMapItemParams) SetPageSize(PageSize int) *ListSyncMapItemP
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListSyncMapItemParams) SetLimit(Limit int) *ListSyncMapItemParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams) (*ListSyncMapItemResponse, error) {
+// Retrieve a single page of SyncMapItem records from the API. Request is executed immediately.
+func (c *ApiService) PageSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams, pageToken string, pageNumber string) (*ListSyncMapItemResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
 
@@ -207,6 +217,13 @@ func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *L
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -220,6 +237,89 @@ func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *L
 	}
 
 	return ps, err
+}
+
+// Lists SyncMapItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams) ([]SyncV1ServiceSyncMapSyncMapItem, error) {
+	if params == nil {
+		params = &ListSyncMapItemParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageSyncMapItem(ServiceSid, MapSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []SyncV1ServiceSyncMapSyncMapItem
+
+	for response != nil {
+		records = append(records, response.Items...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncMapItemResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListSyncMapItemResponse)
+	}
+
+	return records, err
+}
+
+// Streams SyncMapItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams) (chan SyncV1ServiceSyncMapSyncMapItem, error) {
+	if params == nil {
+		params = &ListSyncMapItemParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageSyncMapItem(ServiceSid, MapSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan SyncV1ServiceSyncMapSyncMapItem, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Items {
+				channel <- response.Items[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncMapItemResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSyncMapItemResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSyncMapItemResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSyncMapItemResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSyncMapItem'

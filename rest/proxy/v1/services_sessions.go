@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateSession'
@@ -167,16 +169,23 @@ func (c *ApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV1Servic
 type ListSessionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSessionParams) SetPageSize(PageSize int) *ListSessionParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListSessionParams) SetLimit(Limit int) *ListSessionParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of all Sessions for the Service. A maximum of 100 records will be returned per page.
-func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) (*ListSessionResponse, error) {
+// Retrieve a single page of Session records from the API. Request is executed immediately.
+func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, pageToken string, pageNumber string) (*ListSessionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
@@ -184,6 +193,13 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) (
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -199,6 +215,89 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) (
 	}
 
 	return ps, err
+}
+
+// Lists Session records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) ([]ProxyV1ServiceSession, error) {
+	if params == nil {
+		params = &ListSessionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageSession(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ProxyV1ServiceSession
+
+	for response != nil {
+		records = append(records, response.Sessions...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSessionResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListSessionResponse)
+	}
+
+	return records, err
+}
+
+// Streams Session records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams) (chan ProxyV1ServiceSession, error) {
+	if params == nil {
+		params = &ListSessionParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageSession(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ProxyV1ServiceSession, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Sessions {
+				channel <- response.Sessions[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSessionResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListSessionResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListSessionResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListSessionResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateSession'

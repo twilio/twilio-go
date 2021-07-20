@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -18,6 +18,8 @@ import (
 
 	"strings"
 	"time"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 func (c *ApiService) DeleteRoomRecording(RoomSid string, Sid string) error {
@@ -73,6 +75,8 @@ type ListRoomRecordingParams struct {
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListRoomRecordingParams) SetStatus(Status string) *ListRoomRecordingParams {
@@ -95,9 +99,15 @@ func (params *ListRoomRecordingParams) SetPageSize(PageSize int) *ListRoomRecord
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListRoomRecordingParams) SetLimit(Limit int) *ListRoomRecordingParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecordingParams) (*ListRoomRecordingResponse, error) {
+// Retrieve a single page of RoomRecording records from the API. Request is executed immediately.
+func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecordingParams, pageToken string, pageNumber string) (*ListRoomRecordingResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings"
+
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
@@ -119,6 +129,13 @@ func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecording
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -132,4 +149,87 @@ func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecording
 	}
 
 	return ps, err
+}
+
+// Lists RoomRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecordingParams) ([]VideoV1RoomRoomRecording, error) {
+	if params == nil {
+		params = &ListRoomRecordingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageRoomRecording(RoomSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []VideoV1RoomRoomRecording
+
+	for response != nil {
+		records = append(records, response.Recordings...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomRecordingResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListRoomRecordingResponse)
+	}
+
+	return records, err
+}
+
+// Streams RoomRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordingParams) (chan VideoV1RoomRoomRecording, error) {
+	if params == nil {
+		params = &ListRoomRecordingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageRoomRecording(RoomSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan VideoV1RoomRoomRecording, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Recordings {
+				channel <- response.Recordings[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomRecordingResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListRoomRecordingResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListRoomRecordingResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListRoomRecordingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

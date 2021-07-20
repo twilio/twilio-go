@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateTrustProduct'
@@ -134,6 +136,8 @@ type ListTrustProductParams struct {
 	PolicySid *string `json:"PolicySid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListTrustProductParams) SetStatus(Status string) *ListTrustProductParams {
@@ -152,9 +156,13 @@ func (params *ListTrustProductParams) SetPageSize(PageSize int) *ListTrustProduc
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListTrustProductParams) SetLimit(Limit int) *ListTrustProductParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of all Customer-Profiles for an account.
-func (c *ApiService) ListTrustProduct(params *ListTrustProductParams) (*ListTrustProductResponse, error) {
+// Retrieve a single page of TrustProduct records from the API. Request is executed immediately.
+func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken string, pageNumber string) (*ListTrustProductResponse, error) {
 	path := "/v1/TrustProducts"
 
 	data := url.Values{}
@@ -173,6 +181,13 @@ func (c *ApiService) ListTrustProduct(params *ListTrustProductParams) (*ListTrus
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -186,6 +201,89 @@ func (c *ApiService) ListTrustProduct(params *ListTrustProductParams) (*ListTrus
 	}
 
 	return ps, err
+}
+
+// Lists TrustProduct records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTrustProduct(params *ListTrustProductParams) ([]TrusthubV1TrustProduct, error) {
+	if params == nil {
+		params = &ListTrustProductParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageTrustProduct(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []TrusthubV1TrustProduct
+
+	for response != nil {
+		records = append(records, response.Results...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrustProductResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListTrustProductResponse)
+	}
+
+	return records, err
+}
+
+// Streams TrustProduct records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTrustProduct(params *ListTrustProductParams) (chan TrusthubV1TrustProduct, error) {
+	if params == nil {
+		params = &ListTrustProductParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageTrustProduct(params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan TrusthubV1TrustProduct, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrustProductResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListTrustProductResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListTrustProductResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTrustProductResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateTrustProduct'

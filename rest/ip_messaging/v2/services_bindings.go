@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
@@ -68,6 +70,8 @@ type ListBindingParams struct {
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListBindingParams) SetBindingType(BindingType []string) *ListBindingParams {
@@ -82,9 +86,15 @@ func (params *ListBindingParams) SetPageSize(PageSize int) *ListBindingParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListBindingParams) SetLimit(Limit int) *ListBindingParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) (*ListBindingResponse, error) {
+// Retrieve a single page of Binding records from the API. Request is executed immediately.
+func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, pageToken string, pageNumber string) (*ListBindingResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Bindings"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
@@ -104,6 +114,13 @@ func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) (
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
 
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
+	}
+
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
@@ -117,4 +134,87 @@ func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) (
 	}
 
 	return ps, err
+}
+
+// Lists Binding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) ([]IpMessagingV2ServiceBinding, error) {
+	if params == nil {
+		params = &ListBindingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageBinding(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []IpMessagingV2ServiceBinding
+
+	for response != nil {
+		records = append(records, response.Bindings...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBindingResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListBindingResponse)
+	}
+
+	return records, err
+}
+
+// Streams Binding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams) (chan IpMessagingV2ServiceBinding, error) {
+	if params == nil {
+		params = &ListBindingParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageBinding(ServiceSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan IpMessagingV2ServiceBinding, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Bindings {
+				channel <- response.Bindings[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBindingResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListBindingResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListBindingResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBindingResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateTask'
@@ -134,15 +136,23 @@ func (c *ApiService) FetchTask(AssistantSid string, Sid string) (*AutopilotV1Ass
 type ListTaskParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListTaskParams) SetPageSize(PageSize int) *ListTaskParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListTaskParams) SetLimit(Limit int) *ListTaskParams {
+	params.Limit = &Limit
+	return params
+}
 
-func (c *ApiService) ListTask(AssistantSid string, params *ListTaskParams) (*ListTaskResponse, error) {
+// Retrieve a single page of Task records from the API. Request is executed immediately.
+func (c *ApiService) PageTask(AssistantSid string, params *ListTaskParams, pageToken string, pageNumber string) (*ListTaskResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks"
+
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
@@ -150,6 +160,13 @@ func (c *ApiService) ListTask(AssistantSid string, params *ListTaskParams) (*Lis
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -165,6 +182,89 @@ func (c *ApiService) ListTask(AssistantSid string, params *ListTaskParams) (*Lis
 	}
 
 	return ps, err
+}
+
+// Lists Task records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListTask(AssistantSid string, params *ListTaskParams) ([]AutopilotV1AssistantTask, error) {
+	if params == nil {
+		params = &ListTaskParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageTask(AssistantSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []AutopilotV1AssistantTask
+
+	for response != nil {
+		records = append(records, response.Tasks...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListTaskResponse)
+	}
+
+	return records, err
+}
+
+// Streams Task records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamTask(AssistantSid string, params *ListTaskParams) (chan AutopilotV1AssistantTask, error) {
+	if params == nil {
+		params = &ListTaskParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageTask(AssistantSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan AutopilotV1AssistantTask, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Tasks {
+				channel <- response.Tasks[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListTaskResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListTaskResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListTaskResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
 
 // Optional parameters for the method 'UpdateTask'

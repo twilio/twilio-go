@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.18.0
+ * API version: 1.19.0
  * Contact: support@twilio.com
  */
 
@@ -17,6 +17,8 @@ import (
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateParticipant'
@@ -143,16 +145,23 @@ func (c *ApiService) FetchParticipant(ServiceSid string, SessionSid string, Sid 
 type ListParticipantParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListParticipantParams) SetPageSize(PageSize int) *ListParticipantParams {
 	params.PageSize = &PageSize
 	return params
 }
+func (params *ListParticipantParams) SetLimit(Limit int) *ListParticipantParams {
+	params.Limit = &Limit
+	return params
+}
 
-// Retrieve a list of all Participants in a Session.
-func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams) (*ListParticipantResponse, error) {
+// Retrieve a single page of Participant records from the API. Request is executed immediately.
+func (c *ApiService) PageParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams, pageToken string, pageNumber string) (*ListParticipantResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants"
+
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
 
@@ -161,6 +170,13 @@ func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, param
 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageToken != "" {
+		data.Set("Page", pageNumber)
 	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
@@ -176,4 +192,87 @@ func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, param
 	}
 
 	return ps, err
+}
+
+// Lists Participant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams) ([]ProxyV1ServiceSessionParticipant, error) {
+	if params == nil {
+		params = &ListParticipantParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageParticipant(ServiceSid, SessionSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []ProxyV1ServiceSessionParticipant
+
+	for response != nil {
+		records = append(records, response.Participants...)
+
+		var record interface{}
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListParticipantResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListParticipantResponse)
+	}
+
+	return records, err
+}
+
+// Streams Participant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams) (chan ProxyV1ServiceSessionParticipant, error) {
+	if params == nil {
+		params = &ListParticipantParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageParticipant(ServiceSid, SessionSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan ProxyV1ServiceSessionParticipant, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Participants {
+				channel <- response.Participants[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListParticipantResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListParticipantResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListParticipantResponse(nextPageUri string) (interface{}, error) {
+	if nextPageUri == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListParticipantResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }
