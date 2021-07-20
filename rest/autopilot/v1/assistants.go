@@ -166,10 +166,16 @@ func (c *ApiService) FetchAssistant(Sid string) (*AutopilotV1Assistant, error) {
 type ListAssistantParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAssistantParams) SetPageSize(PageSize int) *ListAssistantParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListAssistantParams) SetLimit(Limit int) *ListAssistantParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -207,11 +213,11 @@ func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken string
 }
 
 // Lists Assistant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAssistant(params *ListAssistantParams, limit int) ([]AutopilotV1Assistant, error) {
+func (c *ApiService) ListAssistant(params *ListAssistantParams) ([]AutopilotV1Assistant, error) {
 	if params == nil {
 		params = &ListAssistantParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAssistant(params, "", "")
 	if err != nil {
@@ -225,7 +231,7 @@ func (c *ApiService) ListAssistant(params *ListAssistantParams, limit int) ([]Au
 		records = append(records, response.Assistants...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAssistantResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAssistantResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -236,11 +242,11 @@ func (c *ApiService) ListAssistant(params *ListAssistantParams, limit int) ([]Au
 }
 
 // Streams Assistant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAssistant(params *ListAssistantParams, limit int) (chan AutopilotV1Assistant, error) {
+func (c *ApiService) StreamAssistant(params *ListAssistantParams) (chan AutopilotV1Assistant, error) {
 	if params == nil {
 		params = &ListAssistantParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAssistant(params, "", "")
 	if err != nil {
@@ -258,7 +264,7 @@ func (c *ApiService) StreamAssistant(params *ListAssistantParams, limit int) (ch
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAssistantResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAssistantResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

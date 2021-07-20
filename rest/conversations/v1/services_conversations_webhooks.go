@@ -167,10 +167,16 @@ func (c *ApiService) FetchServiceConversationScopedWebhook(ChatServiceSid string
 type ListServiceConversationScopedWebhookParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListServiceConversationScopedWebhookParams) SetPageSize(PageSize int) *ListServiceConversationScopedWebhookParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListServiceConversationScopedWebhookParams) SetLimit(Limit int) *ListServiceConversationScopedWebhookParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -211,11 +217,11 @@ func (c *ApiService) PageServiceConversationScopedWebhook(ChatServiceSid string,
 }
 
 // Lists ServiceConversationScopedWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams, limit int) ([]ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
+func (c *ApiService) ListServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams) ([]ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
 	if params == nil {
 		params = &ListServiceConversationScopedWebhookParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageServiceConversationScopedWebhook(ChatServiceSid, ConversationSid, params, "", "")
 	if err != nil {
@@ -229,7 +235,7 @@ func (c *ApiService) ListServiceConversationScopedWebhook(ChatServiceSid string,
 		records = append(records, response.Webhooks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationScopedWebhookResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceConversationScopedWebhookResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -240,11 +246,11 @@ func (c *ApiService) ListServiceConversationScopedWebhook(ChatServiceSid string,
 }
 
 // Streams ServiceConversationScopedWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams, limit int) (chan ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
+func (c *ApiService) StreamServiceConversationScopedWebhook(ChatServiceSid string, ConversationSid string, params *ListServiceConversationScopedWebhookParams) (chan ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook, error) {
 	if params == nil {
 		params = &ListServiceConversationScopedWebhookParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageServiceConversationScopedWebhook(ChatServiceSid, ConversationSid, params, "", "")
 	if err != nil {
@@ -262,7 +268,7 @@ func (c *ApiService) StreamServiceConversationScopedWebhook(ChatServiceSid strin
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationScopedWebhookResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceConversationScopedWebhookResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

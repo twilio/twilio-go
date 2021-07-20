@@ -151,6 +151,8 @@ type ListIncomingPhoneNumberAssignedAddOnParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberAssignedAddOnParams {
@@ -159,6 +161,10 @@ func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(Path
 }
 func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberAssignedAddOnParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetLimit(Limit int) *ListIncomingPhoneNumberAssignedAddOnParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -203,11 +209,11 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 }
 
 // Lists IncomingPhoneNumberAssignedAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, limit int) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
+func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberAssignedAddOnParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageIncomingPhoneNumberAssignedAddOn(ResourceSid, params, "", "")
 	if err != nil {
@@ -221,7 +227,7 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 		records = append(records, response.AssignedAddOns...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -232,11 +238,11 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 }
 
 // Streams IncomingPhoneNumberAssignedAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, limit int) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
+func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberAssignedAddOnParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageIncomingPhoneNumberAssignedAddOn(ResourceSid, params, "", "")
 	if err != nil {
@@ -254,7 +260,7 @@ func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -150,10 +150,16 @@ func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) 
 type ListUsAppToPersonParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListUsAppToPersonParams) SetPageSize(PageSize int) *ListUsAppToPersonParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListUsAppToPersonParams) SetLimit(Limit int) *ListUsAppToPersonParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -193,11 +199,11 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 }
 
 // Lists UsAppToPerson records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams, limit int) ([]MessagingV1ServiceUsAppToPerson, error) {
+func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) ([]MessagingV1ServiceUsAppToPerson, error) {
 	if params == nil {
 		params = &ListUsAppToPersonParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageUsAppToPerson(MessagingServiceSid, params, "", "")
 	if err != nil {
@@ -211,7 +217,7 @@ func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListU
 		records = append(records, response.Compliance...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsAppToPersonResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsAppToPersonResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -222,11 +228,11 @@ func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListU
 }
 
 // Streams UsAppToPerson records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams, limit int) (chan MessagingV1ServiceUsAppToPerson, error) {
+func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) (chan MessagingV1ServiceUsAppToPerson, error) {
 	if params == nil {
 		params = &ListUsAppToPersonParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageUsAppToPerson(MessagingServiceSid, params, "", "")
 	if err != nil {
@@ -244,7 +250,7 @@ func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *Lis
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsAppToPersonResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsAppToPersonResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

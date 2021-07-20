@@ -131,6 +131,7 @@ Name | Type | Description
 **FactorSid** | **string** | The unique SID identifier of the Factor.
 **Status** | **string** | The Status of the Challenges to fetch. One of &#x60;pending&#x60;, &#x60;expired&#x60;, &#x60;approved&#x60; or &#x60;denied&#x60;.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
 
 ### Return type
 

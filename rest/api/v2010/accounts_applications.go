@@ -276,6 +276,8 @@ type ListApplicationParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListApplicationParams) SetPathAccountSid(PathAccountSid string) *ListApplicationParams {
@@ -288,6 +290,10 @@ func (params *ListApplicationParams) SetFriendlyName(FriendlyName string) *ListA
 }
 func (params *ListApplicationParams) SetPageSize(PageSize int) *ListApplicationParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListApplicationParams) SetLimit(Limit int) *ListApplicationParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -334,11 +340,11 @@ func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken st
 }
 
 // Lists Application records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListApplication(params *ListApplicationParams, limit int) ([]ApiV2010AccountApplication, error) {
+func (c *ApiService) ListApplication(params *ListApplicationParams) ([]ApiV2010AccountApplication, error) {
 	if params == nil {
 		params = &ListApplicationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageApplication(params, "", "")
 	if err != nil {
@@ -352,7 +358,7 @@ func (c *ApiService) ListApplication(params *ListApplicationParams, limit int) (
 		records = append(records, response.Applications...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListApplicationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListApplicationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -363,11 +369,11 @@ func (c *ApiService) ListApplication(params *ListApplicationParams, limit int) (
 }
 
 // Streams Application records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamApplication(params *ListApplicationParams, limit int) (chan ApiV2010AccountApplication, error) {
+func (c *ApiService) StreamApplication(params *ListApplicationParams) (chan ApiV2010AccountApplication, error) {
 	if params == nil {
 		params = &ListApplicationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageApplication(params, "", "")
 	if err != nil {
@@ -385,7 +391,7 @@ func (c *ApiService) StreamApplication(params *ListApplicationParams, limit int)
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListApplicationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListApplicationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

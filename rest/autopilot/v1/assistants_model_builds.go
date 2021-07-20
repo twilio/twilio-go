@@ -112,10 +112,16 @@ func (c *ApiService) FetchModelBuild(AssistantSid string, Sid string) (*Autopilo
 type ListModelBuildParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListModelBuildParams) SetPageSize(PageSize int) *ListModelBuildParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListModelBuildParams) SetLimit(Limit int) *ListModelBuildParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -155,11 +161,11 @@ func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildP
 }
 
 // Lists ModelBuild records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildParams, limit int) ([]AutopilotV1AssistantModelBuild, error) {
+func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildParams) ([]AutopilotV1AssistantModelBuild, error) {
 	if params == nil {
 		params = &ListModelBuildParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageModelBuild(AssistantSid, params, "", "")
 	if err != nil {
@@ -173,7 +179,7 @@ func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildP
 		records = append(records, response.ModelBuilds...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListModelBuildResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListModelBuildResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -184,11 +190,11 @@ func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildP
 }
 
 // Streams ModelBuild records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuildParams, limit int) (chan AutopilotV1AssistantModelBuild, error) {
+func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuildParams) (chan AutopilotV1AssistantModelBuild, error) {
 	if params == nil {
 		params = &ListModelBuildParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageModelBuild(AssistantSid, params, "", "")
 	if err != nil {
@@ -206,7 +212,7 @@ func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuil
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListModelBuildResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListModelBuildResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

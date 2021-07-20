@@ -135,6 +135,8 @@ type ListExecutionParams struct {
 	DateCreatedTo *time.Time `json:"DateCreatedTo,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListExecutionParams) SetDateCreatedFrom(DateCreatedFrom time.Time) *ListExecutionParams {
@@ -147,6 +149,10 @@ func (params *ListExecutionParams) SetDateCreatedTo(DateCreatedTo time.Time) *Li
 }
 func (params *ListExecutionParams) SetPageSize(PageSize int) *ListExecutionParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListExecutionParams) SetLimit(Limit int) *ListExecutionParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -192,11 +198,11 @@ func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, 
 }
 
 // Lists Execution records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams, limit int) ([]StudioV1FlowExecution, error) {
+func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) ([]StudioV1FlowExecution, error) {
 	if params == nil {
 		params = &ListExecutionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageExecution(FlowSid, params, "", "")
 	if err != nil {
@@ -210,7 +216,7 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams, 
 		records = append(records, response.Executions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListExecutionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListExecutionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -221,11 +227,11 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams, 
 }
 
 // Streams Execution records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams, limit int) (chan StudioV1FlowExecution, error) {
+func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams) (chan StudioV1FlowExecution, error) {
 	if params == nil {
 		params = &ListExecutionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageExecution(FlowSid, params, "", "")
 	if err != nil {
@@ -243,7 +249,7 @@ func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListExecutionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListExecutionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

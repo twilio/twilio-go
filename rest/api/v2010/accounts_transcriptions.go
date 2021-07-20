@@ -100,6 +100,8 @@ type ListTranscriptionParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListTranscriptionParams) SetPathAccountSid(PathAccountSid string) *ListTranscriptionParams {
@@ -108,6 +110,10 @@ func (params *ListTranscriptionParams) SetPathAccountSid(PathAccountSid string) 
 }
 func (params *ListTranscriptionParams) SetPageSize(PageSize int) *ListTranscriptionParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListTranscriptionParams) SetLimit(Limit int) *ListTranscriptionParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -151,11 +157,11 @@ func (c *ApiService) PageTranscription(params *ListTranscriptionParams, pageToke
 }
 
 // Lists Transcription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTranscription(params *ListTranscriptionParams, limit int) ([]ApiV2010AccountTranscription, error) {
+func (c *ApiService) ListTranscription(params *ListTranscriptionParams) ([]ApiV2010AccountTranscription, error) {
 	if params == nil {
 		params = &ListTranscriptionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTranscription(params, "", "")
 	if err != nil {
@@ -169,7 +175,7 @@ func (c *ApiService) ListTranscription(params *ListTranscriptionParams, limit in
 		records = append(records, response.Transcriptions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTranscriptionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTranscriptionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -180,11 +186,11 @@ func (c *ApiService) ListTranscription(params *ListTranscriptionParams, limit in
 }
 
 // Streams Transcription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTranscription(params *ListTranscriptionParams, limit int) (chan ApiV2010AccountTranscription, error) {
+func (c *ApiService) StreamTranscription(params *ListTranscriptionParams) (chan ApiV2010AccountTranscription, error) {
 	if params == nil {
 		params = &ListTranscriptionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTranscription(params, "", "")
 	if err != nil {
@@ -202,7 +208,7 @@ func (c *ApiService) StreamTranscription(params *ListTranscriptionParams, limit 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTranscriptionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTranscriptionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

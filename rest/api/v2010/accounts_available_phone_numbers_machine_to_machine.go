@@ -63,6 +63,8 @@ type ListAvailablePhoneNumberMachineToMachineParams struct {
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberMachineToMachineParams {
@@ -143,6 +145,10 @@ func (params *ListAvailablePhoneNumberMachineToMachineParams) SetFaxEnabled(FaxE
 }
 func (params *ListAvailablePhoneNumberMachineToMachineParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberMachineToMachineParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListAvailablePhoneNumberMachineToMachineParams) SetLimit(Limit int) *ListAvailablePhoneNumberMachineToMachineParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -241,11 +247,11 @@ func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string
 }
 
 // Lists AvailablePhoneNumberMachineToMachine records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, limit int) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine, error) {
+func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine, error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberMachineToMachineParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAvailablePhoneNumberMachineToMachine(CountryCode, params, "", "")
 	if err != nil {
@@ -259,7 +265,7 @@ func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string
 		records = append(records, response.AvailablePhoneNumbers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAvailablePhoneNumberMachineToMachineResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberMachineToMachineResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -270,11 +276,11 @@ func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string
 }
 
 // Streams AvailablePhoneNumberMachineToMachine records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, limit int) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine, error) {
+func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine, error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberMachineToMachineParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAvailablePhoneNumberMachineToMachine(CountryCode, params, "", "")
 	if err != nil {
@@ -292,7 +298,7 @@ func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode stri
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAvailablePhoneNumberMachineToMachineResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberMachineToMachineResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -70,10 +70,16 @@ func (c *ApiService) FetchInteraction(ServiceSid string, SessionSid string, Sid 
 type ListInteractionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListInteractionParams) SetPageSize(PageSize int) *ListInteractionParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListInteractionParams) SetLimit(Limit int) *ListInteractionParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -114,11 +120,11 @@ func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, param
 }
 
 // Lists Interaction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, limit int) ([]ProxyV1ServiceSessionInteraction, error) {
+func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams) ([]ProxyV1ServiceSessionInteraction, error) {
 	if params == nil {
 		params = &ListInteractionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageInteraction(ServiceSid, SessionSid, params, "", "")
 	if err != nil {
@@ -132,7 +138,7 @@ func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, param
 		records = append(records, response.Interactions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListInteractionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListInteractionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -143,11 +149,11 @@ func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, param
 }
 
 // Streams Interaction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, limit int) (chan ProxyV1ServiceSessionInteraction, error) {
+func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams) (chan ProxyV1ServiceSessionInteraction, error) {
 	if params == nil {
 		params = &ListInteractionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageInteraction(ServiceSid, SessionSid, params, "", "")
 	if err != nil {
@@ -165,7 +171,7 @@ func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, par
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListInteractionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListInteractionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

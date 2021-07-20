@@ -279,6 +279,8 @@ type ListIncomingPhoneNumberMobileParams struct {
 	Origin *string `json:"Origin,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberMobileParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberMobileParams {
@@ -303,6 +305,10 @@ func (params *ListIncomingPhoneNumberMobileParams) SetOrigin(Origin string) *Lis
 }
 func (params *ListIncomingPhoneNumberMobileParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberMobileParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListIncomingPhoneNumberMobileParams) SetLimit(Limit int) *ListIncomingPhoneNumberMobileParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -358,11 +364,11 @@ func (c *ApiService) PageIncomingPhoneNumberMobile(params *ListIncomingPhoneNumb
 }
 
 // Lists IncomingPhoneNumberMobile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams, limit int) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, error) {
+func (c *ApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberMobileParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageIncomingPhoneNumberMobile(params, "", "")
 	if err != nil {
@@ -376,7 +382,7 @@ func (c *ApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumb
 		records = append(records, response.IncomingPhoneNumbers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberMobileResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberMobileResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -387,11 +393,11 @@ func (c *ApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumb
 }
 
 // Streams IncomingPhoneNumberMobile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams, limit int) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, error) {
+func (c *ApiService) StreamIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberMobileParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageIncomingPhoneNumberMobile(params, "", "")
 	if err != nil {
@@ -409,7 +415,7 @@ func (c *ApiService) StreamIncomingPhoneNumberMobile(params *ListIncomingPhoneNu
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberMobileResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberMobileResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -129,6 +129,8 @@ type ListSubscriptionParams struct {
 	SinkSid *string `json:"SinkSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSubscriptionParams) SetSinkSid(SinkSid string) *ListSubscriptionParams {
@@ -137,6 +139,10 @@ func (params *ListSubscriptionParams) SetSinkSid(SinkSid string) *ListSubscripti
 }
 func (params *ListSubscriptionParams) SetPageSize(PageSize int) *ListSubscriptionParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSubscriptionParams) SetLimit(Limit int) *ListSubscriptionParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -177,11 +183,11 @@ func (c *ApiService) PageSubscription(params *ListSubscriptionParams, pageToken 
 }
 
 // Lists Subscription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSubscription(params *ListSubscriptionParams, limit int) ([]EventsV1Subscription, error) {
+func (c *ApiService) ListSubscription(params *ListSubscriptionParams) ([]EventsV1Subscription, error) {
 	if params == nil {
 		params = &ListSubscriptionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSubscription(params, "", "")
 	if err != nil {
@@ -195,7 +201,7 @@ func (c *ApiService) ListSubscription(params *ListSubscriptionParams, limit int)
 		records = append(records, response.Subscriptions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSubscriptionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSubscriptionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -206,11 +212,11 @@ func (c *ApiService) ListSubscription(params *ListSubscriptionParams, limit int)
 }
 
 // Streams Subscription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSubscription(params *ListSubscriptionParams, limit int) (chan EventsV1Subscription, error) {
+func (c *ApiService) StreamSubscription(params *ListSubscriptionParams) (chan EventsV1Subscription, error) {
 	if params == nil {
 		params = &ListSubscriptionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSubscription(params, "", "")
 	if err != nil {
@@ -228,7 +234,7 @@ func (c *ApiService) StreamSubscription(params *ListSubscriptionParams, limit in
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSubscriptionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSubscriptionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

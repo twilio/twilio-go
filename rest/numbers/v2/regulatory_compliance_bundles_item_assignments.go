@@ -106,10 +106,16 @@ func (c *ApiService) FetchItemAssignment(BundleSid string, Sid string) (*Numbers
 type ListItemAssignmentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListItemAssignmentParams) SetPageSize(PageSize int) *ListItemAssignmentParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListItemAssignmentParams) SetLimit(Limit int) *ListItemAssignmentParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -149,11 +155,11 @@ func (c *ApiService) PageItemAssignment(BundleSid string, params *ListItemAssign
 }
 
 // Lists ItemAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssignmentParams, limit int) ([]NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
+func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssignmentParams) ([]NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
 	if params == nil {
 		params = &ListItemAssignmentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageItemAssignment(BundleSid, params, "", "")
 	if err != nil {
@@ -167,7 +173,7 @@ func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssign
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListItemAssignmentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListItemAssignmentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -178,11 +184,11 @@ func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssign
 }
 
 // Streams ItemAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssignmentParams, limit int) (chan NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
+func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssignmentParams) (chan NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
 	if params == nil {
 		params = &ListItemAssignmentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageItemAssignment(BundleSid, params, "", "")
 	if err != nil {
@@ -200,7 +206,7 @@ func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssi
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListItemAssignmentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListItemAssignmentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

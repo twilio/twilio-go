@@ -50,6 +50,8 @@ type ListEventTypeParams struct {
 	SchemaId *string `json:"SchemaId,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListEventTypeParams) SetSchemaId(SchemaId string) *ListEventTypeParams {
@@ -58,6 +60,10 @@ func (params *ListEventTypeParams) SetSchemaId(SchemaId string) *ListEventTypePa
 }
 func (params *ListEventTypeParams) SetPageSize(PageSize int) *ListEventTypeParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListEventTypeParams) SetLimit(Limit int) *ListEventTypeParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -98,11 +104,11 @@ func (c *ApiService) PageEventType(params *ListEventTypeParams, pageToken string
 }
 
 // Lists EventType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEventType(params *ListEventTypeParams, limit int) ([]EventsV1EventType, error) {
+func (c *ApiService) ListEventType(params *ListEventTypeParams) ([]EventsV1EventType, error) {
 	if params == nil {
 		params = &ListEventTypeParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEventType(params, "", "")
 	if err != nil {
@@ -116,7 +122,7 @@ func (c *ApiService) ListEventType(params *ListEventTypeParams, limit int) ([]Ev
 		records = append(records, response.Types...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventTypeResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEventTypeResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -127,11 +133,11 @@ func (c *ApiService) ListEventType(params *ListEventTypeParams, limit int) ([]Ev
 }
 
 // Streams EventType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEventType(params *ListEventTypeParams, limit int) (chan EventsV1EventType, error) {
+func (c *ApiService) StreamEventType(params *ListEventTypeParams) (chan EventsV1EventType, error) {
 	if params == nil {
 		params = &ListEventTypeParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEventType(params, "", "")
 	if err != nil {
@@ -149,7 +155,7 @@ func (c *ApiService) StreamEventType(params *ListEventTypeParams, limit int) (ch
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventTypeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEventTypeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

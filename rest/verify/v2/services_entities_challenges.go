@@ -151,6 +151,8 @@ type ListChallengeParams struct {
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListChallengeParams) SetFactorSid(FactorSid string) *ListChallengeParams {
@@ -163,6 +165,10 @@ func (params *ListChallengeParams) SetStatus(Status string) *ListChallengeParams
 }
 func (params *ListChallengeParams) SetPageSize(PageSize int) *ListChallengeParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListChallengeParams) SetLimit(Limit int) *ListChallengeParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -209,11 +215,11 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 }
 
 // Lists Challenge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *ListChallengeParams, limit int) ([]VerifyV2ServiceEntityChallenge, error) {
+func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *ListChallengeParams) ([]VerifyV2ServiceEntityChallenge, error) {
 	if params == nil {
 		params = &ListChallengeParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageChallenge(ServiceSid, Identity, params, "", "")
 	if err != nil {
@@ -227,7 +233,7 @@ func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *L
 		records = append(records, response.Challenges...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChallengeResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListChallengeResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -238,11 +244,11 @@ func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *L
 }
 
 // Streams Challenge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params *ListChallengeParams, limit int) (chan VerifyV2ServiceEntityChallenge, error) {
+func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params *ListChallengeParams) (chan VerifyV2ServiceEntityChallenge, error) {
 	if params == nil {
 		params = &ListChallengeParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageChallenge(ServiceSid, Identity, params, "", "")
 	if err != nil {
@@ -260,7 +266,7 @@ func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChallengeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListChallengeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

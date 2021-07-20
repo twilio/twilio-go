@@ -100,6 +100,8 @@ type ListSimParams struct {
 	Iccid *string `json:"Iccid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSimParams) SetStatus(Status string) *ListSimParams {
@@ -116,6 +118,10 @@ func (params *ListSimParams) SetIccid(Iccid string) *ListSimParams {
 }
 func (params *ListSimParams) SetPageSize(PageSize int) *ListSimParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSimParams) SetLimit(Limit int) *ListSimParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -162,11 +168,11 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken string, pageNumber
 }
 
 // Lists Sim records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSim(params *ListSimParams, limit int) ([]SupersimV1Sim, error) {
+func (c *ApiService) ListSim(params *ListSimParams) ([]SupersimV1Sim, error) {
 	if params == nil {
 		params = &ListSimParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSim(params, "", "")
 	if err != nil {
@@ -180,7 +186,7 @@ func (c *ApiService) ListSim(params *ListSimParams, limit int) ([]SupersimV1Sim,
 		records = append(records, response.Sims...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSimResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSimResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -191,11 +197,11 @@ func (c *ApiService) ListSim(params *ListSimParams, limit int) ([]SupersimV1Sim,
 }
 
 // Streams Sim records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSim(params *ListSimParams, limit int) (chan SupersimV1Sim, error) {
+func (c *ApiService) StreamSim(params *ListSimParams) (chan SupersimV1Sim, error) {
 	if params == nil {
 		params = &ListSimParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSim(params, "", "")
 	if err != nil {
@@ -213,7 +219,7 @@ func (c *ApiService) StreamSim(params *ListSimParams, limit int) (chan SupersimV
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSimResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSimResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

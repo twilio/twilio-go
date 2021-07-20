@@ -47,10 +47,16 @@ func (c *ApiService) FetchVoiceCountry(IsoCountry string) (*PricingV1VoiceVoiceC
 type ListVoiceCountryParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListVoiceCountryParams) SetPageSize(PageSize int) *ListVoiceCountryParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListVoiceCountryParams) SetLimit(Limit int) *ListVoiceCountryParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -88,11 +94,11 @@ func (c *ApiService) PageVoiceCountry(params *ListVoiceCountryParams, pageToken 
 }
 
 // Lists VoiceCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams, limit int) ([]PricingV1VoiceVoiceCountry, error) {
+func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams) ([]PricingV1VoiceVoiceCountry, error) {
 	if params == nil {
 		params = &ListVoiceCountryParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageVoiceCountry(params, "", "")
 	if err != nil {
@@ -106,7 +112,7 @@ func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams, limit int)
 		records = append(records, response.Countries...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVoiceCountryResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListVoiceCountryResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -117,11 +123,11 @@ func (c *ApiService) ListVoiceCountry(params *ListVoiceCountryParams, limit int)
 }
 
 // Streams VoiceCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVoiceCountry(params *ListVoiceCountryParams, limit int) (chan PricingV1VoiceVoiceCountry, error) {
+func (c *ApiService) StreamVoiceCountry(params *ListVoiceCountryParams) (chan PricingV1VoiceVoiceCountry, error) {
 	if params == nil {
 		params = &ListVoiceCountryParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageVoiceCountry(params, "", "")
 	if err != nil {
@@ -139,7 +145,7 @@ func (c *ApiService) StreamVoiceCountry(params *ListVoiceCountryParams, limit in
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVoiceCountryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListVoiceCountryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

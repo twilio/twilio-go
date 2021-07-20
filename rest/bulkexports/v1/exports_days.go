@@ -44,10 +44,16 @@ func (c *ApiService) FetchDay(ResourceType string, Day string) error {
 type ListDayParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListDayParams) SetPageSize(PageSize int) *ListDayParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListDayParams) SetLimit(Limit int) *ListDayParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -87,11 +93,11 @@ func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageTok
 }
 
 // Lists Day records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDay(ResourceType string, params *ListDayParams, limit int) ([]BulkexportsV1ExportDay, error) {
+func (c *ApiService) ListDay(ResourceType string, params *ListDayParams) ([]BulkexportsV1ExportDay, error) {
 	if params == nil {
 		params = &ListDayParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageDay(ResourceType, params, "", "")
 	if err != nil {
@@ -105,7 +111,7 @@ func (c *ApiService) ListDay(ResourceType string, params *ListDayParams, limit i
 		records = append(records, response.Days...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDayResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDayResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -116,11 +122,11 @@ func (c *ApiService) ListDay(ResourceType string, params *ListDayParams, limit i
 }
 
 // Streams Day records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams, limit int) (chan BulkexportsV1ExportDay, error) {
+func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams) (chan BulkexportsV1ExportDay, error) {
 	if params == nil {
 		params = &ListDayParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageDay(ResourceType, params, "", "")
 	if err != nil {
@@ -138,7 +144,7 @@ func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams, limit
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDayResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDayResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -50,10 +50,16 @@ func (c *ApiService) FetchAssetVersion(ServiceSid string, AssetSid string, Sid s
 type ListAssetVersionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAssetVersionParams) SetPageSize(PageSize int) *ListAssetVersionParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListAssetVersionParams) SetLimit(Limit int) *ListAssetVersionParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -94,11 +100,11 @@ func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params
 }
 
 // Lists AssetVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, limit int) ([]ServerlessV1ServiceAssetAssetVersion, error) {
+func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) ([]ServerlessV1ServiceAssetAssetVersion, error) {
 	if params == nil {
 		params = &ListAssetVersionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAssetVersion(ServiceSid, AssetSid, params, "", "")
 	if err != nil {
@@ -112,7 +118,7 @@ func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params
 		records = append(records, response.AssetVersions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAssetVersionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAssetVersionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -123,11 +129,11 @@ func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params
 }
 
 // Streams AssetVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, limit int) (chan ServerlessV1ServiceAssetAssetVersion, error) {
+func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) (chan ServerlessV1ServiceAssetAssetVersion, error) {
 	if params == nil {
 		params = &ListAssetVersionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAssetVersion(ServiceSid, AssetSid, params, "", "")
 	if err != nil {
@@ -145,7 +151,7 @@ func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, para
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAssetVersionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAssetVersionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

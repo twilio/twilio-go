@@ -106,10 +106,16 @@ func (c *ApiService) FetchTrustProductEntityAssignment(TrustProductSid string, S
 type ListTrustProductEntityAssignmentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListTrustProductEntityAssignmentParams) SetPageSize(PageSize int) *ListTrustProductEntityAssignmentParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListTrustProductEntityAssignmentParams) SetLimit(Limit int) *ListTrustProductEntityAssignmentParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -149,11 +155,11 @@ func (c *ApiService) PageTrustProductEntityAssignment(TrustProductSid string, pa
 }
 
 // Lists TrustProductEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams, limit int) ([]TrusthubV1TrustProductTrustProductEntityAssignment, error) {
+func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) ([]TrusthubV1TrustProductTrustProductEntityAssignment, error) {
 	if params == nil {
 		params = &ListTrustProductEntityAssignmentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTrustProductEntityAssignment(TrustProductSid, params, "", "")
 	if err != nil {
@@ -167,7 +173,7 @@ func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, pa
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductEntityAssignmentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrustProductEntityAssignmentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -178,11 +184,11 @@ func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, pa
 }
 
 // Streams TrustProductEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams, limit int) (chan TrusthubV1TrustProductTrustProductEntityAssignment, error) {
+func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) (chan TrusthubV1TrustProductTrustProductEntityAssignment, error) {
 	if params == nil {
 		params = &ListTrustProductEntityAssignmentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTrustProductEntityAssignment(TrustProductSid, params, "", "")
 	if err != nil {
@@ -200,7 +206,7 @@ func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductEntityAssignmentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrustProductEntityAssignmentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

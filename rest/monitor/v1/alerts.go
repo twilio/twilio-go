@@ -54,6 +54,8 @@ type ListAlertParams struct {
 	EndDate *time.Time `json:"EndDate,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAlertParams) SetLogLevel(LogLevel string) *ListAlertParams {
@@ -70,6 +72,10 @@ func (params *ListAlertParams) SetEndDate(EndDate time.Time) *ListAlertParams {
 }
 func (params *ListAlertParams) SetPageSize(PageSize int) *ListAlertParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListAlertParams) SetLimit(Limit int) *ListAlertParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -116,11 +122,11 @@ func (c *ApiService) PageAlert(params *ListAlertParams, pageToken string, pageNu
 }
 
 // Lists Alert records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAlert(params *ListAlertParams, limit int) ([]MonitorV1Alert, error) {
+func (c *ApiService) ListAlert(params *ListAlertParams) ([]MonitorV1Alert, error) {
 	if params == nil {
 		params = &ListAlertParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAlert(params, "", "")
 	if err != nil {
@@ -134,7 +140,7 @@ func (c *ApiService) ListAlert(params *ListAlertParams, limit int) ([]MonitorV1A
 		records = append(records, response.Alerts...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAlertResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAlertResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -145,11 +151,11 @@ func (c *ApiService) ListAlert(params *ListAlertParams, limit int) ([]MonitorV1A
 }
 
 // Streams Alert records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAlert(params *ListAlertParams, limit int) (chan MonitorV1Alert, error) {
+func (c *ApiService) StreamAlert(params *ListAlertParams) (chan MonitorV1Alert, error) {
 	if params == nil {
 		params = &ListAlertParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAlert(params, "", "")
 	if err != nil {
@@ -167,7 +173,7 @@ func (c *ApiService) StreamAlert(params *ListAlertParams, limit int) (chan Monit
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAlertResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAlertResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

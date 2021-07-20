@@ -68,6 +68,8 @@ type ListIncomingPhoneNumberAssignedAddOnExtensionParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPathAccountSid(PathAccountSid string) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
@@ -76,6 +78,10 @@ func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPathAccoun
 }
 func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetPageSize(PageSize int) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) SetLimit(Limit int) *ListIncomingPhoneNumberAssignedAddOnExtensionParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -121,11 +127,11 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOnExtension(ResourceSid s
 }
 
 // Lists IncomingPhoneNumberAssignedAddOnExtension records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, limit int) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension, error) {
+func (c *ApiService) ListIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberAssignedAddOnExtensionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageIncomingPhoneNumberAssignedAddOnExtension(ResourceSid, AssignedAddOnSid, params, "", "")
 	if err != nil {
@@ -139,7 +145,7 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOnExtension(ResourceSid s
 		records = append(records, response.Extensions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberAssignedAddOnExtensionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberAssignedAddOnExtensionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -150,11 +156,11 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOnExtension(ResourceSid s
 }
 
 // Streams IncomingPhoneNumberAssignedAddOnExtension records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams, limit int) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension, error) {
+func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOnExtension(ResourceSid string, AssignedAddOnSid string, params *ListIncomingPhoneNumberAssignedAddOnExtensionParams) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberAssignedAddOnExtensionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageIncomingPhoneNumberAssignedAddOnExtension(ResourceSid, AssignedAddOnSid, params, "", "")
 	if err != nil {
@@ -172,7 +178,7 @@ func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOnExtension(ResourceSid
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIncomingPhoneNumberAssignedAddOnExtensionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberAssignedAddOnExtensionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

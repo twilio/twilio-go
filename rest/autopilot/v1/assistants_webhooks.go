@@ -130,10 +130,16 @@ func (c *ApiService) FetchWebhook(AssistantSid string, Sid string) (*AutopilotV1
 type ListWebhookParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListWebhookParams) SetPageSize(PageSize int) *ListWebhookParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListWebhookParams) SetLimit(Limit int) *ListWebhookParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -173,11 +179,11 @@ func (c *ApiService) PageWebhook(AssistantSid string, params *ListWebhookParams,
 }
 
 // Lists Webhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWebhook(AssistantSid string, params *ListWebhookParams, limit int) ([]AutopilotV1AssistantWebhook, error) {
+func (c *ApiService) ListWebhook(AssistantSid string, params *ListWebhookParams) ([]AutopilotV1AssistantWebhook, error) {
 	if params == nil {
 		params = &ListWebhookParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageWebhook(AssistantSid, params, "", "")
 	if err != nil {
@@ -191,7 +197,7 @@ func (c *ApiService) ListWebhook(AssistantSid string, params *ListWebhookParams,
 		records = append(records, response.Webhooks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWebhookResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWebhookResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -202,11 +208,11 @@ func (c *ApiService) ListWebhook(AssistantSid string, params *ListWebhookParams,
 }
 
 // Streams Webhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWebhook(AssistantSid string, params *ListWebhookParams, limit int) (chan AutopilotV1AssistantWebhook, error) {
+func (c *ApiService) StreamWebhook(AssistantSid string, params *ListWebhookParams) (chan AutopilotV1AssistantWebhook, error) {
 	if params == nil {
 		params = &ListWebhookParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageWebhook(AssistantSid, params, "", "")
 	if err != nil {
@@ -224,7 +230,7 @@ func (c *ApiService) StreamWebhook(AssistantSid string, params *ListWebhookParam
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWebhookResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWebhookResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

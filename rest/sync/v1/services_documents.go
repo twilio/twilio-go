@@ -127,10 +127,16 @@ func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Servic
 type ListDocumentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListDocumentParams) SetPageSize(PageSize int) *ListDocumentParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListDocumentParams) SetLimit(Limit int) *ListDocumentParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -170,11 +176,11 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 }
 
 // Lists Document records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams, limit int) ([]SyncV1ServiceDocument, error) {
+func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams) ([]SyncV1ServiceDocument, error) {
 	if params == nil {
 		params = &ListDocumentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageDocument(ServiceSid, params, "", "")
 	if err != nil {
@@ -188,7 +194,7 @@ func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams,
 		records = append(records, response.Documents...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDocumentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -199,11 +205,11 @@ func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams,
 }
 
 // Streams Document records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParams, limit int) (chan SyncV1ServiceDocument, error) {
+func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParams) (chan SyncV1ServiceDocument, error) {
 	if params == nil {
 		params = &ListDocumentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageDocument(ServiceSid, params, "", "")
 	if err != nil {
@@ -221,7 +227,7 @@ func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParam
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDocumentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

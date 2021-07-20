@@ -27,6 +27,8 @@ type ListEventParams struct {
 	Edge *string `json:"Edge,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListEventParams) SetEdge(Edge string) *ListEventParams {
@@ -35,6 +37,10 @@ func (params *ListEventParams) SetEdge(Edge string) *ListEventParams {
 }
 func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListEventParams) SetLimit(Limit int) *ListEventParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -77,11 +83,11 @@ func (c *ApiService) PageEvent(CallSid string, params *ListEventParams, pageToke
 }
 
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEvent(CallSid string, params *ListEventParams, limit int) ([]InsightsV1CallEvent, error) {
+func (c *ApiService) ListEvent(CallSid string, params *ListEventParams) ([]InsightsV1CallEvent, error) {
 	if params == nil {
 		params = &ListEventParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEvent(CallSid, params, "", "")
 	if err != nil {
@@ -95,7 +101,7 @@ func (c *ApiService) ListEvent(CallSid string, params *ListEventParams, limit in
 		records = append(records, response.Events...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEventResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -106,11 +112,11 @@ func (c *ApiService) ListEvent(CallSid string, params *ListEventParams, limit in
 }
 
 // Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams, limit int) (chan InsightsV1CallEvent, error) {
+func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams) (chan InsightsV1CallEvent, error) {
 	if params == nil {
 		params = &ListEventParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEvent(CallSid, params, "", "")
 	if err != nil {
@@ -128,7 +134,7 @@ func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams, limit 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEventResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

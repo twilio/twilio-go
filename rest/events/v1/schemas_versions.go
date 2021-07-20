@@ -49,10 +49,16 @@ func (c *ApiService) FetchSchemaVersion(Id string, SchemaVersion int) (*EventsV1
 type ListSchemaVersionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSchemaVersionParams) SetPageSize(PageSize int) *ListSchemaVersionParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSchemaVersionParams) SetLimit(Limit int) *ListSchemaVersionParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -92,11 +98,11 @@ func (c *ApiService) PageSchemaVersion(Id string, params *ListSchemaVersionParam
 }
 
 // Lists SchemaVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParams, limit int) ([]EventsV1SchemaSchemaVersion, error) {
+func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParams) ([]EventsV1SchemaSchemaVersion, error) {
 	if params == nil {
 		params = &ListSchemaVersionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSchemaVersion(Id, params, "", "")
 	if err != nil {
@@ -110,7 +116,7 @@ func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParam
 		records = append(records, response.SchemaVersions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSchemaVersionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSchemaVersionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -121,11 +127,11 @@ func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParam
 }
 
 // Streams SchemaVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionParams, limit int) (chan EventsV1SchemaSchemaVersion, error) {
+func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionParams) (chan EventsV1SchemaSchemaVersion, error) {
 	if params == nil {
 		params = &ListSchemaVersionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSchemaVersion(Id, params, "", "")
 	if err != nil {
@@ -143,7 +149,7 @@ func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionPar
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSchemaVersionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSchemaVersionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

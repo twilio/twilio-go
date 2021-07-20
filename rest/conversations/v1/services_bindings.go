@@ -72,6 +72,8 @@ type ListServiceBindingParams struct {
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListServiceBindingParams) SetBindingType(BindingType []string) *ListServiceBindingParams {
@@ -84,6 +86,10 @@ func (params *ListServiceBindingParams) SetIdentity(Identity []string) *ListServ
 }
 func (params *ListServiceBindingParams) SetPageSize(PageSize int) *ListServiceBindingParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListServiceBindingParams) SetLimit(Limit int) *ListServiceBindingParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -133,11 +139,11 @@ func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServi
 }
 
 // Lists ServiceBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, limit int) ([]ConversationsV1ServiceServiceBinding, error) {
+func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) ([]ConversationsV1ServiceServiceBinding, error) {
 	if params == nil {
 		params = &ListServiceBindingParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageServiceBinding(ChatServiceSid, params, "", "")
 	if err != nil {
@@ -151,7 +157,7 @@ func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServi
 		records = append(records, response.Bindings...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceBindingResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceBindingResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -162,11 +168,11 @@ func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServi
 }
 
 // Streams ServiceBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, limit int) (chan ConversationsV1ServiceServiceBinding, error) {
+func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) (chan ConversationsV1ServiceServiceBinding, error) {
 	if params == nil {
 		params = &ListServiceBindingParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageServiceBinding(ChatServiceSid, params, "", "")
 	if err != nil {
@@ -184,7 +190,7 @@ func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListSer
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceBindingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceBindingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

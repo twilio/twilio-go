@@ -82,6 +82,8 @@ type ListConferenceParams struct {
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListConferenceParams) SetPathAccountSid(PathAccountSid string) *ListConferenceParams {
@@ -122,6 +124,10 @@ func (params *ListConferenceParams) SetStatus(Status string) *ListConferencePara
 }
 func (params *ListConferenceParams) SetPageSize(PageSize int) *ListConferenceParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListConferenceParams) SetLimit(Limit int) *ListConferenceParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -189,11 +195,11 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken stri
 }
 
 // Lists Conference records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConference(params *ListConferenceParams, limit int) ([]ApiV2010AccountConference, error) {
+func (c *ApiService) ListConference(params *ListConferenceParams) ([]ApiV2010AccountConference, error) {
 	if params == nil {
 		params = &ListConferenceParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageConference(params, "", "")
 	if err != nil {
@@ -207,7 +213,7 @@ func (c *ApiService) ListConference(params *ListConferenceParams, limit int) ([]
 		records = append(records, response.Conferences...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConferenceResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConferenceResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -218,11 +224,11 @@ func (c *ApiService) ListConference(params *ListConferenceParams, limit int) ([]
 }
 
 // Streams Conference records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConference(params *ListConferenceParams, limit int) (chan ApiV2010AccountConference, error) {
+func (c *ApiService) StreamConference(params *ListConferenceParams) (chan ApiV2010AccountConference, error) {
 	if params == nil {
 		params = &ListConferenceParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageConference(params, "", "")
 	if err != nil {
@@ -240,7 +246,7 @@ func (c *ApiService) StreamConference(params *ListConferenceParams, limit int) (
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConferenceResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConferenceResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

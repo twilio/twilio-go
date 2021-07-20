@@ -185,6 +185,8 @@ type ListChannelParams struct {
 	Type *[]string `json:"Type,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListChannelParams) SetType(Type []string) *ListChannelParams {
@@ -193,6 +195,10 @@ func (params *ListChannelParams) SetType(Type []string) *ListChannelParams {
 }
 func (params *ListChannelParams) SetPageSize(PageSize int) *ListChannelParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListChannelParams) SetLimit(Limit int) *ListChannelParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -237,11 +243,11 @@ func (c *ApiService) PageChannel(ServiceSid string, params *ListChannelParams, p
 }
 
 // Lists Channel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChannel(ServiceSid string, params *ListChannelParams, limit int) ([]ChatV2ServiceChannel, error) {
+func (c *ApiService) ListChannel(ServiceSid string, params *ListChannelParams) ([]ChatV2ServiceChannel, error) {
 	if params == nil {
 		params = &ListChannelParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageChannel(ServiceSid, params, "", "")
 	if err != nil {
@@ -255,7 +261,7 @@ func (c *ApiService) ListChannel(ServiceSid string, params *ListChannelParams, l
 		records = append(records, response.Channels...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChannelResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListChannelResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -266,11 +272,11 @@ func (c *ApiService) ListChannel(ServiceSid string, params *ListChannelParams, l
 }
 
 // Streams Channel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChannel(ServiceSid string, params *ListChannelParams, limit int) (chan ChatV2ServiceChannel, error) {
+func (c *ApiService) StreamChannel(ServiceSid string, params *ListChannelParams) (chan ChatV2ServiceChannel, error) {
 	if params == nil {
 		params = &ListChannelParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageChannel(ServiceSid, params, "", "")
 	if err != nil {
@@ -288,7 +294,7 @@ func (c *ApiService) StreamChannel(ServiceSid string, params *ListChannelParams,
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChannelResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListChannelResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

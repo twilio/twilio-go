@@ -121,10 +121,16 @@ func (c *ApiService) FetchCredentialPublicKey(Sid string) (*AccountsV1Credential
 type ListCredentialPublicKeyParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCredentialPublicKeyParams) SetPageSize(PageSize int) *ListCredentialPublicKeyParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListCredentialPublicKeyParams) SetLimit(Limit int) *ListCredentialPublicKeyParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -162,11 +168,11 @@ func (c *ApiService) PageCredentialPublicKey(params *ListCredentialPublicKeyPara
 }
 
 // Lists CredentialPublicKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyParams, limit int) ([]AccountsV1CredentialCredentialPublicKey, error) {
+func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyParams) ([]AccountsV1CredentialCredentialPublicKey, error) {
 	if params == nil {
 		params = &ListCredentialPublicKeyParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCredentialPublicKey(params, "", "")
 	if err != nil {
@@ -180,7 +186,7 @@ func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyPara
 		records = append(records, response.Credentials...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialPublicKeyResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCredentialPublicKeyResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -191,11 +197,11 @@ func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyPara
 }
 
 // Streams CredentialPublicKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyParams, limit int) (chan AccountsV1CredentialCredentialPublicKey, error) {
+func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyParams) (chan AccountsV1CredentialCredentialPublicKey, error) {
 	if params == nil {
 		params = &ListCredentialPublicKeyParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCredentialPublicKey(params, "", "")
 	if err != nil {
@@ -213,7 +219,7 @@ func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyPa
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialPublicKeyResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCredentialPublicKeyResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

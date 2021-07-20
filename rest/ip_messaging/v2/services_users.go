@@ -140,10 +140,16 @@ func (c *ApiService) FetchUser(ServiceSid string, Sid string) (*IpMessagingV2Ser
 type ListUserParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListUserParams) SetPageSize(PageSize int) *ListUserParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListUserParams) SetLimit(Limit int) *ListUserParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -183,11 +189,11 @@ func (c *ApiService) PageUser(ServiceSid string, params *ListUserParams, pageTok
 }
 
 // Lists User records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams, limit int) ([]IpMessagingV2ServiceUser, error) {
+func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams) ([]IpMessagingV2ServiceUser, error) {
 	if params == nil {
 		params = &ListUserParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageUser(ServiceSid, params, "", "")
 	if err != nil {
@@ -201,7 +207,7 @@ func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams, limit i
 		records = append(records, response.Users...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUserResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUserResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -212,11 +218,11 @@ func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams, limit i
 }
 
 // Streams User records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams, limit int) (chan IpMessagingV2ServiceUser, error) {
+func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams) (chan IpMessagingV2ServiceUser, error) {
 	if params == nil {
 		params = &ListUserParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageUser(ServiceSid, params, "", "")
 	if err != nil {
@@ -234,7 +240,7 @@ func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams, limit
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUserResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUserResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

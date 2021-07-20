@@ -136,6 +136,8 @@ type ListCustomerProfileParams struct {
 	PolicySid *string `json:"PolicySid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCustomerProfileParams) SetStatus(Status string) *ListCustomerProfileParams {
@@ -152,6 +154,10 @@ func (params *ListCustomerProfileParams) SetPolicySid(PolicySid string) *ListCus
 }
 func (params *ListCustomerProfileParams) SetPageSize(PageSize int) *ListCustomerProfileParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListCustomerProfileParams) SetLimit(Limit int) *ListCustomerProfileParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -198,11 +204,11 @@ func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, page
 }
 
 // Lists CustomerProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams, limit int) ([]TrusthubV1CustomerProfile, error) {
+func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams) ([]TrusthubV1CustomerProfile, error) {
 	if params == nil {
 		params = &ListCustomerProfileParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCustomerProfile(params, "", "")
 	if err != nil {
@@ -216,7 +222,7 @@ func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams, limi
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCustomerProfileResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -227,11 +233,11 @@ func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams, limi
 }
 
 // Streams CustomerProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams, limit int) (chan TrusthubV1CustomerProfile, error) {
+func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams) (chan TrusthubV1CustomerProfile, error) {
 	if params == nil {
 		params = &ListCustomerProfileParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCustomerProfile(params, "", "")
 	if err != nil {
@@ -249,7 +255,7 @@ func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams, li
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCustomerProfileResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

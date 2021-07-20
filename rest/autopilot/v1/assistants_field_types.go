@@ -112,10 +112,16 @@ func (c *ApiService) FetchFieldType(AssistantSid string, Sid string) (*Autopilot
 type ListFieldTypeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListFieldTypeParams) SetPageSize(PageSize int) *ListFieldTypeParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListFieldTypeParams) SetLimit(Limit int) *ListFieldTypeParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -155,11 +161,11 @@ func (c *ApiService) PageFieldType(AssistantSid string, params *ListFieldTypePar
 }
 
 // Lists FieldType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypeParams, limit int) ([]AutopilotV1AssistantFieldType, error) {
+func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypeParams) ([]AutopilotV1AssistantFieldType, error) {
 	if params == nil {
 		params = &ListFieldTypeParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageFieldType(AssistantSid, params, "", "")
 	if err != nil {
@@ -173,7 +179,7 @@ func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypePar
 		records = append(records, response.FieldTypes...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFieldTypeResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFieldTypeResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -184,11 +190,11 @@ func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypePar
 }
 
 // Streams FieldType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeParams, limit int) (chan AutopilotV1AssistantFieldType, error) {
+func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeParams) (chan AutopilotV1AssistantFieldType, error) {
 	if params == nil {
 		params = &ListFieldTypeParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageFieldType(AssistantSid, params, "", "")
 	if err != nil {
@@ -206,7 +212,7 @@ func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeP
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFieldTypeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFieldTypeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

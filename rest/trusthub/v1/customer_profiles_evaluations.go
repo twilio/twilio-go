@@ -87,10 +87,16 @@ func (c *ApiService) FetchCustomerProfileEvaluation(CustomerProfileSid string, S
 type ListCustomerProfileEvaluationParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCustomerProfileEvaluationParams) SetPageSize(PageSize int) *ListCustomerProfileEvaluationParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListCustomerProfileEvaluationParams) SetLimit(Limit int) *ListCustomerProfileEvaluationParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -130,11 +136,11 @@ func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, pa
 }
 
 // Lists CustomerProfileEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, limit int) ([]TrusthubV1CustomerProfileCustomerProfileEvaluation, error) {
+func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) ([]TrusthubV1CustomerProfileCustomerProfileEvaluation, error) {
 	if params == nil {
 		params = &ListCustomerProfileEvaluationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCustomerProfileEvaluation(CustomerProfileSid, params, "", "")
 	if err != nil {
@@ -148,7 +154,7 @@ func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, pa
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileEvaluationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCustomerProfileEvaluationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -159,11 +165,11 @@ func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, pa
 }
 
 // Streams CustomerProfileEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, limit int) (chan TrusthubV1CustomerProfileCustomerProfileEvaluation, error) {
+func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) (chan TrusthubV1CustomerProfileCustomerProfileEvaluation, error) {
 	if params == nil {
 		params = &ListCustomerProfileEvaluationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCustomerProfileEvaluation(CustomerProfileSid, params, "", "")
 	if err != nil {
@@ -181,7 +187,7 @@ func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileEvaluationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCustomerProfileEvaluationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

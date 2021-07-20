@@ -195,10 +195,16 @@ func (c *ApiService) FetchConversationParticipant(ConversationSid string, Sid st
 type ListConversationParticipantParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListConversationParticipantParams) SetPageSize(PageSize int) *ListConversationParticipantParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListConversationParticipantParams) SetLimit(Limit int) *ListConversationParticipantParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -238,11 +244,11 @@ func (c *ApiService) PageConversationParticipant(ConversationSid string, params 
 }
 
 // Lists ConversationParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConversationParticipant(ConversationSid string, params *ListConversationParticipantParams, limit int) ([]ConversationsV1ConversationConversationParticipant, error) {
+func (c *ApiService) ListConversationParticipant(ConversationSid string, params *ListConversationParticipantParams) ([]ConversationsV1ConversationConversationParticipant, error) {
 	if params == nil {
 		params = &ListConversationParticipantParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageConversationParticipant(ConversationSid, params, "", "")
 	if err != nil {
@@ -256,7 +262,7 @@ func (c *ApiService) ListConversationParticipant(ConversationSid string, params 
 		records = append(records, response.Participants...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConversationParticipantResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConversationParticipantResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -267,11 +273,11 @@ func (c *ApiService) ListConversationParticipant(ConversationSid string, params 
 }
 
 // Streams ConversationParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConversationParticipant(ConversationSid string, params *ListConversationParticipantParams, limit int) (chan ConversationsV1ConversationConversationParticipant, error) {
+func (c *ApiService) StreamConversationParticipant(ConversationSid string, params *ListConversationParticipantParams) (chan ConversationsV1ConversationConversationParticipant, error) {
 	if params == nil {
 		params = &ListConversationParticipantParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageConversationParticipant(ConversationSid, params, "", "")
 	if err != nil {
@@ -289,7 +295,7 @@ func (c *ApiService) StreamConversationParticipant(ConversationSid string, param
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConversationParticipantResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConversationParticipantResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

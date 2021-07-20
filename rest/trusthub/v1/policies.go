@@ -48,10 +48,16 @@ func (c *ApiService) FetchPolicies(Sid string) (*TrusthubV1Policies, error) {
 type ListPoliciesParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListPoliciesParams) SetPageSize(PageSize int) *ListPoliciesParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListPoliciesParams) SetLimit(Limit int) *ListPoliciesParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -89,11 +95,11 @@ func (c *ApiService) PagePolicies(params *ListPoliciesParams, pageToken string, 
 }
 
 // Lists Policies records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListPolicies(params *ListPoliciesParams, limit int) ([]TrusthubV1Policies, error) {
+func (c *ApiService) ListPolicies(params *ListPoliciesParams) ([]TrusthubV1Policies, error) {
 	if params == nil {
 		params = &ListPoliciesParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PagePolicies(params, "", "")
 	if err != nil {
@@ -107,7 +113,7 @@ func (c *ApiService) ListPolicies(params *ListPoliciesParams, limit int) ([]Trus
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListPoliciesResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPoliciesResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -118,11 +124,11 @@ func (c *ApiService) ListPolicies(params *ListPoliciesParams, limit int) ([]Trus
 }
 
 // Streams Policies records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamPolicies(params *ListPoliciesParams, limit int) (chan TrusthubV1Policies, error) {
+func (c *ApiService) StreamPolicies(params *ListPoliciesParams) (chan TrusthubV1Policies, error) {
 	if params == nil {
 		params = &ListPoliciesParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PagePolicies(params, "", "")
 	if err != nil {
@@ -140,7 +146,7 @@ func (c *ApiService) StreamPolicies(params *ListPoliciesParams, limit int) (chan
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListPoliciesResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPoliciesResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

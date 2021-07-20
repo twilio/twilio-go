@@ -126,10 +126,16 @@ func (c *ApiService) FetchServiceRole(ChatServiceSid string, Sid string) (*Conve
 type ListServiceRoleParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListServiceRoleParams) SetPageSize(PageSize int) *ListServiceRoleParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListServiceRoleParams) SetLimit(Limit int) *ListServiceRoleParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -169,11 +175,11 @@ func (c *ApiService) PageServiceRole(ChatServiceSid string, params *ListServiceR
 }
 
 // Lists ServiceRole records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceRoleParams, limit int) ([]ConversationsV1ServiceServiceRole, error) {
+func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceRoleParams) ([]ConversationsV1ServiceServiceRole, error) {
 	if params == nil {
 		params = &ListServiceRoleParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageServiceRole(ChatServiceSid, params, "", "")
 	if err != nil {
@@ -187,7 +193,7 @@ func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceR
 		records = append(records, response.Roles...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -198,11 +204,11 @@ func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceR
 }
 
 // Streams ServiceRole records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServiceRoleParams, limit int) (chan ConversationsV1ServiceServiceRole, error) {
+func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServiceRoleParams) (chan ConversationsV1ServiceServiceRole, error) {
 	if params == nil {
 		params = &ListServiceRoleParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageServiceRole(ChatServiceSid, params, "", "")
 	if err != nil {
@@ -220,7 +226,7 @@ func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServic
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

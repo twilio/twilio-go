@@ -169,6 +169,8 @@ type ListSipIpAddressParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *ListSipIpAddressParams {
@@ -177,6 +179,10 @@ func (params *ListSipIpAddressParams) SetPathAccountSid(PathAccountSid string) *
 }
 func (params *ListSipIpAddressParams) SetPageSize(PageSize int) *ListSipIpAddressParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSipIpAddressParams) SetLimit(Limit int) *ListSipIpAddressParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -221,11 +227,11 @@ func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *Lis
 }
 
 // Lists SipIpAddress records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, limit int) ([]ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
+func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams) ([]ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
 	if params == nil {
 		params = &ListSipIpAddressParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSipIpAddress(IpAccessControlListSid, params, "", "")
 	if err != nil {
@@ -239,7 +245,7 @@ func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *Lis
 		records = append(records, response.IpAddresses...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipIpAddressResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipIpAddressResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -250,11 +256,11 @@ func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *Lis
 }
 
 // Streams SipIpAddress records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, limit int) (chan ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
+func (c *ApiService) StreamSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams) (chan ApiV2010AccountSipSipIpAccessControlListSipIpAddress, error) {
 	if params == nil {
 		params = &ListSipIpAddressParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSipIpAddress(IpAccessControlListSid, params, "", "")
 	if err != nil {
@@ -272,7 +278,7 @@ func (c *ApiService) StreamSipIpAddress(IpAccessControlListSid string, params *L
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipIpAddressResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipIpAddressResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

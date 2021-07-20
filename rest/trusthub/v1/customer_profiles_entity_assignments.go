@@ -106,10 +106,16 @@ func (c *ApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid str
 type ListCustomerProfileEntityAssignmentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCustomerProfileEntityAssignmentParams) SetPageSize(PageSize int) *ListCustomerProfileEntityAssignmentParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListCustomerProfileEntityAssignmentParams) SetLimit(Limit int) *ListCustomerProfileEntityAssignmentParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -149,11 +155,11 @@ func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid stri
 }
 
 // Lists CustomerProfileEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit int) ([]TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
+func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) ([]TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
 	if params == nil {
 		params = &ListCustomerProfileEntityAssignmentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCustomerProfileEntityAssignment(CustomerProfileSid, params, "", "")
 	if err != nil {
@@ -167,7 +173,7 @@ func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid stri
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileEntityAssignmentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCustomerProfileEntityAssignmentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -178,11 +184,11 @@ func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid stri
 }
 
 // Streams CustomerProfileEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, limit int) (chan TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
+func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) (chan TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
 	if params == nil {
 		params = &ListCustomerProfileEntityAssignmentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCustomerProfileEntityAssignment(CustomerProfileSid, params, "", "")
 	if err != nil {
@@ -200,7 +206,7 @@ func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid st
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileEntityAssignmentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCustomerProfileEntityAssignmentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

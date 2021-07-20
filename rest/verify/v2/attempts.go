@@ -55,6 +55,8 @@ type ListVerificationAttemptParams struct {
 	ChannelDataTo *string `json:"ChannelData.To,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListVerificationAttemptParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *ListVerificationAttemptParams {
@@ -71,6 +73,10 @@ func (params *ListVerificationAttemptParams) SetChannelDataTo(ChannelDataTo stri
 }
 func (params *ListVerificationAttemptParams) SetPageSize(PageSize int) *ListVerificationAttemptParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListVerificationAttemptParams) SetLimit(Limit int) *ListVerificationAttemptParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -117,11 +123,11 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 }
 
 // Lists VerificationAttempt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptParams, limit int) ([]VerifyV2VerificationAttempt, error) {
+func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptParams) ([]VerifyV2VerificationAttempt, error) {
 	if params == nil {
 		params = &ListVerificationAttemptParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageVerificationAttempt(params, "", "")
 	if err != nil {
@@ -135,7 +141,7 @@ func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptPara
 		records = append(records, response.Attempts...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVerificationAttemptResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListVerificationAttemptResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -146,11 +152,11 @@ func (c *ApiService) ListVerificationAttempt(params *ListVerificationAttemptPara
 }
 
 // Streams VerificationAttempt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptParams, limit int) (chan VerifyV2VerificationAttempt, error) {
+func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptParams) (chan VerifyV2VerificationAttempt, error) {
 	if params == nil {
 		params = &ListVerificationAttemptParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageVerificationAttempt(params, "", "")
 	if err != nil {
@@ -168,7 +174,7 @@ func (c *ApiService) StreamVerificationAttempt(params *ListVerificationAttemptPa
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVerificationAttemptResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListVerificationAttemptResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

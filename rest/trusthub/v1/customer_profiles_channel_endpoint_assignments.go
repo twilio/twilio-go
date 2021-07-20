@@ -119,6 +119,8 @@ type ListCustomerProfileChannelEndpointAssignmentParams struct {
 	ChannelEndpointSids *string `json:"ChannelEndpointSids,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetChannelEndpointSid(ChannelEndpointSid string) *ListCustomerProfileChannelEndpointAssignmentParams {
@@ -131,6 +133,10 @@ func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetChannelEndp
 }
 func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetPageSize(PageSize int) *ListCustomerProfileChannelEndpointAssignmentParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetLimit(Limit int) *ListCustomerProfileChannelEndpointAssignmentParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -176,11 +182,11 @@ func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfil
 }
 
 // Lists CustomerProfileChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, limit int) ([]TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment, error) {
+func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams) ([]TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment, error) {
 	if params == nil {
 		params = &ListCustomerProfileChannelEndpointAssignmentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCustomerProfileChannelEndpointAssignment(CustomerProfileSid, params, "", "")
 	if err != nil {
@@ -194,7 +200,7 @@ func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfil
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileChannelEndpointAssignmentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCustomerProfileChannelEndpointAssignmentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -205,11 +211,11 @@ func (c *ApiService) ListCustomerProfileChannelEndpointAssignment(CustomerProfil
 }
 
 // Streams CustomerProfileChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, limit int) (chan TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment, error) {
+func (c *ApiService) StreamCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams) (chan TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment, error) {
 	if params == nil {
 		params = &ListCustomerProfileChannelEndpointAssignmentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCustomerProfileChannelEndpointAssignment(CustomerProfileSid, params, "", "")
 	if err != nil {
@@ -227,7 +233,7 @@ func (c *ApiService) StreamCustomerProfileChannelEndpointAssignment(CustomerProf
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCustomerProfileChannelEndpointAssignmentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCustomerProfileChannelEndpointAssignmentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

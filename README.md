@@ -328,14 +328,14 @@ func main() {
 	params := &openapi.ListMessageParams{}
 	params.SetFrom(from)
 	params.SetPageSize(20)
-	limit := 100
+	params.SetLimit(100)
 
-	resp, _ := client.ApiV2010.ListMessage(params, limit)
+	resp, _ := client.ApiV2010.ListMessage(params)
 	for record := range resp {
 		fmt.Println("Body: ", *resp[record].Body)
 	}
 
-	channel, _ := client.ApiV2010.StreamMessage(params, limit)
+	channel, _ := client.ApiV2010.StreamMessage(params)
 	for record := range channel {
 		fmt.Println("Body: ", *record.Body)
 	}

@@ -119,6 +119,8 @@ type ListTrustProductChannelEndpointAssignmentParams struct {
 	ChannelEndpointSids *string `json:"ChannelEndpointSids,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListTrustProductChannelEndpointAssignmentParams) SetChannelEndpointSid(ChannelEndpointSid string) *ListTrustProductChannelEndpointAssignmentParams {
@@ -131,6 +133,10 @@ func (params *ListTrustProductChannelEndpointAssignmentParams) SetChannelEndpoin
 }
 func (params *ListTrustProductChannelEndpointAssignmentParams) SetPageSize(PageSize int) *ListTrustProductChannelEndpointAssignmentParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListTrustProductChannelEndpointAssignmentParams) SetLimit(Limit int) *ListTrustProductChannelEndpointAssignmentParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -176,11 +182,11 @@ func (c *ApiService) PageTrustProductChannelEndpointAssignment(TrustProductSid s
 }
 
 // Lists TrustProductChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams, limit int) ([]TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
+func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams) ([]TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
 	if params == nil {
 		params = &ListTrustProductChannelEndpointAssignmentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTrustProductChannelEndpointAssignment(TrustProductSid, params, "", "")
 	if err != nil {
@@ -194,7 +200,7 @@ func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid s
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductChannelEndpointAssignmentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrustProductChannelEndpointAssignmentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -205,11 +211,11 @@ func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid s
 }
 
 // Streams TrustProductChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams, limit int) (chan TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
+func (c *ApiService) StreamTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams) (chan TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
 	if params == nil {
 		params = &ListTrustProductChannelEndpointAssignmentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTrustProductChannelEndpointAssignment(TrustProductSid, params, "", "")
 	if err != nil {
@@ -227,7 +233,7 @@ func (c *ApiService) StreamTrustProductChannelEndpointAssignment(TrustProductSid
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductChannelEndpointAssignmentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrustProductChannelEndpointAssignmentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -181,10 +181,16 @@ func (c *ApiService) FetchChannel(Sid string) (*FlexV1Channel, error) {
 type ListChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListChannelParams) SetPageSize(PageSize int) *ListChannelParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListChannelParams) SetLimit(Limit int) *ListChannelParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -222,11 +228,11 @@ func (c *ApiService) PageChannel(params *ListChannelParams, pageToken string, pa
 }
 
 // Lists Channel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChannel(params *ListChannelParams, limit int) ([]FlexV1Channel, error) {
+func (c *ApiService) ListChannel(params *ListChannelParams) ([]FlexV1Channel, error) {
 	if params == nil {
 		params = &ListChannelParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageChannel(params, "", "")
 	if err != nil {
@@ -240,7 +246,7 @@ func (c *ApiService) ListChannel(params *ListChannelParams, limit int) ([]FlexV1
 		records = append(records, response.FlexChatChannels...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChannelResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListChannelResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -251,11 +257,11 @@ func (c *ApiService) ListChannel(params *ListChannelParams, limit int) ([]FlexV1
 }
 
 // Streams Channel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChannel(params *ListChannelParams, limit int) (chan FlexV1Channel, error) {
+func (c *ApiService) StreamChannel(params *ListChannelParams) (chan FlexV1Channel, error) {
 	if params == nil {
 		params = &ListChannelParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageChannel(params, "", "")
 	if err != nil {
@@ -273,7 +279,7 @@ func (c *ApiService) StreamChannel(params *ListChannelParams, limit int) (chan F
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChannelResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListChannelResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

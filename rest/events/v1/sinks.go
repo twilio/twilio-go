@@ -131,6 +131,8 @@ type ListSinkParams struct {
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSinkParams) SetInUse(InUse bool) *ListSinkParams {
@@ -143,6 +145,10 @@ func (params *ListSinkParams) SetStatus(Status string) *ListSinkParams {
 }
 func (params *ListSinkParams) SetPageSize(PageSize int) *ListSinkParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSinkParams) SetLimit(Limit int) *ListSinkParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -186,11 +192,11 @@ func (c *ApiService) PageSink(params *ListSinkParams, pageToken string, pageNumb
 }
 
 // Lists Sink records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSink(params *ListSinkParams, limit int) ([]EventsV1Sink, error) {
+func (c *ApiService) ListSink(params *ListSinkParams) ([]EventsV1Sink, error) {
 	if params == nil {
 		params = &ListSinkParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSink(params, "", "")
 	if err != nil {
@@ -204,7 +210,7 @@ func (c *ApiService) ListSink(params *ListSinkParams, limit int) ([]EventsV1Sink
 		records = append(records, response.Sinks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSinkResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSinkResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -215,11 +221,11 @@ func (c *ApiService) ListSink(params *ListSinkParams, limit int) ([]EventsV1Sink
 }
 
 // Streams Sink records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSink(params *ListSinkParams, limit int) (chan EventsV1Sink, error) {
+func (c *ApiService) StreamSink(params *ListSinkParams) (chan EventsV1Sink, error) {
 	if params == nil {
 		params = &ListSinkParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSink(params, "", "")
 	if err != nil {
@@ -237,7 +243,7 @@ func (c *ApiService) StreamSink(params *ListSinkParams, limit int) (chan EventsV
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSinkResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSinkResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

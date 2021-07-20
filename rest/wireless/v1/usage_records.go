@@ -31,6 +31,8 @@ type ListAccountUsageRecordParams struct {
 	Granularity *string `json:"Granularity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAccountUsageRecordParams) SetEnd(End time.Time) *ListAccountUsageRecordParams {
@@ -47,6 +49,10 @@ func (params *ListAccountUsageRecordParams) SetGranularity(Granularity string) *
 }
 func (params *ListAccountUsageRecordParams) SetPageSize(PageSize int) *ListAccountUsageRecordParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListAccountUsageRecordParams) SetLimit(Limit int) *ListAccountUsageRecordParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -93,11 +99,11 @@ func (c *ApiService) PageAccountUsageRecord(params *ListAccountUsageRecordParams
 }
 
 // Lists AccountUsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams, limit int) ([]WirelessV1AccountUsageRecord, error) {
+func (c *ApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams) ([]WirelessV1AccountUsageRecord, error) {
 	if params == nil {
 		params = &ListAccountUsageRecordParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAccountUsageRecord(params, "", "")
 	if err != nil {
@@ -111,7 +117,7 @@ func (c *ApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams
 		records = append(records, response.UsageRecords...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAccountUsageRecordResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAccountUsageRecordResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -122,11 +128,11 @@ func (c *ApiService) ListAccountUsageRecord(params *ListAccountUsageRecordParams
 }
 
 // Streams AccountUsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAccountUsageRecord(params *ListAccountUsageRecordParams, limit int) (chan WirelessV1AccountUsageRecord, error) {
+func (c *ApiService) StreamAccountUsageRecord(params *ListAccountUsageRecordParams) (chan WirelessV1AccountUsageRecord, error) {
 	if params == nil {
 		params = &ListAccountUsageRecordParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAccountUsageRecord(params, "", "")
 	if err != nil {
@@ -144,7 +150,7 @@ func (c *ApiService) StreamAccountUsageRecord(params *ListAccountUsageRecordPara
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAccountUsageRecordResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAccountUsageRecordResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

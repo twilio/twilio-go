@@ -50,10 +50,16 @@ func (c *ApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, Partici
 type ListRoomParticipantSubscribedTrackParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListRoomParticipantSubscribedTrackParams) SetPageSize(PageSize int) *ListRoomParticipantSubscribedTrackParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListRoomParticipantSubscribedTrackParams) SetLimit(Limit int) *ListRoomParticipantSubscribedTrackParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -94,11 +100,11 @@ func (c *ApiService) PageRoomParticipantSubscribedTrack(RoomSid string, Particip
 }
 
 // Lists RoomParticipantSubscribedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams, limit int) ([]VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack, error) {
+func (c *ApiService) ListRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams) ([]VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack, error) {
 	if params == nil {
 		params = &ListRoomParticipantSubscribedTrackParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageRoomParticipantSubscribedTrack(RoomSid, ParticipantSid, params, "", "")
 	if err != nil {
@@ -112,7 +118,7 @@ func (c *ApiService) ListRoomParticipantSubscribedTrack(RoomSid string, Particip
 		records = append(records, response.SubscribedTracks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomParticipantSubscribedTrackResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomParticipantSubscribedTrackResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -123,11 +129,11 @@ func (c *ApiService) ListRoomParticipantSubscribedTrack(RoomSid string, Particip
 }
 
 // Streams RoomParticipantSubscribedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams, limit int) (chan VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack, error) {
+func (c *ApiService) StreamRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams) (chan VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack, error) {
 	if params == nil {
 		params = &ListRoomParticipantSubscribedTrackParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageRoomParticipantSubscribedTrack(RoomSid, ParticipantSid, params, "", "")
 	if err != nil {
@@ -145,7 +151,7 @@ func (c *ApiService) StreamRoomParticipantSubscribedTrack(RoomSid string, Partic
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomParticipantSubscribedTrackResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomParticipantSubscribedTrackResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

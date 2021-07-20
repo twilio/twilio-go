@@ -49,10 +49,16 @@ func (c *ApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid
 type ListVideoParticipantSummaryParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListVideoParticipantSummaryParams) SetPageSize(PageSize int) *ListVideoParticipantSummaryParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListVideoParticipantSummaryParams) SetLimit(Limit int) *ListVideoParticipantSummaryParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -92,11 +98,11 @@ func (c *ApiService) PageVideoParticipantSummary(RoomSid string, params *ListVid
 }
 
 // Lists VideoParticipantSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams, limit int) ([]InsightsV1VideoRoomSummaryVideoParticipantSummary, error) {
+func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) ([]InsightsV1VideoRoomSummaryVideoParticipantSummary, error) {
 	if params == nil {
 		params = &ListVideoParticipantSummaryParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageVideoParticipantSummary(RoomSid, params, "", "")
 	if err != nil {
@@ -110,7 +116,7 @@ func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVid
 		records = append(records, response.Participants...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVideoParticipantSummaryResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListVideoParticipantSummaryResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -121,11 +127,11 @@ func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVid
 }
 
 // Streams VideoParticipantSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams, limit int) (chan InsightsV1VideoRoomSummaryVideoParticipantSummary, error) {
+func (c *ApiService) StreamVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) (chan InsightsV1VideoRoomSummaryVideoParticipantSummary, error) {
 	if params == nil {
 		params = &ListVideoParticipantSummaryParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageVideoParticipantSummary(RoomSid, params, "", "")
 	if err != nil {
@@ -143,7 +149,7 @@ func (c *ApiService) StreamVideoParticipantSummary(RoomSid string, params *ListV
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListVideoParticipantSummaryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListVideoParticipantSummaryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

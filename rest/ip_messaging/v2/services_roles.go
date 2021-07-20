@@ -123,10 +123,16 @@ func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagingV2Ser
 type ListRoleParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListRoleParams) SetPageSize(PageSize int) *ListRoleParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListRoleParams) SetLimit(Limit int) *ListRoleParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -166,11 +172,11 @@ func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageTok
 }
 
 // Lists Role records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams, limit int) ([]IpMessagingV2ServiceRole, error) {
+func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]IpMessagingV2ServiceRole, error) {
 	if params == nil {
 		params = &ListRoleParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageRole(ServiceSid, params, "", "")
 	if err != nil {
@@ -184,7 +190,7 @@ func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams, limit i
 		records = append(records, response.Roles...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoleResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoleResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -195,11 +201,11 @@ func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams, limit i
 }
 
 // Streams Role records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams, limit int) (chan IpMessagingV2ServiceRole, error) {
+func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan IpMessagingV2ServiceRole, error) {
 	if params == nil {
 		params = &ListRoleParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageRole(ServiceSid, params, "", "")
 	if err != nil {
@@ -217,7 +223,7 @@ func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams, limit
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoleResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoleResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

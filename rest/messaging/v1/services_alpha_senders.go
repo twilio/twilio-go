@@ -103,10 +103,16 @@ func (c *ApiService) FetchAlphaSender(ServiceSid string, Sid string) (*Messaging
 type ListAlphaSenderParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAlphaSenderParams) SetPageSize(PageSize int) *ListAlphaSenderParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListAlphaSenderParams) SetLimit(Limit int) *ListAlphaSenderParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -146,11 +152,11 @@ func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderP
 }
 
 // Lists AlphaSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderParams, limit int) ([]MessagingV1ServiceAlphaSender, error) {
+func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderParams) ([]MessagingV1ServiceAlphaSender, error) {
 	if params == nil {
 		params = &ListAlphaSenderParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAlphaSender(ServiceSid, params, "", "")
 	if err != nil {
@@ -164,7 +170,7 @@ func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderP
 		records = append(records, response.AlphaSenders...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAlphaSenderResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAlphaSenderResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -175,11 +181,11 @@ func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderP
 }
 
 // Streams AlphaSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSenderParams, limit int) (chan MessagingV1ServiceAlphaSender, error) {
+func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSenderParams) (chan MessagingV1ServiceAlphaSender, error) {
 	if params == nil {
 		params = &ListAlphaSenderParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAlphaSender(ServiceSid, params, "", "")
 	if err != nil {
@@ -197,7 +203,7 @@ func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSende
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAlphaSenderResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAlphaSenderResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

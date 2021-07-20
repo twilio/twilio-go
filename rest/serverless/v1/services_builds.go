@@ -137,10 +137,16 @@ func (c *ApiService) FetchBuild(ServiceSid string, Sid string) (*ServerlessV1Ser
 type ListBuildParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListBuildParams) SetPageSize(PageSize int) *ListBuildParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListBuildParams) SetLimit(Limit int) *ListBuildParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -180,11 +186,11 @@ func (c *ApiService) PageBuild(ServiceSid string, params *ListBuildParams, pageT
 }
 
 // Lists Build records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams, limit int) ([]ServerlessV1ServiceBuild, error) {
+func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) ([]ServerlessV1ServiceBuild, error) {
 	if params == nil {
 		params = &ListBuildParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageBuild(ServiceSid, params, "", "")
 	if err != nil {
@@ -198,7 +204,7 @@ func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams, limit
 		records = append(records, response.Builds...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBuildResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBuildResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -209,11 +215,11 @@ func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams, limit
 }
 
 // Streams Build records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBuild(ServiceSid string, params *ListBuildParams, limit int) (chan ServerlessV1ServiceBuild, error) {
+func (c *ApiService) StreamBuild(ServiceSid string, params *ListBuildParams) (chan ServerlessV1ServiceBuild, error) {
 	if params == nil {
 		params = &ListBuildParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageBuild(ServiceSid, params, "", "")
 	if err != nil {
@@ -231,7 +237,7 @@ func (c *ApiService) StreamBuild(ServiceSid string, params *ListBuildParams, lim
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBuildResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBuildResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -167,10 +167,16 @@ func (c *ApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV1Servic
 type ListSessionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSessionParams) SetPageSize(PageSize int) *ListSessionParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSessionParams) SetLimit(Limit int) *ListSessionParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -210,11 +216,11 @@ func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, p
 }
 
 // Lists Session records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams, limit int) ([]ProxyV1ServiceSession, error) {
+func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) ([]ProxyV1ServiceSession, error) {
 	if params == nil {
 		params = &ListSessionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSession(ServiceSid, params, "", "")
 	if err != nil {
@@ -228,7 +234,7 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams, l
 		records = append(records, response.Sessions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSessionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSessionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -239,11 +245,11 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams, l
 }
 
 // Streams Session records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams, limit int) (chan ProxyV1ServiceSession, error) {
+func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams) (chan ProxyV1ServiceSession, error) {
 	if params == nil {
 		params = &ListSessionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSession(ServiceSid, params, "", "")
 	if err != nil {
@@ -261,7 +267,7 @@ func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams,
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSessionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSessionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

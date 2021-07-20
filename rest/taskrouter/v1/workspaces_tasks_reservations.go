@@ -51,6 +51,8 @@ type ListTaskReservationParams struct {
 	ReservationStatus *string `json:"ReservationStatus,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListTaskReservationParams) SetReservationStatus(ReservationStatus string) *ListTaskReservationParams {
@@ -59,6 +61,10 @@ func (params *ListTaskReservationParams) SetReservationStatus(ReservationStatus 
 }
 func (params *ListTaskReservationParams) SetPageSize(PageSize int) *ListTaskReservationParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListTaskReservationParams) SetLimit(Limit int) *ListTaskReservationParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -102,11 +108,11 @@ func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, pa
 }
 
 // Lists TaskReservation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, limit int) ([]TaskrouterV1WorkspaceTaskTaskReservation, error) {
+func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) ([]TaskrouterV1WorkspaceTaskTaskReservation, error) {
 	if params == nil {
 		params = &ListTaskReservationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTaskReservation(WorkspaceSid, TaskSid, params, "", "")
 	if err != nil {
@@ -120,7 +126,7 @@ func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, pa
 		records = append(records, response.Reservations...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskReservationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskReservationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -131,11 +137,11 @@ func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, pa
 }
 
 // Streams TaskReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, limit int) (chan TaskrouterV1WorkspaceTaskTaskReservation, error) {
+func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) (chan TaskrouterV1WorkspaceTaskTaskReservation, error) {
 	if params == nil {
 		params = &ListTaskReservationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTaskReservation(WorkspaceSid, TaskSid, params, "", "")
 	if err != nil {
@@ -153,7 +159,7 @@ func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskReservationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskReservationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

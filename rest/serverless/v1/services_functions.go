@@ -106,10 +106,16 @@ func (c *ApiService) FetchFunction(ServiceSid string, Sid string) (*ServerlessV1
 type ListFunctionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListFunctionParams) SetPageSize(PageSize int) *ListFunctionParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListFunctionParams) SetLimit(Limit int) *ListFunctionParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -149,11 +155,11 @@ func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams,
 }
 
 // Lists Function records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams, limit int) ([]ServerlessV1ServiceFunction, error) {
+func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams) ([]ServerlessV1ServiceFunction, error) {
 	if params == nil {
 		params = &ListFunctionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageFunction(ServiceSid, params, "", "")
 	if err != nil {
@@ -167,7 +173,7 @@ func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams,
 		records = append(records, response.Functions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFunctionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFunctionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -178,11 +184,11 @@ func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams,
 }
 
 // Streams Function records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParams, limit int) (chan ServerlessV1ServiceFunction, error) {
+func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParams) (chan ServerlessV1ServiceFunction, error) {
 	if params == nil {
 		params = &ListFunctionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageFunction(ServiceSid, params, "", "")
 	if err != nil {
@@ -200,7 +206,7 @@ func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParam
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFunctionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFunctionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

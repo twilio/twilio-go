@@ -146,6 +146,8 @@ type ListSigningKeyParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSigningKeyParams) SetPathAccountSid(PathAccountSid string) *ListSigningKeyParams {
@@ -154,6 +156,10 @@ func (params *ListSigningKeyParams) SetPathAccountSid(PathAccountSid string) *Li
 }
 func (params *ListSigningKeyParams) SetPageSize(PageSize int) *ListSigningKeyParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSigningKeyParams) SetLimit(Limit int) *ListSigningKeyParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -197,11 +203,11 @@ func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken stri
 }
 
 // Lists SigningKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSigningKey(params *ListSigningKeyParams, limit int) ([]ApiV2010AccountSigningKey, error) {
+func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) ([]ApiV2010AccountSigningKey, error) {
 	if params == nil {
 		params = &ListSigningKeyParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSigningKey(params, "", "")
 	if err != nil {
@@ -215,7 +221,7 @@ func (c *ApiService) ListSigningKey(params *ListSigningKeyParams, limit int) ([]
 		records = append(records, response.SigningKeys...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSigningKeyResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSigningKeyResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -226,11 +232,11 @@ func (c *ApiService) ListSigningKey(params *ListSigningKeyParams, limit int) ([]
 }
 
 // Streams SigningKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams, limit int) (chan ApiV2010AccountSigningKey, error) {
+func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ApiV2010AccountSigningKey, error) {
 	if params == nil {
 		params = &ListSigningKeyParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSigningKey(params, "", "")
 	if err != nil {
@@ -248,7 +254,7 @@ func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams, limit int) (
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSigningKeyResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSigningKeyResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

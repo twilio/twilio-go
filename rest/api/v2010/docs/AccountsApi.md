@@ -114,6 +114,7 @@ Name | Type | Description
 **FriendlyName** | **string** | Only return the Account resources with friendly names that exactly match this name.
 **Status** | **string** | Only return Account resources with the given status. Can be &#x60;closed&#x60;, &#x60;suspended&#x60; or &#x60;active&#x60;.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
 
 ### Return type
 

@@ -165,6 +165,8 @@ type ListCommandParams struct {
 	Transport *string `json:"Transport,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCommandParams) SetSim(Sim string) *ListCommandParams {
@@ -185,6 +187,10 @@ func (params *ListCommandParams) SetTransport(Transport string) *ListCommandPara
 }
 func (params *ListCommandParams) SetPageSize(PageSize int) *ListCommandParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListCommandParams) SetLimit(Limit int) *ListCommandParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -234,11 +240,11 @@ func (c *ApiService) PageCommand(params *ListCommandParams, pageToken string, pa
 }
 
 // Lists Command records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCommand(params *ListCommandParams, limit int) ([]WirelessV1Command, error) {
+func (c *ApiService) ListCommand(params *ListCommandParams) ([]WirelessV1Command, error) {
 	if params == nil {
 		params = &ListCommandParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCommand(params, "", "")
 	if err != nil {
@@ -252,7 +258,7 @@ func (c *ApiService) ListCommand(params *ListCommandParams, limit int) ([]Wirele
 		records = append(records, response.Commands...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCommandResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCommandResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -263,11 +269,11 @@ func (c *ApiService) ListCommand(params *ListCommandParams, limit int) ([]Wirele
 }
 
 // Streams Command records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCommand(params *ListCommandParams, limit int) (chan WirelessV1Command, error) {
+func (c *ApiService) StreamCommand(params *ListCommandParams) (chan WirelessV1Command, error) {
 	if params == nil {
 		params = &ListCommandParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCommand(params, "", "")
 	if err != nil {
@@ -285,7 +291,7 @@ func (c *ApiService) StreamCommand(params *ListCommandParams, limit int) (chan W
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCommandResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCommandResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

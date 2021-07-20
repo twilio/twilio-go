@@ -126,6 +126,8 @@ type ListMessageParams struct {
 	Order *string `json:"Order,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListMessageParams) SetOrder(Order string) *ListMessageParams {
@@ -134,6 +136,10 @@ func (params *ListMessageParams) SetOrder(Order string) *ListMessageParams {
 }
 func (params *ListMessageParams) SetPageSize(PageSize int) *ListMessageParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListMessageParams) SetLimit(Limit int) *ListMessageParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -177,11 +183,11 @@ func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *L
 }
 
 // Lists Message records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, limit int) ([]IpMessagingV1ServiceChannelMessage, error) {
+func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) ([]IpMessagingV1ServiceChannelMessage, error) {
 	if params == nil {
 		params = &ListMessageParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageMessage(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
@@ -195,7 +201,7 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 		records = append(records, response.Messages...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessageResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessageResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -206,11 +212,11 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 }
 
 // Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, limit int) (chan IpMessagingV1ServiceChannelMessage, error) {
+func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) (chan IpMessagingV1ServiceChannelMessage, error) {
 	if params == nil {
 		params = &ListMessageParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageMessage(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
@@ -228,7 +234,7 @@ func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessageResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessageResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

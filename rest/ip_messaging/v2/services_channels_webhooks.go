@@ -164,10 +164,16 @@ func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, S
 type ListChannelWebhookParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListChannelWebhookParams) SetPageSize(PageSize int) *ListChannelWebhookParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListChannelWebhookParams) SetLimit(Limit int) *ListChannelWebhookParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -208,11 +214,11 @@ func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, pa
 }
 
 // Lists ChannelWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, limit int) ([]IpMessagingV2ServiceChannelChannelWebhook, error) {
+func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) ([]IpMessagingV2ServiceChannelChannelWebhook, error) {
 	if params == nil {
 		params = &ListChannelWebhookParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageChannelWebhook(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
@@ -226,7 +232,7 @@ func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, pa
 		records = append(records, response.Webhooks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChannelWebhookResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListChannelWebhookResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -237,11 +243,11 @@ func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, pa
 }
 
 // Streams ChannelWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, limit int) (chan IpMessagingV2ServiceChannelChannelWebhook, error) {
+func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) (chan IpMessagingV2ServiceChannelChannelWebhook, error) {
 	if params == nil {
 		params = &ListChannelWebhookParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageChannelWebhook(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
@@ -259,7 +265,7 @@ func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListChannelWebhookResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListChannelWebhookResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

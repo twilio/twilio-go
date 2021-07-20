@@ -89,6 +89,8 @@ type ListAccountParams struct {
 	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAccountParams) SetFriendlyName(FriendlyName string) *ListAccountParams {
@@ -101,6 +103,10 @@ func (params *ListAccountParams) SetStatus(Status string) *ListAccountParams {
 }
 func (params *ListAccountParams) SetPageSize(PageSize int) *ListAccountParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListAccountParams) SetLimit(Limit int) *ListAccountParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -144,11 +150,11 @@ func (c *ApiService) PageAccount(params *ListAccountParams, pageToken string, pa
 }
 
 // Lists Account records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAccount(params *ListAccountParams, limit int) ([]ApiV2010Account, error) {
+func (c *ApiService) ListAccount(params *ListAccountParams) ([]ApiV2010Account, error) {
 	if params == nil {
 		params = &ListAccountParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAccount(params, "", "")
 	if err != nil {
@@ -162,7 +168,7 @@ func (c *ApiService) ListAccount(params *ListAccountParams, limit int) ([]ApiV20
 		records = append(records, response.Accounts...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAccountResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAccountResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -173,11 +179,11 @@ func (c *ApiService) ListAccount(params *ListAccountParams, limit int) ([]ApiV20
 }
 
 // Streams Account records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAccount(params *ListAccountParams, limit int) (chan ApiV2010Account, error) {
+func (c *ApiService) StreamAccount(params *ListAccountParams) (chan ApiV2010Account, error) {
 	if params == nil {
 		params = &ListAccountParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAccount(params, "", "")
 	if err != nil {
@@ -195,7 +201,7 @@ func (c *ApiService) StreamAccount(params *ListAccountParams, limit int) (chan A
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAccountResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAccountResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

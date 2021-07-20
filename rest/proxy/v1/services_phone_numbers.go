@@ -124,10 +124,16 @@ func (c *ApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*ProxyV1Se
 type ListPhoneNumberParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListPhoneNumberParams) SetPageSize(PageSize int) *ListPhoneNumberParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListPhoneNumberParams) SetLimit(Limit int) *ListPhoneNumberParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -167,11 +173,11 @@ func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberP
 }
 
 // Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams, limit int) ([]ProxyV1ServicePhoneNumber, error) {
+func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) ([]ProxyV1ServicePhoneNumber, error) {
 	if params == nil {
 		params = &ListPhoneNumberParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PagePhoneNumber(ServiceSid, params, "", "")
 	if err != nil {
@@ -185,7 +191,7 @@ func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberP
 		records = append(records, response.PhoneNumbers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListPhoneNumberResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPhoneNumberResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -196,11 +202,11 @@ func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberP
 }
 
 // Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumberParams, limit int) (chan ProxyV1ServicePhoneNumber, error) {
+func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) (chan ProxyV1ServicePhoneNumber, error) {
 	if params == nil {
 		params = &ListPhoneNumberParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PagePhoneNumber(ServiceSid, params, "", "")
 	if err != nil {
@@ -218,7 +224,7 @@ func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumbe
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListPhoneNumberResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPhoneNumberResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

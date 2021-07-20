@@ -115,10 +115,16 @@ func (c *ApiService) FetchEnvironment(ServiceSid string, Sid string) (*Serverles
 type ListEnvironmentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListEnvironmentParams) SetPageSize(PageSize int) *ListEnvironmentParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListEnvironmentParams) SetLimit(Limit int) *ListEnvironmentParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -158,11 +164,11 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 }
 
 // Lists Environment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams, limit int) ([]ServerlessV1ServiceEnvironment, error) {
+func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams) ([]ServerlessV1ServiceEnvironment, error) {
 	if params == nil {
 		params = &ListEnvironmentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEnvironment(ServiceSid, params, "", "")
 	if err != nil {
@@ -176,7 +182,7 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 		records = append(records, response.Environments...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEnvironmentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEnvironmentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -187,11 +193,11 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 }
 
 // Streams Environment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmentParams, limit int) (chan ServerlessV1ServiceEnvironment, error) {
+func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmentParams) (chan ServerlessV1ServiceEnvironment, error) {
 	if params == nil {
 		params = &ListEnvironmentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEnvironment(ServiceSid, params, "", "")
 	if err != nil {
@@ -209,7 +215,7 @@ func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmen
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEnvironmentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEnvironmentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
