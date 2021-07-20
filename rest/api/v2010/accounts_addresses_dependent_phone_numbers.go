@@ -27,6 +27,8 @@ type ListDependentPhoneNumberParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListDependentPhoneNumberParams) SetPathAccountSid(PathAccountSid string) *ListDependentPhoneNumberParams {
@@ -35,6 +37,10 @@ func (params *ListDependentPhoneNumberParams) SetPathAccountSid(PathAccountSid s
 }
 func (params *ListDependentPhoneNumberParams) SetPageSize(PageSize int) *ListDependentPhoneNumberParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListDependentPhoneNumberParams) SetLimit(Limit int) *ListDependentPhoneNumberParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -79,11 +85,11 @@ func (c *ApiService) PageDependentPhoneNumber(AddressSid string, params *ListDep
 }
 
 // Lists DependentPhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams, limit int) ([]ApiV2010AccountAddressDependentPhoneNumber, error) {
+func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) ([]ApiV2010AccountAddressDependentPhoneNumber, error) {
 	if params == nil {
 		params = &ListDependentPhoneNumberParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageDependentPhoneNumber(AddressSid, params, "", "")
 	if err != nil {
@@ -97,7 +103,7 @@ func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDep
 		records = append(records, response.DependentPhoneNumbers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDependentPhoneNumberResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDependentPhoneNumberResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -108,11 +114,11 @@ func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDep
 }
 
 // Streams DependentPhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams, limit int) (chan ApiV2010AccountAddressDependentPhoneNumber, error) {
+func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) (chan ApiV2010AccountAddressDependentPhoneNumber, error) {
 	if params == nil {
 		params = &ListDependentPhoneNumberParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageDependentPhoneNumber(AddressSid, params, "", "")
 	if err != nil {
@@ -130,7 +136,7 @@ func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListD
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDependentPhoneNumberResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDependentPhoneNumberResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

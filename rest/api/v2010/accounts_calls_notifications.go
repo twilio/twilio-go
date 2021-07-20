@@ -74,6 +74,8 @@ type ListCallNotificationParams struct {
 	MessageDateAfter *string `json:"MessageDate&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCallNotificationParams) SetPathAccountSid(PathAccountSid string) *ListCallNotificationParams {
@@ -98,6 +100,10 @@ func (params *ListCallNotificationParams) SetMessageDateAfter(MessageDateAfter s
 }
 func (params *ListCallNotificationParams) SetPageSize(PageSize int) *ListCallNotificationParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListCallNotificationParams) SetLimit(Limit int) *ListCallNotificationParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -154,11 +160,11 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 }
 
 // Lists CallNotification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotificationParams, limit int) ([]ApiV2010AccountCallCallNotification, error) {
+func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotificationParams) ([]ApiV2010AccountCallCallNotification, error) {
 	if params == nil {
 		params = &ListCallNotificationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCallNotification(CallSid, params, "", "")
 	if err != nil {
@@ -172,7 +178,7 @@ func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotifi
 		records = append(records, response.Notifications...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCallNotificationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCallNotificationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -183,11 +189,11 @@ func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotifi
 }
 
 // Streams CallNotification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNotificationParams, limit int) (chan ApiV2010AccountCallCallNotification, error) {
+func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNotificationParams) (chan ApiV2010AccountCallCallNotification, error) {
 	if params == nil {
 		params = &ListCallNotificationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCallNotification(CallSid, params, "", "")
 	if err != nil {
@@ -205,7 +211,7 @@ func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNoti
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCallNotificationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCallNotificationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

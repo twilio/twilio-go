@@ -181,10 +181,16 @@ func (c *ApiService) FetchByocTrunk(Sid string) (*VoiceV1ByocTrunk, error) {
 type ListByocTrunkParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListByocTrunkParams) SetPageSize(PageSize int) *ListByocTrunkParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListByocTrunkParams) SetLimit(Limit int) *ListByocTrunkParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -222,11 +228,11 @@ func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken string
 }
 
 // Lists ByocTrunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams, limit int) ([]VoiceV1ByocTrunk, error) {
+func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams) ([]VoiceV1ByocTrunk, error) {
 	if params == nil {
 		params = &ListByocTrunkParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageByocTrunk(params, "", "")
 	if err != nil {
@@ -240,7 +246,7 @@ func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams, limit int) ([]Vo
 		records = append(records, response.ByocTrunks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListByocTrunkResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListByocTrunkResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -251,11 +257,11 @@ func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams, limit int) ([]Vo
 }
 
 // Streams ByocTrunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams, limit int) (chan VoiceV1ByocTrunk, error) {
+func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams) (chan VoiceV1ByocTrunk, error) {
 	if params == nil {
 		params = &ListByocTrunkParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageByocTrunk(params, "", "")
 	if err != nil {
@@ -273,7 +279,7 @@ func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams, limit int) (ch
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListByocTrunkResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListByocTrunkResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

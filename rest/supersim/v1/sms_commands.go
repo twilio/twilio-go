@@ -118,6 +118,8 @@ type ListSmsCommandParams struct {
 	Direction *string `json:"Direction,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSmsCommandParams) SetSim(Sim string) *ListSmsCommandParams {
@@ -134,6 +136,10 @@ func (params *ListSmsCommandParams) SetDirection(Direction string) *ListSmsComma
 }
 func (params *ListSmsCommandParams) SetPageSize(PageSize int) *ListSmsCommandParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSmsCommandParams) SetLimit(Limit int) *ListSmsCommandParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -180,11 +186,11 @@ func (c *ApiService) PageSmsCommand(params *ListSmsCommandParams, pageToken stri
 }
 
 // Lists SmsCommand records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSmsCommand(params *ListSmsCommandParams, limit int) ([]SupersimV1SmsCommand, error) {
+func (c *ApiService) ListSmsCommand(params *ListSmsCommandParams) ([]SupersimV1SmsCommand, error) {
 	if params == nil {
 		params = &ListSmsCommandParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSmsCommand(params, "", "")
 	if err != nil {
@@ -198,7 +204,7 @@ func (c *ApiService) ListSmsCommand(params *ListSmsCommandParams, limit int) ([]
 		records = append(records, response.SmsCommands...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSmsCommandResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSmsCommandResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -209,11 +215,11 @@ func (c *ApiService) ListSmsCommand(params *ListSmsCommandParams, limit int) ([]
 }
 
 // Streams SmsCommand records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSmsCommand(params *ListSmsCommandParams, limit int) (chan SupersimV1SmsCommand, error) {
+func (c *ApiService) StreamSmsCommand(params *ListSmsCommandParams) (chan SupersimV1SmsCommand, error) {
 	if params == nil {
 		params = &ListSmsCommandParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSmsCommand(params, "", "")
 	if err != nil {
@@ -231,7 +237,7 @@ func (c *ApiService) StreamSmsCommand(params *ListSmsCommandParams, limit int) (
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSmsCommandResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSmsCommandResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

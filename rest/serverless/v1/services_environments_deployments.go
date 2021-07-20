@@ -89,10 +89,16 @@ func (c *ApiService) FetchDeployment(ServiceSid string, EnvironmentSid string, S
 type ListDeploymentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListDeploymentParams) SetPageSize(PageSize int) *ListDeploymentParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListDeploymentParams) SetLimit(Limit int) *ListDeploymentParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -133,11 +139,11 @@ func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, pa
 }
 
 // Lists Deployment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit int) ([]ServerlessV1ServiceEnvironmentDeployment, error) {
+func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams) ([]ServerlessV1ServiceEnvironmentDeployment, error) {
 	if params == nil {
 		params = &ListDeploymentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageDeployment(ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
@@ -151,7 +157,7 @@ func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, pa
 		records = append(records, response.Deployments...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDeploymentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDeploymentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -162,11 +168,11 @@ func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, pa
 }
 
 // Streams Deployment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, limit int) (chan ServerlessV1ServiceEnvironmentDeployment, error) {
+func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams) (chan ServerlessV1ServiceEnvironmentDeployment, error) {
 	if params == nil {
 		params = &ListDeploymentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageDeployment(ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
@@ -184,7 +190,7 @@ func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDeploymentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDeploymentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

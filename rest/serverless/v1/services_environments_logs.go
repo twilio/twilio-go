@@ -57,6 +57,8 @@ type ListLogParams struct {
 	EndDate *time.Time `json:"EndDate,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListLogParams) SetFunctionSid(FunctionSid string) *ListLogParams {
@@ -73,6 +75,10 @@ func (params *ListLogParams) SetEndDate(EndDate time.Time) *ListLogParams {
 }
 func (params *ListLogParams) SetPageSize(PageSize int) *ListLogParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListLogParams) SetLimit(Limit int) *ListLogParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -122,11 +128,11 @@ func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *L
 }
 
 // Lists Log records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit int) ([]ServerlessV1ServiceEnvironmentLog, error) {
+func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) ([]ServerlessV1ServiceEnvironmentLog, error) {
 	if params == nil {
 		params = &ListLogParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageLog(ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
@@ -140,7 +146,7 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 		records = append(records, response.Logs...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListLogResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListLogResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -151,11 +157,11 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 }
 
 // Streams Log records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, limit int) (chan ServerlessV1ServiceEnvironmentLog, error) {
+func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) (chan ServerlessV1ServiceEnvironmentLog, error) {
 	if params == nil {
 		params = &ListLogParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageLog(ServiceSid, EnvironmentSid, params, "", "")
 	if err != nil {
@@ -173,7 +179,7 @@ func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListLogResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListLogResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

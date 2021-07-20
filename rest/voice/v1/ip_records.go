@@ -118,10 +118,16 @@ func (c *ApiService) FetchIpRecord(Sid string) (*VoiceV1IpRecord, error) {
 type ListIpRecordParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListIpRecordParams) SetPageSize(PageSize int) *ListIpRecordParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListIpRecordParams) SetLimit(Limit int) *ListIpRecordParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -159,11 +165,11 @@ func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken string, 
 }
 
 // Lists IpRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIpRecord(params *ListIpRecordParams, limit int) ([]VoiceV1IpRecord, error) {
+func (c *ApiService) ListIpRecord(params *ListIpRecordParams) ([]VoiceV1IpRecord, error) {
 	if params == nil {
 		params = &ListIpRecordParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageIpRecord(params, "", "")
 	if err != nil {
@@ -177,7 +183,7 @@ func (c *ApiService) ListIpRecord(params *ListIpRecordParams, limit int) ([]Voic
 		records = append(records, response.IpRecords...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIpRecordResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIpRecordResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -188,11 +194,11 @@ func (c *ApiService) ListIpRecord(params *ListIpRecordParams, limit int) ([]Voic
 }
 
 // Streams IpRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIpRecord(params *ListIpRecordParams, limit int) (chan VoiceV1IpRecord, error) {
+func (c *ApiService) StreamIpRecord(params *ListIpRecordParams) (chan VoiceV1IpRecord, error) {
 	if params == nil {
 		params = &ListIpRecordParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageIpRecord(params, "", "")
 	if err != nil {
@@ -210,7 +216,7 @@ func (c *ApiService) StreamIpRecord(params *ListIpRecordParams, limit int) (chan
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListIpRecordResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIpRecordResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -246,6 +246,8 @@ type ListFlexFlowParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListFlexFlowParams) SetFriendlyName(FriendlyName string) *ListFlexFlowParams {
@@ -254,6 +256,10 @@ func (params *ListFlexFlowParams) SetFriendlyName(FriendlyName string) *ListFlex
 }
 func (params *ListFlexFlowParams) SetPageSize(PageSize int) *ListFlexFlowParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListFlexFlowParams) SetLimit(Limit int) *ListFlexFlowParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -294,11 +300,11 @@ func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken string, 
 }
 
 // Lists FlexFlow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams, limit int) ([]FlexV1FlexFlow, error) {
+func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams) ([]FlexV1FlexFlow, error) {
 	if params == nil {
 		params = &ListFlexFlowParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageFlexFlow(params, "", "")
 	if err != nil {
@@ -312,7 +318,7 @@ func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams, limit int) ([]Flex
 		records = append(records, response.FlexFlows...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFlexFlowResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFlexFlowResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -323,11 +329,11 @@ func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams, limit int) ([]Flex
 }
 
 // Streams FlexFlow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFlexFlow(params *ListFlexFlowParams, limit int) (chan FlexV1FlexFlow, error) {
+func (c *ApiService) StreamFlexFlow(params *ListFlexFlowParams) (chan FlexV1FlexFlow, error) {
 	if params == nil {
 		params = &ListFlexFlowParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageFlexFlow(params, "", "")
 	if err != nil {
@@ -345,7 +351,7 @@ func (c *ApiService) StreamFlexFlow(params *ListFlexFlowParams, limit int) (chan
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFlexFlowResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFlexFlowResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -167,6 +167,8 @@ type ListBundleParams struct {
 	NumberType *string `json:"NumberType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListBundleParams) SetStatus(Status string) *ListBundleParams {
@@ -191,6 +193,10 @@ func (params *ListBundleParams) SetNumberType(NumberType string) *ListBundlePara
 }
 func (params *ListBundleParams) SetPageSize(PageSize int) *ListBundleParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListBundleParams) SetLimit(Limit int) *ListBundleParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -243,11 +249,11 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken string, page
 }
 
 // Lists Bundle records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBundle(params *ListBundleParams, limit int) ([]NumbersV2RegulatoryComplianceBundle, error) {
+func (c *ApiService) ListBundle(params *ListBundleParams) ([]NumbersV2RegulatoryComplianceBundle, error) {
 	if params == nil {
 		params = &ListBundleParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageBundle(params, "", "")
 	if err != nil {
@@ -261,7 +267,7 @@ func (c *ApiService) ListBundle(params *ListBundleParams, limit int) ([]NumbersV
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBundleResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBundleResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -272,11 +278,11 @@ func (c *ApiService) ListBundle(params *ListBundleParams, limit int) ([]NumbersV
 }
 
 // Streams Bundle records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBundle(params *ListBundleParams, limit int) (chan NumbersV2RegulatoryComplianceBundle, error) {
+func (c *ApiService) StreamBundle(params *ListBundleParams) (chan NumbersV2RegulatoryComplianceBundle, error) {
 	if params == nil {
 		params = &ListBundleParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageBundle(params, "", "")
 	if err != nil {
@@ -294,7 +300,7 @@ func (c *ApiService) StreamBundle(params *ListBundleParams, limit int) (chan Num
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBundleResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBundleResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

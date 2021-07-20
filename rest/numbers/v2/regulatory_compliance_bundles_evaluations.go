@@ -72,10 +72,16 @@ func (c *ApiService) FetchEvaluation(BundleSid string, Sid string) (*NumbersV2Re
 type ListEvaluationParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListEvaluationParams) SetPageSize(PageSize int) *ListEvaluationParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListEvaluationParams) SetLimit(Limit int) *ListEvaluationParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -115,11 +121,11 @@ func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationPara
 }
 
 // Lists Evaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationParams, limit int) ([]NumbersV2RegulatoryComplianceBundleEvaluation, error) {
+func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationParams) ([]NumbersV2RegulatoryComplianceBundleEvaluation, error) {
 	if params == nil {
 		params = &ListEvaluationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEvaluation(BundleSid, params, "", "")
 	if err != nil {
@@ -133,7 +139,7 @@ func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationPara
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEvaluationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEvaluationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -144,11 +150,11 @@ func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationPara
 }
 
 // Streams Evaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationParams, limit int) (chan NumbersV2RegulatoryComplianceBundleEvaluation, error) {
+func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationParams) (chan NumbersV2RegulatoryComplianceBundleEvaluation, error) {
 	if params == nil {
 		params = &ListEvaluationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEvaluation(BundleSid, params, "", "")
 	if err != nil {
@@ -166,7 +172,7 @@ func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationPa
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEvaluationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEvaluationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

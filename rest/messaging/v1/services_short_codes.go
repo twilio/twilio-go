@@ -103,10 +103,16 @@ func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1
 type ListShortCodeParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListShortCodeParams) SetPageSize(PageSize int) *ListShortCodeParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListShortCodeParams) SetLimit(Limit int) *ListShortCodeParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -146,11 +152,11 @@ func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParam
 }
 
 // Lists ShortCode records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams, limit int) ([]MessagingV1ServiceShortCode, error) {
+func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) ([]MessagingV1ServiceShortCode, error) {
 	if params == nil {
 		params = &ListShortCodeParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageShortCode(ServiceSid, params, "", "")
 	if err != nil {
@@ -164,7 +170,7 @@ func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParam
 		records = append(records, response.ShortCodes...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListShortCodeResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListShortCodeResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -175,11 +181,11 @@ func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParam
 }
 
 // Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodeParams, limit int) (chan MessagingV1ServiceShortCode, error) {
+func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodeParams) (chan MessagingV1ServiceShortCode, error) {
 	if params == nil {
 		params = &ListShortCodeParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageShortCode(ServiceSid, params, "", "")
 	if err != nil {
@@ -197,7 +203,7 @@ func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodePar
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListShortCodeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListShortCodeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

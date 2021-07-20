@@ -186,6 +186,7 @@ Name | Type | Description
 **PhoneNumber** | **string** | The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use &#39;*&#39; as a wildcard for any digit.
 **Origin** | **string** | Whether to include phone numbers based on their origin. Can be: &#x60;twilio&#x60; or &#x60;hosted&#x60;. By default, phone numbers of all origin are included.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
 
 ### Return type
 

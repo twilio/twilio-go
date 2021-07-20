@@ -118,10 +118,16 @@ func (c *ApiService) FetchBucket(ServiceSid string, RateLimitSid string, Sid str
 type ListBucketParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListBucketParams) SetPageSize(PageSize int) *ListBucketParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListBucketParams) SetLimit(Limit int) *ListBucketParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -162,11 +168,11 @@ func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *
 }
 
 // Lists Bucket records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams, limit int) ([]VerifyV2ServiceRateLimitBucket, error) {
+func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams) ([]VerifyV2ServiceRateLimitBucket, error) {
 	if params == nil {
 		params = &ListBucketParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageBucket(ServiceSid, RateLimitSid, params, "", "")
 	if err != nil {
@@ -180,7 +186,7 @@ func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *
 		records = append(records, response.Buckets...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBucketResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBucketResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -191,11 +197,11 @@ func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *
 }
 
 // Streams Bucket records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams, limit int) (chan VerifyV2ServiceRateLimitBucket, error) {
+func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams) (chan VerifyV2ServiceRateLimitBucket, error) {
 	if params == nil {
 		params = &ListBucketParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageBucket(ServiceSid, RateLimitSid, params, "", "")
 	if err != nil {
@@ -213,7 +219,7 @@ func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBucketResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBucketResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

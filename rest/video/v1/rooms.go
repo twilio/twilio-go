@@ -181,6 +181,8 @@ type ListRoomParams struct {
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListRoomParams) SetStatus(Status string) *ListRoomParams {
@@ -201,6 +203,10 @@ func (params *ListRoomParams) SetDateCreatedBefore(DateCreatedBefore time.Time) 
 }
 func (params *ListRoomParams) SetPageSize(PageSize int) *ListRoomParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListRoomParams) SetLimit(Limit int) *ListRoomParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -250,11 +256,11 @@ func (c *ApiService) PageRoom(params *ListRoomParams, pageToken string, pageNumb
 }
 
 // Lists Room records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoom(params *ListRoomParams, limit int) ([]VideoV1Room, error) {
+func (c *ApiService) ListRoom(params *ListRoomParams) ([]VideoV1Room, error) {
 	if params == nil {
 		params = &ListRoomParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageRoom(params, "", "")
 	if err != nil {
@@ -268,7 +274,7 @@ func (c *ApiService) ListRoom(params *ListRoomParams, limit int) ([]VideoV1Room,
 		records = append(records, response.Rooms...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -279,11 +285,11 @@ func (c *ApiService) ListRoom(params *ListRoomParams, limit int) ([]VideoV1Room,
 }
 
 // Streams Room records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoom(params *ListRoomParams, limit int) (chan VideoV1Room, error) {
+func (c *ApiService) StreamRoom(params *ListRoomParams) (chan VideoV1Room, error) {
 	if params == nil {
 		params = &ListRoomParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageRoom(params, "", "")
 	if err != nil {
@@ -301,7 +307,7 @@ func (c *ApiService) StreamRoom(params *ListRoomParams, limit int) (chan VideoV1
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRoomResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

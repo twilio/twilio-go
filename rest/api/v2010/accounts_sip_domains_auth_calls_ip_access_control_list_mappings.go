@@ -151,6 +151,8 @@ type ListSipAuthCallsIpAccessControlListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipAuthCallsIpAccessControlListMappingParams {
@@ -159,6 +161,10 @@ func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetPathAccountSi
 }
 func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetPageSize(PageSize int) *ListSipAuthCallsIpAccessControlListMappingParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetLimit(Limit int) *ListSipAuthCallsIpAccessControlListMappingParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -203,11 +209,11 @@ func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(DomainSid string
 }
 
 // Lists SipAuthCallsIpAccessControlListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, limit int) ([]ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
+func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams) ([]ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
 	if params == nil {
 		params = &ListSipAuthCallsIpAccessControlListMappingParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSipAuthCallsIpAccessControlListMapping(DomainSid, params, "", "")
 	if err != nil {
@@ -221,7 +227,7 @@ func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string
 		records = append(records, response.Contents...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipAuthCallsIpAccessControlListMappingResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipAuthCallsIpAccessControlListMappingResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -232,11 +238,11 @@ func (c *ApiService) ListSipAuthCallsIpAccessControlListMapping(DomainSid string
 }
 
 // Streams SipAuthCallsIpAccessControlListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, limit int) (chan ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
+func (c *ApiService) StreamSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams) (chan ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsIpAccessControlListMapping, error) {
 	if params == nil {
 		params = &ListSipAuthCallsIpAccessControlListMappingParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSipAuthCallsIpAccessControlListMapping(DomainSid, params, "", "")
 	if err != nil {
@@ -254,7 +260,7 @@ func (c *ApiService) StreamSipAuthCallsIpAccessControlListMapping(DomainSid stri
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipAuthCallsIpAccessControlListMappingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipAuthCallsIpAccessControlListMappingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

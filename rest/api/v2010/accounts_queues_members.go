@@ -67,6 +67,8 @@ type ListMemberParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListMemberParams) SetPathAccountSid(PathAccountSid string) *ListMemberParams {
@@ -75,6 +77,10 @@ func (params *ListMemberParams) SetPathAccountSid(PathAccountSid string) *ListMe
 }
 func (params *ListMemberParams) SetPageSize(PageSize int) *ListMemberParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListMemberParams) SetLimit(Limit int) *ListMemberParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -119,11 +125,11 @@ func (c *ApiService) PageMember(QueueSid string, params *ListMemberParams, pageT
 }
 
 // Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMember(QueueSid string, params *ListMemberParams, limit int) ([]ApiV2010AccountQueueMember, error) {
+func (c *ApiService) ListMember(QueueSid string, params *ListMemberParams) ([]ApiV2010AccountQueueMember, error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageMember(QueueSid, params, "", "")
 	if err != nil {
@@ -137,7 +143,7 @@ func (c *ApiService) ListMember(QueueSid string, params *ListMemberParams, limit
 		records = append(records, response.QueueMembers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMemberResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMemberResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -148,11 +154,11 @@ func (c *ApiService) ListMember(QueueSid string, params *ListMemberParams, limit
 }
 
 // Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMember(QueueSid string, params *ListMemberParams, limit int) (chan ApiV2010AccountQueueMember, error) {
+func (c *ApiService) StreamMember(QueueSid string, params *ListMemberParams) (chan ApiV2010AccountQueueMember, error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageMember(QueueSid, params, "", "")
 	if err != nil {
@@ -170,7 +176,7 @@ func (c *ApiService) StreamMember(QueueSid string, params *ListMemberParams, lim
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMemberResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMemberResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

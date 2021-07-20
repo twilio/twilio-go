@@ -109,6 +109,8 @@ type ListMediaParams struct {
 	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListMediaParams) SetPathAccountSid(PathAccountSid string) *ListMediaParams {
@@ -129,6 +131,10 @@ func (params *ListMediaParams) SetDateCreatedAfter(DateCreatedAfter time.Time) *
 }
 func (params *ListMediaParams) SetPageSize(PageSize int) *ListMediaParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListMediaParams) SetLimit(Limit int) *ListMediaParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -182,11 +188,11 @@ func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageT
 }
 
 // Lists Media records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams, limit int) ([]ApiV2010AccountMessageMedia, error) {
+func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams) ([]ApiV2010AccountMessageMedia, error) {
 	if params == nil {
 		params = &ListMediaParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageMedia(MessageSid, params, "", "")
 	if err != nil {
@@ -200,7 +206,7 @@ func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams, limit
 		records = append(records, response.MediaList...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMediaResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMediaResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -211,11 +217,11 @@ func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams, limit
 }
 
 // Streams Media records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams, limit int) (chan ApiV2010AccountMessageMedia, error) {
+func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (chan ApiV2010AccountMessageMedia, error) {
 	if params == nil {
 		params = &ListMediaParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageMedia(MessageSid, params, "", "")
 	if err != nil {
@@ -233,7 +239,7 @@ func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams, lim
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMediaResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMediaResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

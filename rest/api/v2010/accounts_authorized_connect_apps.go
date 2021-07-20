@@ -66,6 +66,8 @@ type ListAuthorizedConnectAppParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAuthorizedConnectAppParams) SetPathAccountSid(PathAccountSid string) *ListAuthorizedConnectAppParams {
@@ -74,6 +76,10 @@ func (params *ListAuthorizedConnectAppParams) SetPathAccountSid(PathAccountSid s
 }
 func (params *ListAuthorizedConnectAppParams) SetPageSize(PageSize int) *ListAuthorizedConnectAppParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListAuthorizedConnectAppParams) SetLimit(Limit int) *ListAuthorizedConnectAppParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -117,11 +123,11 @@ func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 }
 
 // Lists AuthorizedConnectApp records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, limit int) ([]ApiV2010AccountAuthorizedConnectApp, error) {
+func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) ([]ApiV2010AccountAuthorizedConnectApp, error) {
 	if params == nil {
 		params = &ListAuthorizedConnectAppParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAuthorizedConnectApp(params, "", "")
 	if err != nil {
@@ -135,7 +141,7 @@ func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 		records = append(records, response.AuthorizedConnectApps...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -146,11 +152,11 @@ func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 }
 
 // Streams AuthorizedConnectApp records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, limit int) (chan ApiV2010AccountAuthorizedConnectApp, error) {
+func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) (chan ApiV2010AccountAuthorizedConnectApp, error) {
 	if params == nil {
 		params = &ListAuthorizedConnectAppParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAuthorizedConnectApp(params, "", "")
 	if err != nil {
@@ -168,7 +174,7 @@ func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectApp
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

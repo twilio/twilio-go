@@ -101,10 +101,16 @@ func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid strin
 type ListMessageInteractionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListMessageInteractionParams) SetPageSize(PageSize int) *ListMessageInteractionParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListMessageInteractionParams) SetLimit(Limit int) *ListMessageInteractionParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -146,11 +152,11 @@ func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string
 }
 
 // Lists MessageInteraction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams, limit int) ([]ProxyV1ServiceSessionParticipantMessageInteraction, error) {
+func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) ([]ProxyV1ServiceSessionParticipantMessageInteraction, error) {
 	if params == nil {
 		params = &ListMessageInteractionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageMessageInteraction(ServiceSid, SessionSid, ParticipantSid, params, "", "")
 	if err != nil {
@@ -164,7 +170,7 @@ func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string
 		records = append(records, response.Interactions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessageInteractionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessageInteractionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -175,11 +181,11 @@ func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string
 }
 
 // Streams MessageInteraction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams, limit int) (chan ProxyV1ServiceSessionParticipantMessageInteraction, error) {
+func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) (chan ProxyV1ServiceSessionParticipantMessageInteraction, error) {
 	if params == nil {
 		params = &ListMessageInteractionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageMessageInteraction(ServiceSid, SessionSid, ParticipantSid, params, "", "")
 	if err != nil {
@@ -197,7 +203,7 @@ func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid stri
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMessageInteractionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessageInteractionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

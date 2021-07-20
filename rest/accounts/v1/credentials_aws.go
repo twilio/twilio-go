@@ -121,10 +121,16 @@ func (c *ApiService) FetchCredentialAws(Sid string) (*AccountsV1CredentialCreden
 type ListCredentialAwsParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCredentialAwsParams) SetPageSize(PageSize int) *ListCredentialAwsParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListCredentialAwsParams) SetLimit(Limit int) *ListCredentialAwsParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -162,11 +168,11 @@ func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToke
 }
 
 // Lists CredentialAws records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams, limit int) ([]AccountsV1CredentialCredentialAws, error) {
+func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams) ([]AccountsV1CredentialCredentialAws, error) {
 	if params == nil {
 		params = &ListCredentialAwsParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCredentialAws(params, "", "")
 	if err != nil {
@@ -180,7 +186,7 @@ func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams, limit in
 		records = append(records, response.Credentials...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialAwsResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCredentialAwsResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -191,11 +197,11 @@ func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams, limit in
 }
 
 // Streams CredentialAws records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams, limit int) (chan AccountsV1CredentialCredentialAws, error) {
+func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams) (chan AccountsV1CredentialCredentialAws, error) {
 	if params == nil {
 		params = &ListCredentialAwsParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCredentialAws(params, "", "")
 	if err != nil {
@@ -213,7 +219,7 @@ func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams, limit 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialAwsResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCredentialAwsResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

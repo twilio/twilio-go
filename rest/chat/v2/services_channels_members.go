@@ -188,6 +188,8 @@ type ListMemberParams struct {
 	Identity *[]string `json:"Identity,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListMemberParams) SetIdentity(Identity []string) *ListMemberParams {
@@ -196,6 +198,10 @@ func (params *ListMemberParams) SetIdentity(Identity []string) *ListMemberParams
 }
 func (params *ListMemberParams) SetPageSize(PageSize int) *ListMemberParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListMemberParams) SetLimit(Limit int) *ListMemberParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -241,11 +247,11 @@ func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *Li
 }
 
 // Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) ([]ChatV2ServiceChannelMember, error) {
+func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams) ([]ChatV2ServiceChannelMember, error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageMember(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
@@ -259,7 +265,7 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 		records = append(records, response.Members...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMemberResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMemberResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -270,11 +276,11 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 }
 
 // Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *ListMemberParams, limit int) (chan ChatV2ServiceChannelMember, error) {
+func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *ListMemberParams) (chan ChatV2ServiceChannelMember, error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageMember(ServiceSid, ChannelSid, params, "", "")
 	if err != nil {
@@ -292,7 +298,7 @@ func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListMemberResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMemberResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -60,6 +60,8 @@ type ListEventParams struct {
 	EndDate *time.Time `json:"EndDate,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListEventParams) SetActorSid(ActorSid string) *ListEventParams {
@@ -88,6 +90,10 @@ func (params *ListEventParams) SetEndDate(EndDate time.Time) *ListEventParams {
 }
 func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListEventParams) SetLimit(Limit int) *ListEventParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -143,11 +149,11 @@ func (c *ApiService) PageEvent(params *ListEventParams, pageToken string, pageNu
 }
 
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEvent(params *ListEventParams, limit int) ([]MonitorV1Event, error) {
+func (c *ApiService) ListEvent(params *ListEventParams) ([]MonitorV1Event, error) {
 	if params == nil {
 		params = &ListEventParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEvent(params, "", "")
 	if err != nil {
@@ -161,7 +167,7 @@ func (c *ApiService) ListEvent(params *ListEventParams, limit int) ([]MonitorV1E
 		records = append(records, response.Events...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEventResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -172,11 +178,11 @@ func (c *ApiService) ListEvent(params *ListEventParams, limit int) ([]MonitorV1E
 }
 
 // Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEvent(params *ListEventParams, limit int) (chan MonitorV1Event, error) {
+func (c *ApiService) StreamEvent(params *ListEventParams) (chan MonitorV1Event, error) {
 	if params == nil {
 		params = &ListEventParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEvent(params, "", "")
 	if err != nil {
@@ -194,7 +200,7 @@ func (c *ApiService) StreamEvent(params *ListEventParams, limit int) (chan Monit
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEventResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

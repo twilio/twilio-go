@@ -34,6 +34,8 @@ type ListUsageRecordThisMonthParams struct {
 	IncludeSubaccounts *bool `json:"IncludeSubaccounts,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListUsageRecordThisMonthParams) SetPathAccountSid(PathAccountSid string) *ListUsageRecordThisMonthParams {
@@ -58,6 +60,10 @@ func (params *ListUsageRecordThisMonthParams) SetIncludeSubaccounts(IncludeSubac
 }
 func (params *ListUsageRecordThisMonthParams) SetPageSize(PageSize int) *ListUsageRecordThisMonthParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListUsageRecordThisMonthParams) SetLimit(Limit int) *ListUsageRecordThisMonthParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -113,11 +119,11 @@ func (c *ApiService) PageUsageRecordThisMonth(params *ListUsageRecordThisMonthPa
 }
 
 // Lists UsageRecordThisMonth records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthParams, limit int) ([]ApiV2010AccountUsageUsageRecordUsageRecordThisMonth, error) {
+func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthParams) ([]ApiV2010AccountUsageUsageRecordUsageRecordThisMonth, error) {
 	if params == nil {
 		params = &ListUsageRecordThisMonthParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageUsageRecordThisMonth(params, "", "")
 	if err != nil {
@@ -131,7 +137,7 @@ func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthPa
 		records = append(records, response.UsageRecords...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordThisMonthResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordThisMonthResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -142,11 +148,11 @@ func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthPa
 }
 
 // Streams UsageRecordThisMonth records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageRecordThisMonth(params *ListUsageRecordThisMonthParams, limit int) (chan ApiV2010AccountUsageUsageRecordUsageRecordThisMonth, error) {
+func (c *ApiService) StreamUsageRecordThisMonth(params *ListUsageRecordThisMonthParams) (chan ApiV2010AccountUsageUsageRecordUsageRecordThisMonth, error) {
 	if params == nil {
 		params = &ListUsageRecordThisMonthParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageUsageRecordThisMonth(params, "", "")
 	if err != nil {
@@ -164,7 +170,7 @@ func (c *ApiService) StreamUsageRecordThisMonth(params *ListUsageRecordThisMonth
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListUsageRecordThisMonthResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordThisMonthResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

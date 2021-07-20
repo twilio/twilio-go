@@ -25,10 +25,16 @@ import (
 type ListBillingPeriodParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListBillingPeriodParams) SetPageSize(PageSize int) *ListBillingPeriodParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListBillingPeriodParams) SetLimit(Limit int) *ListBillingPeriodParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -68,11 +74,11 @@ func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodP
 }
 
 // Lists BillingPeriod records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams, limit int) ([]SupersimV1SimBillingPeriod, error) {
+func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams) ([]SupersimV1SimBillingPeriod, error) {
 	if params == nil {
 		params = &ListBillingPeriodParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageBillingPeriod(SimSid, params, "", "")
 	if err != nil {
@@ -86,7 +92,7 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 		records = append(records, response.BillingPeriods...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -97,11 +103,11 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 }
 
 // Streams BillingPeriod records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPeriodParams, limit int) (chan SupersimV1SimBillingPeriod, error) {
+func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPeriodParams) (chan SupersimV1SimBillingPeriod, error) {
 	if params == nil {
 		params = &ListBillingPeriodParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageBillingPeriod(SimSid, params, "", "")
 	if err != nil {
@@ -119,7 +125,7 @@ func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPerio
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

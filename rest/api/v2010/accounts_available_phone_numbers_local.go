@@ -63,6 +63,8 @@ type ListAvailablePhoneNumberLocalParams struct {
 	FaxEnabled *bool `json:"FaxEnabled,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAvailablePhoneNumberLocalParams) SetPathAccountSid(PathAccountSid string) *ListAvailablePhoneNumberLocalParams {
@@ -143,6 +145,10 @@ func (params *ListAvailablePhoneNumberLocalParams) SetFaxEnabled(FaxEnabled bool
 }
 func (params *ListAvailablePhoneNumberLocalParams) SetPageSize(PageSize int) *ListAvailablePhoneNumberLocalParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListAvailablePhoneNumberLocalParams) SetLimit(Limit int) *ListAvailablePhoneNumberLocalParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -241,11 +247,11 @@ func (c *ApiService) PageAvailablePhoneNumberLocal(CountryCode string, params *L
 }
 
 // Lists AvailablePhoneNumberLocal records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberLocal(CountryCode string, params *ListAvailablePhoneNumberLocalParams, limit int) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal, error) {
+func (c *ApiService) ListAvailablePhoneNumberLocal(CountryCode string, params *ListAvailablePhoneNumberLocalParams) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal, error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberLocalParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAvailablePhoneNumberLocal(CountryCode, params, "", "")
 	if err != nil {
@@ -259,7 +265,7 @@ func (c *ApiService) ListAvailablePhoneNumberLocal(CountryCode string, params *L
 		records = append(records, response.AvailablePhoneNumbers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAvailablePhoneNumberLocalResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberLocalResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -270,11 +276,11 @@ func (c *ApiService) ListAvailablePhoneNumberLocal(CountryCode string, params *L
 }
 
 // Streams AvailablePhoneNumberLocal records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberLocal(CountryCode string, params *ListAvailablePhoneNumberLocalParams, limit int) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal, error) {
+func (c *ApiService) StreamAvailablePhoneNumberLocal(CountryCode string, params *ListAvailablePhoneNumberLocalParams) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberLocal, error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberLocalParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAvailablePhoneNumberLocal(CountryCode, params, "", "")
 	if err != nil {
@@ -292,7 +298,7 @@ func (c *ApiService) StreamAvailablePhoneNumberLocal(CountryCode string, params 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAvailablePhoneNumberLocalResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberLocalResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

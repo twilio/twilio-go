@@ -139,10 +139,16 @@ func (c *ApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*Trunking
 type ListOriginationUrlParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListOriginationUrlParams) SetPageSize(PageSize int) *ListOriginationUrlParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListOriginationUrlParams) SetLimit(Limit int) *ListOriginationUrlParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -182,11 +188,11 @@ func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOrigination
 }
 
 // Lists OriginationUrl records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, limit int) ([]TrunkingV1TrunkOriginationUrl, error) {
+func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOriginationUrlParams) ([]TrunkingV1TrunkOriginationUrl, error) {
 	if params == nil {
 		params = &ListOriginationUrlParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageOriginationUrl(TrunkSid, params, "", "")
 	if err != nil {
@@ -200,7 +206,7 @@ func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOrigination
 		records = append(records, response.OriginationUrls...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListOriginationUrlResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListOriginationUrlResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -211,11 +217,11 @@ func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOrigination
 }
 
 // Streams OriginationUrl records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, limit int) (chan TrunkingV1TrunkOriginationUrl, error) {
+func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginationUrlParams) (chan TrunkingV1TrunkOriginationUrl, error) {
 	if params == nil {
 		params = &ListOriginationUrlParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageOriginationUrl(TrunkSid, params, "", "")
 	if err != nil {
@@ -233,7 +239,7 @@ func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginati
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListOriginationUrlResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListOriginationUrlResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

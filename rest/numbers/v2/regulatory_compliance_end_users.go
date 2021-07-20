@@ -127,10 +127,16 @@ func (c *ApiService) FetchEndUser(Sid string) (*NumbersV2RegulatoryComplianceEnd
 type ListEndUserParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListEndUserParams) SetPageSize(PageSize int) *ListEndUserParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListEndUserParams) SetLimit(Limit int) *ListEndUserParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -168,11 +174,11 @@ func (c *ApiService) PageEndUser(params *ListEndUserParams, pageToken string, pa
 }
 
 // Lists EndUser records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEndUser(params *ListEndUserParams, limit int) ([]NumbersV2RegulatoryComplianceEndUser, error) {
+func (c *ApiService) ListEndUser(params *ListEndUserParams) ([]NumbersV2RegulatoryComplianceEndUser, error) {
 	if params == nil {
 		params = &ListEndUserParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEndUser(params, "", "")
 	if err != nil {
@@ -186,7 +192,7 @@ func (c *ApiService) ListEndUser(params *ListEndUserParams, limit int) ([]Number
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEndUserResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEndUserResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -197,11 +203,11 @@ func (c *ApiService) ListEndUser(params *ListEndUserParams, limit int) ([]Number
 }
 
 // Streams EndUser records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEndUser(params *ListEndUserParams, limit int) (chan NumbersV2RegulatoryComplianceEndUser, error) {
+func (c *ApiService) StreamEndUser(params *ListEndUserParams) (chan NumbersV2RegulatoryComplianceEndUser, error) {
 	if params == nil {
 		params = &ListEndUserParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEndUser(params, "", "")
 	if err != nil {
@@ -219,7 +225,7 @@ func (c *ApiService) StreamEndUser(params *ListEndUserParams, limit int) (chan N
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEndUserResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEndUserResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

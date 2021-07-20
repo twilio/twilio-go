@@ -164,6 +164,7 @@ Name | Type | Description
 **DateCreatedBefore** | **time.Time** | Read only Composition resources created before this ISO 8601 date-time with time zone.
 **RoomSid** | **string** | Read only Composition resources with this Room SID.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
 
 ### Return type
 

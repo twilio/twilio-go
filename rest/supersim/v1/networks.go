@@ -54,6 +54,8 @@ type ListNetworkParams struct {
 	Mnc *string `json:"Mnc,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListNetworkParams) SetIsoCountry(IsoCountry string) *ListNetworkParams {
@@ -70,6 +72,10 @@ func (params *ListNetworkParams) SetMnc(Mnc string) *ListNetworkParams {
 }
 func (params *ListNetworkParams) SetPageSize(PageSize int) *ListNetworkParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListNetworkParams) SetLimit(Limit int) *ListNetworkParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -116,11 +122,11 @@ func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken string, pa
 }
 
 // Lists Network records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListNetwork(params *ListNetworkParams, limit int) ([]SupersimV1Network, error) {
+func (c *ApiService) ListNetwork(params *ListNetworkParams) ([]SupersimV1Network, error) {
 	if params == nil {
 		params = &ListNetworkParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageNetwork(params, "", "")
 	if err != nil {
@@ -134,7 +140,7 @@ func (c *ApiService) ListNetwork(params *ListNetworkParams, limit int) ([]Supers
 		records = append(records, response.Networks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNetworkResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListNetworkResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -145,11 +151,11 @@ func (c *ApiService) ListNetwork(params *ListNetworkParams, limit int) ([]Supers
 }
 
 // Streams Network records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamNetwork(params *ListNetworkParams, limit int) (chan SupersimV1Network, error) {
+func (c *ApiService) StreamNetwork(params *ListNetworkParams) (chan SupersimV1Network, error) {
 	if params == nil {
 		params = &ListNetworkParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageNetwork(params, "", "")
 	if err != nil {
@@ -167,7 +173,7 @@ func (c *ApiService) StreamNetwork(params *ListNetworkParams, limit int) (chan S
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNetworkResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListNetworkResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

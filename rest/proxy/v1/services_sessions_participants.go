@@ -145,10 +145,16 @@ func (c *ApiService) FetchParticipant(ServiceSid string, SessionSid string, Sid 
 type ListParticipantParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListParticipantParams) SetPageSize(PageSize int) *ListParticipantParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListParticipantParams) SetLimit(Limit int) *ListParticipantParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -189,11 +195,11 @@ func (c *ApiService) PageParticipant(ServiceSid string, SessionSid string, param
 }
 
 // Lists Participant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams, limit int) ([]ProxyV1ServiceSessionParticipant, error) {
+func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams) ([]ProxyV1ServiceSessionParticipant, error) {
 	if params == nil {
 		params = &ListParticipantParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageParticipant(ServiceSid, SessionSid, params, "", "")
 	if err != nil {
@@ -207,7 +213,7 @@ func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, param
 		records = append(records, response.Participants...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListParticipantResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListParticipantResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -218,11 +224,11 @@ func (c *ApiService) ListParticipant(ServiceSid string, SessionSid string, param
 }
 
 // Streams Participant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams, limit int) (chan ProxyV1ServiceSessionParticipant, error) {
+func (c *ApiService) StreamParticipant(ServiceSid string, SessionSid string, params *ListParticipantParams) (chan ProxyV1ServiceSessionParticipant, error) {
 	if params == nil {
 		params = &ListParticipantParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageParticipant(ServiceSid, SessionSid, params, "", "")
 	if err != nil {
@@ -240,7 +246,7 @@ func (c *ApiService) StreamParticipant(ServiceSid string, SessionSid string, par
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListParticipantResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListParticipantResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

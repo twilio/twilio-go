@@ -116,6 +116,8 @@ type ListActivityParams struct {
 	Available *string `json:"Available,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListActivityParams) SetFriendlyName(FriendlyName string) *ListActivityParams {
@@ -128,6 +130,10 @@ func (params *ListActivityParams) SetAvailable(Available string) *ListActivityPa
 }
 func (params *ListActivityParams) SetPageSize(PageSize int) *ListActivityParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListActivityParams) SetLimit(Limit int) *ListActivityParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -173,11 +179,11 @@ func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParam
 }
 
 // Lists Activity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParams, limit int) ([]TaskrouterV1WorkspaceActivity, error) {
+func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParams) ([]TaskrouterV1WorkspaceActivity, error) {
 	if params == nil {
 		params = &ListActivityParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageActivity(WorkspaceSid, params, "", "")
 	if err != nil {
@@ -191,7 +197,7 @@ func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParam
 		records = append(records, response.Activities...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListActivityResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListActivityResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -202,11 +208,11 @@ func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParam
 }
 
 // Streams Activity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityParams, limit int) (chan TaskrouterV1WorkspaceActivity, error) {
+func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityParams) (chan TaskrouterV1WorkspaceActivity, error) {
 	if params == nil {
 		params = &ListActivityParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageActivity(WorkspaceSid, params, "", "")
 	if err != nil {
@@ -224,7 +230,7 @@ func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityPar
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListActivityResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListActivityResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

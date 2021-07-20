@@ -160,6 +160,7 @@ Name | Type | Description
 **FriendlyName** | **string** | The &#x60;friendly_name&#x60; of the Activity resources to read.
 **Available** | **string** | Whether return only Activity resources that are available or unavailable. A value of &#x60;true&#x60; returns only available activities. Values of &#39;1&#39; or &#x60;yes&#x60; also indicate &#x60;true&#x60;. All other values represent &#x60;false&#x60; and return activities that are unavailable.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
 
 ### Return type
 

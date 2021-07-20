@@ -112,6 +112,8 @@ type ListTaskQueuesStatisticsParams struct {
 	SplitByWaitTime *string `json:"SplitByWaitTime,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListTaskQueuesStatisticsParams) SetEndDate(EndDate time.Time) *ListTaskQueuesStatisticsParams {
@@ -140,6 +142,10 @@ func (params *ListTaskQueuesStatisticsParams) SetSplitByWaitTime(SplitByWaitTime
 }
 func (params *ListTaskQueuesStatisticsParams) SetPageSize(PageSize int) *ListTaskQueuesStatisticsParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListTaskQueuesStatisticsParams) SetLimit(Limit int) *ListTaskQueuesStatisticsParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -197,11 +203,11 @@ func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListT
 }
 
 // Lists TaskQueuesStatistics records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, limit int) ([]TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics, error) {
+func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) ([]TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics, error) {
 	if params == nil {
 		params = &ListTaskQueuesStatisticsParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTaskQueuesStatistics(WorkspaceSid, params, "", "")
 	if err != nil {
@@ -215,7 +221,7 @@ func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListT
 		records = append(records, response.TaskQueuesStatistics...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskQueuesStatisticsResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskQueuesStatisticsResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -226,11 +232,11 @@ func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListT
 }
 
 // Streams TaskQueuesStatistics records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, limit int) (chan TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics, error) {
+func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) (chan TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics, error) {
 	if params == nil {
 		params = &ListTaskQueuesStatisticsParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTaskQueuesStatistics(WorkspaceSid, params, "", "")
 	if err != nil {
@@ -248,7 +254,7 @@ func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *Lis
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskQueuesStatisticsResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskQueuesStatisticsResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

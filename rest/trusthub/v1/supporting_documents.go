@@ -127,10 +127,16 @@ func (c *ApiService) FetchSupportingDocument(Sid string) (*TrusthubV1SupportingD
 type ListSupportingDocumentParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSupportingDocumentParams) SetPageSize(PageSize int) *ListSupportingDocumentParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSupportingDocumentParams) SetLimit(Limit int) *ListSupportingDocumentParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -168,11 +174,11 @@ func (c *ApiService) PageSupportingDocument(params *ListSupportingDocumentParams
 }
 
 // Lists SupportingDocument records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams, limit int) ([]TrusthubV1SupportingDocument, error) {
+func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams) ([]TrusthubV1SupportingDocument, error) {
 	if params == nil {
 		params = &ListSupportingDocumentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSupportingDocument(params, "", "")
 	if err != nil {
@@ -186,7 +192,7 @@ func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSupportingDocumentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSupportingDocumentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -197,11 +203,11 @@ func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams
 }
 
 // Streams SupportingDocument records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSupportingDocument(params *ListSupportingDocumentParams, limit int) (chan TrusthubV1SupportingDocument, error) {
+func (c *ApiService) StreamSupportingDocument(params *ListSupportingDocumentParams) (chan TrusthubV1SupportingDocument, error) {
 	if params == nil {
 		params = &ListSupportingDocumentParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSupportingDocument(params, "", "")
 	if err != nil {
@@ -219,7 +225,7 @@ func (c *ApiService) StreamSupportingDocument(params *ListSupportingDocumentPara
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSupportingDocumentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSupportingDocumentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

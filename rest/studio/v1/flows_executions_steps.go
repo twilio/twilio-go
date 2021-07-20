@@ -50,10 +50,16 @@ func (c *ApiService) FetchExecutionStep(FlowSid string, ExecutionSid string, Sid
 type ListExecutionStepParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListExecutionStepParams) SetPageSize(PageSize int) *ListExecutionStepParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListExecutionStepParams) SetLimit(Limit int) *ListExecutionStepParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -94,11 +100,11 @@ func (c *ApiService) PageExecutionStep(FlowSid string, ExecutionSid string, para
 }
 
 // Lists ExecutionStep records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams, limit int) ([]StudioV1FlowExecutionExecutionStep, error) {
+func (c *ApiService) ListExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams) ([]StudioV1FlowExecutionExecutionStep, error) {
 	if params == nil {
 		params = &ListExecutionStepParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageExecutionStep(FlowSid, ExecutionSid, params, "", "")
 	if err != nil {
@@ -112,7 +118,7 @@ func (c *ApiService) ListExecutionStep(FlowSid string, ExecutionSid string, para
 		records = append(records, response.Steps...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListExecutionStepResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListExecutionStepResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -123,11 +129,11 @@ func (c *ApiService) ListExecutionStep(FlowSid string, ExecutionSid string, para
 }
 
 // Streams ExecutionStep records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams, limit int) (chan StudioV1FlowExecutionExecutionStep, error) {
+func (c *ApiService) StreamExecutionStep(FlowSid string, ExecutionSid string, params *ListExecutionStepParams) (chan StudioV1FlowExecutionExecutionStep, error) {
 	if params == nil {
 		params = &ListExecutionStepParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageExecutionStep(FlowSid, ExecutionSid, params, "", "")
 	if err != nil {
@@ -145,7 +151,7 @@ func (c *ApiService) StreamExecutionStep(FlowSid string, ExecutionSid string, pa
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListExecutionStepResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListExecutionStepResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

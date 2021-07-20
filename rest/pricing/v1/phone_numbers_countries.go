@@ -47,10 +47,16 @@ func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1Phone
 type ListPhoneNumberCountryParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListPhoneNumberCountryParams) SetPageSize(PageSize int) *ListPhoneNumberCountryParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListPhoneNumberCountryParams) SetLimit(Limit int) *ListPhoneNumberCountryParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -88,11 +94,11 @@ func (c *ApiService) PagePhoneNumberCountry(params *ListPhoneNumberCountryParams
 }
 
 // Lists PhoneNumberCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams, limit int) ([]PricingV1PhoneNumberPhoneNumberCountry, error) {
+func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams) ([]PricingV1PhoneNumberPhoneNumberCountry, error) {
 	if params == nil {
 		params = &ListPhoneNumberCountryParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PagePhoneNumberCountry(params, "", "")
 	if err != nil {
@@ -106,7 +112,7 @@ func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams
 		records = append(records, response.Countries...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListPhoneNumberCountryResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPhoneNumberCountryResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -117,11 +123,11 @@ func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams
 }
 
 // Streams PhoneNumberCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryParams, limit int) (chan PricingV1PhoneNumberPhoneNumberCountry, error) {
+func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryParams) (chan PricingV1PhoneNumberPhoneNumberCountry, error) {
 	if params == nil {
 		params = &ListPhoneNumberCountryParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PagePhoneNumberCountry(params, "", "")
 	if err != nil {
@@ -139,7 +145,7 @@ func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryPara
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListPhoneNumberCountryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPhoneNumberCountryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

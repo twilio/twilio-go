@@ -115,10 +115,16 @@ func (c *ApiService) FetchRateLimit(ServiceSid string, Sid string) (*VerifyV2Ser
 type ListRateLimitParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListRateLimitParams) SetPageSize(PageSize int) *ListRateLimitParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListRateLimitParams) SetLimit(Limit int) *ListRateLimitParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -158,11 +164,11 @@ func (c *ApiService) PageRateLimit(ServiceSid string, params *ListRateLimitParam
 }
 
 // Lists RateLimit records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParams, limit int) ([]VerifyV2ServiceRateLimit, error) {
+func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParams) ([]VerifyV2ServiceRateLimit, error) {
 	if params == nil {
 		params = &ListRateLimitParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageRateLimit(ServiceSid, params, "", "")
 	if err != nil {
@@ -176,7 +182,7 @@ func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParam
 		records = append(records, response.RateLimits...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRateLimitResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRateLimitResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -187,11 +193,11 @@ func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParam
 }
 
 // Streams RateLimit records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRateLimit(ServiceSid string, params *ListRateLimitParams, limit int) (chan VerifyV2ServiceRateLimit, error) {
+func (c *ApiService) StreamRateLimit(ServiceSid string, params *ListRateLimitParams) (chan VerifyV2ServiceRateLimit, error) {
 	if params == nil {
 		params = &ListRateLimitParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageRateLimit(ServiceSid, params, "", "")
 	if err != nil {
@@ -209,7 +215,7 @@ func (c *ApiService) StreamRateLimit(ServiceSid string, params *ListRateLimitPar
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRateLimitResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRateLimitResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

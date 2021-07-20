@@ -154,10 +154,16 @@ func (c *ApiService) FetchTrunk(Sid string) (*TrunkingV1Trunk, error) {
 type ListTrunkParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListTrunkParams) SetPageSize(PageSize int) *ListTrunkParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListTrunkParams) SetLimit(Limit int) *ListTrunkParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -195,11 +201,11 @@ func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken string, pageNu
 }
 
 // Lists Trunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrunk(params *ListTrunkParams, limit int) ([]TrunkingV1Trunk, error) {
+func (c *ApiService) ListTrunk(params *ListTrunkParams) ([]TrunkingV1Trunk, error) {
 	if params == nil {
 		params = &ListTrunkParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTrunk(params, "", "")
 	if err != nil {
@@ -213,7 +219,7 @@ func (c *ApiService) ListTrunk(params *ListTrunkParams, limit int) ([]TrunkingV1
 		records = append(records, response.Trunks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrunkResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrunkResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -224,11 +230,11 @@ func (c *ApiService) ListTrunk(params *ListTrunkParams, limit int) ([]TrunkingV1
 }
 
 // Streams Trunk records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrunk(params *ListTrunkParams, limit int) (chan TrunkingV1Trunk, error) {
+func (c *ApiService) StreamTrunk(params *ListTrunkParams) (chan TrunkingV1Trunk, error) {
 	if params == nil {
 		params = &ListTrunkParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTrunk(params, "", "")
 	if err != nil {
@@ -246,7 +252,7 @@ func (c *ApiService) StreamTrunk(params *ListTrunkParams, limit int) (chan Trunk
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrunkResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrunkResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

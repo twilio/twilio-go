@@ -119,6 +119,7 @@ Name | Type | Description
 **DateCreatedAfter** | **time.Time** | Read only rooms that started on or after this date, given as &#x60;YYYY-MM-DD&#x60;.
 **DateCreatedBefore** | **time.Time** | Read only rooms that started before this date, given as &#x60;YYYY-MM-DD&#x60;.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
 
 ### Return type
 

@@ -51,10 +51,16 @@ func (c *ApiService) FetchServiceConversationMessageReceipt(ChatServiceSid strin
 type ListServiceConversationMessageReceiptParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListServiceConversationMessageReceiptParams) SetPageSize(PageSize int) *ListServiceConversationMessageReceiptParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListServiceConversationMessageReceiptParams) SetLimit(Limit int) *ListServiceConversationMessageReceiptParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -96,11 +102,11 @@ func (c *ApiService) PageServiceConversationMessageReceipt(ChatServiceSid string
 }
 
 // Lists ServiceConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, limit int) ([]ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt, error) {
+func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams) ([]ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt, error) {
 	if params == nil {
 		params = &ListServiceConversationMessageReceiptParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageServiceConversationMessageReceipt(ChatServiceSid, ConversationSid, MessageSid, params, "", "")
 	if err != nil {
@@ -114,7 +120,7 @@ func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string
 		records = append(records, response.DeliveryReceipts...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationMessageReceiptResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceConversationMessageReceiptResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -125,11 +131,11 @@ func (c *ApiService) ListServiceConversationMessageReceipt(ChatServiceSid string
 }
 
 // Streams ServiceConversationMessageReceipt records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, limit int) (chan ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt, error) {
+func (c *ApiService) StreamServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams) (chan ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt, error) {
 	if params == nil {
 		params = &ListServiceConversationMessageReceiptParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageServiceConversationMessageReceipt(ChatServiceSid, ConversationSid, MessageSid, params, "", "")
 	if err != nil {
@@ -147,7 +153,7 @@ func (c *ApiService) StreamServiceConversationMessageReceipt(ChatServiceSid stri
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListServiceConversationMessageReceiptResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceConversationMessageReceiptResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

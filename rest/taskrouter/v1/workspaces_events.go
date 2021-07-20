@@ -71,6 +71,8 @@ type ListEventParams struct {
 	Sid *string `json:"Sid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListEventParams) SetEndDate(EndDate time.Time) *ListEventParams {
@@ -119,6 +121,10 @@ func (params *ListEventParams) SetSid(Sid string) *ListEventParams {
 }
 func (params *ListEventParams) SetPageSize(PageSize int) *ListEventParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListEventParams) SetLimit(Limit int) *ListEventParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -191,11 +197,11 @@ func (c *ApiService) PageEvent(WorkspaceSid string, params *ListEventParams, pag
 }
 
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams, limit int) ([]TaskrouterV1WorkspaceEvent, error) {
+func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams) ([]TaskrouterV1WorkspaceEvent, error) {
 	if params == nil {
 		params = &ListEventParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEvent(WorkspaceSid, params, "", "")
 	if err != nil {
@@ -209,7 +215,7 @@ func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams, lim
 		records = append(records, response.Events...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEventResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -220,11 +226,11 @@ func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams, lim
 }
 
 // Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEvent(WorkspaceSid string, params *ListEventParams, limit int) (chan TaskrouterV1WorkspaceEvent, error) {
+func (c *ApiService) StreamEvent(WorkspaceSid string, params *ListEventParams) (chan TaskrouterV1WorkspaceEvent, error) {
 	if params == nil {
 		params = &ListEventParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEvent(WorkspaceSid, params, "", "")
 	if err != nil {
@@ -242,7 +248,7 @@ func (c *ApiService) StreamEvent(WorkspaceSid string, params *ListEventParams, l
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEventResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEventResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

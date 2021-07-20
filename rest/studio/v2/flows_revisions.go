@@ -49,10 +49,16 @@ func (c *ApiService) FetchFlowRevision(Sid string, Revision string) (*StudioV2Fl
 type ListFlowRevisionParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListFlowRevisionParams) SetPageSize(PageSize int) *ListFlowRevisionParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListFlowRevisionParams) SetLimit(Limit int) *ListFlowRevisionParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -92,11 +98,11 @@ func (c *ApiService) PageFlowRevision(Sid string, params *ListFlowRevisionParams
 }
 
 // Lists FlowRevision records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams, limit int) ([]StudioV2FlowFlowRevision, error) {
+func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams) ([]StudioV2FlowFlowRevision, error) {
 	if params == nil {
 		params = &ListFlowRevisionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageFlowRevision(Sid, params, "", "")
 	if err != nil {
@@ -110,7 +116,7 @@ func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams
 		records = append(records, response.Revisions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFlowRevisionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFlowRevisionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -121,11 +127,11 @@ func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams
 }
 
 // Streams FlowRevision records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionParams, limit int) (chan StudioV2FlowFlowRevision, error) {
+func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionParams) (chan StudioV2FlowFlowRevision, error) {
 	if params == nil {
 		params = &ListFlowRevisionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageFlowRevision(Sid, params, "", "")
 	if err != nil {
@@ -143,7 +149,7 @@ func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionPara
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFlowRevisionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFlowRevisionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

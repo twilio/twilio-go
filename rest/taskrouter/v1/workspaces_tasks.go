@@ -172,6 +172,8 @@ type ListTaskParams struct {
 	HasAddons *bool `json:"HasAddons,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListTaskParams) SetPriority(Priority int) *ListTaskParams {
@@ -212,6 +214,10 @@ func (params *ListTaskParams) SetHasAddons(HasAddons bool) *ListTaskParams {
 }
 func (params *ListTaskParams) SetPageSize(PageSize int) *ListTaskParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListTaskParams) SetLimit(Limit int) *ListTaskParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -280,11 +286,11 @@ func (c *ApiService) PageTask(WorkspaceSid string, params *ListTaskParams, pageT
 }
 
 // Lists Task records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams, limit int) ([]TaskrouterV1WorkspaceTask, error) {
+func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams) ([]TaskrouterV1WorkspaceTask, error) {
 	if params == nil {
 		params = &ListTaskParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTask(WorkspaceSid, params, "", "")
 	if err != nil {
@@ -298,7 +304,7 @@ func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams, limit
 		records = append(records, response.Tasks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -309,11 +315,11 @@ func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams, limit
 }
 
 // Streams Task records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTask(WorkspaceSid string, params *ListTaskParams, limit int) (chan TaskrouterV1WorkspaceTask, error) {
+func (c *ApiService) StreamTask(WorkspaceSid string, params *ListTaskParams) (chan TaskrouterV1WorkspaceTask, error) {
 	if params == nil {
 		params = &ListTaskParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTask(WorkspaceSid, params, "", "")
 	if err != nil {
@@ -331,7 +337,7 @@ func (c *ApiService) StreamTask(WorkspaceSid string, params *ListTaskParams, lim
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTaskResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

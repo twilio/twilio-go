@@ -106,10 +106,16 @@ func (c *ApiService) FetchAsset(ServiceSid string, Sid string) (*ServerlessV1Ser
 type ListAssetParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAssetParams) SetPageSize(PageSize int) *ListAssetParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListAssetParams) SetLimit(Limit int) *ListAssetParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -149,11 +155,11 @@ func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageT
 }
 
 // Lists Asset records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams, limit int) ([]ServerlessV1ServiceAsset, error) {
+func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams) ([]ServerlessV1ServiceAsset, error) {
 	if params == nil {
 		params = &ListAssetParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAsset(ServiceSid, params, "", "")
 	if err != nil {
@@ -167,7 +173,7 @@ func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams, limit
 		records = append(records, response.Assets...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAssetResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAssetResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -178,11 +184,11 @@ func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams, limit
 }
 
 // Streams Asset records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams, limit int) (chan ServerlessV1ServiceAsset, error) {
+func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams) (chan ServerlessV1ServiceAsset, error) {
 	if params == nil {
 		params = &ListAssetParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAsset(ServiceSid, params, "", "")
 	if err != nil {
@@ -200,7 +206,7 @@ func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams, lim
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAssetResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAssetResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

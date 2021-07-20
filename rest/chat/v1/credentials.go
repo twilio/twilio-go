@@ -154,10 +154,16 @@ func (c *ApiService) FetchCredential(Sid string) (*ChatV1Credential, error) {
 type ListCredentialParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCredentialParams) SetPageSize(PageSize int) *ListCredentialParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListCredentialParams) SetLimit(Limit int) *ListCredentialParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -195,11 +201,11 @@ func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken stri
 }
 
 // Lists Credential records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCredential(params *ListCredentialParams, limit int) ([]ChatV1Credential, error) {
+func (c *ApiService) ListCredential(params *ListCredentialParams) ([]ChatV1Credential, error) {
 	if params == nil {
 		params = &ListCredentialParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCredential(params, "", "")
 	if err != nil {
@@ -213,7 +219,7 @@ func (c *ApiService) ListCredential(params *ListCredentialParams, limit int) ([]
 		records = append(records, response.Credentials...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCredentialResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -224,11 +230,11 @@ func (c *ApiService) ListCredential(params *ListCredentialParams, limit int) ([]
 }
 
 // Streams Credential records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCredential(params *ListCredentialParams, limit int) (chan ChatV1Credential, error) {
+func (c *ApiService) StreamCredential(params *ListCredentialParams) (chan ChatV1Credential, error) {
 	if params == nil {
 		params = &ListCredentialParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageCredential(params, "", "")
 	if err != nil {
@@ -246,7 +252,7 @@ func (c *ApiService) StreamCredential(params *ListCredentialParams, limit int) (
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCredentialResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCredentialResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -122,6 +122,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **NetworkAccessProfile** | **string** | The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet&#39;s SIMs can connect to.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
+**Limit** | **int** | Max number of records to return.
 
 ### Return type
 

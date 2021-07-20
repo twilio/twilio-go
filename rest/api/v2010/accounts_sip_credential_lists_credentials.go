@@ -160,6 +160,8 @@ type ListSipCredentialParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSipCredentialParams) SetPathAccountSid(PathAccountSid string) *ListSipCredentialParams {
@@ -168,6 +170,10 @@ func (params *ListSipCredentialParams) SetPathAccountSid(PathAccountSid string) 
 }
 func (params *ListSipCredentialParams) SetPageSize(PageSize int) *ListSipCredentialParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSipCredentialParams) SetLimit(Limit int) *ListSipCredentialParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -212,11 +218,11 @@ func (c *ApiService) PageSipCredential(CredentialListSid string, params *ListSip
 }
 
 // Lists SipCredential records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipCredential(CredentialListSid string, params *ListSipCredentialParams, limit int) ([]ApiV2010AccountSipSipCredentialListSipCredential, error) {
+func (c *ApiService) ListSipCredential(CredentialListSid string, params *ListSipCredentialParams) ([]ApiV2010AccountSipSipCredentialListSipCredential, error) {
 	if params == nil {
 		params = &ListSipCredentialParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSipCredential(CredentialListSid, params, "", "")
 	if err != nil {
@@ -230,7 +236,7 @@ func (c *ApiService) ListSipCredential(CredentialListSid string, params *ListSip
 		records = append(records, response.Credentials...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipCredentialResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipCredentialResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -241,11 +247,11 @@ func (c *ApiService) ListSipCredential(CredentialListSid string, params *ListSip
 }
 
 // Streams SipCredential records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipCredential(CredentialListSid string, params *ListSipCredentialParams, limit int) (chan ApiV2010AccountSipSipCredentialListSipCredential, error) {
+func (c *ApiService) StreamSipCredential(CredentialListSid string, params *ListSipCredentialParams) (chan ApiV2010AccountSipSipCredentialListSipCredential, error) {
 	if params == nil {
 		params = &ListSipCredentialParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSipCredential(CredentialListSid, params, "", "")
 	if err != nil {
@@ -263,7 +269,7 @@ func (c *ApiService) StreamSipCredential(CredentialListSid string, params *ListS
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipCredentialResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipCredentialResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -139,10 +139,16 @@ func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid
 type ListConnectionPolicyTargetParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListConnectionPolicyTargetParams) SetPageSize(PageSize int) *ListConnectionPolicyTargetParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListConnectionPolicyTargetParams) SetLimit(Limit int) *ListConnectionPolicyTargetParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -182,11 +188,11 @@ func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, para
 }
 
 // Lists ConnectionPolicyTarget records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit int) ([]VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
+func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) ([]VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
 	if params == nil {
 		params = &ListConnectionPolicyTargetParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageConnectionPolicyTarget(ConnectionPolicySid, params, "", "")
 	if err != nil {
@@ -200,7 +206,7 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 		records = append(records, response.Targets...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConnectionPolicyTargetResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConnectionPolicyTargetResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -211,11 +217,11 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 }
 
 // Streams ConnectionPolicyTarget records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams, limit int) (chan VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
+func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) (chan VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
 	if params == nil {
 		params = &ListConnectionPolicyTargetParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageConnectionPolicyTarget(ConnectionPolicySid, params, "", "")
 	if err != nil {
@@ -233,7 +239,7 @@ func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, pa
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListConnectionPolicyTargetResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConnectionPolicyTargetResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

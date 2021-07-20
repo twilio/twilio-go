@@ -115,10 +115,16 @@ func (c *ApiService) FetchSubscribedEvent(SubscriptionSid string, Type string) (
 type ListSubscribedEventParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSubscribedEventParams) SetPageSize(PageSize int) *ListSubscribedEventParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSubscribedEventParams) SetLimit(Limit int) *ListSubscribedEventParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -158,11 +164,11 @@ func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSub
 }
 
 // Lists SubscribedEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, limit int) ([]EventsV1SubscriptionSubscribedEvent, error) {
+func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) ([]EventsV1SubscriptionSubscribedEvent, error) {
 	if params == nil {
 		params = &ListSubscribedEventParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSubscribedEvent(SubscriptionSid, params, "", "")
 	if err != nil {
@@ -176,7 +182,7 @@ func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSub
 		records = append(records, response.Types...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSubscribedEventResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSubscribedEventResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -187,11 +193,11 @@ func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSub
 }
 
 // Streams SubscribedEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, limit int) (chan EventsV1SubscriptionSubscribedEvent, error) {
+func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) (chan EventsV1SubscriptionSubscribedEvent, error) {
 	if params == nil {
 		params = &ListSubscribedEventParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSubscribedEvent(SubscriptionSid, params, "", "")
 	if err != nil {
@@ -209,7 +215,7 @@ func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListS
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSubscribedEventResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSubscribedEventResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -106,10 +106,16 @@ func (c *ApiService) FetchEntity(ServiceSid string, Identity string) (*VerifyV2S
 type ListEntityParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListEntityParams) SetPageSize(PageSize int) *ListEntityParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListEntityParams) SetLimit(Limit int) *ListEntityParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -149,11 +155,11 @@ func (c *ApiService) PageEntity(ServiceSid string, params *ListEntityParams, pag
 }
 
 // Lists Entity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams, limit int) ([]VerifyV2ServiceEntity, error) {
+func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams) ([]VerifyV2ServiceEntity, error) {
 	if params == nil {
 		params = &ListEntityParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEntity(ServiceSid, params, "", "")
 	if err != nil {
@@ -167,7 +173,7 @@ func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams, lim
 		records = append(records, response.Entities...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEntityResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEntityResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -178,11 +184,11 @@ func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams, lim
 }
 
 // Streams Entity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams, limit int) (chan VerifyV2ServiceEntity, error) {
+func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams) (chan VerifyV2ServiceEntity, error) {
 	if params == nil {
 		params = &ListEntityParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEntity(ServiceSid, params, "", "")
 	if err != nil {
@@ -200,7 +206,7 @@ func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams, l
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEntityResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEntityResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

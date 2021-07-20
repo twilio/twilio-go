@@ -130,10 +130,16 @@ func (c *ApiService) FetchEngagement(FlowSid string, Sid string) (*StudioV1FlowE
 type ListEngagementParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListEngagementParams) SetPageSize(PageSize int) *ListEngagementParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListEngagementParams) SetLimit(Limit int) *ListEngagementParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -173,11 +179,11 @@ func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams
 }
 
 // Lists Engagement records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams, limit int) ([]StudioV1FlowEngagement, error) {
+func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams) ([]StudioV1FlowEngagement, error) {
 	if params == nil {
 		params = &ListEngagementParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEngagement(FlowSid, params, "", "")
 	if err != nil {
@@ -191,7 +197,7 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 		records = append(records, response.Engagements...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEngagementResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEngagementResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -202,11 +208,11 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 }
 
 // Streams Engagement records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementParams, limit int) (chan StudioV1FlowEngagement, error) {
+func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementParams) (chan StudioV1FlowEngagement, error) {
 	if params == nil {
 		params = &ListEngagementParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageEngagement(FlowSid, params, "", "")
 	if err != nil {
@@ -224,7 +230,7 @@ func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementPara
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListEngagementResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEngagementResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

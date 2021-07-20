@@ -50,10 +50,16 @@ func (c *ApiService) FetchStep(FlowSid string, EngagementSid string, Sid string)
 type ListStepParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListStepParams) SetPageSize(PageSize int) *ListStepParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListStepParams) SetLimit(Limit int) *ListStepParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -94,11 +100,11 @@ func (c *ApiService) PageStep(FlowSid string, EngagementSid string, params *List
 }
 
 // Lists Step records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *ListStepParams, limit int) ([]StudioV1FlowEngagementStep, error) {
+func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *ListStepParams) ([]StudioV1FlowEngagementStep, error) {
 	if params == nil {
 		params = &ListStepParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageStep(FlowSid, EngagementSid, params, "", "")
 	if err != nil {
@@ -112,7 +118,7 @@ func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *List
 		records = append(records, response.Steps...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListStepResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -123,11 +129,11 @@ func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *List
 }
 
 // Streams Step records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *ListStepParams, limit int) (chan StudioV1FlowEngagementStep, error) {
+func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *ListStepParams) (chan StudioV1FlowEngagementStep, error) {
 	if params == nil {
 		params = &ListStepParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageStep(FlowSid, EngagementSid, params, "", "")
 	if err != nil {
@@ -145,7 +151,7 @@ func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *Li
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListStepResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

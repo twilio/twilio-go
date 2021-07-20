@@ -96,10 +96,16 @@ func (c *ApiService) FetchNetworkAccessProfile(Sid string) (*SupersimV1NetworkAc
 type ListNetworkAccessProfileParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListNetworkAccessProfileParams) SetPageSize(PageSize int) *ListNetworkAccessProfileParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListNetworkAccessProfileParams) SetLimit(Limit int) *ListNetworkAccessProfileParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -137,11 +143,11 @@ func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfilePa
 }
 
 // Lists NetworkAccessProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfileParams, limit int) ([]SupersimV1NetworkAccessProfile, error) {
+func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfileParams) ([]SupersimV1NetworkAccessProfile, error) {
 	if params == nil {
 		params = &ListNetworkAccessProfileParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageNetworkAccessProfile(params, "", "")
 	if err != nil {
@@ -155,7 +161,7 @@ func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfilePa
 		records = append(records, response.NetworkAccessProfiles...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNetworkAccessProfileResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListNetworkAccessProfileResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -166,11 +172,11 @@ func (c *ApiService) ListNetworkAccessProfile(params *ListNetworkAccessProfilePa
 }
 
 // Streams NetworkAccessProfile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamNetworkAccessProfile(params *ListNetworkAccessProfileParams, limit int) (chan SupersimV1NetworkAccessProfile, error) {
+func (c *ApiService) StreamNetworkAccessProfile(params *ListNetworkAccessProfileParams) (chan SupersimV1NetworkAccessProfile, error) {
 	if params == nil {
 		params = &ListNetworkAccessProfileParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageNetworkAccessProfile(params, "", "")
 	if err != nil {
@@ -188,7 +194,7 @@ func (c *ApiService) StreamNetworkAccessProfile(params *ListNetworkAccessProfile
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListNetworkAccessProfileResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListNetworkAccessProfileResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

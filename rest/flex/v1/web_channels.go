@@ -145,10 +145,16 @@ func (c *ApiService) FetchWebChannel(Sid string) (*FlexV1WebChannel, error) {
 type ListWebChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListWebChannelParams) SetPageSize(PageSize int) *ListWebChannelParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListWebChannelParams) SetLimit(Limit int) *ListWebChannelParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -186,11 +192,11 @@ func (c *ApiService) PageWebChannel(params *ListWebChannelParams, pageToken stri
 }
 
 // Lists WebChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWebChannel(params *ListWebChannelParams, limit int) ([]FlexV1WebChannel, error) {
+func (c *ApiService) ListWebChannel(params *ListWebChannelParams) ([]FlexV1WebChannel, error) {
 	if params == nil {
 		params = &ListWebChannelParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageWebChannel(params, "", "")
 	if err != nil {
@@ -204,7 +210,7 @@ func (c *ApiService) ListWebChannel(params *ListWebChannelParams, limit int) ([]
 		records = append(records, response.FlexChatChannels...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWebChannelResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWebChannelResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -215,11 +221,11 @@ func (c *ApiService) ListWebChannel(params *ListWebChannelParams, limit int) ([]
 }
 
 // Streams WebChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWebChannel(params *ListWebChannelParams, limit int) (chan FlexV1WebChannel, error) {
+func (c *ApiService) StreamWebChannel(params *ListWebChannelParams) (chan FlexV1WebChannel, error) {
 	if params == nil {
 		params = &ListWebChannelParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageWebChannel(params, "", "")
 	if err != nil {
@@ -237,7 +243,7 @@ func (c *ApiService) StreamWebChannel(params *ListWebChannelParams, limit int) (
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWebChannelResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWebChannelResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

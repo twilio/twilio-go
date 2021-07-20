@@ -217,10 +217,16 @@ func (c *ApiService) FetchFactor(ServiceSid string, Identity string, Sid string)
 type ListFactorParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListFactorParams) SetPageSize(PageSize int) *ListFactorParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListFactorParams) SetLimit(Limit int) *ListFactorParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -261,11 +267,11 @@ func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *List
 }
 
 // Lists Factor records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *ListFactorParams, limit int) ([]VerifyV2ServiceEntityFactor, error) {
+func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *ListFactorParams) ([]VerifyV2ServiceEntityFactor, error) {
 	if params == nil {
 		params = &ListFactorParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageFactor(ServiceSid, Identity, params, "", "")
 	if err != nil {
@@ -279,7 +285,7 @@ func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *List
 		records = append(records, response.Factors...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFactorResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFactorResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -290,11 +296,11 @@ func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *List
 }
 
 // Streams Factor records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *ListFactorParams, limit int) (chan VerifyV2ServiceEntityFactor, error) {
+func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *ListFactorParams) (chan VerifyV2ServiceEntityFactor, error) {
 	if params == nil {
 		params = &ListFactorParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageFactor(ServiceSid, Identity, params, "", "")
 	if err != nil {
@@ -312,7 +318,7 @@ func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *Li
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListFactorResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFactorResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

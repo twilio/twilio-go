@@ -87,10 +87,16 @@ func (c *ApiService) FetchTrustProductEvaluation(TrustProductSid string, Sid str
 type ListTrustProductEvaluationParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListTrustProductEvaluationParams) SetPageSize(PageSize int) *ListTrustProductEvaluationParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListTrustProductEvaluationParams) SetLimit(Limit int) *ListTrustProductEvaluationParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -130,11 +136,11 @@ func (c *ApiService) PageTrustProductEvaluation(TrustProductSid string, params *
 }
 
 // Lists TrustProductEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams, limit int) ([]TrusthubV1TrustProductTrustProductEvaluation, error) {
+func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) ([]TrusthubV1TrustProductTrustProductEvaluation, error) {
 	if params == nil {
 		params = &ListTrustProductEvaluationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTrustProductEvaluation(TrustProductSid, params, "", "")
 	if err != nil {
@@ -148,7 +154,7 @@ func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductEvaluationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrustProductEvaluationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -159,11 +165,11 @@ func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *
 }
 
 // Streams TrustProductEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams, limit int) (chan TrusthubV1TrustProductTrustProductEvaluation, error) {
+func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) (chan TrusthubV1TrustProductTrustProductEvaluation, error) {
 	if params == nil {
 		params = &ListTrustProductEvaluationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageTrustProductEvaluation(TrustProductSid, params, "", "")
 	if err != nil {
@@ -181,7 +187,7 @@ func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListTrustProductEvaluationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrustProductEvaluationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

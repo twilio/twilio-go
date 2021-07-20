@@ -223,6 +223,8 @@ type ListAddressParams struct {
 	IsoCountry *string `json:"IsoCountry,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListAddressParams) SetPathAccountSid(PathAccountSid string) *ListAddressParams {
@@ -243,6 +245,10 @@ func (params *ListAddressParams) SetIsoCountry(IsoCountry string) *ListAddressPa
 }
 func (params *ListAddressParams) SetPageSize(PageSize int) *ListAddressParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListAddressParams) SetLimit(Limit int) *ListAddressParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -295,11 +301,11 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken string, pa
 }
 
 // Lists Address records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAddress(params *ListAddressParams, limit int) ([]ApiV2010AccountAddress, error) {
+func (c *ApiService) ListAddress(params *ListAddressParams) ([]ApiV2010AccountAddress, error) {
 	if params == nil {
 		params = &ListAddressParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAddress(params, "", "")
 	if err != nil {
@@ -313,7 +319,7 @@ func (c *ApiService) ListAddress(params *ListAddressParams, limit int) ([]ApiV20
 		records = append(records, response.Addresses...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAddressResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAddressResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -324,11 +330,11 @@ func (c *ApiService) ListAddress(params *ListAddressParams, limit int) ([]ApiV20
 }
 
 // Streams Address records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAddress(params *ListAddressParams, limit int) (chan ApiV2010AccountAddress, error) {
+func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010AccountAddress, error) {
 	if params == nil {
 		params = &ListAddressParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageAddress(params, "", "")
 	if err != nil {
@@ -346,7 +352,7 @@ func (c *ApiService) StreamAddress(params *ListAddressParams, limit int) (chan A
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListAddressResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAddressResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

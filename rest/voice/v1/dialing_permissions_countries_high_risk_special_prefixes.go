@@ -25,10 +25,16 @@ import (
 type ListDialingPermissionsHrsPrefixesParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListDialingPermissionsHrsPrefixesParams) SetPageSize(PageSize int) *ListDialingPermissionsHrsPrefixesParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListDialingPermissionsHrsPrefixesParams) SetLimit(Limit int) *ListDialingPermissionsHrsPrefixesParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -68,11 +74,11 @@ func (c *ApiService) PageDialingPermissionsHrsPrefixes(IsoCode string, params *L
 }
 
 // Lists DialingPermissionsHrsPrefixes records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, limit int) ([]VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes, error) {
+func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) ([]VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes, error) {
 	if params == nil {
 		params = &ListDialingPermissionsHrsPrefixesParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageDialingPermissionsHrsPrefixes(IsoCode, params, "", "")
 	if err != nil {
@@ -86,7 +92,7 @@ func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *L
 		records = append(records, response.Content...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDialingPermissionsHrsPrefixesResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDialingPermissionsHrsPrefixesResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -97,11 +103,11 @@ func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *L
 }
 
 // Streams DialingPermissionsHrsPrefixes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, limit int) (chan VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes, error) {
+func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) (chan VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes, error) {
 	if params == nil {
 		params = &ListDialingPermissionsHrsPrefixesParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageDialingPermissionsHrsPrefixes(IsoCode, params, "", "")
 	if err != nil {
@@ -119,7 +125,7 @@ func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListDialingPermissionsHrsPrefixesResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDialingPermissionsHrsPrefixesResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

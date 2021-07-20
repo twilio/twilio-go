@@ -193,6 +193,8 @@ type ListCompositionParams struct {
 	RoomSid *string `json:"RoomSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListCompositionParams) SetStatus(Status string) *ListCompositionParams {
@@ -213,6 +215,10 @@ func (params *ListCompositionParams) SetRoomSid(RoomSid string) *ListComposition
 }
 func (params *ListCompositionParams) SetPageSize(PageSize int) *ListCompositionParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListCompositionParams) SetLimit(Limit int) *ListCompositionParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -262,11 +268,11 @@ func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken st
 }
 
 // Lists Composition records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListComposition(params *ListCompositionParams, limit int) ([]VideoV1Composition, error) {
+func (c *ApiService) ListComposition(params *ListCompositionParams) ([]VideoV1Composition, error) {
 	if params == nil {
 		params = &ListCompositionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageComposition(params, "", "")
 	if err != nil {
@@ -280,7 +286,7 @@ func (c *ApiService) ListComposition(params *ListCompositionParams, limit int) (
 		records = append(records, response.Compositions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCompositionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCompositionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -291,11 +297,11 @@ func (c *ApiService) ListComposition(params *ListCompositionParams, limit int) (
 }
 
 // Streams Composition records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamComposition(params *ListCompositionParams, limit int) (chan VideoV1Composition, error) {
+func (c *ApiService) StreamComposition(params *ListCompositionParams) (chan VideoV1Composition, error) {
 	if params == nil {
 		params = &ListCompositionParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageComposition(params, "", "")
 	if err != nil {
@@ -313,7 +319,7 @@ func (c *ApiService) StreamComposition(params *ListCompositionParams, limit int)
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListCompositionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCompositionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -160,6 +160,8 @@ type ListSyncListItemParams struct {
 	Bounds *string `json:"Bounds,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSyncListItemParams) SetOrder(Order string) *ListSyncListItemParams {
@@ -176,6 +178,10 @@ func (params *ListSyncListItemParams) SetBounds(Bounds string) *ListSyncListItem
 }
 func (params *ListSyncListItemParams) SetPageSize(PageSize int) *ListSyncListItemParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSyncListItemParams) SetLimit(Limit int) *ListSyncListItemParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -225,11 +231,11 @@ func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params 
 }
 
 // Lists SyncListItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams, limit int) ([]SyncV1ServiceSyncListSyncListItem, error) {
+func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) ([]SyncV1ServiceSyncListSyncListItem, error) {
 	if params == nil {
 		params = &ListSyncListItemParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSyncListItem(ServiceSid, ListSid, params, "", "")
 	if err != nil {
@@ -243,7 +249,7 @@ func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params 
 		records = append(records, response.Items...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncListItemResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncListItemResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -254,11 +260,11 @@ func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params 
 }
 
 // Streams SyncListItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams, limit int) (chan SyncV1ServiceSyncListSyncListItem, error) {
+func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) (chan SyncV1ServiceSyncListSyncListItem, error) {
 	if params == nil {
 		params = &ListSyncListItemParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSyncListItem(ServiceSid, ListSid, params, "", "")
 	if err != nil {
@@ -276,7 +282,7 @@ func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, param
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSyncListItemResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncListItemResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

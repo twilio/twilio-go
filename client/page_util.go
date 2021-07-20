@@ -10,25 +10,25 @@ import (
 )
 
 //Takes a limit on the max number of records to read and a max pageSize and calculates the max number of pages to read.
-func ReadLimits(pageSize *int, limit int) int {
+func ReadLimits(pageSize *int, limit *int) int {
 	//don't care about pageSize
 	if pageSize == nil {
-		if limit == 0 {
+		if limit == nil {
 			//don't care about the limit either
 			return 50 //default
 		}
 		//return the most efficient pageSize
-		return min(limit, 1000)
+		return min(*limit, 1000)
 	} else {
-		if limit == 0 {
+		if limit == nil {
 			//we care about the pageSize but not the limit
 			return *pageSize
 		}
-		return min(*pageSize, limit)
+		return min(*pageSize, *limit)
 	}
 }
 
-func GetNext(response interface{}, curRecord *int, limit int, getNextPage func(nextPageUri string) (interface{}, error)) (interface{}, error) {
+func GetNext(response interface{}, curRecord *int, limit *int, getNextPage func(nextPageUri string) (interface{}, error)) (interface{}, error) {
 	nextPageUri, err := getNextPageUri(response, curRecord, limit)
 	if err != nil {
 		return nil, err
@@ -72,7 +72,7 @@ func toMap(s interface{}) map[string]interface{} {
 	return payload
 }
 
-func getNextPageUri(response interface{}, curRecord *int, limit int) (string, error) {
+func getNextPageUri(response interface{}, curRecord *int, limit *int) (string, error) {
 	//get just the non metadata info and the next page uri
 	payload, nextPageUri, err := GetPayload(response)
 	if err != nil {
@@ -81,13 +81,13 @@ func getNextPageUri(response interface{}, curRecord *int, limit int) (string, er
 
 	*curRecord += len(payload)
 
-	if limit != 0 {
+	if limit != nil {
 		//we have reached the desired limit
-		if limit <= *curRecord {
+		if *limit <= *curRecord {
 			return "", nil
 		}
 
-		remaining := limit - *curRecord
+		remaining := *limit - *curRecord
 		if remaining > 0 {
 			pageSize := min(len(payload), remaining)
 			re := regexp.MustCompile(`PageSize=\d+`)

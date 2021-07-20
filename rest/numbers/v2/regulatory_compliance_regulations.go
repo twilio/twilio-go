@@ -54,6 +54,8 @@ type ListRegulationParams struct {
 	NumberType *string `json:"NumberType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListRegulationParams) SetEndUserType(EndUserType string) *ListRegulationParams {
@@ -70,6 +72,10 @@ func (params *ListRegulationParams) SetNumberType(NumberType string) *ListRegula
 }
 func (params *ListRegulationParams) SetPageSize(PageSize int) *ListRegulationParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListRegulationParams) SetLimit(Limit int) *ListRegulationParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -116,11 +122,11 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken stri
 }
 
 // Lists Regulation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRegulation(params *ListRegulationParams, limit int) ([]NumbersV2RegulatoryComplianceRegulation, error) {
+func (c *ApiService) ListRegulation(params *ListRegulationParams) ([]NumbersV2RegulatoryComplianceRegulation, error) {
 	if params == nil {
 		params = &ListRegulationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageRegulation(params, "", "")
 	if err != nil {
@@ -134,7 +140,7 @@ func (c *ApiService) ListRegulation(params *ListRegulationParams, limit int) ([]
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRegulationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRegulationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -145,11 +151,11 @@ func (c *ApiService) ListRegulation(params *ListRegulationParams, limit int) ([]
 }
 
 // Streams Regulation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRegulation(params *ListRegulationParams, limit int) (chan NumbersV2RegulatoryComplianceRegulation, error) {
+func (c *ApiService) StreamRegulation(params *ListRegulationParams) (chan NumbersV2RegulatoryComplianceRegulation, error) {
 	if params == nil {
 		params = &ListRegulationParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageRegulation(params, "", "")
 	if err != nil {
@@ -167,7 +173,7 @@ func (c *ApiService) StreamRegulation(params *ListRegulationParams, limit int) (
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListRegulationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRegulationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

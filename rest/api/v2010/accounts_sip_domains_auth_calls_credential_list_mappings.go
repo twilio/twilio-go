@@ -151,6 +151,8 @@ type ListSipAuthCallsCredentialListMappingParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListSipAuthCallsCredentialListMappingParams) SetPathAccountSid(PathAccountSid string) *ListSipAuthCallsCredentialListMappingParams {
@@ -159,6 +161,10 @@ func (params *ListSipAuthCallsCredentialListMappingParams) SetPathAccountSid(Pat
 }
 func (params *ListSipAuthCallsCredentialListMappingParams) SetPageSize(PageSize int) *ListSipAuthCallsCredentialListMappingParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListSipAuthCallsCredentialListMappingParams) SetLimit(Limit int) *ListSipAuthCallsCredentialListMappingParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -203,11 +209,11 @@ func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, par
 }
 
 // Lists SipAuthCallsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, limit int) ([]ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
+func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) ([]ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
 	if params == nil {
 		params = &ListSipAuthCallsCredentialListMappingParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSipAuthCallsCredentialListMapping(DomainSid, params, "", "")
 	if err != nil {
@@ -221,7 +227,7 @@ func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, par
 		records = append(records, response.Contents...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipAuthCallsCredentialListMappingResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipAuthCallsCredentialListMappingResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -232,11 +238,11 @@ func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, par
 }
 
 // Streams SipAuthCallsCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, limit int) (chan ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
+func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) (chan ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
 	if params == nil {
 		params = &ListSipAuthCallsCredentialListMappingParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageSipAuthCallsCredentialListMapping(DomainSid, params, "", "")
 	if err != nil {
@@ -254,7 +260,7 @@ func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, p
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListSipAuthCallsCredentialListMappingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipAuthCallsCredentialListMappingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

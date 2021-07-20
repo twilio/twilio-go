@@ -49,10 +49,16 @@ func (c *ApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid string, S
 type ListWorkerChannelParams struct {
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
 }
 
 func (params *ListWorkerChannelParams) SetPageSize(PageSize int) *ListWorkerChannelParams {
 	params.PageSize = &PageSize
+	return params
+}
+func (params *ListWorkerChannelParams) SetLimit(Limit int) *ListWorkerChannelParams {
+	params.Limit = &Limit
 	return params
 }
 
@@ -93,11 +99,11 @@ func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 }
 
 // Lists WorkerChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, limit int) ([]TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
+func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) ([]TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
 	if params == nil {
 		params = &ListWorkerChannelParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageWorkerChannel(WorkspaceSid, WorkerSid, params, "", "")
 	if err != nil {
@@ -111,7 +117,7 @@ func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 		records = append(records, response.Channels...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWorkerChannelResponse); record == nil || err != nil {
+		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWorkerChannelResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -122,11 +128,11 @@ func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 }
 
 // Streams WorkerChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, limit int) (chan TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
+func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (chan TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
 	if params == nil {
 		params = &ListWorkerChannelParams{}
 	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, limit))
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
 
 	response, err := c.PageWorkerChannel(WorkspaceSid, WorkerSid, params, "", "")
 	if err != nil {
@@ -144,7 +150,7 @@ func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, limit, c.getNextListWorkerChannelResponse); record == nil || err != nil {
+			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWorkerChannelResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
