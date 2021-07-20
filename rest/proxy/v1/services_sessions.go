@@ -87,13 +87,15 @@ func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParam
 		data.Set("Mode", *params.Mode)
 	}
 	if params != nil && params.Participants != nil {
-		v, err := json.Marshal(params.Participants)
+		for _, item := range *params.Participants {
+			v, err := json.Marshal(item)
 
-		if err != nil {
-			return nil, err
+			if err != nil {
+				return nil, err
+			}
+
+			data.Add("Participants", string(v))
 		}
-
-		data.Set("Participants", string(v))
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
