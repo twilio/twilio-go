@@ -1,4 +1,4 @@
-.PHONY: githooks install test goimports govet golint docker-build docker-push
+.PHONY: githooks install test goimports govet golint docker-build docker-push cover
 
 githooks:
 	ln -sf ../../githooks/pre-commit .git/hooks/pre-commit
@@ -36,3 +36,6 @@ docker-push:
 	docker push twilio/twilio-go:${TRAVIS_TAG}
 	docker push twilio/twilio-go:apidefs-${API_DEFINITIONS_SHA}
 	docker push twilio/twilio-go:latest
+
+cover:
+	go test ./... -coverprofile=coverage.out
