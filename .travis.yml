@@ -9,6 +9,14 @@ script:
   - if [[ "$TRAVIS_BRANCH" == "main"  ||  "$TRAVIS_BRANCH" == "travis" ]] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     make cluster-test;
     fi
+deploy:
+  - provider: script
+    script: echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+      && make docker-build && make docker-push
+    skip_cleanup: true
+    on:
+      tags: true
+      go: '1.16'
 notifications:
   slack:
     if: branch = main
