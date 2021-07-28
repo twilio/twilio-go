@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.19.1
  * Contact: support@twilio.com
  */
 
@@ -23,7 +23,7 @@ type ConversationsV1UserUserConversation struct {
 	Attributes *string `json:"attributes,omitempty"`
 	// The unique ID of the Conversation Service this conversation belongs to.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
-	// The unique ID of the Conversation for this message.
+	// The unique ID of the Conversation for this User Conversation.
 	ConversationSid *string `json:"conversation_sid,omitempty"`
 	// The current state of this User Conversation
 	ConversationState *string `json:"conversation_state,omitempty"`
@@ -45,7 +45,7 @@ type ConversationsV1UserUserConversation struct {
 	ParticipantSid *string `json:"participant_sid,omitempty"`
 	// Timer date values for this conversation.
 	Timers *map[string]interface{} `json:"timers,omitempty"`
-	// An application-defined string that uniquely identifies the resource
+	// An application-defined string that uniquely identifies the Conversation resource.
 	UniqueName *string `json:"unique_name,omitempty"`
 	// The number of unread Messages in the Conversation.
 	UnreadMessagesCount *int    `json:"unread_messages_count,omitempty"`

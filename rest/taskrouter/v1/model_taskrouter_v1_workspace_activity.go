@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.19.1
  * Contact: support@twilio.com
  */
 
@@ -26,7 +26,8 @@ type TaskrouterV1WorkspaceActivity struct {
 	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The string that you assigned to describe the Activity resource
-	FriendlyName *string `json:"friendly_name,omitempty"`
+	FriendlyName *string                 `json:"friendly_name,omitempty"`
+	Links        *map[string]interface{} `json:"links,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the Activity resource

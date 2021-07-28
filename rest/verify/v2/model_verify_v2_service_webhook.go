@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.19.1
  * Contact: support@twilio.com
  */
 
@@ -19,9 +19,9 @@ import (
 type VerifyV2ServiceWebhook struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was created
+	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
-	// The RFC 2822 date and time in GMT when the resource was last updated
+	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The array of events that this Webhook is subscribed to.
 	EventTypes *[]string `json:"event_types,omitempty"`
@@ -35,6 +35,8 @@ type VerifyV2ServiceWebhook struct {
 	Status *string `json:"status,omitempty"`
 	// The absolute URL of the Webhook resource
 	Url *string `json:"url,omitempty"`
+	// The webhook version
+	Version *string `json:"version,omitempty"`
 	// The method used when calling the webhook's URL.
 	WebhookMethod *string `json:"webhook_method,omitempty"`
 	// The URL associated with this Webhook.

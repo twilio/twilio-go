@@ -1,5 +1,37 @@
 twilio-go changelog
 ====================
+[2021-07-28] Version 0.13.0
+---------------------------
+**Library - Feature**
+- [PR #105](https://github.com/twilio/twilio-go/pull/105): publish go docker image. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+- [PR #92](https://github.com/twilio/twilio-go/pull/92): add pagination. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)! **(breaking change)**
+- [PR #100](https://github.com/twilio/twilio-go/pull/100): add cluster testing. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+- [PR #96](https://github.com/twilio/twilio-go/pull/96): Twilio Signature Validation. Thanks to [@pmcanseco](https://github.com/pmcanseco)!
+- [PR #95](https://github.com/twilio/twilio-go/pull/95): support env var loading of API credentials. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Test**
+- [PR #103](https://github.com/twilio/twilio-go/pull/103): add edge case tests. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Fix**
+- [PR #102](https://github.com/twilio/twilio-go/pull/102): list of stringified json marshaling. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+- [PR #99](https://github.com/twilio/twilio-go/pull/99): add nil check. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Library - Chore**
+- [PR #101](https://github.com/twilio/twilio-go/pull/101): refactor list params to include 'limit'. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Library - Docs**
+- [PR #97](https://github.com/twilio/twilio-go/pull/97): add pagination docs. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Conversations**
+- Expose ParticipantConversations resource
+
+**Taskrouter**
+- Adding `links` to the activity resource
+
+**Verify**
+- Added a `Version` to Verify Factors `Webhooks` to add new fields without breaking old Webhooks.
+
+
 [2021-07-14] Version 0.12.0
 ---------------------------
 **Library - Fix**

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The unique ID of the Account responsible for this conversation. |
 **Attributes** | Pointer to **string** | An optional string metadata field you can use to store any data you wish. |
 **ChatServiceSid** | Pointer to **string** | The unique ID of the Conversation Service this conversation belongs to. |
-**ConversationSid** | Pointer to **string** | The unique ID of the Conversation for this message. |
+**ConversationSid** | Pointer to **string** | The unique ID of the Conversation for this User Conversation. |
 **ConversationState** | Pointer to **string** | The current state of this User Conversation |
 **CreatedBy** | Pointer to **string** | Creator of this conversation. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this conversation was created. |
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **NotificationLevel** | Pointer to **string** | The Notification Level of this User Conversation. |
 **ParticipantSid** | Pointer to **string** | Participant Sid. |
 **Timers** | Pointer to **map[string]interface{}** | Timer date values for this conversation. |
-**UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource |
+**UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the Conversation resource. |
 **UnreadMessagesCount** | Pointer to **int** | The number of unread Messages in the Conversation. |
 **Url** | Pointer to **string** |  |
 **UserSid** | Pointer to **string** | The unique ID for the User. |

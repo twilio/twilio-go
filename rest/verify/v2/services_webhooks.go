@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.19.1
  * Contact: support@twilio.com
  */
 
@@ -29,6 +29,8 @@ type CreateWebhookParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The webhook status. Default value is `enabled`. One of: `enabled` or `disabled`
 	Status *string `json:"Status,omitempty"`
+	// The webhook version. Default value is `v2` which includes all the latest fields. Version `v1` is legacy and may be removed in the future.
+	Version *string `json:"Version,omitempty"`
 	// The URL associated with this Webhook.
 	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
@@ -43,6 +45,10 @@ func (params *CreateWebhookParams) SetFriendlyName(FriendlyName string) *CreateW
 }
 func (params *CreateWebhookParams) SetStatus(Status string) *CreateWebhookParams {
 	params.Status = &Status
+	return params
+}
+func (params *CreateWebhookParams) SetVersion(Version string) *CreateWebhookParams {
+	params.Version = &Version
 	return params
 }
 func (params *CreateWebhookParams) SetWebhookUrl(WebhookUrl string) *CreateWebhookParams {
@@ -68,6 +74,9 @@ func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParam
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Version != nil {
+		data.Set("Version", *params.Version)
 	}
 	if params != nil && params.WebhookUrl != nil {
 		data.Set("WebhookUrl", *params.WebhookUrl)
@@ -274,6 +283,8 @@ type UpdateWebhookParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The webhook status. Default value is `enabled`. One of: `enabled` or `disabled`
 	Status *string `json:"Status,omitempty"`
+	// The webhook version. Default value is `v2` which includes all the latest fields. Version `v1` is legacy and may be removed in the future.
+	Version *string `json:"Version,omitempty"`
 	// The URL associated with this Webhook.
 	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
@@ -288,6 +299,10 @@ func (params *UpdateWebhookParams) SetFriendlyName(FriendlyName string) *UpdateW
 }
 func (params *UpdateWebhookParams) SetStatus(Status string) *UpdateWebhookParams {
 	params.Status = &Status
+	return params
+}
+func (params *UpdateWebhookParams) SetVersion(Version string) *UpdateWebhookParams {
+	params.Version = &Version
 	return params
 }
 func (params *UpdateWebhookParams) SetWebhookUrl(WebhookUrl string) *UpdateWebhookParams {
@@ -313,6 +328,9 @@ func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *Update
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Version != nil {
+		data.Set("Version", *params.Version)
 	}
 	if params != nil && params.WebhookUrl != nil {
 		data.Set("WebhookUrl", *params.WebhookUrl)
