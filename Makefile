@@ -37,5 +37,7 @@ docker-push:
 	docker push twilio/twilio-go:apidefs-${API_DEFINITIONS_SHA}
 	docker push twilio/twilio-go:latest
 
+GO_DIRS = $(shell go list ./... | grep -v /rest/)
 cover:
-	go test ./... -coverprofile=coverage.out
+	go test ${GO_DIRS} -coverprofile coverage.out
+	go test ${GO_DIRS} -json > test-report.out
