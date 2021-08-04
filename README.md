@@ -134,7 +134,6 @@ func main() {
     resp, err := client.ApiV2010.CreateIncomingPhoneNumber(params)
     if err != nil {
         fmt.Println(err.Error())
-        err = nil
     } else {
         fmt.Println("Phone Number Status: " + *resp.Status)
     }
@@ -171,7 +170,6 @@ func main() {
     resp, err := client.ApiV2010.CreateMessage(params)
     if err != nil {
         fmt.Println(err.Error())
-        err = nil
     } else {
         response, _ := json.Marshal(*resp)
         fmt.Println("Response: " + string(response))
@@ -205,7 +203,6 @@ func main() {
     resp, err := client.ApiV2010.CreateCall(params)
     if err != nil {
         fmt.Println(err.Error())
-        err = nil
     } else {
         fmt.Println("Call Status: " + *resp.Status)
         fmt.Println("Call Sid: " + *resp.Sid)
@@ -236,7 +233,6 @@ func main() {
     resp, err := client.ServerlessV1.CreateFunction(serviceSid, params)
     if err != nil {
         fmt.Println(err.Error())
-        err = nil
     } else {
         fmt.Println(*resp.Sid)
     }
@@ -397,7 +393,7 @@ import (
 	"os"
 
 	"github.com/twilio/twilio-go"
-	"github.com/twilio/twilio-go/framework/error"
+	twilioclient "github.com/twilio/twilio-go/client"
 	openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
@@ -411,7 +407,7 @@ func main() {
 
 	resp, err := client.ApiV2010.CreateIncomingPhoneNumber(params)
 	if err != nil {
-		twilioError := err.(*error.TwilioRestError)
+		twilioError := err.(*twilioclient.TwilioRestError)
 		fmt.Println(twilioError.Error())
 	}
 }
