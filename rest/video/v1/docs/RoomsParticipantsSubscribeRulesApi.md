@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchRoomParticipantSubscribeRule
 
-> VideoV1RoomRoomParticipantRoomParticipantSubscribeRule FetchRoomParticipantSubscribeRule(ctx, RoomSidParticipantSid)
+> VideoV1RoomParticipantSubscribeRule FetchRoomParticipantSubscribeRule(ctx, RoomSidParticipantSid)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VideoV1RoomRoomParticipantRoomParticipantSubscribeRule**](VideoV1RoomRoomParticipantRoomParticipantSubscribeRule.md)
+[**VideoV1RoomParticipantSubscribeRule**](VideoV1RoomParticipantSubscribeRule.md)
 
 ### Authorization
 
@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## UpdateRoomParticipantSubscribeRule
 
-> VideoV1RoomRoomParticipantRoomParticipantSubscribeRule UpdateRoomParticipantSubscribeRule(ctx, RoomSidParticipantSidoptional)
+> VideoV1RoomParticipantSubscribeRule UpdateRoomParticipantSubscribeRule(ctx, RoomSidParticipantSidoptional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VideoV1RoomRoomParticipantRoomParticipantSubscribeRule**](VideoV1RoomRoomParticipantRoomParticipantSubscribeRule.md)
+[**VideoV1RoomParticipantSubscribeRule**](VideoV1RoomParticipantSubscribeRule.md)
 
 ### Authorization
 

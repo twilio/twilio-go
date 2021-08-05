@@ -19,7 +19,7 @@ import (
 )
 
 // Retrieve the most recent context for an Execution.
-func (c *ApiService) FetchExecutionContext(FlowSid string, ExecutionSid string) (*StudioV2FlowExecutionExecutionContext, error) {
+func (c *ApiService) FetchExecutionContext(FlowSid string, ExecutionSid string) (*StudioV2ExecutionContext, error) {
 	path := "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Context"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
@@ -34,7 +34,7 @@ func (c *ApiService) FetchExecutionContext(FlowSid string, ExecutionSid string) 
 
 	defer resp.Body.Close()
 
-	ps := &StudioV2FlowExecutionExecutionContext{}
+	ps := &StudioV2ExecutionContext{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

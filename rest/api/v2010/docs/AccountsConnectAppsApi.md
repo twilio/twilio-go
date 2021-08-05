@@ -56,7 +56,7 @@ Name | Type | Description
 
 ## FetchConnectApp
 
-> ApiV2010AccountConnectApp FetchConnectApp(ctx, Sidoptional)
+> ApiV2010ConnectApp FetchConnectApp(ctx, Sidoptional)
 
 
 
@@ -81,7 +81,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountConnectApp**](ApiV2010AccountConnectApp.md)
+[**ApiV2010ConnectApp**](ApiV2010ConnectApp.md)
 
 ### Authorization
 
@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## UpdateConnectApp
 
-> ApiV2010AccountConnectApp UpdateConnectApp(ctx, Sidoptional)
+> ApiV2010ConnectApp UpdateConnectApp(ctx, Sidoptional)
 
 
 
@@ -173,7 +173,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountConnectApp**](ApiV2010AccountConnectApp.md)
+[**ApiV2010ConnectApp**](ApiV2010ConnectApp.md)
 
 ### Authorization
 

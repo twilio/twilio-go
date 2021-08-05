@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateServiceConversation
 
-> ConversationsV1ServiceServiceConversation CreateServiceConversation(ctx, ChatServiceSidoptional)
+> ConversationsV1ServiceConversation CreateServiceConversation(ctx, ChatServiceSidoptional)
 
 
 
@@ -48,7 +48,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversation**](ConversationsV1ServiceServiceConversation.md)
+[**ConversationsV1ServiceConversation**](ConversationsV1ServiceConversation.md)
 
 ### Authorization
 
@@ -110,7 +110,7 @@ Name | Type | Description
 
 ## FetchServiceConversation
 
-> ConversationsV1ServiceServiceConversation FetchServiceConversation(ctx, ChatServiceSidSid)
+> ConversationsV1ServiceConversation FetchServiceConversation(ctx, ChatServiceSidSid)
 
 
 
@@ -135,7 +135,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversation**](ConversationsV1ServiceServiceConversation.md)
+[**ConversationsV1ServiceConversation**](ConversationsV1ServiceConversation.md)
 
 ### Authorization
 
@@ -197,7 +197,7 @@ Name | Type | Description
 
 ## UpdateServiceConversation
 
-> ConversationsV1ServiceServiceConversation UpdateServiceConversation(ctx, ChatServiceSidSidoptional)
+> ConversationsV1ServiceConversation UpdateServiceConversation(ctx, ChatServiceSidSidoptional)
 
 
 
@@ -232,7 +232,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversation**](ConversationsV1ServiceServiceConversation.md)
+[**ConversationsV1ServiceConversation**](ConversationsV1ServiceConversation.md)
 
 ### Authorization
 

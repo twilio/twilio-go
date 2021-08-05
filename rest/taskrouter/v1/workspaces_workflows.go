@@ -56,7 +56,7 @@ func (params *CreateWorkflowParams) SetTaskReservationTimeout(TaskReservationTim
 	return params
 }
 
-func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1WorkspaceWorkflow, error) {
+func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -86,7 +86,7 @@ func (c *ApiService) CreateWorkflow(WorkspaceSid string, params *CreateWorkflowP
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorkflow{}
+	ps := &TaskrouterV1Workflow{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func (c *ApiService) DeleteWorkflow(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceWorkflow, error) {
+func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -127,7 +127,7 @@ func (c *ApiService) FetchWorkflow(WorkspaceSid string, Sid string) (*Taskrouter
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorkflow{}
+	ps := &TaskrouterV1Workflow{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -197,7 +197,7 @@ func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParam
 }
 
 // Lists Workflow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParams) ([]TaskrouterV1WorkspaceWorkflow, error) {
+func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParams) ([]TaskrouterV1Workflow, error) {
 	if params == nil {
 		params = &ListWorkflowParams{}
 	}
@@ -209,7 +209,7 @@ func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParam
 	}
 
 	curRecord := 0
-	var records []TaskrouterV1WorkspaceWorkflow
+	var records []TaskrouterV1Workflow
 
 	for response != nil {
 		records = append(records, response.Workflows...)
@@ -226,7 +226,7 @@ func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParam
 }
 
 // Streams Workflow records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowParams) (chan TaskrouterV1WorkspaceWorkflow, error) {
+func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowParams) (chan TaskrouterV1Workflow, error) {
 	if params == nil {
 		params = &ListWorkflowParams{}
 	}
@@ -239,7 +239,7 @@ func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowPar
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1WorkspaceWorkflow, 1)
+	channel := make(chan TaskrouterV1Workflow, 1)
 
 	go func() {
 		for response != nil {
@@ -320,7 +320,7 @@ func (params *UpdateWorkflowParams) SetTaskReservationTimeout(TaskReservationTim
 	return params
 }
 
-func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*TaskrouterV1WorkspaceWorkflow, error) {
+func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *UpdateWorkflowParams) (*TaskrouterV1Workflow, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -354,7 +354,7 @@ func (c *ApiService) UpdateWorkflow(WorkspaceSid string, Sid string, params *Upd
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorkflow{}
+	ps := &TaskrouterV1Workflow{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

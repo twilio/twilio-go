@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchStyleSheet
 
-> AutopilotV1AssistantStyleSheet FetchStyleSheet(ctx, AssistantSid)
+> AutopilotV1StyleSheet FetchStyleSheet(ctx, AssistantSid)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantStyleSheet**](AutopilotV1AssistantStyleSheet.md)
+[**AutopilotV1StyleSheet**](AutopilotV1StyleSheet.md)
 
 ### Authorization
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## UpdateStyleSheet
 
-> AutopilotV1AssistantStyleSheet UpdateStyleSheet(ctx, AssistantSidoptional)
+> AutopilotV1StyleSheet UpdateStyleSheet(ctx, AssistantSidoptional)
 
 
 
@@ -78,7 +78,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantStyleSheet**](AutopilotV1AssistantStyleSheet.md)
+[**AutopilotV1StyleSheet**](AutopilotV1StyleSheet.md)
 
 ### Authorization
 

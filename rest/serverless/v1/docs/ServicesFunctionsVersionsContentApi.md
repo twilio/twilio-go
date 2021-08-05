@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchFunctionVersionContent
 
-> ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent FetchFunctionVersionContent(ctx, ServiceSidFunctionSidSid)
+> ServerlessV1FunctionVersionContent FetchFunctionVersionContent(ctx, ServiceSidFunctionSidSid)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent**](ServerlessV1ServiceFunctionFunctionVersionFunctionVersionContent.md)
+[**ServerlessV1FunctionVersionContent**](ServerlessV1FunctionVersionContent.md)
 
 ### Authorization
 

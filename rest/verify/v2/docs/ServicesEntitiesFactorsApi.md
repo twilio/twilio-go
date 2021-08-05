@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateNewFactor
 
-> VerifyV2ServiceEntityNewFactor CreateNewFactor(ctx, ServiceSidIdentityoptional)
+> VerifyV2NewFactor CreateNewFactor(ctx, ServiceSidIdentityoptional)
 
 
 
@@ -52,7 +52,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceEntityNewFactor**](VerifyV2ServiceEntityNewFactor.md)
+[**VerifyV2NewFactor**](VerifyV2NewFactor.md)
 
 ### Authorization
 
@@ -114,7 +114,7 @@ Name | Type | Description
 
 ## FetchFactor
 
-> VerifyV2ServiceEntityFactor FetchFactor(ctx, ServiceSidIdentitySid)
+> VerifyV2Factor FetchFactor(ctx, ServiceSidIdentitySid)
 
 
 
@@ -140,7 +140,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceEntityFactor**](VerifyV2ServiceEntityFactor.md)
+[**VerifyV2Factor**](VerifyV2Factor.md)
 
 ### Authorization
 
@@ -203,7 +203,7 @@ Name | Type | Description
 
 ## UpdateFactor
 
-> VerifyV2ServiceEntityFactor UpdateFactor(ctx, ServiceSidIdentitySidoptional)
+> VerifyV2Factor UpdateFactor(ctx, ServiceSidIdentitySidoptional)
 
 
 
@@ -237,7 +237,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceEntityFactor**](VerifyV2ServiceEntityFactor.md)
+[**VerifyV2Factor**](VerifyV2Factor.md)
 
 ### Authorization
 

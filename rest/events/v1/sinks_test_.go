@@ -19,7 +19,7 @@ import (
 )
 
 // Create a new Sink Test Event for the given Sink.
-func (c *ApiService) CreateSinkTest(Sid string) (*EventsV1SinkSinkTest, error) {
+func (c *ApiService) CreateSinkTest(Sid string) (*EventsV1SinkTest, error) {
 	path := "/v1/Sinks/{Sid}/Test"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -33,7 +33,7 @@ func (c *ApiService) CreateSinkTest(Sid string) (*EventsV1SinkSinkTest, error) {
 
 	defer resp.Body.Close()
 
-	ps := &EventsV1SinkSinkTest{}
+	ps := &EventsV1SinkTest{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

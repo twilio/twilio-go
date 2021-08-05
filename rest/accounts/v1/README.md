@@ -49,8 +49,8 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [AccountsV1AuthTokenPromotion](docs/AccountsV1AuthTokenPromotion.md)
- - [AccountsV1CredentialCredentialAws](docs/AccountsV1CredentialCredentialAws.md)
- - [AccountsV1CredentialCredentialPublicKey](docs/AccountsV1CredentialCredentialPublicKey.md)
+ - [AccountsV1CredentialAws](docs/AccountsV1CredentialAws.md)
+ - [AccountsV1CredentialPublicKey](docs/AccountsV1CredentialPublicKey.md)
  - [AccountsV1SecondaryAuthToken](docs/AccountsV1SecondaryAuthToken.md)
  - [ListCredentialAwsResponse](docs/ListCredentialAwsResponse.md)
  - [ListCredentialAwsResponseMeta](docs/ListCredentialAwsResponseMeta.md)

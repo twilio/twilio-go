@@ -13,6 +13,6 @@ package openapi
 
 // ListVariableResponse struct for ListVariableResponse
 type ListVariableResponse struct {
-	Meta      ListServiceResponseMeta                  `json:"meta,omitempty"`
-	Variables []ServerlessV1ServiceEnvironmentVariable `json:"variables,omitempty"`
+	Meta      ListServiceResponseMeta `json:"meta,omitempty"`
+	Variables []ServerlessV1Variable  `json:"variables,omitempty"`
 }

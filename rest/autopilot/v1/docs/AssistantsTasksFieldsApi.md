@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateField
 
-> AutopilotV1AssistantTaskField CreateField(ctx, AssistantSidTaskSidoptional)
+> AutopilotV1Field CreateField(ctx, AssistantSidTaskSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantTaskField**](AutopilotV1AssistantTaskField.md)
+[**AutopilotV1Field**](AutopilotV1Field.md)
 
 ### Authorization
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## FetchField
 
-> AutopilotV1AssistantTaskField FetchField(ctx, AssistantSidTaskSidSid)
+> AutopilotV1Field FetchField(ctx, AssistantSidTaskSidSid)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantTaskField**](AutopilotV1AssistantTaskField.md)
+[**AutopilotV1Field**](AutopilotV1Field.md)
 
 ### Authorization
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchCallNotification
 
-> ApiV2010AccountCallCallNotificationInstance FetchCallNotification(ctx, CallSidSidoptional)
+> ApiV2010CallNotificationInstance FetchCallNotification(ctx, CallSidSidoptional)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCallCallNotificationInstance**](ApiV2010AccountCallCallNotificationInstance.md)
+[**ApiV2010CallNotificationInstance**](ApiV2010CallNotificationInstance.md)
 
 ### Authorization
 

@@ -13,6 +13,6 @@ package openapi
 
 // ListMemberResponse struct for ListMemberResponse
 type ListMemberResponse struct {
-	Members []IpMessagingV2ServiceChannelMember `json:"members,omitempty"`
-	Meta    ListCredentialResponseMeta          `json:"meta,omitempty"`
+	Members []IpMessagingV2Member      `json:"members,omitempty"`
+	Meta    ListCredentialResponseMeta `json:"meta,omitempty"`
 }

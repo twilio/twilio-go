@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchRegulation
 
-> NumbersV2RegulatoryComplianceRegulation FetchRegulation(ctx, Sid)
+> NumbersV2Regulation FetchRegulation(ctx, Sid)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceRegulation**](NumbersV2RegulatoryComplianceRegulation.md)
+[**NumbersV2Regulation**](NumbersV2Regulation.md)
 
 ### Authorization
 

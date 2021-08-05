@@ -22,7 +22,7 @@ import (
 )
 
 // Retrieve a Step.
-func (c *ApiService) FetchStep(FlowSid string, EngagementSid string, Sid string) (*StudioV1FlowEngagementStep, error) {
+func (c *ApiService) FetchStep(FlowSid string, EngagementSid string, Sid string) (*StudioV1Step, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
@@ -38,7 +38,7 @@ func (c *ApiService) FetchStep(FlowSid string, EngagementSid string, Sid string)
 
 	defer resp.Body.Close()
 
-	ps := &StudioV1FlowEngagementStep{}
+	ps := &StudioV1Step{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -100,7 +100,7 @@ func (c *ApiService) PageStep(FlowSid string, EngagementSid string, params *List
 }
 
 // Lists Step records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *ListStepParams) ([]StudioV1FlowEngagementStep, error) {
+func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *ListStepParams) ([]StudioV1Step, error) {
 	if params == nil {
 		params = &ListStepParams{}
 	}
@@ -112,7 +112,7 @@ func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *List
 	}
 
 	curRecord := 0
-	var records []StudioV1FlowEngagementStep
+	var records []StudioV1Step
 
 	for response != nil {
 		records = append(records, response.Steps...)
@@ -129,7 +129,7 @@ func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *List
 }
 
 // Streams Step records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *ListStepParams) (chan StudioV1FlowEngagementStep, error) {
+func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *ListStepParams) (chan StudioV1Step, error) {
 	if params == nil {
 		params = &ListStepParams{}
 	}
@@ -142,7 +142,7 @@ func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *Li
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan StudioV1FlowEngagementStep, 1)
+	channel := make(chan StudioV1Step, 1)
 
 	go func() {
 		for response != nil {

@@ -96,7 +96,7 @@ func (params *CreateVerificationParams) SetTo(To string) *CreateVerificationPara
 }
 
 // Create a new Verification using a Service
-func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerificationParams) (*VerifyV2ServiceVerification, error) {
+func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerificationParams) (*VerifyV2Verification, error) {
 	path := "/v2/Services/{ServiceSid}/Verifications"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -159,7 +159,7 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceVerification{}
+	ps := &VerifyV2Verification{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 }
 
 // Fetch a specific Verification
-func (c *ApiService) FetchVerification(ServiceSid string, Sid string) (*VerifyV2ServiceVerification, error) {
+func (c *ApiService) FetchVerification(ServiceSid string, Sid string) (*VerifyV2Verification, error) {
 	path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -183,7 +183,7 @@ func (c *ApiService) FetchVerification(ServiceSid string, Sid string) (*VerifyV2
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceVerification{}
+	ps := &VerifyV2Verification{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -203,7 +203,7 @@ func (params *UpdateVerificationParams) SetStatus(Status string) *UpdateVerifica
 }
 
 // Update a Verification status
-func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *UpdateVerificationParams) (*VerifyV2ServiceVerification, error) {
+func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *UpdateVerificationParams) (*VerifyV2Verification, error) {
 	path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -222,7 +222,7 @@ func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *U
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceVerification{}
+	ps := &VerifyV2Verification{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

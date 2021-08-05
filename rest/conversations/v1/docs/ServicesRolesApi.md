@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateServiceRole
 
-> ConversationsV1ServiceServiceRole CreateServiceRole(ctx, ChatServiceSidoptional)
+> ConversationsV1ServiceRole CreateServiceRole(ctx, ChatServiceSidoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceRole**](ConversationsV1ServiceServiceRole.md)
+[**ConversationsV1ServiceRole**](ConversationsV1ServiceRole.md)
 
 ### Authorization
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 ## FetchServiceRole
 
-> ConversationsV1ServiceServiceRole FetchServiceRole(ctx, ChatServiceSidSid)
+> ConversationsV1ServiceRole FetchServiceRole(ctx, ChatServiceSidSid)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceRole**](ConversationsV1ServiceServiceRole.md)
+[**ConversationsV1ServiceRole**](ConversationsV1ServiceRole.md)
 
 ### Authorization
 
@@ -189,7 +189,7 @@ Name | Type | Description
 
 ## UpdateServiceRole
 
-> ConversationsV1ServiceServiceRole UpdateServiceRole(ctx, ChatServiceSidSidoptional)
+> ConversationsV1ServiceRole UpdateServiceRole(ctx, ChatServiceSidSidoptional)
 
 
 
@@ -215,7 +215,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceRole**](ConversationsV1ServiceServiceRole.md)
+[**ConversationsV1ServiceRole**](ConversationsV1ServiceRole.md)
 
 ### Authorization
 

@@ -22,7 +22,7 @@ import (
 )
 
 // Retrieve voice dialing country permissions identified by the given ISO country code
-func (c *ApiService) FetchDialingPermissionsCountry(IsoCode string) (*VoiceV1DialingPermissionsDialingPermissionsCountryInstance, error) {
+func (c *ApiService) FetchDialingPermissionsCountry(IsoCode string) (*VoiceV1DialingPermissionsCountryInstance, error) {
 	path := "/v1/DialingPermissions/Countries/{IsoCode}"
 	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
 
@@ -36,7 +36,7 @@ func (c *ApiService) FetchDialingPermissionsCountry(IsoCode string) (*VoiceV1Dia
 
 	defer resp.Body.Close()
 
-	ps := &VoiceV1DialingPermissionsDialingPermissionsCountryInstance{}
+	ps := &VoiceV1DialingPermissionsCountryInstance{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -149,7 +149,7 @@ func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermission
 }
 
 // Lists DialingPermissionsCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams) ([]VoiceV1DialingPermissionsDialingPermissionsCountry, error) {
+func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams) ([]VoiceV1DialingPermissionsCountry, error) {
 	if params == nil {
 		params = &ListDialingPermissionsCountryParams{}
 	}
@@ -161,7 +161,7 @@ func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermission
 	}
 
 	curRecord := 0
-	var records []VoiceV1DialingPermissionsDialingPermissionsCountry
+	var records []VoiceV1DialingPermissionsCountry
 
 	for response != nil {
 		records = append(records, response.Content...)
@@ -178,7 +178,7 @@ func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermission
 }
 
 // Streams DialingPermissionsCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissionsCountryParams) (chan VoiceV1DialingPermissionsDialingPermissionsCountry, error) {
+func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissionsCountryParams) (chan VoiceV1DialingPermissionsCountry, error) {
 	if params == nil {
 		params = &ListDialingPermissionsCountryParams{}
 	}
@@ -191,7 +191,7 @@ func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissi
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VoiceV1DialingPermissionsDialingPermissionsCountry, 1)
+	channel := make(chan VoiceV1DialingPermissionsCountry, 1)
 
 	go func() {
 		for response != nil {

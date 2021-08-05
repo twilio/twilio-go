@@ -68,7 +68,7 @@ func (params *CreateChannelWebhookParams) SetType(Type string) *CreateChannelWeb
 	return params
 }
 
-func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, params *CreateChannelWebhookParams) (*ChatV2ServiceChannelChannelWebhook, error) {
+func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, params *CreateChannelWebhookParams) (*ChatV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -109,7 +109,7 @@ func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &ChatV2ServiceChannelChannelWebhook{}
+	ps := &ChatV2ChannelWebhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, 
 	return nil
 }
 
-func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, Sid string) (*ChatV2ServiceChannelChannelWebhook, error) {
+func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, Sid string) (*ChatV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -152,7 +152,7 @@ func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, S
 
 	defer resp.Body.Close()
 
-	ps := &ChatV2ServiceChannelChannelWebhook{}
+	ps := &ChatV2ChannelWebhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -214,7 +214,7 @@ func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, pa
 }
 
 // Lists ChannelWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) ([]ChatV2ServiceChannelChannelWebhook, error) {
+func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) ([]ChatV2ChannelWebhook, error) {
 	if params == nil {
 		params = &ListChannelWebhookParams{}
 	}
@@ -226,7 +226,7 @@ func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, pa
 	}
 
 	curRecord := 0
-	var records []ChatV2ServiceChannelChannelWebhook
+	var records []ChatV2ChannelWebhook
 
 	for response != nil {
 		records = append(records, response.Webhooks...)
@@ -243,7 +243,7 @@ func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, pa
 }
 
 // Streams ChannelWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) (chan ChatV2ServiceChannelChannelWebhook, error) {
+func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) (chan ChatV2ChannelWebhook, error) {
 	if params == nil {
 		params = &ListChannelWebhookParams{}
 	}
@@ -256,7 +256,7 @@ func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ChatV2ServiceChannelChannelWebhook, 1)
+	channel := make(chan ChatV2ChannelWebhook, 1)
 
 	go func() {
 		for response != nil {
@@ -337,7 +337,7 @@ func (params *UpdateChannelWebhookParams) SetConfigurationUrl(ConfigurationUrl s
 	return params
 }
 
-func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*ChatV2ServiceChannelChannelWebhook, error) {
+func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*ChatV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -376,7 +376,7 @@ func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &ChatV2ServiceChannelChannelWebhook{}
+	ps := &ChatV2ChannelWebhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateBucket
 
-> VerifyV2ServiceRateLimitBucket CreateBucket(ctx, ServiceSidRateLimitSidoptional)
+> VerifyV2Bucket CreateBucket(ctx, ServiceSidRateLimitSidoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceRateLimitBucket**](VerifyV2ServiceRateLimitBucket.md)
+[**VerifyV2Bucket**](VerifyV2Bucket.md)
 
 ### Authorization
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 ## FetchBucket
 
-> VerifyV2ServiceRateLimitBucket FetchBucket(ctx, ServiceSidRateLimitSidSid)
+> VerifyV2Bucket FetchBucket(ctx, ServiceSidRateLimitSidSid)
 
 
 
@@ -129,7 +129,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceRateLimitBucket**](VerifyV2ServiceRateLimitBucket.md)
+[**VerifyV2Bucket**](VerifyV2Bucket.md)
 
 ### Authorization
 
@@ -192,7 +192,7 @@ Name | Type | Description
 
 ## UpdateBucket
 
-> VerifyV2ServiceRateLimitBucket UpdateBucket(ctx, ServiceSidRateLimitSidSidoptional)
+> VerifyV2Bucket UpdateBucket(ctx, ServiceSidRateLimitSidSidoptional)
 
 
 
@@ -220,7 +220,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceRateLimitBucket**](VerifyV2ServiceRateLimitBucket.md)
+[**VerifyV2Bucket**](VerifyV2Bucket.md)
 
 ### Authorization
 

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateWorker
 
-> TaskrouterV1WorkspaceWorker CreateWorker(ctx, WorkspaceSidoptional)
+> TaskrouterV1Worker CreateWorker(ctx, WorkspaceSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorker**](TaskrouterV1WorkspaceWorker.md)
+[**TaskrouterV1Worker**](TaskrouterV1Worker.md)
 
 ### Authorization
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## FetchWorker
 
-> TaskrouterV1WorkspaceWorker FetchWorker(ctx, WorkspaceSidSid)
+> TaskrouterV1Worker FetchWorker(ctx, WorkspaceSidSid)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorker**](TaskrouterV1WorkspaceWorker.md)
+[**TaskrouterV1Worker**](TaskrouterV1Worker.md)
 
 ### Authorization
 
@@ -188,7 +188,7 @@ Name | Type | Description
 
 ## UpdateWorker
 
-> TaskrouterV1WorkspaceWorker UpdateWorker(ctx, WorkspaceSidSidoptional)
+> TaskrouterV1Worker UpdateWorker(ctx, WorkspaceSidSidoptional)
 
 
 
@@ -215,7 +215,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorker**](TaskrouterV1WorkspaceWorker.md)
+[**TaskrouterV1Worker**](TaskrouterV1Worker.md)
 
 ### Authorization
 

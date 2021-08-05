@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateSubscribedEvent
 
-> EventsV1SubscriptionSubscribedEvent CreateSubscribedEvent(ctx, SubscriptionSidoptional)
+> EventsV1SubscribedEvent CreateSubscribedEvent(ctx, SubscriptionSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**EventsV1SubscriptionSubscribedEvent**](EventsV1SubscriptionSubscribedEvent.md)
+[**EventsV1SubscribedEvent**](EventsV1SubscribedEvent.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchSubscribedEvent
 
-> EventsV1SubscriptionSubscribedEvent FetchSubscribedEvent(ctx, SubscriptionSidType)
+> EventsV1SubscribedEvent FetchSubscribedEvent(ctx, SubscriptionSidType)
 
 
 
@@ -126,7 +126,7 @@ Name | Type | Description
 
 ### Return type
 
-[**EventsV1SubscriptionSubscribedEvent**](EventsV1SubscriptionSubscribedEvent.md)
+[**EventsV1SubscribedEvent**](EventsV1SubscribedEvent.md)
 
 ### Authorization
 
@@ -188,7 +188,7 @@ Name | Type | Description
 
 ## UpdateSubscribedEvent
 
-> EventsV1SubscriptionSubscribedEvent UpdateSubscribedEvent(ctx, SubscriptionSidTypeoptional)
+> EventsV1SubscribedEvent UpdateSubscribedEvent(ctx, SubscriptionSidTypeoptional)
 
 
 
@@ -214,7 +214,7 @@ Name | Type | Description
 
 ### Return type
 
-[**EventsV1SubscriptionSubscribedEvent**](EventsV1SubscriptionSubscribedEvent.md)
+[**EventsV1SubscribedEvent**](EventsV1SubscribedEvent.md)
 
 ### Authorization
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchStep
 
-> StudioV1FlowEngagementStep FetchStep(ctx, FlowSidEngagementSidSid)
+> StudioV1Step FetchStep(ctx, FlowSidEngagementSidSid)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV1FlowEngagementStep**](StudioV1FlowEngagementStep.md)
+[**StudioV1Step**](StudioV1Step.md)
 
 ### Authorization
 

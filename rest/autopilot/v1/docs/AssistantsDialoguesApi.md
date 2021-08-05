@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchDialogue
 
-> AutopilotV1AssistantDialogue FetchDialogue(ctx, AssistantSidSid)
+> AutopilotV1Dialogue FetchDialogue(ctx, AssistantSidSid)
 
 
 
@@ -33,7 +33,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantDialogue**](AutopilotV1AssistantDialogue.md)
+[**AutopilotV1Dialogue**](AutopilotV1Dialogue.md)
 
 ### Authorization
 

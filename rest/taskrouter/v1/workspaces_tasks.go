@@ -56,7 +56,7 @@ func (params *CreateTaskParams) SetWorkflowSid(WorkflowSid string) *CreateTaskPa
 	return params
 }
 
-func (c *ApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (*TaskrouterV1WorkspaceTask, error) {
+func (c *ApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (*TaskrouterV1Task, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -86,7 +86,7 @@ func (c *ApiService) CreateTask(WorkspaceSid string, params *CreateTaskParams) (
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceTask{}
+	ps := &TaskrouterV1Task{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -127,7 +127,7 @@ func (c *ApiService) DeleteTask(WorkspaceSid string, Sid string, params *DeleteT
 	return nil
 }
 
-func (c *ApiService) FetchTask(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceTask, error) {
+func (c *ApiService) FetchTask(WorkspaceSid string, Sid string) (*TaskrouterV1Task, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -142,7 +142,7 @@ func (c *ApiService) FetchTask(WorkspaceSid string, Sid string) (*TaskrouterV1Wo
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceTask{}
+	ps := &TaskrouterV1Task{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -286,7 +286,7 @@ func (c *ApiService) PageTask(WorkspaceSid string, params *ListTaskParams, pageT
 }
 
 // Lists Task records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams) ([]TaskrouterV1WorkspaceTask, error) {
+func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams) ([]TaskrouterV1Task, error) {
 	if params == nil {
 		params = &ListTaskParams{}
 	}
@@ -298,7 +298,7 @@ func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams) ([]Ta
 	}
 
 	curRecord := 0
-	var records []TaskrouterV1WorkspaceTask
+	var records []TaskrouterV1Task
 
 	for response != nil {
 		records = append(records, response.Tasks...)
@@ -315,7 +315,7 @@ func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams) ([]Ta
 }
 
 // Streams Task records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTask(WorkspaceSid string, params *ListTaskParams) (chan TaskrouterV1WorkspaceTask, error) {
+func (c *ApiService) StreamTask(WorkspaceSid string, params *ListTaskParams) (chan TaskrouterV1Task, error) {
 	if params == nil {
 		params = &ListTaskParams{}
 	}
@@ -328,7 +328,7 @@ func (c *ApiService) StreamTask(WorkspaceSid string, params *ListTaskParams) (ch
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1WorkspaceTask, 1)
+	channel := make(chan TaskrouterV1Task, 1)
 
 	go func() {
 		for response != nil {
@@ -409,7 +409,7 @@ func (params *UpdateTaskParams) SetTaskChannel(TaskChannel string) *UpdateTaskPa
 	return params
 }
 
-func (c *ApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateTaskParams) (*TaskrouterV1WorkspaceTask, error) {
+func (c *ApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateTaskParams) (*TaskrouterV1Task, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -444,7 +444,7 @@ func (c *ApiService) UpdateTask(WorkspaceSid string, Sid string, params *UpdateT
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceTask{}
+	ps := &TaskrouterV1Task{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

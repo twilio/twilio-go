@@ -54,10 +54,10 @@ Class | Method | HTTP request | Description
  - [ListCredentialResponse](docs/ListCredentialResponse.md)
  - [ListCredentialResponseMeta](docs/ListCredentialResponseMeta.md)
  - [ListServiceResponse](docs/ListServiceResponse.md)
+ - [NotifyV1Binding](docs/NotifyV1Binding.md)
  - [NotifyV1Credential](docs/NotifyV1Credential.md)
+ - [NotifyV1Notification](docs/NotifyV1Notification.md)
  - [NotifyV1Service](docs/NotifyV1Service.md)
- - [NotifyV1ServiceBinding](docs/NotifyV1ServiceBinding.md)
- - [NotifyV1ServiceNotification](docs/NotifyV1ServiceNotification.md)
 
 
 ## Documentation For Authorization

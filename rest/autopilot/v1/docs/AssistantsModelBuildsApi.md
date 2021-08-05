@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateModelBuild
 
-> AutopilotV1AssistantModelBuild CreateModelBuild(ctx, AssistantSidoptional)
+> AutopilotV1ModelBuild CreateModelBuild(ctx, AssistantSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantModelBuild**](AutopilotV1AssistantModelBuild.md)
+[**AutopilotV1ModelBuild**](AutopilotV1ModelBuild.md)
 
 ### Authorization
 
@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## FetchModelBuild
 
-> AutopilotV1AssistantModelBuild FetchModelBuild(ctx, AssistantSidSid)
+> AutopilotV1ModelBuild FetchModelBuild(ctx, AssistantSidSid)
 
 
 
@@ -120,7 +120,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantModelBuild**](AutopilotV1AssistantModelBuild.md)
+[**AutopilotV1ModelBuild**](AutopilotV1ModelBuild.md)
 
 ### Authorization
 
@@ -180,7 +180,7 @@ Name | Type | Description
 
 ## UpdateModelBuild
 
-> AutopilotV1AssistantModelBuild UpdateModelBuild(ctx, AssistantSidSidoptional)
+> AutopilotV1ModelBuild UpdateModelBuild(ctx, AssistantSidSidoptional)
 
 
 
@@ -204,7 +204,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantModelBuild**](AutopilotV1AssistantModelBuild.md)
+[**AutopilotV1ModelBuild**](AutopilotV1ModelBuild.md)
 
 ### Authorization
 

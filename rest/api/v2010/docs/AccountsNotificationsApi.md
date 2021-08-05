@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchNotification
 
-> ApiV2010AccountNotificationInstance FetchNotification(ctx, Sidoptional)
+> ApiV2010NotificationInstance FetchNotification(ctx, Sidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountNotificationInstance**](ApiV2010AccountNotificationInstance.md)
+[**ApiV2010NotificationInstance**](ApiV2010NotificationInstance.md)
 
 ### Authorization
 

@@ -72,14 +72,14 @@ Class | Method | HTTP request | Description
  - [ListRegulationResponse](docs/ListRegulationResponse.md)
  - [ListSupportingDocumentResponse](docs/ListSupportingDocumentResponse.md)
  - [ListSupportingDocumentTypeResponse](docs/ListSupportingDocumentTypeResponse.md)
- - [NumbersV2RegulatoryComplianceBundle](docs/NumbersV2RegulatoryComplianceBundle.md)
- - [NumbersV2RegulatoryComplianceBundleEvaluation](docs/NumbersV2RegulatoryComplianceBundleEvaluation.md)
- - [NumbersV2RegulatoryComplianceBundleItemAssignment](docs/NumbersV2RegulatoryComplianceBundleItemAssignment.md)
- - [NumbersV2RegulatoryComplianceEndUser](docs/NumbersV2RegulatoryComplianceEndUser.md)
- - [NumbersV2RegulatoryComplianceEndUserType](docs/NumbersV2RegulatoryComplianceEndUserType.md)
- - [NumbersV2RegulatoryComplianceRegulation](docs/NumbersV2RegulatoryComplianceRegulation.md)
- - [NumbersV2RegulatoryComplianceSupportingDocument](docs/NumbersV2RegulatoryComplianceSupportingDocument.md)
- - [NumbersV2RegulatoryComplianceSupportingDocumentType](docs/NumbersV2RegulatoryComplianceSupportingDocumentType.md)
+ - [NumbersV2Bundle](docs/NumbersV2Bundle.md)
+ - [NumbersV2EndUser](docs/NumbersV2EndUser.md)
+ - [NumbersV2EndUserType](docs/NumbersV2EndUserType.md)
+ - [NumbersV2Evaluation](docs/NumbersV2Evaluation.md)
+ - [NumbersV2ItemAssignment](docs/NumbersV2ItemAssignment.md)
+ - [NumbersV2Regulation](docs/NumbersV2Regulation.md)
+ - [NumbersV2SupportingDocument](docs/NumbersV2SupportingDocument.md)
+ - [NumbersV2SupportingDocumentType](docs/NumbersV2SupportingDocumentType.md)
 
 
 ## Documentation For Authorization

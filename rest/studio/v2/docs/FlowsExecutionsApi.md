@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateExecution
 
-> StudioV2FlowExecution CreateExecution(ctx, FlowSidoptional)
+> StudioV2Execution CreateExecution(ctx, FlowSidoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV2FlowExecution**](StudioV2FlowExecution.md)
+[**StudioV2Execution**](StudioV2Execution.md)
 
 ### Authorization
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 ## FetchExecution
 
-> StudioV2FlowExecution FetchExecution(ctx, FlowSidSid)
+> StudioV2Execution FetchExecution(ctx, FlowSidSid)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV2FlowExecution**](StudioV2FlowExecution.md)
+[**StudioV2Execution**](StudioV2Execution.md)
 
 ### Authorization
 
@@ -191,7 +191,7 @@ Name | Type | Description
 
 ## UpdateExecution
 
-> StudioV2FlowExecution UpdateExecution(ctx, FlowSidSidoptional)
+> StudioV2Execution UpdateExecution(ctx, FlowSidSidoptional)
 
 
 
@@ -217,7 +217,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV2FlowExecution**](StudioV2FlowExecution.md)
+[**StudioV2Execution**](StudioV2Execution.md)
 
 ### Authorization
 

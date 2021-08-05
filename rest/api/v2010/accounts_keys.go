@@ -38,7 +38,7 @@ func (params *CreateNewKeyParams) SetFriendlyName(FriendlyName string) *CreateNe
 	return params
 }
 
-func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010AccountNewKey, error) {
+func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010NewKey, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -60,7 +60,7 @@ func (c *ApiService) CreateNewKey(params *CreateNewKeyParams) (*ApiV2010AccountN
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountNewKey{}
+	ps := &ApiV2010NewKey{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func (params *FetchKeyParams) SetPathAccountSid(PathAccountSid string) *FetchKey
 	return params
 }
 
-func (c *ApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2010AccountKey, error) {
+func (c *ApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2010Key, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -131,7 +131,7 @@ func (c *ApiService) FetchKey(Sid string, params *FetchKeyParams) (*ApiV2010Acco
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountKey{}
+	ps := &ApiV2010Key{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -202,7 +202,7 @@ func (c *ApiService) PageKey(params *ListKeyParams, pageToken string, pageNumber
 }
 
 // Lists Key records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListKey(params *ListKeyParams) ([]ApiV2010AccountKey, error) {
+func (c *ApiService) ListKey(params *ListKeyParams) ([]ApiV2010Key, error) {
 	if params == nil {
 		params = &ListKeyParams{}
 	}
@@ -214,7 +214,7 @@ func (c *ApiService) ListKey(params *ListKeyParams) ([]ApiV2010AccountKey, error
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountKey
+	var records []ApiV2010Key
 
 	for response != nil {
 		records = append(records, response.Keys...)
@@ -231,7 +231,7 @@ func (c *ApiService) ListKey(params *ListKeyParams) ([]ApiV2010AccountKey, error
 }
 
 // Streams Key records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamKey(params *ListKeyParams) (chan ApiV2010AccountKey, error) {
+func (c *ApiService) StreamKey(params *ListKeyParams) (chan ApiV2010Key, error) {
 	if params == nil {
 		params = &ListKeyParams{}
 	}
@@ -244,7 +244,7 @@ func (c *ApiService) StreamKey(params *ListKeyParams) (chan ApiV2010AccountKey, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountKey, 1)
+	channel := make(chan ApiV2010Key, 1)
 
 	go func() {
 		for response != nil {
@@ -301,7 +301,7 @@ func (params *UpdateKeyParams) SetFriendlyName(FriendlyName string) *UpdateKeyPa
 	return params
 }
 
-func (c *ApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*ApiV2010AccountKey, error) {
+func (c *ApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*ApiV2010Key, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -324,7 +324,7 @@ func (c *ApiService) UpdateKey(Sid string, params *UpdateKeyParams) (*ApiV2010Ac
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountKey{}
+	ps := &ApiV2010Key{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

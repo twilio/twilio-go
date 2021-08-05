@@ -20,7 +20,7 @@ import (
 )
 
 // Fetch push notification service settings
-func (c *ApiService) FetchServiceNotification(ChatServiceSid string) (*ConversationsV1ServiceServiceConfigurationServiceNotification, error) {
+func (c *ApiService) FetchServiceNotification(ChatServiceSid string) (*ConversationsV1ServiceNotification, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -34,7 +34,7 @@ func (c *ApiService) FetchServiceNotification(ChatServiceSid string) (*Conversat
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceConfigurationServiceNotification{}
+	ps := &ConversationsV1ServiceNotification{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -114,7 +114,7 @@ func (params *UpdateServiceNotificationParams) SetRemovedFromConversationTemplat
 }
 
 // Update push notification service settings
-func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *UpdateServiceNotificationParams) (*ConversationsV1ServiceServiceConfigurationServiceNotification, error) {
+func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *UpdateServiceNotificationParams) (*ConversationsV1ServiceNotification, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration/Notifications"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -162,7 +162,7 @@ func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *Up
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceConfigurationServiceNotification{}
+	ps := &ConversationsV1ServiceNotification{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

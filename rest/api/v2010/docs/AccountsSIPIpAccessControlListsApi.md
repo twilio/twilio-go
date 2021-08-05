@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateSipIpAccessControlList
 
-> ApiV2010AccountSipSipIpAccessControlList CreateSipIpAccessControlList(ctx, optional)
+> ApiV2010SipIpAccessControlList CreateSipIpAccessControlList(ctx, optional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlList**](ApiV2010AccountSipSipIpAccessControlList.md)
+[**ApiV2010SipIpAccessControlList**](ApiV2010SipIpAccessControlList.md)
 
 ### Authorization
 
@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## FetchSipIpAccessControlList
 
-> ApiV2010AccountSipSipIpAccessControlList FetchSipIpAccessControlList(ctx, Sidoptional)
+> ApiV2010SipIpAccessControlList FetchSipIpAccessControlList(ctx, Sidoptional)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlList**](ApiV2010AccountSipSipIpAccessControlList.md)
+[**ApiV2010SipIpAccessControlList**](ApiV2010SipIpAccessControlList.md)
 
 ### Authorization
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 ## UpdateSipIpAccessControlList
 
-> ApiV2010AccountSipSipIpAccessControlList UpdateSipIpAccessControlList(ctx, Sidoptional)
+> ApiV2010SipIpAccessControlList UpdateSipIpAccessControlList(ctx, Sidoptional)
 
 
 
@@ -207,7 +207,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlList**](ApiV2010AccountSipSipIpAccessControlList.md)
+[**ApiV2010SipIpAccessControlList**](ApiV2010SipIpAccessControlList.md)
 
 ### Authorization
 

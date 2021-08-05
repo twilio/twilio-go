@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateShortCode
 
-> MessagingV1ServiceShortCode CreateShortCode(ctx, ServiceSidoptional)
+> MessagingV1ShortCode CreateShortCode(ctx, ServiceSidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV1ServiceShortCode**](MessagingV1ServiceShortCode.md)
+[**MessagingV1ShortCode**](MessagingV1ShortCode.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ Name | Type | Description
 
 ## FetchShortCode
 
-> MessagingV1ServiceShortCode FetchShortCode(ctx, ServiceSidSid)
+> MessagingV1ShortCode FetchShortCode(ctx, ServiceSidSid)
 
 
 
@@ -118,7 +118,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV1ServiceShortCode**](MessagingV1ServiceShortCode.md)
+[**MessagingV1ShortCode**](MessagingV1ShortCode.md)
 
 ### Authorization
 

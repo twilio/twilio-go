@@ -13,6 +13,6 @@ package openapi
 
 // ListBillingPeriodResponse struct for ListBillingPeriodResponse
 type ListBillingPeriodResponse struct {
-	BillingPeriods []SupersimV1SimBillingPeriod `json:"billing_periods,omitempty"`
-	Meta           ListCommandResponseMeta      `json:"meta,omitempty"`
+	BillingPeriods []SupersimV1BillingPeriod `json:"billing_periods,omitempty"`
+	Meta           ListCommandResponseMeta   `json:"meta,omitempty"`
 }

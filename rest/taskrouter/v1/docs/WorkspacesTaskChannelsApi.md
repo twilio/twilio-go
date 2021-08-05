@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateTaskChannel
 
-> TaskrouterV1WorkspaceTaskChannel CreateTaskChannel(ctx, WorkspaceSidoptional)
+> TaskrouterV1TaskChannel CreateTaskChannel(ctx, WorkspaceSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskChannel**](TaskrouterV1WorkspaceTaskChannel.md)
+[**TaskrouterV1TaskChannel**](TaskrouterV1TaskChannel.md)
 
 ### Authorization
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## FetchTaskChannel
 
-> TaskrouterV1WorkspaceTaskChannel FetchTaskChannel(ctx, WorkspaceSidSid)
+> TaskrouterV1TaskChannel FetchTaskChannel(ctx, WorkspaceSidSid)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskChannel**](TaskrouterV1WorkspaceTaskChannel.md)
+[**TaskrouterV1TaskChannel**](TaskrouterV1TaskChannel.md)
 
 ### Authorization
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 ## UpdateTaskChannel
 
-> TaskrouterV1WorkspaceTaskChannel UpdateTaskChannel(ctx, WorkspaceSidSidoptional)
+> TaskrouterV1TaskChannel UpdateTaskChannel(ctx, WorkspaceSidSidoptional)
 
 
 
@@ -206,7 +206,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskChannel**](TaskrouterV1WorkspaceTaskChannel.md)
+[**TaskrouterV1TaskChannel**](TaskrouterV1TaskChannel.md)
 
 ### Authorization
 

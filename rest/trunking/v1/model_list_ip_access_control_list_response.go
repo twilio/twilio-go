@@ -13,6 +13,6 @@ package openapi
 
 // ListIpAccessControlListResponse struct for ListIpAccessControlListResponse
 type ListIpAccessControlListResponse struct {
-	IpAccessControlLists []TrunkingV1TrunkIpAccessControlList `json:"ip_access_control_lists,omitempty"`
-	Meta                 ListTrunkResponseMeta                `json:"meta,omitempty"`
+	IpAccessControlLists []TrunkingV1IpAccessControlList `json:"ip_access_control_lists,omitempty"`
+	Meta                 ListTrunkResponseMeta           `json:"meta,omitempty"`
 }

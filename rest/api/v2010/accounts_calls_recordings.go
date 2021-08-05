@@ -69,7 +69,7 @@ func (params *CreateCallRecordingParams) SetTrim(Trim string) *CreateCallRecordi
 }
 
 // Create a recording for the call
-func (c *ApiService) CreateCallRecording(CallSid string, params *CreateCallRecordingParams) (*ApiV2010AccountCallCallRecording, error) {
+func (c *ApiService) CreateCallRecording(CallSid string, params *CreateCallRecordingParams) (*ApiV2010CallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -109,7 +109,7 @@ func (c *ApiService) CreateCallRecording(CallSid string, params *CreateCallRecor
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCallCallRecording{}
+	ps := &ApiV2010CallRecording{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -164,7 +164,7 @@ func (params *FetchCallRecordingParams) SetPathAccountSid(PathAccountSid string)
 }
 
 // Fetch an instance of a recording for a call
-func (c *ApiService) FetchCallRecording(CallSid string, Sid string, params *FetchCallRecordingParams) (*ApiV2010AccountCallCallRecording, error) {
+func (c *ApiService) FetchCallRecording(CallSid string, Sid string, params *FetchCallRecordingParams) (*ApiV2010CallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -184,7 +184,7 @@ func (c *ApiService) FetchCallRecording(CallSid string, Sid string, params *Fetc
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCallCallRecording{}
+	ps := &ApiV2010CallRecording{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -283,7 +283,7 @@ func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecording
 }
 
 // Lists CallRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecordingParams) ([]ApiV2010AccountCallCallRecording, error) {
+func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecordingParams) ([]ApiV2010CallRecording, error) {
 	if params == nil {
 		params = &ListCallRecordingParams{}
 	}
@@ -295,7 +295,7 @@ func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecording
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountCallCallRecording
+	var records []ApiV2010CallRecording
 
 	for response != nil {
 		records = append(records, response.Recordings...)
@@ -312,7 +312,7 @@ func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecording
 }
 
 // Streams CallRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCallRecording(CallSid string, params *ListCallRecordingParams) (chan ApiV2010AccountCallCallRecording, error) {
+func (c *ApiService) StreamCallRecording(CallSid string, params *ListCallRecordingParams) (chan ApiV2010CallRecording, error) {
 	if params == nil {
 		params = &ListCallRecordingParams{}
 	}
@@ -325,7 +325,7 @@ func (c *ApiService) StreamCallRecording(CallSid string, params *ListCallRecordi
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountCallCallRecording, 1)
+	channel := make(chan ApiV2010CallRecording, 1)
 
 	go func() {
 		for response != nil {
@@ -389,7 +389,7 @@ func (params *UpdateCallRecordingParams) SetStatus(Status string) *UpdateCallRec
 }
 
 // Changes the status of the recording to paused, stopped, or in-progress. Note: Pass &#x60;Twilio.CURRENT&#x60; instead of recording sid to reference current active recording.
-func (c *ApiService) UpdateCallRecording(CallSid string, Sid string, params *UpdateCallRecordingParams) (*ApiV2010AccountCallCallRecording, error) {
+func (c *ApiService) UpdateCallRecording(CallSid string, Sid string, params *UpdateCallRecordingParams) (*ApiV2010CallRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -416,7 +416,7 @@ func (c *ApiService) UpdateCallRecording(CallSid string, Sid string, params *Upd
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCallCallRecording{}
+	ps := &ApiV2010CallRecording{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

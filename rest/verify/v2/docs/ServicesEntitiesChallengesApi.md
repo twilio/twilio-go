@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateChallenge
 
-> VerifyV2ServiceEntityChallenge CreateChallenge(ctx, ServiceSidIdentityoptional)
+> VerifyV2Challenge CreateChallenge(ctx, ServiceSidIdentityoptional)
 
 
 
@@ -44,7 +44,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceEntityChallenge**](VerifyV2ServiceEntityChallenge.md)
+[**VerifyV2Challenge**](VerifyV2Challenge.md)
 
 ### Authorization
 
@@ -62,7 +62,7 @@ Name | Type | Description
 
 ## FetchChallenge
 
-> VerifyV2ServiceEntityChallenge FetchChallenge(ctx, ServiceSidIdentitySid)
+> VerifyV2Challenge FetchChallenge(ctx, ServiceSidIdentitySid)
 
 
 
@@ -88,7 +88,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceEntityChallenge**](VerifyV2ServiceEntityChallenge.md)
+[**VerifyV2Challenge**](VerifyV2Challenge.md)
 
 ### Authorization
 
@@ -153,7 +153,7 @@ Name | Type | Description
 
 ## UpdateChallenge
 
-> VerifyV2ServiceEntityChallenge UpdateChallenge(ctx, ServiceSidIdentitySidoptional)
+> VerifyV2Challenge UpdateChallenge(ctx, ServiceSidIdentitySidoptional)
 
 
 
@@ -180,7 +180,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceEntityChallenge**](VerifyV2ServiceEntityChallenge.md)
+[**VerifyV2Challenge**](VerifyV2Challenge.md)
 
 ### Authorization
 

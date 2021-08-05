@@ -32,7 +32,7 @@ func (params *CreatePhoneNumberParams) SetPhoneNumberSid(PhoneNumberSid string) 
 	return params
 }
 
-func (c *ApiService) CreatePhoneNumber(TrunkSid string, params *CreatePhoneNumberParams) (*TrunkingV1TrunkPhoneNumber, error) {
+func (c *ApiService) CreatePhoneNumber(TrunkSid string, params *CreatePhoneNumberParams) (*TrunkingV1PhoneNumber, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
@@ -50,7 +50,7 @@ func (c *ApiService) CreatePhoneNumber(TrunkSid string, params *CreatePhoneNumbe
 
 	defer resp.Body.Close()
 
-	ps := &TrunkingV1TrunkPhoneNumber{}
+	ps := &TrunkingV1PhoneNumber{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (c *ApiService) DeletePhoneNumber(TrunkSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*TrunkingV1TrunkPhoneNumber, error) {
+func (c *ApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*TrunkingV1PhoneNumber, error) {
 	path := "/v1/Trunks/{TrunkSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -91,7 +91,7 @@ func (c *ApiService) FetchPhoneNumber(TrunkSid string, Sid string) (*TrunkingV1T
 
 	defer resp.Body.Close()
 
-	ps := &TrunkingV1TrunkPhoneNumber{}
+	ps := &TrunkingV1PhoneNumber{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -152,7 +152,7 @@ func (c *ApiService) PagePhoneNumber(TrunkSid string, params *ListPhoneNumberPar
 }
 
 // Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNumberParams) ([]TrunkingV1TrunkPhoneNumber, error) {
+func (c *ApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNumberParams) ([]TrunkingV1PhoneNumber, error) {
 	if params == nil {
 		params = &ListPhoneNumberParams{}
 	}
@@ -164,7 +164,7 @@ func (c *ApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNumberPar
 	}
 
 	curRecord := 0
-	var records []TrunkingV1TrunkPhoneNumber
+	var records []TrunkingV1PhoneNumber
 
 	for response != nil {
 		records = append(records, response.PhoneNumbers...)
@@ -181,7 +181,7 @@ func (c *ApiService) ListPhoneNumber(TrunkSid string, params *ListPhoneNumberPar
 }
 
 // Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamPhoneNumber(TrunkSid string, params *ListPhoneNumberParams) (chan TrunkingV1TrunkPhoneNumber, error) {
+func (c *ApiService) StreamPhoneNumber(TrunkSid string, params *ListPhoneNumberParams) (chan TrunkingV1PhoneNumber, error) {
 	if params == nil {
 		params = &ListPhoneNumberParams{}
 	}
@@ -194,7 +194,7 @@ func (c *ApiService) StreamPhoneNumber(TrunkSid string, params *ListPhoneNumberP
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TrunkingV1TrunkPhoneNumber, 1)
+	channel := make(chan TrunkingV1PhoneNumber, 1)
 
 	go func() {
 		for response != nil {

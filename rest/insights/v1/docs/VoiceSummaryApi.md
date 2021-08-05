@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchSummary
 
-> InsightsV1CallSummary FetchSummary(ctx, CallSidoptional)
+> InsightsV1Summary FetchSummary(ctx, CallSidoptional)
 
 
 
@@ -33,7 +33,7 @@ Name | Type | Description
 
 ### Return type
 
-[**InsightsV1CallSummary**](InsightsV1CallSummary.md)
+[**InsightsV1Summary**](InsightsV1Summary.md)
 
 ### Authorization
 

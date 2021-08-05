@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateWebhook
 
-> AutopilotV1AssistantWebhook CreateWebhook(ctx, AssistantSidoptional)
+> AutopilotV1Webhook CreateWebhook(ctx, AssistantSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantWebhook**](AutopilotV1AssistantWebhook.md)
+[**AutopilotV1Webhook**](AutopilotV1Webhook.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchWebhook
 
-> AutopilotV1AssistantWebhook FetchWebhook(ctx, AssistantSidSid)
+> AutopilotV1Webhook FetchWebhook(ctx, AssistantSidSid)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantWebhook**](AutopilotV1AssistantWebhook.md)
+[**AutopilotV1Webhook**](AutopilotV1Webhook.md)
 
 ### Authorization
 
@@ -182,7 +182,7 @@ Name | Type | Description
 
 ## UpdateWebhook
 
-> AutopilotV1AssistantWebhook UpdateWebhook(ctx, AssistantSidSidoptional)
+> AutopilotV1Webhook UpdateWebhook(ctx, AssistantSidSidoptional)
 
 
 
@@ -209,7 +209,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantWebhook**](AutopilotV1AssistantWebhook.md)
+[**AutopilotV1Webhook**](AutopilotV1Webhook.md)
 
 ### Authorization
 

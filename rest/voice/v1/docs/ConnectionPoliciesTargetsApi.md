@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateConnectionPolicyTarget
 
-> VoiceV1ConnectionPolicyConnectionPolicyTarget CreateConnectionPolicyTarget(ctx, ConnectionPolicySidoptional)
+> VoiceV1ConnectionPolicyTarget CreateConnectionPolicyTarget(ctx, ConnectionPolicySidoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VoiceV1ConnectionPolicyConnectionPolicyTarget**](VoiceV1ConnectionPolicyConnectionPolicyTarget.md)
+[**VoiceV1ConnectionPolicyTarget**](VoiceV1ConnectionPolicyTarget.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchConnectionPolicyTarget
 
-> VoiceV1ConnectionPolicyConnectionPolicyTarget FetchConnectionPolicyTarget(ctx, ConnectionPolicySidSid)
+> VoiceV1ConnectionPolicyTarget FetchConnectionPolicyTarget(ctx, ConnectionPolicySidSid)
 
 
 
@@ -123,7 +123,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VoiceV1ConnectionPolicyConnectionPolicyTarget**](VoiceV1ConnectionPolicyConnectionPolicyTarget.md)
+[**VoiceV1ConnectionPolicyTarget**](VoiceV1ConnectionPolicyTarget.md)
 
 ### Authorization
 
@@ -183,7 +183,7 @@ Name | Type | Description
 
 ## UpdateConnectionPolicyTarget
 
-> VoiceV1ConnectionPolicyConnectionPolicyTarget UpdateConnectionPolicyTarget(ctx, ConnectionPolicySidSidoptional)
+> VoiceV1ConnectionPolicyTarget UpdateConnectionPolicyTarget(ctx, ConnectionPolicySidSidoptional)
 
 
 
@@ -211,7 +211,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VoiceV1ConnectionPolicyConnectionPolicyTarget**](VoiceV1ConnectionPolicyConnectionPolicyTarget.md)
+[**VoiceV1ConnectionPolicyTarget**](VoiceV1ConnectionPolicyTarget.md)
 
 ### Authorization
 

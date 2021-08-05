@@ -74,7 +74,7 @@ func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodP
 }
 
 // Lists BillingPeriod records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams) ([]SupersimV1SimBillingPeriod, error) {
+func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams) ([]SupersimV1BillingPeriod, error) {
 	if params == nil {
 		params = &ListBillingPeriodParams{}
 	}
@@ -86,7 +86,7 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 	}
 
 	curRecord := 0
-	var records []SupersimV1SimBillingPeriod
+	var records []SupersimV1BillingPeriod
 
 	for response != nil {
 		records = append(records, response.BillingPeriods...)
@@ -103,7 +103,7 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 }
 
 // Streams BillingPeriod records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPeriodParams) (chan SupersimV1SimBillingPeriod, error) {
+func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPeriodParams) (chan SupersimV1BillingPeriod, error) {
 	if params == nil {
 		params = &ListBillingPeriodParams{}
 	}
@@ -116,7 +116,7 @@ func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPerio
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan SupersimV1SimBillingPeriod, 1)
+	channel := make(chan SupersimV1BillingPeriod, 1)
 
 	go func() {
 		for response != nil {

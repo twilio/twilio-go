@@ -18,7 +18,7 @@ import (
 	"strings"
 )
 
-func (c *ApiService) FetchDialogue(AssistantSid string, Sid string) (*AutopilotV1AssistantDialogue, error) {
+func (c *ApiService) FetchDialogue(AssistantSid string, Sid string) (*AutopilotV1Dialogue, error) {
 	path := "/v1/Assistants/{AssistantSid}/Dialogues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -33,7 +33,7 @@ func (c *ApiService) FetchDialogue(AssistantSid string, Sid string) (*AutopilotV
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantDialogue{}
+	ps := &AutopilotV1Dialogue{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

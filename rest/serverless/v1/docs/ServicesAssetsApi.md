@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateAsset
 
-> ServerlessV1ServiceAsset CreateAsset(ctx, ServiceSidoptional)
+> ServerlessV1Asset CreateAsset(ctx, ServiceSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceAsset**](ServerlessV1ServiceAsset.md)
+[**ServerlessV1Asset**](ServerlessV1Asset.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchAsset
 
-> ServerlessV1ServiceAsset FetchAsset(ctx, ServiceSidSid)
+> ServerlessV1Asset FetchAsset(ctx, ServiceSidSid)
 
 
 
@@ -125,7 +125,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceAsset**](ServerlessV1ServiceAsset.md)
+[**ServerlessV1Asset**](ServerlessV1Asset.md)
 
 ### Authorization
 
@@ -187,7 +187,7 @@ Name | Type | Description
 
 ## UpdateAsset
 
-> ServerlessV1ServiceAsset UpdateAsset(ctx, ServiceSidSidoptional)
+> ServerlessV1Asset UpdateAsset(ctx, ServiceSidSidoptional)
 
 
 
@@ -213,7 +213,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceAsset**](ServerlessV1ServiceAsset.md)
+[**ServerlessV1Asset**](ServerlessV1Asset.md)
 
 ### Authorization
 

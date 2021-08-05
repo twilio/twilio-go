@@ -33,7 +33,7 @@ func (params *CreateShortCodeParams) SetSid(Sid string) *CreateShortCodeParams {
 }
 
 // Add a Short Code to the Proxy Number Pool for the Service.
-func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*ProxyV1ServiceShortCode, error) {
+func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*ProxyV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -51,7 +51,7 @@ func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeP
 
 	defer resp.Body.Close()
 
-	ps := &ProxyV1ServiceShortCode{}
+	ps := &ProxyV1ShortCode{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 }
 
 // Fetch a specific Short Code.
-func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*ProxyV1ServiceShortCode, error) {
+func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*ProxyV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -94,7 +94,7 @@ func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*ProxyV1Serv
 
 	defer resp.Body.Close()
 
-	ps := &ProxyV1ServiceShortCode{}
+	ps := &ProxyV1ShortCode{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -155,7 +155,7 @@ func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParam
 }
 
 // Lists ShortCode records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) ([]ProxyV1ServiceShortCode, error) {
+func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) ([]ProxyV1ShortCode, error) {
 	if params == nil {
 		params = &ListShortCodeParams{}
 	}
@@ -167,7 +167,7 @@ func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParam
 	}
 
 	curRecord := 0
-	var records []ProxyV1ServiceShortCode
+	var records []ProxyV1ShortCode
 
 	for response != nil {
 		records = append(records, response.ShortCodes...)
@@ -184,7 +184,7 @@ func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParam
 }
 
 // Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodeParams) (chan ProxyV1ServiceShortCode, error) {
+func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodeParams) (chan ProxyV1ShortCode, error) {
 	if params == nil {
 		params = &ListShortCodeParams{}
 	}
@@ -197,7 +197,7 @@ func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodePar
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ProxyV1ServiceShortCode, 1)
+	channel := make(chan ProxyV1ShortCode, 1)
 
 	go func() {
 		for response != nil {
@@ -249,7 +249,7 @@ func (params *UpdateShortCodeParams) SetIsReserved(IsReserved bool) *UpdateShort
 }
 
 // Update a specific Short Code.
-func (c *ApiService) UpdateShortCode(ServiceSid string, Sid string, params *UpdateShortCodeParams) (*ProxyV1ServiceShortCode, error) {
+func (c *ApiService) UpdateShortCode(ServiceSid string, Sid string, params *UpdateShortCodeParams) (*ProxyV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -268,7 +268,7 @@ func (c *ApiService) UpdateShortCode(ServiceSid string, Sid string, params *Upda
 
 	defer resp.Body.Close()
 
-	ps := &ProxyV1ServiceShortCode{}
+	ps := &ProxyV1ShortCode{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

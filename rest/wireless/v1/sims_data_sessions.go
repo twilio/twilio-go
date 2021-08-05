@@ -74,7 +74,7 @@ func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParam
 }
 
 // Lists DataSession records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParams) ([]WirelessV1SimDataSession, error) {
+func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParams) ([]WirelessV1DataSession, error) {
 	if params == nil {
 		params = &ListDataSessionParams{}
 	}
@@ -86,7 +86,7 @@ func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParam
 	}
 
 	curRecord := 0
-	var records []WirelessV1SimDataSession
+	var records []WirelessV1DataSession
 
 	for response != nil {
 		records = append(records, response.DataSessions...)
@@ -103,7 +103,7 @@ func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParam
 }
 
 // Streams DataSession records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionParams) (chan WirelessV1SimDataSession, error) {
+func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionParams) (chan WirelessV1DataSession, error) {
 	if params == nil {
 		params = &ListDataSessionParams{}
 	}
@@ -116,7 +116,7 @@ func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionPar
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan WirelessV1SimDataSession, 1)
+	channel := make(chan WirelessV1DataSession, 1)
 
 	go func() {
 		for response != nil {

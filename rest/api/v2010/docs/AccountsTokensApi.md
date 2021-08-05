@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateToken
 
-> ApiV2010AccountToken CreateToken(ctx, optional)
+> ApiV2010Token CreateToken(ctx, optional)
 
 
 
@@ -32,7 +32,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountToken**](ApiV2010AccountToken.md)
+[**ApiV2010Token**](ApiV2010Token.md)
 
 ### Authorization
 

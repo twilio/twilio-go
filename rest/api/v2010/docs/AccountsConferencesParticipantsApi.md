@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateParticipant
 
-> ApiV2010AccountConferenceParticipant CreateParticipant(ctx, ConferenceSidoptional)
+> ApiV2010Participant CreateParticipant(ctx, ConferenceSidoptional)
 
 
 
@@ -75,7 +75,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountConferenceParticipant**](ApiV2010AccountConferenceParticipant.md)
+[**ApiV2010Participant**](ApiV2010Participant.md)
 
 ### Authorization
 
@@ -137,7 +137,7 @@ Name | Type | Description
 
 ## FetchParticipant
 
-> ApiV2010AccountConferenceParticipant FetchParticipant(ctx, ConferenceSidCallSidoptional)
+> ApiV2010Participant FetchParticipant(ctx, ConferenceSidCallSidoptional)
 
 
 
@@ -163,7 +163,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountConferenceParticipant**](ApiV2010AccountConferenceParticipant.md)
+[**ApiV2010Participant**](ApiV2010Participant.md)
 
 ### Authorization
 
@@ -229,7 +229,7 @@ Name | Type | Description
 
 ## UpdateParticipant
 
-> ApiV2010AccountConferenceParticipant UpdateParticipant(ctx, ConferenceSidCallSidoptional)
+> ApiV2010Participant UpdateParticipant(ctx, ConferenceSidCallSidoptional)
 
 
 
@@ -267,7 +267,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountConferenceParticipant**](ApiV2010AccountConferenceParticipant.md)
+[**ApiV2010Participant**](ApiV2010Participant.md)
 
 ### Authorization
 

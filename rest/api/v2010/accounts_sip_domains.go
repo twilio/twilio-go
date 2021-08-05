@@ -111,7 +111,7 @@ func (params *CreateSipDomainParams) SetVoiceUrl(VoiceUrl string) *CreateSipDoma
 }
 
 // Create a new Domain
-func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010AccountSipSipDomain, error) {
+func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010SipDomain, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -169,7 +169,7 @@ func (c *ApiService) CreateSipDomain(params *CreateSipDomainParams) (*ApiV2010Ac
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountSipSipDomain{}
+	ps := &ApiV2010SipDomain{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -223,7 +223,7 @@ func (params *FetchSipDomainParams) SetPathAccountSid(PathAccountSid string) *Fe
 }
 
 // Fetch an instance of a Domain
-func (c *ApiService) FetchSipDomain(Sid string, params *FetchSipDomainParams) (*ApiV2010AccountSipSipDomain, error) {
+func (c *ApiService) FetchSipDomain(Sid string, params *FetchSipDomainParams) (*ApiV2010SipDomain, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -242,7 +242,7 @@ func (c *ApiService) FetchSipDomain(Sid string, params *FetchSipDomainParams) (*
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountSipSipDomain{}
+	ps := &ApiV2010SipDomain{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -313,7 +313,7 @@ func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken string
 }
 
 // Lists SipDomain records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipDomain(params *ListSipDomainParams) ([]ApiV2010AccountSipSipDomain, error) {
+func (c *ApiService) ListSipDomain(params *ListSipDomainParams) ([]ApiV2010SipDomain, error) {
 	if params == nil {
 		params = &ListSipDomainParams{}
 	}
@@ -325,7 +325,7 @@ func (c *ApiService) ListSipDomain(params *ListSipDomainParams) ([]ApiV2010Accou
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountSipSipDomain
+	var records []ApiV2010SipDomain
 
 	for response != nil {
 		records = append(records, response.Domains...)
@@ -342,7 +342,7 @@ func (c *ApiService) ListSipDomain(params *ListSipDomainParams) ([]ApiV2010Accou
 }
 
 // Streams SipDomain records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010AccountSipSipDomain, error) {
+func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010SipDomain, error) {
 	if params == nil {
 		params = &ListSipDomainParams{}
 	}
@@ -355,7 +355,7 @@ func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountSipSipDomain, 1)
+	channel := make(chan ApiV2010SipDomain, 1)
 
 	go func() {
 		for response != nil {
@@ -485,7 +485,7 @@ func (params *UpdateSipDomainParams) SetVoiceUrl(VoiceUrl string) *UpdateSipDoma
 }
 
 // Update the attributes of a domain
-func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) (*ApiV2010AccountSipSipDomain, error) {
+func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) (*ApiV2010SipDomain, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -544,7 +544,7 @@ func (c *ApiService) UpdateSipDomain(Sid string, params *UpdateSipDomainParams) 
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountSipSipDomain{}
+	ps := &ApiV2010SipDomain{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

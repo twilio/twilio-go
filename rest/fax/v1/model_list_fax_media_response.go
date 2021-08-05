@@ -13,6 +13,6 @@ package openapi
 
 // ListFaxMediaResponse struct for ListFaxMediaResponse
 type ListFaxMediaResponse struct {
-	Media []FaxV1FaxFaxMedia  `json:"media,omitempty"`
+	Media []FaxV1FaxMedia     `json:"media,omitempty"`
 	Meta  ListFaxResponseMeta `json:"meta,omitempty"`
 }

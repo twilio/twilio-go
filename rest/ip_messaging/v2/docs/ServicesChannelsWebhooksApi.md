@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateChannelWebhook
 
-> IpMessagingV2ServiceChannelChannelWebhook CreateChannelWebhook(ctx, ServiceSidChannelSidoptional)
+> IpMessagingV2ChannelWebhook CreateChannelWebhook(ctx, ServiceSidChannelSidoptional)
 
 
 
@@ -44,7 +44,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelChannelWebhook**](IpMessagingV2ServiceChannelChannelWebhook.md)
+[**IpMessagingV2ChannelWebhook**](IpMessagingV2ChannelWebhook.md)
 
 ### Authorization
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 ## FetchChannelWebhook
 
-> IpMessagingV2ServiceChannelChannelWebhook FetchChannelWebhook(ctx, ServiceSidChannelSidSid)
+> IpMessagingV2ChannelWebhook FetchChannelWebhook(ctx, ServiceSidChannelSidSid)
 
 
 
@@ -128,7 +128,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelChannelWebhook**](IpMessagingV2ServiceChannelChannelWebhook.md)
+[**IpMessagingV2ChannelWebhook**](IpMessagingV2ChannelWebhook.md)
 
 ### Authorization
 
@@ -189,7 +189,7 @@ Name | Type | Description
 
 ## UpdateChannelWebhook
 
-> IpMessagingV2ServiceChannelChannelWebhook UpdateChannelWebhook(ctx, ServiceSidChannelSidSidoptional)
+> IpMessagingV2ChannelWebhook UpdateChannelWebhook(ctx, ServiceSidChannelSidSidoptional)
 
 
 
@@ -219,7 +219,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelChannelWebhook**](IpMessagingV2ServiceChannelChannelWebhook.md)
+[**IpMessagingV2ChannelWebhook**](IpMessagingV2ChannelWebhook.md)
 
 ### Authorization
 

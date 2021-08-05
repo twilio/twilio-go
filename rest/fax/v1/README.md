@@ -44,7 +44,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [FaxV1Fax](docs/FaxV1Fax.md)
- - [FaxV1FaxFaxMedia](docs/FaxV1FaxFaxMedia.md)
+ - [FaxV1FaxMedia](docs/FaxV1FaxMedia.md)
  - [ListFaxMediaResponse](docs/ListFaxMediaResponse.md)
  - [ListFaxResponse](docs/ListFaxResponse.md)
  - [ListFaxResponseMeta](docs/ListFaxResponseMeta.md)

@@ -75,15 +75,15 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [ChatV1Channel](docs/ChatV1Channel.md)
  - [ChatV1Credential](docs/ChatV1Credential.md)
+ - [ChatV1Invite](docs/ChatV1Invite.md)
+ - [ChatV1Member](docs/ChatV1Member.md)
+ - [ChatV1Message](docs/ChatV1Message.md)
+ - [ChatV1Role](docs/ChatV1Role.md)
  - [ChatV1Service](docs/ChatV1Service.md)
- - [ChatV1ServiceChannel](docs/ChatV1ServiceChannel.md)
- - [ChatV1ServiceChannelInvite](docs/ChatV1ServiceChannelInvite.md)
- - [ChatV1ServiceChannelMember](docs/ChatV1ServiceChannelMember.md)
- - [ChatV1ServiceChannelMessage](docs/ChatV1ServiceChannelMessage.md)
- - [ChatV1ServiceRole](docs/ChatV1ServiceRole.md)
- - [ChatV1ServiceUser](docs/ChatV1ServiceUser.md)
- - [ChatV1ServiceUserUserChannel](docs/ChatV1ServiceUserUserChannel.md)
+ - [ChatV1User](docs/ChatV1User.md)
+ - [ChatV1UserChannel](docs/ChatV1UserChannel.md)
  - [ListChannelResponse](docs/ListChannelResponse.md)
  - [ListCredentialResponse](docs/ListCredentialResponse.md)
  - [ListCredentialResponseMeta](docs/ListCredentialResponseMeta.md)

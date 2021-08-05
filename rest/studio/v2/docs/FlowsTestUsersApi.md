@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchTestUser
 
-> StudioV2FlowTestUser FetchTestUser(ctx, Sid)
+> StudioV2TestUser FetchTestUser(ctx, Sid)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV2FlowTestUser**](StudioV2FlowTestUser.md)
+[**StudioV2TestUser**](StudioV2TestUser.md)
 
 ### Authorization
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## UpdateTestUser
 
-> StudioV2FlowTestUser UpdateTestUser(ctx, Sidoptional)
+> StudioV2TestUser UpdateTestUser(ctx, Sidoptional)
 
 
 
@@ -78,7 +78,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV2FlowTestUser**](StudioV2FlowTestUser.md)
+[**StudioV2TestUser**](StudioV2TestUser.md)
 
 ### Authorization
 

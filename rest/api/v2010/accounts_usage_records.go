@@ -119,7 +119,7 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken st
 }
 
 // Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageRecord(params *ListUsageRecordParams) ([]ApiV2010AccountUsageUsageRecord, error) {
+func (c *ApiService) ListUsageRecord(params *ListUsageRecordParams) ([]ApiV2010UsageRecord, error) {
 	if params == nil {
 		params = &ListUsageRecordParams{}
 	}
@@ -131,7 +131,7 @@ func (c *ApiService) ListUsageRecord(params *ListUsageRecordParams) ([]ApiV2010A
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountUsageUsageRecord
+	var records []ApiV2010UsageRecord
 
 	for response != nil {
 		records = append(records, response.UsageRecords...)
@@ -148,7 +148,7 @@ func (c *ApiService) ListUsageRecord(params *ListUsageRecordParams) ([]ApiV2010A
 }
 
 // Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageRecord(params *ListUsageRecordParams) (chan ApiV2010AccountUsageUsageRecord, error) {
+func (c *ApiService) StreamUsageRecord(params *ListUsageRecordParams) (chan ApiV2010UsageRecord, error) {
 	if params == nil {
 		params = &ListUsageRecordParams{}
 	}
@@ -161,7 +161,7 @@ func (c *ApiService) StreamUsageRecord(params *ListUsageRecordParams) (chan ApiV
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountUsageUsageRecord, 1)
+	channel := make(chan ApiV2010UsageRecord, 1)
 
 	go func() {
 		for response != nil {

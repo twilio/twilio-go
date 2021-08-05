@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateQueue
 
-> ApiV2010AccountQueue CreateQueue(ctx, optional)
+> ApiV2010Queue CreateQueue(ctx, optional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountQueue**](ApiV2010AccountQueue.md)
+[**ApiV2010Queue**](ApiV2010Queue.md)
 
 ### Authorization
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## FetchQueue
 
-> ApiV2010AccountQueue FetchQueue(ctx, Sidoptional)
+> ApiV2010Queue FetchQueue(ctx, Sidoptional)
 
 
 
@@ -123,7 +123,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountQueue**](ApiV2010AccountQueue.md)
+[**ApiV2010Queue**](ApiV2010Queue.md)
 
 ### Authorization
 
@@ -182,7 +182,7 @@ Name | Type | Description
 
 ## UpdateQueue
 
-> ApiV2010AccountQueue UpdateQueue(ctx, Sidoptional)
+> ApiV2010Queue UpdateQueue(ctx, Sidoptional)
 
 
 
@@ -209,7 +209,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountQueue**](ApiV2010AccountQueue.md)
+[**ApiV2010Queue**](ApiV2010Queue.md)
 
 ### Authorization
 

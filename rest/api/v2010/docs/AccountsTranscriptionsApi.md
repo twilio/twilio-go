@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## FetchTranscription
 
-> ApiV2010AccountTranscription FetchTranscription(ctx, Sidoptional)
+> ApiV2010Transcription FetchTranscription(ctx, Sidoptional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountTranscription**](ApiV2010AccountTranscription.md)
+[**ApiV2010Transcription**](ApiV2010Transcription.md)
 
 ### Authorization
 

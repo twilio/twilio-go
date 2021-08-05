@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchRoomParticipantPublishedTrack
 
-> VideoV1RoomRoomParticipantRoomParticipantPublishedTrack FetchRoomParticipantPublishedTrack(ctx, RoomSidParticipantSidSid)
+> VideoV1RoomParticipantPublishedTrack FetchRoomParticipantPublishedTrack(ctx, RoomSidParticipantSidSid)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VideoV1RoomRoomParticipantRoomParticipantPublishedTrack**](VideoV1RoomRoomParticipantRoomParticipantPublishedTrack.md)
+[**VideoV1RoomParticipantPublishedTrack**](VideoV1RoomParticipantPublishedTrack.md)
 
 ### Authorization
 

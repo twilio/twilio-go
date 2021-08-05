@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateEvaluation
 
-> NumbersV2RegulatoryComplianceBundleEvaluation CreateEvaluation(ctx, BundleSid)
+> NumbersV2Evaluation CreateEvaluation(ctx, BundleSid)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundleEvaluation**](NumbersV2RegulatoryComplianceBundleEvaluation.md)
+[**NumbersV2Evaluation**](NumbersV2Evaluation.md)
 
 ### Authorization
 
@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## FetchEvaluation
 
-> NumbersV2RegulatoryComplianceBundleEvaluation FetchEvaluation(ctx, BundleSidSid)
+> NumbersV2Evaluation FetchEvaluation(ctx, BundleSidSid)
 
 
 
@@ -79,7 +79,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundleEvaluation**](NumbersV2RegulatoryComplianceBundleEvaluation.md)
+[**NumbersV2Evaluation**](NumbersV2Evaluation.md)
 
 ### Authorization
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchDialingPermissionsSettings
 
-> VoiceV1DialingPermissionsDialingPermissionsSettings FetchDialingPermissionsSettings(ctx, )
+> VoiceV1DialingPermissionsSettings FetchDialingPermissionsSettings(ctx, )
 
 
 
@@ -28,7 +28,7 @@ Other parameters are passed through a pointer to a FetchDialingPermissionsSettin
 
 ### Return type
 
-[**VoiceV1DialingPermissionsDialingPermissionsSettings**](VoiceV1DialingPermissionsDialingPermissionsSettings.md)
+[**VoiceV1DialingPermissionsSettings**](VoiceV1DialingPermissionsSettings.md)
 
 ### Authorization
 
@@ -46,7 +46,7 @@ Other parameters are passed through a pointer to a FetchDialingPermissionsSettin
 
 ## UpdateDialingPermissionsSettings
 
-> VoiceV1DialingPermissionsDialingPermissionsSettings UpdateDialingPermissionsSettings(ctx, optional)
+> VoiceV1DialingPermissionsSettings UpdateDialingPermissionsSettings(ctx, optional)
 
 
 
@@ -67,7 +67,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VoiceV1DialingPermissionsDialingPermissionsSettings**](VoiceV1DialingPermissionsDialingPermissionsSettings.md)
+[**VoiceV1DialingPermissionsSettings**](VoiceV1DialingPermissionsSettings.md)
 
 ### Authorization
 

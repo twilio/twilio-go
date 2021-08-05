@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Meta** | [**ListCredentialResponseMeta**](ListCredentialResponseMeta.md) |  |[optional] 
-**Users** | [**[]IpMessagingV2ServiceUser**](IpMessagingV2ServiceUser.md) |  |[optional] 
+**Users** | [**[]IpMessagingV2User**](IpMessagingV2User.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

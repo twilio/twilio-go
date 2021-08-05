@@ -22,7 +22,7 @@ import (
 )
 
 // Get Video Log Analyzer data for a Room Participant.
-func (c *ApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid string) (*InsightsV1VideoRoomSummaryVideoParticipantSummary, error) {
+func (c *ApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid string) (*InsightsV1VideoParticipantSummary, error) {
 	path := "/v1/Video/Rooms/{RoomSid}/Participants/{ParticipantSid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
@@ -37,7 +37,7 @@ func (c *ApiService) FetchVideoParticipantSummary(RoomSid string, ParticipantSid
 
 	defer resp.Body.Close()
 
-	ps := &InsightsV1VideoRoomSummaryVideoParticipantSummary{}
+	ps := &InsightsV1VideoParticipantSummary{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (c *ApiService) PageVideoParticipantSummary(RoomSid string, params *ListVid
 }
 
 // Lists VideoParticipantSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) ([]InsightsV1VideoRoomSummaryVideoParticipantSummary, error) {
+func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) ([]InsightsV1VideoParticipantSummary, error) {
 	if params == nil {
 		params = &ListVideoParticipantSummaryParams{}
 	}
@@ -110,7 +110,7 @@ func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVid
 	}
 
 	curRecord := 0
-	var records []InsightsV1VideoRoomSummaryVideoParticipantSummary
+	var records []InsightsV1VideoParticipantSummary
 
 	for response != nil {
 		records = append(records, response.Participants...)
@@ -127,7 +127,7 @@ func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVid
 }
 
 // Streams VideoParticipantSummary records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) (chan InsightsV1VideoRoomSummaryVideoParticipantSummary, error) {
+func (c *ApiService) StreamVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) (chan InsightsV1VideoParticipantSummary, error) {
 	if params == nil {
 		params = &ListVideoParticipantSummaryParams{}
 	}
@@ -140,7 +140,7 @@ func (c *ApiService) StreamVideoParticipantSummary(RoomSid string, params *ListV
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan InsightsV1VideoRoomSummaryVideoParticipantSummary, 1)
+	channel := make(chan InsightsV1VideoParticipantSummary, 1)
 
 	go func() {
 		for response != nil {

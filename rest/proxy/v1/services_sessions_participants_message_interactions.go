@@ -39,7 +39,7 @@ func (params *CreateMessageInteractionParams) SetMediaUrl(MediaUrl []string) *Cr
 }
 
 // Create a new message Interaction to send directly from your system to one [Participant](https://www.twilio.com/docs/proxy/api/participant).  The &#x60;inbound&#x60; properties for the Interaction will always be empty.
-func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *CreateMessageInteractionParams) (*ProxyV1ServiceSessionParticipantMessageInteraction, error) {
+func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *CreateMessageInteractionParams) (*ProxyV1MessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
@@ -64,7 +64,7 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 
 	defer resp.Body.Close()
 
-	ps := &ProxyV1ServiceSessionParticipantMessageInteraction{}
+	ps := &ProxyV1MessageInteraction{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -72,7 +72,7 @@ func (c *ApiService) CreateMessageInteraction(ServiceSid string, SessionSid stri
 	return ps, err
 }
 
-func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*ProxyV1ServiceSessionParticipantMessageInteraction, error) {
+func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, Sid string) (*ProxyV1MessageInteraction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
@@ -89,7 +89,7 @@ func (c *ApiService) FetchMessageInteraction(ServiceSid string, SessionSid strin
 
 	defer resp.Body.Close()
 
-	ps := &ProxyV1ServiceSessionParticipantMessageInteraction{}
+	ps := &ProxyV1MessageInteraction{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -152,7 +152,7 @@ func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string
 }
 
 // Lists MessageInteraction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) ([]ProxyV1ServiceSessionParticipantMessageInteraction, error) {
+func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) ([]ProxyV1MessageInteraction, error) {
 	if params == nil {
 		params = &ListMessageInteractionParams{}
 	}
@@ -164,7 +164,7 @@ func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string
 	}
 
 	curRecord := 0
-	var records []ProxyV1ServiceSessionParticipantMessageInteraction
+	var records []ProxyV1MessageInteraction
 
 	for response != nil {
 		records = append(records, response.Interactions...)
@@ -181,7 +181,7 @@ func (c *ApiService) ListMessageInteraction(ServiceSid string, SessionSid string
 }
 
 // Streams MessageInteraction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) (chan ProxyV1ServiceSessionParticipantMessageInteraction, error) {
+func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams) (chan ProxyV1MessageInteraction, error) {
 	if params == nil {
 		params = &ListMessageInteractionParams{}
 	}
@@ -194,7 +194,7 @@ func (c *ApiService) StreamMessageInteraction(ServiceSid string, SessionSid stri
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ProxyV1ServiceSessionParticipantMessageInteraction, 1)
+	channel := make(chan ProxyV1MessageInteraction, 1)
 
 	go func() {
 		for response != nil {

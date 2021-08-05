@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
-**Payloads** | [**[]ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload**](ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload.md) |  |[optional] 
+**Payloads** | [**[]ApiV2010RecordingAddOnResultPayload**](ApiV2010RecordingAddOnResultPayload.md) |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 

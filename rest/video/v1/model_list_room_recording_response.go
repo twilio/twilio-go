@@ -14,5 +14,5 @@ package openapi
 // ListRoomRecordingResponse struct for ListRoomRecordingResponse
 type ListRoomRecordingResponse struct {
 	Meta       ListCompositionHookResponseMeta `json:"meta,omitempty"`
-	Recordings []VideoV1RoomRoomRecording      `json:"recordings,omitempty"`
+	Recordings []VideoV1RoomRecording          `json:"recordings,omitempty"`
 }

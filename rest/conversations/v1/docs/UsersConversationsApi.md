@@ -56,7 +56,7 @@ Name | Type | Description
 
 ## FetchUserConversation
 
-> ConversationsV1UserUserConversation FetchUserConversation(ctx, UserSidConversationSid)
+> ConversationsV1UserConversation FetchUserConversation(ctx, UserSidConversationSid)
 
 
 
@@ -81,7 +81,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1UserUserConversation**](ConversationsV1UserUserConversation.md)
+[**ConversationsV1UserConversation**](ConversationsV1UserConversation.md)
 
 ### Authorization
 
@@ -143,7 +143,7 @@ Name | Type | Description
 
 ## UpdateUserConversation
 
-> ConversationsV1UserUserConversation UpdateUserConversation(ctx, UserSidConversationSidoptional)
+> ConversationsV1UserConversation UpdateUserConversation(ctx, UserSidConversationSidoptional)
 
 
 
@@ -171,7 +171,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1UserUserConversation**](ConversationsV1UserUserConversation.md)
+[**ConversationsV1UserConversation**](ConversationsV1UserConversation.md)
 
 ### Authorization
 

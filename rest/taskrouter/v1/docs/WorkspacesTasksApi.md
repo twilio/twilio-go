@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateTask
 
-> TaskrouterV1WorkspaceTask CreateTask(ctx, WorkspaceSidoptional)
+> TaskrouterV1Task CreateTask(ctx, WorkspaceSidoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTask**](TaskrouterV1WorkspaceTask.md)
+[**TaskrouterV1Task**](TaskrouterV1Task.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchTask
 
-> TaskrouterV1WorkspaceTask FetchTask(ctx, WorkspaceSidSid)
+> TaskrouterV1Task FetchTask(ctx, WorkspaceSidSid)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTask**](TaskrouterV1WorkspaceTask.md)
+[**TaskrouterV1Task**](TaskrouterV1Task.md)
 
 ### Authorization
 
@@ -193,7 +193,7 @@ Name | Type | Description
 
 ## UpdateTask
 
-> TaskrouterV1WorkspaceTask UpdateTask(ctx, WorkspaceSidSidoptional)
+> TaskrouterV1Task UpdateTask(ctx, WorkspaceSidSidoptional)
 
 
 
@@ -222,7 +222,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTask**](TaskrouterV1WorkspaceTask.md)
+[**TaskrouterV1Task**](TaskrouterV1Task.md)
 
 ### Authorization
 

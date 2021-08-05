@@ -75,7 +75,7 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 }
 
 // Lists UserChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) ([]IpMessagingV1ServiceUserUserChannel, error) {
+func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) ([]IpMessagingV1UserChannel, error) {
 	if params == nil {
 		params = &ListUserChannelParams{}
 	}
@@ -87,7 +87,7 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 	}
 
 	curRecord := 0
-	var records []IpMessagingV1ServiceUserUserChannel
+	var records []IpMessagingV1UserChannel
 
 	for response != nil {
 		records = append(records, response.Channels...)
@@ -104,7 +104,7 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 }
 
 // Streams UserChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) (chan IpMessagingV1ServiceUserUserChannel, error) {
+func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) (chan IpMessagingV1UserChannel, error) {
 	if params == nil {
 		params = &ListUserChannelParams{}
 	}
@@ -117,7 +117,7 @@ func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan IpMessagingV1ServiceUserUserChannel, 1)
+	channel := make(chan IpMessagingV1UserChannel, 1)
 
 	go func() {
 		for response != nil {

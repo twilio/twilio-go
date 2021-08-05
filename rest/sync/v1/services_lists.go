@@ -44,7 +44,7 @@ func (params *CreateSyncListParams) SetUniqueName(UniqueName string) *CreateSync
 	return params
 }
 
-func (c *ApiService) CreateSyncList(ServiceSid string, params *CreateSyncListParams) (*SyncV1ServiceSyncList, error) {
+func (c *ApiService) CreateSyncList(ServiceSid string, params *CreateSyncListParams) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -68,7 +68,7 @@ func (c *ApiService) CreateSyncList(ServiceSid string, params *CreateSyncListPar
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncList{}
+	ps := &SyncV1SyncList{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (c *ApiService) DeleteSyncList(ServiceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV1ServiceSyncList, error) {
+func (c *ApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -109,7 +109,7 @@ func (c *ApiService) FetchSyncList(ServiceSid string, Sid string) (*SyncV1Servic
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncList{}
+	ps := &SyncV1SyncList{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -170,7 +170,7 @@ func (c *ApiService) PageSyncList(ServiceSid string, params *ListSyncListParams,
 }
 
 // Lists SyncList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams) ([]SyncV1ServiceSyncList, error) {
+func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams) ([]SyncV1SyncList, error) {
 	if params == nil {
 		params = &ListSyncListParams{}
 	}
@@ -182,7 +182,7 @@ func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams)
 	}
 
 	curRecord := 0
-	var records []SyncV1ServiceSyncList
+	var records []SyncV1SyncList
 
 	for response != nil {
 		records = append(records, response.Lists...)
@@ -199,7 +199,7 @@ func (c *ApiService) ListSyncList(ServiceSid string, params *ListSyncListParams)
 }
 
 // Streams SyncList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncList(ServiceSid string, params *ListSyncListParams) (chan SyncV1ServiceSyncList, error) {
+func (c *ApiService) StreamSyncList(ServiceSid string, params *ListSyncListParams) (chan SyncV1SyncList, error) {
 	if params == nil {
 		params = &ListSyncListParams{}
 	}
@@ -212,7 +212,7 @@ func (c *ApiService) StreamSyncList(ServiceSid string, params *ListSyncListParam
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan SyncV1ServiceSyncList, 1)
+	channel := make(chan SyncV1SyncList, 1)
 
 	go func() {
 		for response != nil {
@@ -269,7 +269,7 @@ func (params *UpdateSyncListParams) SetTtl(Ttl int) *UpdateSyncListParams {
 	return params
 }
 
-func (c *ApiService) UpdateSyncList(ServiceSid string, Sid string, params *UpdateSyncListParams) (*SyncV1ServiceSyncList, error) {
+func (c *ApiService) UpdateSyncList(ServiceSid string, Sid string, params *UpdateSyncListParams) (*SyncV1SyncList, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -291,7 +291,7 @@ func (c *ApiService) UpdateSyncList(ServiceSid string, Sid string, params *Updat
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncList{}
+	ps := &SyncV1SyncList{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

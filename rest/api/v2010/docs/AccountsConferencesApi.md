@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## FetchConference
 
-> ApiV2010AccountConference FetchConference(ctx, Sidoptional)
+> ApiV2010Conference FetchConference(ctx, Sidoptional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountConference**](ApiV2010AccountConference.md)
+[**ApiV2010Conference**](ApiV2010Conference.md)
 
 ### Authorization
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 ## UpdateConference
 
-> ApiV2010AccountConference UpdateConference(ctx, Sidoptional)
+> ApiV2010Conference UpdateConference(ctx, Sidoptional)
 
 
 
@@ -130,7 +130,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountConference**](ApiV2010AccountConference.md)
+[**ApiV2010Conference**](ApiV2010Conference.md)
 
 ### Authorization
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchIncomingPhoneNumberAssignedAddOnExtension
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension FetchIncomingPhoneNumberAssignedAddOnExtension(ctx, ResourceSidAssignedAddOnSidSidoptional)
+> ApiV2010IncomingPhoneNumberAssignedAddOnExtension FetchIncomingPhoneNumberAssignedAddOnExtension(ctx, ResourceSidAssignedAddOnSidSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension**](ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension.md)
+[**ApiV2010IncomingPhoneNumberAssignedAddOnExtension**](ApiV2010IncomingPhoneNumberAssignedAddOnExtension.md)
 
 ### Authorization
 

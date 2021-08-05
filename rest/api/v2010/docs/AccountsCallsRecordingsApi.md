@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateCallRecording
 
-> ApiV2010AccountCallCallRecording CreateCallRecording(ctx, CallSidoptional)
+> ApiV2010CallRecording CreateCallRecording(ctx, CallSidoptional)
 
 
 
@@ -45,7 +45,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCallCallRecording**](ApiV2010AccountCallCallRecording.md)
+[**ApiV2010CallRecording**](ApiV2010CallRecording.md)
 
 ### Authorization
 
@@ -107,7 +107,7 @@ Name | Type | Description
 
 ## FetchCallRecording
 
-> ApiV2010AccountCallCallRecording FetchCallRecording(ctx, CallSidSidoptional)
+> ApiV2010CallRecording FetchCallRecording(ctx, CallSidSidoptional)
 
 
 
@@ -133,7 +133,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCallCallRecording**](ApiV2010AccountCallCallRecording.md)
+[**ApiV2010CallRecording**](ApiV2010CallRecording.md)
 
 ### Authorization
 
@@ -199,7 +199,7 @@ Name | Type | Description
 
 ## UpdateCallRecording
 
-> ApiV2010AccountCallCallRecording UpdateCallRecording(ctx, CallSidSidoptional)
+> ApiV2010CallRecording UpdateCallRecording(ctx, CallSidSidoptional)
 
 
 
@@ -227,7 +227,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCallCallRecording**](ApiV2010AccountCallCallRecording.md)
+[**ApiV2010CallRecording**](ApiV2010CallRecording.md)
 
 ### Authorization
 

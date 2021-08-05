@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchUsAppToPersonUsecase
 
-> MessagingV1ServiceUsAppToPersonUsecase FetchUsAppToPersonUsecase(ctx, MessagingServiceSid)
+> MessagingV1UsAppToPersonUsecase FetchUsAppToPersonUsecase(ctx, MessagingServiceSid)
 
 
 
@@ -32,7 +32,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV1ServiceUsAppToPersonUsecase**](MessagingV1ServiceUsAppToPersonUsecase.md)
+[**MessagingV1UsAppToPersonUsecase**](MessagingV1UsAppToPersonUsecase.md)
 
 ### Authorization
 

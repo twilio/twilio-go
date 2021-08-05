@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateSipCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipCredentialListMapping CreateSipCredentialListMapping(ctx, DomainSidoptional)
+> ApiV2010SipCredentialListMapping CreateSipCredentialListMapping(ctx, DomainSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipCredentialListMapping**](ApiV2010AccountSipSipDomainSipCredentialListMapping.md)
+[**ApiV2010SipCredentialListMapping**](ApiV2010SipCredentialListMapping.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchSipCredentialListMapping
 
-> ApiV2010AccountSipSipDomainSipCredentialListMapping FetchSipCredentialListMapping(ctx, DomainSidSidoptional)
+> ApiV2010SipCredentialListMapping FetchSipCredentialListMapping(ctx, DomainSidSidoptional)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipCredentialListMapping**](ApiV2010AccountSipSipDomainSipCredentialListMapping.md)
+[**ApiV2010SipCredentialListMapping**](ApiV2010SipCredentialListMapping.md)
 
 ### Authorization
 

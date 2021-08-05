@@ -39,7 +39,7 @@ func (params *CreateSipCredentialListParams) SetFriendlyName(FriendlyName string
 }
 
 // Create a Credential List
-func (c *ApiService) CreateSipCredentialList(params *CreateSipCredentialListParams) (*ApiV2010AccountSipSipCredentialList, error) {
+func (c *ApiService) CreateSipCredentialList(params *CreateSipCredentialListParams) (*ApiV2010SipCredentialList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -61,7 +61,7 @@ func (c *ApiService) CreateSipCredentialList(params *CreateSipCredentialListPara
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountSipSipCredentialList{}
+	ps := &ApiV2010SipCredentialList{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -115,7 +115,7 @@ func (params *FetchSipCredentialListParams) SetPathAccountSid(PathAccountSid str
 }
 
 // Get a Credential List
-func (c *ApiService) FetchSipCredentialList(Sid string, params *FetchSipCredentialListParams) (*ApiV2010AccountSipSipCredentialList, error) {
+func (c *ApiService) FetchSipCredentialList(Sid string, params *FetchSipCredentialListParams) (*ApiV2010SipCredentialList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -134,7 +134,7 @@ func (c *ApiService) FetchSipCredentialList(Sid string, params *FetchSipCredenti
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountSipSipCredentialList{}
+	ps := &ApiV2010SipCredentialList{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -205,7 +205,7 @@ func (c *ApiService) PageSipCredentialList(params *ListSipCredentialListParams, 
 }
 
 // Lists SipCredentialList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipCredentialList(params *ListSipCredentialListParams) ([]ApiV2010AccountSipSipCredentialList, error) {
+func (c *ApiService) ListSipCredentialList(params *ListSipCredentialListParams) ([]ApiV2010SipCredentialList, error) {
 	if params == nil {
 		params = &ListSipCredentialListParams{}
 	}
@@ -217,7 +217,7 @@ func (c *ApiService) ListSipCredentialList(params *ListSipCredentialListParams) 
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountSipSipCredentialList
+	var records []ApiV2010SipCredentialList
 
 	for response != nil {
 		records = append(records, response.CredentialLists...)
@@ -234,7 +234,7 @@ func (c *ApiService) ListSipCredentialList(params *ListSipCredentialListParams) 
 }
 
 // Streams SipCredentialList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipCredentialList(params *ListSipCredentialListParams) (chan ApiV2010AccountSipSipCredentialList, error) {
+func (c *ApiService) StreamSipCredentialList(params *ListSipCredentialListParams) (chan ApiV2010SipCredentialList, error) {
 	if params == nil {
 		params = &ListSipCredentialListParams{}
 	}
@@ -247,7 +247,7 @@ func (c *ApiService) StreamSipCredentialList(params *ListSipCredentialListParams
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountSipSipCredentialList, 1)
+	channel := make(chan ApiV2010SipCredentialList, 1)
 
 	go func() {
 		for response != nil {
@@ -305,7 +305,7 @@ func (params *UpdateSipCredentialListParams) SetFriendlyName(FriendlyName string
 }
 
 // Update a Credential List
-func (c *ApiService) UpdateSipCredentialList(Sid string, params *UpdateSipCredentialListParams) (*ApiV2010AccountSipSipCredentialList, error) {
+func (c *ApiService) UpdateSipCredentialList(Sid string, params *UpdateSipCredentialListParams) (*ApiV2010SipCredentialList, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -328,7 +328,7 @@ func (c *ApiService) UpdateSipCredentialList(Sid string, params *UpdateSipCreden
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountSipSipCredentialList{}
+	ps := &ApiV2010SipCredentialList{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

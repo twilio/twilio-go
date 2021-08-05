@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateBundle
 
-> NumbersV2RegulatoryComplianceBundle CreateBundle(ctx, optional)
+> NumbersV2Bundle CreateBundle(ctx, optional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundle**](NumbersV2RegulatoryComplianceBundle.md)
+[**NumbersV2Bundle**](NumbersV2Bundle.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchBundle
 
-> NumbersV2RegulatoryComplianceBundle FetchBundle(ctx, Sid)
+> NumbersV2Bundle FetchBundle(ctx, Sid)
 
 
 
@@ -125,7 +125,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundle**](NumbersV2RegulatoryComplianceBundle.md)
+[**NumbersV2Bundle**](NumbersV2Bundle.md)
 
 ### Authorization
 
@@ -188,7 +188,7 @@ Name | Type | Description
 
 ## UpdateBundle
 
-> NumbersV2RegulatoryComplianceBundle UpdateBundle(ctx, Sidoptional)
+> NumbersV2Bundle UpdateBundle(ctx, Sidoptional)
 
 
 
@@ -216,7 +216,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundle**](NumbersV2RegulatoryComplianceBundle.md)
+[**NumbersV2Bundle**](NumbersV2Bundle.md)
 
 ### Authorization
 

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateSyncMapItem
 
-> SyncV1ServiceSyncMapSyncMapItem CreateSyncMapItem(ctx, ServiceSidMapSidoptional)
+> SyncV1SyncMapItem CreateSyncMapItem(ctx, ServiceSidMapSidoptional)
 
 
 
@@ -42,7 +42,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncMapSyncMapItem**](SyncV1ServiceSyncMapSyncMapItem.md)
+[**SyncV1SyncMapItem**](SyncV1SyncMapItem.md)
 
 ### Authorization
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 ## FetchSyncMapItem
 
-> SyncV1ServiceSyncMapSyncMapItem FetchSyncMapItem(ctx, ServiceSidMapSidKey)
+> SyncV1SyncMapItem FetchSyncMapItem(ctx, ServiceSidMapSidKey)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncMapSyncMapItem**](SyncV1ServiceSyncMapSyncMapItem.md)
+[**SyncV1SyncMapItem**](SyncV1SyncMapItem.md)
 
 ### Authorization
 
@@ -191,7 +191,7 @@ Name | Type | Description
 
 ## UpdateSyncMapItem
 
-> SyncV1ServiceSyncMapSyncMapItem UpdateSyncMapItem(ctx, ServiceSidMapSidKeyoptional)
+> SyncV1SyncMapItem UpdateSyncMapItem(ctx, ServiceSidMapSidKeyoptional)
 
 
 
@@ -220,7 +220,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncMapSyncMapItem**](SyncV1ServiceSyncMapSyncMapItem.md)
+[**SyncV1SyncMapItem**](SyncV1SyncMapItem.md)
 
 ### Authorization
 

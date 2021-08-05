@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchLog
 
-> ServerlessV1ServiceEnvironmentLog FetchLog(ctx, ServiceSidEnvironmentSidSid)
+> ServerlessV1Log FetchLog(ctx, ServiceSidEnvironmentSidSid)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentLog**](ServerlessV1ServiceEnvironmentLog.md)
+[**ServerlessV1Log**](ServerlessV1Log.md)
 
 ### Authorization
 

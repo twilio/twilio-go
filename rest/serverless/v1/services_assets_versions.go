@@ -22,7 +22,7 @@ import (
 )
 
 // Retrieve a specific Asset Version.
-func (c *ApiService) FetchAssetVersion(ServiceSid string, AssetSid string, Sid string) (*ServerlessV1ServiceAssetAssetVersion, error) {
+func (c *ApiService) FetchAssetVersion(ServiceSid string, AssetSid string, Sid string) (*ServerlessV1AssetVersion, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"AssetSid"+"}", AssetSid, -1)
@@ -38,7 +38,7 @@ func (c *ApiService) FetchAssetVersion(ServiceSid string, AssetSid string, Sid s
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceAssetAssetVersion{}
+	ps := &ServerlessV1AssetVersion{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -100,7 +100,7 @@ func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params
 }
 
 // Lists AssetVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) ([]ServerlessV1ServiceAssetAssetVersion, error) {
+func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) ([]ServerlessV1AssetVersion, error) {
 	if params == nil {
 		params = &ListAssetVersionParams{}
 	}
@@ -112,7 +112,7 @@ func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params
 	}
 
 	curRecord := 0
-	var records []ServerlessV1ServiceAssetAssetVersion
+	var records []ServerlessV1AssetVersion
 
 	for response != nil {
 		records = append(records, response.AssetVersions...)
@@ -129,7 +129,7 @@ func (c *ApiService) ListAssetVersion(ServiceSid string, AssetSid string, params
 }
 
 // Streams AssetVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) (chan ServerlessV1ServiceAssetAssetVersion, error) {
+func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams) (chan ServerlessV1AssetVersion, error) {
 	if params == nil {
 		params = &ListAssetVersionParams{}
 	}
@@ -142,7 +142,7 @@ func (c *ApiService) StreamAssetVersion(ServiceSid string, AssetSid string, para
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ServerlessV1ServiceAssetAssetVersion, 1)
+	channel := make(chan ServerlessV1AssetVersion, 1)
 
 	go func() {
 		for response != nil {

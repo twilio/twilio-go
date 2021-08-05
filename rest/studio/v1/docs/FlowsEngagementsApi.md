@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateEngagement
 
-> StudioV1FlowEngagement CreateEngagement(ctx, FlowSidoptional)
+> StudioV1Engagement CreateEngagement(ctx, FlowSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV1FlowEngagement**](StudioV1FlowEngagement.md)
+[**StudioV1Engagement**](StudioV1Engagement.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchEngagement
 
-> StudioV1FlowEngagement FetchEngagement(ctx, FlowSidSid)
+> StudioV1Engagement FetchEngagement(ctx, FlowSidSid)
 
 
 
@@ -126,7 +126,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV1FlowEngagement**](StudioV1FlowEngagement.md)
+[**StudioV1Engagement**](StudioV1Engagement.md)
 
 ### Authorization
 

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchEngagementContext
 
-> StudioV1FlowEngagementEngagementContext FetchEngagementContext(ctx, FlowSidEngagementSid)
+> StudioV1EngagementContext FetchEngagementContext(ctx, FlowSidEngagementSid)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV1FlowEngagementEngagementContext**](StudioV1FlowEngagementEngagementContext.md)
+[**StudioV1EngagementContext**](StudioV1EngagementContext.md)
 
 ### Authorization
 

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateMessageFeedback
 
-> ApiV2010AccountMessageMessageFeedback CreateMessageFeedback(ctx, MessageSidoptional)
+> ApiV2010MessageFeedback CreateMessageFeedback(ctx, MessageSidoptional)
 
 
 
@@ -34,7 +34,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountMessageMessageFeedback**](ApiV2010AccountMessageMessageFeedback.md)
+[**ApiV2010MessageFeedback**](ApiV2010MessageFeedback.md)
 
 ### Authorization
 

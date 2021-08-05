@@ -31,7 +31,7 @@ func (params *FetchCallFeedbackParams) SetPathAccountSid(PathAccountSid string) 
 }
 
 // Fetch a Feedback resource from a call
-func (c *ApiService) FetchCallFeedback(CallSid string, params *FetchCallFeedbackParams) (*ApiV2010AccountCallCallFeedback, error) {
+func (c *ApiService) FetchCallFeedback(CallSid string, params *FetchCallFeedbackParams) (*ApiV2010CallFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -50,7 +50,7 @@ func (c *ApiService) FetchCallFeedback(CallSid string, params *FetchCallFeedback
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCallCallFeedback{}
+	ps := &ApiV2010CallFeedback{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -82,7 +82,7 @@ func (params *UpdateCallFeedbackParams) SetQualityScore(QualityScore int) *Updat
 }
 
 // Update a Feedback resource for a call
-func (c *ApiService) UpdateCallFeedback(CallSid string, params *UpdateCallFeedbackParams) (*ApiV2010AccountCallCallFeedback, error) {
+func (c *ApiService) UpdateCallFeedback(CallSid string, params *UpdateCallFeedbackParams) (*ApiV2010CallFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -110,7 +110,7 @@ func (c *ApiService) UpdateCallFeedback(CallSid string, params *UpdateCallFeedba
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCallCallFeedback{}
+	ps := &ApiV2010CallFeedback{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
