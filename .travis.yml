@@ -1,15 +1,22 @@
 language: go
 go:
-  - '1.15'
-  - '1.16'
+- '1.15'
+- '1.16'
 install:
-  - make install
+- make install
 script:
   - make test
   - if [[ "$TRAVIS_BRANCH" == "main"  ||  "$TRAVIS_BRANCH" == "travis" ]] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     make cluster-test;
     echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin;
     fi
+  - make cover
+jobs:
+  include:
+    - language: go
+      go: '1.16'
+      after_success:
+        - sonar-scanner
 deploy:
   - provider: script
     script: make docker-build && make docker-push
@@ -25,3 +32,8 @@ notifications:
     on_failure: change
     rooms:
       secure: V34PCbNL5LT8vrssymxcAE9OszdVFNMm9z4iCDH9lz7PeHYMym1whQ779VVcmWfGBq9npk3kvF1eUyBRqADqE4nMznKol2N6pmWSRX1mgA0L0LRHPyOnYTgzOs4rOJQyihFt37xQjzKOdUhnrvS2nyLHcKluHuBeOUvIKyNftvmq3wJBqmgESJm59CBSMk19V/e0iZTl3BBrjFz5XKMEURtbOFqJFzQqK2wU7CJA9iTub4pRLzOQd05URhcPfI4+J3O9kn2gNTs6aK2bgEZTBOAX/TE997gt2BlL2bxhLVyCFb0yBaGRaA8l6adJKzVMUbi5XH5xHzdaMbS3nvBKEILQsBdy+XXI3l33sIvdHPcHCE+QD6ri8Yz2TiHrEAiaN5vrXLqjnkJsFFP2qcWHnug263TldOB1gilGoKmCXPvfVoJJC7ezjEw5BCCtz5+/Aqmsxqi4FoB8PXH4hvNYHzVtllve6vVNS/tmB3a8fQcceJf1V3bu+m/cf9hQSHAvPuq9LpQc6QZYOqYkOxgEYx80oirVP2G9Zh8GO0Pp5/HNx7+gBgUTi24iDL8SjWhI4PuP2yNFB9Z/uZnvweQ9MBzA7liEOHsPaOPfEKsRY01SiKK/HXdbK04AhAxPNJT/rQbbS4rDk3kZN/pfqqCtyYYJufZkYZNuiUeZe5VftSg=
+addons:
+  sonarcloud:
+    organization: "twilio"
+    token:
+      secure: GqjIwjGv8dP3Wwr39m4iPC87y6Z10H3GV19Tb8RAF3pLeCZUiFVJGqpLphLFmklcwAKh4b6997Y504CZHqFimD+XZM2n8CHahh4WnB/GXAhwcyFSGRDd2W+ekrGJrJhyCrr7fwpBBQSMIuz4SdffG4s3ylahBNXWE5ucqJ96/kZD45nNaCy4I97efnPAaqsn+VEJuWkdvnBfU/lxd3xGPS2rsoMxOnEjZnnyJfGNzgLxIZP0sTp0LdyHxIq0CWhHxWClUXAX3pP9sP77rTJjhrlB+BU56ywplyhHD2D485ryZ8Q6Q5QcbkTP1c/1LZeIkAgH7tbufvWrZTyfY7txWajMbngivaXfUMbknonajTFHw03UfPeG9DRJqTommRNGYFRB/H6/d/6XpOfRFRTFZxlvj03KRkYvXSmcN2ea+CEuNPsTjLQziE2Nu/hPH6wNBola+jX7vAK3zDLOq2qMtlT+WgBFkWcMFgxFp9NKf1E7HtMLI6vmq+CpFSnYL3E5Kq8HZvMROPJ4leaoMj/5+7J2lScF0J280Mwf5EeuCSpirp0DV3Fn2oOS4+2kcWjc1va3VwMp2Oeq6kveLOvksY2xIsfvYipvDWnixlqje6rkuKY93zW+lkwz762YwD2i38P8pqDrRxm/jM+aWLyKb+Jq/05k3T0igtmirzO8F8Y=
