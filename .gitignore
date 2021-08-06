@@ -21,6 +21,7 @@
 # Vim Swap Files
 .*swp
 
-
 /scratch
 
+coverage.out
+test-report.out
