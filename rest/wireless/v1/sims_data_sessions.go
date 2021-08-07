@@ -92,7 +92,7 @@ func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParam
 		records = append(records, response.DataSessions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDataSessionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDataSessionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -125,7 +125,7 @@ func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionPar
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDataSessionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDataSessionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -138,11 +138,11 @@ func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionPar
 	return channel, err
 }
 
-func (c *ApiService) getNextListDataSessionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListDataSessionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

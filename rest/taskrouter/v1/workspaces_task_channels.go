@@ -188,7 +188,7 @@ func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChanne
 		records = append(records, response.Channels...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -221,7 +221,7 @@ func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChan
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -234,11 +234,11 @@ func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChan
 	return channel, err
 }
 
-func (c *ApiService) getNextListTaskChannelResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListTaskChannelResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -21,3 +21,34 @@ func setLimit(limit int) *int {
 func setPageSize(pageSize int) *int {
 	return &pageSize
 }
+
+func TestGetNextPageUri(t *testing.T) {
+	payload := map[string]interface{}{
+		"next_page_uri": "/2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1",
+		"page_size":     50,
+	}
+	baseUrl := "https://api.twilio.com/"
+	nextPageUrl := getNextPageUrl(baseUrl, payload)
+	assert.Equal(t, "https://api.twilio.com/2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1", nextPageUrl)
+
+	payload["next_page_uri"] = "2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1"
+	baseUrl = "https://api.twilio.com"
+	nextPageUrl = getNextPageUrl(baseUrl, payload)
+	assert.Equal(t, "https://api.twilio.com/2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1", nextPageUrl)
+
+	payload = map[string]interface{}{}
+	nextPageUrl = getNextPageUrl(baseUrl, payload)
+	assert.Equal(t, "", nextPageUrl)
+}
+
+func TestGetNextPageUrl(t *testing.T) {
+	payload := map[string]interface{}{
+		"meta": map[string]interface{}{
+			"next_page_url": "https://api.twilio.com/2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1",
+			"page_size":     50,
+		},
+	}
+
+	nextPageUrl := getNextPageUrl("https://apitest.twilio.com", payload)
+	assert.Equal(t, "https://api.twilio.com/2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1", nextPageUrl)
+}

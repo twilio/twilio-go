@@ -116,7 +116,7 @@ func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParam
 		records = append(records, response.SchemaVersions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSchemaVersionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSchemaVersionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -149,7 +149,7 @@ func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionPar
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSchemaVersionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSchemaVersionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -162,11 +162,11 @@ func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionPar
 	return channel, err
 }
 
-func (c *ApiService) getNextListSchemaVersionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSchemaVersionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -118,7 +118,7 @@ func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *List
 		records = append(records, response.Steps...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -151,7 +151,7 @@ func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *Li
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -164,11 +164,11 @@ func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *Li
 	return channel, err
 }
 
-func (c *ApiService) getNextListStepResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListStepResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

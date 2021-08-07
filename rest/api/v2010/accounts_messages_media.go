@@ -206,7 +206,7 @@ func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams) ([]Ap
 		records = append(records, response.MediaList...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMediaResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMediaResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -239,7 +239,7 @@ func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (ch
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMediaResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMediaResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -252,11 +252,11 @@ func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (ch
 	return channel, err
 }
 
-func (c *ApiService) getNextListMediaResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListMediaResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

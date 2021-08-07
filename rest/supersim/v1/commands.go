@@ -204,7 +204,7 @@ func (c *ApiService) ListCommand(params *ListCommandParams) ([]SupersimV1Command
 		records = append(records, response.Commands...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCommandResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCommandResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -237,7 +237,7 @@ func (c *ApiService) StreamCommand(params *ListCommandParams) (chan SupersimV1Co
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCommandResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCommandResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -250,11 +250,11 @@ func (c *ApiService) StreamCommand(params *ListCommandParams) (chan SupersimV1Co
 	return channel, err
 }
 
-func (c *ApiService) getNextListCommandResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListCommandResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

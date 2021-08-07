@@ -141,7 +141,7 @@ func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 		records = append(records, response.AuthorizedConnectApps...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -174,7 +174,7 @@ func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectApp
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -187,11 +187,11 @@ func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectApp
 	return channel, err
 }
 
-func (c *ApiService) getNextListAuthorizedConnectAppResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListAuthorizedConnectAppResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

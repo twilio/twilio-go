@@ -118,7 +118,7 @@ func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, 
 		records = append(records, response.FunctionVersions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFunctionVersionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFunctionVersionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -151,7 +151,7 @@ func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFunctionVersionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFunctionVersionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -164,11 +164,11 @@ func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string
 	return channel, err
 }
 
-func (c *ApiService) getNextListFunctionVersionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListFunctionVersionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

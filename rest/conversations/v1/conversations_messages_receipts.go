@@ -118,7 +118,7 @@ func (c *ApiService) ListConversationMessageReceipt(ConversationSid string, Mess
 		records = append(records, response.DeliveryReceipts...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConversationMessageReceiptResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConversationMessageReceiptResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -151,7 +151,7 @@ func (c *ApiService) StreamConversationMessageReceipt(ConversationSid string, Me
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConversationMessageReceiptResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConversationMessageReceiptResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -164,11 +164,11 @@ func (c *ApiService) StreamConversationMessageReceipt(ConversationSid string, Me
 	return channel, err
 }
 
-func (c *ApiService) getNextListConversationMessageReceiptResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListConversationMessageReceiptResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

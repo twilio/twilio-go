@@ -258,7 +258,7 @@ func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *L
 		records = append(records, response.Items...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncMapItemResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncMapItemResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -291,7 +291,7 @@ func (c *ApiService) StreamSyncMapItem(ServiceSid string, MapSid string, params 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncMapItemResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncMapItemResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -304,11 +304,11 @@ func (c *ApiService) StreamSyncMapItem(ServiceSid string, MapSid string, params 
 	return channel, err
 }
 
-func (c *ApiService) getNextListSyncMapItemResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSyncMapItemResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

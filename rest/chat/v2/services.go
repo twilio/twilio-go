@@ -165,7 +165,7 @@ func (c *ApiService) ListService(params *ListServiceParams) ([]ChatV2Service, er
 		records = append(records, response.Services...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListServiceResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -198,7 +198,7 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan ChatV2Servic
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListServiceResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -211,11 +211,11 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan ChatV2Servic
 	return channel, err
 }
 
-func (c *ApiService) getNextListServiceResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListServiceResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

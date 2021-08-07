@@ -112,7 +112,7 @@ func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([
 		records = append(records, response.Countries...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -145,7 +145,7 @@ func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -158,11 +158,11 @@ func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) 
 	return channel, err
 }
 
-func (c *ApiService) getNextListMessagingCountryResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListMessagingCountryResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -7,6 +7,7 @@ import (
 	"log"
 	"reflect"
 	"regexp"
+	"strings"
 )
 
 //Takes a limit on the max number of records to read and a max pageSize and calculates the max number of pages to read.
@@ -28,16 +29,16 @@ func ReadLimits(pageSize *int, limit *int) int {
 	}
 }
 
-func GetNext(response interface{}, curRecord *int, limit *int, getNextPage func(nextPageUri string) (interface{}, error)) (interface{}, error) {
-	nextPageUri, err := getNextPageUri(response, curRecord, limit)
+func GetNext(baseUrl string, response interface{}, curRecord *int, limit *int, getNextPage func(nextPageUri string) (interface{}, error)) (interface{}, error) {
+	nextPageUrl, err := getNextPageAddress(baseUrl, response, curRecord, limit)
 	if err != nil {
 		return nil, err
 	}
 
-	return getNextPage(nextPageUri)
+	return getNextPage(nextPageUrl)
 }
 
-func GetPayload(response interface{}) ([]interface{}, string, error) {
+func GetPayload(baseUrl string, response interface{}) ([]interface{}, string, error) {
 	payload := toMap(response)
 	var data [][]interface{}
 	for _, v := range payload {
@@ -56,7 +57,7 @@ func GetPayload(response interface{}) ([]interface{}, string, error) {
 	}
 
 	if len(data) == 1 {
-		return data[0], getNextPageUrl(payload), nil
+		return data[0], getNextPageUrl(baseUrl, payload), nil
 	}
 	return nil, "", errors.New("could not retrieve payload from response")
 }
@@ -72,9 +73,9 @@ func toMap(s interface{}) map[string]interface{} {
 	return payload
 }
 
-func getNextPageUri(response interface{}, curRecord *int, limit *int) (string, error) {
-	//get just the non metadata info and the next page uri
-	payload, nextPageUri, err := GetPayload(response)
+func getNextPageAddress(baseUrl string, response interface{}, curRecord *int, limit *int) (string, error) {
+	//get just the non metadata info and the next page url
+	payload, nextPageUrl, err := GetPayload(baseUrl, response)
 	if err != nil {
 		return "", err
 	}
@@ -91,20 +92,21 @@ func getNextPageUri(response interface{}, curRecord *int, limit *int) (string, e
 		if remaining > 0 {
 			pageSize := min(len(payload), remaining)
 			re := regexp.MustCompile(`PageSize=\d+`)
-			nextPageUri = re.ReplaceAllString(nextPageUri, fmt.Sprintf("PageSize=%d", pageSize))
+			nextPageUrl = re.ReplaceAllString(nextPageUrl, fmt.Sprintf("PageSize=%d", pageSize))
 		}
 	}
 
-	return nextPageUri, err
+	return nextPageUrl, err
 }
 
-func getNextPageUrl(payload map[string]interface{}) string {
+func getNextPageUrl(baseUrl string, payload map[string]interface{}) string {
 	if payload != nil && payload["meta"] != nil && payload["meta"].(map[string]interface{})["next_page_url"] != nil {
 		return payload["meta"].(map[string]interface{})["next_page_url"].(string)
 	}
 
 	if payload != nil && payload["next_page_uri"] != nil {
-		return payload["next_page_uri"].(string)
+		// remove any leading and trailing '/'
+		return fmt.Sprintf("%s/%s", strings.Trim(baseUrl, "/"), strings.Trim(payload["next_page_uri"].(string), "/"))
 	}
 
 	return ""

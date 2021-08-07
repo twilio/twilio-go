@@ -135,7 +135,7 @@ func (c *ApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaParams) ([]
 		records = append(records, response.Media...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFaxMediaResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFaxMediaResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -168,7 +168,7 @@ func (c *ApiService) StreamFaxMedia(FaxSid string, params *ListFaxMediaParams) (
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFaxMediaResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFaxMediaResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -181,11 +181,11 @@ func (c *ApiService) StreamFaxMedia(FaxSid string, params *ListFaxMediaParams) (
 	return channel, err
 }
 
-func (c *ApiService) getNextListFaxMediaResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListFaxMediaResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

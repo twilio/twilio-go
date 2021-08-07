@@ -183,7 +183,7 @@ func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *List
 		records = append(records, response.Fields...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFieldResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFieldResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -216,7 +216,7 @@ func (c *ApiService) StreamField(AssistantSid string, TaskSid string, params *Li
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFieldResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFieldResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -229,11 +229,11 @@ func (c *ApiService) StreamField(AssistantSid string, TaskSid string, params *Li
 	return channel, err
 }
 
-func (c *ApiService) getNextListFieldResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListFieldResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -213,7 +213,7 @@ func (c *ApiService) ListConference(params *ListConferenceParams) ([]ApiV2010Acc
 		records = append(records, response.Conferences...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConferenceResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConferenceResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -246,7 +246,7 @@ func (c *ApiService) StreamConference(params *ListConferenceParams) (chan ApiV20
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConferenceResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConferenceResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -259,11 +259,11 @@ func (c *ApiService) StreamConference(params *ListConferenceParams) (chan ApiV20
 	return channel, err
 }
 
-func (c *ApiService) getNextListConferenceResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListConferenceResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

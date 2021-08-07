@@ -126,7 +126,7 @@ func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, pa
 		records = append(records, response.Reservations...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskReservationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskReservationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -159,7 +159,7 @@ func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskReservationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskReservationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -172,11 +172,11 @@ func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, 
 	return channel, err
 }
 
-func (c *ApiService) getNextListTaskReservationResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListTaskReservationResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

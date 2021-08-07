@@ -216,7 +216,7 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) 
 		records = append(records, response.Executions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListExecutionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListExecutionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -249,7 +249,7 @@ func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListExecutionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListExecutionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -262,11 +262,11 @@ func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams
 	return channel, err
 }
 
-func (c *ApiService) getNextListExecutionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListExecutionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

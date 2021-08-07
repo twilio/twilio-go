@@ -138,7 +138,7 @@ func (c *ApiService) ListDocumentPermission(ServiceSid string, DocumentSid strin
 		records = append(records, response.Permissions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDocumentPermissionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDocumentPermissionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -171,7 +171,7 @@ func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid str
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDocumentPermissionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDocumentPermissionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -184,11 +184,11 @@ func (c *ApiService) StreamDocumentPermission(ServiceSid string, DocumentSid str
 	return channel, err
 }
 
-func (c *ApiService) getNextListDocumentPermissionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListDocumentPermissionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

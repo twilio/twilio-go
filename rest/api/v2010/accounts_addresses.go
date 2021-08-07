@@ -319,7 +319,7 @@ func (c *ApiService) ListAddress(params *ListAddressParams) ([]ApiV2010AccountAd
 		records = append(records, response.Addresses...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAddressResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAddressResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -352,7 +352,7 @@ func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010Acco
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAddressResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAddressResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -365,11 +365,11 @@ func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010Acco
 	return channel, err
 }
 
-func (c *ApiService) getNextListAddressResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListAddressResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
