@@ -19,7 +19,7 @@ import (
 )
 
 // Returns a list of Recording Rules for the Room.
-func (c *ApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1RoomRoomRecordingRule, error) {
+func (c *ApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1RoomRecordingRule, error) {
 	path := "/v1/Rooms/{RoomSid}/RecordingRules"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
@@ -33,7 +33,7 @@ func (c *ApiService) FetchRoomRecordingRule(RoomSid string) (*VideoV1RoomRoomRec
 
 	defer resp.Body.Close()
 
-	ps := &VideoV1RoomRoomRecordingRule{}
+	ps := &VideoV1RoomRecordingRule{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ func (params *UpdateRoomRecordingRuleParams) SetRules(Rules map[string]interface
 }
 
 // Update the Recording Rules for the Room
-func (c *ApiService) UpdateRoomRecordingRule(RoomSid string, params *UpdateRoomRecordingRuleParams) (*VideoV1RoomRoomRecordingRule, error) {
+func (c *ApiService) UpdateRoomRecordingRule(RoomSid string, params *UpdateRoomRecordingRuleParams) (*VideoV1RoomRecordingRule, error) {
 	path := "/v1/Rooms/{RoomSid}/RecordingRules"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
@@ -77,7 +77,7 @@ func (c *ApiService) UpdateRoomRecordingRule(RoomSid string, params *UpdateRoomR
 
 	defer resp.Body.Close()
 
-	ps := &VideoV1RoomRoomRecordingRule{}
+	ps := &VideoV1RoomRecordingRule{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

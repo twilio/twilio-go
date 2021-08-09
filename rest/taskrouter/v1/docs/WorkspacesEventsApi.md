@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchEvent
 
-> TaskrouterV1WorkspaceEvent FetchEvent(ctx, WorkspaceSidSid)
+> TaskrouterV1Event FetchEvent(ctx, WorkspaceSidSid)
 
 
 
@@ -34,7 +34,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceEvent**](TaskrouterV1WorkspaceEvent.md)
+[**TaskrouterV1Event**](TaskrouterV1Event.md)
 
 ### Authorization
 

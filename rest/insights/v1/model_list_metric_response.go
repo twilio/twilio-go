@@ -14,5 +14,5 @@ package openapi
 // ListMetricResponse struct for ListMetricResponse
 type ListMetricResponse struct {
 	Meta    ListVideoRoomSummaryResponseMeta `json:"meta,omitempty"`
-	Metrics []InsightsV1CallMetric           `json:"metrics,omitempty"`
+	Metrics []InsightsV1Metric               `json:"metrics,omitempty"`
 }

@@ -247,7 +247,7 @@ func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, para
 }
 
 // Lists AvailablePhoneNumberSharedCost records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost, error) {
+func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) ([]ApiV2010AvailablePhoneNumberSharedCost, error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberSharedCostParams{}
 	}
@@ -259,7 +259,7 @@ func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, para
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost
+	var records []ApiV2010AvailablePhoneNumberSharedCost
 
 	for response != nil {
 		records = append(records, response.AvailablePhoneNumbers...)
@@ -276,7 +276,7 @@ func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, para
 }
 
 // Streams AvailablePhoneNumberSharedCost records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost, error) {
+func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) (chan ApiV2010AvailablePhoneNumberSharedCost, error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberSharedCostParams{}
 	}
@@ -289,7 +289,7 @@ func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, pa
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost, 1)
+	channel := make(chan ApiV2010AvailablePhoneNumberSharedCost, 1)
 
 	go func() {
 		for response != nil {

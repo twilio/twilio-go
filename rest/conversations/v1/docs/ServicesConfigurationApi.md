@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchServiceConfiguration
 
-> ConversationsV1ServiceServiceConfiguration FetchServiceConfiguration(ctx, ChatServiceSid)
+> ConversationsV1ServiceConfiguration FetchServiceConfiguration(ctx, ChatServiceSid)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConfiguration**](ConversationsV1ServiceServiceConfiguration.md)
+[**ConversationsV1ServiceConfiguration**](ConversationsV1ServiceConfiguration.md)
 
 ### Authorization
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## UpdateServiceConfiguration
 
-> ConversationsV1ServiceServiceConfiguration UpdateServiceConfiguration(ctx, ChatServiceSidoptional)
+> ConversationsV1ServiceConfiguration UpdateServiceConfiguration(ctx, ChatServiceSidoptional)
 
 
 
@@ -81,7 +81,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConfiguration**](ConversationsV1ServiceServiceConfiguration.md)
+[**ConversationsV1ServiceConfiguration**](ConversationsV1ServiceConfiguration.md)
 
 ### Authorization
 

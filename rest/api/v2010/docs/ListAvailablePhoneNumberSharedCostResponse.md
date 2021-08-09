@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvailablePhoneNumbers** | [**[]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost**](ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost.md) |  |[optional] 
+**AvailablePhoneNumbers** | [**[]ApiV2010AvailablePhoneNumberSharedCost**](ApiV2010AvailablePhoneNumberSharedCost.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

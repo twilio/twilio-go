@@ -33,7 +33,7 @@ func (params *FetchMemberParams) SetPathAccountSid(PathAccountSid string) *Fetch
 }
 
 // Fetch a specific member from the queue
-func (c *ApiService) FetchMember(QueueSid string, CallSid string, params *FetchMemberParams) (*ApiV2010AccountQueueMember, error) {
+func (c *ApiService) FetchMember(QueueSid string, CallSid string, params *FetchMemberParams) (*ApiV2010Member, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -53,7 +53,7 @@ func (c *ApiService) FetchMember(QueueSid string, CallSid string, params *FetchM
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountQueueMember{}
+	ps := &ApiV2010Member{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -125,7 +125,7 @@ func (c *ApiService) PageMember(QueueSid string, params *ListMemberParams, pageT
 }
 
 // Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMember(QueueSid string, params *ListMemberParams) ([]ApiV2010AccountQueueMember, error) {
+func (c *ApiService) ListMember(QueueSid string, params *ListMemberParams) ([]ApiV2010Member, error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
@@ -137,7 +137,7 @@ func (c *ApiService) ListMember(QueueSid string, params *ListMemberParams) ([]Ap
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountQueueMember
+	var records []ApiV2010Member
 
 	for response != nil {
 		records = append(records, response.QueueMembers...)
@@ -154,7 +154,7 @@ func (c *ApiService) ListMember(QueueSid string, params *ListMemberParams) ([]Ap
 }
 
 // Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMember(QueueSid string, params *ListMemberParams) (chan ApiV2010AccountQueueMember, error) {
+func (c *ApiService) StreamMember(QueueSid string, params *ListMemberParams) (chan ApiV2010Member, error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
@@ -167,7 +167,7 @@ func (c *ApiService) StreamMember(QueueSid string, params *ListMemberParams) (ch
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountQueueMember, 1)
+	channel := make(chan ApiV2010Member, 1)
 
 	go func() {
 		for response != nil {
@@ -231,7 +231,7 @@ func (params *UpdateMemberParams) SetUrl(Url string) *UpdateMemberParams {
 }
 
 // Dequeue a member from a queue and have the member&#39;s call begin executing the TwiML document at that URL
-func (c *ApiService) UpdateMember(QueueSid string, CallSid string, params *UpdateMemberParams) (*ApiV2010AccountQueueMember, error) {
+func (c *ApiService) UpdateMember(QueueSid string, CallSid string, params *UpdateMemberParams) (*ApiV2010Member, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -258,7 +258,7 @@ func (c *ApiService) UpdateMember(QueueSid string, CallSid string, params *Updat
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountQueueMember{}
+	ps := &ApiV2010Member{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateStreamMessage
 
-> SyncV1ServiceSyncStreamStreamMessage CreateStreamMessage(ctx, ServiceSidStreamSidoptional)
+> SyncV1StreamMessage CreateStreamMessage(ctx, ServiceSidStreamSidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncStreamStreamMessage**](SyncV1ServiceSyncStreamStreamMessage.md)
+[**SyncV1StreamMessage**](SyncV1StreamMessage.md)
 
 ### Authorization
 

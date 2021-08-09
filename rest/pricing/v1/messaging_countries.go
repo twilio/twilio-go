@@ -21,7 +21,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1MessagingMessagingCountryInstance, error) {
+func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1MessagingCountryInstance, error) {
 	path := "/v1/Messaging/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
@@ -35,7 +35,7 @@ func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1Messagi
 
 	defer resp.Body.Close()
 
-	ps := &PricingV1MessagingMessagingCountryInstance{}
+	ps := &PricingV1MessagingCountryInstance{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pa
 }
 
 // Lists MessagingCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([]PricingV1MessagingMessagingCountry, error) {
+func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([]PricingV1MessagingCountry, error) {
 	if params == nil {
 		params = &ListMessagingCountryParams{}
 	}
@@ -106,7 +106,7 @@ func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([
 	}
 
 	curRecord := 0
-	var records []PricingV1MessagingMessagingCountry
+	var records []PricingV1MessagingCountry
 
 	for response != nil {
 		records = append(records, response.Countries...)
@@ -123,7 +123,7 @@ func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([
 }
 
 // Streams MessagingCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) (chan PricingV1MessagingMessagingCountry, error) {
+func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) (chan PricingV1MessagingCountry, error) {
 	if params == nil {
 		params = &ListMessagingCountryParams{}
 	}
@@ -136,7 +136,7 @@ func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan PricingV1MessagingMessagingCountry, 1)
+	channel := make(chan PricingV1MessagingCountry, 1)
 
 	go func() {
 		for response != nil {

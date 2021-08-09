@@ -56,7 +56,7 @@ Name | Type | Description
 
 ## FetchMedia
 
-> ApiV2010AccountMessageMedia FetchMedia(ctx, MessageSidSidoptional)
+> ApiV2010Media FetchMedia(ctx, MessageSidSidoptional)
 
 
 
@@ -82,7 +82,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountMessageMedia**](ApiV2010AccountMessageMedia.md)
+[**ApiV2010Media**](ApiV2010Media.md)
 
 ### Authorization
 

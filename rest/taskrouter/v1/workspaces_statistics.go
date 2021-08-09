@@ -55,7 +55,7 @@ func (params *FetchWorkspaceStatisticsParams) SetSplitByWaitTime(SplitByWaitTime
 	return params
 }
 
-func (c *ApiService) FetchWorkspaceStatistics(WorkspaceSid string, params *FetchWorkspaceStatisticsParams) (*TaskrouterV1WorkspaceWorkspaceStatistics, error) {
+func (c *ApiService) FetchWorkspaceStatistics(WorkspaceSid string, params *FetchWorkspaceStatisticsParams) (*TaskrouterV1WorkspaceStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -85,7 +85,7 @@ func (c *ApiService) FetchWorkspaceStatistics(WorkspaceSid string, params *Fetch
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorkspaceStatistics{}
+	ps := &TaskrouterV1WorkspaceStatistics{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DeliveryReceipts** | [**[]ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt**](ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt.md) |  |[optional] 
+**DeliveryReceipts** | [**[]ConversationsV1ServiceConversationMessageReceipt**](ConversationsV1ServiceConversationMessageReceipt.md) |  |[optional] 
 **Meta** | [**ListConversationResponseMeta**](ListConversationResponseMeta.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

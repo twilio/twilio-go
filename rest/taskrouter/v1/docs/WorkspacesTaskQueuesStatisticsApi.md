@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchTaskQueueStatistics
 
-> TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics FetchTaskQueueStatistics(ctx, WorkspaceSidTaskQueueSidoptional)
+> TaskrouterV1TaskQueueStatistics FetchTaskQueueStatistics(ctx, WorkspaceSidTaskQueueSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics**](TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics.md)
+[**TaskrouterV1TaskQueueStatistics**](TaskrouterV1TaskQueueStatistics.md)
 
 ### Authorization
 

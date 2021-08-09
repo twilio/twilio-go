@@ -51,7 +51,7 @@ func (params *CreateBuildParams) SetRuntime(Runtime string) *CreateBuildParams {
 }
 
 // Create a new Build resource. At least one function version or asset version is required.
-func (c *ApiService) CreateBuild(ServiceSid string, params *CreateBuildParams) (*ServerlessV1ServiceBuild, error) {
+func (c *ApiService) CreateBuild(ServiceSid string, params *CreateBuildParams) (*ServerlessV1Build, error) {
 	path := "/v1/Services/{ServiceSid}/Builds"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -82,7 +82,7 @@ func (c *ApiService) CreateBuild(ServiceSid string, params *CreateBuildParams) (
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceBuild{}
+	ps := &ServerlessV1Build{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -110,7 +110,7 @@ func (c *ApiService) DeleteBuild(ServiceSid string, Sid string) error {
 }
 
 // Retrieve a specific Build resource.
-func (c *ApiService) FetchBuild(ServiceSid string, Sid string) (*ServerlessV1ServiceBuild, error) {
+func (c *ApiService) FetchBuild(ServiceSid string, Sid string) (*ServerlessV1Build, error) {
 	path := "/v1/Services/{ServiceSid}/Builds/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -125,7 +125,7 @@ func (c *ApiService) FetchBuild(ServiceSid string, Sid string) (*ServerlessV1Ser
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceBuild{}
+	ps := &ServerlessV1Build{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -186,7 +186,7 @@ func (c *ApiService) PageBuild(ServiceSid string, params *ListBuildParams, pageT
 }
 
 // Lists Build records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) ([]ServerlessV1ServiceBuild, error) {
+func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) ([]ServerlessV1Build, error) {
 	if params == nil {
 		params = &ListBuildParams{}
 	}
@@ -198,7 +198,7 @@ func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) ([]Se
 	}
 
 	curRecord := 0
-	var records []ServerlessV1ServiceBuild
+	var records []ServerlessV1Build
 
 	for response != nil {
 		records = append(records, response.Builds...)
@@ -215,7 +215,7 @@ func (c *ApiService) ListBuild(ServiceSid string, params *ListBuildParams) ([]Se
 }
 
 // Streams Build records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBuild(ServiceSid string, params *ListBuildParams) (chan ServerlessV1ServiceBuild, error) {
+func (c *ApiService) StreamBuild(ServiceSid string, params *ListBuildParams) (chan ServerlessV1Build, error) {
 	if params == nil {
 		params = &ListBuildParams{}
 	}
@@ -228,7 +228,7 @@ func (c *ApiService) StreamBuild(ServiceSid string, params *ListBuildParams) (ch
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ServerlessV1ServiceBuild, 1)
+	channel := make(chan ServerlessV1Build, 1)
 
 	go func() {
 		for response != nil {

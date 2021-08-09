@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateSipDomain
 
-> ApiV2010AccountSipSipDomain CreateSipDomain(ctx, optional)
+> ApiV2010SipDomain CreateSipDomain(ctx, optional)
 
 
 
@@ -48,7 +48,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomain**](ApiV2010AccountSipSipDomain.md)
+[**ApiV2010SipDomain**](ApiV2010SipDomain.md)
 
 ### Authorization
 
@@ -109,7 +109,7 @@ Name | Type | Description
 
 ## FetchSipDomain
 
-> ApiV2010AccountSipSipDomain FetchSipDomain(ctx, Sidoptional)
+> ApiV2010SipDomain FetchSipDomain(ctx, Sidoptional)
 
 
 
@@ -134,7 +134,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomain**](ApiV2010AccountSipSipDomain.md)
+[**ApiV2010SipDomain**](ApiV2010SipDomain.md)
 
 ### Authorization
 
@@ -193,7 +193,7 @@ Name | Type | Description
 
 ## UpdateSipDomain
 
-> ApiV2010AccountSipSipDomain UpdateSipDomain(ctx, Sidoptional)
+> ApiV2010SipDomain UpdateSipDomain(ctx, Sidoptional)
 
 
 
@@ -231,7 +231,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomain**](ApiV2010AccountSipSipDomain.md)
+[**ApiV2010SipDomain**](ApiV2010SipDomain.md)
 
 ### Authorization
 

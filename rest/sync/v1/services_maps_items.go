@@ -56,7 +56,7 @@ func (params *CreateSyncMapItemParams) SetTtl(Ttl int) *CreateSyncMapItemParams 
 	return params
 }
 
-func (c *ApiService) CreateSyncMapItem(ServiceSid string, MapSid string, params *CreateSyncMapItemParams) (*SyncV1ServiceSyncMapSyncMapItem, error) {
+func (c *ApiService) CreateSyncMapItem(ServiceSid string, MapSid string, params *CreateSyncMapItemParams) (*SyncV1SyncMapItem, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
@@ -93,7 +93,7 @@ func (c *ApiService) CreateSyncMapItem(ServiceSid string, MapSid string, params 
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncMapSyncMapItem{}
+	ps := &SyncV1SyncMapItem{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -135,7 +135,7 @@ func (c *ApiService) DeleteSyncMapItem(ServiceSid string, MapSid string, Key str
 	return nil
 }
 
-func (c *ApiService) FetchSyncMapItem(ServiceSid string, MapSid string, Key string) (*SyncV1ServiceSyncMapSyncMapItem, error) {
+func (c *ApiService) FetchSyncMapItem(ServiceSid string, MapSid string, Key string) (*SyncV1SyncMapItem, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
@@ -151,7 +151,7 @@ func (c *ApiService) FetchSyncMapItem(ServiceSid string, MapSid string, Key stri
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncMapSyncMapItem{}
+	ps := &SyncV1SyncMapItem{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -240,7 +240,7 @@ func (c *ApiService) PageSyncMapItem(ServiceSid string, MapSid string, params *L
 }
 
 // Lists SyncMapItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams) ([]SyncV1ServiceSyncMapSyncMapItem, error) {
+func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams) ([]SyncV1SyncMapItem, error) {
 	if params == nil {
 		params = &ListSyncMapItemParams{}
 	}
@@ -252,7 +252,7 @@ func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *L
 	}
 
 	curRecord := 0
-	var records []SyncV1ServiceSyncMapSyncMapItem
+	var records []SyncV1SyncMapItem
 
 	for response != nil {
 		records = append(records, response.Items...)
@@ -269,7 +269,7 @@ func (c *ApiService) ListSyncMapItem(ServiceSid string, MapSid string, params *L
 }
 
 // Streams SyncMapItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams) (chan SyncV1ServiceSyncMapSyncMapItem, error) {
+func (c *ApiService) StreamSyncMapItem(ServiceSid string, MapSid string, params *ListSyncMapItemParams) (chan SyncV1SyncMapItem, error) {
 	if params == nil {
 		params = &ListSyncMapItemParams{}
 	}
@@ -282,7 +282,7 @@ func (c *ApiService) StreamSyncMapItem(ServiceSid string, MapSid string, params 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan SyncV1ServiceSyncMapSyncMapItem, 1)
+	channel := make(chan SyncV1SyncMapItem, 1)
 
 	go func() {
 		for response != nil {
@@ -357,7 +357,7 @@ func (params *UpdateSyncMapItemParams) SetTtl(Ttl int) *UpdateSyncMapItemParams 
 	return params
 }
 
-func (c *ApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, Key string, params *UpdateSyncMapItemParams) (*SyncV1ServiceSyncMapSyncMapItem, error) {
+func (c *ApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, Key string, params *UpdateSyncMapItemParams) (*SyncV1SyncMapItem, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
@@ -396,7 +396,7 @@ func (c *ApiService) UpdateSyncMapItem(ServiceSid string, MapSid string, Key str
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncMapSyncMapItem{}
+	ps := &SyncV1SyncMapItem{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

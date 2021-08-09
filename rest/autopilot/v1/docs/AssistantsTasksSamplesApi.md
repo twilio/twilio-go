@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateSample
 
-> AutopilotV1AssistantTaskSample CreateSample(ctx, AssistantSidTaskSidoptional)
+> AutopilotV1Sample CreateSample(ctx, AssistantSidTaskSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantTaskSample**](AutopilotV1AssistantTaskSample.md)
+[**AutopilotV1Sample**](AutopilotV1Sample.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchSample
 
-> AutopilotV1AssistantTaskSample FetchSample(ctx, AssistantSidTaskSidSid)
+> AutopilotV1Sample FetchSample(ctx, AssistantSidTaskSidSid)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantTaskSample**](AutopilotV1AssistantTaskSample.md)
+[**AutopilotV1Sample**](AutopilotV1Sample.md)
 
 ### Authorization
 
@@ -186,7 +186,7 @@ Name | Type | Description
 
 ## UpdateSample
 
-> AutopilotV1AssistantTaskSample UpdateSample(ctx, AssistantSidTaskSidSidoptional)
+> AutopilotV1Sample UpdateSample(ctx, AssistantSidTaskSidSidoptional)
 
 
 
@@ -213,7 +213,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantTaskSample**](AutopilotV1AssistantTaskSample.md)
+[**AutopilotV1Sample**](AutopilotV1Sample.md)
 
 ### Authorization
 

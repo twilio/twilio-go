@@ -38,7 +38,7 @@ func (params *CreateMemberParams) SetRoleSid(RoleSid string) *CreateMemberParams
 	return params
 }
 
-func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *CreateMemberParams) (*IpMessagingV1ServiceChannelMember, error) {
+func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *CreateMemberParams) (*IpMessagingV1Member, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -60,7 +60,7 @@ func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV1ServiceChannelMember{}
+	ps := &IpMessagingV1Member{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid stri
 	return nil
 }
 
-func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1ServiceChannelMember, error) {
+func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1Member, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -103,7 +103,7 @@ func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid strin
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV1ServiceChannelMember{}
+	ps := &IpMessagingV1Member{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -176,7 +176,7 @@ func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *Li
 }
 
 // Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams) ([]IpMessagingV1ServiceChannelMember, error) {
+func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams) ([]IpMessagingV1Member, error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
@@ -188,7 +188,7 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 	}
 
 	curRecord := 0
-	var records []IpMessagingV1ServiceChannelMember
+	var records []IpMessagingV1Member
 
 	for response != nil {
 		records = append(records, response.Members...)
@@ -205,7 +205,7 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 }
 
 // Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *ListMemberParams) (chan IpMessagingV1ServiceChannelMember, error) {
+func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *ListMemberParams) (chan IpMessagingV1Member, error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
@@ -218,7 +218,7 @@ func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan IpMessagingV1ServiceChannelMember, 1)
+	channel := make(chan IpMessagingV1Member, 1)
 
 	go func() {
 		for response != nil {
@@ -275,7 +275,7 @@ func (params *UpdateMemberParams) SetRoleSid(RoleSid string) *UpdateMemberParams
 	return params
 }
 
-func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*IpMessagingV1ServiceChannelMember, error) {
+func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*IpMessagingV1Member, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -298,7 +298,7 @@ func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid stri
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV1ServiceChannelMember{}
+	ps := &IpMessagingV1Member{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

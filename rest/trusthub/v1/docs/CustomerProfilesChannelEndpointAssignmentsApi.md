@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateCustomerProfileChannelEndpointAssignment
 
-> TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment CreateCustomerProfileChannelEndpointAssignment(ctx, CustomerProfileSidoptional)
+> TrusthubV1CustomerProfileChannelEndpointAssignment CreateCustomerProfileChannelEndpointAssignment(ctx, CustomerProfileSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment**](TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment.md)
+[**TrusthubV1CustomerProfileChannelEndpointAssignment**](TrusthubV1CustomerProfileChannelEndpointAssignment.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchCustomerProfileChannelEndpointAssignment
 
-> TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment FetchCustomerProfileChannelEndpointAssignment(ctx, CustomerProfileSidSid)
+> TrusthubV1CustomerProfileChannelEndpointAssignment FetchCustomerProfileChannelEndpointAssignment(ctx, CustomerProfileSidSid)
 
 
 
@@ -125,7 +125,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment**](TrusthubV1CustomerProfileCustomerProfileChannelEndpointAssignment.md)
+[**TrusthubV1CustomerProfileChannelEndpointAssignment**](TrusthubV1CustomerProfileChannelEndpointAssignment.md)
 
 ### Authorization
 

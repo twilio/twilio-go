@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchDefaults
 
-> AutopilotV1AssistantDefaults FetchDefaults(ctx, AssistantSid)
+> AutopilotV1Defaults FetchDefaults(ctx, AssistantSid)
 
 
 
@@ -33,7 +33,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantDefaults**](AutopilotV1AssistantDefaults.md)
+[**AutopilotV1Defaults**](AutopilotV1Defaults.md)
 
 ### Authorization
 
@@ -51,7 +51,7 @@ Name | Type | Description
 
 ## UpdateDefaults
 
-> AutopilotV1AssistantDefaults UpdateDefaults(ctx, AssistantSidoptional)
+> AutopilotV1Defaults UpdateDefaults(ctx, AssistantSidoptional)
 
 
 
@@ -74,7 +74,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantDefaults**](AutopilotV1AssistantDefaults.md)
+[**AutopilotV1Defaults**](AutopilotV1Defaults.md)
 
 ### Authorization
 

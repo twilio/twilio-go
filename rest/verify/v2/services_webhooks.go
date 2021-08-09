@@ -57,7 +57,7 @@ func (params *CreateWebhookParams) SetWebhookUrl(WebhookUrl string) *CreateWebho
 }
 
 // Create a new Webhook for the Service
-func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParams) (*VerifyV2ServiceWebhook, error) {
+func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParams) (*VerifyV2Webhook, error) {
 	path := "/v2/Services/{ServiceSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -89,7 +89,7 @@ func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParam
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceWebhook{}
+	ps := &VerifyV2Webhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -117,7 +117,7 @@ func (c *ApiService) DeleteWebhook(ServiceSid string, Sid string) error {
 }
 
 // Fetch a specific Webhook.
-func (c *ApiService) FetchWebhook(ServiceSid string, Sid string) (*VerifyV2ServiceWebhook, error) {
+func (c *ApiService) FetchWebhook(ServiceSid string, Sid string) (*VerifyV2Webhook, error) {
 	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -132,7 +132,7 @@ func (c *ApiService) FetchWebhook(ServiceSid string, Sid string) (*VerifyV2Servi
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceWebhook{}
+	ps := &VerifyV2Webhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -193,7 +193,7 @@ func (c *ApiService) PageWebhook(ServiceSid string, params *ListWebhookParams, p
 }
 
 // Lists Webhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) ([]VerifyV2ServiceWebhook, error) {
+func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) ([]VerifyV2Webhook, error) {
 	if params == nil {
 		params = &ListWebhookParams{}
 	}
@@ -205,7 +205,7 @@ func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) (
 	}
 
 	curRecord := 0
-	var records []VerifyV2ServiceWebhook
+	var records []VerifyV2Webhook
 
 	for response != nil {
 		records = append(records, response.Webhooks...)
@@ -222,7 +222,7 @@ func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) (
 }
 
 // Streams Webhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams) (chan VerifyV2ServiceWebhook, error) {
+func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams) (chan VerifyV2Webhook, error) {
 	if params == nil {
 		params = &ListWebhookParams{}
 	}
@@ -235,7 +235,7 @@ func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams)
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2ServiceWebhook, 1)
+	channel := make(chan VerifyV2Webhook, 1)
 
 	go func() {
 		for response != nil {
@@ -310,7 +310,7 @@ func (params *UpdateWebhookParams) SetWebhookUrl(WebhookUrl string) *UpdateWebho
 	return params
 }
 
-func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *UpdateWebhookParams) (*VerifyV2ServiceWebhook, error) {
+func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *UpdateWebhookParams) (*VerifyV2Webhook, error) {
 	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -343,7 +343,7 @@ func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *Update
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceWebhook{}
+	ps := &VerifyV2Webhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

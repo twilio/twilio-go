@@ -42,7 +42,7 @@ func (c *ApiService) DeleteSyncMapPermission(ServiceSid string, MapSid string, I
 }
 
 // Fetch a specific Sync Map Permission.
-func (c *ApiService) FetchSyncMapPermission(ServiceSid string, MapSid string, Identity string) (*SyncV1ServiceSyncMapSyncMapPermission, error) {
+func (c *ApiService) FetchSyncMapPermission(ServiceSid string, MapSid string, Identity string) (*SyncV1SyncMapPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
@@ -58,7 +58,7 @@ func (c *ApiService) FetchSyncMapPermission(ServiceSid string, MapSid string, Id
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncMapSyncMapPermission{}
+	ps := &SyncV1SyncMapPermission{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -120,7 +120,7 @@ func (c *ApiService) PageSyncMapPermission(ServiceSid string, MapSid string, par
 }
 
 // Lists SyncMapPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams) ([]SyncV1ServiceSyncMapSyncMapPermission, error) {
+func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams) ([]SyncV1SyncMapPermission, error) {
 	if params == nil {
 		params = &ListSyncMapPermissionParams{}
 	}
@@ -132,7 +132,7 @@ func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, par
 	}
 
 	curRecord := 0
-	var records []SyncV1ServiceSyncMapSyncMapPermission
+	var records []SyncV1SyncMapPermission
 
 	for response != nil {
 		records = append(records, response.Permissions...)
@@ -149,7 +149,7 @@ func (c *ApiService) ListSyncMapPermission(ServiceSid string, MapSid string, par
 }
 
 // Streams SyncMapPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams) (chan SyncV1ServiceSyncMapSyncMapPermission, error) {
+func (c *ApiService) StreamSyncMapPermission(ServiceSid string, MapSid string, params *ListSyncMapPermissionParams) (chan SyncV1SyncMapPermission, error) {
 	if params == nil {
 		params = &ListSyncMapPermissionParams{}
 	}
@@ -162,7 +162,7 @@ func (c *ApiService) StreamSyncMapPermission(ServiceSid string, MapSid string, p
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan SyncV1ServiceSyncMapSyncMapPermission, 1)
+	channel := make(chan SyncV1SyncMapPermission, 1)
 
 	go func() {
 		for response != nil {
@@ -226,7 +226,7 @@ func (params *UpdateSyncMapPermissionParams) SetWrite(Write bool) *UpdateSyncMap
 }
 
 // Update an identity&#39;s access to a specific Sync Map.
-func (c *ApiService) UpdateSyncMapPermission(ServiceSid string, MapSid string, Identity string, params *UpdateSyncMapPermissionParams) (*SyncV1ServiceSyncMapSyncMapPermission, error) {
+func (c *ApiService) UpdateSyncMapPermission(ServiceSid string, MapSid string, Identity string, params *UpdateSyncMapPermissionParams) (*SyncV1SyncMapPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"MapSid"+"}", MapSid, -1)
@@ -252,7 +252,7 @@ func (c *ApiService) UpdateSyncMapPermission(ServiceSid string, MapSid string, I
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncMapSyncMapPermission{}
+	ps := &SyncV1SyncMapPermission{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

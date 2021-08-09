@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateVariable
 
-> ServerlessV1ServiceEnvironmentVariable CreateVariable(ctx, ServiceSidEnvironmentSidoptional)
+> ServerlessV1Variable CreateVariable(ctx, ServiceSidEnvironmentSidoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentVariable**](ServerlessV1ServiceEnvironmentVariable.md)
+[**ServerlessV1Variable**](ServerlessV1Variable.md)
 
 ### Authorization
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 ## FetchVariable
 
-> ServerlessV1ServiceEnvironmentVariable FetchVariable(ctx, ServiceSidEnvironmentSidSid)
+> ServerlessV1Variable FetchVariable(ctx, ServiceSidEnvironmentSidSid)
 
 
 
@@ -129,7 +129,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentVariable**](ServerlessV1ServiceEnvironmentVariable.md)
+[**ServerlessV1Variable**](ServerlessV1Variable.md)
 
 ### Authorization
 
@@ -192,7 +192,7 @@ Name | Type | Description
 
 ## UpdateVariable
 
-> ServerlessV1ServiceEnvironmentVariable UpdateVariable(ctx, ServiceSidEnvironmentSidSidoptional)
+> ServerlessV1Variable UpdateVariable(ctx, ServiceSidEnvironmentSidSidoptional)
 
 
 
@@ -220,7 +220,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentVariable**](ServerlessV1ServiceEnvironmentVariable.md)
+[**ServerlessV1Variable**](ServerlessV1Variable.md)
 
 ### Authorization
 

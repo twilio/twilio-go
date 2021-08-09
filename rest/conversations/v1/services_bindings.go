@@ -41,7 +41,7 @@ func (c *ApiService) DeleteServiceBinding(ChatServiceSid string, Sid string) err
 }
 
 // Fetch a push notification binding from the conversation service
-func (c *ApiService) FetchServiceBinding(ChatServiceSid string, Sid string) (*ConversationsV1ServiceServiceBinding, error) {
+func (c *ApiService) FetchServiceBinding(ChatServiceSid string, Sid string) (*ConversationsV1ServiceBinding, error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -56,7 +56,7 @@ func (c *ApiService) FetchServiceBinding(ChatServiceSid string, Sid string) (*Co
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceBinding{}
+	ps := &ConversationsV1ServiceBinding{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -139,7 +139,7 @@ func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServi
 }
 
 // Lists ServiceBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) ([]ConversationsV1ServiceServiceBinding, error) {
+func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) ([]ConversationsV1ServiceBinding, error) {
 	if params == nil {
 		params = &ListServiceBindingParams{}
 	}
@@ -151,7 +151,7 @@ func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServi
 	}
 
 	curRecord := 0
-	var records []ConversationsV1ServiceServiceBinding
+	var records []ConversationsV1ServiceBinding
 
 	for response != nil {
 		records = append(records, response.Bindings...)
@@ -168,7 +168,7 @@ func (c *ApiService) ListServiceBinding(ChatServiceSid string, params *ListServi
 }
 
 // Streams ServiceBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) (chan ConversationsV1ServiceServiceBinding, error) {
+func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListServiceBindingParams) (chan ConversationsV1ServiceBinding, error) {
 	if params == nil {
 		params = &ListServiceBindingParams{}
 	}
@@ -181,7 +181,7 @@ func (c *ApiService) StreamServiceBinding(ChatServiceSid string, params *ListSer
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ConversationsV1ServiceServiceBinding, 1)
+	channel := make(chan ConversationsV1ServiceBinding, 1)
 
 	go func() {
 		for response != nil {

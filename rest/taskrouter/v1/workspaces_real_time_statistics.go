@@ -29,7 +29,7 @@ func (params *FetchWorkspaceRealTimeStatisticsParams) SetTaskChannel(TaskChannel
 	return params
 }
 
-func (c *ApiService) FetchWorkspaceRealTimeStatistics(WorkspaceSid string, params *FetchWorkspaceRealTimeStatisticsParams) (*TaskrouterV1WorkspaceWorkspaceRealTimeStatistics, error) {
+func (c *ApiService) FetchWorkspaceRealTimeStatistics(WorkspaceSid string, params *FetchWorkspaceRealTimeStatisticsParams) (*TaskrouterV1WorkspaceRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -47,7 +47,7 @@ func (c *ApiService) FetchWorkspaceRealTimeStatistics(WorkspaceSid string, param
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorkspaceRealTimeStatistics{}
+	ps := &TaskrouterV1WorkspaceRealTimeStatistics{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

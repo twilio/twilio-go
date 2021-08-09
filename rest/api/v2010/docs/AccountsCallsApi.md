@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateCall
 
-> ApiV2010AccountCall CreateCall(ctx, optional)
+> ApiV2010Call CreateCall(ctx, optional)
 
 
 
@@ -69,7 +69,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCall**](ApiV2010AccountCall.md)
+[**ApiV2010Call**](ApiV2010Call.md)
 
 ### Authorization
 
@@ -130,7 +130,7 @@ Name | Type | Description
 
 ## FetchCall
 
-> ApiV2010AccountCall FetchCall(ctx, Sidoptional)
+> ApiV2010Call FetchCall(ctx, Sidoptional)
 
 
 
@@ -155,7 +155,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCall**](ApiV2010AccountCall.md)
+[**ApiV2010Call**](ApiV2010Call.md)
 
 ### Authorization
 
@@ -224,7 +224,7 @@ Name | Type | Description
 
 ## UpdateCall
 
-> ApiV2010AccountCall UpdateCall(ctx, Sidoptional)
+> ApiV2010Call UpdateCall(ctx, Sidoptional)
 
 
 
@@ -257,7 +257,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCall**](ApiV2010AccountCall.md)
+[**ApiV2010Call**](ApiV2010Call.md)
 
 ### Authorization
 

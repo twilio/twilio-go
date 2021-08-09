@@ -22,7 +22,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-func (c *ApiService) FetchRoomParticipant(RoomSid string, Sid string) (*VideoV1RoomRoomParticipant, error) {
+func (c *ApiService) FetchRoomParticipant(RoomSid string, Sid string) (*VideoV1RoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -37,7 +37,7 @@ func (c *ApiService) FetchRoomParticipant(RoomSid string, Sid string) (*VideoV1R
 
 	defer resp.Body.Close()
 
-	ps := &VideoV1RoomRoomParticipant{}
+	ps := &VideoV1RoomParticipant{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -134,7 +134,7 @@ func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomPartici
 }
 
 // Lists RoomParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomParticipantParams) ([]VideoV1RoomRoomParticipant, error) {
+func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomParticipantParams) ([]VideoV1RoomParticipant, error) {
 	if params == nil {
 		params = &ListRoomParticipantParams{}
 	}
@@ -146,7 +146,7 @@ func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomPartici
 	}
 
 	curRecord := 0
-	var records []VideoV1RoomRoomParticipant
+	var records []VideoV1RoomParticipant
 
 	for response != nil {
 		records = append(records, response.Participants...)
@@ -163,7 +163,7 @@ func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomPartici
 }
 
 // Streams RoomParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParticipantParams) (chan VideoV1RoomRoomParticipant, error) {
+func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParticipantParams) (chan VideoV1RoomParticipant, error) {
 	if params == nil {
 		params = &ListRoomParticipantParams{}
 	}
@@ -176,7 +176,7 @@ func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParti
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VideoV1RoomRoomParticipant, 1)
+	channel := make(chan VideoV1RoomParticipant, 1)
 
 	go func() {
 		for response != nil {
@@ -227,7 +227,7 @@ func (params *UpdateRoomParticipantParams) SetStatus(Status string) *UpdateRoomP
 	return params
 }
 
-func (c *ApiService) UpdateRoomParticipant(RoomSid string, Sid string, params *UpdateRoomParticipantParams) (*VideoV1RoomRoomParticipant, error) {
+func (c *ApiService) UpdateRoomParticipant(RoomSid string, Sid string, params *UpdateRoomParticipantParams) (*VideoV1RoomParticipant, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -246,7 +246,7 @@ func (c *ApiService) UpdateRoomParticipant(RoomSid string, Sid string, params *U
 
 	defer resp.Body.Close()
 
-	ps := &VideoV1RoomRoomParticipant{}
+	ps := &VideoV1RoomParticipant{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

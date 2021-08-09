@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchBuildStatus
 
-> ServerlessV1ServiceBuildBuildStatus FetchBuildStatus(ctx, ServiceSidSid)
+> ServerlessV1BuildStatus FetchBuildStatus(ctx, ServiceSidSid)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceBuildBuildStatus**](ServerlessV1ServiceBuildBuildStatus.md)
+[**ServerlessV1BuildStatus**](ServerlessV1BuildStatus.md)
 
 ### Authorization
 

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchWorkflowCumulativeStatistics
 
-> TaskrouterV1WorkspaceWorkflowWorkflowCumulativeStatistics FetchWorkflowCumulativeStatistics(ctx, WorkspaceSidWorkflowSidoptional)
+> TaskrouterV1WorkflowCumulativeStatistics FetchWorkflowCumulativeStatistics(ctx, WorkspaceSidWorkflowSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkflowWorkflowCumulativeStatistics**](TaskrouterV1WorkspaceWorkflowWorkflowCumulativeStatistics.md)
+[**TaskrouterV1WorkflowCumulativeStatistics**](TaskrouterV1WorkflowCumulativeStatistics.md)
 
 ### Authorization
 

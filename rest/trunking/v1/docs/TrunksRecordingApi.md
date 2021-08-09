@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchRecording
 
-> TrunkingV1TrunkRecording FetchRecording(ctx, TrunkSid)
+> TrunkingV1Recording FetchRecording(ctx, TrunkSid)
 
 
 
@@ -33,7 +33,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrunkingV1TrunkRecording**](TrunkingV1TrunkRecording.md)
+[**TrunkingV1Recording**](TrunkingV1Recording.md)
 
 ### Authorization
 
@@ -51,7 +51,7 @@ Name | Type | Description
 
 ## UpdateRecording
 
-> TrunkingV1TrunkRecording UpdateRecording(ctx, TrunkSidoptional)
+> TrunkingV1Recording UpdateRecording(ctx, TrunkSidoptional)
 
 
 
@@ -75,7 +75,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrunkingV1TrunkRecording**](TrunkingV1TrunkRecording.md)
+[**TrunkingV1Recording**](TrunkingV1Recording.md)
 
 ### Authorization
 

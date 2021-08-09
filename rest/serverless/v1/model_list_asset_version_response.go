@@ -13,6 +13,6 @@ package openapi
 
 // ListAssetVersionResponse struct for ListAssetVersionResponse
 type ListAssetVersionResponse struct {
-	AssetVersions []ServerlessV1ServiceAssetAssetVersion `json:"asset_versions,omitempty"`
-	Meta          ListServiceResponseMeta                `json:"meta,omitempty"`
+	AssetVersions []ServerlessV1AssetVersion `json:"asset_versions,omitempty"`
+	Meta          ListServiceResponseMeta    `json:"meta,omitempty"`
 }

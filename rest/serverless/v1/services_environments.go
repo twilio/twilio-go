@@ -39,7 +39,7 @@ func (params *CreateEnvironmentParams) SetUniqueName(UniqueName string) *CreateE
 }
 
 // Create a new environment.
-func (c *ApiService) CreateEnvironment(ServiceSid string, params *CreateEnvironmentParams) (*ServerlessV1ServiceEnvironment, error) {
+func (c *ApiService) CreateEnvironment(ServiceSid string, params *CreateEnvironmentParams) (*ServerlessV1Environment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -60,7 +60,7 @@ func (c *ApiService) CreateEnvironment(ServiceSid string, params *CreateEnvironm
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceEnvironment{}
+	ps := &ServerlessV1Environment{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (c *ApiService) DeleteEnvironment(ServiceSid string, Sid string) error {
 }
 
 // Retrieve a specific environment.
-func (c *ApiService) FetchEnvironment(ServiceSid string, Sid string) (*ServerlessV1ServiceEnvironment, error) {
+func (c *ApiService) FetchEnvironment(ServiceSid string, Sid string) (*ServerlessV1Environment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -103,7 +103,7 @@ func (c *ApiService) FetchEnvironment(ServiceSid string, Sid string) (*Serverles
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceEnvironment{}
+	ps := &ServerlessV1Environment{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -164,7 +164,7 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 }
 
 // Lists Environment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams) ([]ServerlessV1ServiceEnvironment, error) {
+func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams) ([]ServerlessV1Environment, error) {
 	if params == nil {
 		params = &ListEnvironmentParams{}
 	}
@@ -176,7 +176,7 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 	}
 
 	curRecord := 0
-	var records []ServerlessV1ServiceEnvironment
+	var records []ServerlessV1Environment
 
 	for response != nil {
 		records = append(records, response.Environments...)
@@ -193,7 +193,7 @@ func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentP
 }
 
 // Streams Environment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmentParams) (chan ServerlessV1ServiceEnvironment, error) {
+func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmentParams) (chan ServerlessV1Environment, error) {
 	if params == nil {
 		params = &ListEnvironmentParams{}
 	}
@@ -206,7 +206,7 @@ func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmen
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ServerlessV1ServiceEnvironment, 1)
+	channel := make(chan ServerlessV1Environment, 1)
 
 	go func() {
 		for response != nil {

@@ -92,7 +92,7 @@ func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageTo
 }
 
 // Lists Metric records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams) ([]InsightsV1CallMetric, error) {
+func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams) ([]InsightsV1Metric, error) {
 	if params == nil {
 		params = &ListMetricParams{}
 	}
@@ -104,7 +104,7 @@ func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams) ([]Ins
 	}
 
 	curRecord := 0
-	var records []InsightsV1CallMetric
+	var records []InsightsV1Metric
 
 	for response != nil {
 		records = append(records, response.Metrics...)
@@ -121,7 +121,7 @@ func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams) ([]Ins
 }
 
 // Streams Metric records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams) (chan InsightsV1CallMetric, error) {
+func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams) (chan InsightsV1Metric, error) {
 	if params == nil {
 		params = &ListMetricParams{}
 	}
@@ -134,7 +134,7 @@ func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams) (cha
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan InsightsV1CallMetric, 1)
+	channel := make(chan InsightsV1Metric, 1)
 
 	go func() {
 		for response != nil {

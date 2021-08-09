@@ -39,7 +39,7 @@ func (params *CreateRateLimitParams) SetUniqueName(UniqueName string) *CreateRat
 }
 
 // Create a new Rate Limit for a Service
-func (c *ApiService) CreateRateLimit(ServiceSid string, params *CreateRateLimitParams) (*VerifyV2ServiceRateLimit, error) {
+func (c *ApiService) CreateRateLimit(ServiceSid string, params *CreateRateLimitParams) (*VerifyV2RateLimit, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -60,7 +60,7 @@ func (c *ApiService) CreateRateLimit(ServiceSid string, params *CreateRateLimitP
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceRateLimit{}
+	ps := &VerifyV2RateLimit{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (c *ApiService) DeleteRateLimit(ServiceSid string, Sid string) error {
 }
 
 // Fetch a specific Rate Limit.
-func (c *ApiService) FetchRateLimit(ServiceSid string, Sid string) (*VerifyV2ServiceRateLimit, error) {
+func (c *ApiService) FetchRateLimit(ServiceSid string, Sid string) (*VerifyV2RateLimit, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -103,7 +103,7 @@ func (c *ApiService) FetchRateLimit(ServiceSid string, Sid string) (*VerifyV2Ser
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceRateLimit{}
+	ps := &VerifyV2RateLimit{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -164,7 +164,7 @@ func (c *ApiService) PageRateLimit(ServiceSid string, params *ListRateLimitParam
 }
 
 // Lists RateLimit records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParams) ([]VerifyV2ServiceRateLimit, error) {
+func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParams) ([]VerifyV2RateLimit, error) {
 	if params == nil {
 		params = &ListRateLimitParams{}
 	}
@@ -176,7 +176,7 @@ func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParam
 	}
 
 	curRecord := 0
-	var records []VerifyV2ServiceRateLimit
+	var records []VerifyV2RateLimit
 
 	for response != nil {
 		records = append(records, response.RateLimits...)
@@ -193,7 +193,7 @@ func (c *ApiService) ListRateLimit(ServiceSid string, params *ListRateLimitParam
 }
 
 // Streams RateLimit records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRateLimit(ServiceSid string, params *ListRateLimitParams) (chan VerifyV2ServiceRateLimit, error) {
+func (c *ApiService) StreamRateLimit(ServiceSid string, params *ListRateLimitParams) (chan VerifyV2RateLimit, error) {
 	if params == nil {
 		params = &ListRateLimitParams{}
 	}
@@ -206,7 +206,7 @@ func (c *ApiService) StreamRateLimit(ServiceSid string, params *ListRateLimitPar
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2ServiceRateLimit, 1)
+	channel := make(chan VerifyV2RateLimit, 1)
 
 	go func() {
 		for response != nil {
@@ -258,7 +258,7 @@ func (params *UpdateRateLimitParams) SetDescription(Description string) *UpdateR
 }
 
 // Update a specific Rate Limit.
-func (c *ApiService) UpdateRateLimit(ServiceSid string, Sid string, params *UpdateRateLimitParams) (*VerifyV2ServiceRateLimit, error) {
+func (c *ApiService) UpdateRateLimit(ServiceSid string, Sid string, params *UpdateRateLimitParams) (*VerifyV2RateLimit, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -277,7 +277,7 @@ func (c *ApiService) UpdateRateLimit(ServiceSid string, Sid string, params *Upda
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceRateLimit{}
+	ps := &VerifyV2RateLimit{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchWorkerInstanceStatistics
 
-> TaskrouterV1WorkspaceWorkerWorkerInstanceStatistics FetchWorkerInstanceStatistics(ctx, WorkspaceSidWorkerSidoptional)
+> TaskrouterV1WorkerInstanceStatistics FetchWorkerInstanceStatistics(ctx, WorkspaceSidWorkerSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkerInstanceStatistics**](TaskrouterV1WorkspaceWorkerWorkerInstanceStatistics.md)
+[**TaskrouterV1WorkerInstanceStatistics**](TaskrouterV1WorkerInstanceStatistics.md)
 
 ### Authorization
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 ## FetchWorkerStatistics
 
-> TaskrouterV1WorkspaceWorkerWorkerStatistics FetchWorkerStatistics(ctx, WorkspaceSidoptional)
+> TaskrouterV1WorkerStatistics FetchWorkerStatistics(ctx, WorkspaceSidoptional)
 
 
 
@@ -85,7 +85,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkerStatistics**](TaskrouterV1WorkspaceWorkerWorkerStatistics.md)
+[**TaskrouterV1WorkerStatistics**](TaskrouterV1WorkerStatistics.md)
 
 ### Authorization
 

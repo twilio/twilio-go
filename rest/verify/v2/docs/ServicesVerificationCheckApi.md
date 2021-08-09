@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateVerificationCheck
 
-> VerifyV2ServiceVerificationCheck CreateVerificationCheck(ctx, ServiceSidoptional)
+> VerifyV2VerificationCheck CreateVerificationCheck(ctx, ServiceSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceVerificationCheck**](VerifyV2ServiceVerificationCheck.md)
+[**VerifyV2VerificationCheck**](VerifyV2VerificationCheck.md)
 
 ### Authorization
 

@@ -33,7 +33,7 @@ func (params *CreateAssetParams) SetFriendlyName(FriendlyName string) *CreateAss
 }
 
 // Create a new Asset resource.
-func (c *ApiService) CreateAsset(ServiceSid string, params *CreateAssetParams) (*ServerlessV1ServiceAsset, error) {
+func (c *ApiService) CreateAsset(ServiceSid string, params *CreateAssetParams) (*ServerlessV1Asset, error) {
 	path := "/v1/Services/{ServiceSid}/Assets"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -51,7 +51,7 @@ func (c *ApiService) CreateAsset(ServiceSid string, params *CreateAssetParams) (
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceAsset{}
+	ps := &ServerlessV1Asset{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (c *ApiService) DeleteAsset(ServiceSid string, Sid string) error {
 }
 
 // Retrieve a specific Asset resource.
-func (c *ApiService) FetchAsset(ServiceSid string, Sid string) (*ServerlessV1ServiceAsset, error) {
+func (c *ApiService) FetchAsset(ServiceSid string, Sid string) (*ServerlessV1Asset, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -94,7 +94,7 @@ func (c *ApiService) FetchAsset(ServiceSid string, Sid string) (*ServerlessV1Ser
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceAsset{}
+	ps := &ServerlessV1Asset{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -155,7 +155,7 @@ func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageT
 }
 
 // Lists Asset records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams) ([]ServerlessV1ServiceAsset, error) {
+func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams) ([]ServerlessV1Asset, error) {
 	if params == nil {
 		params = &ListAssetParams{}
 	}
@@ -167,7 +167,7 @@ func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams) ([]Se
 	}
 
 	curRecord := 0
-	var records []ServerlessV1ServiceAsset
+	var records []ServerlessV1Asset
 
 	for response != nil {
 		records = append(records, response.Assets...)
@@ -184,7 +184,7 @@ func (c *ApiService) ListAsset(ServiceSid string, params *ListAssetParams) ([]Se
 }
 
 // Streams Asset records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams) (chan ServerlessV1ServiceAsset, error) {
+func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams) (chan ServerlessV1Asset, error) {
 	if params == nil {
 		params = &ListAssetParams{}
 	}
@@ -197,7 +197,7 @@ func (c *ApiService) StreamAsset(ServiceSid string, params *ListAssetParams) (ch
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ServerlessV1ServiceAsset, 1)
+	channel := make(chan ServerlessV1Asset, 1)
 
 	go func() {
 		for response != nil {
@@ -249,7 +249,7 @@ func (params *UpdateAssetParams) SetFriendlyName(FriendlyName string) *UpdateAss
 }
 
 // Update a specific Asset resource.
-func (c *ApiService) UpdateAsset(ServiceSid string, Sid string, params *UpdateAssetParams) (*ServerlessV1ServiceAsset, error) {
+func (c *ApiService) UpdateAsset(ServiceSid string, Sid string, params *UpdateAssetParams) (*ServerlessV1Asset, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -268,7 +268,7 @@ func (c *ApiService) UpdateAsset(ServiceSid string, Sid string, params *UpdateAs
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceAsset{}
+	ps := &ServerlessV1Asset{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

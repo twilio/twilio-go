@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **PreviousPageUri** | **string** |  |[optional] 
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
-**UsageRecords** | [**[]ApiV2010AccountUsageUsageRecordUsageRecordDaily**](ApiV2010AccountUsageUsageRecordUsageRecordDaily.md) |  |[optional] 
+**UsageRecords** | [**[]ApiV2010UsageRecordDaily**](ApiV2010UsageRecordDaily.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

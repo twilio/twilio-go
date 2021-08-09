@@ -39,7 +39,7 @@ func (params *CreateTrustProductChannelEndpointAssignmentParams) SetChannelEndpo
 }
 
 // Create a new Assigned Item.
-func (c *ApiService) CreateTrustProductChannelEndpointAssignment(TrustProductSid string, params *CreateTrustProductChannelEndpointAssignmentParams) (*TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
+func (c *ApiService) CreateTrustProductChannelEndpointAssignment(TrustProductSid string, params *CreateTrustProductChannelEndpointAssignmentParams) (*TrusthubV1TrustProductChannelEndpointAssignment, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
@@ -60,7 +60,7 @@ func (c *ApiService) CreateTrustProductChannelEndpointAssignment(TrustProductSid
 
 	defer resp.Body.Close()
 
-	ps := &TrusthubV1TrustProductTrustProductChannelEndpointAssignment{}
+	ps := &TrusthubV1TrustProductChannelEndpointAssignment{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (c *ApiService) DeleteTrustProductChannelEndpointAssignment(TrustProductSid
 }
 
 // Fetch specific Assigned Item Instance.
-func (c *ApiService) FetchTrustProductChannelEndpointAssignment(TrustProductSid string, Sid string) (*TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
+func (c *ApiService) FetchTrustProductChannelEndpointAssignment(TrustProductSid string, Sid string) (*TrusthubV1TrustProductChannelEndpointAssignment, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -103,7 +103,7 @@ func (c *ApiService) FetchTrustProductChannelEndpointAssignment(TrustProductSid 
 
 	defer resp.Body.Close()
 
-	ps := &TrusthubV1TrustProductTrustProductChannelEndpointAssignment{}
+	ps := &TrusthubV1TrustProductChannelEndpointAssignment{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -182,7 +182,7 @@ func (c *ApiService) PageTrustProductChannelEndpointAssignment(TrustProductSid s
 }
 
 // Lists TrustProductChannelEndpointAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams) ([]TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
+func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams) ([]TrusthubV1TrustProductChannelEndpointAssignment, error) {
 	if params == nil {
 		params = &ListTrustProductChannelEndpointAssignmentParams{}
 	}
@@ -194,7 +194,7 @@ func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid s
 	}
 
 	curRecord := 0
-	var records []TrusthubV1TrustProductTrustProductChannelEndpointAssignment
+	var records []TrusthubV1TrustProductChannelEndpointAssignment
 
 	for response != nil {
 		records = append(records, response.Results...)
@@ -211,7 +211,7 @@ func (c *ApiService) ListTrustProductChannelEndpointAssignment(TrustProductSid s
 }
 
 // Streams TrustProductChannelEndpointAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams) (chan TrusthubV1TrustProductTrustProductChannelEndpointAssignment, error) {
+func (c *ApiService) StreamTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams) (chan TrusthubV1TrustProductChannelEndpointAssignment, error) {
 	if params == nil {
 		params = &ListTrustProductChannelEndpointAssignmentParams{}
 	}
@@ -224,7 +224,7 @@ func (c *ApiService) StreamTrustProductChannelEndpointAssignment(TrustProductSid
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TrusthubV1TrustProductTrustProductChannelEndpointAssignment, 1)
+	channel := make(chan TrusthubV1TrustProductChannelEndpointAssignment, 1)
 
 	go func() {
 		for response != nil {

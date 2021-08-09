@@ -39,7 +39,7 @@ func (params *CreateSubscribedEventParams) SetType(Type string) *CreateSubscribe
 }
 
 // Create a new Subscribed Event type for the subscription
-func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *CreateSubscribedEventParams) (*EventsV1SubscriptionSubscribedEvent, error) {
+func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *CreateSubscribedEventParams) (*EventsV1SubscribedEvent, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 
@@ -60,7 +60,7 @@ func (c *ApiService) CreateSubscribedEvent(SubscriptionSid string, params *Creat
 
 	defer resp.Body.Close()
 
-	ps := &EventsV1SubscriptionSubscribedEvent{}
+	ps := &EventsV1SubscribedEvent{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (c *ApiService) DeleteSubscribedEvent(SubscriptionSid string, Type string) 
 }
 
 // Read an Event for a Subscription.
-func (c *ApiService) FetchSubscribedEvent(SubscriptionSid string, Type string) (*EventsV1SubscriptionSubscribedEvent, error) {
+func (c *ApiService) FetchSubscribedEvent(SubscriptionSid string, Type string) (*EventsV1SubscribedEvent, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}"
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
@@ -103,7 +103,7 @@ func (c *ApiService) FetchSubscribedEvent(SubscriptionSid string, Type string) (
 
 	defer resp.Body.Close()
 
-	ps := &EventsV1SubscriptionSubscribedEvent{}
+	ps := &EventsV1SubscribedEvent{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -164,7 +164,7 @@ func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSub
 }
 
 // Lists SubscribedEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) ([]EventsV1SubscriptionSubscribedEvent, error) {
+func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) ([]EventsV1SubscribedEvent, error) {
 	if params == nil {
 		params = &ListSubscribedEventParams{}
 	}
@@ -176,7 +176,7 @@ func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSub
 	}
 
 	curRecord := 0
-	var records []EventsV1SubscriptionSubscribedEvent
+	var records []EventsV1SubscribedEvent
 
 	for response != nil {
 		records = append(records, response.Types...)
@@ -193,7 +193,7 @@ func (c *ApiService) ListSubscribedEvent(SubscriptionSid string, params *ListSub
 }
 
 // Streams SubscribedEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) (chan EventsV1SubscriptionSubscribedEvent, error) {
+func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams) (chan EventsV1SubscribedEvent, error) {
 	if params == nil {
 		params = &ListSubscribedEventParams{}
 	}
@@ -206,7 +206,7 @@ func (c *ApiService) StreamSubscribedEvent(SubscriptionSid string, params *ListS
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan EventsV1SubscriptionSubscribedEvent, 1)
+	channel := make(chan EventsV1SubscribedEvent, 1)
 
 	go func() {
 		for response != nil {
@@ -258,7 +258,7 @@ func (params *UpdateSubscribedEventParams) SetSchemaVersion(SchemaVersion int) *
 }
 
 // Update an Event for a Subscription.
-func (c *ApiService) UpdateSubscribedEvent(SubscriptionSid string, Type string, params *UpdateSubscribedEventParams) (*EventsV1SubscriptionSubscribedEvent, error) {
+func (c *ApiService) UpdateSubscribedEvent(SubscriptionSid string, Type string, params *UpdateSubscribedEventParams) (*EventsV1SubscribedEvent, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}"
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
 	path = strings.Replace(path, "{"+"Type"+"}", Type, -1)
@@ -277,7 +277,7 @@ func (c *ApiService) UpdateSubscribedEvent(SubscriptionSid string, Type string, 
 
 	defer resp.Body.Close()
 
-	ps := &EventsV1SubscriptionSubscribedEvent{}
+	ps := &EventsV1SubscribedEvent{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -13,6 +13,6 @@ package openapi
 
 // ListDeploymentResponse struct for ListDeploymentResponse
 type ListDeploymentResponse struct {
-	Deployments []ServerlessV1ServiceEnvironmentDeployment `json:"deployments,omitempty"`
-	Meta        ListServiceResponseMeta                    `json:"meta,omitempty"`
+	Deployments []ServerlessV1Deployment `json:"deployments,omitempty"`
+	Meta        ListServiceResponseMeta  `json:"meta,omitempty"`
 }

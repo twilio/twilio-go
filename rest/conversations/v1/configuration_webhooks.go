@@ -16,7 +16,7 @@ import (
 	"net/url"
 )
 
-func (c *ApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationConfigurationWebhook, error) {
+func (c *ApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
@@ -29,7 +29,7 @@ func (c *ApiService) FetchConfigurationWebhook() (*ConversationsV1ConfigurationC
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ConfigurationConfigurationWebhook{}
+	ps := &ConversationsV1ConfigurationWebhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -72,7 +72,7 @@ func (params *UpdateConfigurationWebhookParams) SetTarget(Target string) *Update
 	return params
 }
 
-func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationConfigurationWebhook, error) {
+func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebhookParams) (*ConversationsV1ConfigurationWebhook, error) {
 	path := "/v1/Configuration/Webhooks"
 
 	data := url.Values{}
@@ -103,7 +103,7 @@ func (c *ApiService) UpdateConfigurationWebhook(params *UpdateConfigurationWebho
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ConfigurationConfigurationWebhook{}
+	ps := &ConversationsV1ConfigurationWebhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

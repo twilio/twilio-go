@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateNetworkAccessProfileNetwork
 
-> SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork CreateNetworkAccessProfileNetwork(ctx, NetworkAccessProfileSidoptional)
+> SupersimV1NetworkAccessProfileNetwork CreateNetworkAccessProfileNetwork(ctx, NetworkAccessProfileSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork**](SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork.md)
+[**SupersimV1NetworkAccessProfileNetwork**](SupersimV1NetworkAccessProfileNetwork.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchNetworkAccessProfileNetwork
 
-> SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork FetchNetworkAccessProfileNetwork(ctx, NetworkAccessProfileSidSid)
+> SupersimV1NetworkAccessProfileNetwork FetchNetworkAccessProfileNetwork(ctx, NetworkAccessProfileSidSid)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork**](SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork.md)
+[**SupersimV1NetworkAccessProfileNetwork**](SupersimV1NetworkAccessProfileNetwork.md)
 
 ### Authorization
 

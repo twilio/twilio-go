@@ -18,7 +18,7 @@ import (
 	"strings"
 )
 
-func (c *ApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceVoiceNumber, error) {
+func (c *ApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceNumber, error) {
 	path := "/v1/Voice/Numbers/{Number}"
 	path = strings.Replace(path, "{"+"Number"+"}", Number, -1)
 
@@ -32,7 +32,7 @@ func (c *ApiService) FetchVoiceNumber(Number string) (*PricingV1VoiceVoiceNumber
 
 	defer resp.Body.Close()
 
-	ps := &PricingV1VoiceVoiceNumber{}
+	ps := &PricingV1VoiceNumber{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

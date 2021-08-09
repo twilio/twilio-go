@@ -22,7 +22,7 @@ import (
 )
 
 // Retrieve a specific Flow revision.
-func (c *ApiService) FetchFlowRevision(Sid string, Revision string) (*StudioV2FlowFlowRevision, error) {
+func (c *ApiService) FetchFlowRevision(Sid string, Revision string) (*StudioV2FlowRevision, error) {
 	path := "/v2/Flows/{Sid}/Revisions/{Revision}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 	path = strings.Replace(path, "{"+"Revision"+"}", Revision, -1)
@@ -37,7 +37,7 @@ func (c *ApiService) FetchFlowRevision(Sid string, Revision string) (*StudioV2Fl
 
 	defer resp.Body.Close()
 
-	ps := &StudioV2FlowFlowRevision{}
+	ps := &StudioV2FlowRevision{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (c *ApiService) PageFlowRevision(Sid string, params *ListFlowRevisionParams
 }
 
 // Lists FlowRevision records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams) ([]StudioV2FlowFlowRevision, error) {
+func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams) ([]StudioV2FlowRevision, error) {
 	if params == nil {
 		params = &ListFlowRevisionParams{}
 	}
@@ -110,7 +110,7 @@ func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams
 	}
 
 	curRecord := 0
-	var records []StudioV2FlowFlowRevision
+	var records []StudioV2FlowRevision
 
 	for response != nil {
 		records = append(records, response.Revisions...)
@@ -127,7 +127,7 @@ func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams
 }
 
 // Streams FlowRevision records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionParams) (chan StudioV2FlowFlowRevision, error) {
+func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionParams) (chan StudioV2FlowRevision, error) {
 	if params == nil {
 		params = &ListFlowRevisionParams{}
 	}
@@ -140,7 +140,7 @@ func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionPara
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan StudioV2FlowFlowRevision, 1)
+	channel := make(chan StudioV2FlowRevision, 1)
 
 	go func() {
 		for response != nil {

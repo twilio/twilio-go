@@ -13,6 +13,6 @@ package openapi
 
 // ListPhoneNumberResponse struct for ListPhoneNumberResponse
 type ListPhoneNumberResponse struct {
-	Meta         ListServiceResponseMeta         `json:"meta,omitempty"`
-	PhoneNumbers []MessagingV1ServicePhoneNumber `json:"phone_numbers,omitempty"`
+	Meta         ListServiceResponseMeta  `json:"meta,omitempty"`
+	PhoneNumbers []MessagingV1PhoneNumber `json:"phone_numbers,omitempty"`
 }

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **End** | **int** |  |[optional] 
-**Extensions** | [**[]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension**](ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOnIncomingPhoneNumberAssignedAddOnExtension.md) |  |[optional] 
+**Extensions** | [**[]ApiV2010IncomingPhoneNumberAssignedAddOnExtension**](ApiV2010IncomingPhoneNumberAssignedAddOnExtension.md) |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 

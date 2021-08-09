@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateTrustProductChannelEndpointAssignment
 
-> TrusthubV1TrustProductTrustProductChannelEndpointAssignment CreateTrustProductChannelEndpointAssignment(ctx, TrustProductSidoptional)
+> TrusthubV1TrustProductChannelEndpointAssignment CreateTrustProductChannelEndpointAssignment(ctx, TrustProductSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrusthubV1TrustProductTrustProductChannelEndpointAssignment**](TrusthubV1TrustProductTrustProductChannelEndpointAssignment.md)
+[**TrusthubV1TrustProductChannelEndpointAssignment**](TrusthubV1TrustProductChannelEndpointAssignment.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchTrustProductChannelEndpointAssignment
 
-> TrusthubV1TrustProductTrustProductChannelEndpointAssignment FetchTrustProductChannelEndpointAssignment(ctx, TrustProductSidSid)
+> TrusthubV1TrustProductChannelEndpointAssignment FetchTrustProductChannelEndpointAssignment(ctx, TrustProductSidSid)
 
 
 
@@ -125,7 +125,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrusthubV1TrustProductTrustProductChannelEndpointAssignment**](TrusthubV1TrustProductTrustProductChannelEndpointAssignment.md)
+[**TrusthubV1TrustProductChannelEndpointAssignment**](TrusthubV1TrustProductChannelEndpointAssignment.md)
 
 ### Authorization
 

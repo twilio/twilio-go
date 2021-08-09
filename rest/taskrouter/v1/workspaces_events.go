@@ -22,7 +22,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-func (c *ApiService) FetchEvent(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceEvent, error) {
+func (c *ApiService) FetchEvent(WorkspaceSid string, Sid string) (*TaskrouterV1Event, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Events/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -37,7 +37,7 @@ func (c *ApiService) FetchEvent(WorkspaceSid string, Sid string) (*TaskrouterV1W
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceEvent{}
+	ps := &TaskrouterV1Event{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -197,7 +197,7 @@ func (c *ApiService) PageEvent(WorkspaceSid string, params *ListEventParams, pag
 }
 
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams) ([]TaskrouterV1WorkspaceEvent, error) {
+func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams) ([]TaskrouterV1Event, error) {
 	if params == nil {
 		params = &ListEventParams{}
 	}
@@ -209,7 +209,7 @@ func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams) ([]
 	}
 
 	curRecord := 0
-	var records []TaskrouterV1WorkspaceEvent
+	var records []TaskrouterV1Event
 
 	for response != nil {
 		records = append(records, response.Events...)
@@ -226,7 +226,7 @@ func (c *ApiService) ListEvent(WorkspaceSid string, params *ListEventParams) ([]
 }
 
 // Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEvent(WorkspaceSid string, params *ListEventParams) (chan TaskrouterV1WorkspaceEvent, error) {
+func (c *ApiService) StreamEvent(WorkspaceSid string, params *ListEventParams) (chan TaskrouterV1Event, error) {
 	if params == nil {
 		params = &ListEventParams{}
 	}
@@ -239,7 +239,7 @@ func (c *ApiService) StreamEvent(WorkspaceSid string, params *ListEventParams) (
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1WorkspaceEvent, 1)
+	channel := make(chan TaskrouterV1Event, 1)
 
 	go func() {
 		for response != nil {

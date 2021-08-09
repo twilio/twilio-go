@@ -42,7 +42,7 @@ func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, Channe
 	return nil
 }
 
-func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, ChannelSid string) (*ChatV2ServiceUserUserChannel, error) {
+func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, ChannelSid string) (*ChatV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -58,7 +58,7 @@ func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, Channel
 
 	defer resp.Body.Close()
 
-	ps := &ChatV2ServiceUserUserChannel{}
+	ps := &ChatV2UserChannel{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -120,7 +120,7 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 }
 
 // Lists UserChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) ([]ChatV2ServiceUserUserChannel, error) {
+func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) ([]ChatV2UserChannel, error) {
 	if params == nil {
 		params = &ListUserChannelParams{}
 	}
@@ -132,7 +132,7 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 	}
 
 	curRecord := 0
-	var records []ChatV2ServiceUserUserChannel
+	var records []ChatV2UserChannel
 
 	for response != nil {
 		records = append(records, response.Channels...)
@@ -149,7 +149,7 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 }
 
 // Streams UserChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) (chan ChatV2ServiceUserUserChannel, error) {
+func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) (chan ChatV2UserChannel, error) {
 	if params == nil {
 		params = &ListUserChannelParams{}
 	}
@@ -162,7 +162,7 @@ func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ChatV2ServiceUserUserChannel, 1)
+	channel := make(chan ChatV2UserChannel, 1)
 
 	go func() {
 		for response != nil {
@@ -225,7 +225,7 @@ func (params *UpdateUserChannelParams) SetNotificationLevel(NotificationLevel st
 	return params
 }
 
-func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, ChannelSid string, params *UpdateUserChannelParams) (*ChatV2ServiceUserUserChannel, error) {
+func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, ChannelSid string, params *UpdateUserChannelParams) (*ChatV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -251,7 +251,7 @@ func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, Channe
 
 	defer resp.Body.Close()
 
-	ps := &ChatV2ServiceUserUserChannel{}
+	ps := &ChatV2UserChannel{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

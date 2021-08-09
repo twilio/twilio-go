@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchExecutionStepContext
 
-> StudioV2FlowExecutionExecutionStepExecutionStepContext FetchExecutionStepContext(ctx, FlowSidExecutionSidStepSid)
+> StudioV2ExecutionStepContext FetchExecutionStepContext(ctx, FlowSidExecutionSidStepSid)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV2FlowExecutionExecutionStepExecutionStepContext**](StudioV2FlowExecutionExecutionStepExecutionStepContext.md)
+[**StudioV2ExecutionStepContext**](StudioV2ExecutionStepContext.md)
 
 ### Authorization
 

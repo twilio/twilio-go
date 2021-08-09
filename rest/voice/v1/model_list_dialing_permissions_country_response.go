@@ -13,6 +13,6 @@ package openapi
 
 // ListDialingPermissionsCountryResponse struct for ListDialingPermissionsCountryResponse
 type ListDialingPermissionsCountryResponse struct {
-	Content []VoiceV1DialingPermissionsDialingPermissionsCountry `json:"content,omitempty"`
-	Meta    ListByocTrunkResponseMeta                            `json:"meta,omitempty"`
+	Content []VoiceV1DialingPermissionsCountry `json:"content,omitempty"`
+	Meta    ListByocTrunkResponseMeta          `json:"meta,omitempty"`
 }

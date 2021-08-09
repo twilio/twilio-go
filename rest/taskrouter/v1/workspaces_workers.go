@@ -44,7 +44,7 @@ func (params *CreateWorkerParams) SetFriendlyName(FriendlyName string) *CreateWo
 	return params
 }
 
-func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParams) (*TaskrouterV1WorkspaceWorker, error) {
+func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParams) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -68,7 +68,7 @@ func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParam
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorker{}
+	ps := &TaskrouterV1Worker{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchWorker(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceWorker, error) {
+func (c *ApiService) FetchWorker(WorkspaceSid string, Sid string) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -109,7 +109,7 @@ func (c *ApiService) FetchWorker(WorkspaceSid string, Sid string) (*TaskrouterV1
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorker{}
+	ps := &TaskrouterV1Worker{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -233,7 +233,7 @@ func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, p
 }
 
 // Lists Worker records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams) ([]TaskrouterV1WorkspaceWorker, error) {
+func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams) ([]TaskrouterV1Worker, error) {
 	if params == nil {
 		params = &ListWorkerParams{}
 	}
@@ -245,7 +245,7 @@ func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams) (
 	}
 
 	curRecord := 0
-	var records []TaskrouterV1WorkspaceWorker
+	var records []TaskrouterV1Worker
 
 	for response != nil {
 		records = append(records, response.Workers...)
@@ -262,7 +262,7 @@ func (c *ApiService) ListWorker(WorkspaceSid string, params *ListWorkerParams) (
 }
 
 // Streams Worker records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWorker(WorkspaceSid string, params *ListWorkerParams) (chan TaskrouterV1WorkspaceWorker, error) {
+func (c *ApiService) StreamWorker(WorkspaceSid string, params *ListWorkerParams) (chan TaskrouterV1Worker, error) {
 	if params == nil {
 		params = &ListWorkerParams{}
 	}
@@ -275,7 +275,7 @@ func (c *ApiService) StreamWorker(WorkspaceSid string, params *ListWorkerParams)
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1WorkspaceWorker, 1)
+	channel := make(chan TaskrouterV1Worker, 1)
 
 	go func() {
 		for response != nil {
@@ -344,7 +344,7 @@ func (params *UpdateWorkerParams) SetRejectPendingReservations(RejectPendingRese
 	return params
 }
 
-func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *UpdateWorkerParams) (*TaskrouterV1WorkspaceWorker, error) {
+func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *UpdateWorkerParams) (*TaskrouterV1Worker, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -372,7 +372,7 @@ func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *Updat
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorker{}
+	ps := &TaskrouterV1Worker{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

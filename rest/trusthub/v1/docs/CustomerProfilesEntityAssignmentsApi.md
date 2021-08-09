@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateCustomerProfileEntityAssignment
 
-> TrusthubV1CustomerProfileCustomerProfileEntityAssignment CreateCustomerProfileEntityAssignment(ctx, CustomerProfileSidoptional)
+> TrusthubV1CustomerProfileEntityAssignment CreateCustomerProfileEntityAssignment(ctx, CustomerProfileSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrusthubV1CustomerProfileCustomerProfileEntityAssignment**](TrusthubV1CustomerProfileCustomerProfileEntityAssignment.md)
+[**TrusthubV1CustomerProfileEntityAssignment**](TrusthubV1CustomerProfileEntityAssignment.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchCustomerProfileEntityAssignment
 
-> TrusthubV1CustomerProfileCustomerProfileEntityAssignment FetchCustomerProfileEntityAssignment(ctx, CustomerProfileSidSid)
+> TrusthubV1CustomerProfileEntityAssignment FetchCustomerProfileEntityAssignment(ctx, CustomerProfileSidSid)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrusthubV1CustomerProfileCustomerProfileEntityAssignment**](TrusthubV1CustomerProfileCustomerProfileEntityAssignment.md)
+[**TrusthubV1CustomerProfileEntityAssignment**](TrusthubV1CustomerProfileEntityAssignment.md)
 
 ### Authorization
 

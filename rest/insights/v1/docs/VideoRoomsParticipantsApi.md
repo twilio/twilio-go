@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchVideoParticipantSummary
 
-> InsightsV1VideoRoomSummaryVideoParticipantSummary FetchVideoParticipantSummary(ctx, RoomSidParticipantSid)
+> InsightsV1VideoParticipantSummary FetchVideoParticipantSummary(ctx, RoomSidParticipantSid)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**InsightsV1VideoRoomSummaryVideoParticipantSummary**](InsightsV1VideoRoomSummaryVideoParticipantSummary.md)
+[**InsightsV1VideoParticipantSummary**](InsightsV1VideoParticipantSummary.md)
 
 ### Authorization
 

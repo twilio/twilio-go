@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchStepContext
 
-> StudioV1FlowEngagementStepStepContext FetchStepContext(ctx, FlowSidEngagementSidStepSid)
+> StudioV1StepContext FetchStepContext(ctx, FlowSidEngagementSidStepSid)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV1FlowEngagementStepStepContext**](StudioV1FlowEngagementStepStepContext.md)
+[**StudioV1StepContext**](StudioV1StepContext.md)
 
 ### Authorization
 

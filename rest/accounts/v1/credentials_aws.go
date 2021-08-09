@@ -45,7 +45,7 @@ func (params *CreateCredentialAwsParams) SetFriendlyName(FriendlyName string) *C
 }
 
 // Create a new AWS Credential
-func (c *ApiService) CreateCredentialAws(params *CreateCredentialAwsParams) (*AccountsV1CredentialCredentialAws, error) {
+func (c *ApiService) CreateCredentialAws(params *CreateCredentialAwsParams) (*AccountsV1CredentialAws, error) {
 	path := "/v1/Credentials/AWS"
 
 	data := url.Values{}
@@ -68,7 +68,7 @@ func (c *ApiService) CreateCredentialAws(params *CreateCredentialAwsParams) (*Ac
 
 	defer resp.Body.Close()
 
-	ps := &AccountsV1CredentialCredentialAws{}
+	ps := &AccountsV1CredentialAws{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func (c *ApiService) DeleteCredentialAws(Sid string) error {
 }
 
 // Fetch the AWS credentials specified by the provided Credential Sid
-func (c *ApiService) FetchCredentialAws(Sid string) (*AccountsV1CredentialCredentialAws, error) {
+func (c *ApiService) FetchCredentialAws(Sid string) (*AccountsV1CredentialAws, error) {
 	path := "/v1/Credentials/AWS/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -109,7 +109,7 @@ func (c *ApiService) FetchCredentialAws(Sid string) (*AccountsV1CredentialCreden
 
 	defer resp.Body.Close()
 
-	ps := &AccountsV1CredentialCredentialAws{}
+	ps := &AccountsV1CredentialAws{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToke
 }
 
 // Lists CredentialAws records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams) ([]AccountsV1CredentialCredentialAws, error) {
+func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams) ([]AccountsV1CredentialAws, error) {
 	if params == nil {
 		params = &ListCredentialAwsParams{}
 	}
@@ -180,7 +180,7 @@ func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams) ([]Accou
 	}
 
 	curRecord := 0
-	var records []AccountsV1CredentialCredentialAws
+	var records []AccountsV1CredentialAws
 
 	for response != nil {
 		records = append(records, response.Credentials...)
@@ -197,7 +197,7 @@ func (c *ApiService) ListCredentialAws(params *ListCredentialAwsParams) ([]Accou
 }
 
 // Streams CredentialAws records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams) (chan AccountsV1CredentialCredentialAws, error) {
+func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams) (chan AccountsV1CredentialAws, error) {
 	if params == nil {
 		params = &ListCredentialAwsParams{}
 	}
@@ -210,7 +210,7 @@ func (c *ApiService) StreamCredentialAws(params *ListCredentialAwsParams) (chan 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan AccountsV1CredentialCredentialAws, 1)
+	channel := make(chan AccountsV1CredentialAws, 1)
 
 	go func() {
 		for response != nil {
@@ -262,7 +262,7 @@ func (params *UpdateCredentialAwsParams) SetFriendlyName(FriendlyName string) *U
 }
 
 // Modify the properties of a given Account
-func (c *ApiService) UpdateCredentialAws(Sid string, params *UpdateCredentialAwsParams) (*AccountsV1CredentialCredentialAws, error) {
+func (c *ApiService) UpdateCredentialAws(Sid string, params *UpdateCredentialAwsParams) (*AccountsV1CredentialAws, error) {
 	path := "/v1/Credentials/AWS/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -280,7 +280,7 @@ func (c *ApiService) UpdateCredentialAws(Sid string, params *UpdateCredentialAws
 
 	defer resp.Body.Close()
 
-	ps := &AccountsV1CredentialCredentialAws{}
+	ps := &AccountsV1CredentialAws{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

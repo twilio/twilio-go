@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateMessagingConfiguration
 
-> VerifyV2ServiceMessagingConfiguration CreateMessagingConfiguration(ctx, ServiceSidoptional)
+> VerifyV2MessagingConfiguration CreateMessagingConfiguration(ctx, ServiceSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceMessagingConfiguration**](VerifyV2ServiceMessagingConfiguration.md)
+[**VerifyV2MessagingConfiguration**](VerifyV2MessagingConfiguration.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchMessagingConfiguration
 
-> VerifyV2ServiceMessagingConfiguration FetchMessagingConfiguration(ctx, ServiceSidCountry)
+> VerifyV2MessagingConfiguration FetchMessagingConfiguration(ctx, ServiceSidCountry)
 
 
 
@@ -126,7 +126,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceMessagingConfiguration**](VerifyV2ServiceMessagingConfiguration.md)
+[**VerifyV2MessagingConfiguration**](VerifyV2MessagingConfiguration.md)
 
 ### Authorization
 
@@ -188,7 +188,7 @@ Name | Type | Description
 
 ## UpdateMessagingConfiguration
 
-> VerifyV2ServiceMessagingConfiguration UpdateMessagingConfiguration(ctx, ServiceSidCountryoptional)
+> VerifyV2MessagingConfiguration UpdateMessagingConfiguration(ctx, ServiceSidCountryoptional)
 
 
 
@@ -214,7 +214,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceMessagingConfiguration**](VerifyV2ServiceMessagingConfiguration.md)
+[**VerifyV2MessagingConfiguration**](VerifyV2MessagingConfiguration.md)
 
 ### Authorization
 

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateInvite
 
-> IpMessagingV2ServiceChannelInvite CreateInvite(ctx, ServiceSidChannelSidoptional)
+> IpMessagingV2Invite CreateInvite(ctx, ServiceSidChannelSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelInvite**](IpMessagingV2ServiceChannelInvite.md)
+[**IpMessagingV2Invite**](IpMessagingV2Invite.md)
 
 ### Authorization
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## FetchInvite
 
-> IpMessagingV2ServiceChannelInvite FetchInvite(ctx, ServiceSidChannelSidSid)
+> IpMessagingV2Invite FetchInvite(ctx, ServiceSidChannelSidSid)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV2ServiceChannelInvite**](IpMessagingV2ServiceChannelInvite.md)
+[**IpMessagingV2Invite**](IpMessagingV2Invite.md)
 
 ### Authorization
 

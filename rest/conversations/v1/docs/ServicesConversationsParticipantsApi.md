@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateServiceConversationParticipant
 
-> ConversationsV1ServiceServiceConversationServiceConversationParticipant CreateServiceConversationParticipant(ctx, ChatServiceSidConversationSidoptional)
+> ConversationsV1ServiceConversationParticipant CreateServiceConversationParticipant(ctx, ChatServiceSidConversationSidoptional)
 
 
 
@@ -48,7 +48,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationParticipant**](ConversationsV1ServiceServiceConversationServiceConversationParticipant.md)
+[**ConversationsV1ServiceConversationParticipant**](ConversationsV1ServiceConversationParticipant.md)
 
 ### Authorization
 
@@ -111,7 +111,7 @@ Name | Type | Description
 
 ## FetchServiceConversationParticipant
 
-> ConversationsV1ServiceServiceConversationServiceConversationParticipant FetchServiceConversationParticipant(ctx, ChatServiceSidConversationSidSid)
+> ConversationsV1ServiceConversationParticipant FetchServiceConversationParticipant(ctx, ChatServiceSidConversationSidSid)
 
 
 
@@ -137,7 +137,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationParticipant**](ConversationsV1ServiceServiceConversationServiceConversationParticipant.md)
+[**ConversationsV1ServiceConversationParticipant**](ConversationsV1ServiceConversationParticipant.md)
 
 ### Authorization
 
@@ -200,7 +200,7 @@ Name | Type | Description
 
 ## UpdateServiceConversationParticipant
 
-> ConversationsV1ServiceServiceConversationServiceConversationParticipant UpdateServiceConversationParticipant(ctx, ChatServiceSidConversationSidSidoptional)
+> ConversationsV1ServiceConversationParticipant UpdateServiceConversationParticipant(ctx, ChatServiceSidConversationSidSidoptional)
 
 
 
@@ -236,7 +236,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationParticipant**](ConversationsV1ServiceServiceConversationServiceConversationParticipant.md)
+[**ConversationsV1ServiceConversationParticipant**](ConversationsV1ServiceConversationParticipant.md)
 
 ### Authorization
 

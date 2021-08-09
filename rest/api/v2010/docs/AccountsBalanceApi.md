@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchBalance
 
-> ApiV2010AccountBalance FetchBalance(ctx, optional)
+> ApiV2010Balance FetchBalance(ctx, optional)
 
 
 
@@ -31,7 +31,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountBalance**](ApiV2010AccountBalance.md)
+[**ApiV2010Balance**](ApiV2010Balance.md)
 
 ### Authorization
 

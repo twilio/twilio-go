@@ -57,7 +57,7 @@ Name | Type | Description
 
 ## FetchDocumentPermission
 
-> SyncV1ServiceDocumentDocumentPermission FetchDocumentPermission(ctx, ServiceSidDocumentSidIdentity)
+> SyncV1DocumentPermission FetchDocumentPermission(ctx, ServiceSidDocumentSidIdentity)
 
 
 
@@ -83,7 +83,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceDocumentDocumentPermission**](SyncV1ServiceDocumentDocumentPermission.md)
+[**SyncV1DocumentPermission**](SyncV1DocumentPermission.md)
 
 ### Authorization
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 ## UpdateDocumentPermission
 
-> SyncV1ServiceDocumentDocumentPermission UpdateDocumentPermission(ctx, ServiceSidDocumentSidIdentityoptional)
+> SyncV1DocumentPermission UpdateDocumentPermission(ctx, ServiceSidDocumentSidIdentityoptional)
 
 
 
@@ -175,7 +175,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceDocumentDocumentPermission**](SyncV1ServiceDocumentDocumentPermission.md)
+[**SyncV1DocumentPermission**](SyncV1DocumentPermission.md)
 
 ### Authorization
 

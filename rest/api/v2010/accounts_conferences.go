@@ -33,7 +33,7 @@ func (params *FetchConferenceParams) SetPathAccountSid(PathAccountSid string) *F
 }
 
 // Fetch an instance of a conference
-func (c *ApiService) FetchConference(Sid string, params *FetchConferenceParams) (*ApiV2010AccountConference, error) {
+func (c *ApiService) FetchConference(Sid string, params *FetchConferenceParams) (*ApiV2010Conference, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -52,7 +52,7 @@ func (c *ApiService) FetchConference(Sid string, params *FetchConferenceParams) 
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountConference{}
+	ps := &ApiV2010Conference{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -195,7 +195,7 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken stri
 }
 
 // Lists Conference records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConference(params *ListConferenceParams) ([]ApiV2010AccountConference, error) {
+func (c *ApiService) ListConference(params *ListConferenceParams) ([]ApiV2010Conference, error) {
 	if params == nil {
 		params = &ListConferenceParams{}
 	}
@@ -207,7 +207,7 @@ func (c *ApiService) ListConference(params *ListConferenceParams) ([]ApiV2010Acc
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountConference
+	var records []ApiV2010Conference
 
 	for response != nil {
 		records = append(records, response.Conferences...)
@@ -224,7 +224,7 @@ func (c *ApiService) ListConference(params *ListConferenceParams) ([]ApiV2010Acc
 }
 
 // Streams Conference records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConference(params *ListConferenceParams) (chan ApiV2010AccountConference, error) {
+func (c *ApiService) StreamConference(params *ListConferenceParams) (chan ApiV2010Conference, error) {
 	if params == nil {
 		params = &ListConferenceParams{}
 	}
@@ -237,7 +237,7 @@ func (c *ApiService) StreamConference(params *ListConferenceParams) (chan ApiV20
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountConference, 1)
+	channel := make(chan ApiV2010Conference, 1)
 
 	go func() {
 		for response != nil {
@@ -306,7 +306,7 @@ func (params *UpdateConferenceParams) SetStatus(Status string) *UpdateConference
 	return params
 }
 
-func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams) (*ApiV2010AccountConference, error) {
+func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams) (*ApiV2010Conference, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -335,7 +335,7 @@ func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountConference{}
+	ps := &ApiV2010Conference{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

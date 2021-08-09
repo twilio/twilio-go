@@ -54,7 +54,7 @@ func (params *CreateVerificationCheckParams) SetVerificationSid(VerificationSid 
 }
 
 // challenge a specific Verification Check.
-func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVerificationCheckParams) (*VerifyV2ServiceVerificationCheck, error) {
+func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVerificationCheckParams) (*VerifyV2VerificationCheck, error) {
 	path := "/v2/Services/{ServiceSid}/VerificationCheck"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -84,7 +84,7 @@ func (c *ApiService) CreateVerificationCheck(ServiceSid string, params *CreateVe
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceVerificationCheck{}
+	ps := &VerifyV2VerificationCheck{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

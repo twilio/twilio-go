@@ -22,7 +22,7 @@ import (
 )
 
 // Fetch a specific schema and version.
-func (c *ApiService) FetchSchemaVersion(Id string, SchemaVersion int) (*EventsV1SchemaSchemaVersion, error) {
+func (c *ApiService) FetchSchemaVersion(Id string, SchemaVersion int) (*EventsV1SchemaVersion, error) {
 	path := "/v1/Schemas/{Id}/Versions/{SchemaVersion}"
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
 	path = strings.Replace(path, "{"+"SchemaVersion"+"}", fmt.Sprint(SchemaVersion), -1)
@@ -37,7 +37,7 @@ func (c *ApiService) FetchSchemaVersion(Id string, SchemaVersion int) (*EventsV1
 
 	defer resp.Body.Close()
 
-	ps := &EventsV1SchemaSchemaVersion{}
+	ps := &EventsV1SchemaVersion{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (c *ApiService) PageSchemaVersion(Id string, params *ListSchemaVersionParam
 }
 
 // Lists SchemaVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParams) ([]EventsV1SchemaSchemaVersion, error) {
+func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParams) ([]EventsV1SchemaVersion, error) {
 	if params == nil {
 		params = &ListSchemaVersionParams{}
 	}
@@ -110,7 +110,7 @@ func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParam
 	}
 
 	curRecord := 0
-	var records []EventsV1SchemaSchemaVersion
+	var records []EventsV1SchemaVersion
 
 	for response != nil {
 		records = append(records, response.SchemaVersions...)
@@ -127,7 +127,7 @@ func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParam
 }
 
 // Streams SchemaVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionParams) (chan EventsV1SchemaSchemaVersion, error) {
+func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionParams) (chan EventsV1SchemaVersion, error) {
 	if params == nil {
 		params = &ListSchemaVersionParams{}
 	}
@@ -140,7 +140,7 @@ func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionPar
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan EventsV1SchemaSchemaVersion, 1)
+	channel := make(chan EventsV1SchemaVersion, 1)
 
 	go func() {
 		for response != nil {

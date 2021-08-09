@@ -45,7 +45,7 @@ func (params *CreateCredentialPublicKeyParams) SetPublicKey(PublicKey string) *C
 }
 
 // Create a new Public Key Credential
-func (c *ApiService) CreateCredentialPublicKey(params *CreateCredentialPublicKeyParams) (*AccountsV1CredentialCredentialPublicKey, error) {
+func (c *ApiService) CreateCredentialPublicKey(params *CreateCredentialPublicKeyParams) (*AccountsV1CredentialPublicKey, error) {
 	path := "/v1/Credentials/PublicKeys"
 
 	data := url.Values{}
@@ -68,7 +68,7 @@ func (c *ApiService) CreateCredentialPublicKey(params *CreateCredentialPublicKey
 
 	defer resp.Body.Close()
 
-	ps := &AccountsV1CredentialCredentialPublicKey{}
+	ps := &AccountsV1CredentialPublicKey{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func (c *ApiService) DeleteCredentialPublicKey(Sid string) error {
 }
 
 // Fetch the public key specified by the provided Credential Sid
-func (c *ApiService) FetchCredentialPublicKey(Sid string) (*AccountsV1CredentialCredentialPublicKey, error) {
+func (c *ApiService) FetchCredentialPublicKey(Sid string) (*AccountsV1CredentialPublicKey, error) {
 	path := "/v1/Credentials/PublicKeys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -109,7 +109,7 @@ func (c *ApiService) FetchCredentialPublicKey(Sid string) (*AccountsV1Credential
 
 	defer resp.Body.Close()
 
-	ps := &AccountsV1CredentialCredentialPublicKey{}
+	ps := &AccountsV1CredentialPublicKey{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ func (c *ApiService) PageCredentialPublicKey(params *ListCredentialPublicKeyPara
 }
 
 // Lists CredentialPublicKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyParams) ([]AccountsV1CredentialCredentialPublicKey, error) {
+func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyParams) ([]AccountsV1CredentialPublicKey, error) {
 	if params == nil {
 		params = &ListCredentialPublicKeyParams{}
 	}
@@ -180,7 +180,7 @@ func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyPara
 	}
 
 	curRecord := 0
-	var records []AccountsV1CredentialCredentialPublicKey
+	var records []AccountsV1CredentialPublicKey
 
 	for response != nil {
 		records = append(records, response.Credentials...)
@@ -197,7 +197,7 @@ func (c *ApiService) ListCredentialPublicKey(params *ListCredentialPublicKeyPara
 }
 
 // Streams CredentialPublicKey records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyParams) (chan AccountsV1CredentialCredentialPublicKey, error) {
+func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyParams) (chan AccountsV1CredentialPublicKey, error) {
 	if params == nil {
 		params = &ListCredentialPublicKeyParams{}
 	}
@@ -210,7 +210,7 @@ func (c *ApiService) StreamCredentialPublicKey(params *ListCredentialPublicKeyPa
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan AccountsV1CredentialCredentialPublicKey, 1)
+	channel := make(chan AccountsV1CredentialPublicKey, 1)
 
 	go func() {
 		for response != nil {
@@ -262,7 +262,7 @@ func (params *UpdateCredentialPublicKeyParams) SetFriendlyName(FriendlyName stri
 }
 
 // Modify the properties of a given Account
-func (c *ApiService) UpdateCredentialPublicKey(Sid string, params *UpdateCredentialPublicKeyParams) (*AccountsV1CredentialCredentialPublicKey, error) {
+func (c *ApiService) UpdateCredentialPublicKey(Sid string, params *UpdateCredentialPublicKeyParams) (*AccountsV1CredentialPublicKey, error) {
 	path := "/v1/Credentials/PublicKeys/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -280,7 +280,7 @@ func (c *ApiService) UpdateCredentialPublicKey(Sid string, params *UpdateCredent
 
 	defer resp.Body.Close()
 
-	ps := &AccountsV1CredentialCredentialPublicKey{}
+	ps := &AccountsV1CredentialPublicKey{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

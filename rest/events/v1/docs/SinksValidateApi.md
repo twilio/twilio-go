@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateSinkValidate
 
-> EventsV1SinkSinkValidate CreateSinkValidate(ctx, Sidoptional)
+> EventsV1SinkValidate CreateSinkValidate(ctx, Sidoptional)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**EventsV1SinkSinkValidate**](EventsV1SinkSinkValidate.md)
+[**EventsV1SinkValidate**](EventsV1SinkValidate.md)
 
 ### Authorization
 

@@ -68,7 +68,7 @@ func (params *FetchConferenceRecordingParams) SetPathAccountSid(PathAccountSid s
 }
 
 // Fetch an instance of a recording for a call
-func (c *ApiService) FetchConferenceRecording(ConferenceSid string, Sid string, params *FetchConferenceRecordingParams) (*ApiV2010AccountConferenceConferenceRecording, error) {
+func (c *ApiService) FetchConferenceRecording(ConferenceSid string, Sid string, params *FetchConferenceRecordingParams) (*ApiV2010ConferenceRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -88,7 +88,7 @@ func (c *ApiService) FetchConferenceRecording(ConferenceSid string, Sid string, 
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountConferenceConferenceRecording{}
+	ps := &ApiV2010ConferenceRecording{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -187,7 +187,7 @@ func (c *ApiService) PageConferenceRecording(ConferenceSid string, params *ListC
 }
 
 // Lists ConferenceRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) ([]ApiV2010AccountConferenceConferenceRecording, error) {
+func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) ([]ApiV2010ConferenceRecording, error) {
 	if params == nil {
 		params = &ListConferenceRecordingParams{}
 	}
@@ -199,7 +199,7 @@ func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListC
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountConferenceConferenceRecording
+	var records []ApiV2010ConferenceRecording
 
 	for response != nil {
 		records = append(records, response.Recordings...)
@@ -216,7 +216,7 @@ func (c *ApiService) ListConferenceRecording(ConferenceSid string, params *ListC
 }
 
 // Streams ConferenceRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) (chan ApiV2010AccountConferenceConferenceRecording, error) {
+func (c *ApiService) StreamConferenceRecording(ConferenceSid string, params *ListConferenceRecordingParams) (chan ApiV2010ConferenceRecording, error) {
 	if params == nil {
 		params = &ListConferenceRecordingParams{}
 	}
@@ -229,7 +229,7 @@ func (c *ApiService) StreamConferenceRecording(ConferenceSid string, params *Lis
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountConferenceConferenceRecording, 1)
+	channel := make(chan ApiV2010ConferenceRecording, 1)
 
 	go func() {
 		for response != nil {
@@ -293,7 +293,7 @@ func (params *UpdateConferenceRecordingParams) SetStatus(Status string) *UpdateC
 }
 
 // Changes the status of the recording to paused, stopped, or in-progress. Note: To use &#x60;Twilio.CURRENT&#x60;, pass it as recording sid.
-func (c *ApiService) UpdateConferenceRecording(ConferenceSid string, Sid string, params *UpdateConferenceRecordingParams) (*ApiV2010AccountConferenceConferenceRecording, error) {
+func (c *ApiService) UpdateConferenceRecording(ConferenceSid string, Sid string, params *UpdateConferenceRecordingParams) (*ApiV2010ConferenceRecording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -320,7 +320,7 @@ func (c *ApiService) UpdateConferenceRecording(ConferenceSid string, Sid string,
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountConferenceConferenceRecording{}
+	ps := &ApiV2010ConferenceRecording{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

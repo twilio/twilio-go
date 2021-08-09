@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## FetchRoomParticipant
 
-> VideoV1RoomRoomParticipant FetchRoomParticipant(ctx, RoomSidSid)
+> VideoV1RoomParticipant FetchRoomParticipant(ctx, RoomSidSid)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VideoV1RoomRoomParticipant**](VideoV1RoomRoomParticipant.md)
+[**VideoV1RoomParticipant**](VideoV1RoomParticipant.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## UpdateRoomParticipant
 
-> VideoV1RoomRoomParticipant UpdateRoomParticipant(ctx, RoomSidSidoptional)
+> VideoV1RoomParticipant UpdateRoomParticipant(ctx, RoomSidSidoptional)
 
 
 
@@ -123,7 +123,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VideoV1RoomRoomParticipant**](VideoV1RoomRoomParticipant.md)
+[**VideoV1RoomParticipant**](VideoV1RoomParticipant.md)
 
 ### Authorization
 

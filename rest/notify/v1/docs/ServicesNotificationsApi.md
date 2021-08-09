@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateNotification
 
-> NotifyV1ServiceNotification CreateNotification(ctx, ServiceSidoptional)
+> NotifyV1Notification CreateNotification(ctx, ServiceSidoptional)
 
 
 
@@ -50,7 +50,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NotifyV1ServiceNotification**](NotifyV1ServiceNotification.md)
+[**NotifyV1Notification**](NotifyV1Notification.md)
 
 ### Authorization
 

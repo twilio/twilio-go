@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateUsAppToPerson
 
-> MessagingV1ServiceUsAppToPerson CreateUsAppToPerson(ctx, MessagingServiceSidoptional)
+> MessagingV1UsAppToPerson CreateUsAppToPerson(ctx, MessagingServiceSidoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV1ServiceUsAppToPerson**](MessagingV1ServiceUsAppToPerson.md)
+[**MessagingV1UsAppToPerson**](MessagingV1UsAppToPerson.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchUsAppToPerson
 
-> MessagingV1ServiceUsAppToPerson FetchUsAppToPerson(ctx, MessagingServiceSidSid)
+> MessagingV1UsAppToPerson FetchUsAppToPerson(ctx, MessagingServiceSidSid)
 
 
 
@@ -123,7 +123,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV1ServiceUsAppToPerson**](MessagingV1ServiceUsAppToPerson.md)
+[**MessagingV1UsAppToPerson**](MessagingV1UsAppToPerson.md)
 
 ### Authorization
 

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateAlphaSender
 
-> MessagingV1ServiceAlphaSender CreateAlphaSender(ctx, ServiceSidoptional)
+> MessagingV1AlphaSender CreateAlphaSender(ctx, ServiceSidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV1ServiceAlphaSender**](MessagingV1ServiceAlphaSender.md)
+[**MessagingV1AlphaSender**](MessagingV1AlphaSender.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ Name | Type | Description
 
 ## FetchAlphaSender
 
-> MessagingV1ServiceAlphaSender FetchAlphaSender(ctx, ServiceSidSid)
+> MessagingV1AlphaSender FetchAlphaSender(ctx, ServiceSidSid)
 
 
 
@@ -118,7 +118,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV1ServiceAlphaSender**](MessagingV1ServiceAlphaSender.md)
+[**MessagingV1AlphaSender**](MessagingV1AlphaSender.md)
 
 ### Authorization
 

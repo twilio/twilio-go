@@ -119,7 +119,7 @@ func (c *ApiService) PageUsageRecordLastMonth(params *ListUsageRecordLastMonthPa
 }
 
 // Lists UsageRecordLastMonth records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthParams) ([]ApiV2010AccountUsageUsageRecordUsageRecordLastMonth, error) {
+func (c *ApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthParams) ([]ApiV2010UsageRecordLastMonth, error) {
 	if params == nil {
 		params = &ListUsageRecordLastMonthParams{}
 	}
@@ -131,7 +131,7 @@ func (c *ApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthPa
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountUsageUsageRecordUsageRecordLastMonth
+	var records []ApiV2010UsageRecordLastMonth
 
 	for response != nil {
 		records = append(records, response.UsageRecords...)
@@ -148,7 +148,7 @@ func (c *ApiService) ListUsageRecordLastMonth(params *ListUsageRecordLastMonthPa
 }
 
 // Streams UsageRecordLastMonth records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageRecordLastMonth(params *ListUsageRecordLastMonthParams) (chan ApiV2010AccountUsageUsageRecordUsageRecordLastMonth, error) {
+func (c *ApiService) StreamUsageRecordLastMonth(params *ListUsageRecordLastMonthParams) (chan ApiV2010UsageRecordLastMonth, error) {
 	if params == nil {
 		params = &ListUsageRecordLastMonthParams{}
 	}
@@ -161,7 +161,7 @@ func (c *ApiService) StreamUsageRecordLastMonth(params *ListUsageRecordLastMonth
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountUsageUsageRecordUsageRecordLastMonth, 1)
+	channel := make(chan ApiV2010UsageRecordLastMonth, 1)
 
 	go func() {
 		for response != nil {

@@ -56,7 +56,7 @@ func (params *CreateConnectionPolicyTargetParams) SetWeight(Weight int) *CreateC
 	return params
 }
 
-func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
+func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, params *CreateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 
@@ -86,7 +86,7 @@ func (c *ApiService) CreateConnectionPolicyTarget(ConnectionPolicySid string, pa
 
 	defer resp.Body.Close()
 
-	ps := &VoiceV1ConnectionPolicyConnectionPolicyTarget{}
+	ps := &VoiceV1ConnectionPolicyTarget{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func (c *ApiService) DeleteConnectionPolicyTarget(ConnectionPolicySid string, Si
 	return nil
 }
 
-func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid string) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
+func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid string) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -127,7 +127,7 @@ func (c *ApiService) FetchConnectionPolicyTarget(ConnectionPolicySid string, Sid
 
 	defer resp.Body.Close()
 
-	ps := &VoiceV1ConnectionPolicyConnectionPolicyTarget{}
+	ps := &VoiceV1ConnectionPolicyTarget{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -188,7 +188,7 @@ func (c *ApiService) PageConnectionPolicyTarget(ConnectionPolicySid string, para
 }
 
 // Lists ConnectionPolicyTarget records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) ([]VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
+func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) ([]VoiceV1ConnectionPolicyTarget, error) {
 	if params == nil {
 		params = &ListConnectionPolicyTargetParams{}
 	}
@@ -200,7 +200,7 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 	}
 
 	curRecord := 0
-	var records []VoiceV1ConnectionPolicyConnectionPolicyTarget
+	var records []VoiceV1ConnectionPolicyTarget
 
 	for response != nil {
 		records = append(records, response.Targets...)
@@ -217,7 +217,7 @@ func (c *ApiService) ListConnectionPolicyTarget(ConnectionPolicySid string, para
 }
 
 // Streams ConnectionPolicyTarget records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) (chan VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
+func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, params *ListConnectionPolicyTargetParams) (chan VoiceV1ConnectionPolicyTarget, error) {
 	if params == nil {
 		params = &ListConnectionPolicyTargetParams{}
 	}
@@ -230,7 +230,7 @@ func (c *ApiService) StreamConnectionPolicyTarget(ConnectionPolicySid string, pa
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VoiceV1ConnectionPolicyConnectionPolicyTarget, 1)
+	channel := make(chan VoiceV1ConnectionPolicyTarget, 1)
 
 	go func() {
 		for response != nil {
@@ -305,7 +305,7 @@ func (params *UpdateConnectionPolicyTargetParams) SetWeight(Weight int) *UpdateC
 	return params
 }
 
-func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyConnectionPolicyTarget, error) {
+func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Sid string, params *UpdateConnectionPolicyTargetParams) (*VoiceV1ConnectionPolicyTarget, error) {
 	path := "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}"
 	path = strings.Replace(path, "{"+"ConnectionPolicySid"+"}", ConnectionPolicySid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -336,7 +336,7 @@ func (c *ApiService) UpdateConnectionPolicyTarget(ConnectionPolicySid string, Si
 
 	defer resp.Body.Close()
 
-	ps := &VoiceV1ConnectionPolicyConnectionPolicyTarget{}
+	ps := &VoiceV1ConnectionPolicyTarget{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

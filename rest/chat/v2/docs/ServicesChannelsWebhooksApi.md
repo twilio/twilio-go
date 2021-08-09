@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateChannelWebhook
 
-> ChatV2ServiceChannelChannelWebhook CreateChannelWebhook(ctx, ServiceSidChannelSidoptional)
+> ChatV2ChannelWebhook CreateChannelWebhook(ctx, ServiceSidChannelSidoptional)
 
 
 
@@ -44,7 +44,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ChatV2ServiceChannelChannelWebhook**](ChatV2ServiceChannelChannelWebhook.md)
+[**ChatV2ChannelWebhook**](ChatV2ChannelWebhook.md)
 
 ### Authorization
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 ## FetchChannelWebhook
 
-> ChatV2ServiceChannelChannelWebhook FetchChannelWebhook(ctx, ServiceSidChannelSidSid)
+> ChatV2ChannelWebhook FetchChannelWebhook(ctx, ServiceSidChannelSidSid)
 
 
 
@@ -128,7 +128,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ChatV2ServiceChannelChannelWebhook**](ChatV2ServiceChannelChannelWebhook.md)
+[**ChatV2ChannelWebhook**](ChatV2ChannelWebhook.md)
 
 ### Authorization
 
@@ -189,7 +189,7 @@ Name | Type | Description
 
 ## UpdateChannelWebhook
 
-> ChatV2ServiceChannelChannelWebhook UpdateChannelWebhook(ctx, ServiceSidChannelSidSidoptional)
+> ChatV2ChannelWebhook UpdateChannelWebhook(ctx, ServiceSidChannelSidSidoptional)
 
 
 
@@ -219,7 +219,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ChatV2ServiceChannelChannelWebhook**](ChatV2ServiceChannelChannelWebhook.md)
+[**ChatV2ChannelWebhook**](ChatV2ChannelWebhook.md)
 
 ### Authorization
 

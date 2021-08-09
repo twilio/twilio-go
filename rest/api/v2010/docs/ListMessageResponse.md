@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
-**Messages** | [**[]ApiV2010AccountMessage**](ApiV2010AccountMessage.md) |  |[optional] 
+**Messages** | [**[]ApiV2010Message**](ApiV2010Message.md) |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 

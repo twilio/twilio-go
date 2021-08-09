@@ -69,7 +69,7 @@ func (params *CreateConversationScopedWebhookParams) SetTarget(Target string) *C
 }
 
 // Create a new webhook scoped to the conversation
-func (c *ApiService) CreateConversationScopedWebhook(ConversationSid string, params *CreateConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhook, error) {
+func (c *ApiService) CreateConversationScopedWebhook(ConversationSid string, params *CreateConversationScopedWebhookParams) (*ConversationsV1ConversationScopedWebhook, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
@@ -109,7 +109,7 @@ func (c *ApiService) CreateConversationScopedWebhook(ConversationSid string, par
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ConversationConversationScopedWebhook{}
+	ps := &ConversationsV1ConversationScopedWebhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -137,7 +137,7 @@ func (c *ApiService) DeleteConversationScopedWebhook(ConversationSid string, Sid
 }
 
 // Fetch the configuration of a conversation-scoped webhook
-func (c *ApiService) FetchConversationScopedWebhook(ConversationSid string, Sid string) (*ConversationsV1ConversationConversationScopedWebhook, error) {
+func (c *ApiService) FetchConversationScopedWebhook(ConversationSid string, Sid string) (*ConversationsV1ConversationScopedWebhook, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -152,7 +152,7 @@ func (c *ApiService) FetchConversationScopedWebhook(ConversationSid string, Sid 
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ConversationConversationScopedWebhook{}
+	ps := &ConversationsV1ConversationScopedWebhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -213,7 +213,7 @@ func (c *ApiService) PageConversationScopedWebhook(ConversationSid string, param
 }
 
 // Lists ConversationScopedWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams) ([]ConversationsV1ConversationConversationScopedWebhook, error) {
+func (c *ApiService) ListConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams) ([]ConversationsV1ConversationScopedWebhook, error) {
 	if params == nil {
 		params = &ListConversationScopedWebhookParams{}
 	}
@@ -225,7 +225,7 @@ func (c *ApiService) ListConversationScopedWebhook(ConversationSid string, param
 	}
 
 	curRecord := 0
-	var records []ConversationsV1ConversationConversationScopedWebhook
+	var records []ConversationsV1ConversationScopedWebhook
 
 	for response != nil {
 		records = append(records, response.Webhooks...)
@@ -242,7 +242,7 @@ func (c *ApiService) ListConversationScopedWebhook(ConversationSid string, param
 }
 
 // Streams ConversationScopedWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams) (chan ConversationsV1ConversationConversationScopedWebhook, error) {
+func (c *ApiService) StreamConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams) (chan ConversationsV1ConversationScopedWebhook, error) {
 	if params == nil {
 		params = &ListConversationScopedWebhookParams{}
 	}
@@ -255,7 +255,7 @@ func (c *ApiService) StreamConversationScopedWebhook(ConversationSid string, par
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ConversationsV1ConversationConversationScopedWebhook, 1)
+	channel := make(chan ConversationsV1ConversationScopedWebhook, 1)
 
 	go func() {
 		for response != nil {
@@ -331,7 +331,7 @@ func (params *UpdateConversationScopedWebhookParams) SetConfigurationUrl(Configu
 }
 
 // Update an existing conversation-scoped webhook
-func (c *ApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid string, params *UpdateConversationScopedWebhookParams) (*ConversationsV1ConversationConversationScopedWebhook, error) {
+func (c *ApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid string, params *UpdateConversationScopedWebhookParams) (*ConversationsV1ConversationScopedWebhook, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -366,7 +366,7 @@ func (c *ApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ConversationConversationScopedWebhook{}
+	ps := &ConversationsV1ConversationScopedWebhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

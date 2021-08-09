@@ -64,7 +64,7 @@ func (params *CreateChallengeParams) SetHiddenDetails(HiddenDetails map[string]i
 }
 
 // Create a new Challenge for the Factor
-func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params *CreateChallengeParams) (*VerifyV2ServiceEntityChallenge, error) {
+func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params *CreateChallengeParams) (*VerifyV2Challenge, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -112,7 +112,7 @@ func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params 
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceEntityChallenge{}
+	ps := &VerifyV2Challenge{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -121,7 +121,7 @@ func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params 
 }
 
 // Fetch a specific Challenge.
-func (c *ApiService) FetchChallenge(ServiceSid string, Identity string, Sid string) (*VerifyV2ServiceEntityChallenge, error) {
+func (c *ApiService) FetchChallenge(ServiceSid string, Identity string, Sid string) (*VerifyV2Challenge, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -137,7 +137,7 @@ func (c *ApiService) FetchChallenge(ServiceSid string, Identity string, Sid stri
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceEntityChallenge{}
+	ps := &VerifyV2Challenge{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -217,7 +217,7 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 }
 
 // Lists Challenge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *ListChallengeParams) ([]VerifyV2ServiceEntityChallenge, error) {
+func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *ListChallengeParams) ([]VerifyV2Challenge, error) {
 	if params == nil {
 		params = &ListChallengeParams{}
 	}
@@ -229,7 +229,7 @@ func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *L
 	}
 
 	curRecord := 0
-	var records []VerifyV2ServiceEntityChallenge
+	var records []VerifyV2Challenge
 
 	for response != nil {
 		records = append(records, response.Challenges...)
@@ -246,7 +246,7 @@ func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *L
 }
 
 // Streams Challenge records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params *ListChallengeParams) (chan VerifyV2ServiceEntityChallenge, error) {
+func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params *ListChallengeParams) (chan VerifyV2Challenge, error) {
 	if params == nil {
 		params = &ListChallengeParams{}
 	}
@@ -259,7 +259,7 @@ func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2ServiceEntityChallenge, 1)
+	channel := make(chan VerifyV2Challenge, 1)
 
 	go func() {
 		for response != nil {
@@ -311,7 +311,7 @@ func (params *UpdateChallengeParams) SetAuthPayload(AuthPayload string) *UpdateC
 }
 
 // Verify a specific Challenge.
-func (c *ApiService) UpdateChallenge(ServiceSid string, Identity string, Sid string, params *UpdateChallengeParams) (*VerifyV2ServiceEntityChallenge, error) {
+func (c *ApiService) UpdateChallenge(ServiceSid string, Identity string, Sid string, params *UpdateChallengeParams) (*VerifyV2Challenge, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -331,7 +331,7 @@ func (c *ApiService) UpdateChallenge(ServiceSid string, Identity string, Sid str
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceEntityChallenge{}
+	ps := &VerifyV2Challenge{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

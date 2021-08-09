@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
-**IpAccessControlLists** | [**[]ApiV2010AccountSipSipIpAccessControlList**](ApiV2010AccountSipSipIpAccessControlList.md) |  |[optional] 
+**IpAccessControlLists** | [**[]ApiV2010SipIpAccessControlList**](ApiV2010SipIpAccessControlList.md) |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 

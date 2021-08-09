@@ -38,7 +38,7 @@ func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams
 	return params
 }
 
-func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*IpMessagingV1ServiceChannelInvite, error) {
+func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*IpMessagingV1Invite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -60,7 +60,7 @@ func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV1ServiceChannelInvite{}
+	ps := &IpMessagingV1Invite{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid stri
 	return nil
 }
 
-func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1ServiceChannelInvite, error) {
+func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV1Invite, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -103,7 +103,7 @@ func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid strin
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV1ServiceChannelInvite{}
+	ps := &IpMessagingV1Invite{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -176,7 +176,7 @@ func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *Li
 }
 
 // Lists Invite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) ([]IpMessagingV1ServiceChannelInvite, error) {
+func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) ([]IpMessagingV1Invite, error) {
 	if params == nil {
 		params = &ListInviteParams{}
 	}
@@ -188,7 +188,7 @@ func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *Li
 	}
 
 	curRecord := 0
-	var records []IpMessagingV1ServiceChannelInvite
+	var records []IpMessagingV1Invite
 
 	for response != nil {
 		records = append(records, response.Invites...)
@@ -205,7 +205,7 @@ func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *Li
 }
 
 // Streams Invite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) (chan IpMessagingV1ServiceChannelInvite, error) {
+func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) (chan IpMessagingV1Invite, error) {
 	if params == nil {
 		params = &ListInviteParams{}
 	}
@@ -218,7 +218,7 @@ func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan IpMessagingV1ServiceChannelInvite, 1)
+	channel := make(chan IpMessagingV1Invite, 1)
 
 	go func() {
 		for response != nil {

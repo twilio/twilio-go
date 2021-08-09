@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateValidationRequest
 
-> ApiV2010AccountValidationRequest CreateValidationRequest(ctx, optional)
+> ApiV2010ValidationRequest CreateValidationRequest(ctx, optional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountValidationRequest**](ApiV2010AccountValidationRequest.md)
+[**ApiV2010ValidationRequest**](ApiV2010ValidationRequest.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchOutgoingCallerId
 
-> ApiV2010AccountOutgoingCallerId FetchOutgoingCallerId(ctx, Sidoptional)
+> ApiV2010OutgoingCallerId FetchOutgoingCallerId(ctx, Sidoptional)
 
 
 
@@ -125,7 +125,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountOutgoingCallerId**](ApiV2010AccountOutgoingCallerId.md)
+[**ApiV2010OutgoingCallerId**](ApiV2010OutgoingCallerId.md)
 
 ### Authorization
 
@@ -186,7 +186,7 @@ Name | Type | Description
 
 ## UpdateOutgoingCallerId
 
-> ApiV2010AccountOutgoingCallerId UpdateOutgoingCallerId(ctx, Sidoptional)
+> ApiV2010OutgoingCallerId UpdateOutgoingCallerId(ctx, Sidoptional)
 
 
 
@@ -212,7 +212,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountOutgoingCallerId**](ApiV2010AccountOutgoingCallerId.md)
+[**ApiV2010OutgoingCallerId**](ApiV2010OutgoingCallerId.md)
 
 ### Authorization
 

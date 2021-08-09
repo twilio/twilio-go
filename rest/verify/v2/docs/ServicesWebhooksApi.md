@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateWebhook
 
-> VerifyV2ServiceWebhook CreateWebhook(ctx, ServiceSidoptional)
+> VerifyV2Webhook CreateWebhook(ctx, ServiceSidoptional)
 
 
 
@@ -43,7 +43,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceWebhook**](VerifyV2ServiceWebhook.md)
+[**VerifyV2Webhook**](VerifyV2Webhook.md)
 
 ### Authorization
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 ## FetchWebhook
 
-> VerifyV2ServiceWebhook FetchWebhook(ctx, ServiceSidSid)
+> VerifyV2Webhook FetchWebhook(ctx, ServiceSidSid)
 
 
 
@@ -129,7 +129,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceWebhook**](VerifyV2ServiceWebhook.md)
+[**VerifyV2Webhook**](VerifyV2Webhook.md)
 
 ### Authorization
 
@@ -191,7 +191,7 @@ Name | Type | Description
 
 ## UpdateWebhook
 
-> VerifyV2ServiceWebhook UpdateWebhook(ctx, ServiceSidSidoptional)
+> VerifyV2Webhook UpdateWebhook(ctx, ServiceSidSidoptional)
 
 
 
@@ -219,7 +219,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceWebhook**](VerifyV2ServiceWebhook.md)
+[**VerifyV2Webhook**](VerifyV2Webhook.md)
 
 ### Authorization
 

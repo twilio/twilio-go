@@ -57,7 +57,7 @@ func (params *CreateServiceUserParams) SetRoleSid(RoleSid string) *CreateService
 }
 
 // Add a new conversation user to your service
-func (c *ApiService) CreateServiceUser(ChatServiceSid string, params *CreateServiceUserParams) (*ConversationsV1ServiceServiceUser, error) {
+func (c *ApiService) CreateServiceUser(ChatServiceSid string, params *CreateServiceUserParams) (*ConversationsV1ServiceUser, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -88,7 +88,7 @@ func (c *ApiService) CreateServiceUser(ChatServiceSid string, params *CreateServ
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceUser{}
+	ps := &ConversationsV1ServiceUser{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ func (c *ApiService) DeleteServiceUser(ChatServiceSid string, Sid string, params
 }
 
 // Fetch a conversation user from your service
-func (c *ApiService) FetchServiceUser(ChatServiceSid string, Sid string) (*ConversationsV1ServiceServiceUser, error) {
+func (c *ApiService) FetchServiceUser(ChatServiceSid string, Sid string) (*ConversationsV1ServiceUser, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -146,7 +146,7 @@ func (c *ApiService) FetchServiceUser(ChatServiceSid string, Sid string) (*Conve
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceUser{}
+	ps := &ConversationsV1ServiceUser{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -207,7 +207,7 @@ func (c *ApiService) PageServiceUser(ChatServiceSid string, params *ListServiceU
 }
 
 // Lists ServiceUser records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceUser(ChatServiceSid string, params *ListServiceUserParams) ([]ConversationsV1ServiceServiceUser, error) {
+func (c *ApiService) ListServiceUser(ChatServiceSid string, params *ListServiceUserParams) ([]ConversationsV1ServiceUser, error) {
 	if params == nil {
 		params = &ListServiceUserParams{}
 	}
@@ -219,7 +219,7 @@ func (c *ApiService) ListServiceUser(ChatServiceSid string, params *ListServiceU
 	}
 
 	curRecord := 0
-	var records []ConversationsV1ServiceServiceUser
+	var records []ConversationsV1ServiceUser
 
 	for response != nil {
 		records = append(records, response.Users...)
@@ -236,7 +236,7 @@ func (c *ApiService) ListServiceUser(ChatServiceSid string, params *ListServiceU
 }
 
 // Streams ServiceUser records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceUser(ChatServiceSid string, params *ListServiceUserParams) (chan ConversationsV1ServiceServiceUser, error) {
+func (c *ApiService) StreamServiceUser(ChatServiceSid string, params *ListServiceUserParams) (chan ConversationsV1ServiceUser, error) {
 	if params == nil {
 		params = &ListServiceUserParams{}
 	}
@@ -249,7 +249,7 @@ func (c *ApiService) StreamServiceUser(ChatServiceSid string, params *ListServic
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ConversationsV1ServiceServiceUser, 1)
+	channel := make(chan ConversationsV1ServiceUser, 1)
 
 	go func() {
 		for response != nil {
@@ -319,7 +319,7 @@ func (params *UpdateServiceUserParams) SetRoleSid(RoleSid string) *UpdateService
 }
 
 // Update an existing conversation user in your service
-func (c *ApiService) UpdateServiceUser(ChatServiceSid string, Sid string, params *UpdateServiceUserParams) (*ConversationsV1ServiceServiceUser, error) {
+func (c *ApiService) UpdateServiceUser(ChatServiceSid string, Sid string, params *UpdateServiceUserParams) (*ConversationsV1ServiceUser, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -348,7 +348,7 @@ func (c *ApiService) UpdateServiceUser(ChatServiceSid string, Sid string, params
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceUser{}
+	ps := &ConversationsV1ServiceUser{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

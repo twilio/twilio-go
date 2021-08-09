@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchAuthorizedConnectApp
 
-> ApiV2010AccountAuthorizedConnectApp FetchAuthorizedConnectApp(ctx, ConnectAppSidoptional)
+> ApiV2010AuthorizedConnectApp FetchAuthorizedConnectApp(ctx, ConnectAppSidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountAuthorizedConnectApp**](ApiV2010AccountAuthorizedConnectApp.md)
+[**ApiV2010AuthorizedConnectApp**](ApiV2010AuthorizedConnectApp.md)
 
 ### Authorization
 

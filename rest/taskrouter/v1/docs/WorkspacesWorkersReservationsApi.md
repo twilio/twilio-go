@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## FetchWorkerReservation
 
-> TaskrouterV1WorkspaceWorkerWorkerReservation FetchWorkerReservation(ctx, WorkspaceSidWorkerSidSid)
+> TaskrouterV1WorkerReservation FetchWorkerReservation(ctx, WorkspaceSidWorkerSidSid)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkerReservation**](TaskrouterV1WorkspaceWorkerWorkerReservation.md)
+[**TaskrouterV1WorkerReservation**](TaskrouterV1WorkerReservation.md)
 
 ### Authorization
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## UpdateWorkerReservation
 
-> TaskrouterV1WorkspaceWorkerWorkerReservation UpdateWorkerReservation(ctx, WorkspaceSidWorkerSidSidoptional)
+> TaskrouterV1WorkerReservation UpdateWorkerReservation(ctx, WorkspaceSidWorkerSidSidoptional)
 
 
 
@@ -173,7 +173,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkerReservation**](TaskrouterV1WorkspaceWorkerWorkerReservation.md)
+[**TaskrouterV1WorkerReservation**](TaskrouterV1WorkerReservation.md)
 
 ### Authorization
 

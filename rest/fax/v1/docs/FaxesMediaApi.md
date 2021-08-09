@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## FetchFaxMedia
 
-> FaxV1FaxFaxMedia FetchFaxMedia(ctx, FaxSidSid)
+> FaxV1FaxMedia FetchFaxMedia(ctx, FaxSidSid)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**FaxV1FaxFaxMedia**](FaxV1FaxFaxMedia.md)
+[**FaxV1FaxMedia**](FaxV1FaxMedia.md)
 
 ### Authorization
 

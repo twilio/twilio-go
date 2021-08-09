@@ -44,7 +44,7 @@ func (params *CreateSyncMapParams) SetUniqueName(UniqueName string) *CreateSyncM
 	return params
 }
 
-func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParams) (*SyncV1ServiceSyncMap, error) {
+func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParams) (*SyncV1SyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -68,7 +68,7 @@ func (c *ApiService) CreateSyncMap(ServiceSid string, params *CreateSyncMapParam
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncMap{}
+	ps := &SyncV1SyncMap{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (c *ApiService) DeleteSyncMap(ServiceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchSyncMap(ServiceSid string, Sid string) (*SyncV1ServiceSyncMap, error) {
+func (c *ApiService) FetchSyncMap(ServiceSid string, Sid string) (*SyncV1SyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -109,7 +109,7 @@ func (c *ApiService) FetchSyncMap(ServiceSid string, Sid string) (*SyncV1Service
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncMap{}
+	ps := &SyncV1SyncMap{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -170,7 +170,7 @@ func (c *ApiService) PageSyncMap(ServiceSid string, params *ListSyncMapParams, p
 }
 
 // Lists SyncMap records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncMap(ServiceSid string, params *ListSyncMapParams) ([]SyncV1ServiceSyncMap, error) {
+func (c *ApiService) ListSyncMap(ServiceSid string, params *ListSyncMapParams) ([]SyncV1SyncMap, error) {
 	if params == nil {
 		params = &ListSyncMapParams{}
 	}
@@ -182,7 +182,7 @@ func (c *ApiService) ListSyncMap(ServiceSid string, params *ListSyncMapParams) (
 	}
 
 	curRecord := 0
-	var records []SyncV1ServiceSyncMap
+	var records []SyncV1SyncMap
 
 	for response != nil {
 		records = append(records, response.Maps...)
@@ -199,7 +199,7 @@ func (c *ApiService) ListSyncMap(ServiceSid string, params *ListSyncMapParams) (
 }
 
 // Streams SyncMap records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncMap(ServiceSid string, params *ListSyncMapParams) (chan SyncV1ServiceSyncMap, error) {
+func (c *ApiService) StreamSyncMap(ServiceSid string, params *ListSyncMapParams) (chan SyncV1SyncMap, error) {
 	if params == nil {
 		params = &ListSyncMapParams{}
 	}
@@ -212,7 +212,7 @@ func (c *ApiService) StreamSyncMap(ServiceSid string, params *ListSyncMapParams)
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan SyncV1ServiceSyncMap, 1)
+	channel := make(chan SyncV1SyncMap, 1)
 
 	go func() {
 		for response != nil {
@@ -269,7 +269,7 @@ func (params *UpdateSyncMapParams) SetTtl(Ttl int) *UpdateSyncMapParams {
 	return params
 }
 
-func (c *ApiService) UpdateSyncMap(ServiceSid string, Sid string, params *UpdateSyncMapParams) (*SyncV1ServiceSyncMap, error) {
+func (c *ApiService) UpdateSyncMap(ServiceSid string, Sid string, params *UpdateSyncMapParams) (*SyncV1SyncMap, error) {
 	path := "/v1/Services/{ServiceSid}/Maps/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -291,7 +291,7 @@ func (c *ApiService) UpdateSyncMap(ServiceSid string, Sid string, params *Update
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncMap{}
+	ps := &SyncV1SyncMap{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
