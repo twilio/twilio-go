@@ -64,12 +64,16 @@ func GetPayload(baseUrl string, response interface{}) ([]interface{}, string, er
 
 func toMap(s interface{}) map[string]interface{} {
 	var payload map[string]interface{}
-	test, err := json.Marshal(s)
-	if err != nil {
-		log.Print("Map creation error: ", err)
+	test, errMarshal := json.Marshal(s)
+	if errMarshal != nil {
 		return nil
 	}
-	_ = json.Unmarshal(test, &payload)
+
+	errUnmarshal := json.Unmarshal(test, &payload)
+	if errUnmarshal != nil {
+		log.Print("Map creation error: ", errUnmarshal)
+		return nil
+	}
 	return payload
 }
 
