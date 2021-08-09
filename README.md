@@ -531,6 +531,16 @@ godoc -http=localhost:6060
 
 http://localhost:6060/pkg/github.com/twilio/twilio-go
 
+## Docker Image
+
+The `Dockerfile` present in this repository and its respective `twilio/twilio-go` Docker image are currently used by Twilio for testing purposes only.
+
+## Getting help
+
+If you need help installing or using the library, please check the [Twilio Support Help Center](https://support.twilio.com) first, and [file a support ticket](https://twilio.com/help/contact) if you don't find an answer to your question.
+
+If you've instead found a bug in the library or would like new features added, go ahead and open issues or pull requests against this repo!
+
 [apidocs]: https://www.twilio.com/docs/api
 
 [libdocs]: https://pkg.go.dev/github.com/twilio/twilio-go?tab=versions
