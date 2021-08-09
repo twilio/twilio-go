@@ -285,7 +285,7 @@ func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) ([
 		records = append(records, response.OutgoingCallerIds...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -318,7 +318,7 @@ func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -331,11 +331,11 @@ func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) 
 	return channel, err
 }
 
-func (c *ApiService) getNextListOutgoingCallerIdResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListOutgoingCallerIdResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

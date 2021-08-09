@@ -172,7 +172,7 @@ func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAcce
 		records = append(records, response.IpAccessControlLists...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIpAccessControlListResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIpAccessControlListResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -205,7 +205,7 @@ func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAc
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIpAccessControlListResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIpAccessControlListResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -218,11 +218,11 @@ func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAc
 	return channel, err
 }
 
-func (c *ApiService) getNextListIpAccessControlListResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListIpAccessControlListResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

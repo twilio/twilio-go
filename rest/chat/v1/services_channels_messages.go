@@ -201,7 +201,7 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 		records = append(records, response.Messages...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessageResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessageResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -234,7 +234,7 @@ func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessageResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessageResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -247,11 +247,11 @@ func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params 
 	return channel, err
 }
 
-func (c *ApiService) getNextListMessageResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListMessageResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

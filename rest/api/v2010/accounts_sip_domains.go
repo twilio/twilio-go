@@ -331,7 +331,7 @@ func (c *ApiService) ListSipDomain(params *ListSipDomainParams) ([]ApiV2010SipDo
 		records = append(records, response.Domains...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipDomainResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSipDomainResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -364,7 +364,7 @@ func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipDomainResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSipDomainResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -377,11 +377,11 @@ func (c *ApiService) StreamSipDomain(params *ListSipDomainParams) (chan ApiV2010
 	return channel, err
 }
 
-func (c *ApiService) getNextListSipDomainResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSipDomainResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

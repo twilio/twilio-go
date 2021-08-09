@@ -207,7 +207,7 @@ func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams) ([]Chat
 		records = append(records, response.Users...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUserResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUserResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -240,7 +240,7 @@ func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams) (chan
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUserResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUserResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -253,11 +253,11 @@ func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams) (chan
 	return channel, err
 }
 
-func (c *ApiService) getNextListUserResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListUserResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

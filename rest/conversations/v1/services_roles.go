@@ -193,7 +193,7 @@ func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceR
 		records = append(records, response.Roles...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -226,7 +226,7 @@ func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServic
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -239,11 +239,11 @@ func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServic
 	return channel, err
 }
 
-func (c *ApiService) getNextListServiceRoleResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListServiceRoleResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

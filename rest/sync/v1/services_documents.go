@@ -194,7 +194,7 @@ func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams)
 		records = append(records, response.Documents...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -227,7 +227,7 @@ func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParam
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -240,11 +240,11 @@ func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParam
 	return channel, err
 }
 
-func (c *ApiService) getNextListDocumentResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListDocumentResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

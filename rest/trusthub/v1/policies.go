@@ -113,7 +113,7 @@ func (c *ApiService) ListPolicies(params *ListPoliciesParams) ([]TrusthubV1Polic
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPoliciesResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListPoliciesResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -146,7 +146,7 @@ func (c *ApiService) StreamPolicies(params *ListPoliciesParams) (chan TrusthubV1
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPoliciesResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListPoliciesResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -159,11 +159,11 @@ func (c *ApiService) StreamPolicies(params *ListPoliciesParams) (chan TrusthubV1
 	return channel, err
 }
 
-func (c *ApiService) getNextListPoliciesResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListPoliciesResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

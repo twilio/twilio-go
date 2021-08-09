@@ -137,7 +137,7 @@ func (c *ApiService) ListUsageRecordDaily(params *ListUsageRecordDailyParams) ([
 		records = append(records, response.UsageRecords...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordDailyResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageRecordDailyResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -170,7 +170,7 @@ func (c *ApiService) StreamUsageRecordDaily(params *ListUsageRecordDailyParams) 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordDailyResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageRecordDailyResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -183,11 +183,11 @@ func (c *ApiService) StreamUsageRecordDaily(params *ListUsageRecordDailyParams) 
 	return channel, err
 }
 
-func (c *ApiService) getNextListUsageRecordDailyResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListUsageRecordDailyResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

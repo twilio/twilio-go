@@ -92,7 +92,7 @@ func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodP
 		records = append(records, response.BillingPeriods...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -125,7 +125,7 @@ func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPerio
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -138,11 +138,11 @@ func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPerio
 	return channel, err
 }
 
-func (c *ApiService) getNextListBillingPeriodResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListBillingPeriodResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

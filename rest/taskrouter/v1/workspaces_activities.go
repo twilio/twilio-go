@@ -197,7 +197,7 @@ func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParam
 		records = append(records, response.Activities...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListActivityResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListActivityResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -230,7 +230,7 @@ func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityPar
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListActivityResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListActivityResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -243,11 +243,11 @@ func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityPar
 	return channel, err
 }
 
-func (c *ApiService) getNextListActivityResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListActivityResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

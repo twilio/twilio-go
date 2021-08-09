@@ -182,7 +182,7 @@ func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamPar
 		records = append(records, response.Streams...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -215,7 +215,7 @@ func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamP
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -228,11 +228,11 @@ func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamP
 	return channel, err
 }
 
-func (c *ApiService) getNextListSyncStreamResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSyncStreamResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

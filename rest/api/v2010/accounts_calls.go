@@ -615,7 +615,7 @@ func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010Call, error) {
 		records = append(records, response.Calls...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCallResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -648,7 +648,7 @@ func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010Call, erro
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCallResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -661,11 +661,11 @@ func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010Call, erro
 	return channel, err
 }
 
-func (c *ApiService) getNextListCallResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListCallResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

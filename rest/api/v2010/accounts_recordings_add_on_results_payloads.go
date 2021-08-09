@@ -181,7 +181,7 @@ func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 		records = append(records, response.Payloads...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -214,7 +214,7 @@ func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddO
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -227,11 +227,11 @@ func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddO
 	return channel, err
 }
 
-func (c *ApiService) getNextListRecordingAddOnResultPayloadResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListRecordingAddOnResultPayloadResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

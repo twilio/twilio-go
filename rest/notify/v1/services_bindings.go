@@ -266,7 +266,7 @@ func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) (
 		records = append(records, response.Bindings...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBindingResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBindingResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -299,7 +299,7 @@ func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams)
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBindingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBindingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -312,11 +312,11 @@ func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams)
 	return channel, err
 }
 
-func (c *ApiService) getNextListBindingResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListBindingResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

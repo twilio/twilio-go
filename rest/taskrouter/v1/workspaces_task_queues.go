@@ -242,7 +242,7 @@ func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 		records = append(records, response.TaskQueues...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskQueueResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskQueueResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -275,7 +275,7 @@ func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueP
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskQueueResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskQueueResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -288,11 +288,11 @@ func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueP
 	return channel, err
 }
 
-func (c *ApiService) getNextListTaskQueueResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListTaskQueueResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

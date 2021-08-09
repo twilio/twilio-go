@@ -157,7 +157,7 @@ func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, pa
 		records = append(records, response.Deployments...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDeploymentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDeploymentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -190,7 +190,7 @@ func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDeploymentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDeploymentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -203,11 +203,11 @@ func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, 
 	return channel, err
 }
 
-func (c *ApiService) getNextListDeploymentResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListDeploymentResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

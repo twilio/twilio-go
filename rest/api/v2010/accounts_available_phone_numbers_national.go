@@ -265,7 +265,7 @@ func (c *ApiService) ListAvailablePhoneNumberNational(CountryCode string, params
 		records = append(records, response.AvailablePhoneNumbers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberNationalResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberNationalResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -298,7 +298,7 @@ func (c *ApiService) StreamAvailablePhoneNumberNational(CountryCode string, para
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberNationalResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberNationalResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -311,11 +311,11 @@ func (c *ApiService) StreamAvailablePhoneNumberNational(CountryCode string, para
 	return channel, err
 }
 
-func (c *ApiService) getNextListAvailablePhoneNumberNationalResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListAvailablePhoneNumberNationalResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

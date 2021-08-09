@@ -227,7 +227,7 @@ func (c *ApiService) ListSipCredentialListMapping(DomainSid string, params *List
 		records = append(records, response.CredentialListMappings...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipCredentialListMappingResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSipCredentialListMappingResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -260,7 +260,7 @@ func (c *ApiService) StreamSipCredentialListMapping(DomainSid string, params *Li
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipCredentialListMappingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSipCredentialListMappingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -273,11 +273,11 @@ func (c *ApiService) StreamSipCredentialListMapping(DomainSid string, params *Li
 	return channel, err
 }
 
-func (c *ApiService) getNextListSipCredentialListMappingResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSipCredentialListMappingResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

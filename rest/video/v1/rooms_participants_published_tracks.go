@@ -118,7 +118,7 @@ func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, Participa
 		records = append(records, response.PublishedTracks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -151,7 +151,7 @@ func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, Partici
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -164,11 +164,11 @@ func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, Partici
 	return channel, err
 }
 
-func (c *ApiService) getNextListRoomParticipantPublishedTrackResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListRoomParticipantPublishedTrackResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
