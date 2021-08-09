@@ -93,7 +93,7 @@ func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageTok
 }
 
 // Lists Day records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDay(ResourceType string, params *ListDayParams) ([]BulkexportsV1ExportDay, error) {
+func (c *ApiService) ListDay(ResourceType string, params *ListDayParams) ([]BulkexportsV1Day, error) {
 	if params == nil {
 		params = &ListDayParams{}
 	}
@@ -105,7 +105,7 @@ func (c *ApiService) ListDay(ResourceType string, params *ListDayParams) ([]Bulk
 	}
 
 	curRecord := 0
-	var records []BulkexportsV1ExportDay
+	var records []BulkexportsV1Day
 
 	for response != nil {
 		records = append(records, response.Days...)
@@ -122,7 +122,7 @@ func (c *ApiService) ListDay(ResourceType string, params *ListDayParams) ([]Bulk
 }
 
 // Streams Day records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams) (chan BulkexportsV1ExportDay, error) {
+func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams) (chan BulkexportsV1Day, error) {
 	if params == nil {
 		params = &ListDayParams{}
 	}
@@ -135,7 +135,7 @@ func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams) (chan
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan BulkexportsV1ExportDay, 1)
+	channel := make(chan BulkexportsV1Day, 1)
 
 	go func() {
 		for response != nil {

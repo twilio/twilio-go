@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AlphaSenders** | [**[]MessagingV1ServiceAlphaSender**](MessagingV1ServiceAlphaSender.md) |  |[optional] 
+**AlphaSenders** | [**[]MessagingV1AlphaSender**](MessagingV1AlphaSender.md) |  |[optional] 
 **Meta** | [**ListServiceResponseMeta**](ListServiceResponseMeta.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Meta** | [**ListBundleResponseMeta**](ListBundleResponseMeta.md) |  |[optional] 
-**Results** | [**[]NumbersV2RegulatoryComplianceBundle**](NumbersV2RegulatoryComplianceBundle.md) |  |[optional] 
+**Results** | [**[]NumbersV2Bundle**](NumbersV2Bundle.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

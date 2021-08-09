@@ -33,7 +33,7 @@ func (params *CreateNetworkAccessProfileNetworkParams) SetNetwork(Network string
 }
 
 // Add a Network resource to the Network Access Profile resource.
-func (c *ApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *CreateNetworkAccessProfileNetworkParams) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
+func (c *ApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *CreateNetworkAccessProfileNetworkParams) (*SupersimV1NetworkAccessProfileNetwork, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks"
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
 
@@ -51,7 +51,7 @@ func (c *ApiService) CreateNetworkAccessProfileNetwork(NetworkAccessProfileSid s
 
 	defer resp.Body.Close()
 
-	ps := &SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork{}
+	ps := &SupersimV1NetworkAccessProfileNetwork{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (c *ApiService) DeleteNetworkAccessProfileNetwork(NetworkAccessProfileSid s
 }
 
 // Fetch a Network Access Profile resource&#39;s Network resource.
-func (c *ApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfileSid string, Sid string) (*SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
+func (c *ApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfileSid string, Sid string) (*SupersimV1NetworkAccessProfileNetwork, error) {
 	path := "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}"
 	path = strings.Replace(path, "{"+"NetworkAccessProfileSid"+"}", NetworkAccessProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -94,7 +94,7 @@ func (c *ApiService) FetchNetworkAccessProfileNetwork(NetworkAccessProfileSid st
 
 	defer resp.Body.Close()
 
-	ps := &SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork{}
+	ps := &SupersimV1NetworkAccessProfileNetwork{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -155,7 +155,7 @@ func (c *ApiService) PageNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 }
 
 // Lists NetworkAccessProfileNetwork records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) ([]SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
+func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) ([]SupersimV1NetworkAccessProfileNetwork, error) {
 	if params == nil {
 		params = &ListNetworkAccessProfileNetworkParams{}
 	}
@@ -167,7 +167,7 @@ func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 	}
 
 	curRecord := 0
-	var records []SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork
+	var records []SupersimV1NetworkAccessProfileNetwork
 
 	for response != nil {
 		records = append(records, response.Networks...)
@@ -184,7 +184,7 @@ func (c *ApiService) ListNetworkAccessProfileNetwork(NetworkAccessProfileSid str
 }
 
 // Streams NetworkAccessProfileNetwork records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) (chan SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, error) {
+func (c *ApiService) StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid string, params *ListNetworkAccessProfileNetworkParams) (chan SupersimV1NetworkAccessProfileNetwork, error) {
 	if params == nil {
 		params = &ListNetworkAccessProfileNetworkParams{}
 	}
@@ -197,7 +197,7 @@ func (c *ApiService) StreamNetworkAccessProfileNetwork(NetworkAccessProfileSid s
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan SupersimV1NetworkAccessProfileNetworkAccessProfileNetwork, 1)
+	channel := make(chan SupersimV1NetworkAccessProfileNetwork, 1)
 
 	go func() {
 		for response != nil {

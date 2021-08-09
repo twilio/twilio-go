@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchSupportingDocumentType
 
-> NumbersV2RegulatoryComplianceSupportingDocumentType FetchSupportingDocumentType(ctx, Sid)
+> NumbersV2SupportingDocumentType FetchSupportingDocumentType(ctx, Sid)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceSupportingDocumentType**](NumbersV2RegulatoryComplianceSupportingDocumentType.md)
+[**NumbersV2SupportingDocumentType**](NumbersV2SupportingDocumentType.md)
 
 ### Authorization
 

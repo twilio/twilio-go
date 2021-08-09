@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateTrustProductEntityAssignment
 
-> TrusthubV1TrustProductTrustProductEntityAssignment CreateTrustProductEntityAssignment(ctx, TrustProductSidoptional)
+> TrusthubV1TrustProductEntityAssignment CreateTrustProductEntityAssignment(ctx, TrustProductSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrusthubV1TrustProductTrustProductEntityAssignment**](TrusthubV1TrustProductTrustProductEntityAssignment.md)
+[**TrusthubV1TrustProductEntityAssignment**](TrusthubV1TrustProductEntityAssignment.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchTrustProductEntityAssignment
 
-> TrusthubV1TrustProductTrustProductEntityAssignment FetchTrustProductEntityAssignment(ctx, TrustProductSidSid)
+> TrusthubV1TrustProductEntityAssignment FetchTrustProductEntityAssignment(ctx, TrustProductSidSid)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrusthubV1TrustProductTrustProductEntityAssignment**](TrusthubV1TrustProductTrustProductEntityAssignment.md)
+[**TrusthubV1TrustProductEntityAssignment**](TrusthubV1TrustProductEntityAssignment.md)
 
 ### Authorization
 

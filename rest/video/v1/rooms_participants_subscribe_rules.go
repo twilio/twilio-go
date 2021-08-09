@@ -19,7 +19,7 @@ import (
 )
 
 // Returns a list of Subscribe Rules for the Participant.
-func (c *ApiService) FetchRoomParticipantSubscribeRule(RoomSid string, ParticipantSid string) (*VideoV1RoomRoomParticipantRoomParticipantSubscribeRule, error) {
+func (c *ApiService) FetchRoomParticipantSubscribeRule(RoomSid string, ParticipantSid string) (*VideoV1RoomParticipantSubscribeRule, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
@@ -34,7 +34,7 @@ func (c *ApiService) FetchRoomParticipantSubscribeRule(RoomSid string, Participa
 
 	defer resp.Body.Close()
 
-	ps := &VideoV1RoomRoomParticipantRoomParticipantSubscribeRule{}
+	ps := &VideoV1RoomParticipantSubscribeRule{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -54,7 +54,7 @@ func (params *UpdateRoomParticipantSubscribeRuleParams) SetRules(Rules map[strin
 }
 
 // Update the Subscribe Rules for the Participant
-func (c *ApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, ParticipantSid string, params *UpdateRoomParticipantSubscribeRuleParams) (*VideoV1RoomRoomParticipantRoomParticipantSubscribeRule, error) {
+func (c *ApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, ParticipantSid string, params *UpdateRoomParticipantSubscribeRuleParams) (*VideoV1RoomParticipantSubscribeRule, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
@@ -79,7 +79,7 @@ func (c *ApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, Particip
 
 	defer resp.Body.Close()
 
-	ps := &VideoV1RoomRoomParticipantRoomParticipantSubscribeRule{}
+	ps := &VideoV1RoomParticipantSubscribeRule{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateAccessToken
 
-> VerifyV2ServiceAccessToken CreateAccessToken(ctx, ServiceSidoptional)
+> VerifyV2AccessToken CreateAccessToken(ctx, ServiceSidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceAccessToken**](VerifyV2ServiceAccessToken.md)
+[**VerifyV2AccessToken**](VerifyV2AccessToken.md)
 
 ### Authorization
 

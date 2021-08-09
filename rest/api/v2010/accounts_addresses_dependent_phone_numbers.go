@@ -85,7 +85,7 @@ func (c *ApiService) PageDependentPhoneNumber(AddressSid string, params *ListDep
 }
 
 // Lists DependentPhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) ([]ApiV2010AccountAddressDependentPhoneNumber, error) {
+func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) ([]ApiV2010DependentPhoneNumber, error) {
 	if params == nil {
 		params = &ListDependentPhoneNumberParams{}
 	}
@@ -97,7 +97,7 @@ func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDep
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountAddressDependentPhoneNumber
+	var records []ApiV2010DependentPhoneNumber
 
 	for response != nil {
 		records = append(records, response.DependentPhoneNumbers...)
@@ -114,7 +114,7 @@ func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDep
 }
 
 // Streams DependentPhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) (chan ApiV2010AccountAddressDependentPhoneNumber, error) {
+func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) (chan ApiV2010DependentPhoneNumber, error) {
 	if params == nil {
 		params = &ListDependentPhoneNumberParams{}
 	}
@@ -127,7 +127,7 @@ func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListD
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountAddressDependentPhoneNumber, 1)
+	channel := make(chan ApiV2010DependentPhoneNumber, 1)
 
 	go func() {
 		for response != nil {

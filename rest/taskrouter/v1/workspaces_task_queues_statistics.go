@@ -57,7 +57,7 @@ func (params *FetchTaskQueueStatisticsParams) SetSplitByWaitTime(SplitByWaitTime
 	return params
 }
 
-func (c *ApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics, error) {
+func (c *ApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueStatisticsParams) (*TaskrouterV1TaskQueueStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
@@ -88,7 +88,7 @@ func (c *ApiService) FetchTaskQueueStatistics(WorkspaceSid string, TaskQueueSid 
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceTaskQueueTaskQueueStatistics{}
+	ps := &TaskrouterV1TaskQueueStatistics{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -203,7 +203,7 @@ func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListT
 }
 
 // Lists TaskQueuesStatistics records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) ([]TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics, error) {
+func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) ([]TaskrouterV1TaskQueuesStatistics, error) {
 	if params == nil {
 		params = &ListTaskQueuesStatisticsParams{}
 	}
@@ -215,7 +215,7 @@ func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListT
 	}
 
 	curRecord := 0
-	var records []TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics
+	var records []TaskrouterV1TaskQueuesStatistics
 
 	for response != nil {
 		records = append(records, response.TaskQueuesStatistics...)
@@ -232,7 +232,7 @@ func (c *ApiService) ListTaskQueuesStatistics(WorkspaceSid string, params *ListT
 }
 
 // Streams TaskQueuesStatistics records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) (chan TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics, error) {
+func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams) (chan TaskrouterV1TaskQueuesStatistics, error) {
 	if params == nil {
 		params = &ListTaskQueuesStatisticsParams{}
 	}
@@ -245,7 +245,7 @@ func (c *ApiService) StreamTaskQueuesStatistics(WorkspaceSid string, params *Lis
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics, 1)
+	channel := make(chan TaskrouterV1TaskQueuesStatistics, 1)
 
 	go func() {
 		for response != nil {

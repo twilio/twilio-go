@@ -247,7 +247,7 @@ func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string
 }
 
 // Lists AvailablePhoneNumberMachineToMachine records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine, error) {
+func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) ([]ApiV2010AvailablePhoneNumberMachineToMachine, error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberMachineToMachineParams{}
 	}
@@ -259,7 +259,7 @@ func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine
+	var records []ApiV2010AvailablePhoneNumberMachineToMachine
 
 	for response != nil {
 		records = append(records, response.AvailablePhoneNumbers...)
@@ -276,7 +276,7 @@ func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string
 }
 
 // Streams AvailablePhoneNumberMachineToMachine records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine, error) {
+func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) (chan ApiV2010AvailablePhoneNumberMachineToMachine, error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberMachineToMachineParams{}
 	}
@@ -289,7 +289,7 @@ func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode stri
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberMachineToMachine, 1)
+	channel := make(chan ApiV2010AvailablePhoneNumberMachineToMachine, 1)
 
 	go func() {
 		for response != nil {

@@ -38,7 +38,7 @@ func (params *CreateFieldParams) SetUniqueName(UniqueName string) *CreateFieldPa
 	return params
 }
 
-func (c *ApiService) CreateField(AssistantSid string, TaskSid string, params *CreateFieldParams) (*AutopilotV1AssistantTaskField, error) {
+func (c *ApiService) CreateField(AssistantSid string, TaskSid string, params *CreateFieldParams) (*AutopilotV1Field, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -60,7 +60,7 @@ func (c *ApiService) CreateField(AssistantSid string, TaskSid string, params *Cr
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantTaskField{}
+	ps := &AutopilotV1Field{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c *ApiService) DeleteField(AssistantSid string, TaskSid string, Sid string
 	return nil
 }
 
-func (c *ApiService) FetchField(AssistantSid string, TaskSid string, Sid string) (*AutopilotV1AssistantTaskField, error) {
+func (c *ApiService) FetchField(AssistantSid string, TaskSid string, Sid string) (*AutopilotV1Field, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -103,7 +103,7 @@ func (c *ApiService) FetchField(AssistantSid string, TaskSid string, Sid string)
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantTaskField{}
+	ps := &AutopilotV1Field{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -165,7 +165,7 @@ func (c *ApiService) PageField(AssistantSid string, TaskSid string, params *List
 }
 
 // Lists Field records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *ListFieldParams) ([]AutopilotV1AssistantTaskField, error) {
+func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *ListFieldParams) ([]AutopilotV1Field, error) {
 	if params == nil {
 		params = &ListFieldParams{}
 	}
@@ -177,7 +177,7 @@ func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *List
 	}
 
 	curRecord := 0
-	var records []AutopilotV1AssistantTaskField
+	var records []AutopilotV1Field
 
 	for response != nil {
 		records = append(records, response.Fields...)
@@ -194,7 +194,7 @@ func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *List
 }
 
 // Streams Field records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamField(AssistantSid string, TaskSid string, params *ListFieldParams) (chan AutopilotV1AssistantTaskField, error) {
+func (c *ApiService) StreamField(AssistantSid string, TaskSid string, params *ListFieldParams) (chan AutopilotV1Field, error) {
 	if params == nil {
 		params = &ListFieldParams{}
 	}
@@ -207,7 +207,7 @@ func (c *ApiService) StreamField(AssistantSid string, TaskSid string, params *Li
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan AutopilotV1AssistantTaskField, 1)
+	channel := make(chan AutopilotV1Field, 1)
 
 	go func() {
 		for response != nil {

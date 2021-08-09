@@ -13,6 +13,6 @@ package openapi
 
 // ListBuildResponse struct for ListBuildResponse
 type ListBuildResponse struct {
-	Builds []ServerlessV1ServiceBuild `json:"builds,omitempty"`
-	Meta   ListServiceResponseMeta    `json:"meta,omitempty"`
+	Builds []ServerlessV1Build     `json:"builds,omitempty"`
+	Meta   ListServiceResponseMeta `json:"meta,omitempty"`
 }

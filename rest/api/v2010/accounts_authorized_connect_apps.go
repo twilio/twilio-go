@@ -33,7 +33,7 @@ func (params *FetchAuthorizedConnectAppParams) SetPathAccountSid(PathAccountSid 
 }
 
 // Fetch an instance of an authorized-connect-app
-func (c *ApiService) FetchAuthorizedConnectApp(ConnectAppSid string, params *FetchAuthorizedConnectAppParams) (*ApiV2010AccountAuthorizedConnectApp, error) {
+func (c *ApiService) FetchAuthorizedConnectApp(ConnectAppSid string, params *FetchAuthorizedConnectAppParams) (*ApiV2010AuthorizedConnectApp, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -52,7 +52,7 @@ func (c *ApiService) FetchAuthorizedConnectApp(ConnectAppSid string, params *Fet
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountAuthorizedConnectApp{}
+	ps := &ApiV2010AuthorizedConnectApp{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -123,7 +123,7 @@ func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 }
 
 // Lists AuthorizedConnectApp records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) ([]ApiV2010AccountAuthorizedConnectApp, error) {
+func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) ([]ApiV2010AuthorizedConnectApp, error) {
 	if params == nil {
 		params = &ListAuthorizedConnectAppParams{}
 	}
@@ -135,7 +135,7 @@ func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountAuthorizedConnectApp
+	var records []ApiV2010AuthorizedConnectApp
 
 	for response != nil {
 		records = append(records, response.AuthorizedConnectApps...)
@@ -152,7 +152,7 @@ func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 }
 
 // Streams AuthorizedConnectApp records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) (chan ApiV2010AccountAuthorizedConnectApp, error) {
+func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) (chan ApiV2010AuthorizedConnectApp, error) {
 	if params == nil {
 		params = &ListAuthorizedConnectAppParams{}
 	}
@@ -165,7 +165,7 @@ func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectApp
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountAuthorizedConnectApp, 1)
+	channel := make(chan ApiV2010AuthorizedConnectApp, 1)
 
 	go func() {
 		for response != nil {

@@ -21,7 +21,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1PhoneNumberPhoneNumberCountryInstance, error) {
+func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1PhoneNumberCountryInstance, error) {
 	path := "/v1/PhoneNumbers/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
@@ -35,7 +35,7 @@ func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1Phone
 
 	defer resp.Body.Close()
 
-	ps := &PricingV1PhoneNumberPhoneNumberCountryInstance{}
+	ps := &PricingV1PhoneNumberCountryInstance{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (c *ApiService) PagePhoneNumberCountry(params *ListPhoneNumberCountryParams
 }
 
 // Lists PhoneNumberCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams) ([]PricingV1PhoneNumberPhoneNumberCountry, error) {
+func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams) ([]PricingV1PhoneNumberCountry, error) {
 	if params == nil {
 		params = &ListPhoneNumberCountryParams{}
 	}
@@ -106,7 +106,7 @@ func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams
 	}
 
 	curRecord := 0
-	var records []PricingV1PhoneNumberPhoneNumberCountry
+	var records []PricingV1PhoneNumberCountry
 
 	for response != nil {
 		records = append(records, response.Countries...)
@@ -123,7 +123,7 @@ func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams
 }
 
 // Streams PhoneNumberCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryParams) (chan PricingV1PhoneNumberPhoneNumberCountry, error) {
+func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryParams) (chan PricingV1PhoneNumberCountry, error) {
 	if params == nil {
 		params = &ListPhoneNumberCountryParams{}
 	}
@@ -136,7 +136,7 @@ func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryPara
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan PricingV1PhoneNumberPhoneNumberCountry, 1)
+	channel := make(chan PricingV1PhoneNumberCountry, 1)
 
 	go func() {
 		for response != nil {

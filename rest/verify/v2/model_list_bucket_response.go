@@ -13,6 +13,6 @@ package openapi
 
 // ListBucketResponse struct for ListBucketResponse
 type ListBucketResponse struct {
-	Buckets []VerifyV2ServiceRateLimitBucket    `json:"buckets,omitempty"`
+	Buckets []VerifyV2Bucket                    `json:"buckets,omitempty"`
 	Meta    ListVerificationAttemptResponseMeta `json:"meta,omitempty"`
 }

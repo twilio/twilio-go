@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchDialingPermissionsCountry
 
-> VoiceV1DialingPermissionsDialingPermissionsCountryInstance FetchDialingPermissionsCountry(ctx, IsoCode)
+> VoiceV1DialingPermissionsCountryInstance FetchDialingPermissionsCountry(ctx, IsoCode)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VoiceV1DialingPermissionsDialingPermissionsCountryInstance**](VoiceV1DialingPermissionsDialingPermissionsCountryInstance.md)
+[**VoiceV1DialingPermissionsCountryInstance**](VoiceV1DialingPermissionsCountryInstance.md)
 
 ### Authorization
 

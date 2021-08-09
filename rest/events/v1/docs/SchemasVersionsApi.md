@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchSchemaVersion
 
-> EventsV1SchemaSchemaVersion FetchSchemaVersion(ctx, IdSchemaVersion)
+> EventsV1SchemaVersion FetchSchemaVersion(ctx, IdSchemaVersion)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**EventsV1SchemaSchemaVersion**](EventsV1SchemaSchemaVersion.md)
+[**EventsV1SchemaVersion**](EventsV1SchemaVersion.md)
 
 ### Authorization
 

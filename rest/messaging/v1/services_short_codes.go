@@ -32,7 +32,7 @@ func (params *CreateShortCodeParams) SetShortCodeSid(ShortCodeSid string) *Creat
 	return params
 }
 
-func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*MessagingV1ServiceShortCode, error) {
+func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeParams) (*MessagingV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -50,7 +50,7 @@ func (c *ApiService) CreateShortCode(ServiceSid string, params *CreateShortCodeP
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1ServiceShortCode{}
+	ps := &MessagingV1ShortCode{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (c *ApiService) DeleteShortCode(ServiceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1ServiceShortCode, error) {
+func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1ShortCode, error) {
 	path := "/v1/Services/{ServiceSid}/ShortCodes/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -91,7 +91,7 @@ func (c *ApiService) FetchShortCode(ServiceSid string, Sid string) (*MessagingV1
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1ServiceShortCode{}
+	ps := &MessagingV1ShortCode{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -152,7 +152,7 @@ func (c *ApiService) PageShortCode(ServiceSid string, params *ListShortCodeParam
 }
 
 // Lists ShortCode records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) ([]MessagingV1ServiceShortCode, error) {
+func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParams) ([]MessagingV1ShortCode, error) {
 	if params == nil {
 		params = &ListShortCodeParams{}
 	}
@@ -164,7 +164,7 @@ func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParam
 	}
 
 	curRecord := 0
-	var records []MessagingV1ServiceShortCode
+	var records []MessagingV1ShortCode
 
 	for response != nil {
 		records = append(records, response.ShortCodes...)
@@ -181,7 +181,7 @@ func (c *ApiService) ListShortCode(ServiceSid string, params *ListShortCodeParam
 }
 
 // Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodeParams) (chan MessagingV1ServiceShortCode, error) {
+func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodeParams) (chan MessagingV1ShortCode, error) {
 	if params == nil {
 		params = &ListShortCodeParams{}
 	}
@@ -194,7 +194,7 @@ func (c *ApiService) StreamShortCode(ServiceSid string, params *ListShortCodePar
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan MessagingV1ServiceShortCode, 1)
+	channel := make(chan MessagingV1ShortCode, 1)
 
 	go func() {
 		for response != nil {

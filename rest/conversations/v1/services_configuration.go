@@ -20,7 +20,7 @@ import (
 )
 
 // Fetch the configuration of a conversation service
-func (c *ApiService) FetchServiceConfiguration(ChatServiceSid string) (*ConversationsV1ServiceServiceConfiguration, error) {
+func (c *ApiService) FetchServiceConfiguration(ChatServiceSid string) (*ConversationsV1ServiceConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -34,7 +34,7 @@ func (c *ApiService) FetchServiceConfiguration(ChatServiceSid string) (*Conversa
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceConfiguration{}
+	ps := &ConversationsV1ServiceConfiguration{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -72,7 +72,7 @@ func (params *UpdateServiceConfigurationParams) SetReachabilityEnabled(Reachabil
 }
 
 // Update configuration settings of a conversation service
-func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *UpdateServiceConfigurationParams) (*ConversationsV1ServiceServiceConfiguration, error) {
+func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *UpdateServiceConfigurationParams) (*ConversationsV1ServiceConfiguration, error) {
 	path := "/v1/Services/{ChatServiceSid}/Configuration"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -99,7 +99,7 @@ func (c *ApiService) UpdateServiceConfiguration(ChatServiceSid string, params *U
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceConfiguration{}
+	ps := &ConversationsV1ServiceConfiguration{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

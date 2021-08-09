@@ -56,7 +56,7 @@ Name | Type | Description
 
 ## FetchInteraction
 
-> ProxyV1ServiceSessionInteraction FetchInteraction(ctx, ServiceSidSessionSidSid)
+> ProxyV1Interaction FetchInteraction(ctx, ServiceSidSessionSidSid)
 
 
 
@@ -82,7 +82,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServiceSessionInteraction**](ProxyV1ServiceSessionInteraction.md)
+[**ProxyV1Interaction**](ProxyV1Interaction.md)
 
 ### Authorization
 

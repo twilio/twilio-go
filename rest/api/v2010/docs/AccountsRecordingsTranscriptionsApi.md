@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## FetchRecordingTranscription
 
-> ApiV2010AccountRecordingRecordingTranscription FetchRecordingTranscription(ctx, RecordingSidSidoptional)
+> ApiV2010RecordingTranscription FetchRecordingTranscription(ctx, RecordingSidSidoptional)
 
 
 
@@ -78,7 +78,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountRecordingRecordingTranscription**](ApiV2010AccountRecordingRecordingTranscription.md)
+[**ApiV2010RecordingTranscription**](ApiV2010RecordingTranscription.md)
 
 ### Authorization
 

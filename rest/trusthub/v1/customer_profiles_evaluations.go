@@ -33,7 +33,7 @@ func (params *CreateCustomerProfileEvaluationParams) SetPolicySid(PolicySid stri
 }
 
 // Create a new Evaluation
-func (c *ApiService) CreateCustomerProfileEvaluation(CustomerProfileSid string, params *CreateCustomerProfileEvaluationParams) (*TrusthubV1CustomerProfileCustomerProfileEvaluation, error) {
+func (c *ApiService) CreateCustomerProfileEvaluation(CustomerProfileSid string, params *CreateCustomerProfileEvaluationParams) (*TrusthubV1CustomerProfileEvaluation, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
@@ -51,7 +51,7 @@ func (c *ApiService) CreateCustomerProfileEvaluation(CustomerProfileSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &TrusthubV1CustomerProfileCustomerProfileEvaluation{}
+	ps := &TrusthubV1CustomerProfileEvaluation{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -60,7 +60,7 @@ func (c *ApiService) CreateCustomerProfileEvaluation(CustomerProfileSid string, 
 }
 
 // Fetch specific Evaluation Instance.
-func (c *ApiService) FetchCustomerProfileEvaluation(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileCustomerProfileEvaluation, error) {
+func (c *ApiService) FetchCustomerProfileEvaluation(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileEvaluation, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -75,7 +75,7 @@ func (c *ApiService) FetchCustomerProfileEvaluation(CustomerProfileSid string, S
 
 	defer resp.Body.Close()
 
-	ps := &TrusthubV1CustomerProfileCustomerProfileEvaluation{}
+	ps := &TrusthubV1CustomerProfileEvaluation{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, pa
 }
 
 // Lists CustomerProfileEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) ([]TrusthubV1CustomerProfileCustomerProfileEvaluation, error) {
+func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) ([]TrusthubV1CustomerProfileEvaluation, error) {
 	if params == nil {
 		params = &ListCustomerProfileEvaluationParams{}
 	}
@@ -148,7 +148,7 @@ func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, pa
 	}
 
 	curRecord := 0
-	var records []TrusthubV1CustomerProfileCustomerProfileEvaluation
+	var records []TrusthubV1CustomerProfileEvaluation
 
 	for response != nil {
 		records = append(records, response.Results...)
@@ -165,7 +165,7 @@ func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, pa
 }
 
 // Streams CustomerProfileEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) (chan TrusthubV1CustomerProfileCustomerProfileEvaluation, error) {
+func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) (chan TrusthubV1CustomerProfileEvaluation, error) {
 	if params == nil {
 		params = &ListCustomerProfileEvaluationParams{}
 	}
@@ -178,7 +178,7 @@ func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TrusthubV1CustomerProfileCustomerProfileEvaluation, 1)
+	channel := make(chan TrusthubV1CustomerProfileEvaluation, 1)
 
 	go func() {
 		for response != nil {

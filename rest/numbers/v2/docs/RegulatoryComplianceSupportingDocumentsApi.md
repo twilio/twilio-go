@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateSupportingDocument
 
-> NumbersV2RegulatoryComplianceSupportingDocument CreateSupportingDocument(ctx, optional)
+> NumbersV2SupportingDocument CreateSupportingDocument(ctx, optional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceSupportingDocument**](NumbersV2RegulatoryComplianceSupportingDocument.md)
+[**NumbersV2SupportingDocument**](NumbersV2SupportingDocument.md)
 
 ### Authorization
 
@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## FetchSupportingDocument
 
-> NumbersV2RegulatoryComplianceSupportingDocument FetchSupportingDocument(ctx, Sid)
+> NumbersV2SupportingDocument FetchSupportingDocument(ctx, Sid)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceSupportingDocument**](NumbersV2RegulatoryComplianceSupportingDocument.md)
+[**NumbersV2SupportingDocument**](NumbersV2SupportingDocument.md)
 
 ### Authorization
 
@@ -179,7 +179,7 @@ Name | Type | Description
 
 ## UpdateSupportingDocument
 
-> NumbersV2RegulatoryComplianceSupportingDocument UpdateSupportingDocument(ctx, Sidoptional)
+> NumbersV2SupportingDocument UpdateSupportingDocument(ctx, Sidoptional)
 
 
 
@@ -205,7 +205,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceSupportingDocument**](NumbersV2RegulatoryComplianceSupportingDocument.md)
+[**NumbersV2SupportingDocument**](NumbersV2SupportingDocument.md)
 
 ### Authorization
 

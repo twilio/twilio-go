@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchFlowRevision
 
-> StudioV2FlowFlowRevision FetchFlowRevision(ctx, SidRevision)
+> StudioV2FlowRevision FetchFlowRevision(ctx, SidRevision)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV2FlowFlowRevision**](StudioV2FlowFlowRevision.md)
+[**StudioV2FlowRevision**](StudioV2FlowRevision.md)
 
 ### Authorization
 

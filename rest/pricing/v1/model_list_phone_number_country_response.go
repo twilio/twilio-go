@@ -13,6 +13,6 @@ package openapi
 
 // ListPhoneNumberCountryResponse struct for ListPhoneNumberCountryResponse
 type ListPhoneNumberCountryResponse struct {
-	Countries []PricingV1PhoneNumberPhoneNumberCountry `json:"countries,omitempty"`
-	Meta      ListMessagingCountryResponseMeta         `json:"meta,omitempty"`
+	Countries []PricingV1PhoneNumberCountry    `json:"countries,omitempty"`
+	Meta      ListMessagingCountryResponseMeta `json:"meta,omitempty"`
 }

@@ -85,7 +85,7 @@ func (c *ApiService) PageCallEvent(CallSid string, params *ListCallEventParams, 
 }
 
 // Lists CallEvent records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCallEvent(CallSid string, params *ListCallEventParams) ([]ApiV2010AccountCallCallEvent, error) {
+func (c *ApiService) ListCallEvent(CallSid string, params *ListCallEventParams) ([]ApiV2010CallEvent, error) {
 	if params == nil {
 		params = &ListCallEventParams{}
 	}
@@ -97,7 +97,7 @@ func (c *ApiService) ListCallEvent(CallSid string, params *ListCallEventParams) 
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountCallCallEvent
+	var records []ApiV2010CallEvent
 
 	for response != nil {
 		records = append(records, response.Events...)
@@ -114,7 +114,7 @@ func (c *ApiService) ListCallEvent(CallSid string, params *ListCallEventParams) 
 }
 
 // Streams CallEvent records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCallEvent(CallSid string, params *ListCallEventParams) (chan ApiV2010AccountCallCallEvent, error) {
+func (c *ApiService) StreamCallEvent(CallSid string, params *ListCallEventParams) (chan ApiV2010CallEvent, error) {
 	if params == nil {
 		params = &ListCallEventParams{}
 	}
@@ -127,7 +127,7 @@ func (c *ApiService) StreamCallEvent(CallSid string, params *ListCallEventParams
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountCallCallEvent, 1)
+	channel := make(chan ApiV2010CallEvent, 1)
 
 	go func() {
 		for response != nil {

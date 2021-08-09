@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## CreatePayments
 
-> ApiV2010AccountCallPayments CreatePayments(ctx, CallSidoptional)
+> ApiV2010Payments CreatePayments(ctx, CallSidoptional)
 
 
 
@@ -52,7 +52,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCallPayments**](ApiV2010AccountCallPayments.md)
+[**ApiV2010Payments**](ApiV2010Payments.md)
 
 ### Authorization
 
@@ -70,7 +70,7 @@ Name | Type | Description
 
 ## UpdatePayments
 
-> ApiV2010AccountCallPayments UpdatePayments(ctx, CallSidSidoptional)
+> ApiV2010Payments UpdatePayments(ctx, CallSidSidoptional)
 
 
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCallPayments**](ApiV2010AccountCallPayments.md)
+[**ApiV2010Payments**](ApiV2010Payments.md)
 
 ### Authorization
 

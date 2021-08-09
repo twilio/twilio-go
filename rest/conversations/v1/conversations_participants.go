@@ -82,7 +82,7 @@ func (params *CreateConversationParticipantParams) SetRoleSid(RoleSid string) *C
 }
 
 // Add a new participant to the conversation
-func (c *ApiService) CreateConversationParticipant(ConversationSid string, params *CreateConversationParticipantParams) (*ConversationsV1ConversationConversationParticipant, error) {
+func (c *ApiService) CreateConversationParticipant(ConversationSid string, params *CreateConversationParticipantParams) (*ConversationsV1ConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
@@ -125,7 +125,7 @@ func (c *ApiService) CreateConversationParticipant(ConversationSid string, param
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ConversationConversationParticipant{}
+	ps := &ConversationsV1ConversationParticipant{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ func (c *ApiService) DeleteConversationParticipant(ConversationSid string, Sid s
 }
 
 // Fetch a participant of the conversation
-func (c *ApiService) FetchConversationParticipant(ConversationSid string, Sid string) (*ConversationsV1ConversationConversationParticipant, error) {
+func (c *ApiService) FetchConversationParticipant(ConversationSid string, Sid string) (*ConversationsV1ConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -183,7 +183,7 @@ func (c *ApiService) FetchConversationParticipant(ConversationSid string, Sid st
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ConversationConversationParticipant{}
+	ps := &ConversationsV1ConversationParticipant{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -244,7 +244,7 @@ func (c *ApiService) PageConversationParticipant(ConversationSid string, params 
 }
 
 // Lists ConversationParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConversationParticipant(ConversationSid string, params *ListConversationParticipantParams) ([]ConversationsV1ConversationConversationParticipant, error) {
+func (c *ApiService) ListConversationParticipant(ConversationSid string, params *ListConversationParticipantParams) ([]ConversationsV1ConversationParticipant, error) {
 	if params == nil {
 		params = &ListConversationParticipantParams{}
 	}
@@ -256,7 +256,7 @@ func (c *ApiService) ListConversationParticipant(ConversationSid string, params 
 	}
 
 	curRecord := 0
-	var records []ConversationsV1ConversationConversationParticipant
+	var records []ConversationsV1ConversationParticipant
 
 	for response != nil {
 		records = append(records, response.Participants...)
@@ -273,7 +273,7 @@ func (c *ApiService) ListConversationParticipant(ConversationSid string, params 
 }
 
 // Streams ConversationParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConversationParticipant(ConversationSid string, params *ListConversationParticipantParams) (chan ConversationsV1ConversationConversationParticipant, error) {
+func (c *ApiService) StreamConversationParticipant(ConversationSid string, params *ListConversationParticipantParams) (chan ConversationsV1ConversationParticipant, error) {
 	if params == nil {
 		params = &ListConversationParticipantParams{}
 	}
@@ -286,7 +286,7 @@ func (c *ApiService) StreamConversationParticipant(ConversationSid string, param
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ConversationsV1ConversationConversationParticipant, 1)
+	channel := make(chan ConversationsV1ConversationParticipant, 1)
 
 	go func() {
 		for response != nil {
@@ -392,7 +392,7 @@ func (params *UpdateConversationParticipantParams) SetRoleSid(RoleSid string) *U
 }
 
 // Update an existing participant in the conversation
-func (c *ApiService) UpdateConversationParticipant(ConversationSid string, Sid string, params *UpdateConversationParticipantParams) (*ConversationsV1ConversationConversationParticipant, error) {
+func (c *ApiService) UpdateConversationParticipant(ConversationSid string, Sid string, params *UpdateConversationParticipantParams) (*ConversationsV1ConversationParticipant, error) {
 	path := "/v1/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -439,7 +439,7 @@ func (c *ApiService) UpdateConversationParticipant(ConversationSid string, Sid s
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ConversationConversationParticipant{}
+	ps := &ConversationsV1ConversationParticipant{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

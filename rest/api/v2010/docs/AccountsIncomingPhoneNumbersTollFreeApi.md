@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## CreateIncomingPhoneNumberTollFree
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree CreateIncomingPhoneNumberTollFree(ctx, optional)
+> ApiV2010IncomingPhoneNumberTollFree CreateIncomingPhoneNumberTollFree(ctx, optional)
 
 
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree**](ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree.md)
+[**ApiV2010IncomingPhoneNumberTollFree**](ApiV2010IncomingPhoneNumberTollFree.md)
 
 ### Authorization
 

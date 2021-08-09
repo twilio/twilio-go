@@ -13,6 +13,6 @@ package openapi
 
 // ListServiceConversationMessageReceiptResponse struct for ListServiceConversationMessageReceiptResponse
 type ListServiceConversationMessageReceiptResponse struct {
-	DeliveryReceipts []ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt `json:"delivery_receipts,omitempty"`
-	Meta             ListConversationResponseMeta                                                                           `json:"meta,omitempty"`
+	DeliveryReceipts []ConversationsV1ServiceConversationMessageReceipt `json:"delivery_receipts,omitempty"`
+	Meta             ListConversationResponseMeta                       `json:"meta,omitempty"`
 }

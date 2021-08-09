@@ -65,12 +65,12 @@ Class | Method | HTTP request | Description
  - [ListPhoneNumberResponse](docs/ListPhoneNumberResponse.md)
  - [ListTrunkResponse](docs/ListTrunkResponse.md)
  - [ListTrunkResponseMeta](docs/ListTrunkResponseMeta.md)
+ - [TrunkingV1CredentialList](docs/TrunkingV1CredentialList.md)
+ - [TrunkingV1IpAccessControlList](docs/TrunkingV1IpAccessControlList.md)
+ - [TrunkingV1OriginationUrl](docs/TrunkingV1OriginationUrl.md)
+ - [TrunkingV1PhoneNumber](docs/TrunkingV1PhoneNumber.md)
+ - [TrunkingV1Recording](docs/TrunkingV1Recording.md)
  - [TrunkingV1Trunk](docs/TrunkingV1Trunk.md)
- - [TrunkingV1TrunkCredentialList](docs/TrunkingV1TrunkCredentialList.md)
- - [TrunkingV1TrunkIpAccessControlList](docs/TrunkingV1TrunkIpAccessControlList.md)
- - [TrunkingV1TrunkOriginationUrl](docs/TrunkingV1TrunkOriginationUrl.md)
- - [TrunkingV1TrunkPhoneNumber](docs/TrunkingV1TrunkPhoneNumber.md)
- - [TrunkingV1TrunkRecording](docs/TrunkingV1TrunkRecording.md)
 
 
 ## Documentation For Authorization

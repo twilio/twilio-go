@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchTaskActions
 
-> AutopilotV1AssistantTaskTaskActions FetchTaskActions(ctx, AssistantSidTaskSid)
+> AutopilotV1TaskActions FetchTaskActions(ctx, AssistantSidTaskSid)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantTaskTaskActions**](AutopilotV1AssistantTaskTaskActions.md)
+[**AutopilotV1TaskActions**](AutopilotV1TaskActions.md)
 
 ### Authorization
 
@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## UpdateTaskActions
 
-> AutopilotV1AssistantTaskTaskActions UpdateTaskActions(ctx, AssistantSidTaskSidoptional)
+> AutopilotV1TaskActions UpdateTaskActions(ctx, AssistantSidTaskSidoptional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantTaskTaskActions**](AutopilotV1AssistantTaskTaskActions.md)
+[**AutopilotV1TaskActions**](AutopilotV1TaskActions.md)
 
 ### Authorization
 

@@ -43,7 +43,7 @@ func (c *ApiService) DeleteServiceUserConversation(ChatServiceSid string, UserSi
 }
 
 // Fetch a specific User Conversation.
-func (c *ApiService) FetchServiceUserConversation(ChatServiceSid string, UserSid string, ConversationSid string) (*ConversationsV1ServiceServiceUserServiceUserConversation, error) {
+func (c *ApiService) FetchServiceUserConversation(ChatServiceSid string, UserSid string, ConversationSid string) (*ConversationsV1ServiceUserConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -59,7 +59,7 @@ func (c *ApiService) FetchServiceUserConversation(ChatServiceSid string, UserSid
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceUserServiceUserConversation{}
+	ps := &ConversationsV1ServiceUserConversation{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -121,7 +121,7 @@ func (c *ApiService) PageServiceUserConversation(ChatServiceSid string, UserSid 
 }
 
 // Lists ServiceUserConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceUserConversation(ChatServiceSid string, UserSid string, params *ListServiceUserConversationParams) ([]ConversationsV1ServiceServiceUserServiceUserConversation, error) {
+func (c *ApiService) ListServiceUserConversation(ChatServiceSid string, UserSid string, params *ListServiceUserConversationParams) ([]ConversationsV1ServiceUserConversation, error) {
 	if params == nil {
 		params = &ListServiceUserConversationParams{}
 	}
@@ -133,7 +133,7 @@ func (c *ApiService) ListServiceUserConversation(ChatServiceSid string, UserSid 
 	}
 
 	curRecord := 0
-	var records []ConversationsV1ServiceServiceUserServiceUserConversation
+	var records []ConversationsV1ServiceUserConversation
 
 	for response != nil {
 		records = append(records, response.Conversations...)
@@ -150,7 +150,7 @@ func (c *ApiService) ListServiceUserConversation(ChatServiceSid string, UserSid 
 }
 
 // Streams ServiceUserConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceUserConversation(ChatServiceSid string, UserSid string, params *ListServiceUserConversationParams) (chan ConversationsV1ServiceServiceUserServiceUserConversation, error) {
+func (c *ApiService) StreamServiceUserConversation(ChatServiceSid string, UserSid string, params *ListServiceUserConversationParams) (chan ConversationsV1ServiceUserConversation, error) {
 	if params == nil {
 		params = &ListServiceUserConversationParams{}
 	}
@@ -163,7 +163,7 @@ func (c *ApiService) StreamServiceUserConversation(ChatServiceSid string, UserSi
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ConversationsV1ServiceServiceUserServiceUserConversation, 1)
+	channel := make(chan ConversationsV1ServiceUserConversation, 1)
 
 	go func() {
 		for response != nil {
@@ -227,7 +227,7 @@ func (params *UpdateServiceUserConversationParams) SetNotificationLevel(Notifica
 }
 
 // Update a specific User Conversation.
-func (c *ApiService) UpdateServiceUserConversation(ChatServiceSid string, UserSid string, ConversationSid string, params *UpdateServiceUserConversationParams) (*ConversationsV1ServiceServiceUserServiceUserConversation, error) {
+func (c *ApiService) UpdateServiceUserConversation(ChatServiceSid string, UserSid string, ConversationSid string, params *UpdateServiceUserConversationParams) (*ConversationsV1ServiceUserConversation, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations/{ConversationSid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -253,7 +253,7 @@ func (c *ApiService) UpdateServiceUserConversation(ChatServiceSid string, UserSi
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceUserServiceUserConversation{}
+	ps := &ConversationsV1ServiceUserConversation{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

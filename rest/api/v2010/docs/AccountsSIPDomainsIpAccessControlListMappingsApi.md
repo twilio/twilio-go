@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateSipIpAccessControlListMapping
 
-> ApiV2010AccountSipSipDomainSipIpAccessControlListMapping CreateSipIpAccessControlListMapping(ctx, DomainSidoptional)
+> ApiV2010SipIpAccessControlListMapping CreateSipIpAccessControlListMapping(ctx, DomainSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipIpAccessControlListMapping**](ApiV2010AccountSipSipDomainSipIpAccessControlListMapping.md)
+[**ApiV2010SipIpAccessControlListMapping**](ApiV2010SipIpAccessControlListMapping.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchSipIpAccessControlListMapping
 
-> ApiV2010AccountSipSipDomainSipIpAccessControlListMapping FetchSipIpAccessControlListMapping(ctx, DomainSidSidoptional)
+> ApiV2010SipIpAccessControlListMapping FetchSipIpAccessControlListMapping(ctx, DomainSidSidoptional)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipDomainSipIpAccessControlListMapping**](ApiV2010AccountSipSipDomainSipIpAccessControlListMapping.md)
+[**ApiV2010SipIpAccessControlListMapping**](ApiV2010SipIpAccessControlListMapping.md)
 
 ### Authorization
 

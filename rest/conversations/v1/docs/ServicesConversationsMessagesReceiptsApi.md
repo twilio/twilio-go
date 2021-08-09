@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchServiceConversationMessageReceipt
 
-> ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt FetchServiceConversationMessageReceipt(ctx, ChatServiceSidConversationSidMessageSidSid)
+> ConversationsV1ServiceConversationMessageReceipt FetchServiceConversationMessageReceipt(ctx, ChatServiceSidConversationSidMessageSidSid)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt**](ConversationsV1ServiceServiceConversationServiceConversationMessageServiceConversationMessageReceipt.md)
+[**ConversationsV1ServiceConversationMessageReceipt**](ConversationsV1ServiceConversationMessageReceipt.md)
 
 ### Authorization
 

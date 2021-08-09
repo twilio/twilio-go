@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateOriginationUrl
 
-> TrunkingV1TrunkOriginationUrl CreateOriginationUrl(ctx, TrunkSidoptional)
+> TrunkingV1OriginationUrl CreateOriginationUrl(ctx, TrunkSidoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrunkingV1TrunkOriginationUrl**](TrunkingV1TrunkOriginationUrl.md)
+[**TrunkingV1OriginationUrl**](TrunkingV1OriginationUrl.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchOriginationUrl
 
-> TrunkingV1TrunkOriginationUrl FetchOriginationUrl(ctx, TrunkSidSid)
+> TrunkingV1OriginationUrl FetchOriginationUrl(ctx, TrunkSidSid)
 
 
 
@@ -123,7 +123,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrunkingV1TrunkOriginationUrl**](TrunkingV1TrunkOriginationUrl.md)
+[**TrunkingV1OriginationUrl**](TrunkingV1OriginationUrl.md)
 
 ### Authorization
 
@@ -183,7 +183,7 @@ Name | Type | Description
 
 ## UpdateOriginationUrl
 
-> TrunkingV1TrunkOriginationUrl UpdateOriginationUrl(ctx, TrunkSidSidoptional)
+> TrunkingV1OriginationUrl UpdateOriginationUrl(ctx, TrunkSidSidoptional)
 
 
 
@@ -211,7 +211,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrunkingV1TrunkOriginationUrl**](TrunkingV1TrunkOriginationUrl.md)
+[**TrunkingV1OriginationUrl**](TrunkingV1OriginationUrl.md)
 
 ### Authorization
 

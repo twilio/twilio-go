@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## FetchRoomRecording
 
-> VideoV1RoomRoomRecording FetchRoomRecording(ctx, RoomSidSid)
+> VideoV1RoomRecording FetchRoomRecording(ctx, RoomSidSid)
 
 
 
@@ -76,7 +76,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VideoV1RoomRoomRecording**](VideoV1RoomRoomRecording.md)
+[**VideoV1RoomRecording**](VideoV1RoomRecording.md)
 
 ### Authorization
 

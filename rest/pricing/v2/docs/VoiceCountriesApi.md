@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchVoiceCountry
 
-> PricingV2VoiceVoiceCountryInstance FetchVoiceCountry(ctx, IsoCountry)
+> PricingV2VoiceCountryInstance FetchVoiceCountry(ctx, IsoCountry)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**PricingV2VoiceVoiceCountryInstance**](PricingV2VoiceVoiceCountryInstance.md)
+[**PricingV2VoiceCountryInstance**](PricingV2VoiceCountryInstance.md)
 
 ### Authorization
 

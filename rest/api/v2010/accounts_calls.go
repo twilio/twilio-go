@@ -238,7 +238,7 @@ func (params *CreateCallParams) SetUrl(Url string) *CreateCallParams {
 }
 
 // Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
-func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010AccountCall, error) {
+func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -363,7 +363,7 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010AccountCall,
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCall{}
+	ps := &ApiV2010Call{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -417,7 +417,7 @@ func (params *FetchCallParams) SetPathAccountSid(PathAccountSid string) *FetchCa
 }
 
 // Fetch the call specified by the provided Call SID
-func (c *ApiService) FetchCall(Sid string, params *FetchCallParams) (*ApiV2010AccountCall, error) {
+func (c *ApiService) FetchCall(Sid string, params *FetchCallParams) (*ApiV2010Call, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -436,7 +436,7 @@ func (c *ApiService) FetchCall(Sid string, params *FetchCallParams) (*ApiV2010Ac
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCall{}
+	ps := &ApiV2010Call{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -597,7 +597,7 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken string, pageNumb
 }
 
 // Lists Call records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010AccountCall, error) {
+func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010Call, error) {
 	if params == nil {
 		params = &ListCallParams{}
 	}
@@ -609,7 +609,7 @@ func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010AccountCall, er
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountCall
+	var records []ApiV2010Call
 
 	for response != nil {
 		records = append(records, response.Calls...)
@@ -626,7 +626,7 @@ func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010AccountCall, er
 }
 
 // Streams Call records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010AccountCall, error) {
+func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010Call, error) {
 	if params == nil {
 		params = &ListCallParams{}
 	}
@@ -639,7 +639,7 @@ func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010AccountCal
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountCall, 1)
+	channel := make(chan ApiV2010Call, 1)
 
 	go func() {
 		for response != nil {
@@ -739,7 +739,7 @@ func (params *UpdateCallParams) SetUrl(Url string) *UpdateCallParams {
 }
 
 // Initiates a call redirect or terminates a call
-func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010AccountCall, error) {
+func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010Call, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -783,7 +783,7 @@ func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCall{}
+	ps := &ApiV2010Call{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

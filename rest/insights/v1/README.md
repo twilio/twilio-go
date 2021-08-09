@@ -44,11 +44,11 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [InsightsV1Call](docs/InsightsV1Call.md)
- - [InsightsV1CallEvent](docs/InsightsV1CallEvent.md)
- - [InsightsV1CallMetric](docs/InsightsV1CallMetric.md)
- - [InsightsV1CallSummary](docs/InsightsV1CallSummary.md)
+ - [InsightsV1Event](docs/InsightsV1Event.md)
+ - [InsightsV1Metric](docs/InsightsV1Metric.md)
+ - [InsightsV1Summary](docs/InsightsV1Summary.md)
+ - [InsightsV1VideoParticipantSummary](docs/InsightsV1VideoParticipantSummary.md)
  - [InsightsV1VideoRoomSummary](docs/InsightsV1VideoRoomSummary.md)
- - [InsightsV1VideoRoomSummaryVideoParticipantSummary](docs/InsightsV1VideoRoomSummaryVideoParticipantSummary.md)
  - [ListEventResponse](docs/ListEventResponse.md)
  - [ListMetricResponse](docs/ListMetricResponse.md)
  - [ListVideoParticipantSummaryResponse](docs/ListVideoParticipantSummaryResponse.md)

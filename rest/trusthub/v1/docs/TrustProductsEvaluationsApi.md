@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateTrustProductEvaluation
 
-> TrusthubV1TrustProductTrustProductEvaluation CreateTrustProductEvaluation(ctx, TrustProductSidoptional)
+> TrusthubV1TrustProductEvaluation CreateTrustProductEvaluation(ctx, TrustProductSidoptional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrusthubV1TrustProductTrustProductEvaluation**](TrusthubV1TrustProductTrustProductEvaluation.md)
+[**TrusthubV1TrustProductEvaluation**](TrusthubV1TrustProductEvaluation.md)
 
 ### Authorization
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## FetchTrustProductEvaluation
 
-> TrusthubV1TrustProductTrustProductEvaluation FetchTrustProductEvaluation(ctx, TrustProductSidSid)
+> TrusthubV1TrustProductEvaluation FetchTrustProductEvaluation(ctx, TrustProductSidSid)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrusthubV1TrustProductTrustProductEvaluation**](TrusthubV1TrustProductTrustProductEvaluation.md)
+[**TrusthubV1TrustProductEvaluation**](TrusthubV1TrustProductEvaluation.md)
 
 ### Authorization
 

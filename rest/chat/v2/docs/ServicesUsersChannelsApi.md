@@ -57,7 +57,7 @@ Name | Type | Description
 
 ## FetchUserChannel
 
-> ChatV2ServiceUserUserChannel FetchUserChannel(ctx, ServiceSidUserSidChannelSid)
+> ChatV2UserChannel FetchUserChannel(ctx, ServiceSidUserSidChannelSid)
 
 
 
@@ -81,7 +81,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ChatV2ServiceUserUserChannel**](ChatV2ServiceUserUserChannel.md)
+[**ChatV2UserChannel**](ChatV2UserChannel.md)
 
 ### Authorization
 
@@ -144,7 +144,7 @@ Name | Type | Description
 
 ## UpdateUserChannel
 
-> ChatV2ServiceUserUserChannel UpdateUserChannel(ctx, ServiceSidUserSidChannelSidoptional)
+> ChatV2UserChannel UpdateUserChannel(ctx, ServiceSidUserSidChannelSidoptional)
 
 
 
@@ -171,7 +171,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ChatV2ServiceUserUserChannel**](ChatV2ServiceUserUserChannel.md)
+[**ChatV2UserChannel**](ChatV2UserChannel.md)
 
 ### Authorization
 

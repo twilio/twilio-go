@@ -19,7 +19,7 @@ import (
 )
 
 // Retrieve the most recent context for an Engagement.
-func (c *ApiService) FetchEngagementContext(FlowSid string, EngagementSid string) (*StudioV1FlowEngagementEngagementContext, error) {
+func (c *ApiService) FetchEngagementContext(FlowSid string, EngagementSid string) (*StudioV1EngagementContext, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Context"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
@@ -34,7 +34,7 @@ func (c *ApiService) FetchEngagementContext(FlowSid string, EngagementSid string
 
 	defer resp.Body.Close()
 
-	ps := &StudioV1FlowEngagementEngagementContext{}
+	ps := &StudioV1EngagementContext{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchWorkersCumulativeStatistics
 
-> TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics FetchWorkersCumulativeStatistics(ctx, WorkspaceSidoptional)
+> TaskrouterV1WorkersCumulativeStatistics FetchWorkersCumulativeStatistics(ctx, WorkspaceSidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics**](TaskrouterV1WorkspaceWorkerWorkersCumulativeStatistics.md)
+[**TaskrouterV1WorkersCumulativeStatistics**](TaskrouterV1WorkersCumulativeStatistics.md)
 
 ### Authorization
 

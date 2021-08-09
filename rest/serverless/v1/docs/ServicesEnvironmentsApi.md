@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateEnvironment
 
-> ServerlessV1ServiceEnvironment CreateEnvironment(ctx, ServiceSidoptional)
+> ServerlessV1Environment CreateEnvironment(ctx, ServiceSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironment**](ServerlessV1ServiceEnvironment.md)
+[**ServerlessV1Environment**](ServerlessV1Environment.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchEnvironment
 
-> ServerlessV1ServiceEnvironment FetchEnvironment(ctx, ServiceSidSid)
+> ServerlessV1Environment FetchEnvironment(ctx, ServiceSidSid)
 
 
 
@@ -125,7 +125,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironment**](ServerlessV1ServiceEnvironment.md)
+[**ServerlessV1Environment**](ServerlessV1Environment.md)
 
 ### Authorization
 

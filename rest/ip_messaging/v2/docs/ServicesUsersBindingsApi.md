@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## FetchUserBinding
 
-> IpMessagingV2ServiceUserUserBinding FetchUserBinding(ctx, ServiceSidUserSidSid)
+> IpMessagingV2UserBinding FetchUserBinding(ctx, ServiceSidUserSidSid)
 
 
 
@@ -78,7 +78,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV2ServiceUserUserBinding**](IpMessagingV2ServiceUserUserBinding.md)
+[**IpMessagingV2UserBinding**](IpMessagingV2UserBinding.md)
 
 ### Authorization
 

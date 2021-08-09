@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchConfigurationWebhook
 
-> ConversationsV1ConfigurationConfigurationWebhook FetchConfigurationWebhook(ctx, )
+> ConversationsV1ConfigurationWebhook FetchConfigurationWebhook(ctx, )
 
 
 
@@ -26,7 +26,7 @@ Other parameters are passed through a pointer to a FetchConfigurationWebhookPara
 
 ### Return type
 
-[**ConversationsV1ConfigurationConfigurationWebhook**](ConversationsV1ConfigurationConfigurationWebhook.md)
+[**ConversationsV1ConfigurationWebhook**](ConversationsV1ConfigurationWebhook.md)
 
 ### Authorization
 
@@ -44,7 +44,7 @@ Other parameters are passed through a pointer to a FetchConfigurationWebhookPara
 
 ## UpdateConfigurationWebhook
 
-> ConversationsV1ConfigurationConfigurationWebhook UpdateConfigurationWebhook(ctx, optional)
+> ConversationsV1ConfigurationWebhook UpdateConfigurationWebhook(ctx, optional)
 
 
 
@@ -67,7 +67,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ConfigurationConfigurationWebhook**](ConversationsV1ConfigurationConfigurationWebhook.md)
+[**ConversationsV1ConfigurationWebhook**](ConversationsV1ConfigurationWebhook.md)
 
 ### Authorization
 

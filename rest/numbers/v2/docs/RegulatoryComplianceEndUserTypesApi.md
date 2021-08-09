@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchEndUserType
 
-> NumbersV2RegulatoryComplianceEndUserType FetchEndUserType(ctx, Sid)
+> NumbersV2EndUserType FetchEndUserType(ctx, Sid)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceEndUserType**](NumbersV2RegulatoryComplianceEndUserType.md)
+[**NumbersV2EndUserType**](NumbersV2EndUserType.md)
 
 ### Authorization
 

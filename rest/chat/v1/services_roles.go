@@ -44,7 +44,7 @@ func (params *CreateRoleParams) SetType(Type string) *CreateRoleParams {
 	return params
 }
 
-func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*ChatV1ServiceRole, error) {
+func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*ChatV1Role, error) {
 	path := "/v1/Services/{ServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -70,7 +70,7 @@ func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*C
 
 	defer resp.Body.Close()
 
-	ps := &ChatV1ServiceRole{}
+	ps := &ChatV1Role{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -96,7 +96,7 @@ func (c *ApiService) DeleteRole(ServiceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*ChatV1ServiceRole, error) {
+func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*ChatV1Role, error) {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -111,7 +111,7 @@ func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*ChatV1ServiceRol
 
 	defer resp.Body.Close()
 
-	ps := &ChatV1ServiceRole{}
+	ps := &ChatV1Role{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -172,7 +172,7 @@ func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageTok
 }
 
 // Lists Role records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]ChatV1ServiceRole, error) {
+func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]ChatV1Role, error) {
 	if params == nil {
 		params = &ListRoleParams{}
 	}
@@ -184,7 +184,7 @@ func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]Chat
 	}
 
 	curRecord := 0
-	var records []ChatV1ServiceRole
+	var records []ChatV1Role
 
 	for response != nil {
 		records = append(records, response.Roles...)
@@ -201,7 +201,7 @@ func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]Chat
 }
 
 // Streams Role records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan ChatV1ServiceRole, error) {
+func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan ChatV1Role, error) {
 	if params == nil {
 		params = &ListRoleParams{}
 	}
@@ -214,7 +214,7 @@ func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ChatV1ServiceRole, 1)
+	channel := make(chan ChatV1Role, 1)
 
 	go func() {
 		for response != nil {
@@ -265,7 +265,7 @@ func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRolePa
 	return params
 }
 
-func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRoleParams) (*ChatV1ServiceRole, error) {
+func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRoleParams) (*ChatV1Role, error) {
 	path := "/v1/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -286,7 +286,7 @@ func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRol
 
 	defer resp.Body.Close()
 
-	ps := &ChatV1ServiceRole{}
+	ps := &ChatV1Role{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

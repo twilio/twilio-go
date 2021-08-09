@@ -28,7 +28,7 @@ func (params *CreateDialingPermissionsCountryBulkUpdateParams) SetUpdateRequest(
 }
 
 // Create a bulk update request to change voice dialing country permissions of one or more countries identified by the corresponding [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
-func (c *ApiService) CreateDialingPermissionsCountryBulkUpdate(params *CreateDialingPermissionsCountryBulkUpdateParams) (*VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate, error) {
+func (c *ApiService) CreateDialingPermissionsCountryBulkUpdate(params *CreateDialingPermissionsCountryBulkUpdateParams) (*VoiceV1DialingPermissionsCountryBulkUpdate, error) {
 	path := "/v1/DialingPermissions/BulkCountryUpdates"
 
 	data := url.Values{}
@@ -45,7 +45,7 @@ func (c *ApiService) CreateDialingPermissionsCountryBulkUpdate(params *CreateDia
 
 	defer resp.Body.Close()
 
-	ps := &VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate{}
+	ps := &VoiceV1DialingPermissionsCountryBulkUpdate{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

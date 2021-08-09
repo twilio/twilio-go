@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateVerification
 
-> VerifyV2ServiceVerification CreateVerification(ctx, ServiceSidoptional)
+> VerifyV2Verification CreateVerification(ctx, ServiceSidoptional)
 
 
 
@@ -48,7 +48,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceVerification**](VerifyV2ServiceVerification.md)
+[**VerifyV2Verification**](VerifyV2Verification.md)
 
 ### Authorization
 
@@ -66,7 +66,7 @@ Name | Type | Description
 
 ## FetchVerification
 
-> VerifyV2ServiceVerification FetchVerification(ctx, ServiceSidSid)
+> VerifyV2Verification FetchVerification(ctx, ServiceSidSid)
 
 
 
@@ -91,7 +91,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceVerification**](VerifyV2ServiceVerification.md)
+[**VerifyV2Verification**](VerifyV2Verification.md)
 
 ### Authorization
 
@@ -109,7 +109,7 @@ Name | Type | Description
 
 ## UpdateVerification
 
-> VerifyV2ServiceVerification UpdateVerification(ctx, ServiceSidSidoptional)
+> VerifyV2Verification UpdateVerification(ctx, ServiceSidSidoptional)
 
 
 
@@ -135,7 +135,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceVerification**](VerifyV2ServiceVerification.md)
+[**VerifyV2Verification**](VerifyV2Verification.md)
 
 ### Authorization
 

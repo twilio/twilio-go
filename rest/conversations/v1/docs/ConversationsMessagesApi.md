@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateConversationMessage
 
-> ConversationsV1ConversationConversationMessage CreateConversationMessage(ctx, ConversationSidoptional)
+> ConversationsV1ConversationMessage CreateConversationMessage(ctx, ConversationSidoptional)
 
 
 
@@ -45,7 +45,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ConversationConversationMessage**](ConversationsV1ConversationConversationMessage.md)
+[**ConversationsV1ConversationMessage**](ConversationsV1ConversationMessage.md)
 
 ### Authorization
 
@@ -107,7 +107,7 @@ Name | Type | Description
 
 ## FetchConversationMessage
 
-> ConversationsV1ConversationConversationMessage FetchConversationMessage(ctx, ConversationSidSid)
+> ConversationsV1ConversationMessage FetchConversationMessage(ctx, ConversationSidSid)
 
 
 
@@ -132,7 +132,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ConversationConversationMessage**](ConversationsV1ConversationConversationMessage.md)
+[**ConversationsV1ConversationMessage**](ConversationsV1ConversationMessage.md)
 
 ### Authorization
 
@@ -194,7 +194,7 @@ Name | Type | Description
 
 ## UpdateConversationMessage
 
-> ConversationsV1ConversationConversationMessage UpdateConversationMessage(ctx, ConversationSidSidoptional)
+> ConversationsV1ConversationMessage UpdateConversationMessage(ctx, ConversationSidSidoptional)
 
 
 
@@ -225,7 +225,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ConversationConversationMessage**](ConversationsV1ConversationConversationMessage.md)
+[**ConversationsV1ConversationMessage**](ConversationsV1ConversationMessage.md)
 
 ### Authorization
 

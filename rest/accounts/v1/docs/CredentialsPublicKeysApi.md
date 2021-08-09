@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateCredentialPublicKey
 
-> AccountsV1CredentialCredentialPublicKey CreateCredentialPublicKey(ctx, optional)
+> AccountsV1CredentialPublicKey CreateCredentialPublicKey(ctx, optional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AccountsV1CredentialCredentialPublicKey**](AccountsV1CredentialCredentialPublicKey.md)
+[**AccountsV1CredentialPublicKey**](AccountsV1CredentialPublicKey.md)
 
 ### Authorization
 
@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## FetchCredentialPublicKey
 
-> AccountsV1CredentialCredentialPublicKey FetchCredentialPublicKey(ctx, Sid)
+> AccountsV1CredentialPublicKey FetchCredentialPublicKey(ctx, Sid)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AccountsV1CredentialCredentialPublicKey**](AccountsV1CredentialCredentialPublicKey.md)
+[**AccountsV1CredentialPublicKey**](AccountsV1CredentialPublicKey.md)
 
 ### Authorization
 
@@ -179,7 +179,7 @@ Name | Type | Description
 
 ## UpdateCredentialPublicKey
 
-> AccountsV1CredentialCredentialPublicKey UpdateCredentialPublicKey(ctx, Sidoptional)
+> AccountsV1CredentialPublicKey UpdateCredentialPublicKey(ctx, Sidoptional)
 
 
 
@@ -204,7 +204,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AccountsV1CredentialCredentialPublicKey**](AccountsV1CredentialCredentialPublicKey.md)
+[**AccountsV1CredentialPublicKey**](AccountsV1CredentialPublicKey.md)
 
 ### Authorization
 

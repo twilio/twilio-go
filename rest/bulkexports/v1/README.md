@@ -44,12 +44,12 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [BulkexportsV1Day](docs/BulkexportsV1Day.md)
+ - [BulkexportsV1DayInstance](docs/BulkexportsV1DayInstance.md)
  - [BulkexportsV1Export](docs/BulkexportsV1Export.md)
  - [BulkexportsV1ExportConfiguration](docs/BulkexportsV1ExportConfiguration.md)
- - [BulkexportsV1ExportDay](docs/BulkexportsV1ExportDay.md)
- - [BulkexportsV1ExportDayInstance](docs/BulkexportsV1ExportDayInstance.md)
- - [BulkexportsV1ExportExportCustomJob](docs/BulkexportsV1ExportExportCustomJob.md)
- - [BulkexportsV1ExportJob](docs/BulkexportsV1ExportJob.md)
+ - [BulkexportsV1ExportCustomJob](docs/BulkexportsV1ExportCustomJob.md)
+ - [BulkexportsV1Job](docs/BulkexportsV1Job.md)
  - [ListDayResponse](docs/ListDayResponse.md)
  - [ListDayResponseMeta](docs/ListDayResponseMeta.md)
  - [ListExportCustomJobResponse](docs/ListExportCustomJobResponse.md)

@@ -56,7 +56,7 @@ func (params *CreateOriginationUrlParams) SetWeight(Weight int) *CreateOriginati
 	return params
 }
 
-func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOriginationUrlParams) (*TrunkingV1TrunkOriginationUrl, error) {
+func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
@@ -86,7 +86,7 @@ func (c *ApiService) CreateOriginationUrl(TrunkSid string, params *CreateOrigina
 
 	defer resp.Body.Close()
 
-	ps := &TrunkingV1TrunkOriginationUrl{}
+	ps := &TrunkingV1OriginationUrl{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ func (c *ApiService) DeleteOriginationUrl(TrunkSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*TrunkingV1TrunkOriginationUrl, error) {
+func (c *ApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -127,7 +127,7 @@ func (c *ApiService) FetchOriginationUrl(TrunkSid string, Sid string) (*Trunking
 
 	defer resp.Body.Close()
 
-	ps := &TrunkingV1TrunkOriginationUrl{}
+	ps := &TrunkingV1OriginationUrl{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -188,7 +188,7 @@ func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOrigination
 }
 
 // Lists OriginationUrl records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOriginationUrlParams) ([]TrunkingV1TrunkOriginationUrl, error) {
+func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOriginationUrlParams) ([]TrunkingV1OriginationUrl, error) {
 	if params == nil {
 		params = &ListOriginationUrlParams{}
 	}
@@ -200,7 +200,7 @@ func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOrigination
 	}
 
 	curRecord := 0
-	var records []TrunkingV1TrunkOriginationUrl
+	var records []TrunkingV1OriginationUrl
 
 	for response != nil {
 		records = append(records, response.OriginationUrls...)
@@ -217,7 +217,7 @@ func (c *ApiService) ListOriginationUrl(TrunkSid string, params *ListOrigination
 }
 
 // Streams OriginationUrl records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginationUrlParams) (chan TrunkingV1TrunkOriginationUrl, error) {
+func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginationUrlParams) (chan TrunkingV1OriginationUrl, error) {
 	if params == nil {
 		params = &ListOriginationUrlParams{}
 	}
@@ -230,7 +230,7 @@ func (c *ApiService) StreamOriginationUrl(TrunkSid string, params *ListOriginati
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TrunkingV1TrunkOriginationUrl, 1)
+	channel := make(chan TrunkingV1OriginationUrl, 1)
 
 	go func() {
 		for response != nil {
@@ -305,7 +305,7 @@ func (params *UpdateOriginationUrlParams) SetWeight(Weight int) *UpdateOriginati
 	return params
 }
 
-func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *UpdateOriginationUrlParams) (*TrunkingV1TrunkOriginationUrl, error) {
+func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *UpdateOriginationUrlParams) (*TrunkingV1OriginationUrl, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -336,7 +336,7 @@ func (c *ApiService) UpdateOriginationUrl(TrunkSid string, Sid string, params *U
 
 	defer resp.Body.Close()
 
-	ps := &TrunkingV1TrunkOriginationUrl{}
+	ps := &TrunkingV1OriginationUrl{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

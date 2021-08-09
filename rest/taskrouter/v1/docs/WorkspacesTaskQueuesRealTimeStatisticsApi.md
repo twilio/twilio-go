@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchTaskQueueRealTimeStatistics
 
-> TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics FetchTaskQueueRealTimeStatistics(ctx, WorkspaceSidTaskQueueSidoptional)
+> TaskrouterV1TaskQueueRealTimeStatistics FetchTaskQueueRealTimeStatistics(ctx, WorkspaceSidTaskQueueSidoptional)
 
 
 
@@ -34,7 +34,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics**](TaskrouterV1WorkspaceTaskQueueTaskQueueRealTimeStatistics.md)
+[**TaskrouterV1TaskQueueRealTimeStatistics**](TaskrouterV1TaskQueueRealTimeStatistics.md)
 
 ### Authorization
 

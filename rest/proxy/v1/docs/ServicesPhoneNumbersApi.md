@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreatePhoneNumber
 
-> ProxyV1ServicePhoneNumber CreatePhoneNumber(ctx, ServiceSidoptional)
+> ProxyV1PhoneNumber CreatePhoneNumber(ctx, ServiceSidoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServicePhoneNumber**](ProxyV1ServicePhoneNumber.md)
+[**ProxyV1PhoneNumber**](ProxyV1PhoneNumber.md)
 
 ### Authorization
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 ## FetchPhoneNumber
 
-> ProxyV1ServicePhoneNumber FetchPhoneNumber(ctx, ServiceSidSid)
+> ProxyV1PhoneNumber FetchPhoneNumber(ctx, ServiceSidSid)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServicePhoneNumber**](ProxyV1ServicePhoneNumber.md)
+[**ProxyV1PhoneNumber**](ProxyV1PhoneNumber.md)
 
 ### Authorization
 
@@ -189,7 +189,7 @@ Name | Type | Description
 
 ## UpdatePhoneNumber
 
-> ProxyV1ServicePhoneNumber UpdatePhoneNumber(ctx, ServiceSidSidoptional)
+> ProxyV1PhoneNumber UpdatePhoneNumber(ctx, ServiceSidSidoptional)
 
 
 
@@ -215,7 +215,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServicePhoneNumber**](ProxyV1ServicePhoneNumber.md)
+[**ProxyV1PhoneNumber**](ProxyV1PhoneNumber.md)
 
 ### Authorization
 

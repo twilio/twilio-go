@@ -13,6 +13,6 @@ package openapi
 
 // ListExecutionResponse struct for ListExecutionResponse
 type ListExecutionResponse struct {
-	Executions []StudioV1FlowExecution `json:"executions,omitempty"`
-	Meta       ListFlowResponseMeta    `json:"meta,omitempty"`
+	Executions []StudioV1Execution  `json:"executions,omitempty"`
+	Meta       ListFlowResponseMeta `json:"meta,omitempty"`
 }

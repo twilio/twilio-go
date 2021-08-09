@@ -130,7 +130,7 @@ func (params *CreateMessageParams) SetValidityPeriod(ValidityPeriod int) *Create
 }
 
 // Send a message from the account used to make the request
-func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010AccountMessage, error) {
+func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Message, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -201,7 +201,7 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Accoun
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountMessage{}
+	ps := &ApiV2010Message{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -255,7 +255,7 @@ func (params *FetchMessageParams) SetPathAccountSid(PathAccountSid string) *Fetc
 }
 
 // Fetch a message belonging to the account used to make the request
-func (c *ApiService) FetchMessage(Sid string, params *FetchMessageParams) (*ApiV2010AccountMessage, error) {
+func (c *ApiService) FetchMessage(Sid string, params *FetchMessageParams) (*ApiV2010Message, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -274,7 +274,7 @@ func (c *ApiService) FetchMessage(Sid string, params *FetchMessageParams) (*ApiV
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountMessage{}
+	ps := &ApiV2010Message{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -390,7 +390,7 @@ func (c *ApiService) PageMessage(params *ListMessageParams, pageToken string, pa
 }
 
 // Lists Message records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessage(params *ListMessageParams) ([]ApiV2010AccountMessage, error) {
+func (c *ApiService) ListMessage(params *ListMessageParams) ([]ApiV2010Message, error) {
 	if params == nil {
 		params = &ListMessageParams{}
 	}
@@ -402,7 +402,7 @@ func (c *ApiService) ListMessage(params *ListMessageParams) ([]ApiV2010AccountMe
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountMessage
+	var records []ApiV2010Message
 
 	for response != nil {
 		records = append(records, response.Messages...)
@@ -419,7 +419,7 @@ func (c *ApiService) ListMessage(params *ListMessageParams) ([]ApiV2010AccountMe
 }
 
 // Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessage(params *ListMessageParams) (chan ApiV2010AccountMessage, error) {
+func (c *ApiService) StreamMessage(params *ListMessageParams) (chan ApiV2010Message, error) {
 	if params == nil {
 		params = &ListMessageParams{}
 	}
@@ -432,7 +432,7 @@ func (c *ApiService) StreamMessage(params *ListMessageParams) (chan ApiV2010Acco
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountMessage, 1)
+	channel := make(chan ApiV2010Message, 1)
 
 	go func() {
 		for response != nil {
@@ -490,7 +490,7 @@ func (params *UpdateMessageParams) SetBody(Body string) *UpdateMessageParams {
 }
 
 // To redact a message-body from a post-flight message record, post to the message instance resource with an empty body
-func (c *ApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*ApiV2010AccountMessage, error) {
+func (c *ApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*ApiV2010Message, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -513,7 +513,7 @@ func (c *ApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*Ap
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountMessage{}
+	ps := &ApiV2010Message{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

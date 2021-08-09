@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateWorkflow
 
-> TaskrouterV1WorkspaceWorkflow CreateWorkflow(ctx, WorkspaceSidoptional)
+> TaskrouterV1Workflow CreateWorkflow(ctx, WorkspaceSidoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkflow**](TaskrouterV1WorkspaceWorkflow.md)
+[**TaskrouterV1Workflow**](TaskrouterV1Workflow.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchWorkflow
 
-> TaskrouterV1WorkspaceWorkflow FetchWorkflow(ctx, WorkspaceSidSid)
+> TaskrouterV1Workflow FetchWorkflow(ctx, WorkspaceSidSid)
 
 
 
@@ -123,7 +123,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkflow**](TaskrouterV1WorkspaceWorkflow.md)
+[**TaskrouterV1Workflow**](TaskrouterV1Workflow.md)
 
 ### Authorization
 
@@ -184,7 +184,7 @@ Name | Type | Description
 
 ## UpdateWorkflow
 
-> TaskrouterV1WorkspaceWorkflow UpdateWorkflow(ctx, WorkspaceSidSidoptional)
+> TaskrouterV1Workflow UpdateWorkflow(ctx, WorkspaceSidSidoptional)
 
 
 
@@ -213,7 +213,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkflow**](TaskrouterV1WorkspaceWorkflow.md)
+[**TaskrouterV1Workflow**](TaskrouterV1Workflow.md)
 
 ### Authorization
 

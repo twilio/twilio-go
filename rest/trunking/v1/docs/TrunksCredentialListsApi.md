@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateCredentialList
 
-> TrunkingV1TrunkCredentialList CreateCredentialList(ctx, TrunkSidoptional)
+> TrunkingV1CredentialList CreateCredentialList(ctx, TrunkSidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrunkingV1TrunkCredentialList**](TrunkingV1TrunkCredentialList.md)
+[**TrunkingV1CredentialList**](TrunkingV1CredentialList.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ Name | Type | Description
 
 ## FetchCredentialList
 
-> TrunkingV1TrunkCredentialList FetchCredentialList(ctx, TrunkSidSid)
+> TrunkingV1CredentialList FetchCredentialList(ctx, TrunkSidSid)
 
 
 
@@ -118,7 +118,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrunkingV1TrunkCredentialList**](TrunkingV1TrunkCredentialList.md)
+[**TrunkingV1CredentialList**](TrunkingV1CredentialList.md)
 
 ### Authorization
 

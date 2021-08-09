@@ -13,6 +13,6 @@ package openapi
 
 // ListEvaluationResponse struct for ListEvaluationResponse
 type ListEvaluationResponse struct {
-	Meta    ListBundleResponseMeta                          `json:"meta,omitempty"`
-	Results []NumbersV2RegulatoryComplianceBundleEvaluation `json:"results,omitempty"`
+	Meta    ListBundleResponseMeta `json:"meta,omitempty"`
+	Results []NumbersV2Evaluation  `json:"results,omitempty"`
 }

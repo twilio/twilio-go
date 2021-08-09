@@ -132,7 +132,7 @@ func (params *CreateNotificationParams) SetTtl(Ttl int) *CreateNotificationParam
 	return params
 }
 
-func (c *ApiService) CreateNotification(ServiceSid string, params *CreateNotificationParams) (*NotifyV1ServiceNotification, error) {
+func (c *ApiService) CreateNotification(ServiceSid string, params *CreateNotificationParams) (*NotifyV1Notification, error) {
 	path := "/v1/Services/{ServiceSid}/Notifications"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -251,7 +251,7 @@ func (c *ApiService) CreateNotification(ServiceSid string, params *CreateNotific
 
 	defer resp.Body.Close()
 
-	ps := &NotifyV1ServiceNotification{}
+	ps := &NotifyV1Notification{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

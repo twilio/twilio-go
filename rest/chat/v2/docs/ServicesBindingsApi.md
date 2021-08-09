@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## FetchBinding
 
-> ChatV2ServiceBinding FetchBinding(ctx, ServiceSidSid)
+> ChatV2Binding FetchBinding(ctx, ServiceSidSid)
 
 
 
@@ -76,7 +76,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ChatV2ServiceBinding**](ChatV2ServiceBinding.md)
+[**ChatV2Binding**](ChatV2Binding.md)
 
 ### Authorization
 

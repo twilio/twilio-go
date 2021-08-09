@@ -19,7 +19,7 @@ import (
 )
 
 // Retrieve a specific Build resource.
-func (c *ApiService) FetchBuildStatus(ServiceSid string, Sid string) (*ServerlessV1ServiceBuildBuildStatus, error) {
+func (c *ApiService) FetchBuildStatus(ServiceSid string, Sid string) (*ServerlessV1BuildStatus, error) {
 	path := "/v1/Services/{ServiceSid}/Builds/{Sid}/Status"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -34,7 +34,7 @@ func (c *ApiService) FetchBuildStatus(ServiceSid string, Sid string) (*Serverles
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceBuildBuildStatus{}
+	ps := &ServerlessV1BuildStatus{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

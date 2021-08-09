@@ -73,15 +73,15 @@ Class | Method | HTTP request | Description
  - [ListServiceResponseMeta](docs/ListServiceResponseMeta.md)
  - [ListSessionResponse](docs/ListSessionResponse.md)
  - [ListShortCodeResponse](docs/ListShortCodeResponse.md)
+ - [ProxyV1Interaction](docs/ProxyV1Interaction.md)
+ - [ProxyV1MessageInteraction](docs/ProxyV1MessageInteraction.md)
+ - [ProxyV1Participant](docs/ProxyV1Participant.md)
+ - [ProxyV1PhoneNumber](docs/ProxyV1PhoneNumber.md)
  - [ProxyV1Service](docs/ProxyV1Service.md)
- - [ProxyV1ServicePhoneNumber](docs/ProxyV1ServicePhoneNumber.md)
  - [ProxyV1ServicePhoneNumberCapabilities](docs/ProxyV1ServicePhoneNumberCapabilities.md)
- - [ProxyV1ServiceSession](docs/ProxyV1ServiceSession.md)
- - [ProxyV1ServiceSessionInteraction](docs/ProxyV1ServiceSessionInteraction.md)
- - [ProxyV1ServiceSessionParticipant](docs/ProxyV1ServiceSessionParticipant.md)
- - [ProxyV1ServiceSessionParticipantMessageInteraction](docs/ProxyV1ServiceSessionParticipantMessageInteraction.md)
- - [ProxyV1ServiceShortCode](docs/ProxyV1ServiceShortCode.md)
  - [ProxyV1ServiceShortCodeCapabilities](docs/ProxyV1ServiceShortCodeCapabilities.md)
+ - [ProxyV1Session](docs/ProxyV1Session.md)
+ - [ProxyV1ShortCode](docs/ProxyV1ShortCode.md)
 
 
 ## Documentation For Authorization

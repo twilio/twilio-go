@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateSipIpAddress
 
-> ApiV2010AccountSipSipIpAccessControlListSipIpAddress CreateSipIpAddress(ctx, IpAccessControlListSidoptional)
+> ApiV2010SipIpAddress CreateSipIpAddress(ctx, IpAccessControlListSidoptional)
 
 
 
@@ -42,7 +42,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlListSipIpAddress**](ApiV2010AccountSipSipIpAccessControlListSipIpAddress.md)
+[**ApiV2010SipIpAddress**](ApiV2010SipIpAddress.md)
 
 ### Authorization
 
@@ -104,7 +104,7 @@ Name | Type | Description
 
 ## FetchSipIpAddress
 
-> ApiV2010AccountSipSipIpAccessControlListSipIpAddress FetchSipIpAddress(ctx, IpAccessControlListSidSidoptional)
+> ApiV2010SipIpAddress FetchSipIpAddress(ctx, IpAccessControlListSidSidoptional)
 
 
 
@@ -130,7 +130,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlListSipIpAddress**](ApiV2010AccountSipSipIpAccessControlListSipIpAddress.md)
+[**ApiV2010SipIpAddress**](ApiV2010SipIpAddress.md)
 
 ### Authorization
 
@@ -193,7 +193,7 @@ Name | Type | Description
 
 ## UpdateSipIpAddress
 
-> ApiV2010AccountSipSipIpAccessControlListSipIpAddress UpdateSipIpAddress(ctx, IpAccessControlListSidSidoptional)
+> ApiV2010SipIpAddress UpdateSipIpAddress(ctx, IpAccessControlListSidSidoptional)
 
 
 
@@ -222,7 +222,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipIpAccessControlListSipIpAddress**](ApiV2010AccountSipSipIpAccessControlListSipIpAddress.md)
+[**ApiV2010SipIpAddress**](ApiV2010SipIpAddress.md)
 
 ### Authorization
 

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateBinding
 
-> NotifyV1ServiceBinding CreateBinding(ctx, ServiceSidoptional)
+> NotifyV1Binding CreateBinding(ctx, ServiceSidoptional)
 
 
 
@@ -42,7 +42,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NotifyV1ServiceBinding**](NotifyV1ServiceBinding.md)
+[**NotifyV1Binding**](NotifyV1Binding.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchBinding
 
-> NotifyV1ServiceBinding FetchBinding(ctx, ServiceSidSid)
+> NotifyV1Binding FetchBinding(ctx, ServiceSidSid)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NotifyV1ServiceBinding**](NotifyV1ServiceBinding.md)
+[**NotifyV1Binding**](NotifyV1Binding.md)
 
 ### Authorization
 

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateNewSigningKey
 
-> ApiV2010AccountNewSigningKey CreateNewSigningKey(ctx, optional)
+> ApiV2010NewSigningKey CreateNewSigningKey(ctx, optional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountNewSigningKey**](ApiV2010AccountNewSigningKey.md)
+[**ApiV2010NewSigningKey**](ApiV2010NewSigningKey.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ Name | Type | Description
 
 ## FetchSigningKey
 
-> ApiV2010AccountSigningKey FetchSigningKey(ctx, Sidoptional)
+> ApiV2010SigningKey FetchSigningKey(ctx, Sidoptional)
 
 
 
@@ -118,7 +118,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSigningKey**](ApiV2010AccountSigningKey.md)
+[**ApiV2010SigningKey**](ApiV2010SigningKey.md)
 
 ### Authorization
 
@@ -175,7 +175,7 @@ Name | Type | Description
 
 ## UpdateSigningKey
 
-> ApiV2010AccountSigningKey UpdateSigningKey(ctx, Sidoptional)
+> ApiV2010SigningKey UpdateSigningKey(ctx, Sidoptional)
 
 
 
@@ -199,7 +199,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSigningKey**](ApiV2010AccountSigningKey.md)
+[**ApiV2010SigningKey**](ApiV2010SigningKey.md)
 
 ### Authorization
 

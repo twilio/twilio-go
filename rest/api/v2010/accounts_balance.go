@@ -29,7 +29,7 @@ func (params *FetchBalanceParams) SetPathAccountSid(PathAccountSid string) *Fetc
 }
 
 // Fetch the balance for an Account based on Account Sid. Balance changes may not be reflected immediately. Child accounts do not contain balance information
-func (c *ApiService) FetchBalance(params *FetchBalanceParams) (*ApiV2010AccountBalance, error) {
+func (c *ApiService) FetchBalance(params *FetchBalanceParams) (*ApiV2010Balance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Balance.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -47,7 +47,7 @@ func (c *ApiService) FetchBalance(params *FetchBalanceParams) (*ApiV2010AccountB
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountBalance{}
+	ps := &ApiV2010Balance{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

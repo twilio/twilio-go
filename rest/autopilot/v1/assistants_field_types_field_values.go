@@ -44,7 +44,7 @@ func (params *CreateFieldValueParams) SetValue(Value string) *CreateFieldValuePa
 	return params
 }
 
-func (c *ApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, params *CreateFieldValueParams) (*AutopilotV1AssistantFieldTypeFieldValue, error) {
+func (c *ApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, params *CreateFieldValueParams) (*AutopilotV1FieldValue, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
@@ -69,7 +69,7 @@ func (c *ApiService) CreateFieldValue(AssistantSid string, FieldTypeSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantFieldTypeFieldValue{}
+	ps := &AutopilotV1FieldValue{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -96,7 +96,7 @@ func (c *ApiService) DeleteFieldValue(AssistantSid string, FieldTypeSid string, 
 	return nil
 }
 
-func (c *ApiService) FetchFieldValue(AssistantSid string, FieldTypeSid string, Sid string) (*AutopilotV1AssistantFieldTypeFieldValue, error) {
+func (c *ApiService) FetchFieldValue(AssistantSid string, FieldTypeSid string, Sid string) (*AutopilotV1FieldValue, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"FieldTypeSid"+"}", FieldTypeSid, -1)
@@ -112,7 +112,7 @@ func (c *ApiService) FetchFieldValue(AssistantSid string, FieldTypeSid string, S
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantFieldTypeFieldValue{}
+	ps := &AutopilotV1FieldValue{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -183,7 +183,7 @@ func (c *ApiService) PageFieldValue(AssistantSid string, FieldTypeSid string, pa
 }
 
 // Lists FieldValue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) ([]AutopilotV1AssistantFieldTypeFieldValue, error) {
+func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) ([]AutopilotV1FieldValue, error) {
 	if params == nil {
 		params = &ListFieldValueParams{}
 	}
@@ -195,7 +195,7 @@ func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, pa
 	}
 
 	curRecord := 0
-	var records []AutopilotV1AssistantFieldTypeFieldValue
+	var records []AutopilotV1FieldValue
 
 	for response != nil {
 		records = append(records, response.FieldValues...)
@@ -212,7 +212,7 @@ func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, pa
 }
 
 // Streams FieldValue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) (chan AutopilotV1AssistantFieldTypeFieldValue, error) {
+func (c *ApiService) StreamFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) (chan AutopilotV1FieldValue, error) {
 	if params == nil {
 		params = &ListFieldValueParams{}
 	}
@@ -225,7 +225,7 @@ func (c *ApiService) StreamFieldValue(AssistantSid string, FieldTypeSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan AutopilotV1AssistantFieldTypeFieldValue, 1)
+	channel := make(chan AutopilotV1FieldValue, 1)
 
 	go func() {
 		for response != nil {

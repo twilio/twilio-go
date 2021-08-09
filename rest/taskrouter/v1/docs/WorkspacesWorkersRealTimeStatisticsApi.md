@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchWorkersRealTimeStatistics
 
-> TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics FetchWorkersRealTimeStatistics(ctx, WorkspaceSidoptional)
+> TaskrouterV1WorkersRealTimeStatistics FetchWorkersRealTimeStatistics(ctx, WorkspaceSidoptional)
 
 
 
@@ -33,7 +33,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics**](TaskrouterV1WorkspaceWorkerWorkersRealTimeStatistics.md)
+[**TaskrouterV1WorkersRealTimeStatistics**](TaskrouterV1WorkersRealTimeStatistics.md)
 
 ### Authorization
 

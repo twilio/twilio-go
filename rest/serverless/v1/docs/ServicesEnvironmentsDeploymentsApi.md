@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateDeployment
 
-> ServerlessV1ServiceEnvironmentDeployment CreateDeployment(ctx, ServiceSidEnvironmentSidoptional)
+> ServerlessV1Deployment CreateDeployment(ctx, ServiceSidEnvironmentSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentDeployment**](ServerlessV1ServiceEnvironmentDeployment.md)
+[**ServerlessV1Deployment**](ServerlessV1Deployment.md)
 
 ### Authorization
 
@@ -56,7 +56,7 @@ Name | Type | Description
 
 ## FetchDeployment
 
-> ServerlessV1ServiceEnvironmentDeployment FetchDeployment(ctx, ServiceSidEnvironmentSidSid)
+> ServerlessV1Deployment FetchDeployment(ctx, ServiceSidEnvironmentSidSid)
 
 
 
@@ -82,7 +82,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceEnvironmentDeployment**](ServerlessV1ServiceEnvironmentDeployment.md)
+[**ServerlessV1Deployment**](ServerlessV1Deployment.md)
 
 ### Authorization
 

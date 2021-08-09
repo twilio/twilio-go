@@ -69,7 +69,7 @@ func (params *FetchRecordingAddOnResultPayloadParams) SetPathAccountSid(PathAcco
 }
 
 // Fetch an instance of a result payload
-func (c *ApiService) FetchRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, Sid string, params *FetchRecordingAddOnResultPayloadParams) (*ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, error) {
+func (c *ApiService) FetchRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, Sid string, params *FetchRecordingAddOnResultPayloadParams) (*ApiV2010RecordingAddOnResultPayload, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -90,7 +90,7 @@ func (c *ApiService) FetchRecordingAddOnResultPayload(ReferenceSid string, AddOn
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload{}
+	ps := &ApiV2010RecordingAddOnResultPayload{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -163,7 +163,7 @@ func (c *ApiService) PageRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 }
 
 // Lists RecordingAddOnResultPayload records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams) ([]ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, error) {
+func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams) ([]ApiV2010RecordingAddOnResultPayload, error) {
 	if params == nil {
 		params = &ListRecordingAddOnResultPayloadParams{}
 	}
@@ -175,7 +175,7 @@ func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload
+	var records []ApiV2010RecordingAddOnResultPayload
 
 	for response != nil {
 		records = append(records, response.Payloads...)
@@ -192,7 +192,7 @@ func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 }
 
 // Streams RecordingAddOnResultPayload records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams) (chan ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, error) {
+func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams) (chan ApiV2010RecordingAddOnResultPayload, error) {
 	if params == nil {
 		params = &ListRecordingAddOnResultPayloadParams{}
 	}
@@ -205,7 +205,7 @@ func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddO
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, 1)
+	channel := make(chan ApiV2010RecordingAddOnResultPayload, 1)
 
 	go func() {
 		for response != nil {

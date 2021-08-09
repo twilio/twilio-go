@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateCallFeedbackSummary
 
-> ApiV2010AccountCallCallFeedbackSummary CreateCallFeedbackSummary(ctx, optional)
+> ApiV2010CallFeedbackSummary CreateCallFeedbackSummary(ctx, optional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCallCallFeedbackSummary**](ApiV2010AccountCallCallFeedbackSummary.md)
+[**ApiV2010CallFeedbackSummary**](ApiV2010CallFeedbackSummary.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchCallFeedbackSummary
 
-> ApiV2010AccountCallCallFeedbackSummary FetchCallFeedbackSummary(ctx, Sidoptional)
+> ApiV2010CallFeedbackSummary FetchCallFeedbackSummary(ctx, Sidoptional)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCallCallFeedbackSummary**](ApiV2010AccountCallCallFeedbackSummary.md)
+[**ApiV2010CallFeedbackSummary**](ApiV2010CallFeedbackSummary.md)
 
 ### Authorization
 

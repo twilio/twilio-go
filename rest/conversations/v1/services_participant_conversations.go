@@ -92,7 +92,7 @@ func (c *ApiService) PageServiceParticipantConversation(ChatServiceSid string, p
 }
 
 // Lists ServiceParticipantConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceParticipantConversation(ChatServiceSid string, params *ListServiceParticipantConversationParams) ([]ConversationsV1ServiceServiceParticipantConversation, error) {
+func (c *ApiService) ListServiceParticipantConversation(ChatServiceSid string, params *ListServiceParticipantConversationParams) ([]ConversationsV1ServiceParticipantConversation, error) {
 	if params == nil {
 		params = &ListServiceParticipantConversationParams{}
 	}
@@ -104,7 +104,7 @@ func (c *ApiService) ListServiceParticipantConversation(ChatServiceSid string, p
 	}
 
 	curRecord := 0
-	var records []ConversationsV1ServiceServiceParticipantConversation
+	var records []ConversationsV1ServiceParticipantConversation
 
 	for response != nil {
 		records = append(records, response.Conversations...)
@@ -121,7 +121,7 @@ func (c *ApiService) ListServiceParticipantConversation(ChatServiceSid string, p
 }
 
 // Streams ServiceParticipantConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceParticipantConversation(ChatServiceSid string, params *ListServiceParticipantConversationParams) (chan ConversationsV1ServiceServiceParticipantConversation, error) {
+func (c *ApiService) StreamServiceParticipantConversation(ChatServiceSid string, params *ListServiceParticipantConversationParams) (chan ConversationsV1ServiceParticipantConversation, error) {
 	if params == nil {
 		params = &ListServiceParticipantConversationParams{}
 	}
@@ -134,7 +134,7 @@ func (c *ApiService) StreamServiceParticipantConversation(ChatServiceSid string,
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ConversationsV1ServiceServiceParticipantConversation, 1)
+	channel := make(chan ConversationsV1ServiceParticipantConversation, 1)
 
 	go func() {
 		for response != nil {

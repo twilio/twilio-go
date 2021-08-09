@@ -33,7 +33,7 @@ func (params *FetchNotificationParams) SetPathAccountSid(PathAccountSid string) 
 }
 
 // Fetch a notification belonging to the account used to make the request
-func (c *ApiService) FetchNotification(Sid string, params *FetchNotificationParams) (*ApiV2010AccountNotificationInstance, error) {
+func (c *ApiService) FetchNotification(Sid string, params *FetchNotificationParams) (*ApiV2010NotificationInstance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Notifications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -52,7 +52,7 @@ func (c *ApiService) FetchNotification(Sid string, params *FetchNotificationPara
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountNotificationInstance{}
+	ps := &ApiV2010NotificationInstance{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -159,7 +159,7 @@ func (c *ApiService) PageNotification(params *ListNotificationParams, pageToken 
 }
 
 // Lists Notification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListNotification(params *ListNotificationParams) ([]ApiV2010AccountNotification, error) {
+func (c *ApiService) ListNotification(params *ListNotificationParams) ([]ApiV2010Notification, error) {
 	if params == nil {
 		params = &ListNotificationParams{}
 	}
@@ -171,7 +171,7 @@ func (c *ApiService) ListNotification(params *ListNotificationParams) ([]ApiV201
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountNotification
+	var records []ApiV2010Notification
 
 	for response != nil {
 		records = append(records, response.Notifications...)
@@ -188,7 +188,7 @@ func (c *ApiService) ListNotification(params *ListNotificationParams) ([]ApiV201
 }
 
 // Streams Notification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamNotification(params *ListNotificationParams) (chan ApiV2010AccountNotification, error) {
+func (c *ApiService) StreamNotification(params *ListNotificationParams) (chan ApiV2010Notification, error) {
 	if params == nil {
 		params = &ListNotificationParams{}
 	}
@@ -201,7 +201,7 @@ func (c *ApiService) StreamNotification(params *ListNotificationParams) (chan Ap
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountNotification, 1)
+	channel := make(chan ApiV2010Notification, 1)
 
 	go func() {
 		for response != nil {

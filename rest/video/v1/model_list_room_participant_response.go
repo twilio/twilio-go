@@ -14,5 +14,5 @@ package openapi
 // ListRoomParticipantResponse struct for ListRoomParticipantResponse
 type ListRoomParticipantResponse struct {
 	Meta         ListCompositionHookResponseMeta `json:"meta,omitempty"`
-	Participants []VideoV1RoomRoomParticipant    `json:"participants,omitempty"`
+	Participants []VideoV1RoomParticipant        `json:"participants,omitempty"`
 }

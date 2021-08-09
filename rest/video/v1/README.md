@@ -84,12 +84,12 @@ Class | Method | HTTP request | Description
  - [VideoV1Recording](docs/VideoV1Recording.md)
  - [VideoV1RecordingSettings](docs/VideoV1RecordingSettings.md)
  - [VideoV1Room](docs/VideoV1Room.md)
- - [VideoV1RoomRoomParticipant](docs/VideoV1RoomRoomParticipant.md)
- - [VideoV1RoomRoomParticipantRoomParticipantPublishedTrack](docs/VideoV1RoomRoomParticipantRoomParticipantPublishedTrack.md)
- - [VideoV1RoomRoomParticipantRoomParticipantSubscribeRule](docs/VideoV1RoomRoomParticipantRoomParticipantSubscribeRule.md)
- - [VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack](docs/VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack.md)
- - [VideoV1RoomRoomRecording](docs/VideoV1RoomRoomRecording.md)
- - [VideoV1RoomRoomRecordingRule](docs/VideoV1RoomRoomRecordingRule.md)
+ - [VideoV1RoomParticipant](docs/VideoV1RoomParticipant.md)
+ - [VideoV1RoomParticipantPublishedTrack](docs/VideoV1RoomParticipantPublishedTrack.md)
+ - [VideoV1RoomParticipantSubscribeRule](docs/VideoV1RoomParticipantSubscribeRule.md)
+ - [VideoV1RoomParticipantSubscribedTrack](docs/VideoV1RoomParticipantSubscribedTrack.md)
+ - [VideoV1RoomRecording](docs/VideoV1RoomRecording.md)
+ - [VideoV1RoomRecordingRule](docs/VideoV1RoomRecordingRule.md)
  - [VideoV1RoomRoomRecordingRuleRules](docs/VideoV1RoomRoomRecordingRuleRules.md)
 
 

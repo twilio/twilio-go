@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateMessageInteraction
 
-> ProxyV1ServiceSessionParticipantMessageInteraction CreateMessageInteraction(ctx, ServiceSidSessionSidParticipantSidoptional)
+> ProxyV1MessageInteraction CreateMessageInteraction(ctx, ServiceSidSessionSidParticipantSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServiceSessionParticipantMessageInteraction**](ProxyV1ServiceSessionParticipantMessageInteraction.md)
+[**ProxyV1MessageInteraction**](ProxyV1MessageInteraction.md)
 
 ### Authorization
 
@@ -58,7 +58,7 @@ Name | Type | Description
 
 ## FetchMessageInteraction
 
-> ProxyV1ServiceSessionParticipantMessageInteraction FetchMessageInteraction(ctx, ServiceSidSessionSidParticipantSidSid)
+> ProxyV1MessageInteraction FetchMessageInteraction(ctx, ServiceSidSessionSidParticipantSidSid)
 
 
 
@@ -83,7 +83,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServiceSessionParticipantMessageInteraction**](ProxyV1ServiceSessionParticipantMessageInteraction.md)
+[**ProxyV1MessageInteraction**](ProxyV1MessageInteraction.md)
 
 ### Authorization
 

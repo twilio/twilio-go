@@ -60,10 +60,10 @@ Class | Method | HTTP request | Description
  - [ListUsageRecordResponse](docs/ListUsageRecordResponse.md)
  - [WirelessV1AccountUsageRecord](docs/WirelessV1AccountUsageRecord.md)
  - [WirelessV1Command](docs/WirelessV1Command.md)
+ - [WirelessV1DataSession](docs/WirelessV1DataSession.md)
  - [WirelessV1RatePlan](docs/WirelessV1RatePlan.md)
  - [WirelessV1Sim](docs/WirelessV1Sim.md)
- - [WirelessV1SimDataSession](docs/WirelessV1SimDataSession.md)
- - [WirelessV1SimUsageRecord](docs/WirelessV1SimUsageRecord.md)
+ - [WirelessV1UsageRecord](docs/WirelessV1UsageRecord.md)
 
 
 ## Documentation For Authorization

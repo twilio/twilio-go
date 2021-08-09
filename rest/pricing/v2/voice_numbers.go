@@ -30,7 +30,7 @@ func (params *FetchVoiceNumberParams) SetOriginationNumber(OriginationNumber str
 }
 
 // Fetch pricing information for a specific destination and, optionally, origination phone number.
-func (c *ApiService) FetchVoiceNumber(DestinationNumber string, params *FetchVoiceNumberParams) (*PricingV2VoiceVoiceNumber, error) {
+func (c *ApiService) FetchVoiceNumber(DestinationNumber string, params *FetchVoiceNumberParams) (*PricingV2VoiceNumber, error) {
 	path := "/v2/Voice/Numbers/{DestinationNumber}"
 	path = strings.Replace(path, "{"+"DestinationNumber"+"}", DestinationNumber, -1)
 
@@ -48,7 +48,7 @@ func (c *ApiService) FetchVoiceNumber(DestinationNumber string, params *FetchVoi
 
 	defer resp.Body.Close()
 
-	ps := &PricingV2VoiceVoiceNumber{}
+	ps := &PricingV2VoiceNumber{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

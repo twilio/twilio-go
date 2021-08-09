@@ -45,7 +45,7 @@ func (params *CreateQueueParams) SetMaxSize(MaxSize int) *CreateQueueParams {
 }
 
 // Create a queue
-func (c *ApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010AccountQueue, error) {
+func (c *ApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010Queue, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -70,7 +70,7 @@ func (c *ApiService) CreateQueue(params *CreateQueueParams) (*ApiV2010AccountQue
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountQueue{}
+	ps := &ApiV2010Queue{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -124,7 +124,7 @@ func (params *FetchQueueParams) SetPathAccountSid(PathAccountSid string) *FetchQ
 }
 
 // Fetch an instance of a queue identified by the QueueSid
-func (c *ApiService) FetchQueue(Sid string, params *FetchQueueParams) (*ApiV2010AccountQueue, error) {
+func (c *ApiService) FetchQueue(Sid string, params *FetchQueueParams) (*ApiV2010Queue, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -143,7 +143,7 @@ func (c *ApiService) FetchQueue(Sid string, params *FetchQueueParams) (*ApiV2010
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountQueue{}
+	ps := &ApiV2010Queue{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -214,7 +214,7 @@ func (c *ApiService) PageQueue(params *ListQueueParams, pageToken string, pageNu
 }
 
 // Lists Queue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListQueue(params *ListQueueParams) ([]ApiV2010AccountQueue, error) {
+func (c *ApiService) ListQueue(params *ListQueueParams) ([]ApiV2010Queue, error) {
 	if params == nil {
 		params = &ListQueueParams{}
 	}
@@ -226,7 +226,7 @@ func (c *ApiService) ListQueue(params *ListQueueParams) ([]ApiV2010AccountQueue,
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountQueue
+	var records []ApiV2010Queue
 
 	for response != nil {
 		records = append(records, response.Queues...)
@@ -243,7 +243,7 @@ func (c *ApiService) ListQueue(params *ListQueueParams) ([]ApiV2010AccountQueue,
 }
 
 // Streams Queue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamQueue(params *ListQueueParams) (chan ApiV2010AccountQueue, error) {
+func (c *ApiService) StreamQueue(params *ListQueueParams) (chan ApiV2010Queue, error) {
 	if params == nil {
 		params = &ListQueueParams{}
 	}
@@ -256,7 +256,7 @@ func (c *ApiService) StreamQueue(params *ListQueueParams) (chan ApiV2010AccountQ
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountQueue, 1)
+	channel := make(chan ApiV2010Queue, 1)
 
 	go func() {
 		for response != nil {
@@ -320,7 +320,7 @@ func (params *UpdateQueueParams) SetMaxSize(MaxSize int) *UpdateQueueParams {
 }
 
 // Update the queue with the new parameters
-func (c *ApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (*ApiV2010AccountQueue, error) {
+func (c *ApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (*ApiV2010Queue, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -346,7 +346,7 @@ func (c *ApiService) UpdateQueue(Sid string, params *UpdateQueueParams) (*ApiV20
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountQueue{}
+	ps := &ApiV2010Queue{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

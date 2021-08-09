@@ -75,15 +75,15 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [IpMessagingV1Channel](docs/IpMessagingV1Channel.md)
  - [IpMessagingV1Credential](docs/IpMessagingV1Credential.md)
+ - [IpMessagingV1Invite](docs/IpMessagingV1Invite.md)
+ - [IpMessagingV1Member](docs/IpMessagingV1Member.md)
+ - [IpMessagingV1Message](docs/IpMessagingV1Message.md)
+ - [IpMessagingV1Role](docs/IpMessagingV1Role.md)
  - [IpMessagingV1Service](docs/IpMessagingV1Service.md)
- - [IpMessagingV1ServiceChannel](docs/IpMessagingV1ServiceChannel.md)
- - [IpMessagingV1ServiceChannelInvite](docs/IpMessagingV1ServiceChannelInvite.md)
- - [IpMessagingV1ServiceChannelMember](docs/IpMessagingV1ServiceChannelMember.md)
- - [IpMessagingV1ServiceChannelMessage](docs/IpMessagingV1ServiceChannelMessage.md)
- - [IpMessagingV1ServiceRole](docs/IpMessagingV1ServiceRole.md)
- - [IpMessagingV1ServiceUser](docs/IpMessagingV1ServiceUser.md)
- - [IpMessagingV1ServiceUserUserChannel](docs/IpMessagingV1ServiceUserUserChannel.md)
+ - [IpMessagingV1User](docs/IpMessagingV1User.md)
+ - [IpMessagingV1UserChannel](docs/IpMessagingV1UserChannel.md)
  - [ListChannelResponse](docs/ListChannelResponse.md)
  - [ListCredentialResponse](docs/ListCredentialResponse.md)
  - [ListCredentialResponseMeta](docs/ListCredentialResponseMeta.md)

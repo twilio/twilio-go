@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateApplication
 
-> ApiV2010AccountApplication CreateApplication(ctx, optional)
+> ApiV2010Application CreateApplication(ctx, optional)
 
 
 
@@ -50,7 +50,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountApplication**](ApiV2010AccountApplication.md)
+[**ApiV2010Application**](ApiV2010Application.md)
 
 ### Authorization
 
@@ -111,7 +111,7 @@ Name | Type | Description
 
 ## FetchApplication
 
-> ApiV2010AccountApplication FetchApplication(ctx, Sidoptional)
+> ApiV2010Application FetchApplication(ctx, Sidoptional)
 
 
 
@@ -136,7 +136,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountApplication**](ApiV2010AccountApplication.md)
+[**ApiV2010Application**](ApiV2010Application.md)
 
 ### Authorization
 
@@ -196,7 +196,7 @@ Name | Type | Description
 
 ## UpdateApplication
 
-> ApiV2010AccountApplication UpdateApplication(ctx, Sidoptional)
+> ApiV2010Application UpdateApplication(ctx, Sidoptional)
 
 
 
@@ -236,7 +236,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountApplication**](ApiV2010AccountApplication.md)
+[**ApiV2010Application**](ApiV2010Application.md)
 
 ### Authorization
 
