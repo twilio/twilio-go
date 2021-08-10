@@ -5,25 +5,24 @@ go:
 install:
 - make install
 script:
-  - make test
-  - if [[ "$TRAVIS_BRANCH" == "main"  ||  "$TRAVIS_BRANCH" == "travis" ]] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-    make cluster-test;
-    echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin;
-    fi
-  - make cover
+- make test
+- if [[ "$TRAVIS_BRANCH" == "main"  ||  "$TRAVIS_BRANCH" == "travis" ]] && [ "$TRAVIS_PULL_REQUEST"
+  == "false" ]; then make cluster-test; echo "${DOCKER_PASSWORD}" | docker login -u
+  "${DOCKER_USERNAME}" --password-stdin; fi
+- make cover
 jobs:
   include:
-    - language: go
-      go: '1.16'
-      after_success:
-        - sonar-scanner
+  - language: go
+    go: '1.16'
+    after_success:
+    - sonar-scanner
 deploy:
-  - provider: script
-    script: make docker-build && make docker-push
-    skip_cleanup: true
-    on:
-      tags: true
-      go: '1.16'
+- provider: script
+  script: make docker-build && make docker-push
+  skip_cleanup: true
+  on:
+    tags: true
+    go: '1.16'
 notifications:
   slack:
     if: branch = main
@@ -34,6 +33,6 @@ notifications:
       secure: V34PCbNL5LT8vrssymxcAE9OszdVFNMm9z4iCDH9lz7PeHYMym1whQ779VVcmWfGBq9npk3kvF1eUyBRqADqE4nMznKol2N6pmWSRX1mgA0L0LRHPyOnYTgzOs4rOJQyihFt37xQjzKOdUhnrvS2nyLHcKluHuBeOUvIKyNftvmq3wJBqmgESJm59CBSMk19V/e0iZTl3BBrjFz5XKMEURtbOFqJFzQqK2wU7CJA9iTub4pRLzOQd05URhcPfI4+J3O9kn2gNTs6aK2bgEZTBOAX/TE997gt2BlL2bxhLVyCFb0yBaGRaA8l6adJKzVMUbi5XH5xHzdaMbS3nvBKEILQsBdy+XXI3l33sIvdHPcHCE+QD6ri8Yz2TiHrEAiaN5vrXLqjnkJsFFP2qcWHnug263TldOB1gilGoKmCXPvfVoJJC7ezjEw5BCCtz5+/Aqmsxqi4FoB8PXH4hvNYHzVtllve6vVNS/tmB3a8fQcceJf1V3bu+m/cf9hQSHAvPuq9LpQc6QZYOqYkOxgEYx80oirVP2G9Zh8GO0Pp5/HNx7+gBgUTi24iDL8SjWhI4PuP2yNFB9Z/uZnvweQ9MBzA7liEOHsPaOPfEKsRY01SiKK/HXdbK04AhAxPNJT/rQbbS4rDk3kZN/pfqqCtyYYJufZkYZNuiUeZe5VftSg=
 addons:
   sonarcloud:
-    organization: "twilio"
+    organization: twilio
     token:
-      secure: GqjIwjGv8dP3Wwr39m4iPC87y6Z10H3GV19Tb8RAF3pLeCZUiFVJGqpLphLFmklcwAKh4b6997Y504CZHqFimD+XZM2n8CHahh4WnB/GXAhwcyFSGRDd2W+ekrGJrJhyCrr7fwpBBQSMIuz4SdffG4s3ylahBNXWE5ucqJ96/kZD45nNaCy4I97efnPAaqsn+VEJuWkdvnBfU/lxd3xGPS2rsoMxOnEjZnnyJfGNzgLxIZP0sTp0LdyHxIq0CWhHxWClUXAX3pP9sP77rTJjhrlB+BU56ywplyhHD2D485ryZ8Q6Q5QcbkTP1c/1LZeIkAgH7tbufvWrZTyfY7txWajMbngivaXfUMbknonajTFHw03UfPeG9DRJqTommRNGYFRB/H6/d/6XpOfRFRTFZxlvj03KRkYvXSmcN2ea+CEuNPsTjLQziE2Nu/hPH6wNBola+jX7vAK3zDLOq2qMtlT+WgBFkWcMFgxFp9NKf1E7HtMLI6vmq+CpFSnYL3E5Kq8HZvMROPJ4leaoMj/5+7J2lScF0J280Mwf5EeuCSpirp0DV3Fn2oOS4+2kcWjc1va3VwMp2Oeq6kveLOvksY2xIsfvYipvDWnixlqje6rkuKY93zW+lkwz762YwD2i38P8pqDrRxm/jM+aWLyKb+Jq/05k3T0igtmirzO8F8Y=
+      secure: vtQkq6Awbfc5Lva0+a9HopkDk2lZe8DpEgORKP6VqPsWVWmU9kqkRdmRkZaEjQhbdjcCFggPq6PRs7l3T238yGoJBaQLbPsvIaMqMPpHF40YEQqlETNEjwsLEpjd7B0H7y4EY2B5vg/cP8gxvUZOP5LIfSyIrb0Xu1GvqdnviiceYjpF390kNjcqzrTiLi33hqBhaPZ2sLA4f7Kkl8XMVcNmZ1WYfGyBrKw8n+RbS6aASH0/MyTuNghgk8XvL3pUMY8oN8EakflqiI40f75GQMl1O4753O7mGsiclDG3QVdOat6sXht1/cj5Ta9XzswgT+Iujt38lzTYH/5MYMVmHkoM7oVRIKkrbOCI2peyEpDSxR4BEal/RVVbqllvsJ6TkY2MWHnDtvkVy7P75zz/4rLGF6w+YRRRH2vRwshXQgZ6uJP92OZcv9thXTUB7HwnKzEWDRJCBSXGU1P2EsZH/8ARKkwXLlSg8bcbAUU+A9bpWEPgUR+EX6sKjST/c8Q8rsACSTc9rysMsEYWA65EHmppQ7AvtrrKRtX49lpq8aHswvXInRNLpNtnYfPqYx+tnitf8S5k5n8OEZSDwc5czX5vo4TsCfsQBJ8lxYVJnoLOZCw6XFlponpj8ZT2bWjaWtmXAVZxPWAqBnoXiC6f6WOLdbr/Ud9JPk/aNFh1hoI=
