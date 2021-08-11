@@ -28,6 +28,7 @@ Other parameters are passed through a pointer to a CreateBrandRegistrationsParam
 Name | Type | Description
 ------------- | ------------- | -------------
 **A2pProfileBundleSid** | **string** | A2P Messaging Profile Bundle Sid.
+**BrandType** | **string** | Type of brand being created. One of: \\\&quot;STANDARD\\\&quot;, \\\&quot;STARTER\\\&quot;. STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
 **CustomerProfileBundleSid** | **string** | Customer Profile Bundle Sid.
 
 ### Return type

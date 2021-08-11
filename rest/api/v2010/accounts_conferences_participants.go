@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.1
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -93,6 +93,8 @@ type CreateParticipantParams struct {
 	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
 	// The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The maximum duration of the call in seconds. Constraints depend on account and configuration.
+	TimeLimit *int `json:"TimeLimit,omitempty"`
 	// The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between `5` and `600`, inclusive. The default value is `60`. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds.
 	Timeout *int `json:"Timeout,omitempty"`
 	// The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
@@ -243,6 +245,10 @@ func (params *CreateParticipantParams) SetStatusCallbackMethod(StatusCallbackMet
 	params.StatusCallbackMethod = &StatusCallbackMethod
 	return params
 }
+func (params *CreateParticipantParams) SetTimeLimit(TimeLimit int) *CreateParticipantParams {
+	params.TimeLimit = &TimeLimit
+	return params
+}
 func (params *CreateParticipantParams) SetTimeout(Timeout int) *CreateParticipantParams {
 	params.Timeout = &Timeout
 	return params
@@ -381,6 +387,9 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.TimeLimit != nil {
+		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
 	}
 	if params != nil && params.Timeout != nil {
 		data.Set("Timeout", fmt.Sprint(*params.Timeout))

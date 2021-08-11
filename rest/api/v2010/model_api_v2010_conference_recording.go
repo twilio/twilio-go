@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.1
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -34,7 +34,7 @@ type ApiV2010ConferenceRecording struct {
 	// More information about why the recording is missing, if status is `absent`.
 	ErrorCode *int `json:"error_code,omitempty"`
 	// The one-time cost of creating the recording.
-	Price *float32 `json:"price,omitempty"`
+	Price *string `json:"price,omitempty"`
 	// The currency used in the price property.
 	PriceUnit *string `json:"price_unit,omitempty"`
 	// The unique string that identifies the resource

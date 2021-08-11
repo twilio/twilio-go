@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.1
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -25,12 +25,18 @@ import (
 type CreateBrandRegistrationsParams struct {
 	// A2P Messaging Profile Bundle Sid.
 	A2pProfileBundleSid *string `json:"A2pProfileBundleSid,omitempty"`
+	// Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
+	BrandType *string `json:"BrandType,omitempty"`
 	// Customer Profile Bundle Sid.
 	CustomerProfileBundleSid *string `json:"CustomerProfileBundleSid,omitempty"`
 }
 
 func (params *CreateBrandRegistrationsParams) SetA2pProfileBundleSid(A2pProfileBundleSid string) *CreateBrandRegistrationsParams {
 	params.A2pProfileBundleSid = &A2pProfileBundleSid
+	return params
+}
+func (params *CreateBrandRegistrationsParams) SetBrandType(BrandType string) *CreateBrandRegistrationsParams {
+	params.BrandType = &BrandType
 	return params
 }
 func (params *CreateBrandRegistrationsParams) SetCustomerProfileBundleSid(CustomerProfileBundleSid string) *CreateBrandRegistrationsParams {
@@ -46,6 +52,9 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 
 	if params != nil && params.A2pProfileBundleSid != nil {
 		data.Set("A2pProfileBundleSid", *params.A2pProfileBundleSid)
+	}
+	if params != nil && params.BrandType != nil {
+		data.Set("BrandType", *params.BrandType)
 	}
 	if params != nil && params.CustomerProfileBundleSid != nil {
 		data.Set("CustomerProfileBundleSid", *params.CustomerProfileBundleSid)

@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Duration** | Pointer to **string** | The length of the recording in seconds |
 **EncryptionDetails** | Pointer to **map[string]interface{}** | How to decrypt the recording. |
 **ErrorCode** | Pointer to **int** | More information about why the recording is missing, if status is `absent`. |
-**Price** | Pointer to **float32** | The one-time cost of creating the recording. |
+**Price** | Pointer to **string** | The one-time cost of creating the recording. |
 **PriceUnit** | Pointer to **string** | The currency used in the price property. |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Source** | Pointer to **string** | How the recording was created |

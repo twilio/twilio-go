@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.1
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -84,6 +84,8 @@ type CreateCallParams struct {
 	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
 	// The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The maximum duration of the call in seconds. Constraints depend on account and configuration.
+	TimeLimit *int `json:"TimeLimit,omitempty"`
 	// The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail.
 	Timeout *int `json:"Timeout,omitempty"`
 	// The phone number, SIP address, or client identifier to call.
@@ -216,6 +218,10 @@ func (params *CreateCallParams) SetStatusCallbackMethod(StatusCallbackMethod str
 	params.StatusCallbackMethod = &StatusCallbackMethod
 	return params
 }
+func (params *CreateCallParams) SetTimeLimit(TimeLimit int) *CreateCallParams {
+	params.TimeLimit = &TimeLimit
+	return params
+}
 func (params *CreateCallParams) SetTimeout(Timeout int) *CreateCallParams {
 	params.Timeout = &Timeout
 	return params
@@ -339,6 +345,9 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error)
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.TimeLimit != nil {
+		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
 	}
 	if params != nil && params.Timeout != nil {
 		data.Set("Timeout", fmt.Sprint(*params.Timeout))
@@ -695,6 +704,8 @@ type UpdateCallParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The maximum duration of the call in seconds. Constraints depend on account and configuration.
+	TimeLimit *int `json:"TimeLimit,omitempty"`
 	// TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
 	Twiml *string `json:"Twiml,omitempty"`
 	// The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
@@ -727,6 +738,10 @@ func (params *UpdateCallParams) SetStatusCallback(StatusCallback string) *Update
 }
 func (params *UpdateCallParams) SetStatusCallbackMethod(StatusCallbackMethod string) *UpdateCallParams {
 	params.StatusCallbackMethod = &StatusCallbackMethod
+	return params
+}
+func (params *UpdateCallParams) SetTimeLimit(TimeLimit int) *UpdateCallParams {
+	params.TimeLimit = &TimeLimit
 	return params
 }
 func (params *UpdateCallParams) SetTwiml(Twiml string) *UpdateCallParams {
@@ -768,6 +783,9 @@ func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010
 	}
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
+	}
+	if params != nil && params.TimeLimit != nil {
+		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
 	}
 	if params != nil && params.Twiml != nil {
 		data.Set("Twiml", *params.Twiml)
