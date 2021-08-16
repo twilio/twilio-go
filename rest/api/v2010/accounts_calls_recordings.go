@@ -79,8 +79,6 @@ func (c *ApiService) CreateCallRecording(CallSid string, params *CreateCallRecor
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.RecordingChannels != nil {
 		data.Set("RecordingChannels", *params.RecordingChannels)
 	}
@@ -101,6 +99,7 @@ func (c *ApiService) CreateCallRecording(CallSid string, params *CreateCallRecor
 	if params != nil && params.Trim != nil {
 		data.Set("Trim", *params.Trim)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -199,9 +198,9 @@ type ListCallRecordingParams struct {
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
 	DateCreated *string `json:"DateCreated,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
+	DateCreatedBefore *string `json:"DateCreated<,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. You can also specify inequality: `DateCreated<=YYYY-MM-DD` will return recordings generated at or before midnight on a given date, and `DateCreated>=YYYY-MM-DD` returns recordings generated at or after midnight on a date.
-	DateCreatedAfter *string `json:"DateCreated&gt;,omitempty"`
+	DateCreatedAfter *string `json:"DateCreated>,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -245,8 +244,6 @@ func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecording
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
 	}
@@ -259,6 +256,7 @@ func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecording
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -400,14 +398,13 @@ func (c *ApiService) UpdateCallRecording(CallSid string, Sid string, params *Upd
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PauseBehavior != nil {
 		data.Set("PauseBehavior", *params.PauseBehavior)
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

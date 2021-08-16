@@ -54,8 +54,6 @@ func (c *ApiService) FetchWorkersCumulativeStatistics(WorkspaceSid string, param
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.EndDate != nil {
 		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
@@ -68,6 +66,7 @@ func (c *ApiService) FetchWorkersCumulativeStatistics(WorkspaceSid string, param
 	if params != nil && params.TaskChannel != nil {
 		data.Set("TaskChannel", *params.TaskChannel)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

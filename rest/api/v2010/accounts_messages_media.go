@@ -104,9 +104,9 @@ type ListMediaParams struct {
 	// Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	// Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
-	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreated<,omitempty"`
 	// Only include media that was created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read media that was created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read media that was created on or after midnight of this date.
-	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreated>,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -150,8 +150,6 @@ func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageT
 	path = strings.Replace(path, "{"+"MessageSid"+"}", MessageSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
@@ -164,6 +162,7 @@ func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageT
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

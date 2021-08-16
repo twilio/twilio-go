@@ -50,8 +50,6 @@ func (c *ApiService) CreateSample(AssistantSid string, TaskSid string, params *C
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
 	}
@@ -61,6 +59,7 @@ func (c *ApiService) CreateSample(AssistantSid string, TaskSid string, params *C
 	if params != nil && params.TaggedText != nil {
 		data.Set("TaggedText", *params.TaggedText)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -151,14 +150,13 @@ func (c *ApiService) PageSample(AssistantSid string, TaskSid string, params *Lis
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -295,8 +293,6 @@ func (c *ApiService) UpdateSample(AssistantSid string, TaskSid string, Sid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
 	}
@@ -306,6 +302,7 @@ func (c *ApiService) UpdateSample(AssistantSid string, TaskSid string, Sid strin
 	if params != nil && params.TaggedText != nil {
 		data.Set("TaggedText", *params.TaggedText)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

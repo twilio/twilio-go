@@ -111,8 +111,6 @@ func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecording
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
@@ -128,6 +126,7 @@ func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecording
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

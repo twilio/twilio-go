@@ -71,8 +71,6 @@ func (c *ApiService) UpdateExportConfiguration(ResourceType string, params *Upda
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Enabled != nil {
 		data.Set("Enabled", fmt.Sprint(*params.Enabled))
 	}
@@ -82,6 +80,7 @@ func (c *ApiService) UpdateExportConfiguration(ResourceType string, params *Upda
 	if params != nil && params.WebhookUrl != nil {
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

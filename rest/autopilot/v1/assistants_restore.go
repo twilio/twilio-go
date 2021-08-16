@@ -31,11 +31,10 @@ func (c *ApiService) UpdateRestoreAssistant(params *UpdateRestoreAssistantParams
 	path := "/v1/Assistants/Restore"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Assistant != nil {
 		data.Set("Assistant", *params.Assistant)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

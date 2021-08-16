@@ -71,11 +71,10 @@ func (c *ApiService) PageStep(FlowSid string, EngagementSid string, params *List
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

@@ -95,8 +95,6 @@ func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Addres
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AutoCorrectAddress != nil {
 		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
 	}
@@ -124,6 +122,7 @@ func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Addres
 	if params != nil && params.Street != nil {
 		data.Set("Street", *params.Street)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -263,8 +262,6 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken string, pa
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CustomerName != nil {
 		data.Set("CustomerName", *params.CustomerName)
 	}
@@ -277,6 +274,7 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken string, pa
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -452,8 +450,6 @@ func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*Ap
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AutoCorrectAddress != nil {
 		data.Set("AutoCorrectAddress", fmt.Sprint(*params.AutoCorrectAddress))
 	}
@@ -478,6 +474,7 @@ func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*Ap
 	if params != nil && params.Street != nil {
 		data.Set("Street", *params.Street)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

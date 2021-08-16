@@ -102,8 +102,6 @@ func (c *ApiService) PageEvent(params *ListEventParams, pageToken string, pageNu
 	path := "/v1/Events"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ActorSid != nil {
 		data.Set("ActorSid", *params.ActorSid)
 	}
@@ -125,6 +123,7 @@ func (c *ApiService) PageEvent(params *ListEventParams, pageToken string, pageNu
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

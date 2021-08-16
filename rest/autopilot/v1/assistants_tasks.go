@@ -55,8 +55,6 @@ func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Actions != nil {
 		v, err := json.Marshal(params.Actions)
 
@@ -75,6 +73,7 @@ func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -156,11 +155,10 @@ func (c *ApiService) PageTask(AssistantSid string, params *ListTaskParams, pageT
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -302,8 +300,6 @@ func (c *ApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateT
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Actions != nil {
 		v, err := json.Marshal(params.Actions)
 
@@ -322,6 +318,7 @@ func (c *ApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateT
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

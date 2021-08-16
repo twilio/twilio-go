@@ -67,8 +67,6 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.BrandRegistrationSid != nil {
 		data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
 	}
@@ -89,6 +87,7 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 	if params != nil && params.UsAppToPersonUsecase != nil {
 		data.Set("UsAppToPersonUsecase", *params.UsAppToPersonUsecase)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -170,11 +169,10 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

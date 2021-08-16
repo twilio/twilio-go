@@ -56,8 +56,6 @@ func (c *ApiService) CreateBuild(ServiceSid string, params *CreateBuildParams) (
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AssetVersions != nil {
 		for _, item := range *params.AssetVersions {
 			data.Add("AssetVersions", item)
@@ -74,6 +72,7 @@ func (c *ApiService) CreateBuild(ServiceSid string, params *CreateBuildParams) (
 	if params != nil && params.Runtime != nil {
 		data.Set("Runtime", *params.Runtime)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -157,11 +156,10 @@ func (c *ApiService) PageBuild(ServiceSid string, params *ListBuildParams, pageT
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

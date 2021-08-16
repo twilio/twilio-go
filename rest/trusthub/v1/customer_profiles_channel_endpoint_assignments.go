@@ -44,14 +44,13 @@ func (c *ApiService) CreateCustomerProfileChannelEndpointAssignment(CustomerProf
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ChannelEndpointSid != nil {
 		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
 	}
 	if params != nil && params.ChannelEndpointType != nil {
 		data.Set("ChannelEndpointType", *params.ChannelEndpointType)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -147,8 +146,6 @@ func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfil
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ChannelEndpointSid != nil {
 		data.Set("ChannelEndpointSid", *params.ChannelEndpointSid)
 	}
@@ -158,6 +155,7 @@ func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfil
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

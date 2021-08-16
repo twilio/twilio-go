@@ -73,8 +73,6 @@ func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*Conversa
 	path := "/v1/Credentials"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ApiKey != nil {
 		data.Set("ApiKey", *params.ApiKey)
 	}
@@ -96,6 +94,7 @@ func (c *ApiService) CreateCredential(params *CreateCredentialParams) (*Conversa
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -175,11 +174,10 @@ func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken stri
 	path := "/v1/Credentials"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -339,8 +337,6 @@ func (c *ApiService) UpdateCredential(Sid string, params *UpdateCredentialParams
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ApiKey != nil {
 		data.Set("ApiKey", *params.ApiKey)
 	}
@@ -362,6 +358,7 @@ func (c *ApiService) UpdateCredential(Sid string, params *UpdateCredentialParams
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

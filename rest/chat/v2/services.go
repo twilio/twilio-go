@@ -36,11 +36,10 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ChatV2Service,
 	path := "/v2/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -118,11 +117,10 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken string, pa
 	path := "/v2/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -425,8 +423,6 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ch
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ConsumptionReportInterval != nil {
 		data.Set("ConsumptionReportInterval", fmt.Sprint(*params.ConsumptionReportInterval))
 	}
@@ -522,6 +518,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ch
 	if params != nil && params.WebhookMethod != nil {
 		data.Set("WebhookMethod", *params.WebhookMethod)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

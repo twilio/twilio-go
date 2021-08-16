@@ -41,14 +41,13 @@ func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTo
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FactorType != nil {
 		data.Set("FactorType", *params.FactorType)
 	}
 	if params != nil && params.Identity != nil {
 		data.Set("Identity", *params.Identity)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

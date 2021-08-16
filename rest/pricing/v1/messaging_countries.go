@@ -65,11 +65,10 @@ func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pa
 	path := "/v1/Messaging/Countries"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

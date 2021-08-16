@@ -102,9 +102,9 @@ type ListRecordingParams struct {
 	// Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
 	DateCreated *time.Time `json:"DateCreated,omitempty"`
 	// Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
-	DateCreatedBefore *time.Time `json:"DateCreated&lt;,omitempty"`
+	DateCreatedBefore *time.Time `json:"DateCreated<,omitempty"`
 	// Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
-	DateCreatedAfter *time.Time `json:"DateCreated&gt;,omitempty"`
+	DateCreatedAfter *time.Time `json:"DateCreated>,omitempty"`
 	// The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
 	CallSid *string `json:"CallSid,omitempty"`
 	// The Conference SID that identifies the conference associated with the recording to read.
@@ -159,8 +159,6 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken string
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint((*params.DateCreated).Format(time.RFC3339)))
 	}
@@ -179,6 +177,7 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken string
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

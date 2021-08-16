@@ -91,8 +91,6 @@ func (c *ApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1Fleet, e
 	path := "/v1/Fleets"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CommandsEnabled != nil {
 		data.Set("CommandsEnabled", fmt.Sprint(*params.CommandsEnabled))
 	}
@@ -123,6 +121,7 @@ func (c *ApiService) CreateFleet(params *CreateFleetParams) (*SupersimV1Fleet, e
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -190,14 +189,13 @@ func (c *ApiService) PageFleet(params *ListFleetParams, pageToken string, pageNu
 	path := "/v1/Fleets"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.NetworkAccessProfile != nil {
 		data.Set("NetworkAccessProfile", *params.NetworkAccessProfile)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -351,8 +349,6 @@ func (c *ApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (*Supers
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CommandsMethod != nil {
 		data.Set("CommandsMethod", *params.CommandsMethod)
 	}
@@ -371,6 +367,7 @@ func (c *ApiService) UpdateFleet(Sid string, params *UpdateFleetParams) (*Supers
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

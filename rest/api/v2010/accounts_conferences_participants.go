@@ -276,8 +276,6 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Beep != nil {
 		data.Set("Beep", *params.Beep)
 	}
@@ -403,6 +401,7 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	if params != nil && params.WaitUrl != nil {
 		data.Set("WaitUrl", *params.WaitUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -547,8 +546,6 @@ func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipa
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Muted != nil {
 		data.Set("Muted", fmt.Sprint(*params.Muted))
 	}
@@ -561,6 +558,7 @@ func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipa
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -762,8 +760,6 @@ func (c *ApiService) UpdateParticipant(ConferenceSid string, CallSid string, par
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AnnounceMethod != nil {
 		data.Set("AnnounceMethod", *params.AnnounceMethod)
 	}
@@ -800,6 +796,7 @@ func (c *ApiService) UpdateParticipant(ConferenceSid string, CallSid string, par
 	if params != nil && params.WaitUrl != nil {
 		data.Set("WaitUrl", *params.WaitUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

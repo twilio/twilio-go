@@ -60,8 +60,6 @@ func (c *ApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, Particip
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Rules != nil {
 		v, err := json.Marshal(params.Rules)
 
@@ -71,6 +69,7 @@ func (c *ApiService) UpdateRoomParticipantSubscribeRule(RoomSid string, Particip
 
 		data.Set("Rules", string(v))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

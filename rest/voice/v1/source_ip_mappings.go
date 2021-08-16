@@ -42,14 +42,13 @@ func (c *ApiService) CreateSourceIpMapping(params *CreateSourceIpMappingParams) 
 	path := "/v1/SourceIpMappings"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.IpRecordSid != nil {
 		data.Set("IpRecordSid", *params.IpRecordSid)
 	}
 	if params != nil && params.SipDomainSid != nil {
 		data.Set("SipDomainSid", *params.SipDomainSid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -127,11 +126,10 @@ func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, page
 	path := "/v1/SourceIpMappings"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -254,11 +252,10 @@ func (c *ApiService) UpdateSourceIpMapping(Sid string, params *UpdateSourceIpMap
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.SipDomainSid != nil {
 		data.Set("SipDomainSid", *params.SipDomainSid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

@@ -74,8 +74,6 @@ func (c *ApiService) CreateConversationScopedWebhook(ConversationSid string, par
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ConfigurationFilters != nil {
 		for _, item := range *params.ConfigurationFilters {
 			data.Add("Configuration.Filters", item)
@@ -101,6 +99,7 @@ func (c *ApiService) CreateConversationScopedWebhook(ConversationSid string, par
 	if params != nil && params.Target != nil {
 		data.Set("Target", *params.Target)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -184,11 +183,10 @@ func (c *ApiService) PageConversationScopedWebhook(ConversationSid string, param
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -337,8 +335,6 @@ func (c *ApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ConfigurationFilters != nil {
 		for _, item := range *params.ConfigurationFilters {
 			data.Add("Configuration.Filters", item)
@@ -358,6 +354,7 @@ func (c *ApiService) UpdateConversationScopedWebhook(ConversationSid string, Sid
 	if params != nil && params.ConfigurationUrl != nil {
 		data.Set("Configuration.Url", *params.ConfigurationUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

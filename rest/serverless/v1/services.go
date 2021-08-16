@@ -55,8 +55,6 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ServerlessV1Se
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -69,6 +67,7 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*ServerlessV1Se
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -148,11 +147,10 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken string, pa
 	path := "/v1/Services"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -288,8 +286,6 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Se
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -299,6 +295,7 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Se
 	if params != nil && params.UiEditable != nil {
 		data.Set("UiEditable", fmt.Sprint(*params.UiEditable))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

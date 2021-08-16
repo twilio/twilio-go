@@ -90,8 +90,6 @@ func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel,
 	path := "/v1/Channels"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ChatFriendlyName != nil {
 		data.Set("ChatFriendlyName", *params.ChatFriendlyName)
 	}
@@ -122,6 +120,7 @@ func (c *ApiService) CreateChannel(params *CreateChannelParams) (*FlexV1Channel,
 	if params != nil && params.TaskSid != nil {
 		data.Set("TaskSid", *params.TaskSid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -199,11 +198,10 @@ func (c *ApiService) PageChannel(params *ListChannelParams, pageToken string, pa
 	path := "/v1/Channels"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

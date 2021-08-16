@@ -135,8 +135,6 @@ func (c *ApiService) PageEvent(WorkspaceSid string, params *ListEventParams, pag
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.EndDate != nil {
 		data.Set("EndDate", fmt.Sprint((*params.EndDate).Format(time.RFC3339)))
 	}
@@ -173,6 +171,7 @@ func (c *ApiService) PageEvent(WorkspaceSid string, params *ListEventParams, pag
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

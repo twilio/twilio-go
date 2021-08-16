@@ -84,11 +84,10 @@ func (c *ApiService) PageFlow(params *ListFlowParams, pageToken string, pageNumb
 	path := "/v1/Flows"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

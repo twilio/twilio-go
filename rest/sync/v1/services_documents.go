@@ -49,8 +49,6 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Data != nil {
 		v, err := json.Marshal(params.Data)
 
@@ -66,6 +64,7 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -147,11 +146,10 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -287,8 +285,6 @@ func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *Updat
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Data != nil {
 		v, err := json.Marshal(params.Data)
 
@@ -301,7 +297,7 @@ func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *Updat
 	if params != nil && params.Ttl != nil {
 		data.Set("Ttl", fmt.Sprint(*params.Ttl))
 	}
-
+	headers := make(map[string]interface{})
 	if params != nil && params.IfMatch != nil {
 		headers["If-Match"] = *params.IfMatch
 	}

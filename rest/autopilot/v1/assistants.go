@@ -72,8 +72,6 @@ func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*AutopilotV
 	path := "/v1/Assistants"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CallbackEvents != nil {
 		data.Set("CallbackEvents", *params.CallbackEvents)
 	}
@@ -107,6 +105,7 @@ func (c *ApiService) CreateAssistant(params *CreateAssistantParams) (*AutopilotV
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -184,11 +183,10 @@ func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken string
 	path := "/v1/Assistants"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -353,8 +351,6 @@ func (c *ApiService) UpdateAssistant(Sid string, params *UpdateAssistantParams) 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CallbackEvents != nil {
 		data.Set("CallbackEvents", *params.CallbackEvents)
 	}
@@ -391,6 +387,7 @@ func (c *ApiService) UpdateAssistant(Sid string, params *UpdateAssistantParams) 
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

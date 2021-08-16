@@ -55,11 +55,10 @@ func (c *ApiService) UpdateDialingPermissionsSettings(params *UpdateDialingPermi
 	path := "/v1/Settings"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.DialingPermissionsInheritance != nil {
 		data.Set("DialingPermissionsInheritance", fmt.Sprint(*params.DialingPermissionsInheritance))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

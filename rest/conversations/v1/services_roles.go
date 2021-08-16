@@ -50,8 +50,6 @@ func (c *ApiService) CreateServiceRole(ChatServiceSid string, params *CreateServ
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -63,6 +61,7 @@ func (c *ApiService) CreateServiceRole(ChatServiceSid string, params *CreateServ
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -146,11 +145,10 @@ func (c *ApiService) PageServiceRole(ChatServiceSid string, params *ListServiceR
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -275,13 +273,12 @@ func (c *ApiService) UpdateServiceRole(ChatServiceSid string, Sid string, params
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Permission != nil {
 		for _, item := range *params.Permission {
 			data.Add("Permission", item)
 		}
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

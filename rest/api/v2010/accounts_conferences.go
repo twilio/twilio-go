@@ -67,15 +67,15 @@ type ListConferenceParams struct {
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
 	DateCreated *string `json:"DateCreated,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-	DateCreatedBefore *string `json:"DateCreated&lt;,omitempty"`
+	DateCreatedBefore *string `json:"DateCreated<,omitempty"`
 	// The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-	DateCreatedAfter *string `json:"DateCreated&gt;,omitempty"`
+	DateCreatedAfter *string `json:"DateCreated>,omitempty"`
 	// The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
 	DateUpdated *string `json:"DateUpdated,omitempty"`
 	// The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-	DateUpdatedBefore *string `json:"DateUpdated&lt;,omitempty"`
+	DateUpdatedBefore *string `json:"DateUpdated<,omitempty"`
 	// The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-	DateUpdatedAfter *string `json:"DateUpdated&gt;,omitempty"`
+	DateUpdatedAfter *string `json:"DateUpdated>,omitempty"`
 	// The string that identifies the Conference resources to read.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
@@ -142,8 +142,6 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken stri
 	}
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.DateCreated != nil {
 		data.Set("DateCreated", fmt.Sprint(*params.DateCreated))
 	}
@@ -171,6 +169,7 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken stri
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -316,8 +315,6 @@ func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AnnounceMethod != nil {
 		data.Set("AnnounceMethod", *params.AnnounceMethod)
 	}
@@ -327,6 +324,7 @@ func (c *ApiService) UpdateConference(Sid string, params *UpdateConferenceParams
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

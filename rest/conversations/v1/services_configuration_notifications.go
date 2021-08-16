@@ -119,8 +119,6 @@ func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *Up
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AddedToConversationEnabled != nil {
 		data.Set("AddedToConversation.Enabled", fmt.Sprint(*params.AddedToConversationEnabled))
 	}
@@ -154,6 +152,7 @@ func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *Up
 	if params != nil && params.RemovedFromConversationTemplate != nil {
 		data.Set("RemovedFromConversation.Template", *params.RemovedFromConversationTemplate)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

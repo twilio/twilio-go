@@ -121,8 +121,6 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken string
 	path := "/v1/Recordings"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
@@ -146,6 +144,7 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken string
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

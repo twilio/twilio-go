@@ -62,8 +62,6 @@ func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParam
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.EventTypes != nil {
 		for _, item := range *params.EventTypes {
 			data.Add("EventTypes", item)
@@ -81,6 +79,7 @@ func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParam
 	if params != nil && params.WebhookUrl != nil {
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -164,11 +163,10 @@ func (c *ApiService) PageWebhook(ServiceSid string, params *ListWebhookParams, p
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -316,8 +314,6 @@ func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *Update
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.EventTypes != nil {
 		for _, item := range *params.EventTypes {
 			data.Add("EventTypes", item)
@@ -335,6 +331,7 @@ func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *Update
 	if params != nil && params.WebhookUrl != nil {
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

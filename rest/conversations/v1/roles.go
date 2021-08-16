@@ -49,8 +49,6 @@ func (c *ApiService) CreateRole(params *CreateRoleParams) (*ConversationsV1Role,
 	path := "/v1/Roles"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
@@ -62,6 +60,7 @@ func (c *ApiService) CreateRole(params *CreateRoleParams) (*ConversationsV1Role,
 	if params != nil && params.Type != nil {
 		data.Set("Type", *params.Type)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -141,11 +140,10 @@ func (c *ApiService) PageRole(params *ListRoleParams, pageToken string, pageNumb
 	path := "/v1/Roles"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -269,13 +267,12 @@ func (c *ApiService) UpdateRole(Sid string, params *UpdateRoleParams) (*Conversa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Permission != nil {
 		for _, item := range *params.Permission {
 			data.Add("Permission", item)
 		}
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

@@ -90,11 +90,10 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -231,8 +230,6 @@ func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, Channe
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.LastConsumedMessageIndex != nil {
 		data.Set("LastConsumedMessageIndex", fmt.Sprint(*params.LastConsumedMessageIndex))
 	}
@@ -242,6 +239,7 @@ func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, Channe
 	if params != nil && params.NotificationLevel != nil {
 		data.Set("NotificationLevel", *params.NotificationLevel)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

@@ -61,8 +61,6 @@ func (c *ApiService) CreateSipIpAddress(IpAccessControlListSid string, params *C
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CidrPrefixLength != nil {
 		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
 	}
@@ -72,6 +70,7 @@ func (c *ApiService) CreateSipIpAddress(IpAccessControlListSid string, params *C
 	if params != nil && params.IpAddress != nil {
 		data.Set("IpAddress", *params.IpAddress)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -198,11 +197,10 @@ func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *Lis
 	path = strings.Replace(path, "{"+"IpAccessControlListSid"+"}", IpAccessControlListSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -350,8 +348,6 @@ func (c *ApiService) UpdateSipIpAddress(IpAccessControlListSid string, Sid strin
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.CidrPrefixLength != nil {
 		data.Set("CidrPrefixLength", fmt.Sprint(*params.CidrPrefixLength))
 	}
@@ -361,6 +357,7 @@ func (c *ApiService) UpdateSipIpAddress(IpAccessControlListSid string, Sid strin
 	if params != nil && params.IpAddress != nil {
 		data.Set("IpAddress", *params.IpAddress)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

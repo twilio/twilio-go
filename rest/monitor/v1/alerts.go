@@ -84,8 +84,6 @@ func (c *ApiService) PageAlert(params *ListAlertParams, pageToken string, pageNu
 	path := "/v1/Alerts"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.LogLevel != nil {
 		data.Set("LogLevel", *params.LogLevel)
 	}
@@ -98,6 +96,7 @@ func (c *ApiService) PageAlert(params *ListAlertParams, pageToken string, pageNu
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

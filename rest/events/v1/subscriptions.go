@@ -49,8 +49,6 @@ func (c *ApiService) CreateSubscription(params *CreateSubscriptionParams) (*Even
 	path := "/v1/Subscriptions"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
 	}
@@ -68,6 +66,7 @@ func (c *ApiService) CreateSubscription(params *CreateSubscriptionParams) (*Even
 			data.Add("Types", string(v))
 		}
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -153,14 +152,13 @@ func (c *ApiService) PageSubscription(params *ListSubscriptionParams, pageToken 
 	path := "/v1/Subscriptions"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.SinkSid != nil {
 		data.Set("SinkSid", *params.SinkSid)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -290,14 +288,13 @@ func (c *ApiService) UpdateSubscription(Sid string, params *UpdateSubscriptionPa
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Description != nil {
 		data.Set("Description", *params.Description)
 	}
 	if params != nil && params.SinkSid != nil {
 		data.Set("SinkSid", *params.SinkSid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

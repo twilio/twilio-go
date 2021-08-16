@@ -84,8 +84,6 @@ func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken string, pa
 	path := "/v1/Networks"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.IsoCountry != nil {
 		data.Set("IsoCountry", *params.IsoCountry)
 	}
@@ -98,6 +96,7 @@ func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken string, pa
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

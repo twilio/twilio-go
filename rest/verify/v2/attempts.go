@@ -85,8 +85,6 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 	path := "/v2/Attempts"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.DateCreatedAfter != nil {
 		data.Set("DateCreatedAfter", fmt.Sprint((*params.DateCreatedAfter).Format(time.RFC3339)))
 	}
@@ -99,6 +97,7 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

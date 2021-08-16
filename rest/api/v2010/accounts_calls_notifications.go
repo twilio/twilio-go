@@ -69,9 +69,9 @@ type ListCallNotificationParams struct {
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
 	MessageDate *string `json:"MessageDate,omitempty"`
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-	MessageDateBefore *string `json:"MessageDate&lt;,omitempty"`
+	MessageDateBefore *string `json:"MessageDate<,omitempty"`
 	// Only show notifications for the specified date, formatted as `YYYY-MM-DD`. You can also specify an inequality, such as `<=YYYY-MM-DD` for messages logged at or before midnight on a date, or `>=YYYY-MM-DD` for messages logged at or after midnight on a date.
-	MessageDateAfter *string `json:"MessageDate&gt;,omitempty"`
+	MessageDateAfter *string `json:"MessageDate>,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -119,8 +119,6 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Log != nil {
 		data.Set("Log", fmt.Sprint(*params.Log))
 	}
@@ -136,6 +134,7 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

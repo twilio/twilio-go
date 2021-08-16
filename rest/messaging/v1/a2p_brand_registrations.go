@@ -48,8 +48,6 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 	path := "/v1/a2p/BrandRegistrations"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.A2pProfileBundleSid != nil {
 		data.Set("A2pProfileBundleSid", *params.A2pProfileBundleSid)
 	}
@@ -59,6 +57,7 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 	if params != nil && params.CustomerProfileBundleSid != nil {
 		data.Set("CustomerProfileBundleSid", *params.CustomerProfileBundleSid)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -119,11 +118,10 @@ func (c *ApiService) PageBrandRegistrations(params *ListBrandRegistrationsParams
 	path := "/v1/a2p/BrandRegistrations"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

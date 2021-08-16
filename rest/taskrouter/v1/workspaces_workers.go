@@ -49,8 +49,6 @@ func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParam
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ActivitySid != nil {
 		data.Set("ActivitySid", *params.ActivitySid)
 	}
@@ -60,6 +58,7 @@ func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParam
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -183,8 +182,6 @@ func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, p
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ActivityName != nil {
 		data.Set("ActivityName", *params.ActivityName)
 	}
@@ -209,6 +206,7 @@ func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, p
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -350,8 +348,6 @@ func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *Updat
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.ActivitySid != nil {
 		data.Set("ActivitySid", *params.ActivitySid)
 	}
@@ -364,6 +360,7 @@ func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *Updat
 	if params != nil && params.RejectPendingReservations != nil {
 		data.Set("RejectPendingReservations", fmt.Sprint(*params.RejectPendingReservations))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

@@ -43,14 +43,13 @@ func (c *ApiService) CreateSim(params *CreateSimParams) (*SupersimV1Sim, error) 
 	path := "/v1/Sims"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Iccid != nil {
 		data.Set("Iccid", *params.Iccid)
 	}
 	if params != nil && params.RegistrationCode != nil {
 		data.Set("RegistrationCode", *params.RegistrationCode)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -130,8 +129,6 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken string, pageNumber
 	path := "/v1/Sims"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
@@ -144,6 +141,7 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken string, pageNumber
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -297,8 +295,6 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*SupersimV1
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AccountSid != nil {
 		data.Set("AccountSid", *params.AccountSid)
 	}
@@ -317,6 +313,7 @@ func (c *ApiService) UpdateSim(Sid string, params *UpdateSimParams) (*SupersimV1
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

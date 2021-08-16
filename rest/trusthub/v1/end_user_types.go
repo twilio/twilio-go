@@ -66,11 +66,10 @@ func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken st
 	path := "/v1/EndUserTypes"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

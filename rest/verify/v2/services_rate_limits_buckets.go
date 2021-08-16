@@ -45,14 +45,13 @@ func (c *ApiService) CreateBucket(ServiceSid string, RateLimitSid string, params
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Interval != nil {
 		data.Set("Interval", fmt.Sprint(*params.Interval))
 	}
 	if params != nil && params.Max != nil {
 		data.Set("Max", fmt.Sprint(*params.Max))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -139,11 +138,10 @@ func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -275,14 +273,13 @@ func (c *ApiService) UpdateBucket(ServiceSid string, RateLimitSid string, Sid st
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Interval != nil {
 		data.Set("Interval", fmt.Sprint(*params.Interval))
 	}
 	if params != nil && params.Max != nil {
 		data.Set("Max", fmt.Sprint(*params.Max))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

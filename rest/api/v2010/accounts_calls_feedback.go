@@ -92,8 +92,6 @@ func (c *ApiService) UpdateCallFeedback(CallSid string, params *UpdateCallFeedba
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Issue != nil {
 		for _, item := range *params.Issue {
 			data.Add("Issue", item)
@@ -102,6 +100,7 @@ func (c *ApiService) UpdateCallFeedback(CallSid string, params *UpdateCallFeedba
 	if params != nil && params.QualityScore != nil {
 		data.Set("QualityScore", fmt.Sprint(*params.QualityScore))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

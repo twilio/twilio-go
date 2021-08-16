@@ -84,8 +84,6 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken stri
 	path := "/v2/RegulatoryCompliance/Regulations"
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.EndUserType != nil {
 		data.Set("EndUserType", *params.EndUserType)
 	}
@@ -98,6 +96,7 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken stri
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

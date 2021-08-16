@@ -90,8 +90,6 @@ func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *L
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FunctionSid != nil {
 		data.Set("FunctionSid", *params.FunctionSid)
 	}
@@ -104,6 +102,7 @@ func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *L
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

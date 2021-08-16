@@ -51,8 +51,6 @@ func (c *ApiService) CreateExecution(FlowSid string, params *CreateExecutionPara
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.From != nil {
 		data.Set("From", *params.From)
 	}
@@ -68,6 +66,7 @@ func (c *ApiService) CreateExecution(FlowSid string, params *CreateExecutionPara
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -163,8 +162,6 @@ func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, 
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.DateCreatedFrom != nil {
 		data.Set("DateCreatedFrom", fmt.Sprint((*params.DateCreatedFrom).Format(time.RFC3339)))
 	}
@@ -174,6 +171,7 @@ func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, 
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -298,11 +296,10 @@ func (c *ApiService) UpdateExecution(FlowSid string, Sid string, params *UpdateE
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

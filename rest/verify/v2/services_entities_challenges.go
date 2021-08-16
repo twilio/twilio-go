@@ -70,8 +70,6 @@ func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params 
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AuthPayload != nil {
 		data.Set("AuthPayload", *params.AuthPayload)
 	}
@@ -104,6 +102,7 @@ func (c *ApiService) CreateChallenge(ServiceSid string, Identity string, params 
 
 		data.Set("HiddenDetails", string(v))
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -182,8 +181,6 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.FactorSid != nil {
 		data.Set("FactorSid", *params.FactorSid)
 	}
@@ -193,6 +190,7 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -318,11 +316,10 @@ func (c *ApiService) UpdateChallenge(ServiceSid string, Identity string, Sid str
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.AuthPayload != nil {
 		data.Set("AuthPayload", *params.AuthPayload)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

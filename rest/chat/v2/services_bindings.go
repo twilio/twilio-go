@@ -98,8 +98,6 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.BindingType != nil {
 		for _, item := range *params.BindingType {
 			data.Add("BindingType", item)
@@ -113,6 +111,7 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)

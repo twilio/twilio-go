@@ -55,8 +55,6 @@ func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams)
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
 	}
@@ -69,6 +67,7 @@ func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams)
 	if params != nil && params.Tasks != nil {
 		data.Set("Tasks", *params.Tasks)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
@@ -174,8 +173,6 @@ func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pag
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.Language != nil {
 		data.Set("Language", *params.Language)
 	}
@@ -191,6 +188,7 @@ func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pag
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}
+	headers := make(map[string]interface{})
 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
@@ -320,14 +318,13 @@ func (c *ApiService) UpdateQuery(AssistantSid string, Sid string, params *Update
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.SampleSid != nil {
 		data.Set("SampleSid", *params.SampleSid)
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {

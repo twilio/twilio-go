@@ -58,13 +58,12 @@ func (c *ApiService) UpdateTestUser(Sid string, params *UpdateTestUserParams) (*
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
-	headers := make(map[string]interface{})
-
 	if params != nil && params.TestUsers != nil {
 		for _, item := range *params.TestUsers {
 			data.Add("TestUsers", item)
 		}
 	}
+	headers := make(map[string]interface{})
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
 	if err != nil {
