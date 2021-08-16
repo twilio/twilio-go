@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -68,7 +68,7 @@ func (params *CreateValidationRequestParams) SetStatusCallbackMethod(StatusCallb
 	return params
 }
 
-func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestParams) (*ApiV2010AccountValidationRequest, error) {
+func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestParams) (*ApiV2010ValidationRequest, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -104,7 +104,7 @@ func (c *ApiService) CreateValidationRequest(params *CreateValidationRequestPara
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountValidationRequest{}
+	ps := &ApiV2010ValidationRequest{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -158,7 +158,7 @@ func (params *FetchOutgoingCallerIdParams) SetPathAccountSid(PathAccountSid stri
 }
 
 // Fetch an outgoing-caller-id belonging to the account used to make the request
-func (c *ApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgoingCallerIdParams) (*ApiV2010AccountOutgoingCallerId, error) {
+func (c *ApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgoingCallerIdParams) (*ApiV2010OutgoingCallerId, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -177,7 +177,7 @@ func (c *ApiService) FetchOutgoingCallerId(Sid string, params *FetchOutgoingCall
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountOutgoingCallerId{}
+	ps := &ApiV2010OutgoingCallerId{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -265,7 +265,7 @@ func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pa
 }
 
 // Lists OutgoingCallerId records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) ([]ApiV2010AccountOutgoingCallerId, error) {
+func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) ([]ApiV2010OutgoingCallerId, error) {
 	if params == nil {
 		params = &ListOutgoingCallerIdParams{}
 	}
@@ -277,13 +277,13 @@ func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) ([
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountOutgoingCallerId
+	var records []ApiV2010OutgoingCallerId
 
 	for response != nil {
 		records = append(records, response.OutgoingCallerIds...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -294,7 +294,7 @@ func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) ([
 }
 
 // Streams OutgoingCallerId records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) (chan ApiV2010AccountOutgoingCallerId, error) {
+func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) (chan ApiV2010OutgoingCallerId, error) {
 	if params == nil {
 		params = &ListOutgoingCallerIdParams{}
 	}
@@ -307,7 +307,7 @@ func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountOutgoingCallerId, 1)
+	channel := make(chan ApiV2010OutgoingCallerId, 1)
 
 	go func() {
 		for response != nil {
@@ -316,7 +316,7 @@ func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -329,11 +329,11 @@ func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) 
 	return channel, err
 }
 
-func (c *ApiService) getNextListOutgoingCallerIdResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListOutgoingCallerIdResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -365,7 +365,7 @@ func (params *UpdateOutgoingCallerIdParams) SetFriendlyName(FriendlyName string)
 }
 
 // Updates the caller-id
-func (c *ApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOutgoingCallerIdParams) (*ApiV2010AccountOutgoingCallerId, error) {
+func (c *ApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOutgoingCallerIdParams) (*ApiV2010OutgoingCallerId, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -387,7 +387,7 @@ func (c *ApiService) UpdateOutgoingCallerId(Sid string, params *UpdateOutgoingCa
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountOutgoingCallerId{}
+	ps := &ApiV2010OutgoingCallerId{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

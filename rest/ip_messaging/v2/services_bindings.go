@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -39,7 +39,7 @@ func (c *ApiService) DeleteBinding(ServiceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*IpMessagingV2ServiceBinding, error) {
+func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*IpMessagingV2Binding, error) {
 	path := "/v2/Services/{ServiceSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -54,7 +54,7 @@ func (c *ApiService) FetchBinding(ServiceSid string, Sid string) (*IpMessagingV2
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV2ServiceBinding{}
+	ps := &IpMessagingV2Binding{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func (c *ApiService) PageBinding(ServiceSid string, params *ListBindingParams, p
 }
 
 // Lists Binding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) ([]IpMessagingV2ServiceBinding, error) {
+func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) ([]IpMessagingV2Binding, error) {
 	if params == nil {
 		params = &ListBindingParams{}
 	}
@@ -148,13 +148,13 @@ func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) (
 	}
 
 	curRecord := 0
-	var records []IpMessagingV2ServiceBinding
+	var records []IpMessagingV2Binding
 
 	for response != nil {
 		records = append(records, response.Bindings...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBindingResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBindingResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -165,7 +165,7 @@ func (c *ApiService) ListBinding(ServiceSid string, params *ListBindingParams) (
 }
 
 // Streams Binding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams) (chan IpMessagingV2ServiceBinding, error) {
+func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams) (chan IpMessagingV2Binding, error) {
 	if params == nil {
 		params = &ListBindingParams{}
 	}
@@ -178,7 +178,7 @@ func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams)
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan IpMessagingV2ServiceBinding, 1)
+	channel := make(chan IpMessagingV2Binding, 1)
 
 	go func() {
 		for response != nil {
@@ -187,7 +187,7 @@ func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams)
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBindingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBindingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -200,11 +200,11 @@ func (c *ApiService) StreamBinding(ServiceSid string, params *ListBindingParams)
 	return channel, err
 }
 
-func (c *ApiService) getNextListBindingResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListBindingResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

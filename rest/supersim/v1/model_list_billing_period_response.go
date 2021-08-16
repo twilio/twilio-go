@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListBillingPeriodResponse struct for ListBillingPeriodResponse
 type ListBillingPeriodResponse struct {
-	BillingPeriods []SupersimV1SimBillingPeriod `json:"billing_periods,omitempty"`
-	Meta           ListCommandResponseMeta      `json:"meta,omitempty"`
+	BillingPeriods []SupersimV1BillingPeriod `json:"billing_periods,omitempty"`
+	Meta           ListCommandResponseMeta   `json:"meta,omitempty"`
 }

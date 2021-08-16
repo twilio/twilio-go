@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -45,7 +45,7 @@ func (params *CreateSupportingDocumentParams) SetType(Type string) *CreateSuppor
 }
 
 // Create a new Supporting Document.
-func (c *ApiService) CreateSupportingDocument(params *CreateSupportingDocumentParams) (*NumbersV2RegulatoryComplianceSupportingDocument, error) {
+func (c *ApiService) CreateSupportingDocument(params *CreateSupportingDocumentParams) (*NumbersV2SupportingDocument, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments"
 
 	data := url.Values{}
@@ -73,7 +73,7 @@ func (c *ApiService) CreateSupportingDocument(params *CreateSupportingDocumentPa
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceSupportingDocument{}
+	ps := &NumbersV2SupportingDocument{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -100,7 +100,7 @@ func (c *ApiService) DeleteSupportingDocument(Sid string) error {
 }
 
 // Fetch specific Supporting Document Instance.
-func (c *ApiService) FetchSupportingDocument(Sid string) (*NumbersV2RegulatoryComplianceSupportingDocument, error) {
+func (c *ApiService) FetchSupportingDocument(Sid string) (*NumbersV2SupportingDocument, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -114,7 +114,7 @@ func (c *ApiService) FetchSupportingDocument(Sid string) (*NumbersV2RegulatoryCo
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceSupportingDocument{}
+	ps := &NumbersV2SupportingDocument{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -172,7 +172,7 @@ func (c *ApiService) PageSupportingDocument(params *ListSupportingDocumentParams
 }
 
 // Lists SupportingDocument records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams) ([]NumbersV2RegulatoryComplianceSupportingDocument, error) {
+func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams) ([]NumbersV2SupportingDocument, error) {
 	if params == nil {
 		params = &ListSupportingDocumentParams{}
 	}
@@ -184,13 +184,13 @@ func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams
 	}
 
 	curRecord := 0
-	var records []NumbersV2RegulatoryComplianceSupportingDocument
+	var records []NumbersV2SupportingDocument
 
 	for response != nil {
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSupportingDocumentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSupportingDocumentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -201,7 +201,7 @@ func (c *ApiService) ListSupportingDocument(params *ListSupportingDocumentParams
 }
 
 // Streams SupportingDocument records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSupportingDocument(params *ListSupportingDocumentParams) (chan NumbersV2RegulatoryComplianceSupportingDocument, error) {
+func (c *ApiService) StreamSupportingDocument(params *ListSupportingDocumentParams) (chan NumbersV2SupportingDocument, error) {
 	if params == nil {
 		params = &ListSupportingDocumentParams{}
 	}
@@ -214,7 +214,7 @@ func (c *ApiService) StreamSupportingDocument(params *ListSupportingDocumentPara
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan NumbersV2RegulatoryComplianceSupportingDocument, 1)
+	channel := make(chan NumbersV2SupportingDocument, 1)
 
 	go func() {
 		for response != nil {
@@ -223,7 +223,7 @@ func (c *ApiService) StreamSupportingDocument(params *ListSupportingDocumentPara
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSupportingDocumentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSupportingDocumentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -236,11 +236,11 @@ func (c *ApiService) StreamSupportingDocument(params *ListSupportingDocumentPara
 	return channel, err
 }
 
-func (c *ApiService) getNextListSupportingDocumentResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSupportingDocumentResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -272,7 +272,7 @@ func (params *UpdateSupportingDocumentParams) SetFriendlyName(FriendlyName strin
 }
 
 // Update an existing Supporting Document.
-func (c *ApiService) UpdateSupportingDocument(Sid string, params *UpdateSupportingDocumentParams) (*NumbersV2RegulatoryComplianceSupportingDocument, error) {
+func (c *ApiService) UpdateSupportingDocument(Sid string, params *UpdateSupportingDocumentParams) (*NumbersV2SupportingDocument, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -298,7 +298,7 @@ func (c *ApiService) UpdateSupportingDocument(Sid string, params *UpdateSupporti
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceSupportingDocument{}
+	ps := &NumbersV2SupportingDocument{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

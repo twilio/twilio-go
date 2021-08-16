@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -36,7 +36,7 @@ func (params *CreateTokenParams) SetTtl(Ttl int) *CreateTokenParams {
 }
 
 // Create a new token for ICE servers
-func (c *ApiService) CreateToken(params *CreateTokenParams) (*ApiV2010AccountToken, error) {
+func (c *ApiService) CreateToken(params *CreateTokenParams) (*ApiV2010Token, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Tokens.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -57,7 +57,7 @@ func (c *ApiService) CreateToken(params *CreateTokenParams) (*ApiV2010AccountTok
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountToken{}
+	ps := &ApiV2010Token{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -33,7 +33,7 @@ func (params *CreateFunctionParams) SetFriendlyName(FriendlyName string) *Create
 }
 
 // Create a new Function resource.
-func (c *ApiService) CreateFunction(ServiceSid string, params *CreateFunctionParams) (*ServerlessV1ServiceFunction, error) {
+func (c *ApiService) CreateFunction(ServiceSid string, params *CreateFunctionParams) (*ServerlessV1Function, error) {
 	path := "/v1/Services/{ServiceSid}/Functions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -50,7 +50,7 @@ func (c *ApiService) CreateFunction(ServiceSid string, params *CreateFunctionPar
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceFunction{}
+	ps := &ServerlessV1Function{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *ApiService) DeleteFunction(ServiceSid string, Sid string) error {
 }
 
 // Retrieve a specific Function resource.
-func (c *ApiService) FetchFunction(ServiceSid string, Sid string) (*ServerlessV1ServiceFunction, error) {
+func (c *ApiService) FetchFunction(ServiceSid string, Sid string) (*ServerlessV1Function, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -93,7 +93,7 @@ func (c *ApiService) FetchFunction(ServiceSid string, Sid string) (*ServerlessV1
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceFunction{}
+	ps := &ServerlessV1Function{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -153,7 +153,7 @@ func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams,
 }
 
 // Lists Function records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams) ([]ServerlessV1ServiceFunction, error) {
+func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams) ([]ServerlessV1Function, error) {
 	if params == nil {
 		params = &ListFunctionParams{}
 	}
@@ -165,13 +165,13 @@ func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams)
 	}
 
 	curRecord := 0
-	var records []ServerlessV1ServiceFunction
+	var records []ServerlessV1Function
 
 	for response != nil {
 		records = append(records, response.Functions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFunctionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFunctionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -182,7 +182,7 @@ func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams)
 }
 
 // Streams Function records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParams) (chan ServerlessV1ServiceFunction, error) {
+func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParams) (chan ServerlessV1Function, error) {
 	if params == nil {
 		params = &ListFunctionParams{}
 	}
@@ -195,7 +195,7 @@ func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParam
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ServerlessV1ServiceFunction, 1)
+	channel := make(chan ServerlessV1Function, 1)
 
 	go func() {
 		for response != nil {
@@ -204,7 +204,7 @@ func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParam
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFunctionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFunctionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -217,11 +217,11 @@ func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParam
 	return channel, err
 }
 
-func (c *ApiService) getNextListFunctionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListFunctionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -247,7 +247,7 @@ func (params *UpdateFunctionParams) SetFriendlyName(FriendlyName string) *Update
 }
 
 // Update a specific Function resource.
-func (c *ApiService) UpdateFunction(ServiceSid string, Sid string, params *UpdateFunctionParams) (*ServerlessV1ServiceFunction, error) {
+func (c *ApiService) UpdateFunction(ServiceSid string, Sid string, params *UpdateFunctionParams) (*ServerlessV1Function, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -265,7 +265,7 @@ func (c *ApiService) UpdateFunction(ServiceSid string, Sid string, params *Updat
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceFunction{}
+	ps := &ServerlessV1Function{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

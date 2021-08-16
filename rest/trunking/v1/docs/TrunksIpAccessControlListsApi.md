@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateIpAccessControlList
 
-> TrunkingV1TrunkIpAccessControlList CreateIpAccessControlList(ctx, TrunkSidoptional)
+> TrunkingV1IpAccessControlList CreateIpAccessControlList(ctx, TrunkSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrunkingV1TrunkIpAccessControlList**](TrunkingV1TrunkIpAccessControlList.md)
+[**TrunkingV1IpAccessControlList**](TrunkingV1IpAccessControlList.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchIpAccessControlList
 
-> TrunkingV1TrunkIpAccessControlList FetchIpAccessControlList(ctx, TrunkSidSid)
+> TrunkingV1IpAccessControlList FetchIpAccessControlList(ctx, TrunkSidSid)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrunkingV1TrunkIpAccessControlList**](TrunkingV1TrunkIpAccessControlList.md)
+[**TrunkingV1IpAccessControlList**](TrunkingV1IpAccessControlList.md)
 
 ### Authorization
 

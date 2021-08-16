@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateRateLimit
 
-> VerifyV2ServiceRateLimit CreateRateLimit(ctx, ServiceSidoptional)
+> VerifyV2RateLimit CreateRateLimit(ctx, ServiceSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceRateLimit**](VerifyV2ServiceRateLimit.md)
+[**VerifyV2RateLimit**](VerifyV2RateLimit.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchRateLimit
 
-> VerifyV2ServiceRateLimit FetchRateLimit(ctx, ServiceSidSid)
+> VerifyV2RateLimit FetchRateLimit(ctx, ServiceSidSid)
 
 
 
@@ -126,7 +126,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceRateLimit**](VerifyV2ServiceRateLimit.md)
+[**VerifyV2RateLimit**](VerifyV2RateLimit.md)
 
 ### Authorization
 
@@ -188,7 +188,7 @@ Name | Type | Description
 
 ## UpdateRateLimit
 
-> VerifyV2ServiceRateLimit UpdateRateLimit(ctx, ServiceSidSidoptional)
+> VerifyV2RateLimit UpdateRateLimit(ctx, ServiceSidSidoptional)
 
 
 
@@ -214,7 +214,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceRateLimit**](VerifyV2ServiceRateLimit.md)
+[**VerifyV2RateLimit**](VerifyV2RateLimit.md)
 
 ### Authorization
 

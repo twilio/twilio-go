@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateRole
 
-> IpMessagingV2ServiceRole CreateRole(ctx, ServiceSidoptional)
+> IpMessagingV2Role CreateRole(ctx, ServiceSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV2ServiceRole**](IpMessagingV2ServiceRole.md)
+[**IpMessagingV2Role**](IpMessagingV2Role.md)
 
 ### Authorization
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## FetchRole
 
-> IpMessagingV2ServiceRole FetchRole(ctx, ServiceSidSid)
+> IpMessagingV2Role FetchRole(ctx, ServiceSidSid)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV2ServiceRole**](IpMessagingV2ServiceRole.md)
+[**IpMessagingV2Role**](IpMessagingV2Role.md)
 
 ### Authorization
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 ## UpdateRole
 
-> IpMessagingV2ServiceRole UpdateRole(ctx, ServiceSidSidoptional)
+> IpMessagingV2Role UpdateRole(ctx, ServiceSidSidoptional)
 
 
 
@@ -205,7 +205,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV2ServiceRole**](IpMessagingV2ServiceRole.md)
+[**IpMessagingV2Role**](IpMessagingV2Role.md)
 
 ### Authorization
 

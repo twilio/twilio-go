@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateItemAssignment
 
-> NumbersV2RegulatoryComplianceBundleItemAssignment CreateItemAssignment(ctx, BundleSidoptional)
+> NumbersV2ItemAssignment CreateItemAssignment(ctx, BundleSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundleItemAssignment**](NumbersV2RegulatoryComplianceBundleItemAssignment.md)
+[**NumbersV2ItemAssignment**](NumbersV2ItemAssignment.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchItemAssignment
 
-> NumbersV2RegulatoryComplianceBundleItemAssignment FetchItemAssignment(ctx, BundleSidSid)
+> NumbersV2ItemAssignment FetchItemAssignment(ctx, BundleSidSid)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceBundleItemAssignment**](NumbersV2RegulatoryComplianceBundleItemAssignment.md)
+[**NumbersV2ItemAssignment**](NumbersV2ItemAssignment.md)
 
 ### Authorization
 

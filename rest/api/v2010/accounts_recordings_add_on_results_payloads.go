@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -69,7 +69,7 @@ func (params *FetchRecordingAddOnResultPayloadParams) SetPathAccountSid(PathAcco
 }
 
 // Fetch an instance of a result payload
-func (c *ApiService) FetchRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, Sid string, params *FetchRecordingAddOnResultPayloadParams) (*ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, error) {
+func (c *ApiService) FetchRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, Sid string, params *FetchRecordingAddOnResultPayloadParams) (*ApiV2010RecordingAddOnResultPayload, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -90,7 +90,7 @@ func (c *ApiService) FetchRecordingAddOnResultPayload(ReferenceSid string, AddOn
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload{}
+	ps := &ApiV2010RecordingAddOnResultPayload{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -162,7 +162,7 @@ func (c *ApiService) PageRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 }
 
 // Lists RecordingAddOnResultPayload records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams) ([]ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, error) {
+func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams) ([]ApiV2010RecordingAddOnResultPayload, error) {
 	if params == nil {
 		params = &ListRecordingAddOnResultPayloadParams{}
 	}
@@ -174,13 +174,13 @@ func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload
+	var records []ApiV2010RecordingAddOnResultPayload
 
 	for response != nil {
 		records = append(records, response.Payloads...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -191,7 +191,7 @@ func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 }
 
 // Streams RecordingAddOnResultPayload records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams) (chan ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, error) {
+func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams) (chan ApiV2010RecordingAddOnResultPayload, error) {
 	if params == nil {
 		params = &ListRecordingAddOnResultPayloadParams{}
 	}
@@ -204,7 +204,7 @@ func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddO
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload, 1)
+	channel := make(chan ApiV2010RecordingAddOnResultPayload, 1)
 
 	go func() {
 		for response != nil {
@@ -213,7 +213,7 @@ func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddO
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -226,11 +226,11 @@ func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddO
 	return channel, err
 }
 
-func (c *ApiService) getNextListRecordingAddOnResultPayloadResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListRecordingAddOnResultPayloadResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

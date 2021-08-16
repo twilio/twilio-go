@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListMemberResponse struct for ListMemberResponse
 type ListMemberResponse struct {
-	Members []ChatV2ServiceChannelMember `json:"members,omitempty"`
-	Meta    ListCredentialResponseMeta   `json:"meta,omitempty"`
+	Members []ChatV2Member             `json:"members,omitempty"`
+	Meta    ListCredentialResponseMeta `json:"meta,omitempty"`
 }

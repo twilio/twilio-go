@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateMessage
 
-> IpMessagingV1ServiceChannelMessage CreateMessage(ctx, ServiceSidChannelSidoptional)
+> IpMessagingV1Message CreateMessage(ctx, ServiceSidChannelSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV1ServiceChannelMessage**](IpMessagingV1ServiceChannelMessage.md)
+[**IpMessagingV1Message**](IpMessagingV1Message.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchMessage
 
-> IpMessagingV1ServiceChannelMessage FetchMessage(ctx, ServiceSidChannelSidSid)
+> IpMessagingV1Message FetchMessage(ctx, ServiceSidChannelSidSid)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV1ServiceChannelMessage**](IpMessagingV1ServiceChannelMessage.md)
+[**IpMessagingV1Message**](IpMessagingV1Message.md)
 
 ### Authorization
 
@@ -186,7 +186,7 @@ Name | Type | Description
 
 ## UpdateMessage
 
-> IpMessagingV1ServiceChannelMessage UpdateMessage(ctx, ServiceSidChannelSidSidoptional)
+> IpMessagingV1Message UpdateMessage(ctx, ServiceSidChannelSidSidoptional)
 
 
 
@@ -212,7 +212,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV1ServiceChannelMessage**](IpMessagingV1ServiceChannelMessage.md)
+[**IpMessagingV1Message**](IpMessagingV1Message.md)
 
 ### Authorization
 

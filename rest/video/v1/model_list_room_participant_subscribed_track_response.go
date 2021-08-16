@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListRoomParticipantSubscribedTrackResponse struct for ListRoomParticipantSubscribedTrackResponse
 type ListRoomParticipantSubscribedTrackResponse struct {
-	Meta             ListCompositionHookResponseMeta                            `json:"meta,omitempty"`
-	SubscribedTracks []VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack `json:"subscribed_tracks,omitempty"`
+	Meta             ListCompositionHookResponseMeta         `json:"meta,omitempty"`
+	SubscribedTracks []VideoV1RoomParticipantSubscribedTrack `json:"subscribed_tracks,omitempty"`
 }

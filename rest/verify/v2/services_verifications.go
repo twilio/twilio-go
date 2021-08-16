@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -42,6 +42,8 @@ type CreateVerificationParams struct {
 	RateLimits *map[string]interface{} `json:"RateLimits,omitempty"`
 	// The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).
 	SendDigits *string `json:"SendDigits,omitempty"`
+	// The SID of the custom template to be used.
+	TemplateSid *string `json:"TemplateSid,omitempty"`
 	// The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 	To *string `json:"To,omitempty"`
 }
@@ -90,13 +92,17 @@ func (params *CreateVerificationParams) SetSendDigits(SendDigits string) *Create
 	params.SendDigits = &SendDigits
 	return params
 }
+func (params *CreateVerificationParams) SetTemplateSid(TemplateSid string) *CreateVerificationParams {
+	params.TemplateSid = &TemplateSid
+	return params
+}
 func (params *CreateVerificationParams) SetTo(To string) *CreateVerificationParams {
 	params.To = &To
 	return params
 }
 
 // Create a new Verification using a Service
-func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerificationParams) (*VerifyV2ServiceVerification, error) {
+func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerificationParams) (*VerifyV2Verification, error) {
 	path := "/v2/Services/{ServiceSid}/Verifications"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -146,6 +152,9 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 	if params != nil && params.SendDigits != nil {
 		data.Set("SendDigits", *params.SendDigits)
 	}
+	if params != nil && params.TemplateSid != nil {
+		data.Set("TemplateSid", *params.TemplateSid)
+	}
 	if params != nil && params.To != nil {
 		data.Set("To", *params.To)
 	}
@@ -158,7 +167,7 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceVerification{}
+	ps := &VerifyV2Verification{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -167,7 +176,7 @@ func (c *ApiService) CreateVerification(ServiceSid string, params *CreateVerific
 }
 
 // Fetch a specific Verification
-func (c *ApiService) FetchVerification(ServiceSid string, Sid string) (*VerifyV2ServiceVerification, error) {
+func (c *ApiService) FetchVerification(ServiceSid string, Sid string) (*VerifyV2Verification, error) {
 	path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -182,7 +191,7 @@ func (c *ApiService) FetchVerification(ServiceSid string, Sid string) (*VerifyV2
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceVerification{}
+	ps := &VerifyV2Verification{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -202,7 +211,7 @@ func (params *UpdateVerificationParams) SetStatus(Status string) *UpdateVerifica
 }
 
 // Update a Verification status
-func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *UpdateVerificationParams) (*VerifyV2ServiceVerification, error) {
+func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *UpdateVerificationParams) (*VerifyV2Verification, error) {
 	path := "/v2/Services/{ServiceSid}/Verifications/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -220,7 +229,7 @@ func (c *ApiService) UpdateVerification(ServiceSid string, Sid string, params *U
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceVerification{}
+	ps := &VerifyV2Verification{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

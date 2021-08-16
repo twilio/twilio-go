@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListEnvironmentResponse struct for ListEnvironmentResponse
 type ListEnvironmentResponse struct {
-	Environments []ServerlessV1ServiceEnvironment `json:"environments,omitempty"`
-	Meta         ListServiceResponseMeta          `json:"meta,omitempty"`
+	Environments []ServerlessV1Environment `json:"environments,omitempty"`
+	Meta         ListServiceResponseMeta   `json:"meta,omitempty"`
 }

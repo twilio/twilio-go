@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -14,5 +14,5 @@ package openapi
 // ListSchemaVersionResponse struct for ListSchemaVersionResponse
 type ListSchemaVersionResponse struct {
 	Meta           ListSchemaVersionResponseMeta `json:"meta,omitempty"`
-	SchemaVersions []EventsV1SchemaSchemaVersion `json:"schema_versions,omitempty"`
+	SchemaVersions []EventsV1SchemaVersion       `json:"schema_versions,omitempty"`
 }

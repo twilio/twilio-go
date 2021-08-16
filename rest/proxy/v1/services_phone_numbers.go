@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -45,7 +45,7 @@ func (params *CreatePhoneNumberParams) SetSid(Sid string) *CreatePhoneNumberPara
 }
 
 // Add a Phone Number to a Service&#39;s Proxy Number Pool.
-func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNumberParams) (*ProxyV1ServicePhoneNumber, error) {
+func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNumberParams) (*ProxyV1PhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -68,7 +68,7 @@ func (c *ApiService) CreatePhoneNumber(ServiceSid string, params *CreatePhoneNum
 
 	defer resp.Body.Close()
 
-	ps := &ProxyV1ServicePhoneNumber{}
+	ps := &ProxyV1PhoneNumber{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -96,7 +96,7 @@ func (c *ApiService) DeletePhoneNumber(ServiceSid string, Sid string) error {
 }
 
 // Fetch a specific Phone Number.
-func (c *ApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*ProxyV1ServicePhoneNumber, error) {
+func (c *ApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*ProxyV1PhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -111,7 +111,7 @@ func (c *ApiService) FetchPhoneNumber(ServiceSid string, Sid string) (*ProxyV1Se
 
 	defer resp.Body.Close()
 
-	ps := &ProxyV1ServicePhoneNumber{}
+	ps := &ProxyV1PhoneNumber{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -171,7 +171,7 @@ func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberP
 }
 
 // Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) ([]ProxyV1ServicePhoneNumber, error) {
+func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) ([]ProxyV1PhoneNumber, error) {
 	if params == nil {
 		params = &ListPhoneNumberParams{}
 	}
@@ -183,13 +183,13 @@ func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberP
 	}
 
 	curRecord := 0
-	var records []ProxyV1ServicePhoneNumber
+	var records []ProxyV1PhoneNumber
 
 	for response != nil {
 		records = append(records, response.PhoneNumbers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPhoneNumberResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListPhoneNumberResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -200,7 +200,7 @@ func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberP
 }
 
 // Streams PhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) (chan ProxyV1ServicePhoneNumber, error) {
+func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) (chan ProxyV1PhoneNumber, error) {
 	if params == nil {
 		params = &ListPhoneNumberParams{}
 	}
@@ -213,7 +213,7 @@ func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumbe
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ProxyV1ServicePhoneNumber, 1)
+	channel := make(chan ProxyV1PhoneNumber, 1)
 
 	go func() {
 		for response != nil {
@@ -222,7 +222,7 @@ func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumbe
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPhoneNumberResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListPhoneNumberResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -235,11 +235,11 @@ func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumbe
 	return channel, err
 }
 
-func (c *ApiService) getNextListPhoneNumberResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListPhoneNumberResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -265,7 +265,7 @@ func (params *UpdatePhoneNumberParams) SetIsReserved(IsReserved bool) *UpdatePho
 }
 
 // Update a specific Proxy Number.
-func (c *ApiService) UpdatePhoneNumber(ServiceSid string, Sid string, params *UpdatePhoneNumberParams) (*ProxyV1ServicePhoneNumber, error) {
+func (c *ApiService) UpdatePhoneNumber(ServiceSid string, Sid string, params *UpdatePhoneNumberParams) (*ProxyV1PhoneNumber, error) {
 	path := "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -283,7 +283,7 @@ func (c *ApiService) UpdatePhoneNumber(ServiceSid string, Sid string, params *Up
 
 	defer resp.Body.Close()
 
-	ps := &ProxyV1ServicePhoneNumber{}
+	ps := &ProxyV1PhoneNumber{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

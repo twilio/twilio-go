@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -69,7 +69,7 @@ func (params *FetchMediaParams) SetPathAccountSid(PathAccountSid string) *FetchM
 }
 
 // Fetch a single media instance belonging to the account used to make the request
-func (c *ApiService) FetchMedia(MessageSid string, Sid string, params *FetchMediaParams) (*ApiV2010AccountMessageMedia, error) {
+func (c *ApiService) FetchMedia(MessageSid string, Sid string, params *FetchMediaParams) (*ApiV2010Media, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -89,7 +89,7 @@ func (c *ApiService) FetchMedia(MessageSid string, Sid string, params *FetchMedi
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountMessageMedia{}
+	ps := &ApiV2010Media{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -187,7 +187,7 @@ func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageT
 }
 
 // Lists Media records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams) ([]ApiV2010AccountMessageMedia, error) {
+func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams) ([]ApiV2010Media, error) {
 	if params == nil {
 		params = &ListMediaParams{}
 	}
@@ -199,13 +199,13 @@ func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams) ([]Ap
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountMessageMedia
+	var records []ApiV2010Media
 
 	for response != nil {
 		records = append(records, response.MediaList...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMediaResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMediaResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -216,7 +216,7 @@ func (c *ApiService) ListMedia(MessageSid string, params *ListMediaParams) ([]Ap
 }
 
 // Streams Media records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (chan ApiV2010AccountMessageMedia, error) {
+func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (chan ApiV2010Media, error) {
 	if params == nil {
 		params = &ListMediaParams{}
 	}
@@ -229,7 +229,7 @@ func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (ch
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountMessageMedia, 1)
+	channel := make(chan ApiV2010Media, 1)
 
 	go func() {
 		for response != nil {
@@ -238,7 +238,7 @@ func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (ch
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMediaResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMediaResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -251,11 +251,11 @@ func (c *ApiService) StreamMedia(MessageSid string, params *ListMediaParams) (ch
 	return channel, err
 }
 
-func (c *ApiService) getNextListMediaResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListMediaResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -21,7 +21,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1PhoneNumberPhoneNumberCountryInstance, error) {
+func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1PhoneNumberCountryInstance, error) {
 	path := "/v1/PhoneNumbers/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
@@ -35,7 +35,7 @@ func (c *ApiService) FetchPhoneNumberCountry(IsoCountry string) (*PricingV1Phone
 
 	defer resp.Body.Close()
 
-	ps := &PricingV1PhoneNumberPhoneNumberCountryInstance{}
+	ps := &PricingV1PhoneNumberCountryInstance{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -93,7 +93,7 @@ func (c *ApiService) PagePhoneNumberCountry(params *ListPhoneNumberCountryParams
 }
 
 // Lists PhoneNumberCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams) ([]PricingV1PhoneNumberPhoneNumberCountry, error) {
+func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams) ([]PricingV1PhoneNumberCountry, error) {
 	if params == nil {
 		params = &ListPhoneNumberCountryParams{}
 	}
@@ -105,13 +105,13 @@ func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams
 	}
 
 	curRecord := 0
-	var records []PricingV1PhoneNumberPhoneNumberCountry
+	var records []PricingV1PhoneNumberCountry
 
 	for response != nil {
 		records = append(records, response.Countries...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPhoneNumberCountryResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListPhoneNumberCountryResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -122,7 +122,7 @@ func (c *ApiService) ListPhoneNumberCountry(params *ListPhoneNumberCountryParams
 }
 
 // Streams PhoneNumberCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryParams) (chan PricingV1PhoneNumberPhoneNumberCountry, error) {
+func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryParams) (chan PricingV1PhoneNumberCountry, error) {
 	if params == nil {
 		params = &ListPhoneNumberCountryParams{}
 	}
@@ -135,7 +135,7 @@ func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryPara
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan PricingV1PhoneNumberPhoneNumberCountry, 1)
+	channel := make(chan PricingV1PhoneNumberCountry, 1)
 
 	go func() {
 		for response != nil {
@@ -144,7 +144,7 @@ func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryPara
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListPhoneNumberCountryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListPhoneNumberCountryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -157,11 +157,11 @@ func (c *ApiService) StreamPhoneNumberCountry(params *ListPhoneNumberCountryPara
 	return channel, err
 }
 
-func (c *ApiService) getNextListPhoneNumberCountryResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListPhoneNumberCountryResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

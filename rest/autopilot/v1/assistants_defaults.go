@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -18,7 +18,7 @@ import (
 	"strings"
 )
 
-func (c *ApiService) FetchDefaults(AssistantSid string) (*AutopilotV1AssistantDefaults, error) {
+func (c *ApiService) FetchDefaults(AssistantSid string) (*AutopilotV1Defaults, error) {
 	path := "/v1/Assistants/{AssistantSid}/Defaults"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -32,7 +32,7 @@ func (c *ApiService) FetchDefaults(AssistantSid string) (*AutopilotV1AssistantDe
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantDefaults{}
+	ps := &AutopilotV1Defaults{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (params *UpdateDefaultsParams) SetDefaults(Defaults map[string]interface{})
 	return params
 }
 
-func (c *ApiService) UpdateDefaults(AssistantSid string, params *UpdateDefaultsParams) (*AutopilotV1AssistantDefaults, error) {
+func (c *ApiService) UpdateDefaults(AssistantSid string, params *UpdateDefaultsParams) (*AutopilotV1Defaults, error) {
 	path := "/v1/Assistants/{AssistantSid}/Defaults"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -74,7 +74,7 @@ func (c *ApiService) UpdateDefaults(AssistantSid string, params *UpdateDefaultsP
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantDefaults{}
+	ps := &AutopilotV1Defaults{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

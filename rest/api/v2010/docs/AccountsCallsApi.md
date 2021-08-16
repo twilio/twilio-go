@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateCall
 
-> ApiV2010AccountCall CreateCall(ctx, optional)
+> ApiV2010Call CreateCall(ctx, optional)
 
 
 
@@ -61,6 +61,7 @@ Name | Type | Description
 **StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. If no &#x60;status_callback_event&#x60; is specified, we will send the &#x60;completed&#x60; status. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
 **StatusCallbackEvent** | **[]string** | The call progress events that we will send to the &#x60;status_callback&#x60; URL. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, and &#x60;completed&#x60;. If no event is specified, we send the &#x60;completed&#x60; status. If you want to receive multiple events, specify each one in a separate &#x60;status_callback_event&#x60; parameter. See the code sample for [monitoring call progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample&#x3D;code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version&#x3D;json). If an &#x60;application_sid&#x60; is present, this parameter is ignored.
 **StatusCallbackMethod** | **string** | The HTTP method we should use when calling the &#x60;status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
+**TimeLimit** | **int** | The maximum duration of the call in seconds. Constraints depend on account and configuration.
 **Timeout** | **int** | The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is &#x60;60&#x60; seconds and the maximum is &#x60;600&#x60; seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as &#x60;15&#x60; seconds, to hang up before reaching an answering machine or voicemail.
 **To** | **string** | The phone number, SIP address, or client identifier to call.
 **Trim** | **string** | Whether to trim any leading and trailing silence from the recording. Can be: &#x60;trim-silence&#x60; or &#x60;do-not-trim&#x60; and the default is &#x60;trim-silence&#x60;.
@@ -69,7 +70,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCall**](ApiV2010AccountCall.md)
+[**ApiV2010Call**](ApiV2010Call.md)
 
 ### Authorization
 
@@ -130,7 +131,7 @@ Name | Type | Description
 
 ## FetchCall
 
-> ApiV2010AccountCall FetchCall(ctx, Sidoptional)
+> ApiV2010Call FetchCall(ctx, Sidoptional)
 
 
 
@@ -155,7 +156,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCall**](ApiV2010AccountCall.md)
+[**ApiV2010Call**](ApiV2010Call.md)
 
 ### Authorization
 
@@ -224,7 +225,7 @@ Name | Type | Description
 
 ## UpdateCall
 
-> ApiV2010AccountCall UpdateCall(ctx, Sidoptional)
+> ApiV2010Call UpdateCall(ctx, Sidoptional)
 
 
 
@@ -252,12 +253,13 @@ Name | Type | Description
 **Status** | **string** | The new status of the resource. Can be: &#x60;canceled&#x60; or &#x60;completed&#x60;. Specifying &#x60;canceled&#x60; will attempt to hang up calls that are queued or ringing; however, it will not affect calls already in progress. Specifying &#x60;completed&#x60; will attempt to hang up a call even if it&#39;s already in progress.
 **StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application. If no &#x60;status_callback_event&#x60; is specified, we will send the &#x60;completed&#x60; status. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
 **StatusCallbackMethod** | **string** | The HTTP method we should use when requesting the &#x60;status_callback&#x60; URL. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. If an &#x60;application_sid&#x60; parameter is present, this parameter is ignored.
+**TimeLimit** | **int** | The maximum duration of the call in seconds. Constraints depend on account and configuration.
 **Twiml** | **string** | TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
 **Url** | **string** | The absolute URL that returns the TwiML instructions for the call. We will call this URL using the &#x60;method&#x60; when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
 
 ### Return type
 
-[**ApiV2010AccountCall**](ApiV2010AccountCall.md)
+[**ApiV2010Call**](ApiV2010Call.md)
 
 ### Authorization
 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -69,7 +69,7 @@ func (params *CreateBundleParams) SetStatusCallback(StatusCallback string) *Crea
 }
 
 // Create a new Bundle.
-func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2RegulatoryComplianceBundle, error) {
+func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Bundle, error) {
 	path := "/v2/RegulatoryCompliance/Bundles"
 
 	data := url.Values{}
@@ -103,7 +103,7 @@ func (c *ApiService) CreateBundle(params *CreateBundleParams) (*NumbersV2Regulat
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceBundle{}
+	ps := &NumbersV2Bundle{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -130,7 +130,7 @@ func (c *ApiService) DeleteBundle(Sid string) error {
 }
 
 // Fetch a specific Bundle instance.
-func (c *ApiService) FetchBundle(Sid string) (*NumbersV2RegulatoryComplianceBundle, error) {
+func (c *ApiService) FetchBundle(Sid string) (*NumbersV2Bundle, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -144,7 +144,7 @@ func (c *ApiService) FetchBundle(Sid string) (*NumbersV2RegulatoryComplianceBund
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceBundle{}
+	ps := &NumbersV2Bundle{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -247,7 +247,7 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken string, page
 }
 
 // Lists Bundle records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBundle(params *ListBundleParams) ([]NumbersV2RegulatoryComplianceBundle, error) {
+func (c *ApiService) ListBundle(params *ListBundleParams) ([]NumbersV2Bundle, error) {
 	if params == nil {
 		params = &ListBundleParams{}
 	}
@@ -259,13 +259,13 @@ func (c *ApiService) ListBundle(params *ListBundleParams) ([]NumbersV2Regulatory
 	}
 
 	curRecord := 0
-	var records []NumbersV2RegulatoryComplianceBundle
+	var records []NumbersV2Bundle
 
 	for response != nil {
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBundleResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBundleResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -276,7 +276,7 @@ func (c *ApiService) ListBundle(params *ListBundleParams) ([]NumbersV2Regulatory
 }
 
 // Streams Bundle records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBundle(params *ListBundleParams) (chan NumbersV2RegulatoryComplianceBundle, error) {
+func (c *ApiService) StreamBundle(params *ListBundleParams) (chan NumbersV2Bundle, error) {
 	if params == nil {
 		params = &ListBundleParams{}
 	}
@@ -289,7 +289,7 @@ func (c *ApiService) StreamBundle(params *ListBundleParams) (chan NumbersV2Regul
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan NumbersV2RegulatoryComplianceBundle, 1)
+	channel := make(chan NumbersV2Bundle, 1)
 
 	go func() {
 		for response != nil {
@@ -298,7 +298,7 @@ func (c *ApiService) StreamBundle(params *ListBundleParams) (chan NumbersV2Regul
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBundleResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBundleResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -311,11 +311,11 @@ func (c *ApiService) StreamBundle(params *ListBundleParams) (chan NumbersV2Regul
 	return channel, err
 }
 
-func (c *ApiService) getNextListBundleResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListBundleResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -359,7 +359,7 @@ func (params *UpdateBundleParams) SetStatusCallback(StatusCallback string) *Upda
 }
 
 // Updates a Bundle in an account.
-func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*NumbersV2RegulatoryComplianceBundle, error) {
+func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*NumbersV2Bundle, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -385,7 +385,7 @@ func (c *ApiService) UpdateBundle(Sid string, params *UpdateBundleParams) (*Numb
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceBundle{}
+	ps := &NumbersV2Bundle{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

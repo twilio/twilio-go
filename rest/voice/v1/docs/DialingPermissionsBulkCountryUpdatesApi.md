@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateDialingPermissionsCountryBulkUpdate
 
-> VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate CreateDialingPermissionsCountryBulkUpdate(ctx, optional)
+> VoiceV1DialingPermissionsCountryBulkUpdate CreateDialingPermissionsCountryBulkUpdate(ctx, optional)
 
 
 
@@ -31,7 +31,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate**](VoiceV1DialingPermissionsDialingPermissionsCountryBulkUpdate.md)
+[**VoiceV1DialingPermissionsCountryBulkUpdate**](VoiceV1DialingPermissionsCountryBulkUpdate.md)
 
 ### Authorization
 

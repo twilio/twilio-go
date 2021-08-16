@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -36,7 +36,7 @@ func (params *CreateAccessTokenParams) SetIdentity(Identity string) *CreateAcces
 }
 
 // Create a new enrollment Access Token for the Entity
-func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTokenParams) (*VerifyV2ServiceAccessToken, error) {
+func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTokenParams) (*VerifyV2AccessToken, error) {
 	path := "/v2/Services/{ServiceSid}/AccessTokens"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -56,7 +56,7 @@ func (c *ApiService) CreateAccessToken(ServiceSid string, params *CreateAccessTo
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceAccessToken{}
+	ps := &VerifyV2AccessToken{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

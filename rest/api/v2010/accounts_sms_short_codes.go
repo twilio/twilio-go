@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -33,7 +33,7 @@ func (params *FetchShortCodeParams) SetPathAccountSid(PathAccountSid string) *Fe
 }
 
 // Fetch an instance of a short code
-func (c *ApiService) FetchShortCode(Sid string, params *FetchShortCodeParams) (*ApiV2010AccountShortCode, error) {
+func (c *ApiService) FetchShortCode(Sid string, params *FetchShortCodeParams) (*ApiV2010ShortCode, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -52,7 +52,7 @@ func (c *ApiService) FetchShortCode(Sid string, params *FetchShortCodeParams) (*
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountShortCode{}
+	ps := &ApiV2010ShortCode{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -140,7 +140,7 @@ func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken string
 }
 
 // Lists ShortCode records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListShortCode(params *ListShortCodeParams) ([]ApiV2010AccountShortCode, error) {
+func (c *ApiService) ListShortCode(params *ListShortCodeParams) ([]ApiV2010ShortCode, error) {
 	if params == nil {
 		params = &ListShortCodeParams{}
 	}
@@ -152,13 +152,13 @@ func (c *ApiService) ListShortCode(params *ListShortCodeParams) ([]ApiV2010Accou
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountShortCode
+	var records []ApiV2010ShortCode
 
 	for response != nil {
 		records = append(records, response.ShortCodes...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListShortCodeResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListShortCodeResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -169,7 +169,7 @@ func (c *ApiService) ListShortCode(params *ListShortCodeParams) ([]ApiV2010Accou
 }
 
 // Streams ShortCode records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamShortCode(params *ListShortCodeParams) (chan ApiV2010AccountShortCode, error) {
+func (c *ApiService) StreamShortCode(params *ListShortCodeParams) (chan ApiV2010ShortCode, error) {
 	if params == nil {
 		params = &ListShortCodeParams{}
 	}
@@ -182,7 +182,7 @@ func (c *ApiService) StreamShortCode(params *ListShortCodeParams) (chan ApiV2010
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountShortCode, 1)
+	channel := make(chan ApiV2010ShortCode, 1)
 
 	go func() {
 		for response != nil {
@@ -191,7 +191,7 @@ func (c *ApiService) StreamShortCode(params *ListShortCodeParams) (chan ApiV2010
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListShortCodeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListShortCodeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -204,11 +204,11 @@ func (c *ApiService) StreamShortCode(params *ListShortCodeParams) (chan ApiV2010
 	return channel, err
 }
 
-func (c *ApiService) getNextListShortCodeResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListShortCodeResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -270,7 +270,7 @@ func (params *UpdateShortCodeParams) SetSmsUrl(SmsUrl string) *UpdateShortCodePa
 }
 
 // Update a short code with the following parameters
-func (c *ApiService) UpdateShortCode(Sid string, params *UpdateShortCodeParams) (*ApiV2010AccountShortCode, error) {
+func (c *ApiService) UpdateShortCode(Sid string, params *UpdateShortCodeParams) (*ApiV2010ShortCode, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -307,7 +307,7 @@ func (c *ApiService) UpdateShortCode(Sid string, params *UpdateShortCodeParams) 
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountShortCode{}
+	ps := &ApiV2010ShortCode{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

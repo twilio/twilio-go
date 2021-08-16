@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -44,7 +44,7 @@ func (params *CreateDocumentParams) SetUniqueName(UniqueName string) *CreateDocu
 	return params
 }
 
-func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentParams) (*SyncV1ServiceDocument, error) {
+func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -73,7 +73,7 @@ func (c *ApiService) CreateDocument(ServiceSid string, params *CreateDocumentPar
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceDocument{}
+	ps := &SyncV1Document{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -99,7 +99,7 @@ func (c *ApiService) DeleteDocument(ServiceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1ServiceDocument, error) {
+func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -114,7 +114,7 @@ func (c *ApiService) FetchDocument(ServiceSid string, Sid string) (*SyncV1Servic
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceDocument{}
+	ps := &SyncV1Document{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -174,7 +174,7 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 }
 
 // Lists Document records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams) ([]SyncV1ServiceDocument, error) {
+func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams) ([]SyncV1Document, error) {
 	if params == nil {
 		params = &ListDocumentParams{}
 	}
@@ -186,13 +186,13 @@ func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams)
 	}
 
 	curRecord := 0
-	var records []SyncV1ServiceDocument
+	var records []SyncV1Document
 
 	for response != nil {
 		records = append(records, response.Documents...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -203,7 +203,7 @@ func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams)
 }
 
 // Streams Document records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParams) (chan SyncV1ServiceDocument, error) {
+func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParams) (chan SyncV1Document, error) {
 	if params == nil {
 		params = &ListDocumentParams{}
 	}
@@ -216,7 +216,7 @@ func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParam
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan SyncV1ServiceDocument, 1)
+	channel := make(chan SyncV1Document, 1)
 
 	go func() {
 		for response != nil {
@@ -225,7 +225,7 @@ func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParam
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -238,11 +238,11 @@ func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParam
 	return channel, err
 }
 
-func (c *ApiService) getNextListDocumentResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListDocumentResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -279,7 +279,7 @@ func (params *UpdateDocumentParams) SetTtl(Ttl int) *UpdateDocumentParams {
 	return params
 }
 
-func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1ServiceDocument, error) {
+func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *UpdateDocumentParams) (*SyncV1Document, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -309,7 +309,7 @@ func (c *ApiService) UpdateDocument(ServiceSid string, Sid string, params *Updat
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceDocument{}
+	ps := &SyncV1Document{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

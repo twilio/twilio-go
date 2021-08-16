@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -23,7 +23,7 @@ import (
 )
 
 // Retrieve a specific log.
-func (c *ApiService) FetchLog(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1ServiceEnvironmentLog, error) {
+func (c *ApiService) FetchLog(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1Log, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -39,7 +39,7 @@ func (c *ApiService) FetchLog(ServiceSid string, EnvironmentSid string, Sid stri
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceEnvironmentLog{}
+	ps := &ServerlessV1Log{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -127,7 +127,7 @@ func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *L
 }
 
 // Lists Log records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) ([]ServerlessV1ServiceEnvironmentLog, error) {
+func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) ([]ServerlessV1Log, error) {
 	if params == nil {
 		params = &ListLogParams{}
 	}
@@ -139,13 +139,13 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 	}
 
 	curRecord := 0
-	var records []ServerlessV1ServiceEnvironmentLog
+	var records []ServerlessV1Log
 
 	for response != nil {
 		records = append(records, response.Logs...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListLogResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListLogResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -156,7 +156,7 @@ func (c *ApiService) ListLog(ServiceSid string, EnvironmentSid string, params *L
 }
 
 // Streams Log records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) (chan ServerlessV1ServiceEnvironmentLog, error) {
+func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params *ListLogParams) (chan ServerlessV1Log, error) {
 	if params == nil {
 		params = &ListLogParams{}
 	}
@@ -169,7 +169,7 @@ func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ServerlessV1ServiceEnvironmentLog, 1)
+	channel := make(chan ServerlessV1Log, 1)
 
 	go func() {
 		for response != nil {
@@ -178,7 +178,7 @@ func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListLogResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListLogResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -191,11 +191,11 @@ func (c *ApiService) StreamLog(ServiceSid string, EnvironmentSid string, params 
 	return channel, err
 }
 
-func (c *ApiService) getNextListLogResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListLogResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

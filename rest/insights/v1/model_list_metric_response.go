@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -14,5 +14,5 @@ package openapi
 // ListMetricResponse struct for ListMetricResponse
 type ListMetricResponse struct {
 	Meta    ListVideoRoomSummaryResponseMeta `json:"meta,omitempty"`
-	Metrics []InsightsV1CallMetric           `json:"metrics,omitempty"`
+	Metrics []InsightsV1Metric               `json:"metrics,omitempty"`
 }

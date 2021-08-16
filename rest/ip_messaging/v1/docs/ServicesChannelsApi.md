@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateChannel
 
-> IpMessagingV1ServiceChannel CreateChannel(ctx, ServiceSidoptional)
+> IpMessagingV1Channel CreateChannel(ctx, ServiceSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV1ServiceChannel**](IpMessagingV1ServiceChannel.md)
+[**IpMessagingV1Channel**](IpMessagingV1Channel.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchChannel
 
-> IpMessagingV1ServiceChannel FetchChannel(ctx, ServiceSidSid)
+> IpMessagingV1Channel FetchChannel(ctx, ServiceSidSid)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV1ServiceChannel**](IpMessagingV1ServiceChannel.md)
+[**IpMessagingV1Channel**](IpMessagingV1Channel.md)
 
 ### Authorization
 
@@ -183,7 +183,7 @@ Name | Type | Description
 
 ## UpdateChannel
 
-> IpMessagingV1ServiceChannel UpdateChannel(ctx, ServiceSidSidoptional)
+> IpMessagingV1Channel UpdateChannel(ctx, ServiceSidSidoptional)
 
 
 
@@ -209,7 +209,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV1ServiceChannel**](IpMessagingV1ServiceChannel.md)
+[**IpMessagingV1Channel**](IpMessagingV1Channel.md)
 
 ### Authorization
 

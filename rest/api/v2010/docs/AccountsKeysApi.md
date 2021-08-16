@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateNewKey
 
-> ApiV2010AccountNewKey CreateNewKey(ctx, optional)
+> ApiV2010NewKey CreateNewKey(ctx, optional)
 
 
 
@@ -34,7 +34,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountNewKey**](ApiV2010AccountNewKey.md)
+[**ApiV2010NewKey**](ApiV2010NewKey.md)
 
 ### Authorization
 
@@ -93,7 +93,7 @@ Name | Type | Description
 
 ## FetchKey
 
-> ApiV2010AccountKey FetchKey(ctx, Sidoptional)
+> ApiV2010Key FetchKey(ctx, Sidoptional)
 
 
 
@@ -116,7 +116,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountKey**](ApiV2010AccountKey.md)
+[**ApiV2010Key**](ApiV2010Key.md)
 
 ### Authorization
 
@@ -173,7 +173,7 @@ Name | Type | Description
 
 ## UpdateKey
 
-> ApiV2010AccountKey UpdateKey(ctx, Sidoptional)
+> ApiV2010Key UpdateKey(ctx, Sidoptional)
 
 
 
@@ -197,7 +197,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountKey**](ApiV2010AccountKey.md)
+[**ApiV2010Key**](ApiV2010Key.md)
 
 ### Authorization
 

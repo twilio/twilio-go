@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -39,7 +39,7 @@ func (params *CreateSipAuthCallsCredentialListMappingParams) SetCredentialListSi
 }
 
 // Create a new credential list mapping resource
-func (c *ApiService) CreateSipAuthCallsCredentialListMapping(DomainSid string, params *CreateSipAuthCallsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
+func (c *ApiService) CreateSipAuthCallsCredentialListMapping(DomainSid string, params *CreateSipAuthCallsCredentialListMappingParams) (*ApiV2010SipAuthCallsCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -61,7 +61,7 @@ func (c *ApiService) CreateSipAuthCallsCredentialListMapping(DomainSid string, p
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping{}
+	ps := &ApiV2010SipAuthCallsCredentialListMapping{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -116,7 +116,7 @@ func (params *FetchSipAuthCallsCredentialListMappingParams) SetPathAccountSid(Pa
 }
 
 // Fetch a specific instance of a credential list mapping
-func (c *ApiService) FetchSipAuthCallsCredentialListMapping(DomainSid string, Sid string, params *FetchSipAuthCallsCredentialListMappingParams) (*ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
+func (c *ApiService) FetchSipAuthCallsCredentialListMapping(DomainSid string, Sid string, params *FetchSipAuthCallsCredentialListMappingParams) (*ApiV2010SipAuthCallsCredentialListMapping, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -136,7 +136,7 @@ func (c *ApiService) FetchSipAuthCallsCredentialListMapping(DomainSid string, Si
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping{}
+	ps := &ApiV2010SipAuthCallsCredentialListMapping{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -207,7 +207,7 @@ func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, par
 }
 
 // Lists SipAuthCallsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) ([]ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
+func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) ([]ApiV2010SipAuthCallsCredentialListMapping, error) {
 	if params == nil {
 		params = &ListSipAuthCallsCredentialListMappingParams{}
 	}
@@ -219,13 +219,13 @@ func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, par
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping
+	var records []ApiV2010SipAuthCallsCredentialListMapping
 
 	for response != nil {
 		records = append(records, response.Contents...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipAuthCallsCredentialListMappingResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSipAuthCallsCredentialListMappingResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -236,7 +236,7 @@ func (c *ApiService) ListSipAuthCallsCredentialListMapping(DomainSid string, par
 }
 
 // Streams SipAuthCallsCredentialListMapping records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) (chan ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, error) {
+func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams) (chan ApiV2010SipAuthCallsCredentialListMapping, error) {
 	if params == nil {
 		params = &ListSipAuthCallsCredentialListMappingParams{}
 	}
@@ -249,7 +249,7 @@ func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, p
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountSipSipDomainSipAuthSipAuthCallsSipAuthCallsCredentialListMapping, 1)
+	channel := make(chan ApiV2010SipAuthCallsCredentialListMapping, 1)
 
 	go func() {
 		for response != nil {
@@ -258,7 +258,7 @@ func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, p
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSipAuthCallsCredentialListMappingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSipAuthCallsCredentialListMappingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -271,11 +271,11 @@ func (c *ApiService) StreamSipAuthCallsCredentialListMapping(DomainSid string, p
 	return channel, err
 }
 
-func (c *ApiService) getNextListSipAuthCallsCredentialListMappingResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSipAuthCallsCredentialListMappingResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

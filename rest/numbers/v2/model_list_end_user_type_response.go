@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListEndUserTypeResponse struct for ListEndUserTypeResponse
 type ListEndUserTypeResponse struct {
-	EndUserTypes []NumbersV2RegulatoryComplianceEndUserType `json:"end_user_types,omitempty"`
-	Meta         ListBundleResponseMeta                     `json:"meta,omitempty"`
+	EndUserTypes []NumbersV2EndUserType `json:"end_user_types,omitempty"`
+	Meta         ListBundleResponseMeta `json:"meta,omitempty"`
 }

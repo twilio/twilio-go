@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListEventResponse struct for ListEventResponse
 type ListEventResponse struct {
-	Events []TaskrouterV1WorkspaceEvent `json:"events,omitempty"`
-	Meta   ListWorkspaceResponseMeta    `json:"meta,omitempty"`
+	Events []TaskrouterV1Event       `json:"events,omitempty"`
+	Meta   ListWorkspaceResponseMeta `json:"meta,omitempty"`
 }

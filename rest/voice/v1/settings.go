@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -18,7 +18,7 @@ import (
 )
 
 // Retrieve voice dialing permissions inheritance for the sub-account
-func (c *ApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPermissionsDialingPermissionsSettings, error) {
+func (c *ApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPermissionsSettings, error) {
 	path := "/v1/Settings"
 
 	data := url.Values{}
@@ -31,7 +31,7 @@ func (c *ApiService) FetchDialingPermissionsSettings() (*VoiceV1DialingPermissio
 
 	defer resp.Body.Close()
 
-	ps := &VoiceV1DialingPermissionsDialingPermissionsSettings{}
+	ps := &VoiceV1DialingPermissionsSettings{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (params *UpdateDialingPermissionsSettingsParams) SetDialingPermissionsInher
 }
 
 // Update voice dialing permissions inheritance for the sub-account
-func (c *ApiService) UpdateDialingPermissionsSettings(params *UpdateDialingPermissionsSettingsParams) (*VoiceV1DialingPermissionsDialingPermissionsSettings, error) {
+func (c *ApiService) UpdateDialingPermissionsSettings(params *UpdateDialingPermissionsSettingsParams) (*VoiceV1DialingPermissionsSettings, error) {
 	path := "/v1/Settings"
 
 	data := url.Values{}
@@ -67,7 +67,7 @@ func (c *ApiService) UpdateDialingPermissionsSettings(params *UpdateDialingPermi
 
 	defer resp.Body.Close()
 
-	ps := &VoiceV1DialingPermissionsDialingPermissionsSettings{}
+	ps := &VoiceV1DialingPermissionsSettings{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

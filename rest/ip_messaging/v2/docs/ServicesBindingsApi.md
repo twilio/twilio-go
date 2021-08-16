@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## FetchBinding
 
-> IpMessagingV2ServiceBinding FetchBinding(ctx, ServiceSidSid)
+> IpMessagingV2Binding FetchBinding(ctx, ServiceSidSid)
 
 
 
@@ -76,7 +76,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV2ServiceBinding**](IpMessagingV2ServiceBinding.md)
+[**IpMessagingV2Binding**](IpMessagingV2Binding.md)
 
 ### Authorization
 

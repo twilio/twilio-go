@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -18,7 +18,7 @@ import (
 	"strings"
 )
 
-func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1TrunkRecording, error) {
+func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1Recording, error) {
 	path := "/v1/Trunks/{TrunkSid}/Recording"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
@@ -32,7 +32,7 @@ func (c *ApiService) FetchRecording(TrunkSid string) (*TrunkingV1TrunkRecording,
 
 	defer resp.Body.Close()
 
-	ps := &TrunkingV1TrunkRecording{}
+	ps := &TrunkingV1Recording{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (params *UpdateRecordingParams) SetTrim(Trim string) *UpdateRecordingParams
 	return params
 }
 
-func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingParams) (*TrunkingV1TrunkRecording, error) {
+func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingParams) (*TrunkingV1Recording, error) {
 	path := "/v1/Trunks/{TrunkSid}/Recording"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
@@ -77,7 +77,7 @@ func (c *ApiService) UpdateRecording(TrunkSid string, params *UpdateRecordingPar
 
 	defer resp.Body.Close()
 
-	ps := &TrunkingV1TrunkRecording{}
+	ps := &TrunkingV1Recording{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

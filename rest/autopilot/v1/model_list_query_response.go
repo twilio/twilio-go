@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListQueryResponse struct for ListQueryResponse
 type ListQueryResponse struct {
-	Meta    ListAssistantResponseMeta   `json:"meta,omitempty"`
-	Queries []AutopilotV1AssistantQuery `json:"queries,omitempty"`
+	Meta    ListAssistantResponseMeta `json:"meta,omitempty"`
+	Queries []AutopilotV1Query        `json:"queries,omitempty"`
 }

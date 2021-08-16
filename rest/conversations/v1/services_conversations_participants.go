@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -82,7 +82,7 @@ func (params *CreateServiceConversationParticipantParams) SetRoleSid(RoleSid str
 }
 
 // Add a new participant to the conversation in a specific service
-func (c *ApiService) CreateServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *CreateServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
+func (c *ApiService) CreateServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *CreateServiceConversationParticipantParams) (*ConversationsV1ServiceConversationParticipant, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -124,7 +124,7 @@ func (c *ApiService) CreateServiceConversationParticipant(ChatServiceSid string,
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceConversationServiceConversationParticipant{}
+	ps := &ConversationsV1ServiceConversationParticipant{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -167,7 +167,7 @@ func (c *ApiService) DeleteServiceConversationParticipant(ChatServiceSid string,
 }
 
 // Fetch a participant of the conversation
-func (c *ApiService) FetchServiceConversationParticipant(ChatServiceSid string, ConversationSid string, Sid string) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
+func (c *ApiService) FetchServiceConversationParticipant(ChatServiceSid string, ConversationSid string, Sid string) (*ConversationsV1ServiceConversationParticipant, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -183,7 +183,7 @@ func (c *ApiService) FetchServiceConversationParticipant(ChatServiceSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceConversationServiceConversationParticipant{}
+	ps := &ConversationsV1ServiceConversationParticipant{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -244,7 +244,7 @@ func (c *ApiService) PageServiceConversationParticipant(ChatServiceSid string, C
 }
 
 // Lists ServiceConversationParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams) ([]ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
+func (c *ApiService) ListServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams) ([]ConversationsV1ServiceConversationParticipant, error) {
 	if params == nil {
 		params = &ListServiceConversationParticipantParams{}
 	}
@@ -256,13 +256,13 @@ func (c *ApiService) ListServiceConversationParticipant(ChatServiceSid string, C
 	}
 
 	curRecord := 0
-	var records []ConversationsV1ServiceServiceConversationServiceConversationParticipant
+	var records []ConversationsV1ServiceConversationParticipant
 
 	for response != nil {
 		records = append(records, response.Participants...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceConversationParticipantResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListServiceConversationParticipantResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -273,7 +273,7 @@ func (c *ApiService) ListServiceConversationParticipant(ChatServiceSid string, C
 }
 
 // Streams ServiceConversationParticipant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams) (chan ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
+func (c *ApiService) StreamServiceConversationParticipant(ChatServiceSid string, ConversationSid string, params *ListServiceConversationParticipantParams) (chan ConversationsV1ServiceConversationParticipant, error) {
 	if params == nil {
 		params = &ListServiceConversationParticipantParams{}
 	}
@@ -286,7 +286,7 @@ func (c *ApiService) StreamServiceConversationParticipant(ChatServiceSid string,
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ConversationsV1ServiceServiceConversationServiceConversationParticipant, 1)
+	channel := make(chan ConversationsV1ServiceConversationParticipant, 1)
 
 	go func() {
 		for response != nil {
@@ -295,7 +295,7 @@ func (c *ApiService) StreamServiceConversationParticipant(ChatServiceSid string,
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceConversationParticipantResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListServiceConversationParticipantResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -308,11 +308,11 @@ func (c *ApiService) StreamServiceConversationParticipant(ChatServiceSid string,
 	return channel, err
 }
 
-func (c *ApiService) getNextListServiceConversationParticipantResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListServiceConversationParticipantResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -392,7 +392,7 @@ func (params *UpdateServiceConversationParticipantParams) SetRoleSid(RoleSid str
 }
 
 // Update an existing participant in the conversation
-func (c *ApiService) UpdateServiceConversationParticipant(ChatServiceSid string, ConversationSid string, Sid string, params *UpdateServiceConversationParticipantParams) (*ConversationsV1ServiceServiceConversationServiceConversationParticipant, error) {
+func (c *ApiService) UpdateServiceConversationParticipant(ChatServiceSid string, ConversationSid string, Sid string, params *UpdateServiceConversationParticipantParams) (*ConversationsV1ServiceConversationParticipant, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -438,7 +438,7 @@ func (c *ApiService) UpdateServiceConversationParticipant(ChatServiceSid string,
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceConversationServiceConversationParticipant{}
+	ps := &ConversationsV1ServiceConversationParticipant{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

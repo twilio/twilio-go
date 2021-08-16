@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -45,7 +45,7 @@ func (params *CreateEndUserParams) SetType(Type string) *CreateEndUserParams {
 }
 
 // Create a new End User.
-func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*NumbersV2RegulatoryComplianceEndUser, error) {
+func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*NumbersV2EndUser, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers"
 
 	data := url.Values{}
@@ -73,7 +73,7 @@ func (c *ApiService) CreateEndUser(params *CreateEndUserParams) (*NumbersV2Regul
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceEndUser{}
+	ps := &NumbersV2EndUser{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -100,7 +100,7 @@ func (c *ApiService) DeleteEndUser(Sid string) error {
 }
 
 // Fetch specific End User Instance.
-func (c *ApiService) FetchEndUser(Sid string) (*NumbersV2RegulatoryComplianceEndUser, error) {
+func (c *ApiService) FetchEndUser(Sid string) (*NumbersV2EndUser, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -114,7 +114,7 @@ func (c *ApiService) FetchEndUser(Sid string) (*NumbersV2RegulatoryComplianceEnd
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceEndUser{}
+	ps := &NumbersV2EndUser{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -172,7 +172,7 @@ func (c *ApiService) PageEndUser(params *ListEndUserParams, pageToken string, pa
 }
 
 // Lists EndUser records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEndUser(params *ListEndUserParams) ([]NumbersV2RegulatoryComplianceEndUser, error) {
+func (c *ApiService) ListEndUser(params *ListEndUserParams) ([]NumbersV2EndUser, error) {
 	if params == nil {
 		params = &ListEndUserParams{}
 	}
@@ -184,13 +184,13 @@ func (c *ApiService) ListEndUser(params *ListEndUserParams) ([]NumbersV2Regulato
 	}
 
 	curRecord := 0
-	var records []NumbersV2RegulatoryComplianceEndUser
+	var records []NumbersV2EndUser
 
 	for response != nil {
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEndUserResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEndUserResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -201,7 +201,7 @@ func (c *ApiService) ListEndUser(params *ListEndUserParams) ([]NumbersV2Regulato
 }
 
 // Streams EndUser records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEndUser(params *ListEndUserParams) (chan NumbersV2RegulatoryComplianceEndUser, error) {
+func (c *ApiService) StreamEndUser(params *ListEndUserParams) (chan NumbersV2EndUser, error) {
 	if params == nil {
 		params = &ListEndUserParams{}
 	}
@@ -214,7 +214,7 @@ func (c *ApiService) StreamEndUser(params *ListEndUserParams) (chan NumbersV2Reg
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan NumbersV2RegulatoryComplianceEndUser, 1)
+	channel := make(chan NumbersV2EndUser, 1)
 
 	go func() {
 		for response != nil {
@@ -223,7 +223,7 @@ func (c *ApiService) StreamEndUser(params *ListEndUserParams) (chan NumbersV2Reg
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEndUserResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEndUserResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -236,11 +236,11 @@ func (c *ApiService) StreamEndUser(params *ListEndUserParams) (chan NumbersV2Reg
 	return channel, err
 }
 
-func (c *ApiService) getNextListEndUserResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListEndUserResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -272,7 +272,7 @@ func (params *UpdateEndUserParams) SetFriendlyName(FriendlyName string) *UpdateE
 }
 
 // Update an existing End User.
-func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*NumbersV2RegulatoryComplianceEndUser, error) {
+func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*NumbersV2EndUser, error) {
 	path := "/v2/RegulatoryCompliance/EndUsers/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -298,7 +298,7 @@ func (c *ApiService) UpdateEndUser(Sid string, params *UpdateEndUserParams) (*Nu
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceEndUser{}
+	ps := &NumbersV2EndUser{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

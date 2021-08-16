@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -46,7 +46,7 @@ func (params *CreateExecutionParams) SetTo(To string) *CreateExecutionParams {
 }
 
 // Triggers a new Execution for the Flow
-func (c *ApiService) CreateExecution(FlowSid string, params *CreateExecutionParams) (*StudioV2FlowExecution, error) {
+func (c *ApiService) CreateExecution(FlowSid string, params *CreateExecutionParams) (*StudioV2Execution, error) {
 	path := "/v2/Flows/{FlowSid}/Executions"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
@@ -75,7 +75,7 @@ func (c *ApiService) CreateExecution(FlowSid string, params *CreateExecutionPara
 
 	defer resp.Body.Close()
 
-	ps := &StudioV2FlowExecution{}
+	ps := &StudioV2Execution{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -103,7 +103,7 @@ func (c *ApiService) DeleteExecution(FlowSid string, Sid string) error {
 }
 
 // Retrieve an Execution
-func (c *ApiService) FetchExecution(FlowSid string, Sid string) (*StudioV2FlowExecution, error) {
+func (c *ApiService) FetchExecution(FlowSid string, Sid string) (*StudioV2Execution, error) {
 	path := "/v2/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -118,7 +118,7 @@ func (c *ApiService) FetchExecution(FlowSid string, Sid string) (*StudioV2FlowEx
 
 	defer resp.Body.Close()
 
-	ps := &StudioV2FlowExecution{}
+	ps := &StudioV2Execution{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -196,7 +196,7 @@ func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, 
 }
 
 // Lists Execution records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) ([]StudioV2FlowExecution, error) {
+func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) ([]StudioV2Execution, error) {
 	if params == nil {
 		params = &ListExecutionParams{}
 	}
@@ -208,13 +208,13 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) 
 	}
 
 	curRecord := 0
-	var records []StudioV2FlowExecution
+	var records []StudioV2Execution
 
 	for response != nil {
 		records = append(records, response.Executions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListExecutionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListExecutionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -225,7 +225,7 @@ func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) 
 }
 
 // Streams Execution records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams) (chan StudioV2FlowExecution, error) {
+func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams) (chan StudioV2Execution, error) {
 	if params == nil {
 		params = &ListExecutionParams{}
 	}
@@ -238,7 +238,7 @@ func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan StudioV2FlowExecution, 1)
+	channel := make(chan StudioV2Execution, 1)
 
 	go func() {
 		for response != nil {
@@ -247,7 +247,7 @@ func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListExecutionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListExecutionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -260,11 +260,11 @@ func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams
 	return channel, err
 }
 
-func (c *ApiService) getNextListExecutionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListExecutionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -290,7 +290,7 @@ func (params *UpdateExecutionParams) SetStatus(Status string) *UpdateExecutionPa
 }
 
 // Update the status of an Execution to &#x60;ended&#x60;.
-func (c *ApiService) UpdateExecution(FlowSid string, Sid string, params *UpdateExecutionParams) (*StudioV2FlowExecution, error) {
+func (c *ApiService) UpdateExecution(FlowSid string, Sid string, params *UpdateExecutionParams) (*StudioV2Execution, error) {
 	path := "/v2/Flows/{FlowSid}/Executions/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -308,7 +308,7 @@ func (c *ApiService) UpdateExecution(FlowSid string, Sid string, params *UpdateE
 
 	defer resp.Body.Close()
 
-	ps := &StudioV2FlowExecution{}
+	ps := &StudioV2Execution{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

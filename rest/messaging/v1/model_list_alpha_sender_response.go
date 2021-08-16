@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListAlphaSenderResponse struct for ListAlphaSenderResponse
 type ListAlphaSenderResponse struct {
-	AlphaSenders []MessagingV1ServiceAlphaSender `json:"alpha_senders,omitempty"`
-	Meta         ListServiceResponseMeta         `json:"meta,omitempty"`
+	AlphaSenders []MessagingV1AlphaSender `json:"alpha_senders,omitempty"`
+	Meta         ListServiceResponseMeta  `json:"meta,omitempty"`
 }

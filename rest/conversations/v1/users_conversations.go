@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -42,7 +42,7 @@ func (c *ApiService) DeleteUserConversation(UserSid string, ConversationSid stri
 }
 
 // Fetch a specific User Conversation.
-func (c *ApiService) FetchUserConversation(UserSid string, ConversationSid string) (*ConversationsV1UserUserConversation, error) {
+func (c *ApiService) FetchUserConversation(UserSid string, ConversationSid string) (*ConversationsV1UserConversation, error) {
 	path := "/v1/Users/{UserSid}/Conversations/{ConversationSid}"
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -57,7 +57,7 @@ func (c *ApiService) FetchUserConversation(UserSid string, ConversationSid strin
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1UserUserConversation{}
+	ps := &ConversationsV1UserConversation{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -118,7 +118,7 @@ func (c *ApiService) PageUserConversation(UserSid string, params *ListUserConver
 }
 
 // Lists UserConversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUserConversation(UserSid string, params *ListUserConversationParams) ([]ConversationsV1UserUserConversation, error) {
+func (c *ApiService) ListUserConversation(UserSid string, params *ListUserConversationParams) ([]ConversationsV1UserConversation, error) {
 	if params == nil {
 		params = &ListUserConversationParams{}
 	}
@@ -130,13 +130,13 @@ func (c *ApiService) ListUserConversation(UserSid string, params *ListUserConver
 	}
 
 	curRecord := 0
-	var records []ConversationsV1UserUserConversation
+	var records []ConversationsV1UserConversation
 
 	for response != nil {
 		records = append(records, response.Conversations...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUserConversationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUserConversationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -147,7 +147,7 @@ func (c *ApiService) ListUserConversation(UserSid string, params *ListUserConver
 }
 
 // Streams UserConversation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUserConversation(UserSid string, params *ListUserConversationParams) (chan ConversationsV1UserUserConversation, error) {
+func (c *ApiService) StreamUserConversation(UserSid string, params *ListUserConversationParams) (chan ConversationsV1UserConversation, error) {
 	if params == nil {
 		params = &ListUserConversationParams{}
 	}
@@ -160,7 +160,7 @@ func (c *ApiService) StreamUserConversation(UserSid string, params *ListUserConv
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ConversationsV1UserUserConversation, 1)
+	channel := make(chan ConversationsV1UserConversation, 1)
 
 	go func() {
 		for response != nil {
@@ -169,7 +169,7 @@ func (c *ApiService) StreamUserConversation(UserSid string, params *ListUserConv
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUserConversationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUserConversationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -182,11 +182,11 @@ func (c *ApiService) StreamUserConversation(UserSid string, params *ListUserConv
 	return channel, err
 }
 
-func (c *ApiService) getNextListUserConversationResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListUserConversationResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -224,7 +224,7 @@ func (params *UpdateUserConversationParams) SetNotificationLevel(NotificationLev
 }
 
 // Update a specific User Conversation.
-func (c *ApiService) UpdateUserConversation(UserSid string, ConversationSid string, params *UpdateUserConversationParams) (*ConversationsV1UserUserConversation, error) {
+func (c *ApiService) UpdateUserConversation(UserSid string, ConversationSid string, params *UpdateUserConversationParams) (*ConversationsV1UserConversation, error) {
 	path := "/v1/Users/{UserSid}/Conversations/{ConversationSid}"
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -249,7 +249,7 @@ func (c *ApiService) UpdateUserConversation(UserSid string, ConversationSid stri
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1UserUserConversation{}
+	ps := &ConversationsV1UserConversation{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

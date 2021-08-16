@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -22,7 +22,7 @@ import (
 )
 
 // Returns a single Track resource represented by TrackName or SID.
-func (c *ApiService) FetchRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomRoomParticipantRoomParticipantPublishedTrack, error) {
+func (c *ApiService) FetchRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomParticipantPublishedTrack, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
@@ -38,7 +38,7 @@ func (c *ApiService) FetchRoomParticipantPublishedTrack(RoomSid string, Particip
 
 	defer resp.Body.Close()
 
-	ps := &VideoV1RoomRoomParticipantRoomParticipantPublishedTrack{}
+	ps := &VideoV1RoomParticipantPublishedTrack{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -99,7 +99,7 @@ func (c *ApiService) PageRoomParticipantPublishedTrack(RoomSid string, Participa
 }
 
 // Lists RoomParticipantPublishedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) ([]VideoV1RoomRoomParticipantRoomParticipantPublishedTrack, error) {
+func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) ([]VideoV1RoomParticipantPublishedTrack, error) {
 	if params == nil {
 		params = &ListRoomParticipantPublishedTrackParams{}
 	}
@@ -111,13 +111,13 @@ func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, Participa
 	}
 
 	curRecord := 0
-	var records []VideoV1RoomRoomParticipantRoomParticipantPublishedTrack
+	var records []VideoV1RoomParticipantPublishedTrack
 
 	for response != nil {
 		records = append(records, response.PublishedTracks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -128,7 +128,7 @@ func (c *ApiService) ListRoomParticipantPublishedTrack(RoomSid string, Participa
 }
 
 // Streams RoomParticipantPublishedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) (chan VideoV1RoomRoomParticipantRoomParticipantPublishedTrack, error) {
+func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams) (chan VideoV1RoomParticipantPublishedTrack, error) {
 	if params == nil {
 		params = &ListRoomParticipantPublishedTrackParams{}
 	}
@@ -141,7 +141,7 @@ func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, Partici
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VideoV1RoomRoomParticipantRoomParticipantPublishedTrack, 1)
+	channel := make(chan VideoV1RoomParticipantPublishedTrack, 1)
 
 	go func() {
 		for response != nil {
@@ -150,7 +150,7 @@ func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, Partici
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoomParticipantPublishedTrackResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -163,11 +163,11 @@ func (c *ApiService) StreamRoomParticipantPublishedTrack(RoomSid string, Partici
 	return channel, err
 }
 
-func (c *ApiService) getNextListRoomParticipantPublishedTrackResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListRoomParticipantPublishedTrackResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

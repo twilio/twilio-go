@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -29,7 +29,7 @@ func (params *FetchSummaryParams) SetProcessingState(ProcessingState string) *Fe
 	return params
 }
 
-func (c *ApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*InsightsV1CallSummary, error) {
+func (c *ApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*InsightsV1Summary, error) {
 	path := "/v1/Voice/{CallSid}/Summary"
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
 
@@ -46,7 +46,7 @@ func (c *ApiService) FetchSummary(CallSid string, params *FetchSummaryParams) (*
 
 	defer resp.Body.Close()
 
-	ps := &InsightsV1CallSummary{}
+	ps := &InsightsV1Summary{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

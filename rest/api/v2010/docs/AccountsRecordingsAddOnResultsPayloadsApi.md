@@ -57,7 +57,7 @@ Name | Type | Description
 
 ## FetchRecordingAddOnResultPayload
 
-> ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload FetchRecordingAddOnResultPayload(ctx, ReferenceSidAddOnResultSidSidoptional)
+> ApiV2010RecordingAddOnResultPayload FetchRecordingAddOnResultPayload(ctx, ReferenceSidAddOnResultSidSidoptional)
 
 
 
@@ -84,7 +84,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload**](ApiV2010AccountRecordingRecordingAddOnResultRecordingAddOnResultPayload.md)
+[**ApiV2010RecordingAddOnResultPayload**](ApiV2010RecordingAddOnResultPayload.md)
 
 ### Authorization
 

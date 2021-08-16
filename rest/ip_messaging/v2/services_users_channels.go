@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -41,7 +41,7 @@ func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, Channe
 	return nil
 }
 
-func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, ChannelSid string) (*IpMessagingV2ServiceUserUserChannel, error) {
+func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, ChannelSid string) (*IpMessagingV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -57,7 +57,7 @@ func (c *ApiService) FetchUserChannel(ServiceSid string, UserSid string, Channel
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV2ServiceUserUserChannel{}
+	ps := &IpMessagingV2UserChannel{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -118,7 +118,7 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 }
 
 // Lists UserChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) ([]IpMessagingV2ServiceUserUserChannel, error) {
+func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) ([]IpMessagingV2UserChannel, error) {
 	if params == nil {
 		params = &ListUserChannelParams{}
 	}
@@ -130,13 +130,13 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 	}
 
 	curRecord := 0
-	var records []IpMessagingV2ServiceUserUserChannel
+	var records []IpMessagingV2UserChannel
 
 	for response != nil {
 		records = append(records, response.Channels...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUserChannelResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUserChannelResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -147,7 +147,7 @@ func (c *ApiService) ListUserChannel(ServiceSid string, UserSid string, params *
 }
 
 // Streams UserChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) (chan IpMessagingV2ServiceUserUserChannel, error) {
+func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams) (chan IpMessagingV2UserChannel, error) {
 	if params == nil {
 		params = &ListUserChannelParams{}
 	}
@@ -160,7 +160,7 @@ func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan IpMessagingV2ServiceUserUserChannel, 1)
+	channel := make(chan IpMessagingV2UserChannel, 1)
 
 	go func() {
 		for response != nil {
@@ -169,7 +169,7 @@ func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUserChannelResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUserChannelResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -182,11 +182,11 @@ func (c *ApiService) StreamUserChannel(ServiceSid string, UserSid string, params
 	return channel, err
 }
 
-func (c *ApiService) getNextListUserChannelResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListUserChannelResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -223,7 +223,7 @@ func (params *UpdateUserChannelParams) SetNotificationLevel(NotificationLevel st
 	return params
 }
 
-func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, ChannelSid string, params *UpdateUserChannelParams) (*IpMessagingV2ServiceUserUserChannel, error) {
+func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, ChannelSid string, params *UpdateUserChannelParams) (*IpMessagingV2UserChannel, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -248,7 +248,7 @@ func (c *ApiService) UpdateUserChannel(ServiceSid string, UserSid string, Channe
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV2ServiceUserUserChannel{}
+	ps := &IpMessagingV2UserChannel{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -21,7 +21,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-func (c *ApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
+func (c *ApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkerChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
@@ -37,7 +37,7 @@ func (c *ApiService) FetchWorkerChannel(WorkspaceSid string, WorkerSid string, S
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorkerWorkerChannel{}
+	ps := &TaskrouterV1WorkerChannel{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 }
 
 // Lists WorkerChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) ([]TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
+func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) ([]TaskrouterV1WorkerChannel, error) {
 	if params == nil {
 		params = &ListWorkerChannelParams{}
 	}
@@ -110,13 +110,13 @@ func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 	}
 
 	curRecord := 0
-	var records []TaskrouterV1WorkspaceWorkerWorkerChannel
+	var records []TaskrouterV1WorkerChannel
 
 	for response != nil {
 		records = append(records, response.Channels...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWorkerChannelResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWorkerChannelResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -127,7 +127,7 @@ func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 }
 
 // Streams WorkerChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (chan TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
+func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) (chan TaskrouterV1WorkerChannel, error) {
 	if params == nil {
 		params = &ListWorkerChannelParams{}
 	}
@@ -140,7 +140,7 @@ func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1WorkspaceWorkerWorkerChannel, 1)
+	channel := make(chan TaskrouterV1WorkerChannel, 1)
 
 	go func() {
 		for response != nil {
@@ -149,7 +149,7 @@ func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWorkerChannelResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWorkerChannelResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -162,11 +162,11 @@ func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, 
 	return channel, err
 }
 
-func (c *ApiService) getNextListWorkerChannelResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListWorkerChannelResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -197,7 +197,7 @@ func (params *UpdateWorkerChannelParams) SetCapacity(Capacity int) *UpdateWorker
 	return params
 }
 
-func (c *ApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerChannelParams) (*TaskrouterV1WorkspaceWorkerWorkerChannel, error) {
+func (c *ApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerChannelParams) (*TaskrouterV1WorkerChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
@@ -219,7 +219,7 @@ func (c *ApiService) UpdateWorkerChannel(WorkspaceSid string, WorkerSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorkerWorkerChannel{}
+	ps := &TaskrouterV1WorkerChannel{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

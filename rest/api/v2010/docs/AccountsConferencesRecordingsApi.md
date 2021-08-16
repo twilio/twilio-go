@@ -57,7 +57,7 @@ Name | Type | Description
 
 ## FetchConferenceRecording
 
-> ApiV2010AccountConferenceConferenceRecording FetchConferenceRecording(ctx, ConferenceSidSidoptional)
+> ApiV2010ConferenceRecording FetchConferenceRecording(ctx, ConferenceSidSidoptional)
 
 
 
@@ -83,7 +83,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountConferenceConferenceRecording**](ApiV2010AccountConferenceConferenceRecording.md)
+[**ApiV2010ConferenceRecording**](ApiV2010ConferenceRecording.md)
 
 ### Authorization
 
@@ -149,7 +149,7 @@ Name | Type | Description
 
 ## UpdateConferenceRecording
 
-> ApiV2010AccountConferenceConferenceRecording UpdateConferenceRecording(ctx, ConferenceSidSidoptional)
+> ApiV2010ConferenceRecording UpdateConferenceRecording(ctx, ConferenceSidSidoptional)
 
 
 
@@ -177,7 +177,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountConferenceConferenceRecording**](ApiV2010AccountConferenceConferenceRecording.md)
+[**ApiV2010ConferenceRecording**](ApiV2010ConferenceRecording.md)
 
 ### Authorization
 

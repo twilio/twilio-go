@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -25,12 +25,18 @@ import (
 type CreateBrandRegistrationsParams struct {
 	// A2P Messaging Profile Bundle Sid.
 	A2pProfileBundleSid *string `json:"A2pProfileBundleSid,omitempty"`
+	// Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
+	BrandType *string `json:"BrandType,omitempty"`
 	// Customer Profile Bundle Sid.
 	CustomerProfileBundleSid *string `json:"CustomerProfileBundleSid,omitempty"`
 }
 
 func (params *CreateBrandRegistrationsParams) SetA2pProfileBundleSid(A2pProfileBundleSid string) *CreateBrandRegistrationsParams {
 	params.A2pProfileBundleSid = &A2pProfileBundleSid
+	return params
+}
+func (params *CreateBrandRegistrationsParams) SetBrandType(BrandType string) *CreateBrandRegistrationsParams {
+	params.BrandType = &BrandType
 	return params
 }
 func (params *CreateBrandRegistrationsParams) SetCustomerProfileBundleSid(CustomerProfileBundleSid string) *CreateBrandRegistrationsParams {
@@ -44,6 +50,9 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 	data := url.Values{}
 	if params != nil && params.A2pProfileBundleSid != nil {
 		data.Set("A2pProfileBundleSid", *params.A2pProfileBundleSid)
+	}
+	if params != nil && params.BrandType != nil {
+		data.Set("BrandType", *params.BrandType)
 	}
 	if params != nil && params.CustomerProfileBundleSid != nil {
 		data.Set("CustomerProfileBundleSid", *params.CustomerProfileBundleSid)
@@ -155,7 +164,7 @@ func (c *ApiService) ListBrandRegistrations(params *ListBrandRegistrationsParams
 		records = append(records, response.Data...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBrandRegistrationsResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBrandRegistrationsResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -188,7 +197,7 @@ func (c *ApiService) StreamBrandRegistrations(params *ListBrandRegistrationsPara
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBrandRegistrationsResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBrandRegistrationsResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -201,11 +210,11 @@ func (c *ApiService) StreamBrandRegistrations(params *ListBrandRegistrationsPara
 	return channel, err
 }
 
-func (c *ApiService) getNextListBrandRegistrationsResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListBrandRegistrationsResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

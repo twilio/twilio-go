@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListPhoneNumberResponse struct for ListPhoneNumberResponse
 type ListPhoneNumberResponse struct {
-	Meta         ListServiceResponseMeta         `json:"meta,omitempty"`
-	PhoneNumbers []MessagingV1ServicePhoneNumber `json:"phone_numbers,omitempty"`
+	Meta         ListServiceResponseMeta  `json:"meta,omitempty"`
+	PhoneNumbers []MessagingV1PhoneNumber `json:"phone_numbers,omitempty"`
 }

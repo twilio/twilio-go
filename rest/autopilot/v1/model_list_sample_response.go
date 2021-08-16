@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListSampleResponse struct for ListSampleResponse
 type ListSampleResponse struct {
-	Meta    ListAssistantResponseMeta        `json:"meta,omitempty"`
-	Samples []AutopilotV1AssistantTaskSample `json:"samples,omitempty"`
+	Meta    ListAssistantResponseMeta `json:"meta,omitempty"`
+	Samples []AutopilotV1Sample       `json:"samples,omitempty"`
 }

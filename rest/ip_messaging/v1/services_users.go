@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -50,7 +50,7 @@ func (params *CreateUserParams) SetRoleSid(RoleSid string) *CreateUserParams {
 	return params
 }
 
-func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*IpMessagingV1ServiceUser, error) {
+func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*IpMessagingV1User, error) {
 	path := "/v1/Services/{ServiceSid}/Users"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -76,7 +76,7 @@ func (c *ApiService) CreateUser(ServiceSid string, params *CreateUserParams) (*I
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV1ServiceUser{}
+	ps := &IpMessagingV1User{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -102,7 +102,7 @@ func (c *ApiService) DeleteUser(ServiceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchUser(ServiceSid string, Sid string) (*IpMessagingV1ServiceUser, error) {
+func (c *ApiService) FetchUser(ServiceSid string, Sid string) (*IpMessagingV1User, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -117,7 +117,7 @@ func (c *ApiService) FetchUser(ServiceSid string, Sid string) (*IpMessagingV1Ser
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV1ServiceUser{}
+	ps := &IpMessagingV1User{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -177,7 +177,7 @@ func (c *ApiService) PageUser(ServiceSid string, params *ListUserParams, pageTok
 }
 
 // Lists User records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams) ([]IpMessagingV1ServiceUser, error) {
+func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams) ([]IpMessagingV1User, error) {
 	if params == nil {
 		params = &ListUserParams{}
 	}
@@ -189,13 +189,13 @@ func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams) ([]IpMe
 	}
 
 	curRecord := 0
-	var records []IpMessagingV1ServiceUser
+	var records []IpMessagingV1User
 
 	for response != nil {
 		records = append(records, response.Users...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUserResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUserResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -206,7 +206,7 @@ func (c *ApiService) ListUser(ServiceSid string, params *ListUserParams) ([]IpMe
 }
 
 // Streams User records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams) (chan IpMessagingV1ServiceUser, error) {
+func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams) (chan IpMessagingV1User, error) {
 	if params == nil {
 		params = &ListUserParams{}
 	}
@@ -219,7 +219,7 @@ func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams) (chan
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan IpMessagingV1ServiceUser, 1)
+	channel := make(chan IpMessagingV1User, 1)
 
 	go func() {
 		for response != nil {
@@ -228,7 +228,7 @@ func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams) (chan
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUserResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUserResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -241,11 +241,11 @@ func (c *ApiService) StreamUser(ServiceSid string, params *ListUserParams) (chan
 	return channel, err
 }
 
-func (c *ApiService) getNextListUserResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListUserResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -282,7 +282,7 @@ func (params *UpdateUserParams) SetRoleSid(RoleSid string) *UpdateUserParams {
 	return params
 }
 
-func (c *ApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUserParams) (*IpMessagingV1ServiceUser, error) {
+func (c *ApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUserParams) (*IpMessagingV1User, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -306,7 +306,7 @@ func (c *ApiService) UpdateUser(ServiceSid string, Sid string, params *UpdateUse
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV1ServiceUser{}
+	ps := &IpMessagingV1User{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

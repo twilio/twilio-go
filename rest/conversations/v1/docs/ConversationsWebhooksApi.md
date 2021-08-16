@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateConversationScopedWebhook
 
-> ConversationsV1ConversationConversationScopedWebhook CreateConversationScopedWebhook(ctx, ConversationSidoptional)
+> ConversationsV1ConversationScopedWebhook CreateConversationScopedWebhook(ctx, ConversationSidoptional)
 
 
 
@@ -45,7 +45,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ConversationConversationScopedWebhook**](ConversationsV1ConversationConversationScopedWebhook.md)
+[**ConversationsV1ConversationScopedWebhook**](ConversationsV1ConversationScopedWebhook.md)
 
 ### Authorization
 
@@ -106,7 +106,7 @@ Name | Type | Description
 
 ## FetchConversationScopedWebhook
 
-> ConversationsV1ConversationConversationScopedWebhook FetchConversationScopedWebhook(ctx, ConversationSidSid)
+> ConversationsV1ConversationScopedWebhook FetchConversationScopedWebhook(ctx, ConversationSidSid)
 
 
 
@@ -131,7 +131,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ConversationConversationScopedWebhook**](ConversationsV1ConversationConversationScopedWebhook.md)
+[**ConversationsV1ConversationScopedWebhook**](ConversationsV1ConversationScopedWebhook.md)
 
 ### Authorization
 
@@ -193,7 +193,7 @@ Name | Type | Description
 
 ## UpdateConversationScopedWebhook
 
-> ConversationsV1ConversationConversationScopedWebhook UpdateConversationScopedWebhook(ctx, ConversationSidSidoptional)
+> ConversationsV1ConversationScopedWebhook UpdateConversationScopedWebhook(ctx, ConversationSidSidoptional)
 
 
 
@@ -223,7 +223,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ConversationConversationScopedWebhook**](ConversationsV1ConversationConversationScopedWebhook.md)
+[**ConversationsV1ConversationScopedWebhook**](ConversationsV1ConversationScopedWebhook.md)
 
 ### Authorization
 

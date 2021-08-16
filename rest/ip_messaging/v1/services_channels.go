@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -50,7 +50,7 @@ func (params *CreateChannelParams) SetUniqueName(UniqueName string) *CreateChann
 	return params
 }
 
-func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParams) (*IpMessagingV1ServiceChannel, error) {
+func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParams) (*IpMessagingV1Channel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -76,7 +76,7 @@ func (c *ApiService) CreateChannel(ServiceSid string, params *CreateChannelParam
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV1ServiceChannel{}
+	ps := &IpMessagingV1Channel{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -102,7 +102,7 @@ func (c *ApiService) DeleteChannel(ServiceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchChannel(ServiceSid string, Sid string) (*IpMessagingV1ServiceChannel, error) {
+func (c *ApiService) FetchChannel(ServiceSid string, Sid string) (*IpMessagingV1Channel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -117,7 +117,7 @@ func (c *ApiService) FetchChannel(ServiceSid string, Sid string) (*IpMessagingV1
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV1ServiceChannel{}
+	ps := &IpMessagingV1Channel{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -188,7 +188,7 @@ func (c *ApiService) PageChannel(ServiceSid string, params *ListChannelParams, p
 }
 
 // Lists Channel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChannel(ServiceSid string, params *ListChannelParams) ([]IpMessagingV1ServiceChannel, error) {
+func (c *ApiService) ListChannel(ServiceSid string, params *ListChannelParams) ([]IpMessagingV1Channel, error) {
 	if params == nil {
 		params = &ListChannelParams{}
 	}
@@ -200,13 +200,13 @@ func (c *ApiService) ListChannel(ServiceSid string, params *ListChannelParams) (
 	}
 
 	curRecord := 0
-	var records []IpMessagingV1ServiceChannel
+	var records []IpMessagingV1Channel
 
 	for response != nil {
 		records = append(records, response.Channels...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListChannelResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListChannelResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -217,7 +217,7 @@ func (c *ApiService) ListChannel(ServiceSid string, params *ListChannelParams) (
 }
 
 // Streams Channel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChannel(ServiceSid string, params *ListChannelParams) (chan IpMessagingV1ServiceChannel, error) {
+func (c *ApiService) StreamChannel(ServiceSid string, params *ListChannelParams) (chan IpMessagingV1Channel, error) {
 	if params == nil {
 		params = &ListChannelParams{}
 	}
@@ -230,7 +230,7 @@ func (c *ApiService) StreamChannel(ServiceSid string, params *ListChannelParams)
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan IpMessagingV1ServiceChannel, 1)
+	channel := make(chan IpMessagingV1Channel, 1)
 
 	go func() {
 		for response != nil {
@@ -239,7 +239,7 @@ func (c *ApiService) StreamChannel(ServiceSid string, params *ListChannelParams)
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListChannelResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListChannelResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -252,11 +252,11 @@ func (c *ApiService) StreamChannel(ServiceSid string, params *ListChannelParams)
 	return channel, err
 }
 
-func (c *ApiService) getNextListChannelResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListChannelResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -293,7 +293,7 @@ func (params *UpdateChannelParams) SetUniqueName(UniqueName string) *UpdateChann
 	return params
 }
 
-func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *UpdateChannelParams) (*IpMessagingV1ServiceChannel, error) {
+func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *UpdateChannelParams) (*IpMessagingV1Channel, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -317,7 +317,7 @@ func (c *ApiService) UpdateChannel(ServiceSid string, Sid string, params *Update
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV1ServiceChannel{}
+	ps := &IpMessagingV1Channel{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

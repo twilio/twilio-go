@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -45,7 +45,7 @@ func (params *CreateEngagementParams) SetTo(To string) *CreateEngagementParams {
 }
 
 // Triggers a new Engagement for the Flow
-func (c *ApiService) CreateEngagement(FlowSid string, params *CreateEngagementParams) (*StudioV1FlowEngagement, error) {
+func (c *ApiService) CreateEngagement(FlowSid string, params *CreateEngagementParams) (*StudioV1Engagement, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 
@@ -74,7 +74,7 @@ func (c *ApiService) CreateEngagement(FlowSid string, params *CreateEngagementPa
 
 	defer resp.Body.Close()
 
-	ps := &StudioV1FlowEngagement{}
+	ps := &StudioV1Engagement{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -102,7 +102,7 @@ func (c *ApiService) DeleteEngagement(FlowSid string, Sid string) error {
 }
 
 // Retrieve an Engagement
-func (c *ApiService) FetchEngagement(FlowSid string, Sid string) (*StudioV1FlowEngagement, error) {
+func (c *ApiService) FetchEngagement(FlowSid string, Sid string) (*StudioV1Engagement, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -117,7 +117,7 @@ func (c *ApiService) FetchEngagement(FlowSid string, Sid string) (*StudioV1FlowE
 
 	defer resp.Body.Close()
 
-	ps := &StudioV1FlowEngagement{}
+	ps := &StudioV1Engagement{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -177,7 +177,7 @@ func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams
 }
 
 // Lists Engagement records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams) ([]StudioV1FlowEngagement, error) {
+func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams) ([]StudioV1Engagement, error) {
 	if params == nil {
 		params = &ListEngagementParams{}
 	}
@@ -189,13 +189,13 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 	}
 
 	curRecord := 0
-	var records []StudioV1FlowEngagement
+	var records []StudioV1Engagement
 
 	for response != nil {
 		records = append(records, response.Engagements...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEngagementResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEngagementResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -206,7 +206,7 @@ func (c *ApiService) ListEngagement(FlowSid string, params *ListEngagementParams
 }
 
 // Streams Engagement records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementParams) (chan StudioV1FlowEngagement, error) {
+func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementParams) (chan StudioV1Engagement, error) {
 	if params == nil {
 		params = &ListEngagementParams{}
 	}
@@ -219,7 +219,7 @@ func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementPara
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan StudioV1FlowEngagement, 1)
+	channel := make(chan StudioV1Engagement, 1)
 
 	go func() {
 		for response != nil {
@@ -228,7 +228,7 @@ func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementPara
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEngagementResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEngagementResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -241,11 +241,11 @@ func (c *ApiService) StreamEngagement(FlowSid string, params *ListEngagementPara
 	return channel, err
 }
 
-func (c *ApiService) getNextListEngagementResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListEngagementResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

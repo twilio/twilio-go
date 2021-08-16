@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -67,7 +67,7 @@ func (params *FetchConnectAppParams) SetPathAccountSid(PathAccountSid string) *F
 }
 
 // Fetch an instance of a connect-app
-func (c *ApiService) FetchConnectApp(Sid string, params *FetchConnectAppParams) (*ApiV2010AccountConnectApp, error) {
+func (c *ApiService) FetchConnectApp(Sid string, params *FetchConnectAppParams) (*ApiV2010ConnectApp, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -86,7 +86,7 @@ func (c *ApiService) FetchConnectApp(Sid string, params *FetchConnectAppParams) 
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountConnectApp{}
+	ps := &ApiV2010ConnectApp{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -156,7 +156,7 @@ func (c *ApiService) PageConnectApp(params *ListConnectAppParams, pageToken stri
 }
 
 // Lists ConnectApp records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConnectApp(params *ListConnectAppParams) ([]ApiV2010AccountConnectApp, error) {
+func (c *ApiService) ListConnectApp(params *ListConnectAppParams) ([]ApiV2010ConnectApp, error) {
 	if params == nil {
 		params = &ListConnectAppParams{}
 	}
@@ -168,13 +168,13 @@ func (c *ApiService) ListConnectApp(params *ListConnectAppParams) ([]ApiV2010Acc
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountConnectApp
+	var records []ApiV2010ConnectApp
 
 	for response != nil {
 		records = append(records, response.ConnectApps...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConnectAppResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConnectAppResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -185,7 +185,7 @@ func (c *ApiService) ListConnectApp(params *ListConnectAppParams) ([]ApiV2010Acc
 }
 
 // Streams ConnectApp records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConnectApp(params *ListConnectAppParams) (chan ApiV2010AccountConnectApp, error) {
+func (c *ApiService) StreamConnectApp(params *ListConnectAppParams) (chan ApiV2010ConnectApp, error) {
 	if params == nil {
 		params = &ListConnectAppParams{}
 	}
@@ -198,7 +198,7 @@ func (c *ApiService) StreamConnectApp(params *ListConnectAppParams) (chan ApiV20
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountConnectApp, 1)
+	channel := make(chan ApiV2010ConnectApp, 1)
 
 	go func() {
 		for response != nil {
@@ -207,7 +207,7 @@ func (c *ApiService) StreamConnectApp(params *ListConnectAppParams) (chan ApiV20
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConnectAppResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConnectAppResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -220,11 +220,11 @@ func (c *ApiService) StreamConnectApp(params *ListConnectAppParams) (chan ApiV20
 	return channel, err
 }
 
-func (c *ApiService) getNextListConnectAppResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListConnectAppResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -298,7 +298,7 @@ func (params *UpdateConnectAppParams) SetPermissions(Permissions []string) *Upda
 }
 
 // Update a connect-app with the specified parameters
-func (c *ApiService) UpdateConnectApp(Sid string, params *UpdateConnectAppParams) (*ApiV2010AccountConnectApp, error) {
+func (c *ApiService) UpdateConnectApp(Sid string, params *UpdateConnectAppParams) (*ApiV2010ConnectApp, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -343,7 +343,7 @@ func (c *ApiService) UpdateConnectApp(Sid string, params *UpdateConnectAppParams
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountConnectApp{}
+	ps := &ApiV2010ConnectApp{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvailablePhoneNumbers** | [**[]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFree**](ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberTollFree.md) |  |[optional] 
+**AvailablePhoneNumbers** | [**[]ApiV2010AvailablePhoneNumberTollFree**](ApiV2010AvailablePhoneNumberTollFree.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

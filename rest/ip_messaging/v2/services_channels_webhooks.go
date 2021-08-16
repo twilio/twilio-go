@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -68,7 +68,7 @@ func (params *CreateChannelWebhookParams) SetType(Type string) *CreateChannelWeb
 	return params
 }
 
-func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, params *CreateChannelWebhookParams) (*IpMessagingV2ServiceChannelChannelWebhook, error) {
+func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, params *CreateChannelWebhookParams) (*IpMessagingV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -108,7 +108,7 @@ func (c *ApiService) CreateChannelWebhook(ServiceSid string, ChannelSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV2ServiceChannelChannelWebhook{}
+	ps := &IpMessagingV2ChannelWebhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -135,7 +135,7 @@ func (c *ApiService) DeleteChannelWebhook(ServiceSid string, ChannelSid string, 
 	return nil
 }
 
-func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2ServiceChannelChannelWebhook, error) {
+func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, Sid string) (*IpMessagingV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -151,7 +151,7 @@ func (c *ApiService) FetchChannelWebhook(ServiceSid string, ChannelSid string, S
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV2ServiceChannelChannelWebhook{}
+	ps := &IpMessagingV2ChannelWebhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -212,7 +212,7 @@ func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, pa
 }
 
 // Lists ChannelWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) ([]IpMessagingV2ServiceChannelChannelWebhook, error) {
+func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) ([]IpMessagingV2ChannelWebhook, error) {
 	if params == nil {
 		params = &ListChannelWebhookParams{}
 	}
@@ -224,13 +224,13 @@ func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, pa
 	}
 
 	curRecord := 0
-	var records []IpMessagingV2ServiceChannelChannelWebhook
+	var records []IpMessagingV2ChannelWebhook
 
 	for response != nil {
 		records = append(records, response.Webhooks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListChannelWebhookResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListChannelWebhookResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -241,7 +241,7 @@ func (c *ApiService) ListChannelWebhook(ServiceSid string, ChannelSid string, pa
 }
 
 // Streams ChannelWebhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) (chan IpMessagingV2ServiceChannelChannelWebhook, error) {
+func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams) (chan IpMessagingV2ChannelWebhook, error) {
 	if params == nil {
 		params = &ListChannelWebhookParams{}
 	}
@@ -254,7 +254,7 @@ func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan IpMessagingV2ServiceChannelChannelWebhook, 1)
+	channel := make(chan IpMessagingV2ChannelWebhook, 1)
 
 	go func() {
 		for response != nil {
@@ -263,7 +263,7 @@ func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListChannelWebhookResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListChannelWebhookResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -276,11 +276,11 @@ func (c *ApiService) StreamChannelWebhook(ServiceSid string, ChannelSid string, 
 	return channel, err
 }
 
-func (c *ApiService) getNextListChannelWebhookResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListChannelWebhookResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -335,7 +335,7 @@ func (params *UpdateChannelWebhookParams) SetConfigurationUrl(ConfigurationUrl s
 	return params
 }
 
-func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*IpMessagingV2ServiceChannelChannelWebhook, error) {
+func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, Sid string, params *UpdateChannelWebhookParams) (*IpMessagingV2ChannelWebhook, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -373,7 +373,7 @@ func (c *ApiService) UpdateChannelWebhook(ServiceSid string, ChannelSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV2ServiceChannelChannelWebhook{}
+	ps := &IpMessagingV2ChannelWebhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

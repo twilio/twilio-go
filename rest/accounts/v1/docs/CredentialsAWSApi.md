@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateCredentialAws
 
-> AccountsV1CredentialCredentialAws CreateCredentialAws(ctx, optional)
+> AccountsV1CredentialAws CreateCredentialAws(ctx, optional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AccountsV1CredentialCredentialAws**](AccountsV1CredentialCredentialAws.md)
+[**AccountsV1CredentialAws**](AccountsV1CredentialAws.md)
 
 ### Authorization
 
@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## FetchCredentialAws
 
-> AccountsV1CredentialCredentialAws FetchCredentialAws(ctx, Sid)
+> AccountsV1CredentialAws FetchCredentialAws(ctx, Sid)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AccountsV1CredentialCredentialAws**](AccountsV1CredentialCredentialAws.md)
+[**AccountsV1CredentialAws**](AccountsV1CredentialAws.md)
 
 ### Authorization
 
@@ -179,7 +179,7 @@ Name | Type | Description
 
 ## UpdateCredentialAws
 
-> AccountsV1CredentialCredentialAws UpdateCredentialAws(ctx, Sidoptional)
+> AccountsV1CredentialAws UpdateCredentialAws(ctx, Sidoptional)
 
 
 
@@ -204,7 +204,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AccountsV1CredentialCredentialAws**](AccountsV1CredentialCredentialAws.md)
+[**AccountsV1CredentialAws**](AccountsV1CredentialAws.md)
 
 ### Authorization
 

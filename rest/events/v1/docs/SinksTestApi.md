@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateSinkTest
 
-> EventsV1SinkSinkTest CreateSinkTest(ctx, Sid)
+> EventsV1SinkTest CreateSinkTest(ctx, Sid)
 
 
 
@@ -34,7 +34,7 @@ Name | Type | Description
 
 ### Return type
 
-[**EventsV1SinkSinkTest**](EventsV1SinkSinkTest.md)
+[**EventsV1SinkTest**](EventsV1SinkTest.md)
 
 ### Authorization
 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -38,7 +38,7 @@ func (params *CreateActivityParams) SetFriendlyName(FriendlyName string) *Create
 	return params
 }
 
-func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityParams) (*TaskrouterV1WorkspaceActivity, error) {
+func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityParams) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -58,7 +58,7 @@ func (c *ApiService) CreateActivity(WorkspaceSid string, params *CreateActivityP
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceActivity{}
+	ps := &TaskrouterV1Activity{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func (c *ApiService) DeleteActivity(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchActivity(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceActivity, error) {
+func (c *ApiService) FetchActivity(WorkspaceSid string, Sid string) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -99,7 +99,7 @@ func (c *ApiService) FetchActivity(WorkspaceSid string, Sid string) (*Taskrouter
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceActivity{}
+	ps := &TaskrouterV1Activity{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -177,7 +177,7 @@ func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParam
 }
 
 // Lists Activity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParams) ([]TaskrouterV1WorkspaceActivity, error) {
+func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParams) ([]TaskrouterV1Activity, error) {
 	if params == nil {
 		params = &ListActivityParams{}
 	}
@@ -189,13 +189,13 @@ func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParam
 	}
 
 	curRecord := 0
-	var records []TaskrouterV1WorkspaceActivity
+	var records []TaskrouterV1Activity
 
 	for response != nil {
 		records = append(records, response.Activities...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListActivityResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListActivityResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -206,7 +206,7 @@ func (c *ApiService) ListActivity(WorkspaceSid string, params *ListActivityParam
 }
 
 // Streams Activity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityParams) (chan TaskrouterV1WorkspaceActivity, error) {
+func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityParams) (chan TaskrouterV1Activity, error) {
 	if params == nil {
 		params = &ListActivityParams{}
 	}
@@ -219,7 +219,7 @@ func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityPar
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1WorkspaceActivity, 1)
+	channel := make(chan TaskrouterV1Activity, 1)
 
 	go func() {
 		for response != nil {
@@ -228,7 +228,7 @@ func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityPar
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListActivityResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListActivityResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -241,11 +241,11 @@ func (c *ApiService) StreamActivity(WorkspaceSid string, params *ListActivityPar
 	return channel, err
 }
 
-func (c *ApiService) getNextListActivityResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListActivityResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -270,7 +270,7 @@ func (params *UpdateActivityParams) SetFriendlyName(FriendlyName string) *Update
 	return params
 }
 
-func (c *ApiService) UpdateActivity(WorkspaceSid string, Sid string, params *UpdateActivityParams) (*TaskrouterV1WorkspaceActivity, error) {
+func (c *ApiService) UpdateActivity(WorkspaceSid string, Sid string, params *UpdateActivityParams) (*TaskrouterV1Activity, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -288,7 +288,7 @@ func (c *ApiService) UpdateActivity(WorkspaceSid string, Sid string, params *Upd
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceActivity{}
+	ps := &TaskrouterV1Activity{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

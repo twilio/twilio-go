@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -14,5 +14,5 @@ package openapi
 // ListRoleResponse struct for ListRoleResponse
 type ListRoleResponse struct {
 	Meta  ListCredentialResponseMeta `json:"meta,omitempty"`
-	Roles []ChatV1ServiceRole        `json:"roles,omitempty"`
+	Roles []ChatV1Role               `json:"roles,omitempty"`
 }

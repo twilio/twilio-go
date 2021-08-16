@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **End** | **int** |  |[optional] 
-**Events** | [**[]ApiV2010AccountCallCallEvent**](ApiV2010AccountCallCallEvent.md) |  |[optional] 
+**Events** | [**[]ApiV2010CallEvent**](ApiV2010CallEvent.md) |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 

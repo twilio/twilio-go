@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## FetchUserChannel
 
-> IpMessagingV2ServiceUserUserChannel FetchUserChannel(ctx, ServiceSidUserSidChannelSid)
+> IpMessagingV2UserChannel FetchUserChannel(ctx, ServiceSidUserSidChannelSid)
 
 
 
@@ -79,7 +79,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV2ServiceUserUserChannel**](IpMessagingV2ServiceUserUserChannel.md)
+[**IpMessagingV2UserChannel**](IpMessagingV2UserChannel.md)
 
 ### Authorization
 
@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## UpdateUserChannel
 
-> IpMessagingV2ServiceUserUserChannel UpdateUserChannel(ctx, ServiceSidUserSidChannelSidoptional)
+> IpMessagingV2UserChannel UpdateUserChannel(ctx, ServiceSidUserSidChannelSidoptional)
 
 
 
@@ -167,7 +167,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV2ServiceUserUserChannel**](IpMessagingV2ServiceUserUserChannel.md)
+[**IpMessagingV2UserChannel**](IpMessagingV2UserChannel.md)
 
 ### Authorization
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchAssetVersion
 
-> ServerlessV1ServiceAssetAssetVersion FetchAssetVersion(ctx, ServiceSidAssetSidSid)
+> ServerlessV1AssetVersion FetchAssetVersion(ctx, ServiceSidAssetSidSid)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceAssetAssetVersion**](ServerlessV1ServiceAssetAssetVersion.md)
+[**ServerlessV1AssetVersion**](ServerlessV1AssetVersion.md)
 
 ### Authorization
 

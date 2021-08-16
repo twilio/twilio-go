@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -70,7 +70,7 @@ func (params *CreateSessionParams) SetUniqueName(UniqueName string) *CreateSessi
 }
 
 // Create a new Session
-func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParams) (*ProxyV1ServiceSession, error) {
+func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParams) (*ProxyV1Session, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -113,7 +113,7 @@ func (c *ApiService) CreateSession(ServiceSid string, params *CreateSessionParam
 
 	defer resp.Body.Close()
 
-	ps := &ProxyV1ServiceSession{}
+	ps := &ProxyV1Session{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -141,7 +141,7 @@ func (c *ApiService) DeleteSession(ServiceSid string, Sid string) error {
 }
 
 // Fetch a specific Session.
-func (c *ApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV1ServiceSession, error) {
+func (c *ApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV1Session, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -156,7 +156,7 @@ func (c *ApiService) FetchSession(ServiceSid string, Sid string) (*ProxyV1Servic
 
 	defer resp.Body.Close()
 
-	ps := &ProxyV1ServiceSession{}
+	ps := &ProxyV1Session{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -216,7 +216,7 @@ func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, p
 }
 
 // Lists Session records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) ([]ProxyV1ServiceSession, error) {
+func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) ([]ProxyV1Session, error) {
 	if params == nil {
 		params = &ListSessionParams{}
 	}
@@ -228,13 +228,13 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) (
 	}
 
 	curRecord := 0
-	var records []ProxyV1ServiceSession
+	var records []ProxyV1Session
 
 	for response != nil {
 		records = append(records, response.Sessions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSessionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSessionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -245,7 +245,7 @@ func (c *ApiService) ListSession(ServiceSid string, params *ListSessionParams) (
 }
 
 // Streams Session records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams) (chan ProxyV1ServiceSession, error) {
+func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams) (chan ProxyV1Session, error) {
 	if params == nil {
 		params = &ListSessionParams{}
 	}
@@ -258,7 +258,7 @@ func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams)
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ProxyV1ServiceSession, 1)
+	channel := make(chan ProxyV1Session, 1)
 
 	go func() {
 		for response != nil {
@@ -267,7 +267,7 @@ func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams)
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSessionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSessionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -280,11 +280,11 @@ func (c *ApiService) StreamSession(ServiceSid string, params *ListSessionParams)
 	return channel, err
 }
 
-func (c *ApiService) getNextListSessionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSessionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -328,7 +328,7 @@ func (params *UpdateSessionParams) SetTtl(Ttl int) *UpdateSessionParams {
 }
 
 // Update a specific Session.
-func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *UpdateSessionParams) (*ProxyV1ServiceSession, error) {
+func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *UpdateSessionParams) (*ProxyV1Session, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -355,7 +355,7 @@ func (c *ApiService) UpdateSession(ServiceSid string, Sid string, params *Update
 
 	defer resp.Body.Close()
 
-	ps := &ProxyV1ServiceSession{}
+	ps := &ProxyV1Session{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

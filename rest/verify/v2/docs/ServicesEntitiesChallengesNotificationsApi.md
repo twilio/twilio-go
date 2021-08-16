@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## CreateNotification
 
-> VerifyV2ServiceEntityChallengeNotification CreateNotification(ctx, ServiceSidIdentityChallengeSidoptional)
+> VerifyV2Notification CreateNotification(ctx, ServiceSidIdentityChallengeSidoptional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceEntityChallengeNotification**](VerifyV2ServiceEntityChallengeNotification.md)
+[**VerifyV2Notification**](VerifyV2Notification.md)
 
 ### Authorization
 

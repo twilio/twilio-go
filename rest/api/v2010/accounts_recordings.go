@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -68,7 +68,7 @@ func (params *FetchRecordingParams) SetPathAccountSid(PathAccountSid string) *Fe
 }
 
 // Fetch an instance of a recording
-func (c *ApiService) FetchRecording(Sid string, params *FetchRecordingParams) (*ApiV2010AccountRecording, error) {
+func (c *ApiService) FetchRecording(Sid string, params *FetchRecordingParams) (*ApiV2010Recording, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -87,7 +87,7 @@ func (c *ApiService) FetchRecording(Sid string, params *FetchRecordingParams) (*
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountRecording{}
+	ps := &ApiV2010Recording{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -202,7 +202,7 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken string
 }
 
 // Lists Recording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRecording(params *ListRecordingParams) ([]ApiV2010AccountRecording, error) {
+func (c *ApiService) ListRecording(params *ListRecordingParams) ([]ApiV2010Recording, error) {
 	if params == nil {
 		params = &ListRecordingParams{}
 	}
@@ -214,13 +214,13 @@ func (c *ApiService) ListRecording(params *ListRecordingParams) ([]ApiV2010Accou
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountRecording
+	var records []ApiV2010Recording
 
 	for response != nil {
 		records = append(records, response.Recordings...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRecordingResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRecordingResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -231,7 +231,7 @@ func (c *ApiService) ListRecording(params *ListRecordingParams) ([]ApiV2010Accou
 }
 
 // Streams Recording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan ApiV2010AccountRecording, error) {
+func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan ApiV2010Recording, error) {
 	if params == nil {
 		params = &ListRecordingParams{}
 	}
@@ -244,7 +244,7 @@ func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan ApiV2010
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountRecording, 1)
+	channel := make(chan ApiV2010Recording, 1)
 
 	go func() {
 		for response != nil {
@@ -253,7 +253,7 @@ func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan ApiV2010
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRecordingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRecordingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -266,11 +266,11 @@ func (c *ApiService) StreamRecording(params *ListRecordingParams) (chan ApiV2010
 	return channel, err
 }
 
-func (c *ApiService) getNextListRecordingResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListRecordingResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

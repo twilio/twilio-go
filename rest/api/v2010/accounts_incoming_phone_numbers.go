@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -177,7 +177,7 @@ func (params *CreateIncomingPhoneNumberParams) SetVoiceUrl(VoiceUrl string) *Cre
 }
 
 // Purchase a phone-number for the account.
-func (c *ApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumberParams) (*ApiV2010AccountIncomingPhoneNumber, error) {
+func (c *ApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumberParams) (*ApiV2010IncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -267,7 +267,7 @@ func (c *ApiService) CreateIncomingPhoneNumber(params *CreateIncomingPhoneNumber
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountIncomingPhoneNumber{}
+	ps := &ApiV2010IncomingPhoneNumber{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -321,7 +321,7 @@ func (params *FetchIncomingPhoneNumberParams) SetPathAccountSid(PathAccountSid s
 }
 
 // Fetch an incoming-phone-number belonging to the account used to make the request.
-func (c *ApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIncomingPhoneNumberParams) (*ApiV2010AccountIncomingPhoneNumber, error) {
+func (c *ApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIncomingPhoneNumberParams) (*ApiV2010IncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -340,7 +340,7 @@ func (c *ApiService) FetchIncomingPhoneNumber(Sid string, params *FetchIncomingP
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountIncomingPhoneNumber{}
+	ps := &ApiV2010IncomingPhoneNumber{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -446,7 +446,7 @@ func (c *ApiService) PageIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 }
 
 // Lists IncomingPhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberParams) ([]ApiV2010AccountIncomingPhoneNumber, error) {
+func (c *ApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberParams) ([]ApiV2010IncomingPhoneNumber, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberParams{}
 	}
@@ -458,13 +458,13 @@ func (c *ApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountIncomingPhoneNumber
+	var records []ApiV2010IncomingPhoneNumber
 
 	for response != nil {
 		records = append(records, response.IncomingPhoneNumbers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -475,7 +475,7 @@ func (c *ApiService) ListIncomingPhoneNumber(params *ListIncomingPhoneNumberPara
 }
 
 // Streams IncomingPhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIncomingPhoneNumber(params *ListIncomingPhoneNumberParams) (chan ApiV2010AccountIncomingPhoneNumber, error) {
+func (c *ApiService) StreamIncomingPhoneNumber(params *ListIncomingPhoneNumberParams) (chan ApiV2010IncomingPhoneNumber, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberParams{}
 	}
@@ -488,7 +488,7 @@ func (c *ApiService) StreamIncomingPhoneNumber(params *ListIncomingPhoneNumberPa
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountIncomingPhoneNumber, 1)
+	channel := make(chan ApiV2010IncomingPhoneNumber, 1)
 
 	go func() {
 		for response != nil {
@@ -497,7 +497,7 @@ func (c *ApiService) StreamIncomingPhoneNumber(params *ListIncomingPhoneNumberPa
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -510,11 +510,11 @@ func (c *ApiService) StreamIncomingPhoneNumber(params *ListIncomingPhoneNumberPa
 	return channel, err
 }
 
-func (c *ApiService) getNextListIncomingPhoneNumberResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListIncomingPhoneNumberResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -678,7 +678,7 @@ func (params *UpdateIncomingPhoneNumberParams) SetVoiceUrl(VoiceUrl string) *Upd
 }
 
 // Update an incoming-phone-number instance.
-func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomingPhoneNumberParams) (*ApiV2010AccountIncomingPhoneNumber, error) {
+func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomingPhoneNumberParams) (*ApiV2010IncomingPhoneNumber, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -766,7 +766,7 @@ func (c *ApiService) UpdateIncomingPhoneNumber(Sid string, params *UpdateIncomin
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountIncomingPhoneNumber{}
+	ps := &ApiV2010IncomingPhoneNumber{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

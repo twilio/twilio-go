@@ -57,7 +57,7 @@ Name | Type | Description
 
 ## FetchSyncMapPermission
 
-> SyncV1ServiceSyncMapSyncMapPermission FetchSyncMapPermission(ctx, ServiceSidMapSidIdentity)
+> SyncV1SyncMapPermission FetchSyncMapPermission(ctx, ServiceSidMapSidIdentity)
 
 
 
@@ -83,7 +83,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncMapSyncMapPermission**](SyncV1ServiceSyncMapSyncMapPermission.md)
+[**SyncV1SyncMapPermission**](SyncV1SyncMapPermission.md)
 
 ### Authorization
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 ## UpdateSyncMapPermission
 
-> SyncV1ServiceSyncMapSyncMapPermission UpdateSyncMapPermission(ctx, ServiceSidMapSidIdentityoptional)
+> SyncV1SyncMapPermission UpdateSyncMapPermission(ctx, ServiceSidMapSidIdentityoptional)
 
 
 
@@ -175,7 +175,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncMapSyncMapPermission**](SyncV1ServiceSyncMapSyncMapPermission.md)
+[**SyncV1SyncMapPermission**](SyncV1SyncMapPermission.md)
 
 ### Authorization
 

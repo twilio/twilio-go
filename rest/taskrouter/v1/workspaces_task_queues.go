@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -62,7 +62,7 @@ func (params *CreateTaskQueueParams) SetTaskOrder(TaskOrder string) *CreateTaskQ
 	return params
 }
 
-func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1WorkspaceTaskQueue, error) {
+func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -94,7 +94,7 @@ func (c *ApiService) CreateTaskQueue(WorkspaceSid string, params *CreateTaskQueu
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceTaskQueue{}
+	ps := &TaskrouterV1TaskQueue{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -120,7 +120,7 @@ func (c *ApiService) DeleteTaskQueue(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceTaskQueue, error) {
+func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -135,7 +135,7 @@ func (c *ApiService) FetchTaskQueue(WorkspaceSid string, Sid string) (*Taskroute
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceTaskQueue{}
+	ps := &TaskrouterV1TaskQueue{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -222,7 +222,7 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 }
 
 // Lists TaskQueue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueueParams) ([]TaskrouterV1WorkspaceTaskQueue, error) {
+func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueueParams) ([]TaskrouterV1TaskQueue, error) {
 	if params == nil {
 		params = &ListTaskQueueParams{}
 	}
@@ -234,13 +234,13 @@ func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 	}
 
 	curRecord := 0
-	var records []TaskrouterV1WorkspaceTaskQueue
+	var records []TaskrouterV1TaskQueue
 
 	for response != nil {
 		records = append(records, response.TaskQueues...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskQueueResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskQueueResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -251,7 +251,7 @@ func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 }
 
 // Streams TaskQueue records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueParams) (chan TaskrouterV1WorkspaceTaskQueue, error) {
+func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueParams) (chan TaskrouterV1TaskQueue, error) {
 	if params == nil {
 		params = &ListTaskQueueParams{}
 	}
@@ -264,7 +264,7 @@ func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueP
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1WorkspaceTaskQueue, 1)
+	channel := make(chan TaskrouterV1TaskQueue, 1)
 
 	go func() {
 		for response != nil {
@@ -273,7 +273,7 @@ func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueP
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskQueueResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskQueueResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -286,11 +286,11 @@ func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueP
 	return channel, err
 }
 
-func (c *ApiService) getNextListTaskQueueResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListTaskQueueResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -345,7 +345,7 @@ func (params *UpdateTaskQueueParams) SetTaskOrder(TaskOrder string) *UpdateTaskQ
 	return params
 }
 
-func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1WorkspaceTaskQueue, error) {
+func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *UpdateTaskQueueParams) (*TaskrouterV1TaskQueue, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -378,7 +378,7 @@ func (c *ApiService) UpdateTaskQueue(WorkspaceSid string, Sid string, params *Up
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceTaskQueue{}
+	ps := &TaskrouterV1TaskQueue{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

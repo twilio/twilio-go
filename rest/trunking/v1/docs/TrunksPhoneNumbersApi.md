@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreatePhoneNumber
 
-> TrunkingV1TrunkPhoneNumber CreatePhoneNumber(ctx, TrunkSidoptional)
+> TrunkingV1PhoneNumber CreatePhoneNumber(ctx, TrunkSidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrunkingV1TrunkPhoneNumber**](TrunkingV1TrunkPhoneNumber.md)
+[**TrunkingV1PhoneNumber**](TrunkingV1PhoneNumber.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ Name | Type | Description
 
 ## FetchPhoneNumber
 
-> TrunkingV1TrunkPhoneNumber FetchPhoneNumber(ctx, TrunkSidSid)
+> TrunkingV1PhoneNumber FetchPhoneNumber(ctx, TrunkSidSid)
 
 
 
@@ -118,7 +118,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrunkingV1TrunkPhoneNumber**](TrunkingV1TrunkPhoneNumber.md)
+[**TrunkingV1PhoneNumber**](TrunkingV1PhoneNumber.md)
 
 ### Authorization
 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -38,7 +38,7 @@ func (params *CreateInviteParams) SetRoleSid(RoleSid string) *CreateInviteParams
 	return params
 }
 
-func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*ChatV2ServiceChannelInvite, error) {
+func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *CreateInviteParams) (*ChatV2Invite, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -59,7 +59,7 @@ func (c *ApiService) CreateInvite(ServiceSid string, ChannelSid string, params *
 
 	defer resp.Body.Close()
 
-	ps := &ChatV2ServiceChannelInvite{}
+	ps := &ChatV2Invite{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -86,7 +86,7 @@ func (c *ApiService) DeleteInvite(ServiceSid string, ChannelSid string, Sid stri
 	return nil
 }
 
-func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*ChatV2ServiceChannelInvite, error) {
+func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid string) (*ChatV2Invite, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -102,7 +102,7 @@ func (c *ApiService) FetchInvite(ServiceSid string, ChannelSid string, Sid strin
 
 	defer resp.Body.Close()
 
-	ps := &ChatV2ServiceChannelInvite{}
+	ps := &ChatV2Invite{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -174,7 +174,7 @@ func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *Li
 }
 
 // Lists Invite records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) ([]ChatV2ServiceChannelInvite, error) {
+func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) ([]ChatV2Invite, error) {
 	if params == nil {
 		params = &ListInviteParams{}
 	}
@@ -186,13 +186,13 @@ func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *Li
 	}
 
 	curRecord := 0
-	var records []ChatV2ServiceChannelInvite
+	var records []ChatV2Invite
 
 	for response != nil {
 		records = append(records, response.Invites...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListInviteResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListInviteResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -203,7 +203,7 @@ func (c *ApiService) ListInvite(ServiceSid string, ChannelSid string, params *Li
 }
 
 // Streams Invite records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) (chan ChatV2ServiceChannelInvite, error) {
+func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *ListInviteParams) (chan ChatV2Invite, error) {
 	if params == nil {
 		params = &ListInviteParams{}
 	}
@@ -216,7 +216,7 @@ func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ChatV2ServiceChannelInvite, 1)
+	channel := make(chan ChatV2Invite, 1)
 
 	go func() {
 		for response != nil {
@@ -225,7 +225,7 @@ func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListInviteResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListInviteResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -238,11 +238,11 @@ func (c *ApiService) StreamInvite(ServiceSid string, ChannelSid string, params *
 	return channel, err
 }
 
-func (c *ApiService) getNextListInviteResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListInviteResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

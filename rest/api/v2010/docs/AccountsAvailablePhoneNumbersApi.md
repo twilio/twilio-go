@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchAvailablePhoneNumberCountry
 
-> ApiV2010AccountAvailablePhoneNumberCountry FetchAvailablePhoneNumberCountry(ctx, CountryCodeoptional)
+> ApiV2010AvailablePhoneNumberCountry FetchAvailablePhoneNumberCountry(ctx, CountryCodeoptional)
 
 
 
@@ -34,7 +34,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountAvailablePhoneNumberCountry**](ApiV2010AccountAvailablePhoneNumberCountry.md)
+[**ApiV2010AvailablePhoneNumberCountry**](ApiV2010AvailablePhoneNumberCountry.md)
 
 ### Authorization
 

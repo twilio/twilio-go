@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateMessage
 
-> ChatV1ServiceChannelMessage CreateMessage(ctx, ServiceSidChannelSidoptional)
+> ChatV1Message CreateMessage(ctx, ServiceSidChannelSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ChatV1ServiceChannelMessage**](ChatV1ServiceChannelMessage.md)
+[**ChatV1Message**](ChatV1Message.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchMessage
 
-> ChatV1ServiceChannelMessage FetchMessage(ctx, ServiceSidChannelSidSid)
+> ChatV1Message FetchMessage(ctx, ServiceSidChannelSidSid)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ChatV1ServiceChannelMessage**](ChatV1ServiceChannelMessage.md)
+[**ChatV1Message**](ChatV1Message.md)
 
 ### Authorization
 
@@ -186,7 +186,7 @@ Name | Type | Description
 
 ## UpdateMessage
 
-> ChatV1ServiceChannelMessage UpdateMessage(ctx, ServiceSidChannelSidSidoptional)
+> ChatV1Message UpdateMessage(ctx, ServiceSidChannelSidSidoptional)
 
 
 
@@ -212,7 +212,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ChatV1ServiceChannelMessage**](ChatV1ServiceChannelMessage.md)
+[**ChatV1Message**](ChatV1Message.md)
 
 ### Authorization
 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -50,7 +50,7 @@ func (params *CreateSyncListItemParams) SetTtl(Ttl int) *CreateSyncListItemParam
 	return params
 }
 
-func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*SyncV1ServiceSyncListSyncListItem, error) {
+func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, params *CreateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -83,7 +83,7 @@ func (c *ApiService) CreateSyncListItem(ServiceSid string, ListSid string, param
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncListSyncListItem{}
+	ps := &SyncV1SyncListItem{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -124,7 +124,7 @@ func (c *ApiService) DeleteSyncListItem(ServiceSid string, ListSid string, Index
 	return nil
 }
 
-func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index int) (*SyncV1ServiceSyncListSyncListItem, error) {
+func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index int) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -140,7 +140,7 @@ func (c *ApiService) FetchSyncListItem(ServiceSid string, ListSid string, Index 
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncListSyncListItem{}
+	ps := &SyncV1SyncListItem{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -228,7 +228,7 @@ func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params 
 }
 
 // Lists SyncListItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) ([]SyncV1ServiceSyncListSyncListItem, error) {
+func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) ([]SyncV1SyncListItem, error) {
 	if params == nil {
 		params = &ListSyncListItemParams{}
 	}
@@ -240,13 +240,13 @@ func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params 
 	}
 
 	curRecord := 0
-	var records []SyncV1ServiceSyncListSyncListItem
+	var records []SyncV1SyncListItem
 
 	for response != nil {
 		records = append(records, response.Items...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncListItemResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncListItemResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -257,7 +257,7 @@ func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params 
 }
 
 // Streams SyncListItem records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) (chan SyncV1ServiceSyncListSyncListItem, error) {
+func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) (chan SyncV1SyncListItem, error) {
 	if params == nil {
 		params = &ListSyncListItemParams{}
 	}
@@ -270,7 +270,7 @@ func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, param
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan SyncV1ServiceSyncListSyncListItem, 1)
+	channel := make(chan SyncV1SyncListItem, 1)
 
 	go func() {
 		for response != nil {
@@ -279,7 +279,7 @@ func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, param
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncListItemResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncListItemResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -292,11 +292,11 @@ func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, param
 	return channel, err
 }
 
-func (c *ApiService) getNextListSyncListItemResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSyncListItemResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -345,7 +345,7 @@ func (params *UpdateSyncListItemParams) SetTtl(Ttl int) *UpdateSyncListItemParam
 	return params
 }
 
-func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index int, params *UpdateSyncListItemParams) (*SyncV1ServiceSyncListSyncListItem, error) {
+func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index int, params *UpdateSyncListItemParams) (*SyncV1SyncListItem, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -382,7 +382,7 @@ func (c *ApiService) UpdateSyncListItem(ServiceSid string, ListSid string, Index
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncListSyncListItem{}
+	ps := &SyncV1SyncListItem{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

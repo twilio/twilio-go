@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -22,7 +22,7 @@ import (
 )
 
 // Retrieve a Step.
-func (c *ApiService) FetchStep(FlowSid string, EngagementSid string, Sid string) (*StudioV1FlowEngagementStep, error) {
+func (c *ApiService) FetchStep(FlowSid string, EngagementSid string, Sid string) (*StudioV1Step, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{Sid}"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"EngagementSid"+"}", EngagementSid, -1)
@@ -38,7 +38,7 @@ func (c *ApiService) FetchStep(FlowSid string, EngagementSid string, Sid string)
 
 	defer resp.Body.Close()
 
-	ps := &StudioV1FlowEngagementStep{}
+	ps := &StudioV1Step{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -99,7 +99,7 @@ func (c *ApiService) PageStep(FlowSid string, EngagementSid string, params *List
 }
 
 // Lists Step records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *ListStepParams) ([]StudioV1FlowEngagementStep, error) {
+func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *ListStepParams) ([]StudioV1Step, error) {
 	if params == nil {
 		params = &ListStepParams{}
 	}
@@ -111,13 +111,13 @@ func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *List
 	}
 
 	curRecord := 0
-	var records []StudioV1FlowEngagementStep
+	var records []StudioV1Step
 
 	for response != nil {
 		records = append(records, response.Steps...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -128,7 +128,7 @@ func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *List
 }
 
 // Streams Step records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *ListStepParams) (chan StudioV1FlowEngagementStep, error) {
+func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *ListStepParams) (chan StudioV1Step, error) {
 	if params == nil {
 		params = &ListStepParams{}
 	}
@@ -141,7 +141,7 @@ func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *Li
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan StudioV1FlowEngagementStep, 1)
+	channel := make(chan StudioV1Step, 1)
 
 	go func() {
 		for response != nil {
@@ -150,7 +150,7 @@ func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *Li
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -163,11 +163,11 @@ func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *Li
 	return channel, err
 }
 
-func (c *ApiService) getNextListStepResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListStepResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

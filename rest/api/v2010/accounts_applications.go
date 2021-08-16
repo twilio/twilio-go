@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -123,7 +123,7 @@ func (params *CreateApplicationParams) SetVoiceUrl(VoiceUrl string) *CreateAppli
 }
 
 // Create a new application within your account
-func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV2010AccountApplication, error) {
+func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV2010Application, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -186,7 +186,7 @@ func (c *ApiService) CreateApplication(params *CreateApplicationParams) (*ApiV20
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountApplication{}
+	ps := &ApiV2010Application{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -240,7 +240,7 @@ func (params *FetchApplicationParams) SetPathAccountSid(PathAccountSid string) *
 }
 
 // Fetch the application specified by the provided sid
-func (c *ApiService) FetchApplication(Sid string, params *FetchApplicationParams) (*ApiV2010AccountApplication, error) {
+func (c *ApiService) FetchApplication(Sid string, params *FetchApplicationParams) (*ApiV2010Application, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -259,7 +259,7 @@ func (c *ApiService) FetchApplication(Sid string, params *FetchApplicationParams
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountApplication{}
+	ps := &ApiV2010Application{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -338,7 +338,7 @@ func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken st
 }
 
 // Lists Application records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListApplication(params *ListApplicationParams) ([]ApiV2010AccountApplication, error) {
+func (c *ApiService) ListApplication(params *ListApplicationParams) ([]ApiV2010Application, error) {
 	if params == nil {
 		params = &ListApplicationParams{}
 	}
@@ -350,13 +350,13 @@ func (c *ApiService) ListApplication(params *ListApplicationParams) ([]ApiV2010A
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountApplication
+	var records []ApiV2010Application
 
 	for response != nil {
 		records = append(records, response.Applications...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListApplicationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListApplicationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -367,7 +367,7 @@ func (c *ApiService) ListApplication(params *ListApplicationParams) ([]ApiV2010A
 }
 
 // Streams Application records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamApplication(params *ListApplicationParams) (chan ApiV2010AccountApplication, error) {
+func (c *ApiService) StreamApplication(params *ListApplicationParams) (chan ApiV2010Application, error) {
 	if params == nil {
 		params = &ListApplicationParams{}
 	}
@@ -380,7 +380,7 @@ func (c *ApiService) StreamApplication(params *ListApplicationParams) (chan ApiV
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountApplication, 1)
+	channel := make(chan ApiV2010Application, 1)
 
 	go func() {
 		for response != nil {
@@ -389,7 +389,7 @@ func (c *ApiService) StreamApplication(params *ListApplicationParams) (chan ApiV
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListApplicationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListApplicationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -402,11 +402,11 @@ func (c *ApiService) StreamApplication(params *ListApplicationParams) (chan ApiV
 	return channel, err
 }
 
-func (c *ApiService) getNextListApplicationResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListApplicationResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -522,7 +522,7 @@ func (params *UpdateApplicationParams) SetVoiceUrl(VoiceUrl string) *UpdateAppli
 }
 
 // Updates the application&#39;s properties
-func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationParams) (*ApiV2010AccountApplication, error) {
+func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationParams) (*ApiV2010Application, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -586,7 +586,7 @@ func (c *ApiService) UpdateApplication(Sid string, params *UpdateApplicationPara
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountApplication{}
+	ps := &ApiV2010Application{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

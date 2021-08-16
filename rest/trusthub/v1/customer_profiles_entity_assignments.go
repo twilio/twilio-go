@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -33,7 +33,7 @@ func (params *CreateCustomerProfileEntityAssignmentParams) SetObjectSid(ObjectSi
 }
 
 // Create a new Assigned Item.
-func (c *ApiService) CreateCustomerProfileEntityAssignment(CustomerProfileSid string, params *CreateCustomerProfileEntityAssignmentParams) (*TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
+func (c *ApiService) CreateCustomerProfileEntityAssignment(CustomerProfileSid string, params *CreateCustomerProfileEntityAssignmentParams) (*TrusthubV1CustomerProfileEntityAssignment, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 
@@ -50,7 +50,7 @@ func (c *ApiService) CreateCustomerProfileEntityAssignment(CustomerProfileSid st
 
 	defer resp.Body.Close()
 
-	ps := &TrusthubV1CustomerProfileCustomerProfileEntityAssignment{}
+	ps := &TrusthubV1CustomerProfileEntityAssignment{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *ApiService) DeleteCustomerProfileEntityAssignment(CustomerProfileSid st
 }
 
 // Fetch specific Assigned Item Instance.
-func (c *ApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
+func (c *ApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid string, Sid string) (*TrusthubV1CustomerProfileEntityAssignment, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -93,7 +93,7 @@ func (c *ApiService) FetchCustomerProfileEntityAssignment(CustomerProfileSid str
 
 	defer resp.Body.Close()
 
-	ps := &TrusthubV1CustomerProfileCustomerProfileEntityAssignment{}
+	ps := &TrusthubV1CustomerProfileEntityAssignment{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -153,7 +153,7 @@ func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid stri
 }
 
 // Lists CustomerProfileEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) ([]TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
+func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) ([]TrusthubV1CustomerProfileEntityAssignment, error) {
 	if params == nil {
 		params = &ListCustomerProfileEntityAssignmentParams{}
 	}
@@ -165,13 +165,13 @@ func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid stri
 	}
 
 	curRecord := 0
-	var records []TrusthubV1CustomerProfileCustomerProfileEntityAssignment
+	var records []TrusthubV1CustomerProfileEntityAssignment
 
 	for response != nil {
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCustomerProfileEntityAssignmentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCustomerProfileEntityAssignmentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -182,7 +182,7 @@ func (c *ApiService) ListCustomerProfileEntityAssignment(CustomerProfileSid stri
 }
 
 // Streams CustomerProfileEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) (chan TrusthubV1CustomerProfileCustomerProfileEntityAssignment, error) {
+func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams) (chan TrusthubV1CustomerProfileEntityAssignment, error) {
 	if params == nil {
 		params = &ListCustomerProfileEntityAssignmentParams{}
 	}
@@ -195,7 +195,7 @@ func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid st
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TrusthubV1CustomerProfileCustomerProfileEntityAssignment, 1)
+	channel := make(chan TrusthubV1CustomerProfileEntityAssignment, 1)
 
 	go func() {
 		for response != nil {
@@ -204,7 +204,7 @@ func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid st
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCustomerProfileEntityAssignmentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCustomerProfileEntityAssignmentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -217,11 +217,11 @@ func (c *ApiService) StreamCustomerProfileEntityAssignment(CustomerProfileSid st
 	return channel, err
 }
 
-func (c *ApiService) getNextListCustomerProfileEntityAssignmentResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListCustomerProfileEntityAssignmentResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

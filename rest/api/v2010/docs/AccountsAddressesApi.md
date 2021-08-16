@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateAddress
 
-> ApiV2010AccountAddress CreateAddress(ctx, optional)
+> ApiV2010Address CreateAddress(ctx, optional)
 
 
 
@@ -42,7 +42,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountAddress**](ApiV2010AccountAddress.md)
+[**ApiV2010Address**](ApiV2010Address.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchAddress
 
-> ApiV2010AccountAddress FetchAddress(ctx, Sidoptional)
+> ApiV2010Address FetchAddress(ctx, Sidoptional)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountAddress**](ApiV2010AccountAddress.md)
+[**ApiV2010Address**](ApiV2010Address.md)
 
 ### Authorization
 
@@ -184,7 +184,7 @@ Name | Type | Description
 
 ## UpdateAddress
 
-> ApiV2010AccountAddress UpdateAddress(ctx, Sidoptional)
+> ApiV2010Address UpdateAddress(ctx, Sidoptional)
 
 
 
@@ -215,7 +215,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountAddress**](ApiV2010AccountAddress.md)
+[**ApiV2010Address**](ApiV2010Address.md)
 
 ### Authorization
 

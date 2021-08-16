@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
-**SigningKeys** | [**[]ApiV2010AccountSigningKey**](ApiV2010AccountSigningKey.md) |  |[optional] 
+**SigningKeys** | [**[]ApiV2010SigningKey**](ApiV2010SigningKey.md) |  |[optional] 
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
 

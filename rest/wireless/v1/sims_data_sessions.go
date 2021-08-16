@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -73,7 +73,7 @@ func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParam
 }
 
 // Lists DataSession records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParams) ([]WirelessV1SimDataSession, error) {
+func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParams) ([]WirelessV1DataSession, error) {
 	if params == nil {
 		params = &ListDataSessionParams{}
 	}
@@ -85,13 +85,13 @@ func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParam
 	}
 
 	curRecord := 0
-	var records []WirelessV1SimDataSession
+	var records []WirelessV1DataSession
 
 	for response != nil {
 		records = append(records, response.DataSessions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDataSessionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDataSessionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -102,7 +102,7 @@ func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParam
 }
 
 // Streams DataSession records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionParams) (chan WirelessV1SimDataSession, error) {
+func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionParams) (chan WirelessV1DataSession, error) {
 	if params == nil {
 		params = &ListDataSessionParams{}
 	}
@@ -115,7 +115,7 @@ func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionPar
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan WirelessV1SimDataSession, 1)
+	channel := make(chan WirelessV1DataSession, 1)
 
 	go func() {
 		for response != nil {
@@ -124,7 +124,7 @@ func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionPar
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDataSessionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDataSessionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -137,11 +137,11 @@ func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionPar
 	return channel, err
 }
 
-func (c *ApiService) getNextListDataSessionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListDataSessionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

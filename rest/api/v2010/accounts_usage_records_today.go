@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -118,7 +118,7 @@ func (c *ApiService) PageUsageRecordToday(params *ListUsageRecordTodayParams, pa
 }
 
 // Lists UsageRecordToday records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageRecordToday(params *ListUsageRecordTodayParams) ([]ApiV2010AccountUsageUsageRecordUsageRecordToday, error) {
+func (c *ApiService) ListUsageRecordToday(params *ListUsageRecordTodayParams) ([]ApiV2010UsageRecordToday, error) {
 	if params == nil {
 		params = &ListUsageRecordTodayParams{}
 	}
@@ -130,13 +130,13 @@ func (c *ApiService) ListUsageRecordToday(params *ListUsageRecordTodayParams) ([
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountUsageUsageRecordUsageRecordToday
+	var records []ApiV2010UsageRecordToday
 
 	for response != nil {
 		records = append(records, response.UsageRecords...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordTodayResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageRecordTodayResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -147,7 +147,7 @@ func (c *ApiService) ListUsageRecordToday(params *ListUsageRecordTodayParams) ([
 }
 
 // Streams UsageRecordToday records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageRecordToday(params *ListUsageRecordTodayParams) (chan ApiV2010AccountUsageUsageRecordUsageRecordToday, error) {
+func (c *ApiService) StreamUsageRecordToday(params *ListUsageRecordTodayParams) (chan ApiV2010UsageRecordToday, error) {
 	if params == nil {
 		params = &ListUsageRecordTodayParams{}
 	}
@@ -160,7 +160,7 @@ func (c *ApiService) StreamUsageRecordToday(params *ListUsageRecordTodayParams) 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountUsageUsageRecordUsageRecordToday, 1)
+	channel := make(chan ApiV2010UsageRecordToday, 1)
 
 	go func() {
 		for response != nil {
@@ -169,7 +169,7 @@ func (c *ApiService) StreamUsageRecordToday(params *ListUsageRecordTodayParams) 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordTodayResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageRecordTodayResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -182,11 +182,11 @@ func (c *ApiService) StreamUsageRecordToday(params *ListUsageRecordTodayParams) 
 	return channel, err
 }
 
-func (c *ApiService) getNextListUsageRecordTodayResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListUsageRecordTodayResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

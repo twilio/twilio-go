@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -42,7 +42,7 @@ func (c *ApiService) DeleteSyncListPermission(ServiceSid string, ListSid string,
 }
 
 // Fetch a specific Sync List Permission.
-func (c *ApiService) FetchSyncListPermission(ServiceSid string, ListSid string, Identity string) (*SyncV1ServiceSyncListSyncListPermission, error) {
+func (c *ApiService) FetchSyncListPermission(ServiceSid string, ListSid string, Identity string) (*SyncV1SyncListPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -58,7 +58,7 @@ func (c *ApiService) FetchSyncListPermission(ServiceSid string, ListSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncListSyncListPermission{}
+	ps := &SyncV1SyncListPermission{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -119,7 +119,7 @@ func (c *ApiService) PageSyncListPermission(ServiceSid string, ListSid string, p
 }
 
 // Lists SyncListPermission records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncListPermission(ServiceSid string, ListSid string, params *ListSyncListPermissionParams) ([]SyncV1ServiceSyncListSyncListPermission, error) {
+func (c *ApiService) ListSyncListPermission(ServiceSid string, ListSid string, params *ListSyncListPermissionParams) ([]SyncV1SyncListPermission, error) {
 	if params == nil {
 		params = &ListSyncListPermissionParams{}
 	}
@@ -131,13 +131,13 @@ func (c *ApiService) ListSyncListPermission(ServiceSid string, ListSid string, p
 	}
 
 	curRecord := 0
-	var records []SyncV1ServiceSyncListSyncListPermission
+	var records []SyncV1SyncListPermission
 
 	for response != nil {
 		records = append(records, response.Permissions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncListPermissionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncListPermissionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -148,7 +148,7 @@ func (c *ApiService) ListSyncListPermission(ServiceSid string, ListSid string, p
 }
 
 // Streams SyncListPermission records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncListPermission(ServiceSid string, ListSid string, params *ListSyncListPermissionParams) (chan SyncV1ServiceSyncListSyncListPermission, error) {
+func (c *ApiService) StreamSyncListPermission(ServiceSid string, ListSid string, params *ListSyncListPermissionParams) (chan SyncV1SyncListPermission, error) {
 	if params == nil {
 		params = &ListSyncListPermissionParams{}
 	}
@@ -161,7 +161,7 @@ func (c *ApiService) StreamSyncListPermission(ServiceSid string, ListSid string,
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan SyncV1ServiceSyncListSyncListPermission, 1)
+	channel := make(chan SyncV1SyncListPermission, 1)
 
 	go func() {
 		for response != nil {
@@ -170,7 +170,7 @@ func (c *ApiService) StreamSyncListPermission(ServiceSid string, ListSid string,
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncListPermissionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncListPermissionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -183,11 +183,11 @@ func (c *ApiService) StreamSyncListPermission(ServiceSid string, ListSid string,
 	return channel, err
 }
 
-func (c *ApiService) getNextListSyncListPermissionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSyncListPermissionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -225,7 +225,7 @@ func (params *UpdateSyncListPermissionParams) SetWrite(Write bool) *UpdateSyncLi
 }
 
 // Update an identity&#39;s access to a specific Sync List.
-func (c *ApiService) UpdateSyncListPermission(ServiceSid string, ListSid string, Identity string, params *UpdateSyncListPermissionParams) (*SyncV1ServiceSyncListSyncListPermission, error) {
+func (c *ApiService) UpdateSyncListPermission(ServiceSid string, ListSid string, Identity string, params *UpdateSyncListPermissionParams) (*SyncV1SyncListPermission, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ListSid"+"}", ListSid, -1)
@@ -250,7 +250,7 @@ func (c *ApiService) UpdateSyncListPermission(ServiceSid string, ListSid string,
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncListSyncListPermission{}
+	ps := &SyncV1SyncListPermission{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

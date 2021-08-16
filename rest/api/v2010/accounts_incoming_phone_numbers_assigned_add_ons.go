@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -39,7 +39,7 @@ func (params *CreateIncomingPhoneNumberAssignedAddOnParams) SetInstalledAddOnSid
 }
 
 // Assign an Add-on installation to the Number specified.
-func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *CreateIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
+func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *CreateIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -61,7 +61,7 @@ func (c *ApiService) CreateIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn{}
+	ps := &ApiV2010IncomingPhoneNumberAssignedAddOn{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -116,7 +116,7 @@ func (params *FetchIncomingPhoneNumberAssignedAddOnParams) SetPathAccountSid(Pat
 }
 
 // Fetch an instance of an Add-on installation currently assigned to this Number.
-func (c *ApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string, params *FetchIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
+func (c *ApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid string, Sid string, params *FetchIncomingPhoneNumberAssignedAddOnParams) (*ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -136,7 +136,7 @@ func (c *ApiService) FetchIncomingPhoneNumberAssignedAddOn(ResourceSid string, S
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn{}
+	ps := &ApiV2010IncomingPhoneNumberAssignedAddOn{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -207,7 +207,7 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 }
 
 // Lists IncomingPhoneNumberAssignedAddOn records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
+func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) ([]ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberAssignedAddOnParams{}
 	}
@@ -219,13 +219,13 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn
+	var records []ApiV2010IncomingPhoneNumberAssignedAddOn
 
 	for response != nil {
 		records = append(records, response.AssignedAddOns...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -236,7 +236,7 @@ func (c *ApiService) ListIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 }
 
 // Streams IncomingPhoneNumberAssignedAddOn records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, error) {
+func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams) (chan ApiV2010IncomingPhoneNumberAssignedAddOn, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberAssignedAddOnParams{}
 	}
@@ -249,7 +249,7 @@ func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberAssignedAddOn, 1)
+	channel := make(chan ApiV2010IncomingPhoneNumberAssignedAddOn, 1)
 
 	go func() {
 		for response != nil {
@@ -258,7 +258,7 @@ func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberAssignedAddOnResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -271,11 +271,11 @@ func (c *ApiService) StreamIncomingPhoneNumberAssignedAddOn(ResourceSid string, 
 	return channel, err
 }
 
-func (c *ApiService) getNextListIncomingPhoneNumberAssignedAddOnResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListIncomingPhoneNumberAssignedAddOnResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

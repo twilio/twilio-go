@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
-**MediaList** | [**[]ApiV2010AccountMessageMedia**](ApiV2010AccountMessageMedia.md) |  |[optional] 
+**MediaList** | [**[]ApiV2010Media**](ApiV2010Media.md) |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 

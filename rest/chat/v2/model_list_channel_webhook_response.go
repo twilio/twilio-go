@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListChannelWebhookResponse struct for ListChannelWebhookResponse
 type ListChannelWebhookResponse struct {
-	Meta     ListCredentialResponseMeta           `json:"meta,omitempty"`
-	Webhooks []ChatV2ServiceChannelChannelWebhook `json:"webhooks,omitempty"`
+	Meta     ListCredentialResponseMeta `json:"meta,omitempty"`
+	Webhooks []ChatV2ChannelWebhook     `json:"webhooks,omitempty"`
 }

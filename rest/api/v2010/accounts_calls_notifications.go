@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -32,7 +32,7 @@ func (params *FetchCallNotificationParams) SetPathAccountSid(PathAccountSid stri
 	return params
 }
 
-func (c *ApiService) FetchCallNotification(CallSid string, Sid string, params *FetchCallNotificationParams) (*ApiV2010AccountCallCallNotificationInstance, error) {
+func (c *ApiService) FetchCallNotification(CallSid string, Sid string, params *FetchCallNotificationParams) (*ApiV2010CallNotificationInstance, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -52,7 +52,7 @@ func (c *ApiService) FetchCallNotification(CallSid string, Sid string, params *F
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCallCallNotificationInstance{}
+	ps := &ApiV2010CallNotificationInstance{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -159,7 +159,7 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 }
 
 // Lists CallNotification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotificationParams) ([]ApiV2010AccountCallCallNotification, error) {
+func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotificationParams) ([]ApiV2010CallNotification, error) {
 	if params == nil {
 		params = &ListCallNotificationParams{}
 	}
@@ -171,13 +171,13 @@ func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotifi
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountCallCallNotification
+	var records []ApiV2010CallNotification
 
 	for response != nil {
 		records = append(records, response.Notifications...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCallNotificationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallNotificationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -188,7 +188,7 @@ func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotifi
 }
 
 // Streams CallNotification records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNotificationParams) (chan ApiV2010AccountCallCallNotification, error) {
+func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNotificationParams) (chan ApiV2010CallNotification, error) {
 	if params == nil {
 		params = &ListCallNotificationParams{}
 	}
@@ -201,7 +201,7 @@ func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNoti
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountCallCallNotification, 1)
+	channel := make(chan ApiV2010CallNotification, 1)
 
 	go func() {
 		for response != nil {
@@ -210,7 +210,7 @@ func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNoti
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCallNotificationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallNotificationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -223,11 +223,11 @@ func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNoti
 	return channel, err
 }
 
-func (c *ApiService) getNextListCallNotificationResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListCallNotificationResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## CreateIncomingPhoneNumberLocal
 
-> ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal CreateIncomingPhoneNumberLocal(ctx, optional)
+> ApiV2010IncomingPhoneNumberLocal CreateIncomingPhoneNumberLocal(ctx, optional)
 
 
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal**](ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberLocal.md)
+[**ApiV2010IncomingPhoneNumberLocal**](ApiV2010IncomingPhoneNumberLocal.md)
 
 ### Authorization
 

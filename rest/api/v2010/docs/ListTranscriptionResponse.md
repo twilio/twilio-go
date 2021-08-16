@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
 **Start** | **int** |  |[optional] 
-**Transcriptions** | [**[]ApiV2010AccountTranscription**](ApiV2010AccountTranscription.md) |  |[optional] 
+**Transcriptions** | [**[]ApiV2010Transcription**](ApiV2010Transcription.md) |  |[optional] 
 **Uri** | **string** |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## FetchWorkerChannel
 
-> TaskrouterV1WorkspaceWorkerWorkerChannel FetchWorkerChannel(ctx, WorkspaceSidWorkerSidSid)
+> TaskrouterV1WorkerChannel FetchWorkerChannel(ctx, WorkspaceSidWorkerSidSid)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkerChannel**](TaskrouterV1WorkspaceWorkerWorkerChannel.md)
+[**TaskrouterV1WorkerChannel**](TaskrouterV1WorkerChannel.md)
 
 ### Authorization
 
@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## UpdateWorkerChannel
 
-> TaskrouterV1WorkspaceWorkerWorkerChannel UpdateWorkerChannel(ctx, WorkspaceSidWorkerSidSidoptional)
+> TaskrouterV1WorkerChannel UpdateWorkerChannel(ctx, WorkspaceSidWorkerSidSidoptional)
 
 
 
@@ -123,7 +123,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceWorkerWorkerChannel**](TaskrouterV1WorkspaceWorkerWorkerChannel.md)
+[**TaskrouterV1WorkerChannel**](TaskrouterV1WorkerChannel.md)
 
 ### Authorization
 

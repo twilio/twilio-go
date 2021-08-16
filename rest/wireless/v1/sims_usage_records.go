@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -101,7 +101,7 @@ func (c *ApiService) PageUsageRecord(SimSid string, params *ListUsageRecordParam
 }
 
 // Lists UsageRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParams) ([]WirelessV1SimUsageRecord, error) {
+func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParams) ([]WirelessV1UsageRecord, error) {
 	if params == nil {
 		params = &ListUsageRecordParams{}
 	}
@@ -113,13 +113,13 @@ func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParam
 	}
 
 	curRecord := 0
-	var records []WirelessV1SimUsageRecord
+	var records []WirelessV1UsageRecord
 
 	for response != nil {
 		records = append(records, response.UsageRecords...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageRecordResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -130,7 +130,7 @@ func (c *ApiService) ListUsageRecord(SimSid string, params *ListUsageRecordParam
 }
 
 // Streams UsageRecord records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageRecord(SimSid string, params *ListUsageRecordParams) (chan WirelessV1SimUsageRecord, error) {
+func (c *ApiService) StreamUsageRecord(SimSid string, params *ListUsageRecordParams) (chan WirelessV1UsageRecord, error) {
 	if params == nil {
 		params = &ListUsageRecordParams{}
 	}
@@ -143,7 +143,7 @@ func (c *ApiService) StreamUsageRecord(SimSid string, params *ListUsageRecordPar
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan WirelessV1SimUsageRecord, 1)
+	channel := make(chan WirelessV1UsageRecord, 1)
 
 	go func() {
 		for response != nil {
@@ -152,7 +152,7 @@ func (c *ApiService) StreamUsageRecord(SimSid string, params *ListUsageRecordPar
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageRecordResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -165,11 +165,11 @@ func (c *ApiService) StreamUsageRecord(SimSid string, params *ListUsageRecordPar
 	return channel, err
 }
 
-func (c *ApiService) getNextListUsageRecordResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListUsageRecordResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

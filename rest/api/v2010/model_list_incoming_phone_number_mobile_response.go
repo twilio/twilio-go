@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,13 +13,13 @@ package openapi
 
 // ListIncomingPhoneNumberMobileResponse struct for ListIncomingPhoneNumberMobileResponse
 type ListIncomingPhoneNumberMobileResponse struct {
-	End                  int                                                           `json:"end,omitempty"`
-	FirstPageUri         string                                                        `json:"first_page_uri,omitempty"`
-	IncomingPhoneNumbers []ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile `json:"incoming_phone_numbers,omitempty"`
-	NextPageUri          string                                                        `json:"next_page_uri,omitempty"`
-	Page                 int                                                           `json:"page,omitempty"`
-	PageSize             int                                                           `json:"page_size,omitempty"`
-	PreviousPageUri      string                                                        `json:"previous_page_uri,omitempty"`
-	Start                int                                                           `json:"start,omitempty"`
-	Uri                  string                                                        `json:"uri,omitempty"`
+	End                  int                                 `json:"end,omitempty"`
+	FirstPageUri         string                              `json:"first_page_uri,omitempty"`
+	IncomingPhoneNumbers []ApiV2010IncomingPhoneNumberMobile `json:"incoming_phone_numbers,omitempty"`
+	NextPageUri          string                              `json:"next_page_uri,omitempty"`
+	Page                 int                                 `json:"page,omitempty"`
+	PageSize             int                                 `json:"page_size,omitempty"`
+	PreviousPageUri      string                              `json:"previous_page_uri,omitempty"`
+	Start                int                                 `json:"start,omitempty"`
+	Uri                  string                              `json:"uri,omitempty"`
 }

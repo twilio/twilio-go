@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchPhoneNumberCountry
 
-> PricingV1PhoneNumberPhoneNumberCountryInstance FetchPhoneNumberCountry(ctx, IsoCountry)
+> PricingV1PhoneNumberCountryInstance FetchPhoneNumberCountry(ctx, IsoCountry)
 
 
 
@@ -33,7 +33,7 @@ Name | Type | Description
 
 ### Return type
 
-[**PricingV1PhoneNumberPhoneNumberCountryInstance**](PricingV1PhoneNumberPhoneNumberCountryInstance.md)
+[**PricingV1PhoneNumberCountryInstance**](PricingV1PhoneNumberCountryInstance.md)
 
 ### Authorization
 

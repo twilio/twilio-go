@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateExportCustomJob
 
-> BulkexportsV1ExportExportCustomJob CreateExportCustomJob(ctx, ResourceTypeoptional)
+> BulkexportsV1ExportCustomJob CreateExportCustomJob(ctx, ResourceTypeoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**BulkexportsV1ExportExportCustomJob**](BulkexportsV1ExportExportCustomJob.md)
+[**BulkexportsV1ExportCustomJob**](BulkexportsV1ExportCustomJob.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchJob
 
-> BulkexportsV1ExportJob FetchJob(ctx, JobSid)
+> BulkexportsV1Job FetchJob(ctx, JobSid)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**BulkexportsV1ExportJob**](BulkexportsV1ExportJob.md)
+[**BulkexportsV1Job**](BulkexportsV1Job.md)
 
 ### Authorization
 

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateFieldType
 
-> AutopilotV1AssistantFieldType CreateFieldType(ctx, AssistantSidoptional)
+> AutopilotV1FieldType CreateFieldType(ctx, AssistantSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantFieldType**](AutopilotV1AssistantFieldType.md)
+[**AutopilotV1FieldType**](AutopilotV1FieldType.md)
 
 ### Authorization
 
@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## FetchFieldType
 
-> AutopilotV1AssistantFieldType FetchFieldType(ctx, AssistantSidSid)
+> AutopilotV1FieldType FetchFieldType(ctx, AssistantSidSid)
 
 
 
@@ -120,7 +120,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantFieldType**](AutopilotV1AssistantFieldType.md)
+[**AutopilotV1FieldType**](AutopilotV1FieldType.md)
 
 ### Authorization
 
@@ -180,7 +180,7 @@ Name | Type | Description
 
 ## UpdateFieldType
 
-> AutopilotV1AssistantFieldType UpdateFieldType(ctx, AssistantSidSidoptional)
+> AutopilotV1FieldType UpdateFieldType(ctx, AssistantSidSidoptional)
 
 
 
@@ -205,7 +205,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantFieldType**](AutopilotV1AssistantFieldType.md)
+[**AutopilotV1FieldType**](AutopilotV1FieldType.md)
 
 ### Authorization
 

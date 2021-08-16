@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -84,7 +84,7 @@ func (c *ApiService) PageDependentPhoneNumber(AddressSid string, params *ListDep
 }
 
 // Lists DependentPhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) ([]ApiV2010AccountAddressDependentPhoneNumber, error) {
+func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) ([]ApiV2010DependentPhoneNumber, error) {
 	if params == nil {
 		params = &ListDependentPhoneNumberParams{}
 	}
@@ -96,13 +96,13 @@ func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDep
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountAddressDependentPhoneNumber
+	var records []ApiV2010DependentPhoneNumber
 
 	for response != nil {
 		records = append(records, response.DependentPhoneNumbers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDependentPhoneNumberResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDependentPhoneNumberResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -113,7 +113,7 @@ func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDep
 }
 
 // Streams DependentPhoneNumber records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) (chan ApiV2010AccountAddressDependentPhoneNumber, error) {
+func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) (chan ApiV2010DependentPhoneNumber, error) {
 	if params == nil {
 		params = &ListDependentPhoneNumberParams{}
 	}
@@ -126,7 +126,7 @@ func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListD
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountAddressDependentPhoneNumber, 1)
+	channel := make(chan ApiV2010DependentPhoneNumber, 1)
 
 	go func() {
 		for response != nil {
@@ -135,7 +135,7 @@ func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListD
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDependentPhoneNumberResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDependentPhoneNumberResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -148,11 +148,11 @@ func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListD
 	return channel, err
 }
 
-func (c *ApiService) getNextListDependentPhoneNumberResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListDependentPhoneNumberResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

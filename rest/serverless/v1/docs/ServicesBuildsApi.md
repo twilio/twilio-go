@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateBuild
 
-> ServerlessV1ServiceBuild CreateBuild(ctx, ServiceSidoptional)
+> ServerlessV1Build CreateBuild(ctx, ServiceSidoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceBuild**](ServerlessV1ServiceBuild.md)
+[**ServerlessV1Build**](ServerlessV1Build.md)
 
 ### Authorization
 
@@ -102,7 +102,7 @@ Name | Type | Description
 
 ## FetchBuild
 
-> ServerlessV1ServiceBuild FetchBuild(ctx, ServiceSidSid)
+> ServerlessV1Build FetchBuild(ctx, ServiceSidSid)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceBuild**](ServerlessV1ServiceBuild.md)
+[**ServerlessV1Build**](ServerlessV1Build.md)
 
 ### Authorization
 

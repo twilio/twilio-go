@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchRoomRecordingRule
 
-> VideoV1RoomRoomRecordingRule FetchRoomRecordingRule(ctx, RoomSid)
+> VideoV1RoomRecordingRule FetchRoomRecordingRule(ctx, RoomSid)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VideoV1RoomRoomRecordingRule**](VideoV1RoomRoomRecordingRule.md)
+[**VideoV1RoomRecordingRule**](VideoV1RoomRecordingRule.md)
 
 ### Authorization
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## UpdateRoomRecordingRule
 
-> VideoV1RoomRoomRecordingRule UpdateRoomRecordingRule(ctx, RoomSidoptional)
+> VideoV1RoomRecordingRule UpdateRoomRecordingRule(ctx, RoomSidoptional)
 
 
 
@@ -78,7 +78,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VideoV1RoomRoomRecordingRule**](VideoV1RoomRoomRecordingRule.md)
+[**VideoV1RoomRecordingRule**](VideoV1RoomRecordingRule.md)
 
 ### Authorization
 

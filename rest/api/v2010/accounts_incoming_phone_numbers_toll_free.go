@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -169,7 +169,7 @@ func (params *CreateIncomingPhoneNumberTollFreeParams) SetVoiceUrl(VoiceUrl stri
 	return params
 }
 
-func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPhoneNumberTollFreeParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, error) {
+func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPhoneNumberTollFreeParams) (*ApiV2010IncomingPhoneNumberTollFree, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -256,7 +256,7 @@ func (c *ApiService) CreateIncomingPhoneNumberTollFree(params *CreateIncomingPho
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree{}
+	ps := &ApiV2010IncomingPhoneNumberTollFree{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -362,7 +362,7 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 }
 
 // Lists IncomingPhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, error) {
+func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) ([]ApiV2010IncomingPhoneNumberTollFree, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberTollFreeParams{}
 	}
@@ -374,13 +374,13 @@ func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree
+	var records []ApiV2010IncomingPhoneNumberTollFree
 
 	for response != nil {
 		records = append(records, response.IncomingPhoneNumbers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberTollFreeResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberTollFreeResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -391,7 +391,7 @@ func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 }
 
 // Streams IncomingPhoneNumberTollFree records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, error) {
+func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) (chan ApiV2010IncomingPhoneNumberTollFree, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberTollFreeParams{}
 	}
@@ -404,7 +404,7 @@ func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhone
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberTollFree, 1)
+	channel := make(chan ApiV2010IncomingPhoneNumberTollFree, 1)
 
 	go func() {
 		for response != nil {
@@ -413,7 +413,7 @@ func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhone
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberTollFreeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberTollFreeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -426,11 +426,11 @@ func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhone
 	return channel, err
 }
 
-func (c *ApiService) getNextListIncomingPhoneNumberTollFreeResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListIncomingPhoneNumberTollFreeResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

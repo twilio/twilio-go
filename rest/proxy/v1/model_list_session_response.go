@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -14,5 +14,5 @@ package openapi
 // ListSessionResponse struct for ListSessionResponse
 type ListSessionResponse struct {
 	Meta     ListServiceResponseMeta `json:"meta,omitempty"`
-	Sessions []ProxyV1ServiceSession `json:"sessions,omitempty"`
+	Sessions []ProxyV1Session        `json:"sessions,omitempty"`
 }

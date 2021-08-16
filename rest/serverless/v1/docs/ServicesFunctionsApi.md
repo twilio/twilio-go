@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateFunction
 
-> ServerlessV1ServiceFunction CreateFunction(ctx, ServiceSidoptional)
+> ServerlessV1Function CreateFunction(ctx, ServiceSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceFunction**](ServerlessV1ServiceFunction.md)
+[**ServerlessV1Function**](ServerlessV1Function.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchFunction
 
-> ServerlessV1ServiceFunction FetchFunction(ctx, ServiceSidSid)
+> ServerlessV1Function FetchFunction(ctx, ServiceSidSid)
 
 
 
@@ -125,7 +125,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceFunction**](ServerlessV1ServiceFunction.md)
+[**ServerlessV1Function**](ServerlessV1Function.md)
 
 ### Authorization
 
@@ -187,7 +187,7 @@ Name | Type | Description
 
 ## UpdateFunction
 
-> ServerlessV1ServiceFunction UpdateFunction(ctx, ServiceSidSidoptional)
+> ServerlessV1Function UpdateFunction(ctx, ServiceSidSidoptional)
 
 
 
@@ -213,7 +213,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ServerlessV1ServiceFunction**](ServerlessV1ServiceFunction.md)
+[**ServerlessV1Function**](ServerlessV1Function.md)
 
 ### Authorization
 

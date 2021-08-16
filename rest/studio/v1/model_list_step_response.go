@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListStepResponse struct for ListStepResponse
 type ListStepResponse struct {
-	Meta  ListFlowResponseMeta         `json:"meta,omitempty"`
-	Steps []StudioV1FlowEngagementStep `json:"steps,omitempty"`
+	Meta  ListFlowResponseMeta `json:"meta,omitempty"`
+	Steps []StudioV1Step       `json:"steps,omitempty"`
 }

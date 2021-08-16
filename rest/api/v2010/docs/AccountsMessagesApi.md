@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateMessage
 
-> ApiV2010AccountMessage CreateMessage(ctx, optional)
+> ApiV2010Message CreateMessage(ctx, optional)
 
 
 
@@ -51,7 +51,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountMessage**](ApiV2010AccountMessage.md)
+[**ApiV2010Message**](ApiV2010Message.md)
 
 ### Authorization
 
@@ -112,7 +112,7 @@ Name | Type | Description
 
 ## FetchMessage
 
-> ApiV2010AccountMessage FetchMessage(ctx, Sidoptional)
+> ApiV2010Message FetchMessage(ctx, Sidoptional)
 
 
 
@@ -137,7 +137,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountMessage**](ApiV2010AccountMessage.md)
+[**ApiV2010Message**](ApiV2010Message.md)
 
 ### Authorization
 
@@ -201,7 +201,7 @@ Name | Type | Description
 
 ## UpdateMessage
 
-> ApiV2010AccountMessage UpdateMessage(ctx, Sidoptional)
+> ApiV2010Message UpdateMessage(ctx, Sidoptional)
 
 
 
@@ -227,7 +227,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountMessage**](ApiV2010AccountMessage.md)
+[**ApiV2010Message**](ApiV2010Message.md)
 
 ### Authorization
 

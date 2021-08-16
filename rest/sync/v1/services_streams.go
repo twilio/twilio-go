@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -39,7 +39,7 @@ func (params *CreateSyncStreamParams) SetUniqueName(UniqueName string) *CreateSy
 }
 
 // Create a new Stream.
-func (c *ApiService) CreateSyncStream(ServiceSid string, params *CreateSyncStreamParams) (*SyncV1ServiceSyncStream, error) {
+func (c *ApiService) CreateSyncStream(ServiceSid string, params *CreateSyncStreamParams) (*SyncV1SyncStream, error) {
 	path := "/v1/Services/{ServiceSid}/Streams"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -59,7 +59,7 @@ func (c *ApiService) CreateSyncStream(ServiceSid string, params *CreateSyncStrea
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncStream{}
+	ps := &SyncV1SyncStream{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c *ApiService) DeleteSyncStream(ServiceSid string, Sid string) error {
 }
 
 // Fetch a specific Stream.
-func (c *ApiService) FetchSyncStream(ServiceSid string, Sid string) (*SyncV1ServiceSyncStream, error) {
+func (c *ApiService) FetchSyncStream(ServiceSid string, Sid string) (*SyncV1SyncStream, error) {
 	path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -102,7 +102,7 @@ func (c *ApiService) FetchSyncStream(ServiceSid string, Sid string) (*SyncV1Serv
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncStream{}
+	ps := &SyncV1SyncStream{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -162,7 +162,7 @@ func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamPar
 }
 
 // Lists SyncStream records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamParams) ([]SyncV1ServiceSyncStream, error) {
+func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamParams) ([]SyncV1SyncStream, error) {
 	if params == nil {
 		params = &ListSyncStreamParams{}
 	}
@@ -174,13 +174,13 @@ func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamPar
 	}
 
 	curRecord := 0
-	var records []SyncV1ServiceSyncStream
+	var records []SyncV1SyncStream
 
 	for response != nil {
 		records = append(records, response.Streams...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -191,7 +191,7 @@ func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamPar
 }
 
 // Streams SyncStream records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamParams) (chan SyncV1ServiceSyncStream, error) {
+func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamParams) (chan SyncV1SyncStream, error) {
 	if params == nil {
 		params = &ListSyncStreamParams{}
 	}
@@ -204,7 +204,7 @@ func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamP
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan SyncV1ServiceSyncStream, 1)
+	channel := make(chan SyncV1SyncStream, 1)
 
 	go func() {
 		for response != nil {
@@ -213,7 +213,7 @@ func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamP
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -226,11 +226,11 @@ func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamP
 	return channel, err
 }
 
-func (c *ApiService) getNextListSyncStreamResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSyncStreamResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -256,7 +256,7 @@ func (params *UpdateSyncStreamParams) SetTtl(Ttl int) *UpdateSyncStreamParams {
 }
 
 // Update a specific Stream.
-func (c *ApiService) UpdateSyncStream(ServiceSid string, Sid string, params *UpdateSyncStreamParams) (*SyncV1ServiceSyncStream, error) {
+func (c *ApiService) UpdateSyncStream(ServiceSid string, Sid string, params *UpdateSyncStreamParams) (*SyncV1SyncStream, error) {
 	path := "/v1/Services/{ServiceSid}/Streams/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -274,7 +274,7 @@ func (c *ApiService) UpdateSyncStream(ServiceSid string, Sid string, params *Upd
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncStream{}
+	ps := &SyncV1SyncStream{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

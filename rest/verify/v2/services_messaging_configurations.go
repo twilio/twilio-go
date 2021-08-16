@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -39,7 +39,7 @@ func (params *CreateMessagingConfigurationParams) SetMessagingServiceSid(Messagi
 }
 
 // Create a new MessagingConfiguration for a service.
-func (c *ApiService) CreateMessagingConfiguration(ServiceSid string, params *CreateMessagingConfigurationParams) (*VerifyV2ServiceMessagingConfiguration, error) {
+func (c *ApiService) CreateMessagingConfiguration(ServiceSid string, params *CreateMessagingConfigurationParams) (*VerifyV2MessagingConfiguration, error) {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -59,7 +59,7 @@ func (c *ApiService) CreateMessagingConfiguration(ServiceSid string, params *Cre
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceMessagingConfiguration{}
+	ps := &VerifyV2MessagingConfiguration{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c *ApiService) DeleteMessagingConfiguration(ServiceSid string, Country str
 }
 
 // Fetch a specific MessagingConfiguration.
-func (c *ApiService) FetchMessagingConfiguration(ServiceSid string, Country string) (*VerifyV2ServiceMessagingConfiguration, error) {
+func (c *ApiService) FetchMessagingConfiguration(ServiceSid string, Country string) (*VerifyV2MessagingConfiguration, error) {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
@@ -102,7 +102,7 @@ func (c *ApiService) FetchMessagingConfiguration(ServiceSid string, Country stri
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceMessagingConfiguration{}
+	ps := &VerifyV2MessagingConfiguration{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -162,7 +162,7 @@ func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListM
 }
 
 // Lists MessagingConfiguration records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams) ([]VerifyV2ServiceMessagingConfiguration, error) {
+func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams) ([]VerifyV2MessagingConfiguration, error) {
 	if params == nil {
 		params = &ListMessagingConfigurationParams{}
 	}
@@ -174,13 +174,13 @@ func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListM
 	}
 
 	curRecord := 0
-	var records []VerifyV2ServiceMessagingConfiguration
+	var records []VerifyV2MessagingConfiguration
 
 	for response != nil {
 		records = append(records, response.MessagingConfigurations...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessagingConfigurationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessagingConfigurationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -191,7 +191,7 @@ func (c *ApiService) ListMessagingConfiguration(ServiceSid string, params *ListM
 }
 
 // Streams MessagingConfiguration records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams) (chan VerifyV2ServiceMessagingConfiguration, error) {
+func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams) (chan VerifyV2MessagingConfiguration, error) {
 	if params == nil {
 		params = &ListMessagingConfigurationParams{}
 	}
@@ -204,7 +204,7 @@ func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *Lis
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2ServiceMessagingConfiguration, 1)
+	channel := make(chan VerifyV2MessagingConfiguration, 1)
 
 	go func() {
 		for response != nil {
@@ -213,7 +213,7 @@ func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *Lis
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessagingConfigurationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessagingConfigurationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -226,11 +226,11 @@ func (c *ApiService) StreamMessagingConfiguration(ServiceSid string, params *Lis
 	return channel, err
 }
 
-func (c *ApiService) getNextListMessagingConfigurationResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListMessagingConfigurationResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -256,7 +256,7 @@ func (params *UpdateMessagingConfigurationParams) SetMessagingServiceSid(Messagi
 }
 
 // Update a specific MessagingConfiguration
-func (c *ApiService) UpdateMessagingConfiguration(ServiceSid string, Country string, params *UpdateMessagingConfigurationParams) (*VerifyV2ServiceMessagingConfiguration, error) {
+func (c *ApiService) UpdateMessagingConfiguration(ServiceSid string, Country string, params *UpdateMessagingConfigurationParams) (*VerifyV2MessagingConfiguration, error) {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Country"+"}", Country, -1)
@@ -274,7 +274,7 @@ func (c *ApiService) UpdateMessagingConfiguration(ServiceSid string, Country str
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceMessagingConfiguration{}
+	ps := &VerifyV2MessagingConfiguration{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

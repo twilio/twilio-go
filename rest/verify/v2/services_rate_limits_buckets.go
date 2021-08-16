@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -39,7 +39,7 @@ func (params *CreateBucketParams) SetMax(Max int) *CreateBucketParams {
 }
 
 // Create a new Bucket for a Rate Limit
-func (c *ApiService) CreateBucket(ServiceSid string, RateLimitSid string, params *CreateBucketParams) (*VerifyV2ServiceRateLimitBucket, error) {
+func (c *ApiService) CreateBucket(ServiceSid string, RateLimitSid string, params *CreateBucketParams) (*VerifyV2Bucket, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
@@ -60,7 +60,7 @@ func (c *ApiService) CreateBucket(ServiceSid string, RateLimitSid string, params
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceRateLimitBucket{}
+	ps := &VerifyV2Bucket{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (c *ApiService) DeleteBucket(ServiceSid string, RateLimitSid string, Sid st
 }
 
 // Fetch a specific Bucket.
-func (c *ApiService) FetchBucket(ServiceSid string, RateLimitSid string, Sid string) (*VerifyV2ServiceRateLimitBucket, error) {
+func (c *ApiService) FetchBucket(ServiceSid string, RateLimitSid string, Sid string) (*VerifyV2Bucket, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
@@ -105,7 +105,7 @@ func (c *ApiService) FetchBucket(ServiceSid string, RateLimitSid string, Sid str
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceRateLimitBucket{}
+	ps := &VerifyV2Bucket{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -166,7 +166,7 @@ func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *
 }
 
 // Lists Bucket records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams) ([]VerifyV2ServiceRateLimitBucket, error) {
+func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams) ([]VerifyV2Bucket, error) {
 	if params == nil {
 		params = &ListBucketParams{}
 	}
@@ -178,13 +178,13 @@ func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *
 	}
 
 	curRecord := 0
-	var records []VerifyV2ServiceRateLimitBucket
+	var records []VerifyV2Bucket
 
 	for response != nil {
 		records = append(records, response.Buckets...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBucketResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBucketResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -195,7 +195,7 @@ func (c *ApiService) ListBucket(ServiceSid string, RateLimitSid string, params *
 }
 
 // Streams Bucket records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams) (chan VerifyV2ServiceRateLimitBucket, error) {
+func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams) (chan VerifyV2Bucket, error) {
 	if params == nil {
 		params = &ListBucketParams{}
 	}
@@ -208,7 +208,7 @@ func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2ServiceRateLimitBucket, 1)
+	channel := make(chan VerifyV2Bucket, 1)
 
 	go func() {
 		for response != nil {
@@ -217,7 +217,7 @@ func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListBucketResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBucketResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -230,11 +230,11 @@ func (c *ApiService) StreamBucket(ServiceSid string, RateLimitSid string, params
 	return channel, err
 }
 
-func (c *ApiService) getNextListBucketResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListBucketResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -266,7 +266,7 @@ func (params *UpdateBucketParams) SetMax(Max int) *UpdateBucketParams {
 }
 
 // Update a specific Bucket.
-func (c *ApiService) UpdateBucket(ServiceSid string, RateLimitSid string, Sid string, params *UpdateBucketParams) (*VerifyV2ServiceRateLimitBucket, error) {
+func (c *ApiService) UpdateBucket(ServiceSid string, RateLimitSid string, Sid string, params *UpdateBucketParams) (*VerifyV2Bucket, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"RateLimitSid"+"}", RateLimitSid, -1)
@@ -288,7 +288,7 @@ func (c *ApiService) UpdateBucket(ServiceSid string, RateLimitSid string, Sid st
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceRateLimitBucket{}
+	ps := &VerifyV2Bucket{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

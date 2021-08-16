@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -21,7 +21,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1MessagingMessagingCountryInstance, error) {
+func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1MessagingCountryInstance, error) {
 	path := "/v1/Messaging/Countries/{IsoCountry}"
 	path = strings.Replace(path, "{"+"IsoCountry"+"}", IsoCountry, -1)
 
@@ -35,7 +35,7 @@ func (c *ApiService) FetchMessagingCountry(IsoCountry string) (*PricingV1Messagi
 
 	defer resp.Body.Close()
 
-	ps := &PricingV1MessagingMessagingCountryInstance{}
+	ps := &PricingV1MessagingCountryInstance{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -93,7 +93,7 @@ func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pa
 }
 
 // Lists MessagingCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([]PricingV1MessagingMessagingCountry, error) {
+func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([]PricingV1MessagingCountry, error) {
 	if params == nil {
 		params = &ListMessagingCountryParams{}
 	}
@@ -105,13 +105,13 @@ func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([
 	}
 
 	curRecord := 0
-	var records []PricingV1MessagingMessagingCountry
+	var records []PricingV1MessagingCountry
 
 	for response != nil {
 		records = append(records, response.Countries...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -122,7 +122,7 @@ func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([
 }
 
 // Streams MessagingCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) (chan PricingV1MessagingMessagingCountry, error) {
+func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) (chan PricingV1MessagingCountry, error) {
 	if params == nil {
 		params = &ListMessagingCountryParams{}
 	}
@@ -135,7 +135,7 @@ func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan PricingV1MessagingMessagingCountry, 1)
+	channel := make(chan PricingV1MessagingCountry, 1)
 
 	go func() {
 		for response != nil {
@@ -144,7 +144,7 @@ func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -157,11 +157,11 @@ func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) 
 	return channel, err
 }
 
-func (c *ApiService) getNextListMessagingCountryResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListMessagingCountryResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

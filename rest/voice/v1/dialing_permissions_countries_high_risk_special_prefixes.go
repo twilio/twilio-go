@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -73,7 +73,7 @@ func (c *ApiService) PageDialingPermissionsHrsPrefixes(IsoCode string, params *L
 }
 
 // Lists DialingPermissionsHrsPrefixes records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) ([]VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes, error) {
+func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) ([]VoiceV1DialingPermissionsHrsPrefixes, error) {
 	if params == nil {
 		params = &ListDialingPermissionsHrsPrefixesParams{}
 	}
@@ -85,13 +85,13 @@ func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *L
 	}
 
 	curRecord := 0
-	var records []VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes
+	var records []VoiceV1DialingPermissionsHrsPrefixes
 
 	for response != nil {
 		records = append(records, response.Content...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDialingPermissionsHrsPrefixesResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDialingPermissionsHrsPrefixesResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -102,7 +102,7 @@ func (c *ApiService) ListDialingPermissionsHrsPrefixes(IsoCode string, params *L
 }
 
 // Streams DialingPermissionsHrsPrefixes records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) (chan VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes, error) {
+func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams) (chan VoiceV1DialingPermissionsHrsPrefixes, error) {
 	if params == nil {
 		params = &ListDialingPermissionsHrsPrefixesParams{}
 	}
@@ -115,7 +115,7 @@ func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes, 1)
+	channel := make(chan VoiceV1DialingPermissionsHrsPrefixes, 1)
 
 	go func() {
 		for response != nil {
@@ -124,7 +124,7 @@ func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDialingPermissionsHrsPrefixesResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDialingPermissionsHrsPrefixesResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -137,11 +137,11 @@ func (c *ApiService) StreamDialingPermissionsHrsPrefixes(IsoCode string, params 
 	return channel, err
 }
 
-func (c *ApiService) getNextListDialingPermissionsHrsPrefixesResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListDialingPermissionsHrsPrefixesResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

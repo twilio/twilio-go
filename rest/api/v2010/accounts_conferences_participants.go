@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -93,6 +93,8 @@ type CreateParticipantParams struct {
 	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
 	// The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The maximum duration of the call in seconds. Constraints depend on account and configuration.
+	TimeLimit *int `json:"TimeLimit,omitempty"`
 	// The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between `5` and `600`, inclusive. The default value is `60`. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds.
 	Timeout *int `json:"Timeout,omitempty"`
 	// The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
@@ -243,6 +245,10 @@ func (params *CreateParticipantParams) SetStatusCallbackMethod(StatusCallbackMet
 	params.StatusCallbackMethod = &StatusCallbackMethod
 	return params
 }
+func (params *CreateParticipantParams) SetTimeLimit(TimeLimit int) *CreateParticipantParams {
+	params.TimeLimit = &TimeLimit
+	return params
+}
 func (params *CreateParticipantParams) SetTimeout(Timeout int) *CreateParticipantParams {
 	params.Timeout = &Timeout
 	return params
@@ -260,7 +266,7 @@ func (params *CreateParticipantParams) SetWaitUrl(WaitUrl string) *CreatePartici
 	return params
 }
 
-func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010AccountConferenceParticipant, error) {
+func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParticipantParams) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -380,6 +386,9 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
+	if params != nil && params.TimeLimit != nil {
+		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
+	}
 	if params != nil && params.Timeout != nil {
 		data.Set("Timeout", fmt.Sprint(*params.Timeout))
 	}
@@ -401,7 +410,7 @@ func (c *ApiService) CreateParticipant(ConferenceSid string, params *CreateParti
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountConferenceParticipant{}
+	ps := &ApiV2010Participant{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -456,7 +465,7 @@ func (params *FetchParticipantParams) SetPathAccountSid(PathAccountSid string) *
 }
 
 // Fetch an instance of a participant
-func (c *ApiService) FetchParticipant(ConferenceSid string, CallSid string, params *FetchParticipantParams) (*ApiV2010AccountConferenceParticipant, error) {
+func (c *ApiService) FetchParticipant(ConferenceSid string, CallSid string, params *FetchParticipantParams) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -476,7 +485,7 @@ func (c *ApiService) FetchParticipant(ConferenceSid string, CallSid string, para
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountConferenceParticipant{}
+	ps := &ApiV2010Participant{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -574,7 +583,7 @@ func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipa
 }
 
 // Lists Participant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipantParams) ([]ApiV2010AccountConferenceParticipant, error) {
+func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipantParams) ([]ApiV2010Participant, error) {
 	if params == nil {
 		params = &ListParticipantParams{}
 	}
@@ -586,13 +595,13 @@ func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipa
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountConferenceParticipant
+	var records []ApiV2010Participant
 
 	for response != nil {
 		records = append(records, response.Participants...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListParticipantResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListParticipantResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -603,7 +612,7 @@ func (c *ApiService) ListParticipant(ConferenceSid string, params *ListParticipa
 }
 
 // Streams Participant records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListParticipantParams) (chan ApiV2010AccountConferenceParticipant, error) {
+func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListParticipantParams) (chan ApiV2010Participant, error) {
 	if params == nil {
 		params = &ListParticipantParams{}
 	}
@@ -616,7 +625,7 @@ func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListPartici
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountConferenceParticipant, 1)
+	channel := make(chan ApiV2010Participant, 1)
 
 	go func() {
 		for response != nil {
@@ -625,7 +634,7 @@ func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListPartici
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListParticipantResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListParticipantResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -638,11 +647,11 @@ func (c *ApiService) StreamParticipant(ConferenceSid string, params *ListPartici
 	return channel, err
 }
 
-func (c *ApiService) getNextListParticipantResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListParticipantResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -740,7 +749,7 @@ func (params *UpdateParticipantParams) SetWaitUrl(WaitUrl string) *UpdatePartici
 }
 
 // Update the properties of the participant
-func (c *ApiService) UpdateParticipant(ConferenceSid string, CallSid string, params *UpdateParticipantParams) (*ApiV2010AccountConferenceParticipant, error) {
+func (c *ApiService) UpdateParticipant(ConferenceSid string, CallSid string, params *UpdateParticipantParams) (*ApiV2010Participant, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -796,7 +805,7 @@ func (c *ApiService) UpdateParticipant(ConferenceSid string, CallSid string, par
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountConferenceParticipant{}
+	ps := &ApiV2010Participant{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

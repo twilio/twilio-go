@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -44,7 +44,7 @@ func (params *CreateRoleParams) SetType(Type string) *CreateRoleParams {
 	return params
 }
 
-func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*IpMessagingV2ServiceRole, error) {
+func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*IpMessagingV2Role, error) {
 	path := "/v2/Services/{ServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -69,7 +69,7 @@ func (c *ApiService) CreateRole(ServiceSid string, params *CreateRoleParams) (*I
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV2ServiceRole{}
+	ps := &IpMessagingV2Role{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func (c *ApiService) DeleteRole(ServiceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagingV2ServiceRole, error) {
+func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagingV2Role, error) {
 	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -110,7 +110,7 @@ func (c *ApiService) FetchRole(ServiceSid string, Sid string) (*IpMessagingV2Ser
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV2ServiceRole{}
+	ps := &IpMessagingV2Role{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -170,7 +170,7 @@ func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageTok
 }
 
 // Lists Role records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]IpMessagingV2ServiceRole, error) {
+func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]IpMessagingV2Role, error) {
 	if params == nil {
 		params = &ListRoleParams{}
 	}
@@ -182,13 +182,13 @@ func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]IpMe
 	}
 
 	curRecord := 0
-	var records []IpMessagingV2ServiceRole
+	var records []IpMessagingV2Role
 
 	for response != nil {
 		records = append(records, response.Roles...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoleResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoleResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -199,7 +199,7 @@ func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]IpMe
 }
 
 // Streams Role records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan IpMessagingV2ServiceRole, error) {
+func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan IpMessagingV2Role, error) {
 	if params == nil {
 		params = &ListRoleParams{}
 	}
@@ -212,7 +212,7 @@ func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan IpMessagingV2ServiceRole, 1)
+	channel := make(chan IpMessagingV2Role, 1)
 
 	go func() {
 		for response != nil {
@@ -221,7 +221,7 @@ func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoleResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoleResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -234,11 +234,11 @@ func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan
 	return channel, err
 }
 
-func (c *ApiService) getNextListRoleResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListRoleResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -263,7 +263,7 @@ func (params *UpdateRoleParams) SetPermission(Permission []string) *UpdateRolePa
 	return params
 }
 
-func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRoleParams) (*IpMessagingV2ServiceRole, error) {
+func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRoleParams) (*IpMessagingV2Role, error) {
 	path := "/v2/Services/{ServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -283,7 +283,7 @@ func (c *ApiService) UpdateRole(ServiceSid string, Sid string, params *UpdateRol
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV2ServiceRole{}
+	ps := &IpMessagingV2Role{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

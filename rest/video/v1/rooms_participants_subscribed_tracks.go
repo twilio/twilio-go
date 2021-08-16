@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -22,7 +22,7 @@ import (
 )
 
 // Returns a single Track resource represented by &#x60;track_sid&#x60;.  Note: This is one resource with the Video API that requires a SID, be Track Name on the subscriber side is not guaranteed to be unique.
-func (c *ApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack, error) {
+func (c *ApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, Sid string) (*VideoV1RoomParticipantSubscribedTrack, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"ParticipantSid"+"}", ParticipantSid, -1)
@@ -38,7 +38,7 @@ func (c *ApiService) FetchRoomParticipantSubscribedTrack(RoomSid string, Partici
 
 	defer resp.Body.Close()
 
-	ps := &VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack{}
+	ps := &VideoV1RoomParticipantSubscribedTrack{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -99,7 +99,7 @@ func (c *ApiService) PageRoomParticipantSubscribedTrack(RoomSid string, Particip
 }
 
 // Lists RoomParticipantSubscribedTrack records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams) ([]VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack, error) {
+func (c *ApiService) ListRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams) ([]VideoV1RoomParticipantSubscribedTrack, error) {
 	if params == nil {
 		params = &ListRoomParticipantSubscribedTrackParams{}
 	}
@@ -111,13 +111,13 @@ func (c *ApiService) ListRoomParticipantSubscribedTrack(RoomSid string, Particip
 	}
 
 	curRecord := 0
-	var records []VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack
+	var records []VideoV1RoomParticipantSubscribedTrack
 
 	for response != nil {
 		records = append(records, response.SubscribedTracks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomParticipantSubscribedTrackResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoomParticipantSubscribedTrackResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -128,7 +128,7 @@ func (c *ApiService) ListRoomParticipantSubscribedTrack(RoomSid string, Particip
 }
 
 // Streams RoomParticipantSubscribedTrack records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams) (chan VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack, error) {
+func (c *ApiService) StreamRoomParticipantSubscribedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantSubscribedTrackParams) (chan VideoV1RoomParticipantSubscribedTrack, error) {
 	if params == nil {
 		params = &ListRoomParticipantSubscribedTrackParams{}
 	}
@@ -141,7 +141,7 @@ func (c *ApiService) StreamRoomParticipantSubscribedTrack(RoomSid string, Partic
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VideoV1RoomRoomParticipantRoomParticipantSubscribedTrack, 1)
+	channel := make(chan VideoV1RoomParticipantSubscribedTrack, 1)
 
 	go func() {
 		for response != nil {
@@ -150,7 +150,7 @@ func (c *ApiService) StreamRoomParticipantSubscribedTrack(RoomSid string, Partic
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomParticipantSubscribedTrackResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoomParticipantSubscribedTrackResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -163,11 +163,11 @@ func (c *ApiService) StreamRoomParticipantSubscribedTrack(RoomSid string, Partic
 	return channel, err
 }
 
-func (c *ApiService) getNextListRoomParticipantSubscribedTrackResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListRoomParticipantSubscribedTrackResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

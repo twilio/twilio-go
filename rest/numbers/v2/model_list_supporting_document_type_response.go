@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListSupportingDocumentTypeResponse struct for ListSupportingDocumentTypeResponse
 type ListSupportingDocumentTypeResponse struct {
-	Meta                    ListBundleResponseMeta                                `json:"meta,omitempty"`
-	SupportingDocumentTypes []NumbersV2RegulatoryComplianceSupportingDocumentType `json:"supporting_document_types,omitempty"`
+	Meta                    ListBundleResponseMeta            `json:"meta,omitempty"`
+	SupportingDocumentTypes []NumbersV2SupportingDocumentType `json:"supporting_document_types,omitempty"`
 }

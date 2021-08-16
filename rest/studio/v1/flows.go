@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -130,7 +130,7 @@ func (c *ApiService) ListFlow(params *ListFlowParams) ([]StudioV1Flow, error) {
 		records = append(records, response.Flows...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFlowResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFlowResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -163,7 +163,7 @@ func (c *ApiService) StreamFlow(params *ListFlowParams) (chan StudioV1Flow, erro
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFlowResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFlowResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -176,11 +176,11 @@ func (c *ApiService) StreamFlow(params *ListFlowParams) (chan StudioV1Flow, erro
 	return channel, err
 }
 
-func (c *ApiService) getNextListFlowResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListFlowResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

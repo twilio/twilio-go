@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -50,7 +50,7 @@ func (params *CreateQueryParams) SetTasks(Tasks string) *CreateQueryParams {
 	return params
 }
 
-func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams) (*AutopilotV1AssistantQuery, error) {
+func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams) (*AutopilotV1Query, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -76,7 +76,7 @@ func (c *ApiService) CreateQuery(AssistantSid string, params *CreateQueryParams)
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantQuery{}
+	ps := &AutopilotV1Query{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -102,7 +102,7 @@ func (c *ApiService) DeleteQuery(AssistantSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchQuery(AssistantSid string, Sid string) (*AutopilotV1AssistantQuery, error) {
+func (c *ApiService) FetchQuery(AssistantSid string, Sid string) (*AutopilotV1Query, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -117,7 +117,7 @@ func (c *ApiService) FetchQuery(AssistantSid string, Sid string) (*AutopilotV1As
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantQuery{}
+	ps := &AutopilotV1Query{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -213,7 +213,7 @@ func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pag
 }
 
 // Lists Query records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams) ([]AutopilotV1AssistantQuery, error) {
+func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams) ([]AutopilotV1Query, error) {
 	if params == nil {
 		params = &ListQueryParams{}
 	}
@@ -225,13 +225,13 @@ func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams) ([]
 	}
 
 	curRecord := 0
-	var records []AutopilotV1AssistantQuery
+	var records []AutopilotV1Query
 
 	for response != nil {
 		records = append(records, response.Queries...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListQueryResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListQueryResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -242,7 +242,7 @@ func (c *ApiService) ListQuery(AssistantSid string, params *ListQueryParams) ([]
 }
 
 // Streams Query records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamQuery(AssistantSid string, params *ListQueryParams) (chan AutopilotV1AssistantQuery, error) {
+func (c *ApiService) StreamQuery(AssistantSid string, params *ListQueryParams) (chan AutopilotV1Query, error) {
 	if params == nil {
 		params = &ListQueryParams{}
 	}
@@ -255,7 +255,7 @@ func (c *ApiService) StreamQuery(AssistantSid string, params *ListQueryParams) (
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan AutopilotV1AssistantQuery, 1)
+	channel := make(chan AutopilotV1Query, 1)
 
 	go func() {
 		for response != nil {
@@ -264,7 +264,7 @@ func (c *ApiService) StreamQuery(AssistantSid string, params *ListQueryParams) (
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListQueryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListQueryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -277,11 +277,11 @@ func (c *ApiService) StreamQuery(AssistantSid string, params *ListQueryParams) (
 	return channel, err
 }
 
-func (c *ApiService) getNextListQueryResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListQueryResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -312,7 +312,7 @@ func (params *UpdateQueryParams) SetStatus(Status string) *UpdateQueryParams {
 	return params
 }
 
-func (c *ApiService) UpdateQuery(AssistantSid string, Sid string, params *UpdateQueryParams) (*AutopilotV1AssistantQuery, error) {
+func (c *ApiService) UpdateQuery(AssistantSid string, Sid string, params *UpdateQueryParams) (*AutopilotV1Query, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -333,7 +333,7 @@ func (c *ApiService) UpdateQuery(AssistantSid string, Sid string, params *Update
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantQuery{}
+	ps := &AutopilotV1Query{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

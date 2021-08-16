@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -19,7 +19,7 @@ import (
 )
 
 // Returns JSON actions for the Task.
-func (c *ApiService) FetchTaskActions(AssistantSid string, TaskSid string) (*AutopilotV1AssistantTaskTaskActions, error) {
+func (c *ApiService) FetchTaskActions(AssistantSid string, TaskSid string) (*AutopilotV1TaskActions, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -34,7 +34,7 @@ func (c *ApiService) FetchTaskActions(AssistantSid string, TaskSid string) (*Aut
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantTaskTaskActions{}
+	ps := &AutopilotV1TaskActions{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -54,7 +54,7 @@ func (params *UpdateTaskActionsParams) SetActions(Actions map[string]interface{}
 }
 
 // Updates the actions of an Task identified by {TaskSid} or {TaskUniqueName}.
-func (c *ApiService) UpdateTaskActions(AssistantSid string, TaskSid string, params *UpdateTaskActionsParams) (*AutopilotV1AssistantTaskTaskActions, error) {
+func (c *ApiService) UpdateTaskActions(AssistantSid string, TaskSid string, params *UpdateTaskActionsParams) (*AutopilotV1TaskActions, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -78,7 +78,7 @@ func (c *ApiService) UpdateTaskActions(AssistantSid string, TaskSid string, para
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantTaskTaskActions{}
+	ps := &AutopilotV1TaskActions{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateEndUser
 
-> NumbersV2RegulatoryComplianceEndUser CreateEndUser(ctx, optional)
+> NumbersV2EndUser CreateEndUser(ctx, optional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceEndUser**](NumbersV2RegulatoryComplianceEndUser.md)
+[**NumbersV2EndUser**](NumbersV2EndUser.md)
 
 ### Authorization
 
@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## FetchEndUser
 
-> NumbersV2RegulatoryComplianceEndUser FetchEndUser(ctx, Sid)
+> NumbersV2EndUser FetchEndUser(ctx, Sid)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceEndUser**](NumbersV2RegulatoryComplianceEndUser.md)
+[**NumbersV2EndUser**](NumbersV2EndUser.md)
 
 ### Authorization
 
@@ -179,7 +179,7 @@ Name | Type | Description
 
 ## UpdateEndUser
 
-> NumbersV2RegulatoryComplianceEndUser UpdateEndUser(ctx, Sidoptional)
+> NumbersV2EndUser UpdateEndUser(ctx, Sidoptional)
 
 
 
@@ -205,7 +205,7 @@ Name | Type | Description
 
 ### Return type
 
-[**NumbersV2RegulatoryComplianceEndUser**](NumbersV2RegulatoryComplianceEndUser.md)
+[**NumbersV2EndUser**](NumbersV2EndUser.md)
 
 ### Authorization
 

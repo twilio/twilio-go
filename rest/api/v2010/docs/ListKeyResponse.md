@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
-**Keys** | [**[]ApiV2010AccountKey**](ApiV2010AccountKey.md) |  |[optional] 
+**Keys** | [**[]ApiV2010Key**](ApiV2010Key.md) |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 

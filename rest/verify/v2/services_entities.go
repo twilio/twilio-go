@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -33,7 +33,7 @@ func (params *CreateEntityParams) SetIdentity(Identity string) *CreateEntityPara
 }
 
 // Create a new Entity for the Service
-func (c *ApiService) CreateEntity(ServiceSid string, params *CreateEntityParams) (*VerifyV2ServiceEntity, error) {
+func (c *ApiService) CreateEntity(ServiceSid string, params *CreateEntityParams) (*VerifyV2Entity, error) {
 	path := "/v2/Services/{ServiceSid}/Entities"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -50,7 +50,7 @@ func (c *ApiService) CreateEntity(ServiceSid string, params *CreateEntityParams)
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceEntity{}
+	ps := &VerifyV2Entity{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *ApiService) DeleteEntity(ServiceSid string, Identity string) error {
 }
 
 // Fetch a specific Entity.
-func (c *ApiService) FetchEntity(ServiceSid string, Identity string) (*VerifyV2ServiceEntity, error) {
+func (c *ApiService) FetchEntity(ServiceSid string, Identity string) (*VerifyV2Entity, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -93,7 +93,7 @@ func (c *ApiService) FetchEntity(ServiceSid string, Identity string) (*VerifyV2S
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceEntity{}
+	ps := &VerifyV2Entity{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -153,7 +153,7 @@ func (c *ApiService) PageEntity(ServiceSid string, params *ListEntityParams, pag
 }
 
 // Lists Entity records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams) ([]VerifyV2ServiceEntity, error) {
+func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams) ([]VerifyV2Entity, error) {
 	if params == nil {
 		params = &ListEntityParams{}
 	}
@@ -165,13 +165,13 @@ func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams) ([]
 	}
 
 	curRecord := 0
-	var records []VerifyV2ServiceEntity
+	var records []VerifyV2Entity
 
 	for response != nil {
 		records = append(records, response.Entities...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEntityResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEntityResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -182,7 +182,7 @@ func (c *ApiService) ListEntity(ServiceSid string, params *ListEntityParams) ([]
 }
 
 // Streams Entity records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams) (chan VerifyV2ServiceEntity, error) {
+func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams) (chan VerifyV2Entity, error) {
 	if params == nil {
 		params = &ListEntityParams{}
 	}
@@ -195,7 +195,7 @@ func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams) (
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2ServiceEntity, 1)
+	channel := make(chan VerifyV2Entity, 1)
 
 	go func() {
 		for response != nil {
@@ -204,7 +204,7 @@ func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams) (
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEntityResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEntityResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -217,11 +217,11 @@ func (c *ApiService) StreamEntity(ServiceSid string, params *ListEntityParams) (
 	return channel, err
 }
 
-func (c *ApiService) getNextListEntityResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListEntityResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

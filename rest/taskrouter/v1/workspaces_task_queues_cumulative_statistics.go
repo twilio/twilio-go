@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -55,7 +55,7 @@ func (params *FetchTaskQueueCumulativeStatisticsParams) SetSplitByWaitTime(Split
 	return params
 }
 
-func (c *ApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueCumulativeStatisticsParams) (*TaskrouterV1WorkspaceTaskQueueTaskQueueCumulativeStatistics, error) {
+func (c *ApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid string, TaskQueueSid string, params *FetchTaskQueueCumulativeStatisticsParams) (*TaskrouterV1TaskQueueCumulativeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/CumulativeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"TaskQueueSid"+"}", TaskQueueSid, -1)
@@ -85,7 +85,7 @@ func (c *ApiService) FetchTaskQueueCumulativeStatistics(WorkspaceSid string, Tas
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceTaskQueueTaskQueueCumulativeStatistics{}
+	ps := &TaskrouterV1TaskQueueCumulativeStatistics{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -84,6 +84,8 @@ type CreateCallParams struct {
 	StatusCallbackEvent *[]string `json:"StatusCallbackEvent,omitempty"`
 	// The HTTP method we should use when calling the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The maximum duration of the call in seconds. Constraints depend on account and configuration.
+	TimeLimit *int `json:"TimeLimit,omitempty"`
 	// The integer number of seconds that we should allow the phone to ring before assuming there is no answer. The default is `60` seconds and the maximum is `600` seconds. For some call flows, we will add a 5-second buffer to the timeout value you provide. For this reason, a timeout value of 10 seconds could result in an actual timeout closer to 15 seconds. You can set this to a short time, such as `15` seconds, to hang up before reaching an answering machine or voicemail.
 	Timeout *int `json:"Timeout,omitempty"`
 	// The phone number, SIP address, or client identifier to call.
@@ -216,6 +218,10 @@ func (params *CreateCallParams) SetStatusCallbackMethod(StatusCallbackMethod str
 	params.StatusCallbackMethod = &StatusCallbackMethod
 	return params
 }
+func (params *CreateCallParams) SetTimeLimit(TimeLimit int) *CreateCallParams {
+	params.TimeLimit = &TimeLimit
+	return params
+}
 func (params *CreateCallParams) SetTimeout(Timeout int) *CreateCallParams {
 	params.Timeout = &Timeout
 	return params
@@ -238,7 +244,7 @@ func (params *CreateCallParams) SetUrl(Url string) *CreateCallParams {
 }
 
 // Create a new outgoing call to phones, SIP-enabled endpoints or Twilio Client connections
-func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010AccountCall, error) {
+func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010Call, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -338,6 +344,9 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010AccountCall,
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
+	if params != nil && params.TimeLimit != nil {
+		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
+	}
 	if params != nil && params.Timeout != nil {
 		data.Set("Timeout", fmt.Sprint(*params.Timeout))
 	}
@@ -362,7 +371,7 @@ func (c *ApiService) CreateCall(params *CreateCallParams) (*ApiV2010AccountCall,
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCall{}
+	ps := &ApiV2010Call{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -416,7 +425,7 @@ func (params *FetchCallParams) SetPathAccountSid(PathAccountSid string) *FetchCa
 }
 
 // Fetch the call specified by the provided Call SID
-func (c *ApiService) FetchCall(Sid string, params *FetchCallParams) (*ApiV2010AccountCall, error) {
+func (c *ApiService) FetchCall(Sid string, params *FetchCallParams) (*ApiV2010Call, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -435,7 +444,7 @@ func (c *ApiService) FetchCall(Sid string, params *FetchCallParams) (*ApiV2010Ac
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCall{}
+	ps := &ApiV2010Call{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -595,7 +604,7 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken string, pageNumb
 }
 
 // Lists Call records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010AccountCall, error) {
+func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010Call, error) {
 	if params == nil {
 		params = &ListCallParams{}
 	}
@@ -607,13 +616,13 @@ func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010AccountCall, er
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountCall
+	var records []ApiV2010Call
 
 	for response != nil {
 		records = append(records, response.Calls...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCallResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -624,7 +633,7 @@ func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010AccountCall, er
 }
 
 // Streams Call records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010AccountCall, error) {
+func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010Call, error) {
 	if params == nil {
 		params = &ListCallParams{}
 	}
@@ -637,7 +646,7 @@ func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010AccountCal
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountCall, 1)
+	channel := make(chan ApiV2010Call, 1)
 
 	go func() {
 		for response != nil {
@@ -646,7 +655,7 @@ func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010AccountCal
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListCallResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -659,11 +668,11 @@ func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010AccountCal
 	return channel, err
 }
 
-func (c *ApiService) getNextListCallResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListCallResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -693,6 +702,8 @@ type UpdateCallParams struct {
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method we should use when requesting the `status_callback` URL. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
+	// The maximum duration of the call in seconds. Constraints depend on account and configuration.
+	TimeLimit *int `json:"TimeLimit,omitempty"`
 	// TwiML instructions for the call Twilio will use without fetching Twiml from url. Twiml and url parameters are mutually exclusive
 	Twiml *string `json:"Twiml,omitempty"`
 	// The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
@@ -727,6 +738,10 @@ func (params *UpdateCallParams) SetStatusCallbackMethod(StatusCallbackMethod str
 	params.StatusCallbackMethod = &StatusCallbackMethod
 	return params
 }
+func (params *UpdateCallParams) SetTimeLimit(TimeLimit int) *UpdateCallParams {
+	params.TimeLimit = &TimeLimit
+	return params
+}
 func (params *UpdateCallParams) SetTwiml(Twiml string) *UpdateCallParams {
 	params.Twiml = &Twiml
 	return params
@@ -737,7 +752,7 @@ func (params *UpdateCallParams) SetUrl(Url string) *UpdateCallParams {
 }
 
 // Initiates a call redirect or terminates a call
-func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010AccountCall, error) {
+func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010Call, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -765,6 +780,9 @@ func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010
 	if params != nil && params.StatusCallbackMethod != nil {
 		data.Set("StatusCallbackMethod", *params.StatusCallbackMethod)
 	}
+	if params != nil && params.TimeLimit != nil {
+		data.Set("TimeLimit", fmt.Sprint(*params.TimeLimit))
+	}
 	if params != nil && params.Twiml != nil {
 		data.Set("Twiml", *params.Twiml)
 	}
@@ -780,7 +798,7 @@ func (c *ApiService) UpdateCall(Sid string, params *UpdateCallParams) (*ApiV2010
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCall{}
+	ps := &ApiV2010Call{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

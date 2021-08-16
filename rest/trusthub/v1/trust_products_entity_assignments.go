@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -33,7 +33,7 @@ func (params *CreateTrustProductEntityAssignmentParams) SetObjectSid(ObjectSid s
 }
 
 // Create a new Assigned Item.
-func (c *ApiService) CreateTrustProductEntityAssignment(TrustProductSid string, params *CreateTrustProductEntityAssignmentParams) (*TrusthubV1TrustProductTrustProductEntityAssignment, error) {
+func (c *ApiService) CreateTrustProductEntityAssignment(TrustProductSid string, params *CreateTrustProductEntityAssignmentParams) (*TrusthubV1TrustProductEntityAssignment, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
@@ -50,7 +50,7 @@ func (c *ApiService) CreateTrustProductEntityAssignment(TrustProductSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &TrusthubV1TrustProductTrustProductEntityAssignment{}
+	ps := &TrusthubV1TrustProductEntityAssignment{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *ApiService) DeleteTrustProductEntityAssignment(TrustProductSid string, 
 }
 
 // Fetch specific Assigned Item Instance.
-func (c *ApiService) FetchTrustProductEntityAssignment(TrustProductSid string, Sid string) (*TrusthubV1TrustProductTrustProductEntityAssignment, error) {
+func (c *ApiService) FetchTrustProductEntityAssignment(TrustProductSid string, Sid string) (*TrusthubV1TrustProductEntityAssignment, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -93,7 +93,7 @@ func (c *ApiService) FetchTrustProductEntityAssignment(TrustProductSid string, S
 
 	defer resp.Body.Close()
 
-	ps := &TrusthubV1TrustProductTrustProductEntityAssignment{}
+	ps := &TrusthubV1TrustProductEntityAssignment{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -153,7 +153,7 @@ func (c *ApiService) PageTrustProductEntityAssignment(TrustProductSid string, pa
 }
 
 // Lists TrustProductEntityAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) ([]TrusthubV1TrustProductTrustProductEntityAssignment, error) {
+func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) ([]TrusthubV1TrustProductEntityAssignment, error) {
 	if params == nil {
 		params = &ListTrustProductEntityAssignmentParams{}
 	}
@@ -165,13 +165,13 @@ func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, pa
 	}
 
 	curRecord := 0
-	var records []TrusthubV1TrustProductTrustProductEntityAssignment
+	var records []TrusthubV1TrustProductEntityAssignment
 
 	for response != nil {
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrustProductEntityAssignmentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTrustProductEntityAssignmentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -182,7 +182,7 @@ func (c *ApiService) ListTrustProductEntityAssignment(TrustProductSid string, pa
 }
 
 // Streams TrustProductEntityAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) (chan TrusthubV1TrustProductTrustProductEntityAssignment, error) {
+func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams) (chan TrusthubV1TrustProductEntityAssignment, error) {
 	if params == nil {
 		params = &ListTrustProductEntityAssignmentParams{}
 	}
@@ -195,7 +195,7 @@ func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TrusthubV1TrustProductTrustProductEntityAssignment, 1)
+	channel := make(chan TrusthubV1TrustProductEntityAssignment, 1)
 
 	go func() {
 		for response != nil {
@@ -204,7 +204,7 @@ func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrustProductEntityAssignmentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTrustProductEntityAssignmentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -217,11 +217,11 @@ func (c *ApiService) StreamTrustProductEntityAssignment(TrustProductSid string, 
 	return channel, err
 }
 
-func (c *ApiService) getNextListTrustProductEntityAssignmentResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListTrustProductEntityAssignmentResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

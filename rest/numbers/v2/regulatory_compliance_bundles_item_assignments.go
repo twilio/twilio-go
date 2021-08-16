@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -33,7 +33,7 @@ func (params *CreateItemAssignmentParams) SetObjectSid(ObjectSid string) *Create
 }
 
 // Create a new Assigned Item.
-func (c *ApiService) CreateItemAssignment(BundleSid string, params *CreateItemAssignmentParams) (*NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
+func (c *ApiService) CreateItemAssignment(BundleSid string, params *CreateItemAssignmentParams) (*NumbersV2ItemAssignment, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
@@ -50,7 +50,7 @@ func (c *ApiService) CreateItemAssignment(BundleSid string, params *CreateItemAs
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceBundleItemAssignment{}
+	ps := &NumbersV2ItemAssignment{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *ApiService) DeleteItemAssignment(BundleSid string, Sid string) error {
 }
 
 // Fetch specific Assigned Item Instance.
-func (c *ApiService) FetchItemAssignment(BundleSid string, Sid string) (*NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
+func (c *ApiService) FetchItemAssignment(BundleSid string, Sid string) (*NumbersV2ItemAssignment, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -93,7 +93,7 @@ func (c *ApiService) FetchItemAssignment(BundleSid string, Sid string) (*Numbers
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceBundleItemAssignment{}
+	ps := &NumbersV2ItemAssignment{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -153,7 +153,7 @@ func (c *ApiService) PageItemAssignment(BundleSid string, params *ListItemAssign
 }
 
 // Lists ItemAssignment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssignmentParams) ([]NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
+func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssignmentParams) ([]NumbersV2ItemAssignment, error) {
 	if params == nil {
 		params = &ListItemAssignmentParams{}
 	}
@@ -165,13 +165,13 @@ func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssign
 	}
 
 	curRecord := 0
-	var records []NumbersV2RegulatoryComplianceBundleItemAssignment
+	var records []NumbersV2ItemAssignment
 
 	for response != nil {
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListItemAssignmentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListItemAssignmentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -182,7 +182,7 @@ func (c *ApiService) ListItemAssignment(BundleSid string, params *ListItemAssign
 }
 
 // Streams ItemAssignment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssignmentParams) (chan NumbersV2RegulatoryComplianceBundleItemAssignment, error) {
+func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssignmentParams) (chan NumbersV2ItemAssignment, error) {
 	if params == nil {
 		params = &ListItemAssignmentParams{}
 	}
@@ -195,7 +195,7 @@ func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssi
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan NumbersV2RegulatoryComplianceBundleItemAssignment, 1)
+	channel := make(chan NumbersV2ItemAssignment, 1)
 
 	go func() {
 		for response != nil {
@@ -204,7 +204,7 @@ func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssi
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListItemAssignmentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListItemAssignmentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -217,11 +217,11 @@ func (c *ApiService) StreamItemAssignment(BundleSid string, params *ListItemAssi
 	return channel, err
 }
 
-func (c *ApiService) getNextListItemAssignmentResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListItemAssignmentResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
