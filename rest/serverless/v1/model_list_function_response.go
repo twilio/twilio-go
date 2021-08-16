@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListFunctionResponse struct for ListFunctionResponse
 type ListFunctionResponse struct {
-	Functions []ServerlessV1ServiceFunction `json:"functions,omitempty"`
-	Meta      ListServiceResponseMeta       `json:"meta,omitempty"`
+	Functions []ServerlessV1Function  `json:"functions,omitempty"`
+	Meta      ListServiceResponseMeta `json:"meta,omitempty"`
 }

@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## FetchUserBinding
 
-> ChatV2ServiceUserUserBinding FetchUserBinding(ctx, ServiceSidUserSidSid)
+> ChatV2UserBinding FetchUserBinding(ctx, ServiceSidUserSidSid)
 
 
 
@@ -78,7 +78,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ChatV2ServiceUserUserBinding**](ChatV2ServiceUserUserBinding.md)
+[**ChatV2UserBinding**](ChatV2UserBinding.md)
 
 ### Authorization
 

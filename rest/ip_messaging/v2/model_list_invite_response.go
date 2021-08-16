@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListInviteResponse struct for ListInviteResponse
 type ListInviteResponse struct {
-	Invites []IpMessagingV2ServiceChannelInvite `json:"invites,omitempty"`
-	Meta    ListCredentialResponseMeta          `json:"meta,omitempty"`
+	Invites []IpMessagingV2Invite      `json:"invites,omitempty"`
+	Meta    ListCredentialResponseMeta `json:"meta,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -61,7 +61,7 @@ func (params *CreateCallFeedbackSummaryParams) SetStatusCallbackMethod(StatusCal
 }
 
 // Create a FeedbackSummary resource for a call
-func (c *ApiService) CreateCallFeedbackSummary(params *CreateCallFeedbackSummaryParams) (*ApiV2010AccountCallCallFeedbackSummary, error) {
+func (c *ApiService) CreateCallFeedbackSummary(params *CreateCallFeedbackSummaryParams) (*ApiV2010CallFeedbackSummary, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -95,7 +95,7 @@ func (c *ApiService) CreateCallFeedbackSummary(params *CreateCallFeedbackSummary
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCallCallFeedbackSummary{}
+	ps := &ApiV2010CallFeedbackSummary{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -149,7 +149,7 @@ func (params *FetchCallFeedbackSummaryParams) SetPathAccountSid(PathAccountSid s
 }
 
 // Fetch a FeedbackSummary resource from a call
-func (c *ApiService) FetchCallFeedbackSummary(Sid string, params *FetchCallFeedbackSummaryParams) (*ApiV2010AccountCallCallFeedbackSummary, error) {
+func (c *ApiService) FetchCallFeedbackSummary(Sid string, params *FetchCallFeedbackSummaryParams) (*ApiV2010CallFeedbackSummary, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -168,7 +168,7 @@ func (c *ApiService) FetchCallFeedbackSummary(Sid string, params *FetchCallFeedb
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCallCallFeedbackSummary{}
+	ps := &ApiV2010CallFeedbackSummary{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

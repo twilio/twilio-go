@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateSession
 
-> ProxyV1ServiceSession CreateSession(ctx, ServiceSidoptional)
+> ProxyV1Session CreateSession(ctx, ServiceSidoptional)
 
 
 
@@ -45,7 +45,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServiceSession**](ProxyV1ServiceSession.md)
+[**ProxyV1Session**](ProxyV1Session.md)
 
 ### Authorization
 
@@ -106,7 +106,7 @@ Name | Type | Description
 
 ## FetchSession
 
-> ProxyV1ServiceSession FetchSession(ctx, ServiceSidSid)
+> ProxyV1Session FetchSession(ctx, ServiceSidSid)
 
 
 
@@ -131,7 +131,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServiceSession**](ProxyV1ServiceSession.md)
+[**ProxyV1Session**](ProxyV1Session.md)
 
 ### Authorization
 
@@ -193,7 +193,7 @@ Name | Type | Description
 
 ## UpdateSession
 
-> ProxyV1ServiceSession UpdateSession(ctx, ServiceSidSidoptional)
+> ProxyV1Session UpdateSession(ctx, ServiceSidSidoptional)
 
 
 
@@ -222,7 +222,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServiceSession**](ProxyV1ServiceSession.md)
+[**ProxyV1Session**](ProxyV1Session.md)
 
 ### Authorization
 

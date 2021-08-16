@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
-**Recordings** | [**[]ApiV2010AccountConferenceConferenceRecording**](ApiV2010AccountConferenceConferenceRecording.md) |  |[optional] 
+**Recordings** | [**[]ApiV2010ConferenceRecording**](ApiV2010ConferenceRecording.md) |  |[optional] 
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
 

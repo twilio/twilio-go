@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## FetchMember
 
-> ApiV2010AccountQueueMember FetchMember(ctx, QueueSidCallSidoptional)
+> ApiV2010Member FetchMember(ctx, QueueSidCallSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountQueueMember**](ApiV2010AccountQueueMember.md)
+[**ApiV2010Member**](ApiV2010Member.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## UpdateMember
 
-> ApiV2010AccountQueueMember UpdateMember(ctx, QueueSidCallSidoptional)
+> ApiV2010Member UpdateMember(ctx, QueueSidCallSidoptional)
 
 
 
@@ -129,7 +129,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountQueueMember**](ApiV2010AccountQueueMember.md)
+[**ApiV2010Member**](ApiV2010Member.md)
 
 ### Authorization
 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -22,7 +22,7 @@ import (
 )
 
 // Retrieve a specific Function Version resource.
-func (c *ApiService) FetchFunctionVersion(ServiceSid string, FunctionSid string, Sid string) (*ServerlessV1ServiceFunctionFunctionVersion, error) {
+func (c *ApiService) FetchFunctionVersion(ServiceSid string, FunctionSid string, Sid string) (*ServerlessV1FunctionVersion, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"FunctionSid"+"}", FunctionSid, -1)
@@ -38,7 +38,7 @@ func (c *ApiService) FetchFunctionVersion(ServiceSid string, FunctionSid string,
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceFunctionFunctionVersion{}
+	ps := &ServerlessV1FunctionVersion{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -100,7 +100,7 @@ func (c *ApiService) PageFunctionVersion(ServiceSid string, FunctionSid string, 
 }
 
 // Lists FunctionVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) ([]ServerlessV1ServiceFunctionFunctionVersion, error) {
+func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) ([]ServerlessV1FunctionVersion, error) {
 	if params == nil {
 		params = &ListFunctionVersionParams{}
 	}
@@ -112,13 +112,13 @@ func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, 
 	}
 
 	curRecord := 0
-	var records []ServerlessV1ServiceFunctionFunctionVersion
+	var records []ServerlessV1FunctionVersion
 
 	for response != nil {
 		records = append(records, response.FunctionVersions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFunctionVersionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFunctionVersionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -129,7 +129,7 @@ func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, 
 }
 
 // Streams FunctionVersion records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) (chan ServerlessV1ServiceFunctionFunctionVersion, error) {
+func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) (chan ServerlessV1FunctionVersion, error) {
 	if params == nil {
 		params = &ListFunctionVersionParams{}
 	}
@@ -142,7 +142,7 @@ func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ServerlessV1ServiceFunctionFunctionVersion, 1)
+	channel := make(chan ServerlessV1FunctionVersion, 1)
 
 	go func() {
 		for response != nil {
@@ -151,7 +151,7 @@ func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFunctionVersionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFunctionVersionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -164,11 +164,11 @@ func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string
 	return channel, err
 }
 
-func (c *ApiService) getNextListFunctionVersionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListFunctionVersionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

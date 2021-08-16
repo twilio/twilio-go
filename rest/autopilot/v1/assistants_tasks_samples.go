@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -44,7 +44,7 @@ func (params *CreateSampleParams) SetTaggedText(TaggedText string) *CreateSample
 	return params
 }
 
-func (c *ApiService) CreateSample(AssistantSid string, TaskSid string, params *CreateSampleParams) (*AutopilotV1AssistantTaskSample, error) {
+func (c *ApiService) CreateSample(AssistantSid string, TaskSid string, params *CreateSampleParams) (*AutopilotV1Sample, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -69,7 +69,7 @@ func (c *ApiService) CreateSample(AssistantSid string, TaskSid string, params *C
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantTaskSample{}
+	ps := &AutopilotV1Sample{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -96,7 +96,7 @@ func (c *ApiService) DeleteSample(AssistantSid string, TaskSid string, Sid strin
 	return nil
 }
 
-func (c *ApiService) FetchSample(AssistantSid string, TaskSid string, Sid string) (*AutopilotV1AssistantTaskSample, error) {
+func (c *ApiService) FetchSample(AssistantSid string, TaskSid string, Sid string) (*AutopilotV1Sample, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -112,7 +112,7 @@ func (c *ApiService) FetchSample(AssistantSid string, TaskSid string, Sid string
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantTaskSample{}
+	ps := &AutopilotV1Sample{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -183,7 +183,7 @@ func (c *ApiService) PageSample(AssistantSid string, TaskSid string, params *Lis
 }
 
 // Lists Sample records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *ListSampleParams) ([]AutopilotV1AssistantTaskSample, error) {
+func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *ListSampleParams) ([]AutopilotV1Sample, error) {
 	if params == nil {
 		params = &ListSampleParams{}
 	}
@@ -195,13 +195,13 @@ func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *Lis
 	}
 
 	curRecord := 0
-	var records []AutopilotV1AssistantTaskSample
+	var records []AutopilotV1Sample
 
 	for response != nil {
 		records = append(records, response.Samples...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSampleResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSampleResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -212,7 +212,7 @@ func (c *ApiService) ListSample(AssistantSid string, TaskSid string, params *Lis
 }
 
 // Streams Sample records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSample(AssistantSid string, TaskSid string, params *ListSampleParams) (chan AutopilotV1AssistantTaskSample, error) {
+func (c *ApiService) StreamSample(AssistantSid string, TaskSid string, params *ListSampleParams) (chan AutopilotV1Sample, error) {
 	if params == nil {
 		params = &ListSampleParams{}
 	}
@@ -225,7 +225,7 @@ func (c *ApiService) StreamSample(AssistantSid string, TaskSid string, params *L
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan AutopilotV1AssistantTaskSample, 1)
+	channel := make(chan AutopilotV1Sample, 1)
 
 	go func() {
 		for response != nil {
@@ -234,7 +234,7 @@ func (c *ApiService) StreamSample(AssistantSid string, TaskSid string, params *L
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSampleResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSampleResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -247,11 +247,11 @@ func (c *ApiService) StreamSample(AssistantSid string, TaskSid string, params *L
 	return channel, err
 }
 
-func (c *ApiService) getNextListSampleResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSampleResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -288,7 +288,7 @@ func (params *UpdateSampleParams) SetTaggedText(TaggedText string) *UpdateSample
 	return params
 }
 
-func (c *ApiService) UpdateSample(AssistantSid string, TaskSid string, Sid string, params *UpdateSampleParams) (*AutopilotV1AssistantTaskSample, error) {
+func (c *ApiService) UpdateSample(AssistantSid string, TaskSid string, Sid string, params *UpdateSampleParams) (*AutopilotV1Sample, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -314,7 +314,7 @@ func (c *ApiService) UpdateSample(AssistantSid string, TaskSid string, Sid strin
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantTaskSample{}
+	ps := &AutopilotV1Sample{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

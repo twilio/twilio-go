@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -70,7 +70,7 @@ func (params *CreateConversationMessageParams) SetMediaSid(MediaSid string) *Cre
 }
 
 // Add a new message to the conversation
-func (c *ApiService) CreateConversationMessage(ConversationSid string, params *CreateConversationMessageParams) (*ConversationsV1ConversationConversationMessage, error) {
+func (c *ApiService) CreateConversationMessage(ConversationSid string, params *CreateConversationMessageParams) (*ConversationsV1ConversationMessage, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 
@@ -107,7 +107,7 @@ func (c *ApiService) CreateConversationMessage(ConversationSid string, params *C
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ConversationConversationMessage{}
+	ps := &ConversationsV1ConversationMessage{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -150,7 +150,7 @@ func (c *ApiService) DeleteConversationMessage(ConversationSid string, Sid strin
 }
 
 // Fetch a message from the conversation
-func (c *ApiService) FetchConversationMessage(ConversationSid string, Sid string) (*ConversationsV1ConversationConversationMessage, error) {
+func (c *ApiService) FetchConversationMessage(ConversationSid string, Sid string) (*ConversationsV1ConversationMessage, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -165,7 +165,7 @@ func (c *ApiService) FetchConversationMessage(ConversationSid string, Sid string
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ConversationConversationMessage{}
+	ps := &ConversationsV1ConversationMessage{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -226,7 +226,7 @@ func (c *ApiService) PageConversationMessage(ConversationSid string, params *Lis
 }
 
 // Lists ConversationMessage records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListConversationMessage(ConversationSid string, params *ListConversationMessageParams) ([]ConversationsV1ConversationConversationMessage, error) {
+func (c *ApiService) ListConversationMessage(ConversationSid string, params *ListConversationMessageParams) ([]ConversationsV1ConversationMessage, error) {
 	if params == nil {
 		params = &ListConversationMessageParams{}
 	}
@@ -238,13 +238,13 @@ func (c *ApiService) ListConversationMessage(ConversationSid string, params *Lis
 	}
 
 	curRecord := 0
-	var records []ConversationsV1ConversationConversationMessage
+	var records []ConversationsV1ConversationMessage
 
 	for response != nil {
 		records = append(records, response.Messages...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConversationMessageResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConversationMessageResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -255,7 +255,7 @@ func (c *ApiService) ListConversationMessage(ConversationSid string, params *Lis
 }
 
 // Streams ConversationMessage records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamConversationMessage(ConversationSid string, params *ListConversationMessageParams) (chan ConversationsV1ConversationConversationMessage, error) {
+func (c *ApiService) StreamConversationMessage(ConversationSid string, params *ListConversationMessageParams) (chan ConversationsV1ConversationMessage, error) {
 	if params == nil {
 		params = &ListConversationMessageParams{}
 	}
@@ -268,7 +268,7 @@ func (c *ApiService) StreamConversationMessage(ConversationSid string, params *L
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ConversationsV1ConversationConversationMessage, 1)
+	channel := make(chan ConversationsV1ConversationMessage, 1)
 
 	go func() {
 		for response != nil {
@@ -277,7 +277,7 @@ func (c *ApiService) StreamConversationMessage(ConversationSid string, params *L
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListConversationMessageResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConversationMessageResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -290,11 +290,11 @@ func (c *ApiService) StreamConversationMessage(ConversationSid string, params *L
 	return channel, err
 }
 
-func (c *ApiService) getNextListConversationMessageResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListConversationMessageResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -350,7 +350,7 @@ func (params *UpdateConversationMessageParams) SetDateUpdated(DateUpdated time.T
 }
 
 // Update an existing message in the conversation
-func (c *ApiService) UpdateConversationMessage(ConversationSid string, Sid string, params *UpdateConversationMessageParams) (*ConversationsV1ConversationConversationMessage, error) {
+func (c *ApiService) UpdateConversationMessage(ConversationSid string, Sid string, params *UpdateConversationMessageParams) (*ConversationsV1ConversationMessage, error) {
 	path := "/v1/Conversations/{ConversationSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -385,7 +385,7 @@ func (c *ApiService) UpdateConversationMessage(ConversationSid string, Sid strin
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ConversationConversationMessage{}
+	ps := &ConversationsV1ConversationMessage{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

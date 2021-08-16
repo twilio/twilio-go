@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateQuery
 
-> AutopilotV1AssistantQuery CreateQuery(ctx, AssistantSidoptional)
+> AutopilotV1Query CreateQuery(ctx, AssistantSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantQuery**](AutopilotV1AssistantQuery.md)
+[**AutopilotV1Query**](AutopilotV1Query.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchQuery
 
-> AutopilotV1AssistantQuery FetchQuery(ctx, AssistantSidSid)
+> AutopilotV1Query FetchQuery(ctx, AssistantSidSid)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantQuery**](AutopilotV1AssistantQuery.md)
+[**AutopilotV1Query**](AutopilotV1Query.md)
 
 ### Authorization
 
@@ -186,7 +186,7 @@ Name | Type | Description
 
 ## UpdateQuery
 
-> AutopilotV1AssistantQuery UpdateQuery(ctx, AssistantSidSidoptional)
+> AutopilotV1Query UpdateQuery(ctx, AssistantSidSidoptional)
 
 
 
@@ -211,7 +211,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantQuery**](AutopilotV1AssistantQuery.md)
+[**AutopilotV1Query**](AutopilotV1Query.md)
 
 ### Authorization
 

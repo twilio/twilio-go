@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AvailablePhoneNumbers** | [**[]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational**](ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberNational.md) |  |[optional] 
+**AvailablePhoneNumbers** | [**[]ApiV2010AvailablePhoneNumberNational**](ApiV2010AvailablePhoneNumberNational.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

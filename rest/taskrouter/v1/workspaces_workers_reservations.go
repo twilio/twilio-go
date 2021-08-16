@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -21,7 +21,7 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
-func (c *ApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
+func (c *ApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string) (*TaskrouterV1WorkerReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
@@ -37,7 +37,7 @@ func (c *ApiService) FetchWorkerReservation(WorkspaceSid string, WorkerSid strin
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorkerWorkerReservation{}
+	ps := &TaskrouterV1WorkerReservation{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -108,7 +108,7 @@ func (c *ApiService) PageWorkerReservation(WorkspaceSid string, WorkerSid string
 }
 
 // Lists WorkerReservation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams) ([]TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
+func (c *ApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams) ([]TaskrouterV1WorkerReservation, error) {
 	if params == nil {
 		params = &ListWorkerReservationParams{}
 	}
@@ -120,13 +120,13 @@ func (c *ApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid string
 	}
 
 	curRecord := 0
-	var records []TaskrouterV1WorkspaceWorkerWorkerReservation
+	var records []TaskrouterV1WorkerReservation
 
 	for response != nil {
 		records = append(records, response.Reservations...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWorkerReservationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWorkerReservationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -137,7 +137,7 @@ func (c *ApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid string
 }
 
 // Streams WorkerReservation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams) (chan TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
+func (c *ApiService) StreamWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams) (chan TaskrouterV1WorkerReservation, error) {
 	if params == nil {
 		params = &ListWorkerReservationParams{}
 	}
@@ -150,7 +150,7 @@ func (c *ApiService) StreamWorkerReservation(WorkspaceSid string, WorkerSid stri
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1WorkspaceWorkerWorkerReservation, 1)
+	channel := make(chan TaskrouterV1WorkerReservation, 1)
 
 	go func() {
 		for response != nil {
@@ -159,7 +159,7 @@ func (c *ApiService) StreamWorkerReservation(WorkspaceSid string, WorkerSid stri
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWorkerReservationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWorkerReservationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -172,11 +172,11 @@ func (c *ApiService) StreamWorkerReservation(WorkspaceSid string, WorkerSid stri
 	return channel, err
 }
 
-func (c *ApiService) getNextListWorkerReservationResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListWorkerReservationResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -501,7 +501,7 @@ func (params *UpdateWorkerReservationParams) SetWorkerActivitySid(WorkerActivity
 	return params
 }
 
-func (c *ApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerReservationParams) (*TaskrouterV1WorkspaceWorkerWorkerReservation, error) {
+func (c *ApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid string, Sid string, params *UpdateWorkerReservationParams) (*TaskrouterV1WorkerReservation, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkerSid"+"}", WorkerSid, -1)
@@ -677,7 +677,7 @@ func (c *ApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid stri
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorkerWorkerReservation{}
+	ps := &TaskrouterV1WorkerReservation{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateUsageTrigger
 
-> ApiV2010AccountUsageUsageTrigger CreateUsageTrigger(ctx, optional)
+> ApiV2010UsageTrigger CreateUsageTrigger(ctx, optional)
 
 
 
@@ -42,7 +42,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageTrigger**](ApiV2010AccountUsageUsageTrigger.md)
+[**ApiV2010UsageTrigger**](ApiV2010UsageTrigger.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchUsageTrigger
 
-> ApiV2010AccountUsageUsageTrigger FetchUsageTrigger(ctx, Sidoptional)
+> ApiV2010UsageTrigger FetchUsageTrigger(ctx, Sidoptional)
 
 
 
@@ -126,7 +126,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageTrigger**](ApiV2010AccountUsageUsageTrigger.md)
+[**ApiV2010UsageTrigger**](ApiV2010UsageTrigger.md)
 
 ### Authorization
 
@@ -188,7 +188,7 @@ Name | Type | Description
 
 ## UpdateUsageTrigger
 
-> ApiV2010AccountUsageUsageTrigger UpdateUsageTrigger(ctx, Sidoptional)
+> ApiV2010UsageTrigger UpdateUsageTrigger(ctx, Sidoptional)
 
 
 
@@ -216,7 +216,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountUsageUsageTrigger**](ApiV2010AccountUsageUsageTrigger.md)
+[**ApiV2010UsageTrigger**](ApiV2010UsageTrigger.md)
 
 ### Authorization
 

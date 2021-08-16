@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateServiceUser
 
-> ConversationsV1ServiceServiceUser CreateServiceUser(ctx, ChatServiceSidoptional)
+> ConversationsV1ServiceUser CreateServiceUser(ctx, ChatServiceSidoptional)
 
 
 
@@ -43,7 +43,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceUser**](ConversationsV1ServiceServiceUser.md)
+[**ConversationsV1ServiceUser**](ConversationsV1ServiceUser.md)
 
 ### Authorization
 
@@ -105,7 +105,7 @@ Name | Type | Description
 
 ## FetchServiceUser
 
-> ConversationsV1ServiceServiceUser FetchServiceUser(ctx, ChatServiceSidSid)
+> ConversationsV1ServiceUser FetchServiceUser(ctx, ChatServiceSidSid)
 
 
 
@@ -130,7 +130,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceUser**](ConversationsV1ServiceServiceUser.md)
+[**ConversationsV1ServiceUser**](ConversationsV1ServiceUser.md)
 
 ### Authorization
 
@@ -192,7 +192,7 @@ Name | Type | Description
 
 ## UpdateServiceUser
 
-> ConversationsV1ServiceServiceUser UpdateServiceUser(ctx, ChatServiceSidSidoptional)
+> ConversationsV1ServiceUser UpdateServiceUser(ctx, ChatServiceSidSidoptional)
 
 
 
@@ -221,7 +221,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceUser**](ConversationsV1ServiceServiceUser.md)
+[**ConversationsV1ServiceUser**](ConversationsV1ServiceUser.md)
 
 ### Authorization
 

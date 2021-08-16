@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchVoiceNumber
 
-> PricingV1VoiceVoiceNumber FetchVoiceNumber(ctx, Number)
+> PricingV1VoiceNumber FetchVoiceNumber(ctx, Number)
 
 
 
@@ -32,7 +32,7 @@ Name | Type | Description
 
 ### Return type
 
-[**PricingV1VoiceVoiceNumber**](PricingV1VoiceVoiceNumber.md)
+[**PricingV1VoiceNumber**](PricingV1VoiceNumber.md)
 
 ### Authorization
 

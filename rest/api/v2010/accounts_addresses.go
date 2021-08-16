@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -86,7 +86,7 @@ func (params *CreateAddressParams) SetStreet(Street string) *CreateAddressParams
 	return params
 }
 
-func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010AccountAddress, error) {
+func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -132,7 +132,7 @@ func (c *ApiService) CreateAddress(params *CreateAddressParams) (*ApiV2010Accoun
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountAddress{}
+	ps := &ApiV2010Address{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -184,7 +184,7 @@ func (params *FetchAddressParams) SetPathAccountSid(PathAccountSid string) *Fetc
 	return params
 }
 
-func (c *ApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV2010AccountAddress, error) {
+func (c *ApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -203,7 +203,7 @@ func (c *ApiService) FetchAddress(Sid string, params *FetchAddressParams) (*ApiV
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountAddress{}
+	ps := &ApiV2010Address{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -301,7 +301,7 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken string, pa
 }
 
 // Lists Address records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAddress(params *ListAddressParams) ([]ApiV2010AccountAddress, error) {
+func (c *ApiService) ListAddress(params *ListAddressParams) ([]ApiV2010Address, error) {
 	if params == nil {
 		params = &ListAddressParams{}
 	}
@@ -313,13 +313,13 @@ func (c *ApiService) ListAddress(params *ListAddressParams) ([]ApiV2010AccountAd
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountAddress
+	var records []ApiV2010Address
 
 	for response != nil {
 		records = append(records, response.Addresses...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAddressResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAddressResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -330,7 +330,7 @@ func (c *ApiService) ListAddress(params *ListAddressParams) ([]ApiV2010AccountAd
 }
 
 // Streams Address records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010AccountAddress, error) {
+func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010Address, error) {
 	if params == nil {
 		params = &ListAddressParams{}
 	}
@@ -343,7 +343,7 @@ func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010Acco
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountAddress, 1)
+	channel := make(chan ApiV2010Address, 1)
 
 	go func() {
 		for response != nil {
@@ -352,7 +352,7 @@ func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010Acco
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAddressResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAddressResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -365,11 +365,11 @@ func (c *ApiService) StreamAddress(params *ListAddressParams) (chan ApiV2010Acco
 	return channel, err
 }
 
-func (c *ApiService) getNextListAddressResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListAddressResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -442,7 +442,7 @@ func (params *UpdateAddressParams) SetStreet(Street string) *UpdateAddressParams
 	return params
 }
 
-func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*ApiV2010AccountAddress, error) {
+func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*ApiV2010Address, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -486,7 +486,7 @@ func (c *ApiService) UpdateAddress(Sid string, params *UpdateAddressParams) (*Ap
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountAddress{}
+	ps := &ApiV2010Address{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

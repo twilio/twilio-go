@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreatePhoneNumber
 
-> MessagingV1ServicePhoneNumber CreatePhoneNumber(ctx, ServiceSidoptional)
+> MessagingV1PhoneNumber CreatePhoneNumber(ctx, ServiceSidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV1ServicePhoneNumber**](MessagingV1ServicePhoneNumber.md)
+[**MessagingV1PhoneNumber**](MessagingV1PhoneNumber.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ Name | Type | Description
 
 ## FetchPhoneNumber
 
-> MessagingV1ServicePhoneNumber FetchPhoneNumber(ctx, ServiceSidSid)
+> MessagingV1PhoneNumber FetchPhoneNumber(ctx, ServiceSidSid)
 
 
 
@@ -118,7 +118,7 @@ Name | Type | Description
 
 ### Return type
 
-[**MessagingV1ServicePhoneNumber**](MessagingV1ServicePhoneNumber.md)
+[**MessagingV1PhoneNumber**](MessagingV1PhoneNumber.md)
 
 ### Authorization
 

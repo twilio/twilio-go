@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateParticipant
 
-> ApiV2010AccountConferenceParticipant CreateParticipant(ctx, ConferenceSidoptional)
+> ApiV2010Participant CreateParticipant(ctx, ConferenceSidoptional)
 
 
 
@@ -68,6 +68,7 @@ Name | Type | Description
 **StatusCallback** | **string** | The URL we should call using the &#x60;status_callback_method&#x60; to send status information to your application.
 **StatusCallbackEvent** | **[]string** | The conference state changes that should generate a call to &#x60;status_callback&#x60;. Can be: &#x60;initiated&#x60;, &#x60;ringing&#x60;, &#x60;answered&#x60;, and &#x60;completed&#x60;. Separate multiple values with a space. The default value is &#x60;completed&#x60;.
 **StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be: &#x60;GET&#x60; and &#x60;POST&#x60; and defaults to &#x60;POST&#x60;.
+**TimeLimit** | **int** | The maximum duration of the call in seconds. Constraints depend on account and configuration.
 **Timeout** | **int** | The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between &#x60;5&#x60; and &#x60;600&#x60;, inclusive. The default value is &#x60;60&#x60;. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds.
 **To** | **string** | The phone number, SIP address, or Client identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as &#x60;sip:name@company.com&#x60;. Client identifiers are formatted &#x60;client:name&#x60;. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
 **WaitMethod** | **string** | The HTTP method we should use to call &#x60;wait_url&#x60;. Can be &#x60;GET&#x60; or &#x60;POST&#x60; and the default is &#x60;POST&#x60;. When using a static audio file, this should be &#x60;GET&#x60; so that we can cache the file.
@@ -75,7 +76,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountConferenceParticipant**](ApiV2010AccountConferenceParticipant.md)
+[**ApiV2010Participant**](ApiV2010Participant.md)
 
 ### Authorization
 
@@ -137,7 +138,7 @@ Name | Type | Description
 
 ## FetchParticipant
 
-> ApiV2010AccountConferenceParticipant FetchParticipant(ctx, ConferenceSidCallSidoptional)
+> ApiV2010Participant FetchParticipant(ctx, ConferenceSidCallSidoptional)
 
 
 
@@ -163,7 +164,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountConferenceParticipant**](ApiV2010AccountConferenceParticipant.md)
+[**ApiV2010Participant**](ApiV2010Participant.md)
 
 ### Authorization
 
@@ -229,7 +230,7 @@ Name | Type | Description
 
 ## UpdateParticipant
 
-> ApiV2010AccountConferenceParticipant UpdateParticipant(ctx, ConferenceSidCallSidoptional)
+> ApiV2010Participant UpdateParticipant(ctx, ConferenceSidCallSidoptional)
 
 
 
@@ -267,7 +268,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountConferenceParticipant**](ApiV2010AccountConferenceParticipant.md)
+[**ApiV2010Participant**](ApiV2010Participant.md)
 
 ### Authorization
 

@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## FetchServiceBinding
 
-> ConversationsV1ServiceServiceBinding FetchServiceBinding(ctx, ChatServiceSidSid)
+> ConversationsV1ServiceBinding FetchServiceBinding(ctx, ChatServiceSidSid)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceBinding**](ConversationsV1ServiceServiceBinding.md)
+[**ConversationsV1ServiceBinding**](ConversationsV1ServiceBinding.md)
 
 ### Authorization
 

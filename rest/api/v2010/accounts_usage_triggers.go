@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -75,7 +75,7 @@ func (params *CreateUsageTriggerParams) SetUsageCategory(UsageCategory string) *
 }
 
 // Create a new UsageTrigger
-func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV2010AccountUsageUsageTrigger, error) {
+func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV2010UsageTrigger, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -115,7 +115,7 @@ func (c *ApiService) CreateUsageTrigger(params *CreateUsageTriggerParams) (*ApiV
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountUsageUsageTrigger{}
+	ps := &ApiV2010UsageTrigger{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ func (params *FetchUsageTriggerParams) SetPathAccountSid(PathAccountSid string) 
 }
 
 // Fetch and instance of a usage-trigger
-func (c *ApiService) FetchUsageTrigger(Sid string, params *FetchUsageTriggerParams) (*ApiV2010AccountUsageUsageTrigger, error) {
+func (c *ApiService) FetchUsageTrigger(Sid string, params *FetchUsageTriggerParams) (*ApiV2010UsageTrigger, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -187,7 +187,7 @@ func (c *ApiService) FetchUsageTrigger(Sid string, params *FetchUsageTriggerPara
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountUsageUsageTrigger{}
+	ps := &ApiV2010UsageTrigger{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -285,7 +285,7 @@ func (c *ApiService) PageUsageTrigger(params *ListUsageTriggerParams, pageToken 
 }
 
 // Lists UsageTrigger records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams) ([]ApiV2010AccountUsageUsageTrigger, error) {
+func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams) ([]ApiV2010UsageTrigger, error) {
 	if params == nil {
 		params = &ListUsageTriggerParams{}
 	}
@@ -297,13 +297,13 @@ func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams) ([]ApiV201
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountUsageUsageTrigger
+	var records []ApiV2010UsageTrigger
 
 	for response != nil {
 		records = append(records, response.UsageTriggers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageTriggerResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageTriggerResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -314,7 +314,7 @@ func (c *ApiService) ListUsageTrigger(params *ListUsageTriggerParams) ([]ApiV201
 }
 
 // Streams UsageTrigger records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams) (chan ApiV2010AccountUsageUsageTrigger, error) {
+func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams) (chan ApiV2010UsageTrigger, error) {
 	if params == nil {
 		params = &ListUsageTriggerParams{}
 	}
@@ -327,7 +327,7 @@ func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams) (chan Ap
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountUsageUsageTrigger, 1)
+	channel := make(chan ApiV2010UsageTrigger, 1)
 
 	go func() {
 		for response != nil {
@@ -336,7 +336,7 @@ func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams) (chan Ap
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageTriggerResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageTriggerResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -349,11 +349,11 @@ func (c *ApiService) StreamUsageTrigger(params *ListUsageTriggerParams) (chan Ap
 	return channel, err
 }
 
-func (c *ApiService) getNextListUsageTriggerResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListUsageTriggerResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -397,7 +397,7 @@ func (params *UpdateUsageTriggerParams) SetFriendlyName(FriendlyName string) *Up
 }
 
 // Update an instance of a usage trigger
-func (c *ApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerParams) (*ApiV2010AccountUsageUsageTrigger, error) {
+func (c *ApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerParams) (*ApiV2010UsageTrigger, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -426,7 +426,7 @@ func (c *ApiService) UpdateUsageTrigger(Sid string, params *UpdateUsageTriggerPa
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountUsageUsageTrigger{}
+	ps := &ApiV2010UsageTrigger{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

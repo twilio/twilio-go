@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateEntity
 
-> VerifyV2ServiceEntity CreateEntity(ctx, ServiceSidoptional)
+> VerifyV2Entity CreateEntity(ctx, ServiceSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceEntity**](VerifyV2ServiceEntity.md)
+[**VerifyV2Entity**](VerifyV2Entity.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchEntity
 
-> VerifyV2ServiceEntity FetchEntity(ctx, ServiceSidIdentity)
+> VerifyV2Entity FetchEntity(ctx, ServiceSidIdentity)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceEntity**](VerifyV2ServiceEntity.md)
+[**VerifyV2Entity**](VerifyV2Entity.md)
 
 ### Authorization
 

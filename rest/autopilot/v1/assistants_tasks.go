@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -50,7 +50,7 @@ func (params *CreateTaskParams) SetUniqueName(UniqueName string) *CreateTaskPara
 	return params
 }
 
-func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (*AutopilotV1AssistantTask, error) {
+func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (*AutopilotV1Task, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -83,7 +83,7 @@ func (c *ApiService) CreateTask(AssistantSid string, params *CreateTaskParams) (
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantTask{}
+	ps := &AutopilotV1Task{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -109,7 +109,7 @@ func (c *ApiService) DeleteTask(AssistantSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchTask(AssistantSid string, Sid string) (*AutopilotV1AssistantTask, error) {
+func (c *ApiService) FetchTask(AssistantSid string, Sid string) (*AutopilotV1Task, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -124,7 +124,7 @@ func (c *ApiService) FetchTask(AssistantSid string, Sid string) (*AutopilotV1Ass
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantTask{}
+	ps := &AutopilotV1Task{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -185,7 +185,7 @@ func (c *ApiService) PageTask(AssistantSid string, params *ListTaskParams, pageT
 }
 
 // Lists Task records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTask(AssistantSid string, params *ListTaskParams) ([]AutopilotV1AssistantTask, error) {
+func (c *ApiService) ListTask(AssistantSid string, params *ListTaskParams) ([]AutopilotV1Task, error) {
 	if params == nil {
 		params = &ListTaskParams{}
 	}
@@ -197,13 +197,13 @@ func (c *ApiService) ListTask(AssistantSid string, params *ListTaskParams) ([]Au
 	}
 
 	curRecord := 0
-	var records []AutopilotV1AssistantTask
+	var records []AutopilotV1Task
 
 	for response != nil {
 		records = append(records, response.Tasks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -214,7 +214,7 @@ func (c *ApiService) ListTask(AssistantSid string, params *ListTaskParams) ([]Au
 }
 
 // Streams Task records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTask(AssistantSid string, params *ListTaskParams) (chan AutopilotV1AssistantTask, error) {
+func (c *ApiService) StreamTask(AssistantSid string, params *ListTaskParams) (chan AutopilotV1Task, error) {
 	if params == nil {
 		params = &ListTaskParams{}
 	}
@@ -227,7 +227,7 @@ func (c *ApiService) StreamTask(AssistantSid string, params *ListTaskParams) (ch
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan AutopilotV1AssistantTask, 1)
+	channel := make(chan AutopilotV1Task, 1)
 
 	go func() {
 		for response != nil {
@@ -236,7 +236,7 @@ func (c *ApiService) StreamTask(AssistantSid string, params *ListTaskParams) (ch
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -249,11 +249,11 @@ func (c *ApiService) StreamTask(AssistantSid string, params *ListTaskParams) (ch
 	return channel, err
 }
 
-func (c *ApiService) getNextListTaskResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListTaskResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -296,7 +296,7 @@ func (params *UpdateTaskParams) SetUniqueName(UniqueName string) *UpdateTaskPara
 	return params
 }
 
-func (c *ApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateTaskParams) (*AutopilotV1AssistantTask, error) {
+func (c *ApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateTaskParams) (*AutopilotV1Task, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -330,7 +330,7 @@ func (c *ApiService) UpdateTask(AssistantSid string, Sid string, params *UpdateT
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantTask{}
+	ps := &AutopilotV1Task{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

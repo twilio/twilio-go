@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -38,7 +38,7 @@ func (params *CreateFieldTypeParams) SetUniqueName(UniqueName string) *CreateFie
 	return params
 }
 
-func (c *ApiService) CreateFieldType(AssistantSid string, params *CreateFieldTypeParams) (*AutopilotV1AssistantFieldType, error) {
+func (c *ApiService) CreateFieldType(AssistantSid string, params *CreateFieldTypeParams) (*AutopilotV1FieldType, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -59,7 +59,7 @@ func (c *ApiService) CreateFieldType(AssistantSid string, params *CreateFieldTyp
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantFieldType{}
+	ps := &AutopilotV1FieldType{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (c *ApiService) DeleteFieldType(AssistantSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchFieldType(AssistantSid string, Sid string) (*AutopilotV1AssistantFieldType, error) {
+func (c *ApiService) FetchFieldType(AssistantSid string, Sid string) (*AutopilotV1FieldType, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -100,7 +100,7 @@ func (c *ApiService) FetchFieldType(AssistantSid string, Sid string) (*Autopilot
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantFieldType{}
+	ps := &AutopilotV1FieldType{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -161,7 +161,7 @@ func (c *ApiService) PageFieldType(AssistantSid string, params *ListFieldTypePar
 }
 
 // Lists FieldType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypeParams) ([]AutopilotV1AssistantFieldType, error) {
+func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypeParams) ([]AutopilotV1FieldType, error) {
 	if params == nil {
 		params = &ListFieldTypeParams{}
 	}
@@ -173,13 +173,13 @@ func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypePar
 	}
 
 	curRecord := 0
-	var records []AutopilotV1AssistantFieldType
+	var records []AutopilotV1FieldType
 
 	for response != nil {
 		records = append(records, response.FieldTypes...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFieldTypeResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFieldTypeResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -190,7 +190,7 @@ func (c *ApiService) ListFieldType(AssistantSid string, params *ListFieldTypePar
 }
 
 // Streams FieldType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeParams) (chan AutopilotV1AssistantFieldType, error) {
+func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeParams) (chan AutopilotV1FieldType, error) {
 	if params == nil {
 		params = &ListFieldTypeParams{}
 	}
@@ -203,7 +203,7 @@ func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeP
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan AutopilotV1AssistantFieldType, 1)
+	channel := make(chan AutopilotV1FieldType, 1)
 
 	go func() {
 		for response != nil {
@@ -212,7 +212,7 @@ func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeP
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFieldTypeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFieldTypeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -225,11 +225,11 @@ func (c *ApiService) StreamFieldType(AssistantSid string, params *ListFieldTypeP
 	return channel, err
 }
 
-func (c *ApiService) getNextListFieldTypeResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListFieldTypeResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -260,7 +260,7 @@ func (params *UpdateFieldTypeParams) SetUniqueName(UniqueName string) *UpdateFie
 	return params
 }
 
-func (c *ApiService) UpdateFieldType(AssistantSid string, Sid string, params *UpdateFieldTypeParams) (*AutopilotV1AssistantFieldType, error) {
+func (c *ApiService) UpdateFieldType(AssistantSid string, Sid string, params *UpdateFieldTypeParams) (*AutopilotV1FieldType, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -282,7 +282,7 @@ func (c *ApiService) UpdateFieldType(AssistantSid string, Sid string, params *Up
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantFieldType{}
+	ps := &AutopilotV1FieldType{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

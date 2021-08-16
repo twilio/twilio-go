@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -50,7 +50,7 @@ func (params *CreateWebhookParams) SetWebhookUrl(WebhookUrl string) *CreateWebho
 	return params
 }
 
-func (c *ApiService) CreateWebhook(AssistantSid string, params *CreateWebhookParams) (*AutopilotV1AssistantWebhook, error) {
+func (c *ApiService) CreateWebhook(AssistantSid string, params *CreateWebhookParams) (*AutopilotV1Webhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -77,7 +77,7 @@ func (c *ApiService) CreateWebhook(AssistantSid string, params *CreateWebhookPar
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantWebhook{}
+	ps := &AutopilotV1Webhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -103,7 +103,7 @@ func (c *ApiService) DeleteWebhook(AssistantSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchWebhook(AssistantSid string, Sid string) (*AutopilotV1AssistantWebhook, error) {
+func (c *ApiService) FetchWebhook(AssistantSid string, Sid string) (*AutopilotV1Webhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -118,7 +118,7 @@ func (c *ApiService) FetchWebhook(AssistantSid string, Sid string) (*AutopilotV1
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantWebhook{}
+	ps := &AutopilotV1Webhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -179,7 +179,7 @@ func (c *ApiService) PageWebhook(AssistantSid string, params *ListWebhookParams,
 }
 
 // Lists Webhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWebhook(AssistantSid string, params *ListWebhookParams) ([]AutopilotV1AssistantWebhook, error) {
+func (c *ApiService) ListWebhook(AssistantSid string, params *ListWebhookParams) ([]AutopilotV1Webhook, error) {
 	if params == nil {
 		params = &ListWebhookParams{}
 	}
@@ -191,13 +191,13 @@ func (c *ApiService) ListWebhook(AssistantSid string, params *ListWebhookParams)
 	}
 
 	curRecord := 0
-	var records []AutopilotV1AssistantWebhook
+	var records []AutopilotV1Webhook
 
 	for response != nil {
 		records = append(records, response.Webhooks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWebhookResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWebhookResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -208,7 +208,7 @@ func (c *ApiService) ListWebhook(AssistantSid string, params *ListWebhookParams)
 }
 
 // Streams Webhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWebhook(AssistantSid string, params *ListWebhookParams) (chan AutopilotV1AssistantWebhook, error) {
+func (c *ApiService) StreamWebhook(AssistantSid string, params *ListWebhookParams) (chan AutopilotV1Webhook, error) {
 	if params == nil {
 		params = &ListWebhookParams{}
 	}
@@ -221,7 +221,7 @@ func (c *ApiService) StreamWebhook(AssistantSid string, params *ListWebhookParam
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan AutopilotV1AssistantWebhook, 1)
+	channel := make(chan AutopilotV1Webhook, 1)
 
 	go func() {
 		for response != nil {
@@ -230,7 +230,7 @@ func (c *ApiService) StreamWebhook(AssistantSid string, params *ListWebhookParam
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWebhookResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWebhookResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -243,11 +243,11 @@ func (c *ApiService) StreamWebhook(AssistantSid string, params *ListWebhookParam
 	return channel, err
 }
 
-func (c *ApiService) getNextListWebhookResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListWebhookResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -290,7 +290,7 @@ func (params *UpdateWebhookParams) SetWebhookUrl(WebhookUrl string) *UpdateWebho
 	return params
 }
 
-func (c *ApiService) UpdateWebhook(AssistantSid string, Sid string, params *UpdateWebhookParams) (*AutopilotV1AssistantWebhook, error) {
+func (c *ApiService) UpdateWebhook(AssistantSid string, Sid string, params *UpdateWebhookParams) (*AutopilotV1Webhook, error) {
 	path := "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -318,7 +318,7 @@ func (c *ApiService) UpdateWebhook(AssistantSid string, Sid string, params *Upda
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantWebhook{}
+	ps := &AutopilotV1Webhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

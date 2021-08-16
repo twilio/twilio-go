@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListOriginationUrlResponse struct for ListOriginationUrlResponse
 type ListOriginationUrlResponse struct {
-	Meta            ListTrunkResponseMeta           `json:"meta,omitempty"`
-	OriginationUrls []TrunkingV1TrunkOriginationUrl `json:"origination_urls,omitempty"`
+	Meta            ListTrunkResponseMeta      `json:"meta,omitempty"`
+	OriginationUrls []TrunkingV1OriginationUrl `json:"origination_urls,omitempty"`
 }

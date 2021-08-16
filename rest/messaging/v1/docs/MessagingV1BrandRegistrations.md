@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **A2pProfileBundleSid** | Pointer to **string** | A2P Messaging Profile Bundle BundleSid |
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
 **BrandScore** | Pointer to **int** | Brand score |
+**BrandType** | Pointer to **string** | Type of brand. One of: \"STANDARD\", \"STARTER\". |
 **CustomerProfileBundleSid** | Pointer to **string** | A2P Messaging Profile Bundle BundleSid |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |

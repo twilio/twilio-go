@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -83,7 +83,7 @@ func (c *ApiService) PageEvent(CallSid string, params *ListEventParams, pageToke
 }
 
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEvent(CallSid string, params *ListEventParams) ([]InsightsV1CallEvent, error) {
+func (c *ApiService) ListEvent(CallSid string, params *ListEventParams) ([]InsightsV1Event, error) {
 	if params == nil {
 		params = &ListEventParams{}
 	}
@@ -95,13 +95,13 @@ func (c *ApiService) ListEvent(CallSid string, params *ListEventParams) ([]Insig
 	}
 
 	curRecord := 0
-	var records []InsightsV1CallEvent
+	var records []InsightsV1Event
 
 	for response != nil {
 		records = append(records, response.Events...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEventResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEventResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -112,7 +112,7 @@ func (c *ApiService) ListEvent(CallSid string, params *ListEventParams) ([]Insig
 }
 
 // Streams Event records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams) (chan InsightsV1CallEvent, error) {
+func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams) (chan InsightsV1Event, error) {
 	if params == nil {
 		params = &ListEventParams{}
 	}
@@ -125,7 +125,7 @@ func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams) (chan 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan InsightsV1CallEvent, 1)
+	channel := make(chan InsightsV1Event, 1)
 
 	go func() {
 		for response != nil {
@@ -134,7 +134,7 @@ func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams) (chan 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEventResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEventResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -147,11 +147,11 @@ func (c *ApiService) StreamEvent(CallSid string, params *ListEventParams) (chan 
 	return channel, err
 }
 
-func (c *ApiService) getNextListEventResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListEventResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

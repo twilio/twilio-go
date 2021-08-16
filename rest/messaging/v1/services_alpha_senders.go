@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -32,7 +32,7 @@ func (params *CreateAlphaSenderParams) SetAlphaSender(AlphaSender string) *Creat
 	return params
 }
 
-func (c *ApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSenderParams) (*MessagingV1ServiceAlphaSender, error) {
+func (c *ApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSenderParams) (*MessagingV1AlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -50,7 +50,7 @@ func (c *ApiService) CreateAlphaSender(ServiceSid string, params *CreateAlphaSen
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1ServiceAlphaSender{}
+	ps := &MessagingV1AlphaSender{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (c *ApiService) DeleteAlphaSender(ServiceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchAlphaSender(ServiceSid string, Sid string) (*MessagingV1ServiceAlphaSender, error) {
+func (c *ApiService) FetchAlphaSender(ServiceSid string, Sid string) (*MessagingV1AlphaSender, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -91,7 +91,7 @@ func (c *ApiService) FetchAlphaSender(ServiceSid string, Sid string) (*Messaging
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1ServiceAlphaSender{}
+	ps := &MessagingV1AlphaSender{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -152,7 +152,7 @@ func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderP
 }
 
 // Lists AlphaSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderParams) ([]MessagingV1ServiceAlphaSender, error) {
+func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderParams) ([]MessagingV1AlphaSender, error) {
 	if params == nil {
 		params = &ListAlphaSenderParams{}
 	}
@@ -164,13 +164,13 @@ func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderP
 	}
 
 	curRecord := 0
-	var records []MessagingV1ServiceAlphaSender
+	var records []MessagingV1AlphaSender
 
 	for response != nil {
 		records = append(records, response.AlphaSenders...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAlphaSenderResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAlphaSenderResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -181,7 +181,7 @@ func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderP
 }
 
 // Streams AlphaSender records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSenderParams) (chan MessagingV1ServiceAlphaSender, error) {
+func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSenderParams) (chan MessagingV1AlphaSender, error) {
 	if params == nil {
 		params = &ListAlphaSenderParams{}
 	}
@@ -194,7 +194,7 @@ func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSende
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan MessagingV1ServiceAlphaSender, 1)
+	channel := make(chan MessagingV1AlphaSender, 1)
 
 	go func() {
 		for response != nil {
@@ -203,7 +203,7 @@ func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSende
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAlphaSenderResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAlphaSenderResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -216,11 +216,11 @@ func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSende
 	return channel, err
 }
 
-func (c *ApiService) getNextListAlphaSenderResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListAlphaSenderResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

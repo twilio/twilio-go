@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchExecutionStep
 
-> StudioV2FlowExecutionExecutionStep FetchExecutionStep(ctx, FlowSidExecutionSidSid)
+> StudioV2ExecutionStep FetchExecutionStep(ctx, FlowSidExecutionSidSid)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**StudioV2FlowExecutionExecutionStep**](StudioV2FlowExecutionExecutionStep.md)
+[**StudioV2ExecutionStep**](StudioV2ExecutionStep.md)
 
 ### Authorization
 

@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## FetchRecording
 
-> ApiV2010AccountRecording FetchRecording(ctx, Sidoptional)
+> ApiV2010Recording FetchRecording(ctx, Sidoptional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountRecording**](ApiV2010AccountRecording.md)
+[**ApiV2010Recording**](ApiV2010Recording.md)
 
 ### Authorization
 

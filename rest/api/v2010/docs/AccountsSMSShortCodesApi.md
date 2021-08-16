@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## FetchShortCode
 
-> ApiV2010AccountShortCode FetchShortCode(ctx, Sidoptional)
+> ApiV2010ShortCode FetchShortCode(ctx, Sidoptional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountShortCode**](ApiV2010AccountShortCode.md)
+[**ApiV2010ShortCode**](ApiV2010ShortCode.md)
 
 ### Authorization
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## UpdateShortCode
 
-> ApiV2010AccountShortCode UpdateShortCode(ctx, Sidoptional)
+> ApiV2010ShortCode UpdateShortCode(ctx, Sidoptional)
 
 
 
@@ -129,7 +129,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountShortCode**](ApiV2010AccountShortCode.md)
+[**ApiV2010ShortCode**](ApiV2010ShortCode.md)
 
 ### Authorization
 

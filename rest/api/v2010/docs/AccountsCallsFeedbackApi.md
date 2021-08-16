@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchCallFeedback
 
-> ApiV2010AccountCallCallFeedback FetchCallFeedback(ctx, CallSidoptional)
+> ApiV2010CallFeedback FetchCallFeedback(ctx, CallSidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCallCallFeedback**](ApiV2010AccountCallCallFeedback.md)
+[**ApiV2010CallFeedback**](ApiV2010CallFeedback.md)
 
 ### Authorization
 
@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## UpdateCallFeedback
 
-> ApiV2010AccountCallCallFeedback UpdateCallFeedback(ctx, CallSidoptional)
+> ApiV2010CallFeedback UpdateCallFeedback(ctx, CallSidoptional)
 
 
 
@@ -81,7 +81,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountCallCallFeedback**](ApiV2010AccountCallCallFeedback.md)
+[**ApiV2010CallFeedback**](ApiV2010CallFeedback.md)
 
 ### Authorization
 

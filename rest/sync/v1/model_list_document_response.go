@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListDocumentResponse struct for ListDocumentResponse
 type ListDocumentResponse struct {
-	Documents []SyncV1ServiceDocument `json:"documents,omitempty"`
+	Documents []SyncV1Document        `json:"documents,omitempty"`
 	Meta      ListServiceResponseMeta `json:"meta,omitempty"`
 }

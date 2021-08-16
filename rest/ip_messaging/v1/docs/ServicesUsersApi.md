@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateUser
 
-> IpMessagingV1ServiceUser CreateUser(ctx, ServiceSidoptional)
+> IpMessagingV1User CreateUser(ctx, ServiceSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV1ServiceUser**](IpMessagingV1ServiceUser.md)
+[**IpMessagingV1User**](IpMessagingV1User.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchUser
 
-> IpMessagingV1ServiceUser FetchUser(ctx, ServiceSidSid)
+> IpMessagingV1User FetchUser(ctx, ServiceSidSid)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV1ServiceUser**](IpMessagingV1ServiceUser.md)
+[**IpMessagingV1User**](IpMessagingV1User.md)
 
 ### Authorization
 
@@ -182,7 +182,7 @@ Name | Type | Description
 
 ## UpdateUser
 
-> IpMessagingV1ServiceUser UpdateUser(ctx, ServiceSidSidoptional)
+> IpMessagingV1User UpdateUser(ctx, ServiceSidSidoptional)
 
 
 
@@ -208,7 +208,7 @@ Name | Type | Description
 
 ### Return type
 
-[**IpMessagingV1ServiceUser**](IpMessagingV1ServiceUser.md)
+[**IpMessagingV1User**](IpMessagingV1User.md)
 
 ### Authorization
 

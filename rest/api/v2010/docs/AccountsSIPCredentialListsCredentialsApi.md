@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateSipCredential
 
-> ApiV2010AccountSipSipCredentialListSipCredential CreateSipCredential(ctx, CredentialListSidoptional)
+> ApiV2010SipCredential CreateSipCredential(ctx, CredentialListSidoptional)
 
 
 
@@ -41,7 +41,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipCredentialListSipCredential**](ApiV2010AccountSipSipCredentialListSipCredential.md)
+[**ApiV2010SipCredential**](ApiV2010SipCredential.md)
 
 ### Authorization
 
@@ -103,7 +103,7 @@ Name | Type | Description
 
 ## FetchSipCredential
 
-> ApiV2010AccountSipSipCredentialListSipCredential FetchSipCredential(ctx, CredentialListSidSidoptional)
+> ApiV2010SipCredential FetchSipCredential(ctx, CredentialListSidSidoptional)
 
 
 
@@ -129,7 +129,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipCredentialListSipCredential**](ApiV2010AccountSipSipCredentialListSipCredential.md)
+[**ApiV2010SipCredential**](ApiV2010SipCredential.md)
 
 ### Authorization
 
@@ -192,7 +192,7 @@ Name | Type | Description
 
 ## UpdateSipCredential
 
-> ApiV2010AccountSipSipCredentialListSipCredential UpdateSipCredential(ctx, CredentialListSidSidoptional)
+> ApiV2010SipCredential UpdateSipCredential(ctx, CredentialListSidSidoptional)
 
 
 
@@ -219,7 +219,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountSipSipCredentialListSipCredential**](ApiV2010AccountSipSipCredentialListSipCredential.md)
+[**ApiV2010SipCredential**](ApiV2010SipCredential.md)
 
 ### Authorization
 

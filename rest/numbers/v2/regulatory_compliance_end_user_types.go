@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -22,7 +22,7 @@ import (
 )
 
 // Fetch a specific End-User Type Instance.
-func (c *ApiService) FetchEndUserType(Sid string) (*NumbersV2RegulatoryComplianceEndUserType, error) {
+func (c *ApiService) FetchEndUserType(Sid string) (*NumbersV2EndUserType, error) {
 	path := "/v2/RegulatoryCompliance/EndUserTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -36,7 +36,7 @@ func (c *ApiService) FetchEndUserType(Sid string) (*NumbersV2RegulatoryComplianc
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceEndUserType{}
+	ps := &NumbersV2EndUserType{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken st
 }
 
 // Lists EndUserType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams) ([]NumbersV2RegulatoryComplianceEndUserType, error) {
+func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams) ([]NumbersV2EndUserType, error) {
 	if params == nil {
 		params = &ListEndUserTypeParams{}
 	}
@@ -107,13 +107,13 @@ func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams) ([]NumbersV2
 	}
 
 	curRecord := 0
-	var records []NumbersV2RegulatoryComplianceEndUserType
+	var records []NumbersV2EndUserType
 
 	for response != nil {
 		records = append(records, response.EndUserTypes...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEndUserTypeResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEndUserTypeResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -124,7 +124,7 @@ func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams) ([]NumbersV2
 }
 
 // Streams EndUserType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams) (chan NumbersV2RegulatoryComplianceEndUserType, error) {
+func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams) (chan NumbersV2EndUserType, error) {
 	if params == nil {
 		params = &ListEndUserTypeParams{}
 	}
@@ -137,7 +137,7 @@ func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams) (chan Numb
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan NumbersV2RegulatoryComplianceEndUserType, 1)
+	channel := make(chan NumbersV2EndUserType, 1)
 
 	go func() {
 		for response != nil {
@@ -146,7 +146,7 @@ func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams) (chan Numb
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEndUserTypeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEndUserTypeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -159,11 +159,11 @@ func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams) (chan Numb
 	return channel, err
 }
 
-func (c *ApiService) getNextListEndUserTypeResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListEndUserTypeResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

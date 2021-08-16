@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -41,7 +41,7 @@ func (c *ApiService) DeleteFaxMedia(FaxSid string, Sid string) error {
 }
 
 // Fetch a specific fax media instance.
-func (c *ApiService) FetchFaxMedia(FaxSid string, Sid string) (*FaxV1FaxFaxMedia, error) {
+func (c *ApiService) FetchFaxMedia(FaxSid string, Sid string) (*FaxV1FaxMedia, error) {
 	path := "/v1/Faxes/{FaxSid}/Media/{Sid}"
 	path = strings.Replace(path, "{"+"FaxSid"+"}", FaxSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -56,7 +56,7 @@ func (c *ApiService) FetchFaxMedia(FaxSid string, Sid string) (*FaxV1FaxFaxMedia
 
 	defer resp.Body.Close()
 
-	ps := &FaxV1FaxFaxMedia{}
+	ps := &FaxV1FaxMedia{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -117,7 +117,7 @@ func (c *ApiService) PageFaxMedia(FaxSid string, params *ListFaxMediaParams, pag
 }
 
 // Lists FaxMedia records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaParams) ([]FaxV1FaxFaxMedia, error) {
+func (c *ApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaParams) ([]FaxV1FaxMedia, error) {
 	if params == nil {
 		params = &ListFaxMediaParams{}
 	}
@@ -129,13 +129,13 @@ func (c *ApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaParams) ([]
 	}
 
 	curRecord := 0
-	var records []FaxV1FaxFaxMedia
+	var records []FaxV1FaxMedia
 
 	for response != nil {
 		records = append(records, response.Media...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFaxMediaResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFaxMediaResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -146,7 +146,7 @@ func (c *ApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaParams) ([]
 }
 
 // Streams FaxMedia records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFaxMedia(FaxSid string, params *ListFaxMediaParams) (chan FaxV1FaxFaxMedia, error) {
+func (c *ApiService) StreamFaxMedia(FaxSid string, params *ListFaxMediaParams) (chan FaxV1FaxMedia, error) {
 	if params == nil {
 		params = &ListFaxMediaParams{}
 	}
@@ -159,7 +159,7 @@ func (c *ApiService) StreamFaxMedia(FaxSid string, params *ListFaxMediaParams) (
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan FaxV1FaxFaxMedia, 1)
+	channel := make(chan FaxV1FaxMedia, 1)
 
 	go func() {
 		for response != nil {
@@ -168,7 +168,7 @@ func (c *ApiService) StreamFaxMedia(FaxSid string, params *ListFaxMediaParams) (
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFaxMediaResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFaxMediaResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -181,11 +181,11 @@ func (c *ApiService) StreamFaxMedia(FaxSid string, params *ListFaxMediaParams) (
 	return channel, err
 }
 
-func (c *ApiService) getNextListFaxMediaResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListFaxMediaResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

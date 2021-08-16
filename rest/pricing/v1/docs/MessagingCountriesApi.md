@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchMessagingCountry
 
-> PricingV1MessagingMessagingCountryInstance FetchMessagingCountry(ctx, IsoCountry)
+> PricingV1MessagingCountryInstance FetchMessagingCountry(ctx, IsoCountry)
 
 
 
@@ -33,7 +33,7 @@ Name | Type | Description
 
 ### Return type
 
-[**PricingV1MessagingMessagingCountryInstance**](PricingV1MessagingMessagingCountryInstance.md)
+[**PricingV1MessagingCountryInstance**](PricingV1MessagingCountryInstance.md)
 
 ### Authorization
 

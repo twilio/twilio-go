@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Channels** | [**[]ChatV2ServiceUserUserChannel**](ChatV2ServiceUserUserChannel.md) |  |[optional] 
+**Channels** | [**[]ChatV2UserChannel**](ChatV2UserChannel.md) |  |[optional] 
 **Meta** | [**ListCredentialResponseMeta**](ListCredentialResponseMeta.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

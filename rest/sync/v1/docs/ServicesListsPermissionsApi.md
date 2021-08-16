@@ -57,7 +57,7 @@ Name | Type | Description
 
 ## FetchSyncListPermission
 
-> SyncV1ServiceSyncListSyncListPermission FetchSyncListPermission(ctx, ServiceSidListSidIdentity)
+> SyncV1SyncListPermission FetchSyncListPermission(ctx, ServiceSidListSidIdentity)
 
 
 
@@ -83,7 +83,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncListSyncListPermission**](SyncV1ServiceSyncListSyncListPermission.md)
+[**SyncV1SyncListPermission**](SyncV1SyncListPermission.md)
 
 ### Authorization
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 ## UpdateSyncListPermission
 
-> SyncV1ServiceSyncListSyncListPermission UpdateSyncListPermission(ctx, ServiceSidListSidIdentityoptional)
+> SyncV1SyncListPermission UpdateSyncListPermission(ctx, ServiceSidListSidIdentityoptional)
 
 
 
@@ -175,7 +175,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncListSyncListPermission**](SyncV1ServiceSyncListSyncListPermission.md)
+[**SyncV1SyncListPermission**](SyncV1SyncListPermission.md)
 
 ### Authorization
 

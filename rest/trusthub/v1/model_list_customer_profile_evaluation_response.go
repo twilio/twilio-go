@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListCustomerProfileEvaluationResponse struct for ListCustomerProfileEvaluationResponse
 type ListCustomerProfileEvaluationResponse struct {
-	Meta    ListCustomerProfileResponseMeta                      `json:"meta,omitempty"`
-	Results []TrusthubV1CustomerProfileCustomerProfileEvaluation `json:"results,omitempty"`
+	Meta    ListCustomerProfileResponseMeta       `json:"meta,omitempty"`
+	Results []TrusthubV1CustomerProfileEvaluation `json:"results,omitempty"`
 }

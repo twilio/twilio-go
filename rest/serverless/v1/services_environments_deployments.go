@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -33,7 +33,7 @@ func (params *CreateDeploymentParams) SetBuildSid(BuildSid string) *CreateDeploy
 }
 
 // Create a new Deployment.
-func (c *ApiService) CreateDeployment(ServiceSid string, EnvironmentSid string, params *CreateDeploymentParams) (*ServerlessV1ServiceEnvironmentDeployment, error) {
+func (c *ApiService) CreateDeployment(ServiceSid string, EnvironmentSid string, params *CreateDeploymentParams) (*ServerlessV1Deployment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -52,7 +52,7 @@ func (c *ApiService) CreateDeployment(ServiceSid string, EnvironmentSid string, 
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceEnvironmentDeployment{}
+	ps := &ServerlessV1Deployment{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -61,7 +61,7 @@ func (c *ApiService) CreateDeployment(ServiceSid string, EnvironmentSid string, 
 }
 
 // Retrieve a specific Deployment.
-func (c *ApiService) FetchDeployment(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1ServiceEnvironmentDeployment, error) {
+func (c *ApiService) FetchDeployment(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1Deployment, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -77,7 +77,7 @@ func (c *ApiService) FetchDeployment(ServiceSid string, EnvironmentSid string, S
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceEnvironmentDeployment{}
+	ps := &ServerlessV1Deployment{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -139,7 +139,7 @@ func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, pa
 }
 
 // Lists Deployment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams) ([]ServerlessV1ServiceEnvironmentDeployment, error) {
+func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams) ([]ServerlessV1Deployment, error) {
 	if params == nil {
 		params = &ListDeploymentParams{}
 	}
@@ -151,13 +151,13 @@ func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, pa
 	}
 
 	curRecord := 0
-	var records []ServerlessV1ServiceEnvironmentDeployment
+	var records []ServerlessV1Deployment
 
 	for response != nil {
 		records = append(records, response.Deployments...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDeploymentResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDeploymentResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -168,7 +168,7 @@ func (c *ApiService) ListDeployment(ServiceSid string, EnvironmentSid string, pa
 }
 
 // Streams Deployment records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams) (chan ServerlessV1ServiceEnvironmentDeployment, error) {
+func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams) (chan ServerlessV1Deployment, error) {
 	if params == nil {
 		params = &ListDeploymentParams{}
 	}
@@ -181,7 +181,7 @@ func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ServerlessV1ServiceEnvironmentDeployment, 1)
+	channel := make(chan ServerlessV1Deployment, 1)
 
 	go func() {
 		for response != nil {
@@ -190,7 +190,7 @@ func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListDeploymentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDeploymentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -203,11 +203,11 @@ func (c *ApiService) StreamDeployment(ServiceSid string, EnvironmentSid string, 
 	return channel, err
 }
 
-func (c *ApiService) getNextListDeploymentResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListDeploymentResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

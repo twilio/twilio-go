@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateIncomingPhoneNumber
 
-> ApiV2010AccountIncomingPhoneNumber CreateIncomingPhoneNumber(ctx, optional)
+> ApiV2010IncomingPhoneNumber CreateIncomingPhoneNumber(ctx, optional)
 
 
 
@@ -59,7 +59,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumber**](ApiV2010AccountIncomingPhoneNumber.md)
+[**ApiV2010IncomingPhoneNumber**](ApiV2010IncomingPhoneNumber.md)
 
 ### Authorization
 
@@ -120,7 +120,7 @@ Name | Type | Description
 
 ## FetchIncomingPhoneNumber
 
-> ApiV2010AccountIncomingPhoneNumber FetchIncomingPhoneNumber(ctx, Sidoptional)
+> ApiV2010IncomingPhoneNumber FetchIncomingPhoneNumber(ctx, Sidoptional)
 
 
 
@@ -145,7 +145,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumber**](ApiV2010AccountIncomingPhoneNumber.md)
+[**ApiV2010IncomingPhoneNumber**](ApiV2010IncomingPhoneNumber.md)
 
 ### Authorization
 
@@ -208,7 +208,7 @@ Name | Type | Description
 
 ## UpdateIncomingPhoneNumber
 
-> ApiV2010AccountIncomingPhoneNumber UpdateIncomingPhoneNumber(ctx, Sidoptional)
+> ApiV2010IncomingPhoneNumber UpdateIncomingPhoneNumber(ctx, Sidoptional)
 
 
 
@@ -256,7 +256,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ApiV2010AccountIncomingPhoneNumber**](ApiV2010AccountIncomingPhoneNumber.md)
+[**ApiV2010IncomingPhoneNumber**](ApiV2010IncomingPhoneNumber.md)
 
 ### Authorization
 

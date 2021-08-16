@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -67,7 +67,7 @@ func (params *FetchTranscriptionParams) SetPathAccountSid(PathAccountSid string)
 }
 
 // Fetch an instance of a Transcription
-func (c *ApiService) FetchTranscription(Sid string, params *FetchTranscriptionParams) (*ApiV2010AccountTranscription, error) {
+func (c *ApiService) FetchTranscription(Sid string, params *FetchTranscriptionParams) (*ApiV2010Transcription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -86,7 +86,7 @@ func (c *ApiService) FetchTranscription(Sid string, params *FetchTranscriptionPa
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountTranscription{}
+	ps := &ApiV2010Transcription{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -157,7 +157,7 @@ func (c *ApiService) PageTranscription(params *ListTranscriptionParams, pageToke
 }
 
 // Lists Transcription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTranscription(params *ListTranscriptionParams) ([]ApiV2010AccountTranscription, error) {
+func (c *ApiService) ListTranscription(params *ListTranscriptionParams) ([]ApiV2010Transcription, error) {
 	if params == nil {
 		params = &ListTranscriptionParams{}
 	}
@@ -169,13 +169,13 @@ func (c *ApiService) ListTranscription(params *ListTranscriptionParams) ([]ApiV2
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountTranscription
+	var records []ApiV2010Transcription
 
 	for response != nil {
 		records = append(records, response.Transcriptions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTranscriptionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTranscriptionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -186,7 +186,7 @@ func (c *ApiService) ListTranscription(params *ListTranscriptionParams) ([]ApiV2
 }
 
 // Streams Transcription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTranscription(params *ListTranscriptionParams) (chan ApiV2010AccountTranscription, error) {
+func (c *ApiService) StreamTranscription(params *ListTranscriptionParams) (chan ApiV2010Transcription, error) {
 	if params == nil {
 		params = &ListTranscriptionParams{}
 	}
@@ -199,7 +199,7 @@ func (c *ApiService) StreamTranscription(params *ListTranscriptionParams) (chan 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountTranscription, 1)
+	channel := make(chan ApiV2010Transcription, 1)
 
 	go func() {
 		for response != nil {
@@ -208,7 +208,7 @@ func (c *ApiService) StreamTranscription(params *ListTranscriptionParams) (chan 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTranscriptionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTranscriptionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -221,11 +221,11 @@ func (c *ApiService) StreamTranscription(params *ListTranscriptionParams) (chan 
 	return channel, err
 }
 
-func (c *ApiService) getNextListTranscriptionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListTranscriptionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

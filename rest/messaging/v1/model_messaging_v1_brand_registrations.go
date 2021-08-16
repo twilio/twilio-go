@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -23,6 +23,8 @@ type MessagingV1BrandRegistrations struct {
 	AccountSid *string `json:"account_sid,omitempty"`
 	// Brand score
 	BrandScore *int `json:"brand_score,omitempty"`
+	// Type of brand. One of: \"STANDARD\", \"STARTER\".
+	BrandType *string `json:"brand_type,omitempty"`
 	// A2P Messaging Profile Bundle BundleSid
 	CustomerProfileBundleSid *string `json:"customer_profile_bundle_sid,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created

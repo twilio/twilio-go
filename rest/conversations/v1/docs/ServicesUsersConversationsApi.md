@@ -57,7 +57,7 @@ Name | Type | Description
 
 ## FetchServiceUserConversation
 
-> ConversationsV1ServiceServiceUserServiceUserConversation FetchServiceUserConversation(ctx, ChatServiceSidUserSidConversationSid)
+> ConversationsV1ServiceUserConversation FetchServiceUserConversation(ctx, ChatServiceSidUserSidConversationSid)
 
 
 
@@ -83,7 +83,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceUserServiceUserConversation**](ConversationsV1ServiceServiceUserServiceUserConversation.md)
+[**ConversationsV1ServiceUserConversation**](ConversationsV1ServiceUserConversation.md)
 
 ### Authorization
 
@@ -146,7 +146,7 @@ Name | Type | Description
 
 ## UpdateServiceUserConversation
 
-> ConversationsV1ServiceServiceUserServiceUserConversation UpdateServiceUserConversation(ctx, ChatServiceSidUserSidConversationSidoptional)
+> ConversationsV1ServiceUserConversation UpdateServiceUserConversation(ctx, ChatServiceSidUserSidConversationSidoptional)
 
 
 
@@ -175,7 +175,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceUserServiceUserConversation**](ConversationsV1ServiceServiceUserServiceUserConversation.md)
+[**ConversationsV1ServiceUserConversation**](ConversationsV1ServiceUserConversation.md)
 
 ### Authorization
 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -22,7 +22,7 @@ import (
 )
 
 // Fetch a specific Supporting Document Type Instance.
-func (c *ApiService) FetchSupportingDocumentType(Sid string) (*NumbersV2RegulatoryComplianceSupportingDocumentType, error) {
+func (c *ApiService) FetchSupportingDocumentType(Sid string) (*NumbersV2SupportingDocumentType, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocumentTypes/{Sid}"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -36,7 +36,7 @@ func (c *ApiService) FetchSupportingDocumentType(Sid string) (*NumbersV2Regulato
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceSupportingDocumentType{}
+	ps := &NumbersV2SupportingDocumentType{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTy
 }
 
 // Lists SupportingDocumentType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams) ([]NumbersV2RegulatoryComplianceSupportingDocumentType, error) {
+func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams) ([]NumbersV2SupportingDocumentType, error) {
 	if params == nil {
 		params = &ListSupportingDocumentTypeParams{}
 	}
@@ -107,13 +107,13 @@ func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTy
 	}
 
 	curRecord := 0
-	var records []NumbersV2RegulatoryComplianceSupportingDocumentType
+	var records []NumbersV2SupportingDocumentType
 
 	for response != nil {
 		records = append(records, response.SupportingDocumentTypes...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSupportingDocumentTypeResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSupportingDocumentTypeResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -124,7 +124,7 @@ func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTy
 }
 
 // Streams SupportingDocumentType records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocumentTypeParams) (chan NumbersV2RegulatoryComplianceSupportingDocumentType, error) {
+func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocumentTypeParams) (chan NumbersV2SupportingDocumentType, error) {
 	if params == nil {
 		params = &ListSupportingDocumentTypeParams{}
 	}
@@ -137,7 +137,7 @@ func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocument
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan NumbersV2RegulatoryComplianceSupportingDocumentType, 1)
+	channel := make(chan NumbersV2SupportingDocumentType, 1)
 
 	go func() {
 		for response != nil {
@@ -146,7 +146,7 @@ func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocument
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListSupportingDocumentTypeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSupportingDocumentTypeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -159,11 +159,11 @@ func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocument
 	return channel, err
 }
 
-func (c *ApiService) getNextListSupportingDocumentTypeResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListSupportingDocumentTypeResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -40,7 +40,7 @@ func (c *ApiService) DeleteRoomRecording(RoomSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchRoomRecording(RoomSid string, Sid string) (*VideoV1RoomRoomRecording, error) {
+func (c *ApiService) FetchRoomRecording(RoomSid string, Sid string) (*VideoV1RoomRecording, error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings/{Sid}"
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -55,7 +55,7 @@ func (c *ApiService) FetchRoomRecording(RoomSid string, Sid string) (*VideoV1Roo
 
 	defer resp.Body.Close()
 
-	ps := &VideoV1RoomRoomRecording{}
+	ps := &VideoV1RoomRecording{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -152,7 +152,7 @@ func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecording
 }
 
 // Lists RoomRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecordingParams) ([]VideoV1RoomRoomRecording, error) {
+func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecordingParams) ([]VideoV1RoomRecording, error) {
 	if params == nil {
 		params = &ListRoomRecordingParams{}
 	}
@@ -164,13 +164,13 @@ func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecording
 	}
 
 	curRecord := 0
-	var records []VideoV1RoomRoomRecording
+	var records []VideoV1RoomRecording
 
 	for response != nil {
 		records = append(records, response.Recordings...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomRecordingResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoomRecordingResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -181,7 +181,7 @@ func (c *ApiService) ListRoomRecording(RoomSid string, params *ListRoomRecording
 }
 
 // Streams RoomRecording records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordingParams) (chan VideoV1RoomRoomRecording, error) {
+func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordingParams) (chan VideoV1RoomRecording, error) {
 	if params == nil {
 		params = &ListRoomRecordingParams{}
 	}
@@ -194,7 +194,7 @@ func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordi
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VideoV1RoomRoomRecording, 1)
+	channel := make(chan VideoV1RoomRecording, 1)
 
 	go func() {
 		for response != nil {
@@ -203,7 +203,7 @@ func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordi
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRoomRecordingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoomRecordingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -216,11 +216,11 @@ func (c *ApiService) StreamRoomRecording(RoomSid string, params *ListRoomRecordi
 	return channel, err
 }
 
-func (c *ApiService) getNextListRoomRecordingResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListRoomRecordingResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

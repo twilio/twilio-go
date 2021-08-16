@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -31,7 +31,7 @@ func (params *CreateNotificationParams) SetTtl(Ttl int) *CreateNotificationParam
 }
 
 // Create a new Notification for the corresponding Challenge
-func (c *ApiService) CreateNotification(ServiceSid string, Identity string, ChallengeSid string, params *CreateNotificationParams) (*VerifyV2ServiceEntityChallengeNotification, error) {
+func (c *ApiService) CreateNotification(ServiceSid string, Identity string, ChallengeSid string, params *CreateNotificationParams) (*VerifyV2Notification, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -51,7 +51,7 @@ func (c *ApiService) CreateNotification(ServiceSid string, Identity string, Chal
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceEntityChallengeNotification{}
+	ps := &VerifyV2Notification{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -40,7 +40,7 @@ func (c *ApiService) DeleteUserBinding(ServiceSid string, UserSid string, Sid st
 	return nil
 }
 
-func (c *ApiService) FetchUserBinding(ServiceSid string, UserSid string, Sid string) (*IpMessagingV2ServiceUserUserBinding, error) {
+func (c *ApiService) FetchUserBinding(ServiceSid string, UserSid string, Sid string) (*IpMessagingV2UserBinding, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -56,7 +56,7 @@ func (c *ApiService) FetchUserBinding(ServiceSid string, UserSid string, Sid str
 
 	defer resp.Body.Close()
 
-	ps := &IpMessagingV2ServiceUserUserBinding{}
+	ps := &IpMessagingV2UserBinding{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -129,7 +129,7 @@ func (c *ApiService) PageUserBinding(ServiceSid string, UserSid string, params *
 }
 
 // Lists UserBinding records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams) ([]IpMessagingV2ServiceUserUserBinding, error) {
+func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams) ([]IpMessagingV2UserBinding, error) {
 	if params == nil {
 		params = &ListUserBindingParams{}
 	}
@@ -141,13 +141,13 @@ func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *
 	}
 
 	curRecord := 0
-	var records []IpMessagingV2ServiceUserUserBinding
+	var records []IpMessagingV2UserBinding
 
 	for response != nil {
 		records = append(records, response.Bindings...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUserBindingResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUserBindingResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -158,7 +158,7 @@ func (c *ApiService) ListUserBinding(ServiceSid string, UserSid string, params *
 }
 
 // Streams UserBinding records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams) (chan IpMessagingV2ServiceUserUserBinding, error) {
+func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams) (chan IpMessagingV2UserBinding, error) {
 	if params == nil {
 		params = &ListUserBindingParams{}
 	}
@@ -171,7 +171,7 @@ func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan IpMessagingV2ServiceUserUserBinding, 1)
+	channel := make(chan IpMessagingV2UserBinding, 1)
 
 	go func() {
 		for response != nil {
@@ -180,7 +180,7 @@ func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUserBindingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUserBindingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -193,11 +193,11 @@ func (c *ApiService) StreamUserBinding(ServiceSid string, UserSid string, params
 	return channel, err
 }
 
-func (c *ApiService) getNextListUserBindingResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListUserBindingResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

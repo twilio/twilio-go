@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -44,7 +44,7 @@ func (params *CreateTaskChannelParams) SetUniqueName(UniqueName string) *CreateT
 	return params
 }
 
-func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskChannelParams) (*TaskrouterV1WorkspaceTaskChannel, error) {
+func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskChannelParams) (*TaskrouterV1TaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 
@@ -68,7 +68,7 @@ func (c *ApiService) CreateTaskChannel(WorkspaceSid string, params *CreateTaskCh
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceTaskChannel{}
+	ps := &TaskrouterV1TaskChannel{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func (c *ApiService) DeleteTaskChannel(WorkspaceSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*TaskrouterV1WorkspaceTaskChannel, error) {
+func (c *ApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*TaskrouterV1TaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -109,7 +109,7 @@ func (c *ApiService) FetchTaskChannel(WorkspaceSid string, Sid string) (*Taskrou
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceTaskChannel{}
+	ps := &TaskrouterV1TaskChannel{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -170,7 +170,7 @@ func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChanne
 }
 
 // Lists TaskChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChannelParams) ([]TaskrouterV1WorkspaceTaskChannel, error) {
+func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChannelParams) ([]TaskrouterV1TaskChannel, error) {
 	if params == nil {
 		params = &ListTaskChannelParams{}
 	}
@@ -182,13 +182,13 @@ func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChanne
 	}
 
 	curRecord := 0
-	var records []TaskrouterV1WorkspaceTaskChannel
+	var records []TaskrouterV1TaskChannel
 
 	for response != nil {
 		records = append(records, response.Channels...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -199,7 +199,7 @@ func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChanne
 }
 
 // Streams TaskChannel records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChannelParams) (chan TaskrouterV1WorkspaceTaskChannel, error) {
+func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChannelParams) (chan TaskrouterV1TaskChannel, error) {
 	if params == nil {
 		params = &ListTaskChannelParams{}
 	}
@@ -212,7 +212,7 @@ func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChan
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TaskrouterV1WorkspaceTaskChannel, 1)
+	channel := make(chan TaskrouterV1TaskChannel, 1)
 
 	go func() {
 		for response != nil {
@@ -221,7 +221,7 @@ func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChan
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -234,11 +234,11 @@ func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChan
 	return channel, err
 }
 
-func (c *ApiService) getNextListTaskChannelResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListTaskChannelResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -269,7 +269,7 @@ func (params *UpdateTaskChannelParams) SetFriendlyName(FriendlyName string) *Upd
 	return params
 }
 
-func (c *ApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, params *UpdateTaskChannelParams) (*TaskrouterV1WorkspaceTaskChannel, error) {
+func (c *ApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, params *UpdateTaskChannelParams) (*TaskrouterV1TaskChannel, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -291,7 +291,7 @@ func (c *ApiService) UpdateTaskChannel(WorkspaceSid string, Sid string, params *
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceTaskChannel{}
+	ps := &TaskrouterV1TaskChannel{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

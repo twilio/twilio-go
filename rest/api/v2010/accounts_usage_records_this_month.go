@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -119,7 +119,7 @@ func (c *ApiService) PageUsageRecordThisMonth(params *ListUsageRecordThisMonthPa
 }
 
 // Lists UsageRecordThisMonth records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthParams) ([]ApiV2010AccountUsageUsageRecordUsageRecordThisMonth, error) {
+func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthParams) ([]ApiV2010UsageRecordThisMonth, error) {
 	if params == nil {
 		params = &ListUsageRecordThisMonthParams{}
 	}
@@ -131,13 +131,13 @@ func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthPa
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountUsageUsageRecordUsageRecordThisMonth
+	var records []ApiV2010UsageRecordThisMonth
 
 	for response != nil {
 		records = append(records, response.UsageRecords...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordThisMonthResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageRecordThisMonthResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -148,7 +148,7 @@ func (c *ApiService) ListUsageRecordThisMonth(params *ListUsageRecordThisMonthPa
 }
 
 // Streams UsageRecordThisMonth records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageRecordThisMonth(params *ListUsageRecordThisMonthParams) (chan ApiV2010AccountUsageUsageRecordUsageRecordThisMonth, error) {
+func (c *ApiService) StreamUsageRecordThisMonth(params *ListUsageRecordThisMonthParams) (chan ApiV2010UsageRecordThisMonth, error) {
 	if params == nil {
 		params = &ListUsageRecordThisMonthParams{}
 	}
@@ -161,7 +161,7 @@ func (c *ApiService) StreamUsageRecordThisMonth(params *ListUsageRecordThisMonth
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountUsageUsageRecordUsageRecordThisMonth, 1)
+	channel := make(chan ApiV2010UsageRecordThisMonth, 1)
 
 	go func() {
 		for response != nil {
@@ -170,7 +170,7 @@ func (c *ApiService) StreamUsageRecordThisMonth(params *ListUsageRecordThisMonth
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordThisMonthResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageRecordThisMonthResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -183,11 +183,11 @@ func (c *ApiService) StreamUsageRecordThisMonth(params *ListUsageRecordThisMonth
 	return channel, err
 }
 
-func (c *ApiService) getNextListUsageRecordThisMonthResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListUsageRecordThisMonthResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

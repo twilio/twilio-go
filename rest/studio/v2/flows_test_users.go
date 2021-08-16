@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -19,7 +19,7 @@ import (
 )
 
 // Fetch flow test users
-func (c *ApiService) FetchTestUser(Sid string) (*StudioV2FlowTestUser, error) {
+func (c *ApiService) FetchTestUser(Sid string) (*StudioV2TestUser, error) {
 	path := "/v2/Flows/{Sid}/TestUsers"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -33,7 +33,7 @@ func (c *ApiService) FetchTestUser(Sid string) (*StudioV2FlowTestUser, error) {
 
 	defer resp.Body.Close()
 
-	ps := &StudioV2FlowTestUser{}
+	ps := &StudioV2TestUser{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ func (params *UpdateTestUserParams) SetTestUsers(TestUsers []string) *UpdateTest
 }
 
 // Update flow test users
-func (c *ApiService) UpdateTestUser(Sid string, params *UpdateTestUserParams) (*StudioV2FlowTestUser, error) {
+func (c *ApiService) UpdateTestUser(Sid string, params *UpdateTestUserParams) (*StudioV2TestUser, error) {
 	path := "/v2/Flows/{Sid}/TestUsers"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -73,7 +73,7 @@ func (c *ApiService) UpdateTestUser(Sid string, params *UpdateTestUserParams) (*
 
 	defer resp.Body.Close()
 
-	ps := &StudioV2FlowTestUser{}
+	ps := &StudioV2TestUser{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

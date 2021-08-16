@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -105,7 +105,7 @@ func (params *CreateNewFactorParams) SetFriendlyName(FriendlyName string) *Creat
 }
 
 // Create a new Factor for the Entity
-func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params *CreateNewFactorParams) (*VerifyV2ServiceEntityNewFactor, error) {
+func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params *CreateNewFactorParams) (*VerifyV2NewFactor, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -160,7 +160,7 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceEntityNewFactor{}
+	ps := &VerifyV2NewFactor{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -189,7 +189,7 @@ func (c *ApiService) DeleteFactor(ServiceSid string, Identity string, Sid string
 }
 
 // Fetch a specific Factor.
-func (c *ApiService) FetchFactor(ServiceSid string, Identity string, Sid string) (*VerifyV2ServiceEntityFactor, error) {
+func (c *ApiService) FetchFactor(ServiceSid string, Identity string, Sid string) (*VerifyV2Factor, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -205,7 +205,7 @@ func (c *ApiService) FetchFactor(ServiceSid string, Identity string, Sid string)
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceEntityFactor{}
+	ps := &VerifyV2Factor{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -267,7 +267,7 @@ func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *List
 }
 
 // Lists Factor records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *ListFactorParams) ([]VerifyV2ServiceEntityFactor, error) {
+func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *ListFactorParams) ([]VerifyV2Factor, error) {
 	if params == nil {
 		params = &ListFactorParams{}
 	}
@@ -279,13 +279,13 @@ func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *List
 	}
 
 	curRecord := 0
-	var records []VerifyV2ServiceEntityFactor
+	var records []VerifyV2Factor
 
 	for response != nil {
 		records = append(records, response.Factors...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFactorResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFactorResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -296,7 +296,7 @@ func (c *ApiService) ListFactor(ServiceSid string, Identity string, params *List
 }
 
 // Streams Factor records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *ListFactorParams) (chan VerifyV2ServiceEntityFactor, error) {
+func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *ListFactorParams) (chan VerifyV2Factor, error) {
 	if params == nil {
 		params = &ListFactorParams{}
 	}
@@ -309,7 +309,7 @@ func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *Li
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2ServiceEntityFactor, 1)
+	channel := make(chan VerifyV2Factor, 1)
 
 	go func() {
 		for response != nil {
@@ -318,7 +318,7 @@ func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *Li
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListFactorResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFactorResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -331,11 +331,11 @@ func (c *ApiService) StreamFactor(ServiceSid string, Identity string, params *Li
 	return channel, err
 }
 
-func (c *ApiService) getNextListFactorResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListFactorResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -403,7 +403,7 @@ func (params *UpdateFactorParams) SetFriendlyName(FriendlyName string) *UpdateFa
 }
 
 // Update a specific Factor. This endpoint can be used to Verify a Factor if passed an &#x60;AuthPayload&#x60; param.
-func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string, params *UpdateFactorParams) (*VerifyV2ServiceEntityFactor, error) {
+func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string, params *UpdateFactorParams) (*VerifyV2Factor, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Identity"+"}", Identity, -1)
@@ -444,7 +444,7 @@ func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceEntityFactor{}
+	ps := &VerifyV2Factor{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

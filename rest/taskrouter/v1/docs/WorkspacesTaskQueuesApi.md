@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateTaskQueue
 
-> TaskrouterV1WorkspaceTaskQueue CreateTaskQueue(ctx, WorkspaceSidoptional)
+> TaskrouterV1TaskQueue CreateTaskQueue(ctx, WorkspaceSidoptional)
 
 
 
@@ -42,7 +42,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskQueue**](TaskrouterV1WorkspaceTaskQueue.md)
+[**TaskrouterV1TaskQueue**](TaskrouterV1TaskQueue.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchTaskQueue
 
-> TaskrouterV1WorkspaceTaskQueue FetchTaskQueue(ctx, WorkspaceSidSid)
+> TaskrouterV1TaskQueue FetchTaskQueue(ctx, WorkspaceSidSid)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskQueue**](TaskrouterV1WorkspaceTaskQueue.md)
+[**TaskrouterV1TaskQueue**](TaskrouterV1TaskQueue.md)
 
 ### Authorization
 
@@ -187,7 +187,7 @@ Name | Type | Description
 
 ## UpdateTaskQueue
 
-> TaskrouterV1WorkspaceTaskQueue UpdateTaskQueue(ctx, WorkspaceSidSidoptional)
+> TaskrouterV1TaskQueue UpdateTaskQueue(ctx, WorkspaceSidSidoptional)
 
 
 
@@ -216,7 +216,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TaskrouterV1WorkspaceTaskQueue**](TaskrouterV1WorkspaceTaskQueue.md)
+[**TaskrouterV1TaskQueue**](TaskrouterV1TaskQueue.md)
 
 ### Authorization
 

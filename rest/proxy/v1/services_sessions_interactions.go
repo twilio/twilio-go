@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -42,7 +42,7 @@ func (c *ApiService) DeleteInteraction(ServiceSid string, SessionSid string, Sid
 }
 
 // Retrieve a list of Interactions for a given [Session](https://www.twilio.com/docs/proxy/api/session).
-func (c *ApiService) FetchInteraction(ServiceSid string, SessionSid string, Sid string) (*ProxyV1ServiceSessionInteraction, error) {
+func (c *ApiService) FetchInteraction(ServiceSid string, SessionSid string, Sid string) (*ProxyV1Interaction, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"SessionSid"+"}", SessionSid, -1)
@@ -58,7 +58,7 @@ func (c *ApiService) FetchInteraction(ServiceSid string, SessionSid string, Sid 
 
 	defer resp.Body.Close()
 
-	ps := &ProxyV1ServiceSessionInteraction{}
+	ps := &ProxyV1Interaction{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -120,7 +120,7 @@ func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, param
 }
 
 // Lists Interaction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams) ([]ProxyV1ServiceSessionInteraction, error) {
+func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams) ([]ProxyV1Interaction, error) {
 	if params == nil {
 		params = &ListInteractionParams{}
 	}
@@ -132,13 +132,13 @@ func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, param
 	}
 
 	curRecord := 0
-	var records []ProxyV1ServiceSessionInteraction
+	var records []ProxyV1Interaction
 
 	for response != nil {
 		records = append(records, response.Interactions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListInteractionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListInteractionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -149,7 +149,7 @@ func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, param
 }
 
 // Streams Interaction records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams) (chan ProxyV1ServiceSessionInteraction, error) {
+func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams) (chan ProxyV1Interaction, error) {
 	if params == nil {
 		params = &ListInteractionParams{}
 	}
@@ -162,7 +162,7 @@ func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, par
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ProxyV1ServiceSessionInteraction, 1)
+	channel := make(chan ProxyV1Interaction, 1)
 
 	go func() {
 		for response != nil {
@@ -171,7 +171,7 @@ func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, par
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListInteractionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListInteractionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -184,11 +184,11 @@ func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, par
 	return channel, err
 }
 
-func (c *ApiService) getNextListInteractionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListInteractionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

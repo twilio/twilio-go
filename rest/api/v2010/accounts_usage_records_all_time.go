@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -119,7 +119,7 @@ func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 }
 
 // Lists UsageRecordAllTime records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams) ([]ApiV2010AccountUsageUsageRecordUsageRecordAllTime, error) {
+func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams) ([]ApiV2010UsageRecordAllTime, error) {
 	if params == nil {
 		params = &ListUsageRecordAllTimeParams{}
 	}
@@ -131,13 +131,13 @@ func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountUsageUsageRecordUsageRecordAllTime
+	var records []ApiV2010UsageRecordAllTime
 
 	for response != nil {
 		records = append(records, response.UsageRecords...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordAllTimeResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageRecordAllTimeResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -148,7 +148,7 @@ func (c *ApiService) ListUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 }
 
 // Streams UsageRecordAllTime records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimeParams) (chan ApiV2010AccountUsageUsageRecordUsageRecordAllTime, error) {
+func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimeParams) (chan ApiV2010UsageRecordAllTime, error) {
 	if params == nil {
 		params = &ListUsageRecordAllTimeParams{}
 	}
@@ -161,7 +161,7 @@ func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimePara
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountUsageUsageRecordUsageRecordAllTime, 1)
+	channel := make(chan ApiV2010UsageRecordAllTime, 1)
 
 	go func() {
 		for response != nil {
@@ -170,7 +170,7 @@ func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimePara
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsageRecordAllTimeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageRecordAllTimeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -183,11 +183,11 @@ func (c *ApiService) StreamUsageRecordAllTime(params *ListUsageRecordAllTimePara
 	return channel, err
 }
 
-func (c *ApiService) getNextListUsageRecordAllTimeResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListUsageRecordAllTimeResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

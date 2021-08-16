@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateSyncStream
 
-> SyncV1ServiceSyncStream CreateSyncStream(ctx, ServiceSidoptional)
+> SyncV1SyncStream CreateSyncStream(ctx, ServiceSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncStream**](SyncV1ServiceSyncStream.md)
+[**SyncV1SyncStream**](SyncV1SyncStream.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## FetchSyncStream
 
-> SyncV1ServiceSyncStream FetchSyncStream(ctx, ServiceSidSid)
+> SyncV1SyncStream FetchSyncStream(ctx, ServiceSidSid)
 
 
 
@@ -126,7 +126,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncStream**](SyncV1ServiceSyncStream.md)
+[**SyncV1SyncStream**](SyncV1SyncStream.md)
 
 ### Authorization
 
@@ -188,7 +188,7 @@ Name | Type | Description
 
 ## UpdateSyncStream
 
-> SyncV1ServiceSyncStream UpdateSyncStream(ctx, ServiceSidSidoptional)
+> SyncV1SyncStream UpdateSyncStream(ctx, ServiceSidSidoptional)
 
 
 
@@ -214,7 +214,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncStream**](SyncV1ServiceSyncStream.md)
+[**SyncV1SyncStream**](SyncV1SyncStream.md)
 
 ### Authorization
 

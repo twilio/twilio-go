@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -14,5 +14,5 @@ package openapi
 // ListRateLimitResponse struct for ListRateLimitResponse
 type ListRateLimitResponse struct {
 	Meta       ListVerificationAttemptResponseMeta `json:"meta,omitempty"`
-	RateLimits []VerifyV2ServiceRateLimit          `json:"rate_limits,omitempty"`
+	RateLimits []VerifyV2RateLimit                 `json:"rate_limits,omitempty"`
 }

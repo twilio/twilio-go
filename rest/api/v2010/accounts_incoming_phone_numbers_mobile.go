@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -169,7 +169,7 @@ func (params *CreateIncomingPhoneNumberMobileParams) SetVoiceUrl(VoiceUrl string
 	return params
 }
 
-func (c *ApiService) CreateIncomingPhoneNumberMobile(params *CreateIncomingPhoneNumberMobileParams) (*ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, error) {
+func (c *ApiService) CreateIncomingPhoneNumberMobile(params *CreateIncomingPhoneNumberMobileParams) (*ApiV2010IncomingPhoneNumberMobile, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -257,7 +257,7 @@ func (c *ApiService) CreateIncomingPhoneNumberMobile(params *CreateIncomingPhone
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile{}
+	ps := &ApiV2010IncomingPhoneNumberMobile{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -364,7 +364,7 @@ func (c *ApiService) PageIncomingPhoneNumberMobile(params *ListIncomingPhoneNumb
 }
 
 // Lists IncomingPhoneNumberMobile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams) ([]ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, error) {
+func (c *ApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams) ([]ApiV2010IncomingPhoneNumberMobile, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberMobileParams{}
 	}
@@ -376,13 +376,13 @@ func (c *ApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumb
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile
+	var records []ApiV2010IncomingPhoneNumberMobile
 
 	for response != nil {
 		records = append(records, response.IncomingPhoneNumbers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberMobileResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberMobileResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -393,7 +393,7 @@ func (c *ApiService) ListIncomingPhoneNumberMobile(params *ListIncomingPhoneNumb
 }
 
 // Streams IncomingPhoneNumberMobile records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams) (chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, error) {
+func (c *ApiService) StreamIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams) (chan ApiV2010IncomingPhoneNumberMobile, error) {
 	if params == nil {
 		params = &ListIncomingPhoneNumberMobileParams{}
 	}
@@ -406,7 +406,7 @@ func (c *ApiService) StreamIncomingPhoneNumberMobile(params *ListIncomingPhoneNu
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountIncomingPhoneNumberIncomingPhoneNumberMobile, 1)
+	channel := make(chan ApiV2010IncomingPhoneNumberMobile, 1)
 
 	go func() {
 		for response != nil {
@@ -415,7 +415,7 @@ func (c *ApiService) StreamIncomingPhoneNumberMobile(params *ListIncomingPhoneNu
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberMobileResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberMobileResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -428,11 +428,11 @@ func (c *ApiService) StreamIncomingPhoneNumberMobile(params *ListIncomingPhoneNu
 	return channel, err
 }
 
-func (c *ApiService) getNextListIncomingPhoneNumberMobileResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListIncomingPhoneNumberMobileResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

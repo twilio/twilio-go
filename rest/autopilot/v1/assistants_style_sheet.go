@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -19,7 +19,7 @@ import (
 )
 
 // Returns Style sheet JSON object for the Assistant
-func (c *ApiService) FetchStyleSheet(AssistantSid string) (*AutopilotV1AssistantStyleSheet, error) {
+func (c *ApiService) FetchStyleSheet(AssistantSid string) (*AutopilotV1StyleSheet, error) {
 	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -33,7 +33,7 @@ func (c *ApiService) FetchStyleSheet(AssistantSid string) (*AutopilotV1Assistant
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantStyleSheet{}
+	ps := &AutopilotV1StyleSheet{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ func (params *UpdateStyleSheetParams) SetStyleSheet(StyleSheet map[string]interf
 }
 
 // Updates the style sheet for an Assistant identified by &#x60;assistant_sid&#x60;.
-func (c *ApiService) UpdateStyleSheet(AssistantSid string, params *UpdateStyleSheetParams) (*AutopilotV1AssistantStyleSheet, error) {
+func (c *ApiService) UpdateStyleSheet(AssistantSid string, params *UpdateStyleSheetParams) (*AutopilotV1StyleSheet, error) {
 	path := "/v1/Assistants/{AssistantSid}/StyleSheet"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -77,7 +77,7 @@ func (c *ApiService) UpdateStyleSheet(AssistantSid string, params *UpdateStyleSh
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantStyleSheet{}
+	ps := &AutopilotV1StyleSheet{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -30,7 +30,7 @@ func (params *CreateSinkValidateParams) SetTestId(TestId string) *CreateSinkVali
 }
 
 // Validate that a test event for a Sink was received.
-func (c *ApiService) CreateSinkValidate(Sid string, params *CreateSinkValidateParams) (*EventsV1SinkSinkValidate, error) {
+func (c *ApiService) CreateSinkValidate(Sid string, params *CreateSinkValidateParams) (*EventsV1SinkValidate, error) {
 	path := "/v1/Sinks/{Sid}/Validate"
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
@@ -48,7 +48,7 @@ func (c *ApiService) CreateSinkValidate(Sid string, params *CreateSinkValidatePa
 
 	defer resp.Body.Close()
 
-	ps := &EventsV1SinkSinkValidate{}
+	ps := &EventsV1SinkValidate{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

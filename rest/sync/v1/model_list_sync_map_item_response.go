@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListSyncMapItemResponse struct for ListSyncMapItemResponse
 type ListSyncMapItemResponse struct {
-	Items []SyncV1ServiceSyncMapSyncMapItem `json:"items,omitempty"`
-	Meta  ListServiceResponseMeta           `json:"meta,omitempty"`
+	Items []SyncV1SyncMapItem     `json:"items,omitempty"`
+	Meta  ListServiceResponseMeta `json:"meta,omitempty"`
 }

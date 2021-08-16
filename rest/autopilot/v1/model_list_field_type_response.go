@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListFieldTypeResponse struct for ListFieldTypeResponse
 type ListFieldTypeResponse struct {
-	FieldTypes []AutopilotV1AssistantFieldType `json:"field_types,omitempty"`
-	Meta       ListAssistantResponseMeta       `json:"meta,omitempty"`
+	FieldTypes []AutopilotV1FieldType    `json:"field_types,omitempty"`
+	Meta       ListAssistantResponseMeta `json:"meta,omitempty"`
 }

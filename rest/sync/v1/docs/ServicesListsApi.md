@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateSyncList
 
-> SyncV1ServiceSyncList CreateSyncList(ctx, ServiceSidoptional)
+> SyncV1SyncList CreateSyncList(ctx, ServiceSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncList**](SyncV1ServiceSyncList.md)
+[**SyncV1SyncList**](SyncV1SyncList.md)
 
 ### Authorization
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## FetchSyncList
 
-> SyncV1ServiceSyncList FetchSyncList(ctx, ServiceSidSid)
+> SyncV1SyncList FetchSyncList(ctx, ServiceSidSid)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncList**](SyncV1ServiceSyncList.md)
+[**SyncV1SyncList**](SyncV1SyncList.md)
 
 ### Authorization
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 ## UpdateSyncList
 
-> SyncV1ServiceSyncList UpdateSyncList(ctx, ServiceSidSidoptional)
+> SyncV1SyncList UpdateSyncList(ctx, ServiceSidSidoptional)
 
 
 
@@ -206,7 +206,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceSyncList**](SyncV1ServiceSyncList.md)
+[**SyncV1SyncList**](SyncV1SyncList.md)
 
 ### Authorization
 

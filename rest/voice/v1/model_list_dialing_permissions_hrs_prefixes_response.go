@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListDialingPermissionsHrsPrefixesResponse struct for ListDialingPermissionsHrsPrefixesResponse
 type ListDialingPermissionsHrsPrefixesResponse struct {
-	Content []VoiceV1DialingPermissionsDialingPermissionsCountryDialingPermissionsHrsPrefixes `json:"content,omitempty"`
-	Meta    ListByocTrunkResponseMeta                                                         `json:"meta,omitempty"`
+	Content []VoiceV1DialingPermissionsHrsPrefixes `json:"content,omitempty"`
+	Meta    ListByocTrunkResponseMeta              `json:"meta,omitempty"`
 }

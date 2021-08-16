@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateWebhook
 
-> VerifyV2ServiceWebhook CreateWebhook(ctx, ServiceSidoptional)
+> VerifyV2Webhook CreateWebhook(ctx, ServiceSidoptional)
 
 
 
@@ -38,11 +38,12 @@ Name | Type | Description
 **EventTypes** | **[]string** | The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
 **FriendlyName** | **string** | The string that you assigned to describe the webhook. **This value should not contain PII.**
 **Status** | **string** | The webhook status. Default value is &#x60;enabled&#x60;. One of: &#x60;enabled&#x60; or &#x60;disabled&#x60;
+**Version** | **string** | The webhook version. Default value is &#x60;v2&#x60; which includes all the latest fields. Version &#x60;v1&#x60; is legacy and may be removed in the future.
 **WebhookUrl** | **string** | The URL associated with this Webhook.
 
 ### Return type
 
-[**VerifyV2ServiceWebhook**](VerifyV2ServiceWebhook.md)
+[**VerifyV2Webhook**](VerifyV2Webhook.md)
 
 ### Authorization
 
@@ -103,7 +104,7 @@ Name | Type | Description
 
 ## FetchWebhook
 
-> VerifyV2ServiceWebhook FetchWebhook(ctx, ServiceSidSid)
+> VerifyV2Webhook FetchWebhook(ctx, ServiceSidSid)
 
 
 
@@ -128,7 +129,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceWebhook**](VerifyV2ServiceWebhook.md)
+[**VerifyV2Webhook**](VerifyV2Webhook.md)
 
 ### Authorization
 
@@ -190,7 +191,7 @@ Name | Type | Description
 
 ## UpdateWebhook
 
-> VerifyV2ServiceWebhook UpdateWebhook(ctx, ServiceSidSidoptional)
+> VerifyV2Webhook UpdateWebhook(ctx, ServiceSidSidoptional)
 
 
 
@@ -213,11 +214,12 @@ Name | Type | Description
 **EventTypes** | **[]string** | The array of events that this Webhook is subscribed to. Possible event types: &#x60;*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied&#x60;
 **FriendlyName** | **string** | The string that you assigned to describe the webhook. **This value should not contain PII.**
 **Status** | **string** | The webhook status. Default value is &#x60;enabled&#x60;. One of: &#x60;enabled&#x60; or &#x60;disabled&#x60;
+**Version** | **string** | The webhook version. Default value is &#x60;v2&#x60; which includes all the latest fields. Version &#x60;v1&#x60; is legacy and may be removed in the future.
 **WebhookUrl** | **string** | The URL associated with this Webhook.
 
 ### Return type
 
-[**VerifyV2ServiceWebhook**](VerifyV2ServiceWebhook.md)
+[**VerifyV2Webhook**](VerifyV2Webhook.md)
 
 ### Authorization
 

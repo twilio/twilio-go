@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -38,7 +38,7 @@ func (params *CreateModelBuildParams) SetUniqueName(UniqueName string) *CreateMo
 	return params
 }
 
-func (c *ApiService) CreateModelBuild(AssistantSid string, params *CreateModelBuildParams) (*AutopilotV1AssistantModelBuild, error) {
+func (c *ApiService) CreateModelBuild(AssistantSid string, params *CreateModelBuildParams) (*AutopilotV1ModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 
@@ -59,7 +59,7 @@ func (c *ApiService) CreateModelBuild(AssistantSid string, params *CreateModelBu
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantModelBuild{}
+	ps := &AutopilotV1ModelBuild{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (c *ApiService) DeleteModelBuild(AssistantSid string, Sid string) error {
 	return nil
 }
 
-func (c *ApiService) FetchModelBuild(AssistantSid string, Sid string) (*AutopilotV1AssistantModelBuild, error) {
+func (c *ApiService) FetchModelBuild(AssistantSid string, Sid string) (*AutopilotV1ModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -100,7 +100,7 @@ func (c *ApiService) FetchModelBuild(AssistantSid string, Sid string) (*Autopilo
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantModelBuild{}
+	ps := &AutopilotV1ModelBuild{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -161,7 +161,7 @@ func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildP
 }
 
 // Lists ModelBuild records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildParams) ([]AutopilotV1AssistantModelBuild, error) {
+func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildParams) ([]AutopilotV1ModelBuild, error) {
 	if params == nil {
 		params = &ListModelBuildParams{}
 	}
@@ -173,13 +173,13 @@ func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildP
 	}
 
 	curRecord := 0
-	var records []AutopilotV1AssistantModelBuild
+	var records []AutopilotV1ModelBuild
 
 	for response != nil {
 		records = append(records, response.ModelBuilds...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListModelBuildResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListModelBuildResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -190,7 +190,7 @@ func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildP
 }
 
 // Streams ModelBuild records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuildParams) (chan AutopilotV1AssistantModelBuild, error) {
+func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuildParams) (chan AutopilotV1ModelBuild, error) {
 	if params == nil {
 		params = &ListModelBuildParams{}
 	}
@@ -203,7 +203,7 @@ func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuil
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan AutopilotV1AssistantModelBuild, 1)
+	channel := make(chan AutopilotV1ModelBuild, 1)
 
 	go func() {
 		for response != nil {
@@ -212,7 +212,7 @@ func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuil
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListModelBuildResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListModelBuildResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -225,11 +225,11 @@ func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuil
 	return channel, err
 }
 
-func (c *ApiService) getNextListModelBuildResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListModelBuildResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -254,7 +254,7 @@ func (params *UpdateModelBuildParams) SetUniqueName(UniqueName string) *UpdateMo
 	return params
 }
 
-func (c *ApiService) UpdateModelBuild(AssistantSid string, Sid string, params *UpdateModelBuildParams) (*AutopilotV1AssistantModelBuild, error) {
+func (c *ApiService) UpdateModelBuild(AssistantSid string, Sid string, params *UpdateModelBuildParams) (*AutopilotV1ModelBuild, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -273,7 +273,7 @@ func (c *ApiService) UpdateModelBuild(AssistantSid string, Sid string, params *U
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantModelBuild{}
+	ps := &AutopilotV1ModelBuild{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

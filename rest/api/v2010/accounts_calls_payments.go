@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -127,7 +127,7 @@ func (params *CreatePaymentsParams) SetValidCardTypes(ValidCardTypes string) *Cr
 }
 
 // create an instance of payments. This will start a new payments session
-func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams) (*ApiV2010AccountCallPayments, error) {
+func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams) (*ApiV2010Payments, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -201,7 +201,7 @@ func (c *ApiService) CreatePayments(CallSid string, params *CreatePaymentsParams
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCallPayments{}
+	ps := &ApiV2010Payments{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -245,7 +245,7 @@ func (params *UpdatePaymentsParams) SetStatusCallback(StatusCallback string) *Up
 }
 
 // update an instance of payments with different phases of payment flows.
-func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePaymentsParams) (*ApiV2010AccountCallPayments, error) {
+func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePaymentsParams) (*ApiV2010Payments, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -278,7 +278,7 @@ func (c *ApiService) UpdatePayments(CallSid string, Sid string, params *UpdatePa
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountCallPayments{}
+	ps := &ApiV2010Payments{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

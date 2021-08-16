@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListDayResponse struct for ListDayResponse
 type ListDayResponse struct {
-	Days []BulkexportsV1ExportDay `json:"days,omitempty"`
-	Meta ListDayResponseMeta      `json:"meta,omitempty"`
+	Days []BulkexportsV1Day  `json:"days,omitempty"`
+	Meta ListDayResponseMeta `json:"meta,omitempty"`
 }

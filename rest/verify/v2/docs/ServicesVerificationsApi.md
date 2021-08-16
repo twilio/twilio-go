@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateVerification
 
-> VerifyV2ServiceVerification CreateVerification(ctx, ServiceSidoptional)
+> VerifyV2Verification CreateVerification(ctx, ServiceSidoptional)
 
 
 
@@ -44,11 +44,12 @@ Name | Type | Description
 **Payee** | **string** | The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 **RateLimits** | [**map[string]interface{}**](map[string]interface{}.md) | The custom key-value pairs of Programmable Rate Limits. Keys correspond to &#x60;unique_name&#x60; fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
 **SendDigits** | **string** | The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).
+**TemplateSid** | **string** | The SID of the custom template to be used.
 **To** | **string** | The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 
 ### Return type
 
-[**VerifyV2ServiceVerification**](VerifyV2ServiceVerification.md)
+[**VerifyV2Verification**](VerifyV2Verification.md)
 
 ### Authorization
 
@@ -66,7 +67,7 @@ Name | Type | Description
 
 ## FetchVerification
 
-> VerifyV2ServiceVerification FetchVerification(ctx, ServiceSidSid)
+> VerifyV2Verification FetchVerification(ctx, ServiceSidSid)
 
 
 
@@ -91,7 +92,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceVerification**](VerifyV2ServiceVerification.md)
+[**VerifyV2Verification**](VerifyV2Verification.md)
 
 ### Authorization
 
@@ -109,7 +110,7 @@ Name | Type | Description
 
 ## UpdateVerification
 
-> VerifyV2ServiceVerification UpdateVerification(ctx, ServiceSidSidoptional)
+> VerifyV2Verification UpdateVerification(ctx, ServiceSidSidoptional)
 
 
 
@@ -135,7 +136,7 @@ Name | Type | Description
 
 ### Return type
 
-[**VerifyV2ServiceVerification**](VerifyV2ServiceVerification.md)
+[**VerifyV2Verification**](VerifyV2Verification.md)
 
 ### Authorization
 

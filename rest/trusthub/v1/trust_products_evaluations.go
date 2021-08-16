@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -33,7 +33,7 @@ func (params *CreateTrustProductEvaluationParams) SetPolicySid(PolicySid string)
 }
 
 // Create a new Evaluation
-func (c *ApiService) CreateTrustProductEvaluation(TrustProductSid string, params *CreateTrustProductEvaluationParams) (*TrusthubV1TrustProductTrustProductEvaluation, error) {
+func (c *ApiService) CreateTrustProductEvaluation(TrustProductSid string, params *CreateTrustProductEvaluationParams) (*TrusthubV1TrustProductEvaluation, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 
@@ -51,7 +51,7 @@ func (c *ApiService) CreateTrustProductEvaluation(TrustProductSid string, params
 
 	defer resp.Body.Close()
 
-	ps := &TrusthubV1TrustProductTrustProductEvaluation{}
+	ps := &TrusthubV1TrustProductEvaluation{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -60,7 +60,7 @@ func (c *ApiService) CreateTrustProductEvaluation(TrustProductSid string, params
 }
 
 // Fetch specific Evaluation Instance.
-func (c *ApiService) FetchTrustProductEvaluation(TrustProductSid string, Sid string) (*TrusthubV1TrustProductTrustProductEvaluation, error) {
+func (c *ApiService) FetchTrustProductEvaluation(TrustProductSid string, Sid string) (*TrusthubV1TrustProductEvaluation, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid}"
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -75,7 +75,7 @@ func (c *ApiService) FetchTrustProductEvaluation(TrustProductSid string, Sid str
 
 	defer resp.Body.Close()
 
-	ps := &TrusthubV1TrustProductTrustProductEvaluation{}
+	ps := &TrusthubV1TrustProductEvaluation{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func (c *ApiService) PageTrustProductEvaluation(TrustProductSid string, params *
 }
 
 // Lists TrustProductEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) ([]TrusthubV1TrustProductTrustProductEvaluation, error) {
+func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) ([]TrusthubV1TrustProductEvaluation, error) {
 	if params == nil {
 		params = &ListTrustProductEvaluationParams{}
 	}
@@ -148,13 +148,13 @@ func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *
 	}
 
 	curRecord := 0
-	var records []TrusthubV1TrustProductTrustProductEvaluation
+	var records []TrusthubV1TrustProductEvaluation
 
 	for response != nil {
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrustProductEvaluationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTrustProductEvaluationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -165,7 +165,7 @@ func (c *ApiService) ListTrustProductEvaluation(TrustProductSid string, params *
 }
 
 // Streams TrustProductEvaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) (chan TrusthubV1TrustProductTrustProductEvaluation, error) {
+func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams) (chan TrusthubV1TrustProductEvaluation, error) {
 	if params == nil {
 		params = &ListTrustProductEvaluationParams{}
 	}
@@ -178,7 +178,7 @@ func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TrusthubV1TrustProductTrustProductEvaluation, 1)
+	channel := make(chan TrusthubV1TrustProductEvaluation, 1)
 
 	go func() {
 		for response != nil {
@@ -187,7 +187,7 @@ func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListTrustProductEvaluationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTrustProductEvaluationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -200,11 +200,11 @@ func (c *ApiService) StreamTrustProductEvaluation(TrustProductSid string, params
 	return channel, err
 }
 
-func (c *ApiService) getNextListTrustProductEvaluationResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListTrustProductEvaluationResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListLogResponse struct for ListLogResponse
 type ListLogResponse struct {
-	Logs []ServerlessV1ServiceEnvironmentLog `json:"logs,omitempty"`
-	Meta ListServiceResponseMeta             `json:"meta,omitempty"`
+	Logs []ServerlessV1Log       `json:"logs,omitempty"`
+	Meta ListServiceResponseMeta `json:"meta,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -33,7 +33,7 @@ func (params *CreateIpAccessControlListParams) SetIpAccessControlListSid(IpAcces
 }
 
 // Associate an IP Access Control List with a Trunk
-func (c *ApiService) CreateIpAccessControlList(TrunkSid string, params *CreateIpAccessControlListParams) (*TrunkingV1TrunkIpAccessControlList, error) {
+func (c *ApiService) CreateIpAccessControlList(TrunkSid string, params *CreateIpAccessControlListParams) (*TrunkingV1IpAccessControlList, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 
@@ -51,7 +51,7 @@ func (c *ApiService) CreateIpAccessControlList(TrunkSid string, params *CreateIp
 
 	defer resp.Body.Close()
 
-	ps := &TrunkingV1TrunkIpAccessControlList{}
+	ps := &TrunkingV1IpAccessControlList{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *ApiService) DeleteIpAccessControlList(TrunkSid string, Sid string) erro
 	return nil
 }
 
-func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*TrunkingV1TrunkIpAccessControlList, error) {
+func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*TrunkingV1IpAccessControlList, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists/{Sid}"
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -93,7 +93,7 @@ func (c *ApiService) FetchIpAccessControlList(TrunkSid string, Sid string) (*Tru
 
 	defer resp.Body.Close()
 
-	ps := &TrunkingV1TrunkIpAccessControlList{}
+	ps := &TrunkingV1IpAccessControlList{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -154,7 +154,7 @@ func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAcce
 }
 
 // Lists IpAccessControlList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams) ([]TrunkingV1TrunkIpAccessControlList, error) {
+func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams) ([]TrunkingV1IpAccessControlList, error) {
 	if params == nil {
 		params = &ListIpAccessControlListParams{}
 	}
@@ -166,13 +166,13 @@ func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAcce
 	}
 
 	curRecord := 0
-	var records []TrunkingV1TrunkIpAccessControlList
+	var records []TrunkingV1IpAccessControlList
 
 	for response != nil {
 		records = append(records, response.IpAccessControlLists...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIpAccessControlListResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIpAccessControlListResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -183,7 +183,7 @@ func (c *ApiService) ListIpAccessControlList(TrunkSid string, params *ListIpAcce
 }
 
 // Streams IpAccessControlList records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams) (chan TrunkingV1TrunkIpAccessControlList, error) {
+func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams) (chan TrunkingV1IpAccessControlList, error) {
 	if params == nil {
 		params = &ListIpAccessControlListParams{}
 	}
@@ -196,7 +196,7 @@ func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAc
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan TrunkingV1TrunkIpAccessControlList, 1)
+	channel := make(chan TrunkingV1IpAccessControlList, 1)
 
 	go func() {
 		for response != nil {
@@ -205,7 +205,7 @@ func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAc
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListIpAccessControlListResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIpAccessControlListResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -218,11 +218,11 @@ func (c *ApiService) StreamIpAccessControlList(TrunkSid string, params *ListIpAc
 	return channel, err
 }
 
-func (c *ApiService) getNextListIpAccessControlListResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListIpAccessControlListResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

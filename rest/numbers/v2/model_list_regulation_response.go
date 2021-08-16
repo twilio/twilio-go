@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListRegulationResponse struct for ListRegulationResponse
 type ListRegulationResponse struct {
-	Meta    ListBundleResponseMeta                    `json:"meta,omitempty"`
-	Results []NumbersV2RegulatoryComplianceRegulation `json:"results,omitempty"`
+	Meta    ListBundleResponseMeta `json:"meta,omitempty"`
+	Results []NumbersV2Regulation  `json:"results,omitempty"`
 }

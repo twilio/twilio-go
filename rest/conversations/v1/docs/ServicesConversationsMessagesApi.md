@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateServiceConversationMessage
 
-> ConversationsV1ServiceServiceConversationServiceConversationMessage CreateServiceConversationMessage(ctx, ChatServiceSidConversationSidoptional)
+> ConversationsV1ServiceConversationMessage CreateServiceConversationMessage(ctx, ChatServiceSidConversationSidoptional)
 
 
 
@@ -46,7 +46,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationMessage**](ConversationsV1ServiceServiceConversationServiceConversationMessage.md)
+[**ConversationsV1ServiceConversationMessage**](ConversationsV1ServiceConversationMessage.md)
 
 ### Authorization
 
@@ -109,7 +109,7 @@ Name | Type | Description
 
 ## FetchServiceConversationMessage
 
-> ConversationsV1ServiceServiceConversationServiceConversationMessage FetchServiceConversationMessage(ctx, ChatServiceSidConversationSidSid)
+> ConversationsV1ServiceConversationMessage FetchServiceConversationMessage(ctx, ChatServiceSidConversationSidSid)
 
 
 
@@ -135,7 +135,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationMessage**](ConversationsV1ServiceServiceConversationServiceConversationMessage.md)
+[**ConversationsV1ServiceConversationMessage**](ConversationsV1ServiceConversationMessage.md)
 
 ### Authorization
 
@@ -198,7 +198,7 @@ Name | Type | Description
 
 ## UpdateServiceConversationMessage
 
-> ConversationsV1ServiceServiceConversationServiceConversationMessage UpdateServiceConversationMessage(ctx, ChatServiceSidConversationSidSidoptional)
+> ConversationsV1ServiceConversationMessage UpdateServiceConversationMessage(ctx, ChatServiceSidConversationSidSidoptional)
 
 
 
@@ -230,7 +230,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationMessage**](ConversationsV1ServiceServiceConversationServiceConversationMessage.md)
+[**ConversationsV1ServiceConversationMessage**](ConversationsV1ServiceConversationMessage.md)
 
 ### Authorization
 

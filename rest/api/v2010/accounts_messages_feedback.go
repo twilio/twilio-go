@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -35,7 +35,7 @@ func (params *CreateMessageFeedbackParams) SetOutcome(Outcome string) *CreateMes
 	return params
 }
 
-func (c *ApiService) CreateMessageFeedback(MessageSid string, params *CreateMessageFeedbackParams) (*ApiV2010AccountMessageMessageFeedback, error) {
+func (c *ApiService) CreateMessageFeedback(MessageSid string, params *CreateMessageFeedbackParams) (*ApiV2010MessageFeedback, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -58,7 +58,7 @@ func (c *ApiService) CreateMessageFeedback(MessageSid string, params *CreateMess
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountMessageMessageFeedback{}
+	ps := &ApiV2010MessageFeedback{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

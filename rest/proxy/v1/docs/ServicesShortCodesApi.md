@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateShortCode
 
-> ProxyV1ServiceShortCode CreateShortCode(ctx, ServiceSidoptional)
+> ProxyV1ShortCode CreateShortCode(ctx, ServiceSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServiceShortCode**](ProxyV1ServiceShortCode.md)
+[**ProxyV1ShortCode**](ProxyV1ShortCode.md)
 
 ### Authorization
 
@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## FetchShortCode
 
-> ProxyV1ServiceShortCode FetchShortCode(ctx, ServiceSidSid)
+> ProxyV1ShortCode FetchShortCode(ctx, ServiceSidSid)
 
 
 
@@ -125,7 +125,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServiceShortCode**](ProxyV1ServiceShortCode.md)
+[**ProxyV1ShortCode**](ProxyV1ShortCode.md)
 
 ### Authorization
 
@@ -187,7 +187,7 @@ Name | Type | Description
 
 ## UpdateShortCode
 
-> ProxyV1ServiceShortCode UpdateShortCode(ctx, ServiceSidSidoptional)
+> ProxyV1ShortCode UpdateShortCode(ctx, ServiceSidSidoptional)
 
 
 
@@ -213,7 +213,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServiceShortCode**](ProxyV1ServiceShortCode.md)
+[**ProxyV1ShortCode**](ProxyV1ShortCode.md)
 
 ### Authorization
 

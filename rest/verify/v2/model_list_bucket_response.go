@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListBucketResponse struct for ListBucketResponse
 type ListBucketResponse struct {
-	Buckets []VerifyV2ServiceRateLimitBucket    `json:"buckets,omitempty"`
+	Buckets []VerifyV2Bucket                    `json:"buckets,omitempty"`
 	Meta    ListVerificationAttemptResponseMeta `json:"meta,omitempty"`
 }

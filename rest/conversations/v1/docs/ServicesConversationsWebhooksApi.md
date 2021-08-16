@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateServiceConversationScopedWebhook
 
-> ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook CreateServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidoptional)
+> ConversationsV1ServiceConversationScopedWebhook CreateServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidoptional)
 
 
 
@@ -46,7 +46,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook**](ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook.md)
+[**ConversationsV1ServiceConversationScopedWebhook**](ConversationsV1ServiceConversationScopedWebhook.md)
 
 ### Authorization
 
@@ -108,7 +108,7 @@ Name | Type | Description
 
 ## FetchServiceConversationScopedWebhook
 
-> ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook FetchServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidSid)
+> ConversationsV1ServiceConversationScopedWebhook FetchServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidSid)
 
 
 
@@ -134,7 +134,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook**](ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook.md)
+[**ConversationsV1ServiceConversationScopedWebhook**](ConversationsV1ServiceConversationScopedWebhook.md)
 
 ### Authorization
 
@@ -197,7 +197,7 @@ Name | Type | Description
 
 ## UpdateServiceConversationScopedWebhook
 
-> ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook UpdateServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidSidoptional)
+> ConversationsV1ServiceConversationScopedWebhook UpdateServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidSidoptional)
 
 
 
@@ -228,7 +228,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook**](ConversationsV1ServiceServiceConversationServiceConversationScopedWebhook.md)
+[**ConversationsV1ServiceConversationScopedWebhook**](ConversationsV1ServiceConversationScopedWebhook.md)
 
 ### Authorization
 

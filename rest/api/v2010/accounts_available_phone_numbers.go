@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -32,7 +32,7 @@ func (params *FetchAvailablePhoneNumberCountryParams) SetPathAccountSid(PathAcco
 	return params
 }
 
-func (c *ApiService) FetchAvailablePhoneNumberCountry(CountryCode string, params *FetchAvailablePhoneNumberCountryParams) (*ApiV2010AccountAvailablePhoneNumberCountry, error) {
+func (c *ApiService) FetchAvailablePhoneNumberCountry(CountryCode string, params *FetchAvailablePhoneNumberCountryParams) (*ApiV2010AvailablePhoneNumberCountry, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -51,7 +51,7 @@ func (c *ApiService) FetchAvailablePhoneNumberCountry(CountryCode string, params
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountAvailablePhoneNumberCountry{}
+	ps := &ApiV2010AvailablePhoneNumberCountry{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func (c *ApiService) PageAvailablePhoneNumberCountry(params *ListAvailablePhoneN
 }
 
 // Lists AvailablePhoneNumberCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams) ([]ApiV2010AccountAvailablePhoneNumberCountry, error) {
+func (c *ApiService) ListAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams) ([]ApiV2010AvailablePhoneNumberCountry, error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberCountryParams{}
 	}
@@ -134,13 +134,13 @@ func (c *ApiService) ListAvailablePhoneNumberCountry(params *ListAvailablePhoneN
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountAvailablePhoneNumberCountry
+	var records []ApiV2010AvailablePhoneNumberCountry
 
 	for response != nil {
 		records = append(records, response.Countries...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberCountryResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberCountryResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -151,7 +151,7 @@ func (c *ApiService) ListAvailablePhoneNumberCountry(params *ListAvailablePhoneN
 }
 
 // Streams AvailablePhoneNumberCountry records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams) (chan ApiV2010AccountAvailablePhoneNumberCountry, error) {
+func (c *ApiService) StreamAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams) (chan ApiV2010AvailablePhoneNumberCountry, error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberCountryParams{}
 	}
@@ -164,7 +164,7 @@ func (c *ApiService) StreamAvailablePhoneNumberCountry(params *ListAvailablePhon
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountAvailablePhoneNumberCountry, 1)
+	channel := make(chan ApiV2010AvailablePhoneNumberCountry, 1)
 
 	go func() {
 		for response != nil {
@@ -173,7 +173,7 @@ func (c *ApiService) StreamAvailablePhoneNumberCountry(params *ListAvailablePhon
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberCountryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberCountryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -186,11 +186,11 @@ func (c *ApiService) StreamAvailablePhoneNumberCountry(params *ListAvailablePhon
 	return channel, err
 }
 
-func (c *ApiService) getNextListAvailablePhoneNumberCountryResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListAvailablePhoneNumberCountryResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

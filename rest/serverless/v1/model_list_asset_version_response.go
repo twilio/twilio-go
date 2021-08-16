@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListAssetVersionResponse struct for ListAssetVersionResponse
 type ListAssetVersionResponse struct {
-	AssetVersions []ServerlessV1ServiceAssetAssetVersion `json:"asset_versions,omitempty"`
-	Meta          ListServiceResponseMeta                `json:"meta,omitempty"`
+	AssetVersions []ServerlessV1AssetVersion `json:"asset_versions,omitempty"`
+	Meta          ListServiceResponseMeta    `json:"meta,omitempty"`
 }

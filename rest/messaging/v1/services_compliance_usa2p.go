@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -62,7 +62,7 @@ func (params *CreateUsAppToPersonParams) SetUsAppToPersonUsecase(UsAppToPersonUs
 	return params
 }
 
-func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1ServiceUsAppToPerson, error) {
+func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *CreateUsAppToPersonParams) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
@@ -97,7 +97,7 @@ func (c *ApiService) CreateUsAppToPerson(MessagingServiceSid string, params *Cre
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1ServiceUsAppToPerson{}
+	ps := &MessagingV1UsAppToPerson{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -123,7 +123,7 @@ func (c *ApiService) DeleteUsAppToPerson(MessagingServiceSid string, Sid string)
 	return nil
 }
 
-func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) (*MessagingV1ServiceUsAppToPerson, error) {
+func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) (*MessagingV1UsAppToPerson, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -138,7 +138,7 @@ func (c *ApiService) FetchUsAppToPerson(MessagingServiceSid string, Sid string) 
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1ServiceUsAppToPerson{}
+	ps := &MessagingV1UsAppToPerson{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -199,7 +199,7 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 }
 
 // Lists UsAppToPerson records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) ([]MessagingV1ServiceUsAppToPerson, error) {
+func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) ([]MessagingV1UsAppToPerson, error) {
 	if params == nil {
 		params = &ListUsAppToPersonParams{}
 	}
@@ -211,13 +211,13 @@ func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListU
 	}
 
 	curRecord := 0
-	var records []MessagingV1ServiceUsAppToPerson
+	var records []MessagingV1UsAppToPerson
 
 	for response != nil {
 		records = append(records, response.Compliance...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsAppToPersonResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsAppToPersonResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -228,7 +228,7 @@ func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListU
 }
 
 // Streams UsAppToPerson records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) (chan MessagingV1ServiceUsAppToPerson, error) {
+func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) (chan MessagingV1UsAppToPerson, error) {
 	if params == nil {
 		params = &ListUsAppToPersonParams{}
 	}
@@ -241,7 +241,7 @@ func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *Lis
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan MessagingV1ServiceUsAppToPerson, 1)
+	channel := make(chan MessagingV1UsAppToPerson, 1)
 
 	go func() {
 		for response != nil {
@@ -250,7 +250,7 @@ func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *Lis
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListUsAppToPersonResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsAppToPersonResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -263,11 +263,11 @@ func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *Lis
 	return channel, err
 }
 
-func (c *ApiService) getNextListUsAppToPersonResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListUsAppToPersonResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListCredentialPublicKeyResponse struct for ListCredentialPublicKeyResponse
 type ListCredentialPublicKeyResponse struct {
-	Credentials []AccountsV1CredentialCredentialPublicKey `json:"credentials,omitempty"`
-	Meta        ListCredentialAwsResponseMeta             `json:"meta,omitempty"`
+	Credentials []AccountsV1CredentialPublicKey `json:"credentials,omitempty"`
+	Meta        ListCredentialAwsResponseMeta   `json:"meta,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListDocumentPermissionResponse struct for ListDocumentPermissionResponse
 type ListDocumentPermissionResponse struct {
-	Meta        ListServiceResponseMeta                   `json:"meta,omitempty"`
-	Permissions []SyncV1ServiceDocumentDocumentPermission `json:"permissions,omitempty"`
+	Meta        ListServiceResponseMeta    `json:"meta,omitempty"`
+	Permissions []SyncV1DocumentPermission `json:"permissions,omitempty"`
 }

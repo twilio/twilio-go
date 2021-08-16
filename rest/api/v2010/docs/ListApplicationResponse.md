@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Applications** | [**[]ApiV2010AccountApplication**](ApiV2010AccountApplication.md) |  |[optional] 
+**Applications** | [**[]ApiV2010Application**](ApiV2010Application.md) |  |[optional] 
 **End** | **int** |  |[optional] 
 **FirstPageUri** | **string** |  |[optional] 
 **NextPageUri** | **string** |  |[optional] 

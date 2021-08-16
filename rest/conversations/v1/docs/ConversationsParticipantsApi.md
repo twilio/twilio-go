@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateConversationParticipant
 
-> ConversationsV1ConversationConversationParticipant CreateConversationParticipant(ctx, ConversationSidoptional)
+> ConversationsV1ConversationParticipant CreateConversationParticipant(ctx, ConversationSidoptional)
 
 
 
@@ -47,7 +47,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ConversationConversationParticipant**](ConversationsV1ConversationConversationParticipant.md)
+[**ConversationsV1ConversationParticipant**](ConversationsV1ConversationParticipant.md)
 
 ### Authorization
 
@@ -109,7 +109,7 @@ Name | Type | Description
 
 ## FetchConversationParticipant
 
-> ConversationsV1ConversationConversationParticipant FetchConversationParticipant(ctx, ConversationSidSid)
+> ConversationsV1ConversationParticipant FetchConversationParticipant(ctx, ConversationSidSid)
 
 
 
@@ -134,7 +134,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ConversationConversationParticipant**](ConversationsV1ConversationConversationParticipant.md)
+[**ConversationsV1ConversationParticipant**](ConversationsV1ConversationParticipant.md)
 
 ### Authorization
 
@@ -196,7 +196,7 @@ Name | Type | Description
 
 ## UpdateConversationParticipant
 
-> ConversationsV1ConversationConversationParticipant UpdateConversationParticipant(ctx, ConversationSidSidoptional)
+> ConversationsV1ConversationParticipant UpdateConversationParticipant(ctx, ConversationSidSidoptional)
 
 
 
@@ -231,7 +231,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ConversationConversationParticipant**](ConversationsV1ConversationConversationParticipant.md)
+[**ConversationsV1ConversationParticipant**](ConversationsV1ConversationParticipant.md)
 
 ### Authorization
 

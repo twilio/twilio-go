@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchTaskStatistics
 
-> AutopilotV1AssistantTaskTaskStatistics FetchTaskStatistics(ctx, AssistantSidTaskSid)
+> AutopilotV1TaskStatistics FetchTaskStatistics(ctx, AssistantSidTaskSid)
 
 
 
@@ -33,7 +33,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantTaskTaskStatistics**](AutopilotV1AssistantTaskTaskStatistics.md)
+[**AutopilotV1TaskStatistics**](AutopilotV1TaskStatistics.md)
 
 ### Authorization
 

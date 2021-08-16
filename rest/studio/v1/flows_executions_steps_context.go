@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -19,7 +19,7 @@ import (
 )
 
 // Retrieve the context for an Execution Step.
-func (c *ApiService) FetchExecutionStepContext(FlowSid string, ExecutionSid string, StepSid string) (*StudioV1FlowExecutionExecutionStepExecutionStepContext, error) {
+func (c *ApiService) FetchExecutionStepContext(FlowSid string, ExecutionSid string, StepSid string) (*StudioV1ExecutionStepContext, error) {
 	path := "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{StepSid}/Context"
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
 	path = strings.Replace(path, "{"+"ExecutionSid"+"}", ExecutionSid, -1)
@@ -35,7 +35,7 @@ func (c *ApiService) FetchExecutionStepContext(FlowSid string, ExecutionSid stri
 
 	defer resp.Body.Close()
 
-	ps := &StudioV1FlowExecutionExecutionStepExecutionStepContext{}
+	ps := &StudioV1ExecutionStepContext{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

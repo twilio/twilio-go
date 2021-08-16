@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -66,7 +66,7 @@ func (params *FetchRecordingTranscriptionParams) SetPathAccountSid(PathAccountSi
 	return params
 }
 
-func (c *ApiService) FetchRecordingTranscription(RecordingSid string, Sid string, params *FetchRecordingTranscriptionParams) (*ApiV2010AccountRecordingRecordingTranscription, error) {
+func (c *ApiService) FetchRecordingTranscription(RecordingSid string, Sid string, params *FetchRecordingTranscriptionParams) (*ApiV2010RecordingTranscription, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{RecordingSid}/Transcriptions/{Sid}.json"
 	if params != nil && params.PathAccountSid != nil {
 		path = strings.Replace(path, "{"+"AccountSid"+"}", *params.PathAccountSid, -1)
@@ -86,7 +86,7 @@ func (c *ApiService) FetchRecordingTranscription(RecordingSid string, Sid string
 
 	defer resp.Body.Close()
 
-	ps := &ApiV2010AccountRecordingRecordingTranscription{}
+	ps := &ApiV2010RecordingTranscription{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -158,7 +158,7 @@ func (c *ApiService) PageRecordingTranscription(RecordingSid string, params *Lis
 }
 
 // Lists RecordingTranscription records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams) ([]ApiV2010AccountRecordingRecordingTranscription, error) {
+func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams) ([]ApiV2010RecordingTranscription, error) {
 	if params == nil {
 		params = &ListRecordingTranscriptionParams{}
 	}
@@ -170,13 +170,13 @@ func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *Lis
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountRecordingRecordingTranscription
+	var records []ApiV2010RecordingTranscription
 
 	for response != nil {
 		records = append(records, response.Transcriptions...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRecordingTranscriptionResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRecordingTranscriptionResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -187,7 +187,7 @@ func (c *ApiService) ListRecordingTranscription(RecordingSid string, params *Lis
 }
 
 // Streams RecordingTranscription records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams) (chan ApiV2010AccountRecordingRecordingTranscription, error) {
+func (c *ApiService) StreamRecordingTranscription(RecordingSid string, params *ListRecordingTranscriptionParams) (chan ApiV2010RecordingTranscription, error) {
 	if params == nil {
 		params = &ListRecordingTranscriptionParams{}
 	}
@@ -200,7 +200,7 @@ func (c *ApiService) StreamRecordingTranscription(RecordingSid string, params *L
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountRecordingRecordingTranscription, 1)
+	channel := make(chan ApiV2010RecordingTranscription, 1)
 
 	go func() {
 		for response != nil {
@@ -209,7 +209,7 @@ func (c *ApiService) StreamRecordingTranscription(RecordingSid string, params *L
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListRecordingTranscriptionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRecordingTranscriptionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -222,11 +222,11 @@ func (c *ApiService) StreamRecordingTranscription(RecordingSid string, params *L
 	return channel, err
 }
 
-func (c *ApiService) getNextListRecordingTranscriptionResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListRecordingTranscriptionResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

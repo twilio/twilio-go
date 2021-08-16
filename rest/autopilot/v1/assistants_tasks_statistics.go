@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -18,7 +18,7 @@ import (
 	"strings"
 )
 
-func (c *ApiService) FetchTaskStatistics(AssistantSid string, TaskSid string) (*AutopilotV1AssistantTaskTaskStatistics, error) {
+func (c *ApiService) FetchTaskStatistics(AssistantSid string, TaskSid string) (*AutopilotV1TaskStatistics, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics"
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
 	path = strings.Replace(path, "{"+"TaskSid"+"}", TaskSid, -1)
@@ -33,7 +33,7 @@ func (c *ApiService) FetchTaskStatistics(AssistantSid string, TaskSid string) (*
 
 	defer resp.Body.Close()
 
-	ps := &AutopilotV1AssistantTaskTaskStatistics{}
+	ps := &AutopilotV1TaskStatistics{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

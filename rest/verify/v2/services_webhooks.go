@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -29,6 +29,8 @@ type CreateWebhookParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The webhook status. Default value is `enabled`. One of: `enabled` or `disabled`
 	Status *string `json:"Status,omitempty"`
+	// The webhook version. Default value is `v2` which includes all the latest fields. Version `v1` is legacy and may be removed in the future.
+	Version *string `json:"Version,omitempty"`
 	// The URL associated with this Webhook.
 	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
@@ -45,13 +47,17 @@ func (params *CreateWebhookParams) SetStatus(Status string) *CreateWebhookParams
 	params.Status = &Status
 	return params
 }
+func (params *CreateWebhookParams) SetVersion(Version string) *CreateWebhookParams {
+	params.Version = &Version
+	return params
+}
 func (params *CreateWebhookParams) SetWebhookUrl(WebhookUrl string) *CreateWebhookParams {
 	params.WebhookUrl = &WebhookUrl
 	return params
 }
 
 // Create a new Webhook for the Service
-func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParams) (*VerifyV2ServiceWebhook, error) {
+func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParams) (*VerifyV2Webhook, error) {
 	path := "/v2/Services/{ServiceSid}/Webhooks"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 
@@ -69,6 +75,9 @@ func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParam
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
+	if params != nil && params.Version != nil {
+		data.Set("Version", *params.Version)
+	}
 	if params != nil && params.WebhookUrl != nil {
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
@@ -80,7 +89,7 @@ func (c *ApiService) CreateWebhook(ServiceSid string, params *CreateWebhookParam
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceWebhook{}
+	ps := &VerifyV2Webhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -108,7 +117,7 @@ func (c *ApiService) DeleteWebhook(ServiceSid string, Sid string) error {
 }
 
 // Fetch a specific Webhook.
-func (c *ApiService) FetchWebhook(ServiceSid string, Sid string) (*VerifyV2ServiceWebhook, error) {
+func (c *ApiService) FetchWebhook(ServiceSid string, Sid string) (*VerifyV2Webhook, error) {
 	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -123,7 +132,7 @@ func (c *ApiService) FetchWebhook(ServiceSid string, Sid string) (*VerifyV2Servi
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceWebhook{}
+	ps := &VerifyV2Webhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -184,7 +193,7 @@ func (c *ApiService) PageWebhook(ServiceSid string, params *ListWebhookParams, p
 }
 
 // Lists Webhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) ([]VerifyV2ServiceWebhook, error) {
+func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) ([]VerifyV2Webhook, error) {
 	if params == nil {
 		params = &ListWebhookParams{}
 	}
@@ -196,13 +205,13 @@ func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) (
 	}
 
 	curRecord := 0
-	var records []VerifyV2ServiceWebhook
+	var records []VerifyV2Webhook
 
 	for response != nil {
 		records = append(records, response.Webhooks...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWebhookResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWebhookResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -213,7 +222,7 @@ func (c *ApiService) ListWebhook(ServiceSid string, params *ListWebhookParams) (
 }
 
 // Streams Webhook records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams) (chan VerifyV2ServiceWebhook, error) {
+func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams) (chan VerifyV2Webhook, error) {
 	if params == nil {
 		params = &ListWebhookParams{}
 	}
@@ -226,7 +235,7 @@ func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams)
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan VerifyV2ServiceWebhook, 1)
+	channel := make(chan VerifyV2Webhook, 1)
 
 	go func() {
 		for response != nil {
@@ -235,7 +244,7 @@ func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams)
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListWebhookResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWebhookResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -248,11 +257,11 @@ func (c *ApiService) StreamWebhook(ServiceSid string, params *ListWebhookParams)
 	return channel, err
 }
 
-func (c *ApiService) getNextListWebhookResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListWebhookResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -274,6 +283,8 @@ type UpdateWebhookParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The webhook status. Default value is `enabled`. One of: `enabled` or `disabled`
 	Status *string `json:"Status,omitempty"`
+	// The webhook version. Default value is `v2` which includes all the latest fields. Version `v1` is legacy and may be removed in the future.
+	Version *string `json:"Version,omitempty"`
 	// The URL associated with this Webhook.
 	WebhookUrl *string `json:"WebhookUrl,omitempty"`
 }
@@ -290,12 +301,16 @@ func (params *UpdateWebhookParams) SetStatus(Status string) *UpdateWebhookParams
 	params.Status = &Status
 	return params
 }
+func (params *UpdateWebhookParams) SetVersion(Version string) *UpdateWebhookParams {
+	params.Version = &Version
+	return params
+}
 func (params *UpdateWebhookParams) SetWebhookUrl(WebhookUrl string) *UpdateWebhookParams {
 	params.WebhookUrl = &WebhookUrl
 	return params
 }
 
-func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *UpdateWebhookParams) (*VerifyV2ServiceWebhook, error) {
+func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *UpdateWebhookParams) (*VerifyV2Webhook, error) {
 	path := "/v2/Services/{ServiceSid}/Webhooks/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -314,6 +329,9 @@ func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *Update
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
 	}
+	if params != nil && params.Version != nil {
+		data.Set("Version", *params.Version)
+	}
 	if params != nil && params.WebhookUrl != nil {
 		data.Set("WebhookUrl", *params.WebhookUrl)
 	}
@@ -325,7 +343,7 @@ func (c *ApiService) UpdateWebhook(ServiceSid string, Sid string, params *Update
 
 	defer resp.Body.Close()
 
-	ps := &VerifyV2ServiceWebhook{}
+	ps := &VerifyV2Webhook{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

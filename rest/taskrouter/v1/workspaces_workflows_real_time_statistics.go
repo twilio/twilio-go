@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -29,7 +29,7 @@ func (params *FetchWorkflowRealTimeStatisticsParams) SetTaskChannel(TaskChannel 
 	return params
 }
 
-func (c *ApiService) FetchWorkflowRealTimeStatistics(WorkspaceSid string, WorkflowSid string, params *FetchWorkflowRealTimeStatisticsParams) (*TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics, error) {
+func (c *ApiService) FetchWorkflowRealTimeStatistics(WorkspaceSid string, WorkflowSid string, params *FetchWorkflowRealTimeStatisticsParams) (*TaskrouterV1WorkflowRealTimeStatistics, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/RealTimeStatistics"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"WorkflowSid"+"}", WorkflowSid, -1)
@@ -48,7 +48,7 @@ func (c *ApiService) FetchWorkflowRealTimeStatistics(WorkspaceSid string, Workfl
 
 	defer resp.Body.Close()
 
-	ps := &TaskrouterV1WorkspaceWorkflowWorkflowRealTimeStatistics{}
+	ps := &TaskrouterV1WorkflowRealTimeStatistics{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -39,7 +39,7 @@ func (params *CreateVariableParams) SetValue(Value string) *CreateVariableParams
 }
 
 // Create a new Variable.
-func (c *ApiService) CreateVariable(ServiceSid string, EnvironmentSid string, params *CreateVariableParams) (*ServerlessV1ServiceEnvironmentVariable, error) {
+func (c *ApiService) CreateVariable(ServiceSid string, EnvironmentSid string, params *CreateVariableParams) (*ServerlessV1Variable, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -61,7 +61,7 @@ func (c *ApiService) CreateVariable(ServiceSid string, EnvironmentSid string, pa
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceEnvironmentVariable{}
+	ps := &ServerlessV1Variable{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func (c *ApiService) DeleteVariable(ServiceSid string, EnvironmentSid string, Si
 }
 
 // Retrieve a specific Variable.
-func (c *ApiService) FetchVariable(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1ServiceEnvironmentVariable, error) {
+func (c *ApiService) FetchVariable(ServiceSid string, EnvironmentSid string, Sid string) (*ServerlessV1Variable, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -106,7 +106,7 @@ func (c *ApiService) FetchVariable(ServiceSid string, EnvironmentSid string, Sid
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceEnvironmentVariable{}
+	ps := &ServerlessV1Variable{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, para
 }
 
 // Lists Variable records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams) ([]ServerlessV1ServiceEnvironmentVariable, error) {
+func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams) ([]ServerlessV1Variable, error) {
 	if params == nil {
 		params = &ListVariableParams{}
 	}
@@ -180,13 +180,13 @@ func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, para
 	}
 
 	curRecord := 0
-	var records []ServerlessV1ServiceEnvironmentVariable
+	var records []ServerlessV1Variable
 
 	for response != nil {
 		records = append(records, response.Variables...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListVariableResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListVariableResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -197,7 +197,7 @@ func (c *ApiService) ListVariable(ServiceSid string, EnvironmentSid string, para
 }
 
 // Streams Variable records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams) (chan ServerlessV1ServiceEnvironmentVariable, error) {
+func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams) (chan ServerlessV1Variable, error) {
 	if params == nil {
 		params = &ListVariableParams{}
 	}
@@ -210,7 +210,7 @@ func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, pa
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ServerlessV1ServiceEnvironmentVariable, 1)
+	channel := make(chan ServerlessV1Variable, 1)
 
 	go func() {
 		for response != nil {
@@ -219,7 +219,7 @@ func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, pa
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListVariableResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListVariableResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -232,11 +232,11 @@ func (c *ApiService) StreamVariable(ServiceSid string, EnvironmentSid string, pa
 	return channel, err
 }
 
-func (c *ApiService) getNextListVariableResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListVariableResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -268,7 +268,7 @@ func (params *UpdateVariableParams) SetValue(Value string) *UpdateVariableParams
 }
 
 // Update a specific Variable.
-func (c *ApiService) UpdateVariable(ServiceSid string, EnvironmentSid string, Sid string, params *UpdateVariableParams) (*ServerlessV1ServiceEnvironmentVariable, error) {
+func (c *ApiService) UpdateVariable(ServiceSid string, EnvironmentSid string, Sid string, params *UpdateVariableParams) (*ServerlessV1Variable, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"EnvironmentSid"+"}", EnvironmentSid, -1)
@@ -291,7 +291,7 @@ func (c *ApiService) UpdateVariable(ServiceSid string, EnvironmentSid string, Si
 
 	defer resp.Body.Close()
 
-	ps := &ServerlessV1ServiceEnvironmentVariable{}
+	ps := &ServerlessV1Variable{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

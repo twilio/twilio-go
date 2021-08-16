@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateInvite
 
-> ChatV2ServiceChannelInvite CreateInvite(ctx, ServiceSidChannelSidoptional)
+> ChatV2Invite CreateInvite(ctx, ServiceSidChannelSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ChatV2ServiceChannelInvite**](ChatV2ServiceChannelInvite.md)
+[**ChatV2Invite**](ChatV2Invite.md)
 
 ### Authorization
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## FetchInvite
 
-> ChatV2ServiceChannelInvite FetchInvite(ctx, ServiceSidChannelSidSid)
+> ChatV2Invite FetchInvite(ctx, ServiceSidChannelSidSid)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ChatV2ServiceChannelInvite**](ChatV2ServiceChannelInvite.md)
+[**ChatV2Invite**](ChatV2Invite.md)
 
 ### Authorization
 

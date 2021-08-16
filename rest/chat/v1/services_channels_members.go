@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -38,7 +38,7 @@ func (params *CreateMemberParams) SetRoleSid(RoleSid string) *CreateMemberParams
 	return params
 }
 
-func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *CreateMemberParams) (*ChatV1ServiceChannelMember, error) {
+func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *CreateMemberParams) (*ChatV1Member, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -60,7 +60,7 @@ func (c *ApiService) CreateMember(ServiceSid string, ChannelSid string, params *
 
 	defer resp.Body.Close()
 
-	ps := &ChatV1ServiceChannelMember{}
+	ps := &ChatV1Member{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c *ApiService) DeleteMember(ServiceSid string, ChannelSid string, Sid stri
 	return nil
 }
 
-func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid string) (*ChatV1ServiceChannelMember, error) {
+func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid string) (*ChatV1Member, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -103,7 +103,7 @@ func (c *ApiService) FetchMember(ServiceSid string, ChannelSid string, Sid strin
 
 	defer resp.Body.Close()
 
-	ps := &ChatV1ServiceChannelMember{}
+	ps := &ChatV1Member{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -176,7 +176,7 @@ func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *Li
 }
 
 // Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams) ([]ChatV1ServiceChannelMember, error) {
+func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams) ([]ChatV1Member, error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
@@ -188,13 +188,13 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 	}
 
 	curRecord := 0
-	var records []ChatV1ServiceChannelMember
+	var records []ChatV1Member
 
 	for response != nil {
 		records = append(records, response.Members...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMemberResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMemberResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -205,7 +205,7 @@ func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *Li
 }
 
 // Streams Member records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *ListMemberParams) (chan ChatV1ServiceChannelMember, error) {
+func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *ListMemberParams) (chan ChatV1Member, error) {
 	if params == nil {
 		params = &ListMemberParams{}
 	}
@@ -218,7 +218,7 @@ func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ChatV1ServiceChannelMember, 1)
+	channel := make(chan ChatV1Member, 1)
 
 	go func() {
 		for response != nil {
@@ -227,7 +227,7 @@ func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMemberResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMemberResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -240,11 +240,11 @@ func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *
 	return channel, err
 }
 
-func (c *ApiService) getNextListMemberResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListMemberResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -275,7 +275,7 @@ func (params *UpdateMemberParams) SetRoleSid(RoleSid string) *UpdateMemberParams
 	return params
 }
 
-func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*ChatV1ServiceChannelMember, error) {
+func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid string, params *UpdateMemberParams) (*ChatV1Member, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -298,7 +298,7 @@ func (c *ApiService) UpdateMember(ServiceSid string, ChannelSid string, Sid stri
 
 	defer resp.Body.Close()
 
-	ps := &ChatV1ServiceChannelMember{}
+	ps := &ChatV1Member{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

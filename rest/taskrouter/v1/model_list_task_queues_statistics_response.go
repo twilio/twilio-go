@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListTaskQueuesStatisticsResponse struct for ListTaskQueuesStatisticsResponse
 type ListTaskQueuesStatisticsResponse struct {
-	Meta                 ListWorkspaceResponseMeta                            `json:"meta,omitempty"`
-	TaskQueuesStatistics []TaskrouterV1WorkspaceTaskQueueTaskQueuesStatistics `json:"task_queues_statistics,omitempty"`
+	Meta                 ListWorkspaceResponseMeta          `json:"meta,omitempty"`
+	TaskQueuesStatistics []TaskrouterV1TaskQueuesStatistics `json:"task_queues_statistics,omitempty"`
 }

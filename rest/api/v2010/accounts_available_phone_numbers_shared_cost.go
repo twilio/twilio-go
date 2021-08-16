@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -247,7 +247,7 @@ func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, para
 }
 
 // Lists AvailablePhoneNumberSharedCost records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) ([]ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost, error) {
+func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) ([]ApiV2010AvailablePhoneNumberSharedCost, error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberSharedCostParams{}
 	}
@@ -259,13 +259,13 @@ func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, para
 	}
 
 	curRecord := 0
-	var records []ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost
+	var records []ApiV2010AvailablePhoneNumberSharedCost
 
 	for response != nil {
 		records = append(records, response.AvailablePhoneNumbers...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberSharedCostResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberSharedCostResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -276,7 +276,7 @@ func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, para
 }
 
 // Streams AvailablePhoneNumberSharedCost records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) (chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost, error) {
+func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) (chan ApiV2010AvailablePhoneNumberSharedCost, error) {
 	if params == nil {
 		params = &ListAvailablePhoneNumberSharedCostParams{}
 	}
@@ -289,7 +289,7 @@ func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, pa
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ApiV2010AccountAvailablePhoneNumberCountryAvailablePhoneNumberSharedCost, 1)
+	channel := make(chan ApiV2010AvailablePhoneNumberSharedCost, 1)
 
 	go func() {
 		for response != nil {
@@ -298,7 +298,7 @@ func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, pa
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberSharedCostResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberSharedCostResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -311,11 +311,11 @@ func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, pa
 	return channel, err
 }
 
-func (c *ApiService) getNextListAvailablePhoneNumberSharedCostResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListAvailablePhoneNumberSharedCostResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

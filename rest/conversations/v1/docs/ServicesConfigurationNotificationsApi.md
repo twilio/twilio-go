@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchServiceNotification
 
-> ConversationsV1ServiceServiceConfigurationServiceNotification FetchServiceNotification(ctx, ChatServiceSid)
+> ConversationsV1ServiceNotification FetchServiceNotification(ctx, ChatServiceSid)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConfigurationServiceNotification**](ConversationsV1ServiceServiceConfigurationServiceNotification.md)
+[**ConversationsV1ServiceNotification**](ConversationsV1ServiceNotification.md)
 
 ### Authorization
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## UpdateServiceNotification
 
-> ConversationsV1ServiceServiceConfigurationServiceNotification UpdateServiceNotification(ctx, ChatServiceSidoptional)
+> ConversationsV1ServiceNotification UpdateServiceNotification(ctx, ChatServiceSidoptional)
 
 
 
@@ -88,7 +88,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ConversationsV1ServiceServiceConfigurationServiceNotification**](ConversationsV1ServiceServiceConfigurationServiceNotification.md)
+[**ConversationsV1ServiceNotification**](ConversationsV1ServiceNotification.md)
 
 ### Authorization
 

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateTask
 
-> AutopilotV1AssistantTask CreateTask(ctx, AssistantSidoptional)
+> AutopilotV1Task CreateTask(ctx, AssistantSidoptional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantTask**](AutopilotV1AssistantTask.md)
+[**AutopilotV1Task**](AutopilotV1Task.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## FetchTask
 
-> AutopilotV1AssistantTask FetchTask(ctx, AssistantSidSid)
+> AutopilotV1Task FetchTask(ctx, AssistantSidSid)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantTask**](AutopilotV1AssistantTask.md)
+[**AutopilotV1Task**](AutopilotV1Task.md)
 
 ### Authorization
 
@@ -182,7 +182,7 @@ Name | Type | Description
 
 ## UpdateTask
 
-> AutopilotV1AssistantTask UpdateTask(ctx, AssistantSidSidoptional)
+> AutopilotV1Task UpdateTask(ctx, AssistantSidSidoptional)
 
 
 
@@ -209,7 +209,7 @@ Name | Type | Description
 
 ### Return type
 
-[**AutopilotV1AssistantTask**](AutopilotV1AssistantTask.md)
+[**AutopilotV1Task**](AutopilotV1Task.md)
 
 ### Authorization
 

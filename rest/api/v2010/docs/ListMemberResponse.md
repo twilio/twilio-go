@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Page** | **int** |  |[optional] 
 **PageSize** | **int** |  |[optional] 
 **PreviousPageUri** | **string** |  |[optional] 
-**QueueMembers** | [**[]ApiV2010AccountQueueMember**](ApiV2010AccountQueueMember.md) |  |[optional] 
+**QueueMembers** | [**[]ApiV2010Member**](ApiV2010Member.md) |  |[optional] 
 **Start** | **int** |  |[optional] 
 **Uri** | **string** |  |[optional] 
 

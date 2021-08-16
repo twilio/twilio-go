@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListMessageResponse struct for ListMessageResponse
 type ListMessageResponse struct {
-	Messages []IpMessagingV1ServiceChannelMessage `json:"messages,omitempty"`
-	Meta     ListCredentialResponseMeta           `json:"meta,omitempty"`
+	Messages []IpMessagingV1Message     `json:"messages,omitempty"`
+	Meta     ListCredentialResponseMeta `json:"meta,omitempty"`
 }

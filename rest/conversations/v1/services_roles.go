@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -45,7 +45,7 @@ func (params *CreateServiceRoleParams) SetType(Type string) *CreateServiceRolePa
 }
 
 // Create a new user role in your service
-func (c *ApiService) CreateServiceRole(ChatServiceSid string, params *CreateServiceRoleParams) (*ConversationsV1ServiceServiceRole, error) {
+func (c *ApiService) CreateServiceRole(ChatServiceSid string, params *CreateServiceRoleParams) (*ConversationsV1ServiceRole, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 
@@ -71,7 +71,7 @@ func (c *ApiService) CreateServiceRole(ChatServiceSid string, params *CreateServ
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceRole{}
+	ps := &ConversationsV1ServiceRole{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -99,7 +99,7 @@ func (c *ApiService) DeleteServiceRole(ChatServiceSid string, Sid string) error 
 }
 
 // Fetch a user role from your service
-func (c *ApiService) FetchServiceRole(ChatServiceSid string, Sid string) (*ConversationsV1ServiceServiceRole, error) {
+func (c *ApiService) FetchServiceRole(ChatServiceSid string, Sid string) (*ConversationsV1ServiceRole, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -114,7 +114,7 @@ func (c *ApiService) FetchServiceRole(ChatServiceSid string, Sid string) (*Conve
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceRole{}
+	ps := &ConversationsV1ServiceRole{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -175,7 +175,7 @@ func (c *ApiService) PageServiceRole(ChatServiceSid string, params *ListServiceR
 }
 
 // Lists ServiceRole records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceRoleParams) ([]ConversationsV1ServiceServiceRole, error) {
+func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceRoleParams) ([]ConversationsV1ServiceRole, error) {
 	if params == nil {
 		params = &ListServiceRoleParams{}
 	}
@@ -187,13 +187,13 @@ func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceR
 	}
 
 	curRecord := 0
-	var records []ConversationsV1ServiceServiceRole
+	var records []ConversationsV1ServiceRole
 
 	for response != nil {
 		records = append(records, response.Roles...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -204,7 +204,7 @@ func (c *ApiService) ListServiceRole(ChatServiceSid string, params *ListServiceR
 }
 
 // Streams ServiceRole records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServiceRoleParams) (chan ConversationsV1ServiceServiceRole, error) {
+func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServiceRoleParams) (chan ConversationsV1ServiceRole, error) {
 	if params == nil {
 		params = &ListServiceRoleParams{}
 	}
@@ -217,7 +217,7 @@ func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServic
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ConversationsV1ServiceServiceRole, 1)
+	channel := make(chan ConversationsV1ServiceRole, 1)
 
 	go func() {
 		for response != nil {
@@ -226,7 +226,7 @@ func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServic
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListServiceRoleResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -239,11 +239,11 @@ func (c *ApiService) StreamServiceRole(ChatServiceSid string, params *ListServic
 	return channel, err
 }
 
-func (c *ApiService) getNextListServiceRoleResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListServiceRoleResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -269,7 +269,7 @@ func (params *UpdateServiceRoleParams) SetPermission(Permission []string) *Updat
 }
 
 // Update an existing user role in your service
-func (c *ApiService) UpdateServiceRole(ChatServiceSid string, Sid string, params *UpdateServiceRoleParams) (*ConversationsV1ServiceServiceRole, error) {
+func (c *ApiService) UpdateServiceRole(ChatServiceSid string, Sid string, params *UpdateServiceRoleParams) (*ConversationsV1ServiceRole, error) {
 	path := "/v1/Services/{ChatServiceSid}/Roles/{Sid}"
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -290,7 +290,7 @@ func (c *ApiService) UpdateServiceRole(ChatServiceSid string, Sid string, params
 
 	defer resp.Body.Close()
 
-	ps := &ConversationsV1ServiceServiceRole{}
+	ps := &ConversationsV1ServiceRole{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

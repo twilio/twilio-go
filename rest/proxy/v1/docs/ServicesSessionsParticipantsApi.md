@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateParticipant
 
-> ProxyV1ServiceSessionParticipant CreateParticipant(ctx, ServiceSidSessionSidoptional)
+> ProxyV1Participant CreateParticipant(ctx, ServiceSidSessionSidoptional)
 
 
 
@@ -43,7 +43,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServiceSessionParticipant**](ProxyV1ServiceSessionParticipant.md)
+[**ProxyV1Participant**](ProxyV1Participant.md)
 
 ### Authorization
 
@@ -105,7 +105,7 @@ Name | Type | Description
 
 ## FetchParticipant
 
-> ProxyV1ServiceSessionParticipant FetchParticipant(ctx, ServiceSidSessionSidSid)
+> ProxyV1Participant FetchParticipant(ctx, ServiceSidSessionSidSid)
 
 
 
@@ -131,7 +131,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ProxyV1ServiceSessionParticipant**](ProxyV1ServiceSessionParticipant.md)
+[**ProxyV1Participant**](ProxyV1Participant.md)
 
 ### Authorization
 

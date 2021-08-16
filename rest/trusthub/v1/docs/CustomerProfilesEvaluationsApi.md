@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateCustomerProfileEvaluation
 
-> TrusthubV1CustomerProfileCustomerProfileEvaluation CreateCustomerProfileEvaluation(ctx, CustomerProfileSidoptional)
+> TrusthubV1CustomerProfileEvaluation CreateCustomerProfileEvaluation(ctx, CustomerProfileSidoptional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrusthubV1CustomerProfileCustomerProfileEvaluation**](TrusthubV1CustomerProfileCustomerProfileEvaluation.md)
+[**TrusthubV1CustomerProfileEvaluation**](TrusthubV1CustomerProfileEvaluation.md)
 
 ### Authorization
 
@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## FetchCustomerProfileEvaluation
 
-> TrusthubV1CustomerProfileCustomerProfileEvaluation FetchCustomerProfileEvaluation(ctx, CustomerProfileSidSid)
+> TrusthubV1CustomerProfileEvaluation FetchCustomerProfileEvaluation(ctx, CustomerProfileSidSid)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**TrusthubV1CustomerProfileCustomerProfileEvaluation**](TrusthubV1CustomerProfileCustomerProfileEvaluation.md)
+[**TrusthubV1CustomerProfileEvaluation**](TrusthubV1CustomerProfileEvaluation.md)
 
 ### Authorization
 

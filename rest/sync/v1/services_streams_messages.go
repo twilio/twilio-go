@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -30,7 +30,7 @@ func (params *CreateStreamMessageParams) SetData(Data map[string]interface{}) *C
 }
 
 // Create a new Stream Message.
-func (c *ApiService) CreateStreamMessage(ServiceSid string, StreamSid string, params *CreateStreamMessageParams) (*SyncV1ServiceSyncStreamStreamMessage, error) {
+func (c *ApiService) CreateStreamMessage(ServiceSid string, StreamSid string, params *CreateStreamMessageParams) (*SyncV1StreamMessage, error) {
 	path := "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"StreamSid"+"}", StreamSid, -1)
@@ -55,7 +55,7 @@ func (c *ApiService) CreateStreamMessage(ServiceSid string, StreamSid string, pa
 
 	defer resp.Body.Close()
 
-	ps := &SyncV1ServiceSyncStreamStreamMessage{}
+	ps := &SyncV1StreamMessage{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

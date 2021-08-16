@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListUsageRecordResponse struct for ListUsageRecordResponse
 type ListUsageRecordResponse struct {
-	Meta         ListCommandResponseMeta    `json:"meta,omitempty"`
-	UsageRecords []WirelessV1SimUsageRecord `json:"usage_records,omitempty"`
+	Meta         ListCommandResponseMeta `json:"meta,omitempty"`
+	UsageRecords []WirelessV1UsageRecord `json:"usage_records,omitempty"`
 }

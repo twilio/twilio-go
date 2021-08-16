@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -92,7 +92,7 @@ func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageTo
 }
 
 // Lists Metric records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams) ([]InsightsV1CallMetric, error) {
+func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams) ([]InsightsV1Metric, error) {
 	if params == nil {
 		params = &ListMetricParams{}
 	}
@@ -104,13 +104,13 @@ func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams) ([]Ins
 	}
 
 	curRecord := 0
-	var records []InsightsV1CallMetric
+	var records []InsightsV1Metric
 
 	for response != nil {
 		records = append(records, response.Metrics...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMetricResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMetricResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -121,7 +121,7 @@ func (c *ApiService) ListMetric(CallSid string, params *ListMetricParams) ([]Ins
 }
 
 // Streams Metric records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams) (chan InsightsV1CallMetric, error) {
+func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams) (chan InsightsV1Metric, error) {
 	if params == nil {
 		params = &ListMetricParams{}
 	}
@@ -134,7 +134,7 @@ func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams) (cha
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan InsightsV1CallMetric, 1)
+	channel := make(chan InsightsV1Metric, 1)
 
 	go func() {
 		for response != nil {
@@ -143,7 +143,7 @@ func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams) (cha
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMetricResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMetricResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -156,11 +156,11 @@ func (c *ApiService) StreamMetric(CallSid string, params *ListMetricParams) (cha
 	return channel, err
 }
 
-func (c *ApiService) getNextListMetricResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListMetricResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

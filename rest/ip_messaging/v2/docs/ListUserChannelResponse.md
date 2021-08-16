@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Channels** | [**[]IpMessagingV2ServiceUserUserChannel**](IpMessagingV2ServiceUserUserChannel.md) |  |[optional] 
+**Channels** | [**[]IpMessagingV2UserChannel**](IpMessagingV2UserChannel.md) |  |[optional] 
 **Meta** | [**ListCredentialResponseMeta**](ListCredentialResponseMeta.md) |  |[optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

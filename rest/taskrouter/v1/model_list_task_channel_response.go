@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListTaskChannelResponse struct for ListTaskChannelResponse
 type ListTaskChannelResponse struct {
-	Channels []TaskrouterV1WorkspaceTaskChannel `json:"channels,omitempty"`
-	Meta     ListWorkspaceResponseMeta          `json:"meta,omitempty"`
+	Channels []TaskrouterV1TaskChannel `json:"channels,omitempty"`
+	Meta     ListWorkspaceResponseMeta `json:"meta,omitempty"`
 }

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateDocument
 
-> SyncV1ServiceDocument CreateDocument(ctx, ServiceSidoptional)
+> SyncV1Document CreateDocument(ctx, ServiceSidoptional)
 
 
 
@@ -39,7 +39,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceDocument**](SyncV1ServiceDocument.md)
+[**SyncV1Document**](SyncV1Document.md)
 
 ### Authorization
 
@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## FetchDocument
 
-> SyncV1ServiceDocument FetchDocument(ctx, ServiceSidSid)
+> SyncV1Document FetchDocument(ctx, ServiceSidSid)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceDocument**](SyncV1ServiceDocument.md)
+[**SyncV1Document**](SyncV1Document.md)
 
 ### Authorization
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 ## UpdateDocument
 
-> SyncV1ServiceDocument UpdateDocument(ctx, ServiceSidSidoptional)
+> SyncV1Document UpdateDocument(ctx, ServiceSidSidoptional)
 
 
 
@@ -207,7 +207,7 @@ Name | Type | Description
 
 ### Return type
 
-[**SyncV1ServiceDocument**](SyncV1ServiceDocument.md)
+[**SyncV1Document**](SyncV1Document.md)
 
 ### Authorization
 

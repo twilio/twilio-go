@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -22,7 +22,7 @@ import (
 )
 
 // Creates an evaluation for a bundle
-func (c *ApiService) CreateEvaluation(BundleSid string) (*NumbersV2RegulatoryComplianceBundleEvaluation, error) {
+func (c *ApiService) CreateEvaluation(BundleSid string) (*NumbersV2Evaluation, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 
@@ -36,7 +36,7 @@ func (c *ApiService) CreateEvaluation(BundleSid string) (*NumbersV2RegulatoryCom
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceBundleEvaluation{}
+	ps := &NumbersV2Evaluation{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (c *ApiService) CreateEvaluation(BundleSid string) (*NumbersV2RegulatoryCom
 }
 
 // Fetch specific Evaluation Instance.
-func (c *ApiService) FetchEvaluation(BundleSid string, Sid string) (*NumbersV2RegulatoryComplianceBundleEvaluation, error) {
+func (c *ApiService) FetchEvaluation(BundleSid string, Sid string) (*NumbersV2Evaluation, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}"
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -60,7 +60,7 @@ func (c *ApiService) FetchEvaluation(BundleSid string, Sid string) (*NumbersV2Re
 
 	defer resp.Body.Close()
 
-	ps := &NumbersV2RegulatoryComplianceBundleEvaluation{}
+	ps := &NumbersV2Evaluation{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -121,7 +121,7 @@ func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationPara
 }
 
 // Lists Evaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationParams) ([]NumbersV2RegulatoryComplianceBundleEvaluation, error) {
+func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationParams) ([]NumbersV2Evaluation, error) {
 	if params == nil {
 		params = &ListEvaluationParams{}
 	}
@@ -133,13 +133,13 @@ func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationPara
 	}
 
 	curRecord := 0
-	var records []NumbersV2RegulatoryComplianceBundleEvaluation
+	var records []NumbersV2Evaluation
 
 	for response != nil {
 		records = append(records, response.Results...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEvaluationResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEvaluationResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -150,7 +150,7 @@ func (c *ApiService) ListEvaluation(BundleSid string, params *ListEvaluationPara
 }
 
 // Streams Evaluation records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationParams) (chan NumbersV2RegulatoryComplianceBundleEvaluation, error) {
+func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationParams) (chan NumbersV2Evaluation, error) {
 	if params == nil {
 		params = &ListEvaluationParams{}
 	}
@@ -163,7 +163,7 @@ func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationPa
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan NumbersV2RegulatoryComplianceBundleEvaluation, 1)
+	channel := make(chan NumbersV2Evaluation, 1)
 
 	go func() {
 		for response != nil {
@@ -172,7 +172,7 @@ func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationPa
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListEvaluationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEvaluationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -185,11 +185,11 @@ func (c *ApiService) StreamEvaluation(BundleSid string, params *ListEvaluationPa
 	return channel, err
 }
 
-func (c *ApiService) getNextListEvaluationResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListEvaluationResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -75,7 +75,7 @@ func (params *CreateMessageParams) SetMediaSid(MediaSid string) *CreateMessagePa
 	return params
 }
 
-func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params *CreateMessageParams) (*ChatV2ServiceChannelMessage, error) {
+func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params *CreateMessageParams) (*ChatV2Message, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -116,7 +116,7 @@ func (c *ApiService) CreateMessage(ServiceSid string, ChannelSid string, params 
 
 	defer resp.Body.Close()
 
-	ps := &ChatV2ServiceChannelMessage{}
+	ps := &ChatV2Message{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -158,7 +158,7 @@ func (c *ApiService) DeleteMessage(ServiceSid string, ChannelSid string, Sid str
 	return nil
 }
 
-func (c *ApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid string) (*ChatV2ServiceChannelMessage, error) {
+func (c *ApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid string) (*ChatV2Message, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -174,7 +174,7 @@ func (c *ApiService) FetchMessage(ServiceSid string, ChannelSid string, Sid stri
 
 	defer resp.Body.Close()
 
-	ps := &ChatV2ServiceChannelMessage{}
+	ps := &ChatV2Message{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
@@ -245,7 +245,7 @@ func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *L
 }
 
 // Lists Message records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
-func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) ([]ChatV2ServiceChannelMessage, error) {
+func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) ([]ChatV2Message, error) {
 	if params == nil {
 		params = &ListMessageParams{}
 	}
@@ -257,13 +257,13 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 	}
 
 	curRecord := 0
-	var records []ChatV2ServiceChannelMessage
+	var records []ChatV2Message
 
 	for response != nil {
 		records = append(records, response.Messages...)
 
 		var record interface{}
-		if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessageResponse); record == nil || err != nil {
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessageResponse); record == nil || err != nil {
 			return records, err
 		}
 
@@ -274,7 +274,7 @@ func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *L
 }
 
 // Streams Message records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
-func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) (chan ChatV2ServiceChannelMessage, error) {
+func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) (chan ChatV2Message, error) {
 	if params == nil {
 		params = &ListMessageParams{}
 	}
@@ -287,7 +287,7 @@ func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params 
 
 	curRecord := 0
 	//set buffer size of the channel to 1
-	channel := make(chan ChatV2ServiceChannelMessage, 1)
+	channel := make(chan ChatV2Message, 1)
 
 	go func() {
 		for response != nil {
@@ -296,7 +296,7 @@ func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params 
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(response, &curRecord, params.Limit, c.getNextListMessageResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessageResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
@@ -309,11 +309,11 @@ func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params 
 	return channel, err
 }
 
-func (c *ApiService) getNextListMessageResponse(nextPageUri string) (interface{}, error) {
-	if nextPageUri == "" {
+func (c *ApiService) getNextListMessageResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
 		return nil, nil
 	}
-	resp, err := c.requestHandler.Get(c.baseURL+nextPageUri, nil, nil)
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -374,7 +374,7 @@ func (params *UpdateMessageParams) SetLastUpdatedBy(LastUpdatedBy string) *Updat
 	return params
 }
 
-func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*ChatV2ServiceChannelMessage, error) {
+func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid string, params *UpdateMessageParams) (*ChatV2Message, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"ChannelSid"+"}", ChannelSid, -1)
@@ -413,7 +413,7 @@ func (c *ApiService) UpdateMessage(ServiceSid string, ChannelSid string, Sid str
 
 	defer resp.Body.Close()
 
-	ps := &ChatV2ServiceChannelMessage{}
+	ps := &ChatV2Message{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}

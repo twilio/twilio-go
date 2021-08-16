@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.19.0
+ * API version: 1.20.0
  * Contact: support@twilio.com
  */
 
@@ -18,7 +18,7 @@ import (
 	"strings"
 )
 
-func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string) (*MessagingV1ServiceUsAppToPersonUsecase, error) {
+func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string) (*MessagingV1UsAppToPersonUsecase, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
@@ -32,7 +32,7 @@ func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string) (*Mes
 
 	defer resp.Body.Close()
 
-	ps := &MessagingV1ServiceUsAppToPersonUsecase{}
+	ps := &MessagingV1UsAppToPersonUsecase{}
 	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
 		return nil, err
 	}
