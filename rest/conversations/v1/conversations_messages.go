@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.0
+ * API version: 1.20.1
  * Contact: support@twilio.com
  */
 
@@ -175,12 +175,18 @@ func (c *ApiService) FetchConversationMessage(ConversationSid string, Sid string
 
 // Optional parameters for the method 'ListConversationMessage'
 type ListConversationMessageParams struct {
+	// The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
+	Order *string `json:"Order,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
 	Limit *int `json:"limit,omitempty"`
 }
 
+func (params *ListConversationMessageParams) SetOrder(Order string) *ListConversationMessageParams {
+	params.Order = &Order
+	return params
+}
 func (params *ListConversationMessageParams) SetPageSize(PageSize int) *ListConversationMessageParams {
 	params.PageSize = &PageSize
 	return params
@@ -199,6 +205,9 @@ func (c *ApiService) PageConversationMessage(ConversationSid string, params *Lis
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.Order != nil {
+		data.Set("Order", *params.Order)
+	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
 	}

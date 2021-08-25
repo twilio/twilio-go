@@ -1,4 +1,4 @@
-# ListVoiceCountryResponseMeta
+# ListTrunkingCountryResponseMeta
 
 ## Properties
 

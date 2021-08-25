@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.0
+ * API version: 1.20.1
  * Contact: support@twilio.com
  */
 
@@ -11,8 +11,8 @@
 
 package openapi
 
-// PricingV2VoiceVoiceCountryInstanceOutboundPrefixPrices struct for PricingV2VoiceVoiceCountryInstanceOutboundPrefixPrices
-type PricingV2VoiceVoiceCountryInstanceOutboundPrefixPrices struct {
+// PricingV2TrunkingCountryInstanceTerminatingPrefixPrices struct for PricingV2TrunkingCountryInstanceTerminatingPrefixPrices
+type PricingV2TrunkingCountryInstanceTerminatingPrefixPrices struct {
 	BasePrice           float32  `json:"base_price,omitempty"`
 	CurrentPrice        float32  `json:"current_price,omitempty"`
 	DestinationPrefixes []string `json:"destination_prefixes,omitempty"`

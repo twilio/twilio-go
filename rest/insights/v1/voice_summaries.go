@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.0
+ * API version: 1.20.1
  * Contact: support@twilio.com
  */
 
@@ -55,6 +55,8 @@ type ListCallSummariesParams struct {
 	SortBy *string `json:"SortBy,omitempty"`
 	//
 	Subaccount *string `json:"Subaccount,omitempty"`
+	//
+	AbnormalSession *bool `json:"AbnormalSession,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -127,6 +129,10 @@ func (params *ListCallSummariesParams) SetSortBy(SortBy string) *ListCallSummari
 }
 func (params *ListCallSummariesParams) SetSubaccount(Subaccount string) *ListCallSummariesParams {
 	params.Subaccount = &Subaccount
+	return params
+}
+func (params *ListCallSummariesParams) SetAbnormalSession(AbnormalSession bool) *ListCallSummariesParams {
+	params.AbnormalSession = &AbnormalSession
 	return params
 }
 func (params *ListCallSummariesParams) SetPageSize(PageSize int) *ListCallSummariesParams {
@@ -211,6 +217,9 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 	}
 	if params != nil && params.Subaccount != nil {
 		data.Set("Subaccount", *params.Subaccount)
+	}
+	if params != nil && params.AbnormalSession != nil {
+		data.Set("AbnormalSession", fmt.Sprint(*params.AbnormalSession))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

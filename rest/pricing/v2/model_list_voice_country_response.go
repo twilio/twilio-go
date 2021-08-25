@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.0
+ * API version: 1.20.1
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListVoiceCountryResponse struct for ListVoiceCountryResponse
 type ListVoiceCountryResponse struct {
-	Countries []PricingV2VoiceCountry      `json:"countries,omitempty"`
-	Meta      ListVoiceCountryResponseMeta `json:"meta,omitempty"`
+	Countries []PricingV2VoiceCountry         `json:"countries,omitempty"`
+	Meta      ListTrunkingCountryResponseMeta `json:"meta,omitempty"`
 }

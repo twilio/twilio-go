@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.0
+ * API version: 1.20.1
  * Contact: support@twilio.com
  */
 
@@ -18,12 +18,27 @@ import (
 	"strings"
 )
 
-func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string) (*MessagingV1UsAppToPersonUsecase, error) {
+// Optional parameters for the method 'FetchUsAppToPersonUsecase'
+type FetchUsAppToPersonUsecaseParams struct {
+	// The unique string to identify the A2P brand.
+	BrandRegistrationSid *string `json:"BrandRegistrationSid,omitempty"`
+}
+
+func (params *FetchUsAppToPersonUsecaseParams) SetBrandRegistrationSid(BrandRegistrationSid string) *FetchUsAppToPersonUsecaseParams {
+	params.BrandRegistrationSid = &BrandRegistrationSid
+	return params
+}
+
+func (c *ApiService) FetchUsAppToPersonUsecase(MessagingServiceSid string, params *FetchUsAppToPersonUsecaseParams) (*MessagingV1UsAppToPersonUsecase, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases"
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.BrandRegistrationSid != nil {
+		data.Set("BrandRegistrationSid", *params.BrandRegistrationSid)
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {

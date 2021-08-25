@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.0
+ * API version: 1.20.1
  * Contact: support@twilio.com
  */
 
@@ -151,6 +151,8 @@ type ListChallengeParams struct {
 	FactorSid *string `json:"FactorSid,omitempty"`
 	// The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
 	Status *string `json:"Status,omitempty"`
+	// The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+	Order *string `json:"Order,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -163,6 +165,10 @@ func (params *ListChallengeParams) SetFactorSid(FactorSid string) *ListChallenge
 }
 func (params *ListChallengeParams) SetStatus(Status string) *ListChallengeParams {
 	params.Status = &Status
+	return params
+}
+func (params *ListChallengeParams) SetOrder(Order string) *ListChallengeParams {
+	params.Order = &Order
 	return params
 }
 func (params *ListChallengeParams) SetPageSize(PageSize int) *ListChallengeParams {
@@ -189,6 +195,9 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.Order != nil {
+		data.Set("Order", *params.Order)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

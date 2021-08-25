@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchUsAppToPersonUsecase
 
-> MessagingV1UsAppToPersonUsecase FetchUsAppToPersonUsecase(ctx, MessagingServiceSid)
+> MessagingV1UsAppToPersonUsecase FetchUsAppToPersonUsecase(ctx, MessagingServiceSidoptional)
 
 
 
@@ -29,6 +29,7 @@ Other parameters are passed through a pointer to a FetchUsAppToPersonUsecasePara
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**BrandRegistrationSid** | **string** | The unique string to identify the A2P brand.
 
 ### Return type
 
