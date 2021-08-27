@@ -22,7 +22,7 @@ func NewRequestHandler(client BaseClient) *RequestHandler {
 	}
 }
 
-func (c *RequestHandler) sendRequest(method string, rawURL string, data url.Values,
+func (c *RequestHandler) sendRequest(method string, rawURL string, data interface{},
 	headers map[string]interface{}) (*http.Response, error) {
 	return c.Client.SendRequest(method, c.BuildUrl(rawURL), data, headers)
 }
@@ -76,7 +76,17 @@ func (c *RequestHandler) BuildUrl(rawURL string) string {
 }
 
 func (c *RequestHandler) Post(path string, bodyData url.Values, headers map[string]interface{}) (*http.Response, error) {
-	return c.sendRequest(http.MethodPost, path, bodyData, headers)
+	requestHeaders := headers
+	requestHeaders[contentTypeHeader] = formContentType
+
+	return c.sendRequest(http.MethodPost, path, bodyData, requestHeaders)
+}
+
+func (c *RequestHandler) PostJson(path string, bodyData interface{}, headers map[string]interface{}) (*http.Response, error) {
+	requestHeaders := headers
+	requestHeaders[contentTypeHeader] = jsonContentType
+
+	return c.sendRequest(http.MethodPost, path, bodyData, requestHeaders)
 }
 
 func (c *RequestHandler) Get(path string, queryData url.Values, headers map[string]interface{}) (*http.Response, error) {
