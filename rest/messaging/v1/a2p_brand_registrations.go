@@ -51,7 +51,7 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 	headers := make(map[string]interface{})
 
 	if params != nil && params.A2pProfileBundleSid != nil {
-		data.Set("A2pProfileBundleSid", *params.A2pProfileBundleSid)
+		data.Set("A2PProfileBundleSid", *params.A2pProfileBundleSid)
 	}
 	if params != nil && params.BrandType != nil {
 		data.Set("BrandType", *params.BrandType)
