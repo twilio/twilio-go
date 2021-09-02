@@ -129,7 +129,7 @@ func (params *ListEnvironmentParams) SetLimit(Limit int) *ListEnvironmentParams 
 }
 
 // Retrieve a single page of Environment records from the API. Request is executed immediately.
-func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentParams, pageToken string, pageNumber string) (*ListEnvironmentResponse, error) {
+func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentParams, pageToken, pageNumber string) (*ListEnvironmentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -144,7 +144,7 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

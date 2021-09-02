@@ -158,7 +158,7 @@ func (params *ListWebhookParams) SetLimit(Limit int) *ListWebhookParams {
 }
 
 // Retrieve a single page of Webhook records from the API. Request is executed immediately.
-func (c *ApiService) PageWebhook(ServiceSid string, params *ListWebhookParams, pageToken string, pageNumber string) (*ListWebhookResponse, error) {
+func (c *ApiService) PageWebhook(ServiceSid string, params *ListWebhookParams, pageToken, pageNumber string) (*ListWebhookResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Webhooks"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -173,7 +173,7 @@ func (c *ApiService) PageWebhook(ServiceSid string, params *ListWebhookParams, p
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

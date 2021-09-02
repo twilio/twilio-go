@@ -169,7 +169,7 @@ func (params *ListSipAuthCallsCredentialListMappingParams) SetLimit(Limit int) *
 }
 
 // Retrieve a single page of SipAuthCallsCredentialListMapping records from the API. Request is executed immediately.
-func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, pageToken string, pageNumber string) (*ListSipAuthCallsCredentialListMappingResponse, error) {
+func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, params *ListSipAuthCallsCredentialListMappingParams, pageToken, pageNumber string) (*ListSipAuthCallsCredentialListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -189,7 +189,7 @@ func (c *ApiService) PageSipAuthCallsCredentialListMapping(DomainSid string, par
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

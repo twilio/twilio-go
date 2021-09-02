@@ -164,7 +164,7 @@ func (params *ListSigningKeyParams) SetLimit(Limit int) *ListSigningKeyParams {
 }
 
 // Retrieve a single page of SigningKey records from the API. Request is executed immediately.
-func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken string, pageNumber string) (*ListSigningKeyResponse, error) {
+func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pageNumber string) (*ListSigningKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -183,7 +183,7 @@ func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken stri
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

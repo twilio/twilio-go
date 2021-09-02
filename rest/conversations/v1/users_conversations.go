@@ -83,7 +83,7 @@ func (params *ListUserConversationParams) SetLimit(Limit int) *ListUserConversat
 }
 
 // Retrieve a single page of UserConversation records from the API. Request is executed immediately.
-func (c *ApiService) PageUserConversation(UserSid string, params *ListUserConversationParams, pageToken string, pageNumber string) (*ListUserConversationResponse, error) {
+func (c *ApiService) PageUserConversation(UserSid string, params *ListUserConversationParams, pageToken, pageNumber string) (*ListUserConversationResponse, error) {
 	path := "/v1/Users/{UserSid}/Conversations"
 
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -98,7 +98,7 @@ func (c *ApiService) PageUserConversation(UserSid string, params *ListUserConver
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

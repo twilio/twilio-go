@@ -120,7 +120,7 @@ func (params *ListAssetParams) SetLimit(Limit int) *ListAssetParams {
 }
 
 // Retrieve a single page of Asset records from the API. Request is executed immediately.
-func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageToken string, pageNumber string) (*ListAssetResponse, error) {
+func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageToken, pageNumber string) (*ListAssetResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Assets"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -135,7 +135,7 @@ func (c *ApiService) PageAsset(ServiceSid string, params *ListAssetParams, pageT
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

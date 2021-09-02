@@ -162,7 +162,7 @@ func (params *ListTrustProductParams) SetLimit(Limit int) *ListTrustProductParam
 }
 
 // Retrieve a single page of TrustProduct records from the API. Request is executed immediately.
-func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken string, pageNumber string) (*ListTrustProductResponse, error) {
+func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken, pageNumber string) (*ListTrustProductResponse, error) {
 	path := "/v1/TrustProducts"
 
 	data := url.Values{}
@@ -184,7 +184,7 @@ func (c *ApiService) PageTrustProduct(params *ListTrustProductParams, pageToken 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

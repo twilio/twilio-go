@@ -83,7 +83,7 @@ func (params *ListLogParams) SetLimit(Limit int) *ListLogParams {
 }
 
 // Retrieve a single page of Log records from the API. Request is executed immediately.
-func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, pageToken string, pageNumber string) (*ListLogResponse, error) {
+func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *ListLogParams, pageToken, pageNumber string) (*ListLogResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -108,7 +108,7 @@ func (c *ApiService) PageLog(ServiceSid string, EnvironmentSid string, params *L
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

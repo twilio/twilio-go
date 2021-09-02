@@ -68,7 +68,7 @@ func (params *ListEventTypeParams) SetLimit(Limit int) *ListEventTypeParams {
 }
 
 // Retrieve a single page of EventType records from the API. Request is executed immediately.
-func (c *ApiService) PageEventType(params *ListEventTypeParams, pageToken string, pageNumber string) (*ListEventTypeResponse, error) {
+func (c *ApiService) PageEventType(params *ListEventTypeParams, pageToken, pageNumber string) (*ListEventTypeResponse, error) {
 	path := "/v1/Types"
 
 	data := url.Values{}
@@ -84,7 +84,7 @@ func (c *ApiService) PageEventType(params *ListEventTypeParams, pageToken string
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

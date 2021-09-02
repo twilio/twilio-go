@@ -232,7 +232,7 @@ func (params *ListCompositionHookParams) SetLimit(Limit int) *ListCompositionHoo
 }
 
 // Retrieve a single page of CompositionHook records from the API. Request is executed immediately.
-func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, pageToken string, pageNumber string) (*ListCompositionHookResponse, error) {
+func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, pageToken, pageNumber string) (*ListCompositionHookResponse, error) {
 	path := "/v1/CompositionHooks"
 
 	data := url.Values{}
@@ -257,7 +257,7 @@ func (c *ApiService) PageCompositionHook(params *ListCompositionHookParams, page
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

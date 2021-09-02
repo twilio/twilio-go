@@ -536,7 +536,7 @@ func (params *ListParticipantParams) SetLimit(Limit int) *ListParticipantParams 
 }
 
 // Retrieve a single page of Participant records from the API. Request is executed immediately.
-func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipantParams, pageToken string, pageNumber string) (*ListParticipantResponse, error) {
+func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipantParams, pageToken, pageNumber string) (*ListParticipantResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -565,7 +565,7 @@ func (c *ApiService) PageParticipant(ConferenceSid string, params *ListParticipa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

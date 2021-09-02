@@ -122,7 +122,7 @@ func (params *ListRecordingAddOnResultPayloadParams) SetLimit(Limit int) *ListRe
 }
 
 // Retrieve a single page of RecordingAddOnResultPayload records from the API. Request is executed immediately.
-func (c *ApiService) PageRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams, pageToken string, pageNumber string) (*ListRecordingAddOnResultPayloadResponse, error) {
+func (c *ApiService) PageRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams, pageToken, pageNumber string) (*ListRecordingAddOnResultPayloadResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{AddOnResultSid}/Payloads.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -143,7 +143,7 @@ func (c *ApiService) PageRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

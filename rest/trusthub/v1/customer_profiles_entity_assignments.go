@@ -120,7 +120,7 @@ func (params *ListCustomerProfileEntityAssignmentParams) SetLimit(Limit int) *Li
 }
 
 // Retrieve a single page of CustomerProfileEntityAssignment records from the API. Request is executed immediately.
-func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, pageToken string, pageNumber string) (*ListCustomerProfileEntityAssignmentResponse, error) {
+func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid string, params *ListCustomerProfileEntityAssignmentParams, pageToken, pageNumber string) (*ListCustomerProfileEntityAssignmentResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments"
 
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -135,7 +135,7 @@ func (c *ApiService) PageCustomerProfileEntityAssignment(CustomerProfileSid stri
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -96,7 +96,7 @@ func (params *ListShortCodeParams) SetLimit(Limit int) *ListShortCodeParams {
 }
 
 // Retrieve a single page of ShortCode records from the API. Request is executed immediately.
-func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken string, pageNumber string) (*ListShortCodeResponse, error) {
+func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken, pageNumber string) (*ListShortCodeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -121,7 +121,7 @@ func (c *ApiService) PageShortCode(params *ListShortCodeParams, pageToken string
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

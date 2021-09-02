@@ -115,7 +115,7 @@ func (params *ListBrandRegistrationsParams) SetLimit(Limit int) *ListBrandRegist
 }
 
 // Retrieve a single page of BrandRegistrations records from the API. Request is executed immediately.
-func (c *ApiService) PageBrandRegistrations(params *ListBrandRegistrationsParams, pageToken string, pageNumber string) (*ListBrandRegistrationsResponse, error) {
+func (c *ApiService) PageBrandRegistrations(params *ListBrandRegistrationsParams, pageToken, pageNumber string) (*ListBrandRegistrationsResponse, error) {
 	path := "/v1/a2p/BrandRegistrations"
 
 	data := url.Values{}
@@ -128,7 +128,7 @@ func (c *ApiService) PageBrandRegistrations(params *ListBrandRegistrationsParams
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

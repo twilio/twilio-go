@@ -49,7 +49,7 @@ func (params *ListParticipantConversationParams) SetLimit(Limit int) *ListPartic
 }
 
 // Retrieve a single page of ParticipantConversation records from the API. Request is executed immediately.
-func (c *ApiService) PageParticipantConversation(params *ListParticipantConversationParams, pageToken string, pageNumber string) (*ListParticipantConversationResponse, error) {
+func (c *ApiService) PageParticipantConversation(params *ListParticipantConversationParams, pageToken, pageNumber string) (*ListParticipantConversationResponse, error) {
 	path := "/v1/ParticipantConversations"
 
 	data := url.Values{}
@@ -68,7 +68,7 @@ func (c *ApiService) PageParticipantConversation(params *ListParticipantConversa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

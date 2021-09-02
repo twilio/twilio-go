@@ -153,7 +153,7 @@ func (params *ListAvailablePhoneNumberTollFreeParams) SetLimit(Limit int) *ListA
 }
 
 // Retrieve a single page of AvailablePhoneNumberTollFree records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberTollFreeResponse, error) {
+func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params *ListAvailablePhoneNumberTollFreeParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/TollFree.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -227,7 +227,7 @@ func (c *ApiService) PageAvailablePhoneNumberTollFree(CountryCode string, params
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

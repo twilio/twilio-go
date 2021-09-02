@@ -57,7 +57,7 @@ func (params *ListAccountUsageRecordParams) SetLimit(Limit int) *ListAccountUsag
 }
 
 // Retrieve a single page of AccountUsageRecord records from the API. Request is executed immediately.
-func (c *ApiService) PageAccountUsageRecord(params *ListAccountUsageRecordParams, pageToken string, pageNumber string) (*ListAccountUsageRecordResponse, error) {
+func (c *ApiService) PageAccountUsageRecord(params *ListAccountUsageRecordParams, pageToken, pageNumber string) (*ListAccountUsageRecordResponse, error) {
 	path := "/v1/UsageRecords"
 
 	data := url.Values{}
@@ -79,7 +79,7 @@ func (c *ApiService) PageAccountUsageRecord(params *ListAccountUsageRecordParams
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

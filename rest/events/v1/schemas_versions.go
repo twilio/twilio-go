@@ -63,7 +63,7 @@ func (params *ListSchemaVersionParams) SetLimit(Limit int) *ListSchemaVersionPar
 }
 
 // Retrieve a single page of SchemaVersion records from the API. Request is executed immediately.
-func (c *ApiService) PageSchemaVersion(Id string, params *ListSchemaVersionParams, pageToken string, pageNumber string) (*ListSchemaVersionResponse, error) {
+func (c *ApiService) PageSchemaVersion(Id string, params *ListSchemaVersionParams, pageToken, pageNumber string) (*ListSchemaVersionResponse, error) {
 	path := "/v1/Schemas/{Id}/Versions"
 
 	path = strings.Replace(path, "{"+"Id"+"}", Id, -1)
@@ -78,7 +78,7 @@ func (c *ApiService) PageSchemaVersion(Id string, params *ListSchemaVersionParam
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

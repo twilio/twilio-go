@@ -138,7 +138,7 @@ func (params *ListActivityParams) SetLimit(Limit int) *ListActivityParams {
 }
 
 // Retrieve a single page of Activity records from the API. Request is executed immediately.
-func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParams, pageToken string, pageNumber string) (*ListActivityResponse, error) {
+func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParams, pageToken, pageNumber string) (*ListActivityResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Activities"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -159,7 +159,7 @@ func (c *ApiService) PageActivity(WorkspaceSid string, params *ListActivityParam
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

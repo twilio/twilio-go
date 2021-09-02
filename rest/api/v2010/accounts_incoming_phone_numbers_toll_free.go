@@ -313,7 +313,7 @@ func (params *ListIncomingPhoneNumberTollFreeParams) SetLimit(Limit int) *ListIn
 }
 
 // Retrieve a single page of IncomingPhoneNumberTollFree records from the API. Request is executed immediately.
-func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberTollFreeResponse, error) {
+func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberTollFreeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -344,7 +344,7 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

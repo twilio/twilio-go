@@ -62,7 +62,7 @@ func (params *ListSupportingDocumentTypeParams) SetLimit(Limit int) *ListSupport
 }
 
 // Retrieve a single page of SupportingDocumentType records from the API. Request is executed immediately.
-func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTypeParams, pageToken string, pageNumber string) (*ListSupportingDocumentTypeResponse, error) {
+func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTypeParams, pageToken, pageNumber string) (*ListSupportingDocumentTypeResponse, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocumentTypes"
 
 	data := url.Values{}
@@ -75,7 +75,7 @@ func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTy
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

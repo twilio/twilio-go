@@ -129,7 +129,7 @@ func (params *ListSubscribedEventParams) SetLimit(Limit int) *ListSubscribedEven
 }
 
 // Retrieve a single page of SubscribedEvent records from the API. Request is executed immediately.
-func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, pageToken string, pageNumber string) (*ListSubscribedEventResponse, error) {
+func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSubscribedEventParams, pageToken, pageNumber string) (*ListSubscribedEventResponse, error) {
 	path := "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents"
 
 	path = strings.Replace(path, "{"+"SubscriptionSid"+"}", SubscriptionSid, -1)
@@ -144,7 +144,7 @@ func (c *ApiService) PageSubscribedEvent(SubscriptionSid string, params *ListSub
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

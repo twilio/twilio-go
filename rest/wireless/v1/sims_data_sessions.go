@@ -39,7 +39,7 @@ func (params *ListDataSessionParams) SetLimit(Limit int) *ListDataSessionParams 
 }
 
 // Retrieve a single page of DataSession records from the API. Request is executed immediately.
-func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParams, pageToken string, pageNumber string) (*ListDataSessionResponse, error) {
+func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParams, pageToken, pageNumber string) (*ListDataSessionResponse, error) {
 	path := "/v1/Sims/{SimSid}/DataSessions"
 
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
@@ -54,7 +54,7 @@ func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParam
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

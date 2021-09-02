@@ -115,7 +115,7 @@ func (params *ListMessageInteractionParams) SetLimit(Limit int) *ListMessageInte
 }
 
 // Retrieve a single page of MessageInteraction records from the API. Request is executed immediately.
-func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams, pageToken string, pageNumber string) (*ListMessageInteractionResponse, error) {
+func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string, ParticipantSid string, params *ListMessageInteractionParams, pageToken, pageNumber string) (*ListMessageInteractionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -132,7 +132,7 @@ func (c *ApiService) PageMessageInteraction(ServiceSid string, SessionSid string
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

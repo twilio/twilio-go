@@ -183,7 +183,7 @@ func (params *ListSessionParams) SetLimit(Limit int) *ListSessionParams {
 }
 
 // Retrieve a single page of Session records from the API. Request is executed immediately.
-func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, pageToken string, pageNumber string) (*ListSessionResponse, error) {
+func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, pageToken, pageNumber string) (*ListSessionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -198,7 +198,7 @@ func (c *ApiService) PageSession(ServiceSid string, params *ListSessionParams, p
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -195,7 +195,7 @@ func (params *ListByocTrunkParams) SetLimit(Limit int) *ListByocTrunkParams {
 }
 
 // Retrieve a single page of ByocTrunk records from the API. Request is executed immediately.
-func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken string, pageNumber string) (*ListByocTrunkResponse, error) {
+func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken, pageNumber string) (*ListByocTrunkResponse, error) {
 	path := "/v1/ByocTrunks"
 
 	data := url.Values{}
@@ -208,7 +208,7 @@ func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken string
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

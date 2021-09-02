@@ -64,7 +64,7 @@ func (params *ListStepParams) SetLimit(Limit int) *ListStepParams {
 }
 
 // Retrieve a single page of Step records from the API. Request is executed immediately.
-func (c *ApiService) PageStep(FlowSid string, EngagementSid string, params *ListStepParams, pageToken string, pageNumber string) (*ListStepResponse, error) {
+func (c *ApiService) PageStep(FlowSid string, EngagementSid string, params *ListStepParams, pageToken, pageNumber string) (*ListStepResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps"
 
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -80,7 +80,7 @@ func (c *ApiService) PageStep(FlowSid string, EngagementSid string, params *List
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

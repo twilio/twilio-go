@@ -163,7 +163,7 @@ func (params *ListKeyParams) SetLimit(Limit int) *ListKeyParams {
 }
 
 // Retrieve a single page of Key records from the API. Request is executed immediately.
-func (c *ApiService) PageKey(params *ListKeyParams, pageToken string, pageNumber string) (*ListKeyResponse, error) {
+func (c *ApiService) PageKey(params *ListKeyParams, pageToken, pageNumber string) (*ListKeyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Keys.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -182,7 +182,7 @@ func (c *ApiService) PageKey(params *ListKeyParams, pageToken string, pageNumber
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

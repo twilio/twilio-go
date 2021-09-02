@@ -222,7 +222,7 @@ func (params *ListOutgoingCallerIdParams) SetLimit(Limit int) *ListOutgoingCalle
 }
 
 // Retrieve a single page of OutgoingCallerId records from the API. Request is executed immediately.
-func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pageToken string, pageNumber string) (*ListOutgoingCallerIdResponse, error) {
+func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pageToken, pageNumber string) (*ListOutgoingCallerIdResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -247,7 +247,7 @@ func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

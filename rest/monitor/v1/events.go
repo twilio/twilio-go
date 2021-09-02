@@ -98,7 +98,7 @@ func (params *ListEventParams) SetLimit(Limit int) *ListEventParams {
 }
 
 // Retrieve a single page of Event records from the API. Request is executed immediately.
-func (c *ApiService) PageEvent(params *ListEventParams, pageToken string, pageNumber string) (*ListEventResponse, error) {
+func (c *ApiService) PageEvent(params *ListEventParams, pageToken, pageNumber string) (*ListEventResponse, error) {
 	path := "/v1/Events"
 
 	data := url.Values{}
@@ -129,7 +129,7 @@ func (c *ApiService) PageEvent(params *ListEventParams, pageToken string, pageNu
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

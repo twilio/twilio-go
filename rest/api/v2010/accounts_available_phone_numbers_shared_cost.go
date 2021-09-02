@@ -153,7 +153,7 @@ func (params *ListAvailablePhoneNumberSharedCostParams) SetLimit(Limit int) *Lis
 }
 
 // Retrieve a single page of AvailablePhoneNumberSharedCost records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberSharedCostResponse, error) {
+func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberSharedCostResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/SharedCost.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -227,7 +227,7 @@ func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, para
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

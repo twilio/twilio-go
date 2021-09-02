@@ -68,7 +68,7 @@ func (params *ListUsageRecordParams) SetLimit(Limit int) *ListUsageRecordParams 
 }
 
 // Retrieve a single page of UsageRecord records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken string, pageNumber string) (*ListUsageRecordResponse, error) {
+func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken, pageNumber string) (*ListUsageRecordResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -99,7 +99,7 @@ func (c *ApiService) PageUsageRecord(params *ListUsageRecordParams, pageToken st
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

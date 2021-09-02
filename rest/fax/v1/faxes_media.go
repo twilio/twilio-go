@@ -82,7 +82,7 @@ func (params *ListFaxMediaParams) SetLimit(Limit int) *ListFaxMediaParams {
 }
 
 // Retrieve a single page of FaxMedia records from the API. Request is executed immediately.
-func (c *ApiService) PageFaxMedia(FaxSid string, params *ListFaxMediaParams, pageToken string, pageNumber string) (*ListFaxMediaResponse, error) {
+func (c *ApiService) PageFaxMedia(FaxSid string, params *ListFaxMediaParams, pageToken, pageNumber string) (*ListFaxMediaResponse, error) {
 	path := "/v1/Faxes/{FaxSid}/Media"
 
 	path = strings.Replace(path, "{"+"FaxSid"+"}", FaxSid, -1)
@@ -97,7 +97,7 @@ func (c *ApiService) PageFaxMedia(FaxSid string, params *ListFaxMediaParams, pag
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

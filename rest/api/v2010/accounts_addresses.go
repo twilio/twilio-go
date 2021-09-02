@@ -253,7 +253,7 @@ func (params *ListAddressParams) SetLimit(Limit int) *ListAddressParams {
 }
 
 // Retrieve a single page of Address records from the API. Request is executed immediately.
-func (c *ApiService) PageAddress(params *ListAddressParams, pageToken string, pageNumber string) (*ListAddressResponse, error) {
+func (c *ApiService) PageAddress(params *ListAddressParams, pageToken, pageNumber string) (*ListAddressResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -281,7 +281,7 @@ func (c *ApiService) PageAddress(params *ListAddressParams, pageToken string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

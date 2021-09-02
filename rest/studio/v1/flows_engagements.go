@@ -144,7 +144,7 @@ func (params *ListEngagementParams) SetLimit(Limit int) *ListEngagementParams {
 }
 
 // Retrieve a single page of Engagement records from the API. Request is executed immediately.
-func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams, pageToken string, pageNumber string) (*ListEngagementResponse, error) {
+func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams, pageToken, pageNumber string) (*ListEngagementResponse, error) {
 	path := "/v1/Flows/{FlowSid}/Engagements"
 
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -159,7 +159,7 @@ func (c *ApiService) PageEngagement(FlowSid string, params *ListEngagementParams
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -160,7 +160,7 @@ func (params *ListExportCustomJobParams) SetLimit(Limit int) *ListExportCustomJo
 }
 
 // Retrieve a single page of ExportCustomJob records from the API. Request is executed immediately.
-func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExportCustomJobParams, pageToken string, pageNumber string) (*ListExportCustomJobResponse, error) {
+func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExportCustomJobParams, pageToken, pageNumber string) (*ListExportCustomJobResponse, error) {
 	path := "/v1/Exports/{ResourceType}/Jobs"
 
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
@@ -175,7 +175,7 @@ func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExport
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

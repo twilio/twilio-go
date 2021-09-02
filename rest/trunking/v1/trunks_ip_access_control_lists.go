@@ -119,7 +119,7 @@ func (params *ListIpAccessControlListParams) SetLimit(Limit int) *ListIpAccessCo
 }
 
 // Retrieve a single page of IpAccessControlList records from the API. Request is executed immediately.
-func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams, pageToken string, pageNumber string) (*ListIpAccessControlListResponse, error) {
+func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAccessControlListParams, pageToken, pageNumber string) (*ListIpAccessControlListResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/IpAccessControlLists"
 
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -134,7 +134,7 @@ func (c *ApiService) PageIpAccessControlList(TrunkSid string, params *ListIpAcce
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

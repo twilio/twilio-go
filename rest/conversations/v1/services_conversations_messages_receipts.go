@@ -65,7 +65,7 @@ func (params *ListServiceConversationMessageReceiptParams) SetLimit(Limit int) *
 }
 
 // Retrieve a single page of ServiceConversationMessageReceipt records from the API. Request is executed immediately.
-func (c *ApiService) PageServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, pageToken string, pageNumber string) (*ListServiceConversationMessageReceiptResponse, error) {
+func (c *ApiService) PageServiceConversationMessageReceipt(ChatServiceSid string, ConversationSid string, MessageSid string, params *ListServiceConversationMessageReceiptParams, pageToken, pageNumber string) (*ListServiceConversationMessageReceiptResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts"
 
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -82,7 +82,7 @@ func (c *ApiService) PageServiceConversationMessageReceipt(ChatServiceSid string
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

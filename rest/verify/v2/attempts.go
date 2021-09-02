@@ -81,7 +81,7 @@ func (params *ListVerificationAttemptParams) SetLimit(Limit int) *ListVerificati
 }
 
 // Retrieve a single page of VerificationAttempt records from the API. Request is executed immediately.
-func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptParams, pageToken string, pageNumber string) (*ListVerificationAttemptResponse, error) {
+func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptParams, pageToken, pageNumber string) (*ListVerificationAttemptResponse, error) {
 	path := "/v2/Attempts"
 
 	data := url.Values{}
@@ -103,7 +103,7 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

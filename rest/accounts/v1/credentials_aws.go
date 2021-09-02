@@ -135,7 +135,7 @@ func (params *ListCredentialAwsParams) SetLimit(Limit int) *ListCredentialAwsPar
 }
 
 // Retrieve a single page of CredentialAws records from the API. Request is executed immediately.
-func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToken string, pageNumber string) (*ListCredentialAwsResponse, error) {
+func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToken, pageNumber string) (*ListCredentialAwsResponse, error) {
 	path := "/v1/Credentials/AWS"
 
 	data := url.Values{}
@@ -148,7 +148,7 @@ func (c *ApiService) PageCredentialAws(params *ListCredentialAwsParams, pageToke
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

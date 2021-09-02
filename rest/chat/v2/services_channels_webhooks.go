@@ -178,7 +178,7 @@ func (params *ListChannelWebhookParams) SetLimit(Limit int) *ListChannelWebhookP
 }
 
 // Retrieve a single page of ChannelWebhook records from the API. Request is executed immediately.
-func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, pageToken string, pageNumber string) (*ListChannelWebhookResponse, error) {
+func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, params *ListChannelWebhookParams, pageToken, pageNumber string) (*ListChannelWebhookResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -194,7 +194,7 @@ func (c *ApiService) PageChannelWebhook(ServiceSid string, ChannelSid string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

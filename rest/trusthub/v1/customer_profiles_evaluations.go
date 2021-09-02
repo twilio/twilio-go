@@ -101,7 +101,7 @@ func (params *ListCustomerProfileEvaluationParams) SetLimit(Limit int) *ListCust
 }
 
 // Retrieve a single page of CustomerProfileEvaluation records from the API. Request is executed immediately.
-func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, pageToken string, pageNumber string) (*ListCustomerProfileEvaluationResponse, error) {
+func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams, pageToken, pageNumber string) (*ListCustomerProfileEvaluationResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/Evaluations"
 
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -116,7 +116,7 @@ func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

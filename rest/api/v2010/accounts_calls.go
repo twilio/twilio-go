@@ -537,7 +537,7 @@ func (params *ListCallParams) SetLimit(Limit int) *ListCallParams {
 }
 
 // Retrieve a single page of Call records from the API. Request is executed immediately.
-func (c *ApiService) PageCall(params *ListCallParams, pageToken string, pageNumber string) (*ListCallResponse, error) {
+func (c *ApiService) PageCall(params *ListCallParams, pageToken, pageNumber string) (*ListCallResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -586,7 +586,7 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken string, pageNumb
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

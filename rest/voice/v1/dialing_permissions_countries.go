@@ -98,7 +98,7 @@ func (params *ListDialingPermissionsCountryParams) SetLimit(Limit int) *ListDial
 }
 
 // Retrieve a single page of DialingPermissionsCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, pageToken string, pageNumber string) (*ListDialingPermissionsCountryResponse, error) {
+func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermissionsCountryParams, pageToken, pageNumber string) (*ListDialingPermissionsCountryResponse, error) {
 	path := "/v1/DialingPermissions/Countries"
 
 	data := url.Values{}
@@ -129,7 +129,7 @@ func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermission
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

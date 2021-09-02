@@ -274,7 +274,7 @@ func (params *ListSipDomainParams) SetLimit(Limit int) *ListSipDomainParams {
 }
 
 // Retrieve a single page of SipDomain records from the API. Request is executed immediately.
-func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken string, pageNumber string) (*ListSipDomainResponse, error) {
+func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken, pageNumber string) (*ListSipDomainResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -293,7 +293,7 @@ func (c *ApiService) PageSipDomain(params *ListSipDomainParams, pageToken string
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -181,7 +181,7 @@ func (params *ListChallengeParams) SetLimit(Limit int) *ListChallengeParams {
 }
 
 // Retrieve a single page of Challenge records from the API. Request is executed immediately.
-func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *ListChallengeParams, pageToken string, pageNumber string) (*ListChallengeResponse, error) {
+func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *ListChallengeParams, pageToken, pageNumber string) (*ListChallengeResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -206,7 +206,7 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

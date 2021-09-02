@@ -137,7 +137,7 @@ func (params *ListRoleParams) SetLimit(Limit int) *ListRoleParams {
 }
 
 // Retrieve a single page of Role records from the API. Request is executed immediately.
-func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageToken string, pageNumber string) (*ListRoleResponse, error) {
+func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageToken, pageNumber string) (*ListRoleResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Roles"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -152,7 +152,7 @@ func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageTok
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

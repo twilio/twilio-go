@@ -144,7 +144,7 @@ func (params *ListSmsCommandParams) SetLimit(Limit int) *ListSmsCommandParams {
 }
 
 // Retrieve a single page of SmsCommand records from the API. Request is executed immediately.
-func (c *ApiService) PageSmsCommand(params *ListSmsCommandParams, pageToken string, pageNumber string) (*ListSmsCommandResponse, error) {
+func (c *ApiService) PageSmsCommand(params *ListSmsCommandParams, pageToken, pageNumber string) (*ListSmsCommandResponse, error) {
 	path := "/v1/SmsCommands"
 
 	data := url.Values{}
@@ -166,7 +166,7 @@ func (c *ApiService) PageSmsCommand(params *ListSmsCommandParams, pageToken stri
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

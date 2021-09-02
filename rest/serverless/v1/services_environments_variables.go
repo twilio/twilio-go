@@ -132,7 +132,7 @@ func (params *ListVariableParams) SetLimit(Limit int) *ListVariableParams {
 }
 
 // Retrieve a single page of Variable records from the API. Request is executed immediately.
-func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams, pageToken string, pageNumber string) (*ListVariableResponse, error) {
+func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, params *ListVariableParams, pageToken, pageNumber string) (*ListVariableResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -148,7 +148,7 @@ func (c *ApiService) PageVariable(ServiceSid string, EnvironmentSid string, para
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

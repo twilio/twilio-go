@@ -62,7 +62,7 @@ func (params *ListPoliciesParams) SetLimit(Limit int) *ListPoliciesParams {
 }
 
 // Retrieve a single page of Policies records from the API. Request is executed immediately.
-func (c *ApiService) PagePolicies(params *ListPoliciesParams, pageToken string, pageNumber string) (*ListPoliciesResponse, error) {
+func (c *ApiService) PagePolicies(params *ListPoliciesParams, pageToken, pageNumber string) (*ListPoliciesResponse, error) {
 	path := "/v1/Policies"
 
 	data := url.Values{}
@@ -75,7 +75,7 @@ func (c *ApiService) PagePolicies(params *ListPoliciesParams, pageToken string, 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

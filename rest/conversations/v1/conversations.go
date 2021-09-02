@@ -215,7 +215,7 @@ func (params *ListConversationParams) SetLimit(Limit int) *ListConversationParam
 }
 
 // Retrieve a single page of Conversation records from the API. Request is executed immediately.
-func (c *ApiService) PageConversation(params *ListConversationParams, pageToken string, pageNumber string) (*ListConversationResponse, error) {
+func (c *ApiService) PageConversation(params *ListConversationParams, pageToken, pageNumber string) (*ListConversationResponse, error) {
 	path := "/v1/Conversations"
 
 	data := url.Values{}
@@ -228,7 +228,7 @@ func (c *ApiService) PageConversation(params *ListConversationParams, pageToken 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

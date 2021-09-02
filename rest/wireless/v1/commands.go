@@ -195,7 +195,7 @@ func (params *ListCommandParams) SetLimit(Limit int) *ListCommandParams {
 }
 
 // Retrieve a single page of Command records from the API. Request is executed immediately.
-func (c *ApiService) PageCommand(params *ListCommandParams, pageToken string, pageNumber string) (*ListCommandResponse, error) {
+func (c *ApiService) PageCommand(params *ListCommandParams, pageToken, pageNumber string) (*ListCommandResponse, error) {
 	path := "/v1/Commands"
 
 	data := url.Values{}
@@ -220,7 +220,7 @@ func (c *ApiService) PageCommand(params *ListCommandParams, pageToken string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -61,7 +61,7 @@ func (params *ListVoiceCountryParams) SetLimit(Limit int) *ListVoiceCountryParam
 }
 
 // Retrieve a single page of VoiceCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageVoiceCountry(params *ListVoiceCountryParams, pageToken string, pageNumber string) (*ListVoiceCountryResponse, error) {
+func (c *ApiService) PageVoiceCountry(params *ListVoiceCountryParams, pageToken, pageNumber string) (*ListVoiceCountryResponse, error) {
 	path := "/v1/Voice/Countries"
 
 	data := url.Values{}
@@ -74,7 +74,7 @@ func (c *ApiService) PageVoiceCountry(params *ListVoiceCountryParams, pageToken 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

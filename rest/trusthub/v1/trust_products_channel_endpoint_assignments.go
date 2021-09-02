@@ -141,7 +141,7 @@ func (params *ListTrustProductChannelEndpointAssignmentParams) SetLimit(Limit in
 }
 
 // Retrieve a single page of TrustProductChannelEndpointAssignment records from the API. Request is executed immediately.
-func (c *ApiService) PageTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams, pageToken string, pageNumber string) (*ListTrustProductChannelEndpointAssignmentResponse, error) {
+func (c *ApiService) PageTrustProductChannelEndpointAssignment(TrustProductSid string, params *ListTrustProductChannelEndpointAssignmentParams, pageToken, pageNumber string) (*ListTrustProductChannelEndpointAssignmentResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments"
 
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -162,7 +162,7 @@ func (c *ApiService) PageTrustProductChannelEndpointAssignment(TrustProductSid s
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

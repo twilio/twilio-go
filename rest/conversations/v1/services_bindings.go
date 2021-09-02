@@ -94,7 +94,7 @@ func (params *ListServiceBindingParams) SetLimit(Limit int) *ListServiceBindingP
 }
 
 // Retrieve a single page of ServiceBinding records from the API. Request is executed immediately.
-func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, pageToken string, pageNumber string) (*ListServiceBindingResponse, error) {
+func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServiceBindingParams, pageToken, pageNumber string) (*ListServiceBindingResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Bindings"
 
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -119,7 +119,7 @@ func (c *ApiService) PageServiceBinding(ChatServiceSid string, params *ListServi
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

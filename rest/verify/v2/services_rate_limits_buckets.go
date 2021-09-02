@@ -132,7 +132,7 @@ func (params *ListBucketParams) SetLimit(Limit int) *ListBucketParams {
 }
 
 // Retrieve a single page of Bucket records from the API. Request is executed immediately.
-func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams, pageToken string, pageNumber string) (*ListBucketResponse, error) {
+func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *ListBucketParams, pageToken, pageNumber string) (*ListBucketResponse, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -148,7 +148,7 @@ func (c *ApiService) PageBucket(ServiceSid string, RateLimitSid string, params *
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

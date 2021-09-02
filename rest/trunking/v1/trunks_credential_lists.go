@@ -117,7 +117,7 @@ func (params *ListCredentialListParams) SetLimit(Limit int) *ListCredentialListP
 }
 
 // Retrieve a single page of CredentialList records from the API. Request is executed immediately.
-func (c *ApiService) PageCredentialList(TrunkSid string, params *ListCredentialListParams, pageToken string, pageNumber string) (*ListCredentialListResponse, error) {
+func (c *ApiService) PageCredentialList(TrunkSid string, params *ListCredentialListParams, pageToken, pageNumber string) (*ListCredentialListResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/CredentialLists"
 
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -132,7 +132,7 @@ func (c *ApiService) PageCredentialList(TrunkSid string, params *ListCredentialL
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

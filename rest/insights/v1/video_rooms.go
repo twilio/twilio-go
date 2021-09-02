@@ -93,7 +93,7 @@ func (params *ListVideoRoomSummaryParams) SetLimit(Limit int) *ListVideoRoomSumm
 }
 
 // Retrieve a single page of VideoRoomSummary records from the API. Request is executed immediately.
-func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pageToken string, pageNumber string) (*ListVideoRoomSummaryResponse, error) {
+func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pageToken, pageNumber string) (*ListVideoRoomSummaryResponse, error) {
 	path := "/v1/Video/Rooms"
 
 	data := url.Values{}
@@ -125,7 +125,7 @@ func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

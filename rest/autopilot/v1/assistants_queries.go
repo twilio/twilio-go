@@ -168,7 +168,7 @@ func (params *ListQueryParams) SetLimit(Limit int) *ListQueryParams {
 }
 
 // Retrieve a single page of Query records from the API. Request is executed immediately.
-func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pageToken string, pageNumber string) (*ListQueryResponse, error) {
+func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pageToken, pageNumber string) (*ListQueryResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Queries"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -195,7 +195,7 @@ func (c *ApiService) PageQuery(AssistantSid string, params *ListQueryParams, pag
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

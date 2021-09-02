@@ -69,7 +69,7 @@ func (params *ListWorkerReservationParams) SetLimit(Limit int) *ListWorkerReserv
 }
 
 // Retrieve a single page of WorkerReservation records from the API. Request is executed immediately.
-func (c *ApiService) PageWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams, pageToken string, pageNumber string) (*ListWorkerReservationResponse, error) {
+func (c *ApiService) PageWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams, pageToken, pageNumber string) (*ListWorkerReservationResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -88,7 +88,7 @@ func (c *ApiService) PageWorkerReservation(WorkspaceSid string, WorkerSid string
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

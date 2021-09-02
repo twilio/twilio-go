@@ -126,7 +126,7 @@ func (params *ListFieldTypeParams) SetLimit(Limit int) *ListFieldTypeParams {
 }
 
 // Retrieve a single page of FieldType records from the API. Request is executed immediately.
-func (c *ApiService) PageFieldType(AssistantSid string, params *ListFieldTypeParams, pageToken string, pageNumber string) (*ListFieldTypeResponse, error) {
+func (c *ApiService) PageFieldType(AssistantSid string, params *ListFieldTypeParams, pageToken, pageNumber string) (*ListFieldTypeResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -141,7 +141,7 @@ func (c *ApiService) PageFieldType(AssistantSid string, params *ListFieldTypePar
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

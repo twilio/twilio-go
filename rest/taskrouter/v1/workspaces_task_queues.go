@@ -180,7 +180,7 @@ func (params *ListTaskQueueParams) SetLimit(Limit int) *ListTaskQueueParams {
 }
 
 // Retrieve a single page of TaskQueue records from the API. Request is executed immediately.
-func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueueParams, pageToken string, pageNumber string) (*ListTaskQueueResponse, error) {
+func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueueParams, pageToken, pageNumber string) (*ListTaskQueueResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -204,7 +204,7 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

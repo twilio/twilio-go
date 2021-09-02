@@ -51,7 +51,7 @@ func (params *ListMetricParams) SetLimit(Limit int) *ListMetricParams {
 }
 
 // Retrieve a single page of Metric records from the API. Request is executed immediately.
-func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageToken string, pageNumber string) (*ListMetricResponse, error) {
+func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageToken, pageNumber string) (*ListMetricResponse, error) {
 	path := "/v1/Voice/{CallSid}/Metrics"
 
 	path = strings.Replace(path, "{"+"CallSid"+"}", CallSid, -1)
@@ -72,7 +72,7 @@ func (c *ApiService) PageMetric(CallSid string, params *ListMetricParams, pageTo
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

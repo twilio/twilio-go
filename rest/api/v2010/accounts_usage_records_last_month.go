@@ -68,7 +68,7 @@ func (params *ListUsageRecordLastMonthParams) SetLimit(Limit int) *ListUsageReco
 }
 
 // Retrieve a single page of UsageRecordLastMonth records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageRecordLastMonth(params *ListUsageRecordLastMonthParams, pageToken string, pageNumber string) (*ListUsageRecordLastMonthResponse, error) {
+func (c *ApiService) PageUsageRecordLastMonth(params *ListUsageRecordLastMonthParams, pageToken, pageNumber string) (*ListUsageRecordLastMonthResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/LastMonth.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -99,7 +99,7 @@ func (c *ApiService) PageUsageRecordLastMonth(params *ListUsageRecordLastMonthPa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -129,7 +129,7 @@ func (params *ListRateLimitParams) SetLimit(Limit int) *ListRateLimitParams {
 }
 
 // Retrieve a single page of RateLimit records from the API. Request is executed immediately.
-func (c *ApiService) PageRateLimit(ServiceSid string, params *ListRateLimitParams, pageToken string, pageNumber string) (*ListRateLimitResponse, error) {
+func (c *ApiService) PageRateLimit(ServiceSid string, params *ListRateLimitParams, pageToken, pageNumber string) (*ListRateLimitResponse, error) {
 	path := "/v2/Services/{ServiceSid}/RateLimits"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -144,7 +144,7 @@ func (c *ApiService) PageRateLimit(ServiceSid string, params *ListRateLimitParam
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -86,7 +86,7 @@ func (params *ListEvaluationParams) SetLimit(Limit int) *ListEvaluationParams {
 }
 
 // Retrieve a single page of Evaluation records from the API. Request is executed immediately.
-func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationParams, pageToken string, pageNumber string) (*ListEvaluationResponse, error) {
+func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationParams, pageToken, pageNumber string) (*ListEvaluationResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations"
 
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
@@ -101,7 +101,7 @@ func (c *ApiService) PageEvaluation(BundleSid string, params *ListEvaluationPara
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

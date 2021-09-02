@@ -166,7 +166,7 @@ func (params *ListSipCredentialListParams) SetLimit(Limit int) *ListSipCredentia
 }
 
 // Retrieve a single page of SipCredentialList records from the API. Request is executed immediately.
-func (c *ApiService) PageSipCredentialList(params *ListSipCredentialListParams, pageToken string, pageNumber string) (*ListSipCredentialListResponse, error) {
+func (c *ApiService) PageSipCredentialList(params *ListSipCredentialListParams, pageToken, pageNumber string) (*ListSipCredentialListResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -185,7 +185,7 @@ func (c *ApiService) PageSipCredentialList(params *ListSipCredentialListParams, 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

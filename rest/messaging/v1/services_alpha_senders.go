@@ -117,7 +117,7 @@ func (params *ListAlphaSenderParams) SetLimit(Limit int) *ListAlphaSenderParams 
 }
 
 // Retrieve a single page of AlphaSender records from the API. Request is executed immediately.
-func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderParams, pageToken string, pageNumber string) (*ListAlphaSenderResponse, error) {
+func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderParams, pageToken, pageNumber string) (*ListAlphaSenderResponse, error) {
 	path := "/v1/Services/{ServiceSid}/AlphaSenders"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -132,7 +132,7 @@ func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderP
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

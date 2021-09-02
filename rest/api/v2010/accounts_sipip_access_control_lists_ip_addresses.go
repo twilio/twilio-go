@@ -187,7 +187,7 @@ func (params *ListSipIpAddressParams) SetLimit(Limit int) *ListSipIpAddressParam
 }
 
 // Retrieve a single page of SipIpAddress records from the API. Request is executed immediately.
-func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, pageToken string, pageNumber string) (*ListSipIpAddressResponse, error) {
+func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams, pageToken, pageNumber string) (*ListSipIpAddressResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -207,7 +207,7 @@ func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *Lis
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

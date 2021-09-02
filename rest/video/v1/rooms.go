@@ -211,7 +211,7 @@ func (params *ListRoomParams) SetLimit(Limit int) *ListRoomParams {
 }
 
 // Retrieve a single page of Room records from the API. Request is executed immediately.
-func (c *ApiService) PageRoom(params *ListRoomParams, pageToken string, pageNumber string) (*ListRoomResponse, error) {
+func (c *ApiService) PageRoom(params *ListRoomParams, pageToken, pageNumber string) (*ListRoomResponse, error) {
 	path := "/v1/Rooms"
 
 	data := url.Values{}
@@ -236,7 +236,7 @@ func (c *ApiService) PageRoom(params *ListRoomParams, pageToken string, pageNumb
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -68,7 +68,7 @@ func (params *ListUsageRecordDailyParams) SetLimit(Limit int) *ListUsageRecordDa
 }
 
 // Retrieve a single page of UsageRecordDaily records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageRecordDaily(params *ListUsageRecordDailyParams, pageToken string, pageNumber string) (*ListUsageRecordDailyResponse, error) {
+func (c *ApiService) PageUsageRecordDaily(params *ListUsageRecordDailyParams, pageToken, pageNumber string) (*ListUsageRecordDailyResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Daily.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -99,7 +99,7 @@ func (c *ApiService) PageUsageRecordDaily(params *ListUsageRecordDailyParams, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

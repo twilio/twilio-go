@@ -141,7 +141,7 @@ func (params *ListSupportingDocumentParams) SetLimit(Limit int) *ListSupportingD
 }
 
 // Retrieve a single page of SupportingDocument records from the API. Request is executed immediately.
-func (c *ApiService) PageSupportingDocument(params *ListSupportingDocumentParams, pageToken string, pageNumber string) (*ListSupportingDocumentResponse, error) {
+func (c *ApiService) PageSupportingDocument(params *ListSupportingDocumentParams, pageToken, pageNumber string) (*ListSupportingDocumentResponse, error) {
 	path := "/v2/RegulatoryCompliance/SupportingDocuments"
 
 	data := url.Values{}
@@ -154,7 +154,7 @@ func (c *ApiService) PageSupportingDocument(params *ListSupportingDocumentParams
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

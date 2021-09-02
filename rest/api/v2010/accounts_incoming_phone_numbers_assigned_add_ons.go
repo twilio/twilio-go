@@ -169,7 +169,7 @@ func (params *ListIncomingPhoneNumberAssignedAddOnParams) SetLimit(Limit int) *L
 }
 
 // Retrieve a single page of IncomingPhoneNumberAssignedAddOn records from the API. Request is executed immediately.
-func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
+func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, params *ListIncomingPhoneNumberAssignedAddOnParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberAssignedAddOnResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -189,7 +189,7 @@ func (c *ApiService) PageIncomingPhoneNumberAssignedAddOn(ResourceSid string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

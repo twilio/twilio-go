@@ -120,7 +120,7 @@ func (params *ListItemAssignmentParams) SetLimit(Limit int) *ListItemAssignmentP
 }
 
 // Retrieve a single page of ItemAssignment records from the API. Request is executed immediately.
-func (c *ApiService) PageItemAssignment(BundleSid string, params *ListItemAssignmentParams, pageToken string, pageNumber string) (*ListItemAssignmentResponse, error) {
+func (c *ApiService) PageItemAssignment(BundleSid string, params *ListItemAssignmentParams, pageToken, pageNumber string) (*ListItemAssignmentResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments"
 
 	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
@@ -135,7 +135,7 @@ func (c *ApiService) PageItemAssignment(BundleSid string, params *ListItemAssign
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

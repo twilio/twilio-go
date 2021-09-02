@@ -129,7 +129,7 @@ func (params *ListFieldParams) SetLimit(Limit int) *ListFieldParams {
 }
 
 // Retrieve a single page of Field records from the API. Request is executed immediately.
-func (c *ApiService) PageField(AssistantSid string, TaskSid string, params *ListFieldParams, pageToken string, pageNumber string) (*ListFieldResponse, error) {
+func (c *ApiService) PageField(AssistantSid string, TaskSid string, params *ListFieldParams, pageToken, pageNumber string) (*ListFieldResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -145,7 +145,7 @@ func (c *ApiService) PageField(AssistantSid string, TaskSid string, params *List
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

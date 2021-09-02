@@ -63,7 +63,7 @@ func (params *ListFlowRevisionParams) SetLimit(Limit int) *ListFlowRevisionParam
 }
 
 // Retrieve a single page of FlowRevision records from the API. Request is executed immediately.
-func (c *ApiService) PageFlowRevision(Sid string, params *ListFlowRevisionParams, pageToken string, pageNumber string) (*ListFlowRevisionResponse, error) {
+func (c *ApiService) PageFlowRevision(Sid string, params *ListFlowRevisionParams, pageToken, pageNumber string) (*ListFlowRevisionResponse, error) {
 	path := "/v2/Flows/{Sid}/Revisions"
 
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
@@ -78,7 +78,7 @@ func (c *ApiService) PageFlowRevision(Sid string, params *ListFlowRevisionParams
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

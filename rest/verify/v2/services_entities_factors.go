@@ -231,7 +231,7 @@ func (params *ListFactorParams) SetLimit(Limit int) *ListFactorParams {
 }
 
 // Retrieve a single page of Factor records from the API. Request is executed immediately.
-func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *ListFactorParams, pageToken string, pageNumber string) (*ListFactorResponse, error) {
+func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *ListFactorParams, pageToken, pageNumber string) (*ListFactorResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -247,7 +247,7 @@ func (c *ApiService) PageFactor(ServiceSid string, Identity string, params *List
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

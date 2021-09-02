@@ -234,7 +234,7 @@ func (params *ListCallRecordingParams) SetLimit(Limit int) *ListCallRecordingPar
 }
 
 // Retrieve a single page of CallRecording records from the API. Request is executed immediately.
-func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecordingParams, pageToken string, pageNumber string) (*ListCallRecordingResponse, error) {
+func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecordingParams, pageToken, pageNumber string) (*ListCallRecordingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -263,7 +263,7 @@ func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecording
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

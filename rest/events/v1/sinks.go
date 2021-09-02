@@ -153,7 +153,7 @@ func (params *ListSinkParams) SetLimit(Limit int) *ListSinkParams {
 }
 
 // Retrieve a single page of Sink records from the API. Request is executed immediately.
-func (c *ApiService) PageSink(params *ListSinkParams, pageToken string, pageNumber string) (*ListSinkResponse, error) {
+func (c *ApiService) PageSink(params *ListSinkParams, pageToken, pageNumber string) (*ListSinkResponse, error) {
 	path := "/v1/Sinks"
 
 	data := url.Values{}
@@ -172,7 +172,7 @@ func (c *ApiService) PageSink(params *ListSinkParams, pageToken string, pageNumb
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

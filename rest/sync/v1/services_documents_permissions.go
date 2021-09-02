@@ -84,7 +84,7 @@ func (params *ListDocumentPermissionParams) SetLimit(Limit int) *ListDocumentPer
 }
 
 // Retrieve a single page of DocumentPermission records from the API. Request is executed immediately.
-func (c *ApiService) PageDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, pageToken string, pageNumber string) (*ListDocumentPermissionResponse, error) {
+func (c *ApiService) PageDocumentPermission(ServiceSid string, DocumentSid string, params *ListDocumentPermissionParams, pageToken, pageNumber string) (*ListDocumentPermissionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -100,7 +100,7 @@ func (c *ApiService) PageDocumentPermission(ServiceSid string, DocumentSid strin
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

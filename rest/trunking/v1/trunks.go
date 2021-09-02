@@ -168,7 +168,7 @@ func (params *ListTrunkParams) SetLimit(Limit int) *ListTrunkParams {
 }
 
 // Retrieve a single page of Trunk records from the API. Request is executed immediately.
-func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken string, pageNumber string) (*ListTrunkResponse, error) {
+func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken, pageNumber string) (*ListTrunkResponse, error) {
 	path := "/v1/Trunks"
 
 	data := url.Values{}
@@ -181,7 +181,7 @@ func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken string, pageNu
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

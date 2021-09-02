@@ -126,7 +126,7 @@ func (params *ListModelBuildParams) SetLimit(Limit int) *ListModelBuildParams {
 }
 
 // Retrieve a single page of ModelBuild records from the API. Request is executed immediately.
-func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildParams, pageToken string, pageNumber string) (*ListModelBuildResponse, error) {
+func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildParams, pageToken, pageNumber string) (*ListModelBuildResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/ModelBuilds"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -141,7 +141,7 @@ func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildP
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

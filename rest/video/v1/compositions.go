@@ -223,7 +223,7 @@ func (params *ListCompositionParams) SetLimit(Limit int) *ListCompositionParams 
 }
 
 // Retrieve a single page of Composition records from the API. Request is executed immediately.
-func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken string, pageNumber string) (*ListCompositionResponse, error) {
+func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken, pageNumber string) (*ListCompositionResponse, error) {
 	path := "/v1/Compositions"
 
 	data := url.Values{}
@@ -248,7 +248,7 @@ func (c *ApiService) PageComposition(params *ListCompositionParams, pageToken st
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

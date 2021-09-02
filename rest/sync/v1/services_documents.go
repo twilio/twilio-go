@@ -141,7 +141,7 @@ func (params *ListDocumentParams) SetLimit(Limit int) *ListDocumentParams {
 }
 
 // Retrieve a single page of Document records from the API. Request is executed immediately.
-func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams, pageToken string, pageNumber string) (*ListDocumentResponse, error) {
+func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams, pageToken, pageNumber string) (*ListDocumentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Documents"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -156,7 +156,7 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

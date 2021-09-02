@@ -206,7 +206,7 @@ func (params *ListMessageParams) SetLimit(Limit int) *ListMessageParams {
 }
 
 // Retrieve a single page of Message records from the API. Request is executed immediately.
-func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, pageToken string, pageNumber string) (*ListMessageResponse, error) {
+func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *ListMessageParams, pageToken, pageNumber string) (*ListMessageResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -225,7 +225,7 @@ func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *L
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

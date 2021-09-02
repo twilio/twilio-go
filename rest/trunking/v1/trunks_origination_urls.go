@@ -153,7 +153,7 @@ func (params *ListOriginationUrlParams) SetLimit(Limit int) *ListOriginationUrlP
 }
 
 // Retrieve a single page of OriginationUrl records from the API. Request is executed immediately.
-func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, pageToken string, pageNumber string) (*ListOriginationUrlResponse, error) {
+func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOriginationUrlParams, pageToken, pageNumber string) (*ListOriginationUrlResponse, error) {
 	path := "/v1/Trunks/{TrunkSid}/OriginationUrls"
 
 	path = strings.Replace(path, "{"+"TrunkSid"+"}", TrunkSid, -1)
@@ -168,7 +168,7 @@ func (c *ApiService) PageOriginationUrl(TrunkSid string, params *ListOrigination
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

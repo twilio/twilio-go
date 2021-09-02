@@ -157,7 +157,7 @@ func (params *ListExecutionParams) SetLimit(Limit int) *ListExecutionParams {
 }
 
 // Retrieve a single page of Execution records from the API. Request is executed immediately.
-func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, pageToken string, pageNumber string) (*ListExecutionResponse, error) {
+func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, pageToken, pageNumber string) (*ListExecutionResponse, error) {
 	path := "/v2/Flows/{FlowSid}/Executions"
 
 	path = strings.Replace(path, "{"+"FlowSid"+"}", FlowSid, -1)
@@ -178,7 +178,7 @@ func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -64,7 +64,7 @@ func (params *ListRoomParticipantPublishedTrackParams) SetLimit(Limit int) *List
 }
 
 // Retrieve a single page of RoomParticipantPublishedTrack records from the API. Request is executed immediately.
-func (c *ApiService) PageRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, pageToken string, pageNumber string) (*ListRoomParticipantPublishedTrackResponse, error) {
+func (c *ApiService) PageRoomParticipantPublishedTrack(RoomSid string, ParticipantSid string, params *ListRoomParticipantPublishedTrackParams, pageToken, pageNumber string) (*ListRoomParticipantPublishedTrackResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks"
 
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -80,7 +80,7 @@ func (c *ApiService) PageRoomParticipantPublishedTrack(RoomSid string, Participa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

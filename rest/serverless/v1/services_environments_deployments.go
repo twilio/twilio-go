@@ -103,7 +103,7 @@ func (params *ListDeploymentParams) SetLimit(Limit int) *ListDeploymentParams {
 }
 
 // Retrieve a single page of Deployment records from the API. Request is executed immediately.
-func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, pageToken string, pageNumber string) (*ListDeploymentResponse, error) {
+func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, params *ListDeploymentParams, pageToken, pageNumber string) (*ListDeploymentResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -119,7 +119,7 @@ func (c *ApiService) PageDeployment(ServiceSid string, EnvironmentSid string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

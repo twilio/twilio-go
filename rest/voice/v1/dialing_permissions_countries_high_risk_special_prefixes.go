@@ -39,7 +39,7 @@ func (params *ListDialingPermissionsHrsPrefixesParams) SetLimit(Limit int) *List
 }
 
 // Retrieve a single page of DialingPermissionsHrsPrefixes records from the API. Request is executed immediately.
-func (c *ApiService) PageDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, pageToken string, pageNumber string) (*ListDialingPermissionsHrsPrefixesResponse, error) {
+func (c *ApiService) PageDialingPermissionsHrsPrefixes(IsoCode string, params *ListDialingPermissionsHrsPrefixesParams, pageToken, pageNumber string) (*ListDialingPermissionsHrsPrefixesResponse, error) {
 	path := "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes"
 
 	path = strings.Replace(path, "{"+"IsoCode"+"}", IsoCode, -1)
@@ -54,7 +54,7 @@ func (c *ApiService) PageDialingPermissionsHrsPrefixes(IsoCode string, params *L
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 
