@@ -151,7 +151,7 @@ func (params *ListBuildParams) SetLimit(Limit int) *ListBuildParams {
 }
 
 // Retrieve a single page of Build records from the API. Request is executed immediately.
-func (c *ApiService) PageBuild(ServiceSid string, params *ListBuildParams, pageToken string, pageNumber string) (*ListBuildResponse, error) {
+func (c *ApiService) PageBuild(ServiceSid string, params *ListBuildParams, pageToken, pageNumber string) (*ListBuildResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Builds"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -166,7 +166,7 @@ func (c *ApiService) PageBuild(ServiceSid string, params *ListBuildParams, pageT
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

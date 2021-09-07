@@ -141,7 +141,7 @@ func (params *ListCustomerProfileChannelEndpointAssignmentParams) SetLimit(Limit
 }
 
 // Retrieve a single page of CustomerProfileChannelEndpointAssignment records from the API. Request is executed immediately.
-func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, pageToken string, pageNumber string) (*ListCustomerProfileChannelEndpointAssignmentResponse, error) {
+func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfileSid string, params *ListCustomerProfileChannelEndpointAssignmentParams, pageToken, pageNumber string) (*ListCustomerProfileChannelEndpointAssignmentResponse, error) {
 	path := "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments"
 
 	path = strings.Replace(path, "{"+"CustomerProfileSid"+"}", CustomerProfileSid, -1)
@@ -162,7 +162,7 @@ func (c *ApiService) PageCustomerProfileChannelEndpointAssignment(CustomerProfil
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -172,7 +172,7 @@ func (params *ListServiceUserParams) SetLimit(Limit int) *ListServiceUserParams 
 }
 
 // Retrieve a single page of ServiceUser records from the API. Request is executed immediately.
-func (c *ApiService) PageServiceUser(ChatServiceSid string, params *ListServiceUserParams, pageToken string, pageNumber string) (*ListServiceUserResponse, error) {
+func (c *ApiService) PageServiceUser(ChatServiceSid string, params *ListServiceUserParams, pageToken, pageNumber string) (*ListServiceUserResponse, error) {
 	path := "/v1/Services/{ChatServiceSid}/Users"
 
 	path = strings.Replace(path, "{"+"ChatServiceSid"+"}", ChatServiceSid, -1)
@@ -187,7 +187,7 @@ func (c *ApiService) PageServiceUser(ChatServiceSid string, params *ListServiceU
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

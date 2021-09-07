@@ -39,7 +39,7 @@ func (params *ListUserChannelParams) SetLimit(Limit int) *ListUserChannelParams 
 }
 
 // Retrieve a single page of UserChannel records from the API. Request is executed immediately.
-func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, pageToken string, pageNumber string) (*ListUserChannelResponse, error) {
+func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *ListUserChannelParams, pageToken, pageNumber string) (*ListUserChannelResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -55,7 +55,7 @@ func (c *ApiService) PageUserChannel(ServiceSid string, UserSid string, params *
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

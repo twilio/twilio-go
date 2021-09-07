@@ -111,7 +111,7 @@ func (params *ListAccountParams) SetLimit(Limit int) *ListAccountParams {
 }
 
 // Retrieve a single page of Account records from the API. Request is executed immediately.
-func (c *ApiService) PageAccount(params *ListAccountParams, pageToken string, pageNumber string) (*ListAccountResponse, error) {
+func (c *ApiService) PageAccount(params *ListAccountParams, pageToken, pageNumber string) (*ListAccountResponse, error) {
 	path := "/2010-04-01/Accounts.json"
 
 	data := url.Values{}
@@ -130,7 +130,7 @@ func (c *ApiService) PageAccount(params *ListAccountParams, pageToken string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

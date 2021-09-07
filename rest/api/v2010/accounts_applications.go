@@ -298,7 +298,7 @@ func (params *ListApplicationParams) SetLimit(Limit int) *ListApplicationParams 
 }
 
 // Retrieve a single page of Application records from the API. Request is executed immediately.
-func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken string, pageNumber string) (*ListApplicationResponse, error) {
+func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken, pageNumber string) (*ListApplicationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Applications.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -320,7 +320,7 @@ func (c *ApiService) PageApplication(params *ListApplicationParams, pageToken st
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

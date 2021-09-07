@@ -63,7 +63,7 @@ func (params *ListWorkerChannelParams) SetLimit(Limit int) *ListWorkerChannelPar
 }
 
 // Retrieve a single page of WorkerChannel records from the API. Request is executed immediately.
-func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, pageToken string, pageNumber string) (*ListWorkerChannelResponse, error) {
+func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams, pageToken, pageNumber string) (*ListWorkerChannelResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -79,7 +79,7 @@ func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

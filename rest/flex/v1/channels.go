@@ -195,7 +195,7 @@ func (params *ListChannelParams) SetLimit(Limit int) *ListChannelParams {
 }
 
 // Retrieve a single page of Channel records from the API. Request is executed immediately.
-func (c *ApiService) PageChannel(params *ListChannelParams, pageToken string, pageNumber string) (*ListChannelResponse, error) {
+func (c *ApiService) PageChannel(params *ListChannelParams, pageToken, pageNumber string) (*ListChannelResponse, error) {
 	path := "/v1/Channels"
 
 	data := url.Values{}
@@ -208,7 +208,7 @@ func (c *ApiService) PageChannel(params *ListChannelParams, pageToken string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

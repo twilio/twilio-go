@@ -135,7 +135,7 @@ func (params *ListMemberParams) SetLimit(Limit int) *ListMemberParams {
 }
 
 // Retrieve a single page of Member records from the API. Request is executed immediately.
-func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *ListMemberParams, pageToken string, pageNumber string) (*ListMemberResponse, error) {
+func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *ListMemberParams, pageToken, pageNumber string) (*ListMemberResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -156,7 +156,7 @@ func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *Li
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

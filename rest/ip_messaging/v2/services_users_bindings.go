@@ -88,7 +88,7 @@ func (params *ListUserBindingParams) SetLimit(Limit int) *ListUserBindingParams 
 }
 
 // Retrieve a single page of UserBinding records from the API. Request is executed immediately.
-func (c *ApiService) PageUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams, pageToken string, pageNumber string) (*ListUserBindingResponse, error) {
+func (c *ApiService) PageUserBinding(ServiceSid string, UserSid string, params *ListUserBindingParams, pageToken, pageNumber string) (*ListUserBindingResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -109,7 +109,7 @@ func (c *ApiService) PageUserBinding(ServiceSid string, UserSid string, params *
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

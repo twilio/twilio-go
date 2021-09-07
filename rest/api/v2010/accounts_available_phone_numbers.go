@@ -83,7 +83,7 @@ func (params *ListAvailablePhoneNumberCountryParams) SetLimit(Limit int) *ListAv
 }
 
 // Retrieve a single page of AvailablePhoneNumberCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberCountryResponse, error) {
+func (c *ApiService) PageAvailablePhoneNumberCountry(params *ListAvailablePhoneNumberCountryParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberCountryResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -102,7 +102,7 @@ func (c *ApiService) PageAvailablePhoneNumberCountry(params *ListAvailablePhoneN
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

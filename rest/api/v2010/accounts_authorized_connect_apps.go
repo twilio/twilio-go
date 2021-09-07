@@ -84,7 +84,7 @@ func (params *ListAuthorizedConnectAppParams) SetLimit(Limit int) *ListAuthorize
 }
 
 // Retrieve a single page of AuthorizedConnectApp records from the API. Request is executed immediately.
-func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, pageToken string, pageNumber string) (*ListAuthorizedConnectAppResponse, error) {
+func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppParams, pageToken, pageNumber string) (*ListAuthorizedConnectAppResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -103,7 +103,7 @@ func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

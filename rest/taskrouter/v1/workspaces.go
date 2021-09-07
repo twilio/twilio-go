@@ -165,7 +165,7 @@ func (params *ListWorkspaceParams) SetLimit(Limit int) *ListWorkspaceParams {
 }
 
 // Retrieve a single page of Workspace records from the API. Request is executed immediately.
-func (c *ApiService) PageWorkspace(params *ListWorkspaceParams, pageToken string, pageNumber string) (*ListWorkspaceResponse, error) {
+func (c *ApiService) PageWorkspace(params *ListWorkspaceParams, pageToken, pageNumber string) (*ListWorkspaceResponse, error) {
 	path := "/v1/Workspaces"
 
 	data := url.Values{}
@@ -181,7 +181,7 @@ func (c *ApiService) PageWorkspace(params *ListWorkspaceParams, pageToken string
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

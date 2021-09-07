@@ -120,7 +120,7 @@ func (params *ListTrustProductEntityAssignmentParams) SetLimit(Limit int) *ListT
 }
 
 // Retrieve a single page of TrustProductEntityAssignment records from the API. Request is executed immediately.
-func (c *ApiService) PageTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams, pageToken string, pageNumber string) (*ListTrustProductEntityAssignmentResponse, error) {
+func (c *ApiService) PageTrustProductEntityAssignment(TrustProductSid string, params *ListTrustProductEntityAssignmentParams, pageToken, pageNumber string) (*ListTrustProductEntityAssignmentResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/EntityAssignments"
 
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -135,7 +135,7 @@ func (c *ApiService) PageTrustProductEntityAssignment(TrustProductSid string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

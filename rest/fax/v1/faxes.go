@@ -214,7 +214,7 @@ func (params *ListFaxParams) SetLimit(Limit int) *ListFaxParams {
 }
 
 // Retrieve a single page of Fax records from the API. Request is executed immediately.
-func (c *ApiService) PageFax(params *ListFaxParams, pageToken string, pageNumber string) (*ListFaxResponse, error) {
+func (c *ApiService) PageFax(params *ListFaxParams, pageToken, pageNumber string) (*ListFaxResponse, error) {
 	path := "/v1/Faxes"
 
 	data := url.Values{}
@@ -239,7 +239,7 @@ func (c *ApiService) PageFax(params *ListFaxParams, pageToken string, pageNumber
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

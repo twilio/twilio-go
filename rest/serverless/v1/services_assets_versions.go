@@ -64,7 +64,7 @@ func (params *ListAssetVersionParams) SetLimit(Limit int) *ListAssetVersionParam
 }
 
 // Retrieve a single page of AssetVersion records from the API. Request is executed immediately.
-func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, pageToken string, pageNumber string) (*ListAssetVersionResponse, error) {
+func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params *ListAssetVersionParams, pageToken, pageNumber string) (*ListAssetVersionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -80,7 +80,7 @@ func (c *ApiService) PageAssetVersion(ServiceSid string, AssetSid string, params
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

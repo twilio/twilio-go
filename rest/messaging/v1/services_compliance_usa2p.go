@@ -164,7 +164,7 @@ func (params *ListUsAppToPersonParams) SetLimit(Limit int) *ListUsAppToPersonPar
 }
 
 // Retrieve a single page of UsAppToPerson records from the API. Request is executed immediately.
-func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams, pageToken string, pageNumber string) (*ListUsAppToPersonResponse, error) {
+func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams, pageToken, pageNumber string) (*ListUsAppToPersonResponse, error) {
 	path := "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p"
 
 	path = strings.Replace(path, "{"+"MessagingServiceSid"+"}", MessagingServiceSid, -1)
@@ -179,7 +179,7 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -178,7 +178,7 @@ func (params *ListConversationScopedWebhookParams) SetLimit(Limit int) *ListConv
 }
 
 // Retrieve a single page of ConversationScopedWebhook records from the API. Request is executed immediately.
-func (c *ApiService) PageConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams, pageToken string, pageNumber string) (*ListConversationScopedWebhookResponse, error) {
+func (c *ApiService) PageConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams, pageToken, pageNumber string) (*ListConversationScopedWebhookResponse, error) {
 	path := "/v1/Conversations/{ConversationSid}/Webhooks"
 
 	path = strings.Replace(path, "{"+"ConversationSid"+"}", ConversationSid, -1)
@@ -193,7 +193,7 @@ func (c *ApiService) PageConversationScopedWebhook(ConversationSid string, param
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -80,7 +80,7 @@ func (params *ListRegulationParams) SetLimit(Limit int) *ListRegulationParams {
 }
 
 // Retrieve a single page of Regulation records from the API. Request is executed immediately.
-func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken string, pageNumber string) (*ListRegulationResponse, error) {
+func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken, pageNumber string) (*ListRegulationResponse, error) {
 	path := "/v2/RegulatoryCompliance/Regulations"
 
 	data := url.Values{}
@@ -102,7 +102,7 @@ func (c *ApiService) PageRegulation(params *ListRegulationParams, pageToken stri
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

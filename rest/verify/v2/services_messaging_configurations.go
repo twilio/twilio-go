@@ -129,7 +129,7 @@ func (params *ListMessagingConfigurationParams) SetLimit(Limit int) *ListMessagi
 }
 
 // Retrieve a single page of MessagingConfiguration records from the API. Request is executed immediately.
-func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams, pageToken string, pageNumber string) (*ListMessagingConfigurationResponse, error) {
+func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListMessagingConfigurationParams, pageToken, pageNumber string) (*ListMessagingConfigurationResponse, error) {
 	path := "/v2/Services/{ServiceSid}/MessagingConfigurations"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -144,7 +144,7 @@ func (c *ApiService) PageMessagingConfiguration(ServiceSid string, params *ListM
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

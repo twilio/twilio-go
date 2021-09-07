@@ -144,7 +144,7 @@ func (params *ListFieldValueParams) SetLimit(Limit int) *ListFieldValueParams {
 }
 
 // Retrieve a single page of FieldValue records from the API. Request is executed immediately.
-func (c *ApiService) PageFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, pageToken string, pageNumber string) (*ListFieldValueResponse, error) {
+func (c *ApiService) PageFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams, pageToken, pageNumber string) (*ListFieldValueResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -163,7 +163,7 @@ func (c *ApiService) PageFieldValue(AssistantSid string, FieldTypeSid string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

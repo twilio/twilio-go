@@ -150,7 +150,7 @@ func (params *ListFlowParams) SetLimit(Limit int) *ListFlowParams {
 }
 
 // Retrieve a single page of Flow records from the API. Request is executed immediately.
-func (c *ApiService) PageFlow(params *ListFlowParams, pageToken string, pageNumber string) (*ListFlowResponse, error) {
+func (c *ApiService) PageFlow(params *ListFlowParams, pageToken, pageNumber string) (*ListFlowResponse, error) {
 	path := "/v2/Flows"
 
 	data := url.Values{}
@@ -163,7 +163,7 @@ func (c *ApiService) PageFlow(params *ListFlowParams, pageToken string, pageNumb
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -129,7 +129,7 @@ func (params *ListSyncStreamParams) SetLimit(Limit int) *ListSyncStreamParams {
 }
 
 // Retrieve a single page of SyncStream records from the API. Request is executed immediately.
-func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamParams, pageToken string, pageNumber string) (*ListSyncStreamResponse, error) {
+func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamParams, pageToken, pageNumber string) (*ListSyncStreamResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Streams"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -144,7 +144,7 @@ func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamPar
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

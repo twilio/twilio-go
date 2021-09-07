@@ -110,7 +110,7 @@ func (params *ListSimParams) SetLimit(Limit int) *ListSimParams {
 }
 
 // Retrieve a single page of Sim records from the API. Request is executed immediately.
-func (c *ApiService) PageSim(params *ListSimParams, pageToken string, pageNumber string) (*ListSimResponse, error) {
+func (c *ApiService) PageSim(params *ListSimParams, pageToken, pageNumber string) (*ListSimResponse, error) {
 	path := "/v1/Sims"
 
 	data := url.Values{}
@@ -138,7 +138,7 @@ func (c *ApiService) PageSim(params *ListSimParams, pageToken string, pageNumber
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

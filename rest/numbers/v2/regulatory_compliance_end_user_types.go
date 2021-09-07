@@ -62,7 +62,7 @@ func (params *ListEndUserTypeParams) SetLimit(Limit int) *ListEndUserTypeParams 
 }
 
 // Retrieve a single page of EndUserType records from the API. Request is executed immediately.
-func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken string, pageNumber string) (*ListEndUserTypeResponse, error) {
+func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken, pageNumber string) (*ListEndUserTypeResponse, error) {
 	path := "/v2/RegulatoryCompliance/EndUserTypes"
 
 	data := url.Values{}
@@ -75,7 +75,7 @@ func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken st
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

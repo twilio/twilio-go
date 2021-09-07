@@ -186,7 +186,7 @@ func (params *ListSyncListItemParams) SetLimit(Limit int) *ListSyncListItemParam
 }
 
 // Retrieve a single page of SyncListItem records from the API. Request is executed immediately.
-func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams, pageToken string, pageNumber string) (*ListSyncListItemResponse, error) {
+func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams, pageToken, pageNumber string) (*ListSyncListItemResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -211,7 +211,7 @@ func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

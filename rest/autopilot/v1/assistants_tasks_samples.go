@@ -144,7 +144,7 @@ func (params *ListSampleParams) SetLimit(Limit int) *ListSampleParams {
 }
 
 // Retrieve a single page of Sample records from the API. Request is executed immediately.
-func (c *ApiService) PageSample(AssistantSid string, TaskSid string, params *ListSampleParams, pageToken string, pageNumber string) (*ListSampleResponse, error) {
+func (c *ApiService) PageSample(AssistantSid string, TaskSid string, params *ListSampleParams, pageToken, pageNumber string) (*ListSampleResponse, error) {
 	path := "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples"
 
 	path = strings.Replace(path, "{"+"AssistantSid"+"}", AssistantSid, -1)
@@ -163,7 +163,7 @@ func (c *ApiService) PageSample(AssistantSid string, TaskSid string, params *Lis
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

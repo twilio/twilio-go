@@ -175,7 +175,7 @@ func (params *ListQueueParams) SetLimit(Limit int) *ListQueueParams {
 }
 
 // Retrieve a single page of Queue records from the API. Request is executed immediately.
-func (c *ApiService) PageQueue(params *ListQueueParams, pageToken string, pageNumber string) (*ListQueueResponse, error) {
+func (c *ApiService) PageQueue(params *ListQueueParams, pageToken, pageNumber string) (*ListQueueResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -194,7 +194,7 @@ func (c *ApiService) PageQueue(params *ListQueueParams, pageToken string, pageNu
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

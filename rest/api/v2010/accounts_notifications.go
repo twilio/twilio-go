@@ -108,7 +108,7 @@ func (params *ListNotificationParams) SetLimit(Limit int) *ListNotificationParam
 }
 
 // Retrieve a single page of Notification records from the API. Request is executed immediately.
-func (c *ApiService) PageNotification(params *ListNotificationParams, pageToken string, pageNumber string) (*ListNotificationResponse, error) {
+func (c *ApiService) PageNotification(params *ListNotificationParams, pageToken, pageNumber string) (*ListNotificationResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Notifications.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -139,7 +139,7 @@ func (c *ApiService) PageNotification(params *ListNotificationParams, pageToken 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

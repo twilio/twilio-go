@@ -135,7 +135,7 @@ func (params *ListTaskChannelParams) SetLimit(Limit int) *ListTaskChannelParams 
 }
 
 // Retrieve a single page of TaskChannel records from the API. Request is executed immediately.
-func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, pageToken string, pageNumber string) (*ListTaskChannelResponse, error) {
+func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChannelParams, pageToken, pageNumber string) (*ListTaskChannelResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskChannels"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -150,7 +150,7 @@ func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChanne
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

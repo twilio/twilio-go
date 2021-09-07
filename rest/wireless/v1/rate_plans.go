@@ -206,7 +206,7 @@ func (params *ListRatePlanParams) SetLimit(Limit int) *ListRatePlanParams {
 }
 
 // Retrieve a single page of RatePlan records from the API. Request is executed immediately.
-func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken string, pageNumber string) (*ListRatePlanResponse, error) {
+func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken, pageNumber string) (*ListRatePlanResponse, error) {
 	path := "/v1/RatePlans"
 
 	data := url.Values{}
@@ -219,7 +219,7 @@ func (c *ApiService) PageRatePlan(params *ListRatePlanParams, pageToken string, 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

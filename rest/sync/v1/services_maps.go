@@ -135,7 +135,7 @@ func (params *ListSyncMapParams) SetLimit(Limit int) *ListSyncMapParams {
 }
 
 // Retrieve a single page of SyncMap records from the API. Request is executed immediately.
-func (c *ApiService) PageSyncMap(ServiceSid string, params *ListSyncMapParams, pageToken string, pageNumber string) (*ListSyncMapResponse, error) {
+func (c *ApiService) PageSyncMap(ServiceSid string, params *ListSyncMapParams, pageToken, pageNumber string) (*ListSyncMapResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Maps"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -150,7 +150,7 @@ func (c *ApiService) PageSyncMap(ServiceSid string, params *ListSyncMapParams, p
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -169,7 +169,7 @@ func (params *ListSipAuthCallsIpAccessControlListMappingParams) SetLimit(Limit i
 }
 
 // Retrieve a single page of SipAuthCallsIpAccessControlListMapping records from the API. Request is executed immediately.
-func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, pageToken string, pageNumber string) (*ListSipAuthCallsIpAccessControlListMappingResponse, error) {
+func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(DomainSid string, params *ListSipAuthCallsIpAccessControlListMappingParams, pageToken, pageNumber string) (*ListSipAuthCallsIpAccessControlListMappingResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -189,7 +189,7 @@ func (c *ApiService) PageSipAuthCallsIpAccessControlListMapping(DomainSid string
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

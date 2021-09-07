@@ -101,7 +101,7 @@ func (params *ListTrustProductEvaluationParams) SetLimit(Limit int) *ListTrustPr
 }
 
 // Retrieve a single page of TrustProductEvaluation records from the API. Request is executed immediately.
-func (c *ApiService) PageTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams, pageToken string, pageNumber string) (*ListTrustProductEvaluationResponse, error) {
+func (c *ApiService) PageTrustProductEvaluation(TrustProductSid string, params *ListTrustProductEvaluationParams, pageToken, pageNumber string) (*ListTrustProductEvaluationResponse, error) {
 	path := "/v1/TrustProducts/{TrustProductSid}/Evaluations"
 
 	path = strings.Replace(path, "{"+"TrustProductSid"+"}", TrustProductSid, -1)
@@ -116,7 +116,7 @@ func (c *ApiService) PageTrustProductEvaluation(TrustProductSid string, params *
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

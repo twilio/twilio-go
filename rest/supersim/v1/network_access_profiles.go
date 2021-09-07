@@ -110,7 +110,7 @@ func (params *ListNetworkAccessProfileParams) SetLimit(Limit int) *ListNetworkAc
 }
 
 // Retrieve a single page of NetworkAccessProfile records from the API. Request is executed immediately.
-func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfileParams, pageToken string, pageNumber string) (*ListNetworkAccessProfileResponse, error) {
+func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfileParams, pageToken, pageNumber string) (*ListNetworkAccessProfileResponse, error) {
 	path := "/v1/NetworkAccessProfiles"
 
 	data := url.Values{}
@@ -123,7 +123,7 @@ func (c *ApiService) PageNetworkAccessProfile(params *ListNetworkAccessProfilePa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

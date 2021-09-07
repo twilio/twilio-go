@@ -150,7 +150,7 @@ func (params *ListTaskQueuesStatisticsParams) SetLimit(Limit int) *ListTaskQueue
 }
 
 // Retrieve a single page of TaskQueuesStatistics records from the API. Request is executed immediately.
-func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, pageToken string, pageNumber string) (*ListTaskQueuesStatisticsResponse, error) {
+func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListTaskQueuesStatisticsParams, pageToken, pageNumber string) (*ListTaskQueuesStatisticsResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -183,7 +183,7 @@ func (c *ApiService) PageTaskQueuesStatistics(WorkspaceSid string, params *ListT
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

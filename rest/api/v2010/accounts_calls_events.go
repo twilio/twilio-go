@@ -45,7 +45,7 @@ func (params *ListCallEventParams) SetLimit(Limit int) *ListCallEventParams {
 }
 
 // Retrieve a single page of CallEvent records from the API. Request is executed immediately.
-func (c *ApiService) PageCallEvent(CallSid string, params *ListCallEventParams, pageToken string, pageNumber string) (*ListCallEventResponse, error) {
+func (c *ApiService) PageCallEvent(CallSid string, params *ListCallEventParams, pageToken, pageNumber string) (*ListCallEventResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -65,7 +65,7 @@ func (c *ApiService) PageCallEvent(CallSid string, params *ListCallEventParams, 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

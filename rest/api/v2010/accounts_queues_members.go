@@ -85,7 +85,7 @@ func (params *ListMemberParams) SetLimit(Limit int) *ListMemberParams {
 }
 
 // Retrieve a single page of Member records from the API. Request is executed immediately.
-func (c *ApiService) PageMember(QueueSid string, params *ListMemberParams, pageToken string, pageNumber string) (*ListMemberResponse, error) {
+func (c *ApiService) PageMember(QueueSid string, params *ListMemberParams, pageToken, pageNumber string) (*ListMemberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -105,7 +105,7 @@ func (c *ApiService) PageMember(QueueSid string, params *ListMemberParams, pageT
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

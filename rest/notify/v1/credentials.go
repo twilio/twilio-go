@@ -168,7 +168,7 @@ func (params *ListCredentialParams) SetLimit(Limit int) *ListCredentialParams {
 }
 
 // Retrieve a single page of Credential records from the API. Request is executed immediately.
-func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken string, pageNumber string) (*ListCredentialResponse, error) {
+func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken, pageNumber string) (*ListCredentialResponse, error) {
 	path := "/v1/Credentials"
 
 	data := url.Values{}
@@ -181,7 +181,7 @@ func (c *ApiService) PageCredential(params *ListCredentialParams, pageToken stri
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

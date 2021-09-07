@@ -87,7 +87,7 @@ func (params *ListRoomParticipantParams) SetLimit(Limit int) *ListRoomParticipan
 }
 
 // Retrieve a single page of RoomParticipant records from the API. Request is executed immediately.
-func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomParticipantParams, pageToken string, pageNumber string) (*ListRoomParticipantResponse, error) {
+func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomParticipantParams, pageToken, pageNumber string) (*ListRoomParticipantResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Participants"
 
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -114,7 +114,7 @@ func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomPartici
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

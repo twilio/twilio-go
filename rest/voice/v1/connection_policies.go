@@ -114,7 +114,7 @@ func (params *ListConnectionPolicyParams) SetLimit(Limit int) *ListConnectionPol
 }
 
 // Retrieve a single page of ConnectionPolicy records from the API. Request is executed immediately.
-func (c *ApiService) PageConnectionPolicy(params *ListConnectionPolicyParams, pageToken string, pageNumber string) (*ListConnectionPolicyResponse, error) {
+func (c *ApiService) PageConnectionPolicy(params *ListConnectionPolicyParams, pageToken, pageNumber string) (*ListConnectionPolicyResponse, error) {
 	path := "/v1/ConnectionPolicies"
 
 	data := url.Values{}
@@ -127,7 +127,7 @@ func (c *ApiService) PageConnectionPolicy(params *ListConnectionPolicyParams, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

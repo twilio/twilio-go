@@ -68,7 +68,7 @@ func (params *ListUsageRecordAllTimeParams) SetLimit(Limit int) *ListUsageRecord
 }
 
 // Retrieve a single page of UsageRecordAllTime records from the API. Request is executed immediately.
-func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams, pageToken string, pageNumber string) (*ListUsageRecordAllTimeResponse, error) {
+func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams, pageToken, pageNumber string) (*ListUsageRecordAllTimeResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Usage/Records/AllTime.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -99,7 +99,7 @@ func (c *ApiService) PageUsageRecordAllTime(params *ListUsageRecordAllTimeParams
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

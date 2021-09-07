@@ -39,7 +39,7 @@ func (params *ListBillingPeriodParams) SetLimit(Limit int) *ListBillingPeriodPar
 }
 
 // Retrieve a single page of BillingPeriod records from the API. Request is executed immediately.
-func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodParams, pageToken string, pageNumber string) (*ListBillingPeriodResponse, error) {
+func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodParams, pageToken, pageNumber string) (*ListBillingPeriodResponse, error) {
 	path := "/v1/Sims/{SimSid}/BillingPeriods"
 
 	path = strings.Replace(path, "{"+"SimSid"+"}", SimSid, -1)
@@ -54,7 +54,7 @@ func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodP
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

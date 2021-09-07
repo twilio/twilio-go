@@ -313,7 +313,7 @@ func (params *ListIncomingPhoneNumberMobileParams) SetLimit(Limit int) *ListInco
 }
 
 // Retrieve a single page of IncomingPhoneNumberMobile records from the API. Request is executed immediately.
-func (c *ApiService) PageIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams, pageToken string, pageNumber string) (*ListIncomingPhoneNumberMobileResponse, error) {
+func (c *ApiService) PageIncomingPhoneNumberMobile(params *ListIncomingPhoneNumberMobileParams, pageToken, pageNumber string) (*ListIncomingPhoneNumberMobileResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Mobile.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -344,7 +344,7 @@ func (c *ApiService) PageIncomingPhoneNumberMobile(params *ListIncomingPhoneNumb
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

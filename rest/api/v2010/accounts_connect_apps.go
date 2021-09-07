@@ -118,7 +118,7 @@ func (params *ListConnectAppParams) SetLimit(Limit int) *ListConnectAppParams {
 }
 
 // Retrieve a single page of ConnectApp records from the API. Request is executed immediately.
-func (c *ApiService) PageConnectApp(params *ListConnectAppParams, pageToken string, pageNumber string) (*ListConnectAppResponse, error) {
+func (c *ApiService) PageConnectApp(params *ListConnectAppParams, pageToken, pageNumber string) (*ListConnectAppResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/ConnectApps.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -137,7 +137,7 @@ func (c *ApiService) PageConnectApp(params *ListConnectAppParams, pageToken stri
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

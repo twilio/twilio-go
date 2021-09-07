@@ -62,7 +62,7 @@ func (params *ListTrunkingCountryParams) SetLimit(Limit int) *ListTrunkingCountr
 }
 
 // Retrieve a single page of TrunkingCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageTrunkingCountry(params *ListTrunkingCountryParams, pageToken string, pageNumber string) (*ListTrunkingCountryResponse, error) {
+func (c *ApiService) PageTrunkingCountry(params *ListTrunkingCountryParams, pageToken, pageNumber string) (*ListTrunkingCountryResponse, error) {
 	path := "/v2/Trunking/Countries"
 
 	data := url.Values{}
@@ -75,7 +75,7 @@ func (c *ApiService) PageTrunkingCountry(params *ListTrunkingCountryParams, page
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

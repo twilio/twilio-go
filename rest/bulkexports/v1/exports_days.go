@@ -58,7 +58,7 @@ func (params *ListDayParams) SetLimit(Limit int) *ListDayParams {
 }
 
 // Retrieve a single page of Day records from the API. Request is executed immediately.
-func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageToken string, pageNumber string) (*ListDayResponse, error) {
+func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageToken, pageNumber string) (*ListDayResponse, error) {
 	path := "/v1/Exports/{ResourceType}/Days"
 
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
@@ -73,7 +73,7 @@ func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageTok
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

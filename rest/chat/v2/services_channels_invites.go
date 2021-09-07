@@ -135,7 +135,7 @@ func (params *ListInviteParams) SetLimit(Limit int) *ListInviteParams {
 }
 
 // Retrieve a single page of Invite records from the API. Request is executed immediately.
-func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *ListInviteParams, pageToken string, pageNumber string) (*ListInviteResponse, error) {
+func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *ListInviteParams, pageToken, pageNumber string) (*ListInviteResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Invites"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -156,7 +156,7 @@ func (c *ApiService) PageInvite(ServiceSid string, ChannelSid string, params *Li
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

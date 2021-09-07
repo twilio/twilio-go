@@ -159,7 +159,7 @@ func (params *ListWorkflowParams) SetLimit(Limit int) *ListWorkflowParams {
 }
 
 // Retrieve a single page of Workflow records from the API. Request is executed immediately.
-func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParams, pageToken string, pageNumber string) (*ListWorkflowResponse, error) {
+func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParams, pageToken, pageNumber string) (*ListWorkflowResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workflows"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -177,7 +177,7 @@ func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParam
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

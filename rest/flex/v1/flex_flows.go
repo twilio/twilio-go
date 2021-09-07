@@ -264,7 +264,7 @@ func (params *ListFlexFlowParams) SetLimit(Limit int) *ListFlexFlowParams {
 }
 
 // Retrieve a single page of FlexFlow records from the API. Request is executed immediately.
-func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken string, pageNumber string) (*ListFlexFlowResponse, error) {
+func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken, pageNumber string) (*ListFlexFlowResponse, error) {
 	path := "/v1/FlexFlows"
 
 	data := url.Values{}
@@ -280,7 +280,7 @@ func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken string, 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

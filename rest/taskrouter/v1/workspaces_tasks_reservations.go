@@ -69,7 +69,7 @@ func (params *ListTaskReservationParams) SetLimit(Limit int) *ListTaskReservatio
 }
 
 // Retrieve a single page of TaskReservation records from the API. Request is executed immediately.
-func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, pageToken string, pageNumber string) (*ListTaskReservationResponse, error) {
+func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams, pageToken, pageNumber string) (*ListTaskReservationResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -88,7 +88,7 @@ func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

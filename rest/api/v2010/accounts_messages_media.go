@@ -139,7 +139,7 @@ func (params *ListMediaParams) SetLimit(Limit int) *ListMediaParams {
 }
 
 // Retrieve a single page of Media records from the API. Request is executed immediately.
-func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageToken string, pageNumber string) (*ListMediaResponse, error) {
+func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageToken, pageNumber string) (*ListMediaResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -168,7 +168,7 @@ func (c *ApiService) PageMedia(MessageSid string, params *ListMediaParams, pageT
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

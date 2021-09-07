@@ -63,7 +63,7 @@ func (params *ListVideoParticipantSummaryParams) SetLimit(Limit int) *ListVideoP
 }
 
 // Retrieve a single page of VideoParticipantSummary records from the API. Request is executed immediately.
-func (c *ApiService) PageVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams, pageToken string, pageNumber string) (*ListVideoParticipantSummaryResponse, error) {
+func (c *ApiService) PageVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams, pageToken, pageNumber string) (*ListVideoParticipantSummaryResponse, error) {
 	path := "/v1/Video/Rooms/{RoomSid}/Participants"
 
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -78,7 +78,7 @@ func (c *ApiService) PageVideoParticipantSummary(RoomSid string, params *ListVid
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

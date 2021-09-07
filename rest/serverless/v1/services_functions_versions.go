@@ -64,7 +64,7 @@ func (params *ListFunctionVersionParams) SetLimit(Limit int) *ListFunctionVersio
 }
 
 // Retrieve a single page of FunctionVersion records from the API. Request is executed immediately.
-func (c *ApiService) PageFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, pageToken string, pageNumber string) (*ListFunctionVersionResponse, error) {
+func (c *ApiService) PageFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams, pageToken, pageNumber string) (*ListFunctionVersionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -80,7 +80,7 @@ func (c *ApiService) PageFunctionVersion(ServiceSid string, FunctionSid string, 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

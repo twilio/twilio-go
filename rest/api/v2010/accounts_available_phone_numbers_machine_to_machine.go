@@ -153,7 +153,7 @@ func (params *ListAvailablePhoneNumberMachineToMachineParams) SetLimit(Limit int
 }
 
 // Retrieve a single page of AvailablePhoneNumberMachineToMachine records from the API. Request is executed immediately.
-func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, pageToken string, pageNumber string) (*ListAvailablePhoneNumberMachineToMachineResponse, error) {
+func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams, pageToken, pageNumber string) (*ListAvailablePhoneNumberMachineToMachineResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -227,7 +227,7 @@ func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -61,7 +61,7 @@ func (params *ListPhoneNumberCountryParams) SetLimit(Limit int) *ListPhoneNumber
 }
 
 // Retrieve a single page of PhoneNumberCountry records from the API. Request is executed immediately.
-func (c *ApiService) PagePhoneNumberCountry(params *ListPhoneNumberCountryParams, pageToken string, pageNumber string) (*ListPhoneNumberCountryResponse, error) {
+func (c *ApiService) PagePhoneNumberCountry(params *ListPhoneNumberCountryParams, pageToken, pageNumber string) (*ListPhoneNumberCountryResponse, error) {
 	path := "/v1/PhoneNumbers/Countries"
 
 	data := url.Values{}
@@ -74,7 +74,7 @@ func (c *ApiService) PagePhoneNumberCountry(params *ListPhoneNumberCountryParams
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -84,7 +84,7 @@ func (params *ListSyncListPermissionParams) SetLimit(Limit int) *ListSyncListPer
 }
 
 // Retrieve a single page of SyncListPermission records from the API. Request is executed immediately.
-func (c *ApiService) PageSyncListPermission(ServiceSid string, ListSid string, params *ListSyncListPermissionParams, pageToken string, pageNumber string) (*ListSyncListPermissionResponse, error) {
+func (c *ApiService) PageSyncListPermission(ServiceSid string, ListSid string, params *ListSyncListPermissionParams, pageToken, pageNumber string) (*ListSyncListPermissionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -100,7 +100,7 @@ func (c *ApiService) PageSyncListPermission(ServiceSid string, ListSid string, p
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

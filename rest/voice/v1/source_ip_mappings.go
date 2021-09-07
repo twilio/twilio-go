@@ -123,7 +123,7 @@ func (params *ListSourceIpMappingParams) SetLimit(Limit int) *ListSourceIpMappin
 }
 
 // Retrieve a single page of SourceIpMapping records from the API. Request is executed immediately.
-func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, pageToken string, pageNumber string) (*ListSourceIpMappingResponse, error) {
+func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, pageToken, pageNumber string) (*ListSourceIpMappingResponse, error) {
 	path := "/v1/SourceIpMappings"
 
 	data := url.Values{}
@@ -136,7 +136,7 @@ func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, page
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

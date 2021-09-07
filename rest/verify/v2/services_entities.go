@@ -120,7 +120,7 @@ func (params *ListEntityParams) SetLimit(Limit int) *ListEntityParams {
 }
 
 // Retrieve a single page of Entity records from the API. Request is executed immediately.
-func (c *ApiService) PageEntity(ServiceSid string, params *ListEntityParams, pageToken string, pageNumber string) (*ListEntityResponse, error) {
+func (c *ApiService) PageEntity(ServiceSid string, params *ListEntityParams, pageToken, pageNumber string) (*ListEntityResponse, error) {
 	path := "/v2/Services/{ServiceSid}/Entities"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -135,7 +135,7 @@ func (c *ApiService) PageEntity(ServiceSid string, params *ListEntityParams, pag
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

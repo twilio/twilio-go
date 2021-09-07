@@ -80,7 +80,7 @@ func (params *ListNetworkParams) SetLimit(Limit int) *ListNetworkParams {
 }
 
 // Retrieve a single page of Network records from the API. Request is executed immediately.
-func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken string, pageNumber string) (*ListNetworkResponse, error) {
+func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken, pageNumber string) (*ListNetworkResponse, error) {
 	path := "/v1/Networks"
 
 	data := url.Values{}
@@ -102,7 +102,7 @@ func (c *ApiService) PageNetwork(params *ListNetworkParams, pageToken string, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

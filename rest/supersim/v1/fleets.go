@@ -186,7 +186,7 @@ func (params *ListFleetParams) SetLimit(Limit int) *ListFleetParams {
 }
 
 // Retrieve a single page of Fleet records from the API. Request is executed immediately.
-func (c *ApiService) PageFleet(params *ListFleetParams, pageToken string, pageNumber string) (*ListFleetResponse, error) {
+func (c *ApiService) PageFleet(params *ListFleetParams, pageToken, pageNumber string) (*ListFleetResponse, error) {
 	path := "/v1/Fleets"
 
 	data := url.Values{}
@@ -202,7 +202,7 @@ func (c *ApiService) PageFleet(params *ListFleetParams, pageToken string, pageNu
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

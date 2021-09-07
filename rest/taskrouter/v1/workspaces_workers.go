@@ -177,7 +177,7 @@ func (params *ListWorkerParams) SetLimit(Limit int) *ListWorkerParams {
 }
 
 // Retrieve a single page of Worker records from the API. Request is executed immediately.
-func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, pageToken string, pageNumber string) (*ListWorkerResponse, error) {
+func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, pageToken, pageNumber string) (*ListWorkerResponse, error) {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers"
 
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
@@ -213,7 +213,7 @@ func (c *ApiService) PageWorker(WorkspaceSid string, params *ListWorkerParams, p
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

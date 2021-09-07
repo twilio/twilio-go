@@ -120,7 +120,7 @@ func (params *ListFunctionParams) SetLimit(Limit int) *ListFunctionParams {
 }
 
 // Retrieve a single page of Function records from the API. Request is executed immediately.
-func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams, pageToken string, pageNumber string) (*ListFunctionResponse, error) {
+func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams, pageToken, pageNumber string) (*ListFunctionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Functions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -135,7 +135,7 @@ func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams,
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

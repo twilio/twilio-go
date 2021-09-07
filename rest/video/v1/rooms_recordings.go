@@ -105,7 +105,7 @@ func (params *ListRoomRecordingParams) SetLimit(Limit int) *ListRoomRecordingPar
 }
 
 // Retrieve a single page of RoomRecording records from the API. Request is executed immediately.
-func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecordingParams, pageToken string, pageNumber string) (*ListRoomRecordingResponse, error) {
+func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecordingParams, pageToken, pageNumber string) (*ListRoomRecordingResponse, error) {
 	path := "/v1/Rooms/{RoomSid}/Recordings"
 
 	path = strings.Replace(path, "{"+"RoomSid"+"}", RoomSid, -1)
@@ -132,7 +132,7 @@ func (c *ApiService) PageRoomRecording(RoomSid string, params *ListRoomRecording
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

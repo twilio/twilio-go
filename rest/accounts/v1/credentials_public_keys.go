@@ -135,7 +135,7 @@ func (params *ListCredentialPublicKeyParams) SetLimit(Limit int) *ListCredential
 }
 
 // Retrieve a single page of CredentialPublicKey records from the API. Request is executed immediately.
-func (c *ApiService) PageCredentialPublicKey(params *ListCredentialPublicKeyParams, pageToken string, pageNumber string) (*ListCredentialPublicKeyResponse, error) {
+func (c *ApiService) PageCredentialPublicKey(params *ListCredentialPublicKeyParams, pageToken, pageNumber string) (*ListCredentialPublicKeyResponse, error) {
 	path := "/v1/Credentials/PublicKeys"
 
 	data := url.Values{}
@@ -148,7 +148,7 @@ func (c *ApiService) PageCredentialPublicKey(params *ListCredentialPublicKeyPara
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

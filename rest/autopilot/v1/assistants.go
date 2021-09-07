@@ -180,7 +180,7 @@ func (params *ListAssistantParams) SetLimit(Limit int) *ListAssistantParams {
 }
 
 // Retrieve a single page of Assistant records from the API. Request is executed immediately.
-func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken string, pageNumber string) (*ListAssistantResponse, error) {
+func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken, pageNumber string) (*ListAssistantResponse, error) {
 	path := "/v1/Assistants"
 
 	data := url.Values{}
@@ -193,7 +193,7 @@ func (c *ApiService) PageAssistant(params *ListAssistantParams, pageToken string
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -162,7 +162,7 @@ func (params *ListCustomerProfileParams) SetLimit(Limit int) *ListCustomerProfil
 }
 
 // Retrieve a single page of CustomerProfile records from the API. Request is executed immediately.
-func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, pageToken string, pageNumber string) (*ListCustomerProfileResponse, error) {
+func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, pageToken, pageNumber string) (*ListCustomerProfileResponse, error) {
 	path := "/v1/CustomerProfiles"
 
 	data := url.Values{}
@@ -184,7 +184,7 @@ func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, page
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

@@ -132,7 +132,7 @@ func (params *ListConferenceParams) SetLimit(Limit int) *ListConferenceParams {
 }
 
 // Retrieve a single page of Conference records from the API. Request is executed immediately.
-func (c *ApiService) PageConference(params *ListConferenceParams, pageToken string, pageNumber string) (*ListConferenceResponse, error) {
+func (c *ApiService) PageConference(params *ListConferenceParams, pageToken, pageNumber string) (*ListConferenceResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Conferences.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -175,7 +175,7 @@ func (c *ApiService) PageConference(params *ListConferenceParams, pageToken stri
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

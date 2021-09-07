@@ -45,7 +45,7 @@ func (params *ListDependentPhoneNumberParams) SetLimit(Limit int) *ListDependent
 }
 
 // Retrieve a single page of DependentPhoneNumber records from the API. Request is executed immediately.
-func (c *ApiService) PageDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams, pageToken string, pageNumber string) (*ListDependentPhoneNumberResponse, error) {
+func (c *ApiService) PageDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams, pageToken, pageNumber string) (*ListDependentPhoneNumberResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -65,7 +65,7 @@ func (c *ApiService) PageDependentPhoneNumber(AddressSid string, params *ListDep
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

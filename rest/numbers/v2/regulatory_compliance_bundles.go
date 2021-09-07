@@ -201,7 +201,7 @@ func (params *ListBundleParams) SetLimit(Limit int) *ListBundleParams {
 }
 
 // Retrieve a single page of Bundle records from the API. Request is executed immediately.
-func (c *ApiService) PageBundle(params *ListBundleParams, pageToken string, pageNumber string) (*ListBundleResponse, error) {
+func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber string) (*ListBundleResponse, error) {
 	path := "/v2/RegulatoryCompliance/Bundles"
 
 	data := url.Values{}
@@ -229,7 +229,7 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken string, page
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

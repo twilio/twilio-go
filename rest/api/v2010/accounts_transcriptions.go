@@ -118,7 +118,7 @@ func (params *ListTranscriptionParams) SetLimit(Limit int) *ListTranscriptionPar
 }
 
 // Retrieve a single page of Transcription records from the API. Request is executed immediately.
-func (c *ApiService) PageTranscription(params *ListTranscriptionParams, pageToken string, pageNumber string) (*ListTranscriptionResponse, error) {
+func (c *ApiService) PageTranscription(params *ListTranscriptionParams, pageToken, pageNumber string) (*ListTranscriptionResponse, error) {
 	path := "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json"
 
 	if params != nil && params.PathAccountSid != nil {
@@ -137,7 +137,7 @@ func (c *ApiService) PageTranscription(params *ListTranscriptionParams, pageToke
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

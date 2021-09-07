@@ -80,7 +80,7 @@ func (params *ListAlertParams) SetLimit(Limit int) *ListAlertParams {
 }
 
 // Retrieve a single page of Alert records from the API. Request is executed immediately.
-func (c *ApiService) PageAlert(params *ListAlertParams, pageToken string, pageNumber string) (*ListAlertResponse, error) {
+func (c *ApiService) PageAlert(params *ListAlertParams, pageToken, pageNumber string) (*ListAlertResponse, error) {
 	path := "/v1/Alerts"
 
 	data := url.Values{}
@@ -102,7 +102,7 @@ func (c *ApiService) PageAlert(params *ListAlertParams, pageToken string, pageNu
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

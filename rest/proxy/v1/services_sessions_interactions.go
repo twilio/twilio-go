@@ -84,7 +84,7 @@ func (params *ListInteractionParams) SetLimit(Limit int) *ListInteractionParams 
 }
 
 // Retrieve a single page of Interaction records from the API. Request is executed immediately.
-func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, pageToken string, pageNumber string) (*ListInteractionResponse, error) {
+func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams, pageToken, pageNumber string) (*ListInteractionResponse, error) {
 	path := "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions"
 
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
@@ -100,7 +100,7 @@ func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, param
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

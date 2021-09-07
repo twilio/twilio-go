@@ -132,7 +132,7 @@ func (params *ListIpRecordParams) SetLimit(Limit int) *ListIpRecordParams {
 }
 
 // Retrieve a single page of IpRecord records from the API. Request is executed immediately.
-func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken string, pageNumber string) (*ListIpRecordResponse, error) {
+func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken, pageNumber string) (*ListIpRecordResponse, error) {
 	path := "/v1/IpRecords"
 
 	data := url.Values{}
@@ -145,7 +145,7 @@ func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken string, 
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 

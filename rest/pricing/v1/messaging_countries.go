@@ -61,7 +61,7 @@ func (params *ListMessagingCountryParams) SetLimit(Limit int) *ListMessagingCoun
 }
 
 // Retrieve a single page of MessagingCountry records from the API. Request is executed immediately.
-func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pageToken string, pageNumber string) (*ListMessagingCountryResponse, error) {
+func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pageToken, pageNumber string) (*ListMessagingCountryResponse, error) {
 	path := "/v1/Messaging/Countries"
 
 	data := url.Values{}
@@ -74,7 +74,7 @@ func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pa
 	if pageToken != "" {
 		data.Set("PageToken", pageToken)
 	}
-	if pageToken != "" {
+	if pageNumber != "" {
 		data.Set("Page", pageNumber)
 	}
 
