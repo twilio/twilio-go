@@ -372,7 +372,7 @@ func main() {
 		pageNumber = q.Get("Page")
 	}
 
-	resp, err = client.ApiV2010.PageMessage(params, pageToken, pageNumber)
+	resp, err := client.ApiV2010.PageMessage(params, pageToken, pageNumber)
 	if err != nil {
 		fmt.Println(err)
 	} else {
