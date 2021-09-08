@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.1
+ * API version: 1.20.2
  * Contact: support@twilio.com
  */
 
@@ -41,6 +41,8 @@ type MessagingV1UsAppToPerson struct {
 	MessageSamples *[]string `json:"message_samples,omitempty"`
 	// The SID of the Messaging Service the resource is associated with
 	MessagingServiceSid *string `json:"messaging_service_sid,omitempty"`
+	// A boolean that specifies whether campaign is a mock or not.
+	Mock *bool `json:"mock,omitempty"`
 	// Rate limit and/or classification set by each carrier
 	RateLimits *map[string]interface{} `json:"rate_limits,omitempty"`
 	// The unique string that identifies a US A2P Compliance resource

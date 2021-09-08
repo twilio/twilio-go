@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **FailureReason** | Pointer to **string** | A reason why brand registration has failed |
+**Mock** | Pointer to **bool** | A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided. |
 **Sid** | Pointer to **string** | A2P BrandRegistration Sid |
 **Status** | Pointer to **string** | Brand Registration status |
 **TcrId** | Pointer to **string** | Campaign Registry (TCR) Brand ID |

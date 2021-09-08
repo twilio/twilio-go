@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.1
+ * API version: 1.20.2
  * Contact: support@twilio.com
  */
 
@@ -29,6 +29,8 @@ type CreateBrandRegistrationsParams struct {
 	BrandType *string `json:"BrandType,omitempty"`
 	// Customer Profile Bundle Sid.
 	CustomerProfileBundleSid *string `json:"CustomerProfileBundleSid,omitempty"`
+	// A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
+	Mock *bool `json:"Mock,omitempty"`
 }
 
 func (params *CreateBrandRegistrationsParams) SetA2pProfileBundleSid(A2pProfileBundleSid string) *CreateBrandRegistrationsParams {
@@ -41,6 +43,10 @@ func (params *CreateBrandRegistrationsParams) SetBrandType(BrandType string) *Cr
 }
 func (params *CreateBrandRegistrationsParams) SetCustomerProfileBundleSid(CustomerProfileBundleSid string) *CreateBrandRegistrationsParams {
 	params.CustomerProfileBundleSid = &CustomerProfileBundleSid
+	return params
+}
+func (params *CreateBrandRegistrationsParams) SetMock(Mock bool) *CreateBrandRegistrationsParams {
+	params.Mock = &Mock
 	return params
 }
 
@@ -58,6 +64,9 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 	}
 	if params != nil && params.CustomerProfileBundleSid != nil {
 		data.Set("CustomerProfileBundleSid", *params.CustomerProfileBundleSid)
+	}
+	if params != nil && params.Mock != nil {
+		data.Set("Mock", fmt.Sprint(*params.Mock))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

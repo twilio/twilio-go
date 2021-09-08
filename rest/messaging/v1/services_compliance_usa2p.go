@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.1
+ * API version: 1.20.2
  * Contact: support@twilio.com
  */
 
@@ -31,7 +31,7 @@ type CreateUsAppToPersonParams struct {
 	HasEmbeddedLinks *bool `json:"HasEmbeddedLinks,omitempty"`
 	// Indicates that this SMS campaign will send messages that contain phone numbers.
 	HasEmbeddedPhone *bool `json:"HasEmbeddedPhone,omitempty"`
-	// Message samples, up to 5 sample messages, <=1024 chars each.
+	// Message samples, at least 2 and up to 5 sample messages, <=1024 chars each.
 	MessageSamples *[]string `json:"MessageSamples,omitempty"`
 	// A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
 	UsAppToPersonUsecase *string `json:"UsAppToPersonUsecase,omitempty"`

@@ -38,7 +38,7 @@ Name | Type | Description
 **EndTime** | **string** | 
 **CallType** | **[]string** | 
 **CallState** | **[]string** | 
-**Direction** | **string** | 
+**Direction** | **[]string** | 
 **ProcessingState** | **string** | 
 **SortBy** | **string** | 
 **Subaccount** | **string** | 

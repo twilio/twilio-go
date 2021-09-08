@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.1
+ * API version: 1.20.2
  * Contact: support@twilio.com
  */
 
@@ -48,7 +48,7 @@ type ListCallSummariesParams struct {
 	//
 	CallState *[]string `json:"CallState,omitempty"`
 	//
-	Direction *string `json:"Direction,omitempty"`
+	Direction *[]string `json:"Direction,omitempty"`
 	//
 	ProcessingState *string `json:"ProcessingState,omitempty"`
 	//
@@ -115,7 +115,7 @@ func (params *ListCallSummariesParams) SetCallState(CallState []string) *ListCal
 	params.CallState = &CallState
 	return params
 }
-func (params *ListCallSummariesParams) SetDirection(Direction string) *ListCallSummariesParams {
+func (params *ListCallSummariesParams) SetDirection(Direction []string) *ListCallSummariesParams {
 	params.Direction = &Direction
 	return params
 }
@@ -207,7 +207,9 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 		}
 	}
 	if params != nil && params.Direction != nil {
-		data.Set("Direction", *params.Direction)
+		for _, item := range *params.Direction {
+			data.Add("Direction", item)
+		}
 	}
 	if params != nil && params.ProcessingState != nil {
 		data.Set("ProcessingState", *params.ProcessingState)
