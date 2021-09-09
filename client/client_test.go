@@ -5,12 +5,17 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
+	"os"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/assert"
 	twilio "github.com/twilio/twilio-go/client"
 )
+
+var mockServer *httptest.Server
+var testClient *twilio.Client
 
 func NewClient(accountSid string, authToken string) *twilio.Client {
 	c := &twilio.Client{
@@ -21,6 +26,21 @@ func NewClient(accountSid string, authToken string) *twilio.Client {
 	return c
 }
 
+func TestMain(m *testing.M) {
+	mockServer = httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			d := map[string]interface{}{
+				"response": "ok",
+			}
+			encoder := json.NewEncoder(writer)
+			_ = encoder.Encode(&d)
+		}))
+	defer mockServer.Close()
+
+	testClient = NewClient("user", "pass")
+	os.Exit(m.Run())
+}
+
 func TestClient_SendRequestError(t *testing.T) {
 	errorResponse := `{
 	"status": 400,
@@ -28,15 +48,14 @@ func TestClient_SendRequestError(t *testing.T) {
 	"message":"Bad request",
 	"more_info":"https://www.twilio.com/docs/errors/20001"
 }`
-	mockServer := httptest.NewServer(http.HandlerFunc(
+	errorServer := httptest.NewServer(http.HandlerFunc(
 		func(resp http.ResponseWriter, req *http.Request) {
 			resp.WriteHeader(400)
 			_, _ = resp.Write([]byte(errorResponse))
 		}))
-	defer mockServer.Close()
+	defer errorServer.Close()
 
-	client := NewClient("user", "pass")
-	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := testClient.SendRequest("GET", errorServer.URL, nil, nil) //nolint:bodyclose
 	twilioError := err.(*twilio.TwilioRestError)
 	assert.Nil(t, resp)
 	assert.Equal(t, 400, twilioError.Status)
@@ -44,6 +63,26 @@ func TestClient_SendRequestError(t *testing.T) {
 	assert.Equal(t, "https://www.twilio.com/docs/errors/20001", twilioError.MoreInfo)
 	assert.Equal(t, "Bad request", twilioError.Message)
 	assert.Nil(t, twilioError.Details)
+}
+
+func TestClient_SendRequestDecodeError(t *testing.T) {
+	errorResponse := `{
+	"status": 400,
+	"code":20001,
+	"message":"Bad request",
+	"more_info":"https://www.twilio.com/docs/errors/20001",
+}`
+	errorServer := httptest.NewServer(http.HandlerFunc(
+		func(resp http.ResponseWriter, req *http.Request) {
+			resp.WriteHeader(400)
+			_, _ = resp.Write([]byte(errorResponse))
+		}))
+	defer errorServer.Close()
+
+	resp, err := testClient.SendRequest("GET", errorServer.URL, nil, nil) //nolint:bodyclose
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "error decoding the response for an HTTP error code: 400")
+	assert.Nil(t, resp)
 }
 
 func TestClient_SendRequestErrorWithDetails(t *testing.T) {
@@ -56,15 +95,14 @@ func TestClient_SendRequestErrorWithDetails(t *testing.T) {
 		"foo": "bar"
 	}
 }`)
-	mockServer := httptest.NewServer(http.HandlerFunc(
+	errorServer := httptest.NewServer(http.HandlerFunc(
 		func(resp http.ResponseWriter, req *http.Request) {
 			resp.WriteHeader(400)
 			_, _ = resp.Write(errorResponse)
 		}))
-	defer mockServer.Close()
+	defer errorServer.Close()
 
-	client := NewClient("user", "pass")
-	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, err := testClient.SendRequest("GET", errorServer.URL, nil, nil) //nolint:bodyclose
 	twilioError := err.(*twilio.TwilioRestError)
 	details := make(map[string]interface{})
 	details["foo"] = "bar"
@@ -77,20 +115,79 @@ func TestClient_SendRequestErrorWithDetails(t *testing.T) {
 }
 
 func TestClient_SendRequestWithRedirect(t *testing.T) {
-	mockServer := httptest.NewServer(http.HandlerFunc(
+	redirectServer := httptest.NewServer(http.HandlerFunc(
 		func(writer http.ResponseWriter, request *http.Request) {
 			writer.WriteHeader(307)
 			_, _ = writer.Write([]byte(`{"redirect_to": "some_place"}`))
 		}))
-	defer mockServer.Close()
+	defer redirectServer.Close()
 
-	client := NewClient("user", "pass")
-	resp, _ := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	resp, _ := testClient.SendRequest("GET", redirectServer.URL, nil, nil) //nolint:bodyclose
 	assert.Equal(t, 307, resp.StatusCode)
 }
 
+func TestClient_SendRequestCreatesClient(t *testing.T) {
+	c := &twilio.Client{
+		Credentials: twilio.NewCredentials("user", "pass"),
+	}
+	resp, err := c.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
+	assert.NoError(t, err)
+	assert.Equal(t, 200, resp.StatusCode)
+}
+
+func TestClient_SendRequestWithData(t *testing.T) {
+	dataServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			_ = request.ParseForm()
+			assert.Equal(t, "bar", request.FormValue("foo"))
+			d := map[string]interface{}{
+				"response": "ok",
+			}
+			encoder := json.NewEncoder(writer)
+			err := encoder.Encode(&d)
+			if err != nil {
+				t.Error(err)
+			}
+		}))
+	defer dataServer.Close()
+
+	tests := []string{http.MethodGet, http.MethodPost}
+	for _, tc := range tests {
+		t.Run(tc, func(t *testing.T) {
+			data := url.Values{}
+			data.Set("foo", "bar")
+			resp, err := testClient.SendRequest(tc, dataServer.URL, data, nil) //nolint:bodyclose
+			assert.NoError(t, err)
+			assert.Equal(t, 200, resp.StatusCode)
+		})
+	}
+}
+
+func TestClient_SendRequestWithHeaders(t *testing.T) {
+	headerServer := httptest.NewServer(http.HandlerFunc(
+		func(writer http.ResponseWriter, request *http.Request) {
+			assert.Equal(t, "bar", request.Header.Get("foo"))
+			d := map[string]interface{}{
+				"response": "ok",
+			}
+			encoder := json.NewEncoder(writer)
+			err := encoder.Encode(&d)
+			if err != nil {
+				t.Error(err)
+			}
+		}))
+	defer headerServer.Close()
+
+	headers := map[string]interface{}{
+		"foo": "bar",
+	}
+	resp, err := testClient.SendRequest("GET", headerServer.URL, nil, headers) //nolint:bodyclose
+	assert.NoError(t, err)
+	assert.Equal(t, 200, resp.StatusCode)
+}
+
 func TestClient_SetTimeoutTimesOut(t *testing.T) {
-	mockServer := httptest.NewServer(http.HandlerFunc(
+	timeoutServer := httptest.NewServer(http.HandlerFunc(
 		func(writer http.ResponseWriter, request *http.Request) {
 			d := map[string]interface{}{
 				"response": "ok",
@@ -103,16 +200,16 @@ func TestClient_SetTimeoutTimesOut(t *testing.T) {
 			}
 			writer.WriteHeader(http.StatusOK)
 		}))
-	defer mockServer.Close()
+	defer timeoutServer.Close()
 
-	client := NewClient("user", "pass")
-	client.SetTimeout(10 * time.Microsecond)
-	_, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	c := NewClient("user", "pass")
+	c.SetTimeout(10 * time.Microsecond)
+	_, err := c.SendRequest("GET", timeoutServer.URL, nil, nil) //nolint:bodyclose
 	assert.Error(t, err)
 }
 
 func TestClient_SetTimeoutSucceeds(t *testing.T) {
-	mockServer := httptest.NewServer(http.HandlerFunc(
+	timeoutServer := httptest.NewServer(http.HandlerFunc(
 		func(writer http.ResponseWriter, request *http.Request) {
 			d := map[string]interface{}{
 				"response": "ok",
@@ -124,41 +221,27 @@ func TestClient_SetTimeoutSucceeds(t *testing.T) {
 				t.Error(err)
 			}
 		}))
-	defer mockServer.Close()
+	defer timeoutServer.Close()
 
-	client := NewClient("user", "pass")
-	client.SetTimeout(10 * time.Second)
-	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	c := NewClient("user", "pass")
+	c.SetTimeout(10 * time.Second)
+	resp, err := c.SendRequest("GET", timeoutServer.URL, nil, nil) //nolint:bodyclose
 	assert.NoError(t, err)
 	assert.Equal(t, 200, resp.StatusCode)
 }
 
 func TestClient_SetTimeoutCreatesClient(t *testing.T) {
-	mockServer := httptest.NewServer(http.HandlerFunc(
-		func(writer http.ResponseWriter, request *http.Request) {
-			d := map[string]interface{}{
-				"response": "ok",
-			}
-			time.Sleep(100 * time.Microsecond)
-			encoder := json.NewEncoder(writer)
-			err := encoder.Encode(&d)
-			if err != nil {
-				t.Error(err)
-			}
-		}))
-	defer mockServer.Close()
-
-	client := &twilio.Client{
+	c := &twilio.Client{
 		Credentials: twilio.NewCredentials("user", "pass"),
 	}
-	client.SetTimeout(20 * time.Second)
-	resp, err := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	c.SetTimeout(20 * time.Second)
+	resp, err := c.SendRequest("GET", mockServer.URL, nil, nil) //nolint:bodyclose
 	assert.NoError(t, err)
 	assert.Equal(t, 200, resp.StatusCode)
 }
 
 func TestClient_UnicodeResponse(t *testing.T) {
-	mockServer := httptest.NewServer(http.HandlerFunc(
+	unicodeServer := httptest.NewServer(http.HandlerFunc(
 		func(writer http.ResponseWriter, request *http.Request) {
 			d := map[string]interface{}{
 				"testing-unicode": "Ω≈ç√, 💩",
@@ -169,11 +252,17 @@ func TestClient_UnicodeResponse(t *testing.T) {
 				t.Error(err)
 			}
 		}))
-	defer mockServer.Close()
+	defer unicodeServer.Close()
 
-	client := NewClient("user", "pass")
-	resp, _ := client.SendRequest("get", mockServer.URL, nil, nil) //nolint:bodyclose
+	c := NewClient("user", "pass")
+	resp, _ := c.SendRequest("GET", unicodeServer.URL, nil, nil) //nolint:bodyclose
 	assert.Equal(t, 200, resp.StatusCode)
 	body, _ := ioutil.ReadAll(resp.Body)
 	assert.Equal(t, "{\"testing-unicode\":\"Ω≈ç√, 💩\"}\n", string(body))
+}
+
+func TestClient_SetAccountSid(t *testing.T) {
+	client := NewClient("user", "pass")
+	client.SetAccountSid("account_sid")
+	assert.Equal(t, "account_sid", client.AccountSid())
 }
