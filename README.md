@@ -531,8 +531,7 @@ voiceGrant := &jwt.VoiceGrant{
 }
 
 jwtToken.AddGrant(voiceGrant)
-token, _ := jwtToken.ToJwt()
-fmt.Println(token)
+token, err := jwtToken.ToJwt()
 ```
 
 Creating Capability Token for TaskRouter v1
@@ -554,7 +553,6 @@ Params = taskrouter.CapabilityTokenParams{
 
 capabilityToken := taskrouter.CreateCapabilityToken(Params)
 token, err := capabilityToken.ToJwt()
-fmt.Println(token)
 ```
 
 
