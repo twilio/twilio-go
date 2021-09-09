@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
+	"github.com/twilio/twilio-go/client/form"
 )
 
 // Credentials store user authentication credentials.
@@ -98,7 +99,7 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 
 	if method == http.MethodGet {
 		if data != nil {
-			v, _ := EncodeToStringWith(data, delimiter, escapee, keepZeros)
+			v, _ := form.EncodeToStringWith(data, delimiter, escapee, keepZeros)
 			regex := regexp.MustCompile(`\.\d+`)
 			s := regex.ReplaceAllString(v, "")
 

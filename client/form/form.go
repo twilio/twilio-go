@@ -5,7 +5,7 @@
 // license that can be found in the LICENSE file.
 
 // Package form implements encoding and decoding of application/x-www-form-urlencoded data.
-package client
+package form
 
 const (
 	implicitKey = "_"
