@@ -192,7 +192,6 @@ func TestChatGrant(t *testing.T) {
 	accessToken := CreateAccessToken(params)
 
 	accessToken.AddGrant(&ChatGrant{
-		ChatKey:           "CH123",
 		ServiceSid:        "IS123",
 		EndpointID:        "Endpoint123",
 		DeploymentRoleSid: "Role123",
@@ -316,8 +315,10 @@ func TestVoiceGrant(t *testing.T) {
 	accessToken.AddGrant(&VoiceGrant{
 		Incoming: Incoming{Allow: true},
 		Outgoing: Outgoing{
-			ApplicationSid:    "SID123",
-			ApplicationParams: "test,test1",
+			ApplicationSid: "SID123",
+			ApplicationParams: map[string]interface{}{
+				"foo": "bar",
+			},
 		},
 		PushCredentialSid: "Push123",
 		EndpointID:        "Endpoint123",
@@ -343,7 +344,7 @@ func TestVoiceGrant(t *testing.T) {
 	assert.Equal(t, true, incoming["allow"])
 	outgoing := voiceGrantDecoded["outgoing"].(map[string]interface{})
 	assert.Equal(t, "SID123", outgoing["application_sid"])
-	assert.Equal(t, "test,test1", outgoing["params"])
+	assert.Equal(t, "bar", outgoing["params"].(map[string]interface{})["foo"])
 }
 
 func TestTaskRouterGrant(t *testing.T) {

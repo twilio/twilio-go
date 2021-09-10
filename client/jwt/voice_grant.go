@@ -14,8 +14,8 @@ type Incoming struct {
 }
 
 type Outgoing struct {
-	ApplicationSid    string `json:"application_sid"`
-	ApplicationParams string `json:"params"`
+	ApplicationSid    string                 `json:"application_sid"`
+	ApplicationParams map[string]interface{} `json:"params"`
 }
 
 func (voiceGrant *VoiceGrant) Key() string {
@@ -33,7 +33,7 @@ func (voiceGrant *VoiceGrant) ToPayload() map[string]interface{} {
 		grant["outgoing"] = map[string]interface{}{
 			"application_sid": voiceGrant.Outgoing.ApplicationSid,
 		}
-		if voiceGrant.Outgoing.ApplicationParams != "" {
+		if len(voiceGrant.Outgoing.ApplicationParams) != 0 {
 			grant["outgoing"].(map[string]interface{})["params"] = voiceGrant.Outgoing.ApplicationParams
 		}
 	}

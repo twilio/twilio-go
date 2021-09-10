@@ -3,7 +3,6 @@ package jwt
 import "fmt"
 
 type ChatGrant struct {
-	ChatKey           string `json:"chat_key"`
 	ServiceSid        string `json:"service_sid"`
 	EndpointID        string `json:"endpoint_id"`
 	DeploymentRoleSid string `json:"deployment_role_sid"`
