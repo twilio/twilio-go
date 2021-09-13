@@ -534,7 +534,7 @@ jwtToken.AddGrant(voiceGrant)
 token, err := jwtToken.ToJwt()
 ```
 
-Creating Capability Token for TaskRouter v1
+Creating Capability Token for TaskRouter v1:
 ```go
 package main
 
@@ -544,11 +544,16 @@ import
 	"github.com/twilio/twilio-go/client/jwt/taskrouter"
 )
 
+AccountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+AuthToken := os.Getenv("TWILIO_AUTH_TOKEN")
+WorkspaceSid := os.Getenv("TWILIO_WORKSPACE_SID")
+ChannelID := os.Getenv("TWILIO_CHANNEL_ID")
+
 Params = taskrouter.CapabilityTokenParams{
     AccountSid:   AccountSid,
     AuthToken:    AuthToken,
     WorkspaceSid: WorkspaceSid,
-    ChannelID:    TaskqueueSid,
+    ChannelID:    ChannelID,
 }
 
 capabilityToken := taskrouter.CreateCapabilityToken(Params)
