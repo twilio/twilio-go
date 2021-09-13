@@ -495,6 +495,67 @@ func main() {
 }
 ```
 
+## Building Access Tokens
+This library supports [access token](https://www.twilio.com/docs/iam/access-tokens) generation for use in the Twilio Client SDKs. 
+
+Here's how you would generate a token for the Voice SDK:
+```go
+package main
+
+import 
+(
+	"os"
+	"github.com/twilio/twilio-go/client/jwt"
+)
+
+accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+applicationSid := os.Getenv("TWILIO_TWIML_APP_SID")
+apiKey := os.Getenv("TWILIO_API_KEY")
+apiSecret := os.Getenv("TWILIO_API_SECRET")
+identity := "fake123"
+
+params := jwt.AccessTokenParams{
+    AccountSid:    accountSid,
+    SigningKeySid: apiKey,
+    Secret:        apiSecret,
+    Identity:      identity,
+}
+
+jwtToken := jwt.CreateAccessToken(params)
+voiceGrant := &jwt.VoiceGrant{
+    Incoming: jwt.Incoming{Allow: true},
+    Outgoing: jwt.Outgoing{
+        ApplicationSid:    applicationSid,
+        ApplicationParams: "",
+    },
+}
+
+jwtToken.AddGrant(voiceGrant)
+token, err := jwtToken.ToJwt()
+```
+
+Creating Capability Token for TaskRouter v1
+```go
+package main
+
+import 
+(
+	"os"
+	"github.com/twilio/twilio-go/client/jwt/taskrouter"
+)
+
+Params = taskrouter.CapabilityTokenParams{
+    AccountSid:   AccountSid,
+    AuthToken:    AuthToken,
+    WorkspaceSid: WorkspaceSid,
+    ChannelID:    TaskqueueSid,
+}
+
+capabilityToken := taskrouter.CreateCapabilityToken(Params)
+token, err := capabilityToken.ToJwt()
+```
+
+
 ## Local Usage
 
 ### Building
