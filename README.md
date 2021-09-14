@@ -526,7 +526,6 @@ voiceGrant := &jwt.VoiceGrant{
     Incoming: jwt.Incoming{Allow: true},
     Outgoing: jwt.Outgoing{
         ApplicationSid:    applicationSid,
-        ApplicationParams: "",
     },
 }
 
