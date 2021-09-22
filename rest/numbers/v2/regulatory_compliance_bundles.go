@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.2
+ * API version: 1.20.3
  * Contact: support@twilio.com
  */
 
@@ -25,13 +25,13 @@ import (
 type CreateBundleParams struct {
 	// The email address that will receive updates when the Bundle resource changes status.
 	Email *string `json:"Email,omitempty"`
-	// The type of End User of the Bundle resource.
+	// The [type of End User](https://www.twilio.com/docs/phone-numbers/regulatory/api/end-user-types) of the Bundle resource.
 	EndUserType *string `json:"EndUserType,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The ISO country code of the Bundle's phone number country ownership request.
+	// The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
 	IsoCountry *string `json:"IsoCountry,omitempty"`
-	// The type of phone number of the Bundle's ownership request.
+	// The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
 	NumberType *string `json:"NumberType,omitempty"`
 	// The unique string of a regulation that is associated to the Bundle resource.
 	RegulationSid *string `json:"RegulationSid,omitempty"`
@@ -161,9 +161,9 @@ type ListBundleParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The unique string of a regulation that is associated to the Bundle resource.
 	RegulationSid *string `json:"RegulationSid,omitempty"`
-	// The ISO country code of the Bundle's phone number country ownership request.
+	// The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
 	IsoCountry *string `json:"IsoCountry,omitempty"`
-	// The type of phone number of the Bundle's ownership request.
+	// The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
 	NumberType *string `json:"NumberType,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`

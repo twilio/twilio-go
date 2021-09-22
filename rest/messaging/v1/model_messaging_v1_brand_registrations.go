@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.2
+ * API version: 1.20.3
  * Contact: support@twilio.com
  */
 
@@ -33,12 +33,20 @@ type MessagingV1BrandRegistrations struct {
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// A reason why brand registration has failed
 	FailureReason *string `json:"failure_reason,omitempty"`
+	// Identity Status
+	IdentityStatus *string `json:"identity_status,omitempty"`
 	// A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
 	Mock *bool `json:"mock,omitempty"`
+	// Russell 3000
+	Russell3000 *bool `json:"russell_3000,omitempty"`
 	// A2P BrandRegistration Sid
 	Sid *string `json:"sid,omitempty"`
+	// Skip Automatic Secondary Vetting
+	SkipAutomaticSecVet *bool `json:"skip_automatic_sec_vet,omitempty"`
 	// Brand Registration status
 	Status *string `json:"status,omitempty"`
+	// Tax Exempt Status
+	TaxExemptStatus *string `json:"tax_exempt_status,omitempty"`
 	// Campaign Registry (TCR) Brand ID
 	TcrId *string `json:"tcr_id,omitempty"`
 	// The absolute URL of the Brand Registration

@@ -32,10 +32,10 @@ Other parameters are passed through a pointer to a CreateBundleParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **Email** | **string** | The email address that will receive updates when the Bundle resource changes status.
-**EndUserType** | **string** | The type of End User of the Bundle resource.
+**EndUserType** | **string** | The [type of End User](https://www.twilio.com/docs/phone-numbers/regulatory/api/end-user-types) of the Bundle resource.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
-**IsoCountry** | **string** | The ISO country code of the Bundle&#39;s phone number country ownership request.
-**NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request.
+**IsoCountry** | **string** | The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle&#39;s phone number country ownership request.
+**NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;toll free&#x60;.
 **RegulationSid** | **string** | The unique string of a regulation that is associated to the Bundle resource.
 **StatusCallback** | **string** | The URL we call to inform your application of status changes.
 
@@ -163,8 +163,8 @@ Name | Type | Description
 **Status** | **string** | The verification status of the Bundle resource.
 **FriendlyName** | **string** | The string that you assigned to describe the resource.
 **RegulationSid** | **string** | The unique string of a regulation that is associated to the Bundle resource.
-**IsoCountry** | **string** | The ISO country code of the Bundle&#39;s phone number country ownership request.
-**NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request.
+**IsoCountry** | **string** | The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle&#39;s phone number country ownership request.
+**NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;toll free&#x60;.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

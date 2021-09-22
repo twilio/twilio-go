@@ -12,9 +12,13 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **FailureReason** | Pointer to **string** | A reason why brand registration has failed |
+**IdentityStatus** | Pointer to **string** | Identity Status |
 **Mock** | Pointer to **bool** | A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided. |
+**Russell3000** | Pointer to **bool** | Russell 3000 |
 **Sid** | Pointer to **string** | A2P BrandRegistration Sid |
+**SkipAutomaticSecVet** | Pointer to **bool** | Skip Automatic Secondary Vetting |
 **Status** | Pointer to **string** | Brand Registration status |
+**TaxExemptStatus** | Pointer to **string** | Tax Exempt Status |
 **TcrId** | Pointer to **string** | Campaign Registry (TCR) Brand ID |
 **Url** | Pointer to **string** | The absolute URL of the Brand Registration |
 

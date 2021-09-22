@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.2
+ * API version: 1.20.3
  * Contact: support@twilio.com
  */
 
@@ -31,6 +31,8 @@ type CreateBrandRegistrationsParams struct {
 	CustomerProfileBundleSid *string `json:"CustomerProfileBundleSid,omitempty"`
 	// A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
 	Mock *bool `json:"Mock,omitempty"`
+	// A flag to disable automatic secondary vetting for brands which it would otherwise be done.
+	SkipAutomaticSecVet *bool `json:"SkipAutomaticSecVet,omitempty"`
 }
 
 func (params *CreateBrandRegistrationsParams) SetA2pProfileBundleSid(A2pProfileBundleSid string) *CreateBrandRegistrationsParams {
@@ -47,6 +49,10 @@ func (params *CreateBrandRegistrationsParams) SetCustomerProfileBundleSid(Custom
 }
 func (params *CreateBrandRegistrationsParams) SetMock(Mock bool) *CreateBrandRegistrationsParams {
 	params.Mock = &Mock
+	return params
+}
+func (params *CreateBrandRegistrationsParams) SetSkipAutomaticSecVet(SkipAutomaticSecVet bool) *CreateBrandRegistrationsParams {
+	params.SkipAutomaticSecVet = &SkipAutomaticSecVet
 	return params
 }
 
@@ -67,6 +73,9 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 	}
 	if params != nil && params.Mock != nil {
 		data.Set("Mock", fmt.Sprint(*params.Mock))
+	}
+	if params != nil && params.SkipAutomaticSecVet != nil {
+		data.Set("SkipAutomaticSecVet", fmt.Sprint(*params.SkipAutomaticSecVet))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

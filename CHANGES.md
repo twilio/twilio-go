@@ -1,5 +1,22 @@
 twilio-go changelog
 ====================
+[2021-09-22] Version 0.15.0
+---------------------------
+**Library - Feature**
+- [PR #116](https://github.com/twilio/twilio-go/pull/116): add jwt token signing and verification logic. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Library - Test**
+- [PR #117](https://github.com/twilio/twilio-go/pull/117): increase Client test coverage. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Events**
+- Add segment sink
+
+**Messaging**
+- Add post_approval_required attribute in GET us_app_to_person_usecase api response
+- Add Identity Status, Russell 3000, Tax Exempt Status and Should Skip SecVet fields for Brand Registrations
+- Add Should Skip Secondary Vetting optional flag parameter to create Brand API
+
+
 [2021-09-08] Version 0.14.2
 ---------------------------
 **Library - Fix**

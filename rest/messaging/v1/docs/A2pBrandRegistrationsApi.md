@@ -31,6 +31,7 @@ Name | Type | Description
 **BrandType** | **string** | Type of brand being created. One of: \\\&quot;STANDARD\\\&quot;, \\\&quot;STARTER\\\&quot;. STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
 **CustomerProfileBundleSid** | **string** | Customer Profile Bundle Sid.
 **Mock** | **bool** | A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
+**SkipAutomaticSecVet** | **bool** | A flag to disable automatic secondary vetting for brands which it would otherwise be done.
 
 ### Return type
 
