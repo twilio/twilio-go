@@ -24,7 +24,7 @@ import (
 // Optional parameters for the method 'CreateBrandRegistrations'
 type CreateBrandRegistrationsParams struct {
 	// A2P Messaging Profile Bundle Sid.
-	A2pProfileBundleSid *string `json:"A2pProfileBundleSid,omitempty"`
+	A2PProfileBundleSid *string `json:"A2PProfileBundleSid,omitempty"`
 	// Type of brand being created. One of: \\\"STANDARD\\\", \\\"STARTER\\\". STARTER is for low volume, starter use cases. STANDARD is for all other use cases.
 	BrandType *string `json:"BrandType,omitempty"`
 	// Customer Profile Bundle Sid.
@@ -35,8 +35,8 @@ type CreateBrandRegistrationsParams struct {
 	SkipAutomaticSecVet *bool `json:"SkipAutomaticSecVet,omitempty"`
 }
 
-func (params *CreateBrandRegistrationsParams) SetA2pProfileBundleSid(A2pProfileBundleSid string) *CreateBrandRegistrationsParams {
-	params.A2pProfileBundleSid = &A2pProfileBundleSid
+func (params *CreateBrandRegistrationsParams) SetA2PProfileBundleSid(A2PProfileBundleSid string) *CreateBrandRegistrationsParams {
+	params.A2PProfileBundleSid = &A2PProfileBundleSid
 	return params
 }
 func (params *CreateBrandRegistrationsParams) SetBrandType(BrandType string) *CreateBrandRegistrationsParams {
@@ -62,8 +62,8 @@ func (c *ApiService) CreateBrandRegistrations(params *CreateBrandRegistrationsPa
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
-	if params != nil && params.A2pProfileBundleSid != nil {
-		data.Set("A2pProfileBundleSid", *params.A2pProfileBundleSid)
+	if params != nil && params.A2PProfileBundleSid != nil {
+		data.Set("A2PProfileBundleSid", *params.A2PProfileBundleSid)
 	}
 	if params != nil && params.BrandType != nil {
 		data.Set("BrandType", *params.BrandType)
