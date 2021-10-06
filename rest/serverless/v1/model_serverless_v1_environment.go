@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.3
+ * API version: 1.21.0
  * Contact: support@twilio.com
  */
 
@@ -25,7 +25,7 @@ type ServerlessV1Environment struct {
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the Environment resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
-	// The base domain name for all Functions and Assets deployed in the Environment
+	// The domain name for all Functions and Assets deployed in the Environment
 	DomainName *string `json:"domain_name,omitempty"`
 	// A URL-friendly name that represents the environment
 	DomainSuffix *string `json:"domain_suffix,omitempty"`

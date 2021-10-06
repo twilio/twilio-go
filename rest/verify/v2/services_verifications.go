@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.3
+ * API version: 1.21.0
  * Contact: support@twilio.com
  */
 
@@ -24,7 +24,7 @@ type CreateVerificationParams struct {
 	Amount *string `json:"Amount,omitempty"`
 	// Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
 	AppHash *string `json:"AppHash,omitempty"`
-	// The verification method to use. Can be: [`email`](https://www.twilio.com/docs/verify/email), `sms` or `call`.
+	// The verification method to use. Can be: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp` or `call`.
 	Channel *string `json:"Channel,omitempty"`
 	// [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. Must include 'from' and 'from_name'.
 	ChannelConfiguration *map[string]interface{} `json:"ChannelConfiguration,omitempty"`
@@ -34,7 +34,7 @@ type CreateVerificationParams struct {
 	CustomFriendlyName *string `json:"CustomFriendlyName,omitempty"`
 	// The text of a custom message to use for the verification.
 	CustomMessage *string `json:"CustomMessage,omitempty"`
-	// The locale to use for the verification SMS or call. Can be: `af`, `ar`, `ca`, `cs`, `da`, `de`, `el`, `en`, `en-GB`, `es`, `fi`, `fr`, `he`, `hi`, `hr`, `hu`, `id`, `it`, `ja`, `ko`, `ms`, `nb`, `nl`, `pl`, `pt`, `pr-BR`, `ro`, `ru`, `sv`, `th`, `tl`, `tr`, `vi`, `zh`, `zh-CN`, or `zh-HK.`
+	// The locale to use for the verification SMS, WhatsApp or call. Can be: `af`, `ar`, `ca`, `cs`, `da`, `de`, `el`, `en`, `en-GB`, `es`, `fi`, `fr`, `he`, `hi`, `hr`, `hu`, `id`, `it`, `ja`, `ko`, `ms`, `nb`, `nl`, `pl`, `pt`, `pr-BR`, `ro`, `ru`, `sv`, `th`, `tl`, `tr`, `vi`, `zh`, `zh-CN`, or `zh-HK.`
 	Locale *string `json:"Locale,omitempty"`
 	// The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 	Payee *string `json:"Payee,omitempty"`

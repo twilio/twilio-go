@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.3
+ * API version: 1.21.0
  * Contact: support@twilio.com
  */
 
@@ -76,13 +76,28 @@ func (c *ApiService) CreateWorker(WorkspaceSid string, params *CreateWorkerParam
 	return ps, err
 }
 
-func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string) error {
+// Optional parameters for the method 'DeleteWorker'
+type DeleteWorkerParams struct {
+	// The If-Match HTTP request header
+	IfMatch *string `json:"If-Match,omitempty"`
+}
+
+func (params *DeleteWorkerParams) SetIfMatch(IfMatch string) *DeleteWorkerParams {
+	params.IfMatch = &IfMatch
+	return params
+}
+
+func (c *ApiService) DeleteWorker(WorkspaceSid string, Sid string, params *DeleteWorkerParams) error {
 	path := "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}"
 	path = strings.Replace(path, "{"+"WorkspaceSid"+"}", WorkspaceSid, -1)
 	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
@@ -317,16 +332,22 @@ func (c *ApiService) getNextListWorkerResponse(nextPageUrl string) (interface{},
 
 // Optional parameters for the method 'UpdateWorker'
 type UpdateWorkerParams struct {
+	// The If-Match HTTP request header
+	IfMatch *string `json:"If-Match,omitempty"`
 	// The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
 	ActivitySid *string `json:"ActivitySid,omitempty"`
 	// The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
 	Attributes *string `json:"Attributes,omitempty"`
 	// A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// Whether to reject pending reservations.
+	// Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
 	RejectPendingReservations *bool `json:"RejectPendingReservations,omitempty"`
 }
 
+func (params *UpdateWorkerParams) SetIfMatch(IfMatch string) *UpdateWorkerParams {
+	params.IfMatch = &IfMatch
+	return params
+}
 func (params *UpdateWorkerParams) SetActivitySid(ActivitySid string) *UpdateWorkerParams {
 	params.ActivitySid = &ActivitySid
 	return params
@@ -363,6 +384,10 @@ func (c *ApiService) UpdateWorker(WorkspaceSid string, Sid string, params *Updat
 	}
 	if params != nil && params.RejectPendingReservations != nil {
 		data.Set("RejectPendingReservations", fmt.Sprint(*params.RejectPendingReservations))
+	}
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

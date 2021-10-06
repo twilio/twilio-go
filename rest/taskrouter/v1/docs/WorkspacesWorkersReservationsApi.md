@@ -119,6 +119,7 @@ Other parameters are passed through a pointer to a UpdateWorkerReservationParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**IfMatch** | **string** | The If-Match HTTP request header
 **Beep** | **string** | Whether to play a notification beep when the participant joins or when to play a beep. Can be: &#x60;true&#x60;, &#x60;false&#x60;, &#x60;onEnter&#x60;, or &#x60;onExit&#x60;. The default value is &#x60;true&#x60;.
 **BeepOnCustomerEntrance** | **bool** | Whether to play a notification beep when the customer joins.
 **CallAccept** | **bool** | Whether to accept a reservation when executing a Call instruction.

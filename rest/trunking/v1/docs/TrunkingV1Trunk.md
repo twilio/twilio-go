@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **Recording** | Pointer to **map[string]interface{}** | The recording settings for the trunk |
 **Secure** | Pointer to **bool** | Whether Secure Trunking is enabled for the trunk |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
+**TransferCallerId** | Pointer to **string** | Caller Id for transfer target |
 **TransferMode** | Pointer to **string** | The call transfer settings for the trunk |
 **Url** | Pointer to **string** | The absolute URL of the resource |
 

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.3
+ * API version: 1.21.0
  * Contact: support@twilio.com
  */
 
@@ -32,7 +32,7 @@ type CreateIncomingPhoneNumberTollFreeParams struct {
 	BundleSid *string `json:"BundleSid,omitempty"`
 	// The SID of the emergency address configuration to use for emergency calling from the new phone number.
 	EmergencyAddressSid *string `json:"EmergencyAddressSid,omitempty"`
-	// The configuration status parameter that determines whether the new phone number is enabled for emergency calling.
+	// The parameter displays if emergency calling is enabled for this number. Active numbers may place emergency calls by dialing valid emergency numbers for the country.
 	EmergencyStatus *string `json:"EmergencyStatus,omitempty"`
 	// A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
 	FriendlyName *string `json:"FriendlyName,omitempty"`

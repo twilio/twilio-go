@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **BuildSid** | Pointer to **string** | The SID of the build deployed in the environment |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the Environment resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the Environment resource was last updated |
-**DomainName** | Pointer to **string** | The base domain name for all Functions and Assets deployed in the Environment |
+**DomainName** | Pointer to **string** | The domain name for all Functions and Assets deployed in the Environment |
 **DomainSuffix** | Pointer to **string** | A URL-friendly name that represents the environment |
 **Links** | Pointer to **map[string]interface{}** | The URLs of the Environment resource's nested resources |
 **ServiceSid** | Pointer to **string** | The SID of the Service that the Environment resource is associated with |

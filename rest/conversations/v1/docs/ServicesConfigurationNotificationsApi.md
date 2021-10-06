@@ -82,6 +82,8 @@ Name | Type | Description
 **NewMessageEnabled** | **bool** | Whether to send a notification when a new message is added to a conversation. The default is &#x60;false&#x60;.
 **NewMessageSound** | **string** | The name of the sound to play when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;.
 **NewMessageTemplate** | **string** | The template to use to create the notification text displayed when a new message is added to a conversation and &#x60;new_message.enabled&#x60; is &#x60;true&#x60;.
+**NewMessageWithMediaEnabled** | **bool** | Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is &#x60;false&#x60;.
+**NewMessageWithMediaTemplate** | **string** | The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and &#x60;new_message.attachments.enabled&#x60; is &#x60;true&#x60;.
 **RemovedFromConversationEnabled** | **bool** | Whether to send a notification to a user when they are removed from a conversation. The default is &#x60;false&#x60;.
 **RemovedFromConversationSound** | **string** | The name of the sound to play to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;.
 **RemovedFromConversationTemplate** | **string** | The template to use to create the notification text displayed to a user when they are removed from a conversation and &#x60;removed_from_conversation.enabled&#x60; is &#x60;true&#x60;.

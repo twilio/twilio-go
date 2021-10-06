@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **CrmType** | Pointer to **string** | The CRM Type |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the Configuration resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the Configuration resource was last updated |
+**FlexInsightsHr** | Pointer to **map[string]interface{}** | Object that controls workspace reporting |
 **FlexServiceInstanceSid** | Pointer to **string** | The SID of the Flex service instance |
 **Integrations** | Pointer to **[]map[string]interface{}** | A list of objects that contain the configurations for the Integrations supported in this configuration |
 **Markdown** | Pointer to **map[string]interface{}** | Configurable parameters for Markdown |

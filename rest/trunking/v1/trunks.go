@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.3
+ * API version: 1.21.0
  * Contact: support@twilio.com
  */
 
@@ -35,6 +35,8 @@ type CreateTrunkParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
 	Secure *bool `json:"Secure,omitempty"`
+	// Caller Id for transfer target. Can be: `from-transferee` (default) or `from-transferor`.
+	TransferCallerId *string `json:"TransferCallerId,omitempty"`
 	// The call transfer settings for the trunk. Can be: `enable-all`, `sip-only` and `disable-all`. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
 	TransferMode *string `json:"TransferMode,omitempty"`
 }
@@ -61,6 +63,10 @@ func (params *CreateTrunkParams) SetFriendlyName(FriendlyName string) *CreateTru
 }
 func (params *CreateTrunkParams) SetSecure(Secure bool) *CreateTrunkParams {
 	params.Secure = &Secure
+	return params
+}
+func (params *CreateTrunkParams) SetTransferCallerId(TransferCallerId string) *CreateTrunkParams {
+	params.TransferCallerId = &TransferCallerId
 	return params
 }
 func (params *CreateTrunkParams) SetTransferMode(TransferMode string) *CreateTrunkParams {
@@ -91,6 +97,9 @@ func (c *ApiService) CreateTrunk(params *CreateTrunkParams) (*TrunkingV1Trunk, e
 	}
 	if params != nil && params.Secure != nil {
 		data.Set("Secure", fmt.Sprint(*params.Secure))
+	}
+	if params != nil && params.TransferCallerId != nil {
+		data.Set("TransferCallerId", *params.TransferCallerId)
 	}
 	if params != nil && params.TransferMode != nil {
 		data.Set("TransferMode", *params.TransferMode)
@@ -297,6 +306,8 @@ type UpdateTrunkParams struct {
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// Whether Secure Trunking is enabled for the trunk. If enabled, all calls going through the trunk will be secure using SRTP for media and TLS for signaling. If disabled, then RTP will be used for media. See [Secure Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more information.
 	Secure *bool `json:"Secure,omitempty"`
+	// Caller Id for transfer target. Can be: `from-transferee` (default) or `from-transferor`.
+	TransferCallerId *string `json:"TransferCallerId,omitempty"`
 	// The call transfer settings for the trunk. Can be: `enable-all`, `sip-only` and `disable-all`. See [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more information.
 	TransferMode *string `json:"TransferMode,omitempty"`
 }
@@ -323,6 +334,10 @@ func (params *UpdateTrunkParams) SetFriendlyName(FriendlyName string) *UpdateTru
 }
 func (params *UpdateTrunkParams) SetSecure(Secure bool) *UpdateTrunkParams {
 	params.Secure = &Secure
+	return params
+}
+func (params *UpdateTrunkParams) SetTransferCallerId(TransferCallerId string) *UpdateTrunkParams {
+	params.TransferCallerId = &TransferCallerId
 	return params
 }
 func (params *UpdateTrunkParams) SetTransferMode(TransferMode string) *UpdateTrunkParams {
@@ -354,6 +369,9 @@ func (c *ApiService) UpdateTrunk(Sid string, params *UpdateTrunkParams) (*Trunki
 	}
 	if params != nil && params.Secure != nil {
 		data.Set("Secure", fmt.Sprint(*params.Secure))
+	}
+	if params != nil && params.TransferCallerId != nil {
+		data.Set("TransferCallerId", *params.TransferCallerId)
 	}
 	if params != nil && params.TransferMode != nil {
 		data.Set("TransferMode", *params.TransferMode)

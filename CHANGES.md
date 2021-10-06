@@ -1,5 +1,41 @@
 twilio-go changelog
 ====================
+[2021-10-06] Version 0.16.0
+---------------------------
+**Library - Fix**
+- [PR #121](https://github.com/twilio/twilio-go/pull/121): parameter casing with numbers. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Api**
+- Add `emergency_address_status` attribute to `/IncomingPhoneNumbers` response.
+- Add `siprec` resource
+
+**Conversations**
+- Added attachment parameters in configuration for `NewMessage` type of push notifications
+
+**Flex**
+- Adding `flex_insights_hr` object to Flex Configuration
+
+**Numbers**
+- Add API endpoint for Bundle ReplaceItems resource
+- Add API endpoint for Bundle Copies resource
+
+**Serverless**
+- Add domain_base field to Service response
+
+**Taskrouter**
+- Add `If-Match` Header based on ETag for Worker Delete **(breaking change)**
+- Add `If-Match` Header based on Etag for Reservation Update
+- Add `If-Match` Header based on ETag for Worker Update
+- Add `If-Match` Header based on ETag for Worker Delete
+- Add `ETag` as Response Header to Worker
+
+**Trunking**
+- Added `transfer_caller_id` property on Trunks.
+
+**Verify**
+- Document new pilot `whatsapp` channel.
+
+
 [2021-09-22] Version 0.15.0
 ---------------------------
 **Library - Feature**

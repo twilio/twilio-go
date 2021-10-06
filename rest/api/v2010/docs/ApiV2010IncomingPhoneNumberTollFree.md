@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was created |
 **DateUpdated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was last updated |
 **EmergencyAddressSid** | Pointer to **string** | The emergency address configuration to use for emergency calling |
-**EmergencyStatus** | Pointer to **string** | Whether the phone number is enabled for emergency calling |
+**EmergencyStatus** | Pointer to **string** | Displays if emergency calling is enabled for this number. |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
 **IdentitySid** | Pointer to **string** | The SID of the Identity resource associated with number |
 **Origin** | Pointer to **string** | The phone number's origin. Can be twilio or hosted. |

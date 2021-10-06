@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.3
+ * API version: 1.21.0
  * Contact: support@twilio.com
  */
 
@@ -45,6 +45,8 @@ type TrunkingV1Trunk struct {
 	Secure *bool `json:"secure,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
+	// Caller Id for transfer target
+	TransferCallerId *string `json:"transfer_caller_id,omitempty"`
 	// The call transfer settings for the trunk
 	TransferMode *string `json:"transfer_mode,omitempty"`
 	// The absolute URL of the resource

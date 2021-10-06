@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the Account that created the Service resource |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the Service resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the Service resource was last updated |
+**DomainBase** | Pointer to **string** | The base domain name for this Service, which is a combination of the unique name and a randomly generated string |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the Service resource |
 **IncludeCredentials** | Pointer to **bool** | Whether to inject Account credentials into a function invocation context |
 **Links** | Pointer to **map[string]interface{}** | The URLs of the Service's nested resources |

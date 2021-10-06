@@ -57,7 +57,7 @@ Name | Type | Description
 
 ## DeleteWorker
 
-> DeleteWorker(ctx, WorkspaceSidSid)
+> DeleteWorker(ctx, WorkspaceSidSidoptional)
 
 
 
@@ -77,6 +77,7 @@ Other parameters are passed through a pointer to a DeleteWorkerParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**IfMatch** | **string** | The If-Match HTTP request header
 
 ### Return type
 
@@ -208,10 +209,11 @@ Other parameters are passed through a pointer to a UpdateWorkerParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**IfMatch** | **string** | The If-Match HTTP request header
 **ActivitySid** | **string** | The SID of a valid Activity that will describe the Worker&#39;s initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
 **Attributes** | **string** | The JSON string that describes the Worker. For example: &#x60;{ \\\&quot;email\\\&quot;: \\\&quot;Bob@example.com\\\&quot;, \\\&quot;phone\\\&quot;: \\\&quot;+5095551234\\\&quot; }&#x60;. This data is passed to the &#x60;assignment_callback_url&#x60; when TaskRouter assigns a Task to the Worker. Defaults to {}.
 **FriendlyName** | **string** | A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
-**RejectPendingReservations** | **bool** | Whether to reject pending reservations.
+**RejectPendingReservations** | **bool** | Whether to reject the Worker&#39;s pending reservations. This option is only valid if the Worker&#39;s new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its &#x60;availability&#x60; property set to &#x60;False&#x60;.
 
 ### Return type
 

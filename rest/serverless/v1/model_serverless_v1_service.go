@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.3
+ * API version: 1.21.0
  * Contact: support@twilio.com
  */
 
@@ -23,6 +23,8 @@ type ServerlessV1Service struct {
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the Service resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The base domain name for this Service, which is a combination of the unique name and a randomly generated string
+	DomainBase *string `json:"domain_base,omitempty"`
 	// The string that you assigned to describe the Service resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// Whether to inject Account credentials into a function invocation context

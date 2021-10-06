@@ -25,20 +25,20 @@ Other parameters are passed through a pointer to a ListCallSummariesParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**From** | **[]string** | 
-**To** | **[]string** | 
-**FromCarrier** | **[]string** | 
-**ToCarrier** | **[]string** | 
-**FromCountryCode** | **[]string** | 
-**ToCountryCode** | **[]string** | 
+**From** | **string** | 
+**To** | **string** | 
+**FromCarrier** | **string** | 
+**ToCarrier** | **string** | 
+**FromCountryCode** | **string** | 
+**ToCountryCode** | **string** | 
 **Branded** | **bool** | 
 **VerifiedCaller** | **bool** | 
 **HasTag** | **bool** | 
 **StartTime** | **string** | 
 **EndTime** | **string** | 
-**CallType** | **[]string** | 
-**CallState** | **[]string** | 
-**Direction** | **[]string** | 
+**CallType** | **string** | 
+**CallState** | **string** | 
+**Direction** | **string** | 
 **ProcessingState** | **string** | 
 **SortBy** | **string** | 
 **Subaccount** | **string** | 

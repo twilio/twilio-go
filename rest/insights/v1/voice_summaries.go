@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.3
+ * API version: 1.21.0
  * Contact: support@twilio.com
  */
 
@@ -22,17 +22,17 @@ import (
 // Optional parameters for the method 'ListCallSummaries'
 type ListCallSummariesParams struct {
 	//
-	From *[]string `json:"From,omitempty"`
+	From *string `json:"From,omitempty"`
 	//
-	To *[]string `json:"To,omitempty"`
+	To *string `json:"To,omitempty"`
 	//
-	FromCarrier *[]string `json:"FromCarrier,omitempty"`
+	FromCarrier *string `json:"FromCarrier,omitempty"`
 	//
-	ToCarrier *[]string `json:"ToCarrier,omitempty"`
+	ToCarrier *string `json:"ToCarrier,omitempty"`
 	//
-	FromCountryCode *[]string `json:"FromCountryCode,omitempty"`
+	FromCountryCode *string `json:"FromCountryCode,omitempty"`
 	//
-	ToCountryCode *[]string `json:"ToCountryCode,omitempty"`
+	ToCountryCode *string `json:"ToCountryCode,omitempty"`
 	//
 	Branded *bool `json:"Branded,omitempty"`
 	//
@@ -44,11 +44,11 @@ type ListCallSummariesParams struct {
 	//
 	EndTime *string `json:"EndTime,omitempty"`
 	//
-	CallType *[]string `json:"CallType,omitempty"`
+	CallType *string `json:"CallType,omitempty"`
 	//
-	CallState *[]string `json:"CallState,omitempty"`
+	CallState *string `json:"CallState,omitempty"`
 	//
-	Direction *[]string `json:"Direction,omitempty"`
+	Direction *string `json:"Direction,omitempty"`
 	//
 	ProcessingState *string `json:"ProcessingState,omitempty"`
 	//
@@ -63,27 +63,27 @@ type ListCallSummariesParams struct {
 	Limit *int `json:"limit,omitempty"`
 }
 
-func (params *ListCallSummariesParams) SetFrom(From []string) *ListCallSummariesParams {
+func (params *ListCallSummariesParams) SetFrom(From string) *ListCallSummariesParams {
 	params.From = &From
 	return params
 }
-func (params *ListCallSummariesParams) SetTo(To []string) *ListCallSummariesParams {
+func (params *ListCallSummariesParams) SetTo(To string) *ListCallSummariesParams {
 	params.To = &To
 	return params
 }
-func (params *ListCallSummariesParams) SetFromCarrier(FromCarrier []string) *ListCallSummariesParams {
+func (params *ListCallSummariesParams) SetFromCarrier(FromCarrier string) *ListCallSummariesParams {
 	params.FromCarrier = &FromCarrier
 	return params
 }
-func (params *ListCallSummariesParams) SetToCarrier(ToCarrier []string) *ListCallSummariesParams {
+func (params *ListCallSummariesParams) SetToCarrier(ToCarrier string) *ListCallSummariesParams {
 	params.ToCarrier = &ToCarrier
 	return params
 }
-func (params *ListCallSummariesParams) SetFromCountryCode(FromCountryCode []string) *ListCallSummariesParams {
+func (params *ListCallSummariesParams) SetFromCountryCode(FromCountryCode string) *ListCallSummariesParams {
 	params.FromCountryCode = &FromCountryCode
 	return params
 }
-func (params *ListCallSummariesParams) SetToCountryCode(ToCountryCode []string) *ListCallSummariesParams {
+func (params *ListCallSummariesParams) SetToCountryCode(ToCountryCode string) *ListCallSummariesParams {
 	params.ToCountryCode = &ToCountryCode
 	return params
 }
@@ -107,15 +107,15 @@ func (params *ListCallSummariesParams) SetEndTime(EndTime string) *ListCallSumma
 	params.EndTime = &EndTime
 	return params
 }
-func (params *ListCallSummariesParams) SetCallType(CallType []string) *ListCallSummariesParams {
+func (params *ListCallSummariesParams) SetCallType(CallType string) *ListCallSummariesParams {
 	params.CallType = &CallType
 	return params
 }
-func (params *ListCallSummariesParams) SetCallState(CallState []string) *ListCallSummariesParams {
+func (params *ListCallSummariesParams) SetCallState(CallState string) *ListCallSummariesParams {
 	params.CallState = &CallState
 	return params
 }
-func (params *ListCallSummariesParams) SetDirection(Direction []string) *ListCallSummariesParams {
+func (params *ListCallSummariesParams) SetDirection(Direction string) *ListCallSummariesParams {
 	params.Direction = &Direction
 	return params
 }
@@ -152,34 +152,22 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 	headers := make(map[string]interface{})
 
 	if params != nil && params.From != nil {
-		for _, item := range *params.From {
-			data.Add("From", item)
-		}
+		data.Set("From", *params.From)
 	}
 	if params != nil && params.To != nil {
-		for _, item := range *params.To {
-			data.Add("To", item)
-		}
+		data.Set("To", *params.To)
 	}
 	if params != nil && params.FromCarrier != nil {
-		for _, item := range *params.FromCarrier {
-			data.Add("FromCarrier", item)
-		}
+		data.Set("FromCarrier", *params.FromCarrier)
 	}
 	if params != nil && params.ToCarrier != nil {
-		for _, item := range *params.ToCarrier {
-			data.Add("ToCarrier", item)
-		}
+		data.Set("ToCarrier", *params.ToCarrier)
 	}
 	if params != nil && params.FromCountryCode != nil {
-		for _, item := range *params.FromCountryCode {
-			data.Add("FromCountryCode", item)
-		}
+		data.Set("FromCountryCode", *params.FromCountryCode)
 	}
 	if params != nil && params.ToCountryCode != nil {
-		for _, item := range *params.ToCountryCode {
-			data.Add("ToCountryCode", item)
-		}
+		data.Set("ToCountryCode", *params.ToCountryCode)
 	}
 	if params != nil && params.Branded != nil {
 		data.Set("Branded", fmt.Sprint(*params.Branded))
@@ -197,19 +185,13 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 		data.Set("EndTime", *params.EndTime)
 	}
 	if params != nil && params.CallType != nil {
-		for _, item := range *params.CallType {
-			data.Add("CallType", item)
-		}
+		data.Set("CallType", *params.CallType)
 	}
 	if params != nil && params.CallState != nil {
-		for _, item := range *params.CallState {
-			data.Add("CallState", item)
-		}
+		data.Set("CallState", *params.CallState)
 	}
 	if params != nil && params.Direction != nil {
-		for _, item := range *params.Direction {
-			data.Add("Direction", item)
-		}
+		data.Set("Direction", *params.Direction)
 	}
 	if params != nil && params.ProcessingState != nil {
 		data.Set("ProcessingState", *params.ProcessingState)

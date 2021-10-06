@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.3
+ * API version: 1.21.0
  * Contact: support@twilio.com
  */
 
@@ -60,6 +60,10 @@ type UpdateServiceNotificationParams struct {
 	NewMessageSound *string `json:"NewMessage.Sound,omitempty"`
 	// The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
 	NewMessageTemplate *string `json:"NewMessage.Template,omitempty"`
+	// Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
+	NewMessageWithMediaEnabled *bool `json:"NewMessage.WithMedia.Enabled,omitempty"`
+	// The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
+	NewMessageWithMediaTemplate *string `json:"NewMessage.WithMedia.Template,omitempty"`
 	// Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
 	RemovedFromConversationEnabled *bool `json:"RemovedFromConversation.Enabled,omitempty"`
 	// The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
@@ -98,6 +102,14 @@ func (params *UpdateServiceNotificationParams) SetNewMessageSound(NewMessageSoun
 }
 func (params *UpdateServiceNotificationParams) SetNewMessageTemplate(NewMessageTemplate string) *UpdateServiceNotificationParams {
 	params.NewMessageTemplate = &NewMessageTemplate
+	return params
+}
+func (params *UpdateServiceNotificationParams) SetNewMessageWithMediaEnabled(NewMessageWithMediaEnabled bool) *UpdateServiceNotificationParams {
+	params.NewMessageWithMediaEnabled = &NewMessageWithMediaEnabled
+	return params
+}
+func (params *UpdateServiceNotificationParams) SetNewMessageWithMediaTemplate(NewMessageWithMediaTemplate string) *UpdateServiceNotificationParams {
+	params.NewMessageWithMediaTemplate = &NewMessageWithMediaTemplate
 	return params
 }
 func (params *UpdateServiceNotificationParams) SetRemovedFromConversationEnabled(RemovedFromConversationEnabled bool) *UpdateServiceNotificationParams {
@@ -144,6 +156,12 @@ func (c *ApiService) UpdateServiceNotification(ChatServiceSid string, params *Up
 	}
 	if params != nil && params.NewMessageTemplate != nil {
 		data.Set("NewMessage.Template", *params.NewMessageTemplate)
+	}
+	if params != nil && params.NewMessageWithMediaEnabled != nil {
+		data.Set("NewMessage.WithMedia.Enabled", fmt.Sprint(*params.NewMessageWithMediaEnabled))
+	}
+	if params != nil && params.NewMessageWithMediaTemplate != nil {
+		data.Set("NewMessage.WithMedia.Template", *params.NewMessageWithMediaTemplate)
 	}
 	if params != nil && params.RemovedFromConversationEnabled != nil {
 		data.Set("RemovedFromConversation.Enabled", fmt.Sprint(*params.RemovedFromConversationEnabled))

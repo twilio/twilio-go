@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.3
+ * API version: 1.21.0
  * Contact: support@twilio.com
  */
 
@@ -192,6 +192,8 @@ func (c *ApiService) getNextListWorkerReservationResponse(nextPageUrl string) (i
 
 // Optional parameters for the method 'UpdateWorkerReservation'
 type UpdateWorkerReservationParams struct {
+	// The If-Match HTTP request header
+	IfMatch *string `json:"If-Match,omitempty"`
 	// Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
 	Beep *string `json:"Beep,omitempty"`
 	// Whether to play a notification beep when the customer joins.
@@ -296,6 +298,10 @@ type UpdateWorkerReservationParams struct {
 	WorkerActivitySid *string `json:"WorkerActivitySid,omitempty"`
 }
 
+func (params *UpdateWorkerReservationParams) SetIfMatch(IfMatch string) *UpdateWorkerReservationParams {
+	params.IfMatch = &IfMatch
+	return params
+}
 func (params *UpdateWorkerReservationParams) SetBeep(Beep string) *UpdateWorkerReservationParams {
 	params.Beep = &Beep
 	return params
@@ -668,6 +674,10 @@ func (c *ApiService) UpdateWorkerReservation(WorkspaceSid string, WorkerSid stri
 	}
 	if params != nil && params.WorkerActivitySid != nil {
 		data.Set("WorkerActivitySid", *params.WorkerActivitySid)
+	}
+
+	if params != nil && params.IfMatch != nil {
+		headers["If-Match"] = *params.IfMatch
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.20.3
+ * API version: 1.21.0
  * Contact: support@twilio.com
  */
 
@@ -41,6 +41,8 @@ type FlexV1Configuration struct {
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the Configuration resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// Object that controls workspace reporting
+	FlexInsightsHr *map[string]interface{} `json:"flex_insights_hr,omitempty"`
 	// The SID of the Flex service instance
 	FlexServiceInstanceSid *string `json:"flex_service_instance_sid,omitempty"`
 	// A list of objects that contain the configurations for the Integrations supported in this configuration
