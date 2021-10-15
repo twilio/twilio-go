@@ -372,6 +372,32 @@ func TestTaskRouterGrant(t *testing.T) {
 	assert.Equal(t, "worker", taskRouterGrantDecoded["role"])
 }
 
+func TestPlaybackGrant(t *testing.T) {
+	accessToken := CreateAccessToken(Params)
+	accessToken.AddGrant(&PlaybackGrant{
+		"requestCredentials": nil,
+		"playbackUrl": "https://000.us-east-1.playback.live-video.net/api/video/v1/us-east-000.channel.000?token=xxxxx",
+		"playerStreamerSid": "VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+	})
+
+	token, err := accessToken.ToJwt()
+	assert.Nil(t, err)
+	assert.NotNil(t, token)
+
+	decodedToken, err := accessToken.FromJwt(token, "secret")
+	assert.Nil(t, err)
+	assert.NotNil(t, decodedToken)
+	assert.Len(t, decodedToken.Grants, 1)
+	payload := decodedToken.Payload()
+	assert.Len(t, payload["grants"], 1)
+
+	playbackGrantDecoded := payload["grants"].(map[string]interface{})["player"].(map[string]interface{})
+	assert.NotNil(t, playbackGrantDecoded)
+	assert.Equal(t, nil, playbackGrantDecoded["requestCredentials"])
+	assert.Equal(t, "https://000.us-east-1.playback.live-video.net/api/video/v1/us-east-000.channel.000?token=xxxxx", playbackGrantDecoded["playbackUrl"])
+	assert.Equal(t, "VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", playbackGrantDecoded["playerStreamerSid"])
+}
+
 func TestMultipleGrants(t *testing.T) {
 	accessToken := CreateAccessToken(Params)
 	accessToken.AddGrant(&TaskRouterGrant{
@@ -452,4 +478,7 @@ func TestGrantsToString(t *testing.T) {
 
 	videoGrant := &VideoGrant{}
 	assert.True(t, strings.HasPrefix(videoGrant.ToString(), "<VideoGrant"))
+
+	playbackGrant := &PlaybackGrant{}
+	assert.True(t, strings.HasPrefix(playbackGrant.ToString(), "<PlaybackGrant"))
 }

@@ -169,6 +169,8 @@ func decodeGrants(grants interface{}) []BaseGrant {
 				grant = &VideoGrant{}
 			case "voice":
 				grant = &VoiceGrant{}
+			case "player":
+				grant = &PlaybackGrant{}
 			}
 
 			if errJson := json.Unmarshal(data, &grant); errJson == nil {
