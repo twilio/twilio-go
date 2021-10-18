@@ -376,8 +376,8 @@ func TestPlaybackGrant(t *testing.T) {
 	accessToken := CreateAccessToken(Params)
 	accessToken.AddGrant(&PlaybackGrant{
 		"requestCredentials": nil,
-		"playbackUrl": "https://000.us-east-1.playback.live-video.net/api/video/v1/us-east-000.channel.000?token=xxxxx",
-		"playerStreamerSid": "VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+		"playbackUrl":        "https://000.us-east-1.playback.live-video.net/api/video/v1/us-east-000.channel.000?token=xxxxx",
+		"playerStreamerSid":  "VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
 	})
 
 	token, err := accessToken.ToJwt()

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was created |
 **DateUpdated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was last updated |
 **EmergencyAddressSid** | Pointer to **string** | The emergency address configuration to use for emergency calling |
+**EmergencyAddressStatus** | Pointer to **string** | State of the emergency address configuration for the phone number |
 **EmergencyStatus** | Pointer to **string** | Displays if emergency calling is enabled for this number. |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
 **IdentitySid** | Pointer to **string** | The SID of the Identity resource associated with number |

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.21.0
+ * API version: 1.22.0
  * Contact: support@twilio.com
  */
 
@@ -24,6 +24,8 @@ import (
 
 // Optional parameters for the method 'CreateRoom'
 type CreateRoomParams struct {
+	// When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+	AudioOnly *bool `json:"AudioOnly,omitempty"`
 	// Deprecated, now always considered to be true.
 	EnableTurn *bool `json:"EnableTurn,omitempty"`
 	// The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
@@ -46,6 +48,10 @@ type CreateRoomParams struct {
 	VideoCodecs *[]string `json:"VideoCodecs,omitempty"`
 }
 
+func (params *CreateRoomParams) SetAudioOnly(AudioOnly bool) *CreateRoomParams {
+	params.AudioOnly = &AudioOnly
+	return params
+}
 func (params *CreateRoomParams) SetEnableTurn(EnableTurn bool) *CreateRoomParams {
 	params.EnableTurn = &EnableTurn
 	return params
@@ -93,6 +99,9 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.AudioOnly != nil {
+		data.Set("AudioOnly", fmt.Sprint(*params.AudioOnly))
+	}
 	if params != nil && params.EnableTurn != nil {
 		data.Set("EnableTurn", fmt.Sprint(*params.EnableTurn))
 	}

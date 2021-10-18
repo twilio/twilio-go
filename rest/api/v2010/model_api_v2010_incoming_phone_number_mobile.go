@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.21.0
+ * API version: 1.22.0
  * Contact: support@twilio.com
  */
 
@@ -32,6 +32,8 @@ type ApiV2010IncomingPhoneNumberMobile struct {
 	DateUpdated *string `json:"date_updated,omitempty"`
 	// The emergency address configuration to use for emergency calling
 	EmergencyAddressSid *string `json:"emergency_address_sid,omitempty"`
+	// State of the emergency address configuration for the phone number
+	EmergencyAddressStatus *string `json:"emergency_address_status,omitempty"`
 	// Displays if emergency calling is enabled for this number.
 	EmergencyStatus *string `json:"emergency_status,omitempty"`
 	// The string that you assigned to describe the resource

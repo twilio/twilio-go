@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.21.0
+ * API version: 1.22.0
  * Contact: support@twilio.com
  */
 
@@ -55,8 +55,12 @@ type MessagingV1Service struct {
 	SynchronousValidation *bool `json:"synchronous_validation,omitempty"`
 	// The absolute URL of the Service resource
 	Url *string `json:"url,omitempty"`
+	// Whether US A2P campaign is registered for this Service.
+	UsAppToPersonRegistered *bool `json:"us_app_to_person_registered,omitempty"`
 	// If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received.
 	UseInboundWebhookOnNumber *bool `json:"use_inbound_webhook_on_number,omitempty"`
+	// A string describing the scenario in which the Messaging Service will be used
+	Usecase *string `json:"usecase,omitempty"`
 	// How long, in seconds, messages sent from the Service are valid
 	ValidityPeriod *int `json:"validity_period,omitempty"`
 }

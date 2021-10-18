@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.21.0
+ * API version: 1.22.0
  * Contact: support@twilio.com
  */
 
@@ -51,6 +51,8 @@ type CreateServiceParams struct {
 	SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
 	// A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 	UseInboundWebhookOnNumber *bool `json:"UseInboundWebhookOnNumber,omitempty"`
+	// A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..].
+	Usecase *string `json:"Usecase,omitempty"`
 	// How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
 	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`
 }
@@ -111,6 +113,10 @@ func (params *CreateServiceParams) SetUseInboundWebhookOnNumber(UseInboundWebhoo
 	params.UseInboundWebhookOnNumber = &UseInboundWebhookOnNumber
 	return params
 }
+func (params *CreateServiceParams) SetUsecase(Usecase string) *CreateServiceParams {
+	params.Usecase = &Usecase
+	return params
+}
 func (params *CreateServiceParams) SetValidityPeriod(ValidityPeriod int) *CreateServiceParams {
 	params.ValidityPeriod = &ValidityPeriod
 	return params
@@ -163,6 +169,9 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*MessagingV1Ser
 	}
 	if params != nil && params.UseInboundWebhookOnNumber != nil {
 		data.Set("UseInboundWebhookOnNumber", fmt.Sprint(*params.UseInboundWebhookOnNumber))
+	}
+	if params != nil && params.Usecase != nil {
+		data.Set("Usecase", *params.Usecase)
 	}
 	if params != nil && params.ValidityPeriod != nil {
 		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))
@@ -385,6 +394,8 @@ type UpdateServiceParams struct {
 	SynchronousValidation *bool `json:"SynchronousValidation,omitempty"`
 	// A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
 	UseInboundWebhookOnNumber *bool `json:"UseInboundWebhookOnNumber,omitempty"`
+	// A string that describes the scenario in which the Messaging Service will be used. Examples: [notification, marketing, verification, poll ..]
+	Usecase *string `json:"Usecase,omitempty"`
 	// How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
 	ValidityPeriod *int `json:"ValidityPeriod,omitempty"`
 }
@@ -445,6 +456,10 @@ func (params *UpdateServiceParams) SetUseInboundWebhookOnNumber(UseInboundWebhoo
 	params.UseInboundWebhookOnNumber = &UseInboundWebhookOnNumber
 	return params
 }
+func (params *UpdateServiceParams) SetUsecase(Usecase string) *UpdateServiceParams {
+	params.Usecase = &Usecase
+	return params
+}
 func (params *UpdateServiceParams) SetValidityPeriod(ValidityPeriod int) *UpdateServiceParams {
 	params.ValidityPeriod = &ValidityPeriod
 	return params
@@ -498,6 +513,9 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Me
 	}
 	if params != nil && params.UseInboundWebhookOnNumber != nil {
 		data.Set("UseInboundWebhookOnNumber", fmt.Sprint(*params.UseInboundWebhookOnNumber))
+	}
+	if params != nil && params.Usecase != nil {
+		data.Set("Usecase", *params.Usecase)
 	}
 	if params != nil && params.ValidityPeriod != nil {
 		data.Set("ValidityPeriod", fmt.Sprint(*params.ValidityPeriod))

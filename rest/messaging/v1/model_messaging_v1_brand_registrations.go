@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.21.0
+ * API version: 1.22.0
  * Contact: support@twilio.com
  */
 
@@ -21,6 +21,8 @@ type MessagingV1BrandRegistrations struct {
 	A2pProfileBundleSid *string `json:"a2p_profile_bundle_sid,omitempty"`
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
+	// Brand feedback
+	BrandFeedback *[]string `json:"brand_feedback,omitempty"`
 	// Brand score
 	BrandScore *int `json:"brand_score,omitempty"`
 	// Type of brand. One of: \"STANDARD\", \"STARTER\".
@@ -34,7 +36,8 @@ type MessagingV1BrandRegistrations struct {
 	// A reason why brand registration has failed
 	FailureReason *string `json:"failure_reason,omitempty"`
 	// Identity Status
-	IdentityStatus *string `json:"identity_status,omitempty"`
+	IdentityStatus *string                 `json:"identity_status,omitempty"`
+	Links          *map[string]interface{} `json:"links,omitempty"`
 	// A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
 	Mock *bool `json:"mock,omitempty"`
 	// Russell 3000

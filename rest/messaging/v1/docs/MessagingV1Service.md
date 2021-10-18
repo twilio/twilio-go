@@ -23,7 +23,9 @@ Name | Type | Description | Notes
 **StickySender** | Pointer to **bool** | Whether to enable Sticky Sender on the Service instance |
 **SynchronousValidation** | Pointer to **bool** | Reserved |
 **Url** | Pointer to **string** | The absolute URL of the Service resource |
+**UsAppToPersonRegistered** | Pointer to **bool** | Whether US A2P campaign is registered for this Service. |
 **UseInboundWebhookOnNumber** | Pointer to **bool** | If enabled, the webhook url configured on the phone number will be used and will override the `inbound_request_url`/`fallback_url` url called when an inbound message is received. |
+**Usecase** | Pointer to **string** | A string describing the scenario in which the Messaging Service will be used |
 **ValidityPeriod** | Pointer to **int** | How long, in seconds, messages sent from the Service are valid |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
