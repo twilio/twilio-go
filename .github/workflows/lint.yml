@@ -1,7 +1,11 @@
-name: golangci-lint
-on: [pull_request]
+name: Run linter
+on:
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ main ]
 jobs:
-  golangci-lint:
+  lint:
     name: lint
     runs-on: ubuntu-latest
     steps:
@@ -10,8 +14,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v2.5.2
+        uses: golangci/golangci-lint-action@v2
         with:
           version: latest
-          github-token: ${{ secrets.github_token }}
           only-new-issues: true
