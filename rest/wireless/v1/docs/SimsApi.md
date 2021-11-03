@@ -177,10 +177,10 @@ Name | Type | Description
 **SmsUrl** | **string** | The URL we should call using the &#x60;sms_method&#x60; when the SIM-connected device sends an SMS message that is not a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
 **Status** | **string** | The new status of the Sim resource. Can be: &#x60;ready&#x60;, &#x60;active&#x60;, &#x60;suspended&#x60;, or &#x60;deactivated&#x60;.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used in place of the &#x60;sid&#x60; in the URL path to address the resource.
-**VoiceFallbackMethod** | **string** | The HTTP method we should use to call &#x60;voice_fallback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
-**VoiceFallbackUrl** | **string** | The URL we should call using the &#x60;voice_fallback_method&#x60; when an error occurs while retrieving or executing the TwiML requested from &#x60;voice_url&#x60;.
-**VoiceMethod** | **string** | The HTTP method we should use when we call &#x60;voice_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60;.
-**VoiceUrl** | **string** | The URL we should call using the &#x60;voice_method&#x60; when the SIM-connected device makes a voice call.
+**VoiceFallbackMethod** | **string** | Deprecated.
+**VoiceFallbackUrl** | **string** | Deprecated.
+**VoiceMethod** | **string** | Deprecated.
+**VoiceUrl** | **string** | Deprecated.
 
 ### Return type
 

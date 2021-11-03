@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.22.0
+ * API version: 1.23.0
  * Contact: support@twilio.com
  */
 
@@ -37,7 +37,7 @@ type CreateNewFactorParams struct {
 	ConfigCodeLength *int `json:"Config.CodeLength,omitempty"`
 	// The transport technology used to generate the Notification Token. Can be `apn` or `fcm`.  Required when `factor_type` is `push`.
 	ConfigNotificationPlatform *string `json:"Config.NotificationPlatform,omitempty"`
-	// For APN, the device token. For FCM the registration token. It used to send the push notifications. Must be between 32 and 255 characters long.  Required when `factor_type` is `push`.
+	// For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Must be between 32 and 255 characters long.  Required when `factor_type` is `push`.
 	ConfigNotificationToken *string `json:"Config.NotificationToken,omitempty"`
 	// The Verify Push SDK version used to configure the factor  Required when `factor_type` is `push`
 	ConfigSdkVersion *string `json:"Config.SdkVersion,omitempty"`
@@ -357,7 +357,7 @@ type UpdateFactorParams struct {
 	ConfigAlg *string `json:"Config.Alg,omitempty"`
 	// Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
 	ConfigCodeLength *int `json:"Config.CodeLength,omitempty"`
-	// For APN, the device token. For FCM the registration token. It used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
+	// For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
 	ConfigNotificationToken *string `json:"Config.NotificationToken,omitempty"`
 	// The Verify Push SDK version used to configure the factor
 	ConfigSdkVersion *string `json:"Config.SdkVersion,omitempty"`

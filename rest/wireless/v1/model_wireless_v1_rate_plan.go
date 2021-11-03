@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.22.0
+ * API version: 1.23.0
  * Contact: support@twilio.com
  */
 
@@ -47,6 +47,6 @@ type WirelessV1RatePlan struct {
 	UniqueName *string `json:"unique_name,omitempty"`
 	// The absolute URL of the resource
 	Url *string `json:"url,omitempty"`
-	// Whether SIMs can make and receive voice calls
+	// Deprecated. Whether SIMs can make and receive voice calls
 	VoiceEnabled *bool `json:"voice_enabled,omitempty"`
 }

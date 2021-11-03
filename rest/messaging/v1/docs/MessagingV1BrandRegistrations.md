@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **Russell3000** | Pointer to **bool** | Russell 3000 |
 **Sid** | Pointer to **string** | A2P BrandRegistration Sid |
 **SkipAutomaticSecVet** | Pointer to **bool** | Skip Automatic Secondary Vetting |
-**Status** | Pointer to **string** | Brand Registration status |
+**Status** | Pointer to **string** | Brand Registration status. |
 **TaxExemptStatus** | Pointer to **string** | Tax Exempt Status |
 **TcrId** | Pointer to **string** | Campaign Registry (TCR) Brand ID |
 **Url** | Pointer to **string** | The absolute URL of the Brand Registration |

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.22.0
+ * API version: 1.23.0
  * Contact: support@twilio.com
  */
 
@@ -43,13 +43,13 @@ type WirelessV1Sim struct {
 	ResetStatus *string `json:"reset_status,omitempty"`
 	// The unique string that identifies the Sim resource
 	Sid *string `json:"sid,omitempty"`
-	// The HTTP method we use to call sms_fallback_url
+	// Deprecated. The HTTP method we use to call sms_fallback_url
 	SmsFallbackMethod *string `json:"sms_fallback_method,omitempty"`
-	// The URL we call when an error occurs while retrieving or executing the TwiML requested from the sms_url
+	// Deprecated. The URL we call when an error occurs while retrieving or executing the TwiML requested from the sms_url
 	SmsFallbackUrl *string `json:"sms_fallback_url,omitempty"`
-	// The HTTP method we use to call sms_url
+	// Deprecated. The HTTP method we use to call sms_url
 	SmsMethod *string `json:"sms_method,omitempty"`
-	// The URL we call when the SIM-connected device sends an SMS message that is not a Command
+	// Deprecated. The URL we call when the SIM-connected device sends an SMS message that is not a Command
 	SmsUrl *string `json:"sms_url,omitempty"`
 	// The status of the Sim resource
 	Status *string `json:"status,omitempty"`
@@ -57,12 +57,12 @@ type WirelessV1Sim struct {
 	UniqueName *string `json:"unique_name,omitempty"`
 	// The absolute URL of the resource
 	Url *string `json:"url,omitempty"`
-	// The HTTP method we use to call voice_fallback_url
+	// Deprecated. The HTTP method we use to call voice_fallback_url
 	VoiceFallbackMethod *string `json:"voice_fallback_method,omitempty"`
-	// The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url
+	// Deprecated. The URL we call when an error occurs while retrieving or executing the TwiML requested from voice_url
 	VoiceFallbackUrl *string `json:"voice_fallback_url,omitempty"`
-	// The HTTP method we use to call voice_url
+	// Deprecated. The HTTP method we use to call voice_url
 	VoiceMethod *string `json:"voice_method,omitempty"`
-	// The URL we call when the SIM-connected device makes a voice call
+	// Deprecated. The URL we call when the SIM-connected device makes a voice call
 	VoiceUrl *string `json:"voice_url,omitempty"`
 }

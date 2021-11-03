@@ -33,6 +33,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **CodeLength** | **int** | The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
 **CustomCodeEnabled** | **bool** | Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+**DefaultTemplateSid** | **string** | The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 **DoNotShareWarningEnabled** | **bool** | Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: &#x60;Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code&#x60;
 **DtmfInputRequired** | **bool** | Whether to ask the user to press a number before delivering the verify code in a phone call.
 **FriendlyName** | **string** | A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**
@@ -215,6 +216,7 @@ Name | Type | Description
 ------------- | ------------- | -------------
 **CodeLength** | **int** | The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
 **CustomCodeEnabled** | **bool** | Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+**DefaultTemplateSid** | **string** | The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
 **DoNotShareWarningEnabled** | **bool** | Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
 **DtmfInputRequired** | **bool** | Whether to ask the user to press a number before delivering the verify code in a phone call.
 **FriendlyName** | **string** | A descriptive string that you create to describe the verification service. It can be up to 30 characters long. **This value should not contain PII.**

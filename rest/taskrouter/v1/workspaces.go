@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.22.0
+ * API version: 1.23.0
  * Contact: support@twilio.com
  */
 
@@ -23,7 +23,7 @@ import (
 
 // Optional parameters for the method 'CreateWorkspace'
 type CreateWorkspaceParams struct {
-	// The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information.
+	// The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
 	EventCallbackUrl *string `json:"EventCallbackUrl,omitempty"`
 	// The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
 	EventsFilter *string `json:"EventsFilter,omitempty"`
@@ -287,7 +287,7 @@ func (c *ApiService) getNextListWorkspaceResponse(nextPageUrl string) (interface
 type UpdateWorkspaceParams struct {
 	// The SID of the Activity that will be used when new Workers are created in the Workspace.
 	DefaultActivitySid *string `json:"DefaultActivitySid,omitempty"`
-	// The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information.
+	// The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
 	EventCallbackUrl *string `json:"EventCallbackUrl,omitempty"`
 	// The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
 	EventsFilter *string `json:"EventsFilter,omitempty"`

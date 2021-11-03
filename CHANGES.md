@@ -1,5 +1,30 @@
 twilio-go changelog
 ====================
+[2021-11-03] Version 0.18.0
+---------------------------
+**Library - Fix**
+- [PR #125](https://github.com/twilio/twilio-go/pull/125): remove cluster test. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Library - Chore**
+- [PR #123](https://github.com/twilio/twilio-go/pull/123): migrate to github actions from travis ci. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Api**
+- Updated `media_url` property to be treated as PII
+
+**Messaging**
+- Added a new enum for brand registration status named DELETED **(breaking change)**
+- Add a new K12_EDUCATION use case in us_app_to_person_usecase api transaction
+- Added a new enum for brand registration status named IN_REVIEW
+
+**Serverless**
+- Add node14 as a valid Build runtime
+
+**Verify**
+- Fix typos in Verify Push Factor documentation for the `config.notification_token` parameter.
+- Added `TemplateCustomSubstitutions` on verification creation
+- Make `TemplateSid` parameter public for Verification resource and `DefaultTemplateSid` parameter public for Service resource. **(breaking change)**
+
+
 [2021-10-18] Version 0.17.0
 ---------------------------
 **Library - Feature**

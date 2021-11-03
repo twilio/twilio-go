@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.22.0
+ * API version: 1.23.0
  * Contact: support@twilio.com
  */
 
@@ -46,7 +46,7 @@ type MessagingV1BrandRegistrations struct {
 	Sid *string `json:"sid,omitempty"`
 	// Skip Automatic Secondary Vetting
 	SkipAutomaticSecVet *bool `json:"skip_automatic_sec_vet,omitempty"`
-	// Brand Registration status
+	// Brand Registration status.
 	Status *string `json:"status,omitempty"`
 	// Tax Exempt Status
 	TaxExemptStatus *string `json:"tax_exempt_status,omitempty"`

@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource |
 **Url** | Pointer to **string** | The absolute URL of the resource |
-**VoiceEnabled** | Pointer to **bool** | Whether SIMs can make and receive voice calls |
+**VoiceEnabled** | Pointer to **bool** | Deprecated. Whether SIMs can make and receive voice calls |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

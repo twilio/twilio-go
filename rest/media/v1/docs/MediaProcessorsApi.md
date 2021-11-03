@@ -28,7 +28,7 @@ Other parameters are passed through a pointer to a CreateMediaProcessorParams st
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Extension** | **string** | The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: &#x60;video-composer-v1-preview&#x60;
+**Extension** | **string** | The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: &#x60;video-composer-v1&#x60;
 **ExtensionContext** | **string** | The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
 **ExtensionEnvironment** | [**map[string]interface{}**](map[string]interface{}.md) | User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
 **StatusCallback** | **string** | The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
