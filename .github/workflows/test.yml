@@ -10,6 +10,20 @@ on:
   workflow_dispatch:
 
 jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
+          only-new-issues: true
+
   tests:
     name: Build & Test
     runs-on: ubuntu-latest
@@ -42,7 +56,7 @@ jobs:
   notify-on-failure:
     name: Slack notify on failure
     if: ${{ failure() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
-    needs: [ tests ]
+    needs: [ lint, tests ]
     runs-on: ubuntu-latest
     steps:
       - uses: rtCamp/action-slack-notify@v2
