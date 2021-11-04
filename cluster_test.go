@@ -78,39 +78,39 @@ func TestSpecialCharacters(t *testing.T) {
 	assert.Nil(t, err)
 }
 
-//func TestListParams(t *testing.T) {
-//	sinkConfig := map[string]interface{}{
-//		"destination":  "http://example.org/webhook",
-//		"method":       "post",
-//		"batch_events": false,
-//	}
-//	sinkParams := &EventsV1.CreateSinkParams{}
-//	sinkParams.SetSinkConfiguration(sinkConfig)
-//	sinkParams.SetDescription("test sink")
-//	sinkParams.SetSinkType("webhook")
-//	sink, err := testClient.EventsV1.CreateSink(sinkParams)
-//	assert.Nil(t, err)
-//	assert.NotNil(t, sink)
-//
-//	types := []map[string]interface{}{
-//		{
-//			"type": "com.twilio.messaging.message.delivered",
-//		},
-//		{
-//			"type": "com.twilio.messaging.message.sent",
-//		},
-//	}
-//	subscriptionsParams := &EventsV1.CreateSubscriptionParams{}
-//	subscriptionsParams.SetSinkSid(*sink.Sid)
-//	subscriptionsParams.SetTypes(types)
-//	subscriptionsParams.SetDescription("test subscription")
-//	subscription, err := testClient.EventsV1.CreateSubscription(subscriptionsParams)
-//	assert.Nil(t, err)
-//	assert.NotNil(t, subscription)
-//
-//	// Clean up the resources we've created
-//	err = testClient.EventsV1.DeleteSubscription(*subscription.Sid)
-//	assert.Nil(t, err)
-//	err = testClient.EventsV1.DeleteSink(*sink.Sid)
-//	assert.Nil(t, err)
-//}
+func TestListParams(t *testing.T) {
+	sinkConfig := map[string]interface{}{
+		"destination":  "http://example.org/webhook",
+		"method":       "post",
+		"batch_events": false,
+	}
+	sinkParams := &EventsV1.CreateSinkParams{}
+	sinkParams.SetSinkConfiguration(sinkConfig)
+	sinkParams.SetDescription("test sink")
+	sinkParams.SetSinkType("webhook")
+	sink, err := testClient.EventsV1.CreateSink(sinkParams)
+	assert.Nil(t, err)
+	assert.NotNil(t, sink)
+
+	types := []map[string]interface{}{
+		{
+			"type": "com.twilio.messaging.message.delivered",
+		},
+		{
+			"type": "com.twilio.messaging.message.sent",
+		},
+	}
+	subscriptionsParams := &EventsV1.CreateSubscriptionParams{}
+	subscriptionsParams.SetSinkSid(*sink.Sid)
+	subscriptionsParams.SetTypes(types)
+	subscriptionsParams.SetDescription("test subscription")
+	subscription, err := testClient.EventsV1.CreateSubscription(subscriptionsParams)
+	assert.Nil(t, err)
+	assert.NotNil(t, subscription)
+
+	// Clean up the resources we've created
+	err = testClient.EventsV1.DeleteSubscription(*subscription.Sid)
+	assert.Nil(t, err)
+	err = testClient.EventsV1.DeleteSink(*sink.Sid)
+	assert.Nil(t, err)
+}
