@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.22.0
+ * API version: 1.23.0
  * Contact: support@twilio.com
  */
 
@@ -27,6 +27,8 @@ type CreateServiceParams struct {
 	CodeLength *int `json:"CodeLength,omitempty"`
 	// Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
 	CustomCodeEnabled *bool `json:"CustomCodeEnabled,omitempty"`
+	// The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+	DefaultTemplateSid *string `json:"DefaultTemplateSid,omitempty"`
 	// Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
 	DoNotShareWarningEnabled *bool `json:"DoNotShareWarningEnabled,omitempty"`
 	// Whether to ask the user to press a number before delivering the verify code in a phone call.
@@ -63,6 +65,10 @@ func (params *CreateServiceParams) SetCodeLength(CodeLength int) *CreateServiceP
 }
 func (params *CreateServiceParams) SetCustomCodeEnabled(CustomCodeEnabled bool) *CreateServiceParams {
 	params.CustomCodeEnabled = &CustomCodeEnabled
+	return params
+}
+func (params *CreateServiceParams) SetDefaultTemplateSid(DefaultTemplateSid string) *CreateServiceParams {
+	params.DefaultTemplateSid = &DefaultTemplateSid
 	return params
 }
 func (params *CreateServiceParams) SetDoNotShareWarningEnabled(DoNotShareWarningEnabled bool) *CreateServiceParams {
@@ -134,6 +140,9 @@ func (c *ApiService) CreateService(params *CreateServiceParams) (*VerifyV2Servic
 	}
 	if params != nil && params.CustomCodeEnabled != nil {
 		data.Set("CustomCodeEnabled", fmt.Sprint(*params.CustomCodeEnabled))
+	}
+	if params != nil && params.DefaultTemplateSid != nil {
+		data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
 	}
 	if params != nil && params.DoNotShareWarningEnabled != nil {
 		data.Set("DoNotShareWarningEnabled", fmt.Sprint(*params.DoNotShareWarningEnabled))
@@ -373,6 +382,8 @@ type UpdateServiceParams struct {
 	CodeLength *int `json:"CodeLength,omitempty"`
 	// Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
 	CustomCodeEnabled *bool `json:"CustomCodeEnabled,omitempty"`
+	// The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+	DefaultTemplateSid *string `json:"DefaultTemplateSid,omitempty"`
 	// Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
 	DoNotShareWarningEnabled *bool `json:"DoNotShareWarningEnabled,omitempty"`
 	// Whether to ask the user to press a number before delivering the verify code in a phone call.
@@ -409,6 +420,10 @@ func (params *UpdateServiceParams) SetCodeLength(CodeLength int) *UpdateServiceP
 }
 func (params *UpdateServiceParams) SetCustomCodeEnabled(CustomCodeEnabled bool) *UpdateServiceParams {
 	params.CustomCodeEnabled = &CustomCodeEnabled
+	return params
+}
+func (params *UpdateServiceParams) SetDefaultTemplateSid(DefaultTemplateSid string) *UpdateServiceParams {
+	params.DefaultTemplateSid = &DefaultTemplateSid
 	return params
 }
 func (params *UpdateServiceParams) SetDoNotShareWarningEnabled(DoNotShareWarningEnabled bool) *UpdateServiceParams {
@@ -481,6 +496,9 @@ func (c *ApiService) UpdateService(Sid string, params *UpdateServiceParams) (*Ve
 	}
 	if params != nil && params.CustomCodeEnabled != nil {
 		data.Set("CustomCodeEnabled", fmt.Sprint(*params.CustomCodeEnabled))
+	}
+	if params != nil && params.DefaultTemplateSid != nil {
+		data.Set("DefaultTemplateSid", *params.DefaultTemplateSid)
 	}
 	if params != nil && params.DoNotShareWarningEnabled != nil {
 		data.Set("DoNotShareWarningEnabled", fmt.Sprint(*params.DoNotShareWarningEnabled))

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.22.0
+ * API version: 1.23.0
  * Contact: support@twilio.com
  */
 
@@ -31,7 +31,7 @@ type CreateRatePlanParams struct {
 	DataMetering *string `json:"DataMetering,omitempty"`
 	// A descriptive string that you create to describe the resource. It does not have to be unique.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can be: `data`, `voice`, and `messaging`.
+	// The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
 	InternationalRoaming *[]string `json:"InternationalRoaming,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
 	InternationalRoamingDataLimit *int `json:"InternationalRoamingDataLimit,omitempty"`
@@ -43,7 +43,7 @@ type CreateRatePlanParams struct {
 	NationalRoamingEnabled *bool `json:"NationalRoamingEnabled,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
-	// Whether SIMs can make and receive voice calls.
+	// Deprecated.
 	VoiceEnabled *bool `json:"VoiceEnabled,omitempty"`
 }
 

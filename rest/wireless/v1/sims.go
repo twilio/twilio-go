@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.22.0
+ * API version: 1.23.0
  * Contact: support@twilio.com
  */
 
@@ -270,13 +270,13 @@ type UpdateSimParams struct {
 	Status *string `json:"Status,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
 	UniqueName *string `json:"UniqueName,omitempty"`
-	// The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
+	// Deprecated.
 	VoiceFallbackMethod *string `json:"VoiceFallbackMethod,omitempty"`
-	// The URL we should call using the `voice_fallback_method` when an error occurs while retrieving or executing the TwiML requested from `voice_url`.
+	// Deprecated.
 	VoiceFallbackUrl *string `json:"VoiceFallbackUrl,omitempty"`
-	// The HTTP method we should use when we call `voice_url`. Can be: `GET` or `POST`.
+	// Deprecated.
 	VoiceMethod *string `json:"VoiceMethod,omitempty"`
-	// The URL we should call using the `voice_method` when the SIM-connected device makes a voice call.
+	// Deprecated.
 	VoiceUrl *string `json:"VoiceUrl,omitempty"`
 }
 

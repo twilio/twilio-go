@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.22.0
+ * API version: 1.23.0
  * Contact: support@twilio.com
  */
 
@@ -23,7 +23,7 @@ import (
 
 // Optional parameters for the method 'CreateMediaProcessor'
 type CreateMediaProcessorParams struct {
-	// The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v1-preview`
+	// The [Media Extension](/docs/live/api/media-extensions-overview) name or URL. Ex: `video-composer-v1`
 	Extension *string `json:"Extension,omitempty"`
 	// The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
 	ExtensionContext *string `json:"ExtensionContext,omitempty"`

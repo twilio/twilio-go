@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **CustomCodeEnabled** | Pointer to **bool** | Whether to allow sending verifications with a custom code. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The RFC 2822 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The RFC 2822 date and time in GMT when the resource was last updated |
+**DefaultTemplateSid** | Pointer to **string** |  |
 **DoNotShareWarningEnabled** | Pointer to **bool** | Whether to add a security warning at the end of an SMS. |
 **DtmfInputRequired** | Pointer to **bool** | Whether to ask the user to press a number before delivering the verify code in a phone call |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the verification service |

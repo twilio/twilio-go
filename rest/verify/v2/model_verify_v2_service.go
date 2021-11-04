@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.22.0
+ * API version: 1.23.0
  * Contact: support@twilio.com
  */
 
@@ -26,7 +26,8 @@ type VerifyV2Service struct {
 	// The RFC 2822 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT when the resource was last updated
-	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	DateUpdated        *time.Time `json:"date_updated,omitempty"`
+	DefaultTemplateSid *string    `json:"default_template_sid,omitempty"`
 	// Whether to add a security warning at the end of an SMS.
 	DoNotShareWarningEnabled *bool `json:"do_not_share_warning_enabled,omitempty"`
 	// Whether to ask the user to press a number before delivering the verify code in a phone call
