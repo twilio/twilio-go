@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.0
+ * API version: 1.23.1
  * Contact: support@twilio.com
  */
 
@@ -35,7 +35,7 @@ type CreateNewFactorParams struct {
 	ConfigAppId *string `json:"Config.AppId,omitempty"`
 	// Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property `totp.code_length`. If not configured defaults to 6.  Used when `factor_type` is `totp`
 	ConfigCodeLength *int `json:"Config.CodeLength,omitempty"`
-	// The transport technology used to generate the Notification Token. Can be `apn` or `fcm`.  Required when `factor_type` is `push`.
+	// The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
 	ConfigNotificationPlatform *string `json:"Config.NotificationPlatform,omitempty"`
 	// For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Must be between 32 and 255 characters long.  Required when `factor_type` is `push`.
 	ConfigNotificationToken *string `json:"Config.NotificationToken,omitempty"`
@@ -357,6 +357,8 @@ type UpdateFactorParams struct {
 	ConfigAlg *string `json:"Config.Alg,omitempty"`
 	// Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive
 	ConfigCodeLength *int `json:"Config.CodeLength,omitempty"`
+	// The transport technology used to generate the Notification Token. Can be `apn`, `fcm` or `none`.  Required when `factor_type` is `push`.
+	ConfigNotificationPlatform *string `json:"Config.NotificationPlatform,omitempty"`
 	// For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Required when `factor_type` is `push`. If specified, this value must be between 32 and 255 characters long.
 	ConfigNotificationToken *string `json:"Config.NotificationToken,omitempty"`
 	// The Verify Push SDK version used to configure the factor
@@ -379,6 +381,10 @@ func (params *UpdateFactorParams) SetConfigAlg(ConfigAlg string) *UpdateFactorPa
 }
 func (params *UpdateFactorParams) SetConfigCodeLength(ConfigCodeLength int) *UpdateFactorParams {
 	params.ConfigCodeLength = &ConfigCodeLength
+	return params
+}
+func (params *UpdateFactorParams) SetConfigNotificationPlatform(ConfigNotificationPlatform string) *UpdateFactorParams {
+	params.ConfigNotificationPlatform = &ConfigNotificationPlatform
 	return params
 }
 func (params *UpdateFactorParams) SetConfigNotificationToken(ConfigNotificationToken string) *UpdateFactorParams {
@@ -420,6 +426,9 @@ func (c *ApiService) UpdateFactor(ServiceSid string, Identity string, Sid string
 	}
 	if params != nil && params.ConfigCodeLength != nil {
 		data.Set("Config.CodeLength", fmt.Sprint(*params.ConfigCodeLength))
+	}
+	if params != nil && params.ConfigNotificationPlatform != nil {
+		data.Set("Config.NotificationPlatform", *params.ConfigNotificationPlatform)
 	}
 	if params != nil && params.ConfigNotificationToken != nil {
 		data.Set("Config.NotificationToken", *params.ConfigNotificationToken)

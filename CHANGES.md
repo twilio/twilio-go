@@ -1,5 +1,26 @@
 twilio-go changelog
 ====================
+[2021-11-17] Version 0.18.1
+---------------------------
+**Library - Chore**
+- [PR #127](https://github.com/twilio/twilio-go/pull/127): consolidate workflows. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+- [PR #126](https://github.com/twilio/twilio-go/pull/126): add event type cluster test. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Library - Fix**
+- [PR #124](https://github.com/twilio/twilio-go/pull/124): git log retrieval issues. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Frontline**
+- Added `is_available` to User's resource
+
+**Messaging**
+- Added GET vetting API
+
+**Verify**
+- Add `WHATSAPP` to the attempts API.
+- Allow to update `config.notification_platform` from `none` to `apn` or `fcm` and viceversa for Verify Push
+- Add `none` as a valid `config.notification_platform` value for Verify Push
+
+
 [2021-11-03] Version 0.18.0
 ---------------------------
 **Library - Fix**

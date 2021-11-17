@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.0
+ * API version: 1.23.1
  * Contact: support@twilio.com
  */
 
@@ -53,6 +53,29 @@ func (c *ApiService) CreateBrandVetting(BrandSid string, params *CreateBrandVett
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1BrandVetting{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+func (c *ApiService) FetchBrandVetting(BrandSid string, BrandVettingSid string) (*MessagingV1BrandVetting, error) {
+	path := "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}"
+	path = strings.Replace(path, "{"+"BrandSid"+"}", BrandSid, -1)
+	path = strings.Replace(path, "{"+"BrandVettingSid"+"}", BrandVettingSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
 		return nil, err
 	}

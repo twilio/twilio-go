@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.0
+ * API version: 1.23.1
  * Contact: support@twilio.com
  */
 
@@ -19,6 +19,8 @@ type FrontlineV1User struct {
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The string that identifies the resource's User
 	Identity *string `json:"identity,omitempty"`
+	// Whether the User is available for new conversations
+	IsAvailable *bool `json:"is_available,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// Current state of this user

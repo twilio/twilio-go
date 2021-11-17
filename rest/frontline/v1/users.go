@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.0
+ * API version: 1.23.1
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,7 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 
 	"strings"
@@ -47,7 +48,9 @@ type UpdateUserParams struct {
 	Avatar *string `json:"Avatar,omitempty"`
 	// The string that you assigned to describe the User.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// Current state of this user. Can be either `active` or `deactivated` and defaults to `active`
+	// Whether the User is available for new conversations. Set to `false` to prevent User from receiving new inbound conversations if you are using [Pool Routing](https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing).
+	IsAvailable *bool `json:"IsAvailable,omitempty"`
+	// Current state of this user. Can be either `active` or `deactivated`.
 	State *string `json:"State,omitempty"`
 }
 
@@ -57,6 +60,10 @@ func (params *UpdateUserParams) SetAvatar(Avatar string) *UpdateUserParams {
 }
 func (params *UpdateUserParams) SetFriendlyName(FriendlyName string) *UpdateUserParams {
 	params.FriendlyName = &FriendlyName
+	return params
+}
+func (params *UpdateUserParams) SetIsAvailable(IsAvailable bool) *UpdateUserParams {
+	params.IsAvailable = &IsAvailable
 	return params
 }
 func (params *UpdateUserParams) SetState(State string) *UpdateUserParams {
@@ -77,6 +84,9 @@ func (c *ApiService) UpdateUser(Sid string, params *UpdateUserParams) (*Frontlin
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.IsAvailable != nil {
+		data.Set("IsAvailable", fmt.Sprint(*params.IsAvailable))
 	}
 	if params != nil && params.State != nil {
 		data.Set("State", *params.State)
