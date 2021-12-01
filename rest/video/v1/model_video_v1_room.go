@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.1
+ * API version: 1.23.2
  * Contact: support@twilio.com
  */
 
@@ -35,6 +35,8 @@ type VideoV1Room struct {
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// The maximum number of published tracks allowed in the room at the same time
 	MaxConcurrentPublishedTracks *int `json:"max_concurrent_published_tracks,omitempty"`
+	// The maximum number of seconds a Participant can be connected to the room
+	MaxParticipantDuration *int `json:"max_participant_duration,omitempty"`
 	// The maximum number of concurrent Participants allowed in the room
 	MaxParticipants *int `json:"max_participants,omitempty"`
 	// The region for the media server in Group Rooms

@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **EndTime** | Pointer to [**time.Time**](time.Time.md) | The UTC end time of the room in UTC ISO 8601 format |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
 **MaxConcurrentPublishedTracks** | Pointer to **int** | The maximum number of published tracks allowed in the room at the same time |
+**MaxParticipantDuration** | Pointer to **int** | The maximum number of seconds a Participant can be connected to the room |
 **MaxParticipants** | Pointer to **int** | The maximum number of concurrent Participants allowed in the room |
 **MediaRegion** | Pointer to **string** | The region for the media server in Group Rooms |
 **RecordParticipantsOnConnect** | Pointer to **bool** | Whether to start recording when Participants connect |

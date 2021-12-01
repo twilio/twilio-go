@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.1
+ * API version: 1.23.2
  * Contact: support@twilio.com
  */
 
@@ -28,6 +28,8 @@ type CreateRoomParams struct {
 	AudioOnly *bool `json:"AudioOnly,omitempty"`
 	// Deprecated, now always considered to be true.
 	EnableTurn *bool `json:"EnableTurn,omitempty"`
+	// The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
+	MaxParticipantDuration *int `json:"MaxParticipantDuration,omitempty"`
 	// The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
 	MaxParticipants *int `json:"MaxParticipants,omitempty"`
 	// The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
@@ -54,6 +56,10 @@ func (params *CreateRoomParams) SetAudioOnly(AudioOnly bool) *CreateRoomParams {
 }
 func (params *CreateRoomParams) SetEnableTurn(EnableTurn bool) *CreateRoomParams {
 	params.EnableTurn = &EnableTurn
+	return params
+}
+func (params *CreateRoomParams) SetMaxParticipantDuration(MaxParticipantDuration int) *CreateRoomParams {
+	params.MaxParticipantDuration = &MaxParticipantDuration
 	return params
 }
 func (params *CreateRoomParams) SetMaxParticipants(MaxParticipants int) *CreateRoomParams {
@@ -104,6 +110,9 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 	}
 	if params != nil && params.EnableTurn != nil {
 		data.Set("EnableTurn", fmt.Sprint(*params.EnableTurn))
+	}
+	if params != nil && params.MaxParticipantDuration != nil {
+		data.Set("MaxParticipantDuration", fmt.Sprint(*params.MaxParticipantDuration))
 	}
 	if params != nil && params.MaxParticipants != nil {
 		data.Set("MaxParticipants", fmt.Sprint(*params.MaxParticipants))
