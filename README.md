@@ -398,9 +398,9 @@ import (
 )
 
 func main() {
-    phoneNumber := os.Getenv("TWILIO_PHONE_NUMBER")
+	phoneNumber := os.Getenv("TWILIO_PHONE_NUMBER")
 
-    client := twilio.NewRestClient()
+	client := twilio.NewRestClient()
 
 	params := &openapi.CreateIncomingPhoneNumberParams{}
 	params.SetPhoneNumber(phoneNumber)
