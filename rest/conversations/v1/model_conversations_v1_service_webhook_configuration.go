@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.2
+ * API version: 1.24.0
  * Contact: support@twilio.com
  */
 
@@ -14,9 +14,10 @@ package openapi
 // ConversationsV1ServiceWebhookConfiguration struct for ConversationsV1ServiceWebhookConfiguration
 type ConversationsV1ServiceWebhookConfiguration struct {
 	// The unique ID of the Account responsible for this service.
-	AccountSid     *string `json:"account_sid,omitempty"`
+	AccountSid *string `json:"account_sid,omitempty"`
+	// The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
-	// The list of webhook event triggers that are enabled for this Service.
+	// The list of events that your configured webhook targets will receive. Events not configured here will not fire.
 	Filters *[]string `json:"filters,omitempty"`
 	// The HTTP method to be used when sending a webhook request
 	Method *string `json:"method,omitempty"`

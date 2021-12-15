@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **Duration** | Pointer to **int** | The duration of the room in seconds |
+**EmptyRoomTimeout** | Pointer to **int** | The time a room will remain active after last participant leaves. |
 **EnableTurn** | Pointer to **bool** | Enable Twilio's Network Traversal TURN service |
 **EndTime** | Pointer to [**time.Time**](time.Time.md) | The UTC end time of the room in UTC ISO 8601 format |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
@@ -23,6 +24,7 @@ Name | Type | Description | Notes
 **StatusCallbackMethod** | Pointer to **string** | The HTTP method we use to call status_callback |
 **Type** | Pointer to **string** | The type of room |
 **UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource |
+**UnusedRoomTimeout** | Pointer to **int** | The time a room will remain active when no one joins. |
 **Url** | Pointer to **string** | The absolute URL of the resource |
 **VideoCodecs** | Pointer to **[]string** | An array of the video codecs that are supported when publishing a track in the room |
 

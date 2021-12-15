@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.2
+ * API version: 1.24.0
  * Contact: support@twilio.com
  */
 
@@ -26,6 +26,8 @@ import (
 type CreateRoomParams struct {
 	// When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
 	AudioOnly *bool `json:"AudioOnly,omitempty"`
+	// Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
+	EmptyRoomTimeout *int `json:"EmptyRoomTimeout,omitempty"`
 	// Deprecated, now always considered to be true.
 	EnableTurn *bool `json:"EnableTurn,omitempty"`
 	// The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
@@ -46,12 +48,18 @@ type CreateRoomParams struct {
 	Type *string `json:"Type,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
 	UniqueName *string `json:"UniqueName,omitempty"`
+	// Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
+	UnusedRoomTimeout *int `json:"UnusedRoomTimeout,omitempty"`
 	// An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
 	VideoCodecs *[]string `json:"VideoCodecs,omitempty"`
 }
 
 func (params *CreateRoomParams) SetAudioOnly(AudioOnly bool) *CreateRoomParams {
 	params.AudioOnly = &AudioOnly
+	return params
+}
+func (params *CreateRoomParams) SetEmptyRoomTimeout(EmptyRoomTimeout int) *CreateRoomParams {
+	params.EmptyRoomTimeout = &EmptyRoomTimeout
 	return params
 }
 func (params *CreateRoomParams) SetEnableTurn(EnableTurn bool) *CreateRoomParams {
@@ -94,6 +102,10 @@ func (params *CreateRoomParams) SetUniqueName(UniqueName string) *CreateRoomPara
 	params.UniqueName = &UniqueName
 	return params
 }
+func (params *CreateRoomParams) SetUnusedRoomTimeout(UnusedRoomTimeout int) *CreateRoomParams {
+	params.UnusedRoomTimeout = &UnusedRoomTimeout
+	return params
+}
 func (params *CreateRoomParams) SetVideoCodecs(VideoCodecs []string) *CreateRoomParams {
 	params.VideoCodecs = &VideoCodecs
 	return params
@@ -107,6 +119,9 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 
 	if params != nil && params.AudioOnly != nil {
 		data.Set("AudioOnly", fmt.Sprint(*params.AudioOnly))
+	}
+	if params != nil && params.EmptyRoomTimeout != nil {
+		data.Set("EmptyRoomTimeout", fmt.Sprint(*params.EmptyRoomTimeout))
 	}
 	if params != nil && params.EnableTurn != nil {
 		data.Set("EnableTurn", fmt.Sprint(*params.EnableTurn))
@@ -143,6 +158,9 @@ func (c *ApiService) CreateRoom(params *CreateRoomParams) (*VideoV1Room, error) 
 	}
 	if params != nil && params.UniqueName != nil {
 		data.Set("UniqueName", *params.UniqueName)
+	}
+	if params != nil && params.UnusedRoomTimeout != nil {
+		data.Set("UnusedRoomTimeout", fmt.Sprint(*params.UnusedRoomTimeout))
 	}
 	if params != nil && params.VideoCodecs != nil {
 		for _, item := range *params.VideoCodecs {

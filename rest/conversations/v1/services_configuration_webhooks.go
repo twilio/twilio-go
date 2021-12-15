@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.2
+ * API version: 1.24.0
  * Contact: support@twilio.com
  */
 
@@ -43,7 +43,7 @@ func (c *ApiService) FetchServiceWebhookConfiguration(ChatServiceSid string) (*C
 
 // Optional parameters for the method 'UpdateServiceWebhookConfiguration'
 type UpdateServiceWebhookConfigurationParams struct {
-	// The list of webhook event triggers that are enabled for this Service. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
+	// The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
 	Filters *[]string `json:"Filters,omitempty"`
 	// The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
 	Method *string `json:"Method,omitempty"`

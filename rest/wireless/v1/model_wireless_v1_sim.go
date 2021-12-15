@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.2
+ * API version: 1.24.0
  * Contact: support@twilio.com
  */
 
@@ -43,13 +43,13 @@ type WirelessV1Sim struct {
 	ResetStatus *string `json:"reset_status,omitempty"`
 	// The unique string that identifies the Sim resource
 	Sid *string `json:"sid,omitempty"`
-	// Deprecated. The HTTP method we use to call sms_fallback_url
+	// Deprecated
 	SmsFallbackMethod *string `json:"sms_fallback_method,omitempty"`
-	// Deprecated. The URL we call when an error occurs while retrieving or executing the TwiML requested from the sms_url
+	// Deprecated
 	SmsFallbackUrl *string `json:"sms_fallback_url,omitempty"`
-	// Deprecated. The HTTP method we use to call sms_url
+	// Deprecated
 	SmsMethod *string `json:"sms_method,omitempty"`
-	// Deprecated. The URL we call when the SIM-connected device sends an SMS message that is not a Command
+	// Deprecated
 	SmsUrl *string `json:"sms_url,omitempty"`
 	// The status of the Sim resource
 	Status *string `json:"status,omitempty"`

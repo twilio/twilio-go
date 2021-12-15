@@ -29,6 +29,7 @@ Other parameters are passed through a pointer to a CreateRoomParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **AudioOnly** | **bool** | When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+**EmptyRoomTimeout** | **int** | Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
 **EnableTurn** | **bool** | Deprecated, now always considered to be true.
 **MaxParticipantDuration** | **int** | The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
 **MaxParticipants** | **int** | The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
@@ -39,6 +40,7 @@ Name | Type | Description
 **StatusCallbackMethod** | **string** | The HTTP method we should use to call &#x60;status_callback&#x60;. Can be &#x60;POST&#x60; or &#x60;GET&#x60;.
 **Type** | **string** | The type of room. Can be: &#x60;go&#x60;, &#x60;peer-to-peer&#x60;, &#x60;group-small&#x60;, or &#x60;group&#x60;. The default value is &#x60;group&#x60;.
 **UniqueName** | **string** | An application-defined string that uniquely identifies the resource. It can be used as a &#x60;room_sid&#x60; in place of the resource&#39;s &#x60;sid&#x60; in the URL to address the resource. This value is unique for &#x60;in-progress&#x60; rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is &#x60;in-progress&#x60;.
+**UnusedRoomTimeout** | **int** | Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
 **VideoCodecs** | **[]string** | An array of the video codecs that are supported when publishing a track in the room.  Can be: &#x60;VP8&#x60; and &#x60;H264&#x60;.  ***This feature is not available in &#x60;peer-to-peer&#x60; rooms***
 
 ### Return type
