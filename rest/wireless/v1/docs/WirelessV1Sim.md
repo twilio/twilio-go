@@ -17,10 +17,10 @@ Name | Type | Description | Notes
 **RatePlanSid** | Pointer to **string** | The SID of the RatePlan resource to which the Sim resource is assigned. |
 **ResetStatus** | Pointer to **string** | The connectivity reset status of the SIM |
 **Sid** | Pointer to **string** | The unique string that identifies the Sim resource |
-**SmsFallbackMethod** | Pointer to **string** | Deprecated. The HTTP method we use to call sms_fallback_url |
-**SmsFallbackUrl** | Pointer to **string** | Deprecated. The URL we call when an error occurs while retrieving or executing the TwiML requested from the sms_url |
-**SmsMethod** | Pointer to **string** | Deprecated. The HTTP method we use to call sms_url |
-**SmsUrl** | Pointer to **string** | Deprecated. The URL we call when the SIM-connected device sends an SMS message that is not a Command |
+**SmsFallbackMethod** | Pointer to **string** | Deprecated |
+**SmsFallbackUrl** | Pointer to **string** | Deprecated |
+**SmsMethod** | Pointer to **string** | Deprecated |
+**SmsUrl** | Pointer to **string** | Deprecated |
 **Status** | Pointer to **string** | The status of the Sim resource |
 **UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource |
 **Url** | Pointer to **string** | The absolute URL of the resource |

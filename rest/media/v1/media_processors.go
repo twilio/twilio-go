@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.2
+ * API version: 1.24.0
  * Contact: support@twilio.com
  */
 
@@ -29,6 +29,8 @@ type CreateMediaProcessorParams struct {
 	ExtensionContext *string `json:"ExtensionContext,omitempty"`
 	// User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
 	ExtensionEnvironment *map[string]interface{} `json:"ExtensionEnvironment,omitempty"`
+	// The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
+	MaxDuration *int `json:"MaxDuration,omitempty"`
 	// The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
@@ -45,6 +47,10 @@ func (params *CreateMediaProcessorParams) SetExtensionContext(ExtensionContext s
 }
 func (params *CreateMediaProcessorParams) SetExtensionEnvironment(ExtensionEnvironment map[string]interface{}) *CreateMediaProcessorParams {
 	params.ExtensionEnvironment = &ExtensionEnvironment
+	return params
+}
+func (params *CreateMediaProcessorParams) SetMaxDuration(MaxDuration int) *CreateMediaProcessorParams {
+	params.MaxDuration = &MaxDuration
 	return params
 }
 func (params *CreateMediaProcessorParams) SetStatusCallback(StatusCallback string) *CreateMediaProcessorParams {
@@ -76,6 +82,9 @@ func (c *ApiService) CreateMediaProcessor(params *CreateMediaProcessorParams) (*
 		}
 
 		data.Set("ExtensionEnvironment", string(v))
+	}
+	if params != nil && params.MaxDuration != nil {
+		data.Set("MaxDuration", fmt.Sprint(*params.MaxDuration))
 	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)

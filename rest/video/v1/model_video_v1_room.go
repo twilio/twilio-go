@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.2
+ * API version: 1.24.0
  * Contact: support@twilio.com
  */
 
@@ -27,6 +27,8 @@ type VideoV1Room struct {
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// The duration of the room in seconds
 	Duration *int `json:"duration,omitempty"`
+	// The time a room will remain active after last participant leaves.
+	EmptyRoomTimeout *int `json:"empty_room_timeout,omitempty"`
 	// Enable Twilio's Network Traversal TURN service
 	EnableTurn *bool `json:"enable_turn,omitempty"`
 	// The UTC end time of the room in UTC ISO 8601 format
@@ -55,6 +57,8 @@ type VideoV1Room struct {
 	Type *string `json:"type,omitempty"`
 	// An application-defined string that uniquely identifies the resource
 	UniqueName *string `json:"unique_name,omitempty"`
+	// The time a room will remain active when no one joins.
+	UnusedRoomTimeout *int `json:"unused_room_timeout,omitempty"`
 	// The absolute URL of the resource
 	Url *string `json:"url,omitempty"`
 	// An array of the video codecs that are supported when publishing a track in the room

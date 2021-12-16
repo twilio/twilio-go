@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.23.2
+ * API version: 1.24.0
  * Contact: support@twilio.com
  */
 
@@ -29,6 +29,8 @@ type MediaV1MediaProcessor struct {
 	Extension *string `json:"extension,omitempty"`
 	// The Media Extension context
 	ExtensionContext *string `json:"extension_context,omitempty"`
+	// Maximum MediaProcessor duration in minutes
+	MaxDuration *int `json:"max_duration,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// The status of the MediaProcessor
