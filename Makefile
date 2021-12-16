@@ -3,7 +3,7 @@
 githooks:
 	ln -sf ../../githooks/pre-commit .git/hooks/pre-commit
 
-install: githooks
+install:
 	go build -v ./...
 
 test:
