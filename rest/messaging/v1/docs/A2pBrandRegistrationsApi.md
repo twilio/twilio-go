@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**CreateBrandRegistrations**](A2pBrandRegistrationsApi.md#CreateBrandRegistrations) | **Post** /v1/a2p/BrandRegistrations | 
 [**FetchBrandRegistrations**](A2pBrandRegistrationsApi.md#FetchBrandRegistrations) | **Get** /v1/a2p/BrandRegistrations/{Sid} | 
 [**ListBrandRegistrations**](A2pBrandRegistrationsApi.md#ListBrandRegistrations) | **Get** /v1/a2p/BrandRegistrations | 
+[**UpdateBrandRegistrations**](A2pBrandRegistrationsApi.md#UpdateBrandRegistrations) | **Post** /v1/a2p/BrandRegistrations/{Sid} | 
 
 
 
@@ -114,6 +115,46 @@ Name | Type | Description
 ### Return type
 
 [**ListBrandRegistrationsResponse**](ListBrandRegistrationsResponse.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateBrandRegistrations
+
+> MessagingV1BrandRegistrations UpdateBrandRegistrations(ctx, Sid)
+
+
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**Sid** | **string** | The SID of the Brand Registration resource to update.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a UpdateBrandRegistrationsParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+
+### Return type
+
+[**MessagingV1BrandRegistrations**](MessagingV1BrandRegistrations.md)
 
 ### Authorization
 

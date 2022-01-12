@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.24.0
+ * API version: 1.25.0
  * Contact: support@twilio.com
  */
 
@@ -13,9 +13,12 @@ package openapi
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 
 	"strings"
+
+	"github.com/twilio/twilio-go/client"
 )
 
 // Optional parameters for the method 'CreateBundleCopy'
@@ -54,4 +57,139 @@ func (c *ApiService) CreateBundleCopy(BundleSid string, params *CreateBundleCopy
 	}
 
 	return ps, err
+}
+
+// Optional parameters for the method 'ListBundleCopy'
+type ListBundleCopyParams struct {
+	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
+	PageSize *int `json:"PageSize,omitempty"`
+	// Max number of records to return.
+	Limit *int `json:"limit,omitempty"`
+}
+
+func (params *ListBundleCopyParams) SetPageSize(PageSize int) *ListBundleCopyParams {
+	params.PageSize = &PageSize
+	return params
+}
+func (params *ListBundleCopyParams) SetLimit(Limit int) *ListBundleCopyParams {
+	params.Limit = &Limit
+	return params
+}
+
+// Retrieve a single page of BundleCopy records from the API. Request is executed immediately.
+func (c *ApiService) PageBundleCopy(BundleSid string, params *ListBundleCopyParams, pageToken, pageNumber string) (*ListBundleCopyResponse, error) {
+	path := "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies"
+
+	path = strings.Replace(path, "{"+"BundleSid"+"}", BundleSid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	if params != nil && params.PageSize != nil {
+		data.Set("PageSize", fmt.Sprint(*params.PageSize))
+	}
+
+	if pageToken != "" {
+		data.Set("PageToken", pageToken)
+	}
+	if pageNumber != "" {
+		data.Set("Page", pageNumber)
+	}
+
+	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBundleCopyResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
+}
+
+// Lists BundleCopy records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
+func (c *ApiService) ListBundleCopy(BundleSid string, params *ListBundleCopyParams) ([]NumbersV2BundleCopy, error) {
+	if params == nil {
+		params = &ListBundleCopyParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageBundleCopy(BundleSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	var records []NumbersV2BundleCopy
+
+	for response != nil {
+		records = append(records, response.Results...)
+
+		var record interface{}
+		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBundleCopyResponse); record == nil || err != nil {
+			return records, err
+		}
+
+		response = record.(*ListBundleCopyResponse)
+	}
+
+	return records, err
+}
+
+// Streams BundleCopy records from the API as a channel stream. This operation lazily loads records as efficiently as possible until the limit is reached.
+func (c *ApiService) StreamBundleCopy(BundleSid string, params *ListBundleCopyParams) (chan NumbersV2BundleCopy, error) {
+	if params == nil {
+		params = &ListBundleCopyParams{}
+	}
+	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
+
+	response, err := c.PageBundleCopy(BundleSid, params, "", "")
+	if err != nil {
+		return nil, err
+	}
+
+	curRecord := 0
+	//set buffer size of the channel to 1
+	channel := make(chan NumbersV2BundleCopy, 1)
+
+	go func() {
+		for response != nil {
+			for item := range response.Results {
+				channel <- response.Results[item]
+			}
+
+			var record interface{}
+			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBundleCopyResponse); record == nil || err != nil {
+				close(channel)
+				return
+			}
+
+			response = record.(*ListBundleCopyResponse)
+		}
+		close(channel)
+	}()
+
+	return channel, err
+}
+
+func (c *ApiService) getNextListBundleCopyResponse(nextPageUrl string) (interface{}, error) {
+	if nextPageUrl == "" {
+		return nil, nil
+	}
+	resp, err := c.requestHandler.Get(nextPageUrl, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &ListBundleCopyResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+	return ps, nil
 }

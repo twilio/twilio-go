@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Duration** | Pointer to **int** | The duration of the recording in seconds |
 **GroupingSids** | Pointer to **map[string]interface{}** | A list of SIDs related to the recording |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
+**MediaExternalLocation** | Pointer to **string** | The URL of the media file associated with the recording when stored externally |
 **Offset** | Pointer to **int** | The number of milliseconds between a point in time that is common to all rooms in a group and when the source room of the recording started |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Size** | Pointer to **int** | The size of the recorded track, in bytes |

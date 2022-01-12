@@ -1,5 +1,27 @@
 twilio-go changelog
 ====================
+[2022-01-12] Version 0.20.0
+---------------------------
+**Library - Chore**
+- [PR #135](https://github.com/twilio/twilio-go/pull/135): add sonarcloud coverage analysis. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+- [PR #132](https://github.com/twilio/twilio-go/pull/132): remove githook dependency from make install. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Library - Feature**
+- [PR #134](https://github.com/twilio/twilio-go/pull/134): add GitHub release step during deploy. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Make fixed time scheduling parameters public **(breaking change)**
+
+**Messaging**
+- Add update brand registration API
+
+**Numbers**
+- Add API endpoint for List Bundle Copies resource
+
+**Video**
+- Enable external storage for all customers
+
+
 [2021-12-15] Version 0.19.0
 ---------------------------
 **Library - Feature**

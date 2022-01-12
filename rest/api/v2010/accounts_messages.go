@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.24.0
+ * API version: 1.25.0
  * Contact: support@twilio.com
  */
 
@@ -50,8 +50,12 @@ type CreateMessageParams struct {
 	PersistentAction *[]string `json:"PersistentAction,omitempty"`
 	// Whether to confirm delivery of the message. Set this value to `true` if you are sending messages that have a trackable user action and you intend to confirm delivery of the message using the [Message Feedback API](https://www.twilio.com/docs/sms/api/message-feedback-resource). This parameter is `false` by default.
 	ProvideFeedback *bool `json:"ProvideFeedback,omitempty"`
+	// Indicates your intent to schedule a message. Pass the value `fixed` to schedule a message at a fixed time.
+	ScheduleType *string `json:"ScheduleType,omitempty"`
 	// If set to True, Twilio will deliver the message as a single MMS message, regardless of the presence of media. This is a Beta Feature.
 	SendAsMms *bool `json:"SendAsMms,omitempty"`
+	// The time that Twilio will send the message. Must be in ISO 8601 format.
+	SendAt *time.Time `json:"SendAt,omitempty"`
 	// Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
 	SmartEncoded *bool `json:"SmartEncoded,omitempty"`
 	// The URL we should call using the `status_callback_method` to send status information to your application. If specified, we POST these message status changes to the URL: `queued`, `failed`, `sent`, `delivered`, or `undelivered`. Twilio will POST its [standard request parameters](https://www.twilio.com/docs/sms/twiml#request-parameters) as well as some additional parameters including `MessageSid`, `MessageStatus`, and `ErrorCode`. If you include this parameter with the `messaging_service_sid`, we use this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/sms/services/api). URLs must contain a valid hostname and underscores are not allowed.
@@ -114,8 +118,16 @@ func (params *CreateMessageParams) SetProvideFeedback(ProvideFeedback bool) *Cre
 	params.ProvideFeedback = &ProvideFeedback
 	return params
 }
+func (params *CreateMessageParams) SetScheduleType(ScheduleType string) *CreateMessageParams {
+	params.ScheduleType = &ScheduleType
+	return params
+}
 func (params *CreateMessageParams) SetSendAsMms(SendAsMms bool) *CreateMessageParams {
 	params.SendAsMms = &SendAsMms
+	return params
+}
+func (params *CreateMessageParams) SetSendAt(SendAt time.Time) *CreateMessageParams {
+	params.SendAt = &SendAt
 	return params
 }
 func (params *CreateMessageParams) SetSmartEncoded(SmartEncoded bool) *CreateMessageParams {
@@ -187,8 +199,14 @@ func (c *ApiService) CreateMessage(params *CreateMessageParams) (*ApiV2010Messag
 	if params != nil && params.ProvideFeedback != nil {
 		data.Set("ProvideFeedback", fmt.Sprint(*params.ProvideFeedback))
 	}
+	if params != nil && params.ScheduleType != nil {
+		data.Set("ScheduleType", *params.ScheduleType)
+	}
 	if params != nil && params.SendAsMms != nil {
 		data.Set("SendAsMms", fmt.Sprint(*params.SendAsMms))
+	}
+	if params != nil && params.SendAt != nil {
+		data.Set("SendAt", fmt.Sprint((*params.SendAt).Format(time.RFC3339)))
 	}
 	if params != nil && params.SmartEncoded != nil {
 		data.Set("SmartEncoded", fmt.Sprint(*params.SmartEncoded))
@@ -487,6 +505,8 @@ type UpdateMessageParams struct {
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
 	// The text of the message you want to send. Can be up to 1,600 characters long.
 	Body *string `json:"Body,omitempty"`
+	// When set as `canceled`, allows a message cancelation request if a message has not yet been sent.
+	Status *string `json:"Status,omitempty"`
 }
 
 func (params *UpdateMessageParams) SetPathAccountSid(PathAccountSid string) *UpdateMessageParams {
@@ -495,6 +515,10 @@ func (params *UpdateMessageParams) SetPathAccountSid(PathAccountSid string) *Upd
 }
 func (params *UpdateMessageParams) SetBody(Body string) *UpdateMessageParams {
 	params.Body = &Body
+	return params
+}
+func (params *UpdateMessageParams) SetStatus(Status string) *UpdateMessageParams {
+	params.Status = &Status
 	return params
 }
 
@@ -513,6 +537,9 @@ func (c *ApiService) UpdateMessage(Sid string, params *UpdateMessageParams) (*Ap
 
 	if params != nil && params.Body != nil {
 		data.Set("Body", *params.Body)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

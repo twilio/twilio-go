@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.24.0
+ * API version: 1.25.0
  * Contact: support@twilio.com
  */
 
@@ -31,6 +31,8 @@ type VideoV1Recording struct {
 	GroupingSids *map[string]interface{} `json:"grouping_sids,omitempty"`
 	// The URLs of related resources
 	Links *map[string]interface{} `json:"links,omitempty"`
+	// The URL of the media file associated with the recording when stored externally
+	MediaExternalLocation *string `json:"media_external_location,omitempty"`
 	// The number of milliseconds between a point in time that is common to all rooms in a group and when the source room of the recording started
 	Offset *int `json:"offset,omitempty"`
 	// The unique string that identifies the resource

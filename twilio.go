@@ -46,41 +46,41 @@ import (
 // RestClient provides access to Twilio services.
 type RestClient struct {
 	*client.RequestHandler
-	AccountsV1      *AccountsV1.ApiService
-	ApiV2010        *ApiV2010.ApiService
-	AutopilotV1     *AutopilotV1.ApiService
-	BulkexportsV1   *BulkexportsV1.ApiService
-	ChatV1          *ChatV1.ApiService
-	ChatV2          *ChatV2.ApiService
-	ConversationsV1 *ConversationsV1.ApiService
-	EventsV1        *EventsV1.ApiService
-	FaxV1           *FaxV1.ApiService
-	FlexV1          *FlexV1.ApiService
-	FrontlineV1     *FrontlineV1.ApiService
-	InsightsV1      *InsightsV1.ApiService
-	IpMessagingV1   *IpMessagingV1.ApiService
-	IpMessagingV2   *IpMessagingV2.ApiService
-	LookupsV1       *LookupsV1.ApiService
-	MediaV1         *MediaV1.ApiService
-	MessagingV1     *MessagingV1.ApiService
-	MonitorV1       *MonitorV1.ApiService
-	NotifyV1        *NotifyV1.ApiService
-	NumbersV2       *NumbersV2.ApiService
-	PricingV1       *PricingV1.ApiService
-	PricingV2       *PricingV2.ApiService
-	ProxyV1         *ProxyV1.ApiService
-	ServerlessV1    *ServerlessV1.ApiService
-	StudioV1        *StudioV1.ApiService
-	StudioV2        *StudioV2.ApiService
-	SupersimV1      *SupersimV1.ApiService
-	SyncV1          *SyncV1.ApiService
 	TaskrouterV1    *TaskrouterV1.ApiService
-	TrunkingV1      *TrunkingV1.ApiService
-	TrusthubV1      *TrusthubV1.ApiService
-	VerifyV2        *VerifyV2.ApiService
-	VideoV1         *VideoV1.ApiService
+	EventsV1        *EventsV1.ApiService
+	SyncV1          *SyncV1.ApiService
+	FrontlineV1     *FrontlineV1.ApiService
+	ConversationsV1 *ConversationsV1.ApiService
+	MessagingV1     *MessagingV1.ApiService
+	AccountsV1      *AccountsV1.ApiService
+	FlexV1          *FlexV1.ApiService
+	StudioV1        *StudioV1.ApiService
+	IpMessagingV1   *IpMessagingV1.ApiService
+	ProxyV1         *ProxyV1.ApiService
 	VoiceV1         *VoiceV1.ApiService
+	ChatV2          *ChatV2.ApiService
+	PricingV2       *PricingV2.ApiService
+	InsightsV1      *InsightsV1.ApiService
+	VideoV1         *VideoV1.ApiService
+	MonitorV1       *MonitorV1.ApiService
+	MediaV1         *MediaV1.ApiService
+	NumbersV2       *NumbersV2.ApiService
+	FaxV1           *FaxV1.ApiService
+	ChatV1          *ChatV1.ApiService
+	TrusthubV1      *TrusthubV1.ApiService
+	ApiV2010        *ApiV2010.ApiService
+	NotifyV1        *NotifyV1.ApiService
+	IpMessagingV2   *IpMessagingV2.ApiService
+	AutopilotV1     *AutopilotV1.ApiService
+	VerifyV2        *VerifyV2.ApiService
+	BulkexportsV1   *BulkexportsV1.ApiService
+	SupersimV1      *SupersimV1.ApiService
 	WirelessV1      *WirelessV1.ApiService
+	PricingV1       *PricingV1.ApiService
+	StudioV2        *StudioV2.ApiService
+	ServerlessV1    *ServerlessV1.ApiService
+	TrunkingV1      *TrunkingV1.ApiService
+	LookupsV1       *LookupsV1.ApiService
 }
 
 // Meta holds relevant pagination resources.
@@ -133,41 +133,41 @@ func NewRestClientWithParams(params RestClientParams) *RestClient {
 		RequestHandler: requestHandler,
 	}
 
-	c.AccountsV1 = AccountsV1.NewApiService(c.RequestHandler)
-	c.ApiV2010 = ApiV2010.NewApiService(c.RequestHandler)
-	c.AutopilotV1 = AutopilotV1.NewApiService(c.RequestHandler)
-	c.BulkexportsV1 = BulkexportsV1.NewApiService(c.RequestHandler)
-	c.ChatV1 = ChatV1.NewApiService(c.RequestHandler)
-	c.ChatV2 = ChatV2.NewApiService(c.RequestHandler)
-	c.ConversationsV1 = ConversationsV1.NewApiService(c.RequestHandler)
-	c.EventsV1 = EventsV1.NewApiService(c.RequestHandler)
-	c.FaxV1 = FaxV1.NewApiService(c.RequestHandler)
-	c.FlexV1 = FlexV1.NewApiService(c.RequestHandler)
-	c.FrontlineV1 = FrontlineV1.NewApiService(c.RequestHandler)
-	c.InsightsV1 = InsightsV1.NewApiService(c.RequestHandler)
-	c.IpMessagingV1 = IpMessagingV1.NewApiService(c.RequestHandler)
-	c.IpMessagingV2 = IpMessagingV2.NewApiService(c.RequestHandler)
-	c.LookupsV1 = LookupsV1.NewApiService(c.RequestHandler)
-	c.MediaV1 = MediaV1.NewApiService(c.RequestHandler)
-	c.MessagingV1 = MessagingV1.NewApiService(c.RequestHandler)
-	c.MonitorV1 = MonitorV1.NewApiService(c.RequestHandler)
-	c.NotifyV1 = NotifyV1.NewApiService(c.RequestHandler)
-	c.NumbersV2 = NumbersV2.NewApiService(c.RequestHandler)
-	c.PricingV1 = PricingV1.NewApiService(c.RequestHandler)
-	c.PricingV2 = PricingV2.NewApiService(c.RequestHandler)
-	c.ProxyV1 = ProxyV1.NewApiService(c.RequestHandler)
-	c.ServerlessV1 = ServerlessV1.NewApiService(c.RequestHandler)
-	c.StudioV1 = StudioV1.NewApiService(c.RequestHandler)
-	c.StudioV2 = StudioV2.NewApiService(c.RequestHandler)
-	c.SupersimV1 = SupersimV1.NewApiService(c.RequestHandler)
-	c.SyncV1 = SyncV1.NewApiService(c.RequestHandler)
 	c.TaskrouterV1 = TaskrouterV1.NewApiService(c.RequestHandler)
-	c.TrunkingV1 = TrunkingV1.NewApiService(c.RequestHandler)
-	c.TrusthubV1 = TrusthubV1.NewApiService(c.RequestHandler)
-	c.VerifyV2 = VerifyV2.NewApiService(c.RequestHandler)
-	c.VideoV1 = VideoV1.NewApiService(c.RequestHandler)
+	c.EventsV1 = EventsV1.NewApiService(c.RequestHandler)
+	c.SyncV1 = SyncV1.NewApiService(c.RequestHandler)
+	c.FrontlineV1 = FrontlineV1.NewApiService(c.RequestHandler)
+	c.ConversationsV1 = ConversationsV1.NewApiService(c.RequestHandler)
+	c.MessagingV1 = MessagingV1.NewApiService(c.RequestHandler)
+	c.AccountsV1 = AccountsV1.NewApiService(c.RequestHandler)
+	c.FlexV1 = FlexV1.NewApiService(c.RequestHandler)
+	c.StudioV1 = StudioV1.NewApiService(c.RequestHandler)
+	c.IpMessagingV1 = IpMessagingV1.NewApiService(c.RequestHandler)
+	c.ProxyV1 = ProxyV1.NewApiService(c.RequestHandler)
 	c.VoiceV1 = VoiceV1.NewApiService(c.RequestHandler)
+	c.ChatV2 = ChatV2.NewApiService(c.RequestHandler)
+	c.PricingV2 = PricingV2.NewApiService(c.RequestHandler)
+	c.InsightsV1 = InsightsV1.NewApiService(c.RequestHandler)
+	c.VideoV1 = VideoV1.NewApiService(c.RequestHandler)
+	c.MonitorV1 = MonitorV1.NewApiService(c.RequestHandler)
+	c.MediaV1 = MediaV1.NewApiService(c.RequestHandler)
+	c.NumbersV2 = NumbersV2.NewApiService(c.RequestHandler)
+	c.FaxV1 = FaxV1.NewApiService(c.RequestHandler)
+	c.ChatV1 = ChatV1.NewApiService(c.RequestHandler)
+	c.TrusthubV1 = TrusthubV1.NewApiService(c.RequestHandler)
+	c.ApiV2010 = ApiV2010.NewApiService(c.RequestHandler)
+	c.NotifyV1 = NotifyV1.NewApiService(c.RequestHandler)
+	c.IpMessagingV2 = IpMessagingV2.NewApiService(c.RequestHandler)
+	c.AutopilotV1 = AutopilotV1.NewApiService(c.RequestHandler)
+	c.VerifyV2 = VerifyV2.NewApiService(c.RequestHandler)
+	c.BulkexportsV1 = BulkexportsV1.NewApiService(c.RequestHandler)
+	c.SupersimV1 = SupersimV1.NewApiService(c.RequestHandler)
 	c.WirelessV1 = WirelessV1.NewApiService(c.RequestHandler)
+	c.PricingV1 = PricingV1.NewApiService(c.RequestHandler)
+	c.StudioV2 = StudioV2.NewApiService(c.RequestHandler)
+	c.ServerlessV1 = ServerlessV1.NewApiService(c.RequestHandler)
+	c.TrunkingV1 = TrunkingV1.NewApiService(c.RequestHandler)
+	c.LookupsV1 = LookupsV1.NewApiService(c.RequestHandler)
 
 	return c
 }

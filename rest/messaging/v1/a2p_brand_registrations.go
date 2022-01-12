@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.24.0
+ * API version: 1.25.0
  * Contact: support@twilio.com
  */
 
@@ -246,4 +246,26 @@ func (c *ApiService) getNextListBrandRegistrationsResponse(nextPageUrl string) (
 		return nil, err
 	}
 	return ps, nil
+}
+
+func (c *ApiService) UpdateBrandRegistrations(Sid string) (*MessagingV1BrandRegistrations, error) {
+	path := "/v1/a2p/BrandRegistrations/{Sid}"
+	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
+
+	data := url.Values{}
+	headers := make(map[string]interface{})
+
+	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	ps := &MessagingV1BrandRegistrations{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
