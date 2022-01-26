@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.0
+ * API version: 1.25.1
  * Contact: support@twilio.com
  */
 
@@ -35,6 +35,8 @@ type MessagingV1BrandRegistrations struct {
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// A reason why brand registration has failed
 	FailureReason *string `json:"failure_reason,omitempty"`
+	// Government Entity
+	GovernmentEntity *bool `json:"government_entity,omitempty"`
 	// Identity Status
 	IdentityStatus *string                 `json:"identity_status,omitempty"`
 	Links          *map[string]interface{} `json:"links,omitempty"`

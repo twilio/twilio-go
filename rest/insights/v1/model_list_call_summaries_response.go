@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.0
+ * API version: 1.25.1
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListCallSummariesResponse struct for ListCallSummariesResponse
 type ListCallSummariesResponse struct {
-	CallSummaries []InsightsV1CallSummaries        `json:"call_summaries,omitempty"`
-	Meta          ListVideoRoomSummaryResponseMeta `json:"meta,omitempty"`
+	CallSummaries []InsightsV1CallSummaries  `json:"call_summaries,omitempty"`
+	Meta          ListConferenceResponseMeta `json:"meta,omitempty"`
 }

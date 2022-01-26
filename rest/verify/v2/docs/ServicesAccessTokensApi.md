@@ -5,6 +5,7 @@ All URIs are relative to *https://verify.twilio.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateAccessToken**](ServicesAccessTokensApi.md#CreateAccessToken) | **Post** /v2/Services/{ServiceSid}/AccessTokens | 
+[**FetchAccessToken**](ServicesAccessTokensApi.md#FetchAccessToken) | **Get** /v2/Services/{ServiceSid}/AccessTokens/{Sid} | 
 
 
 
@@ -46,6 +47,49 @@ Name | Type | Description
 ### HTTP request headers
 
 - **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FetchAccessToken
+
+> VerifyV2AccessToken FetchAccessToken(ctx, ServiceSidSid)
+
+
+
+Fetch an Access Token for the Entity
+
+### Path Parameters
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**ServiceSid** | **string** | The unique SID identifier of the Service.
+**Sid** | **string** | A 34 character string that uniquely identifies this Access Token.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a FetchAccessTokenParams struct
+
+
+Name | Type | Description
+------------- | ------------- | -------------
+
+### Return type
+
+[**VerifyV2AccessToken**](VerifyV2AccessToken.md)
+
+### Authorization
+
+[accountSid_authToken](../README.md#accountSid_authToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

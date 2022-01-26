@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.0
+ * API version: 1.25.1
  * Contact: support@twilio.com
  */
 
@@ -11,8 +11,8 @@
 
 package openapi
 
-// ListVideoRoomSummaryResponseMeta struct for ListVideoRoomSummaryResponseMeta
-type ListVideoRoomSummaryResponseMeta struct {
+// ListConferenceResponseMeta struct for ListConferenceResponseMeta
+type ListConferenceResponseMeta struct {
 	FirstPageUrl    string `json:"first_page_url,omitempty"`
 	Key             string `json:"key,omitempty"`
 	NextPageUrl     string `json:"next_page_url,omitempty"`

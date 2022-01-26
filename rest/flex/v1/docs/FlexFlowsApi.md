@@ -29,7 +29,7 @@ Other parameters are passed through a pointer to a CreateFlexFlowParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ChannelType** | **string** | The channel type. Can be: &#x60;web&#x60;, &#x60;facebook&#x60;, &#x60;sms&#x60;, &#x60;whatsapp&#x60;, &#x60;line&#x60; or &#x60;custom&#x60;.
+**ChannelType** | **string** | The channel type. One of &#x60;web&#x60;, &#x60;facebook&#x60;, &#x60;sms&#x60;, &#x60;whatsapp&#x60;, &#x60;line&#x60; or &#x60;custom&#x60;. By default, Studio’s Send to Flex widget passes it on to the Task attributes for Tasks created based on this Flex Flow. The Task attributes will be used by the Flex UI to render the respective Task as appropriate (applying channel-specific design and length limits). If &#x60;channelType&#x60; is &#x60;facebook&#x60;, &#x60;whatsapp&#x60; or &#x60;line&#x60;, the Send to Flex widget should set the Task Channel to Programmable Chat.
 **ChatServiceSid** | **string** | The SID of the chat service.
 **ContactIdentity** | **string** | The channel contact&#39;s Identity.
 **Enabled** | **bool** | Whether the new Flex Flow is enabled.
@@ -38,7 +38,7 @@ Name | Type | Description
 **IntegrationCreationOnMessage** | **bool** | In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
 **IntegrationFlowSid** | **string** | The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
 **IntegrationPriority** | **int** | The Task priority of a new Task. The default priority is 0. Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
-**IntegrationRetryCount** | **int** | The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (inclusive), default is 3. Optional when &#x60;integrationType&#x60; is &#x60;external&#x60;, not applicable otherwise.
+**IntegrationRetryCount** | **int** | The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when &#x60;integrationType&#x60; is &#x60;studio&#x60; or &#x60;external&#x60;, not applicable otherwise.
 **IntegrationTimeout** | **int** | The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
 **IntegrationUrl** | **string** | The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
 **IntegrationWorkflowSid** | **string** | The Workflow SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.
@@ -205,7 +205,7 @@ Other parameters are passed through a pointer to a UpdateFlexFlowParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**ChannelType** | **string** | The channel type. Can be: &#x60;web&#x60;, &#x60;facebook&#x60;, &#x60;sms&#x60;, &#x60;whatsapp&#x60;, &#x60;line&#x60; or &#x60;custom&#x60;.
+**ChannelType** | **string** | The channel type. One of &#x60;web&#x60;, &#x60;facebook&#x60;, &#x60;sms&#x60;, &#x60;whatsapp&#x60;, &#x60;line&#x60; or &#x60;custom&#x60;. By default, Studio’s Send to Flex widget passes it on to the Task attributes for Tasks created based on this Flex Flow. The Task attributes will be used by the Flex UI to render the respective Task as appropriate (applying channel-specific design and length limits). If &#x60;channelType&#x60; is &#x60;facebook&#x60;, &#x60;whatsapp&#x60; or &#x60;line&#x60;, the Send to Flex widget should set the Task Channel to Programmable Chat.
 **ChatServiceSid** | **string** | The SID of the chat service.
 **ContactIdentity** | **string** | The channel contact&#39;s Identity.
 **Enabled** | **bool** | Whether the new Flex Flow is enabled.
@@ -214,7 +214,7 @@ Name | Type | Description
 **IntegrationCreationOnMessage** | **bool** | In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
 **IntegrationFlowSid** | **string** | The SID of the Studio Flow. Required when &#x60;integrationType&#x60; is &#x60;studio&#x60;.
 **IntegrationPriority** | **int** | The Task priority of a new Task. The default priority is 0. Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
-**IntegrationRetryCount** | **int** | The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (inclusive), default is 3. Optional when &#x60;integrationType&#x60; is &#x60;external&#x60;, not applicable otherwise.
+**IntegrationRetryCount** | **int** | The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when &#x60;integrationType&#x60; is &#x60;studio&#x60; or &#x60;external&#x60;, not applicable otherwise.
 **IntegrationTimeout** | **int** | The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when &#x60;integrationType&#x60; is &#x60;task&#x60;, not applicable otherwise.
 **IntegrationUrl** | **string** | The URL of the external webhook. Required when &#x60;integrationType&#x60; is &#x60;external&#x60;.
 **IntegrationWorkflowSid** | **string** | The Workflow SID for a new Task. Required when &#x60;integrationType&#x60; is &#x60;task&#x60;.

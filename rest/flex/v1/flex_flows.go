@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.0
+ * API version: 1.25.1
  * Contact: support@twilio.com
  */
 
@@ -23,7 +23,7 @@ import (
 
 // Optional parameters for the method 'CreateFlexFlow'
 type CreateFlexFlowParams struct {
-	// The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`.
+	// The channel type. One of `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`. By default, Studio’s Send to Flex widget passes it on to the Task attributes for Tasks created based on this Flex Flow. The Task attributes will be used by the Flex UI to render the respective Task as appropriate (applying channel-specific design and length limits). If `channelType` is `facebook`, `whatsapp` or `line`, the Send to Flex widget should set the Task Channel to Programmable Chat.
 	ChannelType *string `json:"ChannelType,omitempty"`
 	// The SID of the chat service.
 	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
@@ -41,7 +41,7 @@ type CreateFlexFlowParams struct {
 	IntegrationFlowSid *string `json:"Integration.FlowSid,omitempty"`
 	// The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
 	IntegrationPriority *int `json:"Integration.Priority,omitempty"`
-	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (inclusive), default is 3. Optional when `integrationType` is `external`, not applicable otherwise.
+	// The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 	IntegrationRetryCount *int `json:"Integration.RetryCount,omitempty"`
 	// The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
 	IntegrationTimeout *int `json:"Integration.Timeout,omitempty"`
@@ -384,7 +384,7 @@ func (c *ApiService) getNextListFlexFlowResponse(nextPageUrl string) (interface{
 
 // Optional parameters for the method 'UpdateFlexFlow'
 type UpdateFlexFlowParams struct {
-	// The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`.
+	// The channel type. One of `web`, `facebook`, `sms`, `whatsapp`, `line` or `custom`. By default, Studio’s Send to Flex widget passes it on to the Task attributes for Tasks created based on this Flex Flow. The Task attributes will be used by the Flex UI to render the respective Task as appropriate (applying channel-specific design and length limits). If `channelType` is `facebook`, `whatsapp` or `line`, the Send to Flex widget should set the Task Channel to Programmable Chat.
 	ChannelType *string `json:"ChannelType,omitempty"`
 	// The SID of the chat service.
 	ChatServiceSid *string `json:"ChatServiceSid,omitempty"`
@@ -402,7 +402,7 @@ type UpdateFlexFlowParams struct {
 	IntegrationFlowSid *string `json:"Integration.FlowSid,omitempty"`
 	// The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
 	IntegrationPriority *int `json:"Integration.Priority,omitempty"`
-	// The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (inclusive), default is 3. Optional when `integrationType` is `external`, not applicable otherwise.
+	// The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
 	IntegrationRetryCount *int `json:"Integration.RetryCount,omitempty"`
 	// The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
 	IntegrationTimeout *int `json:"Integration.Timeout,omitempty"`

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.0
+ * API version: 1.25.1
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,20 @@ package openapi
 
 // VerifyV2AccessToken struct for VerifyV2AccessToken
 type VerifyV2AccessToken struct {
+	// Account Sid.
+	AccountSid *string `json:"account_sid,omitempty"`
+	// Unique external identifier of the Entity
+	EntityIdentity *string `json:"entity_identity,omitempty"`
+	// A human readable description of this factor.
+	FactorFriendlyName *string `json:"factor_friendly_name,omitempty"`
+	// The Type of the Factor
+	FactorType *string `json:"factor_type,omitempty"`
+	// Verify Service Sid.
+	ServiceSid *string `json:"service_sid,omitempty"`
+	// A string that uniquely identifies this Access Token.
+	Sid *string `json:"sid,omitempty"`
 	// Generated access token.
 	Token *string `json:"token,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"url,omitempty"`
 }

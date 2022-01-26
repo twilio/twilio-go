@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **FailureReason** | Pointer to **string** | A reason why brand registration has failed |
+**GovernmentEntity** | Pointer to **bool** | Government Entity |
 **IdentityStatus** | Pointer to **string** | Identity Status |
 **Links** | Pointer to **map[string]interface{}** |  |
 **Mock** | Pointer to **bool** | A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided. |
