@@ -25,8 +25,9 @@ The Go library documentation can be found [here][libdocs].
 
 This library supports the following Go implementations:
 
-* 1.15
-* 1.16
+* Go 1.15
+* Go 1.16
+* Go 1.17
 
 ## Installation
 
