@@ -31,7 +31,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        go: [ '1.15', '1.16' ]
+        go: [ '1.15', '1.16', '1.17' ]
     steps:
       - name: Setup Go environment
         uses: actions/setup-go@v2
