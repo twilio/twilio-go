@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.1
+ * API version: 1.26.0
  * Contact: support@twilio.com
  */
 
@@ -15,8 +15,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-
 	"strings"
+	"time"
 
 	"github.com/twilio/twilio-go/client"
 )
@@ -155,16 +155,28 @@ func (c *ApiService) FetchBundle(Sid string) (*NumbersV2Bundle, error) {
 
 // Optional parameters for the method 'ListBundle'
 type ListBundleParams struct {
-	// The verification status of the Bundle resource.
+	// The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
 	Status *string `json:"Status,omitempty"`
-	// The string that you assigned to describe the resource.
+	// The string that you assigned to describe the resource. The column can contain 255 variable characters.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	// The unique string of a regulation that is associated to the Bundle resource.
+	// The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
 	RegulationSid *string `json:"RegulationSid,omitempty"`
-	// The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+	// The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
 	IsoCountry *string `json:"IsoCountry,omitempty"`
-	// The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+	// The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
 	NumberType *string `json:"NumberType,omitempty"`
+	// Indicates that the Bundle is a valid Bundle until a specified expiration date.
+	HasValidUntilDate *bool `json:"HasValidUntilDate,omitempty"`
+	// Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`
+	SortBy *string `json:"SortBy,omitempty"`
+	// Default is `DESC`. Can be `ASC` or `DESC`.
+	SortDirection *string `json:"SortDirection,omitempty"`
+	// Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+	ValidUntilDate *time.Time `json:"ValidUntilDate,omitempty"`
+	// Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+	ValidUntilDateBefore *time.Time `json:"ValidUntilDate&lt;,omitempty"`
+	// Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+	ValidUntilDateAfter *time.Time `json:"ValidUntilDate&gt;,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -189,6 +201,30 @@ func (params *ListBundleParams) SetIsoCountry(IsoCountry string) *ListBundlePara
 }
 func (params *ListBundleParams) SetNumberType(NumberType string) *ListBundleParams {
 	params.NumberType = &NumberType
+	return params
+}
+func (params *ListBundleParams) SetHasValidUntilDate(HasValidUntilDate bool) *ListBundleParams {
+	params.HasValidUntilDate = &HasValidUntilDate
+	return params
+}
+func (params *ListBundleParams) SetSortBy(SortBy string) *ListBundleParams {
+	params.SortBy = &SortBy
+	return params
+}
+func (params *ListBundleParams) SetSortDirection(SortDirection string) *ListBundleParams {
+	params.SortDirection = &SortDirection
+	return params
+}
+func (params *ListBundleParams) SetValidUntilDate(ValidUntilDate time.Time) *ListBundleParams {
+	params.ValidUntilDate = &ValidUntilDate
+	return params
+}
+func (params *ListBundleParams) SetValidUntilDateBefore(ValidUntilDateBefore time.Time) *ListBundleParams {
+	params.ValidUntilDateBefore = &ValidUntilDateBefore
+	return params
+}
+func (params *ListBundleParams) SetValidUntilDateAfter(ValidUntilDateAfter time.Time) *ListBundleParams {
+	params.ValidUntilDateAfter = &ValidUntilDateAfter
 	return params
 }
 func (params *ListBundleParams) SetPageSize(PageSize int) *ListBundleParams {
@@ -221,6 +257,24 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
 	}
 	if params != nil && params.NumberType != nil {
 		data.Set("NumberType", *params.NumberType)
+	}
+	if params != nil && params.HasValidUntilDate != nil {
+		data.Set("HasValidUntilDate", fmt.Sprint(*params.HasValidUntilDate))
+	}
+	if params != nil && params.SortBy != nil {
+		data.Set("SortBy", *params.SortBy)
+	}
+	if params != nil && params.SortDirection != nil {
+		data.Set("SortDirection", *params.SortDirection)
+	}
+	if params != nil && params.ValidUntilDate != nil {
+		data.Set("ValidUntilDate", fmt.Sprint((*params.ValidUntilDate).Format(time.RFC3339)))
+	}
+	if params != nil && params.ValidUntilDateBefore != nil {
+		data.Set("ValidUntilDate<", fmt.Sprint((*params.ValidUntilDateBefore).Format(time.RFC3339)))
+	}
+	if params != nil && params.ValidUntilDateAfter != nil {
+		data.Set("ValidUntilDate>", fmt.Sprint((*params.ValidUntilDateAfter).Format(time.RFC3339)))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

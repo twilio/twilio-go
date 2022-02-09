@@ -32,7 +32,7 @@ Name | Type | Description
 **CallbackMethod** | **string** | The HTTP method we should use to call &#x60;callback_url&#x60;. Can be: &#x60;GET&#x60; or &#x60;POST&#x60; and the default is POST.
 **CallbackUrl** | **string** | The URL we should call using the &#x60;callback_method&#x60; after we have sent the command.
 **Payload** | **string** | The message body of the SMS Command.
-**Sim** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the SMS Command to.
+**Sim** | **string** | The &#x60;sid&#x60; or &#x60;unique_name&#x60; of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
 
 ### Return type
 

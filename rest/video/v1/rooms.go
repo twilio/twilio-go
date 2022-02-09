@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.1
+ * API version: 1.26.0
  * Contact: support@twilio.com
  */
 
@@ -15,7 +15,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-
 	"strings"
 	"time"
 
@@ -46,7 +45,7 @@ type CreateRoomParams struct {
 	StatusCallbackMethod *string `json:"StatusCallbackMethod,omitempty"`
 	// The type of room. Can be: `go`, `peer-to-peer`, `group-small`, or `group`. The default value is `group`.
 	Type *string `json:"Type,omitempty"`
-	// An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
+	// An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
 	UniqueName *string `json:"UniqueName,omitempty"`
 	// Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
 	UnusedRoomTimeout *int `json:"UnusedRoomTimeout,omitempty"`

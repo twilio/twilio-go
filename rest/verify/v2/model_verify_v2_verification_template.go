@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.1
+ * API version: 1.26.0
  * Contact: support@twilio.com
  */
 
@@ -19,6 +19,6 @@ type VerifyV2VerificationTemplate struct {
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// A string that uniquely identifies this Template
 	Sid *string `json:"sid,omitempty"`
-	// Ojbect with the template translations.
+	// Object with the template translations.
 	Translations *map[string]interface{} `json:"translations,omitempty"`
 }

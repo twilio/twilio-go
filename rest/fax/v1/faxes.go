@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.1
+ * API version: 1.26.0
  * Contact: support@twilio.com
  */
 
@@ -15,121 +15,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-
 	"strings"
 	"time"
 
 	"github.com/twilio/twilio-go/client"
 )
-
-// Optional parameters for the method 'CreateFax'
-type CreateFaxParams struct {
-	// The number the fax was sent from. Can be the phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the SIP `from` value. The caller ID displayed to the recipient uses this value. If this is a phone number, it must be a Twilio number or a verified outgoing caller id from your account. If `to` is a SIP address, this can be any alphanumeric string (and also the characters `+`, `_`, `.`, and `-`), which will be used in the `from` header of the SIP request.
-	From *string `json:"From,omitempty"`
-	// The URL of the PDF that contains the fax. See our [security](https://www.twilio.com/docs/usage/security) page for information on how to ensure the request for your media comes from Twilio.
-	MediaUrl *string `json:"MediaUrl,omitempty"`
-	// The [Fax Quality value](https://www.twilio.com/docs/fax/api/fax-resource#fax-quality-values) that describes the fax quality. Can be: `standard`, `fine`, or `superfine` and defaults to `fine`.
-	Quality *string `json:"Quality,omitempty"`
-	// The password to use with `sip_auth_username` to authenticate faxes sent to a SIP address.
-	SipAuthPassword *string `json:"SipAuthPassword,omitempty"`
-	// The username to use with the `sip_auth_password` to authenticate faxes sent to a SIP address.
-	SipAuthUsername *string `json:"SipAuthUsername,omitempty"`
-	// The URL we should call using the `POST` method to send [status information](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback) to your application when the status of the fax changes.
-	StatusCallback *string `json:"StatusCallback,omitempty"`
-	// Whether to store a copy of the sent media on our servers for later retrieval. Can be: `true` or `false` and the default is `true`.
-	StoreMedia *bool `json:"StoreMedia,omitempty"`
-	// The phone number to receive the fax in [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the recipient's SIP URI.
-	To *string `json:"To,omitempty"`
-	// How long in minutes from when the fax is initiated that we should try to send the fax.
-	Ttl *int `json:"Ttl,omitempty"`
-}
-
-func (params *CreateFaxParams) SetFrom(From string) *CreateFaxParams {
-	params.From = &From
-	return params
-}
-func (params *CreateFaxParams) SetMediaUrl(MediaUrl string) *CreateFaxParams {
-	params.MediaUrl = &MediaUrl
-	return params
-}
-func (params *CreateFaxParams) SetQuality(Quality string) *CreateFaxParams {
-	params.Quality = &Quality
-	return params
-}
-func (params *CreateFaxParams) SetSipAuthPassword(SipAuthPassword string) *CreateFaxParams {
-	params.SipAuthPassword = &SipAuthPassword
-	return params
-}
-func (params *CreateFaxParams) SetSipAuthUsername(SipAuthUsername string) *CreateFaxParams {
-	params.SipAuthUsername = &SipAuthUsername
-	return params
-}
-func (params *CreateFaxParams) SetStatusCallback(StatusCallback string) *CreateFaxParams {
-	params.StatusCallback = &StatusCallback
-	return params
-}
-func (params *CreateFaxParams) SetStoreMedia(StoreMedia bool) *CreateFaxParams {
-	params.StoreMedia = &StoreMedia
-	return params
-}
-func (params *CreateFaxParams) SetTo(To string) *CreateFaxParams {
-	params.To = &To
-	return params
-}
-func (params *CreateFaxParams) SetTtl(Ttl int) *CreateFaxParams {
-	params.Ttl = &Ttl
-	return params
-}
-
-// Create a new fax to send to a phone number or SIP endpoint.
-func (c *ApiService) CreateFax(params *CreateFaxParams) (*FaxV1Fax, error) {
-	path := "/v1/Faxes"
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.From != nil {
-		data.Set("From", *params.From)
-	}
-	if params != nil && params.MediaUrl != nil {
-		data.Set("MediaUrl", *params.MediaUrl)
-	}
-	if params != nil && params.Quality != nil {
-		data.Set("Quality", *params.Quality)
-	}
-	if params != nil && params.SipAuthPassword != nil {
-		data.Set("SipAuthPassword", *params.SipAuthPassword)
-	}
-	if params != nil && params.SipAuthUsername != nil {
-		data.Set("SipAuthUsername", *params.SipAuthUsername)
-	}
-	if params != nil && params.StatusCallback != nil {
-		data.Set("StatusCallback", *params.StatusCallback)
-	}
-	if params != nil && params.StoreMedia != nil {
-		data.Set("StoreMedia", fmt.Sprint(*params.StoreMedia))
-	}
-	if params != nil && params.To != nil {
-		data.Set("To", *params.To)
-	}
-	if params != nil && params.Ttl != nil {
-		data.Set("Ttl", fmt.Sprint(*params.Ttl))
-	}
-
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &FaxV1Fax{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
-}
 
 // Delete a specific fax and its associated media.
 func (c *ApiService) DeleteFax(Sid string) error {
@@ -339,42 +229,4 @@ func (c *ApiService) getNextListFaxResponse(nextPageUrl string) (interface{}, er
 		return nil, err
 	}
 	return ps, nil
-}
-
-// Optional parameters for the method 'UpdateFax'
-type UpdateFaxParams struct {
-	// The new [status](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-values) of the resource. Can be only `canceled`. This may fail if transmission has already started.
-	Status *string `json:"Status,omitempty"`
-}
-
-func (params *UpdateFaxParams) SetStatus(Status string) *UpdateFaxParams {
-	params.Status = &Status
-	return params
-}
-
-// Update a specific fax.
-func (c *ApiService) UpdateFax(Sid string, params *UpdateFaxParams) (*FaxV1Fax, error) {
-	path := "/v1/Faxes/{Sid}"
-	path = strings.Replace(path, "{"+"Sid"+"}", Sid, -1)
-
-	data := url.Values{}
-	headers := make(map[string]interface{})
-
-	if params != nil && params.Status != nil {
-		data.Set("Status", *params.Status)
-	}
-
-	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)
-	if err != nil {
-		return nil, err
-	}
-
-	defer resp.Body.Close()
-
-	ps := &FaxV1Fax{}
-	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
-		return nil, err
-	}
-
-	return ps, err
 }

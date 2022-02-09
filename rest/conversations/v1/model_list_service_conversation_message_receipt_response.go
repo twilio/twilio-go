@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.1
+ * API version: 1.26.0
  * Contact: support@twilio.com
  */
 
@@ -14,5 +14,5 @@ package openapi
 // ListServiceConversationMessageReceiptResponse struct for ListServiceConversationMessageReceiptResponse
 type ListServiceConversationMessageReceiptResponse struct {
 	DeliveryReceipts []ConversationsV1ServiceConversationMessageReceipt `json:"delivery_receipts,omitempty"`
-	Meta             ListConversationResponseMeta                       `json:"meta,omitempty"`
+	Meta             ListConfigurationAddressResponseMeta               `json:"meta,omitempty"`
 }

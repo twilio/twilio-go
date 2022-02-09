@@ -160,11 +160,17 @@ Other parameters are passed through a pointer to a ListBundleParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Status** | **string** | The verification status of the Bundle resource.
-**FriendlyName** | **string** | The string that you assigned to describe the resource.
-**RegulationSid** | **string** | The unique string of a regulation that is associated to the Bundle resource.
-**IsoCountry** | **string** | The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle&#39;s phone number country ownership request.
-**NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;toll free&#x60;.
+**Status** | **string** | The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+**FriendlyName** | **string** | The string that you assigned to describe the resource. The column can contain 255 variable characters.
+**RegulationSid** | **string** | The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
+**IsoCountry** | **string** | The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle&#39;s phone number country ownership request.
+**NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;tollfree&#x60;.
+**HasValidUntilDate** | **bool** | Indicates that the Bundle is a valid Bundle until a specified expiration date.
+**SortBy** | **string** | Can be &#x60;ValidUntilDate&#x60; or &#x60;DateUpdated&#x60;. Defaults to &#x60;DateCreated&#x60;
+**SortDirection** | **string** | Default is &#x60;DESC&#x60;. Can be &#x60;ASC&#x60; or &#x60;DESC&#x60;.
+**ValidUntilDate** | **time.Time** | Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+**ValidUntilDateBefore** | **time.Time** | Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+**ValidUntilDateAfter** | **time.Time** | Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

@@ -70,9 +70,14 @@ Other parameters are passed through a pointer to a ListVerificationAttemptParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**DateCreatedAfter** | **time.Time** | Datetime filter used to query Verification Attempts created after this datetime.
-**DateCreatedBefore** | **time.Time** | Datetime filter used to query Verification Attempts created before this datetime.
-**ChannelDataTo** | **string** | Destination of a verification. Depending on the type of channel, it could be a phone number in E.164 format or an email address.
+**DateCreatedAfter** | **time.Time** | Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
+**DateCreatedBefore** | **time.Time** | Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
+**ChannelDataTo** | **string** | Destination of a verification. It is phone number in E.164 format.
+**Country** | **string** | Filter used to query Verification Attempts sent to the specified destination country.
+**Channel** | **string** | Filter used to query Verification Attempts by communication channel. Valid values are &#x60;SMS&#x60; and &#x60;CALL&#x60;
+**VerifyServiceSid** | **string** | Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
+**VerificationSid** | **string** | Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
+**Status** | **string** | Filter used to query Verification Attempts by conversion status. Valid values are &#x60;UNCONVERTED&#x60;, for attempts that were not converted, and &#x60;CONVERTED&#x60;, for attempts that were confirmed.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

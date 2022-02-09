@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.1
+ * API version: 1.26.0
  * Contact: support@twilio.com
  */
 
@@ -15,7 +15,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
@@ -29,7 +28,7 @@ type CreateSmsCommandParams struct {
 	CallbackUrl *string `json:"CallbackUrl,omitempty"`
 	// The message body of the SMS Command.
 	Payload *string `json:"Payload,omitempty"`
-	// The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the SMS Command to.
+	// The `sid` or `unique_name` of the [SIM](https://www.twilio.com/docs/iot/supersim/api/sim-resource) to send the SMS Command to.
 	Sim *string `json:"Sim,omitempty"`
 }
 

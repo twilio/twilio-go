@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.1
+ * API version: 1.26.0
  * Contact: support@twilio.com
  */
 
@@ -15,12 +15,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-
 	"strings"
 
 	"github.com/twilio/twilio-go/client"
 )
 
+// Fetch a specific Conference.
 func (c *ApiService) FetchConference(ConferenceSid string) (*InsightsV1Conference, error) {
 	path := "/v1/Conferences/{ConferenceSid}"
 	path = strings.Replace(path, "{"+"ConferenceSid"+"}", ConferenceSid, -1)
@@ -45,25 +45,25 @@ func (c *ApiService) FetchConference(ConferenceSid string) (*InsightsV1Conferenc
 
 // Optional parameters for the method 'ListConference'
 type ListConferenceParams struct {
-	//
+	// The SID of the conference.
 	ConferenceSid *string `json:"ConferenceSid,omitempty"`
-	//
+	// Custom label for the conference resource, up to 64 characters.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
-	//
+	// Conference status.
 	Status *string `json:"Status,omitempty"`
-	//
+	// Conferences created after the provided timestamp specified in ISO 8601 format
 	CreatedAfter *string `json:"CreatedAfter,omitempty"`
-	//
+	// Conferences created before the provided timestamp specified in ISO 8601 format.
 	CreatedBefore *string `json:"CreatedBefore,omitempty"`
-	//
+	// Twilio region where the conference media was mixed.
 	MixerRegion *string `json:"MixerRegion,omitempty"`
-	//
+	// Tags applied by Twilio for common potential configuration, quality, or performance issues.
 	Tags *string `json:"Tags,omitempty"`
-	//
+	// Account SID for the subaccount whose resources you wish to retrieve.
 	Subaccount *string `json:"Subaccount,omitempty"`
-	//
+	// Potential configuration, behavior, or performance issues detected during the conference.
 	DetectedIssues *string `json:"DetectedIssues,omitempty"`
-	//
+	// Conference end reason; e.g. last participant left, modified by API, etc.
 	EndReason *string `json:"EndReason,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`

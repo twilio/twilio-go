@@ -1,4 +1,4 @@
-# ListConversationResponseMeta
+# ListConfigurationAddressResponseMeta
 
 ## Properties
 

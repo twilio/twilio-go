@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.1
+ * API version: 1.26.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListServiceBindingResponse struct for ListServiceBindingResponse
 type ListServiceBindingResponse struct {
-	Bindings []ConversationsV1ServiceBinding `json:"bindings,omitempty"`
-	Meta     ListConversationResponseMeta    `json:"meta,omitempty"`
+	Bindings []ConversationsV1ServiceBinding      `json:"bindings,omitempty"`
+	Meta     ListConfigurationAddressResponseMeta `json:"meta,omitempty"`
 }

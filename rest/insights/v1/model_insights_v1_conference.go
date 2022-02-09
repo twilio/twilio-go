@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.1
+ * API version: 1.26.0
  * Contact: support@twilio.com
  */
 
@@ -17,26 +17,50 @@ import (
 
 // InsightsV1Conference struct for InsightsV1Conference
 type InsightsV1Conference struct {
-	AccountSid                *string                 `json:"account_sid,omitempty"`
-	ConferenceSid             *string                 `json:"conference_sid,omitempty"`
-	ConnectDurationSeconds    *int                    `json:"connect_duration_seconds,omitempty"`
-	CreateTime                *time.Time              `json:"create_time,omitempty"`
-	DetectedIssues            *map[string]interface{} `json:"detected_issues,omitempty"`
-	DurationSeconds           *int                    `json:"duration_seconds,omitempty"`
-	EndReason                 *string                 `json:"end_reason,omitempty"`
-	EndTime                   *time.Time              `json:"end_time,omitempty"`
-	EndedBy                   *string                 `json:"ended_by,omitempty"`
-	FriendlyName              *string                 `json:"friendly_name,omitempty"`
-	Links                     *map[string]interface{} `json:"links,omitempty"`
-	MaxConcurrentParticipants *int                    `json:"max_concurrent_participants,omitempty"`
-	MaxParticipants           *int                    `json:"max_participants,omitempty"`
-	MixerRegion               *string                 `json:"mixer_region,omitempty"`
-	MixerRegionRequested      *string                 `json:"mixer_region_requested,omitempty"`
-	RecordingEnabled          *bool                   `json:"recording_enabled,omitempty"`
-	StartTime                 *time.Time              `json:"start_time,omitempty"`
-	Status                    *string                 `json:"status,omitempty"`
-	TagInfo                   *map[string]interface{} `json:"tag_info,omitempty"`
-	Tags                      *[]string               `json:"tags,omitempty"`
-	UniqueParticipants        *int                    `json:"unique_participants,omitempty"`
-	Url                       *string                 `json:"url,omitempty"`
+	// Account SID.
+	AccountSid *string `json:"account_sid,omitempty"`
+	// Conference SID.
+	ConferenceSid *string `json:"conference_sid,omitempty"`
+	// Duration of the conference in seconds.
+	ConnectDurationSeconds *int `json:"connect_duration_seconds,omitempty"`
+	// Conference creation date/time.
+	CreateTime *time.Time `json:"create_time,omitempty"`
+	// Potential issues detected during the conference.
+	DetectedIssues *map[string]interface{} `json:"detected_issues,omitempty"`
+	// Conference duration in seconds.
+	DurationSeconds *int `json:"duration_seconds,omitempty"`
+	// Conference end reason.
+	EndReason *string `json:"end_reason,omitempty"`
+	// Conference end date/time.
+	EndTime *time.Time `json:"end_time,omitempty"`
+	// Call SID that ended the conference.
+	EndedBy *string `json:"ended_by,omitempty"`
+	// Custom label for the conference.
+	FriendlyName *string `json:"friendly_name,omitempty"`
+	// Nested resource URLs.
+	Links *map[string]interface{} `json:"links,omitempty"`
+	// Actual maximum concurrent participants.
+	MaxConcurrentParticipants *int `json:"max_concurrent_participants,omitempty"`
+	// Max participants specified in config.
+	MaxParticipants *int `json:"max_participants,omitempty"`
+	// Region where the conference was mixed.
+	MixerRegion *string `json:"mixer_region,omitempty"`
+	// Configuration-requested conference mixer region.
+	MixerRegionRequested *string `json:"mixer_region_requested,omitempty"`
+	// Processing state for the Conference Summary resource.
+	ProcessingState *string `json:"processing_state,omitempty"`
+	// Boolean. Indicates whether recording was enabled.
+	RecordingEnabled *bool `json:"recording_enabled,omitempty"`
+	// Timestamp in ISO 8601 format when the conference started.
+	StartTime *time.Time `json:"start_time,omitempty"`
+	// Status of conference
+	Status *string `json:"status,omitempty"`
+	// Object. Contains details about conference tags.
+	TagInfo *map[string]interface{} `json:"tag_info,omitempty"`
+	// Tags for detected conference conditions and participant behaviors.
+	Tags *[]string `json:"tags,omitempty"`
+	// Unique conference participants.
+	UniqueParticipants *int `json:"unique_participants,omitempty"`
+	// The URL of this resource.
+	Url *string `json:"url,omitempty"`
 }

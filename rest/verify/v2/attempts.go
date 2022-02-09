@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.25.1
+ * API version: 1.26.0
  * Contact: support@twilio.com
  */
 
@@ -15,7 +15,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
-
 	"strings"
 	"time"
 
@@ -47,12 +46,22 @@ func (c *ApiService) FetchVerificationAttempt(Sid string) (*VerifyV2Verification
 
 // Optional parameters for the method 'ListVerificationAttempt'
 type ListVerificationAttemptParams struct {
-	// Datetime filter used to query Verification Attempts created after this datetime.
+	// Datetime filter used to query Verification Attempts created after this datetime. Given as GMT in RFC 2822 format.
 	DateCreatedAfter *time.Time `json:"DateCreatedAfter,omitempty"`
-	// Datetime filter used to query Verification Attempts created before this datetime.
+	// Datetime filter used to query Verification Attempts created before this datetime. Given as GMT in RFC 2822 format.
 	DateCreatedBefore *time.Time `json:"DateCreatedBefore,omitempty"`
-	// Destination of a verification. Depending on the type of channel, it could be a phone number in E.164 format or an email address.
+	// Destination of a verification. It is phone number in E.164 format.
 	ChannelDataTo *string `json:"ChannelData.To,omitempty"`
+	// Filter used to query Verification Attempts sent to the specified destination country.
+	Country *string `json:"Country,omitempty"`
+	// Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+	Channel *string `json:"Channel,omitempty"`
+	// Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
+	VerifyServiceSid *string `json:"VerifyServiceSid,omitempty"`
+	// Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
+	VerificationSid *string `json:"VerificationSid,omitempty"`
+	// Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+	Status *string `json:"Status,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -69,6 +78,26 @@ func (params *ListVerificationAttemptParams) SetDateCreatedBefore(DateCreatedBef
 }
 func (params *ListVerificationAttemptParams) SetChannelDataTo(ChannelDataTo string) *ListVerificationAttemptParams {
 	params.ChannelDataTo = &ChannelDataTo
+	return params
+}
+func (params *ListVerificationAttemptParams) SetCountry(Country string) *ListVerificationAttemptParams {
+	params.Country = &Country
+	return params
+}
+func (params *ListVerificationAttemptParams) SetChannel(Channel string) *ListVerificationAttemptParams {
+	params.Channel = &Channel
+	return params
+}
+func (params *ListVerificationAttemptParams) SetVerifyServiceSid(VerifyServiceSid string) *ListVerificationAttemptParams {
+	params.VerifyServiceSid = &VerifyServiceSid
+	return params
+}
+func (params *ListVerificationAttemptParams) SetVerificationSid(VerificationSid string) *ListVerificationAttemptParams {
+	params.VerificationSid = &VerificationSid
+	return params
+}
+func (params *ListVerificationAttemptParams) SetStatus(Status string) *ListVerificationAttemptParams {
+	params.Status = &Status
 	return params
 }
 func (params *ListVerificationAttemptParams) SetPageSize(PageSize int) *ListVerificationAttemptParams {
@@ -95,6 +124,21 @@ func (c *ApiService) PageVerificationAttempt(params *ListVerificationAttemptPara
 	}
 	if params != nil && params.ChannelDataTo != nil {
 		data.Set("ChannelData.To", *params.ChannelDataTo)
+	}
+	if params != nil && params.Country != nil {
+		data.Set("Country", *params.Country)
+	}
+	if params != nil && params.Channel != nil {
+		data.Set("Channel", *params.Channel)
+	}
+	if params != nil && params.VerifyServiceSid != nil {
+		data.Set("VerifyServiceSid", *params.VerifyServiceSid)
+	}
+	if params != nil && params.VerificationSid != nil {
+		data.Set("VerificationSid", *params.VerificationSid)
+	}
+	if params != nil && params.Status != nil {
+		data.Set("Status", *params.Status)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))
