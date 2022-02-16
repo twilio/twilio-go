@@ -30,12 +30,20 @@ func NewRequestValidator(authToken string) RequestValidator {
 // if the computed signature matches the expectedSignature. Params are a map of string to string containing
 // all the query params Twilio added to the configured webhook URL.
 func (rv *RequestValidator) Validate(url string, params map[string]string, expectedSignature string) bool {
-	// turn the keys and values of the query params into a concatenated string which we will then sort
-	var paramSlc []string
-	for k, v := range params {
-		paramSlc = append(paramSlc, fmt.Sprintf("%s%s", k, v))
+	// Create sorted keys slice
+	paramsKeys := make([]string, len(params))
+	i := 0
+	for k := range params {
+		paramsKeys[i] = k
+		i++
 	}
-	sort.Strings(paramSlc)
+	sort.Strings(paramsKeys)
+
+	// Create sorted key+value concatenated strings
+	var paramSlc []string
+	for _, k := range paramsKeys {
+		paramSlc = append(paramSlc, fmt.Sprintf("%s%s", k, params[k]))
+	}
 
 	// check signature of testURL with and without port, since sig generation on back-end is inconsistent
 	signatureWithPort := rv.getValidationSignature(addPort(url), paramSlc)
