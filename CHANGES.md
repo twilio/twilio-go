@@ -1,5 +1,26 @@
 twilio-go changelog
 ====================
+[2022-02-17] Version 0.22.0
+---------------------------
+**Api**
+- Detected a bug and removed optional boolean include_soft_deleted parameter to retrieve soft deleted recordings. **(breaking change)**
+- Add optional boolean include_soft_deleted parameter to retrieve soft deleted recordings.
+
+**Numbers**
+- Unrevert valid_until and sort filter params added to List Bundles resource
+- Revert valid_until and sort filter params added to List Bundles resource
+- Update sorting params added to List Bundles resource in the previous release
+
+**Preview**
+- Moved `web_channels` from preview to beta under `flex-api` **(breaking change)**
+
+**Taskrouter**
+- Add `ETag` as Response Header to List of Task, Reservation & Worker
+
+**Verify**
+- Add optional `metadata` to factors.
+
+
 [2022-02-09] Version 0.21.0
 ---------------------------
 **Library - Chore**

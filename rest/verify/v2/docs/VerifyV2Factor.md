@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **FactorType** | Pointer to **string** | The Type of this Factor |
 **FriendlyName** | Pointer to **string** | A human readable description of this resource. |
 **Identity** | Pointer to **string** | Unique external identifier of the Entity |
+**Metadata** | Pointer to **map[string]interface{}** | Metadata of the factor. |
 **ServiceSid** | Pointer to **string** | Service Sid. |
 **Sid** | Pointer to **string** | A string that uniquely identifies this Factor. |
 **Status** | Pointer to **string** | The Status of this Factor |

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.26.0
+ * API version: 1.27.0
  * Contact: support@twilio.com
  */
 
@@ -31,7 +31,7 @@ type ConversationsV1ConfigurationAddress struct {
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// A 34 character string that uniquely identifies this resource.
 	Sid *string `json:"sid,omitempty"`
-	// Type of Address, value can be `whatsapp` or `sms`.
+	// Type of Address.
 	Type *string `json:"type,omitempty"`
 	// An absolute URL for this address configuration.
 	Url *string `json:"url,omitempty"`

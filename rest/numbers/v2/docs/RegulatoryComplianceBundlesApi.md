@@ -166,7 +166,7 @@ Name | Type | Description
 **IsoCountry** | **string** | The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle&#39;s phone number country ownership request.
 **NumberType** | **string** | The type of phone number of the Bundle&#39;s ownership request. Can be &#x60;local&#x60;, &#x60;mobile&#x60;, &#x60;national&#x60;, or &#x60;tollfree&#x60;.
 **HasValidUntilDate** | **bool** | Indicates that the Bundle is a valid Bundle until a specified expiration date.
-**SortBy** | **string** | Can be &#x60;ValidUntilDate&#x60; or &#x60;DateUpdated&#x60;. Defaults to &#x60;DateCreated&#x60;
+**SortBy** | **string** | Can be &#x60;valid-until&#x60; or &#x60;date-updated&#x60;. Defaults to &#x60;date-created&#x60;.
 **SortDirection** | **string** | Default is &#x60;DESC&#x60;. Can be &#x60;ASC&#x60; or &#x60;DESC&#x60;.
 **ValidUntilDate** | **time.Time** | Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
 **ValidUntilDateBefore** | **time.Time** | Date to filter Bundles having their &#x60;valid_until_date&#x60; before or after the specified date. Can be &#x60;ValidUntilDate&gt;&#x3D;&#x60; or &#x60;ValidUntilDate&lt;&#x3D;&#x60;. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.

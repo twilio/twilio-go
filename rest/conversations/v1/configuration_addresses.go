@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.26.0
+ * API version: 1.27.0
  * Contact: support@twilio.com
  */
 
@@ -28,13 +28,13 @@ type CreateConfigurationAddressParams struct {
 	AutoCreationConversationServiceSid *string `json:"AutoCreation.ConversationServiceSid,omitempty"`
 	// Enable/Disable auto-creating conversations for messages to this address
 	AutoCreationEnabled *bool `json:"AutoCreation.Enabled,omitempty"`
-	// For type `studio`, the studio flow SID, where the webhook should be sent to.
+	// For type `studio`, the studio flow SID where the webhook should be sent to.
 	AutoCreationStudioFlowSid *string `json:"AutoCreation.StudioFlowSid,omitempty"`
 	// For type `studio`, number of times to retry the webhook request
 	AutoCreationStudioRetryCount *int `json:"AutoCreation.StudioRetryCount,omitempty"`
-	// Type of Auto Creation. Value can be one of `webhook`, `studio`, `default`.
+	// Type of Auto Creation. Value can be one of `webhook`, `studio` or `default`.
 	AutoCreationType *string `json:"AutoCreation.Type,omitempty"`
-	// The list of events, firing webhook event for this Conversation.
+	// The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
 	AutoCreationWebhookFilters *[]string `json:"AutoCreation.WebhookFilters,omitempty"`
 	// For type `webhook`, the HTTP method to be used when sending a webhook request.
 	AutoCreationWebhookMethod *string `json:"AutoCreation.WebhookMethod,omitempty"`
@@ -329,13 +329,13 @@ type UpdateConfigurationAddressParams struct {
 	AutoCreationConversationServiceSid *string `json:"AutoCreation.ConversationServiceSid,omitempty"`
 	// Enable/Disable auto-creating conversations for messages to this address
 	AutoCreationEnabled *bool `json:"AutoCreation.Enabled,omitempty"`
-	// For type `studio`, the studio flow SID, where the webhook should be sent to.
+	// For type `studio`, the studio flow SID where the webhook should be sent to.
 	AutoCreationStudioFlowSid *string `json:"AutoCreation.StudioFlowSid,omitempty"`
 	// For type `studio`, number of times to retry the webhook request
 	AutoCreationStudioRetryCount *int `json:"AutoCreation.StudioRetryCount,omitempty"`
-	// Type of Auto Creation. Value can be one of `webhook`, `studio`, `default`.
+	// Type of Auto Creation. Value can be one of `webhook`, `studio` or `default`.
 	AutoCreationType *string `json:"AutoCreation.Type,omitempty"`
-	// The list of events, firing webhook event for this Conversation.
+	// The list of events, firing webhook event for this Conversation. Values can be any of the following: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onDeliveryUpdated`
 	AutoCreationWebhookFilters *[]string `json:"AutoCreation.WebhookFilters,omitempty"`
 	// For type `webhook`, the HTTP method to be used when sending a webhook request.
 	AutoCreationWebhookMethod *string `json:"AutoCreation.WebhookMethod,omitempty"`
