@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.26.0
+ * API version: 1.27.0
  * Contact: support@twilio.com
  */
 

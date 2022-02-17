@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.26.0
+ * API version: 1.27.0
  * Contact: support@twilio.com
  */
 
@@ -33,6 +33,8 @@ type VerifyV2Factor struct {
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// Unique external identifier of the Entity
 	Identity *string `json:"identity,omitempty"`
+	// Metadata of the factor.
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 	// Service Sid.
 	ServiceSid *string `json:"service_sid,omitempty"`
 	// A string that uniquely identifies this Factor.

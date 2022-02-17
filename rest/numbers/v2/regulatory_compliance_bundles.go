@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.26.0
+ * API version: 1.27.0
  * Contact: support@twilio.com
  */
 
@@ -167,7 +167,7 @@ type ListBundleParams struct {
 	NumberType *string `json:"NumberType,omitempty"`
 	// Indicates that the Bundle is a valid Bundle until a specified expiration date.
 	HasValidUntilDate *bool `json:"HasValidUntilDate,omitempty"`
-	// Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`
+	// Can be `valid-until` or `date-updated`. Defaults to `date-created`.
 	SortBy *string `json:"SortBy,omitempty"`
 	// Default is `DESC`. Can be `ASC` or `DESC`.
 	SortDirection *string `json:"SortDirection,omitempty"`

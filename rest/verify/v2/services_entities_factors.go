@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.26.0
+ * API version: 1.27.0
  * Contact: support@twilio.com
  */
 
@@ -48,6 +48,8 @@ type CreateNewFactorParams struct {
 	FactorType *string `json:"FactorType,omitempty"`
 	// The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For `factor_type` `push`, this could be a device name. For `factor_type` `totp`, this value is used as the “account name” in constructing the `binding.uri` property. At the same time, we recommend avoiding providing PII.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
+	// Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+	Metadata *map[string]interface{} `json:"Metadata,omitempty"`
 }
 
 func (params *CreateNewFactorParams) SetBindingAlg(BindingAlg string) *CreateNewFactorParams {
@@ -102,6 +104,10 @@ func (params *CreateNewFactorParams) SetFriendlyName(FriendlyName string) *Creat
 	params.FriendlyName = &FriendlyName
 	return params
 }
+func (params *CreateNewFactorParams) SetMetadata(Metadata map[string]interface{}) *CreateNewFactorParams {
+	params.Metadata = &Metadata
+	return params
+}
 
 // Create a new Factor for the Entity
 func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params *CreateNewFactorParams) (*VerifyV2NewFactor, error) {
@@ -150,6 +156,15 @@ func (c *ApiService) CreateNewFactor(ServiceSid string, Identity string, params 
 	}
 	if params != nil && params.FriendlyName != nil {
 		data.Set("FriendlyName", *params.FriendlyName)
+	}
+	if params != nil && params.Metadata != nil {
+		v, err := json.Marshal(params.Metadata)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Metadata", string(v))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

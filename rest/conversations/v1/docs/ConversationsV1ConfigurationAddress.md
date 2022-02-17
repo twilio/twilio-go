@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was last updated. |
 **FriendlyName** | Pointer to **string** | The human-readable name of this configuration. |
 **Sid** | Pointer to **string** | A 34 character string that uniquely identifies this resource. |
-**Type** | Pointer to **string** | Type of Address, value can be `whatsapp` or `sms`. |
+**Type** | Pointer to **string** | Type of Address. |
 **Url** | Pointer to **string** | An absolute URL for this address configuration. |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
