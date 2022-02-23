@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | The name of this resource |
 **Sid** | Pointer to **string** | The SID of the Stream resource. |
 **Status** | Pointer to **string** | The status - one of `stopped`, `in-progress` |
+**Uri** | Pointer to **string** | The URI of the resource, relative to `https://api.twilio.com` |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

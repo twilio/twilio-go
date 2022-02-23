@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.0
+ * API version: 1.27.1
  * Contact: support@twilio.com
  */
 
@@ -44,7 +44,7 @@ type CreateNewFactorParams struct {
 	ConfigSkew *int `json:"Config.Skew,omitempty"`
 	// Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property `totp.time_step`. Defaults to 30 seconds if not configured.  Used when `factor_type` is `totp`
 	ConfigTimeStep *int `json:"Config.TimeStep,omitempty"`
-	// The Type of this Factor. Currently `push` and `totp` are supported. For `totp` to work, you need to contact [Twilio sales](https://www.twilio.com/help/sales) first to have the Verify TOTP feature enabled for your Twilio account.
+	// The Type of this Factor. Currently `push` and `totp` are supported.
 	FactorType *string `json:"FactorType,omitempty"`
 	// The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For `factor_type` `push`, this could be a device name. For `factor_type` `totp`, this value is used as the “account name” in constructing the `binding.uri` property. At the same time, we recommend avoiding providing PII.
 	FriendlyName *string `json:"FriendlyName,omitempty"`

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.0
+ * API version: 1.27.1
  * Contact: support@twilio.com
  */
 
@@ -25,4 +25,6 @@ type ApiV2010Siprec struct {
 	Sid *string `json:"sid,omitempty"`
 	// The status - one of `stopped`, `in-progress`
 	Status *string `json:"status,omitempty"`
+	// The URI of the resource, relative to `https://api.twilio.com`
+	Uri *string `json:"uri,omitempty"`
 }
