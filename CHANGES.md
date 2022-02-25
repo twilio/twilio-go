@@ -1,5 +1,15 @@
 twilio-go changelog
 ====================
+[2022-02-23] Version 0.22.1
+---------------------------
+**Api**
+- Add `uri` to `stream` resource
+- Add A2P Registration Fee category (`a2p-registration-fee`) to usage records
+
+**Verify**
+- Remove outdated documentation commentary to contact sales. Product is already in public beta.
+
+
 [2022-02-17] Version 0.22.0
 ---------------------------
 **Api**

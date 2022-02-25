@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.0
+ * API version: 1.27.1
  * Contact: support@twilio.com
  */
 
@@ -36,7 +36,7 @@ type ListUsageRecordParams struct {
 	Granularity *string `json:"Granularity,omitempty"`
 	// Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
 	StartTime *time.Time `json:"StartTime,omitempty"`
-	// Only include usage that occurred before this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
+	// Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
 	EndTime *time.Time `json:"EndTime,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
