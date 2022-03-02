@@ -55,14 +55,16 @@ func main() {
     accountSid := "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     authToken := "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
     client := twilio.NewRestClientWithParams(twilio.RestClientParams{
-    	Username: accountSid,
-    	Password: authToken,
+        Username: accountSid,
+        Password: authToken,
     })
 }
 ```
+
 Alternatively, a `RestClient` constructor without these parameters will look for `TWILIO_ACCOUNT_SID` and `TWILIO_AUTH_TOKEN` variables inside the current environment.
 
 We suggest storing your credentials as environment variables. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
+
 ```go
 package main
 
@@ -72,7 +74,9 @@ func main() {
     client := twilio.NewRestClient()
 }
 ```
+
 Make API calls with a SubAccount by setting the `AccountSid` field in the `twilio.RestClientParams`:
+
 ```go
 package main
 
@@ -81,10 +85,9 @@ import "github.com/twilio/twilio-go"
 func main() {
     subaccountSid := "ACYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
     client := twilio.NewRestClientWithParams(twilio.RestClientParams{
-    	AccountSid: subaccountSid,
+        AccountSid: subaccountSid,
     })
 }
-
 ```
 
 ### Specify a Region and/or Edge
@@ -93,8 +96,8 @@ func main() {
 package main
 
 import (
-	"github.com/twilio/twilio-go"
-	"os"
+    "github.com/twilio/twilio-go"
+    "os"
 )
 
 func main() {
@@ -115,10 +118,10 @@ inside the current environment.
 package main
 
 import (
-	"fmt"
-	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
-	"os"
+    "fmt"
+    "github.com/twilio/twilio-go"
+    openapi "github.com/twilio/twilio-go/rest/api/v2010"
+    "os"
 )
 
 func main() {
@@ -147,11 +150,11 @@ func main() {
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
-	"os"
+    "encoding/json"
+    "fmt"
+    "github.com/twilio/twilio-go"
+    openapi "github.com/twilio/twilio-go/rest/api/v2010"
+    "os"
 )
 
 func main() {
@@ -184,10 +187,10 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
-	"os"
+    "fmt"
+    "github.com/twilio/twilio-go"
+    openapi "github.com/twilio/twilio-go/rest/api/v2010"
+    "os"
 )
 
 func main() {
@@ -218,9 +221,9 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/serverless/v1"
+    "fmt"
+    "github.com/twilio/twilio-go"
+    openapi "github.com/twilio/twilio-go/rest/serverless/v1"
 )
 
 func main() {
@@ -238,7 +241,6 @@ func main() {
         fmt.Println(*resp.Sid)
     }
 }
-
 ```
 
 ### Create a Studio Flow
@@ -247,33 +249,31 @@ func main() {
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"os"
+    "encoding/json"
+    "fmt"
+    "os"
 
-	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/studio/v2"
+    "github.com/twilio/twilio-go"
+    openapi "github.com/twilio/twilio-go/rest/studio/v2"
 )
 
 func main() {
     var jsonStr = `{
-   "description":"Twilio Studio flow service",
-   "initial_state":"Trigger",
-   "states":[
-      {
-         "properties":{
-            "offset":{
-               "y":0,
-               "x":0
+    "description": "Twilio Studio flow service",
+    "initial_state": "Trigger",
+    "states": [{
+        "properties": {
+            "offset": {
+                "y": 0,
+                "x": 0
             }
-         },
-         "transitions":[
+        },
+        "transitions": [
 
-         ],
-         "name":"Trigger",
-         "type":"trigger"
-      }
-   ]
+        ],
+        "name": "Trigger",
+        "type": "trigger"
+    }]
 }`
 
     definition := make(map[string]interface{})
@@ -311,31 +311,31 @@ apis.
 package main
 
 import (
-	"fmt"
-	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
-	"os"
+    "fmt"
+    "github.com/twilio/twilio-go"
+    openapi "github.com/twilio/twilio-go/rest/api/v2010"
+    "os"
 )
 
 func main() {
-	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
+    from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
 
-	client := twilio.NewRestClient()
+    client := twilio.NewRestClient()
 
-	params := &openapi.ListMessageParams{}
-	params.SetFrom(from)
-	params.SetPageSize(20)
-	params.SetLimit(100)
+    params := &openapi.ListMessageParams{}
+    params.SetFrom(from)
+    params.SetPageSize(20)
+    params.SetLimit(100)
 
-	resp, _ := client.ApiV2010.ListMessage(params)
-	for record := range resp {
-		fmt.Println("Body: ", *resp[record].Body)
-	}
+    resp, _ := client.ApiV2010.ListMessage(params)
+    for record := range resp {
+        fmt.Println("Body: ", *resp[record].Body)
+    }
 
-	channel, _ := client.ApiV2010.StreamMessage(params)
-	for record := range channel {
-		fmt.Println("Body: ", *record.Body)
-	}
+    channel, _ := client.ApiV2010.StreamMessage(params)
+    for record := range channel {
+        fmt.Println("Body: ", *record.Body)
+    }
 }
 ```
 
@@ -343,44 +343,44 @@ func main() {
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/twilio/twilio-go"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
-	"net/url"
-	"os"
+    "encoding/json"
+    "fmt"
+    "github.com/twilio/twilio-go"
+    openapi "github.com/twilio/twilio-go/rest/api/v2010"
+    "net/url"
+    "os"
 )
 
 func main() {
-	from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
+    from := os.Getenv("TWILIO_FROM_PHONE_NUMBER")
 
-	client := twilio.NewRestClient()
+    client := twilio.NewRestClient()
 
-	params := &openapi.ListMessageParams{}
-	params.SetFrom(from)
-	params.SetPageSize(20)
+    params := &openapi.ListMessageParams{}
+    params.SetFrom(from)
+    params.SetPageSize(20)
 
-	var pageToken string
-	var pageNumber string
-	resp, err = client.ApiV2010.PageMessage(params, "", "")
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(resp.NextPageUri)
-		u, _ := url.Parse(resp.NextPageUri)
-		q := u.Query()
-		pageToken = q.Get("PageToken")
-		pageNumber = q.Get("Page")
-	}
+    var pageToken string
+    var pageNumber string
+    resp, err := client.ApiV2010.PageMessage(params, "", "")
+    if err != nil {
+        fmt.Println(err)
+    } else {
+        fmt.Println(resp.NextPageUri)
+        u, _ := url.Parse(resp.NextPageUri)
+        q := u.Query()
+        pageToken = q.Get("PageToken")
+        pageNumber = q.Get("Page")
+    }
 
-	resp, err := client.ApiV2010.PageMessage(params, pageToken, pageNumber)
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		if resp != nil {
-			fmt.Println(*resp.Messages[0].Body)
-		}
-	}
+    resp, err = client.ApiV2010.PageMessage(params, pageToken, pageNumber)
+    if err != nil {
+        fmt.Println(err)
+    } else {
+        if resp != nil {
+            fmt.Println(*resp.Messages[0].Body)
+        }
+    }
 }
 ```
 
@@ -390,27 +390,27 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"os"
+    "fmt"
+    "os"
 
-	"github.com/twilio/twilio-go"
-	twilioclient "github.com/twilio/twilio-go/client"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+    "github.com/twilio/twilio-go"
+    twilioclient "github.com/twilio/twilio-go/client"
+    openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 func main() {
-	phoneNumber := os.Getenv("TWILIO_PHONE_NUMBER")
+    phoneNumber := os.Getenv("TWILIO_PHONE_NUMBER")
 
-	client := twilio.NewRestClient()
+    client := twilio.NewRestClient()
 
-	params := &openapi.CreateIncomingPhoneNumberParams{}
-	params.SetPhoneNumber(phoneNumber)
+    params := &openapi.CreateIncomingPhoneNumberParams{}
+    params.SetPhoneNumber(phoneNumber)
 
-	resp, err := client.ApiV2010.CreateIncomingPhoneNumber(params)
-	if err != nil {
-		twilioError := err.(*twilioclient.TwilioRestError)
-		fmt.Println(twilioError.Error())
-	}
+    resp, err := client.ApiV2010.CreateIncomingPhoneNumber(params)
+    if err != nil {
+        twilioError := err.(*twilioclient.TwilioRestError)
+        fmt.Println(twilioError.Error())
+    }
 }
 ```
 
@@ -428,15 +428,15 @@ product services instead:
 package main
 
 import (
-	"github.com/twilio/twilio-go/client"
-	apiv2010 "github.com/twilio/twilio-go/rest/api/v2010"
-	serverless "github.com/twilio/twilio-go/rest/serverless/v1"
-	"os"
+    "github.com/twilio/twilio-go/client"
+    apiv2010 "github.com/twilio/twilio-go/rest/api/v2010"
+    serverless "github.com/twilio/twilio-go/rest/serverless/v1"
+    "os"
 )
 
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+    authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 
     // Create an instance of our default BaseClient implementation
     // You will need to provide your API credentials to the Client manually
@@ -445,8 +445,8 @@ func main() {
     }
     defaultClient.SetAccountSid(accountSid)
 
-	coreApiService := apiv2010.NewApiServiceWithClient(defaultClient)
-	serverlessApiService := serverless.NewApiServiceWithClient(defaultClient)
+    coreApiService := apiv2010.NewApiServiceWithClient(defaultClient)
+    serverlessApiService := serverless.NewApiServiceWithClient(defaultClient)
 }
 ```
 
@@ -456,110 +456,115 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"net/url"
-	"os"
+    "fmt"
+    "net/http"
+    "net/url"
+    "os"
 
-	"github.com/twilio/twilio-go"
-	"github.com/twilio/twilio-go/client"
-	openapi "github.com/twilio/twilio-go/rest/api/v2010"
+    "github.com/twilio/twilio-go"
+    "github.com/twilio/twilio-go/client"
+    openapi "github.com/twilio/twilio-go/rest/api/v2010"
 )
 
 type MyClient struct {
-	client.Client
+    client.Client
 }
 
 func (c *MyClient) SendRequest(method string, rawURL string, data url.Values, headers map[string]interface{}) (*http.Response, error) {
-	// Custom code to pre-process request here
-	resp, err := c.Client.SendRequest(method, rawURL, data, headers)
-	// Custom code to pre-process response here
-	fmt.Println(resp.StatusCode)
-	return resp, err
+    // Custom code to pre-process request here
+    resp, err := c.Client.SendRequest(method, rawURL, data, headers)
+    // Custom code to pre-process response here
+    fmt.Println(resp.StatusCode)
+    return resp, err
 }
 
 func main() {
-	accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-	authToken := os.Getenv("TWILIO_AUTH_TOKEN")
+    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+    authToken := os.Getenv("TWILIO_AUTH_TOKEN")
 
-	customClient := &MyClient{
-		Client: client.Client{
-			Credentials: client.NewCredentials(accountSid, authToken),
-		},
-	}
-	customClient.SetAccountSid(accountSid)
+    customClient := &MyClient{
+        Client: client.Client{
+            Credentials: client.NewCredentials(accountSid, authToken),
+        },
+    }
+    customClient.SetAccountSid(accountSid)
 
     twilioClient := twilio.NewRestClientWithParams(twilio.RestClientParams{Client: customClient})
 
-	// You may also use custom clients with standalone product services
-	twilioApiV2010 := openapi.NewApiServiceWithClient(customClient)
+    // You may also use custom clients with standalone product services
+    twilioApiV2010 := openapi.NewApiServiceWithClient(customClient)
 }
 ```
 
 ## Building Access Tokens
-This library supports [access token](https://www.twilio.com/docs/iam/access-tokens) generation for use in the Twilio Client SDKs. 
+
+This library supports [access token](https://www.twilio.com/docs/iam/access-tokens) generation for use in the Twilio Client SDKs.
 
 Here's how you would generate a token for the Voice SDK:
+
 ```go
 package main
 
-import 
-(
-	"os"
-	"github.com/twilio/twilio-go/client/jwt"
+import (
+    "os"
+    "github.com/twilio/twilio-go/client/jwt"
 )
 
-accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-applicationSid := os.Getenv("TWILIO_TWIML_APP_SID")
-apiKey := os.Getenv("TWILIO_API_KEY")
-apiSecret := os.Getenv("TWILIO_API_SECRET")
-identity := "fake123"
+func main() {
+    accountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+    applicationSid := os.Getenv("TWILIO_TWIML_APP_SID")
+    apiKey := os.Getenv("TWILIO_API_KEY")
+    apiSecret := os.Getenv("TWILIO_API_SECRET")
+    identity := "fake123"
 
-params := jwt.AccessTokenParams{
-    AccountSid:    accountSid,
-    SigningKeySid: apiKey,
-    Secret:        apiSecret,
-    Identity:      identity,
+    params := jwt.AccessTokenParams{
+        AccountSid:    accountSid,
+        SigningKeySid: apiKey,
+        Secret:        apiSecret,
+        Identity:      identity,
+    }
+
+    jwtToken := jwt.CreateAccessToken(params)
+    voiceGrant := &jwt.VoiceGrant{
+        Incoming: jwt.Incoming{Allow: true},
+        Outgoing: jwt.Outgoing{
+            ApplicationSid: applicationSid,
+        },
+    }
+
+    jwtToken.AddGrant(voiceGrant)
+    token, err := jwtToken.ToJwt()
 }
-
-jwtToken := jwt.CreateAccessToken(params)
-voiceGrant := &jwt.VoiceGrant{
-    Incoming: jwt.Incoming{Allow: true},
-    Outgoing: jwt.Outgoing{
-        ApplicationSid:    applicationSid,
-    },
-}
-
-jwtToken.AddGrant(voiceGrant)
-token, err := jwtToken.ToJwt()
 ```
 
 Creating Capability Token for TaskRouter v1:
+
 ```go
 package main
 
-import 
-(
-	"os"
-	"github.com/twilio/twilio-go/client/jwt/taskrouter"
+import (
+    "os"
+    "github.com/twilio/twilio-go/client/jwt/taskrouter"
 )
 
-AccountSid := os.Getenv("TWILIO_ACCOUNT_SID")
-AuthToken := os.Getenv("TWILIO_AUTH_TOKEN")
-WorkspaceSid := os.Getenv("TWILIO_WORKSPACE_SID")
-ChannelID := os.Getenv("TWILIO_CHANNEL_ID")
+func main() {
+    AccountSid := os.Getenv("TWILIO_ACCOUNT_SID")
+    AuthToken := os.Getenv("TWILIO_AUTH_TOKEN")
+    WorkspaceSid := os.Getenv("TWILIO_WORKSPACE_SID")
+    ChannelID := os.Getenv("TWILIO_CHANNEL_ID")
 
-Params = taskrouter.CapabilityTokenParams{
-    AccountSid:   AccountSid,
-    AuthToken:    AuthToken,
-    WorkspaceSid: WorkspaceSid,
-    ChannelID:    ChannelID,
+    params := taskrouter.CapabilityTokenParams{
+        AccountSid:   AccountSid,
+        AuthToken:    AuthToken,
+        WorkspaceSid: WorkspaceSid,
+        ChannelID:    ChannelID,
+    }
+
+    capabilityToken := taskrouter.CreateCapabilityToken(params)
+    token, err := capabilityToken.ToJwt()
 }
 
-capabilityToken := taskrouter.CreateCapabilityToken(Params)
-token, err := capabilityToken.ToJwt()
 ```
-
 
 ## Local Usage
 
