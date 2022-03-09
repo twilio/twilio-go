@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.1
+ * API version: 1.27.2
  * Contact: support@twilio.com
  */
 
@@ -59,10 +59,16 @@ func (c *ApiService) DeleteRecording(Sid string, params *DeleteRecordingParams) 
 type FetchRecordingParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
+	// A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings are kept after deletion for a retention period of 40 days.
+	IncludeSoftDeleted *bool `json:"IncludeSoftDeleted,omitempty"`
 }
 
 func (params *FetchRecordingParams) SetPathAccountSid(PathAccountSid string) *FetchRecordingParams {
 	params.PathAccountSid = &PathAccountSid
+	return params
+}
+func (params *FetchRecordingParams) SetIncludeSoftDeleted(IncludeSoftDeleted bool) *FetchRecordingParams {
+	params.IncludeSoftDeleted = &IncludeSoftDeleted
 	return params
 }
 
@@ -78,6 +84,10 @@ func (c *ApiService) FetchRecording(Sid string, params *FetchRecordingParams) (*
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.IncludeSoftDeleted != nil {
+		data.Set("IncludeSoftDeleted", fmt.Sprint(*params.IncludeSoftDeleted))
+	}
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
@@ -108,6 +118,8 @@ type ListRecordingParams struct {
 	CallSid *string `json:"CallSid,omitempty"`
 	// The Conference SID that identifies the conference associated with the recording to read.
 	ConferenceSid *string `json:"ConferenceSid,omitempty"`
+	// A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings are kept after deletion for a retention period of 40 days.
+	IncludeSoftDeleted *bool `json:"IncludeSoftDeleted,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -136,6 +148,10 @@ func (params *ListRecordingParams) SetCallSid(CallSid string) *ListRecordingPara
 }
 func (params *ListRecordingParams) SetConferenceSid(ConferenceSid string) *ListRecordingParams {
 	params.ConferenceSid = &ConferenceSid
+	return params
+}
+func (params *ListRecordingParams) SetIncludeSoftDeleted(IncludeSoftDeleted bool) *ListRecordingParams {
+	params.IncludeSoftDeleted = &IncludeSoftDeleted
 	return params
 }
 func (params *ListRecordingParams) SetPageSize(PageSize int) *ListRecordingParams {
@@ -174,6 +190,9 @@ func (c *ApiService) PageRecording(params *ListRecordingParams, pageToken, pageN
 	}
 	if params != nil && params.ConferenceSid != nil {
 		data.Set("ConferenceSid", *params.ConferenceSid)
+	}
+	if params != nil && params.IncludeSoftDeleted != nil {
+		data.Set("IncludeSoftDeleted", fmt.Sprint(*params.IncludeSoftDeleted))
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

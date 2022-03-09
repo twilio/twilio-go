@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Attributes** | Pointer to **map[string]interface{}** | The set of parameters that compose the Supporting Documents resource |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
+**FailureReason** | Pointer to **string** | The failure reason of the Supporting Document Resource. |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
 **MimeType** | Pointer to **string** | The image type of the file |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |

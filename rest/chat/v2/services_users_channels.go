@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.1
+ * API version: 1.27.2
  * Contact: support@twilio.com
  */
 
@@ -21,8 +21,19 @@ import (
 	"github.com/twilio/twilio-go/client"
 )
 
+// Optional parameters for the method 'DeleteUserChannel'
+type DeleteUserChannelParams struct {
+	// The X-Twilio-Webhook-Enabled HTTP request header
+	XTwilioWebhookEnabled *string `json:"X-Twilio-Webhook-Enabled,omitempty"`
+}
+
+func (params *DeleteUserChannelParams) SetXTwilioWebhookEnabled(XTwilioWebhookEnabled string) *DeleteUserChannelParams {
+	params.XTwilioWebhookEnabled = &XTwilioWebhookEnabled
+	return params
+}
+
 // Removes User from selected Channel.
-func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, ChannelSid string) error {
+func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, ChannelSid string, params *DeleteUserChannelParams) error {
 	path := "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}"
 	path = strings.Replace(path, "{"+"ServiceSid"+"}", ServiceSid, -1)
 	path = strings.Replace(path, "{"+"UserSid"+"}", UserSid, -1)
@@ -30,6 +41,10 @@ func (c *ApiService) DeleteUserChannel(ServiceSid string, UserSid string, Channe
 
 	data := url.Values{}
 	headers := make(map[string]interface{})
+
+	if params != nil && params.XTwilioWebhookEnabled != nil {
+		headers["X-Twilio-Webhook-Enabled"] = *params.XTwilioWebhookEnabled
+	}
 
 	resp, err := c.requestHandler.Delete(c.baseURL+path, data, headers)
 	if err != nil {
