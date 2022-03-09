@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## DeleteUserChannel
 
-> DeleteUserChannel(ctx, ServiceSidUserSidChannelSid)
+> DeleteUserChannel(ctx, ServiceSidUserSidChannelSidoptional)
 
 
 
@@ -36,6 +36,7 @@ Other parameters are passed through a pointer to a DeleteUserChannelParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
+**XTwilioWebhookEnabled** | **string** | The X-Twilio-Webhook-Enabled HTTP request header
 
 ### Return type
 

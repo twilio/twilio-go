@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **HiddenDetails** | Pointer to **map[string]interface{}** | Hidden details about the Challenge |
 **Identity** | Pointer to **string** | Unique external identifier of the Entity |
 **Links** | Pointer to **map[string]interface{}** | Nested resource URLs. |
+**Metadata** | Pointer to **map[string]interface{}** | Metadata of the challenge. |
 **RespondedReason** | Pointer to **string** | The Reason of this Challenge `status` |
 **ServiceSid** | Pointer to **string** | Service Sid. |
 **Sid** | Pointer to **string** | A string that uniquely identifies this Challenge. |

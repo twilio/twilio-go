@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.1
+ * API version: 1.27.2
  * Contact: support@twilio.com
  */
 
@@ -311,10 +311,16 @@ func (c *ApiService) getNextListChallengeResponse(nextPageUrl string) (interface
 type UpdateChallengeParams struct {
 	// The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
 	AuthPayload *string `json:"AuthPayload,omitempty"`
+	// Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+	Metadata *map[string]interface{} `json:"Metadata,omitempty"`
 }
 
 func (params *UpdateChallengeParams) SetAuthPayload(AuthPayload string) *UpdateChallengeParams {
 	params.AuthPayload = &AuthPayload
+	return params
+}
+func (params *UpdateChallengeParams) SetMetadata(Metadata map[string]interface{}) *UpdateChallengeParams {
+	params.Metadata = &Metadata
 	return params
 }
 
@@ -330,6 +336,15 @@ func (c *ApiService) UpdateChallenge(ServiceSid string, Identity string, Sid str
 
 	if params != nil && params.AuthPayload != nil {
 		data.Set("AuthPayload", *params.AuthPayload)
+	}
+	if params != nil && params.Metadata != nil {
+		v, err := json.Marshal(params.Metadata)
+
+		if err != nil {
+			return nil, err
+		}
+
+		data.Set("Metadata", string(v))
 	}
 
 	resp, err := c.requestHandler.Post(c.baseURL+path, data, headers)

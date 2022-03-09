@@ -178,6 +178,7 @@ Other parameters are passed through a pointer to a UpdateChallengeParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **AuthPayload** | **string** | The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For &#x60;TOTP&#x60; this value must be between 3 and 8 characters long. For &#x60;Push&#x60; this value can be up to 5456 characters in length
+**Metadata** | [**map[string]interface{}**](map[string]interface{}.md) | Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. &#x60;{\\\&quot;os\\\&quot;: \\\&quot;Android\\\&quot;}&#x60;. Can be up to 1024 characters in length.
 
 ### Return type
 

@@ -77,6 +77,7 @@ Other parameters are passed through a pointer to a FetchRecordingParams struct
 Name | Type | Description
 ------------- | ------------- | -------------
 **PathAccountSid** | **string** | The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.
+**IncludeSoftDeleted** | **bool** | A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings are kept after deletion for a retention period of 40 days.
 
 ### Return type
 
@@ -121,6 +122,7 @@ Name | Type | Description
 **DateCreatedAfter** | **time.Time** | Only include recordings that were created on this date. Specify a date as &#x60;YYYY-MM-DD&#x60; in GMT, for example: &#x60;2009-07-06&#x60;, to read recordings that were created on this date. You can also specify an inequality, such as &#x60;DateCreated&lt;&#x3D;YYYY-MM-DD&#x60;, to read recordings that were created on or before midnight of this date, and &#x60;DateCreated&gt;&#x3D;YYYY-MM-DD&#x60; to read recordings that were created on or after midnight of this date.
 **CallSid** | **string** | The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resources to read.
 **ConferenceSid** | **string** | The Conference SID that identifies the conference associated with the recording to read.
+**IncludeSoftDeleted** | **bool** | A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings are kept after deletion for a retention period of 40 days.
 **PageSize** | **int** | How many resources to return in each list page. The default is 50, and the maximum is 1000.
 **Limit** | **int** | Max number of records to return.
 

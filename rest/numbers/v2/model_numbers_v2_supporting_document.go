@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.1
+ * API version: 1.27.2
  * Contact: support@twilio.com
  */
 
@@ -25,6 +25,8 @@ type NumbersV2SupportingDocument struct {
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
+	// The failure reason of the Supporting Document Resource.
+	FailureReason *string `json:"failure_reason,omitempty"`
 	// The string that you assigned to describe the resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The image type of the file
