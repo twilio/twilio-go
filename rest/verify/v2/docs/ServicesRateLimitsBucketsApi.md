@@ -147,7 +147,7 @@ Name | Type | Description
 
 ## ListBucket
 
-> ListBucketResponse ListBucket(ctx, ServiceSidRateLimitSidoptional)
+> []VerifyV2Bucket ListBucket(ctx, ServiceSidRateLimitSidoptional)
 
 
 
@@ -174,7 +174,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListBucketResponse**](ListBucketResponse.md)
+[**[]VerifyV2Bucket**](VerifyV2Bucket.md)
 
 ### Authorization
 

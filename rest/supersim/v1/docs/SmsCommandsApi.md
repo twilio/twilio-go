@@ -96,7 +96,7 @@ Name | Type | Description
 
 ## ListSmsCommand
 
-> ListSmsCommandResponse ListSmsCommand(ctx, optional)
+> []SupersimV1SmsCommand ListSmsCommand(ctx, optional)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSmsCommandResponse**](ListSmsCommandResponse.md)
+[**[]SupersimV1SmsCommand**](SupersimV1SmsCommand.md)
 
 ### Authorization
 

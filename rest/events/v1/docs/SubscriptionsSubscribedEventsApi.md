@@ -144,7 +144,7 @@ Name | Type | Description
 
 ## ListSubscribedEvent
 
-> ListSubscribedEventResponse ListSubscribedEvent(ctx, SubscriptionSidoptional)
+> []EventsV1SubscribedEvent ListSubscribedEvent(ctx, SubscriptionSidoptional)
 
 
 
@@ -170,7 +170,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSubscribedEventResponse**](ListSubscribedEventResponse.md)
+[**[]EventsV1SubscribedEvent**](EventsV1SubscribedEvent.md)
 
 ### Authorization
 

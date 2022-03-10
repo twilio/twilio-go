@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListUsageRecordLastMonth
 
-> ListUsageRecordLastMonthResponse ListUsageRecordLastMonth(ctx, optional)
+> []ApiV2010UsageRecordLastMonth ListUsageRecordLastMonth(ctx, optional)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUsageRecordLastMonthResponse**](ListUsageRecordLastMonthResponse.md)
+[**[]ApiV2010UsageRecordLastMonth**](ApiV2010UsageRecordLastMonth.md)
 
 ### Authorization
 

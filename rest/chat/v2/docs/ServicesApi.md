@@ -131,7 +131,7 @@ Name | Type | Description
 
 ## ListService
 
-> ListServiceResponse ListService(ctx, optional)
+> []ChatV2Service ListService(ctx, optional)
 
 
 
@@ -151,7 +151,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListServiceResponse**](ListServiceResponse.md)
+[**[]ChatV2Service**](ChatV2Service.md)
 
 ### Authorization
 

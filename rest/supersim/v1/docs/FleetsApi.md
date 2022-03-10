@@ -105,7 +105,7 @@ Name | Type | Description
 
 ## ListFleet
 
-> ListFleetResponse ListFleet(ctx, optional)
+> []SupersimV1Fleet ListFleet(ctx, optional)
 
 
 
@@ -128,7 +128,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListFleetResponse**](ListFleetResponse.md)
+[**[]SupersimV1Fleet**](SupersimV1Fleet.md)
 
 ### Authorization
 

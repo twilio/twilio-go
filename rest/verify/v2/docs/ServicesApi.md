@@ -153,7 +153,7 @@ Name | Type | Description
 
 ## ListService
 
-> ListServiceResponse ListService(ctx, optional)
+> []VerifyV2Service ListService(ctx, optional)
 
 
 
@@ -175,7 +175,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListServiceResponse**](ListServiceResponse.md)
+[**[]VerifyV2Service**](VerifyV2Service.md)
 
 ### Authorization
 

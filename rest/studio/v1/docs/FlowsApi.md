@@ -96,7 +96,7 @@ Name | Type | Description
 
 ## ListFlow
 
-> ListFlowResponse ListFlow(ctx, optional)
+> []StudioV1Flow ListFlow(ctx, optional)
 
 
 
@@ -118,7 +118,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListFlowResponse**](ListFlowResponse.md)
+[**[]StudioV1Flow**](StudioV1Flow.md)
 
 ### Authorization
 

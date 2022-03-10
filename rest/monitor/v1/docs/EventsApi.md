@@ -51,7 +51,7 @@ Name | Type | Description
 
 ## ListEvent
 
-> ListEventResponse ListEvent(ctx, optional)
+> []MonitorV1Event ListEvent(ctx, optional)
 
 
 
@@ -79,7 +79,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListEventResponse**](ListEventResponse.md)
+[**[]MonitorV1Event**](MonitorV1Event.md)
 
 ### Authorization
 

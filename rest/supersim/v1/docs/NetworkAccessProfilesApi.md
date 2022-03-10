@@ -95,7 +95,7 @@ Name | Type | Description
 
 ## ListNetworkAccessProfile
 
-> ListNetworkAccessProfileResponse ListNetworkAccessProfile(ctx, optional)
+> []SupersimV1NetworkAccessProfile ListNetworkAccessProfile(ctx, optional)
 
 
 
@@ -117,7 +117,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListNetworkAccessProfileResponse**](ListNetworkAccessProfileResponse.md)
+[**[]SupersimV1NetworkAccessProfile**](SupersimV1NetworkAccessProfile.md)
 
 ### Authorization
 

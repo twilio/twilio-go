@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## ListTrustProductEvaluation
 
-> ListTrustProductEvaluationResponse ListTrustProductEvaluation(ctx, TrustProductSidoptional)
+> []TrusthubV1TrustProductEvaluation ListTrustProductEvaluation(ctx, TrustProductSidoptional)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListTrustProductEvaluationResponse**](ListTrustProductEvaluationResponse.md)
+[**[]TrusthubV1TrustProductEvaluation**](TrusthubV1TrustProductEvaluation.md)
 
 ### Authorization
 

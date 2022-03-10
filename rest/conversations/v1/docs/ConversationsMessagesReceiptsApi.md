@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## ListConversationMessageReceipt
 
-> ListConversationMessageReceiptResponse ListConversationMessageReceipt(ctx, ConversationSidMessageSidoptional)
+> []ConversationsV1ConversationMessageReceipt ListConversationMessageReceipt(ctx, ConversationSidMessageSidoptional)
 
 
 
@@ -82,7 +82,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListConversationMessageReceiptResponse**](ListConversationMessageReceiptResponse.md)
+[**[]ConversationsV1ConversationMessageReceipt**](ConversationsV1ConversationMessageReceipt.md)
 
 ### Authorization
 

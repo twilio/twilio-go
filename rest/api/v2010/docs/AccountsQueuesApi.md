@@ -141,7 +141,7 @@ Name | Type | Description
 
 ## ListQueue
 
-> ListQueueResponse ListQueue(ctx, optional)
+> []ApiV2010Queue ListQueue(ctx, optional)
 
 
 
@@ -164,7 +164,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListQueueResponse**](ListQueueResponse.md)
+[**[]ApiV2010Queue**](ApiV2010Queue.md)
 
 ### Authorization
 

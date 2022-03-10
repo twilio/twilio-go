@@ -133,7 +133,7 @@ Name | Type | Description
 
 ## ListIpRecord
 
-> ListIpRecordResponse ListIpRecord(ctx, optional)
+> []VoiceV1IpRecord ListIpRecord(ctx, optional)
 
 
 
@@ -153,7 +153,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListIpRecordResponse**](ListIpRecordResponse.md)
+[**[]VoiceV1IpRecord**](VoiceV1IpRecord.md)
 
 ### Authorization
 

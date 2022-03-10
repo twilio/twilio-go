@@ -51,7 +51,7 @@ Name | Type | Description
 
 ## ListPhoneNumberCountry
 
-> ListPhoneNumberCountryResponse ListPhoneNumberCountry(ctx, optional)
+> []PricingV1PhoneNumberCountry ListPhoneNumberCountry(ctx, optional)
 
 
 
@@ -71,7 +71,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListPhoneNumberCountryResponse**](ListPhoneNumberCountryResponse.md)
+[**[]PricingV1PhoneNumberCountry**](PricingV1PhoneNumberCountry.md)
 
 ### Authorization
 

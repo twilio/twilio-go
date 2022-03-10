@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListDialingPermissionsCountry
 
-> ListDialingPermissionsCountryResponse ListDialingPermissionsCountry(ctx, optional)
+> []VoiceV1DialingPermissionsCountry ListDialingPermissionsCountry(ctx, optional)
 
 
 
@@ -81,7 +81,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListDialingPermissionsCountryResponse**](ListDialingPermissionsCountryResponse.md)
+[**[]VoiceV1DialingPermissionsCountry**](VoiceV1DialingPermissionsCountry.md)
 
 ### Authorization
 

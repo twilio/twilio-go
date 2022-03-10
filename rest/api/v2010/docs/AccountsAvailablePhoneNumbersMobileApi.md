@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListAvailablePhoneNumberMobile
 
-> ListAvailablePhoneNumberMobileResponse ListAvailablePhoneNumberMobile(ctx, CountryCodeoptional)
+> []ApiV2010AvailablePhoneNumberMobile ListAvailablePhoneNumberMobile(ctx, CountryCodeoptional)
 
 
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListAvailablePhoneNumberMobileResponse**](ListAvailablePhoneNumberMobileResponse.md)
+[**[]ApiV2010AvailablePhoneNumberMobile**](ApiV2010AvailablePhoneNumberMobile.md)
 
 ### Authorization
 

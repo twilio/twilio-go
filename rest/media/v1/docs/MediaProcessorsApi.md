@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## ListMediaProcessor
 
-> ListMediaProcessorResponse ListMediaProcessor(ctx, optional)
+> []MediaV1MediaProcessor ListMediaProcessor(ctx, optional)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListMediaProcessorResponse**](ListMediaProcessorResponse.md)
+[**[]MediaV1MediaProcessor**](MediaV1MediaProcessor.md)
 
 ### Authorization
 

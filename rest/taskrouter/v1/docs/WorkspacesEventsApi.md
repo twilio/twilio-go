@@ -52,7 +52,7 @@ Name | Type | Description
 
 ## ListEvent
 
-> ListEventResponse ListEvent(ctx, WorkspaceSidoptional)
+> []TaskrouterV1Event ListEvent(ctx, WorkspaceSidoptional)
 
 
 
@@ -87,7 +87,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListEventResponse**](ListEventResponse.md)
+[**[]TaskrouterV1Event**](TaskrouterV1Event.md)
 
 ### Authorization
 

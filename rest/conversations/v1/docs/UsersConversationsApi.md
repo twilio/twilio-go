@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## ListUserConversation
 
-> ListUserConversationResponse ListUserConversation(ctx, UserSidoptional)
+> []ConversationsV1UserConversation ListUserConversation(ctx, UserSidoptional)
 
 
 
@@ -125,7 +125,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUserConversationResponse**](ListUserConversationResponse.md)
+[**[]ConversationsV1UserConversation**](ConversationsV1UserConversation.md)
 
 ### Authorization
 

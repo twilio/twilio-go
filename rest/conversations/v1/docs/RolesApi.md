@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListRole
 
-> ListRoleResponse ListRole(ctx, optional)
+> []ConversationsV1Role ListRole(ctx, optional)
 
 
 
@@ -161,7 +161,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRoleResponse**](ListRoleResponse.md)
+[**[]ConversationsV1Role**](ConversationsV1Role.md)
 
 ### Authorization
 

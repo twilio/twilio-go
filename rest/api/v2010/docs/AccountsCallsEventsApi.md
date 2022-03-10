@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListCallEvent
 
-> ListCallEventResponse ListCallEvent(ctx, CallSidoptional)
+> []ApiV2010CallEvent ListCallEvent(ctx, CallSidoptional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCallEventResponse**](ListCallEventResponse.md)
+[**[]ApiV2010CallEvent**](ApiV2010CallEvent.md)
 
 ### Authorization
 

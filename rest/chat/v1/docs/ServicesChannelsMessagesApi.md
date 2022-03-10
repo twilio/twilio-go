@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## ListMessage
 
-> ListMessageResponse ListMessage(ctx, ServiceSidChannelSidoptional)
+> []ChatV1Message ListMessage(ctx, ServiceSidChannelSidoptional)
 
 
 
@@ -168,7 +168,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListMessageResponse**](ListMessageResponse.md)
+[**[]ChatV1Message**](ChatV1Message.md)
 
 ### Authorization
 

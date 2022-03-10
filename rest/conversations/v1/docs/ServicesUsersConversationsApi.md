@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## ListServiceUserConversation
 
-> ListServiceUserConversationResponse ListServiceUserConversation(ctx, ChatServiceSidUserSidoptional)
+> []ConversationsV1ServiceUserConversation ListServiceUserConversation(ctx, ChatServiceSidUserSidoptional)
 
 
 
@@ -128,7 +128,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListServiceUserConversationResponse**](ListServiceUserConversationResponse.md)
+[**[]ConversationsV1ServiceUserConversation**](ConversationsV1ServiceUserConversation.md)
 
 ### Authorization
 

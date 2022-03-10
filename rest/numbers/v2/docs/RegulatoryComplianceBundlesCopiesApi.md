@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## ListBundleCopy
 
-> ListBundleCopyResponse ListBundleCopy(ctx, BundleSidoptional)
+> []NumbersV2BundleCopy ListBundleCopy(ctx, BundleSidoptional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListBundleCopyResponse**](ListBundleCopyResponse.md)
+[**[]NumbersV2BundleCopy**](NumbersV2BundleCopy.md)
 
 ### Authorization
 

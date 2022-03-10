@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListSubscription
 
-> ListSubscriptionResponse ListSubscription(ctx, optional)
+> []EventsV1Subscription ListSubscription(ctx, optional)
 
 
 
@@ -162,7 +162,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSubscriptionResponse**](ListSubscriptionResponse.md)
+[**[]EventsV1Subscription**](EventsV1Subscription.md)
 
 ### Authorization
 

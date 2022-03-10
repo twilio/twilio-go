@@ -106,7 +106,7 @@ Name | Type | Description
 
 ## ListChallenge
 
-> ListChallengeResponse ListChallenge(ctx, ServiceSidIdentityoptional)
+> []VerifyV2Challenge ListChallenge(ctx, ServiceSidIdentityoptional)
 
 
 
@@ -136,7 +136,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListChallengeResponse**](ListChallengeResponse.md)
+[**[]VerifyV2Challenge**](VerifyV2Challenge.md)
 
 ### Authorization
 

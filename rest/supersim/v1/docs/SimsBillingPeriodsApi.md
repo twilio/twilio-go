@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListBillingPeriod
 
-> ListBillingPeriodResponse ListBillingPeriod(ctx, SimSidoptional)
+> []SupersimV1BillingPeriod ListBillingPeriod(ctx, SimSidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListBillingPeriodResponse**](ListBillingPeriodResponse.md)
+[**[]SupersimV1BillingPeriod**](SupersimV1BillingPeriod.md)
 
 ### Authorization
 

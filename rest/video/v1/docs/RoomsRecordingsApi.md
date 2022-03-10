@@ -94,7 +94,7 @@ Name | Type | Description
 
 ## ListRoomRecording
 
-> ListRoomRecordingResponse ListRoomRecording(ctx, RoomSidoptional)
+> []VideoV1RoomRecording ListRoomRecording(ctx, RoomSidoptional)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRoomRecordingResponse**](ListRoomRecordingResponse.md)
+[**[]VideoV1RoomRecording**](VideoV1RoomRecording.md)
 
 ### Authorization
 

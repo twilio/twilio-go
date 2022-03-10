@@ -102,7 +102,7 @@ Name | Type | Description
 
 ## ListRecordingAddOnResultPayload
 
-> ListRecordingAddOnResultPayloadResponse ListRecordingAddOnResultPayload(ctx, ReferenceSidAddOnResultSidoptional)
+> []ApiV2010RecordingAddOnResultPayload ListRecordingAddOnResultPayload(ctx, ReferenceSidAddOnResultSidoptional)
 
 
 
@@ -130,7 +130,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRecordingAddOnResultPayloadResponse**](ListRecordingAddOnResultPayloadResponse.md)
+[**[]ApiV2010RecordingAddOnResultPayload**](ApiV2010RecordingAddOnResultPayload.md)
 
 ### Authorization
 

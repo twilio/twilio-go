@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## ListEntity
 
-> ListEntityResponse ListEntity(ctx, ServiceSidoptional)
+> []VerifyV2Entity ListEntity(ctx, ServiceSidoptional)
 
 
 
@@ -168,7 +168,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListEntityResponse**](ListEntityResponse.md)
+[**[]VerifyV2Entity**](VerifyV2Entity.md)
 
 ### Authorization
 

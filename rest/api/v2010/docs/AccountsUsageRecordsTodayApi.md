@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListUsageRecordToday
 
-> ListUsageRecordTodayResponse ListUsageRecordToday(ctx, optional)
+> []ApiV2010UsageRecordToday ListUsageRecordToday(ctx, optional)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUsageRecordTodayResponse**](ListUsageRecordTodayResponse.md)
+[**[]ApiV2010UsageRecordToday**](ApiV2010UsageRecordToday.md)
 
 ### Authorization
 

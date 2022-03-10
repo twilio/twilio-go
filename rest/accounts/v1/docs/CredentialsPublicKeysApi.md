@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListCredentialPublicKey
 
-> ListCredentialPublicKeyResponse ListCredentialPublicKey(ctx, optional)
+> []AccountsV1CredentialPublicKey ListCredentialPublicKey(ctx, optional)
 
 
 
@@ -161,7 +161,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCredentialPublicKeyResponse**](ListCredentialPublicKeyResponse.md)
+[**[]AccountsV1CredentialPublicKey**](AccountsV1CredentialPublicKey.md)
 
 ### Authorization
 

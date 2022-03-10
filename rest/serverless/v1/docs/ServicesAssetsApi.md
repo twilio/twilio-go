@@ -143,7 +143,7 @@ Name | Type | Description
 
 ## ListAsset
 
-> ListAssetResponse ListAsset(ctx, ServiceSidoptional)
+> []ServerlessV1Asset ListAsset(ctx, ServiceSidoptional)
 
 
 
@@ -169,7 +169,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListAssetResponse**](ListAssetResponse.md)
+[**[]ServerlessV1Asset**](ServerlessV1Asset.md)
 
 ### Authorization
 

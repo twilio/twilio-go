@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## ListInteraction
 
-> ListInteractionResponse ListInteraction(ctx, ServiceSidSessionSidoptional)
+> []ProxyV1Interaction ListInteraction(ctx, ServiceSidSessionSidoptional)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListInteractionResponse**](ListInteractionResponse.md)
+[**[]ProxyV1Interaction**](ProxyV1Interaction.md)
 
 ### Authorization
 

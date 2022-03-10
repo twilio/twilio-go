@@ -96,7 +96,7 @@ Name | Type | Description
 
 ## ListUserBinding
 
-> ListUserBindingResponse ListUserBinding(ctx, ServiceSidUserSidoptional)
+> []ChatV2UserBinding ListUserBinding(ctx, ServiceSidUserSidoptional)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUserBindingResponse**](ListUserBindingResponse.md)
+[**[]ChatV2UserBinding**](ChatV2UserBinding.md)
 
 ### Authorization
 

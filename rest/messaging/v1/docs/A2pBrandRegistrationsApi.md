@@ -94,7 +94,7 @@ Name | Type | Description
 
 ## ListBrandRegistrations
 
-> ListBrandRegistrationsResponse ListBrandRegistrations(ctx, optional)
+> []MessagingV1BrandRegistrations ListBrandRegistrations(ctx, optional)
 
 
 
@@ -114,7 +114,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListBrandRegistrationsResponse**](ListBrandRegistrationsResponse.md)
+[**[]MessagingV1BrandRegistrations**](MessagingV1BrandRegistrations.md)
 
 ### Authorization
 

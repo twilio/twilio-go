@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListNetwork
 
-> ListNetworkResponse ListNetwork(ctx, optional)
+> []SupersimV1Network ListNetwork(ctx, optional)
 
 
 
@@ -78,7 +78,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListNetworkResponse**](ListNetworkResponse.md)
+[**[]SupersimV1Network**](SupersimV1Network.md)
 
 ### Authorization
 

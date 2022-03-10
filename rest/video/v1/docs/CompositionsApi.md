@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## ListComposition
 
-> ListCompositionResponse ListComposition(ctx, optional)
+> []VideoV1Composition ListComposition(ctx, optional)
 
 
 
@@ -168,7 +168,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCompositionResponse**](ListCompositionResponse.md)
+[**[]VideoV1Composition**](VideoV1Composition.md)
 
 ### Authorization
 

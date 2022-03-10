@@ -103,7 +103,7 @@ Name | Type | Description
 
 ## ListRoom
 
-> ListRoomResponse ListRoom(ctx, optional)
+> []VideoV1Room ListRoom(ctx, optional)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRoomResponse**](ListRoomResponse.md)
+[**[]VideoV1Room**](VideoV1Room.md)
 
 ### Authorization
 

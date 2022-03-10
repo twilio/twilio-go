@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListCredentialAws
 
-> ListCredentialAwsResponse ListCredentialAws(ctx, optional)
+> []AccountsV1CredentialAws ListCredentialAws(ctx, optional)
 
 
 
@@ -161,7 +161,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCredentialAwsResponse**](ListCredentialAwsResponse.md)
+[**[]AccountsV1CredentialAws**](AccountsV1CredentialAws.md)
 
 ### Authorization
 

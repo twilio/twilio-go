@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListParticipantConversation
 
-> ListParticipantConversationResponse ListParticipantConversation(ctx, optional)
+> []ConversationsV1ParticipantConversation ListParticipantConversation(ctx, optional)
 
 
 
@@ -34,7 +34,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListParticipantConversationResponse**](ListParticipantConversationResponse.md)
+[**[]ConversationsV1ParticipantConversation**](ConversationsV1ParticipantConversation.md)
 
 ### Authorization
 

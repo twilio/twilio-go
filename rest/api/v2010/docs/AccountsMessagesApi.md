@@ -158,7 +158,7 @@ Name | Type | Description
 
 ## ListMessage
 
-> ListMessageResponse ListMessage(ctx, optional)
+> []ApiV2010Message ListMessage(ctx, optional)
 
 
 
@@ -186,7 +186,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListMessageResponse**](ListMessageResponse.md)
+[**[]ApiV2010Message**](ApiV2010Message.md)
 
 ### Authorization
 

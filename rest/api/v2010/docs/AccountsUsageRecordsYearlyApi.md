@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListUsageRecordYearly
 
-> ListUsageRecordYearlyResponse ListUsageRecordYearly(ctx, optional)
+> []ApiV2010UsageRecordYearly ListUsageRecordYearly(ctx, optional)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUsageRecordYearlyResponse**](ListUsageRecordYearlyResponse.md)
+[**[]ApiV2010UsageRecordYearly**](ApiV2010UsageRecordYearly.md)
 
 ### Authorization
 

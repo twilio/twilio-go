@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## ListFlowRevision
 
-> ListFlowRevisionResponse ListFlowRevision(ctx, Sidoptional)
+> []StudioV2FlowRevision ListFlowRevision(ctx, Sidoptional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListFlowRevisionResponse**](ListFlowRevisionResponse.md)
+[**[]StudioV2FlowRevision**](StudioV2FlowRevision.md)
 
 ### Authorization
 

@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## ListDeployment
 
-> ListDeploymentResponse ListDeployment(ctx, ServiceSidEnvironmentSidoptional)
+> []ServerlessV1Deployment ListDeployment(ctx, ServiceSidEnvironmentSidoptional)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListDeploymentResponse**](ListDeploymentResponse.md)
+[**[]ServerlessV1Deployment**](ServerlessV1Deployment.md)
 
 ### Authorization
 

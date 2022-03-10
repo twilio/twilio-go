@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## ListTaskReservation
 
-> ListTaskReservationResponse ListTaskReservation(ctx, WorkspaceSidTaskSidoptional)
+> []TaskrouterV1TaskReservation ListTaskReservation(ctx, WorkspaceSidTaskSidoptional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListTaskReservationResponse**](ListTaskReservationResponse.md)
+[**[]TaskrouterV1TaskReservation**](TaskrouterV1TaskReservation.md)
 
 ### Authorization
 

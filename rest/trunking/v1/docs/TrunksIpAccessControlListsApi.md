@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListIpAccessControlList
 
-> ListIpAccessControlListResponse ListIpAccessControlList(ctx, TrunkSidoptional)
+> []TrunkingV1IpAccessControlList ListIpAccessControlList(ctx, TrunkSidoptional)
 
 
 
@@ -166,7 +166,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListIpAccessControlListResponse**](ListIpAccessControlListResponse.md)
+[**[]TrunkingV1IpAccessControlList**](TrunkingV1IpAccessControlList.md)
 
 ### Authorization
 

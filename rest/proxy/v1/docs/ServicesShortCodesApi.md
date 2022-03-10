@@ -143,7 +143,7 @@ Name | Type | Description
 
 ## ListShortCode
 
-> ListShortCodeResponse ListShortCode(ctx, ServiceSidoptional)
+> []ProxyV1ShortCode ListShortCode(ctx, ServiceSidoptional)
 
 
 
@@ -169,7 +169,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListShortCodeResponse**](ListShortCodeResponse.md)
+[**[]ProxyV1ShortCode**](ProxyV1ShortCode.md)
 
 ### Authorization
 

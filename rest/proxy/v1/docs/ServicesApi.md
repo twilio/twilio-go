@@ -144,7 +144,7 @@ Name | Type | Description
 
 ## ListService
 
-> ListServiceResponse ListService(ctx, optional)
+> []ProxyV1Service ListService(ctx, optional)
 
 
 
@@ -166,7 +166,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListServiceResponse**](ListServiceResponse.md)
+[**[]ProxyV1Service**](ProxyV1Service.md)
 
 ### Authorization
 

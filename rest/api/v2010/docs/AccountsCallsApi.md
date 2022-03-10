@@ -174,7 +174,7 @@ Name | Type | Description
 
 ## ListCall
 
-> ListCallResponse ListCall(ctx, optional)
+> []ApiV2010Call ListCall(ctx, optional)
 
 
 
@@ -207,7 +207,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCallResponse**](ListCallResponse.md)
+[**[]ApiV2010Call**](ApiV2010Call.md)
 
 ### Authorization
 

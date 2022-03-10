@@ -152,7 +152,7 @@ Name | Type | Description
 
 ## ListServiceConversationScopedWebhook
 
-> ListServiceConversationScopedWebhookResponse ListServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidoptional)
+> []ConversationsV1ServiceConversationScopedWebhook ListServiceConversationScopedWebhook(ctx, ChatServiceSidConversationSidoptional)
 
 
 
@@ -179,7 +179,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListServiceConversationScopedWebhookResponse**](ListServiceConversationScopedWebhookResponse.md)
+[**[]ConversationsV1ServiceConversationScopedWebhook**](ConversationsV1ServiceConversationScopedWebhook.md)
 
 ### Authorization
 

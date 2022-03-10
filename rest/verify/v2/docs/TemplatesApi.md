@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListVerificationTemplate
 
-> ListVerificationTemplateResponse ListVerificationTemplate(ctx, optional)
+> []VerifyV2VerificationTemplate ListVerificationTemplate(ctx, optional)
 
 
 
@@ -33,7 +33,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListVerificationTemplateResponse**](ListVerificationTemplateResponse.md)
+[**[]VerifyV2VerificationTemplate**](VerifyV2VerificationTemplate.md)
 
 ### Authorization
 

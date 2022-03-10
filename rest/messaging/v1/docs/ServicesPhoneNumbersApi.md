@@ -136,7 +136,7 @@ Name | Type | Description
 
 ## ListPhoneNumber
 
-> ListPhoneNumberResponse ListPhoneNumber(ctx, ServiceSidoptional)
+> []MessagingV1PhoneNumber ListPhoneNumber(ctx, ServiceSidoptional)
 
 
 
@@ -160,7 +160,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListPhoneNumberResponse**](ListPhoneNumberResponse.md)
+[**[]MessagingV1PhoneNumber**](MessagingV1PhoneNumber.md)
 
 ### Authorization
 

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListDataSession
 
-> ListDataSessionResponse ListDataSession(ctx, SimSidoptional)
+> []WirelessV1DataSession ListDataSession(ctx, SimSidoptional)
 
 
 
@@ -34,7 +34,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListDataSessionResponse**](ListDataSessionResponse.md)
+[**[]WirelessV1DataSession**](WirelessV1DataSession.md)
 
 ### Authorization
 

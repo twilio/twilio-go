@@ -138,7 +138,7 @@ Name | Type | Description
 
 ## ListTrunk
 
-> ListTrunkResponse ListTrunk(ctx, optional)
+> []TrunkingV1Trunk ListTrunk(ctx, optional)
 
 
 
@@ -158,7 +158,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListTrunkResponse**](ListTrunkResponse.md)
+[**[]TrunkingV1Trunk**](TrunkingV1Trunk.md)
 
 ### Authorization
 

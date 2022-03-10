@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListInvite
 
-> ListInviteResponse ListInvite(ctx, ServiceSidChannelSidoptional)
+> []ChatV1Invite ListInvite(ctx, ServiceSidChannelSidoptional)
 
 
 
@@ -166,7 +166,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListInviteResponse**](ListInviteResponse.md)
+[**[]ChatV1Invite**](ChatV1Invite.md)
 
 ### Authorization
 

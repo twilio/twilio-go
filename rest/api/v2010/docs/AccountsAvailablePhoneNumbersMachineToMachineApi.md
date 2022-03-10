@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListAvailablePhoneNumberMachineToMachine
 
-> ListAvailablePhoneNumberMachineToMachineResponse ListAvailablePhoneNumberMachineToMachine(ctx, CountryCodeoptional)
+> []ApiV2010AvailablePhoneNumberMachineToMachine ListAvailablePhoneNumberMachineToMachine(ctx, CountryCodeoptional)
 
 
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListAvailablePhoneNumberMachineToMachineResponse**](ListAvailablePhoneNumberMachineToMachineResponse.md)
+[**[]ApiV2010AvailablePhoneNumberMachineToMachine**](ApiV2010AvailablePhoneNumberMachineToMachine.md)
 
 ### Authorization
 

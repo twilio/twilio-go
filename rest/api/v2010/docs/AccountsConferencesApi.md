@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## ListConference
 
-> ListConferenceResponse ListConference(ctx, optional)
+> []ApiV2010Conference ListConference(ctx, optional)
 
 
 
@@ -86,7 +86,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListConferenceResponse**](ListConferenceResponse.md)
+[**[]ApiV2010Conference**](ApiV2010Conference.md)
 
 ### Authorization
 

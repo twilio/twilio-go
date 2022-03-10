@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## ListMedia
 
-> ListMediaResponse ListMedia(ctx, MessageSidoptional)
+> []ApiV2010Media ListMedia(ctx, MessageSidoptional)
 
 
 
@@ -130,7 +130,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListMediaResponse**](ListMediaResponse.md)
+[**[]ApiV2010Media**](ApiV2010Media.md)
 
 ### Authorization
 

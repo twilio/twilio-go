@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListSink
 
-> ListSinkResponse ListSink(ctx, optional)
+> []EventsV1Sink ListSink(ctx, optional)
 
 
 
@@ -163,7 +163,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSinkResponse**](ListSinkResponse.md)
+[**[]EventsV1Sink**](EventsV1Sink.md)
 
 ### Authorization
 

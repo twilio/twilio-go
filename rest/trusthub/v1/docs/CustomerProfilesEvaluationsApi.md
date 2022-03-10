@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## ListCustomerProfileEvaluation
 
-> ListCustomerProfileEvaluationResponse ListCustomerProfileEvaluation(ctx, CustomerProfileSidoptional)
+> []TrusthubV1CustomerProfileEvaluation ListCustomerProfileEvaluation(ctx, CustomerProfileSidoptional)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCustomerProfileEvaluationResponse**](ListCustomerProfileEvaluationResponse.md)
+[**[]TrusthubV1CustomerProfileEvaluation**](TrusthubV1CustomerProfileEvaluation.md)
 
 ### Authorization
 

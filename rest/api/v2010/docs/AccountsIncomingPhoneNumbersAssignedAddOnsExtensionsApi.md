@@ -56,7 +56,7 @@ Name | Type | Description
 
 ## ListIncomingPhoneNumberAssignedAddOnExtension
 
-> ListIncomingPhoneNumberAssignedAddOnExtensionResponse ListIncomingPhoneNumberAssignedAddOnExtension(ctx, ResourceSidAssignedAddOnSidoptional)
+> []ApiV2010IncomingPhoneNumberAssignedAddOnExtension ListIncomingPhoneNumberAssignedAddOnExtension(ctx, ResourceSidAssignedAddOnSidoptional)
 
 
 
@@ -84,7 +84,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListIncomingPhoneNumberAssignedAddOnExtensionResponse**](ListIncomingPhoneNumberAssignedAddOnExtensionResponse.md)
+[**[]ApiV2010IncomingPhoneNumberAssignedAddOnExtension**](ApiV2010IncomingPhoneNumberAssignedAddOnExtension.md)
 
 ### Authorization
 

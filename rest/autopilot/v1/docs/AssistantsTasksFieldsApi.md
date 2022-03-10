@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListField
 
-> ListFieldResponse ListField(ctx, AssistantSidTaskSidoptional)
+> []AutopilotV1Field ListField(ctx, AssistantSidTaskSidoptional)
 
 
 
@@ -165,7 +165,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListFieldResponse**](ListFieldResponse.md)
+[**[]AutopilotV1Field**](AutopilotV1Field.md)
 
 ### Authorization
 

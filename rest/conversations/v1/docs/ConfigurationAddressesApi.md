@@ -147,7 +147,7 @@ Name | Type | Description
 
 ## ListConfigurationAddress
 
-> ListConfigurationAddressResponse ListConfigurationAddress(ctx, optional)
+> []ConversationsV1ConfigurationAddress ListConfigurationAddress(ctx, optional)
 
 
 
@@ -169,7 +169,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListConfigurationAddressResponse**](ListConfigurationAddressResponse.md)
+[**[]ConversationsV1ConfigurationAddress**](ConversationsV1ConfigurationAddress.md)
 
 ### Authorization
 

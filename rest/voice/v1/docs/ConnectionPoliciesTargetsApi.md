@@ -141,7 +141,7 @@ Name | Type | Description
 
 ## ListConnectionPolicyTarget
 
-> ListConnectionPolicyTargetResponse ListConnectionPolicyTarget(ctx, ConnectionPolicySidoptional)
+> []VoiceV1ConnectionPolicyTarget ListConnectionPolicyTarget(ctx, ConnectionPolicySidoptional)
 
 
 
@@ -165,7 +165,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListConnectionPolicyTargetResponse**](ListConnectionPolicyTargetResponse.md)
+[**[]VoiceV1ConnectionPolicyTarget**](VoiceV1ConnectionPolicyTarget.md)
 
 ### Authorization
 

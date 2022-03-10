@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListSupportingDocumentType
 
-> ListSupportingDocumentTypeResponse ListSupportingDocumentType(ctx, optional)
+> []TrusthubV1SupportingDocumentType ListSupportingDocumentType(ctx, optional)
 
 
 
@@ -75,7 +75,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSupportingDocumentTypeResponse**](ListSupportingDocumentTypeResponse.md)
+[**[]TrusthubV1SupportingDocumentType**](TrusthubV1SupportingDocumentType.md)
 
 ### Authorization
 

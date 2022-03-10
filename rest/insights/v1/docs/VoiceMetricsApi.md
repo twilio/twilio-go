@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListMetric
 
-> ListMetricResponse ListMetric(ctx, CallSidoptional)
+> []InsightsV1Metric ListMetric(ctx, CallSidoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListMetricResponse**](ListMetricResponse.md)
+[**[]InsightsV1Metric**](InsightsV1Metric.md)
 
 ### Authorization
 

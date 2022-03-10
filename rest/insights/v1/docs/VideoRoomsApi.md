@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListVideoRoomSummary
 
-> ListVideoRoomSummaryResponse ListVideoRoomSummary(ctx, optional)
+> []InsightsV1VideoRoomSummary ListVideoRoomSummary(ctx, optional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListVideoRoomSummaryResponse**](ListVideoRoomSummaryResponse.md)
+[**[]InsightsV1VideoRoomSummary**](InsightsV1VideoRoomSummary.md)
 
 ### Authorization
 
