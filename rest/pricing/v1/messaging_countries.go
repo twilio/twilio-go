@@ -94,28 +94,15 @@ func (c *ApiService) PageMessagingCountry(params *ListMessagingCountryParams, pa
 
 // Lists MessagingCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessagingCountry(params *ListMessagingCountryParams) ([]PricingV1MessagingCountry, error) {
-	if params == nil {
-		params = &ListMessagingCountryParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageMessagingCountry(params, "", "")
+	response, err := c.StreamMessagingCountry(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []PricingV1MessagingCountry
+	records := make([]PricingV1MessagingCountry, 0)
 
-	for response != nil {
-		records = append(records, response.Countries...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListMessagingCountryResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -133,18 +120,24 @@ func (c *ApiService) StreamMessagingCountry(params *ListMessagingCountryParams) 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan PricingV1MessagingCountry, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Countries {
-				channel <- response.Countries[item]
+			responseRecords := response.Countries
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessagingCountryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListMessagingCountryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

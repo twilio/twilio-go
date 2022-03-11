@@ -164,28 +164,15 @@ func (c *ApiService) PageEnvironment(ServiceSid string, params *ListEnvironmentP
 
 // Lists Environment records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEnvironment(ServiceSid string, params *ListEnvironmentParams) ([]ServerlessV1Environment, error) {
-	if params == nil {
-		params = &ListEnvironmentParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageEnvironment(ServiceSid, params, "", "")
+	response, err := c.StreamEnvironment(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ServerlessV1Environment
+	records := make([]ServerlessV1Environment, 0)
 
-	for response != nil {
-		records = append(records, response.Environments...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEnvironmentResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListEnvironmentResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -203,18 +190,24 @@ func (c *ApiService) StreamEnvironment(ServiceSid string, params *ListEnvironmen
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ServerlessV1Environment, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Environments {
-				channel <- response.Environments[item]
+			responseRecords := response.Environments
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEnvironmentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListEnvironmentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

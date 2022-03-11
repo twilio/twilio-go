@@ -282,28 +282,15 @@ func (c *ApiService) PageService(params *ListServiceParams, pageToken, pageNumbe
 
 // Lists Service records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListService(params *ListServiceParams) ([]MessagingV1Service, error) {
-	if params == nil {
-		params = &ListServiceParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageService(params, "", "")
+	response, err := c.StreamService(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []MessagingV1Service
+	records := make([]MessagingV1Service, 0)
 
-	for response != nil {
-		records = append(records, response.Services...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListServiceResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListServiceResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -321,18 +308,24 @@ func (c *ApiService) StreamService(params *ListServiceParams) (chan MessagingV1S
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan MessagingV1Service, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Services {
-				channel <- response.Services[item]
+			responseRecords := response.Services
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListServiceResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListServiceResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

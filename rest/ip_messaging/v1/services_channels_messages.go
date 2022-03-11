@@ -183,28 +183,15 @@ func (c *ApiService) PageMessage(ServiceSid string, ChannelSid string, params *L
 
 // Lists Message records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMessage(ServiceSid string, ChannelSid string, params *ListMessageParams) ([]IpMessagingV1Message, error) {
-	if params == nil {
-		params = &ListMessageParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageMessage(ServiceSid, ChannelSid, params, "", "")
+	response, err := c.StreamMessage(ServiceSid, ChannelSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []IpMessagingV1Message
+	records := make([]IpMessagingV1Message, 0)
 
-	for response != nil {
-		records = append(records, response.Messages...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessageResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListMessageResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -222,18 +209,24 @@ func (c *ApiService) StreamMessage(ServiceSid string, ChannelSid string, params 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan IpMessagingV1Message, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Messages {
-				channel <- response.Messages[item]
+			responseRecords := response.Messages
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMessageResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListMessageResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

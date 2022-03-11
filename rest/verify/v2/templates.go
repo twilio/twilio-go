@@ -80,28 +80,15 @@ func (c *ApiService) PageVerificationTemplate(params *ListVerificationTemplatePa
 
 // Lists VerificationTemplate records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVerificationTemplate(params *ListVerificationTemplateParams) ([]VerifyV2VerificationTemplate, error) {
-	if params == nil {
-		params = &ListVerificationTemplateParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageVerificationTemplate(params, "", "")
+	response, err := c.StreamVerificationTemplate(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []VerifyV2VerificationTemplate
+	records := make([]VerifyV2VerificationTemplate, 0)
 
-	for response != nil {
-		records = append(records, response.Templates...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListVerificationTemplateResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListVerificationTemplateResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -119,18 +106,24 @@ func (c *ApiService) StreamVerificationTemplate(params *ListVerificationTemplate
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan VerifyV2VerificationTemplate, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Templates {
-				channel <- response.Templates[item]
+			responseRecords := response.Templates
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListVerificationTemplateResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListVerificationTemplateResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

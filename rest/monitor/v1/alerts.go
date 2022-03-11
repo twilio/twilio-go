@@ -122,28 +122,15 @@ func (c *ApiService) PageAlert(params *ListAlertParams, pageToken, pageNumber st
 
 // Lists Alert records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAlert(params *ListAlertParams) ([]MonitorV1Alert, error) {
-	if params == nil {
-		params = &ListAlertParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageAlert(params, "", "")
+	response, err := c.StreamAlert(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []MonitorV1Alert
+	records := make([]MonitorV1Alert, 0)
 
-	for response != nil {
-		records = append(records, response.Alerts...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAlertResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListAlertResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -161,18 +148,24 @@ func (c *ApiService) StreamAlert(params *ListAlertParams) (chan MonitorV1Alert, 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan MonitorV1Alert, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Alerts {
-				channel <- response.Alerts[item]
+			responseRecords := response.Alerts
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAlertResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListAlertResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

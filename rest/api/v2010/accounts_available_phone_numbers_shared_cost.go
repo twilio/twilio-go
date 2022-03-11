@@ -247,28 +247,15 @@ func (c *ApiService) PageAvailablePhoneNumberSharedCost(CountryCode string, para
 
 // Lists AvailablePhoneNumberSharedCost records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberSharedCost(CountryCode string, params *ListAvailablePhoneNumberSharedCostParams) ([]ApiV2010AvailablePhoneNumberSharedCost, error) {
-	if params == nil {
-		params = &ListAvailablePhoneNumberSharedCostParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageAvailablePhoneNumberSharedCost(CountryCode, params, "", "")
+	response, err := c.StreamAvailablePhoneNumberSharedCost(CountryCode, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010AvailablePhoneNumberSharedCost
+	records := make([]ApiV2010AvailablePhoneNumberSharedCost, 0)
 
-	for response != nil {
-		records = append(records, response.AvailablePhoneNumbers...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberSharedCostResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListAvailablePhoneNumberSharedCostResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -286,18 +273,24 @@ func (c *ApiService) StreamAvailablePhoneNumberSharedCost(CountryCode string, pa
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010AvailablePhoneNumberSharedCost, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.AvailablePhoneNumbers {
-				channel <- response.AvailablePhoneNumbers[item]
+			responseRecords := response.AvailablePhoneNumbers
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberSharedCostResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberSharedCostResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

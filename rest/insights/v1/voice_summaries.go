@@ -233,28 +233,15 @@ func (c *ApiService) PageCallSummaries(params *ListCallSummariesParams, pageToke
 
 // Lists CallSummaries records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCallSummaries(params *ListCallSummariesParams) ([]InsightsV1CallSummaries, error) {
-	if params == nil {
-		params = &ListCallSummariesParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageCallSummaries(params, "", "")
+	response, err := c.StreamCallSummaries(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []InsightsV1CallSummaries
+	records := make([]InsightsV1CallSummaries, 0)
 
-	for response != nil {
-		records = append(records, response.CallSummaries...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallSummariesResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListCallSummariesResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -272,18 +259,24 @@ func (c *ApiService) StreamCallSummaries(params *ListCallSummariesParams) (chan 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan InsightsV1CallSummaries, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.CallSummaries {
-				channel <- response.CallSummaries[item]
+			responseRecords := response.CallSummaries
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallSummariesResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListCallSummariesResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

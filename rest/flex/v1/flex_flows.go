@@ -300,28 +300,15 @@ func (c *ApiService) PageFlexFlow(params *ListFlexFlowParams, pageToken, pageNum
 
 // Lists FlexFlow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFlexFlow(params *ListFlexFlowParams) ([]FlexV1FlexFlow, error) {
-	if params == nil {
-		params = &ListFlexFlowParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageFlexFlow(params, "", "")
+	response, err := c.StreamFlexFlow(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []FlexV1FlexFlow
+	records := make([]FlexV1FlexFlow, 0)
 
-	for response != nil {
-		records = append(records, response.FlexFlows...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFlexFlowResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListFlexFlowResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -339,18 +326,24 @@ func (c *ApiService) StreamFlexFlow(params *ListFlexFlowParams) (chan FlexV1Flex
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan FlexV1FlexFlow, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.FlexFlows {
-				channel <- response.FlexFlows[item]
+			responseRecords := response.FlexFlows
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFlexFlowResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListFlexFlowResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

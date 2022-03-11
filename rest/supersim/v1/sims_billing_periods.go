@@ -74,28 +74,15 @@ func (c *ApiService) PageBillingPeriod(SimSid string, params *ListBillingPeriodP
 
 // Lists BillingPeriod records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBillingPeriod(SimSid string, params *ListBillingPeriodParams) ([]SupersimV1BillingPeriod, error) {
-	if params == nil {
-		params = &ListBillingPeriodParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageBillingPeriod(SimSid, params, "", "")
+	response, err := c.StreamBillingPeriod(SimSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []SupersimV1BillingPeriod
+	records := make([]SupersimV1BillingPeriod, 0)
 
-	for response != nil {
-		records = append(records, response.BillingPeriods...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListBillingPeriodResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -113,18 +100,24 @@ func (c *ApiService) StreamBillingPeriod(SimSid string, params *ListBillingPerio
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan SupersimV1BillingPeriod, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.BillingPeriods {
-				channel <- response.BillingPeriods[item]
+			responseRecords := response.BillingPeriods
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBillingPeriodResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListBillingPeriodResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

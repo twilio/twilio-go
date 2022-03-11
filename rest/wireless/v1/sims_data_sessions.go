@@ -74,28 +74,15 @@ func (c *ApiService) PageDataSession(SimSid string, params *ListDataSessionParam
 
 // Lists DataSession records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDataSession(SimSid string, params *ListDataSessionParams) ([]WirelessV1DataSession, error) {
-	if params == nil {
-		params = &ListDataSessionParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageDataSession(SimSid, params, "", "")
+	response, err := c.StreamDataSession(SimSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []WirelessV1DataSession
+	records := make([]WirelessV1DataSession, 0)
 
-	for response != nil {
-		records = append(records, response.DataSessions...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDataSessionResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListDataSessionResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -113,18 +100,24 @@ func (c *ApiService) StreamDataSession(SimSid string, params *ListDataSessionPar
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan WirelessV1DataSession, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.DataSessions {
-				channel <- response.DataSessions[item]
+			responseRecords := response.DataSessions
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDataSessionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListDataSessionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

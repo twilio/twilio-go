@@ -170,28 +170,15 @@ func (c *ApiService) PageTaskChannel(WorkspaceSid string, params *ListTaskChanne
 
 // Lists TaskChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskChannel(WorkspaceSid string, params *ListTaskChannelParams) ([]TaskrouterV1TaskChannel, error) {
-	if params == nil {
-		params = &ListTaskChannelParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageTaskChannel(WorkspaceSid, params, "", "")
+	response, err := c.StreamTaskChannel(WorkspaceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []TaskrouterV1TaskChannel
+	records := make([]TaskrouterV1TaskChannel, 0)
 
-	for response != nil {
-		records = append(records, response.Channels...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListTaskChannelResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -209,18 +196,24 @@ func (c *ApiService) StreamTaskChannel(WorkspaceSid string, params *ListTaskChan
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan TaskrouterV1TaskChannel, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Channels {
-				channel <- response.Channels[item]
+			responseRecords := response.Channels
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskChannelResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListTaskChannelResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

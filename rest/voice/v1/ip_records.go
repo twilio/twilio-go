@@ -165,28 +165,15 @@ func (c *ApiService) PageIpRecord(params *ListIpRecordParams, pageToken, pageNum
 
 // Lists IpRecord records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIpRecord(params *ListIpRecordParams) ([]VoiceV1IpRecord, error) {
-	if params == nil {
-		params = &ListIpRecordParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageIpRecord(params, "", "")
+	response, err := c.StreamIpRecord(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []VoiceV1IpRecord
+	records := make([]VoiceV1IpRecord, 0)
 
-	for response != nil {
-		records = append(records, response.IpRecords...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIpRecordResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListIpRecordResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -204,18 +191,24 @@ func (c *ApiService) StreamIpRecord(params *ListIpRecordParams) (chan VoiceV1IpR
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan VoiceV1IpRecord, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.IpRecords {
-				channel <- response.IpRecords[item]
+			responseRecords := response.IpRecords
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIpRecordResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListIpRecordResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

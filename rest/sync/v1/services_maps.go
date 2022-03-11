@@ -170,28 +170,15 @@ func (c *ApiService) PageSyncMap(ServiceSid string, params *ListSyncMapParams, p
 
 // Lists SyncMap records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncMap(ServiceSid string, params *ListSyncMapParams) ([]SyncV1SyncMap, error) {
-	if params == nil {
-		params = &ListSyncMapParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageSyncMap(ServiceSid, params, "", "")
+	response, err := c.StreamSyncMap(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []SyncV1SyncMap
+	records := make([]SyncV1SyncMap, 0)
 
-	for response != nil {
-		records = append(records, response.Maps...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncMapResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListSyncMapResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -209,18 +196,24 @@ func (c *ApiService) StreamSyncMap(ServiceSid string, params *ListSyncMapParams)
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan SyncV1SyncMap, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Maps {
-				channel <- response.Maps[item]
+			responseRecords := response.Maps
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncMapResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListSyncMapResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

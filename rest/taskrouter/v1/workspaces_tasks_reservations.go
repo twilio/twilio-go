@@ -108,28 +108,15 @@ func (c *ApiService) PageTaskReservation(WorkspaceSid string, TaskSid string, pa
 
 // Lists TaskReservation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskReservation(WorkspaceSid string, TaskSid string, params *ListTaskReservationParams) ([]TaskrouterV1TaskReservation, error) {
-	if params == nil {
-		params = &ListTaskReservationParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageTaskReservation(WorkspaceSid, TaskSid, params, "", "")
+	response, err := c.StreamTaskReservation(WorkspaceSid, TaskSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []TaskrouterV1TaskReservation
+	records := make([]TaskrouterV1TaskReservation, 0)
 
-	for response != nil {
-		records = append(records, response.Reservations...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskReservationResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListTaskReservationResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -147,18 +134,24 @@ func (c *ApiService) StreamTaskReservation(WorkspaceSid string, TaskSid string, 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan TaskrouterV1TaskReservation, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Reservations {
-				channel <- response.Reservations[item]
+			responseRecords := response.Reservations
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskReservationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListTaskReservationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

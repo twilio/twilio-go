@@ -123,28 +123,15 @@ func (c *ApiService) PageAuthorizedConnectApp(params *ListAuthorizedConnectAppPa
 
 // Lists AuthorizedConnectApp records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAuthorizedConnectApp(params *ListAuthorizedConnectAppParams) ([]ApiV2010AuthorizedConnectApp, error) {
-	if params == nil {
-		params = &ListAuthorizedConnectAppParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageAuthorizedConnectApp(params, "", "")
+	response, err := c.StreamAuthorizedConnectApp(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010AuthorizedConnectApp
+	records := make([]ApiV2010AuthorizedConnectApp, 0)
 
-	for response != nil {
-		records = append(records, response.AuthorizedConnectApps...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListAuthorizedConnectAppResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -162,18 +149,24 @@ func (c *ApiService) StreamAuthorizedConnectApp(params *ListAuthorizedConnectApp
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010AuthorizedConnectApp, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.AuthorizedConnectApps {
-				channel <- response.AuthorizedConnectApps[item]
+			responseRecords := response.AuthorizedConnectApps
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListAuthorizedConnectAppResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

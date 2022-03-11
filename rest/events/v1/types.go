@@ -104,28 +104,15 @@ func (c *ApiService) PageEventType(params *ListEventTypeParams, pageToken, pageN
 
 // Lists EventType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEventType(params *ListEventTypeParams) ([]EventsV1EventType, error) {
-	if params == nil {
-		params = &ListEventTypeParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageEventType(params, "", "")
+	response, err := c.StreamEventType(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []EventsV1EventType
+	records := make([]EventsV1EventType, 0)
 
-	for response != nil {
-		records = append(records, response.Types...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEventTypeResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListEventTypeResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -143,18 +130,24 @@ func (c *ApiService) StreamEventType(params *ListEventTypeParams) (chan EventsV1
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan EventsV1EventType, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Types {
-				channel <- response.Types[item]
+			responseRecords := response.Types
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEventTypeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListEventTypeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

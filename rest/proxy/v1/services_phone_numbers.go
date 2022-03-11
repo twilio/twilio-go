@@ -173,28 +173,15 @@ func (c *ApiService) PagePhoneNumber(ServiceSid string, params *ListPhoneNumberP
 
 // Lists PhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListPhoneNumber(ServiceSid string, params *ListPhoneNumberParams) ([]ProxyV1PhoneNumber, error) {
-	if params == nil {
-		params = &ListPhoneNumberParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PagePhoneNumber(ServiceSid, params, "", "")
+	response, err := c.StreamPhoneNumber(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ProxyV1PhoneNumber
+	records := make([]ProxyV1PhoneNumber, 0)
 
-	for response != nil {
-		records = append(records, response.PhoneNumbers...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListPhoneNumberResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListPhoneNumberResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -212,18 +199,24 @@ func (c *ApiService) StreamPhoneNumber(ServiceSid string, params *ListPhoneNumbe
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ProxyV1PhoneNumber, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.PhoneNumbers {
-				channel <- response.PhoneNumbers[item]
+			responseRecords := response.PhoneNumbers
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListPhoneNumberResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListPhoneNumberResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -152,28 +152,15 @@ func (c *ApiService) PageCredentialList(TrunkSid string, params *ListCredentialL
 
 // Lists CredentialList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCredentialList(TrunkSid string, params *ListCredentialListParams) ([]TrunkingV1CredentialList, error) {
-	if params == nil {
-		params = &ListCredentialListParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageCredentialList(TrunkSid, params, "", "")
+	response, err := c.StreamCredentialList(TrunkSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []TrunkingV1CredentialList
+	records := make([]TrunkingV1CredentialList, 0)
 
-	for response != nil {
-		records = append(records, response.CredentialLists...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCredentialListResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListCredentialListResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -191,18 +178,24 @@ func (c *ApiService) StreamCredentialList(TrunkSid string, params *ListCredentia
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan TrunkingV1CredentialList, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.CredentialLists {
-				channel <- response.CredentialLists[item]
+			responseRecords := response.CredentialLists
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCredentialListResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListCredentialListResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

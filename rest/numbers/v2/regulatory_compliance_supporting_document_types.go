@@ -95,28 +95,15 @@ func (c *ApiService) PageSupportingDocumentType(params *ListSupportingDocumentTy
 
 // Lists SupportingDocumentType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSupportingDocumentType(params *ListSupportingDocumentTypeParams) ([]NumbersV2SupportingDocumentType, error) {
-	if params == nil {
-		params = &ListSupportingDocumentTypeParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageSupportingDocumentType(params, "", "")
+	response, err := c.StreamSupportingDocumentType(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []NumbersV2SupportingDocumentType
+	records := make([]NumbersV2SupportingDocumentType, 0)
 
-	for response != nil {
-		records = append(records, response.SupportingDocumentTypes...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSupportingDocumentTypeResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListSupportingDocumentTypeResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -134,18 +121,24 @@ func (c *ApiService) StreamSupportingDocumentType(params *ListSupportingDocument
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan NumbersV2SupportingDocumentType, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.SupportingDocumentTypes {
-				channel <- response.SupportingDocumentTypes[item]
+			responseRecords := response.SupportingDocumentTypes
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSupportingDocumentTypeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListSupportingDocumentTypeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

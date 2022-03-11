@@ -247,28 +247,15 @@ func (c *ApiService) PageAvailablePhoneNumberMachineToMachine(CountryCode string
 
 // Lists AvailablePhoneNumberMachineToMachine records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAvailablePhoneNumberMachineToMachine(CountryCode string, params *ListAvailablePhoneNumberMachineToMachineParams) ([]ApiV2010AvailablePhoneNumberMachineToMachine, error) {
-	if params == nil {
-		params = &ListAvailablePhoneNumberMachineToMachineParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageAvailablePhoneNumberMachineToMachine(CountryCode, params, "", "")
+	response, err := c.StreamAvailablePhoneNumberMachineToMachine(CountryCode, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010AvailablePhoneNumberMachineToMachine
+	records := make([]ApiV2010AvailablePhoneNumberMachineToMachine, 0)
 
-	for response != nil {
-		records = append(records, response.AvailablePhoneNumbers...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberMachineToMachineResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListAvailablePhoneNumberMachineToMachineResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -286,18 +273,24 @@ func (c *ApiService) StreamAvailablePhoneNumberMachineToMachine(CountryCode stri
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010AvailablePhoneNumberMachineToMachine, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.AvailablePhoneNumbers {
-				channel <- response.AvailablePhoneNumbers[item]
+			responseRecords := response.AvailablePhoneNumbers
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAvailablePhoneNumberMachineToMachineResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListAvailablePhoneNumberMachineToMachineResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

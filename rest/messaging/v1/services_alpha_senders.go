@@ -152,28 +152,15 @@ func (c *ApiService) PageAlphaSender(ServiceSid string, params *ListAlphaSenderP
 
 // Lists AlphaSender records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAlphaSender(ServiceSid string, params *ListAlphaSenderParams) ([]MessagingV1AlphaSender, error) {
-	if params == nil {
-		params = &ListAlphaSenderParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageAlphaSender(ServiceSid, params, "", "")
+	response, err := c.StreamAlphaSender(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []MessagingV1AlphaSender
+	records := make([]MessagingV1AlphaSender, 0)
 
-	for response != nil {
-		records = append(records, response.AlphaSenders...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAlphaSenderResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListAlphaSenderResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -191,18 +178,24 @@ func (c *ApiService) StreamAlphaSender(ServiceSid string, params *ListAlphaSende
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan MessagingV1AlphaSender, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.AlphaSenders {
-				channel <- response.AlphaSenders[item]
+			responseRecords := response.AlphaSenders
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAlphaSenderResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListAlphaSenderResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

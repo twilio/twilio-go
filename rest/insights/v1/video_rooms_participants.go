@@ -98,28 +98,15 @@ func (c *ApiService) PageVideoParticipantSummary(RoomSid string, params *ListVid
 
 // Lists VideoParticipantSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVideoParticipantSummary(RoomSid string, params *ListVideoParticipantSummaryParams) ([]InsightsV1VideoParticipantSummary, error) {
-	if params == nil {
-		params = &ListVideoParticipantSummaryParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageVideoParticipantSummary(RoomSid, params, "", "")
+	response, err := c.StreamVideoParticipantSummary(RoomSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []InsightsV1VideoParticipantSummary
+	records := make([]InsightsV1VideoParticipantSummary, 0)
 
-	for response != nil {
-		records = append(records, response.Participants...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListVideoParticipantSummaryResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListVideoParticipantSummaryResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -137,18 +124,24 @@ func (c *ApiService) StreamVideoParticipantSummary(RoomSid string, params *ListV
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan InsightsV1VideoParticipantSummary, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Participants {
-				channel <- response.Participants[item]
+			responseRecords := response.Participants
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListVideoParticipantSummaryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListVideoParticipantSummaryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
