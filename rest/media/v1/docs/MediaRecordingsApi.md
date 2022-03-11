@@ -96,7 +96,7 @@ Name | Type | Description
 
 ## ListMediaRecording
 
-> ListMediaRecordingResponse ListMediaRecording(ctx, optional)
+> []MediaV1MediaRecording ListMediaRecording(ctx, optional)
 
 
 
@@ -120,7 +120,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListMediaRecordingResponse**](ListMediaRecordingResponse.md)
+[**[]MediaV1MediaRecording**](MediaV1MediaRecording.md)
 
 ### Authorization
 

@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListWorker
 
-> ListWorkerResponse ListWorker(ctx, WorkspaceSidoptional)
+> []TaskrouterV1Worker ListWorker(ctx, WorkspaceSidoptional)
 
 
 
@@ -171,7 +171,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListWorkerResponse**](ListWorkerResponse.md)
+[**[]TaskrouterV1Worker**](TaskrouterV1Worker.md)
 
 ### Authorization
 

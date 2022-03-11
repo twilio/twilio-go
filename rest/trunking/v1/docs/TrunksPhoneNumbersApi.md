@@ -136,7 +136,7 @@ Name | Type | Description
 
 ## ListPhoneNumber
 
-> ListPhoneNumberResponse ListPhoneNumber(ctx, TrunkSidoptional)
+> []TrunkingV1PhoneNumber ListPhoneNumber(ctx, TrunkSidoptional)
 
 
 
@@ -160,7 +160,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListPhoneNumberResponse**](ListPhoneNumberResponse.md)
+[**[]TrunkingV1PhoneNumber**](TrunkingV1PhoneNumber.md)
 
 ### Authorization
 

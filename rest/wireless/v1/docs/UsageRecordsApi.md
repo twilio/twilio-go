@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListAccountUsageRecord
 
-> ListAccountUsageRecordResponse ListAccountUsageRecord(ctx, optional)
+> []WirelessV1AccountUsageRecord ListAccountUsageRecord(ctx, optional)
 
 
 
@@ -33,7 +33,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListAccountUsageRecordResponse**](ListAccountUsageRecordResponse.md)
+[**[]WirelessV1AccountUsageRecord**](WirelessV1AccountUsageRecord.md)
 
 ### Authorization
 

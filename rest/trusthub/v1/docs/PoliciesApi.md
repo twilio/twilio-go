@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListPolicies
 
-> ListPoliciesResponse ListPolicies(ctx, optional)
+> []TrusthubV1Policies ListPolicies(ctx, optional)
 
 
 
@@ -75,7 +75,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListPoliciesResponse**](ListPoliciesResponse.md)
+[**[]TrusthubV1Policies**](TrusthubV1Policies.md)
 
 ### Authorization
 

@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## ListSchemaVersion
 
-> ListSchemaVersionResponse ListSchemaVersion(ctx, Idoptional)
+> []EventsV1SchemaVersion ListSchemaVersion(ctx, Idoptional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSchemaVersionResponse**](ListSchemaVersionResponse.md)
+[**[]EventsV1SchemaVersion**](EventsV1SchemaVersion.md)
 
 ### Authorization
 

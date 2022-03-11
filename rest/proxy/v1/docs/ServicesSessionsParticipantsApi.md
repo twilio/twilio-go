@@ -149,7 +149,7 @@ Name | Type | Description
 
 ## ListParticipant
 
-> ListParticipantResponse ListParticipant(ctx, ServiceSidSessionSidoptional)
+> []ProxyV1Participant ListParticipant(ctx, ServiceSidSessionSidoptional)
 
 
 
@@ -176,7 +176,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListParticipantResponse**](ListParticipantResponse.md)
+[**[]ProxyV1Participant**](ProxyV1Participant.md)
 
 ### Authorization
 

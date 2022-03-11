@@ -145,7 +145,7 @@ Name | Type | Description
 
 ## ListSyncMapItem
 
-> ListSyncMapItemResponse ListSyncMapItem(ctx, ServiceSidMapSidoptional)
+> []SyncV1SyncMapItem ListSyncMapItem(ctx, ServiceSidMapSidoptional)
 
 
 
@@ -173,7 +173,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSyncMapItemResponse**](ListSyncMapItemResponse.md)
+[**[]SyncV1SyncMapItem**](SyncV1SyncMapItem.md)
 
 ### Authorization
 

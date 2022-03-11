@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## ListVideoParticipantSummary
 
-> ListVideoParticipantSummaryResponse ListVideoParticipantSummary(ctx, RoomSidoptional)
+> []InsightsV1VideoParticipantSummary ListVideoParticipantSummary(ctx, RoomSidoptional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListVideoParticipantSummaryResponse**](ListVideoParticipantSummaryResponse.md)
+[**[]InsightsV1VideoParticipantSummary**](InsightsV1VideoParticipantSummary.md)
 
 ### Authorization
 

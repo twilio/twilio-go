@@ -145,7 +145,7 @@ Name | Type | Description
 
 ## ListSipAuthCallsIpAccessControlListMapping
 
-> ListSipAuthCallsIpAccessControlListMappingResponse ListSipAuthCallsIpAccessControlListMapping(ctx, DomainSidoptional)
+> []ApiV2010SipAuthCallsIpAccessControlListMapping ListSipAuthCallsIpAccessControlListMapping(ctx, DomainSidoptional)
 
 
 
@@ -172,7 +172,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSipAuthCallsIpAccessControlListMappingResponse**](ListSipAuthCallsIpAccessControlListMappingResponse.md)
+[**[]ApiV2010SipAuthCallsIpAccessControlListMapping**](ApiV2010SipAuthCallsIpAccessControlListMapping.md)
 
 ### Authorization
 

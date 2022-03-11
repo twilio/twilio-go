@@ -143,7 +143,7 @@ Name | Type | Description
 
 ## ListCustomerProfileChannelEndpointAssignment
 
-> ListCustomerProfileChannelEndpointAssignmentResponse ListCustomerProfileChannelEndpointAssignment(ctx, CustomerProfileSidoptional)
+> []TrusthubV1CustomerProfileChannelEndpointAssignment ListCustomerProfileChannelEndpointAssignment(ctx, CustomerProfileSidoptional)
 
 
 
@@ -171,7 +171,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCustomerProfileChannelEndpointAssignmentResponse**](ListCustomerProfileChannelEndpointAssignmentResponse.md)
+[**[]TrusthubV1CustomerProfileChannelEndpointAssignment**](TrusthubV1CustomerProfileChannelEndpointAssignment.md)
 
 ### Authorization
 

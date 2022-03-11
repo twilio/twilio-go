@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListTrustProduct
 
-> ListTrustProductResponse ListTrustProduct(ctx, optional)
+> []TrusthubV1TrustProduct ListTrustProduct(ctx, optional)
 
 
 
@@ -165,7 +165,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListTrustProductResponse**](ListTrustProductResponse.md)
+[**[]TrusthubV1TrustProduct**](TrusthubV1TrustProduct.md)
 
 ### Authorization
 

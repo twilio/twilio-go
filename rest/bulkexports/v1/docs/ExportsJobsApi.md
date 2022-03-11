@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListExportCustomJob
 
-> ListExportCustomJobResponse ListExportCustomJob(ctx, ResourceTypeoptional)
+> []BulkexportsV1ExportCustomJob ListExportCustomJob(ctx, ResourceTypeoptional)
 
 
 
@@ -163,7 +163,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListExportCustomJobResponse**](ListExportCustomJobResponse.md)
+[**[]BulkexportsV1ExportCustomJob**](BulkexportsV1ExportCustomJob.md)
 
 ### Authorization
 

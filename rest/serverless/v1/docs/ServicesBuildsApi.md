@@ -145,7 +145,7 @@ Name | Type | Description
 
 ## ListBuild
 
-> ListBuildResponse ListBuild(ctx, ServiceSidoptional)
+> []ServerlessV1Build ListBuild(ctx, ServiceSidoptional)
 
 
 
@@ -171,7 +171,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListBuildResponse**](ListBuildResponse.md)
+[**[]ServerlessV1Build**](ServerlessV1Build.md)
 
 ### Authorization
 

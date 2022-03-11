@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## ListServiceBinding
 
-> ListServiceBindingResponse ListServiceBinding(ctx, ChatServiceSidoptional)
+> []ConversationsV1ServiceBinding ListServiceBinding(ctx, ChatServiceSidoptional)
 
 
 
@@ -126,7 +126,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListServiceBindingResponse**](ListServiceBindingResponse.md)
+[**[]ConversationsV1ServiceBinding**](ConversationsV1ServiceBinding.md)
 
 ### Authorization
 

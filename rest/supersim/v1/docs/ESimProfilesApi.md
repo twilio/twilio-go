@@ -95,7 +95,7 @@ Name | Type | Description
 
 ## ListEsimProfile
 
-> ListEsimProfileResponse ListEsimProfile(ctx, optional)
+> []SupersimV1EsimProfile ListEsimProfile(ctx, optional)
 
 
 
@@ -120,7 +120,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListEsimProfileResponse**](ListEsimProfileResponse.md)
+[**[]SupersimV1EsimProfile**](SupersimV1EsimProfile.md)
 
 ### Authorization
 

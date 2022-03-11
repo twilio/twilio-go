@@ -57,7 +57,7 @@ Name | Type | Description
 
 ## ListTaskQueuesStatistics
 
-> ListTaskQueuesStatisticsResponse ListTaskQueuesStatistics(ctx, WorkspaceSidoptional)
+> []TaskrouterV1TaskQueuesStatistics ListTaskQueuesStatistics(ctx, WorkspaceSidoptional)
 
 
 
@@ -87,7 +87,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListTaskQueuesStatisticsResponse**](ListTaskQueuesStatisticsResponse.md)
+[**[]TaskrouterV1TaskQueuesStatistics**](TaskrouterV1TaskQueuesStatistics.md)
 
 ### Authorization
 

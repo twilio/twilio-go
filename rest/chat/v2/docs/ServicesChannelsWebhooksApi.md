@@ -146,7 +146,7 @@ Name | Type | Description
 
 ## ListChannelWebhook
 
-> ListChannelWebhookResponse ListChannelWebhook(ctx, ServiceSidChannelSidoptional)
+> []ChatV2ChannelWebhook ListChannelWebhook(ctx, ServiceSidChannelSidoptional)
 
 
 
@@ -171,7 +171,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListChannelWebhookResponse**](ListChannelWebhookResponse.md)
+[**[]ChatV2ChannelWebhook**](ChatV2ChannelWebhook.md)
 
 ### Authorization
 

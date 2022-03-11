@@ -148,7 +148,7 @@ Name | Type | Description
 
 ## ListMember
 
-> ListMemberResponse ListMember(ctx, ServiceSidChannelSidoptional)
+> []IpMessagingV2Member ListMember(ctx, ServiceSidChannelSidoptional)
 
 
 
@@ -174,7 +174,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListMemberResponse**](ListMemberResponse.md)
+[**[]IpMessagingV2Member**](IpMessagingV2Member.md)
 
 ### Authorization
 

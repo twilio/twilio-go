@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## ListTrustProductEntityAssignment
 
-> ListTrustProductEntityAssignmentResponse ListTrustProductEntityAssignment(ctx, TrustProductSidoptional)
+> []TrusthubV1TrustProductEntityAssignment ListTrustProductEntityAssignment(ctx, TrustProductSidoptional)
 
 
 
@@ -168,7 +168,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListTrustProductEntityAssignmentResponse**](ListTrustProductEntityAssignmentResponse.md)
+[**[]TrusthubV1TrustProductEntityAssignment**](TrusthubV1TrustProductEntityAssignment.md)
 
 ### Authorization
 

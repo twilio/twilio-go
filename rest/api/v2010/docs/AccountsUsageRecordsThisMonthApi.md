@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListUsageRecordThisMonth
 
-> ListUsageRecordThisMonthResponse ListUsageRecordThisMonth(ctx, optional)
+> []ApiV2010UsageRecordThisMonth ListUsageRecordThisMonth(ctx, optional)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUsageRecordThisMonthResponse**](ListUsageRecordThisMonthResponse.md)
+[**[]ApiV2010UsageRecordThisMonth**](ApiV2010UsageRecordThisMonth.md)
 
 ### Authorization
 

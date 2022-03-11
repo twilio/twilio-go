@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## ListExecutionStep
 
-> ListExecutionStepResponse ListExecutionStep(ctx, FlowSidExecutionSidoptional)
+> []StudioV2ExecutionStep ListExecutionStep(ctx, FlowSidExecutionSidoptional)
 
 
 
@@ -82,7 +82,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListExecutionStepResponse**](ListExecutionStepResponse.md)
+[**[]StudioV2ExecutionStep**](StudioV2ExecutionStep.md)
 
 ### Authorization
 

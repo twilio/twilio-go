@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## ListAssetVersion
 
-> ListAssetVersionResponse ListAssetVersion(ctx, ServiceSidAssetSidoptional)
+> []ServerlessV1AssetVersion ListAssetVersion(ctx, ServiceSidAssetSidoptional)
 
 
 
@@ -82,7 +82,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListAssetVersionResponse**](ListAssetVersionResponse.md)
+[**[]ServerlessV1AssetVersion**](ServerlessV1AssetVersion.md)
 
 ### Authorization
 

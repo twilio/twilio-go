@@ -56,7 +56,7 @@ Name | Type | Description
 
 ## ListConferenceParticipant
 
-> ListConferenceParticipantResponse ListConferenceParticipant(ctx, ConferenceSidoptional)
+> []InsightsV1ConferenceParticipant ListConferenceParticipant(ctx, ConferenceSidoptional)
 
 
 
@@ -85,7 +85,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListConferenceParticipantResponse**](ListConferenceParticipantResponse.md)
+[**[]InsightsV1ConferenceParticipant**](InsightsV1ConferenceParticipant.md)
 
 ### Authorization
 

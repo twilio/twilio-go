@@ -145,7 +145,7 @@ Name | Type | Description
 
 ## ListExecution
 
-> ListExecutionResponse ListExecution(ctx, FlowSidoptional)
+> []StudioV1Execution ListExecution(ctx, FlowSidoptional)
 
 
 
@@ -173,7 +173,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListExecutionResponse**](ListExecutionResponse.md)
+[**[]StudioV1Execution**](StudioV1Execution.md)
 
 ### Authorization
 

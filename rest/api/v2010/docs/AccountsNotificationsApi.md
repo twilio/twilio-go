@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## ListNotification
 
-> ListNotificationResponse ListNotification(ctx, optional)
+> []ApiV2010Notification ListNotification(ctx, optional)
 
 
 
@@ -81,7 +81,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListNotificationResponse**](ListNotificationResponse.md)
+[**[]ApiV2010Notification**](ApiV2010Notification.md)
 
 ### Authorization
 

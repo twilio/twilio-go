@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListService
 
-> ListServiceResponse ListService(ctx, optional)
+> []ServerlessV1Service ListService(ctx, optional)
 
 
 
@@ -162,7 +162,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListServiceResponse**](ListServiceResponse.md)
+[**[]ServerlessV1Service**](ServerlessV1Service.md)
 
 ### Authorization
 

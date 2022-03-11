@@ -153,7 +153,7 @@ Name | Type | Description
 
 ## ListServiceConversationMessage
 
-> ListServiceConversationMessageResponse ListServiceConversationMessage(ctx, ChatServiceSidConversationSidoptional)
+> []ConversationsV1ServiceConversationMessage ListServiceConversationMessage(ctx, ChatServiceSidConversationSidoptional)
 
 
 
@@ -181,7 +181,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListServiceConversationMessageResponse**](ListServiceConversationMessageResponse.md)
+[**[]ConversationsV1ServiceConversationMessage**](ConversationsV1ServiceConversationMessage.md)
 
 ### Authorization
 

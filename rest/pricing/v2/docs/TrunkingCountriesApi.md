@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListTrunkingCountry
 
-> ListTrunkingCountryResponse ListTrunkingCountry(ctx, optional)
+> []PricingV2TrunkingCountry ListTrunkingCountry(ctx, optional)
 
 
 
@@ -73,7 +73,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListTrunkingCountryResponse**](ListTrunkingCountryResponse.md)
+[**[]PricingV2TrunkingCountry**](PricingV2TrunkingCountry.md)
 
 ### Authorization
 

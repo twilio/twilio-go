@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## ListSyncListPermission
 
-> ListSyncListPermissionResponse ListSyncListPermission(ctx, ServiceSidListSidoptional)
+> []SyncV1SyncListPermission ListSyncListPermission(ctx, ServiceSidListSidoptional)
 
 
 
@@ -128,7 +128,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSyncListPermissionResponse**](ListSyncListPermissionResponse.md)
+[**[]SyncV1SyncListPermission**](SyncV1SyncListPermission.md)
 
 ### Authorization
 

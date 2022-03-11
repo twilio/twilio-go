@@ -134,7 +134,7 @@ Name | Type | Description
 
 ## ListKey
 
-> ListKeyResponse ListKey(ctx, optional)
+> []ApiV2010Key ListKey(ctx, optional)
 
 
 
@@ -155,7 +155,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListKeyResponse**](ListKeyResponse.md)
+[**[]ApiV2010Key**](ApiV2010Key.md)
 
 ### Authorization
 

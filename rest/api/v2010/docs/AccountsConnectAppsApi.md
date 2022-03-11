@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## ListConnectApp
 
-> ListConnectAppResponse ListConnectApp(ctx, optional)
+> []ApiV2010ConnectApp ListConnectApp(ctx, optional)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListConnectAppResponse**](ListConnectAppResponse.md)
+[**[]ApiV2010ConnectApp**](ApiV2010ConnectApp.md)
 
 ### Authorization
 

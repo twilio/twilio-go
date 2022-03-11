@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## ListSim
 
-> ListSimResponse ListSim(ctx, optional)
+> []WirelessV1Sim ListSim(ctx, optional)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSimResponse**](ListSimResponse.md)
+[**[]WirelessV1Sim**](WirelessV1Sim.md)
 
 ### Authorization
 

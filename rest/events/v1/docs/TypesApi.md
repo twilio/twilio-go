@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListEventType
 
-> ListEventTypeResponse ListEventType(ctx, optional)
+> []EventsV1EventType ListEventType(ctx, optional)
 
 
 
@@ -76,7 +76,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListEventTypeResponse**](ListEventTypeResponse.md)
+[**[]EventsV1EventType**](EventsV1EventType.md)
 
 ### Authorization
 

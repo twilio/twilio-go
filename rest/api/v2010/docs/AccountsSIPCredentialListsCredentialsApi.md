@@ -147,7 +147,7 @@ Name | Type | Description
 
 ## ListSipCredential
 
-> ListSipCredentialResponse ListSipCredential(ctx, CredentialListSidoptional)
+> []ApiV2010SipCredential ListSipCredential(ctx, CredentialListSidoptional)
 
 
 
@@ -174,7 +174,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSipCredentialResponse**](ListSipCredentialResponse.md)
+[**[]ApiV2010SipCredential**](ApiV2010SipCredential.md)
 
 ### Authorization
 

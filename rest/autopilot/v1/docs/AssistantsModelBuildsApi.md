@@ -138,7 +138,7 @@ Name | Type | Description
 
 ## ListModelBuild
 
-> ListModelBuildResponse ListModelBuild(ctx, AssistantSidoptional)
+> []AutopilotV1ModelBuild ListModelBuild(ctx, AssistantSidoptional)
 
 
 
@@ -162,7 +162,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListModelBuildResponse**](ListModelBuildResponse.md)
+[**[]AutopilotV1ModelBuild**](AutopilotV1ModelBuild.md)
 
 ### Authorization
 

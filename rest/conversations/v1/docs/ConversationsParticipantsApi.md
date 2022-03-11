@@ -152,7 +152,7 @@ Name | Type | Description
 
 ## ListConversationParticipant
 
-> ListConversationParticipantResponse ListConversationParticipant(ctx, ConversationSidoptional)
+> []ConversationsV1ConversationParticipant ListConversationParticipant(ctx, ConversationSidoptional)
 
 
 
@@ -178,7 +178,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListConversationParticipantResponse**](ListConversationParticipantResponse.md)
+[**[]ConversationsV1ConversationParticipant**](ConversationsV1ConversationParticipant.md)
 
 ### Authorization
 

@@ -95,7 +95,7 @@ Name | Type | Description
 
 ## ListSim
 
-> ListSimResponse ListSim(ctx, optional)
+> []SupersimV1Sim ListSim(ctx, optional)
 
 
 
@@ -120,7 +120,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSimResponse**](ListSimResponse.md)
+[**[]SupersimV1Sim**](SupersimV1Sim.md)
 
 ### Authorization
 

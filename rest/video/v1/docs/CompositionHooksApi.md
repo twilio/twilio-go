@@ -144,7 +144,7 @@ Name | Type | Description
 
 ## ListCompositionHook
 
-> ListCompositionHookResponse ListCompositionHook(ctx, optional)
+> []VideoV1CompositionHook ListCompositionHook(ctx, optional)
 
 
 
@@ -170,7 +170,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCompositionHookResponse**](ListCompositionHookResponse.md)
+[**[]VideoV1CompositionHook**](VideoV1CompositionHook.md)
 
 ### Authorization
 

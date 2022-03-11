@@ -145,7 +145,7 @@ Name | Type | Description
 
 ## ListPhoneNumber
 
-> ListPhoneNumberResponse ListPhoneNumber(ctx, ServiceSidoptional)
+> []ProxyV1PhoneNumber ListPhoneNumber(ctx, ServiceSidoptional)
 
 
 
@@ -171,7 +171,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListPhoneNumberResponse**](ListPhoneNumberResponse.md)
+[**[]ProxyV1PhoneNumber**](ProxyV1PhoneNumber.md)
 
 ### Authorization
 

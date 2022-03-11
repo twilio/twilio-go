@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## ListItemAssignment
 
-> ListItemAssignmentResponse ListItemAssignment(ctx, BundleSidoptional)
+> []NumbersV2ItemAssignment ListItemAssignment(ctx, BundleSidoptional)
 
 
 
@@ -168,7 +168,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListItemAssignmentResponse**](ListItemAssignmentResponse.md)
+[**[]NumbersV2ItemAssignment**](NumbersV2ItemAssignment.md)
 
 ### Authorization
 

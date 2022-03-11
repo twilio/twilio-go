@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListUser
 
-> ListUserResponse ListUser(ctx, ServiceSidoptional)
+> []IpMessagingV1User ListUser(ctx, ServiceSidoptional)
 
 
 
@@ -164,7 +164,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUserResponse**](ListUserResponse.md)
+[**[]IpMessagingV1User**](IpMessagingV1User.md)
 
 ### Authorization
 

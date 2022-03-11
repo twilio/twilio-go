@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListCustomerProfile
 
-> ListCustomerProfileResponse ListCustomerProfile(ctx, optional)
+> []TrusthubV1CustomerProfile ListCustomerProfile(ctx, optional)
 
 
 
@@ -165,7 +165,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCustomerProfileResponse**](ListCustomerProfileResponse.md)
+[**[]TrusthubV1CustomerProfile**](TrusthubV1CustomerProfile.md)
 
 ### Authorization
 

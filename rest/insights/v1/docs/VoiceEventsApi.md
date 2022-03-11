@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListEvent
 
-> ListEventResponse ListEvent(ctx, CallSidoptional)
+> []InsightsV1Event ListEvent(ctx, CallSidoptional)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListEventResponse**](ListEventResponse.md)
+[**[]InsightsV1Event**](InsightsV1Event.md)
 
 ### Authorization
 

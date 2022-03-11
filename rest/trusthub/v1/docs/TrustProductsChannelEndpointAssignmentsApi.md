@@ -143,7 +143,7 @@ Name | Type | Description
 
 ## ListTrustProductChannelEndpointAssignment
 
-> ListTrustProductChannelEndpointAssignmentResponse ListTrustProductChannelEndpointAssignment(ctx, TrustProductSidoptional)
+> []TrusthubV1TrustProductChannelEndpointAssignment ListTrustProductChannelEndpointAssignment(ctx, TrustProductSidoptional)
 
 
 
@@ -171,7 +171,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListTrustProductChannelEndpointAssignmentResponse**](ListTrustProductChannelEndpointAssignmentResponse.md)
+[**[]TrusthubV1TrustProductChannelEndpointAssignment**](TrusthubV1TrustProductChannelEndpointAssignment.md)
 
 ### Authorization
 

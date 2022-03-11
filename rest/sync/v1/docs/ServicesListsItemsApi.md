@@ -144,7 +144,7 @@ Name | Type | Description
 
 ## ListSyncListItem
 
-> ListSyncListItemResponse ListSyncListItem(ctx, ServiceSidListSidoptional)
+> []SyncV1SyncListItem ListSyncListItem(ctx, ServiceSidListSidoptional)
 
 
 
@@ -172,7 +172,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSyncListItemResponse**](ListSyncListItemResponse.md)
+[**[]SyncV1SyncListItem**](SyncV1SyncListItem.md)
 
 ### Authorization
 

@@ -100,7 +100,7 @@ Name | Type | Description
 
 ## ListUserChannel
 
-> ListUserChannelResponse ListUserChannel(ctx, ServiceSidUserSidoptional)
+> []ChatV2UserChannel ListUserChannel(ctx, ServiceSidUserSidoptional)
 
 
 
@@ -127,7 +127,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUserChannelResponse**](ListUserChannelResponse.md)
+[**[]ChatV2UserChannel**](ChatV2UserChannel.md)
 
 ### Authorization
 

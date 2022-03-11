@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListTask
 
-> ListTaskResponse ListTask(ctx, AssistantSidoptional)
+> []AutopilotV1Task ListTask(ctx, AssistantSidoptional)
 
 
 
@@ -164,7 +164,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListTaskResponse**](ListTaskResponse.md)
+[**[]AutopilotV1Task**](AutopilotV1Task.md)
 
 ### Authorization
 

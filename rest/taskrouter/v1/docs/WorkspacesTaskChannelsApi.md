@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListTaskChannel
 
-> ListTaskChannelResponse ListTaskChannel(ctx, WorkspaceSidoptional)
+> []TaskrouterV1TaskChannel ListTaskChannel(ctx, WorkspaceSidoptional)
 
 
 
@@ -163,7 +163,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListTaskChannelResponse**](ListTaskChannelResponse.md)
+[**[]TaskrouterV1TaskChannel**](TaskrouterV1TaskChannel.md)
 
 ### Authorization
 

@@ -71,7 +71,7 @@ Name | Type | Description
 
 ## ListIncomingPhoneNumberTollFree
 
-> ListIncomingPhoneNumberTollFreeResponse ListIncomingPhoneNumberTollFree(ctx, optional)
+> []ApiV2010IncomingPhoneNumberTollFree ListIncomingPhoneNumberTollFree(ctx, optional)
 
 
 
@@ -96,7 +96,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListIncomingPhoneNumberTollFreeResponse**](ListIncomingPhoneNumberTollFreeResponse.md)
+[**[]ApiV2010IncomingPhoneNumberTollFree**](ApiV2010IncomingPhoneNumberTollFree.md)
 
 ### Authorization
 

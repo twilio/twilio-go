@@ -145,7 +145,7 @@ Name | Type | Description
 
 ## ListChannel
 
-> ListChannelResponse ListChannel(ctx, ServiceSidoptional)
+> []ChatV2Channel ListChannel(ctx, ServiceSidoptional)
 
 
 
@@ -170,7 +170,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListChannelResponse**](ListChannelResponse.md)
+[**[]ChatV2Channel**](ChatV2Channel.md)
 
 ### Authorization
 

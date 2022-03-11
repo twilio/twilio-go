@@ -146,7 +146,7 @@ Name | Type | Description
 
 ## ListService
 
-> ListServiceResponse ListService(ctx, optional)
+> []MessagingV1Service ListService(ctx, optional)
 
 
 
@@ -166,7 +166,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListServiceResponse**](ListServiceResponse.md)
+[**[]MessagingV1Service**](MessagingV1Service.md)
 
 ### Authorization
 

@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListEndUserType
 
-> ListEndUserTypeResponse ListEndUserType(ctx, optional)
+> []TrusthubV1EndUserType ListEndUserType(ctx, optional)
 
 
 
@@ -75,7 +75,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListEndUserTypeResponse**](ListEndUserTypeResponse.md)
+[**[]TrusthubV1EndUserType**](TrusthubV1EndUserType.md)
 
 ### Authorization
 

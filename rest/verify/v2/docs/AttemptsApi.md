@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListVerificationAttempt
 
-> ListVerificationAttemptResponse ListVerificationAttempt(ctx, optional)
+> []VerifyV2VerificationAttempt ListVerificationAttempt(ctx, optional)
 
 
 
@@ -83,7 +83,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListVerificationAttemptResponse**](ListVerificationAttemptResponse.md)
+[**[]VerifyV2VerificationAttempt**](VerifyV2VerificationAttempt.md)
 
 ### Authorization
 

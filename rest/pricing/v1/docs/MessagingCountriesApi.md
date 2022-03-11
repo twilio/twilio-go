@@ -51,7 +51,7 @@ Name | Type | Description
 
 ## ListMessagingCountry
 
-> ListMessagingCountryResponse ListMessagingCountry(ctx, optional)
+> []PricingV1MessagingCountry ListMessagingCountry(ctx, optional)
 
 
 
@@ -71,7 +71,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListMessagingCountryResponse**](ListMessagingCountryResponse.md)
+[**[]PricingV1MessagingCountry**](PricingV1MessagingCountry.md)
 
 ### Authorization
 

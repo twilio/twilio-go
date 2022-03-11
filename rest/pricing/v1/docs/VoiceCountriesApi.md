@@ -51,7 +51,7 @@ Name | Type | Description
 
 ## ListVoiceCountry
 
-> ListVoiceCountryResponse ListVoiceCountry(ctx, optional)
+> []PricingV1VoiceCountry ListVoiceCountry(ctx, optional)
 
 
 
@@ -71,7 +71,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListVoiceCountryResponse**](ListVoiceCountryResponse.md)
+[**[]PricingV1VoiceCountry**](PricingV1VoiceCountry.md)
 
 ### Authorization
 

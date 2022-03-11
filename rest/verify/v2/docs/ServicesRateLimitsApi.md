@@ -144,7 +144,7 @@ Name | Type | Description
 
 ## ListRateLimit
 
-> ListRateLimitResponse ListRateLimit(ctx, ServiceSidoptional)
+> []VerifyV2RateLimit ListRateLimit(ctx, ServiceSidoptional)
 
 
 
@@ -170,7 +170,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRateLimitResponse**](ListRateLimitResponse.md)
+[**[]VerifyV2RateLimit**](VerifyV2RateLimit.md)
 
 ### Authorization
 

@@ -141,7 +141,7 @@ Name | Type | Description
 
 ## ListWorkflow
 
-> ListWorkflowResponse ListWorkflow(ctx, WorkspaceSidoptional)
+> []TaskrouterV1Workflow ListWorkflow(ctx, WorkspaceSidoptional)
 
 
 
@@ -166,7 +166,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListWorkflowResponse**](ListWorkflowResponse.md)
+[**[]TaskrouterV1Workflow**](TaskrouterV1Workflow.md)
 
 ### Authorization
 

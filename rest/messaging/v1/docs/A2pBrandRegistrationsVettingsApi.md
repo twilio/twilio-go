@@ -95,7 +95,7 @@ Name | Type | Description
 
 ## ListBrandVetting
 
-> ListBrandVettingResponse ListBrandVetting(ctx, BrandSidoptional)
+> []MessagingV1BrandVetting ListBrandVetting(ctx, BrandSidoptional)
 
 
 
@@ -120,7 +120,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListBrandVettingResponse**](ListBrandVettingResponse.md)
+[**[]MessagingV1BrandVetting**](MessagingV1BrandVetting.md)
 
 ### Authorization
 

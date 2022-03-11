@@ -144,7 +144,7 @@ Name | Type | Description
 
 ## ListSyncStream
 
-> ListSyncStreamResponse ListSyncStream(ctx, ServiceSidoptional)
+> []SyncV1SyncStream ListSyncStream(ctx, ServiceSidoptional)
 
 
 
@@ -170,7 +170,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSyncStreamResponse**](ListSyncStreamResponse.md)
+[**[]SyncV1SyncStream**](SyncV1SyncStream.md)
 
 ### Authorization
 

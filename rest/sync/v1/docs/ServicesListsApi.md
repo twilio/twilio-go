@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListSyncList
 
-> ListSyncListResponse ListSyncList(ctx, ServiceSidoptional)
+> []SyncV1SyncList ListSyncList(ctx, ServiceSidoptional)
 
 
 
@@ -163,7 +163,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSyncListResponse**](ListSyncListResponse.md)
+[**[]SyncV1SyncList**](SyncV1SyncList.md)
 
 ### Authorization
 

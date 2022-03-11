@@ -143,7 +143,7 @@ Name | Type | Description
 
 ## ListEnvironment
 
-> ListEnvironmentResponse ListEnvironment(ctx, ServiceSidoptional)
+> []ServerlessV1Environment ListEnvironment(ctx, ServiceSidoptional)
 
 
 
@@ -169,7 +169,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListEnvironmentResponse**](ListEnvironmentResponse.md)
+[**[]ServerlessV1Environment**](ServerlessV1Environment.md)
 
 ### Authorization
 

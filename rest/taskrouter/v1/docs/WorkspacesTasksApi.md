@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## ListTask
 
-> ListTaskResponse ListTask(ctx, WorkspaceSidoptional)
+> []TaskrouterV1Task ListTask(ctx, WorkspaceSidoptional)
 
 
 
@@ -175,7 +175,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListTaskResponse**](ListTaskResponse.md)
+[**[]TaskrouterV1Task**](TaskrouterV1Task.md)
 
 ### Authorization
 

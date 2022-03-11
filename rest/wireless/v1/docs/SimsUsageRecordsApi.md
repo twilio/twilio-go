@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListUsageRecord
 
-> ListUsageRecordResponse ListUsageRecord(ctx, SimSidoptional)
+> []WirelessV1UsageRecord ListUsageRecord(ctx, SimSidoptional)
 
 
 
@@ -37,7 +37,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUsageRecordResponse**](ListUsageRecordResponse.md)
+[**[]WirelessV1UsageRecord**](WirelessV1UsageRecord.md)
 
 ### Authorization
 

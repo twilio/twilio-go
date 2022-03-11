@@ -51,7 +51,7 @@ Name | Type | Description
 
 ## ListAlert
 
-> ListAlertResponse ListAlert(ctx, optional)
+> []MonitorV1Alert ListAlert(ctx, optional)
 
 
 
@@ -74,7 +74,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListAlertResponse**](ListAlertResponse.md)
+[**[]MonitorV1Alert**](MonitorV1Alert.md)
 
 ### Authorization
 

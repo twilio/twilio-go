@@ -138,7 +138,7 @@ Name | Type | Description
 
 ## ListActivity
 
-> ListActivityResponse ListActivity(ctx, WorkspaceSidoptional)
+> []TaskrouterV1Activity ListActivity(ctx, WorkspaceSidoptional)
 
 
 
@@ -164,7 +164,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListActivityResponse**](ListActivityResponse.md)
+[**[]TaskrouterV1Activity**](TaskrouterV1Activity.md)
 
 ### Authorization
 

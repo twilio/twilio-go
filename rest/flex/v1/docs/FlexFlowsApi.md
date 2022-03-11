@@ -147,7 +147,7 @@ Name | Type | Description
 
 ## ListFlexFlow
 
-> ListFlexFlowResponse ListFlexFlow(ctx, optional)
+> []FlexV1FlexFlow ListFlexFlow(ctx, optional)
 
 
 
@@ -168,7 +168,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListFlexFlowResponse**](ListFlexFlowResponse.md)
+[**[]FlexV1FlexFlow**](FlexV1FlexFlow.md)
 
 ### Authorization
 

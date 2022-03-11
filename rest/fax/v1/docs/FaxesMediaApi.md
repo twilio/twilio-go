@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## ListFaxMedia
 
-> ListFaxMediaResponse ListFaxMedia(ctx, FaxSidoptional)
+> []FaxV1FaxMedia ListFaxMedia(ctx, FaxSidoptional)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListFaxMediaResponse**](ListFaxMediaResponse.md)
+[**[]FaxV1FaxMedia**](FaxV1FaxMedia.md)
 
 ### Authorization
 

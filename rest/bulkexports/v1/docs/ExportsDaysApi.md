@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## ListDay
 
-> ListDayResponse ListDay(ctx, ResourceTypeoptional)
+> []BulkexportsV1Day ListDay(ctx, ResourceTypeoptional)
 
 
 
@@ -80,7 +80,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListDayResponse**](ListDayResponse.md)
+[**[]BulkexportsV1Day**](BulkexportsV1Day.md)
 
 ### Authorization
 

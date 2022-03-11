@@ -94,7 +94,7 @@ Name | Type | Description
 
 ## ListBinding
 
-> ListBindingResponse ListBinding(ctx, ServiceSidoptional)
+> []IpMessagingV2Binding ListBinding(ctx, ServiceSidoptional)
 
 
 
@@ -120,7 +120,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListBindingResponse**](ListBindingResponse.md)
+[**[]IpMessagingV2Binding**](IpMessagingV2Binding.md)
 
 ### Authorization
 

@@ -141,7 +141,7 @@ Name | Type | Description
 
 ## ListUsAppToPerson
 
-> ListUsAppToPersonResponse ListUsAppToPerson(ctx, MessagingServiceSidoptional)
+> []MessagingV1UsAppToPerson ListUsAppToPerson(ctx, MessagingServiceSidoptional)
 
 
 
@@ -165,7 +165,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUsAppToPersonResponse**](ListUsAppToPersonResponse.md)
+[**[]MessagingV1UsAppToPerson**](MessagingV1UsAppToPerson.md)
 
 ### Authorization
 
