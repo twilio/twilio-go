@@ -134,28 +134,15 @@ func (c *ApiService) PageRoomParticipant(RoomSid string, params *ListRoomPartici
 
 // Lists RoomParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRoomParticipant(RoomSid string, params *ListRoomParticipantParams) ([]VideoV1RoomParticipant, error) {
-	if params == nil {
-		params = &ListRoomParticipantParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageRoomParticipant(RoomSid, params, "", "")
+	response, err := c.StreamRoomParticipant(RoomSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []VideoV1RoomParticipant
+	records := make([]VideoV1RoomParticipant, 0)
 
-	for response != nil {
-		records = append(records, response.Participants...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoomParticipantResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListRoomParticipantResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -173,18 +160,24 @@ func (c *ApiService) StreamRoomParticipant(RoomSid string, params *ListRoomParti
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan VideoV1RoomParticipant, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Participants {
-				channel <- response.Participants[item]
+			responseRecords := response.Participants
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoomParticipantResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListRoomParticipantResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

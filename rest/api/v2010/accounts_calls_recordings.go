@@ -283,28 +283,15 @@ func (c *ApiService) PageCallRecording(CallSid string, params *ListCallRecording
 
 // Lists CallRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCallRecording(CallSid string, params *ListCallRecordingParams) ([]ApiV2010CallRecording, error) {
-	if params == nil {
-		params = &ListCallRecordingParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageCallRecording(CallSid, params, "", "")
+	response, err := c.StreamCallRecording(CallSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010CallRecording
+	records := make([]ApiV2010CallRecording, 0)
 
-	for response != nil {
-		records = append(records, response.Recordings...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallRecordingResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListCallRecordingResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -322,18 +309,24 @@ func (c *ApiService) StreamCallRecording(CallSid string, params *ListCallRecordi
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010CallRecording, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Recordings {
-				channel <- response.Recordings[item]
+			responseRecords := response.Recordings
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallRecordingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListCallRecordingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

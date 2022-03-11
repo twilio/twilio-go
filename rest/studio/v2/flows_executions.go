@@ -198,28 +198,15 @@ func (c *ApiService) PageExecution(FlowSid string, params *ListExecutionParams, 
 
 // Lists Execution records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListExecution(FlowSid string, params *ListExecutionParams) ([]StudioV2Execution, error) {
-	if params == nil {
-		params = &ListExecutionParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageExecution(FlowSid, params, "", "")
+	response, err := c.StreamExecution(FlowSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []StudioV2Execution
+	records := make([]StudioV2Execution, 0)
 
-	for response != nil {
-		records = append(records, response.Executions...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListExecutionResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListExecutionResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -237,18 +224,24 @@ func (c *ApiService) StreamExecution(FlowSid string, params *ListExecutionParams
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan StudioV2Execution, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Executions {
-				channel <- response.Executions[item]
+			responseRecords := response.Executions
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListExecutionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListExecutionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

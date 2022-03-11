@@ -152,28 +152,15 @@ func (c *ApiService) PageBrandVetting(BrandSid string, params *ListBrandVettingP
 
 // Lists BrandVetting records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBrandVetting(BrandSid string, params *ListBrandVettingParams) ([]MessagingV1BrandVetting, error) {
-	if params == nil {
-		params = &ListBrandVettingParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageBrandVetting(BrandSid, params, "", "")
+	response, err := c.StreamBrandVetting(BrandSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []MessagingV1BrandVetting
+	records := make([]MessagingV1BrandVetting, 0)
 
-	for response != nil {
-		records = append(records, response.Data...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBrandVettingResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListBrandVettingResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -191,18 +178,24 @@ func (c *ApiService) StreamBrandVetting(BrandSid string, params *ListBrandVettin
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan MessagingV1BrandVetting, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Data {
-				channel <- response.Data[item]
+			responseRecords := response.Data
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBrandVettingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListBrandVettingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

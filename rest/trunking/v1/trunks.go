@@ -210,28 +210,15 @@ func (c *ApiService) PageTrunk(params *ListTrunkParams, pageToken, pageNumber st
 
 // Lists Trunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrunk(params *ListTrunkParams) ([]TrunkingV1Trunk, error) {
-	if params == nil {
-		params = &ListTrunkParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageTrunk(params, "", "")
+	response, err := c.StreamTrunk(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []TrunkingV1Trunk
+	records := make([]TrunkingV1Trunk, 0)
 
-	for response != nil {
-		records = append(records, response.Trunks...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTrunkResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListTrunkResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -249,18 +236,24 @@ func (c *ApiService) StreamTrunk(params *ListTrunkParams) (chan TrunkingV1Trunk,
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan TrunkingV1Trunk, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Trunks {
-				channel <- response.Trunks[item]
+			responseRecords := response.Trunks
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTrunkResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListTrunkResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

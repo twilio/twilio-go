@@ -95,28 +95,15 @@ func (c *ApiService) PageEndUserType(params *ListEndUserTypeParams, pageToken, p
 
 // Lists EndUserType records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEndUserType(params *ListEndUserTypeParams) ([]NumbersV2EndUserType, error) {
-	if params == nil {
-		params = &ListEndUserTypeParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageEndUserType(params, "", "")
+	response, err := c.StreamEndUserType(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []NumbersV2EndUserType
+	records := make([]NumbersV2EndUserType, 0)
 
-	for response != nil {
-		records = append(records, response.EndUserTypes...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEndUserTypeResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListEndUserTypeResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -134,18 +121,24 @@ func (c *ApiService) StreamEndUserType(params *ListEndUserTypeParams) (chan Numb
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan NumbersV2EndUserType, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.EndUserTypes {
-				channel <- response.EndUserTypes[item]
+			responseRecords := response.EndUserTypes
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEndUserTypeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListEndUserTypeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

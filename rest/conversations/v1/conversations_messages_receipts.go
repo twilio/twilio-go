@@ -100,28 +100,15 @@ func (c *ApiService) PageConversationMessageReceipt(ConversationSid string, Mess
 
 // Lists ConversationMessageReceipt records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConversationMessageReceipt(ConversationSid string, MessageSid string, params *ListConversationMessageReceiptParams) ([]ConversationsV1ConversationMessageReceipt, error) {
-	if params == nil {
-		params = &ListConversationMessageReceiptParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageConversationMessageReceipt(ConversationSid, MessageSid, params, "", "")
+	response, err := c.StreamConversationMessageReceipt(ConversationSid, MessageSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ConversationsV1ConversationMessageReceipt
+	records := make([]ConversationsV1ConversationMessageReceipt, 0)
 
-	for response != nil {
-		records = append(records, response.DeliveryReceipts...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConversationMessageReceiptResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListConversationMessageReceiptResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -139,18 +126,24 @@ func (c *ApiService) StreamConversationMessageReceipt(ConversationSid string, Me
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ConversationsV1ConversationMessageReceipt, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.DeliveryReceipts {
-				channel <- response.DeliveryReceipts[item]
+			responseRecords := response.DeliveryReceipts
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConversationMessageReceiptResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListConversationMessageReceiptResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

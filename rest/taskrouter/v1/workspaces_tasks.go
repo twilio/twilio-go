@@ -286,28 +286,15 @@ func (c *ApiService) PageTask(WorkspaceSid string, params *ListTaskParams, pageT
 
 // Lists Task records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTask(WorkspaceSid string, params *ListTaskParams) ([]TaskrouterV1Task, error) {
-	if params == nil {
-		params = &ListTaskParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageTask(WorkspaceSid, params, "", "")
+	response, err := c.StreamTask(WorkspaceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []TaskrouterV1Task
+	records := make([]TaskrouterV1Task, 0)
 
-	for response != nil {
-		records = append(records, response.Tasks...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListTaskResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -325,18 +312,24 @@ func (c *ApiService) StreamTask(WorkspaceSid string, params *ListTaskParams) (ch
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan TaskrouterV1Task, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Tasks {
-				channel <- response.Tasks[item]
+			responseRecords := response.Tasks
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListTaskResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

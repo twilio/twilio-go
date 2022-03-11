@@ -199,28 +199,15 @@ func (c *ApiService) PageUsAppToPerson(MessagingServiceSid string, params *ListU
 
 // Lists UsAppToPerson records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsAppToPerson(MessagingServiceSid string, params *ListUsAppToPersonParams) ([]MessagingV1UsAppToPerson, error) {
-	if params == nil {
-		params = &ListUsAppToPersonParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageUsAppToPerson(MessagingServiceSid, params, "", "")
+	response, err := c.StreamUsAppToPerson(MessagingServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []MessagingV1UsAppToPerson
+	records := make([]MessagingV1UsAppToPerson, 0)
 
-	for response != nil {
-		records = append(records, response.Compliance...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsAppToPersonResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListUsAppToPersonResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -238,18 +225,24 @@ func (c *ApiService) StreamUsAppToPerson(MessagingServiceSid string, params *Lis
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan MessagingV1UsAppToPerson, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Compliance {
-				channel <- response.Compliance[item]
+			responseRecords := response.Compliance
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsAppToPersonResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListUsAppToPersonResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

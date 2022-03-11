@@ -213,28 +213,15 @@ func (c *ApiService) PageConversationScopedWebhook(ConversationSid string, param
 
 // Lists ConversationScopedWebhook records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConversationScopedWebhook(ConversationSid string, params *ListConversationScopedWebhookParams) ([]ConversationsV1ConversationScopedWebhook, error) {
-	if params == nil {
-		params = &ListConversationScopedWebhookParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageConversationScopedWebhook(ConversationSid, params, "", "")
+	response, err := c.StreamConversationScopedWebhook(ConversationSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ConversationsV1ConversationScopedWebhook
+	records := make([]ConversationsV1ConversationScopedWebhook, 0)
 
-	for response != nil {
-		records = append(records, response.Webhooks...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConversationScopedWebhookResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListConversationScopedWebhookResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -252,18 +239,24 @@ func (c *ApiService) StreamConversationScopedWebhook(ConversationSid string, par
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ConversationsV1ConversationScopedWebhook, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Webhooks {
-				channel <- response.Webhooks[item]
+			responseRecords := response.Webhooks
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConversationScopedWebhookResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListConversationScopedWebhookResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

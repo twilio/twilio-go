@@ -150,28 +150,15 @@ func (c *ApiService) PageAccount(params *ListAccountParams, pageToken, pageNumbe
 
 // Lists Account records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListAccount(params *ListAccountParams) ([]ApiV2010Account, error) {
-	if params == nil {
-		params = &ListAccountParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageAccount(params, "", "")
+	response, err := c.StreamAccount(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010Account
+	records := make([]ApiV2010Account, 0)
 
-	for response != nil {
-		records = append(records, response.Accounts...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAccountResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListAccountResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -189,18 +176,24 @@ func (c *ApiService) StreamAccount(params *ListAccountParams) (chan ApiV2010Acco
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010Account, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Accounts {
-				channel <- response.Accounts[item]
+			responseRecords := response.Accounts
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListAccountResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListAccountResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

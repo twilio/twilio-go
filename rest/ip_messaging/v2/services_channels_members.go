@@ -247,28 +247,15 @@ func (c *ApiService) PageMember(ServiceSid string, ChannelSid string, params *Li
 
 // Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMember(ServiceSid string, ChannelSid string, params *ListMemberParams) ([]IpMessagingV2Member, error) {
-	if params == nil {
-		params = &ListMemberParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageMember(ServiceSid, ChannelSid, params, "", "")
+	response, err := c.StreamMember(ServiceSid, ChannelSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []IpMessagingV2Member
+	records := make([]IpMessagingV2Member, 0)
 
-	for response != nil {
-		records = append(records, response.Members...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMemberResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListMemberResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -286,18 +273,24 @@ func (c *ApiService) StreamMember(ServiceSid string, ChannelSid string, params *
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan IpMessagingV2Member, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Members {
-				channel <- response.Members[item]
+			responseRecords := response.Members
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMemberResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListMemberResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

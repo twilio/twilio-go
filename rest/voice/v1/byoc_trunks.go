@@ -228,28 +228,15 @@ func (c *ApiService) PageByocTrunk(params *ListByocTrunkParams, pageToken, pageN
 
 // Lists ByocTrunk records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListByocTrunk(params *ListByocTrunkParams) ([]VoiceV1ByocTrunk, error) {
-	if params == nil {
-		params = &ListByocTrunkParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageByocTrunk(params, "", "")
+	response, err := c.StreamByocTrunk(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []VoiceV1ByocTrunk
+	records := make([]VoiceV1ByocTrunk, 0)
 
-	for response != nil {
-		records = append(records, response.ByocTrunks...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListByocTrunkResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListByocTrunkResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -267,18 +254,24 @@ func (c *ApiService) StreamByocTrunk(params *ListByocTrunkParams) (chan VoiceV1B
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan VoiceV1ByocTrunk, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.ByocTrunks {
-				channel <- response.ByocTrunks[item]
+			responseRecords := response.ByocTrunks
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListByocTrunkResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListByocTrunkResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

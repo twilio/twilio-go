@@ -224,28 +224,15 @@ func (c *ApiService) PageTaskQueue(WorkspaceSid string, params *ListTaskQueuePar
 
 // Lists TaskQueue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTaskQueue(WorkspaceSid string, params *ListTaskQueueParams) ([]TaskrouterV1TaskQueue, error) {
-	if params == nil {
-		params = &ListTaskQueueParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageTaskQueue(WorkspaceSid, params, "", "")
+	response, err := c.StreamTaskQueue(WorkspaceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []TaskrouterV1TaskQueue
+	records := make([]TaskrouterV1TaskQueue, 0)
 
-	for response != nil {
-		records = append(records, response.TaskQueues...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskQueueResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListTaskQueueResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -263,18 +250,24 @@ func (c *ApiService) StreamTaskQueue(WorkspaceSid string, params *ListTaskQueueP
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan TaskrouterV1TaskQueue, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.TaskQueues {
-				channel <- response.TaskQueues[item]
+			responseRecords := response.TaskQueues
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTaskQueueResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListTaskQueueResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

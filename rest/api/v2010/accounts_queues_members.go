@@ -125,28 +125,15 @@ func (c *ApiService) PageMember(QueueSid string, params *ListMemberParams, pageT
 
 // Lists Member records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMember(QueueSid string, params *ListMemberParams) ([]ApiV2010Member, error) {
-	if params == nil {
-		params = &ListMemberParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageMember(QueueSid, params, "", "")
+	response, err := c.StreamMember(QueueSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010Member
+	records := make([]ApiV2010Member, 0)
 
-	for response != nil {
-		records = append(records, response.QueueMembers...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMemberResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListMemberResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -164,18 +151,24 @@ func (c *ApiService) StreamMember(QueueSid string, params *ListMemberParams) (ch
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010Member, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.QueueMembers {
-				channel <- response.QueueMembers[item]
+			responseRecords := response.QueueMembers
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMemberResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListMemberResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

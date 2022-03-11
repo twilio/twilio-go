@@ -155,28 +155,15 @@ func (c *ApiService) PageFunction(ServiceSid string, params *ListFunctionParams,
 
 // Lists Function records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFunction(ServiceSid string, params *ListFunctionParams) ([]ServerlessV1Function, error) {
-	if params == nil {
-		params = &ListFunctionParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageFunction(ServiceSid, params, "", "")
+	response, err := c.StreamFunction(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ServerlessV1Function
+	records := make([]ServerlessV1Function, 0)
 
-	for response != nil {
-		records = append(records, response.Functions...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFunctionResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListFunctionResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -194,18 +181,24 @@ func (c *ApiService) StreamFunction(ServiceSid string, params *ListFunctionParam
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ServerlessV1Function, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Functions {
-				channel <- response.Functions[item]
+			responseRecords := response.Functions
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFunctionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListFunctionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

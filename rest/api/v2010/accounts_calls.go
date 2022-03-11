@@ -606,28 +606,15 @@ func (c *ApiService) PageCall(params *ListCallParams, pageToken, pageNumber stri
 
 // Lists Call records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCall(params *ListCallParams) ([]ApiV2010Call, error) {
-	if params == nil {
-		params = &ListCallParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageCall(params, "", "")
+	response, err := c.StreamCall(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010Call
+	records := make([]ApiV2010Call, 0)
 
-	for response != nil {
-		records = append(records, response.Calls...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListCallResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -645,18 +632,24 @@ func (c *ApiService) StreamCall(params *ListCallParams) (chan ApiV2010Call, erro
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010Call, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Calls {
-				channel <- response.Calls[item]
+			responseRecords := response.Calls
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListCallResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

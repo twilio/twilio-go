@@ -136,28 +136,15 @@ func (c *ApiService) PageCustomerProfileEvaluation(CustomerProfileSid string, pa
 
 // Lists CustomerProfileEvaluation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomerProfileEvaluation(CustomerProfileSid string, params *ListCustomerProfileEvaluationParams) ([]TrusthubV1CustomerProfileEvaluation, error) {
-	if params == nil {
-		params = &ListCustomerProfileEvaluationParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageCustomerProfileEvaluation(CustomerProfileSid, params, "", "")
+	response, err := c.StreamCustomerProfileEvaluation(CustomerProfileSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []TrusthubV1CustomerProfileEvaluation
+	records := make([]TrusthubV1CustomerProfileEvaluation, 0)
 
-	for response != nil {
-		records = append(records, response.Results...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCustomerProfileEvaluationResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListCustomerProfileEvaluationResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -175,18 +162,24 @@ func (c *ApiService) StreamCustomerProfileEvaluation(CustomerProfileSid string, 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan TrusthubV1CustomerProfileEvaluation, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Results {
-				channel <- response.Results[item]
+			responseRecords := response.Results
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCustomerProfileEvaluationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListCustomerProfileEvaluationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

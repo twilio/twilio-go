@@ -209,28 +209,15 @@ func (c *ApiService) PageSipAuthRegistrationsCredentialListMapping(DomainSid str
 
 // Lists SipAuthRegistrationsCredentialListMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipAuthRegistrationsCredentialListMapping(DomainSid string, params *ListSipAuthRegistrationsCredentialListMappingParams) ([]ApiV2010SipAuthRegistrationsCredentialListMapping, error) {
-	if params == nil {
-		params = &ListSipAuthRegistrationsCredentialListMappingParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageSipAuthRegistrationsCredentialListMapping(DomainSid, params, "", "")
+	response, err := c.StreamSipAuthRegistrationsCredentialListMapping(DomainSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010SipAuthRegistrationsCredentialListMapping
+	records := make([]ApiV2010SipAuthRegistrationsCredentialListMapping, 0)
 
-	for response != nil {
-		records = append(records, response.Contents...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSipAuthRegistrationsCredentialListMappingResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListSipAuthRegistrationsCredentialListMappingResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -248,18 +235,24 @@ func (c *ApiService) StreamSipAuthRegistrationsCredentialListMapping(DomainSid s
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010SipAuthRegistrationsCredentialListMapping, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Contents {
-				channel <- response.Contents[item]
+			responseRecords := response.Contents
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSipAuthRegistrationsCredentialListMappingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListSipAuthRegistrationsCredentialListMappingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

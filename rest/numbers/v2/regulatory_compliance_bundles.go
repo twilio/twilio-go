@@ -304,28 +304,15 @@ func (c *ApiService) PageBundle(params *ListBundleParams, pageToken, pageNumber 
 
 // Lists Bundle records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBundle(params *ListBundleParams) ([]NumbersV2Bundle, error) {
-	if params == nil {
-		params = &ListBundleParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageBundle(params, "", "")
+	response, err := c.StreamBundle(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []NumbersV2Bundle
+	records := make([]NumbersV2Bundle, 0)
 
-	for response != nil {
-		records = append(records, response.Results...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBundleResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListBundleResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -343,18 +330,24 @@ func (c *ApiService) StreamBundle(params *ListBundleParams) (chan NumbersV2Bundl
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan NumbersV2Bundle, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Results {
-				channel <- response.Results[item]
+			responseRecords := response.Results
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBundleResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListBundleResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -120,28 +120,15 @@ func (c *ApiService) PageUsageRecordToday(params *ListUsageRecordTodayParams, pa
 
 // Lists UsageRecordToday records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListUsageRecordToday(params *ListUsageRecordTodayParams) ([]ApiV2010UsageRecordToday, error) {
-	if params == nil {
-		params = &ListUsageRecordTodayParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageUsageRecordToday(params, "", "")
+	response, err := c.StreamUsageRecordToday(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010UsageRecordToday
+	records := make([]ApiV2010UsageRecordToday, 0)
 
-	for response != nil {
-		records = append(records, response.UsageRecords...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageRecordTodayResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListUsageRecordTodayResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -159,18 +146,24 @@ func (c *ApiService) StreamUsageRecordToday(params *ListUsageRecordTodayParams) 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010UsageRecordToday, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.UsageRecords {
-				channel <- response.UsageRecords[item]
+			responseRecords := response.UsageRecords
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListUsageRecordTodayResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListUsageRecordTodayResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

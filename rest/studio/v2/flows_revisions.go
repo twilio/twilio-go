@@ -98,28 +98,15 @@ func (c *ApiService) PageFlowRevision(Sid string, params *ListFlowRevisionParams
 
 // Lists FlowRevision records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFlowRevision(Sid string, params *ListFlowRevisionParams) ([]StudioV2FlowRevision, error) {
-	if params == nil {
-		params = &ListFlowRevisionParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageFlowRevision(Sid, params, "", "")
+	response, err := c.StreamFlowRevision(Sid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []StudioV2FlowRevision
+	records := make([]StudioV2FlowRevision, 0)
 
-	for response != nil {
-		records = append(records, response.Revisions...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFlowRevisionResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListFlowRevisionResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -137,18 +124,24 @@ func (c *ApiService) StreamFlowRevision(Sid string, params *ListFlowRevisionPara
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan StudioV2FlowRevision, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Revisions {
-				channel <- response.Revisions[item]
+			responseRecords := response.Revisions
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFlowRevisionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListFlowRevisionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

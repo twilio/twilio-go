@@ -100,28 +100,15 @@ func (c *ApiService) PageFunctionVersion(ServiceSid string, FunctionSid string, 
 
 // Lists FunctionVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFunctionVersion(ServiceSid string, FunctionSid string, params *ListFunctionVersionParams) ([]ServerlessV1FunctionVersion, error) {
-	if params == nil {
-		params = &ListFunctionVersionParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageFunctionVersion(ServiceSid, FunctionSid, params, "", "")
+	response, err := c.StreamFunctionVersion(ServiceSid, FunctionSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ServerlessV1FunctionVersion
+	records := make([]ServerlessV1FunctionVersion, 0)
 
-	for response != nil {
-		records = append(records, response.FunctionVersions...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFunctionVersionResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListFunctionVersionResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -139,18 +126,24 @@ func (c *ApiService) StreamFunctionVersion(ServiceSid string, FunctionSid string
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ServerlessV1FunctionVersion, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.FunctionVersions {
-				channel <- response.FunctionVersions[item]
+			responseRecords := response.FunctionVersions
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFunctionVersionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListFunctionVersionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

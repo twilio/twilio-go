@@ -172,28 +172,15 @@ func (c *ApiService) PageRole(ServiceSid string, params *ListRoleParams, pageTok
 
 // Lists Role records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRole(ServiceSid string, params *ListRoleParams) ([]IpMessagingV2Role, error) {
-	if params == nil {
-		params = &ListRoleParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageRole(ServiceSid, params, "", "")
+	response, err := c.StreamRole(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []IpMessagingV2Role
+	records := make([]IpMessagingV2Role, 0)
 
-	for response != nil {
-		records = append(records, response.Roles...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoleResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListRoleResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -211,18 +198,24 @@ func (c *ApiService) StreamRole(ServiceSid string, params *ListRoleParams) (chan
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan IpMessagingV2Role, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Roles {
-				channel <- response.Roles[item]
+			responseRecords := response.Roles
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRoleResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListRoleResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -95,28 +95,15 @@ func (c *ApiService) PageTrunkingCountry(params *ListTrunkingCountryParams, page
 
 // Lists TrunkingCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListTrunkingCountry(params *ListTrunkingCountryParams) ([]PricingV2TrunkingCountry, error) {
-	if params == nil {
-		params = &ListTrunkingCountryParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageTrunkingCountry(params, "", "")
+	response, err := c.StreamTrunkingCountry(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []PricingV2TrunkingCountry
+	records := make([]PricingV2TrunkingCountry, 0)
 
-	for response != nil {
-		records = append(records, response.Countries...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTrunkingCountryResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListTrunkingCountryResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -134,18 +121,24 @@ func (c *ApiService) StreamTrunkingCountry(params *ListTrunkingCountryParams) (c
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan PricingV2TrunkingCountry, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Countries {
-				channel <- response.Countries[item]
+			responseRecords := response.Countries
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListTrunkingCountryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListTrunkingCountryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

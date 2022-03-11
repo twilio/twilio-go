@@ -365,28 +365,15 @@ func (c *ApiService) PageIncomingPhoneNumberTollFree(params *ListIncomingPhoneNu
 
 // Lists IncomingPhoneNumberTollFree records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListIncomingPhoneNumberTollFree(params *ListIncomingPhoneNumberTollFreeParams) ([]ApiV2010IncomingPhoneNumberTollFree, error) {
-	if params == nil {
-		params = &ListIncomingPhoneNumberTollFreeParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageIncomingPhoneNumberTollFree(params, "", "")
+	response, err := c.StreamIncomingPhoneNumberTollFree(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010IncomingPhoneNumberTollFree
+	records := make([]ApiV2010IncomingPhoneNumberTollFree, 0)
 
-	for response != nil {
-		records = append(records, response.IncomingPhoneNumbers...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberTollFreeResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListIncomingPhoneNumberTollFreeResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -404,18 +391,24 @@ func (c *ApiService) StreamIncomingPhoneNumberTollFree(params *ListIncomingPhone
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010IncomingPhoneNumberTollFree, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.IncomingPhoneNumbers {
-				channel <- response.IncomingPhoneNumbers[item]
+			responseRecords := response.IncomingPhoneNumbers
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListIncomingPhoneNumberTollFreeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListIncomingPhoneNumberTollFreeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

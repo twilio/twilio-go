@@ -163,28 +163,15 @@ func (c *ApiService) PageRecordingAddOnResultPayload(ReferenceSid string, AddOnR
 
 // Lists RecordingAddOnResultPayload records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListRecordingAddOnResultPayload(ReferenceSid string, AddOnResultSid string, params *ListRecordingAddOnResultPayloadParams) ([]ApiV2010RecordingAddOnResultPayload, error) {
-	if params == nil {
-		params = &ListRecordingAddOnResultPayloadParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageRecordingAddOnResultPayload(ReferenceSid, AddOnResultSid, params, "", "")
+	response, err := c.StreamRecordingAddOnResultPayload(ReferenceSid, AddOnResultSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010RecordingAddOnResultPayload
+	records := make([]ApiV2010RecordingAddOnResultPayload, 0)
 
-	for response != nil {
-		records = append(records, response.Payloads...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListRecordingAddOnResultPayloadResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -202,18 +189,24 @@ func (c *ApiService) StreamRecordingAddOnResultPayload(ReferenceSid string, AddO
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010RecordingAddOnResultPayload, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Payloads {
-				channel <- response.Payloads[item]
+			responseRecords := response.Payloads
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListRecordingAddOnResultPayloadResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

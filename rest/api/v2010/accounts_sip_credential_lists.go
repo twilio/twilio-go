@@ -205,28 +205,15 @@ func (c *ApiService) PageSipCredentialList(params *ListSipCredentialListParams, 
 
 // Lists SipCredentialList records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipCredentialList(params *ListSipCredentialListParams) ([]ApiV2010SipCredentialList, error) {
-	if params == nil {
-		params = &ListSipCredentialListParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageSipCredentialList(params, "", "")
+	response, err := c.StreamSipCredentialList(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010SipCredentialList
+	records := make([]ApiV2010SipCredentialList, 0)
 
-	for response != nil {
-		records = append(records, response.CredentialLists...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSipCredentialListResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListSipCredentialListResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -244,18 +231,24 @@ func (c *ApiService) StreamSipCredentialList(params *ListSipCredentialListParams
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010SipCredentialList, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.CredentialLists {
-				channel <- response.CredentialLists[item]
+			responseRecords := response.CredentialLists
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSipCredentialListResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListSipCredentialListResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

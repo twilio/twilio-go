@@ -227,28 +227,15 @@ func (c *ApiService) PageSipIpAddress(IpAccessControlListSid string, params *Lis
 
 // Lists SipIpAddress records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSipIpAddress(IpAccessControlListSid string, params *ListSipIpAddressParams) ([]ApiV2010SipIpAddress, error) {
-	if params == nil {
-		params = &ListSipIpAddressParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageSipIpAddress(IpAccessControlListSid, params, "", "")
+	response, err := c.StreamSipIpAddress(IpAccessControlListSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010SipIpAddress
+	records := make([]ApiV2010SipIpAddress, 0)
 
-	for response != nil {
-		records = append(records, response.IpAddresses...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSipIpAddressResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListSipIpAddressResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -266,18 +253,24 @@ func (c *ApiService) StreamSipIpAddress(IpAccessControlListSid string, params *L
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010SipIpAddress, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.IpAddresses {
-				channel <- response.IpAddresses[item]
+			responseRecords := response.IpAddresses
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSipIpAddressResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListSipIpAddressResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

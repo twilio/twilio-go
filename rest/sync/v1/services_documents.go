@@ -176,28 +176,15 @@ func (c *ApiService) PageDocument(ServiceSid string, params *ListDocumentParams,
 
 // Lists Document records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDocument(ServiceSid string, params *ListDocumentParams) ([]SyncV1Document, error) {
-	if params == nil {
-		params = &ListDocumentParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageDocument(ServiceSid, params, "", "")
+	response, err := c.StreamDocument(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []SyncV1Document
+	records := make([]SyncV1Document, 0)
 
-	for response != nil {
-		records = append(records, response.Documents...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListDocumentResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -215,18 +202,24 @@ func (c *ApiService) StreamDocument(ServiceSid string, params *ListDocumentParam
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan SyncV1Document, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Documents {
-				channel <- response.Documents[item]
+			responseRecords := response.Documents
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDocumentResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListDocumentResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}
