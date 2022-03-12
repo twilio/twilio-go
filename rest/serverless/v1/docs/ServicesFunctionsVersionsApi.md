@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## ListFunctionVersion
 
-> ListFunctionVersionResponse ListFunctionVersion(ctx, ServiceSidFunctionSidoptional)
+> []ServerlessV1FunctionVersion ListFunctionVersion(ctx, ServiceSidFunctionSidoptional)
 
 
 
@@ -82,7 +82,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListFunctionVersionResponse**](ListFunctionVersionResponse.md)
+[**[]ServerlessV1FunctionVersion**](ServerlessV1FunctionVersion.md)
 
 ### Authorization
 

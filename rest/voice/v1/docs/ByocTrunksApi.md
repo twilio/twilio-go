@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListByocTrunk
 
-> ListByocTrunkResponse ListByocTrunk(ctx, optional)
+> []VoiceV1ByocTrunk ListByocTrunk(ctx, optional)
 
 
 
@@ -160,7 +160,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListByocTrunkResponse**](ListByocTrunkResponse.md)
+[**[]VoiceV1ByocTrunk**](VoiceV1ByocTrunk.md)
 
 ### Authorization
 

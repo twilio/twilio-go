@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListRegulation
 
-> ListRegulationResponse ListRegulation(ctx, optional)
+> []NumbersV2Regulation ListRegulation(ctx, optional)
 
 
 
@@ -78,7 +78,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRegulationResponse**](ListRegulationResponse.md)
+[**[]NumbersV2Regulation**](NumbersV2Regulation.md)
 
 ### Authorization
 

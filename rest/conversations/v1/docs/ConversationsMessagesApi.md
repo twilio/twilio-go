@@ -150,7 +150,7 @@ Name | Type | Description
 
 ## ListConversationMessage
 
-> ListConversationMessageResponse ListConversationMessage(ctx, ConversationSidoptional)
+> []ConversationsV1ConversationMessage ListConversationMessage(ctx, ConversationSidoptional)
 
 
 
@@ -177,7 +177,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListConversationMessageResponse**](ListConversationMessageResponse.md)
+[**[]ConversationsV1ConversationMessage**](ConversationsV1ConversationMessage.md)
 
 ### Authorization
 

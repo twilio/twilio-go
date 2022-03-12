@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListRole
 
-> ListRoleResponse ListRole(ctx, ServiceSidoptional)
+> []IpMessagingV1Role ListRole(ctx, ServiceSidoptional)
 
 
 
@@ -163,7 +163,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRoleResponse**](ListRoleResponse.md)
+[**[]IpMessagingV1Role**](IpMessagingV1Role.md)
 
 ### Authorization
 

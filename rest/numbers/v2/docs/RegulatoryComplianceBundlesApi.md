@@ -143,7 +143,7 @@ Name | Type | Description
 
 ## ListBundle
 
-> ListBundleResponse ListBundle(ctx, optional)
+> []NumbersV2Bundle ListBundle(ctx, optional)
 
 
 
@@ -176,7 +176,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListBundleResponse**](ListBundleResponse.md)
+[**[]NumbersV2Bundle**](NumbersV2Bundle.md)
 
 ### Authorization
 

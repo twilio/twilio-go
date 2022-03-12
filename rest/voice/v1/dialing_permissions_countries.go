@@ -149,28 +149,15 @@ func (c *ApiService) PageDialingPermissionsCountry(params *ListDialingPermission
 
 // Lists DialingPermissionsCountry records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDialingPermissionsCountry(params *ListDialingPermissionsCountryParams) ([]VoiceV1DialingPermissionsCountry, error) {
-	if params == nil {
-		params = &ListDialingPermissionsCountryParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageDialingPermissionsCountry(params, "", "")
+	response, err := c.StreamDialingPermissionsCountry(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []VoiceV1DialingPermissionsCountry
+	records := make([]VoiceV1DialingPermissionsCountry, 0)
 
-	for response != nil {
-		records = append(records, response.Content...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDialingPermissionsCountryResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListDialingPermissionsCountryResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -188,18 +175,24 @@ func (c *ApiService) StreamDialingPermissionsCountry(params *ListDialingPermissi
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan VoiceV1DialingPermissionsCountry, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Content {
-				channel <- response.Content[item]
+			responseRecords := response.Content
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDialingPermissionsCountryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListDialingPermissionsCountryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

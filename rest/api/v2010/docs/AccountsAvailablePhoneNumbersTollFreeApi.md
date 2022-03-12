@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListAvailablePhoneNumberTollFree
 
-> ListAvailablePhoneNumberTollFreeResponse ListAvailablePhoneNumberTollFree(ctx, CountryCodeoptional)
+> []ApiV2010AvailablePhoneNumberTollFree ListAvailablePhoneNumberTollFree(ctx, CountryCodeoptional)
 
 
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListAvailablePhoneNumberTollFreeResponse**](ListAvailablePhoneNumberTollFreeResponse.md)
+[**[]ApiV2010AvailablePhoneNumberTollFree**](ApiV2010AvailablePhoneNumberTollFree.md)
 
 ### Authorization
 

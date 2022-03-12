@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListSupportingDocumentType
 
-> ListSupportingDocumentTypeResponse ListSupportingDocumentType(ctx, optional)
+> []NumbersV2SupportingDocumentType ListSupportingDocumentType(ctx, optional)
 
 
 
@@ -75,7 +75,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSupportingDocumentTypeResponse**](ListSupportingDocumentTypeResponse.md)
+[**[]NumbersV2SupportingDocumentType**](NumbersV2SupportingDocumentType.md)
 
 ### Authorization
 

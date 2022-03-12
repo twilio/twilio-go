@@ -141,7 +141,7 @@ Name | Type | Description
 
 ## ListRatePlan
 
-> ListRatePlanResponse ListRatePlan(ctx, optional)
+> []WirelessV1RatePlan ListRatePlan(ctx, optional)
 
 
 
@@ -161,7 +161,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRatePlanResponse**](ListRatePlanResponse.md)
+[**[]WirelessV1RatePlan**](WirelessV1RatePlan.md)
 
 ### Authorization
 

@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## ListDocumentPermission
 
-> ListDocumentPermissionResponse ListDocumentPermission(ctx, ServiceSidDocumentSidoptional)
+> []SyncV1DocumentPermission ListDocumentPermission(ctx, ServiceSidDocumentSidoptional)
 
 
 
@@ -128,7 +128,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListDocumentPermissionResponse**](ListDocumentPermissionResponse.md)
+[**[]SyncV1DocumentPermission**](SyncV1DocumentPermission.md)
 
 ### Authorization
 

@@ -99,7 +99,7 @@ Name | Type | Description
 
 ## ListRecording
 
-> ListRecordingResponse ListRecording(ctx, optional)
+> []ApiV2010Recording ListRecording(ctx, optional)
 
 
 
@@ -128,7 +128,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRecordingResponse**](ListRecordingResponse.md)
+[**[]ApiV2010Recording**](ApiV2010Recording.md)
 
 ### Authorization
 

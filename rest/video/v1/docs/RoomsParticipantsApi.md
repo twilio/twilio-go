@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListRoomParticipant
 
-> ListRoomParticipantResponse ListRoomParticipant(ctx, RoomSidoptional)
+> []VideoV1RoomParticipant ListRoomParticipant(ctx, RoomSidoptional)
 
 
 
@@ -81,7 +81,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRoomParticipantResponse**](ListRoomParticipantResponse.md)
+[**[]VideoV1RoomParticipant**](VideoV1RoomParticipant.md)
 
 ### Authorization
 

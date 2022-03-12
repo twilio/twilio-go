@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListDialingPermissionsHrsPrefixes
 
-> ListDialingPermissionsHrsPrefixesResponse ListDialingPermissionsHrsPrefixes(ctx, IsoCodeoptional)
+> []VoiceV1DialingPermissionsHrsPrefixes ListDialingPermissionsHrsPrefixes(ctx, IsoCodeoptional)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListDialingPermissionsHrsPrefixesResponse**](ListDialingPermissionsHrsPrefixesResponse.md)
+[**[]VoiceV1DialingPermissionsHrsPrefixes**](VoiceV1DialingPermissionsHrsPrefixes.md)
 
 ### Authorization
 

@@ -154,7 +154,7 @@ Name | Type | Description
 
 ## ListApplication
 
-> ListApplicationResponse ListApplication(ctx, optional)
+> []ApiV2010Application ListApplication(ctx, optional)
 
 
 
@@ -178,7 +178,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListApplicationResponse**](ListApplicationResponse.md)
+[**[]ApiV2010Application**](ApiV2010Application.md)
 
 ### Authorization
 

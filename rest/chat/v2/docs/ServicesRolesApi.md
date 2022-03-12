@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListRole
 
-> ListRoleResponse ListRole(ctx, ServiceSidoptional)
+> []ChatV2Role ListRole(ctx, ServiceSidoptional)
 
 
 
@@ -163,7 +163,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRoleResponse**](ListRoleResponse.md)
+[**[]ChatV2Role**](ChatV2Role.md)
 
 ### Authorization
 

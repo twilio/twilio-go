@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## ListRoomParticipantSubscribedTrack
 
-> ListRoomParticipantSubscribedTrackResponse ListRoomParticipantSubscribedTrack(ctx, RoomSidParticipantSidoptional)
+> []VideoV1RoomParticipantSubscribedTrack ListRoomParticipantSubscribedTrack(ctx, RoomSidParticipantSidoptional)
 
 
 
@@ -82,7 +82,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRoomParticipantSubscribedTrackResponse**](ListRoomParticipantSubscribedTrackResponse.md)
+[**[]VideoV1RoomParticipantSubscribedTrack**](VideoV1RoomParticipantSubscribedTrack.md)
 
 ### Authorization
 

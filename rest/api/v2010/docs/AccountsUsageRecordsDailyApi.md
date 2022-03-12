@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListUsageRecordDaily
 
-> ListUsageRecordDailyResponse ListUsageRecordDaily(ctx, optional)
+> []ApiV2010UsageRecordDaily ListUsageRecordDaily(ctx, optional)
 
 
 
@@ -35,7 +35,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUsageRecordDailyResponse**](ListUsageRecordDailyResponse.md)
+[**[]ApiV2010UsageRecordDaily**](ApiV2010UsageRecordDaily.md)
 
 ### Authorization
 

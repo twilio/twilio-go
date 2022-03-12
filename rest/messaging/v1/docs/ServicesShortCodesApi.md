@@ -136,7 +136,7 @@ Name | Type | Description
 
 ## ListShortCode
 
-> ListShortCodeResponse ListShortCode(ctx, ServiceSidoptional)
+> []MessagingV1ShortCode ListShortCode(ctx, ServiceSidoptional)
 
 
 
@@ -160,7 +160,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListShortCodeResponse**](ListShortCodeResponse.md)
+[**[]MessagingV1ShortCode**](MessagingV1ShortCode.md)
 
 ### Authorization
 

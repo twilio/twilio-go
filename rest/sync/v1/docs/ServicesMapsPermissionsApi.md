@@ -101,7 +101,7 @@ Name | Type | Description
 
 ## ListSyncMapPermission
 
-> ListSyncMapPermissionResponse ListSyncMapPermission(ctx, ServiceSidMapSidoptional)
+> []SyncV1SyncMapPermission ListSyncMapPermission(ctx, ServiceSidMapSidoptional)
 
 
 
@@ -128,7 +128,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSyncMapPermissionResponse**](ListSyncMapPermissionResponse.md)
+[**[]SyncV1SyncMapPermission**](SyncV1SyncMapPermission.md)
 
 ### Authorization
 

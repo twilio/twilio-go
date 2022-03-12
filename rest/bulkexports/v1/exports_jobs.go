@@ -195,28 +195,15 @@ func (c *ApiService) PageExportCustomJob(ResourceType string, params *ListExport
 
 // Lists ExportCustomJob records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListExportCustomJob(ResourceType string, params *ListExportCustomJobParams) ([]BulkexportsV1ExportCustomJob, error) {
-	if params == nil {
-		params = &ListExportCustomJobParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageExportCustomJob(ResourceType, params, "", "")
+	response, err := c.StreamExportCustomJob(ResourceType, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []BulkexportsV1ExportCustomJob
+	records := make([]BulkexportsV1ExportCustomJob, 0)
 
-	for response != nil {
-		records = append(records, response.Jobs...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListExportCustomJobResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListExportCustomJobResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -234,18 +221,24 @@ func (c *ApiService) StreamExportCustomJob(ResourceType string, params *ListExpo
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan BulkexportsV1ExportCustomJob, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Jobs {
-				channel <- response.Jobs[item]
+			responseRecords := response.Jobs
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListExportCustomJobResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListExportCustomJobResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

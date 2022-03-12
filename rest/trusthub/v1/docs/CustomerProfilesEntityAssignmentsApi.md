@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## ListCustomerProfileEntityAssignment
 
-> ListCustomerProfileEntityAssignmentResponse ListCustomerProfileEntityAssignment(ctx, CustomerProfileSidoptional)
+> []TrusthubV1CustomerProfileEntityAssignment ListCustomerProfileEntityAssignment(ctx, CustomerProfileSidoptional)
 
 
 
@@ -168,7 +168,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCustomerProfileEntityAssignmentResponse**](ListCustomerProfileEntityAssignmentResponse.md)
+[**[]TrusthubV1CustomerProfileEntityAssignment**](TrusthubV1CustomerProfileEntityAssignment.md)
 
 ### Authorization
 

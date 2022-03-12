@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListSupportingDocument
 
-> ListSupportingDocumentResponse ListSupportingDocument(ctx, optional)
+> []NumbersV2SupportingDocument ListSupportingDocument(ctx, optional)
 
 
 
@@ -161,7 +161,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSupportingDocumentResponse**](ListSupportingDocumentResponse.md)
+[**[]NumbersV2SupportingDocument**](NumbersV2SupportingDocument.md)
 
 ### Authorization
 

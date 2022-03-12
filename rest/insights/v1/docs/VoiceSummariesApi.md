@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListCallSummaries
 
-> ListCallSummariesResponse ListCallSummaries(ctx, optional)
+> []InsightsV1CallSummaries ListCallSummaries(ctx, optional)
 
 
 
@@ -48,7 +48,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCallSummariesResponse**](ListCallSummariesResponse.md)
+[**[]InsightsV1CallSummaries**](InsightsV1CallSummaries.md)
 
 ### Authorization
 

@@ -149,28 +149,15 @@ func (c *ApiService) PageEvent(params *ListEventParams, pageToken, pageNumber st
 
 // Lists Event records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListEvent(params *ListEventParams) ([]MonitorV1Event, error) {
-	if params == nil {
-		params = &ListEventParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageEvent(params, "", "")
+	response, err := c.StreamEvent(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []MonitorV1Event
+	records := make([]MonitorV1Event, 0)
 
-	for response != nil {
-		records = append(records, response.Events...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEventResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListEventResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -188,18 +175,24 @@ func (c *ApiService) StreamEvent(params *ListEventParams) (chan MonitorV1Event, 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan MonitorV1Event, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Events {
-				channel <- response.Events[item]
+			responseRecords := response.Events
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListEventResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListEventResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

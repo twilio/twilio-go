@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListDocument
 
-> ListDocumentResponse ListDocument(ctx, ServiceSidoptional)
+> []SyncV1Document ListDocument(ctx, ServiceSidoptional)
 
 
 
@@ -163,7 +163,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListDocumentResponse**](ListDocumentResponse.md)
+[**[]SyncV1Document**](SyncV1Document.md)
 
 ### Authorization
 

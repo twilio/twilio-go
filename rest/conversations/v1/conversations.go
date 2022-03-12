@@ -248,28 +248,15 @@ func (c *ApiService) PageConversation(params *ListConversationParams, pageToken,
 
 // Lists Conversation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConversation(params *ListConversationParams) ([]ConversationsV1Conversation, error) {
-	if params == nil {
-		params = &ListConversationParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageConversation(params, "", "")
+	response, err := c.StreamConversation(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ConversationsV1Conversation
+	records := make([]ConversationsV1Conversation, 0)
 
-	for response != nil {
-		records = append(records, response.Conversations...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConversationResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListConversationResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -287,18 +274,24 @@ func (c *ApiService) StreamConversation(params *ListConversationParams) (chan Co
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ConversationsV1Conversation, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Conversations {
-				channel <- response.Conversations[item]
+			responseRecords := response.Conversations
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConversationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListConversationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

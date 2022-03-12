@@ -141,7 +141,7 @@ Name | Type | Description
 
 ## ListOriginationUrl
 
-> ListOriginationUrlResponse ListOriginationUrl(ctx, TrunkSidoptional)
+> []TrunkingV1OriginationUrl ListOriginationUrl(ctx, TrunkSidoptional)
 
 
 
@@ -165,7 +165,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListOriginationUrlResponse**](ListOriginationUrlResponse.md)
+[**[]TrunkingV1OriginationUrl**](TrunkingV1OriginationUrl.md)
 
 ### Authorization
 

@@ -96,7 +96,7 @@ Name | Type | Description
 
 ## ListFax
 
-> ListFaxResponse ListFax(ctx, optional)
+> []FaxV1Fax ListFax(ctx, optional)
 
 
 
@@ -122,7 +122,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListFaxResponse**](ListFaxResponse.md)
+[**[]FaxV1Fax**](FaxV1Fax.md)
 
 ### Authorization
 

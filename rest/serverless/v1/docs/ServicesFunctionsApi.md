@@ -143,7 +143,7 @@ Name | Type | Description
 
 ## ListFunction
 
-> ListFunctionResponse ListFunction(ctx, ServiceSidoptional)
+> []ServerlessV1Function ListFunction(ctx, ServiceSidoptional)
 
 
 
@@ -169,7 +169,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListFunctionResponse**](ListFunctionResponse.md)
+[**[]ServerlessV1Function**](ServerlessV1Function.md)
 
 ### Authorization
 

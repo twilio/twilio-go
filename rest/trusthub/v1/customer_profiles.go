@@ -204,28 +204,15 @@ func (c *ApiService) PageCustomerProfile(params *ListCustomerProfileParams, page
 
 // Lists CustomerProfile records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCustomerProfile(params *ListCustomerProfileParams) ([]TrusthubV1CustomerProfile, error) {
-	if params == nil {
-		params = &ListCustomerProfileParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageCustomerProfile(params, "", "")
+	response, err := c.StreamCustomerProfile(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []TrusthubV1CustomerProfile
+	records := make([]TrusthubV1CustomerProfile, 0)
 
-	for response != nil {
-		records = append(records, response.Results...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCustomerProfileResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListCustomerProfileResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -243,18 +230,24 @@ func (c *ApiService) StreamCustomerProfile(params *ListCustomerProfileParams) (c
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan TrusthubV1CustomerProfile, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Results {
-				channel <- response.Results[item]
+			responseRecords := response.Results
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCustomerProfileResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListCustomerProfileResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

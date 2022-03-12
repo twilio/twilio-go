@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListChannel
 
-> ListChannelResponse ListChannel(ctx, optional)
+> []FlexV1Channel ListChannel(ctx, optional)
 
 
 
@@ -159,7 +159,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListChannelResponse**](ListChannelResponse.md)
+[**[]FlexV1Channel**](FlexV1Channel.md)
 
 ### Authorization
 

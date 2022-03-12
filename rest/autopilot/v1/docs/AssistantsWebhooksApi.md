@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListWebhook
 
-> ListWebhookResponse ListWebhook(ctx, AssistantSidoptional)
+> []AutopilotV1Webhook ListWebhook(ctx, AssistantSidoptional)
 
 
 
@@ -164,7 +164,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListWebhookResponse**](ListWebhookResponse.md)
+[**[]AutopilotV1Webhook**](AutopilotV1Webhook.md)
 
 ### Authorization
 

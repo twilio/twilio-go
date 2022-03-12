@@ -136,7 +136,7 @@ Name | Type | Description
 
 ## ListCredentialList
 
-> ListCredentialListResponse ListCredentialList(ctx, TrunkSidoptional)
+> []TrunkingV1CredentialList ListCredentialList(ctx, TrunkSidoptional)
 
 
 
@@ -160,7 +160,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCredentialListResponse**](ListCredentialListResponse.md)
+[**[]TrunkingV1CredentialList**](TrunkingV1CredentialList.md)
 
 ### Authorization
 

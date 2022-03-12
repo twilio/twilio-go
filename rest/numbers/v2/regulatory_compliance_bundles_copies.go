@@ -112,28 +112,15 @@ func (c *ApiService) PageBundleCopy(BundleSid string, params *ListBundleCopyPara
 
 // Lists BundleCopy records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListBundleCopy(BundleSid string, params *ListBundleCopyParams) ([]NumbersV2BundleCopy, error) {
-	if params == nil {
-		params = &ListBundleCopyParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageBundleCopy(BundleSid, params, "", "")
+	response, err := c.StreamBundleCopy(BundleSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []NumbersV2BundleCopy
+	records := make([]NumbersV2BundleCopy, 0)
 
-	for response != nil {
-		records = append(records, response.Results...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBundleCopyResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListBundleCopyResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -151,18 +138,24 @@ func (c *ApiService) StreamBundleCopy(BundleSid string, params *ListBundleCopyPa
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan NumbersV2BundleCopy, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Results {
-				channel <- response.Results[item]
+			responseRecords := response.Results
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListBundleCopyResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListBundleCopyResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

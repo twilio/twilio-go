@@ -120,28 +120,15 @@ func (c *ApiService) PageInteraction(ServiceSid string, SessionSid string, param
 
 // Lists Interaction records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListInteraction(ServiceSid string, SessionSid string, params *ListInteractionParams) ([]ProxyV1Interaction, error) {
-	if params == nil {
-		params = &ListInteractionParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageInteraction(ServiceSid, SessionSid, params, "", "")
+	response, err := c.StreamInteraction(ServiceSid, SessionSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ProxyV1Interaction
+	records := make([]ProxyV1Interaction, 0)
 
-	for response != nil {
-		records = append(records, response.Interactions...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListInteractionResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListInteractionResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -159,18 +146,24 @@ func (c *ApiService) StreamInteraction(ServiceSid string, SessionSid string, par
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ProxyV1Interaction, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Interactions {
-				channel <- response.Interactions[item]
+			responseRecords := response.Interactions
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListInteractionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListInteractionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

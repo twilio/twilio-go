@@ -35,16 +35,19 @@ func TestPageUtil_GetNextPageUri(t *testing.T) {
 		"page_size":     50,
 	}
 	baseUrl := "https://api.twilio.com/"
-	nextPageUrl := getNextPageUrl(baseUrl, payload)
+	nextPageUrl, err := getNextPageUrl(baseUrl, payload)
+	assert.Nil(t, err)
 	assert.Equal(t, "https://api.twilio.com/2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1", nextPageUrl)
 
 	payload["next_page_uri"] = "2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1"
 	baseUrl = "https://api.twilio.com"
-	nextPageUrl = getNextPageUrl(baseUrl, payload)
+	nextPageUrl, err = getNextPageUrl(baseUrl, payload)
+	assert.Nil(t, err)
 	assert.Equal(t, "https://api.twilio.com/2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1", nextPageUrl)
 
 	payload = map[string]interface{}{}
-	nextPageUrl = getNextPageUrl(baseUrl, payload)
+	nextPageUrl, err = getNextPageUrl(baseUrl, payload)
+	assert.Nil(t, err)
 	assert.Equal(t, "", nextPageUrl)
 }
 
@@ -56,7 +59,8 @@ func TestPageUtil_GetNextPageUrl(t *testing.T) {
 		},
 	}
 
-	nextPageUrl := getNextPageUrl("https://apitest.twilio.com", payload)
+	nextPageUrl, err := getNextPageUrl("https://apitest.twilio.com", payload)
+	assert.Nil(t, err)
 	assert.Equal(t, "https://api.twilio.com/2010-04-01/Accounts/ACXX/IncomingPhoneNumbers.json?PageSize=50&Page=1", nextPageUrl)
 }
 
@@ -147,27 +151,18 @@ func TestPageUtil_GetNext(t *testing.T) {
 	ps := &testResponse{}
 	_ = json.NewDecoder(response.Body).Decode(ps)
 
-	curRecord := 0
-	limit := 10
-
-	nextPageUrl, err := GetNext(baseUrl, ps, &curRecord, &limit, getSomething)
+	nextPageUrl, err := GetNext(baseUrl, ps, getSomething)
 	assert.Equal(t, "https://api.twilio.com/2010-04-01/Accounts/ACXX/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=2&Page=1&PageToken=PASMXX", nextPageUrl)
 	assert.Nil(t, err)
 
-	curRecord = 15
-	nextPageUrl, err = GetNext(baseUrl, ps, &curRecord, &limit, getSomething)
+	nextPageUrl, err = GetNext(baseUrl, nil, getSomething)
 	assert.Empty(t, nextPageUrl)
 	assert.Nil(t, err)
 }
 
-func TestPageUtil_GetNextWithErr(t *testing.T) {
-	nextPageUrl, err := GetNext("baseUrl", nil, nil, nil, getSomething)
-	assert.Nil(t, nextPageUrl)
-	assert.NotNil(t, err)
-}
-
 func TestPageUtil_ToMap(t *testing.T) {
-	testMap := toMap("invalid")
+	testMap, err := toMap("invalid")
+	assert.NotNil(t, err)
 	assert.Nil(t, testMap)
 
 	valid := testResponse{
@@ -181,42 +176,7 @@ func TestPageUtil_ToMap(t *testing.T) {
 		Start:           0,
 		Uri:             "uri",
 	}
-	testMap = toMap(valid)
+	testMap, err = toMap(valid)
+	assert.Nil(t, err)
 	assert.NotNil(t, testMap)
-}
-
-func TestPageUtil_GetNextPageAddress(t *testing.T) {
-	nextPageAddress, _ := getNextPageAddress("baseUrl", nil, nil, nil)
-	assert.Empty(t, nextPageAddress)
-}
-
-func TestPageUtil_GetPayload(t *testing.T) {
-	response := map[string]interface{}{
-		"end":            4,
-		"first_page_uri": "/2010-04-01/Accounts/ACXX/Messages.json?From=9999999999&PageNumber=&To=4444444444&PageSize=2&Page=0",
-		"messages": []map[string]interface{}{
-			{
-				"direction": "outbound-api",
-				"from":      "4444444444",
-				"to":        "9999999999",
-				"body":      "Message 0",
-				"status":    "delivered",
-			},
-		},
-		"messages2": []map[string]interface{}{
-			{
-				"direction": "outbound-api",
-				"from":      "4444444444",
-				"to":        "9999999999",
-				"body":      "Message 0",
-				"status":    "delivered",
-			},
-		},
-	}
-
-	payload, nextPageUrl, err := GetPayload("baseUrl", response)
-	assert.Nil(t, payload)
-	assert.Empty(t, nextPageUrl)
-	assert.NotNil(t, err)
-	assert.Equal(t, "payload contains more than 1 record of type array", err.Error())
 }

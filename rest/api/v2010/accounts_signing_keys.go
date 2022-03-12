@@ -203,28 +203,15 @@ func (c *ApiService) PageSigningKey(params *ListSigningKeyParams, pageToken, pag
 
 // Lists SigningKey records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSigningKey(params *ListSigningKeyParams) ([]ApiV2010SigningKey, error) {
-	if params == nil {
-		params = &ListSigningKeyParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageSigningKey(params, "", "")
+	response, err := c.StreamSigningKey(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010SigningKey
+	records := make([]ApiV2010SigningKey, 0)
 
-	for response != nil {
-		records = append(records, response.SigningKeys...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSigningKeyResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListSigningKeyResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -242,18 +229,24 @@ func (c *ApiService) StreamSigningKey(params *ListSigningKeyParams) (chan ApiV20
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010SigningKey, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.SigningKeys {
-				channel <- response.SigningKeys[item]
+			responseRecords := response.SigningKeys
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSigningKeyResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListSigningKeyResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

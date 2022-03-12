@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListChannel
 
-> ListChannelResponse ListChannel(ctx, ServiceSidoptional)
+> []IpMessagingV1Channel ListChannel(ctx, ServiceSidoptional)
 
 
 
@@ -165,7 +165,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListChannelResponse**](ListChannelResponse.md)
+[**[]IpMessagingV1Channel**](IpMessagingV1Channel.md)
 
 ### Authorization
 

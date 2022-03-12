@@ -98,7 +98,7 @@ Name | Type | Description
 
 ## ListIpCommand
 
-> ListIpCommandResponse ListIpCommand(ctx, optional)
+> []SupersimV1IpCommand ListIpCommand(ctx, optional)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListIpCommandResponse**](ListIpCommandResponse.md)
+[**[]SupersimV1IpCommand**](SupersimV1IpCommand.md)
 
 ### Authorization
 

@@ -165,28 +165,15 @@ func (c *ApiService) PageField(AssistantSid string, TaskSid string, params *List
 
 // Lists Field records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListField(AssistantSid string, TaskSid string, params *ListFieldParams) ([]AutopilotV1Field, error) {
-	if params == nil {
-		params = &ListFieldParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageField(AssistantSid, TaskSid, params, "", "")
+	response, err := c.StreamField(AssistantSid, TaskSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []AutopilotV1Field
+	records := make([]AutopilotV1Field, 0)
 
-	for response != nil {
-		records = append(records, response.Fields...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFieldResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListFieldResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -204,18 +191,24 @@ func (c *ApiService) StreamField(AssistantSid string, TaskSid string, params *Li
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan AutopilotV1Field, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Fields {
-				channel <- response.Fields[item]
+			responseRecords := response.Fields
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFieldResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListFieldResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

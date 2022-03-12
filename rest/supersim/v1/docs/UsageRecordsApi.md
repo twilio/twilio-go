@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListUsageRecord
 
-> ListUsageRecordResponse ListUsageRecord(ctx, optional)
+> []SupersimV1UsageRecord ListUsageRecord(ctx, optional)
 
 
 
@@ -40,7 +40,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUsageRecordResponse**](ListUsageRecordResponse.md)
+[**[]SupersimV1UsageRecord**](SupersimV1UsageRecord.md)
 
 ### Authorization
 

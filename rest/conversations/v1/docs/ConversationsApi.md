@@ -147,7 +147,7 @@ Name | Type | Description
 
 ## ListConversation
 
-> ListConversationResponse ListConversation(ctx, optional)
+> []ConversationsV1Conversation ListConversation(ctx, optional)
 
 
 
@@ -169,7 +169,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListConversationResponse**](ListConversationResponse.md)
+[**[]ConversationsV1Conversation**](ConversationsV1Conversation.md)
 
 ### Authorization
 

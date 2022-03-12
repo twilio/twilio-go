@@ -137,7 +137,7 @@ Name | Type | Description
 
 ## ListCredential
 
-> ListCredentialResponse ListCredential(ctx, optional)
+> []NotifyV1Credential ListCredential(ctx, optional)
 
 
 
@@ -157,7 +157,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCredentialResponse**](ListCredentialResponse.md)
+[**[]NotifyV1Credential**](NotifyV1Credential.md)
 
 ### Authorization
 

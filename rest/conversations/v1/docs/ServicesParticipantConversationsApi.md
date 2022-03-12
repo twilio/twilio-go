@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListServiceParticipantConversation
 
-> ListServiceParticipantConversationResponse ListServiceParticipantConversation(ctx, ChatServiceSidoptional)
+> []ConversationsV1ServiceParticipantConversation ListServiceParticipantConversation(ctx, ChatServiceSidoptional)
 
 
 
@@ -38,7 +38,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListServiceParticipantConversationResponse**](ListServiceParticipantConversationResponse.md)
+[**[]ConversationsV1ServiceParticipantConversation**](ConversationsV1ServiceParticipantConversation.md)
 
 ### Authorization
 

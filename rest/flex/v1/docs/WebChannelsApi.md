@@ -136,7 +136,7 @@ Name | Type | Description
 
 ## ListWebChannel
 
-> ListWebChannelResponse ListWebChannel(ctx, optional)
+> []FlexV1WebChannel ListWebChannel(ctx, optional)
 
 
 
@@ -156,7 +156,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListWebChannelResponse**](ListWebChannelResponse.md)
+[**[]FlexV1WebChannel**](FlexV1WebChannel.md)
 
 ### Authorization
 

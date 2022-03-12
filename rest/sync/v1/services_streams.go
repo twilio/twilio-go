@@ -164,28 +164,15 @@ func (c *ApiService) PageSyncStream(ServiceSid string, params *ListSyncStreamPar
 
 // Lists SyncStream records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncStream(ServiceSid string, params *ListSyncStreamParams) ([]SyncV1SyncStream, error) {
-	if params == nil {
-		params = &ListSyncStreamParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageSyncStream(ServiceSid, params, "", "")
+	response, err := c.StreamSyncStream(ServiceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []SyncV1SyncStream
+	records := make([]SyncV1SyncStream, 0)
 
-	for response != nil {
-		records = append(records, response.Streams...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListSyncStreamResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -203,18 +190,24 @@ func (c *ApiService) StreamSyncStream(ServiceSid string, params *ListSyncStreamP
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan SyncV1SyncStream, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Streams {
-				channel <- response.Streams[item]
+			responseRecords := response.Streams
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncStreamResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListSyncStreamResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

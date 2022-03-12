@@ -53,7 +53,7 @@ Name | Type | Description
 
 ## ListConference
 
-> ListConferenceResponse ListConference(ctx, optional)
+> []InsightsV1Conference ListConference(ctx, optional)
 
 
 
@@ -85,7 +85,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListConferenceResponse**](ListConferenceResponse.md)
+[**[]InsightsV1Conference**](InsightsV1Conference.md)
 
 ### Authorization
 

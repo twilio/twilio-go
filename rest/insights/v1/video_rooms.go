@@ -145,28 +145,15 @@ func (c *ApiService) PageVideoRoomSummary(params *ListVideoRoomSummaryParams, pa
 
 // Lists VideoRoomSummary records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListVideoRoomSummary(params *ListVideoRoomSummaryParams) ([]InsightsV1VideoRoomSummary, error) {
-	if params == nil {
-		params = &ListVideoRoomSummaryParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageVideoRoomSummary(params, "", "")
+	response, err := c.StreamVideoRoomSummary(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []InsightsV1VideoRoomSummary
+	records := make([]InsightsV1VideoRoomSummary, 0)
 
-	for response != nil {
-		records = append(records, response.Rooms...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListVideoRoomSummaryResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListVideoRoomSummaryResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -184,18 +171,24 @@ func (c *ApiService) StreamVideoRoomSummary(params *ListVideoRoomSummaryParams) 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan InsightsV1VideoRoomSummary, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Rooms {
-				channel <- response.Rooms[item]
+			responseRecords := response.Rooms
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListVideoRoomSummaryResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListVideoRoomSummaryResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

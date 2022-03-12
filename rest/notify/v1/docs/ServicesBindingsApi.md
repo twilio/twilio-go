@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## ListBinding
 
-> ListBindingResponse ListBinding(ctx, ServiceSidoptional)
+> []NotifyV1Binding ListBinding(ctx, ServiceSidoptional)
 
 
 
@@ -170,7 +170,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListBindingResponse**](ListBindingResponse.md)
+[**[]NotifyV1Binding**](NotifyV1Binding.md)
 
 ### Authorization
 

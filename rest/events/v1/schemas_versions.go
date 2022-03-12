@@ -98,28 +98,15 @@ func (c *ApiService) PageSchemaVersion(Id string, params *ListSchemaVersionParam
 
 // Lists SchemaVersion records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSchemaVersion(Id string, params *ListSchemaVersionParams) ([]EventsV1SchemaVersion, error) {
-	if params == nil {
-		params = &ListSchemaVersionParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageSchemaVersion(Id, params, "", "")
+	response, err := c.StreamSchemaVersion(Id, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []EventsV1SchemaVersion
+	records := make([]EventsV1SchemaVersion, 0)
 
-	for response != nil {
-		records = append(records, response.SchemaVersions...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSchemaVersionResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListSchemaVersionResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -137,18 +124,24 @@ func (c *ApiService) StreamSchemaVersion(Id string, params *ListSchemaVersionPar
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan EventsV1SchemaVersion, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.SchemaVersions {
-				channel <- response.SchemaVersions[item]
+			responseRecords := response.SchemaVersions
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSchemaVersionResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListSchemaVersionResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

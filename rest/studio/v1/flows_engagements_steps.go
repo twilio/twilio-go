@@ -100,28 +100,15 @@ func (c *ApiService) PageStep(FlowSid string, EngagementSid string, params *List
 
 // Lists Step records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListStep(FlowSid string, EngagementSid string, params *ListStepParams) ([]StudioV1Step, error) {
-	if params == nil {
-		params = &ListStepParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageStep(FlowSid, EngagementSid, params, "", "")
+	response, err := c.StreamStep(FlowSid, EngagementSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []StudioV1Step
+	records := make([]StudioV1Step, 0)
 
-	for response != nil {
-		records = append(records, response.Steps...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListStepResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -139,18 +126,24 @@ func (c *ApiService) StreamStep(FlowSid string, EngagementSid string, params *Li
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan StudioV1Step, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Steps {
-				channel <- response.Steps[item]
+			responseRecords := response.Steps
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListStepResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListStepResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

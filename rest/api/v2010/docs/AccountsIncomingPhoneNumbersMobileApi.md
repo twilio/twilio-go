@@ -71,7 +71,7 @@ Name | Type | Description
 
 ## ListIncomingPhoneNumberMobile
 
-> ListIncomingPhoneNumberMobileResponse ListIncomingPhoneNumberMobile(ctx, optional)
+> []ApiV2010IncomingPhoneNumberMobile ListIncomingPhoneNumberMobile(ctx, optional)
 
 
 
@@ -96,7 +96,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListIncomingPhoneNumberMobileResponse**](ListIncomingPhoneNumberMobileResponse.md)
+[**[]ApiV2010IncomingPhoneNumberMobile**](ApiV2010IncomingPhoneNumberMobile.md)
 
 ### Authorization
 

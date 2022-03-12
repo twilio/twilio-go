@@ -143,7 +143,7 @@ Name | Type | Description
 
 ## ListCredential
 
-> ListCredentialResponse ListCredential(ctx, optional)
+> []ConversationsV1Credential ListCredential(ctx, optional)
 
 
 
@@ -165,7 +165,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCredentialResponse**](ListCredentialResponse.md)
+[**[]ConversationsV1Credential**](ConversationsV1Credential.md)
 
 ### Authorization
 

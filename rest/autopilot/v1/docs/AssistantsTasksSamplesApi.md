@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## ListSample
 
-> ListSampleResponse ListSample(ctx, AssistantSidTaskSidoptional)
+> []AutopilotV1Sample ListSample(ctx, AssistantSidTaskSidoptional)
 
 
 
@@ -168,7 +168,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSampleResponse**](ListSampleResponse.md)
+[**[]AutopilotV1Sample**](AutopilotV1Sample.md)
 
 ### Authorization
 

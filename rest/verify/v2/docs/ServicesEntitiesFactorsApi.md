@@ -159,7 +159,7 @@ Name | Type | Description
 
 ## ListFactor
 
-> ListFactorResponse ListFactor(ctx, ServiceSidIdentityoptional)
+> []VerifyV2Factor ListFactor(ctx, ServiceSidIdentityoptional)
 
 
 
@@ -186,7 +186,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListFactorResponse**](ListFactorResponse.md)
+[**[]VerifyV2Factor**](VerifyV2Factor.md)
 
 ### Authorization
 

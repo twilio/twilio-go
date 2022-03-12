@@ -147,7 +147,7 @@ Name | Type | Description
 
 ## ListWebhook
 
-> ListWebhookResponse ListWebhook(ctx, ServiceSidoptional)
+> []VerifyV2Webhook ListWebhook(ctx, ServiceSidoptional)
 
 
 
@@ -173,7 +173,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListWebhookResponse**](ListWebhookResponse.md)
+[**[]VerifyV2Webhook**](VerifyV2Webhook.md)
 
 ### Authorization
 

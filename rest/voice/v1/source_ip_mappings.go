@@ -156,28 +156,15 @@ func (c *ApiService) PageSourceIpMapping(params *ListSourceIpMappingParams, page
 
 // Lists SourceIpMapping records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSourceIpMapping(params *ListSourceIpMappingParams) ([]VoiceV1SourceIpMapping, error) {
-	if params == nil {
-		params = &ListSourceIpMappingParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageSourceIpMapping(params, "", "")
+	response, err := c.StreamSourceIpMapping(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []VoiceV1SourceIpMapping
+	records := make([]VoiceV1SourceIpMapping, 0)
 
-	for response != nil {
-		records = append(records, response.SourceIpMappings...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSourceIpMappingResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListSourceIpMappingResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -195,18 +182,24 @@ func (c *ApiService) StreamSourceIpMapping(params *ListSourceIpMappingParams) (c
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan VoiceV1SourceIpMapping, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.SourceIpMappings {
-				channel <- response.SourceIpMappings[item]
+			responseRecords := response.SourceIpMappings
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSourceIpMappingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListSourceIpMappingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

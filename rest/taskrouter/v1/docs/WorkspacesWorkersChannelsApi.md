@@ -54,7 +54,7 @@ Name | Type | Description
 
 ## ListWorkerChannel
 
-> ListWorkerChannelResponse ListWorkerChannel(ctx, WorkspaceSidWorkerSidoptional)
+> []TaskrouterV1WorkerChannel ListWorkerChannel(ctx, WorkspaceSidWorkerSidoptional)
 
 
 
@@ -79,7 +79,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListWorkerChannelResponse**](ListWorkerChannelResponse.md)
+[**[]TaskrouterV1WorkerChannel**](TaskrouterV1WorkerChannel.md)
 
 ### Authorization
 

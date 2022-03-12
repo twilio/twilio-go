@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## ListStep
 
-> ListStepResponse ListStep(ctx, FlowSidEngagementSidoptional)
+> []StudioV1Step ListStep(ctx, FlowSidEngagementSidoptional)
 
 
 
@@ -82,7 +82,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListStepResponse**](ListStepResponse.md)
+[**[]StudioV1Step**](StudioV1Step.md)
 
 ### Authorization
 

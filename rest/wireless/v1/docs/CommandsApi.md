@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## ListCommand
 
-> ListCommandResponse ListCommand(ctx, optional)
+> []WirelessV1Command ListCommand(ctx, optional)
 
 
 
@@ -168,7 +168,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCommandResponse**](ListCommandResponse.md)
+[**[]WirelessV1Command**](WirelessV1Command.md)
 
 ### Authorization
 

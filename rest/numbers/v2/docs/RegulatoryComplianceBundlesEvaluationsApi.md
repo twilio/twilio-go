@@ -97,7 +97,7 @@ Name | Type | Description
 
 ## ListEvaluation
 
-> ListEvaluationResponse ListEvaluation(ctx, BundleSidoptional)
+> []NumbersV2Evaluation ListEvaluation(ctx, BundleSidoptional)
 
 
 
@@ -123,7 +123,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListEvaluationResponse**](ListEvaluationResponse.md)
+[**[]NumbersV2Evaluation**](NumbersV2Evaluation.md)
 
 ### Authorization
 

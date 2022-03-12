@@ -136,7 +136,7 @@ Name | Type | Description
 
 ## ListAlphaSender
 
-> ListAlphaSenderResponse ListAlphaSender(ctx, ServiceSidoptional)
+> []MessagingV1AlphaSender ListAlphaSender(ctx, ServiceSidoptional)
 
 
 
@@ -160,7 +160,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListAlphaSenderResponse**](ListAlphaSenderResponse.md)
+[**[]MessagingV1AlphaSender**](MessagingV1AlphaSender.md)
 
 ### Authorization
 

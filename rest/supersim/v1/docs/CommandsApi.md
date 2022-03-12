@@ -96,7 +96,7 @@ Name | Type | Description
 
 ## ListCommand
 
-> ListCommandResponse ListCommand(ctx, optional)
+> []SupersimV1Command ListCommand(ctx, optional)
 
 
 
@@ -121,7 +121,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCommandResponse**](ListCommandResponse.md)
+[**[]SupersimV1Command**](SupersimV1Command.md)
 
 ### Authorization
 

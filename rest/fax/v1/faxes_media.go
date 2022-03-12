@@ -117,28 +117,15 @@ func (c *ApiService) PageFaxMedia(FaxSid string, params *ListFaxMediaParams, pag
 
 // Lists FaxMedia records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFaxMedia(FaxSid string, params *ListFaxMediaParams) ([]FaxV1FaxMedia, error) {
-	if params == nil {
-		params = &ListFaxMediaParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageFaxMedia(FaxSid, params, "", "")
+	response, err := c.StreamFaxMedia(FaxSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []FaxV1FaxMedia
+	records := make([]FaxV1FaxMedia, 0)
 
-	for response != nil {
-		records = append(records, response.Media...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFaxMediaResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListFaxMediaResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -156,18 +143,24 @@ func (c *ApiService) StreamFaxMedia(FaxSid string, params *ListFaxMediaParams) (
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan FaxV1FaxMedia, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Media {
-				channel <- response.Media[item]
+			responseRecords := response.Media
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFaxMediaResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListFaxMediaResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

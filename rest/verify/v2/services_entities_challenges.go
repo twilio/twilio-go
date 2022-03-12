@@ -226,28 +226,15 @@ func (c *ApiService) PageChallenge(ServiceSid string, Identity string, params *L
 
 // Lists Challenge records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListChallenge(ServiceSid string, Identity string, params *ListChallengeParams) ([]VerifyV2Challenge, error) {
-	if params == nil {
-		params = &ListChallengeParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageChallenge(ServiceSid, Identity, params, "", "")
+	response, err := c.StreamChallenge(ServiceSid, Identity, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []VerifyV2Challenge
+	records := make([]VerifyV2Challenge, 0)
 
-	for response != nil {
-		records = append(records, response.Challenges...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListChallengeResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListChallengeResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -265,18 +252,24 @@ func (c *ApiService) StreamChallenge(ServiceSid string, Identity string, params 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan VerifyV2Challenge, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Challenges {
-				channel <- response.Challenges[item]
+			responseRecords := response.Challenges
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListChallengeResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListChallengeResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

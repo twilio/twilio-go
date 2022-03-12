@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## ListAddress
 
-> ListAddressResponse ListAddress(ctx, optional)
+> []ApiV2010Address ListAddress(ctx, optional)
 
 
 
@@ -166,7 +166,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListAddressResponse**](ListAddressResponse.md)
+[**[]ApiV2010Address**](ApiV2010Address.md)
 
 ### Authorization
 

@@ -144,7 +144,7 @@ Name | Type | Description
 
 ## ListUsageTrigger
 
-> ListUsageTriggerResponse ListUsageTrigger(ctx, optional)
+> []ApiV2010UsageTrigger ListUsageTrigger(ctx, optional)
 
 
 
@@ -170,7 +170,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUsageTriggerResponse**](ListUsageTriggerResponse.md)
+[**[]ApiV2010UsageTrigger**](ApiV2010UsageTrigger.md)
 
 ### Authorization
 

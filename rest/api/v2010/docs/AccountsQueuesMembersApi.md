@@ -56,7 +56,7 @@ Name | Type | Description
 
 ## ListMember
 
-> ListMemberResponse ListMember(ctx, QueueSidoptional)
+> []ApiV2010Member ListMember(ctx, QueueSidoptional)
 
 
 
@@ -83,7 +83,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListMemberResponse**](ListMemberResponse.md)
+[**[]ApiV2010Member**](ApiV2010Member.md)
 
 ### Authorization
 

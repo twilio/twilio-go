@@ -139,7 +139,7 @@ Name | Type | Description
 
 ## ListEndUser
 
-> ListEndUserResponse ListEndUser(ctx, optional)
+> []NumbersV2EndUser ListEndUser(ctx, optional)
 
 
 
@@ -161,7 +161,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListEndUserResponse**](ListEndUserResponse.md)
+[**[]NumbersV2EndUser**](NumbersV2EndUser.md)
 
 ### Authorization
 

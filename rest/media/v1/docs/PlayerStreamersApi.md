@@ -94,7 +94,7 @@ Name | Type | Description
 
 ## ListPlayerStreamer
 
-> ListPlayerStreamerResponse ListPlayerStreamer(ctx, optional)
+> []MediaV1PlayerStreamer ListPlayerStreamer(ctx, optional)
 
 
 
@@ -118,7 +118,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListPlayerStreamerResponse**](ListPlayerStreamerResponse.md)
+[**[]MediaV1PlayerStreamer**](MediaV1PlayerStreamer.md)
 
 ### Authorization
 

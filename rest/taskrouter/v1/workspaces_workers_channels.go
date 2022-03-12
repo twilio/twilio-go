@@ -99,28 +99,15 @@ func (c *ApiService) PageWorkerChannel(WorkspaceSid string, WorkerSid string, pa
 
 // Lists WorkerChannel records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkerChannel(WorkspaceSid string, WorkerSid string, params *ListWorkerChannelParams) ([]TaskrouterV1WorkerChannel, error) {
-	if params == nil {
-		params = &ListWorkerChannelParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageWorkerChannel(WorkspaceSid, WorkerSid, params, "", "")
+	response, err := c.StreamWorkerChannel(WorkspaceSid, WorkerSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []TaskrouterV1WorkerChannel
+	records := make([]TaskrouterV1WorkerChannel, 0)
 
-	for response != nil {
-		records = append(records, response.Channels...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWorkerChannelResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListWorkerChannelResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -138,18 +125,24 @@ func (c *ApiService) StreamWorkerChannel(WorkspaceSid string, WorkerSid string, 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan TaskrouterV1WorkerChannel, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Channels {
-				channel <- response.Channels[item]
+			responseRecords := response.Channels
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWorkerChannelResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListWorkerChannelResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

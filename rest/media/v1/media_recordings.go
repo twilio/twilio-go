@@ -131,28 +131,15 @@ func (c *ApiService) PageMediaRecording(params *ListMediaRecordingParams, pageTo
 
 // Lists MediaRecording records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListMediaRecording(params *ListMediaRecordingParams) ([]MediaV1MediaRecording, error) {
-	if params == nil {
-		params = &ListMediaRecordingParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageMediaRecording(params, "", "")
+	response, err := c.StreamMediaRecording(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []MediaV1MediaRecording
+	records := make([]MediaV1MediaRecording, 0)
 
-	for response != nil {
-		records = append(records, response.MediaRecordings...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMediaRecordingResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListMediaRecordingResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -170,18 +157,24 @@ func (c *ApiService) StreamMediaRecording(params *ListMediaRecordingParams) (cha
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan MediaV1MediaRecording, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.MediaRecordings {
-				channel <- response.MediaRecordings[item]
+			responseRecords := response.MediaRecordings
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListMediaRecordingResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListMediaRecordingResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

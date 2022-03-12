@@ -183,28 +183,15 @@ func (c *ApiService) PageFieldValue(AssistantSid string, FieldTypeSid string, pa
 
 // Lists FieldValue records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListFieldValue(AssistantSid string, FieldTypeSid string, params *ListFieldValueParams) ([]AutopilotV1FieldValue, error) {
-	if params == nil {
-		params = &ListFieldValueParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageFieldValue(AssistantSid, FieldTypeSid, params, "", "")
+	response, err := c.StreamFieldValue(AssistantSid, FieldTypeSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []AutopilotV1FieldValue
+	records := make([]AutopilotV1FieldValue, 0)
 
-	for response != nil {
-		records = append(records, response.FieldValues...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFieldValueResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListFieldValueResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -222,18 +209,24 @@ func (c *ApiService) StreamFieldValue(AssistantSid string, FieldTypeSid string, 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan AutopilotV1FieldValue, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.FieldValues {
-				channel <- response.FieldValues[item]
+			responseRecords := response.FieldValues
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListFieldValueResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListFieldValueResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

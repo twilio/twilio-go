@@ -144,7 +144,7 @@ Name | Type | Description
 
 ## ListMessagingConfiguration
 
-> ListMessagingConfigurationResponse ListMessagingConfiguration(ctx, ServiceSidoptional)
+> []VerifyV2MessagingConfiguration ListMessagingConfiguration(ctx, ServiceSidoptional)
 
 
 
@@ -170,7 +170,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListMessagingConfigurationResponse**](ListMessagingConfigurationResponse.md)
+[**[]VerifyV2MessagingConfiguration**](VerifyV2MessagingConfiguration.md)
 
 ### Authorization
 

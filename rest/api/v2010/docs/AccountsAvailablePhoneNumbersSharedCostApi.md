@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListAvailablePhoneNumberSharedCost
 
-> ListAvailablePhoneNumberSharedCostResponse ListAvailablePhoneNumberSharedCost(ctx, CountryCodeoptional)
+> []ApiV2010AvailablePhoneNumberSharedCost ListAvailablePhoneNumberSharedCost(ctx, CountryCodeoptional)
 
 
 
@@ -53,7 +53,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListAvailablePhoneNumberSharedCostResponse**](ListAvailablePhoneNumberSharedCostResponse.md)
+[**[]ApiV2010AvailablePhoneNumberSharedCost**](ApiV2010AvailablePhoneNumberSharedCost.md)
 
 ### Authorization
 

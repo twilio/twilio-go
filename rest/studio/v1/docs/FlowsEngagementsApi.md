@@ -144,7 +144,7 @@ Name | Type | Description
 
 ## ListEngagement
 
-> ListEngagementResponse ListEngagement(ctx, FlowSidoptional)
+> []StudioV1Engagement ListEngagement(ctx, FlowSidoptional)
 
 
 
@@ -170,7 +170,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListEngagementResponse**](ListEngagementResponse.md)
+[**[]StudioV1Engagement**](StudioV1Engagement.md)
 
 ### Authorization
 

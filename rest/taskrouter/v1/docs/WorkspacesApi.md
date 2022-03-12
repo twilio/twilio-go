@@ -136,7 +136,7 @@ Name | Type | Description
 
 ## ListWorkspace
 
-> ListWorkspaceResponse ListWorkspace(ctx, optional)
+> []TaskrouterV1Workspace ListWorkspace(ctx, optional)
 
 
 
@@ -157,7 +157,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListWorkspaceResponse**](ListWorkspaceResponse.md)
+[**[]TaskrouterV1Workspace**](TaskrouterV1Workspace.md)
 
 ### Authorization
 

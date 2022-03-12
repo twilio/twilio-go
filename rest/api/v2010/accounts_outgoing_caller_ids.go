@@ -267,28 +267,15 @@ func (c *ApiService) PageOutgoingCallerId(params *ListOutgoingCallerIdParams, pa
 
 // Lists OutgoingCallerId records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListOutgoingCallerId(params *ListOutgoingCallerIdParams) ([]ApiV2010OutgoingCallerId, error) {
-	if params == nil {
-		params = &ListOutgoingCallerIdParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageOutgoingCallerId(params, "", "")
+	response, err := c.StreamOutgoingCallerId(params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010OutgoingCallerId
+	records := make([]ApiV2010OutgoingCallerId, 0)
 
-	for response != nil {
-		records = append(records, response.OutgoingCallerIds...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListOutgoingCallerIdResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -306,18 +293,24 @@ func (c *ApiService) StreamOutgoingCallerId(params *ListOutgoingCallerIdParams) 
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010OutgoingCallerId, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.OutgoingCallerIds {
-				channel <- response.OutgoingCallerIds[item]
+			responseRecords := response.OutgoingCallerIds
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListOutgoingCallerIdResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

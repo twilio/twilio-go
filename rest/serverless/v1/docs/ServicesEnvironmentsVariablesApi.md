@@ -147,7 +147,7 @@ Name | Type | Description
 
 ## ListVariable
 
-> ListVariableResponse ListVariable(ctx, ServiceSidEnvironmentSidoptional)
+> []ServerlessV1Variable ListVariable(ctx, ServiceSidEnvironmentSidoptional)
 
 
 
@@ -174,7 +174,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListVariableResponse**](ListVariableResponse.md)
+[**[]ServerlessV1Variable**](ServerlessV1Variable.md)
 
 ### Authorization
 

@@ -149,7 +149,7 @@ Name | Type | Description
 
 ## ListSession
 
-> ListSessionResponse ListSession(ctx, ServiceSidoptional)
+> []ProxyV1Session ListSession(ctx, ServiceSidoptional)
 
 
 
@@ -175,7 +175,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSessionResponse**](ListSessionResponse.md)
+[**[]ProxyV1Session**](ProxyV1Session.md)
 
 ### Authorization
 

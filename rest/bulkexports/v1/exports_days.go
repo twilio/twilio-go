@@ -93,28 +93,15 @@ func (c *ApiService) PageDay(ResourceType string, params *ListDayParams, pageTok
 
 // Lists Day records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDay(ResourceType string, params *ListDayParams) ([]BulkexportsV1Day, error) {
-	if params == nil {
-		params = &ListDayParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageDay(ResourceType, params, "", "")
+	response, err := c.StreamDay(ResourceType, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []BulkexportsV1Day
+	records := make([]BulkexportsV1Day, 0)
 
-	for response != nil {
-		records = append(records, response.Days...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDayResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListDayResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -132,18 +119,24 @@ func (c *ApiService) StreamDay(ResourceType string, params *ListDayParams) (chan
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan BulkexportsV1Day, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Days {
-				channel <- response.Days[item]
+			responseRecords := response.Days
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDayResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListDayResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

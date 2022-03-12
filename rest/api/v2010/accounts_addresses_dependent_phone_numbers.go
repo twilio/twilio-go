@@ -85,28 +85,15 @@ func (c *ApiService) PageDependentPhoneNumber(AddressSid string, params *ListDep
 
 // Lists DependentPhoneNumber records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListDependentPhoneNumber(AddressSid string, params *ListDependentPhoneNumberParams) ([]ApiV2010DependentPhoneNumber, error) {
-	if params == nil {
-		params = &ListDependentPhoneNumberParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageDependentPhoneNumber(AddressSid, params, "", "")
+	response, err := c.StreamDependentPhoneNumber(AddressSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010DependentPhoneNumber
+	records := make([]ApiV2010DependentPhoneNumber, 0)
 
-	for response != nil {
-		records = append(records, response.DependentPhoneNumbers...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDependentPhoneNumberResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListDependentPhoneNumberResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -124,18 +111,24 @@ func (c *ApiService) StreamDependentPhoneNumber(AddressSid string, params *ListD
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010DependentPhoneNumber, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.DependentPhoneNumbers {
-				channel <- response.DependentPhoneNumbers[item]
+			responseRecords := response.DependentPhoneNumbers
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListDependentPhoneNumberResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListDependentPhoneNumberResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

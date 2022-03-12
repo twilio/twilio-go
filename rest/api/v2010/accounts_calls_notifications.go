@@ -160,28 +160,15 @@ func (c *ApiService) PageCallNotification(CallSid string, params *ListCallNotifi
 
 // Lists CallNotification records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListCallNotification(CallSid string, params *ListCallNotificationParams) ([]ApiV2010CallNotification, error) {
-	if params == nil {
-		params = &ListCallNotificationParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageCallNotification(CallSid, params, "", "")
+	response, err := c.StreamCallNotification(CallSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ApiV2010CallNotification
+	records := make([]ApiV2010CallNotification, 0)
 
-	for response != nil {
-		records = append(records, response.Notifications...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallNotificationResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListCallNotificationResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -199,18 +186,24 @@ func (c *ApiService) StreamCallNotification(CallSid string, params *ListCallNoti
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ApiV2010CallNotification, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Notifications {
-				channel <- response.Notifications[item]
+			responseRecords := response.Notifications
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListCallNotificationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListCallNotificationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

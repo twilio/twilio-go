@@ -231,28 +231,15 @@ func (c *ApiService) PageSyncListItem(ServiceSid string, ListSid string, params 
 
 // Lists SyncListItem records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListSyncListItem(ServiceSid string, ListSid string, params *ListSyncListItemParams) ([]SyncV1SyncListItem, error) {
-	if params == nil {
-		params = &ListSyncListItemParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageSyncListItem(ServiceSid, ListSid, params, "", "")
+	response, err := c.StreamSyncListItem(ServiceSid, ListSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []SyncV1SyncListItem
+	records := make([]SyncV1SyncListItem, 0)
 
-	for response != nil {
-		records = append(records, response.Items...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncListItemResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListSyncListItemResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -270,18 +257,24 @@ func (c *ApiService) StreamSyncListItem(ServiceSid string, ListSid string, param
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan SyncV1SyncListItem, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Items {
-				channel <- response.Items[item]
+			responseRecords := response.Items
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListSyncListItemResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListSyncListItemResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

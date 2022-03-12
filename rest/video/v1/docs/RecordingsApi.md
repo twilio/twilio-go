@@ -96,7 +96,7 @@ Name | Type | Description
 
 ## ListRecording
 
-> ListRecordingResponse ListRecording(ctx, optional)
+> []VideoV1Recording ListRecording(ctx, optional)
 
 
 
@@ -124,7 +124,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListRecordingResponse**](ListRecordingResponse.md)
+[**[]VideoV1Recording**](VideoV1Recording.md)
 
 ### Authorization
 

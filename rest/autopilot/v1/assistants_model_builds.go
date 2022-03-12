@@ -161,28 +161,15 @@ func (c *ApiService) PageModelBuild(AssistantSid string, params *ListModelBuildP
 
 // Lists ModelBuild records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListModelBuild(AssistantSid string, params *ListModelBuildParams) ([]AutopilotV1ModelBuild, error) {
-	if params == nil {
-		params = &ListModelBuildParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageModelBuild(AssistantSid, params, "", "")
+	response, err := c.StreamModelBuild(AssistantSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []AutopilotV1ModelBuild
+	records := make([]AutopilotV1ModelBuild, 0)
 
-	for response != nil {
-		records = append(records, response.ModelBuilds...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListModelBuildResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListModelBuildResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -200,18 +187,24 @@ func (c *ApiService) StreamModelBuild(AssistantSid string, params *ListModelBuil
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan AutopilotV1ModelBuild, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.ModelBuilds {
-				channel <- response.ModelBuilds[item]
+			responseRecords := response.ModelBuilds
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListModelBuildResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListModelBuildResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

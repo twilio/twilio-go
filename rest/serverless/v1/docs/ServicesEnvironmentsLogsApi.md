@@ -55,7 +55,7 @@ Name | Type | Description
 
 ## ListLog
 
-> ListLogResponse ListLog(ctx, ServiceSidEnvironmentSidoptional)
+> []ServerlessV1Log ListLog(ctx, ServiceSidEnvironmentSidoptional)
 
 
 
@@ -85,7 +85,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListLogResponse**](ListLogResponse.md)
+[**[]ServerlessV1Log**](ServerlessV1Log.md)
 
 ### Authorization
 

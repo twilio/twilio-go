@@ -244,28 +244,15 @@ func (c *ApiService) PageConversationParticipant(ConversationSid string, params 
 
 // Lists ConversationParticipant records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListConversationParticipant(ConversationSid string, params *ListConversationParticipantParams) ([]ConversationsV1ConversationParticipant, error) {
-	if params == nil {
-		params = &ListConversationParticipantParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageConversationParticipant(ConversationSid, params, "", "")
+	response, err := c.StreamConversationParticipant(ConversationSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []ConversationsV1ConversationParticipant
+	records := make([]ConversationsV1ConversationParticipant, 0)
 
-	for response != nil {
-		records = append(records, response.Participants...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConversationParticipantResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListConversationParticipantResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -283,18 +270,24 @@ func (c *ApiService) StreamConversationParticipant(ConversationSid string, param
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan ConversationsV1ConversationParticipant, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Participants {
-				channel <- response.Participants[item]
+			responseRecords := response.Participants
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListConversationParticipantResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListConversationParticipantResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

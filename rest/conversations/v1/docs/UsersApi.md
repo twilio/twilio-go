@@ -142,7 +142,7 @@ Name | Type | Description
 
 ## ListUser
 
-> ListUserResponse ListUser(ctx, optional)
+> []ConversationsV1User ListUser(ctx, optional)
 
 
 
@@ -164,7 +164,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListUserResponse**](ListUserResponse.md)
+[**[]ConversationsV1User**](ConversationsV1User.md)
 
 ### Authorization
 

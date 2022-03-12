@@ -197,28 +197,15 @@ func (c *ApiService) PageWorkflow(WorkspaceSid string, params *ListWorkflowParam
 
 // Lists Workflow records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkflow(WorkspaceSid string, params *ListWorkflowParams) ([]TaskrouterV1Workflow, error) {
-	if params == nil {
-		params = &ListWorkflowParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageWorkflow(WorkspaceSid, params, "", "")
+	response, err := c.StreamWorkflow(WorkspaceSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []TaskrouterV1Workflow
+	records := make([]TaskrouterV1Workflow, 0)
 
-	for response != nil {
-		records = append(records, response.Workflows...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWorkflowResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListWorkflowResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -236,18 +223,24 @@ func (c *ApiService) StreamWorkflow(WorkspaceSid string, params *ListWorkflowPar
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan TaskrouterV1Workflow, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Workflows {
-				channel <- response.Workflows[item]
+			responseRecords := response.Workflows
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWorkflowResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListWorkflowResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

@@ -137,7 +137,7 @@ Name | Type | Description
 
 ## ListCredential
 
-> ListCredentialResponse ListCredential(ctx, optional)
+> []IpMessagingV1Credential ListCredential(ctx, optional)
 
 
 
@@ -157,7 +157,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListCredentialResponse**](ListCredentialResponse.md)
+[**[]IpMessagingV1Credential**](IpMessagingV1Credential.md)
 
 ### Authorization
 

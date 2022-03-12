@@ -132,7 +132,7 @@ Name | Type | Description
 
 ## ListSourceIpMapping
 
-> ListSourceIpMappingResponse ListSourceIpMapping(ctx, optional)
+> []VoiceV1SourceIpMapping ListSourceIpMapping(ctx, optional)
 
 
 
@@ -152,7 +152,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSourceIpMappingResponse**](ListSourceIpMappingResponse.md)
+[**[]VoiceV1SourceIpMapping**](VoiceV1SourceIpMapping.md)
 
 ### Authorization
 

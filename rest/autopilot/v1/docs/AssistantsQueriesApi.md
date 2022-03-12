@@ -140,7 +140,7 @@ Name | Type | Description
 
 ## ListQuery
 
-> ListQueryResponse ListQuery(ctx, AssistantSidoptional)
+> []AutopilotV1Query ListQuery(ctx, AssistantSidoptional)
 
 
 
@@ -168,7 +168,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListQueryResponse**](ListQueryResponse.md)
+[**[]AutopilotV1Query**](AutopilotV1Query.md)
 
 ### Authorization
 

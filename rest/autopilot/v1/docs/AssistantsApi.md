@@ -137,7 +137,7 @@ Name | Type | Description
 
 ## ListAssistant
 
-> ListAssistantResponse ListAssistant(ctx, optional)
+> []AutopilotV1Assistant ListAssistant(ctx, optional)
 
 
 
@@ -157,7 +157,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListAssistantResponse**](ListAssistantResponse.md)
+[**[]AutopilotV1Assistant**](AutopilotV1Assistant.md)
 
 ### Authorization
 

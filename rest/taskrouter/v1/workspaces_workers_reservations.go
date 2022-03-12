@@ -108,28 +108,15 @@ func (c *ApiService) PageWorkerReservation(WorkspaceSid string, WorkerSid string
 
 // Lists WorkerReservation records from the API as a list. Unlike stream, this operation is eager and loads 'limit' records into memory before returning.
 func (c *ApiService) ListWorkerReservation(WorkspaceSid string, WorkerSid string, params *ListWorkerReservationParams) ([]TaskrouterV1WorkerReservation, error) {
-	if params == nil {
-		params = &ListWorkerReservationParams{}
-	}
-	params.SetPageSize(client.ReadLimits(params.PageSize, params.Limit))
-
-	response, err := c.PageWorkerReservation(WorkspaceSid, WorkerSid, params, "", "")
+	response, err := c.StreamWorkerReservation(WorkspaceSid, WorkerSid, params)
 	if err != nil {
 		return nil, err
 	}
 
-	curRecord := 0
-	var records []TaskrouterV1WorkerReservation
+	records := make([]TaskrouterV1WorkerReservation, 0)
 
-	for response != nil {
-		records = append(records, response.Reservations...)
-
-		var record interface{}
-		if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWorkerReservationResponse); record == nil || err != nil {
-			return records, err
-		}
-
-		response = record.(*ListWorkerReservationResponse)
+	for record := range response {
+		records = append(records, record)
 	}
 
 	return records, err
@@ -147,18 +134,24 @@ func (c *ApiService) StreamWorkerReservation(WorkspaceSid string, WorkerSid stri
 		return nil, err
 	}
 
-	curRecord := 0
+	curRecord := 1
 	//set buffer size of the channel to 1
 	channel := make(chan TaskrouterV1WorkerReservation, 1)
 
 	go func() {
 		for response != nil {
-			for item := range response.Reservations {
-				channel <- response.Reservations[item]
+			responseRecords := response.Reservations
+			for item := range responseRecords {
+				channel <- responseRecords[item]
+				curRecord += 1
+				if params.Limit != nil && *params.Limit < curRecord {
+					close(channel)
+					return
+				}
 			}
 
 			var record interface{}
-			if record, err = client.GetNext(c.baseURL, response, &curRecord, params.Limit, c.getNextListWorkerReservationResponse); record == nil || err != nil {
+			if record, err = client.GetNext(c.baseURL, response, c.getNextListWorkerReservationResponse); record == nil || err != nil {
 				close(channel)
 				return
 			}

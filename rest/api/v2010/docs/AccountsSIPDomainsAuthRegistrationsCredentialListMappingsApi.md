@@ -145,7 +145,7 @@ Name | Type | Description
 
 ## ListSipAuthRegistrationsCredentialListMapping
 
-> ListSipAuthRegistrationsCredentialListMappingResponse ListSipAuthRegistrationsCredentialListMapping(ctx, DomainSidoptional)
+> []ApiV2010SipAuthRegistrationsCredentialListMapping ListSipAuthRegistrationsCredentialListMapping(ctx, DomainSidoptional)
 
 
 
@@ -172,7 +172,7 @@ Name | Type | Description
 
 ### Return type
 
-[**ListSipAuthRegistrationsCredentialListMappingResponse**](ListSipAuthRegistrationsCredentialListMappingResponse.md)
+[**[]ApiV2010SipAuthRegistrationsCredentialListMapping**](ApiV2010SipAuthRegistrationsCredentialListMapping.md)
 
 ### Authorization
 
