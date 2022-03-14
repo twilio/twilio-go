@@ -24,12 +24,20 @@ func NewRequestHandler(client BaseClient) *RequestHandler {
 
 func (c *RequestHandler) sendRequest(method string, rawURL string, data url.Values,
 	headers map[string]interface{}) (*http.Response, error) {
-	return c.Client.SendRequest(method, c.BuildUrl(rawURL), data, headers)
+	parsedURL, err := c.BuildUrl(rawURL)
+	if err != nil {
+		return nil, err
+	}
+
+	return c.Client.SendRequest(method, parsedURL, data, headers)
 }
 
 // BuildUrl builds the target host string taking into account region and edge configurations.
-func (c *RequestHandler) BuildUrl(rawURL string) string {
-	u, _ := url.Parse(rawURL)
+func (c *RequestHandler) BuildUrl(rawURL string) (string, error) {
+	u, err := url.Parse(rawURL)
+	if err != nil {
+		return "", err
+	}
 
 	var (
 		edge    = ""
@@ -43,7 +51,7 @@ func (c *RequestHandler) BuildUrl(rawURL string) string {
 	if len(pieces) >= 3 {
 		suffix = strings.Join(pieces[len(pieces)-2:], ".")
 	} else {
-		return u.String()
+		return u.String(), nil
 	}
 
 	if len(pieces) == 4 {
@@ -72,7 +80,7 @@ func (c *RequestHandler) BuildUrl(rawURL string) string {
 	}
 
 	u.Host = strings.Join(result, ".")
-	return u.String()
+	return u.String(), nil
 }
 
 func (c *RequestHandler) Post(path string, bodyData url.Values, headers map[string]interface{}) (*http.Response, error) {
