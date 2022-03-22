@@ -95,7 +95,7 @@ type Meta struct {
 	URL             *string `json:"url"`
 }
 
-type RestClientParams struct {
+type ClientParams struct {
 	Username   string
 	Password   string
 	AccountSid string
@@ -103,7 +103,7 @@ type RestClientParams struct {
 }
 
 // NewRestClientWithParams provides an initialized Twilio RestClient with params.
-func NewRestClientWithParams(params RestClientParams) *RestClient {
+func NewRestClientWithParams(params ClientParams) *RestClient {
 	requestHandler := client.NewRequestHandler(params.Client)
 
 	if params.Client == nil {
@@ -174,7 +174,7 @@ func NewRestClientWithParams(params RestClientParams) *RestClient {
 
 // NewRestClient provides an initialized Twilio RestClient.
 func NewRestClient() *RestClient {
-	return NewRestClientWithParams(RestClientParams{})
+	return NewRestClientWithParams(ClientParams{})
 }
 
 // SetTimeout sets the Timeout for Twilio HTTP requests.
