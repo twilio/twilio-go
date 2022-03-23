@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.2
+ * API version: 1.28.0
  * Contact: support@twilio.com
  */
 
@@ -67,6 +67,10 @@ type ListMediaRecordingParams struct {
 	Order *string `json:"Order,omitempty"`
 	// Status to filter by, with possible values `processing`, `completed`, `deleted`, or `failed`.
 	Status *string `json:"Status,omitempty"`
+	// SID of a MediaProcessor to filter by.
+	ProcessorSid *string `json:"ProcessorSid,omitempty"`
+	// SID of a MediaRecording source to filter by.
+	SourceSid *string `json:"SourceSid,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`
 	// Max number of records to return.
@@ -79,6 +83,14 @@ func (params *ListMediaRecordingParams) SetOrder(Order string) *ListMediaRecordi
 }
 func (params *ListMediaRecordingParams) SetStatus(Status string) *ListMediaRecordingParams {
 	params.Status = &Status
+	return params
+}
+func (params *ListMediaRecordingParams) SetProcessorSid(ProcessorSid string) *ListMediaRecordingParams {
+	params.ProcessorSid = &ProcessorSid
+	return params
+}
+func (params *ListMediaRecordingParams) SetSourceSid(SourceSid string) *ListMediaRecordingParams {
+	params.SourceSid = &SourceSid
 	return params
 }
 func (params *ListMediaRecordingParams) SetPageSize(PageSize int) *ListMediaRecordingParams {
@@ -102,6 +114,12 @@ func (c *ApiService) PageMediaRecording(params *ListMediaRecordingParams, pageTo
 	}
 	if params != nil && params.Status != nil {
 		data.Set("Status", *params.Status)
+	}
+	if params != nil && params.ProcessorSid != nil {
+		data.Set("ProcessorSid", *params.ProcessorSid)
+	}
+	if params != nil && params.SourceSid != nil {
+		data.Set("SourceSid", *params.SourceSid)
 	}
 	if params != nil && params.PageSize != nil {
 		data.Set("PageSize", fmt.Sprint(*params.PageSize))

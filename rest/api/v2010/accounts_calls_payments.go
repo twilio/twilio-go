@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.2
+ * API version: 1.28.0
  * Contact: support@twilio.com
  */
 
@@ -36,7 +36,7 @@ type CreatePaymentsParams struct {
 	Input *string `json:"Input,omitempty"`
 	// A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
 	MinPostalCodeLength *int `json:"MinPostalCodeLength,omitempty"`
-	// A single level JSON string that is required when accepting certain information specific only to ACH payments. The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
+	// A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
 	Parameter *map[string]interface{} `json:"Parameter,omitempty"`
 	// This is the unique name corresponding to the Payment Gateway Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
 	PaymentConnector *string `json:"PaymentConnector,omitempty"`

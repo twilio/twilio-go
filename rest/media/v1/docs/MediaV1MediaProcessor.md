@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **EndedReason** | Pointer to **string** | The reason why a MediaProcessor ended |
 **Extension** | Pointer to **string** | The Media Extension name or URL |
 **ExtensionContext** | Pointer to **string** | The Media Extension context |
-**MaxDuration** | Pointer to **int** | Maximum MediaProcessor duration in minutes |
+**MaxDuration** | Pointer to **int** | Maximum MediaProcessor duration in seconds |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Status** | Pointer to **string** | The status of the MediaProcessor |
 **StatusCallback** | Pointer to **string** | The URL to which Twilio will send MediaProcessor event updates |

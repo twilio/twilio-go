@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.2
+ * API version: 1.28.0
  * Contact: support@twilio.com
  */
 
@@ -25,6 +25,8 @@ type FlexV1Configuration struct {
 	CallRecordingEnabled *bool `json:"call_recording_enabled,omitempty"`
 	// The call recording webhook URL
 	CallRecordingWebhookUrl *string `json:"call_recording_webhook_url,omitempty"`
+	// Flex Conversations channels' attachments configurations
+	ChannelConfigs *[]map[string]interface{} `json:"channel_configs,omitempty"`
 	// The SID of the chat service this user belongs to
 	ChatServiceInstanceSid *string `json:"chat_service_instance_sid,omitempty"`
 	// An object that contains the CRM attributes

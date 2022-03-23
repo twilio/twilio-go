@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.2
+ * API version: 1.28.0
  * Contact: support@twilio.com
  */
 
@@ -19,12 +19,6 @@ import (
 type SupersimV1Fleet struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
-	// Deprecated
-	CommandsEnabled *bool `json:"commands_enabled,omitempty"`
-	// Deprecated
-	CommandsMethod *string `json:"commands_method,omitempty"`
-	// Deprecated
-	CommandsUrl *string `json:"commands_url,omitempty"`
 	// Defines whether SIMs in the Fleet are capable of using data connectivity
 	DataEnabled *bool `json:"data_enabled,omitempty"`
 	// The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume

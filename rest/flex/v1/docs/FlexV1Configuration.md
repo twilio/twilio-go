@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Attributes** | Pointer to **map[string]interface{}** | An object that contains application-specific data |
 **CallRecordingEnabled** | Pointer to **bool** | Whether call recording is enabled |
 **CallRecordingWebhookUrl** | Pointer to **string** | The call recording webhook URL |
+**ChannelConfigs** | Pointer to **[]map[string]interface{}** | Flex Conversations channels' attachments configurations |
 **ChatServiceInstanceSid** | Pointer to **string** | The SID of the chat service this user belongs to |
 **CrmAttributes** | Pointer to **map[string]interface{}** | An object that contains the CRM attributes |
 **CrmCallbackUrl** | Pointer to **string** | The CRM Callback URL |

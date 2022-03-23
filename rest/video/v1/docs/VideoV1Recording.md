@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 **Size** | Pointer to **int** | The size of the recorded track, in bytes |
 **SourceSid** | Pointer to **string** | The SID of the recording source |
 **Status** | Pointer to **string** | The status of the recording |
+**StatusCallback** | Pointer to **string** | The URL called to send status information on every recording event. |
+**StatusCallbackMethod** | Pointer to **string** | The HTTP method used to call `status_callback` |
 **TrackName** | Pointer to **string** | The name that was given to the source track of the recording |
 **Type** | Pointer to **string** | The recording's media type |
 **Url** | Pointer to **string** | The absolute URL of the resource |

@@ -5,9 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**CommandsEnabled** | Pointer to **bool** | Deprecated |
-**CommandsMethod** | Pointer to **string** | Deprecated |
-**CommandsUrl** | Pointer to **string** | Deprecated |
 **DataEnabled** | Pointer to **bool** | Defines whether SIMs in the Fleet are capable of using data connectivity |
 **DataLimit** | Pointer to **int** | The total data usage (download and upload combined) in Megabytes that each Sim resource assigned to the Fleet resource can consume |
 **DataMetering** | Pointer to **string** | The model by which a SIM is metered and billed |

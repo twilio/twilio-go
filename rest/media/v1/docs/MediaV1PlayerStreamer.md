@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **EndedReason** | Pointer to **string** | The reason why a PlayerStreamer ended |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
+**MaxDuration** | Pointer to **int** | Maximum PlayerStreamer duration in seconds |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Status** | Pointer to **string** | The status of the PlayerStreamer |
 **StatusCallback** | Pointer to **string** | The URL to which Twilio will send PlayerStreamer event updates |

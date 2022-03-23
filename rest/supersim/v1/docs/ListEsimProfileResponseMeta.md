@@ -1,4 +1,4 @@
-# ListCommandResponseMeta
+# ListEsimProfileResponseMeta
 
 ## Properties
 

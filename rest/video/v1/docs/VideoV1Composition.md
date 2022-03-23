@@ -20,6 +20,8 @@ Name | Type | Description | Notes
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Size** | Pointer to **int** | The size of the composed media file in bytes |
 **Status** | Pointer to **string** | The status of the composition |
+**StatusCallback** | Pointer to **string** | The URL called to send status information on every composition event. |
+**StatusCallbackMethod** | Pointer to **string** | The HTTP method used to call `status_callback` |
 **Trim** | Pointer to **bool** | Whether to remove intervals with no media |
 **Url** | Pointer to **string** | The absolute URL of the resource |
 **VideoLayout** | Pointer to **map[string]interface{}** | An object that describes the video layout of the composition |

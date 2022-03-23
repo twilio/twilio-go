@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.2
+ * API version: 1.28.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListNetworkAccessProfileNetworkResponse struct for ListNetworkAccessProfileNetworkResponse
 type ListNetworkAccessProfileNetworkResponse struct {
-	Meta     ListCommandResponseMeta                 `json:"meta,omitempty"`
+	Meta     ListEsimProfileResponseMeta             `json:"meta,omitempty"`
 	Networks []SupersimV1NetworkAccessProfileNetwork `json:"networks,omitempty"`
 }

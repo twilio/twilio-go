@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.2
+ * API version: 1.28.0
  * Contact: support@twilio.com
  */
 
@@ -43,6 +43,10 @@ type VideoV1Recording struct {
 	SourceSid *string `json:"source_sid,omitempty"`
 	// The status of the recording
 	Status *string `json:"status,omitempty"`
+	// The URL called to send status information on every recording event.
+	StatusCallback *string `json:"status_callback,omitempty"`
+	// The HTTP method used to call `status_callback`
+	StatusCallbackMethod *string `json:"status_callback_method,omitempty"`
 	// The name that was given to the source track of the recording
 	TrackName *string `json:"track_name,omitempty"`
 	// The recording's media type

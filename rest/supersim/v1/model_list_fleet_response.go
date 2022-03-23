@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.2
+ * API version: 1.28.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListFleetResponse struct for ListFleetResponse
 type ListFleetResponse struct {
-	Fleets []SupersimV1Fleet       `json:"fleets,omitempty"`
-	Meta   ListCommandResponseMeta `json:"meta,omitempty"`
+	Fleets []SupersimV1Fleet           `json:"fleets,omitempty"`
+	Meta   ListEsimProfileResponseMeta `json:"meta,omitempty"`
 }

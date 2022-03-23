@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.2
+ * API version: 1.28.0
  * Contact: support@twilio.com
  */
 
@@ -27,6 +27,8 @@ type MediaV1PlayerStreamer struct {
 	EndedReason *string `json:"ended_reason,omitempty"`
 	// The URLs of related resources
 	Links *map[string]interface{} `json:"links,omitempty"`
+	// Maximum PlayerStreamer duration in seconds
+	MaxDuration *int `json:"max_duration,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// The status of the PlayerStreamer

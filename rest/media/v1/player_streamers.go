@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.2
+ * API version: 1.28.0
  * Contact: support@twilio.com
  */
 
@@ -22,6 +22,8 @@ import (
 
 // Optional parameters for the method 'CreatePlayerStreamer'
 type CreatePlayerStreamerParams struct {
+	// The maximum time, in seconds, that the PlayerStreamer can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the PlayerStreamer, regardless of whether media is still streaming.
+	MaxDuration *int `json:"MaxDuration,omitempty"`
 	// The URL to which Twilio will send asynchronous webhook requests for every PlayerStreamer event. See [Status Callbacks](/docs/live/status-callbacks) for more details.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method Twilio should use to call the `status_callback` URL. Can be `POST` or `GET` and the default is `POST`.
@@ -30,6 +32,10 @@ type CreatePlayerStreamerParams struct {
 	Video *bool `json:"Video,omitempty"`
 }
 
+func (params *CreatePlayerStreamerParams) SetMaxDuration(MaxDuration int) *CreatePlayerStreamerParams {
+	params.MaxDuration = &MaxDuration
+	return params
+}
 func (params *CreatePlayerStreamerParams) SetStatusCallback(StatusCallback string) *CreatePlayerStreamerParams {
 	params.StatusCallback = &StatusCallback
 	return params
@@ -49,6 +55,9 @@ func (c *ApiService) CreatePlayerStreamer(params *CreatePlayerStreamerParams) (*
 	data := url.Values{}
 	headers := make(map[string]interface{})
 
+	if params != nil && params.MaxDuration != nil {
+		data.Set("MaxDuration", fmt.Sprint(*params.MaxDuration))
+	}
 	if params != nil && params.StatusCallback != nil {
 		data.Set("StatusCallback", *params.StatusCallback)
 	}

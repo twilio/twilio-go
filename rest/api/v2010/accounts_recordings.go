@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.2
+ * API version: 1.28.0
  * Contact: support@twilio.com
  */
 
@@ -59,7 +59,7 @@ func (c *ApiService) DeleteRecording(Sid string, params *DeleteRecordingParams) 
 type FetchRecordingParams struct {
 	// The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resource to fetch.
 	PathAccountSid *string `json:"PathAccountSid,omitempty"`
-	// A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings are kept after deletion for a retention period of 40 days.
+	// A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 	IncludeSoftDeleted *bool `json:"IncludeSoftDeleted,omitempty"`
 }
 
@@ -118,7 +118,7 @@ type ListRecordingParams struct {
 	CallSid *string `json:"CallSid,omitempty"`
 	// The Conference SID that identifies the conference associated with the recording to read.
 	ConferenceSid *string `json:"ConferenceSid,omitempty"`
-	// A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings are kept after deletion for a retention period of 40 days.
+	// A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 	IncludeSoftDeleted *bool `json:"IncludeSoftDeleted,omitempty"`
 	// How many resources to return in each list page. The default is 50, and the maximum is 1000.
 	PageSize *int `json:"PageSize,omitempty"`

@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.27.2
+ * API version: 1.28.0
  * Contact: support@twilio.com
  */
 
@@ -13,6 +13,6 @@ package openapi
 
 // ListSmsCommandResponse struct for ListSmsCommandResponse
 type ListSmsCommandResponse struct {
-	Meta        ListCommandResponseMeta `json:"meta,omitempty"`
-	SmsCommands []SupersimV1SmsCommand  `json:"sms_commands,omitempty"`
+	Meta        ListEsimProfileResponseMeta `json:"meta,omitempty"`
+	SmsCommands []SupersimV1SmsCommand      `json:"sms_commands,omitempty"`
 }

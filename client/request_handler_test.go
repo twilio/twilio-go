@@ -54,7 +54,7 @@ func TestRequestHandler_BuildUrlInvalidCTLCharacter(t *testing.T) {
 	requestHandler := NewRequestHandler("user", "pass")
 	rawURL := "https://api.twilio.com/ServiceId\n"
 	parsedURL, err := requestHandler.BuildUrl(rawURL)
-	
+
 	expectedErr := url.Error{Op: "parse", URL: rawURL, Err: errors.New("net/url: invalid control character in URL")}
 	assert.Equal(t, &expectedErr, err)
 	assert.Equal(t, parsedURL, "")
