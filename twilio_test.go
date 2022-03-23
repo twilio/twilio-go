@@ -7,7 +7,7 @@ import (
 )
 
 func TestClient_WithParams(t *testing.T) {
-	client := NewRestClientWithParams(RestClientParams{
+	client := NewRestClientWithParams(ClientParams{
 		Username:   "parentSid",
 		Password:   "authToken",
 		AccountSid: "subAccountSid",
@@ -17,7 +17,7 @@ func TestClient_WithParams(t *testing.T) {
 }
 
 func TestClient_WithNoAccountSid(t *testing.T) {
-	client := NewRestClientWithParams(RestClientParams{
+	client := NewRestClientWithParams(ClientParams{
 		Username: "parentSid",
 		Password: "authToken",
 	})
