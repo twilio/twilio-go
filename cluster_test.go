@@ -19,8 +19,11 @@ var testClient *RestClient
 func TestMain(m *testing.M) {
 	from = os.Getenv("TWILIO_FROM_NUMBER")
 	to = os.Getenv("TWILIO_TO_NUMBER")
+	var apiKey = os.Getenv("TWILIO_API_KEY");
+	var secret = os.Getenv("TWILIO_API_SECRET");
+	var accountSid = os.Getenv("TWILIO_ACCOUNT_SID");
 
-	testClient = NewRestClient()
+	testClient = NewRestClientWithParams(ClientParams{apiKey, secret, accountSid, nil})
 	ret := m.Run()
 	os.Exit(ret)
 }
