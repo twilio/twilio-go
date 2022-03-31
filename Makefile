@@ -13,16 +13,16 @@ cluster-test:
 	go test --tags=cluster
 
 goimports:
-	go get golang.org/x/tools/cmd/goimports
+	go mod tidy
+	go install golang.org/x/tools/cmd/goimports@latest
 	goimports -w .
 
 govet: goimports
 	go vet ./...
 
 golint: govet
-	go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.39.0
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.39.0
 	golangci-lint run
-	go mod tidy
 
 API_DEFINITIONS_SHA=$(shell git log --oneline | grep Regenerated | head -n1 | cut -d ' ' -f 5)
 docker-build:
