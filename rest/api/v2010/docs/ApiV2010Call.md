@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created this resource |
-**Annotation** | Pointer to **string** | The annotation provided for the call |
 **AnsweredBy** | Pointer to **string** | Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise. |
 **ApiVersion** | Pointer to **string** | The API Version used to create the call |
 **CallerName** | Pointer to **string** | The caller's name if this call was an incoming call to a phone number with caller ID Lookup enabled. Otherwise, empty. |

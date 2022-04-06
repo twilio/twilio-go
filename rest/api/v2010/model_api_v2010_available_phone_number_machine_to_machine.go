@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.28.0
+ * API version: 1.28.1
  * Contact: support@twilio.com
  */
 
@@ -25,11 +25,11 @@ type ApiV2010AvailablePhoneNumberMachineToMachine struct {
 	// The LATA of this phone number
 	Lata *string `json:"lata,omitempty"`
 	// The latitude of this phone number's location
-	Latitude *float32 `json:"latitude,omitempty"`
+	Latitude *string `json:"latitude,omitempty"`
 	// The locality or city of this phone number's location
 	Locality *string `json:"locality,omitempty"`
 	// The longitude of this phone number's location
-	Longitude *float32 `json:"longitude,omitempty"`
+	Longitude *string `json:"longitude,omitempty"`
 	// The phone number in E.164 format
 	PhoneNumber *string `json:"phone_number,omitempty"`
 	// The postal or ZIP code of this phone number's location

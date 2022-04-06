@@ -53,6 +53,7 @@ type RestClient struct {
 	BulkexportsV1   *BulkexportsV1.ApiService
 	ChatV1          *ChatV1.ApiService
 	ChatV2          *ChatV2.ApiService
+	ChatV3          *ChatV3.ApiService
 	ConversationsV1 *ConversationsV1.ApiService
 	EventsV1        *EventsV1.ApiService
 	FaxV1           *FaxV1.ApiService
@@ -82,7 +83,6 @@ type RestClient struct {
 	VideoV1         *VideoV1.ApiService
 	VoiceV1         *VoiceV1.ApiService
 	WirelessV1      *WirelessV1.ApiService
-	ChatV3          *ChatV3.ApiService
 }
 
 // Meta holds relevant pagination resources.
@@ -141,6 +141,7 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.BulkexportsV1 = BulkexportsV1.NewApiService(c.RequestHandler)
 	c.ChatV1 = ChatV1.NewApiService(c.RequestHandler)
 	c.ChatV2 = ChatV2.NewApiService(c.RequestHandler)
+	c.ChatV3 = ChatV3.NewApiService(c.RequestHandler)
 	c.ConversationsV1 = ConversationsV1.NewApiService(c.RequestHandler)
 	c.EventsV1 = EventsV1.NewApiService(c.RequestHandler)
 	c.FaxV1 = FaxV1.NewApiService(c.RequestHandler)
@@ -170,7 +171,6 @@ func NewRestClientWithParams(params ClientParams) *RestClient {
 	c.VideoV1 = VideoV1.NewApiService(c.RequestHandler)
 	c.VoiceV1 = VoiceV1.NewApiService(c.RequestHandler)
 	c.WirelessV1 = WirelessV1.NewApiService(c.RequestHandler)
-	c.ChatV3 = ChatV3.NewApiService(c.RequestHandler)
 
 	return c
 }

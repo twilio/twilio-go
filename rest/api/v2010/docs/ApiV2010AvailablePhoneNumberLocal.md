@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **FriendlyName** | Pointer to **string** | A formatted version of the phone number |
 **IsoCountry** | Pointer to **string** | The ISO country code of this phone number |
 **Lata** | Pointer to **string** | The LATA of this phone number |
-**Latitude** | Pointer to **float32** | The latitude of this phone number's location |
+**Latitude** | Pointer to **string** | The latitude of this phone number's location |
 **Locality** | Pointer to **string** | The locality or city of this phone number's location |
-**Longitude** | Pointer to **float32** | The longitude of this phone number's location |
+**Longitude** | Pointer to **string** | The longitude of this phone number's location |
 **PhoneNumber** | Pointer to **string** | The phone number in E.164 format |
 **PostalCode** | Pointer to **string** | The postal or ZIP code of this phone number's location |
 **RateCenter** | Pointer to **string** | The rate center of this phone number |

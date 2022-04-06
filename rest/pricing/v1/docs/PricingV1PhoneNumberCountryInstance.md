@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Country** | Pointer to **string** | The name of the country |
 **IsoCountry** | Pointer to **string** | The ISO country code  |
-**PhoneNumberPrices** | Pointer to [**[]PricingV1MessagingMessagingCountryInstanceInboundSmsPrices**](PricingV1MessagingMessagingCountryInstanceInboundSmsPrices.md) | The list of PhoneNumberPrices records |
+**PhoneNumberPrices** | Pointer to [**[]PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices**](PricingV1PhoneNumberPhoneNumberCountryInstancePhoneNumberPrices.md) | The list of PhoneNumberPrices records |
 **PriceUnit** | Pointer to **string** | The currency in which prices are measured, in ISO 4127 format (e.g. usd, eur, jpy) |
 **Url** | Pointer to **string** | The absolute URL of the resource |
 

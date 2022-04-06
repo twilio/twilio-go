@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.28.0
+ * API version: 1.28.1
  * Contact: support@twilio.com
  */
 
@@ -16,7 +16,7 @@ type PricingV1VoiceCountryInstance struct {
 	// The name of the country
 	Country *string `json:"country,omitempty"`
 	// The list of InboundCallPrice records
-	InboundCallPrices *[]PricingV1MessagingMessagingCountryInstanceInboundSmsPrices `json:"inbound_call_prices,omitempty"`
+	InboundCallPrices *[]PricingV1VoiceVoiceCountryInstanceInboundCallPrices `json:"inbound_call_prices,omitempty"`
 	// The ISO country code
 	IsoCountry *string `json:"iso_country,omitempty"`
 	// The list of OutboundPrefixPrice records

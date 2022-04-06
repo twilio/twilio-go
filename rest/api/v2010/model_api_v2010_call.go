@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.28.0
+ * API version: 1.28.1
  * Contact: support@twilio.com
  */
 
@@ -15,8 +15,6 @@ package openapi
 type ApiV2010Call struct {
 	// The SID of the Account that created this resource
 	AccountSid *string `json:"account_sid,omitempty"`
-	// The annotation provided for the call
-	Annotation *string `json:"annotation,omitempty"`
 	// Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise.
 	AnsweredBy *string `json:"answered_by,omitempty"`
 	// The API Version used to create the call

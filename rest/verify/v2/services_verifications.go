@@ -3,7 +3,7 @@
  *
  * This is the public Twilio REST API.
  *
- * API version: 1.28.0
+ * API version: 1.28.1
  * Contact: support@twilio.com
  */
 
@@ -25,7 +25,7 @@ type CreateVerificationParams struct {
 	AppHash *string `json:"AppHash,omitempty"`
 	// The verification method to use. Can be: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp` or `call`.
 	Channel *string `json:"Channel,omitempty"`
-	// [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. Must include 'from' and 'from_name'.
+	// [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
 	ChannelConfiguration *map[string]interface{} `json:"ChannelConfiguration,omitempty"`
 	// A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive.
 	CustomCode *string `json:"CustomCode,omitempty"`

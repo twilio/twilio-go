@@ -36,7 +36,7 @@ Name | Type | Description
 **Amount** | **string** | The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 **AppHash** | **string** | Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: &#x60;&lt;#&gt; Your AppName verification code is: 1234 He42w354ol9&#x60;.
 **Channel** | **string** | The verification method to use. Can be: [&#x60;email&#x60;](https://www.twilio.com/docs/verify/email), &#x60;sms&#x60;, &#x60;whatsapp&#x60; or &#x60;call&#x60;.
-**ChannelConfiguration** | [**map[string]interface{}**](map[string]interface{}.md) | [&#x60;email&#x60;](https://www.twilio.com/docs/verify/email) channel configuration in json format. Must include &#39;from&#39; and &#39;from_name&#39;.
+**ChannelConfiguration** | [**map[string]interface{}**](map[string]interface{}.md) | [&#x60;email&#x60;](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields &#39;from&#39; and &#39;from_name&#39; are optional but if included the &#39;from&#39; field must have a valid email address.
 **CustomCode** | **string** | A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive.
 **CustomFriendlyName** | **string** | A custom user defined friendly name that overwrites the existing one in the verification message
 **CustomMessage** | **string** | The text of a custom message to use for the verification.
