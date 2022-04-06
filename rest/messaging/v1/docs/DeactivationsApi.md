@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## FetchDeactivation
 
-> FetchDeactivation(ctx, optional)
+> MessagingV1Deactivation FetchDeactivation(ctx, optional)
 
 
 
@@ -31,7 +31,7 @@ Name | Type | Description
 
 ### Return type
 
- (empty response body)
+[**MessagingV1Deactivation**](MessagingV1Deactivation.md)
 
 ### Authorization
 

@@ -21,7 +21,7 @@ import (
 )
 
 // Fetch a specific Day.
-func (c *ApiService) FetchDay(ResourceType string, Day string) error {
+func (c *ApiService) FetchDay(ResourceType string, Day string) (*BulkexportsV1DayInstance, error) {
 	path := "/v1/Exports/{ResourceType}/Days/{Day}"
 	path = strings.Replace(path, "{"+"ResourceType"+"}", ResourceType, -1)
 	path = strings.Replace(path, "{"+"Day"+"}", Day, -1)
@@ -31,12 +31,17 @@ func (c *ApiService) FetchDay(ResourceType string, Day string) error {
 
 	resp, err := c.requestHandler.Get(c.baseURL+path, data, headers)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	defer resp.Body.Close()
 
-	return nil
+	ps := &BulkexportsV1DayInstance{}
+	if err := json.NewDecoder(resp.Body).Decode(ps); err != nil {
+		return nil, err
+	}
+
+	return ps, err
 }
 
 // Optional parameters for the method 'ListDay'

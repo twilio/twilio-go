@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## FetchDay
 
-> FetchDay(ctx, ResourceTypeDay)
+> BulkexportsV1DayInstance FetchDay(ctx, ResourceTypeDay)
 
 
 
@@ -36,7 +36,7 @@ Name | Type | Description
 
 ### Return type
 
- (empty response body)
+[**BulkexportsV1DayInstance**](BulkexportsV1DayInstance.md)
 
 ### Authorization
 
