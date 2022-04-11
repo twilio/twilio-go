@@ -20,7 +20,7 @@ type ConversationsV1ConversationScopedWebhook struct {
 	// The unique ID of the Account responsible for this conversation.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The configuration of this webhook.
-	Configuration *map[string]interface{} `json:"configuration,omitempty"`
+	Configuration *interface{} `json:"configuration,omitempty"`
 	// The unique ID of the Conversation for this webhook.
 	ConversationSid *string `json:"conversation_sid,omitempty"`
 	// The date that this resource was created.

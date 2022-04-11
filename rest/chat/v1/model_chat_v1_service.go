@@ -34,11 +34,11 @@ type ChatV1Service struct {
 	// The string that you assigned to describe the resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// An object that describes the limits of the service instance
-	Limits *map[string]interface{} `json:"limits,omitempty"`
+	Limits *interface{} `json:"limits,omitempty"`
 	// The absolute URLs of the Service's Channels, Roles, and Users
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// The notification configuration for the Service instance
-	Notifications *map[string]interface{} `json:"notifications,omitempty"`
+	Notifications *interface{} `json:"notifications,omitempty"`
 	// The URL for post-event webhooks
 	PostWebhookUrl *string `json:"post_webhook_url,omitempty"`
 	// The webhook URL for pre-event webhooks
@@ -58,5 +58,5 @@ type ChatV1Service struct {
 	// The HTTP method  to use for both PRE and POST webhooks
 	WebhookMethod *string `json:"webhook_method,omitempty"`
 	// An object that contains information about the webhooks configured for this service
-	Webhooks *map[string]interface{} `json:"webhooks,omitempty"`
+	Webhooks *interface{} `json:"webhooks,omitempty"`
 }

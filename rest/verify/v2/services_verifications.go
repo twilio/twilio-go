@@ -26,7 +26,7 @@ type CreateVerificationParams struct {
 	// The verification method to use. Can be: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp` or `call`.
 	Channel *string `json:"Channel,omitempty"`
 	// [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
-	ChannelConfiguration *map[string]interface{} `json:"ChannelConfiguration,omitempty"`
+	ChannelConfiguration *interface{} `json:"ChannelConfiguration,omitempty"`
 	// A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive.
 	CustomCode *string `json:"CustomCode,omitempty"`
 	// A custom user defined friendly name that overwrites the existing one in the verification message
@@ -38,7 +38,7 @@ type CreateVerificationParams struct {
 	// The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
 	Payee *string `json:"Payee,omitempty"`
 	// The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
-	RateLimits *map[string]interface{} `json:"RateLimits,omitempty"`
+	RateLimits *interface{} `json:"RateLimits,omitempty"`
 	// The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).
 	SendDigits *string `json:"SendDigits,omitempty"`
 	// A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
@@ -61,7 +61,7 @@ func (params *CreateVerificationParams) SetChannel(Channel string) *CreateVerifi
 	params.Channel = &Channel
 	return params
 }
-func (params *CreateVerificationParams) SetChannelConfiguration(ChannelConfiguration map[string]interface{}) *CreateVerificationParams {
+func (params *CreateVerificationParams) SetChannelConfiguration(ChannelConfiguration interface{}) *CreateVerificationParams {
 	params.ChannelConfiguration = &ChannelConfiguration
 	return params
 }
@@ -85,7 +85,7 @@ func (params *CreateVerificationParams) SetPayee(Payee string) *CreateVerificati
 	params.Payee = &Payee
 	return params
 }
-func (params *CreateVerificationParams) SetRateLimits(RateLimits map[string]interface{}) *CreateVerificationParams {
+func (params *CreateVerificationParams) SetRateLimits(RateLimits interface{}) *CreateVerificationParams {
 	params.RateLimits = &RateLimits
 	return params
 }

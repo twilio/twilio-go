@@ -28,8 +28,8 @@ Other parameters are passed through a pointer to a CreateInteractionParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Channel** | [**map[string]interface{}**](map[string]interface{}.md) | The Interaction&#39;s channel.
-**Routing** | [**map[string]interface{}**](map[string]interface{}.md) | The Interaction&#39;s routing logic.
+**Channel** | [**interface{}**](interface{}.md) | The Interaction&#39;s channel.
+**Routing** | [**interface{}**](interface{}.md) | The Interaction&#39;s routing logic.
 
 ### Return type
 

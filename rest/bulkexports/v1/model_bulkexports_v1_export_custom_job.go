@@ -14,7 +14,7 @@ package openapi
 // BulkexportsV1ExportCustomJob struct for BulkexportsV1ExportCustomJob
 type BulkexportsV1ExportCustomJob struct {
 	// The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
-	Details *map[string]interface{} `json:"details,omitempty"`
+	Details *interface{} `json:"details,omitempty"`
 	// The optional email to send the completion notification to
 	Email *string `json:"email,omitempty"`
 	// The end day for the custom export specified as a string in the format of yyyy-MM-dd. This will be the last day exported. For instance, to export a single day, choose the same day for start and end day. To export the first 4 days of July, you would set the start date to 2020-07-01 and the end date to 2020-07-04. The end date must be the UTC day before yesterday.

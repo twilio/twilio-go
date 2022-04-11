@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
 **AddressRequirements** | Pointer to **string** | Whether the phone number requires an Address registered with Twilio |
 **ApiVersion** | Pointer to **string** | The API version used to start a new TwiML session |
-**Capabilities** | Pointer to **map[string]interface{}** | Indicate if a phone can receive calls or messages |
+**Capabilities** | Pointer to **interface{}** | Indicate if a phone can receive calls or messages |
 **DateCreated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was created |
 **DateUpdated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was last updated |
 **EmergencyAddressSid** | Pointer to **string** | The emergency address configuration to use for emergency calling |

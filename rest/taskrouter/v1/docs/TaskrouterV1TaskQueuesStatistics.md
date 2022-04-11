@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**Cumulative** | Pointer to **map[string]interface{}** | An object that contains the cumulative statistics for the TaskQueues |
-**Realtime** | Pointer to **map[string]interface{}** | An object that contains the real-time statistics for the TaskQueues |
+**Cumulative** | Pointer to **interface{}** | An object that contains the cumulative statistics for the TaskQueues |
+**Realtime** | Pointer to **interface{}** | An object that contains the real-time statistics for the TaskQueues |
 **TaskQueueSid** | Pointer to **string** | The SID of the TaskQueue from which these statistics were calculated |
 **WorkspaceSid** | Pointer to **string** | The SID of the Workspace that contains the TaskQueues |
 

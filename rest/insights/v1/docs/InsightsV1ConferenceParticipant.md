@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **ConferenceSid** | Pointer to **string** | Conference SID. |
 **CountryCode** | Pointer to **string** | ISO alpha-2 country code of the participant. |
 **DurationSeconds** | Pointer to **int** | Participant durations in seconds. |
-**Events** | Pointer to **map[string]interface{}** | Object containing information of actions taken by participants. Nested resource URLs. |
+**Events** | Pointer to **interface{}** | Object containing information of actions taken by participants. Nested resource URLs. |
 **From** | Pointer to **string** | Caller ID of the calling party. |
 **IsCoach** | Pointer to **bool** | Boolean. Indicated whether participant was a coach. |
 **IsModerator** | Pointer to **bool** | Boolean. Indicates whether participant had startConferenceOnEnter=true or endConferenceOnExit=true. |
@@ -22,13 +22,13 @@ Name | Type | Description | Notes
 **JoinTime** | Pointer to [**time.Time**](time.Time.md) | ISO 8601 timestamp of participant join event. |
 **Label** | Pointer to **string** | The user-specified label of this participant. |
 **LeaveTime** | Pointer to [**time.Time**](time.Time.md) | ISO 8601 timestamp of participant leave event. |
-**Metrics** | Pointer to **map[string]interface{}** | Object. Contains participant quality metrics. |
+**Metrics** | Pointer to **interface{}** | Object. Contains participant quality metrics. |
 **OutboundQueueLength** | Pointer to **int** | Estimated time in queue at call creation. |
 **OutboundTimeInQueue** | Pointer to **int** | Actual time in queue (seconds). |
 **ParticipantRegion** | Pointer to **string** | Twilio region where the participant media originates. |
 **ParticipantSid** | Pointer to **string** | SID for this participant. |
 **ProcessingState** | Pointer to **string** | Processing state of the Participant Summary. |
-**Properties** | Pointer to **map[string]interface{}** | Participant properties and metadata. |
+**Properties** | Pointer to **interface{}** | Participant properties and metadata. |
 **To** | Pointer to **string** | Called party. |
 **Url** | Pointer to **string** | The URL of this resource. |
 

@@ -16,7 +16,7 @@ type StudioV1StepContext struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The current state of the flow
-	Context *map[string]interface{} `json:"context,omitempty"`
+	Context *interface{} `json:"context,omitempty"`
 	// The SID of the Engagement
 	EngagementSid *string `json:"engagement_sid,omitempty"`
 	// The SID of the Flow

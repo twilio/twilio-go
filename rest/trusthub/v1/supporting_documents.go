@@ -23,14 +23,14 @@ import (
 // Optional parameters for the method 'CreateSupportingDocument'
 type CreateSupportingDocumentParams struct {
 	// The set of parameters that are the attributes of the Supporting Documents resource which are derived Supporting Document Types.
-	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
+	Attributes *interface{} `json:"Attributes,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The type of the Supporting Document.
 	Type *string `json:"Type,omitempty"`
 }
 
-func (params *CreateSupportingDocumentParams) SetAttributes(Attributes map[string]interface{}) *CreateSupportingDocumentParams {
+func (params *CreateSupportingDocumentParams) SetAttributes(Attributes interface{}) *CreateSupportingDocumentParams {
 	params.Attributes = &Attributes
 	return params
 }
@@ -251,12 +251,12 @@ func (c *ApiService) getNextListSupportingDocumentResponse(nextPageUrl string) (
 // Optional parameters for the method 'UpdateSupportingDocument'
 type UpdateSupportingDocumentParams struct {
 	// The set of parameters that are the attributes of the Supporting Document resource which are derived Supporting Document Types.
-	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
+	Attributes *interface{} `json:"Attributes,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *UpdateSupportingDocumentParams) SetAttributes(Attributes map[string]interface{}) *UpdateSupportingDocumentParams {
+func (params *UpdateSupportingDocumentParams) SetAttributes(Attributes interface{}) *UpdateSupportingDocumentParams {
 	params.Attributes = &Attributes
 	return params
 }

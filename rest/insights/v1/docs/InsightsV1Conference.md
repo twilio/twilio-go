@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **ConferenceSid** | Pointer to **string** | Conference SID. |
 **ConnectDurationSeconds** | Pointer to **int** | Duration of the conference in seconds. |
 **CreateTime** | Pointer to [**time.Time**](time.Time.md) | Conference creation date/time. |
-**DetectedIssues** | Pointer to **map[string]interface{}** | Potential issues detected during the conference. |
+**DetectedIssues** | Pointer to **interface{}** | Potential issues detected during the conference. |
 **DurationSeconds** | Pointer to **int** | Conference duration in seconds. |
 **EndReason** | Pointer to **string** | Conference end reason. |
 **EndTime** | Pointer to [**time.Time**](time.Time.md) | Conference end date/time. |
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **RecordingEnabled** | Pointer to **bool** | Boolean. Indicates whether recording was enabled. |
 **StartTime** | Pointer to [**time.Time**](time.Time.md) | Timestamp in ISO 8601 format when the conference started. |
 **Status** | Pointer to **string** | Status of conference |
-**TagInfo** | Pointer to **map[string]interface{}** | Object. Contains details about conference tags. |
+**TagInfo** | Pointer to **interface{}** | Object. Contains details about conference tags. |
 **Tags** | Pointer to **[]string** | Tags for detected conference conditions and participant behaviors. |
 **UniqueParticipants** | Pointer to **int** | Unique conference participants. |
 **Url** | Pointer to **string** | The URL of this resource. |

@@ -175,12 +175,12 @@ func (c *ApiService) getNextListInteractionChannelResponse(nextPageUrl string) (
 // Optional parameters for the method 'UpdateInteractionChannel'
 type UpdateInteractionChannelParams struct {
 	// The Interaction Channel's routing parameters.  Optional, may contain `status` to set the agent's Reservation state to either `closed` or `wrapup`.  Default is `wrapup` if unspecified.
-	Routing *map[string]interface{} `json:"Routing,omitempty"`
+	Routing *interface{} `json:"Routing,omitempty"`
 	// The Interaction Channel's status. Can be: `closed` or `wrapup`.
 	Status *string `json:"Status,omitempty"`
 }
 
-func (params *UpdateInteractionChannelParams) SetRouting(Routing map[string]interface{}) *UpdateInteractionChannelParams {
+func (params *UpdateInteractionChannelParams) SetRouting(Routing interface{}) *UpdateInteractionChannelParams {
 	params.Routing = &Routing
 	return params
 }

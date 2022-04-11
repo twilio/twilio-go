@@ -13,11 +13,11 @@ Name | Type | Description | Notes
 **ConversationFriendlyName** | Pointer to **string** | The human-readable name of this conversation. |
 **ConversationSid** | Pointer to **string** | The unique ID of the Conversation this Participant belongs to. |
 **ConversationState** | Pointer to **string** | The current state of this User Conversation |
-**ConversationTimers** | Pointer to **map[string]interface{}** | Timer date values for this conversation. |
+**ConversationTimers** | Pointer to **interface{}** | Timer date values for this conversation. |
 **ConversationUniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the Conversation resource |
 **Links** | Pointer to **map[string]interface{}** | Absolute URLs to access the participant and conversation of this Participant Conversation. |
 **ParticipantIdentity** | Pointer to **string** | A unique string identifier for the conversation participant as Conversation User. |
-**ParticipantMessagingBinding** | Pointer to **map[string]interface{}** | Information about how this participant exchanges messages with the conversation. |
+**ParticipantMessagingBinding** | Pointer to **interface{}** | Information about how this participant exchanges messages with the conversation. |
 **ParticipantSid** | Pointer to **string** | The unique ID of the Participant. |
 **ParticipantUserSid** | Pointer to **string** | The unique ID for the conversation participant as Conversation User. |
 

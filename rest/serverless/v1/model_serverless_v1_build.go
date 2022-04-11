@@ -20,16 +20,16 @@ type ServerlessV1Build struct {
 	// The SID of the Account that created the Build resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The list of Asset Version resource SIDs that are included in the Build
-	AssetVersions *[]map[string]interface{} `json:"asset_versions,omitempty"`
+	AssetVersions *[]interface{} `json:"asset_versions,omitempty"`
 	// The ISO 8601 date and time in GMT when the Build resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the Build resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// A list of objects that describe the Dependencies included in the Build
-	Dependencies *[]map[string]interface{} `json:"dependencies,omitempty"`
+	Dependencies *[]interface{} `json:"dependencies,omitempty"`
 	// The list of Function Version resource SIDs that are included in the Build
-	FunctionVersions *[]map[string]interface{} `json:"function_versions,omitempty"`
-	Links            *map[string]interface{}   `json:"links,omitempty"`
+	FunctionVersions *[]interface{}          `json:"function_versions,omitempty"`
+	Links            *map[string]interface{} `json:"links,omitempty"`
 	// The Runtime version that will be used to run the Build.
 	Runtime *string `json:"runtime,omitempty"`
 	// The SID of the Service that the Build resource is associated with

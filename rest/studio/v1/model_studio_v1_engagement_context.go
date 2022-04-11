@@ -16,7 +16,7 @@ type StudioV1EngagementContext struct {
 	// Account SID
 	AccountSid *string `json:"account_sid,omitempty"`
 	// Flow state
-	Context *map[string]interface{} `json:"context,omitempty"`
+	Context *interface{} `json:"context,omitempty"`
 	// Engagement SID
 	EngagementSid *string `json:"engagement_sid,omitempty"`
 	// Flow SID

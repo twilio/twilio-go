@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**ActivityDurations** | Pointer to **[]map[string]interface{}** | The minimum, average, maximum, and total time that Workers spent in each Activity |
+**ActivityDurations** | Pointer to **[]interface{}** | The minimum, average, maximum, and total time that Workers spent in each Activity |
 **EndTime** | Pointer to [**time.Time**](time.Time.md) | The end of the interval during which these statistics were calculated |
 **ReservationsAccepted** | Pointer to **int** | The total number of Reservations that were accepted |
 **ReservationsCanceled** | Pointer to **int** | The total number of Reservations that were canceled |

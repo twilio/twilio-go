@@ -76,7 +76,7 @@ Other parameters are passed through a pointer to a UpdateRoomParticipantSubscrib
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Rules** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
+**Rules** | [**interface{}**](interface{}.md) | A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
 
 ### Return type
 

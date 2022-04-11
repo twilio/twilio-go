@@ -20,8 +20,8 @@ type ConversationsV1Conversation struct {
 	// The unique ID of the Account responsible for this conversation.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// An optional string metadata field you can use to store any data you wish.
-	Attributes *string                 `json:"attributes,omitempty"`
-	Bindings   *map[string]interface{} `json:"bindings,omitempty"`
+	Attributes *string      `json:"attributes,omitempty"`
+	Bindings   *interface{} `json:"bindings,omitempty"`
 	// The unique ID of the Conversation Service this conversation belongs to.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
 	// The date that this resource was created.
@@ -39,7 +39,7 @@ type ConversationsV1Conversation struct {
 	// Current state of this conversation.
 	State *string `json:"state,omitempty"`
 	// Timer date values for this conversation.
-	Timers *map[string]interface{} `json:"timers,omitempty"`
+	Timers *interface{} `json:"timers,omitempty"`
 	// An application-defined string that uniquely identifies the resource
 	UniqueName *string `json:"unique_name,omitempty"`
 	// An absolute URL for this conversation.

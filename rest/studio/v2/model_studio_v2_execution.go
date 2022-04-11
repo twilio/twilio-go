@@ -22,7 +22,7 @@ type StudioV2Execution struct {
 	// The phone number, SIP address or Client identifier that triggered the Execution
 	ContactChannelAddress *string `json:"contact_channel_address,omitempty"`
 	// The current state of the flow
-	Context *map[string]interface{} `json:"context,omitempty"`
+	Context *interface{} `json:"context,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated

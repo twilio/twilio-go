@@ -25,7 +25,7 @@ type CreateSyncListItemParams struct {
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted.
 	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-	Data *map[string]interface{} `json:"Data,omitempty"`
+	Data *interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
 	ItemTtl *int `json:"ItemTtl,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
@@ -36,7 +36,7 @@ func (params *CreateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *Cre
 	params.CollectionTtl = &CollectionTtl
 	return params
 }
-func (params *CreateSyncListItemParams) SetData(Data map[string]interface{}) *CreateSyncListItemParams {
+func (params *CreateSyncListItemParams) SetData(Data interface{}) *CreateSyncListItemParams {
 	params.Data = &Data
 	return params
 }
@@ -312,7 +312,7 @@ type UpdateSyncListItemParams struct {
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item's parent Sync List expires (time-to-live) and is deleted. This parameter can only be used when the List Item's `data` or `ttl` is updated in the same request.
 	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the List Item stores. Can be up to 16 KiB in length.
-	Data *map[string]interface{} `json:"Data,omitempty"`
+	Data *interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the List Item expires (time-to-live) and is deleted.
 	ItemTtl *int `json:"ItemTtl,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
@@ -327,7 +327,7 @@ func (params *UpdateSyncListItemParams) SetCollectionTtl(CollectionTtl int) *Upd
 	params.CollectionTtl = &CollectionTtl
 	return params
 }
-func (params *UpdateSyncListItemParams) SetData(Data map[string]interface{}) *UpdateSyncListItemParams {
+func (params *UpdateSyncListItemParams) SetData(Data interface{}) *UpdateSyncListItemParams {
 	params.Data = &Data
 	return params
 }

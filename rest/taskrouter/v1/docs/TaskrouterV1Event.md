@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ActorType** | Pointer to **string** | The type of resource that triggered the event |
 **ActorUrl** | Pointer to **string** | The absolute URL of the resource that triggered the event |
 **Description** | Pointer to **string** | A description of the event |
-**EventData** | Pointer to **map[string]interface{}** | Data about the event |
+**EventData** | Pointer to **interface{}** | Data about the event |
 **EventDate** | Pointer to [**time.Time**](time.Time.md) | The time the event was sent |
 **EventDateMs** | Pointer to **int** | The time the event was sent in milliseconds |
 **EventType** | Pointer to **string** | The identifier for the event |

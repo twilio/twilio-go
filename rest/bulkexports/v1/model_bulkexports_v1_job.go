@@ -14,7 +14,7 @@ package openapi
 // BulkexportsV1Job struct for BulkexportsV1Job
 type BulkexportsV1Job struct {
 	// The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job
-	Details *map[string]interface{} `json:"details,omitempty"`
+	Details *interface{} `json:"details,omitempty"`
 	// The optional email to send the completion notification to
 	Email *string `json:"email,omitempty"`
 	// The end time for the export specified when creating the job

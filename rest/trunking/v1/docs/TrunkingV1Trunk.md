@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **DomainName** | Pointer to **string** | The unique address you reserve on Twilio to which you route your SIP traffic |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
-**Recording** | Pointer to **map[string]interface{}** | The recording settings for the trunk |
+**Recording** | Pointer to **interface{}** | The recording settings for the trunk |
 **Secure** | Pointer to **bool** | Whether Secure Trunking is enabled for the trunk |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **TransferCallerId** | Pointer to **string** | Caller Id for transfer target |

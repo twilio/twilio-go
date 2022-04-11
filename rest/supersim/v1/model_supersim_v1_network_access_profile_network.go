@@ -16,7 +16,7 @@ type SupersimV1NetworkAccessProfileNetwork struct {
 	// A human readable identifier of this resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The MCC/MNCs included in the resource
-	Identifiers *[]map[string]interface{} `json:"identifiers,omitempty"`
+	Identifiers *[]interface{} `json:"identifiers,omitempty"`
 	// The ISO country code of the Network resource
 	IsoCountry *string `json:"iso_country,omitempty"`
 	// The unique string that identifies the Network Access Profile resource

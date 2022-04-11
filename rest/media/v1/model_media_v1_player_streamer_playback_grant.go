@@ -22,7 +22,7 @@ type MediaV1PlayerStreamerPlaybackGrant struct {
 	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The grant that authorizes the player sdk to connect to the livestream
-	Grant *map[string]interface{} `json:"grant,omitempty"`
+	Grant *interface{} `json:"grant,omitempty"`
 	// The unique string that identifies the PlayerStreamer associated with this PlaybackGrant.
 	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the resource

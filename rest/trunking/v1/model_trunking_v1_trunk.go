@@ -40,7 +40,7 @@ type TrunkingV1Trunk struct {
 	// The URLs of related resources
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// The recording settings for the trunk
-	Recording *map[string]interface{} `json:"recording,omitempty"`
+	Recording *interface{} `json:"recording,omitempty"`
 	// Whether Secure Trunking is enabled for the trunk
 	Secure *bool `json:"secure,omitempty"`
 	// The unique string that identifies the resource

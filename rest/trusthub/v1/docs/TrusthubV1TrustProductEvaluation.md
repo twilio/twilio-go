@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 **PolicySid** | Pointer to **string** | The unique string of a policy |
-**Results** | Pointer to **[]map[string]interface{}** | The results of the Evaluation resource |
+**Results** | Pointer to **[]interface{}** | The results of the Evaluation resource |
 **Sid** | Pointer to **string** | The unique string that identifies the Evaluation resource |
 **Status** | Pointer to **string** | The compliance status of the Evaluation resource |
 **TrustProductSid** | Pointer to **string** | The unique string that identifies the resource |

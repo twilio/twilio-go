@@ -20,7 +20,7 @@ type NumbersV2EndUser struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The set of parameters that compose the End Users resource
-	Attributes *map[string]interface{} `json:"attributes,omitempty"`
+	Attributes *interface{} `json:"attributes,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated

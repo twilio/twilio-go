@@ -46,5 +46,5 @@ type VideoV1CompositionHook struct {
 	// The absolute URL of the resource
 	Url *string `json:"url,omitempty"`
 	// A JSON object that describes the video layout of the Composition
-	VideoLayout *map[string]interface{} `json:"video_layout,omitempty"`
+	VideoLayout *interface{} `json:"video_layout,omitempty"`
 }

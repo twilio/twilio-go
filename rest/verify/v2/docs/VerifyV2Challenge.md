@@ -8,15 +8,15 @@ Name | Type | Description | Notes
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date this Challenge was created |
 **DateResponded** | Pointer to [**time.Time**](time.Time.md) | The date this Challenge was responded |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date this Challenge was updated |
-**Details** | Pointer to **map[string]interface{}** | Details about the Challenge. |
+**Details** | Pointer to **interface{}** | Details about the Challenge. |
 **EntitySid** | Pointer to **string** | Entity Sid. |
 **ExpirationDate** | Pointer to [**time.Time**](time.Time.md) | The date-time when this Challenge expires |
 **FactorSid** | Pointer to **string** | Factor Sid. |
 **FactorType** | Pointer to **string** | The Factor Type of this Challenge |
-**HiddenDetails** | Pointer to **map[string]interface{}** | Hidden details about the Challenge |
+**HiddenDetails** | Pointer to **interface{}** | Hidden details about the Challenge |
 **Identity** | Pointer to **string** | Unique external identifier of the Entity |
 **Links** | Pointer to **map[string]interface{}** | Nested resource URLs. |
-**Metadata** | Pointer to **map[string]interface{}** | Metadata of the challenge. |
+**Metadata** | Pointer to **interface{}** | Metadata of the challenge. |
 **RespondedReason** | Pointer to **string** | The Reason of this Challenge `status` |
 **ServiceSid** | Pointer to **string** | Service Sid. |
 **Sid** | Pointer to **string** | A string that uniquely identifies this Challenge. |

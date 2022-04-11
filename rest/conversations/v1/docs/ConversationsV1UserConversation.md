@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **Links** | Pointer to **map[string]interface{}** | Absolute URLs to access the participant and conversation of this user conversation. |
 **NotificationLevel** | Pointer to **string** | The Notification Level of this User Conversation. |
 **ParticipantSid** | Pointer to **string** | Participant Sid. |
-**Timers** | Pointer to **map[string]interface{}** | Timer date values for this conversation. |
+**Timers** | Pointer to **interface{}** | Timer date values for this conversation. |
 **UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the Conversation resource. |
 **UnreadMessagesCount** | Pointer to **int** | The number of unread Messages in the Conversation. |
 **Url** | Pointer to **string** |  |

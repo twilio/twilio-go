@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **BundleSid** | Pointer to **string** | The unique string that identifies the resource |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) |  |
 **RegulationSid** | Pointer to **string** | The unique string of a regulation |
-**Results** | Pointer to **[]map[string]interface{}** | The results of the Evaluation resource |
+**Results** | Pointer to **[]interface{}** | The results of the Evaluation resource |
 **Sid** | Pointer to **string** | The unique string that identifies the Evaluation resource |
 **Status** | Pointer to **string** | The compliance status of the Evaluation resource |
 **Url** | Pointer to **string** |  |

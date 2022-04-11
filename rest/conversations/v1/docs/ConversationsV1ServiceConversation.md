@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The unique ID of the Account responsible for this conversation. |
 **Attributes** | Pointer to **string** | An optional string metadata field you can use to store any data you wish. |
-**Bindings** | Pointer to **map[string]interface{}** |  |
+**Bindings** | Pointer to **interface{}** |  |
 **ChatServiceSid** | Pointer to **string** | The unique ID of the Conversation Service this conversation belongs to. |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was created. |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that this resource was last updated. |
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **MessagingServiceSid** | Pointer to **string** | The unique ID of the Messaging Service this conversation belongs to. |
 **Sid** | Pointer to **string** | A 34 character string that uniquely identifies this resource. |
 **State** | Pointer to **string** | Current state of this conversation. |
-**Timers** | Pointer to **map[string]interface{}** | Timer date values for this conversation. |
+**Timers** | Pointer to **interface{}** | Timer date values for this conversation. |
 **UniqueName** | Pointer to **string** | An application-defined string that uniquely identifies the resource |
 **Url** | Pointer to **string** | An absolute URL for this conversation. |
 

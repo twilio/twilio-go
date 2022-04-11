@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AddOns** | Pointer to **map[string]interface{}** | A JSON string with the results of the Add-ons you specified |
-**CallerName** | Pointer to **map[string]interface{}** | The name of the phone number's owner |
-**Carrier** | Pointer to **map[string]interface{}** | The telecom company that provides the phone number |
+**AddOns** | Pointer to **interface{}** | A JSON string with the results of the Add-ons you specified |
+**CallerName** | Pointer to **interface{}** | The name of the phone number's owner |
+**Carrier** | Pointer to **interface{}** | The telecom company that provides the phone number |
 **CountryCode** | Pointer to **string** | The ISO country code for the phone number |
 **NationalFormat** | Pointer to **string** | The phone number, in national format |
 **PhoneNumber** | Pointer to **string** | The phone number in E.164 format |

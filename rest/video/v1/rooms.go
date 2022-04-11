@@ -38,7 +38,7 @@ type CreateRoomParams struct {
 	// Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
 	RecordParticipantsOnConnect *bool `json:"RecordParticipantsOnConnect,omitempty"`
 	// A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-	RecordingRules *map[string]interface{} `json:"RecordingRules,omitempty"`
+	RecordingRules *interface{} `json:"RecordingRules,omitempty"`
 	// The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
 	StatusCallback *string `json:"StatusCallback,omitempty"`
 	// The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
@@ -81,7 +81,7 @@ func (params *CreateRoomParams) SetRecordParticipantsOnConnect(RecordParticipant
 	params.RecordParticipantsOnConnect = &RecordParticipantsOnConnect
 	return params
 }
-func (params *CreateRoomParams) SetRecordingRules(RecordingRules map[string]interface{}) *CreateRoomParams {
+func (params *CreateRoomParams) SetRecordingRules(RecordingRules interface{}) *CreateRoomParams {
 	params.RecordingRules = &RecordingRules
 	return params
 }

@@ -14,10 +14,10 @@ package openapi
 // FlexV1Interaction struct for FlexV1Interaction
 type FlexV1Interaction struct {
 	// The Interaction's channel
-	Channel *map[string]interface{} `json:"channel,omitempty"`
+	Channel *interface{}            `json:"channel,omitempty"`
 	Links   *map[string]interface{} `json:"links,omitempty"`
 	// The Interaction's routing logic
-	Routing *map[string]interface{} `json:"routing,omitempty"`
+	Routing *interface{} `json:"routing,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	Url *string `json:"url,omitempty"`

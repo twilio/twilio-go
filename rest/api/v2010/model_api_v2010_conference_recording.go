@@ -30,7 +30,7 @@ type ApiV2010ConferenceRecording struct {
 	// The length of the recording in seconds
 	Duration *string `json:"duration,omitempty"`
 	// How to decrypt the recording.
-	EncryptionDetails *map[string]interface{} `json:"encryption_details,omitempty"`
+	EncryptionDetails *interface{} `json:"encryption_details,omitempty"`
 	// More information about why the recording is missing, if status is `absent`.
 	ErrorCode *int `json:"error_code,omitempty"`
 	// The one-time cost of creating the recording.

@@ -43,10 +43,10 @@ func (c *ApiService) FetchStyleSheet(AssistantSid string) (*AutopilotV1StyleShee
 // Optional parameters for the method 'UpdateStyleSheet'
 type UpdateStyleSheetParams struct {
 	// The JSON string that describes the style sheet object.
-	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
+	StyleSheet *interface{} `json:"StyleSheet,omitempty"`
 }
 
-func (params *UpdateStyleSheetParams) SetStyleSheet(StyleSheet map[string]interface{}) *UpdateStyleSheetParams {
+func (params *UpdateStyleSheetParams) SetStyleSheet(StyleSheet interface{}) *UpdateStyleSheetParams {
 	params.StyleSheet = &StyleSheet
 	return params
 }

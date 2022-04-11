@@ -32,13 +32,13 @@ type ConversationsV1ConversationMessage struct {
 	// The date that this resource was last updated.
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// An object that contains the summary of delivery statuses for the message to non-chat participants.
-	Delivery *map[string]interface{} `json:"delivery,omitempty"`
+	Delivery *interface{} `json:"delivery,omitempty"`
 	// The index of the message within the Conversation.
 	Index *int `json:"index,omitempty"`
 	// Absolute URL to access the receipts of this message.
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// An array of objects that describe the Message's media if attached, otherwise, null.
-	Media *[]map[string]interface{} `json:"media,omitempty"`
+	Media *[]interface{} `json:"media,omitempty"`
 	// The unique ID of messages's author participant.
 	ParticipantSid *string `json:"participant_sid,omitempty"`
 	// A 34 character string that uniquely identifies this resource.

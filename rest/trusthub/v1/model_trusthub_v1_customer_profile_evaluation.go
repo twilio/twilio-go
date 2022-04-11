@@ -25,7 +25,7 @@ type TrusthubV1CustomerProfileEvaluation struct {
 	// The unique string of a policy
 	PolicySid *string `json:"policy_sid,omitempty"`
 	// The results of the Evaluation resource
-	Results *[]map[string]interface{} `json:"results,omitempty"`
+	Results *[]interface{} `json:"results,omitempty"`
 	// The unique string that identifies the Evaluation resource
 	Sid *string `json:"sid,omitempty"`
 	// The compliance status of the Evaluation resource

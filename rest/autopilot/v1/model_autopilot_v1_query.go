@@ -34,7 +34,7 @@ type AutopilotV1Query struct {
 	// The end-user's natural language input
 	Query *string `json:"query,omitempty"`
 	// The natural language analysis results that include the Task recognized and a list of identified Fields
-	Results *map[string]interface{} `json:"results,omitempty"`
+	Results *interface{} `json:"results,omitempty"`
 	// The SID of an optional reference to the Sample created from the query
 	SampleSid *string `json:"sample_sid,omitempty"`
 	// The unique string that identifies the resource

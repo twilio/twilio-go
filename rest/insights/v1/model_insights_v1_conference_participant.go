@@ -38,7 +38,7 @@ type InsightsV1ConferenceParticipant struct {
 	// Participant durations in seconds.
 	DurationSeconds *int `json:"duration_seconds,omitempty"`
 	// Object containing information of actions taken by participants. Nested resource URLs.
-	Events *map[string]interface{} `json:"events,omitempty"`
+	Events *interface{} `json:"events,omitempty"`
 	// Caller ID of the calling party.
 	From *string `json:"from,omitempty"`
 	// Boolean. Indicated whether participant was a coach.
@@ -54,7 +54,7 @@ type InsightsV1ConferenceParticipant struct {
 	// ISO 8601 timestamp of participant leave event.
 	LeaveTime *time.Time `json:"leave_time,omitempty"`
 	// Object. Contains participant quality metrics.
-	Metrics *map[string]interface{} `json:"metrics,omitempty"`
+	Metrics *interface{} `json:"metrics,omitempty"`
 	// Estimated time in queue at call creation.
 	OutboundQueueLength *int `json:"outbound_queue_length,omitempty"`
 	// Actual time in queue (seconds).
@@ -66,7 +66,7 @@ type InsightsV1ConferenceParticipant struct {
 	// Processing state of the Participant Summary.
 	ProcessingState *string `json:"processing_state,omitempty"`
 	// Participant properties and metadata.
-	Properties *map[string]interface{} `json:"properties,omitempty"`
+	Properties *interface{} `json:"properties,omitempty"`
 	// Called party.
 	To *string `json:"to,omitempty"`
 	// The URL of this resource.

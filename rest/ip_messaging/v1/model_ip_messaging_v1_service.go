@@ -25,9 +25,9 @@ type IpMessagingV1Service struct {
 	DefaultChannelRoleSid        *string                 `json:"default_channel_role_sid,omitempty"`
 	DefaultServiceRoleSid        *string                 `json:"default_service_role_sid,omitempty"`
 	FriendlyName                 *string                 `json:"friendly_name,omitempty"`
-	Limits                       *map[string]interface{} `json:"limits,omitempty"`
+	Limits                       *interface{}            `json:"limits,omitempty"`
 	Links                        *map[string]interface{} `json:"links,omitempty"`
-	Notifications                *map[string]interface{} `json:"notifications,omitempty"`
+	Notifications                *interface{}            `json:"notifications,omitempty"`
 	PostWebhookUrl               *string                 `json:"post_webhook_url,omitempty"`
 	PreWebhookUrl                *string                 `json:"pre_webhook_url,omitempty"`
 	ReachabilityEnabled          *bool                   `json:"reachability_enabled,omitempty"`
@@ -37,5 +37,5 @@ type IpMessagingV1Service struct {
 	Url                          *string                 `json:"url,omitempty"`
 	WebhookFilters               *[]string               `json:"webhook_filters,omitempty"`
 	WebhookMethod                *string                 `json:"webhook_method,omitempty"`
-	Webhooks                     *map[string]interface{} `json:"webhooks,omitempty"`
+	Webhooks                     *interface{}            `json:"webhooks,omitempty"`
 }

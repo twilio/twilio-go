@@ -42,9 +42,9 @@ type InsightsV1VideoParticipantSummary struct {
 	// Unique identifier for the participant.
 	ParticipantSid *string `json:"participant_sid,omitempty"`
 	// Object containing information about the participant's data from the room.
-	Properties *map[string]interface{} `json:"properties,omitempty"`
+	Properties *interface{} `json:"properties,omitempty"`
 	// Object containing information about the SDK name and version.
-	PublisherInfo *map[string]interface{} `json:"publisher_info,omitempty"`
+	PublisherInfo *interface{} `json:"publisher_info,omitempty"`
 	// Unique identifier for the room.
 	RoomSid *string `json:"room_sid,omitempty"`
 	// Status of the room.

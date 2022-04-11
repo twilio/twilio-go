@@ -22,7 +22,7 @@ type NumbersV2Regulation struct {
 	// The type of phone number restricted by the regulatory requirement
 	NumberType *string `json:"number_type,omitempty"`
 	// The sid of a regulation object that dictates requirements
-	Requirements *map[string]interface{} `json:"requirements,omitempty"`
+	Requirements *interface{} `json:"requirements,omitempty"`
 	// The unique string that identifies the Regulation resource
 	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the Regulation resource

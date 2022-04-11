@@ -22,7 +22,7 @@ type WirelessV1DataSession struct {
 	// The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated
 	CellId *string `json:"cell_id,omitempty"`
 	// An object with the estimated location where the device's Data Session took place
-	CellLocationEstimate *map[string]interface{} `json:"cell_location_estimate,omitempty"`
+	CellLocationEstimate *interface{} `json:"cell_location_estimate,omitempty"`
 	// The date that the record ended, given as GMT in ISO 8601 format
 	End *time.Time `json:"end,omitempty"`
 	// The unique ID of the device using the SIM to connect

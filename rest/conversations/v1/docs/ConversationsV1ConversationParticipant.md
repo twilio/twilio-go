@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Identity** | Pointer to **string** | A unique string identifier for the conversation participant as Conversation User. |
 **LastReadMessageIndex** | Pointer to **int** | Index of last “read” message in the Conversation for the Participant. |
 **LastReadTimestamp** | Pointer to **string** | Timestamp of last “read” message in the Conversation for the Participant. |
-**MessagingBinding** | Pointer to **map[string]interface{}** | Information about how this participant exchanges messages with the conversation. |
+**MessagingBinding** | Pointer to **interface{}** | Information about how this participant exchanges messages with the conversation. |
 **RoleSid** | Pointer to **string** | The SID of a conversation-level Role to assign to the participant |
 **Sid** | Pointer to **string** | A 34 character string that uniquely identifies this resource. |
 **Url** | Pointer to **string** | An absolute URL for this participant. |

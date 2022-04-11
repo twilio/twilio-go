@@ -13,9 +13,9 @@ package openapi
 
 // FlexV1InteractionChannelInvite struct for FlexV1InteractionChannelInvite
 type FlexV1InteractionChannelInvite struct {
-	ChannelSid     *string                 `json:"channel_sid,omitempty"`
-	InteractionSid *string                 `json:"interaction_sid,omitempty"`
-	Routing        *map[string]interface{} `json:"routing,omitempty"`
-	Sid            *string                 `json:"sid,omitempty"`
-	Url            *string                 `json:"url,omitempty"`
+	ChannelSid     *string      `json:"channel_sid,omitempty"`
+	InteractionSid *string      `json:"interaction_sid,omitempty"`
+	Routing        *interface{} `json:"routing,omitempty"`
+	Sid            *string      `json:"sid,omitempty"`
+	Url            *string      `json:"url,omitempty"`
 }

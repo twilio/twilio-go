@@ -42,10 +42,10 @@ func (c *ApiService) FetchDefaults(AssistantSid string) (*AutopilotV1Defaults, e
 // Optional parameters for the method 'UpdateDefaults'
 type UpdateDefaultsParams struct {
 	// A JSON string that describes the default task links for the `assistant_initiation`, `collect`, and `fallback` situations.
-	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
+	Defaults *interface{} `json:"Defaults,omitempty"`
 }
 
-func (params *UpdateDefaultsParams) SetDefaults(Defaults map[string]interface{}) *UpdateDefaultsParams {
+func (params *UpdateDefaultsParams) SetDefaults(Defaults interface{}) *UpdateDefaultsParams {
 	params.Defaults = &Defaults
 	return params
 }

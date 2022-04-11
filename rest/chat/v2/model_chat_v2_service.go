@@ -34,13 +34,13 @@ type ChatV2Service struct {
 	// The string that you assigned to describe the resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// An object that describes the limits of the service instance
-	Limits *map[string]interface{} `json:"limits,omitempty"`
+	Limits *interface{} `json:"limits,omitempty"`
 	// The absolute URLs of the Service's Channels, Roles, and Users
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// The properties of the media that the service supports
-	Media *map[string]interface{} `json:"media,omitempty"`
+	Media *interface{} `json:"media,omitempty"`
 	// The notification configuration for the Service instance
-	Notifications *map[string]interface{} `json:"notifications,omitempty"`
+	Notifications *interface{} `json:"notifications,omitempty"`
 	// The number of times calls to the `post_webhook_url` will be retried
 	PostWebhookRetryCount *int `json:"post_webhook_retry_count,omitempty"`
 	// The URL for post-event webhooks

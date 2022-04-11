@@ -24,7 +24,7 @@ type StudioV1Execution struct {
 	// The SID of the Contact
 	ContactSid *string `json:"contact_sid,omitempty"`
 	// The current state of the flow
-	Context *map[string]interface{} `json:"context,omitempty"`
+	Context *interface{} `json:"context,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated

@@ -42,7 +42,7 @@ type CreateCompositionHookParams struct {
 	// Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 	Trim *bool `json:"Trim,omitempty"`
 	// An object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-	VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
+	VideoLayout *interface{} `json:"VideoLayout,omitempty"`
 }
 
 func (params *CreateCompositionHookParams) SetAudioSources(AudioSources []string) *CreateCompositionHookParams {
@@ -81,7 +81,7 @@ func (params *CreateCompositionHookParams) SetTrim(Trim bool) *CreateComposition
 	params.Trim = &Trim
 	return params
 }
-func (params *CreateCompositionHookParams) SetVideoLayout(VideoLayout map[string]interface{}) *CreateCompositionHookParams {
+func (params *CreateCompositionHookParams) SetVideoLayout(VideoLayout interface{}) *CreateCompositionHookParams {
 	params.VideoLayout = &VideoLayout
 	return params
 }
@@ -372,7 +372,7 @@ type UpdateCompositionHookParams struct {
 	// Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 	Trim *bool `json:"Trim,omitempty"`
 	// A JSON object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-	VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
+	VideoLayout *interface{} `json:"VideoLayout,omitempty"`
 }
 
 func (params *UpdateCompositionHookParams) SetAudioSources(AudioSources []string) *UpdateCompositionHookParams {
@@ -411,7 +411,7 @@ func (params *UpdateCompositionHookParams) SetTrim(Trim bool) *UpdateComposition
 	params.Trim = &Trim
 	return params
 }
-func (params *UpdateCompositionHookParams) SetVideoLayout(VideoLayout map[string]interface{}) *UpdateCompositionHookParams {
+func (params *UpdateCompositionHookParams) SetVideoLayout(VideoLayout interface{}) *UpdateCompositionHookParams {
 	params.VideoLayout = &VideoLayout
 	return params
 }

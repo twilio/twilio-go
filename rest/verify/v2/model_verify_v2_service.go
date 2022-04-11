@@ -41,13 +41,13 @@ type VerifyV2Service struct {
 	// Whether to pass PSD2 transaction parameters when starting a verification
 	Psd2Enabled *bool `json:"psd2_enabled,omitempty"`
 	// The service level configuration of factor push type.
-	Push *map[string]interface{} `json:"push,omitempty"`
+	Push *interface{} `json:"push,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// Whether to skip sending SMS verifications to landlines
 	SkipSmsToLandlines *bool `json:"skip_sms_to_landlines,omitempty"`
 	// The service level configuration of factor TOTP type.
-	Totp *map[string]interface{} `json:"totp,omitempty"`
+	Totp *interface{} `json:"totp,omitempty"`
 	// The name of an alternative text-to-speech service to use in phone calls
 	TtsName *string `json:"tts_name,omitempty"`
 	// The absolute URL of the resource

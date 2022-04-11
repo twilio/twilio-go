@@ -23,7 +23,7 @@ import (
 // Optional parameters for the method 'CreateTask'
 type CreateTaskParams struct {
 	// The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task. It is optional and not unique.
-	Actions *map[string]interface{} `json:"Actions,omitempty"`
+	Actions *interface{} `json:"Actions,omitempty"`
 	// The URL from which the Assistant can fetch actions.
 	ActionsUrl *string `json:"ActionsUrl,omitempty"`
 	// A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
@@ -32,7 +32,7 @@ type CreateTaskParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
-func (params *CreateTaskParams) SetActions(Actions map[string]interface{}) *CreateTaskParams {
+func (params *CreateTaskParams) SetActions(Actions interface{}) *CreateTaskParams {
 	params.Actions = &Actions
 	return params
 }
@@ -262,7 +262,7 @@ func (c *ApiService) getNextListTaskResponse(nextPageUrl string) (interface{}, e
 // Optional parameters for the method 'UpdateTask'
 type UpdateTaskParams struct {
 	// The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
-	Actions *map[string]interface{} `json:"Actions,omitempty"`
+	Actions *interface{} `json:"Actions,omitempty"`
 	// The URL from which the Assistant can fetch actions.
 	ActionsUrl *string `json:"ActionsUrl,omitempty"`
 	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
@@ -271,7 +271,7 @@ type UpdateTaskParams struct {
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
 
-func (params *UpdateTaskParams) SetActions(Actions map[string]interface{}) *UpdateTaskParams {
+func (params *UpdateTaskParams) SetActions(Actions interface{}) *UpdateTaskParams {
 	params.Actions = &Actions
 	return params
 }

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ChannelSid** | Pointer to **string** |  |
 **InteractionSid** | Pointer to **string** |  |
-**Routing** | Pointer to **map[string]interface{}** |  |
+**Routing** | Pointer to **interface{}** |  |
 **Sid** | Pointer to **string** |  |
 **Url** | Pointer to **string** |  |
 

@@ -26,7 +26,7 @@ type VerifyV2Challenge struct {
 	// The date this Challenge was updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// Details about the Challenge.
-	Details *map[string]interface{} `json:"details,omitempty"`
+	Details *interface{} `json:"details,omitempty"`
 	// Entity Sid.
 	EntitySid *string `json:"entity_sid,omitempty"`
 	// The date-time when this Challenge expires
@@ -36,13 +36,13 @@ type VerifyV2Challenge struct {
 	// The Factor Type of this Challenge
 	FactorType *string `json:"factor_type,omitempty"`
 	// Hidden details about the Challenge
-	HiddenDetails *map[string]interface{} `json:"hidden_details,omitempty"`
+	HiddenDetails *interface{} `json:"hidden_details,omitempty"`
 	// Unique external identifier of the Entity
 	Identity *string `json:"identity,omitempty"`
 	// Nested resource URLs.
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// Metadata of the challenge.
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+	Metadata *interface{} `json:"metadata,omitempty"`
 	// The Reason of this Challenge `status`
 	RespondedReason *string `json:"responded_reason,omitempty"`
 	// Service Sid.

@@ -22,7 +22,7 @@ type SyncV1SyncListItem struct {
 	// The identity of the List Item's creator
 	CreatedBy *string `json:"created_by,omitempty"`
 	// An arbitrary, schema-less object that the List Item stores
-	Data *map[string]interface{} `json:"data,omitempty"`
+	Data *interface{} `json:"data,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the List Item expires

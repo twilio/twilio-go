@@ -12,10 +12,10 @@ Name | Type | Description | Notes
 **DefaultChannelRoleSid** | Pointer to **string** | The channel role assigned to users when they are added to a channel |
 **DefaultServiceRoleSid** | Pointer to **string** | The service role assigned to users when they are added to the service |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
-**Limits** | Pointer to **map[string]interface{}** | An object that describes the limits of the service instance |
+**Limits** | Pointer to **interface{}** | An object that describes the limits of the service instance |
 **Links** | Pointer to **map[string]interface{}** | The absolute URLs of the Service's Channels, Roles, and Users |
-**Media** | Pointer to **map[string]interface{}** | The properties of the media that the service supports |
-**Notifications** | Pointer to **map[string]interface{}** | The notification configuration for the Service instance |
+**Media** | Pointer to **interface{}** | The properties of the media that the service supports |
+**Notifications** | Pointer to **interface{}** | The notification configuration for the Service instance |
 **PostWebhookRetryCount** | Pointer to **int** | The number of times calls to the `post_webhook_url` will be retried |
 **PostWebhookUrl** | Pointer to **string** | The URL for post-event webhooks |
 **PreWebhookRetryCount** | Pointer to **int** | Count of times webhook will be retried in case of timeout or 429/503/504 HTTP responses |

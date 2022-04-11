@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Language** | Pointer to **string** | The ISO language-country string that specifies the language used by the Query |
 **ModelBuildSid** | Pointer to **string** | The SID of the [Model Build](https://www.twilio.com/docs/autopilot/api/model-build) queried |
 **Query** | Pointer to **string** | The end-user's natural language input |
-**Results** | Pointer to **map[string]interface{}** | The natural language analysis results that include the Task recognized and a list of identified Fields |
+**Results** | Pointer to **interface{}** | The natural language analysis results that include the Task recognized and a list of identified Fields |
 **SampleSid** | Pointer to **string** | The SID of an optional reference to the Sample created from the query |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **SourceChannel** | Pointer to **string** | The communication channel from where the end-user input came |

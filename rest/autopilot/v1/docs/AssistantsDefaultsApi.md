@@ -70,7 +70,7 @@ Other parameters are passed through a pointer to a UpdateDefaultsParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Defaults** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that describes the default task links for the &#x60;assistant_initiation&#x60;, &#x60;collect&#x60;, and &#x60;fallback&#x60; situations.
+**Defaults** | [**interface{}**](interface{}.md) | A JSON string that describes the default task links for the &#x60;assistant_initiation&#x60;, &#x60;collect&#x60;, and &#x60;fallback&#x60; situations.
 
 ### Return type
 

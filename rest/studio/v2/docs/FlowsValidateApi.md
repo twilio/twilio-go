@@ -28,7 +28,7 @@ Other parameters are passed through a pointer to a UpdateFlowValidateParams stru
 Name | Type | Description
 ------------- | ------------- | -------------
 **CommitMessage** | **string** | Description of change made in the revision.
-**Definition** | [**map[string]interface{}**](map[string]interface{}.md) | JSON representation of flow definition.
+**Definition** | [**interface{}**](interface{}.md) | JSON representation of flow definition.
 **FriendlyName** | **string** | The string that you assigned to describe the Flow.
 **Status** | **string** | The status of the Flow. Can be: &#x60;draft&#x60; or &#x60;published&#x60;.
 

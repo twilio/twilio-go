@@ -36,7 +36,7 @@ type TaskrouterV1WorkspaceCumulativeStatistics struct {
 	// The total number of Reservations that were timed out
 	ReservationsTimedOut *int `json:"reservations_timed_out,omitempty"`
 	// A list of objects that describe the Tasks canceled and reservations accepted above and below the specified thresholds
-	SplitByWaitTime *map[string]interface{} `json:"split_by_wait_time,omitempty"`
+	SplitByWaitTime *interface{} `json:"split_by_wait_time,omitempty"`
 	// The beginning of the interval during which these statistics were calculated
 	StartTime *time.Time `json:"start_time,omitempty"`
 	// The total number of Tasks that were canceled
@@ -54,9 +54,9 @@ type TaskrouterV1WorkspaceCumulativeStatistics struct {
 	// The absolute URL of the Workspace statistics resource
 	Url *string `json:"url,omitempty"`
 	// The wait duration statistics for Tasks that were accepted
-	WaitDurationUntilAccepted *map[string]interface{} `json:"wait_duration_until_accepted,omitempty"`
+	WaitDurationUntilAccepted *interface{} `json:"wait_duration_until_accepted,omitempty"`
 	// The wait duration statistics for Tasks that were canceled
-	WaitDurationUntilCanceled *map[string]interface{} `json:"wait_duration_until_canceled,omitempty"`
+	WaitDurationUntilCanceled *interface{} `json:"wait_duration_until_canceled,omitempty"`
 	// The SID of the Workspace
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 }

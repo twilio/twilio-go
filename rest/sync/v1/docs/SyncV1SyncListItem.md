@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
 **CreatedBy** | Pointer to **string** | The identity of the List Item's creator |
-**Data** | Pointer to **map[string]interface{}** | An arbitrary, schema-less object that the List Item stores |
+**Data** | Pointer to **interface{}** | An arbitrary, schema-less object that the List Item stores |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateExpires** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the List Item expires |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |

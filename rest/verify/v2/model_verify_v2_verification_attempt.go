@@ -22,7 +22,7 @@ type VerifyV2VerificationAttempt struct {
 	// Communication channel used for the attempt.
 	Channel *string `json:"channel,omitempty"`
 	// An object containing the channel specific information for an attempt.
-	ChannelData *map[string]interface{} `json:"channel_data,omitempty"`
+	ChannelData *interface{} `json:"channel_data,omitempty"`
 	// Status of the conversion for the verification.
 	ConversionStatus *string `json:"conversion_status,omitempty"`
 	// The date this Attempt was created
@@ -30,7 +30,7 @@ type VerifyV2VerificationAttempt struct {
 	// The date this Attempt was updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// An object containing the charge for this verification attempt.
-	Price *map[string]interface{} `json:"price,omitempty"`
+	Price *interface{} `json:"price,omitempty"`
 	// The SID of the verify service that generated this attempt.
 	ServiceSid *string `json:"service_sid,omitempty"`
 	// The SID that uniquely identifies the verification attempt.

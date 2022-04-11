@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **FriendlyName** | Pointer to **string** | A human-readable description of the Regulation resource |
 **IsoCountry** | Pointer to **string** | The ISO country code of the phone number's country |
 **NumberType** | Pointer to **string** | The type of phone number restricted by the regulatory requirement |
-**Requirements** | Pointer to **map[string]interface{}** | The sid of a regulation object that dictates requirements |
+**Requirements** | Pointer to **interface{}** | The sid of a regulation object that dictates requirements |
 **Sid** | Pointer to **string** | The unique string that identifies the Regulation resource |
 **Url** | Pointer to **string** | The absolute URL of the Regulation resource |
 

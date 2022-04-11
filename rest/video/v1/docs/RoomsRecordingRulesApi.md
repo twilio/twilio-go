@@ -74,7 +74,7 @@ Other parameters are passed through a pointer to a UpdateRoomRecordingRuleParams
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Rules** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON-encoded array of recording rules.
+**Rules** | [**interface{}**](interface{}.md) | A JSON-encoded array of recording rules.
 
 ### Return type
 

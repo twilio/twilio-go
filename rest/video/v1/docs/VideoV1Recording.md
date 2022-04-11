@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **ContainerFormat** | Pointer to **string** | The file format for the recording |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **Duration** | Pointer to **int** | The duration of the recording in seconds |
-**GroupingSids** | Pointer to **map[string]interface{}** | A list of SIDs related to the recording |
+**GroupingSids** | Pointer to **interface{}** | A list of SIDs related to the recording |
 **Links** | Pointer to **map[string]interface{}** | The URLs of related resources |
 **MediaExternalLocation** | Pointer to **string** | The URL of the media file associated with the recording when stored externally |
 **Offset** | Pointer to **int** | The number of milliseconds between a point in time that is common to all rooms in a group and when the source room of the recording started |

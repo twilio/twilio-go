@@ -26,7 +26,7 @@ type InsightsV1Conference struct {
 	// Conference creation date/time.
 	CreateTime *time.Time `json:"create_time,omitempty"`
 	// Potential issues detected during the conference.
-	DetectedIssues *map[string]interface{} `json:"detected_issues,omitempty"`
+	DetectedIssues *interface{} `json:"detected_issues,omitempty"`
 	// Conference duration in seconds.
 	DurationSeconds *int `json:"duration_seconds,omitempty"`
 	// Conference end reason.
@@ -56,7 +56,7 @@ type InsightsV1Conference struct {
 	// Status of conference
 	Status *string `json:"status,omitempty"`
 	// Object. Contains details about conference tags.
-	TagInfo *map[string]interface{} `json:"tag_info,omitempty"`
+	TagInfo *interface{} `json:"tag_info,omitempty"`
 	// Tags for detected conference conditions and participant behaviors.
 	Tags *[]string `json:"tags,omitempty"`
 	// Unique conference participants.
