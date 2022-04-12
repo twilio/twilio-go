@@ -48,7 +48,7 @@ jobs:
         run: make test
 
       - name: Run Cluster Tests
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        if: (!github.event.pull_request.head.repo.fork)
         env:
           TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
           TWILIO_API_KEY: ${{ secrets.TWILIO_CLUSTER_TEST_API_KEY}}
