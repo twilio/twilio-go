@@ -22,7 +22,7 @@ type ConversationsV1ConfigurationAddress struct {
 	// The unique address to be configured.
 	Address *string `json:"address,omitempty"`
 	// Auto Creation configuration for the address.
-	AutoCreation *map[string]interface{} `json:"auto_creation,omitempty"`
+	AutoCreation *interface{} `json:"auto_creation,omitempty"`
 	// The date that this resource was created.
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date that this resource was last updated.

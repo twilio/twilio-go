@@ -31,7 +31,7 @@ Other parameters are passed through a pointer to a CreateInteractionChannelInvit
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Routing** | [**map[string]interface{}**](map[string]interface{}.md) | 
+**Routing** | [**interface{}**](interface{}.md) | 
 
 ### Return type
 

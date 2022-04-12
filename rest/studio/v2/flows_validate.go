@@ -21,7 +21,7 @@ type UpdateFlowValidateParams struct {
 	// Description of change made in the revision.
 	CommitMessage *string `json:"CommitMessage,omitempty"`
 	// JSON representation of flow definition.
-	Definition *map[string]interface{} `json:"Definition,omitempty"`
+	Definition *interface{} `json:"Definition,omitempty"`
 	// The string that you assigned to describe the Flow.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The status of the Flow. Can be: `draft` or `published`.
@@ -32,7 +32,7 @@ func (params *UpdateFlowValidateParams) SetCommitMessage(CommitMessage string) *
 	params.CommitMessage = &CommitMessage
 	return params
 }
-func (params *UpdateFlowValidateParams) SetDefinition(Definition map[string]interface{}) *UpdateFlowValidateParams {
+func (params *UpdateFlowValidateParams) SetDefinition(Definition interface{}) *UpdateFlowValidateParams {
 	params.Definition = &Definition
 	return params
 }

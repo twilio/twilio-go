@@ -18,7 +18,7 @@ type AutopilotV1Dialogue struct {
 	// The SID of the Assistant that is the parent of the resource
 	AssistantSid *string `json:"assistant_sid,omitempty"`
 	// The JSON string that describes the dialogue session object
-	Data *map[string]interface{} `json:"data,omitempty"`
+	Data *interface{} `json:"data,omitempty"`
 	// The unique string that identifies the resource
 	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the Dialogue resource

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**Context** | Pointer to **map[string]interface{}** | The current state of the flow |
+**Context** | Pointer to **interface{}** | The current state of the flow |
 **ExecutionSid** | Pointer to **string** | The SID of the Execution |
 **FlowSid** | Pointer to **string** | The SID of the Flow |
 **StepSid** | Pointer to **string** | Step SID |

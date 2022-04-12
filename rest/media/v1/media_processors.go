@@ -27,7 +27,7 @@ type CreateMediaProcessorParams struct {
 	// The context of the Media Extension, represented as a JSON dictionary. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about the context to send.
 	ExtensionContext *string `json:"ExtensionContext,omitempty"`
 	// User-defined environment variables for the Media Extension, represented as a JSON dictionary of key/value strings. See the documentation for the specific [Media Extension](/docs/live/api/media-extensions-overview) you are using for more information about whether you need to provide this.
-	ExtensionEnvironment *map[string]interface{} `json:"ExtensionEnvironment,omitempty"`
+	ExtensionEnvironment *interface{} `json:"ExtensionEnvironment,omitempty"`
 	// The maximum time, in seconds, that the MediaProcessor can run before automatically ends. The default value is 300 seconds, and the maximum value is 90000 seconds. Once this maximum duration is reached, Twilio will end the MediaProcessor, regardless of whether media is still streaming.
 	MaxDuration *int `json:"MaxDuration,omitempty"`
 	// The URL to which Twilio will send asynchronous webhook requests for every MediaProcessor event. See [Status Callbacks](/docs/live/status-callbacks) for details.
@@ -44,7 +44,7 @@ func (params *CreateMediaProcessorParams) SetExtensionContext(ExtensionContext s
 	params.ExtensionContext = &ExtensionContext
 	return params
 }
-func (params *CreateMediaProcessorParams) SetExtensionEnvironment(ExtensionEnvironment map[string]interface{}) *CreateMediaProcessorParams {
+func (params *CreateMediaProcessorParams) SetExtensionEnvironment(ExtensionEnvironment interface{}) *CreateMediaProcessorParams {
 	params.ExtensionEnvironment = &ExtensionEnvironment
 	return params
 }

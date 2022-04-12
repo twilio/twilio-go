@@ -34,7 +34,7 @@ Other parameters are passed through a pointer to a CreateInteractionChannelParti
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**MediaProperties** | [**map[string]interface{}**](map[string]interface{}.md) | JSON representing the Media Properties for the new Participant.
+**MediaProperties** | [**interface{}**](interface{}.md) | JSON representing the Media Properties for the new Participant.
 **Type** | **string** | Participant type.  Can be: &#x60;agent&#x60;, &#x60;customer&#x60;, &#x60;supervisor&#x60;, &#x60;external&#x60; or &#x60;unknown&#x60;.
 
 ### Return type

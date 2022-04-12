@@ -121,7 +121,7 @@ Other parameters are passed through a pointer to a UpdateInteractionChannelParam
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Routing** | [**map[string]interface{}**](map[string]interface{}.md) | The Interaction Channel&#39;s routing parameters.  Optional, may contain &#x60;status&#x60; to set the agent&#39;s Reservation state to either &#x60;closed&#x60; or &#x60;wrapup&#x60;.  Default is &#x60;wrapup&#x60; if unspecified.
+**Routing** | [**interface{}**](interface{}.md) | The Interaction Channel&#39;s routing parameters.  Optional, may contain &#x60;status&#x60; to set the agent&#39;s Reservation state to either &#x60;closed&#x60; or &#x60;wrapup&#x60;.  Default is &#x60;wrapup&#x60; if unspecified.
 **Status** | **string** | The Interaction Channel&#39;s status. Can be: &#x60;closed&#x60; or &#x60;wrapup&#x60;.
 
 ### Return type

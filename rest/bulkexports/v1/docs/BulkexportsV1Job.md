@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Details** | Pointer to **map[string]interface{}** | The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job |
+**Details** | Pointer to **interface{}** | The details of a job state which is an object that contains a `status` string, a day count integer, and list of days in the job |
 **Email** | Pointer to **string** | The optional email to send the completion notification to |
 **EndDay** | Pointer to **string** | The end time for the export specified when creating the job |
 **EstimatedCompletionTime** | Pointer to **string** | this is the time estimated until your job is complete. This is calculated each time you request the job list. The time is calculated based on the current rate of job completion (which may vary) and your job queue position |

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **ActorSid** | Pointer to **string** | The SID of the actor that caused the event, if available |
 **ActorType** | Pointer to **string** | The type of actor that caused the event |
 **Description** | Pointer to **string** | A description of the event |
-**EventData** | Pointer to **map[string]interface{}** | A JSON string that represents an object with additional data about the event |
+**EventData** | Pointer to **interface{}** | A JSON string that represents an object with additional data about the event |
 **EventDate** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the event was recorded |
 **EventType** | Pointer to **string** | The event's type |
 **Links** | Pointer to **map[string]interface{}** | The absolute URLs of related resources |

@@ -28,11 +28,11 @@ type VerifyV2Verification struct {
 	// The RFC 2822 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// Information about the phone number being verified
-	Lookup *map[string]interface{} `json:"lookup,omitempty"`
+	Lookup *interface{} `json:"lookup,omitempty"`
 	// The payee of the associated PSD2 compliant transaction
 	Payee *string `json:"payee,omitempty"`
 	// An array of verification attempt objects.
-	SendCodeAttempts *[]map[string]interface{} `json:"send_code_attempts,omitempty"`
+	SendCodeAttempts *[]interface{} `json:"send_code_attempts,omitempty"`
 	// The SID of the Service that the resource is associated with
 	ServiceSid *string `json:"service_sid,omitempty"`
 	// The unique string that identifies the resource

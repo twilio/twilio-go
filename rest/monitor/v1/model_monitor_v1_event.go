@@ -26,7 +26,7 @@ type MonitorV1Event struct {
 	// A description of the event
 	Description *string `json:"description,omitempty"`
 	// A JSON string that represents an object with additional data about the event
-	EventData *map[string]interface{} `json:"event_data,omitempty"`
+	EventData *interface{} `json:"event_data,omitempty"`
 	// The ISO 8601 date and time in GMT when the event was recorded
 	EventDate *time.Time `json:"event_date,omitempty"`
 	// The event's type

@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **MessageSamples** | Pointer to **[]string** | Message samples |
 **MessagingServiceSid** | Pointer to **string** | The SID of the Messaging Service the resource is associated with |
 **Mock** | Pointer to **bool** | A boolean that specifies whether campaign is a mock or not. |
-**RateLimits** | Pointer to **map[string]interface{}** | Rate limit and/or classification set by each carrier |
+**RateLimits** | Pointer to **interface{}** | Rate limit and/or classification set by each carrier |
 **Sid** | Pointer to **string** | The unique string that identifies a US A2P Compliance resource |
 **Url** | Pointer to **string** | The absolute URL of the US App to Person resource |
 **UsAppToPersonUsecase** | Pointer to **string** | A2P Campaign Use Case. |

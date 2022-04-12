@@ -25,7 +25,7 @@ type CreateFlowParams struct {
 	// Description of change made in the revision.
 	CommitMessage *string `json:"CommitMessage,omitempty"`
 	// JSON representation of flow definition.
-	Definition *map[string]interface{} `json:"Definition,omitempty"`
+	Definition *interface{} `json:"Definition,omitempty"`
 	// The string that you assigned to describe the Flow.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The status of the Flow. Can be: `draft` or `published`.
@@ -36,7 +36,7 @@ func (params *CreateFlowParams) SetCommitMessage(CommitMessage string) *CreateFl
 	params.CommitMessage = &CommitMessage
 	return params
 }
-func (params *CreateFlowParams) SetDefinition(Definition map[string]interface{}) *CreateFlowParams {
+func (params *CreateFlowParams) SetDefinition(Definition interface{}) *CreateFlowParams {
 	params.Definition = &Definition
 	return params
 }
@@ -262,7 +262,7 @@ type UpdateFlowParams struct {
 	// Description of change made in the revision.
 	CommitMessage *string `json:"CommitMessage,omitempty"`
 	// JSON representation of flow definition.
-	Definition *map[string]interface{} `json:"Definition,omitempty"`
+	Definition *interface{} `json:"Definition,omitempty"`
 	// The string that you assigned to describe the Flow.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The status of the Flow. Can be: `draft` or `published`.
@@ -273,7 +273,7 @@ func (params *UpdateFlowParams) SetCommitMessage(CommitMessage string) *UpdateFl
 	params.CommitMessage = &CommitMessage
 	return params
 }
-func (params *UpdateFlowParams) SetDefinition(Definition map[string]interface{}) *UpdateFlowParams {
+func (params *UpdateFlowParams) SetDefinition(Definition interface{}) *UpdateFlowParams {
 	params.Definition = &Definition
 	return params
 }

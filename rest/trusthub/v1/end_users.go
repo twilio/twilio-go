@@ -23,14 +23,14 @@ import (
 // Optional parameters for the method 'CreateEndUser'
 type CreateEndUserParams struct {
 	// The set of parameters that are the attributes of the End User resource which are derived End User Types.
-	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
+	Attributes *interface{} `json:"Attributes,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// The type of end user of the Bundle resource - can be `individual` or `business`.
 	Type *string `json:"Type,omitempty"`
 }
 
-func (params *CreateEndUserParams) SetAttributes(Attributes map[string]interface{}) *CreateEndUserParams {
+func (params *CreateEndUserParams) SetAttributes(Attributes interface{}) *CreateEndUserParams {
 	params.Attributes = &Attributes
 	return params
 }
@@ -251,12 +251,12 @@ func (c *ApiService) getNextListEndUserResponse(nextPageUrl string) (interface{}
 // Optional parameters for the method 'UpdateEndUser'
 type UpdateEndUserParams struct {
 	// The set of parameters that are the attributes of the End User resource which are derived End User Types.
-	Attributes *map[string]interface{} `json:"Attributes,omitempty"`
+	Attributes *interface{} `json:"Attributes,omitempty"`
 	// The string that you assigned to describe the resource.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 }
 
-func (params *UpdateEndUserParams) SetAttributes(Attributes map[string]interface{}) *UpdateEndUserParams {
+func (params *UpdateEndUserParams) SetAttributes(Attributes interface{}) *UpdateEndUserParams {
 	params.Attributes = &Attributes
 	return params
 }

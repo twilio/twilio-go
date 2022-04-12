@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Sink Description |
 **Links** | Pointer to **map[string]interface{}** | Nested resource URLs. |
 **Sid** | Pointer to **string** | A string that uniquely identifies this Sink. |
-**SinkConfiguration** | Pointer to **map[string]interface{}** | JSON Sink configuration. |
+**SinkConfiguration** | Pointer to **interface{}** | JSON Sink configuration. |
 **SinkType** | Pointer to **string** | Sink type. |
 **Status** | Pointer to **string** | The Status of this Sink |
 **Url** | Pointer to **string** | The URL of this resource. |

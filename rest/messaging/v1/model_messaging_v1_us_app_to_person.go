@@ -44,7 +44,7 @@ type MessagingV1UsAppToPerson struct {
 	// A boolean that specifies whether campaign is a mock or not.
 	Mock *bool `json:"mock,omitempty"`
 	// Rate limit and/or classification set by each carrier
-	RateLimits *map[string]interface{} `json:"rate_limits,omitempty"`
+	RateLimits *interface{} `json:"rate_limits,omitempty"`
 	// The unique string that identifies a US A2P Compliance resource
 	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the US App to Person resource

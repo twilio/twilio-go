@@ -32,7 +32,7 @@ Other parameters are passed through a pointer to a CreateStreamMessageParams str
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Data** | [**map[string]interface{}**](map[string]interface{}.md) | A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
+**Data** | [**interface{}**](interface{}.md) | A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
 
 ### Return type
 

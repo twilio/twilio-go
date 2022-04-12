@@ -28,7 +28,7 @@ type SupersimV1UsageRecord struct {
 	// SID of the Network resource on which the usage occurred.
 	NetworkSid *string `json:"network_sid,omitempty"`
 	// The time period for which the usage is reported.
-	Period *map[string]interface{} `json:"period,omitempty"`
+	Period *interface{} `json:"period,omitempty"`
 	// SID of a Sim resource to which the UsageRecord belongs.
 	SimSid *string `json:"sim_sid,omitempty"`
 }

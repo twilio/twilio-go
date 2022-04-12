@@ -22,7 +22,7 @@ type ChatV2ChannelWebhook struct {
 	// The SID of the Channel the Channel Webhook resource belongs to
 	ChannelSid *string `json:"channel_sid,omitempty"`
 	// The JSON string that describes the configuration object for the channel webhook
-	Configuration *map[string]interface{} `json:"configuration,omitempty"`
+	Configuration *interface{} `json:"configuration,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated

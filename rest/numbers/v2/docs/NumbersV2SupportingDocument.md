@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**Attributes** | Pointer to **map[string]interface{}** | The set of parameters that compose the Supporting Documents resource |
+**Attributes** | Pointer to **interface{}** | The set of parameters that compose the Supporting Documents resource |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **FailureReason** | Pointer to **string** | The failure reason of the Supporting Document Resource. |

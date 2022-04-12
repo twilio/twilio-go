@@ -24,7 +24,7 @@ type StudioV1Engagement struct {
 	// The SID of the Contact
 	ContactSid *string `json:"contact_sid,omitempty"`
 	// The current state of the execution flow
-	Context *map[string]interface{} `json:"context,omitempty"`
+	Context *interface{} `json:"context,omitempty"`
 	// The ISO 8601 date and time in GMT when the Engagement was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the Engagement was last updated

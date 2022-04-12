@@ -22,7 +22,7 @@ type SyncV1SyncMapItem struct {
 	// The identity of the Map Item's creator
 	CreatedBy *string `json:"created_by,omitempty"`
 	// An arbitrary, schema-less object that the Map Item stores
-	Data *map[string]interface{} `json:"data,omitempty"`
+	Data *interface{} `json:"data,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the Map Item expires

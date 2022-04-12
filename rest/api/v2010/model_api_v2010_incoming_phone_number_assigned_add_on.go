@@ -16,7 +16,7 @@ type ApiV2010IncomingPhoneNumberAssignedAddOn struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// A JSON string that represents the current configuration
-	Configuration *map[string]interface{} `json:"configuration,omitempty"`
+	Configuration *interface{} `json:"configuration,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was created
 	DateCreated *string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was last updated

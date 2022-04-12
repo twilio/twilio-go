@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to **string** | The date this resource was last updated |
 **EndDate** | Pointer to **string** | The latest feedback entry date in the summary |
 **IncludeSubaccounts** | Pointer to **bool** | Whether the feedback summary includes subaccounts |
-**Issues** | Pointer to **[]map[string]interface{}** | Issues experienced during the call |
+**Issues** | Pointer to **[]interface{}** | Issues experienced during the call |
 **QualityScoreAverage** | Pointer to **float32** | The average QualityScore of the feedback entries |
 **QualityScoreMedian** | Pointer to **float32** | The median QualityScore of the feedback entries |
 **QualityScoreStandardDeviation** | Pointer to **float32** | The standard deviation of the quality scores |

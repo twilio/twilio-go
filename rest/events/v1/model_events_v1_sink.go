@@ -28,7 +28,7 @@ type EventsV1Sink struct {
 	// A string that uniquely identifies this Sink.
 	Sid *string `json:"sid,omitempty"`
 	// JSON Sink configuration.
-	SinkConfiguration *map[string]interface{} `json:"sink_configuration,omitempty"`
+	SinkConfiguration *interface{} `json:"sink_configuration,omitempty"`
 	// Sink type.
 	SinkType *string `json:"sink_type,omitempty"`
 	// The Status of this Sink

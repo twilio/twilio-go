@@ -40,7 +40,7 @@ type CreateCompositionParams struct {
 	// Whether to clip the intervals where there is no active media in the composition. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
 	Trim *bool `json:"Trim,omitempty"`
 	// An object that describes the video layout of the composition in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
-	VideoLayout *map[string]interface{} `json:"VideoLayout,omitempty"`
+	VideoLayout *interface{} `json:"VideoLayout,omitempty"`
 }
 
 func (params *CreateCompositionParams) SetAudioSources(AudioSources []string) *CreateCompositionParams {
@@ -75,7 +75,7 @@ func (params *CreateCompositionParams) SetTrim(Trim bool) *CreateCompositionPara
 	params.Trim = &Trim
 	return params
 }
-func (params *CreateCompositionParams) SetVideoLayout(VideoLayout map[string]interface{}) *CreateCompositionParams {
+func (params *CreateCompositionParams) SetVideoLayout(VideoLayout interface{}) *CreateCompositionParams {
 	params.VideoLayout = &VideoLayout
 	return params
 }

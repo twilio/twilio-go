@@ -36,7 +36,7 @@ type ConversationsV1ServiceParticipantConversation struct {
 	// The current state of this User Conversation
 	ConversationState *string `json:"conversation_state,omitempty"`
 	// Timer date values for this conversation.
-	ConversationTimers *map[string]interface{} `json:"conversation_timers,omitempty"`
+	ConversationTimers *interface{} `json:"conversation_timers,omitempty"`
 	// An application-defined string that uniquely identifies the Conversation resource.
 	ConversationUniqueName *string `json:"conversation_unique_name,omitempty"`
 	// Absolute URLs to access the participant and conversation of this Participant Conversation.
@@ -44,7 +44,7 @@ type ConversationsV1ServiceParticipantConversation struct {
 	// A unique string identifier for the conversation participant as Conversation User.
 	ParticipantIdentity *string `json:"participant_identity,omitempty"`
 	// Information about how this participant exchanges messages with the conversation.
-	ParticipantMessagingBinding *map[string]interface{} `json:"participant_messaging_binding,omitempty"`
+	ParticipantMessagingBinding *interface{} `json:"participant_messaging_binding,omitempty"`
 	// The unique ID of the Participant.
 	ParticipantSid *string `json:"participant_sid,omitempty"`
 	// The unique ID for the conversation participant as Conversation User.

@@ -28,7 +28,7 @@ type ApiV2010CallFeedbackSummary struct {
 	// Whether the feedback summary includes subaccounts
 	IncludeSubaccounts *bool `json:"include_subaccounts,omitempty"`
 	// Issues experienced during the call
-	Issues *[]map[string]interface{} `json:"issues,omitempty"`
+	Issues *[]interface{} `json:"issues,omitempty"`
 	// The average QualityScore of the feedback entries
 	QualityScoreAverage *float32 `json:"quality_score_average,omitempty"`
 	// The median QualityScore of the feedback entries

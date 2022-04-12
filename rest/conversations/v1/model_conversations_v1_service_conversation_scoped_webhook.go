@@ -22,7 +22,7 @@ type ConversationsV1ServiceConversationScopedWebhook struct {
 	// The SID of the Conversation Service that the resource is associated with.
 	ChatServiceSid *string `json:"chat_service_sid,omitempty"`
 	// The configuration of this webhook.
-	Configuration *map[string]interface{} `json:"configuration,omitempty"`
+	Configuration *interface{} `json:"configuration,omitempty"`
 	// The unique ID of the Conversation for this webhook.
 	ConversationSid *string `json:"conversation_sid,omitempty"`
 	// The date that this resource was created.

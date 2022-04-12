@@ -74,7 +74,7 @@ Other parameters are passed through a pointer to a UpdateStyleSheetParams struct
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**StyleSheet** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON string that describes the style sheet object.
+**StyleSheet** | [**interface{}**](interface{}.md) | The JSON string that describes the style sheet object.
 
 ### Return type
 

@@ -44,10 +44,10 @@ func (c *ApiService) FetchTaskActions(AssistantSid string, TaskSid string) (*Aut
 // Optional parameters for the method 'UpdateTaskActions'
 type UpdateTaskActionsParams struct {
 	// The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
-	Actions *map[string]interface{} `json:"Actions,omitempty"`
+	Actions *interface{} `json:"Actions,omitempty"`
 }
 
-func (params *UpdateTaskActionsParams) SetActions(Actions map[string]interface{}) *UpdateTaskActionsParams {
+func (params *UpdateTaskActionsParams) SetActions(Actions interface{}) *UpdateTaskActionsParams {
 	params.Actions = &Actions
 	return params
 }

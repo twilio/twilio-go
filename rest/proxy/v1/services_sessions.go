@@ -30,7 +30,7 @@ type CreateSessionParams struct {
 	// The Mode of the Session. Can be: `message-only`, `voice-only`, or `voice-and-message` and the default value is `voice-and-message`.
 	Mode *string `json:"Mode,omitempty"`
 	// The Participant objects to include in the new session.
-	Participants *[]map[string]interface{} `json:"Participants,omitempty"`
+	Participants *[]interface{} `json:"Participants,omitempty"`
 	// The initial status of the Session. Can be: `open`, `in-progress`, `closed`, `failed`, or `unknown`. The default is `open` on create.
 	Status *string `json:"Status,omitempty"`
 	// The time, in seconds, when the session will expire. The time is measured from the last Session create or the Session's last Interaction.
@@ -51,7 +51,7 @@ func (params *CreateSessionParams) SetMode(Mode string) *CreateSessionParams {
 	params.Mode = &Mode
 	return params
 }
-func (params *CreateSessionParams) SetParticipants(Participants []map[string]interface{}) *CreateSessionParams {
+func (params *CreateSessionParams) SetParticipants(Participants []interface{}) *CreateSessionParams {
 	params.Participants = &Participants
 	return params
 }

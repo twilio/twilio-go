@@ -44,7 +44,7 @@ type ConversationsV1UserConversation struct {
 	// Participant Sid.
 	ParticipantSid *string `json:"participant_sid,omitempty"`
 	// Timer date values for this conversation.
-	Timers *map[string]interface{} `json:"timers,omitempty"`
+	Timers *interface{} `json:"timers,omitempty"`
 	// An application-defined string that uniquely identifies the Conversation resource.
 	UniqueName *string `json:"unique_name,omitempty"`
 	// The number of unread Messages in the Conversation.

@@ -20,5 +20,5 @@ type VerifyV2VerificationTemplate struct {
 	// A string that uniquely identifies this Template
 	Sid *string `json:"sid,omitempty"`
 	// Object with the template translations.
-	Translations *map[string]interface{} `json:"translations,omitempty"`
+	Translations *interface{} `json:"translations,omitempty"`
 }

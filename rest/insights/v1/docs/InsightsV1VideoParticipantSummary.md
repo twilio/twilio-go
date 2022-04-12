@@ -16,8 +16,8 @@ Name | Type | Description | Notes
 **MediaRegion** | Pointer to **string** | Twilio media region the participant connected to. |
 **ParticipantIdentity** | Pointer to **string** | The application-defined string that uniquely identifies the participant within a Room. |
 **ParticipantSid** | Pointer to **string** | Unique identifier for the participant. |
-**Properties** | Pointer to **map[string]interface{}** | Object containing information about the participant's data from the room. |
-**PublisherInfo** | Pointer to **map[string]interface{}** | Object containing information about the SDK name and version. |
+**Properties** | Pointer to **interface{}** | Object containing information about the participant's data from the room. |
+**PublisherInfo** | Pointer to **interface{}** | Object containing information about the SDK name and version. |
 **RoomSid** | Pointer to **string** | Unique identifier for the room. |
 **Status** | Pointer to **string** | Status of the room. |
 **Url** | Pointer to **string** | URL of the participant resource. |

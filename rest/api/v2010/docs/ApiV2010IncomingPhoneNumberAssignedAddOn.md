@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
-**Configuration** | Pointer to **map[string]interface{}** | A JSON string that represents the current configuration |
+**Configuration** | Pointer to **interface{}** | A JSON string that represents the current configuration |
 **DateCreated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was created |
 **DateUpdated** | Pointer to **string** | The RFC 2822 date and time in GMT that the resource was last updated |
 **Description** | Pointer to **string** | A short description of the Add-on functionality |

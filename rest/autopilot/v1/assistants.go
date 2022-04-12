@@ -27,13 +27,13 @@ type CreateAssistantParams struct {
 	// Reserved.
 	CallbackUrl *string `json:"CallbackUrl,omitempty"`
 	// A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
-	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
+	Defaults *interface{} `json:"Defaults,omitempty"`
 	// A descriptive string that you create to describe the new resource. It is not unique and can be up to 255 characters long.
 	FriendlyName *string `json:"FriendlyName,omitempty"`
 	// Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
 	LogQueries *bool `json:"LogQueries,omitempty"`
 	// The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
-	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
+	StyleSheet *interface{} `json:"StyleSheet,omitempty"`
 	// An application-defined string that uniquely identifies the new resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
@@ -46,7 +46,7 @@ func (params *CreateAssistantParams) SetCallbackUrl(CallbackUrl string) *CreateA
 	params.CallbackUrl = &CallbackUrl
 	return params
 }
-func (params *CreateAssistantParams) SetDefaults(Defaults map[string]interface{}) *CreateAssistantParams {
+func (params *CreateAssistantParams) SetDefaults(Defaults interface{}) *CreateAssistantParams {
 	params.Defaults = &Defaults
 	return params
 }
@@ -58,7 +58,7 @@ func (params *CreateAssistantParams) SetLogQueries(LogQueries bool) *CreateAssis
 	params.LogQueries = &LogQueries
 	return params
 }
-func (params *CreateAssistantParams) SetStyleSheet(StyleSheet map[string]interface{}) *CreateAssistantParams {
+func (params *CreateAssistantParams) SetStyleSheet(StyleSheet interface{}) *CreateAssistantParams {
 	params.StyleSheet = &StyleSheet
 	return params
 }
@@ -294,7 +294,7 @@ type UpdateAssistantParams struct {
 	// Reserved.
 	CallbackUrl *string `json:"CallbackUrl,omitempty"`
 	// A JSON object that defines the Assistant's [default tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios, including initiation actions and fallback tasks.
-	Defaults *map[string]interface{} `json:"Defaults,omitempty"`
+	Defaults *interface{} `json:"Defaults,omitempty"`
 	// A string describing the state of the assistant.
 	DevelopmentStage *string `json:"DevelopmentStage,omitempty"`
 	// A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
@@ -302,7 +302,7 @@ type UpdateAssistantParams struct {
 	// Whether queries should be logged and kept after training. Can be: `true` or `false` and defaults to `true`. If `true`, queries are stored for 30 days, and then deleted. If `false`, no queries are stored.
 	LogQueries *bool `json:"LogQueries,omitempty"`
 	// The JSON string that defines the Assistant's [style sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet)
-	StyleSheet *map[string]interface{} `json:"StyleSheet,omitempty"`
+	StyleSheet *interface{} `json:"StyleSheet,omitempty"`
 	// An application-defined string that uniquely identifies the resource. It can be used as an alternative to the `sid` in the URL path to address the resource. The first 64 characters must be unique.
 	UniqueName *string `json:"UniqueName,omitempty"`
 }
@@ -315,7 +315,7 @@ func (params *UpdateAssistantParams) SetCallbackUrl(CallbackUrl string) *UpdateA
 	params.CallbackUrl = &CallbackUrl
 	return params
 }
-func (params *UpdateAssistantParams) SetDefaults(Defaults map[string]interface{}) *UpdateAssistantParams {
+func (params *UpdateAssistantParams) SetDefaults(Defaults interface{}) *UpdateAssistantParams {
 	params.Defaults = &Defaults
 	return params
 }
@@ -331,7 +331,7 @@ func (params *UpdateAssistantParams) SetLogQueries(LogQueries bool) *UpdateAssis
 	params.LogQueries = &LogQueries
 	return params
 }
-func (params *UpdateAssistantParams) SetStyleSheet(StyleSheet map[string]interface{}) *UpdateAssistantParams {
+func (params *UpdateAssistantParams) SetStyleSheet(StyleSheet interface{}) *UpdateAssistantParams {
 	params.StyleSheet = &StyleSheet
 	return params
 }

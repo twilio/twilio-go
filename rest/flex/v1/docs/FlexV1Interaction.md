@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Channel** | Pointer to **map[string]interface{}** | The Interaction's channel |
+**Channel** | Pointer to **interface{}** | The Interaction's channel |
 **Links** | Pointer to **map[string]interface{}** |  |
-**Routing** | Pointer to **map[string]interface{}** | The Interaction's routing logic |
+**Routing** | Pointer to **interface{}** | The Interaction's routing logic |
 **Sid** | Pointer to **string** | The unique string that identifies the resource |
 **Url** | Pointer to **string** |  |
 

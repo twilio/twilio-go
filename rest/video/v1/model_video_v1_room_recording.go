@@ -28,7 +28,7 @@ type VideoV1RoomRecording struct {
 	// The duration of the recording in seconds
 	Duration *int `json:"duration,omitempty"`
 	// A list of SIDs related to the Recording
-	GroupingSids *map[string]interface{} `json:"grouping_sids,omitempty"`
+	GroupingSids *interface{} `json:"grouping_sids,omitempty"`
 	// The URLs of related resources
 	Links *map[string]interface{} `json:"links,omitempty"`
 	// The URL of the media file associated with the recording when stored externally

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **Enabled** | Pointer to **bool** | Whether the Flex Flow is enabled |
 **FriendlyName** | Pointer to **string** | The string that you assigned to describe the resource |
-**Integration** | Pointer to **map[string]interface{}** | An object that contains specific parameters for the integration |
+**Integration** | Pointer to **interface{}** | An object that contains specific parameters for the integration |
 **IntegrationType** | Pointer to **string** | The software that will handle inbound messages. |
 **JanitorEnabled** | Pointer to **bool** | Remove active Proxy sessions if the corresponding Task is deleted. |
 **LongLived** | Pointer to **bool** | Re-use this chat channel for future interactions with a contact |

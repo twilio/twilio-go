@@ -36,7 +36,7 @@ type ConversationsV1ServiceConversationParticipant struct {
 	// Timestamp of last “read” message in the Conversation for the Participant.
 	LastReadTimestamp *string `json:"last_read_timestamp,omitempty"`
 	// Information about how this participant exchanges messages with the conversation.
-	MessagingBinding *map[string]interface{} `json:"messaging_binding,omitempty"`
+	MessagingBinding *interface{} `json:"messaging_binding,omitempty"`
 	// The SID of a conversation-level Role to assign to the participant
 	RoleSid *string `json:"role_sid,omitempty"`
 	// A 34 character string that uniquely identifies this resource.

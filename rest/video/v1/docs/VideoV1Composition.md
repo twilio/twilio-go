@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **StatusCallbackMethod** | Pointer to **string** | The HTTP method used to call `status_callback` |
 **Trim** | Pointer to **bool** | Whether to remove intervals with no media |
 **Url** | Pointer to **string** | The absolute URL of the resource |
-**VideoLayout** | Pointer to **map[string]interface{}** | An object that describes the video layout of the composition |
+**VideoLayout** | Pointer to **interface{}** | An object that describes the video layout of the composition |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

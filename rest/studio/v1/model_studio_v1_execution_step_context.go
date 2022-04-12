@@ -16,7 +16,7 @@ type StudioV1ExecutionStepContext struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The current state of the flow
-	Context *map[string]interface{} `json:"context,omitempty"`
+	Context *interface{} `json:"context,omitempty"`
 	// The SID of the Execution
 	ExecutionSid *string `json:"execution_sid,omitempty"`
 	// The SID of the Flow

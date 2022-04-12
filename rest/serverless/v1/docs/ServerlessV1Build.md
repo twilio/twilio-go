@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the Build resource |
-**AssetVersions** | Pointer to **[]map[string]interface{}** | The list of Asset Version resource SIDs that are included in the Build |
+**AssetVersions** | Pointer to **[]interface{}** | The list of Asset Version resource SIDs that are included in the Build |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the Build resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the Build resource was last updated |
-**Dependencies** | Pointer to **[]map[string]interface{}** | A list of objects that describe the Dependencies included in the Build |
-**FunctionVersions** | Pointer to **[]map[string]interface{}** | The list of Function Version resource SIDs that are included in the Build |
+**Dependencies** | Pointer to **[]interface{}** | A list of objects that describe the Dependencies included in the Build |
+**FunctionVersions** | Pointer to **[]interface{}** | The list of Function Version resource SIDs that are included in the Build |
 **Links** | Pointer to **map[string]interface{}** |  |
 **Runtime** | Pointer to **string** | The Runtime version that will be used to run the Build. |
 **ServiceSid** | Pointer to **string** | The SID of the Service that the Build resource is associated with |

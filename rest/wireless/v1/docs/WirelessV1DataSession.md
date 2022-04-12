@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
 **CellId** | Pointer to **string** | The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated |
-**CellLocationEstimate** | Pointer to **map[string]interface{}** | An object with the estimated location where the device's Data Session took place |
+**CellLocationEstimate** | Pointer to **interface{}** | An object with the estimated location where the device's Data Session took place |
 **End** | Pointer to [**time.Time**](time.Time.md) | The date that the record ended, given as GMT in ISO 8601 format |
 **Imei** | Pointer to **string** | The unique ID of the device using the SIM to connect |
 **LastUpdated** | Pointer to [**time.Time**](time.Time.md) | The date that the resource was last updated, given as GMT in ISO 8601 format |

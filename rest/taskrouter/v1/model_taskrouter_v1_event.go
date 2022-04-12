@@ -28,7 +28,7 @@ type TaskrouterV1Event struct {
 	// A description of the event
 	Description *string `json:"description,omitempty"`
 	// Data about the event
-	EventData *map[string]interface{} `json:"event_data,omitempty"`
+	EventData *interface{} `json:"event_data,omitempty"`
 	// The time the event was sent
 	EventDate *time.Time `json:"event_date,omitempty"`
 	// The time the event was sent in milliseconds

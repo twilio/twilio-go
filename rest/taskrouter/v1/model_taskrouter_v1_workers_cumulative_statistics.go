@@ -20,7 +20,7 @@ type TaskrouterV1WorkersCumulativeStatistics struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The minimum, average, maximum, and total time that Workers spent in each Activity
-	ActivityDurations *[]map[string]interface{} `json:"activity_durations,omitempty"`
+	ActivityDurations *[]interface{} `json:"activity_durations,omitempty"`
 	// The end of the interval during which these statistics were calculated
 	EndTime *time.Time `json:"end_time,omitempty"`
 	// The total number of Reservations that were accepted

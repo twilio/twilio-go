@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccountSid** | Pointer to **string** | The SID of the Account that created the resource |
 **ContactChannelAddress** | Pointer to **string** | The phone number, SIP address or Client identifier that triggered the Execution |
 **ContactSid** | Pointer to **string** | The SID of the Contact |
-**Context** | Pointer to **map[string]interface{}** | The current state of the flow |
+**Context** | Pointer to **interface{}** | The current state of the flow |
 **DateCreated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was created |
 **DateUpdated** | Pointer to [**time.Time**](time.Time.md) | The ISO 8601 date and time in GMT when the resource was last updated |
 **FlowSid** | Pointer to **string** | The SID of the Flow |

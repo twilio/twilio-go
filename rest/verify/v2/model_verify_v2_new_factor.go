@@ -20,9 +20,9 @@ type VerifyV2NewFactor struct {
 	// Account Sid.
 	AccountSid *string `json:"account_sid,omitempty"`
 	// Binding of the factor
-	Binding *map[string]interface{} `json:"binding,omitempty"`
+	Binding *interface{} `json:"binding,omitempty"`
 	// Configurations for a `factor_type`.
-	Config *map[string]interface{} `json:"config,omitempty"`
+	Config *interface{} `json:"config,omitempty"`
 	// The date this Factor was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The date this Factor was updated
@@ -36,7 +36,7 @@ type VerifyV2NewFactor struct {
 	// Unique external identifier of the Entity
 	Identity *string `json:"identity,omitempty"`
 	// Metadata of the factor.
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+	Metadata *interface{} `json:"metadata,omitempty"`
 	// Service Sid.
 	ServiceSid *string `json:"service_sid,omitempty"`
 	// A string that uniquely identifies this Factor.

@@ -36,7 +36,7 @@ type ChatV2Message struct {
 	// The Identity of the User who last updated the Message
 	LastUpdatedBy *string `json:"last_updated_by,omitempty"`
 	// A Media object that describes the Message's media if attached; otherwise, null
-	Media *map[string]interface{} `json:"media,omitempty"`
+	Media *interface{} `json:"media,omitempty"`
 	// The SID of the Service that the resource is associated with
 	ServiceSid *string `json:"service_sid,omitempty"`
 	// The unique string that identifies the resource

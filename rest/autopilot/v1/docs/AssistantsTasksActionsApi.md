@@ -76,7 +76,7 @@ Other parameters are passed through a pointer to a UpdateTaskActionsParams struc
 
 Name | Type | Description
 ------------- | ------------- | -------------
-**Actions** | [**map[string]interface{}**](map[string]interface{}.md) | The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
+**Actions** | [**interface{}**](interface{}.md) | The JSON string that specifies the [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the Assistant on how to perform the task.
 
 ### Return type
 

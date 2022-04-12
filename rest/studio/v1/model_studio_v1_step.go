@@ -20,7 +20,7 @@ type StudioV1Step struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The current state of the flow
-	Context *map[string]interface{} `json:"context,omitempty"`
+	Context *interface{} `json:"context,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was created
 	DateCreated *time.Time `json:"date_created,omitempty"`
 	// The ISO 8601 date and time in GMT when the resource was last updated

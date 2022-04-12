@@ -36,7 +36,7 @@ type TaskrouterV1TaskQueueCumulativeStatistics struct {
 	// The total number of Reservations that timed out for Tasks in the TaskQueue
 	ReservationsTimedOut *int `json:"reservations_timed_out,omitempty"`
 	// A list of objects that describe the Tasks canceled and reservations accepted above and below the specified thresholds
-	SplitByWaitTime *map[string]interface{} `json:"split_by_wait_time,omitempty"`
+	SplitByWaitTime *interface{} `json:"split_by_wait_time,omitempty"`
 	// The beginning of the interval during which these statistics were calculated
 	StartTime *time.Time `json:"start_time,omitempty"`
 	// The SID of the TaskQueue from which these statistics were calculated
@@ -54,11 +54,11 @@ type TaskrouterV1TaskQueueCumulativeStatistics struct {
 	// The absolute URL of the TaskQueue statistics resource
 	Url *string `json:"url,omitempty"`
 	// The relative wait duration statistics for Tasks accepted while in the TaskQueue
-	WaitDurationInQueueUntilAccepted *map[string]interface{} `json:"wait_duration_in_queue_until_accepted,omitempty"`
+	WaitDurationInQueueUntilAccepted *interface{} `json:"wait_duration_in_queue_until_accepted,omitempty"`
 	// The wait duration statistics for Tasks accepted while in the TaskQueue
-	WaitDurationUntilAccepted *map[string]interface{} `json:"wait_duration_until_accepted,omitempty"`
+	WaitDurationUntilAccepted *interface{} `json:"wait_duration_until_accepted,omitempty"`
 	// The wait duration statistics for Tasks canceled while in the TaskQueue
-	WaitDurationUntilCanceled *map[string]interface{} `json:"wait_duration_until_canceled,omitempty"`
+	WaitDurationUntilCanceled *interface{} `json:"wait_duration_until_canceled,omitempty"`
 	// The SID of the Workspace that contains the TaskQueue
 	WorkspaceSid *string `json:"workspace_sid,omitempty"`
 }

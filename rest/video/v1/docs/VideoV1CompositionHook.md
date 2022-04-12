@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **StatusCallbackMethod** | Pointer to **string** | The HTTP method we should use to call status_callback |
 **Trim** | Pointer to **bool** | Whether intervals with no media are clipped |
 **Url** | Pointer to **string** | The absolute URL of the resource |
-**VideoLayout** | Pointer to **map[string]interface{}** | A JSON object that describes the video layout of the Composition |
+**VideoLayout** | Pointer to **interface{}** | A JSON object that describes the video layout of the Composition |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

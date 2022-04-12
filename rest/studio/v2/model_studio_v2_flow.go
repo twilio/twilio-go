@@ -26,9 +26,9 @@ type StudioV2Flow struct {
 	// The ISO 8601 date and time in GMT when the resource was last updated
 	DateUpdated *time.Time `json:"date_updated,omitempty"`
 	// JSON representation of flow definition
-	Definition *map[string]interface{} `json:"definition,omitempty"`
+	Definition *interface{} `json:"definition,omitempty"`
 	// List of error in the flow definition
-	Errors *[]map[string]interface{} `json:"errors,omitempty"`
+	Errors *[]interface{} `json:"errors,omitempty"`
 	// The string that you assigned to describe the Flow
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// Nested resource URLs
@@ -44,6 +44,6 @@ type StudioV2Flow struct {
 	// Boolean if the flow definition is valid
 	Valid *bool `json:"valid,omitempty"`
 	// List of warnings in the flow definition
-	Warnings   *[]map[string]interface{} `json:"warnings,omitempty"`
-	WebhookUrl *string                   `json:"webhook_url,omitempty"`
+	Warnings   *[]interface{} `json:"warnings,omitempty"`
+	WebhookUrl *string        `json:"webhook_url,omitempty"`
 }

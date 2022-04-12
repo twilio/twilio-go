@@ -16,7 +16,7 @@ type TrusthubV1Policies struct {
 	// A human-readable description of the Policy resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// The sid of a Policy object that dictates requirements
-	Requirements *map[string]interface{} `json:"requirements,omitempty"`
+	Requirements *interface{} `json:"requirements,omitempty"`
 	// The unique string that identifies the Policy resource
 	Sid *string `json:"sid,omitempty"`
 	// The absolute URL of the Policy resource

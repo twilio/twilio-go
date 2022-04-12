@@ -20,7 +20,7 @@ type ApiV2010DependentPhoneNumber struct {
 	// The API version used to start a new TwiML session
 	ApiVersion *string `json:"api_version,omitempty"`
 	// Indicate if a phone can receive calls or messages
-	Capabilities *map[string]interface{} `json:"capabilities,omitempty"`
+	Capabilities *interface{} `json:"capabilities,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was created
 	DateCreated *string `json:"date_created,omitempty"`
 	// The RFC 2822 date and time in GMT that the resource was last updated

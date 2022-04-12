@@ -25,7 +25,7 @@ type CreateSyncMapItemParams struct {
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted.
 	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-	Data *map[string]interface{} `json:"Data,omitempty"`
+	Data *interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
 	ItemTtl *int `json:"ItemTtl,omitempty"`
 	// The unique, user-defined key for the Map Item. Can be up to 320 characters long.
@@ -38,7 +38,7 @@ func (params *CreateSyncMapItemParams) SetCollectionTtl(CollectionTtl int) *Crea
 	params.CollectionTtl = &CollectionTtl
 	return params
 }
-func (params *CreateSyncMapItemParams) SetData(Data map[string]interface{}) *CreateSyncMapItemParams {
+func (params *CreateSyncMapItemParams) SetData(Data interface{}) *CreateSyncMapItemParams {
 	params.Data = &Data
 	return params
 }
@@ -321,7 +321,7 @@ type UpdateSyncMapItemParams struct {
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item's parent Sync Map expires (time-to-live) and is deleted. This parameter can only be used when the Map Item's `data` or `ttl` is updated in the same request.
 	CollectionTtl *int `json:"CollectionTtl,omitempty"`
 	// A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
-	Data *map[string]interface{} `json:"Data,omitempty"`
+	Data *interface{} `json:"Data,omitempty"`
 	// How long, [in seconds](https://www.twilio.com/docs/sync/limits#sync-payload-limits), before the Map Item expires (time-to-live) and is deleted.
 	ItemTtl *int `json:"ItemTtl,omitempty"`
 	// An alias for `item_ttl`. If both parameters are provided, this value is ignored.
@@ -336,7 +336,7 @@ func (params *UpdateSyncMapItemParams) SetCollectionTtl(CollectionTtl int) *Upda
 	params.CollectionTtl = &CollectionTtl
 	return params
 }
-func (params *UpdateSyncMapItemParams) SetData(Data map[string]interface{}) *UpdateSyncMapItemParams {
+func (params *UpdateSyncMapItemParams) SetData(Data interface{}) *UpdateSyncMapItemParams {
 	params.Data = &Data
 	return params
 }

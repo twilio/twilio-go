@@ -34,7 +34,7 @@ type FlexV1FlexFlow struct {
 	// The string that you assigned to describe the resource
 	FriendlyName *string `json:"friendly_name,omitempty"`
 	// An object that contains specific parameters for the integration
-	Integration *map[string]interface{} `json:"integration,omitempty"`
+	Integration *interface{} `json:"integration,omitempty"`
 	// The software that will handle inbound messages.
 	IntegrationType *string `json:"integration_type,omitempty"`
 	// Remove active Proxy sessions if the corresponding Task is deleted.

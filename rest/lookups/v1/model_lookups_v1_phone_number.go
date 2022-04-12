@@ -14,11 +14,11 @@ package openapi
 // LookupsV1PhoneNumber struct for LookupsV1PhoneNumber
 type LookupsV1PhoneNumber struct {
 	// A JSON string with the results of the Add-ons you specified
-	AddOns *map[string]interface{} `json:"add_ons,omitempty"`
+	AddOns *interface{} `json:"add_ons,omitempty"`
 	// The name of the phone number's owner
-	CallerName *map[string]interface{} `json:"caller_name,omitempty"`
+	CallerName *interface{} `json:"caller_name,omitempty"`
 	// The telecom company that provides the phone number
-	Carrier *map[string]interface{} `json:"carrier,omitempty"`
+	Carrier *interface{} `json:"carrier,omitempty"`
 	// The ISO country code for the phone number
 	CountryCode *string `json:"country_code,omitempty"`
 	// The phone number, in national format

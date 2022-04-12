@@ -20,16 +20,16 @@ import (
 // Optional parameters for the method 'CreateInteraction'
 type CreateInteractionParams struct {
 	// The Interaction's channel.
-	Channel *map[string]interface{} `json:"Channel,omitempty"`
+	Channel *interface{} `json:"Channel,omitempty"`
 	// The Interaction's routing logic.
-	Routing *map[string]interface{} `json:"Routing,omitempty"`
+	Routing *interface{} `json:"Routing,omitempty"`
 }
 
-func (params *CreateInteractionParams) SetChannel(Channel map[string]interface{}) *CreateInteractionParams {
+func (params *CreateInteractionParams) SetChannel(Channel interface{}) *CreateInteractionParams {
 	params.Channel = &Channel
 	return params
 }
-func (params *CreateInteractionParams) SetRouting(Routing map[string]interface{}) *CreateInteractionParams {
+func (params *CreateInteractionParams) SetRouting(Routing interface{}) *CreateInteractionParams {
 	params.Routing = &Routing
 	return params
 }

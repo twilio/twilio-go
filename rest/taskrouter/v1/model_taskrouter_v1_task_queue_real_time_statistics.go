@@ -16,7 +16,7 @@ type TaskrouterV1TaskQueueRealTimeStatistics struct {
 	// The SID of the Account that created the resource
 	AccountSid *string `json:"account_sid,omitempty"`
 	// The number of current Workers by Activity
-	ActivityStatistics *[]map[string]interface{} `json:"activity_statistics,omitempty"`
+	ActivityStatistics *[]interface{} `json:"activity_statistics,omitempty"`
 	// The relative age in the TaskQueue for the longest waiting Task.
 	LongestRelativeTaskAgeInQueue *int `json:"longest_relative_task_age_in_queue,omitempty"`
 	// The SID of the Task waiting in the TaskQueue the longest.
@@ -28,9 +28,9 @@ type TaskrouterV1TaskQueueRealTimeStatistics struct {
 	// The SID of the TaskQueue from which these statistics were calculated
 	TaskQueueSid *string `json:"task_queue_sid,omitempty"`
 	// The number of Tasks by priority
-	TasksByPriority *map[string]interface{} `json:"tasks_by_priority,omitempty"`
+	TasksByPriority *interface{} `json:"tasks_by_priority,omitempty"`
 	// The number of Tasks by their current status
-	TasksByStatus *map[string]interface{} `json:"tasks_by_status,omitempty"`
+	TasksByStatus *interface{} `json:"tasks_by_status,omitempty"`
 	// The total number of Workers available for Tasks in the TaskQueue
 	TotalAvailableWorkers *int `json:"total_available_workers,omitempty"`
 	// The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state

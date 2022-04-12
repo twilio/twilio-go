@@ -23,12 +23,12 @@ import (
 // Optional parameters for the method 'CreateInteractionChannelParticipant'
 type CreateInteractionChannelParticipantParams struct {
 	// JSON representing the Media Properties for the new Participant.
-	MediaProperties *map[string]interface{} `json:"MediaProperties,omitempty"`
+	MediaProperties *interface{} `json:"MediaProperties,omitempty"`
 	// Participant type.  Can be: `agent`, `customer`, `supervisor`, `external` or `unknown`.
 	Type *string `json:"Type,omitempty"`
 }
 
-func (params *CreateInteractionChannelParticipantParams) SetMediaProperties(MediaProperties map[string]interface{}) *CreateInteractionChannelParticipantParams {
+func (params *CreateInteractionChannelParticipantParams) SetMediaProperties(MediaProperties interface{}) *CreateInteractionChannelParticipantParams {
 	params.MediaProperties = &MediaProperties
 	return params
 }
