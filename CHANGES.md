@@ -1,5 +1,15 @@
 twilio-go changelog
 ====================
+[2022-04-20] Version 0.24.1
+---------------------------
+**Library - Test**
+- [PR #156](https://github.com/twilio/twilio-go/pull/156): fix type on broken cluster test. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Fix**
+- [PR #155](https://github.com/twilio/twilio-go/pull/155): switch api-def object types to open-api any types. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #154](https://github.com/twilio/twilio-go/pull/154): support operations with no 2XX responses. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+
 [2022-04-06] Version 0.24.0
 ---------------------------
 **Library - Fix**
