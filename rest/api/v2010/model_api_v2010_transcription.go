@@ -11,6 +11,12 @@
 
 package openapi
 
+import (
+	"encoding/json"
+
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010Transcription struct for ApiV2010Transcription
 type ApiV2010Transcription struct {
 	// The SID of the Account that created the resource
@@ -39,4 +45,49 @@ type ApiV2010Transcription struct {
 	Type *string `json:"type,omitempty"`
 	// The URI of the resource, relative to `https://api.twilio.com`
 	Uri *string `json:"uri,omitempty"`
+}
+
+func (response *ApiV2010Transcription) UnmarshalJSON(bytes []byte) (err error) {
+	raw := struct {
+		AccountSid        *string      `json:"account_sid"`
+		ApiVersion        *string      `json:"api_version"`
+		DateCreated       *string      `json:"date_created"`
+		DateUpdated       *string      `json:"date_updated"`
+		Duration          *string      `json:"duration"`
+		Price             *interface{} `json:"price"`
+		PriceUnit         *string      `json:"price_unit"`
+		RecordingSid      *string      `json:"recording_sid"`
+		Sid               *string      `json:"sid"`
+		Status            *string      `json:"status"`
+		TranscriptionText *string      `json:"transcription_text"`
+		Type              *string      `json:"type"`
+		Uri               *string      `json:"uri"`
+	}{}
+
+	if err = json.Unmarshal(bytes, &raw); err != nil {
+		return err
+	}
+
+	*response = ApiV2010Transcription{
+		AccountSid:        raw.AccountSid,
+		ApiVersion:        raw.ApiVersion,
+		DateCreated:       raw.DateCreated,
+		DateUpdated:       raw.DateUpdated,
+		Duration:          raw.Duration,
+		PriceUnit:         raw.PriceUnit,
+		RecordingSid:      raw.RecordingSid,
+		Sid:               raw.Sid,
+		Status:            raw.Status,
+		TranscriptionText: raw.TranscriptionText,
+		Type:              raw.Type,
+		Uri:               raw.Uri,
+	}
+
+	responsePrice, err := client.UnmarshalFloat32(raw.Price)
+	if err != nil {
+		return err
+	}
+	response.Price = responsePrice
+
+	return
 }

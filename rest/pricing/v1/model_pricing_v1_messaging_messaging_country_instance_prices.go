@@ -11,9 +11,45 @@
 
 package openapi
 
+import (
+	"encoding/json"
+
+	"github.com/twilio/twilio-go/client"
+)
+
 // PricingV1MessagingMessagingCountryInstancePrices struct for PricingV1MessagingMessagingCountryInstancePrices
 type PricingV1MessagingMessagingCountryInstancePrices struct {
 	BasePrice    float32 `json:"base_price,omitempty"`
 	CurrentPrice float32 `json:"current_price,omitempty"`
 	NumberType   string  `json:"number_type,omitempty"`
+}
+
+func (response *PricingV1MessagingMessagingCountryInstancePrices) UnmarshalJSON(bytes []byte) (err error) {
+	raw := struct {
+		BasePrice    interface{} `json:"base_price"`
+		CurrentPrice interface{} `json:"current_price"`
+		NumberType   string      `json:"number_type"`
+	}{}
+
+	if err = json.Unmarshal(bytes, &raw); err != nil {
+		return err
+	}
+
+	*response = PricingV1MessagingMessagingCountryInstancePrices{
+		NumberType: raw.NumberType,
+	}
+
+	responseBasePrice, err := client.UnmarshalFloat32(&raw.BasePrice)
+	if err != nil {
+		return err
+	}
+	response.BasePrice = *responseBasePrice
+
+	responseCurrentPrice, err := client.UnmarshalFloat32(&raw.CurrentPrice)
+	if err != nil {
+		return err
+	}
+	response.CurrentPrice = *responseCurrentPrice
+
+	return
 }

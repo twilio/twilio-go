@@ -11,6 +11,12 @@
 
 package openapi
 
+import (
+	"encoding/json"
+
+	"github.com/twilio/twilio-go/client"
+)
+
 // ApiV2010UsageRecordYesterday struct for ApiV2010UsageRecordYesterday
 type ApiV2010UsageRecordYesterday struct {
 	// The SID of the Account accrued the usage
@@ -43,4 +49,53 @@ type ApiV2010UsageRecordYesterday struct {
 	Usage *string `json:"usage,omitempty"`
 	// The units in which usage is measured
 	UsageUnit *string `json:"usage_unit,omitempty"`
+}
+
+func (response *ApiV2010UsageRecordYesterday) UnmarshalJSON(bytes []byte) (err error) {
+	raw := struct {
+		AccountSid      *string                 `json:"account_sid"`
+		ApiVersion      *string                 `json:"api_version"`
+		AsOf            *string                 `json:"as_of"`
+		Category        *string                 `json:"category"`
+		Count           *string                 `json:"count"`
+		CountUnit       *string                 `json:"count_unit"`
+		Description     *string                 `json:"description"`
+		EndDate         *string                 `json:"end_date"`
+		Price           *interface{}            `json:"price"`
+		PriceUnit       *string                 `json:"price_unit"`
+		StartDate       *string                 `json:"start_date"`
+		SubresourceUris *map[string]interface{} `json:"subresource_uris"`
+		Uri             *string                 `json:"uri"`
+		Usage           *string                 `json:"usage"`
+		UsageUnit       *string                 `json:"usage_unit"`
+	}{}
+
+	if err = json.Unmarshal(bytes, &raw); err != nil {
+		return err
+	}
+
+	*response = ApiV2010UsageRecordYesterday{
+		AccountSid:      raw.AccountSid,
+		ApiVersion:      raw.ApiVersion,
+		AsOf:            raw.AsOf,
+		Category:        raw.Category,
+		Count:           raw.Count,
+		CountUnit:       raw.CountUnit,
+		Description:     raw.Description,
+		EndDate:         raw.EndDate,
+		PriceUnit:       raw.PriceUnit,
+		StartDate:       raw.StartDate,
+		SubresourceUris: raw.SubresourceUris,
+		Uri:             raw.Uri,
+		Usage:           raw.Usage,
+		UsageUnit:       raw.UsageUnit,
+	}
+
+	responsePrice, err := client.UnmarshalFloat32(raw.Price)
+	if err != nil {
+		return err
+	}
+	response.Price = responsePrice
+
+	return
 }
