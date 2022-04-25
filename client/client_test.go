@@ -274,7 +274,9 @@ func TestClient_DefaultUserAgentHeaders(t *testing.T) {
 		func(writer http.ResponseWriter, request *http.Request) {
 			assert.Regexp(t, regexp.MustCompile(`^twilio-go/[0-9.]+\s\(\w+\s\w+\)\sgo/[^\s]+$`), request.Header.Get("User-Agent"))
 		}))
-	testClient.SendRequest("GET", headerServer.URL, nil, nil)
+
+	resp, _ := testClient.SendRequest("GET", headerServer.URL, nil, nil)
+	assert.Equal(t, 200, resp.StatusCode)
 }
 
 func TestClient_UserAgentExtensionsHeaders(t *testing.T) {
@@ -285,5 +287,6 @@ func TestClient_UserAgentExtensionsHeaders(t *testing.T) {
 			var headersList = strings.Split(request.Header.Get("User-Agent"), " ")
 			assert.Equal(t, headersList[len(headersList)-len(expectedExtensions):], expectedExtensions)
 		}))
-	testClient.SendRequest("GET", headerServer.URL, nil, nil)
+	resp, _ := testClient.SendRequest("GET", headerServer.URL, nil, nil)
+	assert.Equal(t, 200, resp.StatusCode)
 }
