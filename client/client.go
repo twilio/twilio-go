@@ -29,8 +29,9 @@ func NewCredentials(username string, password string) *Credentials {
 // Client encapsulates a standard HTTP backend with authorization.
 type Client struct {
 	*Credentials
-	HTTPClient *http.Client
-	accountSid string
+	HTTPClient          *http.Client
+	accountSid          string
+	UserAgentExtensions []string
 }
 
 // default http Client should not follow redirects and return the most recent response.
@@ -118,8 +119,13 @@ func (c *Client) SendRequest(method string, rawURL string, data url.Values,
 
 	req.SetBasicAuth(c.basicAuth())
 
-	// E.g. "User-Agent": "twilio-go/1.0.0 (go1.16)"
-	userAgent := fmt.Sprint("twilio-go/", LibraryVersion, " (", goVersion, ")")
+	// E.g. "User-Agent": "twilio-go/1.0.0 (darwin amd64) go/go1.17.8"
+	userAgent := fmt.Sprintf("twilio-go/%s (%s %s) go/%s", LibraryVersion, runtime.GOOS, runtime.GOARCH, goVersion)
+
+	if len(c.UserAgentExtensions) > 0 {
+		userAgent += " " + strings.Join(c.UserAgentExtensions, " ")
+	}
+
 	req.Header.Add("User-Agent", userAgent)
 
 	if method == http.MethodPost {
